@@ -165,7 +165,7 @@
         <scene sceneID="jnc-Hu-jPe">
             <objects>
                 <viewController title="Web Pages Side Panel" id="qX6-yp-qcn" customClass="SEBTableViewController" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="89q-Ri-gFf">
+                    <view key="view" contentMode="scaleToFill" id="89q-Ri-gFf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                         <subviews>
@@ -192,7 +192,7 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="emk-fr-0hr"/>
                             </view>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yZU-Q0-ht8">
+                            <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yZU-Q0-ht8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="696"/>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <viewLayoutGuide key="safeArea" id="09Z-pA-jDI"/>
@@ -437,6 +437,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="DwK-c6-M5z"/>
                     </view>
                     <toolbarItems/>
                 </viewController>
