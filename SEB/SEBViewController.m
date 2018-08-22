@@ -304,13 +304,12 @@ static NSMutableSet *browserWindowControllers;
         
         _navigationBarHeightConstraint.constant = navigationBarHeight;
         
-        if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && self.prefersStatusBarHidden)) {
+        if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden)) {
             _navigationBarBottomConstraint.constant = navigationBarOffset;
         } else {
             _navigationBarBottomConstraint.constant = 0;
         }
-        
-        [self addBrowserToolBarWithOffset:navigationBarOffset];
+//        [self addBrowserToolBarWithOffset:navigationBarOffset];
     }
     
     if (_toolBarHeightConstraint) {
@@ -1275,8 +1274,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                            constant:navigationBarOffset];
             [constraints_V addObject: _navigationBarBottomConstraint];
             
-            [NSLayoutConstraint activateConstraints:constraints_H];
-            [NSLayoutConstraint activateConstraints:constraints_V];
+//            [NSLayoutConstraint activateConstraints:constraints_H];
+//            [NSLayoutConstraint activateConstraints:constraints_V];
             
             if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                 [self addBlurEffectStyle:UIBlurEffectStyleRegular
