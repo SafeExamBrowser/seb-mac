@@ -70,15 +70,12 @@
 - (BOOL) prefersStatusBarHidden
 {
     NSUInteger statusBarAppearance = [self statusBarAppearance];
-    return (statusBarAppearance == mobileStatusBarAppearanceNone |
+    // On a modern device with extended display, always display statusbar when browser toolbar is enabled
+    return (!(self.sebUIController.extendedDisplay & self.sebUIController.browserToolbarEnabled) &
+            (statusBarAppearance == mobileStatusBarAppearanceNone |
             statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark |
-            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight);
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight));
 }
-
-
-//- (BOOL)isRootViewStatusBarHidden {
-//    return (self.sebUIController.statusBarAppearance == mobileStatusBarAppearanceNone);
-//}
 
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -87,7 +84,8 @@
     // Also consider if browser toolbar is enabled:
     // then use always dark text statusbar on a classic device
     if ((self.sebUIController.extendedDisplay || !self.sebUIController.browserToolbarEnabled) &&
-        (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        ((self.sebUIController.extendedDisplay && (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)) ||
+        statusBarAppearance == mobileStatusBarAppearanceLight ||
         statusBarAppearance == mobileStatusBarAppearanceExtendedLight)) {
         return UIStatusBarStyleLightContent;
     } else {
