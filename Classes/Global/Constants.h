@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -76,7 +76,8 @@
 enum {
     browserUserAgentModeiOSDefault              = 0,
     browserUserAgentModeiOSMacDesktop           = 1,
-    browserUserAgentModeiOSCustom               = 2
+    browserUserAgentModeiOSCustom               = 2,
+    browserUserAgentModeiOSiPad                 = 3
 };
 typedef NSUInteger browserUserAgentModeiOS;
 
@@ -164,11 +165,38 @@ typedef NSUInteger iOSBetaVersion;
 
 
 enum {
+    iOSVersion9                                 = 9,
+    iOSVersion10                                = 10,
+    iOSVersion11                                = 11,
+    iOSVersion12                                = 12
+};
+typedef NSUInteger iOSVersion;
+
+
+enum {
     mobileStatusBarAppearanceNone               = 0,
     mobileStatusBarAppearanceLight              = 1,
     mobileStatusBarAppearanceDark               = 2
 };
 typedef NSUInteger mobileStatusBarAppearances;
+
+
+enum {
+    mobileStatusBarAppearanceExtendedInferred   = 0,
+    mobileStatusBarAppearanceExtendedLight      = 1,
+    mobileStatusBarAppearanceExtendedDark       = 2,
+    mobileStatusBarAppearanceExtendedNoneDark   = 3,
+    mobileStatusBarAppearanceExtendedNoneLight  = 4
+};
+typedef NSUInteger mobileStatusBarAppearancesExtended;
+
+
+enum {
+    SEBBackgroundTintStyleNone                  = 0,
+    SEBBackgroundTintStyleLight                 = 1,
+    SEBBackgroundTintStyleDark                  = 2
+};
+typedef NSUInteger SEBBackgroundTintStyle;
 
 
 enum {
@@ -338,13 +366,15 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 // Error numbers for SEB error domains
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 
+static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
+
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Safari";
-static NSString __unused *SEBUserAgentDefaultSafariVersion = @"602.4.6";
-static NSString __unused *SEBiOSUserAgentDesktopMac = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8";
-static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0) Gecko/20100101 Firefox/41";
-static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0; Touch) Gecko/20100101 Firefox/41";
-static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 9_0_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A452 Safari/601.1";
+static NSString __unused *SEBUserAgentDefaultSafariVersion = @"604.5.6";
+static NSString __unused *SEBiOSUserAgentDesktopMac = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1 Safari/605.1.15";
+static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0";
+static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0; Touch) Gecko/20100101 Firefox/52.0";
+static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0 Mobile/15D100 Safari/604.1";
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 

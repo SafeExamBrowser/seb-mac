@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03/12/15.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -128,7 +128,7 @@
 @property (strong, readwrite) NSDate *didResumeExamTime;
 
 /**
- * @brief       Hide or show the label indicating that the password was entered wrong.
+ * @brief       Callback executed when the correct password was entered.
  * @details
  */
 - (void) correctPasswordEntered;
@@ -185,13 +185,15 @@
 
 @property (strong) NSDictionary *boldFontAttributes;
 
-- (void) didOpenLockdownWindows;
-- (void) passwordEntered:(id)sender;
-- (BOOL) shouldOpenLockdownWindows;
-- (void) closeLockdownWindows;
-- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
-
+/// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
+- (BOOL) shouldOpenLockdownWindows;
+- (void) didOpenLockdownWindows;
+
+/// Lockview business logic
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) passwordEntered:(id)sender;
+- (void) closeLockdownWindows;
 
 @end

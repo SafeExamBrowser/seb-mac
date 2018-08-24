@@ -2,7 +2,7 @@
 //  SEBTableViewController.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,12 +33,16 @@
 
 #import <UIKit/UIKit.h>
 #import "SEBActionUITableViewCell.h"
-#import "UIViewController+MMDrawerController.h"
+#import "AppDelegate.h"
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
 
 @class SEBActionUITableViewCell;
+@class AppDelegate;
 
 @interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
 
+@property (strong, nonatomic) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *webpagesArray;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;

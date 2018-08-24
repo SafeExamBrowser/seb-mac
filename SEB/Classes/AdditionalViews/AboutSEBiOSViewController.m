@@ -58,6 +58,10 @@
     SEBAboutController *aboutController = [SEBAboutController new];
     versionLabel.text = [aboutController version];
     copyrightLabel.text = [aboutController copyright];
+    
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    };
 }
 
 
@@ -67,9 +71,6 @@
 }
 
 
-#pragma mark Delegates
-
-
 -(IBAction) closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -77,8 +78,6 @@
         _sebViewController.aboutSEBViewController = nil;
     }];
 }
-
-
 
 
 @end

@@ -15,7 +15,7 @@
 //  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -36,7 +36,7 @@
 //  The Original Code is Safe Exam Browser for Mac OS X.
 //
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -65,8 +65,6 @@ static NSMutableDictionary *privateUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 static NSNumber *_logLevel;
-static NSNumber *currentMobileStatusBarAppearance;
-
 
 
 + (NSMutableDictionary *)privateUserDefaults
@@ -131,30 +129,6 @@ static NSNumber *currentMobileStatusBarAppearance;
 }
 
 
-- (mobileStatusBarAppearances) mobileStatusBarAppearance
-{
-    if (!currentMobileStatusBarAppearance) {
-        NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
-
-        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-
-        if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 && appDelegate.openedURL) {
-            statusBarAppearance = mobileStatusBarAppearanceNone;
-        }
-        currentMobileStatusBarAppearance = [NSNumber numberWithUnsignedInteger:statusBarAppearance];
-        return statusBarAppearance;
-    }
-
-    return currentMobileStatusBarAppearance.unsignedIntegerValue;
-}
-
-
-- (void) resetMobileStatusBarAppearance
-{
-    currentMobileStatusBarAppearance = nil;
-}
-
-
 - (NSDictionary *)sebDefaultSettings
 {
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -194,6 +168,8 @@ static NSNumber *currentMobileStatusBarAppearance;
                                  @"org_safeexambrowser_SEB_browserScreenKeyboard",
                                  @YES,
                                  @"org_safeexambrowser_SEB_browserURLSalt",
+                                 @"",
+                                 @"org_safeexambrowser_SEB_browserUserAgent",
                                  [NSNumber numberWithLong:browserUserAgentModeiOSDefault],
                                  @"org_safeexambrowser_SEB_browserUserAgentiOS",
                                  @"",
@@ -360,6 +336,12 @@ static NSNumber *currentMobileStatusBarAppearance;
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
                                  [NSNumber numberWithLong:iOSBetaVersionNone],
                                  @"org_safeexambrowser_SEB_allowiOSBetaVersionNumber",
+                                 [NSNumber numberWithLong:iOSVersion9],
+                                 @"org_safeexambrowser_SEB_allowiOSVersionNumberMajor",
+                                 @0,
+                                 @"org_safeexambrowser_SEB_allowiOSVersionNumberMinor",
+                                 @0,
+                                 @"org_safeexambrowser_SEB_allowiOSVersionNumberPatch",
                                  @NO,
                                  @"org_safeexambrowser_SEB_mobileAllowSingleAppMode",
                                  @NO,
@@ -370,6 +352,8 @@ static NSNumber *currentMobileStatusBarAppearance;
                                  @"org_safeexambrowser_SEB_mobileShowSettings",
                                  [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                                  @"org_safeexambrowser_SEB_mobileStatusBarAppearance",
+                                 [NSNumber numberWithLong:mobileStatusBarAppearanceExtendedLight],
+                                 @"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended",
                                  @YES,
                                  @"org_safeexambrowser_SEB_mobileSupportedFormFactorsCompact",
                                  @YES,
@@ -534,7 +518,7 @@ static NSNumber *currentMobileStatusBarAppearance;
                                  @"org_safeexambrowser_SEB_showTaskBar",
                                  @YES,
                                  @"org_safeexambrowser_SEB_showTime",
-                                 @"",
+                                 SEBStartPage,
                                  @"org_safeexambrowser_SEB_startURL",
                                  [NSNumber numberWithLong:40],
                                  @"org_safeexambrowser_SEB_taskBarHeight",
@@ -724,8 +708,6 @@ static NSNumber *currentMobileStatusBarAppearance;
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {
-    currentMobileStatusBarAppearance = nil;
-    
     // Get default settings
     NSDictionary *defaultSettings = [self sebDefaultSettings];
     

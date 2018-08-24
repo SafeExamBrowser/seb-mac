@@ -15,7 +15,7 @@
 //  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -36,7 +36,7 @@
 //  The Original Code is Safe Exam Browser for Mac OS X.
 //
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -54,8 +54,6 @@
 
 @property (strong, atomic) NSNumber *logLevel;
 
-- (mobileStatusBarAppearances) mobileStatusBarAppearance;
-
 // Return (and allocate if necessary) shared secure UserDefaults
 + (NSMutableDictionary *)privateUserDefaults;
 
@@ -69,8 +67,6 @@
 
 - (id)persistedSecureObjectForKey:(NSString *)key;
 - (void)setPersistedSecureObject:(id)value forKey:(NSString *)key;
-
-- (void) resetMobileStatusBarAppearance;
 
 
 // Read data from user defaults. If key doesn't exist, valid is YES and the function mimics

@@ -115,10 +115,10 @@
 			<false/>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSRadioGroupSpecifier</string>
 			<key>Title</key>
 			<string>User Agent</string>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_browserUserAgentiOS</string>
 			<key>Values</key>
@@ -143,6 +143,14 @@
 			<string>org_safeexambrowser_SEB_browserUserAgentiOSCustom</string>
 			<key>IASKPlaceholder</key>
 			<string>Custom user agent string</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserUserAgent</string>
+			<key>IASKPlaceholder</key>
+			<string>User agent suffix</string>
 		</dict>
 	</array>
 </dict>

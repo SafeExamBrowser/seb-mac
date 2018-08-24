@@ -12,24 +12,18 @@ end
 
 target 'SEB' do
 
-platform :ios, '8.0'
+platform :ios, '9.0'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
-pod 'MMDrawerController', :git => 'https://github.com/mutualmobile/MMDrawerController.git'
-pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec'
-source 'https://github.com/CocoaPods/Specs.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
 
 end
 
 target 'SEB Enterprise' do
     
-    platform :ios, '8.0'
-    pod 'CocoaLumberjack'
-    pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
-    pod 'MMDrawerController', :git => 'https://github.com/mutualmobile/MMDrawerController.git'
-    pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec'
-source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '9.0'
+pod 'CocoaLumberjack'
+pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
    
 
