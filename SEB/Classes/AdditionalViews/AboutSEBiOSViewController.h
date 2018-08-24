@@ -43,6 +43,7 @@
 
 @interface AboutSEBiOSViewController : UIViewController {
     
+    __weak IBOutlet UIScrollView *scrollView;
     __weak IBOutlet UILabel *copyrightLabel;
     __weak IBOutlet UILabel *versionLabel;
     __weak IBOutlet UIButton *closeAbout;

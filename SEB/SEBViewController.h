@@ -2,7 +2,7 @@
 //  SEBViewController.h
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -59,12 +59,14 @@
 #import "RNCryptor.h"
 #import "SEBCryptor.h"
 
-#import "UIViewController+MMDrawerController.h"
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
 
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
 #import "SEBIASKSecureSettingsStore.h"
 
+#import "SEBUIController.h"
 #import "SEBSliderItem.h"
 #import "SEBNavigationController.h"
 
@@ -81,6 +83,8 @@
 #import "SEBSearchBarViewController.h"
 
 
+@class AppDelegate;
+@class SEBUIController;
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
@@ -90,7 +94,7 @@
 @class AboutSEBiOSViewController;
 
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate>
 {
     NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
@@ -100,29 +104,27 @@
     NSInteger attempts;
     BOOL adminPasswordPlaceholder;
     BOOL quitPasswordPlaceholder;
-    BOOL showSettingsInApp;
     BOOL ASAMActiveChecked;
+    BOOL sebUIInitialized;
     NSString *currentStartURL;
     
+    NSUInteger statusBarAppearance;
     BOOL browserToolbarEnabled;
-    UIBarButtonItem *dockBackButton;
-    UIBarButtonItem *dockForwardButton;
-    UIBarButtonItem *dockReloadButton;
-    SEBSliderItem *sliderBackButtonItem;
-    SEBSliderItem *sliderForwardButtonItem;
-    SEBSliderItem *sliderReloadButtonItem;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;
 }
 
+@property (strong, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
+@property (weak) IBOutlet LGSideMenuController *lgSideMenuController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 
-@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
+@property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
+@property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
-@property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
+@property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
@@ -134,21 +136,27 @@
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
-@property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
-@property (nonatomic, strong) QRCodeReaderViewController *visibleCodeReaderViewController;
+@property (strong, nonatomic) QRCodeReaderViewController *codeReaderViewController;
+@property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
+@property (strong, nonatomic) UIAlertController *allowediOSAlertController;
 
 @property (strong, nonatomic) UIView *coveringView;
 @property (strong, nonatomic) UIView *statusBarView;
+@property (strong, nonatomic) UIView *navigationBarView;
 @property (strong, nonatomic) UIView *toolBarView;
 @property (strong, nonatomic) UIView *bottomBackgroundView;
 @property (strong, nonatomic) NSArray *dockItems;
 
 @property (strong, nonatomic) NSLayoutConstraint *toolBarHeightConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarHeightConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarBottomConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSafeArea;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSuperView;
 
 @property(readwrite) BOOL quittingClientConfig;
 @property(readwrite) BOOL secureMode;
@@ -179,10 +187,12 @@
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
 
+- (BOOL) allowediOSVersion;
+
 - (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 
 - (void) showConfigURLWarning;
-- (void) scanQRCode:(id)sender;
+- (void) scanQRCode;
 
 - (void) conditionallyShowSettingsModal;
 - (void) conditionallyResetSettings;
@@ -202,6 +212,15 @@
 
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;
+
+#pragma mark - SEB Dock and left slider button handler
+
+- (void) leftDrawerButtonPress:(id)sender;
+- (void) showAboutSEB;
+- (IBAction) backToStart;
+- (IBAction) goBack;
+- (IBAction) goForward;
+- (IBAction) reload;
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) activateReloadButtonsExamTab:(BOOL)examTab;

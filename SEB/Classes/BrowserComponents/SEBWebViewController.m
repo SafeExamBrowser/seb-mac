@@ -2,7 +2,7 @@
 //  SEBWebViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -34,7 +34,7 @@
 #import "SEBWebViewController.h"
 #import "UIWebView+SEBWebView.h"
 #import "Constants.h"
-
+#import "AppDelegate.h"
 
 @interface SEBWebViewController () {
 
@@ -48,6 +48,13 @@
 @implementation SEBWebViewController
 
 
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearance {
+    SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
+    return [sebUIController statusBarAppearanceForDevice];
+}
+
+
 - (void)loadView
 {
     // Create a webview to fit underneath the navigation view (=fill the whole screen).
@@ -56,7 +63,9 @@
         _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
     }
     
-    _sebWebView.backgroundColor = ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+    NSUInteger statusBarAppearance = [self statusBarAppearance];
+    _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceLight ||
+                                   statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
     
     _sebWebView.scalesPageToFit = YES;
     _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
@@ -71,18 +80,13 @@
 // and bottom is above the tool bar (if SEB dock is enabled)
 - (void)adjustScrollPosition
 {
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    ;
-//
-////    CGFloat navBarHeight = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone ? self.statusbar.frame.size.height : 0;
-////    CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ? self.navigationController.navigationBar.frame.size.height : [UIApplication sharedApplication].statusBarFrame.size.height;
-//    CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ?
-//    32 : 0;
-//    navBarHeight += ([preferences mobileStatusBarAppearance] != mobileStatusBarAppearanceNone ? kStatusbarHeight : 0);
-//    CGFloat toolBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] ? self.navigationController.toolbar.frame.size.height : 0;
-//    [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [_sebWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    if (@available(iOS 11.0, *)) {
+        // Not necessary for iOS 11 thanks to Safe Area
+    } else {
+        [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [_sebWebView.scrollView setZoomScale:0 animated:YES];
+    }
 }
 
 
@@ -108,13 +112,15 @@
 }
 
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
     // Allow the animation to complete
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
         // and bottom is above the tool bar (if SEB dock is enabled)
         [self adjustScrollPosition];
-        [_sebWebView.scrollView setZoomScale:0 animated:YES];
     });
 }
 
@@ -144,6 +150,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
 }
+
 
 #pragma mark -
 #pragma mark Controller interface
@@ -186,14 +193,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    // Adjust scroll position so top of webpage is below the navigation bar
-//    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
-//    CGFloat toolBarHeight = self.navigationController.toolbar.frame.size.height;
-//    [webView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-    
+{    
     // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
     jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -288,14 +288,14 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
 {
-    if (UIAccessibilityIsGuidedAccessEnabled()) {
-        if (navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeFormSubmitted) {
-            navigationType = UIWebViewNavigationTypeOther;
-            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
-            [webView loadRequest:request];
-            return NO;
-        }
-    }
+//    if (UIAccessibilityIsGuidedAccessEnabled()) {
+//        if (navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeFormSubmitted) {
+//            navigationType = UIWebViewNavigationTypeOther;
+//            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
+//            [webView loadRequest:request];
+//            return NO;
+//        }
+//    }
 
     NSURL *url = [request URL];
     if ([[url scheme] isEqualToString:@"newtab"]) {

@@ -2,7 +2,7 @@
 //  SEBTableViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,7 +33,6 @@
 
 #import "SEBTableViewController.h"
 #import "Webpages.h"
-#import "AppDelegate.h"
 #import "SEBSliderItem.h"
 
 @interface SEBTableViewController ()
@@ -61,9 +60,9 @@
 {
     [super viewDidLoad];
     
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    [self setManagedObjectContext:[appDelegate managedObjectContext]];
+    [self setManagedObjectContext:[_appDelegate managedObjectContext]];
 
 //    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
@@ -75,6 +74,16 @@
                                              selector:@selector(refreshTableView:)
                                                  name:@"refreshSlider" object:nil];
     
+    // Add an observer for the left slider will be displayed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(initSliderViewAppearance)
+                                                 name:@"LGSideMenuWillShowLeftViewNotification" object:nil];
+    
+    // Add an observer for the left slider will be hidden by swipe gesture
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sliderWillCloseByGesture)
+                                                 name:@"LGSideMenuWillHideLeftViewWithGestureNotification" object:nil];
+
      // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -93,42 +102,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    UIEdgeInsets safeAreaInsets;
-    if (@available(iOS 11.0, *)) {
-        safeAreaInsets = self.view.safeAreaInsets;
-    }
-
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    _webpagesArray = [appDelegate.persistentWebpages mutableCopy];
-    _commandItems = appDelegate.leftSliderCommands;
-
-    NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
-    switch (statusBarAppearance) {
-        case mobileStatusBarAppearanceNone:
-            self.view.backgroundColor = [UIColor darkGrayColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
-            _SEBTitleLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        case mobileStatusBarAppearanceLight:
-            self.view.backgroundColor = [UIColor blackColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
-            _SEBTitleLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        case mobileStatusBarAppearanceDark:
-            self.view.backgroundColor = [UIColor darkGrayColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
-            _SEBTitleLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        default:
-            break;
-    }
+    [self initSliderViewAppearance];
     
     // TO DO: Ok, later we will get the context from the creater of this VC
 
@@ -139,6 +118,45 @@
     
     //self.navigationItem.rightBarButtonItem = item;
 }
+
+
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearance {
+    return [_appDelegate.sebUIController statusBarAppearanceForDevice];
+}
+
+
+- (void)initSliderViewAppearance
+{
+    if (!self.sideMenuController.isLeftViewShowing) {
+        _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
+        _commandItems = _appDelegate.sebUIController.leftSliderCommands;
+        
+        _SEBTitleLabel.textColor = [UIColor whiteColor];
+        _SEBTitleLabel.hidden = NO;
+        NSUInteger statusBarAppearance = [self statusBarAppearance];
+        if (statusBarAppearance == mobileStatusBarAppearanceNone ||
+            statusBarAppearance == mobileStatusBarAppearanceLight ||
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
+            _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
+            self.view.backgroundColor = [UIColor blackColor];
+        } else {
+            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
+            self.view.backgroundColor = [UIColor darkGrayColor];
+        }
+        
+        [self refreshTableView:self];
+    }
+}
+
+
+- (void)sliderWillCloseByGesture
+{
+    if (![_appDelegate.sebUIController extendedDisplay]) {
+        _SEBTitleLabel.hidden = YES;
+    }
+}
+
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
@@ -159,6 +177,7 @@
     return 1 + (_commandItems.count > 0);
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
@@ -178,15 +197,32 @@
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // Return the number of rows in the section.
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     switch (section) {
         case 0:
             return nil;
             break;
             
         case 1:
-            return NSLocalizedString(@"Commands",nil);
+            return [tableView dequeueReusableCellWithIdentifier:@"SectionHeader"];
+            break;
+            
+        default:
+            return 0;
+            break;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return 0;
+            break;
+            
+        case 1:
+            return 32;
             break;
             
         default:
@@ -459,5 +495,13 @@
     [self.tableView reloadData];
 }
 
+
+// Bugfix for iPhone X: Otherwise after the first rotation the table view section header is invisible...
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    [self.tableView reloadData];
+}
 
 @end

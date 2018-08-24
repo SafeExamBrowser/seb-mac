@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07/03/17.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -63,11 +63,10 @@
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
-}
-
-
-- (void)viewDidLayoutSubviews
-{
+    
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    };
 }
 
 
@@ -148,7 +147,7 @@
 }
 
 
-- (IBAction)scanQRCode:(id)sender
+- (IBAction)scanQRCode
 {
     configURLField.text = @"";
     noConfigURLFoundLabel.hidden = true;
@@ -156,7 +155,7 @@
     // Define the ConfigURLManager delegate for evaluating the scanned URL
     _sebViewController.configURLManagerDelegate = self;
 
-    [_sebViewController scanQRCode:self];
+    [_sebViewController scanQRCode];
 }
 
 

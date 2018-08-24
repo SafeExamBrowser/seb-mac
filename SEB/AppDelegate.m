@@ -3,7 +3,7 @@
 //  SEB
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -35,8 +35,10 @@
 #import "AppDelegate.h"
 
 #import "SEBMasterViewController.h"
-#import "MMDrawerController.h"
-#import "MMDrawerVisualState.h"
+
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
+
 #import "SEBBrowserController.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -49,6 +51,21 @@
 @implementation AppDelegate
 
 @synthesize persistentWebpages;
+
+void run_block_on_ui_thread(dispatch_block_t block)
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
+
+- (SEBUIController *)sebUIController {
+    if (!_sebUIController) {
+        _sebUIController = [[SEBUIController alloc] init];
+    }
+    return _sebUIController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -63,15 +80,6 @@
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     
-    // Override point for customization after application launch.
-    MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
-    [drawerController setMaximumRightDrawerWidth:200.0];
-    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView];
-    [drawerController setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeFull];
-    [drawerController setShouldStretchDrawer:NO];
-    [drawerController setShowsShadow:YES];
-
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];
     [self.window addSubview:lagFreeField];
@@ -167,6 +175,9 @@
             _sebViewController.aboutSEBViewController = nil;
         }];
     }
+//    if (_sebViewController.alertController) {
+//        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+//    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -180,11 +191,13 @@
     [self populateRegistrationDomain];
     if (_sebViewController) {
         // If the main SEB view controller was already instantiated
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
-            [_sebViewController conditionallyShowSettingsModal];
-        } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
-            [_sebViewController conditionallyResetSettings];
+        if ([_sebViewController allowediOSVersion]) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
+                [_sebViewController conditionallyShowSettingsModal];
+            } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
+                [_sebViewController conditionallyResetSettings];
+            }
         }
     }
 }

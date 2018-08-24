@@ -88,6 +88,62 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Allow Running from iOS Version</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowiOSVersionNumberMajor</string>
+			<key>Title</key>
+			<string>Major Version Number</string>
+			<key>Titles</key>
+			<array>
+				<string>9</string>
+				<string>10</string>
+				<string>11</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>9</integer>
+				<integer>10</integer>
+				<integer>11</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Minor Version Number</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowiOSVersionNumberMinor</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Patch Version Number</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowiOSVersionNumberPatch</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumberPad</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string></string>
 		</dict>
 		<dict>
@@ -98,13 +154,14 @@
 			<key>Titles</key>
 			<array>
 				<string>None</string>
-				<string>iOS 11</string>
+				<string>iOS 12</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
+				<integer>12</integer>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
