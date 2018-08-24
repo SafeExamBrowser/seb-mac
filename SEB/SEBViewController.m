@@ -275,7 +275,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     if (@available(iOS 11.0, *)) {
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
@@ -287,8 +287,19 @@ static NSMutableSet *browserWindowControllers;
         if (self.sideMenuController.leftViewShowing && bottomPadding != 0) {
             [self.sideMenuController hideLeftView];
         }
+    } else {
+        // If running on iOS < 11, displaying a status and navigation bar
+        // and left slider view is showing
+        // hide the left slider menu before rotating the device
+        // to prevent a black or white bar underneath the navigation bar
+        if (self.sideMenuController.leftViewShowing &&
+            !self.prefersStatusBarHidden &&
+            self.sebUIController.browserToolbarEnabled) {
+            [self.sideMenuController hideLeftView];
+        }
     }
-    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 
@@ -308,13 +319,6 @@ static NSMutableSet *browserWindowControllers;
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
         CGFloat leftPadding = window.safeAreaInsets.left;
         sideSafeAreaInsets = leftPadding != 0;
-        
-        if (self.sideMenuController.leftViewShowing && sideSafeAreaInsets &&
-            (_navigationBarHeightConstraint || _toolBarHeightConstraint)) {
-            CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
-            UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, leftSafeAreaInset);
-            self.parentViewController.additionalSafeAreaInsets = newSafeArea;
-        }
     }
     
     _bottomBackgroundView.hidden = sideSafeAreaInsets;
