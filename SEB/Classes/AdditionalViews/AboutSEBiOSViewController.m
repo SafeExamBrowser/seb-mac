@@ -71,14 +71,6 @@
 }
 
 
-//- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
-//{
-//    [super traitCollectionDidChange: previousTraitCollection];
-//    
-//    [_sebViewController traitCollectionDidChange:previousTraitCollection];
-//}
-
-
 -(IBAction) closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
