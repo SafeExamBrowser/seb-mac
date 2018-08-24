@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24367DC5B391DDA04009AA66 /* libPods-SEB Enterprise.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEB64F993B8747B7AE3E045 /* libPods-SEB Enterprise.a */; };
-		475D9F35BFDB0A53775F5009 /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */; };
+		37DEC47D08D00A308438D849 /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB958B404773247A2C3CA2F /* libPods-SEB.a */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
@@ -161,6 +160,48 @@
 		694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
+		695370952033921B00C638A8 /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
+		695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
+		695370972033921B00C638A8 /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
+		695370982033921B00C638A8 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
+		695370992033921B00C638A8 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
+		6953709A2033921C00C638A8 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
+		6953709B2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
+		6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
+		6953709D2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
+		6953709E2033921C00C638A8 /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
+		6953709F2033921C00C638A8 /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
+		695370A02033921C00C638A8 /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
+		695370A12033921C00C638A8 /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
+		695370A22033921C00C638A8 /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
+		695370A32033921C00C638A8 /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
+		695370A42033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
+		695370A52033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
+		695370A62033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
+		695370A72033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
+		695370A82033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
+		695370A92033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
+		695370AA2033921C00C638A8 /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
+		695370AB2033921C00C638A8 /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
+		695370AC2033921C00C638A8 /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
+		695370AD2033921C00C638A8 /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
+		695370AE2033921C00C638A8 /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
+		695370AF2033921C00C638A8 /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
+		695370B02033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
+		695370B12033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
+		695370B22033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
+		695370B32033921C00C638A8 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
+		695370B42033921C00C638A8 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
+		695370B52033921C00C638A8 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
+		695370B62033921C00C638A8 /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
+		695370B72033921C00C638A8 /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
+		695370B82033921C00C638A8 /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
+		695370B92033921C00C638A8 /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
+		695370BA2033921C00C638A8 /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
+		695370BB2033921C00C638A8 /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
+		695370BC2033921C00C638A8 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
+		695370BD2033921C00C638A8 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
+		695370BE2033921C00C638A8 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
 		695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
@@ -292,6 +333,195 @@
 		69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
 		69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
+		69B1714E20FE2D95004BD0FC /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
+		69B1714F20FE2D95004BD0FC /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
+		69B1715020FE2D95004BD0FC /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
+		69B1715120FE2D95004BD0FC /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
+		69B1715220FE2D95004BD0FC /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
+		69B1715320FE2D95004BD0FC /* UIWebView+SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */; };
+		69B1715420FE2D95004BD0FC /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
+		69B1715520FE2D95004BD0FC /* SEBActionUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */; };
+		69B1715620FE2D95004BD0FC /* SEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */; };
+		69B1715720FE2D95004BD0FC /* SEBiOSConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694803921C236E7800593711 /* SEBiOSConfigFileController.m */; };
+		69B1715820FE2D95004BD0FC /* OpenWebpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4C1C3C7C9A00397E18 /* OpenWebpages.m */; };
+		69B1715920FE2D95004BD0FC /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
+		69B1715A20FE2D95004BD0FC /* SEBBrowserTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */; };
+		69B1715B20FE2D95004BD0FC /* SEBiOSLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F051C10AD750038BD31 /* SEBiOSLockedViewController.m */; };
+		69B1715C20FE2D95004BD0FC /* SEBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD321C3C2D0500397E18 /* SEBWebViewController.m */; };
+		69B1715D20FE2D95004BD0FC /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		69B1715E20FE2D95004BD0FC /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
+		69B1715F20FE2D95004BD0FC /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
+		69B1716020FE2D95004BD0FC /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
+		69B1716120FE2D95004BD0FC /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
+		69B1716220FE2D95004BD0FC /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
+		69B1716320FE2D95004BD0FC /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		69B1716420FE2D95004BD0FC /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
+		69B1716520FE2D95004BD0FC /* SEBiOSInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */; };
+		69B1716620FE2D95004BD0FC /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
+		69B1716720FE2D95004BD0FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */; };
+		69B1716820FE2D95004BD0FC /* SEBIASKSecureSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */; };
+		69B1716920FE2D95004BD0FC /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
+		69B1716A20FE2D95004BD0FC /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
+		69B1716B20FE2D95004BD0FC /* SEBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A47A1D0B8D9E0040ABF1 /* SEBNavigationController.m */; };
+		69B1716C20FE2D95004BD0FC /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
+		69B1716D20FE2D95004BD0FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
+		69B1716E20FE2D95004BD0FC /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
+		69B1716F20FE2D95004BD0FC /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
+		69B1717020FE2D95004BD0FC /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2E1C3C2D0500397E18 /* SEBTextField.m */; };
+		69B1717120FE2D95004BD0FC /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
+		69B1717220FE2D95004BD0FC /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
+		69B1717320FE2D95004BD0FC /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
+		69B1717420FE2D95004BD0FC /* SEBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */; };
+		69B1717520FE2D95004BD0FC /* AboutSEBiOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */; };
+		69B1717620FE2D95004BD0FC /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
+		69B1717720FE2D95004BD0FC /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
+		69B1717820FE2D95004BD0FC /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
+		69B1717920FE2D95004BD0FC /* Webpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4E1C3C7C9A00397E18 /* Webpages.m */; };
+		69B1717B20FE2D95004BD0FC /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69967B731C58FD9800EE5658 /* libSEBSupport.a */; };
+		69B1717C20FE2D95004BD0FC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A223401C20E38600766354 /* libz.tbd */; };
+		69B1717D20FE2D95004BD0FC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
+		69B1718020FE2D95004BD0FC /* Icon-320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* Icon-320x320.png */; };
+		69B1718120FE2D95004BD0FC /* SEBSliderClosePage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D51E4E2200000B4A6D /* SEBSliderClosePage@3x.png */; };
+		69B1718220FE2D95004BD0FC /* continueCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331F001C10AC1B0038BD31 /* continueCircle@2x.png */; };
+		69B1718320FE2D95004BD0FC /* SEBSliderSkipBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253DE1E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png */; };
+		69B1718420FE2D95004BD0FC /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
+		69B1718520FE2D95004BD0FC /* SEBRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A51CF32B030036C480 /* SEBRestartIcon.png */; };
+		69B1718620FE2D95004BD0FC /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
+		69B1718720FE2D95004BD0FC /* SEBSliderNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39681E60AC8F005030B0 /* SEBSliderNavigateBackIcon@2x.png */; };
+		69B1718820FE2D95004BD0FC /* SEBToolbarNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE71E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png */; };
+		69B1718920FE2D95004BD0FC /* SEBSliderNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396C1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png */; };
+		69B1718A20FE2D95004BD0FC /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD0E1C3C2AB900397E18 /* Cancel.png */; };
+		69B1718B20FE2D95004BD0FC /* SEBSliderReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E51E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png */; };
+		69B1718C20FE2D95004BD0FC /* SEBReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055AB1CF32B1D0036C480 /* SEBReloadIcon@3x.png */; };
+		69B1718D20FE2D95004BD0FC /* Previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD121C3C2AB900397E18 /* Previous.png */; };
+		69B1718E20FE2D95004BD0FC /* SEBDockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */; };
+		69B1718F20FE2D95004BD0FC /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
+		69B1719020FE2D95004BD0FC /* SEBToolbarNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEA1E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png */; };
+		69B1719120FE2D95004BD0FC /* SEBDockIconLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E4D202927320055988F /* SEBDockIconLandscape.png */; };
+		69B1719220FE2D95004BD0FC /* SEBSkipBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253F21E4E275D000B4A6D /* SEBSkipBackIcon@2x.png */; };
+		69B1719320FE2D95004BD0FC /* SEBToolbarNavigateForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE91E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png */; };
+		69B1719420FE2D95004BD0FC /* SEBToolbarReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png */; };
+		69B1719520FE2D95004BD0FC /* SEBSliderReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */; };
+		69B1719620FE2D95004BD0FC /* SEBNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39561E60AC6C005030B0 /* SEBNavigateBackIcon@2x.png */; };
+		69B1719720FE2D95004BD0FC /* SEBNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39591E60AC6C005030B0 /* SEBNavigateForwardIcon@2x.png */; };
+		69B1719820FE2D95004BD0FC /* Next.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD101C3C2AB900397E18 /* Next.png */; };
+		69B1719920FE2D95004BD0FC /* SEBDockIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E4F202927330055988F /* SEBDockIconLandscape@3x.png */; };
+		69B1719A20FE2D95004BD0FC /* SEBSkipBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253F31E4E275D000B4A6D /* SEBSkipBackIcon@3x.png */; };
+		69B1719B20FE2D95004BD0FC /* continueCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331EFF1C10AC1B0038BD31 /* continueCircle.png */; };
+		69B1719C20FE2D95004BD0FC /* SEBAppIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */; };
+		69B1719D20FE2D95004BD0FC /* SEBReloadIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E41202926060055988F /* SEBReloadIconLandscape@2x.png */; };
+		69B1719E20FE2D95004BD0FC /* SEBReloadIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E43202926070055988F /* SEBReloadIconLandscape@3x.png */; };
+		69B1719F20FE2D95004BD0FC /* SEBSliderSettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8861D1DE07100684182 /* SEBSliderSettingsIcon@2x.png */; };
+		69B171A020FE2D95004BD0FC /* SEBShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */; };
+		69B171A120FE2D95004BD0FC /* SEBSliderNavigateForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396A1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon.png */; };
+		69B171A220FE2D95004BD0FC /* SEBSkipBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253F11E4E275D000B4A6D /* SEBSkipBackIcon.png */; };
+		69B171A320FE2D95004BD0FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */; };
+		69B171A420FE2D95004BD0FC /* SEBToolbarNavigateBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE81E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png */; };
+		69B171A520FE2D95004BD0FC /* SEBQuickActionQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E561E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png */; };
+		69B171A620FE2D95004BD0FC /* SEBNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39551E60AC6C005030B0 /* SEBNavigateBackIcon.png */; };
+		69B171A720FE2D95004BD0FC /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */; };
+		69B171A820FE2D95004BD0FC /* SEBSliderReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */; };
+		69B171A920FE2D95004BD0FC /* SEBRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */; };
+		69B171AA20FE2D95004BD0FC /* SEBDockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CF1CF1EA8300AB8803 /* SEBDockIcon@2x.png */; };
+		69B171AB20FE2D95004BD0FC /* SEBShutDownIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E36202924E40055988F /* SEBShutDownIconLandscape@3x.png */; };
+		69B171AC20FE2D95004BD0FC /* SEBSliderNavigateBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39691E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png */; };
+		69B171AD20FE2D95004BD0FC /* SEBQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */; };
+		69B171AE20FE2D95004BD0FC /* SEBReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */; };
+		69B171AF20FE2D95004BD0FC /* SEBSliderRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */; };
+		69B171B020FE2D95004BD0FC /* SEBSliderShutDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E81E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png */; };
+		69B171B120FE2D95004BD0FC /* SEBToolbarReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE31E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png */; };
+		69B171B220FE2D95004BD0FC /* SEBToolbarReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEB1E6CCEFA00601099 /* SEBToolbarReloadIcon.png */; };
+		69B171B320FE2D95004BD0FC /* SEBToolbarNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDC1E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png */; };
+		69B171B420FE2D95004BD0FC /* SEBSliderQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */; };
+		69B171B520FE2D95004BD0FC /* SEBShutDownIconLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E37202924E60055988F /* SEBShutDownIconLandscape.png */; };
+		69B171B620FE2D95004BD0FC /* Icon-22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226DF1D4108BA0065B831 /* Icon-22x29.png */; };
+		69B171B720FE2D95004BD0FC /* SEBShutDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */; };
+		69B171B820FE2D95004BD0FC /* SEBQuickActionQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E551E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png */; };
+		69B171B920FE2D95004BD0FC /* SEBReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */; };
+		69B171BA20FE2D95004BD0FC /* SEBDockIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E4E202927330055988F /* SEBDockIconLandscape@2x.png */; };
+		69B171BB20FE2D95004BD0FC /* SEBShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */; };
+		69B171BC20FE2D95004BD0FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9771BA0F2FB008C8CFC /* Assets.xcassets */; };
+		69B171BD20FE2D95004BD0FC /* SEBNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A395A1E60AC6C005030B0 /* SEBNavigateForwardIcon@3x.png */; };
+		69B171BE20FE2D95004BD0FC /* SEBSliderSettingsIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E71E4E2630000B4A6D /* SEBSliderSettingsIcon@3x.png */; };
+		69B171BF20FE2D95004BD0FC /* Icon-22x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E01D4108BA0065B831 /* Icon-22x29@2x.png */; };
+		69B171C020FE2D95004BD0FC /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
+		69B171C120FE2D95004BD0FC /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
+		69B171C220FE2D95004BD0FC /* SEB.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 692476F41D27343600931AD8 /* SEB.entitlements */; };
+		69B171C320FE2D95004BD0FC /* SEBQuickActionQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E541E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png */; };
+		69B171C420FE2D95004BD0FC /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
+		69B171C520FE2D95004BD0FC /* SEBQRCode@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */; };
+		69B171C620FE2D95004BD0FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4D1CCE068C00C2AA9A /* Settings.bundle */; };
+		69B171C720FE2D95004BD0FC /* SEBNavigateBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39571E60AC6C005030B0 /* SEBNavigateBackIcon@3x.png */; };
+		69B171C820FE2D95004BD0FC /* SEBSliderClosePage.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D31E4E2200000B4A6D /* SEBSliderClosePage.png */; };
+		69B171C920FE2D95004BD0FC /* SEBSliderClosePage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D41E4E2200000B4A6D /* SEBSliderClosePage@2x.png */; };
+		69B171CA20FE2D95004BD0FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
+		69B171CB20FE2D95004BD0FC /* SEBAppIcon_256@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */; };
+		69B171CC20FE2D95004BD0FC /* SEBRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */; };
+		69B171CD20FE2D95004BD0FC /* SEBSliderQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */; };
+		69B171CE20FE2D95004BD0FC /* SEBSliderShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */; };
+		69B171CF20FE2D95004BD0FC /* Reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD141C3C2AB900397E18 /* Reload.png */; };
+		69B171D020FE2D95004BD0FC /* SEBSliderNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39671E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png */; };
+		69B171D120FE2D95004BD0FC /* SEBSliderInfoIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */; };
+		69B171D220FE2D95004BD0FC /* SEBSliderQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */; };
+		69B171D320FE2D95004BD0FC /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
+		69B171D420FE2D95004BD0FC /* Previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD131C3C2AB900397E18 /* Previous@2x.png */; };
+		69B171D520FE2D95004BD0FC /* SEBSliderInfoIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */; };
+		69B171D620FE2D95004BD0FC /* Next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD111C3C2AB900397E18 /* Next@2x.png */; };
+		69B171D720FE2D95004BD0FC /* SEBSliderSkipBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253DC1E4E2211000B4A6D /* SEBSliderSkipBackIcon.png */; };
+		69B171D820FE2D95004BD0FC /* SEBSliderSkipBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253DD1E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png */; };
+		69B171D920FE2D95004BD0FC /* SEBSliderShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */; };
+		69B171DA20FE2D95004BD0FC /* SEBReloadIconLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E42202926070055988F /* SEBReloadIconLandscape.png */; };
+		69B171DB20FE2D95004BD0FC /* Reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD151C3C2AB900397E18 /* Reload@2x.png */; };
+		69B171DC20FE2D95004BD0FC /* Icon-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E21D4108BA0065B831 /* Icon-64x64.png */; };
+		69B171DD20FE2D95004BD0FC /* SEBSliderInfoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */; };
+		69B171DE20FE2D95004BD0FC /* SEBSliderNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396B1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@2x.png */; };
+		69B171DF20FE2D95004BD0FC /* Cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD0F1C3C2AB900397E18 /* Cancel@2x.png */; };
+		69B171E020FE2D95004BD0FC /* SEBSliderSettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8851D1DE07100684182 /* SEBSliderSettingsIcon.png */; };
+		69B171E120FE2D95004BD0FC /* SEBDockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */; };
+		69B171E220FE2D95004BD0FC /* SEBNavigateForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39581E60AC6C005030B0 /* SEBNavigateForwardIcon.png */; };
+		69B171E320FE2D95004BD0FC /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
+		69B171E420FE2D95004BD0FC /* SEBSliderRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E61E4E2630000B4A6D /* SEBSliderRestartIcon@3x.png */; };
+		69B171E520FE2D95004BD0FC /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
+		69B171E620FE2D95004BD0FC /* SEBSliderRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */; };
+		69B171E820FE2D95004BD0FC /* AboutSEBiOSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5817C1ED7197700CE70F3 /* AboutSEBiOSViewController.h */; };
+		69B171E920FE2D95004BD0FC /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69331F081C10AF1D0038BD31 /* SEBLockedViewController.h */; };
+		69B171EA20FE2D95004BD0FC /* SEBNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4791D0B8D9E0040ABF1 /* SEBNavigationController.h */; };
+		69B171EB20FE2D95004BD0FC /* SEBiOSLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69331F041C10AD750038BD31 /* SEBiOSLockedViewController.h */; };
+		69B171EC20FE2D95004BD0FC /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */; };
+		69B171ED20FE2D95004BD0FC /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
+		69B171EE20FE2D95004BD0FC /* SEBTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */; };
+		69B171EF20FE2D95004BD0FC /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
+		69B171F020FE2D95004BD0FC /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
+		69B171F120FE2D95004BD0FC /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */; };
+		69B171F220FE2D95004BD0FC /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
+		69B171F320FE2D95004BD0FC /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
+		69B171F420FE2D95004BD0FC /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
+		69B171F520FE2D95004BD0FC /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
+		69B171F620FE2D95004BD0FC /* Webpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4D1C3C7C9A00397E18 /* Webpages.h */; };
+		69B171F720FE2D95004BD0FC /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
+		69B171F820FE2D95004BD0FC /* SEBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD311C3C2D0500397E18 /* SEBWebViewController.h */; };
+		69B171F920FE2D95004BD0FC /* UIWebView+SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */; };
+		69B171FA20FE2D95004BD0FC /* SEBActionUITableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */; };
+		69B171FB20FE2D95004BD0FC /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2D1C3C2D0500397E18 /* SEBTextField.h */; };
+		69B171FC20FE2D95004BD0FC /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
+		69B171FD20FE2D95004BD0FC /* SEBiOSConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */; };
+		69B171FE20FE2D95004BD0FC /* SEB_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */; };
+		69B171FF20FE2D95004BD0FC /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 692F53D614AD03F300011C84 /* Constants.h */; };
+		69B1720020FE2D95004BD0FC /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
+		69B1720120FE2D95004BD0FC /* OpenWebpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4B1C3C7C9A00397E18 /* OpenWebpages.h */; };
+		69B1720220FE2D95004BD0FC /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
+		69B1720320FE2D95004BD0FC /* SEBIASKSecureSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 694FB9D01CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h */; };
+		69B1720420FE2D95004BD0FC /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
+		69B1720520FE2D95004BD0FC /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
+		69B1720620FE2D95004BD0FC /* SEBSearchBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */; };
+		69B1720720FE2D95004BD0FC /* SEBDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */; };
+		69B1720820FE2D95004BD0FC /* SEBiOSInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */; };
+		69B1720920FE2D95004BD0FC /* SEBAboutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B581821ED8214700CE70F3 /* SEBAboutController.h */; };
+		69B1720A20FE2D95004BD0FC /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
+		69B1720B20FE2D95004BD0FC /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
+		69B1720C20FE2D95004BD0FC /* SEBMasterViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */; };
+		69B1720D20FE2D95004BD0FC /* SEBBrowserTabViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2F1C3C2D0500397E18 /* SEBBrowserTabViewController.h */; };
+		69B1720E20FE2D95004BD0FC /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
 		69B226E31D4108BA0065B831 /* Icon-22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226DF1D4108BA0065B831 /* Icon-22x29.png */; };
 		69B226E41D4108BA0065B831 /* Icon-22x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E01D4108BA0065B831 /* Icon-22x29@2x.png */; };
 		69B226E51D4108BA0065B831 /* Icon-320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* Icon-320x320.png */; };
@@ -345,6 +575,12 @@
 		69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
 		69B581881ED8214700CE70F3 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
 		69B581891ED8214700CE70F3 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
+		69B6759B2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
+		69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
+		69B6759D2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
+		69B6759E2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
+		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
+		69B675A02038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
@@ -566,7 +802,8 @@
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
-		B25D911CA2A08794B862FF3C /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E56D8DA5F546AC785A0E11 /* libPods-Safe Exam Browser.a */; };
+		84CB3A42F2BDD128121ABF8C /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */; };
+		C1868E70634DA34119AB5A70 /* libPods-SEB Enterprise.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -599,15 +836,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		2EF8480F61EB73CB726CE013 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
-		399ACA9C958C526FB278B71E /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
-		43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
+		5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserOpenWindowWebView.h; path = Classes/BrowserComponents/SEBBrowserOpenWindowWebView.h; sourceTree = "<group>"; };
 		69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserOpenWindowWebView.m; path = Classes/BrowserComponents/SEBBrowserOpenWindowWebView.m; sourceTree = "<group>"; };
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
@@ -758,6 +996,20 @@
 		694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBIASKSecureSettingsStore.m; path = Classes/Preferences/SEBIASKSecureSettingsStore.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
+		695370872033921700C638A8 /* LGSideMenuHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuHelper.h; sourceTree = "<group>"; };
+		695370882033921800C638A8 /* LGSideMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuView.m; sourceTree = "<group>"; };
+		695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LGSideMenuController.m"; sourceTree = "<group>"; };
+		6953708A2033921900C638A8 /* LGSideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuController.h; sourceTree = "<group>"; };
+		6953708B2033921900C638A8 /* LGSideMenuBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuBorderView.h; sourceTree = "<group>"; };
+		6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuGesturesHandler.m; sourceTree = "<group>"; };
+		6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuGesturesHandler.h; sourceTree = "<group>"; };
+		6953708E2033921A00C638A8 /* LGSideMenuHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuHelper.m; sourceTree = "<group>"; };
+		6953708F2033921A00C638A8 /* LGSideMenuSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuSegue.h; sourceTree = "<group>"; };
+		695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LGSideMenuController.h"; sourceTree = "<group>"; };
+		695370912033921A00C638A8 /* LGSideMenuSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuSegue.m; sourceTree = "<group>"; };
+		695370922033921A00C638A8 /* LGSideMenuBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuBorderView.m; sourceTree = "<group>"; };
+		695370932033921B00C638A8 /* LGSideMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuView.h; sourceTree = "<group>"; };
+		695370942033921B00C638A8 /* LGSideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuController.m; sourceTree = "<group>"; };
 		69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXConfigFileController.h; sourceTree = "<group>"; };
 		69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXConfigFileController.m; sourceTree = "<group>"; };
 		69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VectorPencilKit.framework; path = Frameworks/VectorPencilKit.framework; sourceTree = "<group>"; };
@@ -868,6 +1120,8 @@
 		69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsGeneralViewController.h; sourceTree = "<group>"; };
 		69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PrefsGeneralViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
+		69B1721420FE2D95004BD0FC /* SEB ETH Enterprise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SEB ETH Enterprise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B1721520FE2D96004BD0FC /* SEB copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy2-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB copy2-Info.plist"; sourceTree = "<absolute>"; };
 		69B226DF1D4108BA0065B831 /* Icon-22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-22x29.png"; sourceTree = "<group>"; };
 		69B226E01D4108BA0065B831 /* Icon-22x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-22x29@2x.png"; sourceTree = "<group>"; };
 		69B226E11D4108BA0065B831 /* Icon-320x320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-320x320.png"; sourceTree = "<group>"; };
@@ -898,6 +1152,8 @@
 		69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutSEBiOSViewController.m; path = Classes/AdditionalViews/AboutSEBiOSViewController.m; sourceTree = "<group>"; };
 		69B581821ED8214700CE70F3 /* SEBAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBAboutController.h; sourceTree = "<group>"; };
 		69B581831ED8214700CE70F3 /* SEBAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBAboutController.m; sourceTree = "<group>"; };
+		69B675992038849000FA58F5 /* SEBUIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIController.h; path = Classes/AdditionalViews/SEBUIController.h; sourceTree = "<group>"; };
+		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1003,16 +1259,11 @@
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
-		8BEB64F993B8747B7AE3E045 /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		916565AD8C3FD6FBF9DB3517 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
-		945A6CD48C4D9BD092B15C32 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
-		A0C8FB30AC206508F12735B0 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
-		B2AC6E851A4CCECD3189876A /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
-		C3E56D8DA5F546AC785A0E11 /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
-		E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6D229DCA416EFCB20ADB7AA /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
-		E776722406B5B6C1814D30FA /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
+		767753732B9561C9CFC3A093 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
+		8DB958B404773247A2C3CA2F /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EF18AC52A0B179C8DBCE369 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
+		C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
+		EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1023,7 +1274,7 @@
 				69967B741C58FD9800EE5658 /* libSEBSupport.a in Frameworks */,
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
-				475D9F35BFDB0A53775F5009 /* libPods-SEB.a in Frameworks */,
+				37DEC47D08D00A308438D849 /* libPods-SEB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1041,6 +1292,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69B1717A20FE2D95004BD0FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B1717B20FE2D95004BD0FC /* libSEBSupport.a in Frameworks */,
+				69B1717C20FE2D95004BD0FC /* libz.tbd in Frameworks */,
+				69B1717D20FE2D95004BD0FC /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69CFFA251D3641B500FE5655 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1048,7 +1309,7 @@
 				69CFFA261D3641B500FE5655 /* libSEBSupport.a in Frameworks */,
 				69CFFA271D3641B500FE5655 /* libz.tbd in Frameworks */,
 				69CFFA281D3641B500FE5655 /* WebKit.framework in Frameworks */,
-				24367DC5B391DDA04009AA66 /* libPods-SEB Enterprise.a in Frameworks */,
+				C1868E70634DA34119AB5A70 /* libPods-SEB Enterprise.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1063,7 +1324,7 @@
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				B25D911CA2A08794B862FF3C /* libPods-Safe Exam Browser.a in Frameworks */,
+				84CB3A42F2BDD128121ABF8C /* libPods-Safe Exam Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,6 +1380,7 @@
 				6940B9811BA0F2FB008C8CFC /* SEBTests.xctest */,
 				6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */,
 				69CFFA761D3641B500FE5655 /* SEB Enterprise.app */,
+				69B1721420FE2D95004BD0FC /* SEB ETH Enterprise.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1136,8 +1398,9 @@
 				6940B9841BA0F2FB008C8CFC /* SEBTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
-				4F7957D674BE468F1FD09857 /* Pods */,
 				6910F530202900980054ECA6 /* SEB copy-Info.plist */,
+				69B1721520FE2D96004BD0FC /* SEB copy2-Info.plist */,
+				A9DCFB3F301AB1EC72C987AA /* Pods */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -1183,24 +1446,11 @@
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
-				E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */,
-				C3E56D8DA5F546AC785A0E11 /* libPods-Safe Exam Browser.a */,
-				8BEB64F993B8747B7AE3E045 /* libPods-SEB Enterprise.a */,
+				8DB958B404773247A2C3CA2F /* libPods-SEB.a */,
+				5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */,
+				13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4F7957D674BE468F1FD09857 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2EF8480F61EB73CB726CE013 /* Pods-SEB.debug.xcconfig */,
-				E6D229DCA416EFCB20ADB7AA /* Pods-SEB.release.xcconfig */,
-				E776722406B5B6C1814D30FA /* Pods-Safe Exam Browser.debug.xcconfig */,
-				B2AC6E851A4CCECD3189876A /* Pods-Safe Exam Browser.release.xcconfig */,
-				916565AD8C3FD6FBF9DB3517 /* Pods-SEB Enterprise.debug.xcconfig */,
-				399ACA9C958C526FB278B71E /* Pods-SEB Enterprise.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		690BBEA919D2C44800F7C9C6 /* SEB Dock */ = {
@@ -1231,7 +1481,7 @@
 				694FB9CF1CCF0BEB00E80CD9 /* Preferences */,
 				69A223391C20C0BE00766354 /* Config Files */,
 				69E4EDFA1C208ED800F5E5EB /* Cryptography */,
-				69331F031C10AD190038BD31 /* Additional Views */,
+				69331F031C10AD190038BD31 /* Additional UI */,
 				690E25A81BFC7E7000B41217 /* Browser Components */,
 			);
 			name = Classes;
@@ -1246,8 +1496,6 @@
 				696DAD261C3C2D0500397E18 /* SEBMasterViewController.m */,
 				696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */,
 				696DAD2A1C3C2D0500397E18 /* SEBSearchBarViewController.m */,
-				696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */,
-				696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */,
 				696DAD2D1C3C2D0500397E18 /* SEBTextField.h */,
 				696DAD2E1C3C2D0500397E18 /* SEBTextField.m */,
 				696DAD2F1C3C2D0500397E18 /* SEBBrowserTabViewController.h */,
@@ -1328,9 +1576,11 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
-		69331F031C10AD190038BD31 /* Additional Views */ = {
+		69331F031C10AD190038BD31 /* Additional UI */ = {
 			isa = PBXGroup;
 			children = (
+				69B675992038849000FA58F5 /* SEBUIController.h */,
+				69B6759A2038849000FA58F5 /* SEBUIController.m */,
 				69331F041C10AD750038BD31 /* SEBiOSLockedViewController.h */,
 				69331F051C10AD750038BD31 /* SEBiOSLockedViewController.m */,
 				69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */,
@@ -1340,7 +1590,7 @@
 				69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */,
 				69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */,
 			);
-			name = "Additional Views";
+			name = "Additional UI";
 			sourceTree = "<group>";
 		};
 		693D16C517160C660040AD7E /* Value Transformers */ = {
@@ -1613,6 +1863,28 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
+		69537086203391F500C638A8 /* LGSideMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				6953708B2033921900C638A8 /* LGSideMenuBorderView.h */,
+				695370922033921A00C638A8 /* LGSideMenuBorderView.m */,
+				6953708A2033921900C638A8 /* LGSideMenuController.h */,
+				695370942033921B00C638A8 /* LGSideMenuController.m */,
+				6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */,
+				6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */,
+				695370872033921700C638A8 /* LGSideMenuHelper.h */,
+				6953708E2033921A00C638A8 /* LGSideMenuHelper.m */,
+				6953708F2033921A00C638A8 /* LGSideMenuSegue.h */,
+				695370912033921A00C638A8 /* LGSideMenuSegue.m */,
+				695370932033921B00C638A8 /* LGSideMenuView.h */,
+				695370882033921800C638A8 /* LGSideMenuView.m */,
+				695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */,
+				695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */,
+			);
+			name = LGSideMenuController;
+			path = Frameworks/LGSideMenuController/LGSideMenuController;
+			sourceTree = "<group>";
+		};
 		695A8EDA1E6CC87600601099 /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1772,6 +2044,7 @@
 		69967B721C58FCFD00EE5658 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69537086203391F500C638A8 /* LGSideMenuController */,
 				69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */,
 				69967B731C58FD9800EE5658 /* libSEBSupport.a */,
 			);
@@ -1811,10 +2084,6 @@
 		69BA05A91D57E4C200C07C4F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				A0C8FB30AC206508F12735B0 /* Pods-Safe Exam Browser.debug.xcconfig */,
-				945A6CD48C4D9BD092B15C32 /* Pods-Safe Exam Browser.release.xcconfig */,
-				D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */,
-				43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1891,8 +2160,23 @@
 			children = (
 				69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */,
 				69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */,
+				696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */,
+				696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */,
 			);
 			name = "SEB Slider";
+			sourceTree = "<group>";
+		};
+		A9DCFB3F301AB1EC72C987AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				767753732B9561C9CFC3A093 /* Pods-SEB.debug.xcconfig */,
+				9EF18AC52A0B179C8DBCE369 /* Pods-SEB.release.xcconfig */,
+				C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */,
+				15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */,
+				0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */,
+				EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1907,11 +2191,15 @@
 				6949A47B1D0B8D9E0040ABF1 /* SEBNavigationController.h in Headers */,
 				69331F061C10AD750038BD31 /* SEBiOSLockedViewController.h in Headers */,
 				6930D2271C205F4B0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
+				695370A82033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
 				696DAD3D1C3C2D0500397E18 /* SEBTableViewController.h in Headers */,
+				695370B12033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */,
 				69A3FCD51C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
+				695370BA2033921C00C638A8 /* LGSideMenuView.h in Headers */,
 				69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */,
 				6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */,
+				6953709F2033921C00C638A8 /* LGSideMenuController.h in Headers */,
 				696DAD511C3C7C9A00397E18 /* Webpages.h in Headers */,
 				69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */,
 				696DAD431C3C2D0500397E18 /* SEBWebViewController.h in Headers */,
@@ -1922,14 +2210,18 @@
 				69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */,
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
 				694316601BFEBB6500F784EE /* Constants.h in Headers */,
+				69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */,
 				696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */,
+				695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */,
+				695370AE2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */,
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
 				696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */,
 				69358DE01E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
 				69B581851ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				6930D2251C2011580087F79E /* SEBCryptor.h in Headers */,
+				695370A22033921C00C638A8 /* LGSideMenuBorderView.h in Headers */,
 				696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */,
 				696DAD411C3C2D0500397E18 /* SEBBrowserTabViewController.h in Headers */,
 				698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */,
@@ -1941,10 +2233,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
+				6953709E2033921C00C638A8 /* LGSideMenuController.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
+				695370A12033921C00C638A8 /* LGSideMenuBorderView.h in Headers */,
 				69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */,
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
@@ -1954,11 +2248,14 @@
 				69331F0A1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */,
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
+				695370AD2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */,
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
+				69B6759B2038849000FA58F5 /* SEBUIController.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
+				695370B02033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
@@ -1966,9 +2263,11 @@
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
+				695370952033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
+				695370A72033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
 				69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */,
 				69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */,
@@ -1988,6 +2287,7 @@
 				69B581841ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
+				695370B92033921C00C638A8 /* LGSideMenuView.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
@@ -2001,6 +2301,52 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69B171E720FE2D95004BD0FC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B171E820FE2D95004BD0FC /* AboutSEBiOSViewController.h in Headers */,
+				69B171E920FE2D95004BD0FC /* SEBLockedViewController.h in Headers */,
+				69B171EA20FE2D95004BD0FC /* SEBNavigationController.h in Headers */,
+				69B171EB20FE2D95004BD0FC /* SEBiOSLockedViewController.h in Headers */,
+				69B171EC20FE2D95004BD0FC /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
+				69B171ED20FE2D95004BD0FC /* LGSideMenuGesturesHandler.h in Headers */,
+				69B171EE20FE2D95004BD0FC /* SEBTableViewController.h in Headers */,
+				69B171EF20FE2D95004BD0FC /* UIViewController+LGSideMenuController.h in Headers */,
+				69B171F020FE2D95004BD0FC /* SEBiOSKeychainManager.h in Headers */,
+				69B171F120FE2D95004BD0FC /* SEBConfigFileCredentials.h in Headers */,
+				69B171F220FE2D95004BD0FC /* LGSideMenuView.h in Headers */,
+				69B171F320FE2D95004BD0FC /* SEBBrowserController.h in Headers */,
+				69B171F420FE2D95004BD0FC /* SynthesizeSingleton.h in Headers */,
+				69B171F520FE2D95004BD0FC /* LGSideMenuController.h in Headers */,
+				69B171F620FE2D95004BD0FC /* Webpages.h in Headers */,
+				69B171F720FE2D95004BD0FC /* NSData+NSDataZIPExtension.h in Headers */,
+				69B171F820FE2D95004BD0FC /* SEBWebViewController.h in Headers */,
+				69B171F920FE2D95004BD0FC /* UIWebView+SEBWebView.h in Headers */,
+				69B171FA20FE2D95004BD0FC /* SEBActionUITableViewCell.h in Headers */,
+				69B171FB20FE2D95004BD0FC /* SEBTextField.h in Headers */,
+				69B171FC20FE2D95004BD0FC /* SEBInitAssistantViewController.h in Headers */,
+				69B171FD20FE2D95004BD0FC /* SEBiOSConfigFileController.h in Headers */,
+				69B171FE20FE2D95004BD0FC /* SEB_Prefix.pch in Headers */,
+				69B171FF20FE2D95004BD0FC /* Constants.h in Headers */,
+				69B1720020FE2D95004BD0FC /* SEBUIController.h in Headers */,
+				69B1720120FE2D95004BD0FC /* OpenWebpages.h in Headers */,
+				69B1720220FE2D95004BD0FC /* LGSideMenuHelper.h in Headers */,
+				69B1720320FE2D95004BD0FC /* SEBIASKSecureSettingsStore.h in Headers */,
+				69B1720420FE2D95004BD0FC /* LGSideMenuSegue.h in Headers */,
+				69B1720520FE2D95004BD0FC /* SEBConfigFileManager.h in Headers */,
+				69B1720620FE2D95004BD0FC /* SEBSearchBarViewController.h in Headers */,
+				69B1720720FE2D95004BD0FC /* SEBDetailViewController.h in Headers */,
+				69B1720820FE2D95004BD0FC /* SEBiOSInitAssistantViewController.h in Headers */,
+				69B1720920FE2D95004BD0FC /* SEBAboutController.h in Headers */,
+				69B1720A20FE2D95004BD0FC /* SEBCryptor.h in Headers */,
+				69B1720B20FE2D95004BD0FC /* LGSideMenuBorderView.h in Headers */,
+				69B1720C20FE2D95004BD0FC /* SEBMasterViewController.h in Headers */,
+				69B1720D20FE2D95004BD0FC /* SEBBrowserTabViewController.h in Headers */,
+				69B1720E20FE2D95004BD0FC /* SEBSliderItem.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69CFFA551D3641B500FE5655 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2010,11 +2356,15 @@
 				69CFFA571D3641B500FE5655 /* SEBNavigationController.h in Headers */,
 				69CFFA581D3641B500FE5655 /* SEBiOSLockedViewController.h in Headers */,
 				69CFFA591D3641B500FE5655 /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
+				695370A92033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
 				69CFFA5A1D3641B500FE5655 /* SEBTableViewController.h in Headers */,
+				695370B22033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				69CFFA5B1D3641B500FE5655 /* SEBiOSKeychainManager.h in Headers */,
 				69CFFA5C1D3641B500FE5655 /* SEBConfigFileCredentials.h in Headers */,
+				695370BB2033921C00C638A8 /* LGSideMenuView.h in Headers */,
 				69CFFA5D1D3641B500FE5655 /* SEBBrowserController.h in Headers */,
 				69CFFA5E1D3641B500FE5655 /* SynthesizeSingleton.h in Headers */,
+				695370A02033921C00C638A8 /* LGSideMenuController.h in Headers */,
 				69CFFA5F1D3641B500FE5655 /* Webpages.h in Headers */,
 				69CFFA601D3641B500FE5655 /* NSData+NSDataZIPExtension.h in Headers */,
 				69CFFA611D3641B500FE5655 /* SEBWebViewController.h in Headers */,
@@ -2025,14 +2375,18 @@
 				69CFFA651D3641B500FE5655 /* SEBiOSConfigFileController.h in Headers */,
 				69CFFA661D3641B500FE5655 /* SEB_Prefix.pch in Headers */,
 				69CFFA671D3641B500FE5655 /* Constants.h in Headers */,
+				69B6759D2038849000FA58F5 /* SEBUIController.h in Headers */,
 				69CFFA681D3641B500FE5655 /* OpenWebpages.h in Headers */,
+				695370972033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				69CFFA691D3641B500FE5655 /* SEBIASKSecureSettingsStore.h in Headers */,
+				695370AF2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69CFFA6A1D3641B500FE5655 /* SEBConfigFileManager.h in Headers */,
 				69CFFA6B1D3641B500FE5655 /* SEBSearchBarViewController.h in Headers */,
 				69CFFA6C1D3641B500FE5655 /* SEBDetailViewController.h in Headers */,
 				69358DE11E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
 				69B581861ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				69CFFA6D1D3641B500FE5655 /* SEBCryptor.h in Headers */,
+				695370A32033921C00C638A8 /* LGSideMenuBorderView.h in Headers */,
 				69CFFA6E1D3641B500FE5655 /* SEBMasterViewController.h in Headers */,
 				69CFFA6F1D3641B500FE5655 /* SEBBrowserTabViewController.h in Headers */,
 				69CFFA701D3641B500FE5655 /* SEBSliderItem.h in Headers */,
@@ -2046,13 +2400,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6940B9991BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEB" */;
 			buildPhases = (
-				ED2406323987713A8892DA21 /* [CP] Check Pods Manifest.lock */,
+				C3D40B91A79DAE5ACE0B6E6D /* [CP] Check Pods Manifest.lock */,
 				6940B9621BA0F2FB008C8CFC /* Sources */,
 				6940B9631BA0F2FB008C8CFC /* Frameworks */,
 				6940B9641BA0F2FB008C8CFC /* Resources */,
 				6943165D1BFEBB4900F784EE /* Headers */,
-				C979265F4E0FF6F5EB23EAA6 /* [CP] Copy Pods Resources */,
-				ED98C99F0B17482EAB65EA5E /* [CP] Embed Pods Frameworks */,
+				8FAAE03006CE77F60465FE1D /* [CP] Embed Pods Frameworks */,
+				86A2CA18DBD66E34F75100CE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2099,17 +2453,35 @@
 			productReference = 6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		69B1714B20FE2D95004BD0FC /* SEB ETH Enterprise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69B1721120FE2D95004BD0FC /* Build configuration list for PBXNativeTarget "SEB ETH Enterprise" */;
+			buildPhases = (
+				69B1714D20FE2D95004BD0FC /* Sources */,
+				69B1717A20FE2D95004BD0FC /* Frameworks */,
+				69B1717F20FE2D95004BD0FC /* Resources */,
+				69B171E720FE2D95004BD0FC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SEB ETH Enterprise";
+			productName = SEB;
+			productReference = 69B1721420FE2D95004BD0FC /* SEB ETH Enterprise.app */;
+			productType = "com.apple.product-type.application";
+		};
 		69CFF9FE1D3641B500FE5655 /* SEB Enterprise */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69CFFA731D3641B500FE5655 /* Build configuration list for PBXNativeTarget "SEB Enterprise" */;
 			buildPhases = (
-				B5F3DFA355C74F0993BC2213 /* [CP] Check Pods Manifest.lock */,
+				9B08BED2EC40A8AA98FD6FF2 /* [CP] Check Pods Manifest.lock */,
 				69CFFA001D3641B500FE5655 /* Sources */,
 				69CFFA251D3641B500FE5655 /* Frameworks */,
 				69CFFA2B1D3641B500FE5655 /* Resources */,
 				69CFFA551D3641B500FE5655 /* Headers */,
-				7CB6688FD7A33BBFBF729915 /* [CP] Embed Pods Frameworks */,
-				9FA7F296A4099571AA873369 /* [CP] Copy Pods Resources */,
+				AD4421B79CCA0A81E60B9C60 /* [CP] Embed Pods Frameworks */,
+				F81F3F59BBC082765AB4C48C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2124,15 +2496,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
 			buildPhases = (
-				1BA3073533E6C924B54CB0EF /* [CP] Check Pods Manifest.lock */,
+				549393D7FD6E063624A6295D /* [CP] Check Pods Manifest.lock */,
 				69A79DA117176584005B06CD /* Run Script */,
 				69F7B5FB14F411FB00FD0761 /* Resources */,
 				69F7B60814F411FB00FD0761 /* Sources */,
 				69F7B61C14F411FB00FD0761 /* Frameworks */,
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
 				69A0BF6F1660239400A866C4 /* Headers */,
-				8CAB67CE80CFBC49E9CA1E6C /* [CP] Embed Pods Frameworks */,
-				08681485808807E6471C3983 /* [CP] Copy Pods Resources */,
+				5E57AD45EDF025D8DB9E763B /* [CP] Embed Pods Frameworks */,
+				835DB2B7B82DBC8FF15FCDFC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2155,7 +2527,7 @@
 					6940B9651BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 6F38DNSC7X;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					6940B9801BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
@@ -2164,6 +2536,10 @@
 					6940B98B1BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 6940B9651BA0F2FB008C8CFC;
+					};
+					69B1714B20FE2D95004BD0FC = {
+						DevelopmentTeam = 6F38DNSC7X;
+						ProvisioningStyle = Manual;
 					};
 					69CFF9FE1D3641B500FE5655 = {
 						DevelopmentTeam = C4Z664WZU5;
@@ -2192,6 +2568,7 @@
 				6940B9801BA0F2FB008C8CFC /* SEBTests */,
 				6940B98B1BA0F2FB008C8CFC /* SEBUITests */,
 				69CFF9FE1D3641B500FE5655 /* SEB Enterprise */,
+				69B1714B20FE2D95004BD0FC /* SEB ETH Enterprise */,
 			);
 		};
 /* End PBXProject section */
@@ -2318,6 +2695,116 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69B1717F20FE2D95004BD0FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B1718020FE2D95004BD0FC /* Icon-320x320.png in Resources */,
+				69B1718120FE2D95004BD0FC /* SEBSliderClosePage@3x.png in Resources */,
+				69B1718220FE2D95004BD0FC /* continueCircle@2x.png in Resources */,
+				69B1718320FE2D95004BD0FC /* SEBSliderSkipBackIcon@3x.png in Resources */,
+				69B1718420FE2D95004BD0FC /* SEBShutDownIconLandscape@2x.png in Resources */,
+				69B1718520FE2D95004BD0FC /* SEBRestartIcon.png in Resources */,
+				69B1718620FE2D95004BD0FC /* ModifyPages.js in Resources */,
+				69B1718720FE2D95004BD0FC /* SEBSliderNavigateBackIcon@2x.png in Resources */,
+				69B1718820FE2D95004BD0FC /* SEBToolbarNavigateBackIcon.png in Resources */,
+				69B1718920FE2D95004BD0FC /* SEBSliderNavigateForwardIcon@3x.png in Resources */,
+				69B1718A20FE2D95004BD0FC /* Cancel.png in Resources */,
+				69B1718B20FE2D95004BD0FC /* SEBSliderReloadIcon@3x.png in Resources */,
+				69B1718C20FE2D95004BD0FC /* SEBReloadIcon@3x.png in Resources */,
+				69B1718D20FE2D95004BD0FC /* Previous.png in Resources */,
+				69B1718E20FE2D95004BD0FC /* SEBDockIcon@3x.png in Resources */,
+				69B1718F20FE2D95004BD0FC /* Settings@2x.png in Resources */,
+				69B1719020FE2D95004BD0FC /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
+				69B1719120FE2D95004BD0FC /* SEBDockIconLandscape.png in Resources */,
+				69B1719220FE2D95004BD0FC /* SEBSkipBackIcon@2x.png in Resources */,
+				69B1719320FE2D95004BD0FC /* SEBToolbarNavigateForwardIcon.png in Resources */,
+				69B1719420FE2D95004BD0FC /* SEBToolbarReloadIcon@3x.png in Resources */,
+				69B1719520FE2D95004BD0FC /* SEBSliderReloadIcon.png in Resources */,
+				69B1719620FE2D95004BD0FC /* SEBNavigateBackIcon@2x.png in Resources */,
+				69B1719720FE2D95004BD0FC /* SEBNavigateForwardIcon@2x.png in Resources */,
+				69B1719820FE2D95004BD0FC /* Next.png in Resources */,
+				69B1719920FE2D95004BD0FC /* SEBDockIconLandscape@3x.png in Resources */,
+				69B1719A20FE2D95004BD0FC /* SEBSkipBackIcon@3x.png in Resources */,
+				69B1719B20FE2D95004BD0FC /* continueCircle.png in Resources */,
+				69B1719C20FE2D95004BD0FC /* SEBAppIcon_256.png in Resources */,
+				69B1719D20FE2D95004BD0FC /* SEBReloadIconLandscape@2x.png in Resources */,
+				69B1719E20FE2D95004BD0FC /* SEBReloadIconLandscape@3x.png in Resources */,
+				69B1719F20FE2D95004BD0FC /* SEBSliderSettingsIcon@2x.png in Resources */,
+				69B171A020FE2D95004BD0FC /* SEBShutDownIcon.png in Resources */,
+				69B171A120FE2D95004BD0FC /* SEBSliderNavigateForwardIcon.png in Resources */,
+				69B171A220FE2D95004BD0FC /* SEBSkipBackIcon.png in Resources */,
+				69B171A320FE2D95004BD0FC /* LaunchScreen.storyboard in Resources */,
+				69B171A420FE2D95004BD0FC /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
+				69B171A520FE2D95004BD0FC /* SEBQuickActionQRCodeIcon@3x.png in Resources */,
+				69B171A620FE2D95004BD0FC /* SEBNavigateBackIcon.png in Resources */,
+				69B171A720FE2D95004BD0FC /* InAppSettings.bundle in Resources */,
+				69B171A820FE2D95004BD0FC /* SEBSliderReloadIcon@2x.png in Resources */,
+				69B171A920FE2D95004BD0FC /* SEBRestartIcon@3x.png in Resources */,
+				69B171AA20FE2D95004BD0FC /* SEBDockIcon@2x.png in Resources */,
+				69B171AB20FE2D95004BD0FC /* SEBShutDownIconLandscape@3x.png in Resources */,
+				69B171AC20FE2D95004BD0FC /* SEBSliderNavigateBackIcon@3x.png in Resources */,
+				69B171AD20FE2D95004BD0FC /* SEBQRCodeIcon@3x.png in Resources */,
+				69B171AE20FE2D95004BD0FC /* SEBReloadIcon.png in Resources */,
+				69B171AF20FE2D95004BD0FC /* SEBSliderRestartIcon.png in Resources */,
+				69B171B020FE2D95004BD0FC /* SEBSliderShutDownIcon@3x.png in Resources */,
+				69B171B120FE2D95004BD0FC /* SEBToolbarReloadIcon@2x.png in Resources */,
+				69B171B220FE2D95004BD0FC /* SEBToolbarReloadIcon.png in Resources */,
+				69B171B320FE2D95004BD0FC /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
+				69B171B420FE2D95004BD0FC /* SEBSliderQRCodeIcon.png in Resources */,
+				69B171B520FE2D95004BD0FC /* SEBShutDownIconLandscape.png in Resources */,
+				69B171B620FE2D95004BD0FC /* Icon-22x29.png in Resources */,
+				69B171B720FE2D95004BD0FC /* SEBShutDownIcon@3x.png in Resources */,
+				69B171B820FE2D95004BD0FC /* SEBQuickActionQRCodeIcon@2x.png in Resources */,
+				69B171B920FE2D95004BD0FC /* SEBReloadIcon@2x.png in Resources */,
+				69B171BA20FE2D95004BD0FC /* SEBDockIconLandscape@2x.png in Resources */,
+				69B171BB20FE2D95004BD0FC /* SEBShutDownIcon@2x.png in Resources */,
+				69B171BC20FE2D95004BD0FC /* Assets.xcassets in Resources */,
+				69B171BD20FE2D95004BD0FC /* SEBNavigateForwardIcon@3x.png in Resources */,
+				69B171BE20FE2D95004BD0FC /* SEBSliderSettingsIcon@3x.png in Resources */,
+				69B171BF20FE2D95004BD0FC /* Icon-22x29@2x.png in Resources */,
+				69B171C020FE2D95004BD0FC /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
+				69B171C120FE2D95004BD0FC /* SEBQRCodeIcon@2x.png in Resources */,
+				69B171C220FE2D95004BD0FC /* SEB.entitlements in Resources */,
+				69B171C320FE2D95004BD0FC /* SEBQuickActionQRCodeIcon.png in Resources */,
+				69B171C420FE2D95004BD0FC /* SEBQRCode@2x.png in Resources */,
+				69B171C520FE2D95004BD0FC /* SEBQRCode@3x.png in Resources */,
+				69B171C620FE2D95004BD0FC /* Settings.bundle in Resources */,
+				69B171C720FE2D95004BD0FC /* SEBNavigateBackIcon@3x.png in Resources */,
+				69B171C820FE2D95004BD0FC /* SEBSliderClosePage.png in Resources */,
+				69B171C920FE2D95004BD0FC /* SEBSliderClosePage@2x.png in Resources */,
+				69B171CA20FE2D95004BD0FC /* Main.storyboard in Resources */,
+				69B171CB20FE2D95004BD0FC /* SEBAppIcon_256@2x.png in Resources */,
+				69B171CC20FE2D95004BD0FC /* SEBRestartIcon@2x.png in Resources */,
+				69B171CD20FE2D95004BD0FC /* SEBSliderQRCodeIcon@2x.png in Resources */,
+				69B171CE20FE2D95004BD0FC /* SEBSliderShutDownIcon.png in Resources */,
+				69B171CF20FE2D95004BD0FC /* Reload.png in Resources */,
+				69B171D020FE2D95004BD0FC /* SEBSliderNavigateBackIcon.png in Resources */,
+				69B171D120FE2D95004BD0FC /* SEBSliderInfoIcon@2x.png in Resources */,
+				69B171D220FE2D95004BD0FC /* SEBSliderQRCodeIcon@3x.png in Resources */,
+				69B171D320FE2D95004BD0FC /* SEBQRCode.png in Resources */,
+				69B171D420FE2D95004BD0FC /* Previous@2x.png in Resources */,
+				69B171D520FE2D95004BD0FC /* SEBSliderInfoIcon@3x.png in Resources */,
+				69B171D620FE2D95004BD0FC /* Next@2x.png in Resources */,
+				69B171D720FE2D95004BD0FC /* SEBSliderSkipBackIcon.png in Resources */,
+				69B171D820FE2D95004BD0FC /* SEBSliderSkipBackIcon@2x.png in Resources */,
+				69B171D920FE2D95004BD0FC /* SEBSliderShutDownIcon@2x.png in Resources */,
+				69B171DA20FE2D95004BD0FC /* SEBReloadIconLandscape.png in Resources */,
+				69B171DB20FE2D95004BD0FC /* Reload@2x.png in Resources */,
+				69B171DC20FE2D95004BD0FC /* Icon-64x64.png in Resources */,
+				69B171DD20FE2D95004BD0FC /* SEBSliderInfoIcon.png in Resources */,
+				69B171DE20FE2D95004BD0FC /* SEBSliderNavigateForwardIcon@2x.png in Resources */,
+				69B171DF20FE2D95004BD0FC /* Cancel@2x.png in Resources */,
+				69B171E020FE2D95004BD0FC /* SEBSliderSettingsIcon.png in Resources */,
+				69B171E120FE2D95004BD0FC /* SEBDockIcon.png in Resources */,
+				69B171E220FE2D95004BD0FC /* SEBNavigateForwardIcon.png in Resources */,
+				69B171E320FE2D95004BD0FC /* SEBQRCodeIcon.png in Resources */,
+				69B171E420FE2D95004BD0FC /* SEBSliderRestartIcon@3x.png in Resources */,
+				69B171E520FE2D95004BD0FC /* SearchWebView.js in Resources */,
+				69B171E620FE2D95004BD0FC /* SEBSliderRestartIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2508,22 +2995,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08681485808807E6471C3983 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1BA3073533E6C924B54CB0EF /* [CP] Check Pods Manifest.lock */ = {
+		549393D7FD6E063624A6295D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2541,36 +3013,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69A79DA117176584005B06CD /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%u\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
-		};
-		7CB6688FD7A33BBFBF729915 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8CAB67CE80CFBC49E9CA1E6C /* [CP] Embed Pods Frameworks */ = {
+		5E57AD45EDF025D8DB9E763B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2585,43 +3028,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9FA7F296A4099571AA873369 /* [CP] Copy Pods Resources */ = {
+		69A79DA117176584005B06CD /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%u\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
+		};
+		835DB2B7B82DBC8FF15FCDFC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B5F3DFA355C74F0993BC2213 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SEB Enterprise-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C979265F4E0FF6F5EB23EAA6 /* [CP] Copy Pods Resources */ = {
+		86A2CA18DBD66E34F75100CE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2639,7 +3075,55 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED2406323987713A8892DA21 /* [CP] Check Pods Manifest.lock */ = {
+		8FAAE03006CE77F60465FE1D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B08BED2EC40A8AA98FD6FF2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SEB Enterprise-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD4421B79CCA0A81E60B9C60 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3D40B91A79DAE5ACE0B6E6D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2657,19 +3141,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED98C99F0B17482EAB65EA5E /* [CP] Embed Pods Frameworks */ = {
+		F81F3F59BBC082765AB4C48C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2680,6 +3167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B581881ED8214700CE70F3 /* SEBAboutController.m in Sources */,
+				695370B72033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
@@ -2689,13 +3177,16 @@
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
 				694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */,
 				696DAD501C3C7C9A00397E18 /* OpenWebpages.m in Sources */,
+				695370992033921B00C638A8 /* LGSideMenuView.m in Sources */,
 				696DAD421C3C2D0500397E18 /* SEBBrowserTabViewController.m in Sources */,
 				69331F071C10AD750038BD31 /* SEBiOSLockedViewController.m in Sources */,
 				696DAD441C3C2D0500397E18 /* SEBWebViewController.m in Sources */,
 				6930D2211C2011200087F79E /* SEBCryptor.m in Sources */,
+				695370BD2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */,
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
 				69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */,
+				695370AB2033921C00C638A8 /* LGSideMenuHelper.m in Sources */,
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
@@ -2703,12 +3194,16 @@
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */,
 				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
+				69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */,
 				6949A47C1D0B8D9E0040ABF1 /* SEBNavigationController.m in Sources */,
+				695370B42033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
 				698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */,
 				69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				696DAD401C3C2D0500397E18 /* SEBTextField.m in Sources */,
+				695370A52033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */,
 				69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
+				6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */,
 				69B581801ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */,
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
@@ -2734,6 +3229,57 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69B1714D20FE2D95004BD0FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B1714E20FE2D95004BD0FC /* SEBAboutController.m in Sources */,
+				69B1714F20FE2D95004BD0FC /* LGSideMenuBorderView.m in Sources */,
+				69B1715020FE2D95004BD0FC /* SEBConfigFileManager.m in Sources */,
+				69B1715120FE2D95004BD0FC /* MyGlobals.m in Sources */,
+				69B1715220FE2D95004BD0FC /* SEB.xcdatamodeld in Sources */,
+				69B1715320FE2D95004BD0FC /* UIWebView+SEBWebView.m in Sources */,
+				69B1715420FE2D95004BD0FC /* RNEncryptor.m in Sources */,
+				69B1715520FE2D95004BD0FC /* SEBActionUITableViewCell.m in Sources */,
+				69B1715620FE2D95004BD0FC /* SEBViewController.m in Sources */,
+				69B1715720FE2D95004BD0FC /* SEBiOSConfigFileController.m in Sources */,
+				69B1715820FE2D95004BD0FC /* OpenWebpages.m in Sources */,
+				69B1715920FE2D95004BD0FC /* LGSideMenuView.m in Sources */,
+				69B1715A20FE2D95004BD0FC /* SEBBrowserTabViewController.m in Sources */,
+				69B1715B20FE2D95004BD0FC /* SEBiOSLockedViewController.m in Sources */,
+				69B1715C20FE2D95004BD0FC /* SEBWebViewController.m in Sources */,
+				69B1715D20FE2D95004BD0FC /* SEBCryptor.m in Sources */,
+				69B1715E20FE2D95004BD0FC /* LGSideMenuController.m in Sources */,
+				69B1715F20FE2D95004BD0FC /* MethodSwizzling.m in Sources */,
+				69B1716020FE2D95004BD0FC /* SEBiOSKeychainManager.m in Sources */,
+				69B1716120FE2D95004BD0FC /* NSData+NSDataZIPExtension.m in Sources */,
+				69B1716220FE2D95004BD0FC /* LGSideMenuHelper.m in Sources */,
+				69B1716320FE2D95004BD0FC /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69B1716420FE2D95004BD0FC /* SEBInitAssistantViewController.m in Sources */,
+				69B1716520FE2D95004BD0FC /* SEBiOSInitAssistantViewController.m in Sources */,
+				69B1716620FE2D95004BD0FC /* SEBBrowserController.m in Sources */,
+				69B1716720FE2D95004BD0FC /* AppDelegate.m in Sources */,
+				69B1716820FE2D95004BD0FC /* SEBIASKSecureSettingsStore.m in Sources */,
+				69B1716920FE2D95004BD0FC /* SEBKeychainManager.m in Sources */,
+				69B1716A20FE2D95004BD0FC /* SEBUIController.m in Sources */,
+				69B1716B20FE2D95004BD0FC /* SEBNavigationController.m in Sources */,
+				69B1716C20FE2D95004BD0FC /* LGSideMenuSegue.m in Sources */,
+				69B1716D20FE2D95004BD0FC /* main.m in Sources */,
+				69B1716E20FE2D95004BD0FC /* SEBSliderItem.m in Sources */,
+				69B1716F20FE2D95004BD0FC /* SEBConfigFileCredentials.m in Sources */,
+				69B1717020FE2D95004BD0FC /* SEBTextField.m in Sources */,
+				69B1717120FE2D95004BD0FC /* LGSideMenuGesturesHandler.m in Sources */,
+				69B1717220FE2D95004BD0FC /* SEBLockedViewController.m in Sources */,
+				69B1717320FE2D95004BD0FC /* UIViewController+LGSideMenuController.m in Sources */,
+				69B1717420FE2D95004BD0FC /* SEBTableViewController.m in Sources */,
+				69B1717520FE2D95004BD0FC /* AboutSEBiOSViewController.m in Sources */,
+				69B1717620FE2D95004BD0FC /* RNCryptorEngine.m in Sources */,
+				69B1717720FE2D95004BD0FC /* RNDecryptor.m in Sources */,
+				69B1717820FE2D95004BD0FC /* RNCryptor.m in Sources */,
+				69B1717920FE2D95004BD0FC /* Webpages.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69CFFA001D3641B500FE5655 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2755,14 +3301,19 @@
 				69CFFA0F1D3641B500FE5655 /* SEBCryptor.m in Sources */,
 				69CFFA101D3641B500FE5655 /* SEBDetailViewController.m in Sources */,
 				69CFFA111D3641B500FE5655 /* MethodSwizzling.m in Sources */,
+				695370B82033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69CFFA121D3641B500FE5655 /* SEBiOSKeychainManager.m in Sources */,
 				69CFFA131D3641B500FE5655 /* NSData+NSDataZIPExtension.m in Sources */,
+				695370B52033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
+				6953709A2033921C00C638A8 /* LGSideMenuView.m in Sources */,
 				69CFFA141D3641B500FE5655 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				69358DEC1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
+				69B675A02038849000FA58F5 /* SEBUIController.m in Sources */,
 				69358DE41E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
 				69CFFA151D3641B500FE5655 /* SEBBrowserController.m in Sources */,
 				69CFFA161D3641B500FE5655 /* AppDelegate.m in Sources */,
 				69CFFA171D3641B500FE5655 /* SEBIASKSecureSettingsStore.m in Sources */,
+				695370BE2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69CFFA181D3641B500FE5655 /* SEBKeychainManager.m in Sources */,
 				69CFFA191D3641B500FE5655 /* SEBNavigationController.m in Sources */,
 				69B581811ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */,
@@ -2778,6 +3329,9 @@
 				69CFFA221D3641B500FE5655 /* RNCryptor.m in Sources */,
 				69CFFA231D3641B500FE5655 /* SEBWKWebView.m in Sources */,
 				69CFFA241D3641B500FE5655 /* Webpages.m in Sources */,
+				6953709D2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
+				695370AC2033921C00C638A8 /* LGSideMenuHelper.m in Sources */,
+				695370A62033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2817,6 +3371,7 @@
 				69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
+				6953709B2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
@@ -2832,31 +3387,38 @@
 				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
 				69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */,
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
+				695370982033921B00C638A8 /* LGSideMenuView.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
+				695370A42033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
+				695370B62033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
+				695370B32033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
+				695370BC2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
+				69B6759E2038849000FA58F5 /* SEBUIController.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
+				695370AA2033921C00C638A8 /* LGSideMenuHelper.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3024,7 +3586,7 @@
 /* Begin XCBuildConfiguration section */
 		6940B9931BA0F2FB008C8CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */;
+			baseConfigurationReference = 767753732B9561C9CFC3A093 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3045,11 +3607,11 @@
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11100;
+				CURRENT_PROJECT_VERSION = 11736;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3080,8 +3642,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "05ba718f-953c-4d77-90b1-357cc73c94e2";
+				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Edu Assessment";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -3091,7 +3653,7 @@
 		};
 		6940B9941BA0F2FB008C8CFC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */;
+			baseConfigurationReference = 9EF18AC52A0B179C8DBCE369 /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3112,11 +3674,11 @@
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11100;
+				CURRENT_PROJECT_VERSION = 11736;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3142,8 +3704,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3cf08c44-9e87-463e-b003-35ffb5f90bd4";
+				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessment;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -3322,9 +3884,137 @@
 			};
 			name = Release;
 		};
+		69B1721220FE2D95004BD0FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 11736;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/OtherSources/SEB_Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SEB copy2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "05ba718f-953c-4d77-90b1-357cc73c94e2";
+				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Edu Assessment";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		69B1721320FE2D95004BD0FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 11736;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/OtherSources/SEB_Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SEB copy2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		69CFFA741D3641B500FE5655 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 916565AD8C3FD6FBF9DB3517 /* Pods-SEB Enterprise.debug.xcconfig */;
+			baseConfigurationReference = C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3384,7 +4074,7 @@
 		};
 		69CFFA751D3641B500FE5655 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 399ACA9C958C526FB278B71E /* Pods-SEB Enterprise.release.xcconfig */;
+			baseConfigurationReference = 15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3440,7 +4130,7 @@
 		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0C8FB30AC206508F12735B0 /* Pods-Safe Exam Browser.debug.xcconfig */;
+			baseConfigurationReference = 0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -3448,7 +4138,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11100;
+				CURRENT_PROJECT_VERSION = 11736;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3479,14 +4169,14 @@
 		};
 		69F7B62414F411FB00FD0761 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 945A6CD48C4D9BD092B15C32 /* Pods-Safe Exam Browser.release.xcconfig */;
+			baseConfigurationReference = EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11100;
+				CURRENT_PROJECT_VERSION = 11736;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3535,7 +4225,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11100;
+				CURRENT_PROJECT_VERSION = 11736;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3581,7 +4271,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11100;
+				CURRENT_PROJECT_VERSION = 11736;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3628,6 +4318,15 @@
 			buildConfigurations = (
 				6940B9971BA0F2FB008C8CFC /* Debug */,
 				6940B9981BA0F2FB008C8CFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69B1721120FE2D95004BD0FC /* Build configuration list for PBXNativeTarget "SEB ETH Enterprise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69B1721220FE2D95004BD0FC /* Debug */,
+				69B1721320FE2D95004BD0FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

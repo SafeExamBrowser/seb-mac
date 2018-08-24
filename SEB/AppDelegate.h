@@ -3,7 +3,7 @@
 //  SEB
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -35,15 +35,18 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "SEBViewController.h"
+#import "SEBUIController.h"
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
 
 @class SEBViewController;
+@class SEBUIController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SEBViewController *sebViewController;
+@property (strong, nonatomic) SEBUIController *sebUIController;
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
 @property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
 @property(readwrite) BOOL SAMActive;
@@ -53,6 +56,7 @@
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 
 @property (readwrite) NSUInteger statusBarAppearance;
+@property (readwrite) BOOL showSettingsInApp;
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

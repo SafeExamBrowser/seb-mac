@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 30/09/15.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -63,6 +63,11 @@
 }
 
 
+- (IBAction)passwordEntered:(id)sender {
+    [self.lockedViewController passwordEntered:sender];
+}
+
+
 - (void)scrollToBottom
 {
     NSPoint newScrollOrigin;
@@ -76,11 +81,6 @@
     DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f", CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame]), newScrollOrigin.y);
     
     [[logScrollView documentView] scrollPoint:newScrollOrigin];
-}
-
-
-- (IBAction)passwordEntered:(id)sender {
-    [self.lockedViewController passwordEntered:sender];
 }
 
 
