@@ -224,9 +224,17 @@ void run_block_on_ui_thread(dispatch_block_t block)
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
             _openedURL = true;
+            // Is the main SEB view controller already instantiated?
             if (_sebViewController) {
-                // Is the main SEB view controller already instantiated?
-                [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+                if (_sebViewController.settingsOpen) {
+                    // Close settings
+                    [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                        _sebViewController.settingsOpen = false;
+                        [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+                    }];
+                } else {
+                    [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+                }
             } else {
                 // Postpone loading .seb file until app did finish launching
                 _sebFileURL = url;
@@ -242,15 +250,22 @@ void run_block_on_ui_thread(dispatch_block_t block)
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
   completionHandler:(void (^)(BOOL succeeded))completionHandler;
 {
-    BOOL handled = false;
-    
     NSLog(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
     
+    // Is the main SEB view controller already instantiated?
     if (_sebViewController) {
-        // Is the main SEB view controller already instantiated?
-        handled = [_sebViewController handleShortcutItem:shortcutItem];
+        if (_sebViewController.settingsOpen) {
+            // Close settings
+            [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                _sebViewController.settingsOpen = false;
+                 BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
+                completionHandler(handled);
+            }];
+        } else {
+            BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
+            completionHandler(handled);
+        }
     }
-    completionHandler(handled);
 }
 
 
