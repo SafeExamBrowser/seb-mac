@@ -374,7 +374,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)willHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
     if (@available(iOS 11.0, *)) {
-        if (_navigationBarHeightConstraint || _toolBarHeightConstraint) {
+        if (self.sebUIController.extendedDisplay) {
             UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
             self.parentViewController.additionalSafeAreaInsets = newSafeArea;
             [self viewSafeAreaInsetsDidChange];
@@ -385,6 +385,13 @@ static NSMutableSet *browserWindowControllers;
 
 -(void)willHideLeftViewWithGesture:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
 {
+    if (@available(iOS 11.0, *)) {
+        if (self.sebUIController.extendedDisplay) {
+            UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
+            self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+            [self viewSafeAreaInsetsDidChange];
+        }
+    }
 }
 
 
@@ -396,8 +403,8 @@ static NSMutableSet *browserWindowControllers;
 - (void)changeLeftSafeAreaInset
 {
     if (@available(iOS 11.0, *)) {
-        if (_navigationBarHeightConstraint || _toolBarHeightConstraint) {
-            CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
+        CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
+        if (self.sebUIController.extendedDisplay) {
             UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, leftSafeAreaInset);
             self.parentViewController.additionalSafeAreaInsets = newSafeArea;
             [self viewSafeAreaInsetsDidChange];
