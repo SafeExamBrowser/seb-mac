@@ -275,13 +275,28 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        CGFloat bottomPadding = window.safeAreaInsets.bottom;
+        
+        // If the left view is showing on a device with extended display (like iPhone X)
+        // hide the left slider menu before rotating the device
+        // to prevent a black or white bar between side menu and main view
+        if (self.sideMenuController.leftViewShowing && bottomPadding != 0) {
+            [self.sideMenuController hideLeftView];
+        }
+    }
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+}
+
+
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange: previousTraitCollection];
 
-//    if (!self.presentedViewController) {
-        [self adjustBars];
-//    }
+    [self adjustBars];
 }
 
 
@@ -293,6 +308,13 @@ static NSMutableSet *browserWindowControllers;
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
         CGFloat leftPadding = window.safeAreaInsets.left;
         sideSafeAreaInsets = leftPadding != 0;
+        
+        if (self.sideMenuController.leftViewShowing && sideSafeAreaInsets &&
+            (_navigationBarHeightConstraint || _toolBarHeightConstraint)) {
+            CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
+            UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, leftSafeAreaInset);
+            self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+        }
     }
     
     _bottomBackgroundView.hidden = sideSafeAreaInsets;
@@ -309,7 +331,6 @@ static NSMutableSet *browserWindowControllers;
         } else {
             _navigationBarBottomConstraint.constant = 0;
         }
-//        [self addBrowserToolBarWithOffset:navigationBarOffset];
     }
     
     if (_toolBarHeightConstraint) {
