@@ -232,15 +232,25 @@ static NSMutableSet *browserWindowControllers;
     // Was SEB opened by loading a .seb file/using a seb:// link?
     if (_appDelegate.sebFileURL) {
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
-        [self downloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
-        
-        // Set flag that SEB is initialized to prevent the client config
-        // Start URL to be loaded
-        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-    }
-    
-    // Was SEB opened by a Home screen quick action shortcut item?
-    if (_appDelegate.shortcutItemAtLaunch) {
+        if (_settingsOpen) {
+            // Close settings
+            [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                _settingsOpen = false;
+                [self downloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
+                
+                // Set flag that SEB is initialized to prevent the client config
+                // Start URL to be loaded
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+            }];
+        } else {
+            [self downloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
+            
+            // Set flag that SEB is initialized to prevent the client config
+            // Start URL to be loaded
+            [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+        }
+    } else if (_appDelegate.shortcutItemAtLaunch) {
+        // Was SEB opened by a Home screen quick action shortcut item?
         [self handleShortcutItem:_appDelegate.shortcutItemAtLaunch];
     }
 }
