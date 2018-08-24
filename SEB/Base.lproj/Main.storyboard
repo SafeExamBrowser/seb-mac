@@ -151,6 +151,9 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="swipeGestureArea">
                             <integer key="value" value="0"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="rootViewLayerShadowRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="sAK-QH-Sgm" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="uF7-CC-mtx"/>
@@ -542,7 +545,7 @@
                                                 <rect key="frame" x="32" y="380.66666666666669" width="54" height="54"/>
                                                 <state key="normal" image="SEBQRCode.png"/>
                                                 <connections>
-                                                    <action selector="scanQRCode:" destination="h8j-pm-u2W" eventType="touchUpInside" id="wjr-1w-Inm"/>
+                                                    <action selector="scanQRCode" destination="h8j-pm-u2W" eventType="touchUpInside" id="Lnk-v2-VBP"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMS-9D-3zr">

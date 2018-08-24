@@ -147,7 +147,7 @@
 }
 
 
-- (IBAction)scanQRCode:(id)sender
+- (IBAction)scanQRCode
 {
     configURLField.text = @"";
     noConfigURLFoundLabel.hidden = true;
@@ -155,7 +155,7 @@
     // Define the ConfigURLManager delegate for evaluating the scanned URL
     _sebViewController.configURLManagerDelegate = self;
 
-    [_sebViewController scanQRCode:self];
+    [_sebViewController scanQRCode];
 }
 
 
