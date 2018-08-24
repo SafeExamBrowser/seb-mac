@@ -1347,11 +1347,14 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         }
         
+        _statusBarView.hidden = false;
+        
     } else {
         [constraints_V addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[statusBarView(==20)]"
                                                                                    options: 0
                                                                                    metrics: nil
                                                                                      views: viewsDictionary]];
+        _statusBarView.hidden = (statusBarAppearance == mobileStatusBarAppearanceNone);
     }
     
     [self.view addConstraints:constraints_H];
@@ -1370,8 +1373,7 @@ void run_on_ui_thread(dispatch_block_t block)
                  backgroundTintStyle:SEBBackgroundTintStyleNone];
         }
     }
-    _statusBarView.hidden = false;
-    
+
     [self setNeedsStatusBarAppearanceUpdate];
 
 }
