@@ -80,15 +80,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     
-    // Override point for customization after application launch.
-//    MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
-//    [drawerController setMaximumRightDrawerWidth:200.0];
-//    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
-//    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView];
-//    [drawerController setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeFull];
-//    [drawerController setShouldStretchDrawer:NO];
-//    [drawerController setShowsShadow:YES];
-
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];
     [self.window addSubview:lagFreeField];
