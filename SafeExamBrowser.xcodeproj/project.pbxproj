@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24367DC5B391DDA04009AA66 /* libPods-SEB Enterprise.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEB64F993B8747B7AE3E045 /* libPods-SEB Enterprise.a */; };
-		475D9F35BFDB0A53775F5009 /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */; };
+		37DEC47D08D00A308438D849 /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB958B404773247A2C3CA2F /* libPods-SEB.a */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
@@ -381,7 +380,6 @@
 		69B1717B20FE2D95004BD0FC /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69967B731C58FD9800EE5658 /* libSEBSupport.a */; };
 		69B1717C20FE2D95004BD0FC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A223401C20E38600766354 /* libz.tbd */; };
 		69B1717D20FE2D95004BD0FC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
-		69B1717E20FE2D95004BD0FC /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */; };
 		69B1718020FE2D95004BD0FC /* Icon-320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* Icon-320x320.png */; };
 		69B1718120FE2D95004BD0FC /* SEBSliderClosePage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D51E4E2200000B4A6D /* SEBSliderClosePage@3x.png */; };
 		69B1718220FE2D95004BD0FC /* continueCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331F001C10AC1B0038BD31 /* continueCircle@2x.png */; };
@@ -804,7 +802,8 @@
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
-		B25D911CA2A08794B862FF3C /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E56D8DA5F546AC785A0E11 /* libPods-Safe Exam Browser.a */; };
+		84CB3A42F2BDD128121ABF8C /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */; };
+		C1868E70634DA34119AB5A70 /* libPods-SEB Enterprise.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -837,15 +836,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		2EF8480F61EB73CB726CE013 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
-		399ACA9C958C526FB278B71E /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
-		43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
+		5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserOpenWindowWebView.h; path = Classes/BrowserComponents/SEBBrowserOpenWindowWebView.h; sourceTree = "<group>"; };
 		69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserOpenWindowWebView.m; path = Classes/BrowserComponents/SEBBrowserOpenWindowWebView.m; sourceTree = "<group>"; };
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
@@ -1259,16 +1259,11 @@
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
-		8BEB64F993B8747B7AE3E045 /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		916565AD8C3FD6FBF9DB3517 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
-		945A6CD48C4D9BD092B15C32 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
-		A0C8FB30AC206508F12735B0 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
-		B2AC6E851A4CCECD3189876A /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
-		C3E56D8DA5F546AC785A0E11 /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
-		E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6D229DCA416EFCB20ADB7AA /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
-		E776722406B5B6C1814D30FA /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
+		767753732B9561C9CFC3A093 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
+		8DB958B404773247A2C3CA2F /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EF18AC52A0B179C8DBCE369 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
+		C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
+		EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1279,7 +1274,7 @@
 				69967B741C58FD9800EE5658 /* libSEBSupport.a in Frameworks */,
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
-				475D9F35BFDB0A53775F5009 /* libPods-SEB.a in Frameworks */,
+				37DEC47D08D00A308438D849 /* libPods-SEB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,7 +1299,6 @@
 				69B1717B20FE2D95004BD0FC /* libSEBSupport.a in Frameworks */,
 				69B1717C20FE2D95004BD0FC /* libz.tbd in Frameworks */,
 				69B1717D20FE2D95004BD0FC /* WebKit.framework in Frameworks */,
-				69B1717E20FE2D95004BD0FC /* libPods-SEB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,7 +1309,7 @@
 				69CFFA261D3641B500FE5655 /* libSEBSupport.a in Frameworks */,
 				69CFFA271D3641B500FE5655 /* libz.tbd in Frameworks */,
 				69CFFA281D3641B500FE5655 /* WebKit.framework in Frameworks */,
-				24367DC5B391DDA04009AA66 /* libPods-SEB Enterprise.a in Frameworks */,
+				C1868E70634DA34119AB5A70 /* libPods-SEB Enterprise.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,7 +1324,7 @@
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				B25D911CA2A08794B862FF3C /* libPods-Safe Exam Browser.a in Frameworks */,
+				84CB3A42F2BDD128121ABF8C /* libPods-Safe Exam Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1391,7 +1385,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* SEB */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				692476F41D27343600931AD8 /* SEB.entitlements */,
@@ -1404,9 +1398,9 @@
 				6940B9841BA0F2FB008C8CFC /* SEBTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
-				4F7957D674BE468F1FD09857 /* Pods */,
 				6910F530202900980054ECA6 /* SEB copy-Info.plist */,
 				69B1721520FE2D96004BD0FC /* SEB copy2-Info.plist */,
+				A9DCFB3F301AB1EC72C987AA /* Pods */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -1452,24 +1446,11 @@
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
-				E2ED0462C39EAE100DAFCCF1 /* libPods-SEB.a */,
-				C3E56D8DA5F546AC785A0E11 /* libPods-Safe Exam Browser.a */,
-				8BEB64F993B8747B7AE3E045 /* libPods-SEB Enterprise.a */,
+				8DB958B404773247A2C3CA2F /* libPods-SEB.a */,
+				5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */,
+				13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4F7957D674BE468F1FD09857 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2EF8480F61EB73CB726CE013 /* Pods-SEB.debug.xcconfig */,
-				E6D229DCA416EFCB20ADB7AA /* Pods-SEB.release.xcconfig */,
-				E776722406B5B6C1814D30FA /* Pods-Safe Exam Browser.debug.xcconfig */,
-				B2AC6E851A4CCECD3189876A /* Pods-Safe Exam Browser.release.xcconfig */,
-				916565AD8C3FD6FBF9DB3517 /* Pods-SEB Enterprise.debug.xcconfig */,
-				399ACA9C958C526FB278B71E /* Pods-SEB Enterprise.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		690BBEA919D2C44800F7C9C6 /* SEB Dock */ = {
@@ -2103,10 +2084,6 @@
 		69BA05A91D57E4C200C07C4F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				A0C8FB30AC206508F12735B0 /* Pods-Safe Exam Browser.debug.xcconfig */,
-				945A6CD48C4D9BD092B15C32 /* Pods-Safe Exam Browser.release.xcconfig */,
-				D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */,
-				43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -2187,6 +2164,19 @@
 				696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */,
 			);
 			name = "SEB Slider";
+			sourceTree = "<group>";
+		};
+		A9DCFB3F301AB1EC72C987AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				767753732B9561C9CFC3A093 /* Pods-SEB.debug.xcconfig */,
+				9EF18AC52A0B179C8DBCE369 /* Pods-SEB.release.xcconfig */,
+				C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */,
+				15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */,
+				0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */,
+				EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2410,13 +2400,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6940B9991BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEB" */;
 			buildPhases = (
-				ED2406323987713A8892DA21 /* [CP] Check Pods Manifest.lock */,
+				C3D40B91A79DAE5ACE0B6E6D /* [CP] Check Pods Manifest.lock */,
 				6940B9621BA0F2FB008C8CFC /* Sources */,
 				6940B9631BA0F2FB008C8CFC /* Frameworks */,
 				6940B9641BA0F2FB008C8CFC /* Resources */,
 				6943165D1BFEBB4900F784EE /* Headers */,
-				C979265F4E0FF6F5EB23EAA6 /* [CP] Copy Pods Resources */,
-				ED98C99F0B17482EAB65EA5E /* [CP] Embed Pods Frameworks */,
+				8FAAE03006CE77F60465FE1D /* [CP] Embed Pods Frameworks */,
+				86A2CA18DBD66E34F75100CE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2467,13 +2457,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69B1721120FE2D95004BD0FC /* Build configuration list for PBXNativeTarget "SEB ETH Enterprise" */;
 			buildPhases = (
-				69B1714C20FE2D95004BD0FC /* [CP] Check Pods Manifest.lock */,
 				69B1714D20FE2D95004BD0FC /* Sources */,
 				69B1717A20FE2D95004BD0FC /* Frameworks */,
 				69B1717F20FE2D95004BD0FC /* Resources */,
 				69B171E720FE2D95004BD0FC /* Headers */,
-				69B1720F20FE2D95004BD0FC /* [CP] Copy Pods Resources */,
-				69B1721020FE2D95004BD0FC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2488,13 +2475,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69CFFA731D3641B500FE5655 /* Build configuration list for PBXNativeTarget "SEB Enterprise" */;
 			buildPhases = (
-				B5F3DFA355C74F0993BC2213 /* [CP] Check Pods Manifest.lock */,
+				9B08BED2EC40A8AA98FD6FF2 /* [CP] Check Pods Manifest.lock */,
 				69CFFA001D3641B500FE5655 /* Sources */,
 				69CFFA251D3641B500FE5655 /* Frameworks */,
 				69CFFA2B1D3641B500FE5655 /* Resources */,
 				69CFFA551D3641B500FE5655 /* Headers */,
-				7CB6688FD7A33BBFBF729915 /* [CP] Embed Pods Frameworks */,
-				9FA7F296A4099571AA873369 /* [CP] Copy Pods Resources */,
+				AD4421B79CCA0A81E60B9C60 /* [CP] Embed Pods Frameworks */,
+				F81F3F59BBC082765AB4C48C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2509,15 +2496,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
 			buildPhases = (
-				1BA3073533E6C924B54CB0EF /* [CP] Check Pods Manifest.lock */,
+				549393D7FD6E063624A6295D /* [CP] Check Pods Manifest.lock */,
 				69A79DA117176584005B06CD /* Run Script */,
 				69F7B5FB14F411FB00FD0761 /* Resources */,
 				69F7B60814F411FB00FD0761 /* Sources */,
 				69F7B61C14F411FB00FD0761 /* Frameworks */,
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
 				69A0BF6F1660239400A866C4 /* Headers */,
-				8CAB67CE80CFBC49E9CA1E6C /* [CP] Embed Pods Frameworks */,
-				08681485808807E6471C3983 /* [CP] Copy Pods Resources */,
+				5E57AD45EDF025D8DB9E763B /* [CP] Embed Pods Frameworks */,
+				835DB2B7B82DBC8FF15FCDFC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2571,7 +2558,7 @@
 				de,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3008,22 +2995,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08681485808807E6471C3983 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1BA3073533E6C924B54CB0EF /* [CP] Check Pods Manifest.lock */ = {
+		549393D7FD6E063624A6295D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3041,6 +3013,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5E57AD45EDF025D8DB9E763B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		69A79DA117176584005B06CD /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3055,25 +3042,22 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%u\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
 		};
-		69B1714C20FE2D95004BD0FC /* [CP] Check Pods Manifest.lock */ = {
+		835DB2B7B82DBC8FF15FCDFC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SEB-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69B1720F20FE2D95004BD0FC /* [CP] Copy Pods Resources */ = {
+		86A2CA18DBD66E34F75100CE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3091,7 +3075,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69B1721020FE2D95004BD0FC /* [CP] Embed Pods Frameworks */ = {
+		8FAAE03006CE77F60465FE1D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3106,55 +3090,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7CB6688FD7A33BBFBF729915 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8CAB67CE80CFBC49E9CA1E6C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9FA7F296A4099571AA873369 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B5F3DFA355C74F0993BC2213 /* [CP] Check Pods Manifest.lock */ = {
+		9B08BED2EC40A8AA98FD6FF2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3172,25 +3108,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C979265F4E0FF6F5EB23EAA6 /* [CP] Copy Pods Resources */ = {
+		AD4421B79CCA0A81E60B9C60 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED2406323987713A8892DA21 /* [CP] Check Pods Manifest.lock */ = {
+		C3D40B91A79DAE5ACE0B6E6D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3208,19 +3141,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED98C99F0B17482EAB65EA5E /* [CP] Embed Pods Frameworks */ = {
+		F81F3F59BBC082765AB4C48C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3650,7 +3586,7 @@
 /* Begin XCBuildConfiguration section */
 		6940B9931BA0F2FB008C8CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */;
+			baseConfigurationReference = 767753732B9561C9CFC3A093 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3673,7 +3609,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3717,7 +3653,7 @@
 		};
 		6940B9941BA0F2FB008C8CFC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */;
+			baseConfigurationReference = 9EF18AC52A0B179C8DBCE369 /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3740,7 +3676,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3950,7 +3886,6 @@
 		};
 		69B1721220FE2D95004BD0FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3973,7 +3908,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4017,7 +3952,6 @@
 		};
 		69B1721320FE2D95004BD0FC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4040,7 +3974,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4080,7 +4014,7 @@
 		};
 		69CFFA741D3641B500FE5655 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 916565AD8C3FD6FBF9DB3517 /* Pods-SEB Enterprise.debug.xcconfig */;
+			baseConfigurationReference = C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4140,7 +4074,7 @@
 		};
 		69CFFA751D3641B500FE5655 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 399ACA9C958C526FB278B71E /* Pods-SEB Enterprise.release.xcconfig */;
+			baseConfigurationReference = 15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4196,7 +4130,7 @@
 		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0C8FB30AC206508F12735B0 /* Pods-Safe Exam Browser.debug.xcconfig */;
+			baseConfigurationReference = 0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -4204,7 +4138,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -4235,14 +4169,14 @@
 		};
 		69F7B62414F411FB00FD0761 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 945A6CD48C4D9BD092B15C32 /* Pods-Safe Exam Browser.release.xcconfig */;
+			baseConfigurationReference = EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4291,7 +4225,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4337,7 +4271,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11732;
+				CURRENT_PROJECT_VERSION = 11733;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;

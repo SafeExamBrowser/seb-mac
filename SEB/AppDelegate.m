@@ -36,9 +36,6 @@
 
 #import "SEBMasterViewController.h"
 
-#import "MMDrawerController.h"
-#import "MMDrawerVisualState.h"
-
 #import "LGSideMenuController.h"
 #import "UIViewController+LGSideMenuController.h"
 
