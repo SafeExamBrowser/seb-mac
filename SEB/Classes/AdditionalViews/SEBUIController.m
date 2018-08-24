@@ -217,7 +217,7 @@
             dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
-                                                       action:@selector(scanQRCode:)];
+                                                       action:@selector(scanQRCode)];
             [newDockItems addObject:dockItem];
             
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -230,7 +230,7 @@
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Scan Config QR Code",nil)
                                                             icon:sliderIcon
                                                           target:self
-                                                          action:@selector(scanQRCode:)];
+                                                          action:@selector(scanQRCode)];
         [sliderCommands addObject:sliderCommandItem];
         
     }
@@ -393,9 +393,9 @@
 }
 
 
-- (void)scanQRCode:(id)sender
+- (void)scanQRCode
 {
-    [_sebViewController scanQRCode:sender];
+    [_sebViewController scanQRCode];
 }
 
 

@@ -552,7 +552,7 @@ static NSMutableSet *browserWindowControllers;
 
     if ([shortcutItem.type isEqualToString:scanQRCodeConfigItemType]) {
         handled = true;
-        [self scanQRCode:self];
+        [self scanQRCode];
     }
     return handled;
 }
@@ -560,8 +560,10 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - QRCodeReader
 
-- (void)scanQRCode:(id)sender
+- (void)scanQRCode
 {
+    [self.sideMenuController hideLeftViewAnimated];
+    
     _visibleCodeReaderViewController = self.codeReaderViewController;
     if (_visibleCodeReaderViewController) {
         if ([QRCodeReader isAvailable]) {
@@ -578,7 +580,6 @@ static NSMutableSet *browserWindowControllers;
     if (!_scannedQRCode) {
         _scannedQRCode = true;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
-            [self.sideMenuController hideLeftViewAnimated];
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {

@@ -192,7 +192,7 @@
 - (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 
 - (void) showConfigURLWarning;
-- (void) scanQRCode:(id)sender;
+- (void) scanQRCode;
 
 - (void) conditionallyShowSettingsModal;
 - (void) conditionallyResetSettings;
