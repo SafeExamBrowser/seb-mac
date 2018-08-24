@@ -1183,6 +1183,13 @@ void run_on_ui_thread(dispatch_block_t block)
             [self setToolbarItems:self.sebUIController.dockItems];
         } else {
             [self.navigationController setToolbarHidden:YES];
+            
+            if (_bottomBackgroundView) {
+                [_bottomBackgroundView removeFromSuperview];
+            }
+            if (_toolBarView) {
+                [_toolBarView removeFromSuperview];
+            }
         }
         
         // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
