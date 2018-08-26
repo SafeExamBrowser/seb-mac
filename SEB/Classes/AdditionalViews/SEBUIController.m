@@ -60,6 +60,7 @@
     UIImage *sliderIcon;
 
     _browserToolbarEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
+    _dockEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"];
     
     /// Get status bar style from settings
     // Check if we need to customize the status bar, because running on a device
@@ -141,7 +142,7 @@
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
         
         // Add Navigate Back Button to dock if enabled
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+        if (_dockEnabled &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]) {
             dockIcon = [UIImage imageNamed:@"SEBNavigateBackIcon"];
             
@@ -149,7 +150,6 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(goBack)];
-            //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBSliderNavigateBackIcon"]];
             dockItem.enabled = false;
             [newDockItems addObject:dockItem];
             dockBackButton = dockItem;
@@ -157,10 +157,18 @@
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
+        } else if (!_browserToolbarEnabled) {
+            // otherwise add navigate back command to slider if the toolbar isn't enabled
+            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
+            sliderBackButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Back",nil)
+                                                                icon:sliderIcon
+                                                              target:self
+                                                              action:@selector(goBack)];
+            [sliderCommands addObject:sliderBackButtonItem];
         }
         
         // Add Navigate Forward Button to dock if enabled
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+        if (_dockEnabled &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]) {
             dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
             
@@ -175,13 +183,22 @@
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
+        } else if (!_browserToolbarEnabled) {
+            // otherwise add navigate back command to slider if the toolbar isn't enabled
+            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateForwardIcon"];
+            sliderForwardButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Forward",nil)
+                                                                icon:sliderIcon
+                                                              target:self
+                                                              action:@selector(goForward)];
+            [sliderCommands addObject:sliderForwardButtonItem];
         }
     }
     
     // Add Reload dock button if enabled and dock visible
+    _dockReloadButton = nil;
     if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
          [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+        _dockEnabled &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
         dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
@@ -190,7 +207,7 @@
                                                    action:@selector(reload)];
         //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
         [newDockItems addObject:dockItem];
-        dockReloadButton = dockItem;
+        _dockReloadButton = dockItem;
         
         dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
         dockItem.width = 0;
@@ -198,7 +215,7 @@
         
     } else if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
                 [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
-               ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
+               !_browserToolbarEnabled) {
         // otherwise add reload page command to slider if the toolbar isn't enabled
         sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
@@ -345,12 +362,12 @@
 {
     if (reloadEnabled)  {
         // Activate reload buttons in dock and slider
-        dockReloadButton.enabled = true;
+        _dockReloadButton.enabled = true;
         sliderReloadButtonItem.enabled = true;
         
     } else {
         // Deactivate reload buttons in toolbar, dock and slider
-        dockReloadButton.enabled = false;
+        _dockReloadButton.enabled = false;
         sliderReloadButtonItem.enabled = false;
     }
 }

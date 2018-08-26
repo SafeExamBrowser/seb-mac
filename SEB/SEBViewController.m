@@ -1040,7 +1040,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         /// If dock is enabled, register items to the toolbar
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        if (self.sebUIController.dockEnabled) {
             [self.navigationController setToolbarHidden:NO];
             
             // Check if we need to customize the toolbar, because running on a device
@@ -2321,7 +2321,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL show = (navigationEnabled &&
-                 !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+                 !(self.sebUIController.dockEnabled &&
                    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]));
 
     if (show) {
@@ -2568,7 +2568,8 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) activateReloadButtons:(BOOL)reloadEnabled
 {
     if (reloadEnabled)  {
-        if (self.sebUIController.browserToolbarEnabled) {
+        if (self.sebUIController.browserToolbarEnabled &&
+            !self.sebUIController.dockReloadButton) {
             // Add reload button to navigation bar
             toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
                                                                    style:UIBarButtonItemStylePlain
