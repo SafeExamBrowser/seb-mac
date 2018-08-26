@@ -44,7 +44,6 @@
     
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
-    UIBarButtonItem *dockReloadButton;
     SEBSliderItem *sliderBackButtonItem;
     SEBSliderItem *sliderForwardButtonItem;
     SEBSliderItem *sliderReloadButtonItem;
@@ -56,10 +55,13 @@
 
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
+@property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
+
 
 @property (readwrite) NSUInteger statusBarAppearance;
 @property (readwrite) NSUInteger statusBarAppearanceExtended;
 @property (readwrite) BOOL browserToolbarEnabled;
+@property (readwrite) BOOL dockEnabled;
 
 
 // Check if running on a device like iPhone X
