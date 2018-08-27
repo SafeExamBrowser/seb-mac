@@ -218,11 +218,11 @@
                !_browserToolbarEnabled) {
         // otherwise add reload page command to slider if the toolbar isn't enabled
         sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
+        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(reload)];
-        [sliderCommands addObject:sliderCommandItem];
+        [sliderCommands addObject:sliderReloadButtonItem];
     }
     
     // Add scan QR code command/Home screen quick action/dock button
