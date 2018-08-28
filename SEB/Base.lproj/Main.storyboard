@@ -115,11 +115,11 @@
                                 <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="KDY-3t-mkg"/>
                                 <exclude reference="zI1-ak-deL"/>
-                                <exclude reference="XgE-rC-Fgh"/>
                                 <exclude reference="TmR-fM-hvc"/>
                                 <exclude reference="Tta-fx-jYS"/>
                                 <exclude reference="cZC-Wr-uvr"/>
                                 <exclude reference="xVi-47-At1"/>
+                                <exclude reference="XgE-rC-Fgh"/>
                             </mask>
                         </variation>
                     </view>
@@ -223,12 +223,19 @@
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                 </button>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="1000" text="Webpage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aA9-gn-PKl">
-                                                    <rect key="frame" x="34" y="3" width="67.5" height="28"/>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="1000" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aA9-gn-PKl">
+                                                    <rect key="frame" x="34" y="3" width="68" height="28"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <viewLayoutGuide key="safeArea" id="bns-C7-kQx"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="20"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Webpage">
+                                                            <attributes>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="AvenirNextCondensed-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -343,9 +350,9 @@
                         <viewLayoutGuide key="safeArea" id="qWE-7B-Tda"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="3Ic-2x-eEQ"/>
                                 <exclude reference="Ppo-qu-mXY"/>
                                 <exclude reference="egs-oH-0Iw"/>
-                                <exclude reference="3Ic-2x-eEQ"/>
                                 <exclude reference="ODx-Wd-YgI"/>
                             </mask>
                         </variation>
