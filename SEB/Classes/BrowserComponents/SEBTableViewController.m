@@ -264,6 +264,19 @@
             } else {
                 cellLabel.textColor = [UIColor whiteColor];
             }
+            // Underline selected webpage title
+            NSMutableAttributedString *attributedLabelText = [[NSMutableAttributedString alloc]
+                                                              initWithAttributedString:cellLabel.attributedText];
+            
+            if (index == [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow) {
+                [attributedLabelText setAttributes:@{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)}
+                                             range:NSMakeRange(0, attributedLabelText.length)];
+            } else {
+                [attributedLabelText setAttributes:@{NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)}
+                                             range:NSMakeRange(0, attributedLabelText.length)];
+            }
+            cellLabel.attributedText = attributedLabelText.copy;
+
             UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
             [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -311,6 +324,8 @@
     NSInteger section = indexPath.section;
     NSInteger index = indexPath.row;
     
+    [tableView reloadData];
+
     switch (section) {
         case 0:
         {
@@ -320,32 +335,6 @@
             // Post a notification that the web page should be reloaded
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"requestWebpageReload" object:self];
-            
-            //    UIViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"page1"];
-            //    UIViewController *vcmain = [self.storyboard instantiateViewControllerWithIdentifier:@"vcmain"];
-            //
-            //    switch (index) {
-            //        case 0:{
-            //            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-            //                self.mm_drawerController.centerViewController = vcmain;
-            //                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-            //
-            //            }];
-            //            break;
-            //        }
-            //        case 1:{
-            //            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-            //                self.mm_drawerController.centerViewController = vc;
-            //                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-            //                
-            //            }];
-            //            break;
-            //        }
-            //            
-            //            
-            //        default:
-            //            break;
-            //    }
         }
             break;
             
@@ -392,6 +381,7 @@
             if (index != 0) {
                 [self.webpagesArray removeObjectAtIndex:index];
                 [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadData];
             }
             // Post a notification that the web page should be closed
             [[NSNotificationCenter defaultCenter]
