@@ -288,14 +288,16 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
 {
-//    if (UIAccessibilityIsGuidedAccessEnabled()) {
-//        if (navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeFormSubmitted) {
-//            navigationType = UIWebViewNavigationTypeOther;
-//            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
-//            [webView loadRequest:request];
-//            return NO;
-//        }
-//    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (UIAccessibilityIsGuidedAccessEnabled()) {
+        if (navigationType == UIWebViewNavigationTypeLinkClicked &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"]) {
+            navigationType = UIWebViewNavigationTypeOther;
+            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
+            [webView loadRequest:request];
+            return NO;
+        }
+    }
 
     NSURL *url = [request URL];
     if ([[url scheme] isEqualToString:@"newtab"]) {
@@ -316,7 +318,6 @@
     }
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([[url absoluteString] isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
             [[NSNotificationCenter defaultCenter]

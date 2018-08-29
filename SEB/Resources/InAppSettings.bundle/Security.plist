@@ -26,17 +26,17 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Classic Single App Mode (SAM)</string>
+			<string></string>
 			<key>FooterText</key>
-			<string>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
+			<string>Settings for Classic Single App Mode (SAM) and Guided Access</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Allow Single App Mode</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileAllowSingleAppMode</string>
+			<string>Legacy Single App Mode</string>
+			<key>File</key>
+			<string>SecurityLegacy</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -44,7 +44,7 @@
 			<key>Title</key>
 			<string></string>
 			<key>FooterText</key>
-			<string>Disable for preventing seb(s):// links to be used for starting exams or reconfiguring the client.</string>
+			<string>Disable to prevent that seb(s):// links can start exams with individual settings or reconfigure the client.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
