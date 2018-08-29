@@ -346,6 +346,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_mobileAllowSingleAppMode",
                                  @NO,
                                  @"org_safeexambrowser_SEB_mobileAllowQRCodeConfig",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform",
                                  @YES,
                                  @"org_safeexambrowser_SEB_mobileEnableASAM",
                                  @NO,
