@@ -24,13 +24,7 @@
         webKitVersion = SEBUserAgentDefaultSafariVersion;
     }
     
-    // Check if default user agent string contains the browser "Version" number string
-    NSString *versionString = @"";
-    if ([defaultUserAgent rangeOfString:@"Version/"].location == NSNotFound) {
-        versionString = @"Version/10.0 ";
-    }
-
-    defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@%@/%@", versionString, SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
+    defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
     [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
 }
 
