@@ -532,7 +532,12 @@
         // Load start URL from the system's user defaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
+            NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
+            if (queryString.length > 0) {
+                urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
+            }
+        }
         [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
 }

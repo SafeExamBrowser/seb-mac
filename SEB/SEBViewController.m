@@ -226,6 +226,16 @@ static NSMutableSet *browserWindowControllers;
                                                       [self readDefaultsValues];
                                                   }];
     
+    // Add Notification Center observer to be alerted when the UIScreen isCaptured property changes
+    if (@available(iOS 11.0, *)) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          [self readDefaultsValues];
+                                                      }];
+    }
+    
     // Initialize UI and default UI/browser settings
     [self initSEB];
     
@@ -1432,6 +1442,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
+    startURLQueryParameter = nil;
     // Check if the initialize settings assistant is open
     if (_initAssistantOpen) {
         [self dismissViewControllerAnimated:YES completion:^{
@@ -1482,6 +1493,28 @@ void run_on_ui_thread(dispatch_block_t block)
                 
             } else {
                 // SEB isn't in exam mode: reconfiguring is allowed
+                
+                // Check URL for additional query string
+                NSString *queryString = url.query;
+                if (queryString.length > 0) {
+                    NSArray *additionalQueryStrings = [queryString componentsSeparatedByString:@"?"];
+                    // There is an additional query string if the full query URL component itself containts
+                    // a query separator character "?"
+                    if (additionalQueryStrings.count == 2) {
+                        // Cache the additional query string for later use
+                        startURLQueryParameter = additionalQueryStrings.lastObject;
+                        // Replace the full query string in the download URL with the first query component
+                        // (which is the actual query of the SEB config download URL)
+                        queryString = additionalQueryStrings.firstObject;
+                        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                        if (queryString.length == 0) {
+                            queryString = nil;
+                        }
+                        urlComponents.query = queryString;
+                        url = urlComponents.URL;
+                    }
+                }
+                
                 NSError *error = nil;
                 NSData *sebFileData;
                 // Download the .seb file directly into memory (not onto disc like other files)
@@ -1544,6 +1577,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!error) {
         _isReconfiguring = false;
         _scannedQRCode = false;
+        [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
         NSString *newSettingsFilename = [[MyGlobals sharedMyGlobals] currentConfigURL].lastPathComponent.stringByDeletingPathExtension;

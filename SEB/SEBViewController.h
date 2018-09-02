@@ -107,7 +107,8 @@
     BOOL ASAMActiveChecked;
     BOOL sebUIInitialized;
     NSString *currentStartURL;
-    
+    NSString *startURLQueryParameter;
+
     NSUInteger statusBarAppearance;
     BOOL browserToolbarEnabled;
     UIBarButtonItem *toolbarBackButton;

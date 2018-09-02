@@ -522,6 +522,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_showTime",
                                  SEBStartPage,
                                  @"org_safeexambrowser_SEB_startURL",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_startURLAppendQueryParameter",
                                  [NSNumber numberWithLong:40],
                                  @"org_safeexambrowser_SEB_taskBarHeight",
                                  @NO,
@@ -558,6 +560,8 @@ static NSNumber *_logLevel;
                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                  @"org_safeexambrowser_originatorVersion",
+                                 @"",
+                                 @"org_safeexambrowser_startURLQueryParameter",
 
                                  nil];
     return appDefaults;
