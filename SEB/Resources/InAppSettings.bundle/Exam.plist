@@ -82,6 +82,22 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_restartExamPasswordProtected</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Query String Parameters</string>
+			<key>FooterText</key>
+			<string>An additional query string added to a URL (separated by &apos;?&apos; or &apos;??&apos; if the main URL doesn&apos;t contain a query) will be appended to the Start URL of an exam. This works when loading the exam config file with seb(s):// links or QR codes.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Query Parameters</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_startURLAppendQueryParameter</string>
+		</dict>
 	</array>
 </dict>
 </plist>
