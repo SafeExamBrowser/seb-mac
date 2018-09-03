@@ -612,7 +612,7 @@ bool insideMatrix();
         // Show alert that SEB was reconfigured
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
         int answer = [newAlert runModal];
