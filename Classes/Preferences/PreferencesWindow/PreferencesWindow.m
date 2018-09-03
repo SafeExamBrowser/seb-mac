@@ -64,7 +64,7 @@
     if (filenames.count == 1) {
         if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
             NSString *filename = [filenames lastObject];
-            if ([filename.pathExtension isEqualToString:@"seb"]) {
+            if ([filename.pathExtension isEqualToString:SEBFileExtension]) {
                 return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
             }
         }

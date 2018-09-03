@@ -895,7 +895,7 @@ static NSMutableSet *browserWindowControllers;
 
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
-        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : @"seb"];
+        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : SEBFileExtension];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
@@ -1518,7 +1518,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 NSError *error = nil;
                 NSData *sebFileData;
                 // Download the .seb file directly into memory (not onto disc like other files)
-                if ([url.scheme isEqualToString:@"seb"]) {
+                if ([url.scheme isEqualToString:SEBProtocolScheme]) {
                     // If it's a seb:// URL, we try to download it by http
                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                     urlComponents.scheme = @"http";
@@ -1537,7 +1537,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             return;
                         }
                     }
-                } else if ([url.scheme isEqualToString:@"sebs"]) {
+                } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
                     // If it's a sebs:// URL, we try to download it by https
                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                     urlComponents.scheme = @"https";

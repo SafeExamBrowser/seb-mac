@@ -220,7 +220,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     
     if (url) {
         // We check for extensions "seb" and "gz", as Safari un
-        if ([url.pathExtension isEqualToString:@"seb"] || [url.pathExtension isEqualToString:@"gz"]) {
+        if ([url.pathExtension isEqualToString:SEBFileExtension] || [url.pathExtension isEqualToString:@"gz"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
             _openedURL = true;

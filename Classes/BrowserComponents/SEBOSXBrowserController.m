@@ -408,7 +408,7 @@
             NSError *error = nil;
             NSData *sebFileData;
             // Download the .seb file directly into memory (not onto disc like other files)
-            if ([url.scheme isEqualToString:@"seb"]) {
+            if ([url.scheme isEqualToString:SEBProtocolScheme]) {
                 // If it's a seb:// URL, we try to download it by http
                 NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
                 sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
@@ -422,7 +422,7 @@
                         return;
                     }
                 }
-            } else if ([url.scheme isEqualToString:@"sebs"]) {
+            } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
                 // If it's a sebs:// URL, we try to download it by https
                 NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
                 sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
