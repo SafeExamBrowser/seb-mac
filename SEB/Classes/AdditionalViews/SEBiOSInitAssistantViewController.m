@@ -171,6 +171,13 @@
 }
 
 
+- (IBAction)searchNetwork:(id)sender {
+    NSString *hostName = [_assistantController domainForCurrentNetwork];
+    [self setConfigURLString:hostName];
+    [self urlEntered:self];
+}
+
+
 - (IBAction)editSettings:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         _sebViewController.initAssistantOpen = false;
