@@ -241,7 +241,8 @@ enum {
     SEBClientConfigURLSchemeNone                = 0,
     SEBClientConfigURLSchemeSubdomainShort      = 1,
     SEBClientConfigURLSchemeSubdomainLong       = 2,
-    SEBClientConfigURLSchemeDomain              = 3
+    SEBClientConfigURLSchemeDomain              = 3,
+    SEBClientConfigURLSchemeWellKnown           = 4
 };
 typedef NSUInteger SEBClientConfigURLSchemes;
 
@@ -368,6 +369,14 @@ static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 
 static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
 
+static NSString __unused *SEBFileExtension = @"seb";
+static NSString __unused *SEBMIMEType = @"application/seb";
+static NSString __unused *SEBProtocolScheme = @"seb";
+static NSString __unused *SEBSSecureProtocolScheme = @"sebs";
+static NSString __unused *SEBClientSettingsACCSubdomainShort = @"seb";
+static NSString __unused *SEBClientSettingsACCSubdomainLong = @"safeexambrowser";
+static NSString __unused *SEBClientSettingsACCPath = @"safeexambrowser";
+static NSString __unused *SEBClientSettingsFilename = @"SEBClientSettings.seb";
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/11.1.2 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
