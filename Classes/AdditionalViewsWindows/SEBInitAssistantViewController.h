@@ -102,4 +102,6 @@
 
 - (void) evaluateEnteredURLString:(NSString *)URLString;
 
+- (NSString *) domainForCurrentNetwork;
+
 @end
