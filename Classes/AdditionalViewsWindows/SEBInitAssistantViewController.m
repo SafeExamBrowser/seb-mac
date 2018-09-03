@@ -51,9 +51,9 @@
             // if yes, replace it with http(s)
             scheme = [URLString substringToIndex:scanResult.location];
             NSString *newScheme = scheme;
-            if ([scheme isEqualToString:@"seb"]) {
+            if ([scheme isEqualToString:SEBProtocolScheme]) {
                 newScheme = @"http";
-            } else if ([scheme isEqualToString:@"sebs"]) {
+            } else if ([scheme isEqualToString:SEBSSecureProtocolScheme]) {
                 newScheme = @"https";
             } else if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
                 // if the scheme isn't seb, sebs, http, https, then don't accept the URL
@@ -183,7 +183,7 @@
         {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
             NSString *host = url.host;
-            host = [NSString stringWithFormat:@"seb.%@", host];
+            host = [NSString stringWithFormat:@"%@.%@", SEBClientSettingsACCSubdomainShort, host];
             urlComponents.host = host;
             NSURL *newURL = urlComponents.URL;
             [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
@@ -194,7 +194,7 @@
         {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
             NSString *host = url.host;
-            host = [NSString stringWithFormat:@"safeexambrowser.%@", host];
+            host = [NSString stringWithFormat:@"%@.%@", SEBClientSettingsACCSubdomainLong, host];
             urlComponents.host = host;
             NSURL *newURL = urlComponents.URL;
             [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
@@ -207,12 +207,18 @@
             break;
         }
             
+        case SEBClientConfigURLSchemeWellKnown:
+        {
+            [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
+            break;
+        }
+            
         default:
             [self storeSEBClientSettingsSuccessful:[[NSError alloc] initWithDomain:sebErrorDomain
-                                                                                               code:9999
-                                                                                           userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"No SEB Configuration Found", nil),
-                                                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
-                                                                                                       }]];
+                                                                              code:9999
+                                                                          userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"No SEB Configuration Found", nil),
+                                                                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+                                                                                      }]];
             break;
     }
 }
@@ -220,8 +226,14 @@
 
 - (void) downloadSEBClientConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
-    if (![url.pathExtension isEqualToString:@"seb"]) {
-        url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
+    if (![url.pathExtension isEqualToString:SEBFileExtension]) {
+        NSString *clientSettingsPathAAC;
+        if (configURLScheme == SEBClientConfigURLSchemeWellKnown) {
+            clientSettingsPathAAC = @".well-known";
+        } else {
+            clientSettingsPathAAC = SEBClientSettingsACCPath;
+        }
+        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@", clientSettingsPathAAC, SEBClientSettingsFilename]];
         clientConfigURL = true;
     }
     if (url) {
