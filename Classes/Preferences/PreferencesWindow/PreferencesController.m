@@ -770,7 +770,7 @@
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
-    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
     [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
                   completionHandler:^(NSInteger result){
                       if (result == NSFileHandlingPanelOKButton)
@@ -829,7 +829,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         // Preset "SebClientSettings.seb" as default file name
-        currentConfigFileURL = [NSURL URLWithString:@"SebClientSettings.seb"];
+        currentConfigFileURL = [NSURL URLWithString:SEBClientSettingsFilename];
     } else {
         
         /// Private settings are active
@@ -881,7 +881,7 @@
             }
             [panel setDirectoryURL:directory];
             [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
-            [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+            [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
             int result = [panel runModal];
             if (result == NSFileHandlingPanelOKButton) {
                 prefsFileURL = [panel URL];
@@ -1237,7 +1237,7 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:@"SebClientSettings.seb"]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:SEBClientSettingsFilename]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

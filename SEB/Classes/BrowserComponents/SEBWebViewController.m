@@ -311,7 +311,7 @@
     }
     
     // Check if this is a seb:// or sebs:// link
-    if ([url.scheme isEqualToString:@"seb"] || [url.scheme isEqualToString:@"sebs"]) {
+    if ([url.scheme isEqualToString:SEBProtocolScheme] || [url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
         // If the scheme is seb:// we (conditionally) download and open the linked .seb file
         [_browserTabViewController downloadAndOpenSEBConfigFromURL:url];
         return NO;

@@ -174,7 +174,7 @@ bool insideMatrix();
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSURL *url = [NSURL URLWithString:urlString];
     if (url) {
-        if ([url.pathExtension isEqualToString:@"seb"]) {
+        if ([url.pathExtension isEqualToString:SEBFileExtension]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
             [self.browserController downloadAndOpenSEBConfigFromURL:url];

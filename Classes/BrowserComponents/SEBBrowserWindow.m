@@ -1313,7 +1313,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         
         // Check if this is a seb:// or sebs:// link
         NSString *scheme = request.URL.scheme;
-        if ([scheme isEqualToString:@"seb"] || [scheme isEqualToString:@"sebs"]) {
+        if ([scheme isEqualToString:SEBProtocolScheme] || [scheme isEqualToString:SEBSSecureProtocolScheme]) {
             // If the scheme is seb(s):// we (conditionally) download and open the linked .seb file
             [self.browserController downloadAndOpenSEBConfigFromURL:request.URL];
             [listener ignore];
@@ -1432,7 +1432,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
+    if (([type isEqualToString:SEBMIMEType]) || ([request.URL.pathExtension isEqualToString:SEBFileExtension])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         [self.browserController downloadAndOpenSEBConfigFromURL:request.URL];
         [listener ignore];
