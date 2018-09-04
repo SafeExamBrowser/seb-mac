@@ -608,9 +608,17 @@
 }
 
 
-- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
+// Download, decrypt, parse, store new SEB settings and if successfull, reconfigure SEB
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
-    [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+    [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
+}
+
+
+// Decrypt, parse, store new SEB settings and if successfull, reconfigure SEB
+- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+{
+    [_sebViewController conditionallyOpenSEBConfigFromData:sebConfigData];
 }
 
 

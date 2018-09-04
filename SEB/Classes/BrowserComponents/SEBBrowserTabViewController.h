@@ -89,7 +89,8 @@
 - (void) switchToTab:(id)sender;
 - (void) closeTab;
 
-- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 
 @end
 

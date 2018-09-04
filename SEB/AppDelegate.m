@@ -230,10 +230,10 @@ void run_block_on_ui_thread(dispatch_block_t block)
                     // Close settings
                     [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                         _sebViewController.settingsOpen = false;
-                        [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+                        [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
                     }];
                 } else {
-                    [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+                    [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
                 }
             } else {
                 // Postpone loading .seb file until app did finish launching
