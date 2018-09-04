@@ -90,7 +90,9 @@
 
 
 - (IBAction)typingURL:(id)sender {
-    [self setConfigURLWrongLabelHidden:true forClientConfigURL:false];
+    [self setConfigURLWrongLabelHidden:true
+                                 error:nil
+                    forClientConfigURL:false];
 }
 
 
@@ -106,14 +108,24 @@
 }
 
 
-- (void)setConfigURLWrongLabelHidden:(BOOL)hidden forClientConfigURL:(BOOL)clientConfigURL {
+- (void)setConfigURLWrongLabelHidden:(BOOL)hidden
+                               error:(NSError *)error
+                  forClientConfigURL:(BOOL)clientConfigURL
+{
     noConfigFoundLabel.hidden = hidden;
 
     // The first time a wrong SEB client config URL is entered, we display a warning
     // that not all institutions support Automatic SEB Client Configuration
-    if (!hidden && clientConfigURL && ![[NSUserDefaults standardUserDefaults] boolForKey:@"configURLWarningDisplayed"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"configURLWarningDisplayed"];
-        [_sebViewController showConfigURLWarning];
+    if (error.code == SEBErrorASCCNoConfigFound) {
+        if (clientConfigURL && !configURLWarningDisplayed) {
+            configURLWarningDisplayed = YES;
+            [_sebViewController showConfigURLWarning:error];
+        }
+    } else if (error.code == SEBErrorASCCNoWiFi) {
+        noConfigFoundLabel.hidden = YES;
+        [_sebViewController showConfigURLWarning:error];
+    } else if (error) {
+        [_sebViewController showConfigURLWarning:error];
     }
 }
 

@@ -57,7 +57,9 @@
                 newScheme = @"https";
             } else if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
                 // if the scheme isn't seb, sebs, http, https, then don't accept the URL
-                [_controllerDelegate setConfigURLWrongLabelHidden:false forClientConfigURL:false];
+                [_controllerDelegate setConfigURLWrongLabelHidden:false
+                                                            error:nil
+                                               forClientConfigURL:false];
                 return;
             }
             URLString = [NSString stringWithFormat:@"%@%@", newScheme, [URLString substringFromIndex:scanResult.location]];
@@ -75,7 +77,9 @@
         clientConfigURL = false;
         [self checkSEBClientConfigURL:URLFromString withScheme:0];
     } else {
-        [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0 forClientConfigURL:false];
+        [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0
+                                                    error:nil
+                                       forClientConfigURL:false];
     }
 }
 
@@ -116,6 +120,17 @@
                 }
             }
             temp_addr = temp_addr->ifa_next;
+        }
+        if (!address) {
+            // Display warning that not connected to a WiFi network
+            [self storeSEBClientSettingsSuccessful:[[NSError alloc]
+                                                    initWithDomain:sebErrorDomain
+                                                    code:SEBErrorASCCNoWiFi
+                                                    userInfo:@{ NSLocalizedDescriptionKey :
+                                                                    NSLocalizedString(@"Not Connected to WiFi", nil),
+                                                                NSLocalizedFailureReasonErrorKey :
+                                                                    NSLocalizedString(@"Searching local network for Automatic SEB Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too.", nil)
+                                                                }]];
         }
     }
     // Free memory
@@ -214,11 +229,14 @@
         }
             
         default:
-            [self storeSEBClientSettingsSuccessful:[[NSError alloc] initWithDomain:sebErrorDomain
-                                                                              code:9999
-                                                                          userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"No SEB Configuration Found", nil),
-                                                                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
-                                                                                      }]];
+            [self storeSEBClientSettingsSuccessful:[[NSError alloc]
+                                                    initWithDomain:sebErrorDomain
+                                                    code:SEBErrorASCCNoConfigFound
+                                                    userInfo:@{ NSLocalizedDescriptionKey :
+                                                                    NSLocalizedString(@"No SEB Configuration Found", nil),
+                                                                NSLocalizedFailureReasonErrorKey :
+                                                                    NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+                                                                }]];
             break;
     }
 }
@@ -281,11 +299,15 @@
 - (void) storeSEBClientSettingsSuccessful:(NSError *)error
 {
     if (!error) {
-        [_controllerDelegate setConfigURLWrongLabelHidden:true forClientConfigURL:clientConfigURL];
+        [_controllerDelegate setConfigURLWrongLabelHidden:true
+                                                    error:nil
+                                       forClientConfigURL:clientConfigURL];
         _controllerDelegate.configURLString = @"";
         [_controllerDelegate closeAssistantRestartSEB];
     } else {
-        [_controllerDelegate setConfigURLWrongLabelHidden:false forClientConfigURL:clientConfigURL];
+        [_controllerDelegate setConfigURLWrongLabelHidden:false
+                                                    error:error
+                                       forClientConfigURL:clientConfigURL];
     }
 }
 
