@@ -366,6 +366,11 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 
 // Error numbers for SEB error domains
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
+enum {
+    SEBErrorASCCNoConfigFound                   = 1000,
+    SEBErrorASCCNoWiFi                          = 1001
+};
+typedef NSUInteger SEBErrorDomainErrors;
 
 static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
 

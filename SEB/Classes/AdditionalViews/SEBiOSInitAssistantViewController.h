@@ -50,6 +50,8 @@
     __weak IBOutlet UILabel *noConfigQRCodeFoundLabel;
     __weak IBOutlet UIButton *QRCodeScanButton;
     
+    BOOL configURLWarningDisplayed;
+    
     UILabel *noConfigFoundLabel;
     
     NSString *enteredConfigURLString;
