@@ -60,10 +60,13 @@
 - (void)activityIndicatorAnimate:(BOOL)animate;
 
 /**
- * @brief       Hide or show the label indicating that the URL entered was wrong.
+ * @brief       Hide or show the label indicating that the URL entered was wrong
+ *              and display the according NSError text
  * @details
  */
-- (void)setConfigURLWrongLabelHidden:(BOOL)hidden forClientConfigURL:(BOOL)clientConfigURL;
+- (void)setConfigURLWrongLabelHidden:(BOOL)hidden
+                               error:(NSError *)error
+                  forClientConfigURL:(BOOL)clientConfigURL;
 
 /**
  * @brief       Store downloaded SEB client settings and inform callback if successful.

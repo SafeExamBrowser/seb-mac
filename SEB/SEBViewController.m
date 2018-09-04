@@ -583,10 +583,10 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)showConfigURLWarning
+- (void)showConfigURLWarning:(NSError *)error
 {
-    [self alertWithTitle:NSLocalizedString(@"No SEB Configuration Found", nil)
-                 message:NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+    [self alertWithTitle:[error.userInfo objectForKey:NSLocalizedDescriptionKey]
+                 message:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]
             action1Title:NSLocalizedString(@"OK", nil)
           action1Handler:^{}
             action2Title:nil
