@@ -302,14 +302,35 @@
     NSURL *url = [request URL];
     NSString *fileExtension = [url pathExtension];
 
-    if ([[url scheme] isEqualToString:@"newtab"]) {
+    if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         url = [NSURL URLWithString:urlString relativeToURL:[webView url]];
         [_browserTabViewController openNewTabWithURL:url];
         return NO;
     }
-    if ([[url scheme] isEqualToString:@"about"]) {
+    if ([url.scheme isEqualToString:@"about"]) {
         return NO;
+    }
+    
+    if ([url.scheme isEqualToString:@"data"]) {
+        NSString *urlResourceSpecifier = [[url resourceSpecifier] stringByRemovingPercentEncoding];
+        DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
+        NSRange mediaTypeRange = [urlResourceSpecifier rangeOfString:@","];
+        if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
+            NSString *mediaType = [urlResourceSpecifier substringToIndex:mediaTypeRange.location];
+            NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
+            if ([mediaTypeParameters indexOfObject:@"application/seb"] != NSNotFound) {
+                NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
+                NSData *sebConfigData;
+                if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
+                    sebConfigData = [sebConfigString dataUsingEncoding:NSUTF8StringEncoding];
+                } else {
+                    sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                }
+                [_browserTabViewController conditionallyOpenSEBConfigFromData:sebConfigData];
+                return NO;
+            }
+        }
     }
     
     // Check if this is a seb:// or sebs:// link
@@ -318,7 +339,7 @@
         [fileExtension isEqualToString:SEBFileExtension]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
-        [_browserTabViewController downloadAndOpenSEBConfigFromURL:url];
+        [_browserTabViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
         return NO;
     }
 

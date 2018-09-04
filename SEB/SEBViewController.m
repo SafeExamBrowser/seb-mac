@@ -246,14 +246,14 @@ static NSMutableSet *browserWindowControllers;
             // Close settings
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                 _settingsOpen = false;
-                [self downloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
+                [self conditionallyDownloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
                 
                 // Set flag that SEB is initialized to prevent the client config
                 // Start URL to be loaded
                 [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
             }];
         } else {
-            [self downloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
+            [self conditionallyDownloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
             
             // Set flag that SEB is initialized to prevent the client config
             // Start URL to be loaded
@@ -635,7 +635,7 @@ static NSMutableSet *browserWindowControllers;
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {
-                [self downloadAndOpenSEBConfigFromURL:URLFromString];
+                [self conditionallyDownloadAndOpenSEBConfigFromURL:URLFromString];
             } else {
                 NSError *error = [self.configFileController errorCorruptedSettingsForUnderlyingError:nil];
                 [self storeNewSEBSettingsSuccessful:error];
@@ -1440,9 +1440,28 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
-    startURLQueryParameter = nil;
+    [self conditionallyOpenSEBConfig:url
+                            callback:self
+                            selector:@selector(downloadSEBConfigFromURL:)];
+}
+
+
+- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData
+{
+    [self conditionallyOpenSEBConfig:sebConfigData
+                            callback:self
+                            selector:@selector(storeNewSEBSettings:)];
+}
+
+
+// Prepare for downloading SEB config from URL, returns YES if downloading configs
+// is allowed, otherwise NO
+- (void) conditionallyOpenSEBConfig:(id)sebConfig
+                           callback:(id)callback
+                           selector:(SEL)selector
+{
     // Check if the initialize settings assistant is open
     if (_initAssistantOpen) {
         [self dismissViewControllerAnimated:YES completion:^{
@@ -1450,7 +1469,9 @@ void run_on_ui_thread(dispatch_block_t block)
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
             _finishedStartingUp = false;
-            [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
+            [self conditionallyOpenSEBConfig:sebConfig
+                                    callback:callback
+                                    selector:selector];
         }];
     } else if (_startSAMWAlertDisplayed) {
         // Dismiss the Activate SAM alert in case it still was visible
@@ -1461,7 +1482,9 @@ void run_on_ui_thread(dispatch_block_t block)
             // Set the paused SAM alert displayed flag, because if loading settings
             // fails or is canceled, we need to restart the kiosk mode
             _pausedSAMAlertDisplayed = true;
-            [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
+            [self conditionallyOpenSEBConfig:sebConfig
+                                    callback:callback
+                                    selector:selector];
         }];
         return;
 
@@ -1469,7 +1492,9 @@ void run_on_ui_thread(dispatch_block_t block)
         [_alertController dismissViewControllerAnimated:NO completion:^{
             _alertController = nil;
             _pausedSAMAlertDisplayed = true;
-            [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
+            [self conditionallyOpenSEBConfig:sebConfig
+                                    callback:callback
+                                    selector:selector];
         }];
         return;
     } else {
@@ -1492,82 +1517,100 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
                 
             } else {
-                // SEB isn't in exam mode: reconfiguring is allowed
-                
-                // Check URL for additional query string
-                NSString *queryString = url.query;
-                if (queryString.length > 0) {
-                    NSArray *additionalQueryStrings = [queryString componentsSeparatedByString:@"?"];
-                    // There is an additional query string if the full query URL component itself containts
-                    // a query separator character "?"
-                    if (additionalQueryStrings.count == 2) {
-                        // Cache the additional query string for later use
-                        startURLQueryParameter = additionalQueryStrings.lastObject;
-                        // Replace the full query string in the download URL with the first query component
-                        // (which is the actual query of the SEB config download URL)
-                        queryString = additionalQueryStrings.firstObject;
-                        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                        if (queryString.length == 0) {
-                            queryString = nil;
-                        }
-                        urlComponents.query = queryString;
-                        url = urlComponents.URL;
-                    }
-                }
-                
-                NSError *error = nil;
-                NSData *sebFileData;
-                // Download the .seb file directly into memory (not onto disc like other files)
-                if ([url.scheme isEqualToString:SEBProtocolScheme]) {
-                    // If it's a seb:// URL, we try to download it by http
-                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                    urlComponents.scheme = @"http";
-                    NSURL *httpURL = urlComponents.URL;
-                    sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
-                    if (error) {
-                        // If that didn't work, we try to download it by https
-                        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                        urlComponents.scheme = @"https";
-                        NSURL *httpsURL = urlComponents.URL;
-                        sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                        // Still couldn't download the .seb file: present an error and abort
-                        if (error) {
-                            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-                            [self storeNewSEBSettingsSuccessful:error];
-                            return;
-                        }
-                    }
-                } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
-                    // If it's a sebs:// URL, we try to download it by https
-                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                    urlComponents.scheme = @"https";
-                    NSURL *httpsURL = urlComponents.URL;
-                    sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                    // Couldn't download the .seb file: present an error and abort
-                    if (error) {
-                        error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-                        [self storeNewSEBSettingsSuccessful:error];
-                        return;
-                    }
-                } else {
-                    sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-                    if (error) {
-                        error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-                        [self storeNewSEBSettingsSuccessful:error];
-                        return;
-                    }
-                }
-                // Get current config path
-                currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-                // Store the URL of the .seb file as current config file path
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-                
-                [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+                // SEB isn't in exam mode, reconfiguring is allowed: Invoke the callback to proceed
+                IMP imp = [callback methodForSelector:selector];
+                void (*func)(id, SEL, id) = (void *)imp;
+                func(callback, selector, sebConfig);
             }
         } else {
             _scannedQRCode = false;
         }
     }
+}
+
+
+- (void) downloadSEBConfigFromURL:(NSURL *)url
+{
+    // Check URL for additional query string
+    startURLQueryParameter = nil;
+    NSString *queryString = url.query;
+    if (queryString.length > 0) {
+        NSArray *additionalQueryStrings = [queryString componentsSeparatedByString:@"?"];
+        // There is an additional query string if the full query URL component itself containts
+        // a query separator character "?"
+        if (additionalQueryStrings.count == 2) {
+            // Cache the additional query string for later use
+            startURLQueryParameter = additionalQueryStrings.lastObject;
+            // Replace the full query string in the download URL with the first query component
+            // (which is the actual query of the SEB config download URL)
+            queryString = additionalQueryStrings.firstObject;
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            if (queryString.length == 0) {
+                queryString = nil;
+            }
+            urlComponents.query = queryString;
+            url = urlComponents.URL;
+        }
+    }
+    
+    NSError *error = nil;
+    NSData *sebFileData;
+    // Download the .seb file directly into memory (not onto disc like other files)
+    if ([url.scheme isEqualToString:SEBProtocolScheme]) {
+        // If it's a seb:// URL, we try to download it by http
+        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        urlComponents.scheme = @"http";
+        NSURL *httpURL = urlComponents.URL;
+        sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
+        if (error) {
+            // If that didn't work, we try to download it by https
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            urlComponents.scheme = @"https";
+            NSURL *httpsURL = urlComponents.URL;
+            sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+            // Still couldn't download the .seb file: present an error and abort
+            if (error) {
+                error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+                [self storeNewSEBSettingsSuccessful:error];
+                return;
+            }
+        }
+    } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+        // If it's a sebs:// URL, we try to download it by https
+        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        urlComponents.scheme = @"https";
+        NSURL *httpsURL = urlComponents.URL;
+        sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+        // Couldn't download the .seb file: present an error and abort
+        if (error) {
+            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+            [self storeNewSEBSettingsSuccessful:error];
+            return;
+        }
+    } else {
+        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+        if (error) {
+            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+            [self storeNewSEBSettingsSuccessful:error];
+            return;
+        }
+    }
+    // Get current config path
+    currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    // Store the URL of the .seb file as current config file path
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
+    
+    [self storeNewSEBSettings:sebFileData];
+}
+
+
+// Decrypt, parse and store new SEB settings and report if it was successful
+- (void) storeNewSEBSettings:(NSData *)sebData
+{
+    [self.configFileController storeNewSEBSettings:sebData
+                                        forEditing:false
+                                          callback:self
+                                          selector:@selector(storeNewSEBSettingsSuccessful:)];
 }
 
 
