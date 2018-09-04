@@ -300,6 +300,8 @@
     }
 
     NSURL *url = [request URL];
+    NSString *fileExtension = [url pathExtension];
+
     if ([[url scheme] isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         url = [NSURL URLWithString:urlString relativeToURL:[webView url]];
@@ -311,8 +313,11 @@
     }
     
     // Check if this is a seb:// or sebs:// link
-    if ([url.scheme isEqualToString:SEBProtocolScheme] || [url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
-        // If the scheme is seb:// we (conditionally) download and open the linked .seb file
+    if ([url.scheme isEqualToString:SEBProtocolScheme] ||
+        [url.scheme isEqualToString:SEBSSecureProtocolScheme] ||
+        [fileExtension isEqualToString:SEBFileExtension]) {
+        // If the scheme is seb(s):// or the file extension .seb,
+        // we (conditionally) download and open the linked .seb file
         [_browserTabViewController downloadAndOpenSEBConfigFromURL:url];
         return NO;
     }
@@ -331,8 +336,6 @@
 
     // Downloading image files for the freehand drawing functionality
     if(navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeOther) {
-        NSString *fileExtension = [url pathExtension];
-        
         if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"]) {
                 // Get the filename of the loaded ressource form the UIWebView's request URL
