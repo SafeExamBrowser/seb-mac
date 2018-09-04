@@ -208,7 +208,8 @@
 - (void) conditionallyOpenLockdownWindows;
 - (void) openLockdownWindows;
 
-- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;
