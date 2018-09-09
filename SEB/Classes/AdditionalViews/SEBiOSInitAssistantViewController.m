@@ -70,6 +70,12 @@
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_assistantController cancelDownloadingClientConfig];
+}
+
+
 - (BOOL) prefersStatusBarHidden
 {
     return true;

@@ -104,6 +104,7 @@
 
 
 - (void) evaluateEnteredURLString:(NSString *)URLString;
+- (void) cancelDownloadingClientConfig;
 
 - (NSString *) domainForCurrentNetwork;
 

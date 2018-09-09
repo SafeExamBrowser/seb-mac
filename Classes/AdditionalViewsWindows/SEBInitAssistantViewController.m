@@ -261,14 +261,14 @@
             _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
         }
         _downloadTask = [_URLSession dataTaskWithURL:url
-                                                        completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                              {
-                                                  [self didDownloadData:sebFileData
-                                                               response:response
-                                                                  error:error
-                                                                    URL:originalURL
-                                                             withScheme:configURLScheme];
-                                              }];
+                                   completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                         {
+                             [self didDownloadData:sebFileData
+                                          response:response
+                                             error:error
+                                               URL:originalURL
+                                        withScheme:configURLScheme];
+                         }];
         [_downloadTask resume];
     }
 }
@@ -293,6 +293,17 @@
             [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
         }
     });
+}
+
+
+// Cancel a processing download
+- (void) cancelDownloadingClientConfig
+{
+    if (_downloadTask) {
+        [_downloadTask cancel];
+        [_controllerDelegate activityIndicatorAnimate:false];
+        _downloadTask = nil;
+    }
 }
 
 
