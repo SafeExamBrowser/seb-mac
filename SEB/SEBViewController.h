@@ -79,12 +79,14 @@
 #import "QRCodeReaderViewController.h"
 #import "AboutSEBiOSViewController.h"
 
+#import "SEBBrowserController.h"
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
 
 
 @class AppDelegate;
 @class SEBUIController;
+@class SEBBrowserController;
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
@@ -94,7 +96,7 @@
 @class AboutSEBiOSViewController;
 
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate>
 {
     NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
@@ -122,6 +124,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 
+@property (strong, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
@@ -191,6 +194,7 @@
 - (BOOL) allowediOSVersion;
 
 - (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
+- (BOOL) handleUniversalLink:(NSURL *)universalLink;
 
 - (void) showConfigURLWarning:(NSError *)error;
 - (void) scanQRCode;
@@ -210,6 +214,8 @@
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+- (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
+
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;
@@ -227,6 +233,17 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) activateReloadButtonsExamTab:(BOOL)examTab;
 - (void) activateReloadButtons:(BOOL)reloadEnabled;
+
+// Delegate method to display an enter password dialog with the
+// passed message text asynchronously, calling the callback
+// method with the entered password when one was entered
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                                   title:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector;
+// Delegate method to hide the previously displayed enter password dialog
+- (void) hideEnterUsernamePasswordDialog;
 
 @end
 

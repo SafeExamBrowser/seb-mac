@@ -9,15 +9,15 @@
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
-		<key>SEB ETH Enterprise.xcscheme</key>
+		<key>SEB Development.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>12</integer>
 		</dict>
-		<key>SEB copy.xcscheme</key>
+		<key>SEB ETH Enterprise.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>13</integer>
 		</dict>
 		<key>SEB-iOS Enterprise.xcscheme</key>
 		<dict>
@@ -58,6 +58,11 @@
 			<true/>
 		</dict>
 		<key>6940B98B1BA0F2FB008C8CFC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>694215B6214544AB002EB416</key>
 		<dict>
 			<key>primary</key>
 			<true/>
