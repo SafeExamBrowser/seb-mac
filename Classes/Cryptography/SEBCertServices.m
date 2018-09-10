@@ -109,9 +109,17 @@ static SEBCertServices *gSharedInstance = nil;
                             dataString = [dict objectForKey:@"certificateDataWin"];
                         }
                         
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                         if (dataString)
                         {
-                            NSData *data = [[NSData alloc] initWithBase64Encoding:dataString];
+                            NSData *data;
+                            if (@available(macOS 9, *)) {
+                                data = [[NSData alloc] initWithBase64EncodedString:dataString
+                                                                                   options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                            } else {
+                                data = [[NSData alloc] initWithBase64Encoding:dataString];
+                            }
                             
                             if (data)
                             {
@@ -162,7 +170,13 @@ static SEBCertServices *gSharedInstance = nil;
                         
                         if (dataString)
                         {
-                            NSData *data = [[NSData alloc] initWithBase64Encoding:dataString];
+                            NSData *data;
+                            if (@available(macOS 9, *)) {
+                                data = [[NSData alloc] initWithBase64EncodedString:dataString
+                                                                           options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                            } else {
+                                data = [[NSData alloc] initWithBase64Encoding:dataString];
+                            }
                             
                             if (data)
                             {
@@ -210,8 +224,14 @@ static SEBCertServices *gSharedInstance = nil;
                         
                         if (dataString)
                         {
-                            NSData *data = [[NSData alloc] initWithBase64Encoding:dataString];
-                            
+                            NSData *data;
+                            if (@available(macOS 9, *)) {
+                                data = [[NSData alloc] initWithBase64EncodedString:dataString
+                                                                           options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                            } else {
+                                data = [[NSData alloc] initWithBase64Encoding:dataString];
+                            }
+#pragma clang diagnostic pop
                             if (data)
                             {
                                 SecCertificateRef cert = SecCertificateCreateWithData(NULL, (CFDataRef)data);
