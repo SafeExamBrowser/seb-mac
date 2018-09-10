@@ -82,6 +82,16 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBBrowserController *) browserController
+{
+    if (!_browserController) {
+        _browserController = [[SEBBrowserController alloc] init];
+        _browserController.delegate = self;
+    }
+    return _browserController;
+}
+
+
 // Initialize and return QR code reader
 - (QRCodeReaderViewController*)codeReaderViewController
 {
@@ -972,7 +982,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-#pragma mark - Init and reset SEB
+#pragma mark - Init, reconfigure and reset SEB
 
 void run_on_ui_thread(dispatch_block_t block)
 {
@@ -1018,6 +1028,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+        
+        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
+        [self.browserController conditionallyInitCustomHTTPProtocol];
         
         // UI
         
@@ -1456,6 +1469,14 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL
+{
+    [self conditionallyOpenSEBConfig:universalURL
+                            callback:self
+                            selector:@selector(storeNewSEBSettings:)];
+}
+
+
 // Prepare for downloading SEB config from URL, returns YES if downloading configs
 // is allowed, otherwise NO
 - (void) conditionallyOpenSEBConfig:(id)sebConfig
@@ -1602,6 +1623,35 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [self storeNewSEBSettings:sebFileData];
 }
+
+
+// Tries to find SEBClientSettings.seb or SEBExamSettings.seb files stored at folders
+// specified by a Universal Link, returns YES if some SEB settings were found
+- (BOOL) handleUniversalLink:(NSURL *)universalLink
+{
+    NSError *error = nil;
+
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
+    urlComponents.query = nil;
+    urlComponents.fragment = nil;
+    NSURL *urlWithPartialPath = urlComponents.URL;
+
+    if (urlWithPartialPath.pathExtension.length != 0) {
+        urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
+    }
+    
+    NSData *clientSettingsData;
+    NSData *examSettingsData;
+
+    while (urlWithPartialPath.path.length > 1) {
+        clientSettingsData = [NSData dataWithContentsOfURL:[urlWithPartialPath URLByAppendingPathComponent:SEBClientSettingsFilename] options:NSDataReadingUncached error:&error];
+    }
+    
+    if (error) {
+    }
+    return YES;
+}
+
 
 
 // Decrypt, parse and store new SEB settings and report if it was successful
@@ -2665,6 +2715,28 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     // Activate/Deactivate reload buttons in dock and slider
     [self.sebUIController activateReloadButtons:reloadEnabled];
+}
+
+
+#pragma mark - SEBBrowserControllerDelegate methods
+
+// Delegate method to display an enter password dialog with the
+// passed message text asynchronously, calling the callback
+// method with the entered password when one was entered
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                                   title:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector
+{
+    
+}
+
+
+// Delegate method to hide the previously displayed enter password dialog
+- (void) hideEnterUsernamePasswordDialog
+{
+    
 }
 
 

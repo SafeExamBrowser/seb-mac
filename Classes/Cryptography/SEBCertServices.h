@@ -1,15 +1,8 @@
 //
-//  SEBURLProtocol.h
+//  SEBCertServices.h
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 07/04/15.
-//  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
-//  Educational Development and Technology (LET),
-//  based on the original idea of Safe Exam Browser
-//  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
-//  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
+//  Created by dmcd on 12/02/2016.
 //
 //  ``The contents of this file are subject to the Mozilla Public License
 //  Version 1.1 (the "License"); you may not use this file except in
@@ -21,19 +14,31 @@
 //  License for the specific language governing rights and limitations
 //  under the License.
 //
-//  The Original Code is Safe Exam Browser for Mac OS X.
+//  The Original Code is Safe Exam Browser for macOS.
 //
-//  The Initial Developer of the Original Code is Daniel R. Schneider.
+//  The Initial Developer of the Original Code is dmcd Copyright
+//  (c) 2015-2016 Janison
+//
 //  Portions created by Daniel R. Schneider are Copyright
 //  (c) 2010-2018 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
-//  Contributor(s): ______________________________________.
+//  Contributor(s): Daniel R. Schneider.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface SEBURLProtocol : NSURLProtocol <NSURLConnectionDelegate>
+@interface SEBCertServices : NSObject
+
++ (instancetype)sharedInstance;
+
+// Call this if the certificates in the client config are updated
+- (void)flushCachedCertificates;
+
+- (NSArray *)caCerts;
+- (NSArray *)tlsCerts;
+- (NSArray *)debugCerts;
+- (NSArray *)debugCertNames;
 
 @end

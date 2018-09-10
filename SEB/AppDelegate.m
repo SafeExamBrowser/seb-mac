@@ -133,7 +133,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 //                                                 name:NSUserDefaultsDidChangeNotification
 //                                               object:nil];
 
-    // If a shortcut was launched, display its information and take the appropriate action
+    // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
     
     if (shortcutItem)
@@ -144,6 +144,12 @@ void run_block_on_ui_thread(dispatch_block_t block)
         
         // This will block "performActionForShortcutItem:completionHandler" from being called.
         shouldPerformAdditionalDelegateHandling = false;
+    }
+
+    // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
+    NSUserActivity *userActivity = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsUserActivityTypeKey];
+    if (userActivity) {
+        _universalURL = [self getURLForUserActivity:userActivity];
     }
 
     return shouldPerformAdditionalDelegateHandling;
@@ -266,6 +272,30 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
             completionHandler(handled);
         }
     }
+}
+
+
+- (BOOL) application:(UIApplication *)application
+continueUserActivity:(nonnull NSUserActivity *)userActivity
+  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
+{
+    NSURL *openedURL = [self getURLForUserActivity:userActivity];
+    if (_sebViewController) {
+        [_sebViewController conditionallyOpenSEBConfigFromUniversalLink:openedURL];
+    } else {
+        _universalURL = openedURL;
+    }
+    return YES;
+}
+
+
+- (NSURL *)getURLForUserActivity:(NSUserActivity *)userActivity
+{
+    NSURL *url = nil;
+    if (userActivity.activityType == NSUserActivityTypeBrowsingWeb) {
+        url = userActivity.webpageURL;
+    }
+    return url;
 }
 
 

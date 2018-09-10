@@ -48,6 +48,7 @@
 @property (strong, nonatomic) SEBViewController *sebViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
+@property (strong, nonatomic, readonly) NSURL *universalURL;
 @property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
 @property(readwrite) BOOL SAMActive;
 @property(readwrite) BOOL openedURL;
