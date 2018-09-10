@@ -186,9 +186,7 @@
 - (void) checkSEBClientConfigURL:(NSURL *)url withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     // Cancel a processing download of a previously entered URL
-    if (_downloadTask) {
-        [_downloadTask cancel];
-    }
+    [self cancelDownloadingClientConfig];
     
     // Check using the next scheme (we can skip first scheme = none)
     configURLScheme++;

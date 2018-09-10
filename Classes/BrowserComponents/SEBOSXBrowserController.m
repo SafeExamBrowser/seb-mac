@@ -50,14 +50,28 @@
 {
     self = [super init];
     if (self) {
-        
         _browserController = [SEBBrowserController new];
+        _browserController.delegate = self;
         
         self.openBrowserWindowsWebViews = [NSMutableArray new];
-
+        
         // Initialize SEB dock item menu for open browser windows/WebViews
         SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         self.openBrowserWindowsWebViewsMenu = dockMenu;
+        
+        // Create a private pasteboard
+        _privatePasteboardItems = [NSArray array];
+        
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        // OS X 10.9 and newer
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                DDLogInfo(@"Cookies, caches and credential stores were reset");
+            }];
+        } else {
+            DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
+        }
     }
     return self;
 }
