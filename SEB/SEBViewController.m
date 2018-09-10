@@ -2739,13 +2739,20 @@ void run_on_ui_thread(dispatch_block_t block)
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
          textField.placeholder = NSLocalizedString(@"User Name", nil);
-         textField.secureTextEntry = YES;
+         textField.autocorrectionType = UITextAutocorrectionTypeNo;
+         if (@available(iOS 11.0, *)) {
+             textField.textContentType = UITextContentTypeUsername;
+         }
+         textField.text = username;
      }];
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
          textField.placeholder = NSLocalizedString(@"Password", nil);
          textField.secureTextEntry = YES;
+         if (@available(iOS 11.0, *)) {
+             textField.textContentType = UITextContentTypePassword;
+         }
      }];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
@@ -2786,11 +2793,11 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *placeholderString = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] > browserWindowShowURLOnlyLoadError) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
             placeholderString = NSLocalizedString(@"the exam page", nil);
         }
     } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] > browserWindowShowURLOnlyLoadError) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
             placeholderString = NSLocalizedString(@"the webpage", nil);
         }
     }
