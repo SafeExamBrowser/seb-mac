@@ -60,6 +60,12 @@
  */
 - (void) hideEnterUsernamePasswordDialog;
 
+/**
+ * @brief       Delegate method which returns a placeholder text in case settings
+ *              don't allow to display its URL
+ */
+- (NSString *) showURLplaceholderTitleForWebpage;
+
 @end
 
 
