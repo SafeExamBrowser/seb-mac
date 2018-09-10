@@ -194,6 +194,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
  */
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
     // Check if we deal with a username/password or a server trust authentication challenge
     NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
     if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
@@ -209,12 +211,15 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // Display authentication dialog
             //            _pendingChallenge = challenge;
             
-            NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+            NSString *text = [self.delegate showURLplaceholderTitleForWebpage];
+            if (!text) {
+                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+            }
             if ([challenge previousFailureCount] == 0) {
-                text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+                text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"Log in to", nil), text];
                 _lastUsername = @"";
             } else {
-                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
             }
             
             [self.delegate showEnterUsernamePasswordDialog:text
@@ -239,7 +244,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         {
             SEBCertServices *sc = [SEBCertServices sharedInstance];
             
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             BOOL pinned = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"];
             
             NSArray *trustStore = nil;
