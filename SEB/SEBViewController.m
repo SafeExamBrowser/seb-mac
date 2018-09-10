@@ -2729,14 +2729,72 @@ void run_on_ui_thread(dispatch_block_t block)
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector
 {
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _alertController = [UIAlertController alertControllerWithTitle:title
+                                                           message:text
+                                                    preferredStyle:UIAlertControllerStyleAlert];
     
+    [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = NSLocalizedString(@"User Name", nil);
+         textField.secureTextEntry = YES;
+     }];
+    
+    [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = NSLocalizedString(@"Password", nil);
+         textField.secureTextEntry = YES;
+     }];
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               NSString *username = _alertController.textFields[0].text;
+                                                                               NSString *password = _alertController.textFields[1].text;
+                                                                               _alertController = nil;
+                                                                               IMP imp = [modalDelegate methodForSelector:didEndSelector];
+                                                                               void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+                                                                               func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
+                                                                           }]];
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                               NSString *username = _alertController.textFields[0].text;
+                                                                               NSString *password = _alertController.textFields[1].text;
+                                                                               _alertController = nil;
+                                                                               IMP imp = [modalDelegate methodForSelector:didEndSelector];
+                                                                               void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+                                                                               func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
+                                                                           }]];
+    
+    [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
 }
 
 
 // Delegate method to hide the previously displayed enter password dialog
 - (void) hideEnterUsernamePasswordDialog
 {
-    
+    [self.alertController dismissViewControllerAnimated:NO completion:^{
+        self.alertController = nil;
+    }];
+}
+
+
+- (NSString *) showURLplaceholderTitleForWebpage
+{
+    NSString *placeholderString = nil;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] > browserWindowShowURLOnlyLoadError) {
+            placeholderString = NSLocalizedString(@"the exam page", nil);
+        }
+    } else {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] > browserWindowShowURLOnlyLoadError) {
+            placeholderString = NSLocalizedString(@"the webpage", nil);
+        }
+    }
+    return placeholderString;
 }
 
 
