@@ -1472,8 +1472,8 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL
 {
     [self conditionallyOpenSEBConfig:universalURL
-                            callback:self
-                            selector:@selector(storeNewSEBSettings:)];
+                            callback:self.browserController
+                            selector:@selector(handleUniversalLink:)];
 }
 
 
@@ -1623,35 +1623,6 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [self storeNewSEBSettings:sebFileData];
 }
-
-
-// Tries to find SEBClientSettings.seb or SEBExamSettings.seb files stored at folders
-// specified by a Universal Link, returns YES if some SEB settings were found
-- (BOOL) handleUniversalLink:(NSURL *)universalLink
-{
-    NSError *error = nil;
-
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
-    urlComponents.query = nil;
-    urlComponents.fragment = nil;
-    NSURL *urlWithPartialPath = urlComponents.URL;
-
-    if (urlWithPartialPath.pathExtension.length != 0) {
-        urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
-    }
-    
-    NSData *clientSettingsData;
-    NSData *examSettingsData;
-
-    while (urlWithPartialPath.path.length > 1) {
-        clientSettingsData = [NSData dataWithContentsOfURL:[urlWithPartialPath URLByAppendingPathComponent:SEBClientSettingsFilename] options:NSDataReadingUncached error:&error];
-    }
-    
-    if (error) {
-    }
-    return YES;
-}
-
 
 
 // Decrypt, parse and store new SEB settings and report if it was successful
