@@ -66,6 +66,9 @@
  */
 - (NSString *) showURLplaceholderTitleForWebpage;
 
+- (void) storeNewSEBSettings:(NSData *)sebData;
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
+
 @end
 
 
@@ -86,5 +89,7 @@
 - (NSString *) backToStartURLString;
 
 - (void) conditionallyInitCustomHTTPProtocol;
+
+- (void) handleUniversalLink:(NSURL *)universalLink;
 
 @end

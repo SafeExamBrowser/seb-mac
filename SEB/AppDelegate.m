@@ -292,7 +292,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 - (NSURL *)getURLForUserActivity:(NSUserActivity *)userActivity
 {
     NSURL *url = nil;
-    if (userActivity.activityType == NSUserActivityTypeBrowsingWeb) {
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
         url = userActivity.webpageURL;
     }
     return url;
