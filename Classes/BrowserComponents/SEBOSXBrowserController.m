@@ -1028,15 +1028,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
-- (void) hideEnterUsernamePasswordDialog
-{
-    [_sebController hideEnterUsernamePasswordDialog];
-    
-    // If a temporary webview for loading config is open, close it
-    [self openingConfigURLFailed];
-}
-
-
 #pragma mark SEBBrowserControllerDelegate Methods
 
 - (void) showEnterUsernamePasswordDialog:(NSString *)text
@@ -1051,6 +1042,34 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                                            username:username
                                       modalDelegate:modalDelegate
                                      didEndSelector:didEndSelector];
+}
+
+
+- (void) hideEnterUsernamePasswordDialog
+{
+    [_sebController hideEnterUsernamePasswordDialog];
+    
+    // If a temporary webview for loading config is open, close it
+    [self openingConfigURLFailed];
+}
+
+
+// Delegate method which returns a placeholder text in case settings
+// don't allow to display its URL
+- (NSString *) showURLplaceholderTitleForWebpage
+{
+    NSString *placeholderString = nil;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (_activeBrowserWindow == _mainBrowserWindow) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+            placeholderString = NSLocalizedString(@"the exam page", nil);
+        }
+    } else {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+            placeholderString = NSLocalizedString(@"the webpage", nil);
+        }
+    }
+    return placeholderString;
 }
 
 
