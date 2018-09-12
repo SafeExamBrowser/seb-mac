@@ -323,11 +323,11 @@ static NSString __unused *SEBHelpPage = @"https://safeexambrowser.org/macosx";
 
 static NSString __unused *SEBClientSettings = @"SebClientSettings.seb";
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
-static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/11.1.1 Safari";
+static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/11.1.2 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
 static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0";
 static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0; Touch) Gecko/20100101 Firefox/52.0";
-static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.3 Mobile/15E216 Safari/605.1.15";
+static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 11_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1";
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 
