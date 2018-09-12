@@ -512,6 +512,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 // specified by a Universal Link
 - (void) handleUniversalLink:(NSURL *)universalLink
 {
+    _didReconfigureWithUniversalLink = NO;
     if (universalLink) {
         NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
         urlComponents.query = nil;
@@ -536,14 +537,17 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         // No SEBSettings.seb file found, search for SEBExamSettings.seb file
         [self downloadConfigFile:SEBExamSettingsFilename fromURL:host universalLinkHost:host];
     } else {
-        // Also no SEBExamSettings.seb file found, stop the search
+        // No SEBExamSettings.seb file found, stop the search
         _downloadTask = nil;
-        NSError *error = [[NSError alloc]
-                          initWithDomain:sebErrorDomain
-                          code:SEBErrorParsingSettingsSerializingFailed
-                          userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
-                                      NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"No SEB settings have been found.", nil),
-                                      }];
+        NSError *error = nil;
+        if (!_didReconfigureWithUniversalLink) {
+            error = [[NSError alloc]
+                     initWithDomain:sebErrorDomain
+                     code:SEBErrorParsingSettingsSerializingFailed
+                     userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
+                                 NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"No SEB settings have been found.", nil),
+                                 }];
+        }
 
         [_delegate storeNewSEBSettingsSuccessful:error];
     }
@@ -557,7 +561,14 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         // Searched all subdirectories of this host address
         [self universalLinkNoConfigFile:configFileName atHost:host];
     } else {
-        NSURL *newURL = [url URLByDeletingLastPathComponent];
+        NSURL *newURL = url;
+        if (![url.lastPathComponent isEqualToString:@"/"]) {
+            newURL = [url URLByDeletingLastPathComponent];
+        } else {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            urlComponents.path = nil;
+            newURL = urlComponents.URL;
+        }
         url = [url URLByAppendingPathComponent:configFileName];
         
         if (!_URLSession) {
@@ -595,7 +606,14 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                    universalLinkHost:host];
         } else {
             // Successfully downloaded SEB settings file
-            [_delegate storeNewSEBSettings:sebFileData];
+            cachedConfigFileName = fileName;
+            cachedDownloadURL = url;
+            cachedHostURL = host;
+            [_delegate storeNewSEBSettings:sebFileData
+                                forEditing:NO
+                    forceConfiguringClient:NO
+                                  callback:self
+                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
     });
 }
@@ -611,18 +629,23 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
-- (void) storeSEBClientSettingsSuccessful:(NSError *)error
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    if (!error) {
-//        [_controllerDelegate setConfigURLWrongLabelHidden:true
-//                                                    error:nil
-//                                       forClientConfigURL:clientConfigURL];
-//        _controllerDelegate.configURLString = @"";
-//        [_controllerDelegate closeAssistantRestartSEB];
+    if (error) {
+        [self downloadConfigFile:cachedConfigFileName
+                         fromURL:cachedDownloadURL
+               universalLinkHost:cachedHostURL];
     } else {
-//        [_controllerDelegate setConfigURLWrongLabelHidden:false
-//                                                    error:error
-//                                       forClientConfigURL:clientConfigURL];
+        if ([cachedConfigFileName isEqualToString:SEBSettingsFilename] &&
+            ![NSUserDefaults userDefaultsPrivate]) {
+            // SEB successfully read a SEBSettings.seb file with Client Settings
+            _didReconfigureWithUniversalLink = YES;
+            [self downloadConfigFile:SEBExamSettingsFilename
+                             fromURL:cachedHostURL
+                   universalLinkHost:cachedHostURL];
+        } else {
+            [_delegate storeNewSEBSettingsSuccessful:error];
+        }
     }
 }
 

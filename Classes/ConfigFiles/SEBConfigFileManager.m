@@ -137,11 +137,15 @@
     
     // save the data including the first 4 bytes for the case that it's acutally an unencrypted XML plist
     NSData *sebDataUnencrypted = [sebData copy];
+#ifdef DEBUG
+    NSString *configDataString = [[NSString alloc] initWithData:sebData encoding:NSUTF8StringEncoding];
+    DDLogDebug(@"Config data as string: %@", configDataString);
+#endif
 
     // Get 4-char prefix
     prefixString = [self getPrefixStringFromData:&sebData];
 
-    DDLogInfo(@"Outer prefix of .seb settings file: %@",prefixString);
+    DDLogInfo(@"Outer prefix of .seb settings file: %@", prefixString);
 
     NSError *error = nil;
 
