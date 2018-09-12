@@ -66,7 +66,12 @@
  */
 - (NSString *) showURLplaceholderTitleForWebpage;
 
-- (void) storeNewSEBSettings:(NSData *)sebData;
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+                   callback:(id)callback
+                   selector:(SEL)selector;
+
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 @end
@@ -74,7 +79,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate>
+@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate> {
+    NSString *cachedConfigFileName;
+    NSURL *cachedDownloadURL;
+    NSURL *cachedHostURL;
+}
 
 @property (weak) id delegate;
 
@@ -85,11 +94,14 @@
 @property (strong) id URLSession;
 @property (strong) NSURLSessionDataTask *downloadTask;
 
+@property (readwrite) BOOL didReconfigureWithUniversalLink;
+
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 - (NSString *) backToStartURLString;
 
 - (void) conditionallyInitCustomHTTPProtocol;
 
 - (void) handleUniversalLink:(NSURL *)universalLink;
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 @end
