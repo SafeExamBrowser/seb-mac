@@ -1635,6 +1635,20 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+                   callback:(id)callback
+                   selector:(SEL)selector
+{
+    [self.configFileController storeNewSEBSettings:sebData
+                                        forEditing:forEditing
+                            forceConfiguringClient:forceConfiguringClient
+                                          callback:callback
+                                          selector:selector];
+}
+
+
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
     NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
