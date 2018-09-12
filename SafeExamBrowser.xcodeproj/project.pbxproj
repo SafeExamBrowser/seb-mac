@@ -293,7 +293,6 @@
 		69C228961C767BA500F78634 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C228951C767B0A00F78634 /* libmbedtls.a */; };
 		69C228991C7B64DF00F78634 /* SEBCertServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C228971C7B64DF00F78634 /* SEBCertServices.h */; };
 		69C2289A1C7B64DF00F78634 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C228981C7B64DF00F78634 /* SEBCertServices.m */; };
-		69C2289B1C7B6B6000F78634 /* SEBURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0A3381AD40237008A3553 /* SEBURLProtocol.m */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
@@ -329,7 +328,6 @@
 		69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EDAC1D1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
-		69F0A3391AD40237008A3553 /* SEBURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F0A3371AD40237008A3553 /* SEBURLProtocol.h */; };
 		69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
 		69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */; };
@@ -798,8 +796,6 @@
 		69F0A3341AD3FFDA008A3553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesNetwork.xib; sourceTree = "<group>"; };
 		69F0A3351AD3FFDB008A3553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesSecurity.xib; sourceTree = "<group>"; };
 		69F0A3361AD40022008A3553 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesExam.strings; sourceTree = "<group>"; };
-		69F0A3371AD40237008A3553 /* SEBURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBURLProtocol.h; path = Classes/BrowserComponents/SEBURLProtocol.h; sourceTree = "<group>"; };
-		69F0A3381AD40237008A3553 /* SEBURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBURLProtocol.m; path = Classes/BrowserComponents/SEBURLProtocol.m; sourceTree = "<group>"; };
 		69F1839C1BECED53006D6F9D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesDownUploads.strings; sourceTree = "<group>"; };
 		69F293AC164A324B00875C00 /* SEBKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBKeychainManager.h; sourceTree = "<group>"; };
 		69F293AD164A324B00875C00 /* SEBKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBKeychainManager.m; sourceTree = "<group>"; wrapsLines = 0; };
@@ -1091,8 +1087,6 @@
 				69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */,
 				69263A9C1A2E0765006F1E31 /* SEBWebView.h */,
 				69263A9D1A2E0765006F1E31 /* SEBWebView.m */,
-				69F0A3371AD40237008A3553 /* SEBURLProtocol.h */,
-				69F0A3381AD40237008A3553 /* SEBURLProtocol.m */,
 				69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */,
 				69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */,
 				6949A47E1D0EF5890040ABF1 /* SEBURLProtocol */,
@@ -1645,7 +1639,6 @@
 				6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69C2280D1C767B0900F78634 /* asn1.h in Headers */,
-				69F0A3391AD40237008A3553 /* SEBURLProtocol.h in Headers */,
 				69C2283A1C767B0900F78634 /* rsa.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69C228311C767B0900F78634 /* padlock.h in Headers */,
@@ -1898,7 +1891,6 @@
 				69C2285E1C767B0900F78634 /* ecdsa.c in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
 				69C228781C767B0900F78634 /* pkwrite.c in Sources */,
-				69C2289B1C7B6B6000F78634 /* SEBURLProtocol.m in Sources */,
 				690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */,
 				69C2285F1C767B0900F78634 /* ecjpake.c in Sources */,
 				69C228701C767B0900F78634 /* padlock.c in Sources */,

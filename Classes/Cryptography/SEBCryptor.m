@@ -361,22 +361,18 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-- (NSData *)checksumForJSONString:(NSString *)jsonString withSalt:(NSData *)salt
+- (NSData *)checksumForJSONString:(NSString *)jsonString
 {
     DDLogVerbose(@"JSON for Config Key: %@", jsonString);
-    NSData *serializedPrefs = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSData *HMACData;
-    if (jsonString.length == 0) {
-        // Serialization of settings went wrong
-        DDLogError(@"%s: Serializing settings failed!", __FUNCTION__);
-        // Pref key is empty
-        HMACData = [NSData data];
-    } else {
-        // Generate new Config Key
-        HMACData = [self generateChecksumForData:serializedPrefs withSalt:salt];
-    }
-    return HMACData;
+    unsigned char hashedChars[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256([jsonString UTF8String],
+              (uint)[jsonString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              hashedChars);
+    NSData *hashData = [NSData dataWithBytes:(const void *)hashedChars length:CC_SHA256_DIGEST_LENGTH];
+    DDLogVerbose(@"Config Key: %@", hashData);
+
+    return hashData;
 }
 
 
@@ -470,7 +466,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
 
     NSData *configKey = [NSData data];
-    [self updateConfigKeyInSettings:filteredPrefsDict configKeyContainedKeysRef:&configKeyContainedKeys configKeyRef:&configKey];
+    [self updateConfigKeyInSettings:filteredPrefsDict
+          configKeyContainedKeysRef:&configKeyContainedKeys
+                       configKeyRef:&configKey];
     
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
 
@@ -493,7 +491,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     *configKeyContainedKeys = [containedKeysMutable copy];
     
     // Convert preferences dictionary to JSON and generate the Config Key hash
-    *configKeyRef = [self checksumForJSONString:[jsonString copy] withSalt:[NSData data]];
+    *configKeyRef = [self checksumForJSONString:[jsonString copy]];
     
     return processedDictionary;
 }
