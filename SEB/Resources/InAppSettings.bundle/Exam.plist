@@ -98,6 +98,22 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_startURLAppendQueryParameter</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Exam Deep Linking</string>
+			<key>FooterText</key>
+			<string>Deep linking allows to directly open several exams using just one exam config file placed somewhere in the path hierarchy of a Universal Link (which needs to start with the Start URL string).</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Deep Linking for Exams</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_startURLAllowDeepLink</string>
+		</dict>
 	</array>
 </dict>
 </plist>

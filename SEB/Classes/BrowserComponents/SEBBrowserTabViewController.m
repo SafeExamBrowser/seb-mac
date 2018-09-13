@@ -532,6 +532,18 @@
         // Load start URL from the system's user defaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        
+        // Handle Deep Links
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAllowDeepLink"]) {
+            NSString *deepLink = [preferences secureStringForKey:@"org_safeexambrowser_startURLDeepLink"];
+            [preferences setSecureString:@""
+                                  forKey:@"org_safeexambrowser_startURLDeepLink"];
+            if (deepLink.length > 0 && [deepLink hasPrefix:urlText]) {
+                urlText = deepLink;
+            }
+        }
+        
+        // Handle Start URL Query String Parameter
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
             NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
             if (queryString.length > 0) {
