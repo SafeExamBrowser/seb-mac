@@ -102,7 +102,7 @@
 
 
 // Decrypt, parse and store new SEB settings
-// When forceConfiguringClient don't show any notification to the user
+// When forceConfiguringClient, Exam Settings have the same effect as Client Settings
 // Method with selector in the callback object is called after storing settings
 // was successful or aborted
 -(void) storeNewSEBSettings:(NSData *)sebData
@@ -111,8 +111,30 @@
                    callback:(id)callback
                    selector:(SEL)selector
 {
+    [self storeNewSEBSettings:sebData
+                   forEditing:forEditing
+       forceConfiguringClient:forceConfiguringClient
+         showReconfiguredAlert:YES
+                     callback:callback
+                     selector:selector];
+}
+
+
+// Decrypt, parse and store new SEB settings
+// When forceConfiguringClient, Exam Settings have the same effect as Client Settings
+// When showReconfigureAlert=false then don't show the reconfigured notification to the user
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+       showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                   callback:(id)callback
+                   selector:(SEL)selector
+{
     storeSettingsForEditing = forEditing;
     storeSettingsForceConfiguringClient = forceConfiguringClient;
+    storeShowReconfiguredAlert = showReconfiguredAlert;
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
@@ -711,9 +733,9 @@
         DDLogInfo(@"Should display dialog SEB Re-Configured");
         
         // Inform delegate that preferences were reconfigured
-        if ([self.delegate respondsToSelector:@selector(didReconfigurePermanentlyForceConfiguringClient:sebFileCredentials:)]) {
+        if ([self.delegate respondsToSelector:@selector(didReconfigurePermanentlyForceConfiguringClient:sebFileCredentials:showReconfiguredAlert:)]) {
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
-                                                        sebFileCredentials:sebFileCredentials];
+                                                        sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
         }
         return;
     }
@@ -971,7 +993,7 @@
     filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEB]];
     
     // Write SEB_OS_version_build version information to .seb settings
-    NSString *originatorVersion = [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+    NSString *originatorVersion = [NSString stringWithFormat:@"SEB_iOS_%@_%@",
                                    [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                    [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]];
     [filteredPrefsDict setObject:originatorVersion forKey:@"originatorVersion"];

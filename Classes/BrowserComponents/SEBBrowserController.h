@@ -69,6 +69,7 @@
 -(void) storeNewSEBSettings:(NSData *)sebData
                  forEditing:(BOOL)forEditing
      forceConfiguringClient:(BOOL)forceConfiguringClient
+      showReconfiguredAlert:(BOOL)showReconfiguredAlert
                    callback:(id)callback
                    selector:(SEL)selector;
 
