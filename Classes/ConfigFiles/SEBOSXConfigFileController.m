@@ -110,8 +110,10 @@
 }
 
 
-- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials {
-    if (!forceConfiguringClient) {
+- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient
+                                      sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+                                   showReconfiguredAlert:(BOOL)showReconfiguredAlert {
+    if (!forceConfiguringClient && showReconfiguredAlert) {
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
