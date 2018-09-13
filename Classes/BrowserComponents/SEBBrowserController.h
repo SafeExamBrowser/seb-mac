@@ -84,6 +84,7 @@
     NSString *cachedConfigFileName;
     NSURL *cachedDownloadURL;
     NSURL *cachedHostURL;
+    NSURL *cachedUniversalLink;
 }
 
 @property (weak) id delegate;

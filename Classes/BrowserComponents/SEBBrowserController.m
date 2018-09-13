@@ -347,7 +347,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                     *infoBuf = '\0';
                                     mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &serverCert);
                                     NSLog(@"Server leaf certificate:\n%s", infoBuf);
-                                    [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
+                                    [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+                                                                               stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
 #endif
                                     unsigned char *pkBuffer;
                                     unsigned int pkBufferSize;
@@ -529,7 +530,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         // folder hierarchy specified by the original Universal Link
         [self downloadConfigFile:SEBSettingsFilename
                          fromURL:urlWithPartialPath
-               universalLinkHost:urlWithPartialPath];
+               universalLinkHost:urlWithPartialPath
+                   universalLink:universalLink];
     }
 }
 
@@ -538,11 +540,15 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 // folder hierarchy specified by the Universal Link
 - (void) universalLinkNoConfigFile:(NSString *)configFileName
                             atHost:(NSURL *)host
+                     universalLink:(NSURL *)universalLink
 {
     if ([configFileName isEqualToString:SEBSettingsFilename]) {
         // No "SEBSettings.seb" file found, search for "SEBExamSettings.seb" file
         // recursivly starting at the folder addressed by the original Universal Link
-        [self downloadConfigFile:SEBExamSettingsFilename fromURL:host universalLinkHost:host];
+        [self downloadConfigFile:SEBExamSettingsFilename
+                         fromURL:host
+               universalLinkHost:host
+                   universalLink:universalLink];
     } else {
         // Also no "SEBExamSettings.seb" file found, stop the search
         _downloadTask = nil;
@@ -566,10 +572,13 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 - (void) downloadConfigFile:(NSString *)configFileName
                     fromURL:(NSURL *)url
           universalLinkHost:(NSURL *)host
+              universalLink:(NSURL *)universalLink
 {
     if (url.path.length == 0) {
         // Searched the full subdirectory hierarchy of this host address
-        [self universalLinkNoConfigFile:configFileName atHost:host];
+        [self universalLinkNoConfigFile:configFileName
+                                 atHost:host
+                          universalLink:universalLink];
     } else {
         NSURL *newURL = url;
         // Remove the last path component or the trailing slash "/" from the
@@ -591,7 +600,9 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                    completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                          {
                              [self didDownloadData:sebFileData
-                                        configFile:configFileName universalLinkHost:host
+                                        configFile:configFileName
+                                 universalLinkHost:host
+                                     universalLink:universalLink
                                              error:error
                                                URL:newURL];
                          }];
@@ -605,6 +616,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 - (void) didDownloadData:(NSData *)sebFileData
               configFile:(NSString *)fileName
        universalLinkHost:(NSURL *)host
+           universalLink:(NSURL *)universalLink
                    error:(NSError *)error
                      URL:(NSURL *)url
 {
@@ -618,7 +630,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // Couldn't download config file, try it one level down in the path hierarchy
             [self downloadConfigFile:fileName
                              fromURL:url
-                   universalLinkHost:host];
+                   universalLinkHost:host
+                       universalLink:universalLink];
         } else {
             // Successfully downloaded SEB settings file or some other HTML data like a
             // 404 http page not found error webpage, therefore we have to check if
@@ -626,6 +639,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             cachedConfigFileName = fileName;
             cachedDownloadURL = url;
             cachedHostURL = host;
+            cachedUniversalLink = universalLink;
             [_delegate storeNewSEBSettings:sebFileData
                                 forEditing:NO
                     forceConfiguringClient:NO
@@ -655,7 +669,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         // or this couldn't be stored (wrong passwords entered etc)
         [self downloadConfigFile:cachedConfigFileName
                          fromURL:cachedDownloadURL
-               universalLinkHost:cachedHostURL];
+               universalLinkHost:cachedHostURL
+                   universalLink:cachedUniversalLink];
     } else {
         // Successfully found and stored some SEB settings. If these came from
         // a "SEBSettings.seb" file, we check if they contained Client Settings
@@ -668,11 +683,21 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             _didReconfigureWithUniversalLink = YES;
             [self downloadConfigFile:SEBExamSettingsFilename
                              fromURL:cachedHostURL
-                   universalLinkHost:cachedHostURL];
+                   universalLinkHost:cachedHostURL
+                       universalLink:cachedUniversalLink];
         } else {
             // There were Exam Settings in the SEBSettings.seb file
             // (no Client Settings), we can stop searching further and
             // start the exam!
+            
+            // Check if the Start URL Deep Link feature is allowed and store the
+            // original full Universal Link as the deep link
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAllowDeepLink"]) {
+                [preferences setSecureString:cachedUniversalLink.absoluteString
+                                      forKey:@"org_safeexambrowser_startURLDeepLink"];
+            }
+
             [_delegate storeNewSEBSettingsSuccessful:error];
         }
     }
