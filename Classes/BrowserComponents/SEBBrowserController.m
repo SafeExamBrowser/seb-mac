@@ -514,15 +514,19 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 {
     _didReconfigureWithUniversalLink = NO;
     if (universalLink) {
+        // Remove query and fragment parts from the Universal Link URL
         NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
         urlComponents.query = nil;
         urlComponents.fragment = nil;
         NSURL *urlWithPartialPath = urlComponents.URL;
         
         if (urlWithPartialPath.pathExtension.length != 0) {
+            // If the path specified a file, remove it from the path as well
             urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
         }
         
+        // Check for a file called "SEBSettings.seb" recursivly in the
+        // folder hierarchy specified by the original Universal Link
         [self downloadConfigFile:SEBSettingsFilename
                          fromURL:urlWithPartialPath
                universalLinkHost:urlWithPartialPath];
@@ -530,22 +534,26 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+// We didn't find valid SEB settings named configFileName in the
+// folder hierarchy specified by the Universal Link
 - (void) universalLinkNoConfigFile:(NSString *)configFileName
                             atHost:(NSURL *)host
 {
     if ([configFileName isEqualToString:SEBSettingsFilename]) {
-        // No SEBSettings.seb file found, search for SEBExamSettings.seb file
+        // No "SEBSettings.seb" file found, search for "SEBExamSettings.seb" file
+        // recursivly starting at the folder addressed by the original Universal Link
         [self downloadConfigFile:SEBExamSettingsFilename fromURL:host universalLinkHost:host];
     } else {
-        // No SEBExamSettings.seb file found, stop the search
+        // Also no "SEBExamSettings.seb" file found, stop the search
         _downloadTask = nil;
         NSError *error = nil;
+        // If no valid client config was found (in the "SEBSettings.seb" file), specify an error message
         if (!_didReconfigureWithUniversalLink) {
             error = [[NSError alloc]
                      initWithDomain:sebErrorDomain
                      code:SEBErrorParsingSettingsSerializingFailed
                      userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
-                                 NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"No SEB settings have been found.", nil),
+                                 NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"No SEB settings have been found at the specified URL. Use a correct link to configure SEB or start an exam.", nil),
                                  }];
         }
 
@@ -553,15 +561,19 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     }
 }
 
+// Try to recursivly find SEB settings named configFileName starting at the path in universalLinkHost
+// the current path to look for the config file is specified in fromURL
 - (void) downloadConfigFile:(NSString *)configFileName
                     fromURL:(NSURL *)url
           universalLinkHost:(NSURL *)host
 {
     if (url.path.length == 0) {
-        // Searched all subdirectories of this host address
+        // Searched the full subdirectory hierarchy of this host address
         [self universalLinkNoConfigFile:configFileName atHost:host];
     } else {
         NSURL *newURL = url;
+        // Remove the last path component or the trailing slash "/" from the
+        // URL we're currently trying to download the config file
         if (![url.lastPathComponent isEqualToString:@"/"]) {
             newURL = [url URLByDeletingLastPathComponent];
         } else {
@@ -588,6 +600,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+// Callback for trying to download SEB config file recursivly from hierarchy
+// of subdirectories specified by universalLinkHost
 - (void) didDownloadData:(NSData *)sebFileData
               configFile:(NSString *)fileName
        universalLinkHost:(NSURL *)host
@@ -601,17 +615,21 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             if (error.code == NSURLErrorCancelled) {
                 return;
             }
+            // Couldn't download config file, try it one level down in the path hierarchy
             [self downloadConfigFile:fileName
                              fromURL:url
                    universalLinkHost:host];
         } else {
-            // Successfully downloaded SEB settings file
+            // Successfully downloaded SEB settings file or some other HTML data like a
+            // 404 http page not found error webpage, therefore we have to check if
+            // we downloaded correct SEB settings
             cachedConfigFileName = fileName;
             cachedDownloadURL = url;
             cachedHostURL = host;
             [_delegate storeNewSEBSettings:sebFileData
                                 forEditing:NO
                     forceConfiguringClient:NO
+                     showReconfiguredAlert:NO
                                   callback:self
                                   selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
@@ -629,21 +647,32 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+// Were correct SEB settings downloaded and sucessfully stored?
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
     if (error) {
+        // Downloaded data was either no correct SEB config file
+        // or this couldn't be stored (wrong passwords entered etc)
         [self downloadConfigFile:cachedConfigFileName
                          fromURL:cachedDownloadURL
                universalLinkHost:cachedHostURL];
     } else {
+        // Successfully found and stored some SEB settings. If these came from
+        // a "SEBSettings.seb" file, we check if they contained Client Settings
         if ([cachedConfigFileName isEqualToString:SEBSettingsFilename] &&
             ![NSUserDefaults userDefaultsPrivate]) {
             // SEB successfully read a SEBSettings.seb file with Client Settings
+            // Now we try if there is a "SEBExamSettings.seb" file as well in the
+            // same path hierarchy, as one Universal Link SEB can both configure/
+            // reconfigure SEB Client Settings and start an exam
             _didReconfigureWithUniversalLink = YES;
             [self downloadConfigFile:SEBExamSettingsFilename
                              fromURL:cachedHostURL
                    universalLinkHost:cachedHostURL];
         } else {
+            // There were Exam Settings in the SEBSettings.seb file
+            // (no Client Settings), we can stop searching further and
+            // start the exam!
             [_delegate storeNewSEBSettingsSuccessful:error];
         }
     }

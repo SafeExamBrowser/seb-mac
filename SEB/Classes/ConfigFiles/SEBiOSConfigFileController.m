@@ -35,7 +35,8 @@
 }
 
 
-- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing
+                        sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
 {
     // Save settings password from the opened config file
     // for possible editing in InAppSettings
@@ -44,10 +45,12 @@
 }
 
 
-- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials {
+- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient
+                                      sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+                                   showReconfiguredAlert:(BOOL)showReconfiguredAlert {
     if (!forceConfiguringClient) {
 
-        if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
+        if ([[MyGlobals sharedMyGlobals] finishedInitializing] && showReconfiguredAlert) {
             if (_sebViewController.alertController) {
                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
             }
@@ -65,8 +68,11 @@
             [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 
         } else {
-            // Set the flag to eventually display the dialog later
-            [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
+            
+            if (showReconfiguredAlert) {
+                // Set the flag to eventually display the dialog later
+                [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
+            }
             
             // Inform callback that storing new settings was successful
             [super storeNewSEBSettingsSuccessful:nil];
@@ -160,7 +166,8 @@
 }
 
 
-- (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText
+- (void) showAlertWithTitle:(NSString *)title
+                    andText:(NSString *)informativeText
 {
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];

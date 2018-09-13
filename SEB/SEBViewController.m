@@ -1649,6 +1649,27 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+// Decrypt, parse and store new SEB settings
+// When forceConfiguringClient, Exam Settings have the same effect as Client Settings
+// When showReconfigureAlert=false then don't show the reconfigured notification to the user
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+      showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                   callback:(id)callback
+                   selector:(SEL)selector
+{
+    [self.configFileController storeNewSEBSettings:sebData
+                                        forEditing:forEditing
+                            forceConfiguringClient:forceConfiguringClient
+                             showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                                          callback:callback
+                                          selector:selector];
+}
+
+
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
     NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
