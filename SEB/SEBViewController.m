@@ -1627,14 +1627,20 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
         if (error) {
-            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-            [self storeNewSEBSettingsSuccessful:error];
-            return;
+            // Check if the URL is in an associated domain
+            if ([self.browserController isAssociatedDomain:url]) {
+                [self.browserController handleUniversalLink:url];
+                return;
+            } else {
+                error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+                [self storeNewSEBSettingsSuccessful:error];
+                return;
+            }
         }
     }
     // Get current config path
     currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Store the URL of the .seb file as current config file path
+    // Store the URL of the .seb file as current config file name
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
     
     [self storeNewSEBSettings:sebFileData];
@@ -1712,7 +1718,8 @@ void run_on_ui_thread(dispatch_block_t block)
             _scannedQRCode = false;
             if (error.code == SEBErrorNoValidConfigData) {
                 error = [NSError errorWithDomain:sebErrorDomain
-                                            code:SEBErrorNoValidConfigData userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
+                                            code:SEBErrorNoValidConfigData
+                                        userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
                                                    NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No valid SEB config found.", nil),
                                                    NSUnderlyingErrorKey : error}];
             }
