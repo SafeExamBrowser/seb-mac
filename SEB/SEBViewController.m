@@ -1625,25 +1625,48 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         }
     } else {
+        // We got passed a http(s) URL: Try to download the seb data directly
         sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-        if (error) {
+        if (error || !sebFileData) {
             // Check if the URL is in an associated domain
-            if ([self.browserController isAssociatedDomain:url]) {
-                [self.browserController handleUniversalLink:url];
-                return;
-            } else {
-                error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-                [self storeNewSEBSettingsSuccessful:error];
-                return;
-            }
+            [self storeSEBSettingsDownloadedDirectlySuccessful:error];
+            return;
+        } else {
+            // Directly downloading config file worked:
+            
+            // Cache current config URL, as it has to be restored if current URL fails in the end
+            currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+            
+            // Store the filename from the URL as current config file name
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
         }
     }
-    // Get current config path
-    currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Store the URL of the .seb file as current config file name
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
     
-    [self storeNewSEBSettings:sebFileData];
+    directlyDownloadedURL = url;
+    [self.configFileController storeNewSEBSettings:sebFileData
+                                        forEditing:NO
+                                          callback:self
+                                          selector:@selector(storeSEBSettingsDownloadedDirectlySuccessful:)];
+}
+
+
+- (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error
+{
+    if (error) {
+        // Check if the URL is in an associated domain
+        if ([self.browserController isAssociatedDomain:directlyDownloadedURL]) {
+            [self.browserController handleUniversalLink:directlyDownloadedURL];
+            return;
+        } else {
+            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+        }
+    } else {
+        // Directly downloading SEB config was successfull
+        
+        // Store the URL of the .seb file as current config file name
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:directlyDownloadedURL];
+    }
+    [self storeNewSEBSettingsSuccessful:error];
 }
 
 

@@ -522,7 +522,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     NSDictionary *entitlements = [[NSDictionary alloc]initWithContentsOfFile:entitlementsPath];
     NSArray *associatedDomains = [entitlements objectForKey:@"com.apple.developer.associated-domains"];
     NSString *host = url.host;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", host];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", host];
     NSArray *results = [associatedDomains filteredArrayUsingPredicate:predicate];
     // The URLs host is contained in our associated domains
     return (results.count != 0);
