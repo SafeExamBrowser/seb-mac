@@ -667,6 +667,13 @@ static NSMutableSet *browserWindowControllers;
 {
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
         [self.sideMenuController hideLeftViewAnimated];
+        if (!_finishedStartingUp || _pausedSAMAlertDisplayed) {
+            _pausedSAMAlertDisplayed = false;
+            // Continue starting up SEB without resetting settings
+            // but user interface might need to be re-initialized
+            [self initSEB];
+            [self conditionallyStartKioskMode];
+        }
     }];
 }
 
