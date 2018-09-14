@@ -1136,7 +1136,7 @@
 		6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoolValueTransformer.m; sourceTree = "<group>"; };
 		6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsEmptyCollectionValueTransformer.h; sourceTree = "<group>"; };
 		6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsEmptyCollectionValueTransformer.m; sourceTree = "<group>"; };
-		692476F41D27343600931AD8 /* SEB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SEB.entitlements; path = SEB/Resources/SEB.entitlements; sourceTree = "<group>"; };
+		692476F41D27343600931AD8 /* SEB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SEB.entitlements; path = Resources/SEB.entitlements; sourceTree = "<group>"; };
 		69263A9C1A2E0765006F1E31 /* SEBWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebView.h; path = Classes/BrowserComponents/SEBWebView.h; sourceTree = "<group>"; };
 		69263A9D1A2E0765006F1E31 /* SEBWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebView.m; path = Classes/BrowserComponents/SEBWebView.m; sourceTree = "<group>"; };
 		692891B012ACEBDC00EEE7C9 /* SEBBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindow.h; path = Classes/BrowserComponents/SEBBrowserWindow.h; sourceTree = "<group>"; };
@@ -1652,7 +1652,6 @@
 		29B97314FDCFA39411CA2CEA /* SEB */ = {
 			isa = PBXGroup;
 			children = (
-				692476F41D27343600931AD8 /* SEB.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				6940B98F1BA0F2FB008C8CFC /* SEBUITests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1942,6 +1941,7 @@
 		6940B99C1BA0FBD6008C8CFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				692476F41D27343600931AD8 /* SEB.entitlements */,
 				696DAD1E1C3C2B1400397E18 /* JavaScript */,
 				6940B99D1BA0FBDF008C8CFC /* Icons */,
 				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,

@@ -103,6 +103,12 @@
 
 - (void) conditionallyInitCustomHTTPProtocol;
 
+/**
+ * @brief       Checks if a URL is in an associated domain and therefore might have
+ *              been invoked with a Universal Link
+ */
+- (BOOL) isAssociatedDomain:(NSURL *)url;
+
 - (void) handleUniversalLink:(NSURL *)universalLink;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 

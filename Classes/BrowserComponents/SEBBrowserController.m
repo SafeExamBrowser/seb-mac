@@ -509,6 +509,26 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 
 #pragma mark - Handling Universal Links
 
+// Check if a URL is in an associated domain and therefore might have been
+// invoked with a Universal Link
+- (BOOL) isAssociatedDomain:(NSURL *)url
+{
+    if (![url.scheme isEqualToString:@"https"]) {
+        // Universal Links must use the https protocol
+        return NO;
+    }
+    NSString *entitlementsPath = [NSBundle.mainBundle pathForResource:[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+                                                     ofType:@"entitlements"];
+    NSDictionary *entitlements = [[NSDictionary alloc]initWithContentsOfFile:entitlementsPath];
+    NSArray *associatedDomains = [entitlements objectForKey:@"com.apple.developer.associated-domains"];
+    NSString *host = url.host;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", host];
+    NSArray *results = [associatedDomains filteredArrayUsingPredicate:predicate];
+    // The URLs host is contained in our associated domains
+    return (results.count != 0);
+}
+
+
 // Tries to find SEBSettings.seb or SEBExamSettings.seb files stored at folders
 // specified by a Universal Link
 - (void) handleUniversalLink:(NSURL *)universalLink
