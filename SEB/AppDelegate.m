@@ -136,6 +136,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
     
+    // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     if (shortcutItem)
     {
         NSLog(@"Launched with shortcut item: %@", shortcutItem);
@@ -147,9 +148,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
 
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
-    NSUserActivity *userActivity = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsUserActivityTypeKey];
+    NSDictionary *userActivity = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
     if (userActivity) {
-        _universalURL = [self getURLForUserActivity:userActivity];
+        if ([[userActivity objectForKey:UIApplicationLaunchOptionsUserActivityTypeKey] isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+            _openedUniversalLink = YES;
+        }
     }
 
     return shouldPerformAdditionalDelegateHandling;
