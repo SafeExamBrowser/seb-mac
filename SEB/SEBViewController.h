@@ -194,7 +194,6 @@
 - (BOOL) allowediOSVersion;
 
 - (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
-- (BOOL) handleUniversalLink:(NSURL *)universalLink;
 
 - (void) showConfigURLWarning:(NSError *)error;
 - (void) scanQRCode;
