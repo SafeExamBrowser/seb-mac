@@ -100,6 +100,7 @@
         //viewFrame.size.height -= kNavbarHeight;
         [self.view setFrame:viewFrame];
         [self adjustScrollPosition];
+        [self.browserTabViewController openCloseSliderForNewTab];
     } else {
         [self.view removeFromSuperview];
     }
