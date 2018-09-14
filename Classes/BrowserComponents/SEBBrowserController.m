@@ -514,7 +514,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 - (void) handleUniversalLink:(NSURL *)universalLink
 {
     _didReconfigureWithUniversalLink = NO;
-    if (universalLink) {
+    if (universalLink &&
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // Remove query and fragment parts from the Universal Link URL
         NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
         urlComponents.query = nil;
@@ -553,7 +554,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         // Also no "SEBExamSettings.seb" file found, stop the search
         _downloadTask = nil;
         NSError *error = nil;
-        // If no valid client config was found (in the "SEBSettings.seb" file), specify an error message
+        // If no valid client config was found (in the "SEBSettings.seb" file), return an error message
         if (!_didReconfigureWithUniversalLink) {
             error = [[NSError alloc]
                      initWithDomain:sebErrorDomain
@@ -686,9 +687,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                    universalLinkHost:cachedHostURL
                        universalLink:cachedUniversalLink];
         } else {
-            // There were Exam Settings in the SEBSettings.seb file
-            // (no Client Settings), we can stop searching further and
-            // start the exam!
+            // There either were Exam Settings in the SEBSettings.seb file
+            // (no Client Settings), then we can stop searching further and
+            // start the exam. Or we found Exam Settings in the
+            // SEBExamSettings.seb file, then we can start that exam.
             
             // Check if the Start URL Deep Link feature is allowed and store the
             // original full Universal Link as the deep link

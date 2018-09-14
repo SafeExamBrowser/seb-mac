@@ -251,8 +251,10 @@ static NSMutableSet *browserWindowControllers;
     
     // Was SEB opened by loading a .seb file/using a seb:// link?
     if (_appDelegate.sebFileURL) {
+        DDLogInfo(@"SEB was started by loading a .seb file/using a seb:// link");
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
         if (_settingsOpen) {
+            DDLogInfo(@"SEB was started by loading a .seb file / seb:// link, but Settings were open, they need to be closed first");
             // Close settings
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                 _settingsOpen = false;
@@ -271,6 +273,12 @@ static NSMutableSet *browserWindowControllers;
         }
     } else if (_appDelegate.shortcutItemAtLaunch) {
         // Was SEB opened by a Home screen quick action shortcut item?
+        DDLogInfo(@"SEB was started by a Home screen quick action shortcut item");
+
+        // Set flag that SEB is initialized to prevent the client config
+        // Start URL to be loaded
+        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+
         [self handleShortcutItem:_appDelegate.shortcutItemAtLaunch];
     }
 }
@@ -295,7 +303,8 @@ static NSMutableSet *browserWindowControllers;
             [self conditionallyShowSettingsModal];
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             [self conditionallyResetSettings];
-        } else if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
+        } else if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
+                   _appDelegate.openedUniversalLink == NO) {
             [self conditionallyStartKioskMode];
         }
         
