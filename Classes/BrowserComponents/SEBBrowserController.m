@@ -673,7 +673,11 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                universalLinkHost:cachedHostURL
                    universalLink:cachedUniversalLink];
     } else {
-        // Successfully found and stored some SEB settings. If these came from
+        // Successfully found and stored some SEB settings
+        // Store the file name of the .seb file as current config file path
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:cachedConfigFileName]];
+
+        // If these SEB settings came from
         // a "SEBSettings.seb" file, we check if they contained Client Settings
         if ([cachedConfigFileName isEqualToString:SEBSettingsFilename] &&
             ![NSUserDefaults userDefaultsPrivate]) {
