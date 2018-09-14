@@ -98,7 +98,6 @@
 
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate>
 {
-    NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
     
@@ -108,6 +107,10 @@
     BOOL quitPasswordPlaceholder;
     BOOL ASAMActiveChecked;
     BOOL sebUIInitialized;
+
+    NSURL *currentConfigPath;
+    NSURL *directlyDownloadedURL;
+
     NSString *currentStartURL;
     NSString *startURLQueryParameter;
 
@@ -215,6 +218,7 @@
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
 
+- (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;
