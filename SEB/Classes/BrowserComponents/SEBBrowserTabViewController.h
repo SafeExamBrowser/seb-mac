@@ -86,6 +86,7 @@
 
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 
+- (void) openCloseSliderForNewTab;
 - (void) switchToTab:(id)sender;
 - (void) closeTab;
 

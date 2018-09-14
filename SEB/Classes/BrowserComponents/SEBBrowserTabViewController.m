@@ -48,7 +48,7 @@
 
 #pragma mark - View management delegate methods
 
-- (void)didMoveToParentViewController:(UIViewController *)parent
+- (void) didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
         // Add the view to the parent view and position it if you want
@@ -63,13 +63,13 @@
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
 }
 
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     
@@ -95,14 +95,14 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
@@ -113,7 +113,7 @@
 
 #pragma mark - Controller interface
 
-- (void)backToStart {
+- (void) backToStart {
 //    [_visibleWebViewController backToStart];
     
     // Conditionally load Back to Start URL into the main browser view
@@ -137,7 +137,7 @@
     }
 }
 
-- (void)goBack {
+- (void) goBack {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
         // Main browser tab with the exam
@@ -155,7 +155,7 @@
     [_visibleWebViewController goBack];
 }
 
-- (void)goForward {
+- (void) goForward {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
         // Main browser tab with the exam
@@ -173,18 +173,18 @@
     [_visibleWebViewController goForward];
 }
 
-- (void)reload {
+- (void) reload {
     [_visibleWebViewController reload];
 }
 
-- (void)stopLoading {
+- (void) stopLoading {
     [_visibleWebViewController stopLoading];
 }
 
 
 #pragma mark - Callbacks for UI state changes
 
-- (void)setLoading:(BOOL)loading
+- (void) setLoading:(BOOL)loading
 {
 //    if (self.searchBar.text.length > 0) {
 //        if (loading) {
@@ -203,7 +203,7 @@
 }
 
 
-- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL showToolbarNavigation = true;
@@ -233,7 +233,7 @@
 #pragma mark - Opening and closing tabs
 
 // Open new tab and load URL
-- (void)openNewTabWithURL:(NSURL *)url
+- (void) openNewTabWithURL:(NSURL *)url
 {
     _maxIndex++;
     NSUInteger index = _maxIndex;
@@ -242,7 +242,7 @@
 
 
 // Open new tab and load URL or image (in the case of a freehand drawing)
-- (void)openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage
+- (void) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage
 {
     _maxIndex++;
     NSUInteger index = _maxIndex;
@@ -251,14 +251,16 @@
 
 
 // Open new tab and load URL, use passed index
-- (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
+- (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
 {
     [self openNewTabWithURL:url index:index image:nil];
 }
 
 
 // Open new tab and load URL or template image (in the case of a freehand drawing)
-- (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index image:(UIImage *)templateImage
+- (void) openNewTabWithURL:(NSURL *)url
+                    index:(NSUInteger)index
+                    image:(UIImage *)templateImage
 {
 
     // Save new tab data persistently
@@ -326,16 +328,20 @@
 
     [_visibleWebViewController loadURL:url];
     
-    [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
-        [self.sideMenuController hideLeftViewAnimated];
-    }];
-    
 //    self.searchBarController.url = url.absoluteString;
 }
 
 
+- (void) openCloseSliderForNewTab
+{
+    [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
+        [self.sideMenuController hideLeftViewAnimated];
+    }];
+}
+
+
 // Open new tab and load URL
-- (void)switchToTab:(id)sender {
+- (void) switchToTab:(id)sender {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
     if (tabIndex < _openWebpages.count) {
         OpenWebpages *webpageToSwitch = _openWebpages[tabIndex];
@@ -371,7 +377,7 @@
 
 
 // Close tab requested
-- (void)closeTabRequested:(id)sender
+- (void) closeTabRequested:(id)sender
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
     
@@ -385,7 +391,7 @@
 
 
 // Close tab
-- (void)closeTab
+- (void) closeTab
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
     
@@ -436,7 +442,7 @@
 }
 
 
-- (void)setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController
+- (void) setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController
 {
     NSUInteger index = [_openWebpages indexOfObjectPassingTest:
      ^(OpenWebpages *openPage, NSUInteger idx, BOOL *stop) {
@@ -454,7 +460,7 @@
 }
 
 
-- (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString
+- (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
     [self.visibleWebViewController.sebWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];
     
@@ -462,7 +468,7 @@
 
 
 // Load all open web pages from the persistent store and re-create webview(s) for them
-- (void)loadPersistedOpenWebPages {
+- (void) loadPersistedOpenWebPages {
     
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
@@ -556,7 +562,7 @@
 
 
 // Close all tabs with open web pages and remove persisted open webpages
-- (void)closeAllTabs
+- (void) closeAllTabs
 {
     [self.sideMenuController hideLeftViewAnimated];
 
@@ -574,7 +580,7 @@
 
 
 // Remove all open web pages from the persistent store
-- (void)removePersistedOpenWebPages
+- (void) removePersistedOpenWebPages
 {
     NSManagedObjectContext *context = self.managedObjectContext;
     
@@ -596,7 +602,7 @@
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBWebViewController *)createNewWebViewController {
+- (SEBWebViewController *) createNewWebViewController {
     SEBWebViewController *newSEBWebViewController = [SEBWebViewController new];
     newSEBWebViewController.browserTabViewController = self;
     return newSEBWebViewController;
@@ -613,7 +619,7 @@
 }
 
 
-- (NSString *)documentsDirectoryPath {
+- (NSString *) documentsDirectoryPath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     return documentsDirectoryPath;
