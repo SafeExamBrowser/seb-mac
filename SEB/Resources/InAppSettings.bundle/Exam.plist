@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Quit Link</string>
 			<key>FooterText</key>
-			<string>Place a hyperlink with this Quit URL in the feedback page displayed after an exam is successfully finished or enter the feedback page URL as Quit URL. Clicking the link or navigating to the feedback page will quit SEB without having to enter the quit password.</string>
+			<string>Place a hyperlink with this URL on the feedback page displayed after an exam is successfully finished (or use the URL of the feedback page itself). Tapping the link or navigating to the feedback page will quit the exam session and unlock SEB without having to enter the quit/unlock password.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -46,7 +46,7 @@
 			<key>Title</key>
 			<string>Back to Start Button</string>
 			<key>FooterText</key>
-			<string>This function doesn&apos;t log you out if you are logged in a website (doesn&apos;t clear session cookies). </string>
+			<string>This function doesn&apos;t log you out if you are logged in on a website (doesn&apos;t clear session cookies). </string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -88,7 +88,7 @@
 			<key>Title</key>
 			<string>Query String Parameter</string>
 			<key>FooterText</key>
-			<string>An additional query string added to a URL (separated by &apos;?&apos; or &apos;??&apos; if the main URL doesn&apos;t contain a query) will be appended to the Start URL of an exam. This works when loading the exam config file with seb(s):// links or QR codes.</string>
+			<string>An additional query string added to the link to a SEB config file will be appended to the Start URL of an exam. It needs to be separated from the main URL by &apos;?&apos; or &apos;??&apos; if the URL itself doesn&apos;t contain a query.  This works when loading the exam config file with seb(s):// links or QR codes.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
