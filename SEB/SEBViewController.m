@@ -1505,18 +1505,7 @@ void run_on_ui_thread(dispatch_block_t block)
                            callback:(id)callback
                            selector:(SEL)selector
 {
-    // Check if the initialize settings assistant is open
-    if (_initAssistantOpen) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            _initAssistantOpen = false;
-            // Reset the finished starting up flag, because if loading settings fails or is canceled,
-            // we need to load the webpage
-            _finishedStartingUp = false;
-            [self conditionallyOpenSEBConfig:sebConfig
-                                    callback:callback
-                                    selector:selector];
-        }];
-    } else if (_startSAMWAlertDisplayed) {
+    if (_startSAMWAlertDisplayed) {
         // Dismiss the Activate SAM alert in case it still was visible
         [_alertController dismissViewControllerAnimated:NO completion:^{
             _alertController = nil;
@@ -1530,11 +1519,21 @@ void run_on_ui_thread(dispatch_block_t block)
                                     selector:selector];
         }];
         return;
-
     } else if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             _alertController = nil;
-            _pausedSAMAlertDisplayed = true;
+            [self conditionallyOpenSEBConfig:sebConfig
+                                    callback:callback
+                                    selector:selector];
+        }];
+        return;
+    } else if (_initAssistantOpen) {
+        // Check if the initialize settings assistant is open
+        [self dismissViewControllerAnimated:YES completion:^{
+            _initAssistantOpen = false;
+            // Reset the finished starting up flag, because if loading settings fails or is canceled,
+            // we need to load the webpage
+            _finishedStartingUp = false;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
