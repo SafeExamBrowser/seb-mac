@@ -211,7 +211,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions For Administrators", nil)
-                                                                                                                                                      message:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with SEB.\nGeneral instructions about how to configure SEB can be found on safeexambrowser.org.", nil)
+                                                                                                                                                      message:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with SEB.\nGeneral instructions on how to configure SEB can be found on safeexambrowser.org.", nil)
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
 
                                                                              [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
