@@ -72,7 +72,7 @@
  * @brief       Store downloaded SEB client settings and inform callback if successful.
  * @details
  */
--(void) storeSEBClientSettings:(NSData *)sebData
+- (void) storeSEBClientSettings:(NSData *)sebData
                    callback:(id)callback
                    selector:(SEL)selector;
 
@@ -80,7 +80,7 @@
  * @brief       Close Assistant and restart SEB (using new settings).
  * @details
  */
--(void) closeAssistantRestartSEB;
+- (void) closeAssistantRestartSEB;
 
 @optional
 

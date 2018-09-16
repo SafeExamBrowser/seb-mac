@@ -38,6 +38,8 @@
 @implementation SEBiOSInitAssistantViewController
 
 
+#pragma mark - UIViewController Overrides
+
 - (void) didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
@@ -82,6 +84,8 @@
 }
 
 
+#pragma mark - IB Action Handler
+
 - (IBAction) urlEntered:(id)sender {
     NSString *enteredConfigURLString = configURLField.text;
     // Hide the other "config not found" label
@@ -94,72 +98,10 @@
 
 
 - (IBAction) typingURL:(id)sender {
+    [_assistantController cancelDownloadingClientConfig];
     [self setConfigURLWrongLabelHidden:true
                                  error:nil
                     forClientConfigURL:false];
-}
-
-
-#pragma mark Delegates
-
-- (NSString *) configURLString {
-    return configURLField.text;
-}
-
-
-- (void) setConfigURLString:(NSString *)URLString {
-    configURLField.text = URLString;
-}
-
-
-- (void) setConfigURLWrongLabelHidden:(BOOL)hidden
-                               error:(NSError *)error
-                  forClientConfigURL:(BOOL)clientConfigURL
-{
-    noConfigFoundLabel.hidden = hidden;
-
-    // The first time a wrong SEB client config URL is entered, we display a warning
-    // that not all institutions support Automatic SEB Client Configuration
-    if (error.code == SEBErrorASCCNoConfigFound) {
-        if (clientConfigURL && !configURLWarningDisplayed) {
-            configURLWarningDisplayed = YES;
-            [_sebViewController showConfigURLWarning:error];
-        }
-    } else if (error.code == SEBErrorASCCNoWiFi) {
-        noConfigFoundLabel.hidden = YES;
-        [_sebViewController showConfigURLWarning:error];
-    } else if (error) {
-        [_sebViewController showConfigURLWarning:error];
-    }
-}
-
-
-- (void) activityIndicatorAnimate:(BOOL)animate
-{
-    if (animate) {
-        loadingConfig.hidden = false;
-        [loadingConfig startAnimating];
-    } else {
-        [loadingConfig stopAnimating];
-        loadingConfig.hidden = true;
-    }
-}
-
-// Store downloaded SEB client settings and inform callback if successful.
--(void) storeSEBClientSettings:(NSData *)sebData
-                      callback:(id)callback
-                      selector:(SEL)selector
-{
-    [_sebViewController.configFileController storeNewSEBSettings:sebData forEditing:false callback:callback selector:selector];
-}
-
-
--(void) closeAssistantRestartSEB
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        _sebViewController.initAssistantOpen = false;
-        [_sebViewController storeNewSEBSettingsSuccessful:nil];
-    }];
 }
 
 
@@ -172,20 +114,8 @@
     noConfigFoundLabel = noConfigQRCodeFoundLabel;
     // Define the ConfigURLManager delegate for evaluating the scanned URL
     _sebViewController.configURLManagerDelegate = self;
-
+    
     [_sebViewController scanQRCode];
-}
-
-
-- (void) enableQRScanButton:(BOOL)enabled
-{
-    QRCodeScanButton.enabled = enabled;
-}
-
-
-- (void) evaluateEnteredURLString:(NSString *)inputURLString
-{
-    [_assistantController evaluateEnteredURLString:inputURLString];
 }
 
 
@@ -213,14 +143,14 @@
                                                                              _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions For Administrators", nil)
                                                                                                                                                       message:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with SEB.\nGeneral instructions on how to configure SEB can be found on safeexambrowser.org.", nil)
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
-
+                                                                             
                                                                              [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                                                                                                     style:UIAlertActionStyleCancel
                                                                                                                                                   handler:^(UIAlertAction *action) {
                                                                                                                                                       
                                                                                                                                                       _sebViewController.alertController = nil;
                                                                                                                                                   }]];
-
+                                                                             
                                                                              [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Edit Settings", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault
                                                                                                                                                   handler:^(UIAlertAction *action) {
@@ -231,7 +161,7 @@
                                                                                                                                                       _sebViewController.finishedStartingUp = NO;
                                                                                                                                                       [self editSettings:self];
                                                                                                                                                   }]];
-
+                                                                             
                                                                              [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
                                                                          }]];
     
@@ -246,19 +176,97 @@
                                                                              [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault
                                                                                                                                                   handler:^(UIAlertAction *action) {
-
+                                                                                                                                                      
                                                                                                                                                       _sebViewController.alertController = nil;
                                                                                                                                                   }]];
                                                                              [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
                                                                          }]];
-
+    
     [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
-
+    
 }
 
 
 - (IBAction) editSettings:(id)sender {
     [_sebViewController conditionallyShowSettingsModal];
+}
+
+
+#pragma mark - Helper Methods
+
+- (void) enableQRScanButton:(BOOL)enabled
+{
+    QRCodeScanButton.enabled = enabled;
+}
+
+
+- (void) evaluateEnteredURLString:(NSString *)inputURLString
+{
+    [_assistantController evaluateEnteredURLString:inputURLString];
+}
+
+
+#pragma mark - SEBInitAssistantDelegate Delegate Methods
+
+- (NSString *) configURLString {
+    return configURLField.text;
+}
+
+
+- (void) setConfigURLString:(NSString *)URLString {
+    configURLField.text = URLString;
+}
+
+
+- (void) activityIndicatorAnimate:(BOOL)animate
+{
+    if (animate) {
+        loadingConfig.hidden = false;
+        [loadingConfig startAnimating];
+    } else {
+        [loadingConfig stopAnimating];
+        loadingConfig.hidden = true;
+    }
+}
+
+
+- (void) setConfigURLWrongLabelHidden:(BOOL)hidden
+                               error:(NSError *)error
+                  forClientConfigURL:(BOOL)clientConfigURL
+{
+    noConfigFoundLabel.hidden = hidden;
+
+    // The first time a wrong SEB client config URL is entered, we display a warning
+    // that not all institutions support Automatic SEB Client Configuration
+    if (error.code == SEBErrorASCCNoConfigFound) {
+        if (clientConfigURL && !configURLWarningDisplayed) {
+            configURLWarningDisplayed = YES;
+            [_sebViewController showConfigURLWarning:error];
+        }
+    } else if (error.code == SEBErrorASCCNoWiFi) {
+        noConfigFoundLabel.hidden = YES;
+        [_sebViewController showConfigURLWarning:error];
+    } else if (error) {
+        [_sebViewController showConfigURLWarning:error];
+    }
+}
+
+
+// Store downloaded SEB client settings and inform callback if successful.
+- (void) storeSEBClientSettings:(NSData *)sebData
+                      callback:(id)callback
+                      selector:(SEL)selector
+{
+    [_sebViewController.configFileController storeNewSEBSettings:sebData forEditing:false callback:callback selector:selector];
+}
+
+
+- (void) closeAssistantRestartSEB
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        _sebViewController.initAssistantOpen = false;
+        [_sebViewController storeNewSEBSettingsSuccessful:nil];
+    }];
 }
 
 
