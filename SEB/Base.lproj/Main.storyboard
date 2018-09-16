@@ -467,7 +467,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvS-YS-Rz4">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="542.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="539.66666666666663"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cj0-uR-8kk">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130.66666666666666"/>
@@ -489,7 +489,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GzA-jp-7VX">
-                                                <rect key="frame" x="0.0" y="213" width="375" height="145.33333333333337"/>
+                                                <rect key="frame" x="0.0" y="210" width="375" height="145.33333333333337"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8e-we-2Uj">
                                                         <rect key="frame" x="0.0" y="-1" width="375" height="1"/>
@@ -518,7 +518,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMS-9D-3zr">
-                                                <rect key="frame" x="0.0" y="482.66666666666674" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="476.66666666666669" width="375" height="60.000000000000057"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLT-21-gLh">
                                                         <rect key="frame" x="0.0" y="58.999999999999943" width="375" height="1"/>
@@ -548,7 +548,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCX-Ab-h85">
-                                                <rect key="frame" x="20" y="150.66666666666666" width="8" height="20.333333333333343"/>
+                                                <rect key="frame" x="20" y="147.66666666666666" width="8" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -561,25 +561,25 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open an SEB exam or configuration link from Safari, Mail or a messenger app." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BE1-ZM-fgu">
-                                                <rect key="frame" x="32" y="150.66666666666666" width="318" height="42.333333333333343"/>
+                                                <rect key="frame" x="32" y="147.66666666666666" width="318" height="42.333333333333343"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCj-e3-Pe5">
-                                                <rect key="frame" x="20" y="228" width="8" height="20.333333333333343"/>
+                                                <rect key="frame" x="20" y="225" width="8" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the URL of an institution which supports SEB" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lf7-gn-5ng">
-                                                <rect key="frame" x="32" y="228" width="295" height="42.333333333333314"/>
+                                                <rect key="frame" x="32" y="225" width="295" height="42.333333333333314"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-KW-3Qp">
-                                                <rect key="frame" x="32" y="280.33333333333331" width="309" height="30"/>
+                                                <rect key="frame" x="32" y="277.33333333333331" width="309" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                                                 <connections>
@@ -588,17 +588,17 @@
                                                 </connections>
                                             </textField>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
-                                                <rect key="frame" x="316" y="285.33333333333331" width="20" height="20"/>
+                                                <rect key="frame" x="316" y="282.33333333333331" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaL-4I-bjq">
-                                                <rect key="frame" x="32" y="313.33333333333331" width="110" height="30"/>
+                                                <rect key="frame" x="32" y="310.33333333333331" width="110" height="30"/>
                                                 <state key="normal" title="Search Network"/>
                                                 <connections>
                                                     <action selector="searchNetwork:" destination="h8j-pm-u2W" eventType="touchUpInside" id="TAP-Y8-ir7"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
-                                                <rect key="frame" x="352" y="285.33333333333331" width="11" height="20"/>
+                                                <rect key="frame" x="352" y="282.33333333333331" width="11" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="11" id="bj0-dq-iPp"/>
                                                 </constraints>
@@ -608,7 +608,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No config found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9il-ut-H8z">
-                                                <rect key="frame" x="240" y="313.33333333333331" width="101" height="30"/>
+                                                <rect key="frame" x="240" y="310.33333333333331" width="101" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="KR2-7W-Vfb"/>
                                                 </constraints>
@@ -617,33 +617,33 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-7Z-Q9L">
-                                                <rect key="frame" x="20" y="378.33333333333331" width="8" height="20.333333333333314"/>
+                                                <rect key="frame" x="20" y="372.33333333333331" width="8" height="20.333333333333314"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan SEB configuration QR code" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6r-Ir-cTX">
-                                                <rect key="frame" x="32" y="378.33333333333331" width="259" height="20.333333333333314"/>
+                                                <rect key="frame" x="32" y="372.33333333333331" width="259" height="20.333333333333314"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLh-eI-sov">
-                                                <rect key="frame" x="32" y="408.66666666666669" width="54" height="54"/>
+                                                <rect key="frame" x="32" y="402.66666666666669" width="54" height="54"/>
                                                 <state key="normal" image="SEBQRCode.png"/>
                                                 <connections>
                                                     <action selector="scanQRCode" destination="h8j-pm-u2W" eventType="touchUpInside" id="Lnk-v2-VBP"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
-                                                <rect key="frame" x="214" y="497.66666666666674" width="129" height="30"/>
+                                                <rect key="frame" x="214" y="488.66666666666669" width="129" height="36.000000000000057"/>
                                                 <state key="normal" title="More Information…"/>
                                                 <connections>
                                                     <action selector="more:" destination="h8j-pm-u2W" eventType="touchUpInside" id="aN6-qz-a60"/>
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No SEB configuration found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fem-Ic-Pih">
-                                                <rect key="frame" x="94" y="446.66666666666669" width="172" height="16"/>
+                                                <rect key="frame" x="94" y="440.66666666666669" width="172" height="16"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -660,13 +660,13 @@
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="bottom" secondItem="cj0-uR-8kk" secondAttribute="bottom" constant="-15" id="5Da-Vv-hxF"/>
                                             <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="1bF-7Z-Q9L" secondAttribute="top" id="5nV-Jt-6T4"/>
                                             <constraint firstItem="GzA-jp-7VX" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" id="6NG-8Z-pKY"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="top" secondItem="Wmj-TM-U1f" secondAttribute="bottom" constant="35" id="7ob-8H-Hr8"/>
+                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="top" secondItem="Wmj-TM-U1f" secondAttribute="bottom" constant="32" id="7ob-8H-Hr8"/>
                                             <constraint firstItem="lf7-gn-5ng" firstAttribute="top" secondItem="GCj-e3-Pe5" secondAttribute="top" id="8TX-8K-1wK"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="top" secondItem="iMS-9D-3zr" secondAttribute="top" constant="15" id="95K-Gt-HdQ"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="9il-ut-H8z" secondAttribute="bottom" constant="35" id="9hw-du-DNa"/>
+                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="top" secondItem="iMS-9D-3zr" secondAttribute="top" constant="12" id="95K-Gt-HdQ"/>
+                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="9il-ut-H8z" secondAttribute="bottom" constant="32" id="9hw-du-DNa"/>
                                             <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Wmj-TM-U1f" secondAttribute="trailing" constant="20" id="Bbf-2P-Nbi"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BE1-ZM-fgu" secondAttribute="trailing" constant="20" id="Cji-yV-v7p"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="aaL-4I-bjq" secondAttribute="bottom" constant="35" id="Cpq-JB-tbC"/>
+                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="aaL-4I-bjq" secondAttribute="bottom" constant="32" id="Cpq-JB-tbC"/>
                                             <constraint firstItem="aaL-4I-bjq" firstAttribute="leading" secondItem="7o6-KW-3Qp" secondAttribute="leading" id="FnR-3X-5dp"/>
                                             <constraint firstItem="9il-ut-H8z" firstAttribute="bottom" secondItem="GzA-jp-7VX" secondAttribute="bottom" constant="-15" id="GBJ-dw-dqd"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="top" secondItem="Ye2-Ig-UNb" secondAttribute="top" priority="750" id="IZ1-XJ-hMn"/>
@@ -698,8 +698,8 @@
                                             <constraint firstItem="7o6-KW-3Qp" firstAttribute="top" secondItem="lf7-gn-5ng" secondAttribute="bottom" constant="10" id="gB6-J2-sr6"/>
                                             <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" secondItem="sIk-vP-dKf" secondAttribute="trailing" constant="32" id="gf2-vF-se8"/>
                                             <constraint firstItem="fem-Ic-Pih" firstAttribute="leading" secondItem="TLh-eI-sov" secondAttribute="trailing" constant="8" symbolic="YES" id="h4I-g5-sU4"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="bottom" secondItem="iMS-9D-3zr" secondAttribute="bottom" constant="-15" id="hv1-bN-Vry"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="top" secondItem="fem-Ic-Pih" secondAttribute="bottom" constant="35" id="iw0-7q-fK3"/>
+                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="bottom" secondItem="iMS-9D-3zr" secondAttribute="bottom" constant="-12" id="hv1-bN-Vry"/>
+                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="top" secondItem="fem-Ic-Pih" secondAttribute="bottom" constant="32" id="iw0-7q-fK3"/>
                                             <constraint firstItem="iMS-9D-3zr" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" id="j5Z-qC-B3a"/>
                                             <constraint firstItem="aaL-4I-bjq" firstAttribute="top" secondItem="7o6-KW-3Qp" secondAttribute="bottom" constant="3" id="jau-a4-BVQ"/>
                                             <constraint firstItem="6pO-9x-gSg" firstAttribute="leading" secondItem="7o6-KW-3Qp" secondAttribute="trailing" constant="11" id="lA4-fE-NYK"/>
