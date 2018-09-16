@@ -83,14 +83,12 @@
 
 
 - (IBAction) urlEntered:(id)sender {
-    if (![enteredConfigURLString isEqualToString:configURLField.text]) {
-        enteredConfigURLString = configURLField.text;
-        noConfigQRCodeFoundLabel.hidden = true;
-        noConfigFoundLabel = noConfigURLFoundLabel;
-        [_assistantController evaluateEnteredURLString:enteredConfigURLString];
-    } else {
-        enteredConfigURLString = nil;
-    }
+    NSString *enteredConfigURLString = configURLField.text;
+    // Hide the other "config not found" label
+    noConfigQRCodeFoundLabel.hidden = true;
+    // Keep a reference for the URL textfield "config not found" label
+    noConfigFoundLabel = noConfigURLFoundLabel;
+    [_assistantController evaluateEnteredURLString:enteredConfigURLString];
     [configURLField resignFirstResponder];
 }
 
@@ -168,7 +166,9 @@
 - (IBAction) scanQRCode
 {
     configURLField.text = @"";
+    // Hide the other "config not found" label
     noConfigURLFoundLabel.hidden = true;
+    // Keep a reference for the scan QR code "config not found" label
     noConfigFoundLabel = noConfigQRCodeFoundLabel;
     // Define the ConfigURLManager delegate for evaluating the scanned URL
     _sebViewController.configURLManagerDelegate = self;

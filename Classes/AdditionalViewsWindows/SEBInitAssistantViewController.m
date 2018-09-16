@@ -74,7 +74,7 @@
         }
     }
     if (URLFromString) {
-        clientConfigURL = false;
+        clientConfigURL = NO;
         [self checkSEBClientConfigURL:URLFromString withScheme:0];
     } else {
         [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0
@@ -178,12 +178,25 @@
         [hostnames addObject:[(__bridge NSArray *)hostnamesRef objectAtIndex:currentIndex]];
     }
     
-    return hostnames[0];
+    NSString *hostname = hostnames.firstObject;
+    if (!hostname || ![hostname containsString:@"."]) {
+        // Display warning that not connected to a WiFi network
+        [self storeSEBClientSettingsSuccessful:[[NSError alloc]
+                                                initWithDomain:sebErrorDomain
+                                                code:SEBErrorASCCNoWiFi
+                                                userInfo:@{ NSLocalizedDescriptionKey :
+                                                                NSLocalizedString(@"No Hostname Found", nil),
+                                                            NSLocalizedFailureReasonErrorKey :
+                                                                NSLocalizedString(@"Could not determine a correct hostname. You can enter the domain URL of your institution manually.", nil)
+                                                            }]];
+    }
+    return hostname;
 }
 
 
 // Check for SEB client config at the passed URL using the next scheme
-- (void) checkSEBClientConfigURL:(NSURL *)url withScheme:(SEBClientConfigURLSchemes)configURLScheme
+- (void) checkSEBClientConfigURL:(NSURL *)url
+                      withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     // Cancel a processing download of a previously entered URL
     [self cancelDownloadingClientConfig];
