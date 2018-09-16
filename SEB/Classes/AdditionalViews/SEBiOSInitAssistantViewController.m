@@ -86,7 +86,10 @@
 
 #pragma mark - IB Action Handler
 
-- (IBAction) urlEntered:(id)sender {
+- (IBAction) urlEntered:(id)sender
+{
+    [_assistantController cancelDownloadingClientConfig];
+
     NSString *enteredConfigURLString = configURLField.text;
     // Hide the other "config not found" label
     noConfigQRCodeFoundLabel.hidden = true;
@@ -97,8 +100,10 @@
 }
 
 
-- (IBAction) typingURL:(id)sender {
+- (IBAction) typingURL:(id)sender
+{
     [_assistantController cancelDownloadingClientConfig];
+    
     [self setConfigURLWrongLabelHidden:true
                                  error:nil
                     forClientConfigURL:false];
@@ -107,6 +112,8 @@
 
 - (IBAction) scanQRCode
 {
+    [_assistantController cancelDownloadingClientConfig];
+
     configURLField.text = @"";
     // Hide the other "config not found" label
     noConfigURLFoundLabel.hidden = true;
@@ -119,14 +126,20 @@
 }
 
 
-- (IBAction) searchNetwork:(id)sender {
+- (IBAction) searchNetwork:(id)sender
+{
+    [_assistantController cancelDownloadingClientConfig];
+
     NSString *hostName = [_assistantController domainForCurrentNetwork];
     [self setConfigURLString:hostName];
     [self urlEntered:self];
 }
 
 
-- (IBAction) more:(id)sender {
+- (IBAction) more:(id)sender
+{
+    [_assistantController cancelDownloadingClientConfig];
+
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
@@ -159,7 +172,7 @@
                                                                                                                                                       // This flag needs to be set to NO to load
                                                                                                                                                       // the Inital Assistant again if editing settings is canceled
                                                                                                                                                       _sebViewController.finishedStartingUp = NO;
-                                                                                                                                                      [self editSettings:self];
+                                                                                                                                                      [_sebViewController conditionallyShowSettingsModal];
                                                                                                                                                   }]];
                                                                              
                                                                              [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
@@ -184,11 +197,6 @@
     
     [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
     
-}
-
-
-- (IBAction) editSettings:(id)sender {
-    [_sebViewController conditionallyShowSettingsModal];
 }
 
 
