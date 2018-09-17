@@ -585,7 +585,8 @@ static NSMutableSet *browserWindowControllers;
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
-        [self presentViewController:_assistantViewController animated:YES completion:^{
+
+        [self.navigationController.visibleViewController presentViewController:_assistantViewController animated:YES completion:^{
             _initAssistantOpen = true;
         }];
     }
@@ -800,7 +801,7 @@ static NSMutableSet *browserWindowControllers;
     _aboutSEBViewController.sebViewController = self;
     _aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     
-    [self presentViewController:_aboutSEBViewController animated:YES completion:^{
+    [self.navigationController.visibleViewController presentViewController:_aboutSEBViewController animated:YES completion:^{
         _aboutSEBViewDisplayed = true;
     }];
 }
@@ -852,7 +853,7 @@ static NSMutableSet *browserWindowControllers;
     
     _settingsOpen = true;
     
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController.visibleViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 
@@ -2364,7 +2365,9 @@ void run_on_ui_thread(dispatch_block_t block)
         // SAM is allowed
         _singleAppModeActivated = true;
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
@@ -2381,7 +2384,9 @@ void run_on_ui_thread(dispatch_block_t block)
 // No kiosk mode available: SEB refuses to start the exam
 - (void) showNoKioskModeAvailable
 {
-    [_alertController dismissViewControllerAnimated:NO completion:nil];
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
     _noSAMAlertDisplayed = true;
     _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
                                                             message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
@@ -2402,8 +2407,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              [[NSNotificationCenter defaultCenter]
                                                               postNotificationName:@"requestQuit" object:self];
                                                          }]];
-    
-    [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+    [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:_alertController animated:YES completion:nil];
+//    [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
 }
 
 
@@ -2415,6 +2420,9 @@ void run_on_ui_thread(dispatch_block_t block)
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:NSLocalizedString(@"Single App Mode needs to be reactivated before SEB can continue.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
@@ -2859,6 +2867,37 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     return placeholderString;
+}
+
+
+// Delegate method which displays a dialog when a config file
+// is being downloaded, providing a cancel button. When tapped, then
+// the callback method is invoked
+- (void) showOpeningConfigFileDialog:(NSString *)text
+                                     title:(NSString *)title
+                            cancelCallback:(id)callback
+                                  selector:(SEL)selector
+{
+    [self alertWithTitle:title
+                 message:text
+            action1Title:NSLocalizedString(@"Cancel", nil)
+          action1Handler:^{
+              IMP imp = [callback methodForSelector:selector];
+              void (*func)(id, SEL) = (void *)imp;
+              func(callback, selector);
+          }
+            action2Title:nil
+          action2Handler:nil];
+}
+
+
+// Delegate method to close the dialog displayed while a config file
+// is being downloaded,
+- (void) closeOpeningConfigFileDialog;
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 

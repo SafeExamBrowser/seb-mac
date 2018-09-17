@@ -66,6 +66,28 @@
  */
 - (NSString *) showURLplaceholderTitleForWebpage;
 
+/**
+ * @brief       Delegate method which should display a dialog when a config file
+ *              is being downloaded, providing a cancel button. When tapped, then
+ *              the callback method should be invoked (with no parameter).
+ */
+- (void) showOpeningConfigFileDialog:(NSString *)text
+                               title:(NSString *)title
+                      cancelCallback:(id)callback
+                            selector:(SEL)selector;
+
+/**
+ * @brief       Delegate method to close the dialog displayed while a config file
+ *              is being downloaded,
+ */
+- (void) closeOpeningConfigFileDialog;
+
+/**
+ * @brief       Delegate method called when settings data was downloaded.
+ *              The method should attempt to decrypt, parse and store
+ *              the config data and invoke the callback method passing
+ *              an NSError object indicating if it was successful.
+ */
 -(void) storeNewSEBSettings:(NSData *)sebData
                  forEditing:(BOOL)forEditing
      forceConfiguringClient:(BOOL)forceConfiguringClient
@@ -73,6 +95,12 @@
                    callback:(id)callback
                    selector:(SEL)selector;
 
+/**
+ * @brief       Delegate method called to report the success of storing
+ *              new SEB settings. If settings were stored successfully,
+ *              error is nil, otherwise it contains an NSError object
+ *              with the failure reason
+ */
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 @end
