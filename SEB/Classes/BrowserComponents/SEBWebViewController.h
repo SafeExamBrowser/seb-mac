@@ -50,8 +50,8 @@
 }
 
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
-
 @property (nonatomic, strong) UIWebView *sebWebView;
+@property (strong, nonatomic) UIAlertController *alertController;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
