@@ -547,6 +547,11 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
         }
         
+        [_delegate showOpeningConfigFileDialog:NSLocalizedString(@"Searching for a valid SEB config file", nil)
+                                         title:NSLocalizedString(@"Opening Universal Link", nil)
+                                cancelCallback:self
+                                      selector:@selector(cancelDownloadingConfigFile)];
+        
         // Check for a file called "SEBSettings.seb" recursivly in the
         // folder hierarchy specified by the original Universal Link
         [self downloadConfigFile:SEBSettingsFilename
@@ -573,6 +578,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     } else {
         // Also no "SEBExamSettings.seb" file found, stop the search
         _downloadTask = nil;
+        [_delegate closeOpeningConfigFileDialog];
         NSError *error = nil;
         // If no valid client config was found (in the "SEBSettings.seb" file), return an error message
         if (!_didReconfigureWithUniversalLink) {
@@ -715,7 +721,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // (no Client Settings), then we can stop searching further and
             // start the exam. Or we found Exam Settings in the
             // SEBExamSettings.seb file, then we can start that exam.
-            
+            [_delegate closeOpeningConfigFileDialog];
+
             // Check if the Start URL Deep Link feature is allowed and store the
             // original full Universal Link as the deep link
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

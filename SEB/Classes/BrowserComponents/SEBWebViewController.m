@@ -261,10 +261,15 @@
         NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
         NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
         
-        UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+        _alertController = self.browserTabViewController.sebViewController.alertController;
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
                                                                                   message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                 NSURL *failingURL = [NSURL URLWithString:failingURLString];
                                                                 if (failingURL) {
@@ -272,12 +277,12 @@
                                                                 }
                                                             }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                             }]];
         
-        [self presentViewController:alertController animated:YES completion:nil];
-        
+        [self.browserTabViewController.sebViewController.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+
 #ifdef DEBUG
     } else {
         NSLog(@"Load Error: %@", error.description);
