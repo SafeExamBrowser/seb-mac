@@ -175,7 +175,7 @@
                                                                                                                                                       [_sebViewController conditionallyShowSettingsModal];
                                                                                                                                                   }]];
                                                                              
-                                                                             [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+                                                                             [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:YES completion:nil];
                                                                          }]];
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Student", nil)
@@ -192,10 +192,10 @@
                                                                                                                                                       
                                                                                                                                                       _sebViewController.alertController = nil;
                                                                                                                                                   }]];
-                                                                             [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+                                                                             [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:YES completion:nil];
                                                                          }]];
     
-    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:YES completion:nil];
     
 }
 
