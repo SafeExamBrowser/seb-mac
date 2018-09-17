@@ -291,9 +291,6 @@
         _downloadTask = nil;
         
         if (error || !sebFileData) {
-            if (error.code == NSURLErrorCancelled) {
-                return;
-            }
             [self checkSEBClientConfigURL:url withScheme:configURLScheme];
         } else {
             [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];

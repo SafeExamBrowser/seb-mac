@@ -261,15 +261,15 @@
         NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
         NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
         
-        _alertController = self.browserTabViewController.sebViewController.alertController;
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        UIAlertController *alertController = self.browserTabViewController.sebViewController.alertController;
+        if (alertController) {
+            [alertController dismissViewControllerAnimated:NO completion:nil];
         }
 
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+        alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
                                                                                   message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                 NSURL *failingURL = [NSURL URLWithString:failingURLString];
                                                                 if (failingURL) {
@@ -277,11 +277,12 @@
                                                                 }
                                                             }]];
         
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                             }]];
         
-        [self.browserTabViewController.sebViewController.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        [self.browserTabViewController.sebViewController.topMostController presentViewController:alertController animated:YES completion:nil];
+        self.browserTabViewController.sebViewController.alertController = alertController;
 
 #ifdef DEBUG
     } else {
