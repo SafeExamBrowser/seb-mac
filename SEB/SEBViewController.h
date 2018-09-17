@@ -127,6 +127,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 
+@property (strong, nonatomic) UIViewController *topMostController;
 @property (strong, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
