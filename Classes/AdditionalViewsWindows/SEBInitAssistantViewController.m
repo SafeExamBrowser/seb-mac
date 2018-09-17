@@ -149,36 +149,31 @@
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = 0;
     
+    NSString *hostname = nil;
+    
     int errorStatus = getaddrinfo([ipAddress cStringUsingEncoding:NSASCIIStringEncoding], NULL, &hints, &result);
-    if (errorStatus != 0) {
-        return nil;
+    if (errorStatus == 0) {
+        CFDataRef addressRef = CFDataCreate(NULL, (UInt8 *)result->ai_addr, result->ai_addrlen);
+        if (addressRef) {
+            freeaddrinfo(result);
+            CFHostRef hostRef = CFHostCreateWithAddress(kCFAllocatorDefault, addressRef);
+            if (hostRef) {
+                CFRelease(addressRef);
+                BOOL succeeded = CFHostStartInfoResolution(hostRef, kCFHostNames, NULL);
+                if (succeeded) {
+                    NSMutableArray *hostnames = [NSMutableArray array];
+                    
+                    CFArrayRef hostnamesRef = CFHostGetNames(hostRef, NULL);
+                    for (int currentIndex = 0; currentIndex < [(__bridge NSArray *)hostnamesRef count]; currentIndex++) {
+                        [hostnames addObject:[(__bridge NSArray *)hostnamesRef objectAtIndex:currentIndex]];
+                    }
+                    
+                    hostname = hostnames.firstObject;
+                }
+            }
+        }
     }
     
-    CFDataRef addressRef = CFDataCreate(NULL, (UInt8 *)result->ai_addr, result->ai_addrlen);
-    if (addressRef == nil) {
-        return nil;
-    }
-    freeaddrinfo(result);
-    
-    CFHostRef hostRef = CFHostCreateWithAddress(kCFAllocatorDefault, addressRef);
-    if (hostRef == nil) {
-        return nil;
-    }
-    CFRelease(addressRef);
-    
-    BOOL succeeded = CFHostStartInfoResolution(hostRef, kCFHostNames, NULL);
-    if (!succeeded) {
-        return nil;
-    }
-    
-    NSMutableArray *hostnames = [NSMutableArray array];
-    
-    CFArrayRef hostnamesRef = CFHostGetNames(hostRef, NULL);
-    for (int currentIndex = 0; currentIndex < [(__bridge NSArray *)hostnamesRef count]; currentIndex++) {
-        [hostnames addObject:[(__bridge NSArray *)hostnamesRef objectAtIndex:currentIndex]];
-    }
-    
-    NSString *hostname = hostnames.firstObject;
     if (!hostname || ![hostname containsString:@"."]) {
         // Display warning that not connected to a WiFi network
         [self storeSEBClientSettingsSuccessful:[[NSError alloc]
