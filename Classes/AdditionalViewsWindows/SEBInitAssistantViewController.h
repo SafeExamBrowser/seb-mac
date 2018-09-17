@@ -57,14 +57,14 @@
  * @brief       Start or stop animating the activity indicator for downloading the config.
  * @details
  */
-- (void)activityIndicatorAnimate:(BOOL)animate;
+- (void) activityIndicatorAnimate:(BOOL)animate;
 
 /**
  * @brief       Hide or show the label indicating that the URL entered was wrong
  *              and display the according NSError text
  * @details
  */
-- (void)setConfigURLWrongLabelHidden:(BOOL)hidden
+- (void) setConfigURLWrongLabelHidden:(BOOL)hidden
                                error:(NSError *)error
                   forClientConfigURL:(BOOL)clientConfigURL;
 
