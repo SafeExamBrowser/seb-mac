@@ -534,6 +534,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 - (void) handleUniversalLink:(NSURL *)universalLink
 {
     _didReconfigureWithUniversalLink = NO;
+    _cancelReconfigureWithUniversalLink = NO;
     if (universalLink &&
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // Remove query and fragment parts from the Universal Link URL
@@ -547,7 +548,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
         }
         
-        [_delegate showOpeningConfigFileDialog:NSLocalizedString(@"Searching for a valid SEB config file", nil)
+        [_delegate showOpeningConfigFileDialog:NSLocalizedString(@"Searching for a valid SEB config file …", nil)
                                          title:NSLocalizedString(@"Opening Universal Link", nil)
                                 cancelCallback:self
                                       selector:@selector(cancelDownloadingConfigFile)];
@@ -581,10 +582,17 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         [_delegate closeOpeningConfigFileDialog];
         NSError *error = nil;
         // If no valid client config was found (in the "SEBSettings.seb" file), return an error message
-        if (!_didReconfigureWithUniversalLink) {
+        if (_cancelReconfigureWithUniversalLink) {
+            error = [[NSError alloc]
+                        initWithDomain:sebErrorDomain
+                        code:SEBErrorOpeningUniversalLinkFailed
+                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
+                                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"Searching for a valid SEB config file was canceled.", nil),
+                                    }];
+        } else if (!_didReconfigureWithUniversalLink) {
             error = [[NSError alloc]
                      initWithDomain:sebErrorDomain
-                     code:SEBErrorParsingSettingsSerializingFailed
+                     code:SEBErrorOpeningUniversalLinkFailed
                      userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
                                  NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"No SEB settings have been found at the specified URL. Use a correct link to configure SEB or start an exam.", nil),
                                  }];
@@ -601,7 +609,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
           universalLinkHost:(NSURL *)host
               universalLink:(NSURL *)universalLink
 {
-    if (url.path.length == 0) {
+    if (url.path.length == 0 || _cancelReconfigureWithUniversalLink) {
         // Searched the full subdirectory hierarchy of this host address
         [self universalLinkNoConfigFile:configFileName
                                  atHost:host
@@ -650,10 +658,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     dispatch_async(dispatch_get_main_queue(), ^{
         _downloadTask = nil;
         
-        if (error || !sebFileData) {
-            if (error.code == NSURLErrorCancelled) {
-                return;
-            }
+        if (error || !sebFileData || _cancelReconfigureWithUniversalLink) {
             // Couldn't download config file, try it one level down in the path hierarchy
             [self downloadConfigFile:fileName
                              fromURL:url
@@ -681,6 +686,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 // Cancel a processing download
 - (void) cancelDownloadingConfigFile
 {
+    _cancelReconfigureWithUniversalLink = YES;
     if (_downloadTask) {
         [_downloadTask cancel];
         _downloadTask = nil;

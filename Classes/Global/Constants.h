@@ -70,6 +70,7 @@
 #define SEBErrorDecryptingIdentityNotFound 110
 #define SEBErrorParsingSettingsFailedValueClassMissmatch 201
 #define SEBErrorParsingSettingsSerializingFailed 205
+#define SEBErrorOpeningUniversalLinkFailed 300
 
 #define currentStableMajoriOSVersion 12
 
