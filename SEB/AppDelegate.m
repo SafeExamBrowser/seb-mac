@@ -317,7 +317,8 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
   restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
 {
     NSURL *openedURL = [self getURLForUserActivity:userActivity];
-    
+    _openedURL = true;
+
     // Is the main SEB view controller already instantiated?
     if (_sebViewController) {
         if (_sebViewController.settingsOpen) {
