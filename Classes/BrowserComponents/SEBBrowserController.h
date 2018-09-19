@@ -124,6 +124,8 @@
 @property (strong) id URLSession;
 @property (strong) NSURLSessionDataTask *downloadTask;
 
+@property (readwrite) BOOL isShowingOpeningConfigFileDialog;
+
 @property (readwrite) BOOL didReconfigureWithUniversalLink;
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 

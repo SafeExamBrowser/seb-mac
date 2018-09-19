@@ -302,9 +302,9 @@
 // Cancel a processing download
 - (void) cancelDownloadingClientConfig
 {
+    [_controllerDelegate activityIndicatorAnimate:false];
     if (_downloadTask) {
         [_downloadTask cancel];
-        [_controllerDelegate activityIndicatorAnimate:false];
         _downloadTask = nil;
     }
 }
