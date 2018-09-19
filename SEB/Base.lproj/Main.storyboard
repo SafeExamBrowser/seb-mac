@@ -131,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMz-Ms-NNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2242" y="727"/>
+            <point key="canvasLocation" x="-3038" y="726"/>
         </scene>
         <!--Side Menu Controller-->
         <scene sceneID="3jO-dL-tYP">
@@ -317,7 +317,7 @@
                                             </constraints>
                                             <viewLayoutGuide key="safeArea" id="XmX-CB-yRu"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" white="0.56000000000000005" alpha="1" colorSpace="calibratedWhite"/>
                                         <viewLayoutGuide key="safeArea" id="bFG-kW-d4I"/>
                                     </tableViewCell>
                                 </prototypes>

@@ -190,7 +190,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
         }];
     }
     if (_sebViewController.alertController) {
-        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:^{
+            _sebViewController.alertController = nil;
+        }];
         _sebViewController.alertController = nil;
     }
 }

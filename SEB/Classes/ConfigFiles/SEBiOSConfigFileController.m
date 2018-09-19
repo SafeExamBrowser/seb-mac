@@ -65,7 +65,7 @@
                                                                                        [super storeNewSEBSettingsSuccessful:nil];
                                                                                    }]];
             
-            [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+            [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 
         } else {
             
@@ -130,7 +130,7 @@
                                                                  func(callback, selector, nil);
                                                              }]];
     
-    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 
@@ -162,7 +162,7 @@
                                                                                _sebViewController.alertController = nil;
                                                                            }]];
     
-    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 
@@ -180,7 +180,7 @@
                                                                                _sebViewController.alertController = nil;
                                                                            }]];
     
-    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 
@@ -217,7 +217,7 @@
 //                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
 //                                                             }]];
 //    
-//    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
+//    [self.sebViewController presentViewController:self.alertController animated:NO completion:nil];
 }
 
 
@@ -249,7 +249,7 @@
 //                                                                 saveSettingsUnencrypted = true;
 //                                                             }]];
 //    
-//    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+//    [_sebViewController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 
     return true;
 }

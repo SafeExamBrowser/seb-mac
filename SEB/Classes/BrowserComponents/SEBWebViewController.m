@@ -261,28 +261,28 @@
         NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
         NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
         
-        UIAlertController *alertController = self.browserTabViewController.sebViewController.alertController;
-        if (alertController) {
-            [alertController dismissViewControllerAnimated:NO completion:nil];
+        if (self.browserTabViewController.sebViewController.alertController) {
+            [self.browserTabViewController.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         }
 
-        alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+        self.browserTabViewController.sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
                                                                                   message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+        [self.browserTabViewController.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                 NSURL *failingURL = [NSURL URLWithString:failingURLString];
                                                                 if (failingURL) {
                                                                     [self loadURL:failingURL];
                                                                 }
+                                                                self.browserTabViewController.sebViewController.alertController = nil;
                                                             }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+        [self.browserTabViewController.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                self.browserTabViewController.sebViewController.alertController = nil;
                                                             }]];
         
-        [self.browserTabViewController.sebViewController.topMostController presentViewController:alertController animated:YES completion:nil];
-        self.browserTabViewController.sebViewController.alertController = alertController;
+        [self.browserTabViewController.sebViewController.topMostController presentViewController:self.browserTabViewController.sebViewController.alertController animated:NO completion:nil];
 
 #ifdef DEBUG
     } else {

@@ -548,11 +548,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
         }
         
-        [_delegate showOpeningConfigFileDialog:NSLocalizedString(@"Searching for a valid SEB config file …", nil)
-                                         title:NSLocalizedString(@"Opening Universal Link", nil)
-                                cancelCallback:self
-                                      selector:@selector(cancelDownloadingConfigFile)];
-        
         // Check for a file called "SEBSettings.seb" recursivly in the
         // folder hierarchy specified by the original Universal Link
         [self downloadConfigFile:SEBSettingsFilename
@@ -579,7 +574,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     } else {
         // Also no "SEBExamSettings.seb" file found, stop the search
         _downloadTask = nil;
-        [_delegate closeOpeningConfigFileDialog];
+        if (_isShowingOpeningConfigFileDialog) {
+            [_delegate closeOpeningConfigFileDialog];
+            _isShowingOpeningConfigFileDialog = NO;
+        }
         NSError *error = nil;
         // If no valid client config was found (in the "SEBSettings.seb" file), return an error message
         if (_cancelReconfigureWithUniversalLink) {
@@ -615,6 +613,14 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                  atHost:host
                           universalLink:universalLink];
     } else {
+        if (!_isShowingOpeningConfigFileDialog) {
+            [_delegate showOpeningConfigFileDialog:NSLocalizedString(@"Searching for a valid SEB config file …", nil)
+                                             title:NSLocalizedString(@"Opening Universal Link", nil)
+                                    cancelCallback:self
+                                          selector:@selector(cancelDownloadingConfigFile)];
+            _isShowingOpeningConfigFileDialog = YES;
+        }
+
         NSURL *newURL = url;
         // Remove the last path component or the trailing slash "/" from the
         // URL we're currently trying to download the config file
@@ -668,6 +674,14 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // Successfully downloaded SEB settings file or some other HTML data like a
             // 404 http page not found error webpage, therefore we have to check if
             // we downloaded correct SEB settings
+            
+            // The dialog for opening the config file needs to be closed to prevent
+            // issues when another alert is presented in the store method
+            if (_isShowingOpeningConfigFileDialog) {
+                [_delegate closeOpeningConfigFileDialog];
+                _isShowingOpeningConfigFileDialog = NO;
+            }
+
             cachedConfigFileName = fileName;
             cachedDownloadURL = url;
             cachedHostURL = host;
@@ -727,7 +741,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // (no Client Settings), then we can stop searching further and
             // start the exam. Or we found Exam Settings in the
             // SEBExamSettings.seb file, then we can start that exam.
-            [_delegate closeOpeningConfigFileDialog];
+            if (_isShowingOpeningConfigFileDialog) {
+                [_delegate closeOpeningConfigFileDialog];
+                _isShowingOpeningConfigFileDialog = NO;
+            }
 
             // Check if the Start URL Deep Link feature is allowed and store the
             // original full Universal Link as the deep link
