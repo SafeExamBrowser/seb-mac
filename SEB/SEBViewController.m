@@ -146,7 +146,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                                      _alertController = nil;
                                                                  }]];
-            [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         } else if (camAuthStatus == AVAuthorizationStatusNotDetermined) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -158,7 +158,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                      _alertController = nil;
                                                                  }]];
-            [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     }
     return _codeReaderViewController;
@@ -196,7 +196,7 @@ static NSMutableSet *browserWindowControllers;
                                                                 message:NSLocalizedString(@"For security reasons SEB cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _allowediOSAlertController = _alertController;
-        [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         return false;
     } else {
         return true;
@@ -492,7 +492,7 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         if (self.alertController) {
-            [self.alertController dismissViewControllerAnimated:YES completion:^{
+            [self.alertController dismissViewControllerAnimated:NO completion:^{
                 self.alertController = nil;
                 [self conditionallyResetSettings];
             }];
@@ -1604,7 +1604,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                          _alertController = nil;
                                                                      }]];
-                [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
                 
             } else {
                 // SEB isn't in exam mode, reconfiguring is allowed: Invoke the callback to proceed
@@ -1815,7 +1815,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          }
                                                                      }]];
             
-            [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 
         } else if (!_finishedStartingUp || _pausedSAMAlertDisplayed) {
             _pausedSAMAlertDisplayed = false;
@@ -1907,7 +1907,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              [self.sideMenuController hideLeftViewAnimated];
                                                          }]];
     
-    [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
@@ -2023,7 +2023,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                         message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 _endSAMWAlertDisplayed = true;
-                [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
                 return;
             }
             
@@ -2079,7 +2079,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                  [self initSEB];
                                                                  [self conditionallyStartKioskMode];
                                                              }]];
-        [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     } else {
         [self initSEB];
         [self conditionallyStartKioskMode];
@@ -2107,7 +2107,9 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_examRunning) {
             
             // Dismiss the Activate SAM alert in case it still was visible
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                _alertController = nil;
+            }];
             _alertController = nil;
             _startSAMWAlertDisplayed = false;
             
@@ -2207,7 +2209,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                       postNotificationName:@"requestQuit" object:self];
                                                                  }]];
         }
-        [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         return;
     }
     
@@ -2254,7 +2256,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                       postNotificationName:@"requestQuit" object:self];
                                                                  }]];
         }
-        [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         return;
     }
 
@@ -2368,7 +2370,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                           postNotificationName:@"requestQuit" object:self];
                                                                      }]];
                 
-                [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
             }
         }
     } else {
@@ -2436,7 +2438,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _startSAMWAlertDisplayed = true;
-            [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     } else {
         // SAM isn't allowed: SEB refuses to start the exam
@@ -2450,6 +2452,9 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    if ([[self.topMostController.presentedViewController superclass] isKindOfClass:[UIAlertController superclass]]) {
+        [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     }
     _noSAMAlertDisplayed = true;
     _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
@@ -2471,7 +2476,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              [[NSNotificationCenter defaultCenter]
                                                               postNotificationName:@"requestQuit" object:self];
                                                          }]];
-    [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
@@ -2491,7 +2496,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _singleAppModeActivated = true;
             _startSAMWAlertDisplayed = true;
-            [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     } else {
         // If no quit password is defined, then we can initialize SEB with new settings
@@ -2679,7 +2684,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              }]];
     }
     
-    [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
@@ -2906,7 +2911,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
                                                          }]];
     
-    [self.topMostController presentViewController:_alertController animated:YES completion:nil];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
@@ -2944,16 +2949,16 @@ void run_on_ui_thread(dispatch_block_t block)
                             cancelCallback:(id)callback
                                   selector:(SEL)selector
 {
-    [self alertWithTitle:title
-                 message:text
-            action1Title:NSLocalizedString(@"Cancel", nil)
-          action1Handler:^{
-              IMP imp = [callback methodForSelector:selector];
-              void (*func)(id, SEL) = (void *)imp;
-              func(callback, selector);
-          }
-            action2Title:nil
-          action2Handler:nil];
+//    [self alertWithTitle:title
+//                 message:text
+//            action1Title:NSLocalizedString(@"Cancel", nil)
+//          action1Handler:^{
+//              IMP imp = [callback methodForSelector:selector];
+//              void (*func)(id, SEL) = (void *)imp;
+//              func(callback, selector);
+//          }
+//            action2Title:nil
+//          action2Handler:nil];
 }
 
 
@@ -2961,9 +2966,10 @@ void run_on_ui_thread(dispatch_block_t block)
 // is being downloaded,
 - (void) closeOpeningConfigFileDialog;
 {
-    if (_alertController) {
-        [_alertController dismissViewControllerAnimated:YES completion:nil];
-    }
+//    if (_alertController) {
+//        [_alertController dismissViewControllerAnimated:NO completion:nil];
+//        _alertController = nil;
+//    }
 }
 
 
