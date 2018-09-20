@@ -371,7 +371,8 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 enum {
     SEBErrorASCCNoConfigFound                   = 1000,
-    SEBErrorASCCNoWiFi                          = 1001
+    SEBErrorASCCNoWiFi                          = 1001,
+    SEBErrorASCCCanceled                        = 1002
 };
 typedef NSUInteger SEBErrorDomainErrors;
 
