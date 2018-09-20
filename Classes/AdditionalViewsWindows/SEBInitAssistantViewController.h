@@ -101,6 +101,7 @@
 
 @property (strong) id URLSession;
 @property (strong) NSURLSessionDataTask *downloadTask;
+@property (readwrite) BOOL searchingConfigCanceled;
 
 
 - (void) evaluateEnteredURLString:(NSString *)URLString;

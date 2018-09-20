@@ -44,10 +44,11 @@
 {
     NSString *scheme;
     NSURL *URLFromString;
+    _searchingConfigCanceled = NO;
     if (URLString.length > 0) {
         NSRange scanResult = [URLString rangeOfString:@"://"];
         if (scanResult.location != NSNotFound) {
-            // Filter expression contains a scheme: Check if it is a seb(s):// scheme
+            // URL contains a scheme: Check if it is a seb(s):// scheme
             // if yes, replace it with http(s)
             scheme = [URLString substringToIndex:scanResult.location];
             NSString *newScheme = scheme;
@@ -63,13 +64,11 @@
                 return;
             }
             URLString = [NSString stringWithFormat:@"%@%@", newScheme, [URLString substringFromIndex:scanResult.location]];
-            // Convert filter expression string to a NSURL
             URLFromString = [NSURL URLWithString:URLString];
         } else {
-            // Filter expression doesn't contain a scheme followed by an authority part,
+            // URL doesn't contain a scheme followed by an authority part,
             // Prefix it with a https:// scheme
             URLString = [NSString stringWithFormat:@"https://%@", URLString];
-            // Convert filter expression string to a NSURL
             URLFromString = [NSURL URLWithString:URLString];
         }
     }
@@ -86,7 +85,12 @@
 
 - (NSString *)domainForCurrentNetwork
 {
+    _searchingConfigCanceled = NO;
+    
     NSString *ipAddress = [self getIPAddress];
+    if (!ipAddress) {
+        return nil;
+    }
     NSString *fullHost = [self getHostFromIPAddress:ipAddress];
     NSString *hostDomain = nil;
     if (fullHost.length > 0) {
@@ -193,89 +197,100 @@
 - (void) checkSEBClientConfigURL:(NSURL *)url
                       withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
-    // Cancel a processing download of a previously entered URL
-    [self cancelDownloadingClientConfig];
-    
-    // Check using the next scheme (we can skip first scheme = none)
-    configURLScheme++;
-    switch (configURLScheme) {
+    if (_searchingConfigCanceled) {
+        [self storeSEBClientSettingsSuccessful:[[NSError alloc]
+                                                initWithDomain:sebErrorDomain
+                                                code:SEBErrorASCCCanceled
+                                                userInfo:@{ NSLocalizedDescriptionKey :
+                                                                NSLocalizedString(@"Searching for SEB Configuration Canceled", nil),
+                                                            NSLocalizedFailureReasonErrorKey :
+                                                                NSLocalizedString(@"If your institution does not support Automatic SEB Client Configuration, follow instructions of your exam administrator.", nil)
+                                                            }]];
 
-        case SEBClientConfigURLSchemeSubdomainShort:
-        {
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-            NSString *host = url.host;
-            host = [NSString stringWithFormat:@"%@.%@", SEBClientSettingsACCSubdomainShort, host];
-            urlComponents.host = host;
-            NSURL *newURL = urlComponents.URL;
-            [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
-            break;
+    } else {
+        // Check using the next scheme (we can skip first scheme = none)
+        configURLScheme++;
+        switch (configURLScheme) {
+                
+            case SEBClientConfigURLSchemeSubdomainShort:
+            {
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                NSString *host = url.host;
+                host = [NSString stringWithFormat:@"%@.%@", SEBClientSettingsACCSubdomainShort, host];
+                urlComponents.host = host;
+                NSURL *newURL = urlComponents.URL;
+                [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+                break;
+            }
+                
+            case SEBClientConfigURLSchemeSubdomainLong:
+            {
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                NSString *host = url.host;
+                host = [NSString stringWithFormat:@"%@.%@", SEBClientSettingsACCSubdomainLong, host];
+                urlComponents.host = host;
+                NSURL *newURL = urlComponents.URL;
+                [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+                break;
+            }
+                
+            case SEBClientConfigURLSchemeDomain:
+            {
+                [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
+                break;
+            }
+                
+            case SEBClientConfigURLSchemeWellKnown:
+            {
+                [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
+                break;
+            }
+                
+            default:
+                [self storeSEBClientSettingsSuccessful:[[NSError alloc]
+                                                        initWithDomain:sebErrorDomain
+                                                        code:SEBErrorASCCNoConfigFound
+                                                        userInfo:@{ NSLocalizedDescriptionKey :
+                                                                        NSLocalizedString(@"No SEB Configuration Found", nil),
+                                                                    NSLocalizedFailureReasonErrorKey :
+                                                                        NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+                                                                    }]];
+                break;
         }
-            
-        case SEBClientConfigURLSchemeSubdomainLong:
-        {
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-            NSString *host = url.host;
-            host = [NSString stringWithFormat:@"%@.%@", SEBClientSettingsACCSubdomainLong, host];
-            urlComponents.host = host;
-            NSURL *newURL = urlComponents.URL;
-            [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
-            break;
-        }
-            
-        case SEBClientConfigURLSchemeDomain:
-        {
-            [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
-            break;
-        }
-            
-        case SEBClientConfigURLSchemeWellKnown:
-        {
-            [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
-            break;
-        }
-            
-        default:
-            [self storeSEBClientSettingsSuccessful:[[NSError alloc]
-                                                    initWithDomain:sebErrorDomain
-                                                    code:SEBErrorASCCNoConfigFound
-                                                    userInfo:@{ NSLocalizedDescriptionKey :
-                                                                    NSLocalizedString(@"No SEB Configuration Found", nil),
-                                                                NSLocalizedFailureReasonErrorKey :
-                                                                    NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
-                                                                }]];
-            break;
     }
 }
 
 
 - (void) downloadSEBClientConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
-    if (![url.pathExtension isEqualToString:SEBFileExtension]) {
-        NSString *clientSettingsPathAAC;
-        if (configURLScheme == SEBClientConfigURLSchemeWellKnown) {
-            clientSettingsPathAAC = @".well-known";
-        } else {
-            clientSettingsPathAAC = SEBClientSettingsACCPath;
+    if (!_searchingConfigCanceled) {
+        if (![url.pathExtension isEqualToString:SEBFileExtension]) {
+            NSString *clientSettingsPathAAC;
+            if (configURLScheme == SEBClientConfigURLSchemeWellKnown) {
+                clientSettingsPathAAC = @".well-known";
+            } else {
+                clientSettingsPathAAC = SEBClientSettingsACCPath;
+            }
+            url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@", clientSettingsPathAAC, SEBClientSettingsFilename]];
+            clientConfigURL = true;
         }
-        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@", clientSettingsPathAAC, SEBClientSettingsFilename]];
-        clientConfigURL = true;
-    }
-    if (url) {
-        [_controllerDelegate activityIndicatorAnimate:true];
-        if (!_URLSession) {
-            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+        if (url) {
+            [_controllerDelegate activityIndicatorAnimate:true];
+            if (!_URLSession) {
+                NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+                _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+            }
+            _downloadTask = [_URLSession dataTaskWithURL:url
+                                       completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                             {
+                                 [self didDownloadData:sebFileData
+                                              response:response
+                                                 error:error
+                                                   URL:originalURL
+                                            withScheme:configURLScheme];
+                             }];
+            [_downloadTask resume];
         }
-        _downloadTask = [_URLSession dataTaskWithURL:url
-                                   completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                         {
-                             [self didDownloadData:sebFileData
-                                          response:response
-                                             error:error
-                                               URL:originalURL
-                                        withScheme:configURLScheme];
-                         }];
-        [_downloadTask resume];
     }
 }
 
@@ -287,10 +302,8 @@
               withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_controllerDelegate activityIndicatorAnimate:false];
-        _downloadTask = nil;
         
-        if (error || !sebFileData) {
+        if (error || !sebFileData || _searchingConfigCanceled) {
             [self checkSEBClientConfigURL:url withScheme:configURLScheme];
         } else {
             [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
@@ -302,8 +315,9 @@
 // Cancel a processing download
 - (void) cancelDownloadingClientConfig
 {
-    [_controllerDelegate activityIndicatorAnimate:false];
+    _searchingConfigCanceled = YES;
     if (_downloadTask) {
+        [_controllerDelegate activityIndicatorAnimate:false];
         [_downloadTask cancel];
         _downloadTask = nil;
     }
@@ -312,16 +326,25 @@
 
 - (void) storeSEBClientSettingsSuccessful:(NSError *)error
 {
-    if (!error) {
+    [_controllerDelegate activityIndicatorAnimate:false];
+    
+    if (_searchingConfigCanceled) {
         [_controllerDelegate setConfigURLWrongLabelHidden:true
                                                     error:nil
                                        forClientConfigURL:clientConfigURL];
-        _controllerDelegate.configURLString = @"";
-        [_controllerDelegate closeAssistantRestartSEB];
+
     } else {
-        [_controllerDelegate setConfigURLWrongLabelHidden:false
-                                                    error:error
-                                       forClientConfigURL:clientConfigURL];
+        if (!error) {
+            [_controllerDelegate setConfigURLWrongLabelHidden:true
+                                                        error:nil
+                                           forClientConfigURL:clientConfigURL];
+            _controllerDelegate.configURLString = @"";
+            [_controllerDelegate closeAssistantRestartSEB];
+        } else {
+            [_controllerDelegate setConfigURLWrongLabelHidden:false
+                                                        error:error
+                                           forClientConfigURL:clientConfigURL];
+        }
     }
 }
 
