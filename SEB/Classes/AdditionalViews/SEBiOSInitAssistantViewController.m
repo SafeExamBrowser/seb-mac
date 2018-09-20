@@ -95,7 +95,7 @@
     noConfigQRCodeFoundLabel.hidden = true;
     // Keep a reference for the URL textfield "config not found" label
     noConfigFoundLabel = noConfigURLFoundLabel;
-    [_assistantController evaluateEnteredURLString:enteredConfigURLString];
+    [self evaluateEnteredURLString:enteredConfigURLString];
     [configURLField resignFirstResponder];
 }
 
@@ -229,33 +229,34 @@
 - (void) activityIndicatorAnimate:(BOOL)animate
 {
     if (animate) {
-        loadingConfig.hidden = false;
+        loadingConfig.hidden = NO;
         [loadingConfig startAnimating];
     } else {
         [loadingConfig stopAnimating];
-        loadingConfig.hidden = true;
+        loadingConfig.hidden = YES;
     }
 }
 
 
 - (void) setConfigURLWrongLabelHidden:(BOOL)hidden
                                error:(NSError *)error
-                  forClientConfigURL:(BOOL)clientConfigURL
+                  forClientConfigURL:(BOOL)isClientConfigURL
 {
     noConfigFoundLabel.hidden = hidden;
 
     // The first time a wrong SEB client config URL is entered, we display a warning
     // that not all institutions support Automatic SEB Client Configuration
-    if (error.code == SEBErrorASCCNoConfigFound) {
-        if (clientConfigURL && !configURLWarningDisplayed) {
+    if (error.code == SEBErrorASCCNoWiFi) {
+        noConfigFoundLabel.hidden = YES;
+        [_sebViewController showConfigURLWarning:error];
+    } else if (error.code == SEBErrorASCCNoConfigFound) {
+        if (isClientConfigURL && !configURLWarningDisplayed) {
             configURLWarningDisplayed = YES;
             [_sebViewController showConfigURLWarning:error];
         }
-    } else if (error.code == SEBErrorASCCNoWiFi) {
-        noConfigFoundLabel.hidden = YES;
-        [_sebViewController showConfigURLWarning:error];
     } else if (error) {
-        [_sebViewController showConfigURLWarning:error];
+        noConfigFoundLabel.hidden = YES;
+//        [_sebViewController showConfigURLWarning:error];
     }
 }
 
@@ -272,6 +273,7 @@
 - (void) closeAssistantRestartSEB
 {
     [self dismissViewControllerAnimated:YES completion:^{
+        [self setConfigURLString:@""];
         _sebViewController.initAssistantOpen = false;
         [_sebViewController storeNewSEBSettingsSuccessful:nil];
     }];
