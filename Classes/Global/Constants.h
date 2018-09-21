@@ -372,7 +372,8 @@ static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 enum {
     SEBErrorASCCNoConfigFound                   = 1000,
     SEBErrorASCCNoWiFi                          = 1001,
-    SEBErrorASCCCanceled                        = 1002
+    SEBErrorASCCNoHostnameFound                 = 1002,
+    SEBErrorASCCCanceled                        = 1003
 };
 typedef NSUInteger SEBErrorDomainErrors;
 

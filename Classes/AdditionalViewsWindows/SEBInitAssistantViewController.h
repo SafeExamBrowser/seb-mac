@@ -95,6 +95,10 @@
 
 @interface SEBInitAssistantViewController : NSObject <NSURLSessionTaskDelegate> {
     BOOL clientConfigURL;
+
+@private
+    NSURL *storeClienConfigURL;
+    SEBClientConfigURLSchemes storeConfigURLScheme;
 }
 
 @property (nonatomic, strong) id< SEBInitAssistantDelegate > controllerDelegate;
