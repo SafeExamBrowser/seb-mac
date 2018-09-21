@@ -629,6 +629,9 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
+     if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
+         exit(0);
+     }
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
     // Check if originatorVersion flag is set and otherwise set it to the current SEB version

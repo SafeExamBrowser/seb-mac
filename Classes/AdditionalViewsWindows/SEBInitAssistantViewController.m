@@ -182,7 +182,7 @@
         // Display warning that not connected to a WiFi network
         [self storeSEBClientSettingsSuccessful:[[NSError alloc]
                                                 initWithDomain:sebErrorDomain
-                                                code:SEBErrorASCCNoWiFi
+                                                code:SEBErrorASCCNoHostnameFound
                                                 userInfo:@{ NSLocalizedDescriptionKey :
                                                                 NSLocalizedString(@"No Hostname Found", nil),
                                                             NSLocalizedFailureReasonErrorKey :
@@ -306,6 +306,8 @@
         if (error || !sebFileData || _searchingConfigCanceled) {
             [self checkSEBClientConfigURL:url withScheme:configURLScheme];
         } else {
+            storeClienConfigURL = url;
+            storeConfigURLScheme = configURLScheme;
             [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
         }
     });
@@ -326,24 +328,34 @@
 
 - (void) storeSEBClientSettingsSuccessful:(NSError *)error
 {
-    [_controllerDelegate activityIndicatorAnimate:false];
-    
-    if (_searchingConfigCanceled) {
-        [_controllerDelegate setConfigURLWrongLabelHidden:true
-                                                    error:nil
-                                       forClientConfigURL:clientConfigURL];
-
+    NSInteger errorCode = error.code;
+    if (!_searchingConfigCanceled &&
+        !(errorCode == SEBErrorASCCNoWiFi ||
+          errorCode == SEBErrorASCCNoHostnameFound ||
+          errorCode == SEBErrorASCCCanceled ||
+          errorCode == SEBErrorASCCNoConfigFound)) {
+        [self checkSEBClientConfigURL:storeClienConfigURL
+                           withScheme:storeConfigURLScheme];
     } else {
-        if (!error) {
+        [_controllerDelegate activityIndicatorAnimate:false];
+        
+        if (_searchingConfigCanceled) {
             [_controllerDelegate setConfigURLWrongLabelHidden:true
                                                         error:nil
                                            forClientConfigURL:clientConfigURL];
-            _controllerDelegate.configURLString = @"";
-            [_controllerDelegate closeAssistantRestartSEB];
+            
         } else {
-            [_controllerDelegate setConfigURLWrongLabelHidden:false
-                                                        error:error
-                                           forClientConfigURL:clientConfigURL];
+            if (!error) {
+                [_controllerDelegate setConfigURLWrongLabelHidden:true
+                                                            error:nil
+                                               forClientConfigURL:clientConfigURL];
+                _controllerDelegate.configURLString = @"";
+                [_controllerDelegate closeAssistantRestartSEB];
+            } else {
+                [_controllerDelegate setConfigURLWrongLabelHidden:false
+                                                            error:error
+                                               forClientConfigURL:clientConfigURL];
+            }
         }
     }
 }
