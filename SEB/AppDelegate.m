@@ -189,12 +189,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
             _sebViewController.visibleCodeReaderViewController = nil;
         }];
     }
-    if (_sebViewController.alertController) {
-        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:^{
-            _sebViewController.alertController = nil;
-        }];
-        _sebViewController.alertController = nil;
-    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -316,7 +310,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 
 - (BOOL) application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
-  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
+  restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
     NSURL *openedURL = [self getURLForUserActivity:userActivity];
     _openedURL = true;
