@@ -328,14 +328,16 @@
 
 - (void) storeSEBClientSettingsSuccessful:(NSError *)error
 {
-    NSInteger errorCode = error.code;
-    if (!_searchingConfigCanceled &&
-        !(errorCode == SEBErrorASCCNoWiFi ||
-          errorCode == SEBErrorASCCNoHostnameFound ||
-          errorCode == SEBErrorASCCCanceled ||
-          errorCode == SEBErrorASCCNoConfigFound)) {
-        [self checkSEBClientConfigURL:storeClienConfigURL
-                           withScheme:storeConfigURLScheme];
+    if (error) {
+        NSInteger errorCode = error.code;
+        if (!_searchingConfigCanceled &&
+            !(errorCode == SEBErrorASCCNoWiFi ||
+              errorCode == SEBErrorASCCNoHostnameFound ||
+              errorCode == SEBErrorASCCCanceled ||
+              errorCode == SEBErrorASCCNoConfigFound)) {
+                [self checkSEBClientConfigURL:storeClienConfigURL
+                                   withScheme:storeConfigURLScheme];
+            }
     } else {
         [_controllerDelegate activityIndicatorAnimate:false];
         
