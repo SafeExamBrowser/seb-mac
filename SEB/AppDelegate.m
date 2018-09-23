@@ -310,6 +310,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 
 - (BOOL) application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
+// Xcode 9:  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
   restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
     NSURL *openedURL = [self getURLForUserActivity:userActivity];
