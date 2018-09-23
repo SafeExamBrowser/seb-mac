@@ -337,27 +337,27 @@
               errorCode == SEBErrorASCCNoConfigFound)) {
                 [self checkSEBClientConfigURL:storeClienConfigURL
                                    withScheme:storeConfigURLScheme];
+                return;
             }
-    } else {
-        [_controllerDelegate activityIndicatorAnimate:false];
+    }
+    [_controllerDelegate activityIndicatorAnimate:false];
+    
+    if (_searchingConfigCanceled) {
+        [_controllerDelegate setConfigURLWrongLabelHidden:true
+                                                    error:nil
+                                       forClientConfigURL:clientConfigURL];
         
-        if (_searchingConfigCanceled) {
+    } else {
+        if (!error) {
             [_controllerDelegate setConfigURLWrongLabelHidden:true
                                                         error:nil
                                            forClientConfigURL:clientConfigURL];
-            
+            _controllerDelegate.configURLString = @"";
+            [_controllerDelegate closeAssistantRestartSEB];
         } else {
-            if (!error) {
-                [_controllerDelegate setConfigURLWrongLabelHidden:true
-                                                            error:nil
-                                               forClientConfigURL:clientConfigURL];
-                _controllerDelegate.configURLString = @"";
-                [_controllerDelegate closeAssistantRestartSEB];
-            } else {
-                [_controllerDelegate setConfigURLWrongLabelHidden:false
-                                                            error:error
-                                               forClientConfigURL:clientConfigURL];
-            }
+            [_controllerDelegate setConfigURLWrongLabelHidden:false
+                                                        error:error
+                                           forClientConfigURL:clientConfigURL];
         }
     }
 }
