@@ -1599,7 +1599,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				694216822145DBED002EB416 /* Network */,
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
 				69CBEB531834C4D400FB0460 /* SystemManager */,
@@ -1982,14 +1981,6 @@
 				69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */,
 			);
 			name = Icons;
-			sourceTree = "<group>";
-		};
-		694216822145DBED002EB416 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Network;
-			path = Classes/Network;
 			sourceTree = "<group>";
 		};
 		69428C93172E5E7300C87C58 /* Browser Components */ = {
