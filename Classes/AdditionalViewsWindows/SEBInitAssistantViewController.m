@@ -290,6 +290,12 @@
                                             withScheme:configURLScheme];
                              }];
             [_downloadTask resume];
+            // Create a timer to cancel the download task if it takes more than 10 seconds
+            _downloadTimer = [NSTimer scheduledTimerWithTimeInterval:10
+                                                              target:self
+                                                            selector:@selector(cancelDownloadTask)
+                                                            userInfo:nil
+                                                             repeats:NO];
         }
     }
 }
@@ -302,7 +308,7 @@
               withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        [_downloadTimer invalidate];
         if (error || !sebFileData || _searchingConfigCanceled) {
             [self checkSEBClientConfigURL:url withScheme:configURLScheme];
         } else {
@@ -311,6 +317,19 @@
             [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
         }
     });
+}
+
+
+// Cancel a processing download after the timeout passed
+- (void) cancelDownloadTask
+{
+    [_downloadTimer invalidate];
+    if (_downloadTask) {
+        [_controllerDelegate activityIndicatorAnimate:false];
+        // The completion handler will be called with an NSError
+        [_downloadTask cancel];
+        _downloadTask = nil;
+    }
 }
 
 
