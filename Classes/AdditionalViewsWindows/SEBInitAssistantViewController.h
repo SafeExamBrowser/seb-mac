@@ -105,6 +105,7 @@
 
 @property (strong) id URLSession;
 @property (strong) NSURLSessionDataTask *downloadTask;
+@property (strong) NSTimer *downloadTimer;
 @property (readwrite) BOOL searchingConfigCanceled;
 
 
