@@ -119,6 +119,7 @@
     noConfigURLFoundLabel.hidden = true;
     // Keep a reference for the scan QR code "config not found" label
     noConfigFoundLabel = noConfigQRCodeFoundLabel;
+    
     // Define the ConfigURLManager delegate for evaluating the scanned URL
     _sebViewController.configURLManagerDelegate = self;
     
@@ -129,6 +130,11 @@
 - (IBAction) searchNetwork:(id)sender
 {
     [_assistantController cancelDownloadingClientConfig];
+    configURLField.text = @"";
+    // Hide the other "config not found" label
+    noConfigURLFoundLabel.hidden = true;
+    // Keep a reference for the scan QR code "config not found" label
+    noConfigFoundLabel = noConfigURLFoundLabel;
 
     NSString *hostName = [_assistantController domainForCurrentNetwork];
     [self setConfigURLString:hostName];
