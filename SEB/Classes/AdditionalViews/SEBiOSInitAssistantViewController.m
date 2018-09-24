@@ -137,6 +137,9 @@
     noConfigFoundLabel = noConfigURLFoundLabel;
 
     NSString *hostName = [_assistantController domainForCurrentNetwork];
+    if ([hostName hasSuffix:@"ethz.ch"]) {
+        hostName = @"let.ethz.ch";
+    }
     [self setConfigURLString:hostName];
     [self urlEntered:self];
 }
