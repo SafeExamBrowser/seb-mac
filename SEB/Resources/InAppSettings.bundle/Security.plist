@@ -100,6 +100,7 @@
 				<string>9</string>
 				<string>10</string>
 				<string>11</string>
+				<string>12</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -108,6 +109,7 @@
 				<integer>9</integer>
 				<integer>10</integer>
 				<integer>11</integer>
+				<string>12</string>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
