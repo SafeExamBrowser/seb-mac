@@ -157,7 +157,7 @@ static NSNumber *_logLevel;
                                  @NO,
                                  @"org_safeexambrowser_SEB_allowVirtualMachine",
                                  @NO,
-                                 @"org_safeexambrowser_SEB_allowWLAN",
+                                 @"org_safeexambrowser_SEB_allowWlan",
                                  @NO,
                                  @"org_safeexambrowser_SEB_blockPopUpWindows",
                                  [NSNumber numberWithLong:120000],
