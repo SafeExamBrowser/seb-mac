@@ -499,17 +499,6 @@ bool insideMatrix(void);
      selector:@selector(lockSEB:)
      name:NSWorkspaceSessionDidResignActiveNotification
      object:nil];
-    
-    CGEventMask mask = CGEventMaskBit(kCGEventLeftMouseDown) | CGEventMaskBit(kCGEventLeftMouseUp);
-    
-    CFMachPortRef leftMouseEventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0, mask, leftMouseTapCallback, NULL);
-    
-    if (leftMouseEventTap) {
-        CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, leftMouseEventTap, 0);
-        
-        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
-        CGEventTapEnable(leftMouseEventTap, true);
-    }
 }
 
 
@@ -2074,20 +2063,6 @@ bool insideMatrix(){
 	else
 		return false; //printf("OUTSIDE MATRIX!!\n");
 	return false;
-}
-
-
-CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEventRef aEvent, void* aRefcon)
-{
-    CGPoint theLocation = CGEventGetLocation(aEvent);
-    if (theLocation.y <= kMenuBarHeight && theLocation.x < ([NSScreen screens][0].visibleFrame.size.width - 46)) {
-        [[MyGlobals sharedMyGlobals] setClickedMenuBar:true];
-        DDLogDebug(@"Clicked inside the menu bar");
-    } else {
-        [[MyGlobals sharedMyGlobals] setClickedMenuBar:false];
-    }
-    
-    return aEvent;
 }
 
 
