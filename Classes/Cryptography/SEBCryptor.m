@@ -510,7 +510,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
-                                                                                                   selector:@selector(localizedCaseInsensitiveCompare:)]]];
+                                                                                                   selector:@selector(caseInsensitiveCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
