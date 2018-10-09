@@ -103,7 +103,7 @@
                    @"allowVirtualMachine",
                    
                    @NO,
-                   @"allowWLAN",
+                   @"allowWlan",
                    
                    @NO,
                    @"blockPopUpWindows",
