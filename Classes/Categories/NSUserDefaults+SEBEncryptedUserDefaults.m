@@ -211,7 +211,7 @@ static NSNumber *_logLevel;
     }
 
     // Get all dictionary keys
-    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     
