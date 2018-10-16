@@ -112,15 +112,18 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     }
     
-    // Check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
+    // If URL filtering is enabled, then
+    // check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
     NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSURL *startURL = [NSURL URLWithString:startURLString];
-    if ([self testURLAllowed:startURL] != URLFilterActionAllow) {
+    if (self.enableURLFilter && [self testURLAllowed:startURL] != URLFilterActionAllow) {
         // If Start URL is not allowed: Create one using the full Start URL
         id expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
         if (error) {
             [self.prohibitedList removeAllObjects];
             [self.permittedList removeAllObjects];
+            // Convert these rules and add them to the XULRunner seb keys
+            [self createSebRuleLists];
             return error;
         }
         // Add this Start URL filter expression to the permitted filter list
