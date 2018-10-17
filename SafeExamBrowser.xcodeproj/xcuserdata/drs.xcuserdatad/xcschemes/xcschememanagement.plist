@@ -16,6 +16,8 @@
 		</dict>
 		<key>SEB ETH Enterprise.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
@@ -36,6 +38,8 @@
 		</dict>
 		<key>Safe Exam Browser Release.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
@@ -73,6 +77,11 @@
 			<true/>
 		</dict>
 		<key>69903AF214CD7624007E7DF7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69B1714B20FE2D95004BD0FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

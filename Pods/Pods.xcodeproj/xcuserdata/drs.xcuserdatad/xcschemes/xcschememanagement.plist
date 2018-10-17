@@ -37,7 +37,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>11</integer>
 		</dict>
 		<key>Pods-SEB.xcscheme</key>
 		<dict>
@@ -58,10 +58,46 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>21ACE462C4AA9A377F70AEA7F8B38234</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4B424BCB93252A82E12C56B58ED020CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>764A6604DED9042759F9A5F28806ED18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A19806FD55981498337F45116532658B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C14C5851499C1EFF2ADEE4959C2CC7AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB3FA2A7D39F2DF47065F044E279A984</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D8EDEEBDC17F7566763572CA1C6F106B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>
