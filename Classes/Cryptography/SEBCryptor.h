@@ -39,6 +39,7 @@
     
     @private
     NSData *_currentKey;
+    dispatch_queue_t lockQueue;
 }
 
 //@property (nonatomic, readwrite, strong) NSData *HMACKey;
@@ -52,15 +53,20 @@
 
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey;
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
-- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
-- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
-- (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict;
-- (NSData *)checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
+- (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
+                   configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
+                                configKeyRef:(NSData **)configKeyRef;
 
-- (void)presentPreferencesCorruptedError;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
+- (NSData *) checksumForPrefDictionary:(NSDictionary *)prefsDict;
+- (NSData *) checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 
-- (NSData *)generateExamKeySalt;
+- (void) presentPreferencesCorruptedError;
+
+- (NSData *) generateExamKeySalt;
 
 - (NSData*) generateSHAHash:(NSString*)inputString;
+- (NSData*) generateSHAHashForData:(NSData *)inputData;
 
 @end

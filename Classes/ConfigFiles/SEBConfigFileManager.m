@@ -909,8 +909,17 @@
 // Save imported settings into user defaults (either in private memory or local shared UserDefaults)
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict
 {
+    NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
+    NSData *configKey = [NSData data];
+    sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict configKeyContainedKeysRef:&configKeyContainedKeys configKeyRef:&configKey];
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences storeSEBDictionary:sebPreferencesDict];
+
+    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+    // Store new Config Key in UserDefaults
+    [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
+    
 }
 
 
