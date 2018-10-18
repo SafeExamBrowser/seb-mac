@@ -65,8 +65,12 @@
 
 + (BOOL)userDefaultsPrivate;
 
+
 - (id)persistedSecureObjectForKey:(NSString *)key;
 - (void)setPersistedSecureObject:(id)value forKey:(NSString *)key;
+
+- (BOOL)persistedSecureBoolForKey:(NSString *)key;
+- (void)setPersistedSecureBool:(BOOL)boolValue forKey:(NSString *)key;
 
 
 // Read data from user defaults. If key doesn't exist, valid is YES and the function mimics
@@ -97,13 +101,19 @@
 // Convert property list object to secure data
 - (NSData *)secureDataForObject:(id)value andKey:(NSString *)key;
 
+// Get value from another application’s preferences
+- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key;
+
+// Store value to another application’s preferences
+- (void) setValue:(id)value forKey:(NSString *)key forDefaultsDomain:(NSString *)defaultsDomain;
+
 // Get SEB's default settings key/values
 - (NSDictionary *)sebDefaultSettings;
 
 // Set default preferences for the case there are no user prefs yet
 - (BOOL)setSEBDefaults;
 
-- (BOOL)hasDefaultsKey;
+- (BOOL)haveSEBUserDefaults;
 
 // Get dictionary representation of all SEB user defaults
 - (NSDictionary *)dictionaryRepresentationSEB;
@@ -121,5 +131,6 @@
 - (void)resetSEBUserDefaults;
 // Helper Method to get SEB's NSRegistrationDomain and application domain UserDefaults
 - (NSDictionary *)getSEBUserDefaultsDomains;
+- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict;
 
 @end

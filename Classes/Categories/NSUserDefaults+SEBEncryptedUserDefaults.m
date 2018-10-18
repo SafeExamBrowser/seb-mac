@@ -48,7 +48,9 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
-#import "AppDelegate.h"
+#import "SEBKeychainManager.h"
+#import "SEBConfigFileManager.h"
+#import "SEBSettings.h"
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -65,7 +67,6 @@ static NSMutableDictionary *privateUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 static NSNumber *_logLevel;
-
 
 + (NSMutableDictionary *)privateUserDefaults
 {
@@ -129,7 +130,112 @@ static NSNumber *_logLevel;
 }
 
 
-- (NSDictionary *)sebDefaultSettings
+// Get value from another application’s preferences
+- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
+{
+    id value = [self valueForKey:key];
+    if (!value) {
+        DDLogDebug(@"%s addSuiteNamed: %@", __FUNCTION__, domain);
+        [self addSuiteNamed:domain];
+        value = [self valueForKey:key];
+    }
+    return value;
+}
+
+
+// Store value to another application’s preferences
+- (void) setValue:(id)value forKey:(NSString *)key forDefaultsDomain:(NSString *)defaultsDomain
+{
+    CFStringRef appID = (__bridge CFStringRef)(defaultsDomain);
+    CFStringRef keyRef = (__bridge CFStringRef)(key);
+    CFPropertyListRef valueRef = (__bridge CFPropertyListRef)(value);
+    
+    // Set up the preference.
+    CFPreferencesSetValue(keyRef,
+                          valueRef,
+                          appID,
+                          kCFPreferencesCurrentUser,
+                          kCFPreferencesAnyHost);
+    
+    // Write out the preference data.
+    CFPreferencesSynchronize(appID,
+                             kCFPreferencesCurrentUser,
+                             kCFPreferencesAnyHost);
+}
+
+
+- (NSDictionary *) sebDefaultSettings
+{
+    NSDictionary *processedDictionary = [self getDefaultDictionaryForKey:@"rootSettings"];
+    
+    NSMutableDictionary *appDefaults = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                 
+                                 [NSNumber numberWithLong:0],
+                                 @"org_safeexambrowser_browserUserAgentEnvironment",
+                                 
+                                 [NSDictionary dictionary],
+                                 @"org_safeexambrowser_configKeyContainedKeys",
+                                 
+                                 @NO,
+                                 @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
+                                 
+                                 @YES,
+                                 @"org_safeexambrowser_elevateWindowLevels",
+                                 
+                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
+                                 @"org_safeexambrowser_originatorVersion",
+                                 
+                                 nil];
+    
+    [appDefaults addEntriesFromDictionary:processedDictionary];
+    
+    return [appDefaults copy];
+}
+
+
+- (NSDictionary *) getDefaultDictionaryForKey:(NSString *)dictionaryKey
+{
+    if (dictionaryKey.length == 0) {
+        return nil;
+    }
+    
+    // Get default settings
+    NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
+
+    if (!defaultSettings) {
+        return [NSDictionary dictionary];
+    }
+
+    // Get all dictionary keys
+    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
+    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
+    
+    
+    // Iterate keys and read all values
+    for (NSString *key in configKeysAlphabetically) {
+        id value = [defaultSettings objectForKey:key];
+        Class valueClass = [value superclass];
+        
+        // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
+        if (valueClass == [NSDictionary class]) {
+            value = [self getDefaultDictionaryForKey:key];
+        }
+        if (valueClass == [NSMutableDictionary class]) {
+            value = [[self getDefaultDictionaryForKey:key] mutableCopy];
+        }
+        
+        if (value) {
+            [filteredPrefsDict setObject:value
+                                  forKey:[NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key]];
+        }
+    }
+    return [filteredPrefsDict copy];
+}
+
+
+- (NSDictionary *)sebDefaultSettings_old
 {
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                 [NSArray array],
@@ -574,9 +680,9 @@ static NSNumber *_logLevel;
 
 // Set default preferences for the case there are no user prefs yet
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
-- (BOOL)setSEBDefaults
+- (BOOL) setSEBDefaults
 {
-    DDLogInfo(@"Setting local client settings (NSUserDefaults)");
+    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
@@ -586,9 +692,10 @@ static NSNumber *_logLevel;
     NSArray *additionalResources;
 
     // Check if there are valid SEB UserDefaults already
-    if ([self hasDefaultsKey]) {
+    if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
         additionalResources = [self secureArrayForKey:@"org_safeexambrowser_additionalResources"];
+        // Read decrypted existing SEB UserDefaults
         NSDictionary *sebUserDefaults = [self dictionaryRepresentationSEB];
         // Check if something went wrong reading settings
         if (sebUserDefaults == nil) {
@@ -613,6 +720,7 @@ static NSNumber *_logLevel;
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
+            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!");
             // Set the flag to indicate to user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
         } else {
@@ -653,13 +761,13 @@ static NSNumber *_logLevel;
 }
 
 
-- (BOOL)hasDefaultsKey
+- (BOOL) haveSEBUserDefaults
 {
     return [[SEBCryptor sharedSEBCryptor] hasDefaultsKey];
 }
 
 
-- (NSDictionary *)dictionaryRepresentationSEB
+- (NSDictionary *) dictionaryRepresentationSEB
 {
     // Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the set
     NSSet *filteredPrefsSet = [self sebKeysSet];
@@ -699,8 +807,6 @@ static NSNumber *_logLevel;
 // Save imported settings into user defaults (either in private memory or local client shared NSUserDefaults)
 - (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
-
-    
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
@@ -762,9 +868,6 @@ static NSNumber *_logLevel;
     // Update Exam Settings Key
     [_cachedUserDefaults removeAllObjects];
     [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
-
-//    prefsDict = [self getSEBUserDefaultsDomains];
-//    DDLogVerbose(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 }
 
 
@@ -780,17 +883,38 @@ static NSNumber *_logLevel;
         [preferences synchronize];
         NSDictionary *prefsDict;
         
-        //    // Get CFBundleIdentifier of the application
-        //    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-        //    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-        
-        // Include UserDefaults from NSRegistrationDomain and application domain
-        NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-        [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-        //    [appUserDefaults addSuiteNamed: bundleId];
-        prefsDict = [appUserDefaults dictionaryRepresentation];
+        // Include UserDefaults from NSRegistrationDomain (which contains application domain)
+        [self addSuiteNamed:@"NSRegistrationDomain"];
+        prefsDict = [self dictionaryRepresentation];
         return prefsDict;
     }
+}
+
+
+// Check if a some value is from a wrong class (another than the value from default settings)
+- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
+{
+    // get default settings
+    NSDictionary *defaultSettings = [self sebDefaultSettings];
+    
+    // Check if a some value is from a wrong class other than the value from default settings)
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [self prefixKey:key];
+        id value = [sebPreferencesDict objectForKey:key];
+#ifdef DEBUG
+        NSLog(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#else
+        DDLogVerbose(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#endif
+        id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
+            DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
+            return NO; //we abort reading the new settings here
+        }
+    }
+    return YES;
 }
 
 
@@ -815,6 +939,33 @@ static NSNumber *_logLevel;
         [NSUserDefaults setUserDefaultsPrivate:false];
     }
     [self setSecureObject:value forKey:key];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
+}
+
+
+- (BOOL)persistedSecureBoolForKey:(NSString *)key
+{
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    BOOL persistedBool = [self secureBoolForKey:key];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
+    return persistedBool;
+}
+
+
+- (void)setPersistedSecureBool:(BOOL)boolValue forKey:(NSString *)key
+{
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    [self setSecureBool:boolValue forKey:key];
     if (usingPrivateUserDefaults) {
         [NSUserDefaults setUserDefaultsPrivate:true];
     }
@@ -960,15 +1111,12 @@ static NSNumber *_logLevel;
     }
 
     if (_usePrivateUserDefaults) {
-        if (value) {
-            [privateUserDefaults setValue:value forKey:key];
-            //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
-            //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
-            
-            DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
-        } else {
-            DDLogVerbose(@"[localUserDefaults setObject: not set, because value was nil, existing value is: %@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
-        }
+        if (value == nil) value = [NSNull null];
+        [privateUserDefaults setValue:value forKey:key];
+        //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
+        //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
+
+        DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
 
     } else {
         if (value == nil || key == nil) {
@@ -1009,13 +1157,11 @@ static NSNumber *_logLevel;
             }
             
         }
-        //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
         _logLevel = value;
         [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
-    }
-    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
+    } else if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
         if ([value boolValue] == NO) {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
         } else {
