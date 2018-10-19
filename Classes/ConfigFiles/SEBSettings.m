@@ -69,6 +69,18 @@
                    @NO,
                    @"allowFlashFullscreen",
                    
+                   [NSNumber numberWithLong:iOSBetaVersionNone],
+                   @"allowiOSBetaVersionNumber",
+                   
+                   [NSNumber numberWithLong:iOSVersion9],
+                   @"allowiOSVersionNumberMajor",
+                   
+                   @0,
+                   @"allowiOSVersionNumberMinor",
+                   
+                   @0,
+                   @"allowiOSVersionNumberPatch",
+
                    @NO,
                    @"allowPDFPlugIn",
                    
@@ -117,9 +129,18 @@
                    @NO,
                    @"browserScreenKeyboard",
                    
+                   @YES,
+                   @"browserURLSalt",
+
                    @"",
                    @"browserUserAgent",
-                   
+
+                   [NSNumber numberWithLong:browserUserAgentModeiOSDefault],
+                   @"browserUserAgentiOS",
+
+                   @"",
+                   @"browserUserAgentiOSCustom",
+
                    [NSNumber numberWithLong:browserUserAgentModeMacDefault],
                    @"browserUserAgentMac",
                    
@@ -138,6 +159,9 @@
                    @"",
                    @"browserUserAgentWinTouchModeCustom",
                    
+                   SEBWinUserAgentTouchiPad,
+                   @"browserUserAgentWinTouchModeIPad",
+                   
                    [NSNumber numberWithLong:browserViewModeWindow],
                    @"browserViewMode",
                    
@@ -149,9 +173,6 @@
 
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
-                   
-                   [NSDictionary dictionary],
-                   @"configKeyContainedKeys",
                    
                    [NSData data],
                    @"configKeySalt",
@@ -183,6 +204,9 @@
                    @NO,
                    @"enableBrowserWindowToolbar",
                    
+                   @NO,
+                   @"enableDrawingEditor",
+
                    @NO,
                    @"enableJava",
                    
@@ -357,6 +381,63 @@
                    [NSNumber numberWithLong:SEBMinOSX10_7],
                    @"minMacOSVersion",
                    
+                   @NO,
+                   @"mobileAllowSingleAppMode",
+                   
+                   @NO,
+                   @"mobileAllowQRCodeConfig",
+                   
+                   @NO,
+                   @"mobileEnableGuidedAccessLinkTransform",
+                   
+                   @YES,
+                   @"mobileEnableASAM",
+                   
+                   @NO,
+                   @"mobileShowSettings",
+                   
+                   [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
+                   @"mobileStatusBarAppearance",
+                   
+                   [NSNumber numberWithLong:mobileStatusBarAppearanceExtendedLight],
+                   @"mobileStatusBarAppearanceExtended",
+                   
+                   @YES,
+                   @"mobileSupportedFormFactorsCompact",
+                   
+                   @YES,
+                   @"mobileSupportedFormFactorsNonTelephonyCompact",
+                   
+                   @YES,
+                   @"mobileSupportedFormFactorsRegular",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsCompactPortrait",
+                   
+                   @NO,
+                   @"mobileSupportedScreenOrientationsCompactPortraitUpsideDown",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsCompactLandscapeLeft",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsCompactLandscapeRight",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularPortrait",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularPortraitUpsideDown",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularLandscapeLeft",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularLandscapeRight",
+                   
+                   @YES,
+                   @"mobilePreventAutoLock",
+
                    @YES,
                    @"monitorProcesses",
                    
@@ -389,7 +470,10 @@
                    
                    @NO,
                    @"newBrowserWindowShowReloadWarning",
-                   
+
+                   [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
+                   @"newBrowserWindowShowURL",
+
                    @NO,
                    @"openDownloads",
                    
@@ -413,7 +497,10 @@
                    
                    @"",
                    @"quitURL",
-                   
+
+                   @YES,
+                   @"quitURLConfirm",
+
                    @NO,
                    @"removeBrowserProfile",
                    
@@ -450,15 +537,24 @@
                    @NO,
                    @"sendBrowserExamKey",
                    
+                   @YES,
+                   @"showBackToStartButton",
+
                    @NO,
                    @"showInputLanguage",
                    
                    @YES,
                    @"showMenuBar",
                    
+                   @NO,
+                   @"showNavigationButtons",
+
                    @YES,
                    @"showReloadButton",
                    
+                   @NO,
+                   @"showScanQRCodeButton",
+
                    @NO,
                    @"showReloadWarning",
                    
@@ -471,6 +567,12 @@
                    SEBStartPage,
                    @"startURL",
                    
+                   @NO,
+                   @"startURLAllowDeepLink",
+
+                   @NO,
+                   @"startURLAppendQueryParameter",
+
                    [NSNumber numberWithLong:40],
                    @"taskBarHeight",
                    
