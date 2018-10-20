@@ -1096,6 +1096,11 @@ void run_on_ui_thread(dispatch_block_t block)
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
         
+        // Update URL filter flags and rules
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        // Update URL filter ignore rules
+        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+        
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
         
@@ -1520,6 +1525,8 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
+    
+    self.browserController = nil;
 }
 
 

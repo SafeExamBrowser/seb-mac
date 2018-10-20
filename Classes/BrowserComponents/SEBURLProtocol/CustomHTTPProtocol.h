@@ -180,4 +180,13 @@
 
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
 
+/*! Called by an CustomHTTPProtocol instance to request that the delegate process on authentication
+ *  challenge. Will be called on the main thread. Unless the challenge is cancelled (see below)
+ *  the delegate must eventually resolve it by calling -resolveAuthenticationChallenge:withCredential:.
+ *  \param protocol The protocol instance itself; will not be nil.
+ *  \param challenge The authentication challenge; will not be nil.
+ */
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
+
 @end
