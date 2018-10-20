@@ -220,7 +220,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
             [self customHTTPProtocol:nil logWithFormat:@"accept request %@", url];
         }
     }
-    
+
     return shouldAccept;
 }
 

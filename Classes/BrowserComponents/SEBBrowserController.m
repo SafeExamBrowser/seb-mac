@@ -542,21 +542,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
              postNotificationName:@"requestQuitNotification" object:self];
         }
     }
-
-    //// If enabled, filter content
-    
-    if (_urlFilter.enableURLFilter && _urlFilter.enableContentFilter) {
-        URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:request.URL];
-        if (filterActionResponse != URLFilterActionAllow) {
-            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
-//            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
-                /// User didn't allow the content, don't load it
-                DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
-                // Return nil instead of request
-            return nil;
-//            }
-        }
-    }
     
     NSString *fragment = [[request URL] fragment];
     NSString *requestURLStrippedFragment;
@@ -640,6 +625,25 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 
         return request;
     }
+}
+
+
+//// If enabled, filter content
+- (BOOL)requestAllowed:(NSURLRequest *)request
+{
+    if (_urlFilter.enableURLFilter && _urlFilter.enableContentFilter) {
+        URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:request.URL];
+        if (filterActionResponse != URLFilterActionAllow) {
+            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
+            //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
+            /// User didn't allow the content, don't load it
+            DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+            // Return nil instead of request
+            return NO;
+            //            }
+        }
+    }
+    return YES;
 }
 
 
