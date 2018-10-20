@@ -231,13 +231,19 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
     assert(request != nil);
     // can be called on any thread
     
-    // Canonicalising a request is quite complex, so all the heavy lifting has 
+    // Canonicalising a request is quite complex, so all the heavy lifting has
     // been shuffled off to a separate module.
     
     result = CanonicalRequestForRequest(request);
 
     [self customHTTPProtocol:nil logWithFormat:@"canonicalized %@ to %@", [request URL], [result URL]];
     
+    id<CustomHTTPProtocolDelegate> strongDelegate;
+    strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector:@selector(modifyRequest:)]) {
+        result = [strongDelegate modifyRequest:result];
+    }
+
     return result;
 }
 

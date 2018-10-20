@@ -182,7 +182,7 @@ static NSNumber *_logLevel;
                                         @YES,
                                         @"org_safeexambrowser_elevateWindowLevels",
                                         
-                                        [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                        [NSString stringWithFormat:@"SEB_iOS_%@_%@",
                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                         @"org_safeexambrowser_originatorVersion",
