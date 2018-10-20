@@ -609,6 +609,12 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 
     assert([[self class] propertyForKey:kOurRecursiveRequestFlagProperty inRequest:newRequest] != nil);
     
+    id<CustomHTTPProtocolDelegate> strongeDelegate;
+    strongeDelegate = [[self class] delegate];
+    if ([strongeDelegate respondsToSelector:@selector(modifyRequest:)]) {
+        newRequest = [strongeDelegate modifyRequest:newRequest];
+    }
+
     redirectRequest = [newRequest mutableCopy];
     [[self class] removePropertyForKey:kOurRecursiveRequestFlagProperty inRequest:redirectRequest];
     
