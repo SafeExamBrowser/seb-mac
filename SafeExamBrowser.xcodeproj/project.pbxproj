@@ -908,6 +908,30 @@
 		69CFFA701D3641B500FE5655 /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
 		69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */; };
 		69D1EBE71BFEAD73001838DC /* SEBDockItemTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */; };
+		69D35D1E217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
+		69D35D1F217AB4F400C6CFB9 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69D35D20217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69D35D21217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69D35D22217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		69D35D23217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		69D35D24217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
+		69D35D25217AB4F400C6CFB9 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69D35D26217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69D35D27217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69D35D28217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		69D35D29217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		69D35D2A217AB4F500C6CFB9 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
+		69D35D2B217AB4F500C6CFB9 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69D35D2C217AB4F500C6CFB9 /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69D35D2D217AB4F500C6CFB9 /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69D35D2E217AB4F500C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		69D35D2F217AB4F500C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		69D35D30217AB4F600C6CFB9 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
+		69D35D31217AB4F600C6CFB9 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69D35D32217AB4F600C6CFB9 /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69D35D33217AB4F600C6CFB9 /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69D35D34217AB4F600C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		69D35D35217AB4F600C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
 		69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
 		69D5988B1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
 		69D5988C1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
@@ -2500,6 +2524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69421653214544AB002EB416 /* AboutSEBiOSViewController.h in Headers */,
+				69D35D24217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
 				697852C82177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69421654214544AB002EB416 /* SEBLockedViewController.h in Headers */,
 				69421655214544AB002EB416 /* SEBNavigationController.h in Headers */,
@@ -2522,6 +2547,7 @@
 				69421664214544AB002EB416 /* UIWebView+SEBWebView.h in Headers */,
 				69421665214544AB002EB416 /* SEBActionUITableViewCell.h in Headers */,
 				697852C32177AC7300E93AD8 /* SEBSettings.h in Headers */,
+				69D35D28217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */,
 				69421666214544AB002EB416 /* SEBTextField.h in Headers */,
 				69421667214544AB002EB416 /* SEBInitAssistantViewController.h in Headers */,
 				69421668214544AB002EB416 /* SEBiOSConfigFileController.h in Headers */,
@@ -2531,6 +2557,7 @@
 				6942166C214544AB002EB416 /* OpenWebpages.h in Headers */,
 				6942166D214544AB002EB416 /* LGSideMenuHelper.h in Headers */,
 				69F522BA21467188009F3999 /* CustomHTTPProtocol.h in Headers */,
+				69D35D26217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				6942166E214544AB002EB416 /* SEBIASKSecureSettingsStore.h in Headers */,
 				6942166F214544AB002EB416 /* LGSideMenuSegue.h in Headers */,
 				69421670214544AB002EB416 /* SEBConfigFileManager.h in Headers */,
@@ -2553,6 +2580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
+				69D35D1E217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
 				697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69331F0B1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */,
 				6949A47B1D0B8D9E0040ABF1 /* SEBNavigationController.h in Headers */,
@@ -2575,6 +2603,7 @@
 				696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */,
 				69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */,
 				697852C22177AC7300E93AD8 /* SEBSettings.h in Headers */,
+				69D35D22217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */,
 				696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */,
 				69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */,
@@ -2584,6 +2613,7 @@
 				696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */,
 				695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				69F522B921467188009F3999 /* CustomHTTPProtocol.h in Headers */,
+				69D35D20217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */,
 				695370AE2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */,
@@ -2685,6 +2715,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B171E820FE2D95004BD0FC /* AboutSEBiOSViewController.h in Headers */,
+				69D35D30217AB4F600C6CFB9 /* SEBURLFilter.h in Headers */,
 				697852CA2177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69B171E920FE2D95004BD0FC /* SEBLockedViewController.h in Headers */,
 				69B171EA20FE2D95004BD0FC /* SEBNavigationController.h in Headers */,
@@ -2707,6 +2738,7 @@
 				69B171F920FE2D95004BD0FC /* UIWebView+SEBWebView.h in Headers */,
 				69B171FA20FE2D95004BD0FC /* SEBActionUITableViewCell.h in Headers */,
 				697852C52177AC7300E93AD8 /* SEBSettings.h in Headers */,
+				69D35D34217AB4F600C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */,
 				69B171FB20FE2D95004BD0FC /* SEBTextField.h in Headers */,
 				69B171FC20FE2D95004BD0FC /* SEBInitAssistantViewController.h in Headers */,
 				69B171FD20FE2D95004BD0FC /* SEBiOSConfigFileController.h in Headers */,
@@ -2716,6 +2748,7 @@
 				69B1720120FE2D95004BD0FC /* OpenWebpages.h in Headers */,
 				69B1720220FE2D95004BD0FC /* LGSideMenuHelper.h in Headers */,
 				69F522BC21467188009F3999 /* CustomHTTPProtocol.h in Headers */,
+				69D35D32217AB4F600C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				69B1720320FE2D95004BD0FC /* SEBIASKSecureSettingsStore.h in Headers */,
 				69B1720420FE2D95004BD0FC /* LGSideMenuSegue.h in Headers */,
 				69B1720520FE2D95004BD0FC /* SEBConfigFileManager.h in Headers */,
@@ -2738,6 +2771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B5817F1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
+				69D35D2A217AB4F500C6CFB9 /* SEBURLFilter.h in Headers */,
 				697852C92177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69CFFA561D3641B500FE5655 /* SEBLockedViewController.h in Headers */,
 				69CFFA571D3641B500FE5655 /* SEBNavigationController.h in Headers */,
@@ -2760,6 +2794,7 @@
 				69CFFA621D3641B500FE5655 /* UIWebView+SEBWebView.h in Headers */,
 				69CFFA631D3641B500FE5655 /* SEBActionUITableViewCell.h in Headers */,
 				697852C42177AC7300E93AD8 /* SEBSettings.h in Headers */,
+				69D35D2E217AB4F500C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */,
 				69CFFA641D3641B500FE5655 /* SEBTextField.h in Headers */,
 				69358DE91E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69CFFA651D3641B500FE5655 /* SEBiOSConfigFileController.h in Headers */,
@@ -2769,6 +2804,7 @@
 				69CFFA681D3641B500FE5655 /* OpenWebpages.h in Headers */,
 				695370972033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				69F522BB21467188009F3999 /* CustomHTTPProtocol.h in Headers */,
+				69D35D2C217AB4F500C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				69CFFA691D3641B500FE5655 /* SEBIASKSecureSettingsStore.h in Headers */,
 				695370AF2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69CFFA6A1D3641B500FE5655 /* SEBConfigFileManager.h in Headers */,
@@ -3761,6 +3797,7 @@
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
+				69D35D21217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
 				696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				69F522CA2146720C009F3999 /* SEBCertServices.m in Sources */,
@@ -3783,11 +3820,13 @@
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
+				69D35D23217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */,
 				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
 				69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */,
+				69D35D1F217AB4F400C6CFB9 /* SEBURLFilter.m in Sources */,
 				6949A47C1D0B8D9E0040ABF1 /* SEBNavigationController.m in Sources */,
 				695370B42033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
@@ -3835,6 +3874,7 @@
 				694215BB214544AB002EB416 /* SEBConfigFileManager.m in Sources */,
 				694215BC214544AB002EB416 /* MyGlobals.m in Sources */,
 				694215BD214544AB002EB416 /* SEB.xcdatamodeld in Sources */,
+				69D35D27217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
 				694215BE214544AB002EB416 /* UIWebView+SEBWebView.m in Sources */,
 				694215BF214544AB002EB416 /* RNEncryptor.m in Sources */,
 				69F522CB2146720C009F3999 /* SEBCertServices.m in Sources */,
@@ -3857,11 +3897,13 @@
 				694215CE214544AB002EB416 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				694215CF214544AB002EB416 /* SEBInitAssistantViewController.m in Sources */,
 				694215D0214544AB002EB416 /* SEBiOSInitAssistantViewController.m in Sources */,
+				69D35D29217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				694215D1214544AB002EB416 /* SEBBrowserController.m in Sources */,
 				694215D2214544AB002EB416 /* AppDelegate.m in Sources */,
 				694215D3214544AB002EB416 /* SEBIASKSecureSettingsStore.m in Sources */,
 				694215D4214544AB002EB416 /* SEBKeychainManager.m in Sources */,
 				694215D5214544AB002EB416 /* SEBUIController.m in Sources */,
+				69D35D25217AB4F400C6CFB9 /* SEBURLFilter.m in Sources */,
 				694215D6214544AB002EB416 /* SEBNavigationController.m in Sources */,
 				694215D7214544AB002EB416 /* LGSideMenuSegue.m in Sources */,
 				694215D8214544AB002EB416 /* main.m in Sources */,
@@ -3893,6 +3935,7 @@
 				69B1715020FE2D95004BD0FC /* SEBConfigFileManager.m in Sources */,
 				69B1715120FE2D95004BD0FC /* MyGlobals.m in Sources */,
 				69B1715220FE2D95004BD0FC /* SEB.xcdatamodeld in Sources */,
+				69D35D33217AB4F600C6CFB9 /* SEBURLFilterExpression.m in Sources */,
 				69B1715320FE2D95004BD0FC /* UIWebView+SEBWebView.m in Sources */,
 				69B1715420FE2D95004BD0FC /* RNEncryptor.m in Sources */,
 				69F522CD2146720C009F3999 /* SEBCertServices.m in Sources */,
@@ -3915,11 +3958,13 @@
 				69B1716320FE2D95004BD0FC /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				69B1716420FE2D95004BD0FC /* SEBInitAssistantViewController.m in Sources */,
 				69B1716520FE2D95004BD0FC /* SEBiOSInitAssistantViewController.m in Sources */,
+				69D35D35217AB4F600C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				69B1716620FE2D95004BD0FC /* SEBBrowserController.m in Sources */,
 				69B1716720FE2D95004BD0FC /* AppDelegate.m in Sources */,
 				69B1716820FE2D95004BD0FC /* SEBIASKSecureSettingsStore.m in Sources */,
 				69B1716920FE2D95004BD0FC /* SEBKeychainManager.m in Sources */,
 				69B1716A20FE2D95004BD0FC /* SEBUIController.m in Sources */,
+				69D35D31217AB4F600C6CFB9 /* SEBURLFilter.m in Sources */,
 				69B1716B20FE2D95004BD0FC /* SEBNavigationController.m in Sources */,
 				69B1716C20FE2D95004BD0FC /* LGSideMenuSegue.m in Sources */,
 				69B1716D20FE2D95004BD0FC /* main.m in Sources */,
@@ -3950,6 +3995,7 @@
 				697852BF2177AC7300E93AD8 /* SEBSettings.m in Sources */,
 				69F522CC2146720C009F3999 /* SEBCertServices.m in Sources */,
 				69CFFA021D3641B500FE5655 /* MyGlobals.m in Sources */,
+				69D35D2B217AB4F500C6CFB9 /* SEBURLFilter.m in Sources */,
 				69CFFA031D3641B500FE5655 /* SEB.xcdatamodeld in Sources */,
 				69CFFA041D3641B500FE5655 /* UIWebView+SEBWebView.m in Sources */,
 				69CFFA051D3641B500FE5655 /* SEBMasterViewController.m in Sources */,
@@ -3967,6 +4013,7 @@
 				69CFFA0F1D3641B500FE5655 /* SEBCryptor.m in Sources */,
 				69CFFA101D3641B500FE5655 /* SEBDetailViewController.m in Sources */,
 				69CFFA111D3641B500FE5655 /* MethodSwizzling.m in Sources */,
+				69D35D2F217AB4F500C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				695370B82033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69CFFA121D3641B500FE5655 /* SEBiOSKeychainManager.m in Sources */,
 				69CFFA131D3641B500FE5655 /* NSData+NSDataZIPExtension.m in Sources */,
@@ -3979,6 +4026,7 @@
 				69CFFA151D3641B500FE5655 /* SEBBrowserController.m in Sources */,
 				69CFFA161D3641B500FE5655 /* AppDelegate.m in Sources */,
 				69CFFA171D3641B500FE5655 /* SEBIASKSecureSettingsStore.m in Sources */,
+				69D35D2D217AB4F500C6CFB9 /* SEBURLFilterExpression.m in Sources */,
 				695370BE2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69CFFA181D3641B500FE5655 /* SEBKeychainManager.m in Sources */,
 				697852BA2177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
@@ -4284,7 +4332,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4359,7 +4407,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4600,7 +4648,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4675,7 +4723,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4745,7 +4793,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4812,7 +4860,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4977,7 +5025,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5015,7 +5063,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5064,7 +5112,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5110,7 +5158,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11841;
+				CURRENT_PROJECT_VERSION = 11871;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;

@@ -32,6 +32,9 @@
 //  Contributor(s): dmcd, Copyright (c) 2015-2016 Janison
 //
 
+#import "SEBURLFilter.h"
+
+@class SEBURLFilter;
 
 /**
  * @protocol    SEBBrowserControllerDelegate
@@ -109,10 +112,17 @@
 #import <Foundation/Foundation.h>
 
 @interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate> {
+    
+    @private
+    
     NSString *cachedConfigFileName;
     NSURL *cachedDownloadURL;
     NSURL *cachedHostURL;
     NSURL *cachedUniversalLink;
+    NSString *quitURLTrimmed;
+    BOOL sendHashKeys;
+    NSData *browserExamKey;
+    NSData *configKey;
 }
 
 @property (weak) id delegate;
@@ -123,6 +133,8 @@
 
 @property (strong) id URLSession;
 @property (strong) NSURLSessionDataTask *downloadTask;
+
+@property (strong) SEBURLFilter *urlFilter;
 
 @property (readwrite) BOOL isShowingOpeningConfigFileDialog;
 
