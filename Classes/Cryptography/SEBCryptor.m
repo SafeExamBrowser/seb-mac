@@ -385,7 +385,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64Encoding]];
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
-    } else if ((strcmp([object objCType], @encode(BOOL)) == 0)) {
+    } else if ((strcmp([object objCType], "c") == 0)) {
         jsonString = [NSString stringWithFormat:@"%@", ([object boolValue] == 0 ? @"false" : @"true")];
     } else {
         jsonString = [NSString stringWithFormat:@"%@", object];
