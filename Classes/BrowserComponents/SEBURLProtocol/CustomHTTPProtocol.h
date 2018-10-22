@@ -186,4 +186,10 @@
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
 
+/*! Called by the CustomHTTPProtocol class to let the delegate decide if the request should be
+ *  loaded, for example to filter requests, including embedded contents according to its URL
+ */
+
+- (BOOL)requestAllowed:(NSURLRequest *)request;
+
 @end
