@@ -82,7 +82,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Browser</string>
+			<string>Browser Features</string>
 			<key>File</key>
 			<string>Browser</string>
 		</dict>
@@ -90,7 +90,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Exam</string>
+			<string>Exam Session</string>
 			<key>File</key>
 			<string>Exam</string>
 		</dict>
