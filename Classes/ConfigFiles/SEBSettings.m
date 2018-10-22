@@ -231,6 +231,15 @@
                    [NSData data],
                    @"examKeySalt",
                    
+                   @YES,
+                   @"examSessionClearSessionCookies",
+                   
+                   @NO,
+                   @"examSessionReconfigureAllow",
+                   
+                   @"",
+                   @"examSessionReconfigureConfigURL",
+                   
                    [NSNumber numberWithLong:2],
                    @"exitKey1",
                    
@@ -500,6 +509,9 @@
 
                    @YES,
                    @"quitURLConfirm",
+
+                   @NO,
+                   @"quitURLRestart",
 
                    @NO,
                    @"removeBrowserProfile",
