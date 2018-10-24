@@ -1524,11 +1524,16 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
     
+    
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket.
-    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        // Do something once it's done.
-    }];
+    // downloads to disk, and ensures that future requests occur on a new socket
+    // if the default value (enabled) for the setting examSessionClearSessionCookies is set
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+            // Do something once it's done.
+        }];
+    }
     
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
@@ -1605,7 +1610,10 @@ void run_on_ui_thread(dispatch_block_t block)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Check if SEB is in exam mode = private UserDefauls are switched on
-            if (NSUserDefaults.userDefaultsPrivate) {
+            // or if not reconfiguring is allowed by setting while no quit password is set in current settings
+            if (NSUserDefaults.userDefaultsPrivate ||
+                !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
+                  [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
