@@ -1611,7 +1611,7 @@ void run_on_ui_thread(dispatch_block_t block)
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Check if SEB is in exam mode = private UserDefauls are switched on
             // or if not reconfiguring is allowed by setting while no quit password is set in current settings
-            if (NSUserDefaults.userDefaultsPrivate ||
+            if (NSUserDefaults.userDefaultsPrivate &&
                 !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
                   [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) {
                 // If yes, we don't download the .seb file
