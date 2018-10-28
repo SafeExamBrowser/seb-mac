@@ -48,7 +48,10 @@ static NSMutableSet *browserWindowControllers;
 - (IASKAppSettingsViewController*)appSettingsViewController {
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-        appSettingsViewController.delegate = self;
+        _sebInAppSettingsViewController = [[SEBInAppSettingsViewController alloc] init];
+        _sebInAppSettingsViewController.sebViewController = self;
+        _sebInAppSettingsViewController.appSettingsViewController = appSettingsViewController;
+        appSettingsViewController.delegate = _sebInAppSettingsViewController;
         SEBIASKSecureSettingsStore *sebSecureStore = [[SEBIASKSecureSettingsStore alloc] init];
         appSettingsViewController.settingsStore = sebSecureStore;
     }
@@ -993,25 +996,22 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {    
-    [sender dismissViewControllerAnimated:YES completion:^{
+    // Update entered passwords and save their hashes to SEB settings
+    // as long as the passwords were really entered and don't contain the hash placeholders
+    [self updateEnteredPasswords];
     
-        // Update entered passwords and save their hashes to SEB settings
-        // as long as the passwords were really entered and don't contain the hash placeholders
-        [self updateEnteredPasswords];
-        
-        // Check if settings changed
-        if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
-            // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
-            [[NSUserDefaults standardUserDefaults] setSecureObject:nil
-                                                            forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        }
-        _settingsOpen = false;
-        
-        // Restart exam: Close all tabs, reset browser and reset kiosk mode
-        // before re-initializing SEB with new settings
-        [self restartExam:false];
-    }];
+    // Check if settings changed
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
+        [[NSUserDefaults standardUserDefaults] setSecureObject:nil
+                                                        forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    }
+    _settingsOpen = false;
+    
+    // Restart exam: Close all tabs, reset browser and reset kiosk mode
+    // before re-initializing SEB with new settings
+    [self restartExam:false];
 }
 
 
@@ -1611,6 +1611,8 @@ void run_on_ui_thread(dispatch_block_t block)
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Check if SEB is in exam mode = private UserDefauls are switched on
             // or if not reconfiguring is allowed by setting while no quit password is set in current settings
+            // or if a quit password is set, then check if the reconfigure config file URL matches the setting
+            // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
             if (NSUserDefaults.userDefaultsPrivate &&
                 !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
                   [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) {
