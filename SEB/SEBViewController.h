@@ -65,6 +65,7 @@
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
 #import "SEBIASKSecureSettingsStore.h"
+#import "SEBInAppSettingsViewController.h"
 
 #import "SEBUIController.h"
 #import "SEBSliderItem.h"
@@ -90,6 +91,7 @@
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
+@class SEBInAppSettingsViewController;
 @class SEBInitAssistantViewController;
 @class SEBiOSInitAssistantViewController;
 @class QRCodeReaderViewController;
@@ -143,6 +145,7 @@
 @property (strong, nonatomic) SEBLockedViewController *sebLockedViewController;
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+@property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
 
 @property (strong, nonatomic) QRCodeReaderViewController *codeReaderViewController;
 @property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;
@@ -204,6 +207,7 @@
 
 - (void) conditionallyShowSettingsModal;
 - (void) conditionallyResetSettings;
+- (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
 
 - (void) showStartSingleAppMode;
 - (void) startExam;
