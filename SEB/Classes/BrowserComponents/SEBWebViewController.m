@@ -340,7 +340,7 @@
         }
     }
     
-    // Check if this is a seb:// or sebs:// link
+    // Check if this is a seb:// or sebs:// link or a .seb file link
     if ([url.scheme isEqualToString:SEBProtocolScheme] ||
         [url.scheme isEqualToString:SEBSSecureProtocolScheme] ||
         [fileExtension isEqualToString:SEBFileExtension]) {
