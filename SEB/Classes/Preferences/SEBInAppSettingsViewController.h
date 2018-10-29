@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary *customCells;
 
+@property (nonatomic, strong) NSMutableArray *combinedURLFilterRules;
+@property (nonatomic, strong) NSMutableArray *combinedURLFilterRulesCounter;
+
 @end
 
 NS_ASSUME_NONNULL_END

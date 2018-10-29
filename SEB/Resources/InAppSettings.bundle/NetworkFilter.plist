@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Activate URL Filtering</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_URLFilterEnable</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Filter Embedded Content</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_URLFilterEnableContentFilter</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Filter Rules</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_URLFilterRulesCombined</string>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>
