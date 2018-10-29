@@ -43,6 +43,48 @@
 }
 
 
+- (NSMutableArray *)combinedURLFilterRules
+{
+    if (!_combinedURLFilterRules) {
+        _combinedURLFilterRules = [NSMutableArray new];
+        _combinedURLFilterRulesCounter = [NSMutableArray new];
+        NSUInteger ruleCounter = 0;
+        NSArray *URLFilterRules = [[NSUserDefaults standardUserDefaults] secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
+        NSDictionary *URLFilterRule;
+        
+        for (URLFilterRule in URLFilterRules) {
+            NSString *combinedFilterString;
+            if ([URLFilterRule[@"active"] boolValue]) {
+                combinedFilterString = @"☑︎ ";
+            } else {
+                combinedFilterString = @"☒ ";
+            }
+            if ([URLFilterRule[@"regex"] boolValue]) {
+                combinedFilterString = [NSString stringWithFormat:@"%@ R", combinedFilterString];
+            }
+            int action = [URLFilterRule[@"action"] intValue];
+            switch (action) {
+                case URLFilterActionBlock:
+                    combinedFilterString = [NSString stringWithFormat:@"%@B ", combinedFilterString];
+                    break;
+                    
+                case URLFilterActionAllow:
+                    combinedFilterString = [NSString stringWithFormat:@"%@A ", combinedFilterString];
+                    break;
+            }
+            combinedFilterString = [NSString stringWithFormat:@"%@ %@", combinedFilterString, URLFilterRule[@"expression"]];
+            [_combinedURLFilterRules addObject:combinedFilterString];
+            [_combinedURLFilterRulesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
+            ruleCounter++;
+        }
+    }
+    return _combinedURLFilterRules;
+}
+
+
+#pragma mark -
+#pragma mark IASKAppSettingsViewControllerDelegate protocol
+
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
     if ([specifier.key isEqualToString:@"browserExamKey"] ||
         [specifier.key isEqualToString:@"configKey"]) {
@@ -70,6 +112,23 @@
     cell.textView.delegate = self;
     [cell setNeedsLayout];
     return cell;
+}
+
+
+//
+- (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier *)specifier {
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
+        return self.combinedURLFilterRulesCounter;
+    }
+    return nil;
+}
+
+
+- (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier *)specifier {
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
+        return self.combinedURLFilterRules;
+    }
+    return nil;
 }
 
 

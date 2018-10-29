@@ -98,6 +98,14 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
+			<string>Network</string>
+			<key>File</key>
+			<string>Network</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
 			<string>Security</string>
 			<key>File</key>
 			<string>Security</string>
