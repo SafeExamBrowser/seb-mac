@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Server Certificates</string>
+			<key>FooterText</key>
+			<string>Embedded TLS/SSL/CA certificates allow to access secure servers without error message if they are self-signed. With certificate pinning, the iOS certificate store is bypassed and only embedded certificates establish trust for https connections.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Pin Certificates</string>
+			<key>Key</key>
+			<string>pinEmbeddedCertificates</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Identity Certificates</string>
+			<key>FooterText</key>
+			<string>Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key) in a client config file can be used to decrypt exam config files.</string>
+		</dict>
+	</array>
+</dict>
+</plist>
