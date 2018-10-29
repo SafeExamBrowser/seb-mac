@@ -40,6 +40,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Share Keys with Config</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_configFileShareKeys</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Quit Link</string>

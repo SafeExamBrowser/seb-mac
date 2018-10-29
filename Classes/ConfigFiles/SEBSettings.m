@@ -177,9 +177,12 @@
                    [NSData data],
                    @"configKeySalt",
                    
+                   @NO,
+                   @"configFileShareKeys",
+                   
                    @YES,
                    @"createNewDesktop",
-                   
+
                    @YES,
                    @"detectStoppedProcess",
                    
