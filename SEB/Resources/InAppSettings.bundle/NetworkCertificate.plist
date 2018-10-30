@@ -20,7 +20,7 @@
 			<key>Title</key>
 			<string>Pin Certificates</string>
 			<key>Key</key>
-			<string>pinEmbeddedCertificates</string>
+			<string>org_safeexambrowser_SEB_pinEmbeddedCertificates</string>
 		</dict>
 		<dict>
 			<key>Type</key>
