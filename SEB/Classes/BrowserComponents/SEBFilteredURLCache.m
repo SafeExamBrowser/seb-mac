@@ -13,7 +13,7 @@
 - (NSCachedURLResponse*)cachedResponseForRequest:(NSURLRequest*)request
 {
     NSURL *url = [request URL];
-    SEBURLFilter *urlFilter;
+    SEBURLFilter *urlFilter = [SEBURLFilter sharedSEBURLFilter];
     
     if (urlFilter.enableURLFilter && urlFilter.enableContentFilter) {
         URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:url];
