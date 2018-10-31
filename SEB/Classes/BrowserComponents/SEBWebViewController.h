@@ -38,19 +38,29 @@
 
 #import "LGSideMenuController.h"
 #import "UIViewController+LGSideMenuController.h"
+#import "SEBURLFilter.h"
 
 @class SEBBrowserTabViewController;
-
+@class SEBURLFilter;
 
 @interface SEBWebViewController : UIViewController <UIWebViewDelegate>
 {
     IBOutlet UIBarButtonItem *MainWebView;
     
     NSString *jsCode;
+    
+@private
+    BOOL allowSpellCheck;
+    NSString *quitURL;
+    BOOL mobileEnableGuidedAccessLinkTransform;
+    BOOL enableDrawingEditor;
 }
+
 
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 @property (nonatomic, strong) UIWebView *sebWebView;
+@property (strong) SEBURLFilter *urlFilter;
+
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
