@@ -36,14 +36,6 @@
 #import "Constants.h"
 #import "AppDelegate.h"
 
-@interface SEBWebViewController () {
-
-@private
-    BOOL allowSpellCheck;
-}
-
-@end
-
 
 @implementation SEBWebViewController
 
@@ -140,6 +132,10 @@
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+    quitURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"];
+    mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
+    enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
+    _urlFilter = [SEBURLFilter sharedSEBURLFilter];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -296,9 +292,42 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSURL *url = [request URL];
+
+    // Check if quit URL has been clicked (regardless of current URL Filter)
+    if ([[url absoluteString] isEqualToString:quitURL]) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitWPwdNotification" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuit" object:self];
+        }
+        return NO;
+    }
+    
+    NSURL *originalURL = url;
+    
+    if ([url.scheme isEqualToString:@"newtab"]) {
+        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
+        originalURL = [NSURL URLWithString:urlString relativeToURL:[webView url]];
+    }
+
+    if (_urlFilter.enableURLFilter) {
+        URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:originalURL];
+        if (filterActionResponse != URLFilterActionAllow) {
+            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
+            //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
+            /// User didn't allow the content, don't load it
+            DDLogWarn(@"This content was blocked by the content filter: %@", originalURL.absoluteString);
+            return NO;
+            // }
+        }
+    }
+
     if (UIAccessibilityIsGuidedAccessEnabled()) {
         if (navigationType == UIWebViewNavigationTypeLinkClicked &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"]) {
+            mobileEnableGuidedAccessLinkTransform) {
             navigationType = UIWebViewNavigationTypeOther;
             DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
             [webView loadRequest:request];
@@ -306,13 +335,10 @@
         }
     }
 
-    NSURL *url = [request URL];
     NSString *fileExtension = [url pathExtension];
 
     if ([url.scheme isEqualToString:@"newtab"]) {
-        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        url = [NSURL URLWithString:urlString relativeToURL:[webView url]];
-        [_browserTabViewController openNewTabWithURL:url];
+        [_browserTabViewController openNewTabWithURL:originalURL];
         return NO;
     }
     if ([url.scheme isEqualToString:@"about"]) {
@@ -350,22 +376,10 @@
         return NO;
     }
 
-    // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[url absoluteString] isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitWPwdNotification" object:self];
-        } else {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuit" object:self];
-        }
-        return NO;
-    }
-
     // Downloading image files for the freehand drawing functionality
     if(navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeOther) {
         if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"]) {
+            if (enableDrawingEditor) {
                 // Get the filename of the loaded ressource form the UIWebView's request URL
                 NSString *filename = [url lastPathComponent];
                 NSLog(@"Filename: %@", filename);

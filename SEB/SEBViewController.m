@@ -1524,6 +1524,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
     
+    [NSURLCache.sharedURLCache removeAllCachedResponses];
     
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
     // downloads to disk, and ensures that future requests occur on a new socket
