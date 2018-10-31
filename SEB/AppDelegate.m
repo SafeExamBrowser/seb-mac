@@ -40,6 +40,8 @@
 #import "UIViewController+LGSideMenuController.h"
 
 #import "SEBBrowserController.h"
+#import "SEBFilteredURLCache.h"
+
 #import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()
@@ -146,6 +148,16 @@ void run_block_on_ui_thread(dispatch_block_t block)
         // This will block "performActionForShortcutItem:completionHandler" from being called.
         shouldPerformAdditionalDelegateHandling = false;
     }
+    
+    NSString *path = @"CustomURLCache";
+
+    NSUInteger diskCapacity = 30*1024*1024;
+    NSUInteger memoryCapacity = 1024*1024;
+    
+    SEBFilteredURLCache *cache = [[SEBFilteredURLCache alloc] initWithMemoryCapacity:memoryCapacity
+                                                                        diskCapacity:diskCapacity
+                                                                            diskPath:path];
+    [NSURLCache setSharedURLCache:cache];
 
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     NSDictionary *userActivity = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
@@ -214,7 +226,10 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground
+    
+    [NSURLCache.sharedURLCache removeAllCachedResponses];
+
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
