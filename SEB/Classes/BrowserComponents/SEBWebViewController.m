@@ -319,7 +319,7 @@
             /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
             //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
             /// User didn't allow the content, don't load it
-            DDLogWarn(@"This content was blocked by the content filter: %@", originalURL.absoluteString);
+            DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
             return NO;
             // }
         }
