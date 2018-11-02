@@ -23,13 +23,13 @@
             /// User didn't allow the content, don't load it
             DDLogWarn(@"This content was blocked by the content filter: %@", url.absoluteString);
             //            }
-            
-            NSURLResponse *response =
-            [[NSURLResponse alloc] initWithURL:url
-                                      MIMEType:@"text/plain"
-                         expectedContentLength:1
-                              textEncodingName:nil];
-            
+
+            NSHTTPURLResponse *response =
+            [[NSHTTPURLResponse alloc] initWithURL:url
+                                        statusCode:403
+                                       HTTPVersion:@"HTTP/1.1"
+                                      headerFields:nil];
+
             NSCachedURLResponse *cachedResponse =
             [[NSCachedURLResponse alloc] initWithResponse:response
                                                      data:[NSData dataWithBytes:" " length:1]];
