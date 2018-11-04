@@ -980,17 +980,40 @@ static NSMutableSet *browserWindowControllers;
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
 
+        NSArray *activityItems;
+        
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
                                        NSLocalizedString(@"for starting an exam", nil) :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
                                        NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
-        NSArray *activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileShareKeys"]) {
+            NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+            NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
+            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+            NSString *configKey = hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil;
+            activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], browserExamKey, configKey, configFileRUL ];
+        } else {
+            activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
+        }
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
         activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
         [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
     }
+}
+
+
+- (NSString *)base16StringForHashKey:(NSData *)hashKey
+{
+    unsigned char hashedChars[32];
+    [hashKey getBytes:hashedChars length:32];
+    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedConfigKeyString.copy;
 }
 
 
