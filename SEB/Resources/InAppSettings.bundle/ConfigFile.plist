@@ -52,7 +52,17 @@
 			<key>Title</key>
 			<string>Encryption</string>
 			<key>FooterText</key>
-			<string>You should use Settings Password when a config file is shared for starting exams. Encryption prevents settings to be altered and an exam to be accessed before communicating the password to examinees.</string>
+			<string>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Identity Certificate</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_configFileIdentity</string>
+			<key>DisplaySortedByTitle</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -65,6 +75,30 @@
 			<true/>
 			<key>IASKPlaceholder</key>
 			<string>Encrypts config file</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Encrypting Settings with Identity Certificate</string>
+			<key>FooterText</key>
+			<string>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files which were encrypted with that identity certificate.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Create &amp; Embed Identity</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_configFileCreateIdentity</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Auto-Select Identity</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_configFileEncryptUsingIdentity</string>
 		</dict>
 		<dict>
 			<key>Type</key>
