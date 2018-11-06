@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) SEBViewController *sebViewController;
 
+@property (strong, nonatomic) NSMutableArray *identitiesNames;
+@property (nonatomic, strong) NSMutableArray *identitiesCounter;
+@property (strong, nonatomic) NSArray *identities;
+
 @property (nonatomic, strong) NSMutableDictionary *customCells;
 
 @property (nonatomic, strong) NSMutableArray *combinedURLFilterRules;

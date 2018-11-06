@@ -26,6 +26,22 @@
                                                  selector:@selector(settingsChanged)
                                                      name:kIASKAppSettingChanged
                                                    object:nil];
+        
+        // If identities aren't available yet, get them from Keychain
+        if (!self.identitiesNames) {
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            NSArray *names;
+            NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
+            self.identities = identitiesInKeychain;
+            self.identitiesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
+            [self.identitiesNames addObjectsFromArray:names];
+            _identitiesCounter = [NSMutableArray new];
+            for (NSUInteger ruleCounter = 0; ruleCounter < self.identitiesNames.count; ruleCounter++) {
+                [_identitiesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
+                ruleCounter++;
+            }
+        }
+
         // Display current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
@@ -117,6 +133,9 @@
 
 //
 - (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier *)specifier {
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_configFileIdentity"]) {
+        return self.identitiesCounter;
+    }
     if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
         return self.combinedURLFilterRulesCounter;
     }
@@ -125,6 +144,9 @@
 
 
 - (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier *)specifier {
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_configFileIdentity"]) {
+        return self.identitiesNames;
+    }
     if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
         return self.combinedURLFilterRules;
     }
