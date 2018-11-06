@@ -178,8 +178,14 @@
                    @"configKeySalt",
                    
                    @NO,
-                   @"configFileShareKeys",
+                   @"configFileCreateIdentity",
                    
+                   @NO,
+                   @"configFileEncryptUsingIdentity",
+
+                   @NO,
+                   @"configFileShareKeys",
+
                    @YES,
                    @"createNewDesktop",
 
