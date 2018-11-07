@@ -271,7 +271,7 @@ typedef NSUInteger SEBURLFilterAlertPattern;
 
 
 enum {
-    SEBURLFilterAlertDismiss                      = 0,
+    SEBURLFilterAlertDismiss                     = 0,
     SEBURLFilterAlertAllow                       = 1,
     SEBURLFilterAlertIgnore                      = 2,
     SEBURLFilterAlertBlock                       = 3,
