@@ -174,6 +174,9 @@ static NSNumber *_logLevel;
                                         @"org_safeexambrowser_browserUserAgentEnvironment",
                                         
                                         [NSNumber numberWithLong:0],
+                                        @"org_safeexambrowser_chooseIdentityToEmbed",
+
+                                        [NSNumber numberWithLong:0],
                                         @"org_safeexambrowser_configFileIdentity",
                                         
                                         [NSDictionary dictionary],

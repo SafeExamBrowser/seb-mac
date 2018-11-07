@@ -59,6 +59,15 @@
 }
 
 
+- (NSMutableArray *)combinedURLFilterRulesCounter
+{
+    if (!_combinedURLFilterRulesCounter) {
+        _combinedURLFilterRulesCounter = [NSMutableArray new];
+    }
+    return _combinedURLFilterRulesCounter;
+}
+
+
 - (NSMutableArray *)combinedURLFilterRules
 {
     if (!_combinedURLFilterRules) {
@@ -95,6 +104,54 @@
         }
     }
     return _combinedURLFilterRules;
+}
+
+
+- (NSMutableArray *)embeddedCertificatesListCounter
+{
+    if (!_embeddedCertificatesListCounter) {
+        _embeddedCertificatesList = self.embeddedCertificatesList;
+    }
+    return _embeddedCertificatesListCounter;
+}
+
+
+- (NSMutableArray *)embeddedCertificatesList
+{
+    if (!_embeddedCertificatesList) {
+        _embeddedCertificatesList = [NSMutableArray new];
+        _embeddedCertificatesListCounter = [NSMutableArray new];
+        NSUInteger certificateCounter = 0;
+        NSArray *embeddedCertificates = [[NSUserDefaults standardUserDefaults] secureArrayForKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
+        NSDictionary *certificate;
+        
+        for (certificate in embeddedCertificates) {
+            NSString *combinedCertificateString;
+            int type = [certificate[@"type"] intValue];
+            switch (type) {
+                case certificateTypeSSL:
+                    combinedCertificateString = NSLocalizedString(@"SSL ", nil);
+                    break;
+                    
+                case certificateTypeIdentity:
+                    combinedCertificateString = NSLocalizedString(@"Identity ", nil);
+                    break;
+                    
+                case certificateTypeCA:
+                    combinedCertificateString = NSLocalizedString(@"CA ", nil);
+                    break;
+                    
+                case certificateTypeSSLDebug:
+                    combinedCertificateString = NSLocalizedString(@"Debug ", nil);
+                    break;
+            }
+            combinedCertificateString = [NSString stringWithFormat:@"%@ %@", combinedCertificateString, certificate[@"name"]];
+            [_embeddedCertificatesList addObject:combinedCertificateString];
+            [_embeddedCertificatesListCounter addObject:([NSNumber numberWithUnsignedInteger:certificateCounter])];
+            certificateCounter++;
+        }
+    }
+    return _embeddedCertificatesList;
 }
 
 
@@ -139,6 +196,12 @@
     if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
         return self.combinedURLFilterRulesCounter;
     }
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_chooseIdentityToEmbed"]) {
+        return self.identitiesCounter;
+    }
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_embeddedCertificatesList"]) {
+        return self.embeddedCertificatesListCounter;
+    }
     return nil;
 }
 
@@ -149,6 +212,12 @@
     }
     if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
         return self.combinedURLFilterRules;
+    }
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_chooseIdentityToEmbed"]) {
+        return self.identitiesNames;
+    }
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_embeddedCertificatesList"]) {
+        return self.embeddedCertificatesList;
     }
     return nil;
 }

@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *combinedURLFilterRules;
 @property (nonatomic, strong) NSMutableArray *combinedURLFilterRulesCounter;
 
+@property (nonatomic, strong) NSMutableArray *embeddedCertificatesList;
+@property (nonatomic, strong) NSMutableArray *embeddedCertificatesListCounter;
+
 @end
 
 NS_ASSUME_NONNULL_END
