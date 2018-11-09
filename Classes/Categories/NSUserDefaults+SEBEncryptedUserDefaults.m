@@ -48,7 +48,9 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
-#import "AppDelegate.h"
+#import "SEBKeychainManager.h"
+#import "SEBConfigFileManager.h"
+#import "SEBSettings.h"
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -65,7 +67,6 @@ static NSMutableDictionary *privateUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 static NSNumber *_logLevel;
-
 
 + (NSMutableDictionary *)privateUserDefaults
 {
@@ -129,454 +130,128 @@ static NSNumber *_logLevel;
 }
 
 
-- (NSDictionary *)sebDefaultSettings
+// Get value from another application’s preferences
+- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
 {
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                 [NSArray array],
-//                                 @"org_safeexambrowser_SEB_additionalResources",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowBrowsingBackForward",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowDictionaryLookup",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowDownUploads",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowFlashFullscreen",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowPDFPlugIn",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_allowPreferencesWindow",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_allowQuit",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowSpellCheck",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowSwitchToApplications",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_allowUserSwitching",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowVirtualMachine",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_allowWlan",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_blockPopUpWindows",
-                                 [NSNumber numberWithLong:120000],
-                                 @"org_safeexambrowser_SEB_browserMessagingPingTime",
-                                 @"ws:\\localhost:8706",
-                                 @"org_safeexambrowser_SEB_browserMessagingSocket",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_browserScreenKeyboard",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_browserURLSalt",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_browserUserAgent",
-                                 [NSNumber numberWithLong:browserUserAgentModeiOSDefault],
-                                 @"org_safeexambrowser_SEB_browserUserAgentiOS",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_browserUserAgentiOSCustom",
-                                 [NSNumber numberWithLong:browserUserAgentModeMacDefault],
-                                 @"org_safeexambrowser_SEB_browserUserAgentMac",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_browserUserAgentMacCustom",
-                                 [NSNumber numberWithLong:browserUserAgentModeWinDesktopDefault],
-                                 @"org_safeexambrowser_SEB_browserUserAgentWinDesktopMode",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_browserUserAgentWinDesktopModeCustom",
-                                 [NSNumber numberWithLong:browserUserAgentModeWinTouchDefault],
-                                 @"org_safeexambrowser_SEB_browserUserAgentWinTouchMode",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_browserUserAgentWinTouchModeCustom",
-                                 SEBWinUserAgentTouchiPad,
-                                 @"org_safeexambrowser_SEB_browserUserAgentWinTouchModeIPad",
-                                 [NSNumber numberWithLong:browserViewModeWindow],
-                                 @"org_safeexambrowser_SEB_browserViewMode",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_browserWindowAllowReload",
-                                 [NSNumber numberWithLong:browserWindowShowURLNever],
-                                 @"org_safeexambrowser_SEB_browserWindowShowURL",
-                                 [NSNumber numberWithLong:manuallyWithFileRequester],
-                                 @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_createNewDesktop",
-//                                 [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
-//                                 @"org_safeexambrowser_SEB_cryptoIdentity",
-                                 //@"~/Downloads",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_downloadAndOpenSebConfig",
-                                 [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
-                                 @"org_safeexambrowser_SEB_downloadDirectoryOSX",
-                                 @"Desktop",
-                                 @"org_safeexambrowser_SEB_downloadDirectoryWin",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_downloadPDFFiles",
-                                 @[
-                                   @{
-                                       @"certificateData" : [NSData data],
-                                       @"certificateDataWin" : @"",
-                                       @"name" : @"",
-                                       @"type" : @0,
-                                       }
-                                   ],
-                                 @"org_safeexambrowser_SEB_embeddedCertificates",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableAppSwitcherCheck",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableDrawingEditor",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableJava",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableJavaScript",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableLogging",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enablePlugIns",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableSebBrowser",
-                                 @false,
-                                 @"org_safeexambrowser_SEB_enableTouchExit",
-                                 [NSData data],
-                                 @"org_safeexambrowser_SEB_examKeySalt",
-                                 [NSNumber numberWithLong:2],
-                                 @"org_safeexambrowser_SEB_exitKey1",
-                                 [NSNumber numberWithLong:10],
-                                 @"org_safeexambrowser_SEB_exitKey2",
-                                 [NSNumber numberWithLong:5],
-                                 @"org_safeexambrowser_SEB_exitKey3",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_hashedAdminPassword",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_hashedQuitPassword",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_hideBrowserWindowToolbar",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_hookKeys",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableEsc",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableCtrlEsc",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableAltEsc",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableAltMouseWheel",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableAltTab",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableAltF4",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enablePrintScreen",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableRightMouse",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableStartMenu",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF1",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF2",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF3",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF4",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableF5",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF6",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF7",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF8",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF9",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF10",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF11",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_enableF12",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableZoomPage",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_enableZoomText",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_forceAppFolderInstall",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_ignoreExitKeys",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_ignoreQuitPassword",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableChangeAPassword",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableEaseOfAccess",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableLockThisComputer",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableLogOff",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableShutDown",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableStartTaskManager",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableSwitchUser",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_insideSebEnableVmWareClientShade",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_killExplorerShell",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_logDirectoryOSX",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_logDirectoryWin",
-                                 [NSNumber numberWithLong:SEBLogLevelDebug],
-                                 @"org_safeexambrowser_SEB_logLevel",
-                                 @"100%",
-                                 @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
-                                 [NSNumber numberWithLong:browserWindowPositioningCenter],
-                                 @"org_safeexambrowser_SEB_mainBrowserWindowPositioning",
-                                 @"100%",
-                                 @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
-                                 [NSNumber numberWithLong:iOSBetaVersionNone],
-                                 @"org_safeexambrowser_SEB_allowiOSBetaVersionNumber",
-                                 [NSNumber numberWithLong:iOSVersion9],
-                                 @"org_safeexambrowser_SEB_allowiOSVersionNumberMajor",
-                                 @0,
-                                 @"org_safeexambrowser_SEB_allowiOSVersionNumberMinor",
-                                 @0,
-                                 @"org_safeexambrowser_SEB_allowiOSVersionNumberPatch",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_mobileAllowSingleAppMode",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_mobileAllowQRCodeConfig",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileEnableASAM",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_mobileShowSettings",
-                                 [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
-                                 @"org_safeexambrowser_SEB_mobileStatusBarAppearance",
-                                 [NSNumber numberWithLong:mobileStatusBarAppearanceExtendedLight],
-                                 @"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedFormFactorsCompact",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedFormFactorsNonTelephonyCompact",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedFormFactorsRegular",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsCompactPortrait",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsCompactPortraitUpsideDown",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsCompactLandscapeLeft",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsCompactLandscapeRight",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsRegularPortrait",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsRegularPortraitUpsideDown",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsRegularLandscapeLeft",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsRegularLandscapeRight",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_mobilePreventAutoLock",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_monitorProcesses",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_newBrowserWindowAllowReload",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
-                                 @"100%",
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight",
-                                 [NSNumber numberWithLong:openInNewWindow],
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
-                                 [NSNumber numberWithLong:browserWindowPositioningRight],
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning",
-                                 @"1000",
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
-                                 [NSNumber numberWithLong:openInNewWindow],
-                                 @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_newBrowserWindowNavigation",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning",
-                                 [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
-                                 @"org_safeexambrowser_SEB_newBrowserWindowShowURL",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_openDownloads",
-                                 [NSNumber numberWithLong:oskBehaviorAutoShow],
-                                 @"org_safeexambrowser_SEB_oskBehavior",
-                                 @[
-                                   @{
-                                       @"active" : @YES,
-                                       @"allowUserToChooseApp" : @NO,
-                                       @"allowedExecutables" : @"",
-                                       @"arguments" : @[],
-                                       @"autostart" : @YES,
-                                       @"description" : @"",
-                                       @"executable" : @"xulrunner.exe",
-                                       @"iconInTaskbar" : @YES,
-                                       @"identifier" : @"XULRunner",
-                                       @"os" : @1,
-                                       @"path" : @"../xulrunner/",
-                                       @"runInBackground" : @NO,
-                                       @"strongKill" : @YES,
-                                       @"title" : @"SEB",
-                                       @"windowHandlingProcess" : @""
-                                       }
-                                   ],
-                                 @"org_safeexambrowser_SEB_permittedProcesses",
-                                 [NSArray array],
-                                 @"org_safeexambrowser_SEB_prohibitedProcesses",
-                                 [NSMutableDictionary dictionaryWithDictionary:@{
-                                   @"AutoConfigurationEnabled" : @NO,
-                                   @"AutoConfigurationJavaScript" : @"",
-                                   @"AutoConfigurationURL" : @"",
-                                   @"AutoDiscoveryEnabled" : @NO,
-                                   @"ExceptionsList" : @[],
-                                   @"ExcludeSimpleHostnames" : @NO,
-                                   @"FTPEnable" : @NO,
-                                   @"FTPPassive" : @YES,
-                                   @"FTPPassword" : @"",
-                                   @"FTPPort" : @21,
-                                   @"FTPProxy" : @"",
-                                   @"FTPRequiresPassword" : @NO,
-                                   @"FTPUsername" : @"",
-                                   @"HTTPEnable" : @NO,
-                                   @"HTTPPassword" : @"",
-                                   @"HTTPPort" : @80,
-                                   @"HTTPProxy" : @"",
-                                   @"HTTPRequiresPassword" : @NO,
-                                   @"HTTPSEnable" : @NO,
-                                   @"HTTPSPassword" : @"",
-                                   @"HTTPSPort" : @443,
-                                   @"HTTPSProxy" : @"",
-                                   @"HTTPSRequiresPassword" : @NO,
-                                   @"HTTPSUsername" : @"",
-                                   @"HTTPUsername" : @"",
-                                   @"RTSPEnable" : @NO,
-                                   @"RTSPPassword" : @"",
-                                   @"RTSPPort" : @554,
-                                   @"RTSPProxy" : @"",
-                                   @"RTSPRequiresPassword" : @NO,
-                                   @"RTSPUsername" : @"",
-                                   @"SOCKSEnable" : @NO,
-                                   @"SOCKSPassword" : @"",
-                                   @"SOCKSPort" : @1080,
-                                   @"SOCKSProxy" : @"",
-                                   @"SOCKSRequiresPassword" : @NO,
-                                   @"SOCKSUsername" : @""
-                                   }],
-                                 @"org_safeexambrowser_SEB_proxies",
-                                 [NSNumber numberWithLong:useSystemProxySettings],
-                                 @"org_safeexambrowser_SEB_proxySettingsPolicy",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_quitURL",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_quitURLConfirm",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_removeBrowserProfile",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_removeLocalStorage",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_restartExamPasswordProtected",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_restartExamText",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_restartExamURL",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_restartExamUseStartURL",
-                                 [NSNumber numberWithLong:sebConfigPurposeConfiguringClient],
-                                 @"org_safeexambrowser_SEB_sebConfigPurpose",
-                                 [NSNumber numberWithLong:sebModeStartURL],
-                                 @"org_safeexambrowser_SEB_sebMode",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_sebServerFallback",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_sebServerURL",
-                                 [NSNumber numberWithLong:forceSebService],
-                                 @"org_safeexambrowser_SEB_sebServicePolicy",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_sendBrowserExamKey",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_showBackToStartButton",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_showInputLanguage",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_showMenuBar",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_showNavigationButtons",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_showScanQRCodeButton",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_showReloadButton",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_showReloadWarning",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_showSettingsInApp",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_showTaskBar",
-                                 @YES,
-                                 @"org_safeexambrowser_SEB_showTime",
-                                 SEBStartPage,
-                                 @"org_safeexambrowser_SEB_startURL",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_startURLAllowDeepLink",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_startURLAppendQueryParameter",
-                                 [NSNumber numberWithLong:40],
-                                 @"org_safeexambrowser_SEB_taskBarHeight",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_touchOptimized",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_URLFilterEnable",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_URLFilterEnableContentFilter",
-                                 [NSArray array],
-                                 @"org_safeexambrowser_SEB_URLFilterIgnoreList",
-                                 [NSNumber numberWithLong:URLFilterMessageText],
-                                 @"org_safeexambrowser_SEB_URLFilterMessage",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_urlFilterRegex",
-                                 @NO,
-                                 @"org_safeexambrowser_SEB_urlFilterTrustedContent",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_blacklistURLFilter",
-                                 @"",
-                                 @"org_safeexambrowser_SEB_whitelistURLFilter",
-                                 [NSArray array],
-                                 @"org_safeexambrowser_SEB_URLFilterRules",
-                                 [NSNumber numberWithLong:SEBZoomModePage],
-                                 @"org_safeexambrowser_SEB_zoomMode",
-//                                 [NSArray array],
-//                                 @"additionalResources",
-                                 [NSNumber numberWithLong:0],
-                                 @"org_safeexambrowser_browserUserAgentEnvironment",
-                                 @NO,
-                                 @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
-                                 @YES,
-                                 @"org_safeexambrowser_elevateWindowLevels",
-                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
-                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
-                                 @"org_safeexambrowser_originatorVersion",
-                                 @"",
-                                 @"org_safeexambrowser_startURLDeepLink",
-                                 @"",
-                                 @"org_safeexambrowser_startURLQueryParameter",
+    id value = [self valueForKey:key];
+    if (!value) {
+        DDLogDebug(@"%s addSuiteNamed: %@", __FUNCTION__, domain);
+        [self addSuiteNamed:domain];
+        value = [self valueForKey:key];
+    }
+    return value;
+}
 
-                                 nil];
-    return appDefaults;
+
+// Store value to another application’s preferences
+- (void) setValue:(id)value forKey:(NSString *)key forDefaultsDomain:(NSString *)defaultsDomain
+{
+    CFStringRef appID = (__bridge CFStringRef)(defaultsDomain);
+    CFStringRef keyRef = (__bridge CFStringRef)(key);
+    CFPropertyListRef valueRef = (__bridge CFPropertyListRef)(value);
+    
+    // Set up the preference.
+    CFPreferencesSetValue(keyRef,
+                          valueRef,
+                          appID,
+                          kCFPreferencesCurrentUser,
+                          kCFPreferencesAnyHost);
+    
+    // Write out the preference data.
+    CFPreferencesSynchronize(appID,
+                             kCFPreferencesCurrentUser,
+                             kCFPreferencesAnyHost);
+}
+
+
+- (NSDictionary *) sebDefaultSettings
+{
+    NSDictionary *processedDictionary = [self getDefaultDictionaryForKey:@"rootSettings"];
+    
+    NSMutableDictionary *appDefaults = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        
+                                        [NSNumber numberWithLong:0],
+                                        @"org_safeexambrowser_browserUserAgentEnvironment",
+                                        
+                                        [NSNumber numberWithLong:0],
+                                        @"org_safeexambrowser_chooseIdentityToEmbed",
+
+                                        [NSNumber numberWithLong:0],
+                                        @"org_safeexambrowser_configFileIdentity",
+                                        
+                                        [NSDictionary dictionary],
+                                        @"org_safeexambrowser_configKeyContainedKeys",
+                                        
+                                        @NO,
+                                        @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
+                                        
+                                        @YES,
+                                        @"org_safeexambrowser_elevateWindowLevels",
+                                        
+                                        [NSString stringWithFormat:@"SEB_iOS_%@_%@",
+                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
+                                        @"org_safeexambrowser_originatorVersion",
+                                        
+                                        @"",
+                                        @"org_safeexambrowser_startURLDeepLink",
+                                        
+                                        @"",
+                                        @"org_safeexambrowser_startURLQueryParameter",
+                                        
+                                        nil];
+
+    [appDefaults addEntriesFromDictionary:processedDictionary];
+    
+    return [appDefaults copy];
+}
+
+
+- (NSDictionary *) getDefaultDictionaryForKey:(NSString *)dictionaryKey
+{
+    if (dictionaryKey.length == 0) {
+        return nil;
+    }
+    
+    // Get default settings
+    NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
+
+    if (!defaultSettings) {
+        return [NSDictionary dictionary];
+    }
+
+    // Get all dictionary keys
+    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
+    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
+    
+    
+    // Iterate keys and read all values
+    for (NSString *key in configKeysAlphabetically) {
+        id value = [defaultSettings objectForKey:key];
+        Class valueClass = [value superclass];
+        
+        // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
+        if (valueClass == [NSDictionary class]) {
+            value = [self getDefaultDictionaryForKey:key];
+        }
+        if (valueClass == [NSMutableDictionary class]) {
+            value = [[self getDefaultDictionaryForKey:key] mutableCopy];
+        }
+        
+        if (value) {
+            [filteredPrefsDict setObject:value
+                                  forKey:[NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key]];
+        }
+    }
+    return [filteredPrefsDict copy];
 }
 
 
 // Set default preferences for the case there are no user prefs yet
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
-- (BOOL)setSEBDefaults
+- (BOOL) setSEBDefaults
 {
-    DDLogInfo(@"Setting local client settings (NSUserDefaults)");
+    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
@@ -586,9 +261,10 @@ static NSNumber *_logLevel;
     NSArray *additionalResources;
 
     // Check if there are valid SEB UserDefaults already
-    if ([self hasDefaultsKey]) {
+    if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
         additionalResources = [self secureArrayForKey:@"org_safeexambrowser_additionalResources"];
+        // Read decrypted existing SEB UserDefaults
         NSDictionary *sebUserDefaults = [self dictionaryRepresentationSEB];
         // Check if something went wrong reading settings
         if (sebUserDefaults == nil) {
@@ -613,6 +289,7 @@ static NSNumber *_logLevel;
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
+            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!");
             // Set the flag to indicate to user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
         } else {
@@ -653,13 +330,13 @@ static NSNumber *_logLevel;
 }
 
 
-- (BOOL)hasDefaultsKey
+- (BOOL) haveSEBUserDefaults
 {
     return [[SEBCryptor sharedSEBCryptor] hasDefaultsKey];
 }
 
 
-- (NSDictionary *)dictionaryRepresentationSEB
+- (NSDictionary *) dictionaryRepresentationSEB
 {
     // Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the set
     NSSet *filteredPrefsSet = [self sebKeysSet];
@@ -699,8 +376,6 @@ static NSNumber *_logLevel;
 // Save imported settings into user defaults (either in private memory or local client shared NSUserDefaults)
 - (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
-
-    
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
@@ -762,9 +437,6 @@ static NSNumber *_logLevel;
     // Update Exam Settings Key
     [_cachedUserDefaults removeAllObjects];
     [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
-
-//    prefsDict = [self getSEBUserDefaultsDomains];
-//    DDLogVerbose(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 }
 
 
@@ -780,17 +452,38 @@ static NSNumber *_logLevel;
         [preferences synchronize];
         NSDictionary *prefsDict;
         
-        //    // Get CFBundleIdentifier of the application
-        //    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-        //    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-        
-        // Include UserDefaults from NSRegistrationDomain and application domain
-        NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-        [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-        //    [appUserDefaults addSuiteNamed: bundleId];
-        prefsDict = [appUserDefaults dictionaryRepresentation];
+        // Include UserDefaults from NSRegistrationDomain (which contains application domain)
+        [self addSuiteNamed:@"NSRegistrationDomain"];
+        prefsDict = [self dictionaryRepresentation];
         return prefsDict;
     }
+}
+
+
+// Check if a some value is from a wrong class (another than the value from default settings)
+- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
+{
+    // get default settings
+    NSDictionary *defaultSettings = [self sebDefaultSettings];
+    
+    // Check if a some value is from a wrong class other than the value from default settings)
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [self prefixKey:key];
+        id value = [sebPreferencesDict objectForKey:key];
+#ifdef DEBUG
+        NSLog(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#else
+        DDLogVerbose(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#endif
+        id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
+            DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
+            return NO; //we abort reading the new settings here
+        }
+    }
+    return YES;
 }
 
 
@@ -815,6 +508,33 @@ static NSNumber *_logLevel;
         [NSUserDefaults setUserDefaultsPrivate:false];
     }
     [self setSecureObject:value forKey:key];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
+}
+
+
+- (BOOL)persistedSecureBoolForKey:(NSString *)key
+{
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    BOOL persistedBool = [self secureBoolForKey:key];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
+    return persistedBool;
+}
+
+
+- (void)setPersistedSecureBool:(BOOL)boolValue forKey:(NSString *)key
+{
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    [self setSecureBool:boolValue forKey:key];
     if (usingPrivateUserDefaults) {
         [NSUserDefaults setUserDefaultsPrivate:true];
     }
@@ -960,15 +680,12 @@ static NSNumber *_logLevel;
     }
 
     if (_usePrivateUserDefaults) {
-        if (value) {
-            [privateUserDefaults setValue:value forKey:key];
-            //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
-            //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
-            
-            DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
-        } else {
-            DDLogVerbose(@"[localUserDefaults setObject: not set, because value was nil, existing value is: %@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
-        }
+        if (value == nil) value = [NSNull null];
+        [privateUserDefaults setValue:value forKey:key];
+        //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
+        //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
+
+        DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
 
     } else {
         if (value == nil || key == nil) {
@@ -1009,13 +726,11 @@ static NSNumber *_logLevel;
             }
             
         }
-        //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
         _logLevel = value;
         [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
-    }
-    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
+    } else if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
         if ([value boolValue] == NO) {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
         } else {

@@ -48,7 +48,10 @@ static NSMutableSet *browserWindowControllers;
 - (IASKAppSettingsViewController*)appSettingsViewController {
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-        appSettingsViewController.delegate = self;
+        _sebInAppSettingsViewController = [[SEBInAppSettingsViewController alloc] init];
+        _sebInAppSettingsViewController.sebViewController = self;
+        _sebInAppSettingsViewController.appSettingsViewController = appSettingsViewController;
+        appSettingsViewController.delegate = _sebInAppSettingsViewController;
         SEBIASKSecureSettingsStore *sebSecureStore = [[SEBIASKSecureSettingsStore alloc] init];
         appSettingsViewController.settingsStore = sebSecureStore;
     }
@@ -977,12 +980,23 @@ static NSMutableSet *browserWindowControllers;
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
 
+        NSArray *activityItems;
+        
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
                                        NSLocalizedString(@"for starting an exam", nil) :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
                                        NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
-        NSArray *activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileShareKeys"]) {
+            NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+            NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
+            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+            NSString *configKey = hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil;
+            activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], browserExamKey, configKey, configFileRUL ];
+        } else {
+            activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
+        }
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
         activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
@@ -991,20 +1005,36 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (NSString *)base16StringForHashKey:(NSData *)hashKey
+{
+    unsigned char hashedChars[32];
+    [hashKey getBytes:hashedChars length:32];
+    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedConfigKeyString.copy;
+}
+
+
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {    
-    [sender dismissViewControllerAnimated:YES completion:^{
-        
-        // Update entered passwords and save their hashes to SEB settings
-        // as long as the passwords were really entered and don't contain the hash placeholders
-        [self updateEnteredPasswords];
-        
-        _settingsOpen = false;
-        
-        // Restart exam: Close all tabs, reset browser and reset kiosk mode
-        // before re-initializing SEB with new settings
-        [self restartExam:false];
-    }];
+    // Update entered passwords and save their hashes to SEB settings
+    // as long as the passwords were really entered and don't contain the hash placeholders
+    [self updateEnteredPasswords];
+    
+    // Check if settings changed
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
+        [[NSUserDefaults standardUserDefaults] setSecureObject:nil
+                                                        forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    }
+    _settingsOpen = false;
+    
+    // Restart exam: Close all tabs, reset browser and reset kiosk mode
+    // before re-initializing SEB with new settings
+    [self restartExam:false];
 }
 
 
@@ -1095,6 +1125,11 @@ void run_on_ui_thread(dispatch_block_t block)
 
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+        
+        // Update URL filter flags and rules
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        // Update URL filter ignore rules
+        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
@@ -1512,14 +1547,22 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
     
+    [NSURLCache.sharedURLCache removeAllCachedResponses];
+    
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket.
-    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        // Do something once it's done.
-    }];
+    // downloads to disk, and ensures that future requests occur on a new socket
+    // if the default value (enabled) for the setting examSessionClearSessionCookies is set
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+            // Do something once it's done.
+        }];
+    }
     
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
+    
+    self.browserController = nil;
 }
 
 
@@ -1591,7 +1634,12 @@ void run_on_ui_thread(dispatch_block_t block)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Check if SEB is in exam mode = private UserDefauls are switched on
-            if (NSUserDefaults.userDefaultsPrivate) {
+            // or if not reconfiguring is allowed by setting while no quit password is set in current settings
+            // or if a quit password is set, then check if the reconfigure config file URL matches the setting
+            // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
+            if (NSUserDefaults.userDefaultsPrivate &&
+                !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
+                  [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
