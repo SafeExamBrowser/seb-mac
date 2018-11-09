@@ -80,7 +80,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Encrypting Settings with Identity Certificate</string>
+			<string>Encrypting with Identity Certificate</string>
 			<key>FooterText</key>
 			<string>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files which were encrypted with that identity certificate.</string>
 		</dict>
