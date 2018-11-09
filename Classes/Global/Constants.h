@@ -40,6 +40,8 @@
 
 #define sebConfigFilePrefixLength               4
 #define publicKeyHashLenght                     20
+#define kMenuBarHeight                          22.0
+#define kMenuBarNotificationCenterIconWidth     46.0
 
 
 // iOS: these are the various screen placement constants used across most the UIViewControllers
@@ -252,7 +254,8 @@ typedef NSUInteger SEBClientConfigURLSchemes;
 
 enum {
     SEBEnterPasswordCancel                      = 0,
-    SEBEnterPasswordOK                          = 1
+    SEBEnterPasswordOK                          = 1,
+    SEBEnterPasswordAborted                     = 2
 };
 typedef NSUInteger SEBEnterPasswordResponse;
 
@@ -268,7 +271,7 @@ typedef NSUInteger SEBURLFilterAlertPattern;
 
 
 enum {
-    SEBURLFilterAlertDismiss                      = 0,
+    SEBURLFilterAlertDismiss                     = 0,
     SEBURLFilterAlertAllow                       = 1,
     SEBURLFilterAlertIgnore                      = 2,
     SEBURLFilterAlertBlock                       = 3,
@@ -301,6 +304,14 @@ typedef NSUInteger SEBKioskMode;
 
 
 enum {
+    storeDecryptedSEBSettingsResultSuccess      = 0,
+    storeDecryptedSEBSettingsResultCanceled     = 1,
+    storeDecryptedSEBSettingsResultWrongFormat  = 2
+};
+typedef NSUInteger storeDecryptedSEBSettingsResult;
+
+
+enum {
     URLFilterMessageText                        = 0,
     URLFilterMessageX                           = 1
 };
@@ -324,6 +335,17 @@ enum {
     SEBLogLevelVerbose                          = 4
 };
 typedef NSUInteger SEBLogLevel;
+
+
+enum {
+    SEBMinOSX10_7                               = 0,
+    SEBMinOSX10_8                               = 1,
+    SEBMinOSX10_9                               = 2,
+    SEBMinOSX10_10                              = 3,
+    SEBMinOSX10_11                              = 4,
+    SEBMinMacOS10_12                            = 5
+};
+typedef NSUInteger SEBMinMacOSVersion;
 
 
 enum {
@@ -365,10 +387,33 @@ enum {
 typedef NSUInteger SEBZoomModes;
 
 
+static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
+static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
+static NSString __unused *AppleVNCAgent = @"AppleVNCServer";
+static NSString __unused *AppleVNCAgentBundleID = @"com.apple.AppleVNCServer";
+static NSString __unused *ARDAgent = @"ARDAgent";
+static NSString __unused *ARDAgentBundleID = @"com.apple.RemoteDesktopAgent";
+static NSString __unused *fontRegistryUIAgent = @"FontRegistryUIAgent";
+static NSString __unused *fontRegistryUIAgentBundleID = @"com.apple.FontRegistryUIAgent";
+static NSString __unused *SiriService = @"SiriNCService";
+static NSString __unused *SiriDefaultsDomain = @"com.apple.assistant.support";
+static NSString __unused *SiriDefaultsKey = @"Assistant Enabled";
+static NSString __unused *cachedSiriSettingKey = @"cachedSiriSettingKey";
+static NSString __unused *DictationProcess = @"DictationIM";
+static NSString __unused *DictationDefaultsDomain = @"com.apple.speech.recognition.AppleSpeechRecognition.prefs";
+static NSString __unused *DictationDefaultsKey = @"DictationIMMasterDictationEnabled";
+static NSString __unused *AppleDictationDefaultsDomain = @"com.apple.HIToolbox";
+static NSString __unused *AppleDictationDefaultsKey = @"AppleDictationAutoEnable";
+static NSString __unused *cachedDictationSettingKey = @"cachedDictationSettingKey";
+static NSString __unused *cachedRemoteDictationSettingKey = @"cachedRemoteDictationSettingKey";
+static NSString __unused *RemoteDictationDefaultsDomain = @"com.apple.assistant.support";
+static NSString __unused *RemoteDictationDefaultsKey = @"Dictation Enabled";
+
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
 // Error numbers for SEB error domains
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
+
 enum {
     SEBErrorASCCNoConfigFound                   = 1000,
     SEBErrorASCCNoWiFi                          = 1001,
@@ -378,7 +423,9 @@ enum {
 typedef NSUInteger SEBErrorDomainErrors;
 
 static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
+static NSString __unused *SEBHelpPage = @"https://safeexambrowser.org/macosx";
 
+static NSString __unused *SEBClientSettings = @"SebClientSettings.seb";
 static NSString __unused *SEBFileExtension = @"seb";
 static NSString __unused *SEBMIMEType = @"application/seb";
 static NSString __unused *SEBProtocolScheme = @"seb";
@@ -404,5 +451,7 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 
 // The dictionary that is sent back to the MDM server as feedback must be stored in this key.
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
+
+static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_7;
 
 #endif

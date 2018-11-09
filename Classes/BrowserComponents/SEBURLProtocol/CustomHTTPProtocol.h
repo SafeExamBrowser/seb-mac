@@ -180,4 +180,16 @@
 
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
 
+/*! Called by the CustomHTTPProtocol class to allow the delegate to modify the request,
+ *  for example to add custom HTTP headers to the request
+ */
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
+
+/*! Called by the CustomHTTPProtocol class to let the delegate decide if the request should be
+ *  loaded, for example to filter requests, including embedded contents according to its URL
+ */
+
+- (BOOL)requestAllowed:(NSURLRequest *)request;
+
 @end

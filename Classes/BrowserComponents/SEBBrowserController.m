@@ -57,6 +57,13 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     if (self) {
 //        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
 //        [self conditionallyInitCustomHTTPProtocol];
+        
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+        browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        _urlFilter = [SEBURLFilter sharedSEBURLFilter];
     }
     return self;
 }
@@ -106,10 +113,19 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     [sharedCertService flushCachedCertificates];
     
     // Check if the custom URL protocol needs to be activated
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
+#if TARGET_OS_IPHONE
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]
+        || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnable"]
+        || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
         || [sharedCertService caCerts].count > 0
         || [sharedCertService tlsCerts].count > 0
         || [sharedCertService debugCerts].count > 0)
+#else
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
+            || [sharedCertService caCerts].count > 0
+            || [sharedCertService tlsCerts].count > 0
+            || [sharedCertService debugCerts].count > 0)
+#endif
     {
         // macOS 10.7 and 10.8: Custom URL protocol isn't supported
         if (@available(macOS 9, *)) {
@@ -504,6 +520,130 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 {
     DDLogWarn(@"%s", __FUNCTION__);
     [_delegate hideEnterUsernamePasswordDialog];
+}
+
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *absoluteRequestURL = [[request URL] absoluteString];
+    
+    //// Check if quit URL has been clicked (regardless of current URL Filter)
+    
+    // Trim a possible trailing slash "/"
+    NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    
+    if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitWPwdNotification" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitNotification" object:self];
+        }
+    }
+    
+    NSString *fragment = [[request URL] fragment];
+    NSString *requestURLStrippedFragment;
+    if (fragment.length) {
+        // if there is a fragment
+        requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
+    } else requestURLStrippedFragment = absoluteRequestURL;
+    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
+    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+    
+    NSDictionary *headerFields;
+    headerFields = [request allHTTPHeaderFields];
+    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
+    
+//    if ([request valueForHTTPHeaderField:@"Origin"].length == 0) {
+//        return request;
+//    }
+    
+    if (sendHashKeys) {
+        
+        NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+
+        // Browser Exam Key
+        
+#ifdef DEBUG
+        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
+#endif
+        unsigned char hashedChars[32];
+        [browserExamKey getBytes:hashedChars length:32];
+        
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+#ifdef DEBUG
+        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
+#endif
+        const char *urlString = [browserExamKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+        
+        NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [hashedString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
+        
+        // Config Key
+        
+        [configKey getBytes:hashedChars length:32];
+        
+#ifdef DEBUG
+        DDLogVerbose(@"Current Config Key: %@", configKey);
+#endif
+        
+        NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [configKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+#ifdef DEBUG
+        DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
+#endif
+        urlString = [configKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+        
+        NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
+        
+        headerFields = [modifiedRequest allHTTPHeaderFields];
+        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+        
+        return [modifiedRequest copy];
+
+    } else {
+
+        return request;
+    }
+}
+
+
+//// If enabled, filter content
+- (BOOL)requestAllowed:(NSURLRequest *)request
+{
+    if (_urlFilter.enableURLFilter && _urlFilter.enableContentFilter) {
+        URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:request.URL];
+        if (filterActionResponse != URLFilterActionAllow) {
+            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
+            //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
+            /// User didn't allow the content, don't load it
+            DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+            // Return nil instead of request
+            return NO;
+            //            }
+        }
+    }
+    return YES;
 }
 
 
