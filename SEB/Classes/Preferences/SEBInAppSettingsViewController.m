@@ -130,22 +130,22 @@
             int type = [certificate[@"type"] intValue];
             switch (type) {
                 case certificateTypeSSL:
-                    combinedCertificateString = NSLocalizedString(@"SSL ", nil);
+                    combinedCertificateString = NSLocalizedString(@"SSL", nil);
                     break;
                     
                 case certificateTypeIdentity:
-                    combinedCertificateString = NSLocalizedString(@"Identity ", nil);
+                    combinedCertificateString = NSLocalizedString(@"IDENTITY", nil);
                     break;
                     
                 case certificateTypeCA:
-                    combinedCertificateString = NSLocalizedString(@"CA ", nil);
+                    combinedCertificateString = NSLocalizedString(@"CA", nil);
                     break;
                     
                 case certificateTypeSSLDebug:
-                    combinedCertificateString = NSLocalizedString(@"Debug ", nil);
+                    combinedCertificateString = NSLocalizedString(@"DEBUG", nil);
                     break;
             }
-            combinedCertificateString = [NSString stringWithFormat:@"%@ %@", combinedCertificateString, certificate[@"name"]];
+            combinedCertificateString = [NSString stringWithFormat:@"%@  %@", combinedCertificateString, certificate[@"name"]];
             [_embeddedCertificatesList addObject:combinedCertificateString];
             [_embeddedCertificatesListCounter addObject:([NSNumber numberWithUnsignedInteger:certificateCounter])];
             certificateCounter++;
