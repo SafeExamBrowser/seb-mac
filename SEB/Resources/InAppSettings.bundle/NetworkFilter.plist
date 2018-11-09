@@ -36,7 +36,7 @@
 			<key>Title</key>
 			<string>Filter Rules</string>
 			<key>FooterText</key>
-			<string>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &quot;Teach SEB allowed/blocked URLs&quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain the '*' wildcard character.</string>
+			<string>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &quot;Teach SEB allowed/blocked URLs&quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
