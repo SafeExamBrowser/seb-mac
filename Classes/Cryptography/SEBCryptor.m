@@ -506,10 +506,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     
     // Get all dictionary keys alphabetically sorted
-    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
+    NSMutableArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
-                                                                                                   selector:@selector(caseInsensitiveCompare:)]]];
+                                                                                                   selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
@@ -518,15 +518,18 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
     if (containedKeys.count == 0 && configKeysAlphabetically.count != 0) {
         // In case this key was empty, we use all current keys
-        containedKeys = configKeysAlphabetically;
+        containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
     }
     
     [*jsonStringPtr appendString:@"{"];
     NSMutableString *dictionaryJSON = [NSMutableString new];
+    NSString *key;
+    NSUInteger counter = 0;
     
     // Iterate keys and read all values
-    for (NSString *key in configKeysAlphabetically) {
+    while (counter < configKeysAlphabetically.count) {
+        key = configKeysAlphabetically[counter];
         id value = [sourceDictionary objectForKey:key];
         id defaultValue = [defaultSettings objectForKey:key];
         Class valueClass = [value superclass];
@@ -550,12 +553,20 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                             dictionary:value
                                       containedKeysPtr:containedKeysPtr
                                                jsonPtr:&dictionaryJSON];
+            if (!value || [(NSDictionary *)value count] == 0) {
+                [configKeysAlphabetically removeObjectAtIndex:counter];
+                continue;
+            }
         }
         if (valueClass == [NSMutableDictionary class]) {
             value = [[self getConfigKeyDictionaryForKey:key
                                              dictionary:value
                                        containedKeysPtr:containedKeysPtr
                                                 jsonPtr:&dictionaryJSON] mutableCopy];
+            if (!value || [(NSMutableDictionary *)value count] == 0) {
+                [configKeysAlphabetically removeObjectAtIndex:counter];
+                continue;
+            }
         }
         
         // Sub-dictionaries are usually contained in arrays, so we have to treat this case separately
@@ -598,7 +609,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             }
         }
         dictionaryJSON.string = @"";
+        
+        counter++;
     }
+    
     if ([*jsonStringPtr length] > 2) {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
     }
