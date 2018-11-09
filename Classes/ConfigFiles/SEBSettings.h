@@ -1,7 +1,8 @@
 //
-//  SEBWebViewController.h
+//  SEBSettings.h
+//  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 06/01/16.
+//  Created by Daniel R. Schneider on 21.08.17.
 //  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
@@ -31,51 +32,11 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-#import "SEBBrowserTabViewController.h"
+#import <Foundation/Foundation.h>
 
-#import "LGSideMenuController.h"
-#import "UIViewController+LGSideMenuController.h"
-#import "SEBURLFilter.h"
+@interface SEBSettings : NSDictionary
 
-@class SEBBrowserTabViewController;
-@class SEBURLFilter;
-
-@interface SEBWebViewController : UIViewController <UIWebViewDelegate>
-{
-    IBOutlet UIBarButtonItem *MainWebView;
-    
-    NSString *jsCode;
-    
-@private
-    BOOL allowSpellCheck;
-    NSString *quitURL;
-    BOOL mobileEnableGuidedAccessLinkTransform;
-    BOOL enableDrawingEditor;
-}
-
-
-@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
-@property (nonatomic, strong) UIWebView *sebWebView;
-@property (strong) SEBURLFilter *urlFilter;
-
-
-- (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
-- (void)removeAllHighlightsInWebView:(UIWebView *)webView;
-
-- (id) infoValueForKey:(NSString *)key;
-- (NSString *)documentsDirectoryPath;
-
-- (void)backToStart;
-- (void)goBack;
-- (void)goForward;
-- (void)reload;
-- (void)stopLoading;
-
-- (void)loadURL:(NSURL *)url;
-
-- (void)setBackForwardAvailabilty;
++ (NSDictionary *)defaultSettings;
 
 @end

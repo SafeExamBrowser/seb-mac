@@ -220,7 +220,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
             [self customHTTPProtocol:nil logWithFormat:@"accept request %@", url];
         }
     }
-    
+
     return shouldAccept;
 }
 
@@ -231,13 +231,28 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
     assert(request != nil);
     // can be called on any thread
     
-    // Canonicalising a request is quite complex, so all the heavy lifting has 
+    // Canonicalising a request is quite complex, so all the heavy lifting has
     // been shuffled off to a separate module.
     
     result = CanonicalRequestForRequest(request);
 
     [self customHTTPProtocol:nil logWithFormat:@"canonicalized %@ to %@", [request URL], [result URL]];
     
+    id<CustomHTTPProtocolDelegate> strongDelegate;
+    strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector:@selector(modifyRequest:)]) {
+        result = [strongDelegate modifyRequest:result];
+    }
+
+    
+//    // Let the delegate decide if the request should be loaded, for example to filter requests,
+//    // including embedded contents according to its URL
+//    id<CustomHTTPProtocolDelegate> strongDelegate;
+//    strongDelegate = [self delegate];
+//    if ([strongDelegate respondsToSelector:@selector(requestAllowed:)]) {
+//        shouldAccept = shouldAccept & [strongDelegate requestAllowed:request];
+//    }
+
     return result;
 }
 
@@ -603,6 +618,12 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 
     assert([[self class] propertyForKey:kOurRecursiveRequestFlagProperty inRequest:newRequest] != nil);
     
+    id<CustomHTTPProtocolDelegate> strongeDelegate;
+    strongeDelegate = [[self class] delegate];
+    if ([strongeDelegate respondsToSelector:@selector(modifyRequest:)]) {
+        newRequest = [strongeDelegate modifyRequest:newRequest];
+    }
+
     redirectRequest = [newRequest mutableCopy];
     [[self class] removePropertyForKey:kOurRecursiveRequestFlagProperty inRequest:redirectRequest];
     
