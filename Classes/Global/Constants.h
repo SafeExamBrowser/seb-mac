@@ -248,7 +248,9 @@ enum {
     SEBMinOSX10_9                               = 2,
     SEBMinOSX10_10                              = 3,
     SEBMinOSX10_11                              = 4,
-    SEBMinMacOS10_12                            = 5
+    SEBMinMacOS10_12                            = 5,
+    SEBMinMacOS10_13                            = 6,
+    SEBMinMacOS10_14                            = 7
 };
 typedef NSUInteger SEBMinMacOSVersion;
 
