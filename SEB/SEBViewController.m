@@ -729,6 +729,11 @@ static NSMutableSet *browserWindowControllers;
             _initAssistantOpen = false;
             [self conditionallyShowSettingsModal];
         }];
+    } else if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            _alertController = nil;
+            [self conditionallyShowSettingsModal];
+        }];
     } else {
         // Check if settings are already displayed
         if (!_settingsOpen) {
