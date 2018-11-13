@@ -179,6 +179,9 @@ static NSNumber *_logLevel;
                                         [NSNumber numberWithLong:0],
                                         @"org_safeexambrowser_configFileIdentity",
                                         
+                                        @NO,
+                                        @"org_safeexambrowser_configFileShareKeys",
+                                        
                                         [NSDictionary dictionary],
                                         @"org_safeexambrowser_configKeyContainedKeys",
                                         
