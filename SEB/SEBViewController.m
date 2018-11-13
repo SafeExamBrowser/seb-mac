@@ -993,7 +993,7 @@ static NSMutableSet *browserWindowControllers;
                                        NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileShareKeys"]) {
+            [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"]) {
             NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
             NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
             hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
@@ -1037,9 +1037,20 @@ static NSMutableSet *browserWindowControllers;
     }
     _settingsOpen = false;
     
+    NSString *pasteboardString;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"]) {
+        NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"Browser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
+        hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        NSString *configKey = hashKey ? [NSString stringWithFormat:@"Config Key: %@", [self base16StringForHashKey:hashKey]] : nil;
+        pasteboardString =  [NSString stringWithFormat:@"%@ \n%@", browserExamKey, configKey];
+    }
+    
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
-    [self restartExam:false];
+    [self restartExam:false pasteboardString:pasteboardString];
 }
 
 
@@ -2027,12 +2038,19 @@ void run_on_ui_thread(dispatch_block_t block)
 // before re-initializing SEB with new settings and restarting exam
 - (void) restartExam:(BOOL)quitting
 {
+    [self restartExam:quitting pasteboardString:nil];
+}
+
+- (void) restartExam:(BOOL)quitting pasteboardString:(NSString *)pasteboardString
+{
     // Close the left slider view if it was open
     [self.sideMenuController hideLeftViewAnimated];
     
     // Close browser tabs and reset browser session
     [self resetSEB];
     
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+
     // We only might need to switch off kiosk mode if it was active in previous settings
     if (_secureMode) {
 
@@ -2040,9 +2058,12 @@ void run_on_ui_thread(dispatch_block_t block)
         // otherwise it would be locked next time it is started again
         [self.sebLockedViewController removeLockedExam:currentStartURL];
 
-        // Clear Pasteboard
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.items = @[];
+        // Clear Pasteboard if we don't have to copy the hash keys into it
+        if (pasteboardString) {
+            pasteboard.string = pasteboardString;
+        } else {
+            pasteboard.items = @[];
+        }
 
         // Get new setting for running SEB in secure mode
         BOOL oldSecureMode = _secureMode;
@@ -2111,6 +2132,9 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         // When no kiosk mode was active, then we can just restart SEB
         // and switch kiosk mode on conditionally according to new settings
+        if (pasteboardString) {
+            pasteboard.string = pasteboardString;
+        }
         [self initSEB];
         [self conditionallyStartKioskMode];
     }
@@ -2240,7 +2264,8 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     
     // Check if running on beta iOS
-    NSUInteger allowBetaiOSVersion = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUInteger allowBetaiOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
     if (currentOSMajorVersion > currentStableMajoriOSVersion && //first check if we're running on a beta at all
         (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
@@ -2267,9 +2292,9 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     
     // Check if running on older iOS version than the one allowed in settings
-    NSUInteger allowiOSVersionMajor = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMajor"];
-    NSUInteger allowiOSVersionMinor = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMinor"];
-    NSUInteger allowiOSVersionPatch = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
+    NSUInteger allowiOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMajor"];
+    NSUInteger allowiOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMinor"];
+    NSUInteger allowiOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
     if (!(currentOSMajorVersion >= allowiOSVersionMajor &&

@@ -183,9 +183,6 @@
                    @NO,
                    @"configFileEncryptUsingIdentity",
 
-                   @NO,
-                   @"configFileShareKeys",
-
                    @YES,
                    @"createNewDesktop",
 

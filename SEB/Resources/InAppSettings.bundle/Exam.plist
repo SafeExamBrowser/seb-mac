@@ -44,7 +44,7 @@
 			<key>Title</key>
 			<string>Share Keys with Config</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_configFileShareKeys</string>
+			<string>org_safeexambrowser_configFileShareKeys</string>
 		</dict>
 		<dict>
 			<key>Type</key>
