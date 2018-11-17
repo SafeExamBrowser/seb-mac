@@ -51,7 +51,7 @@
     
 @private
     BOOL allowSpellCheck;
-    NSString *quitURL;
+    NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
 }

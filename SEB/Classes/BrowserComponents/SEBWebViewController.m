@@ -132,7 +132,7 @@
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
-    quitURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"];
+    quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
     enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
     _urlFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -291,18 +291,12 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSURL *url = [request URL];
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[url absoluteString] isEqualToString:quitURL]) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitWPwdNotification" object:self];
-        } else {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuit" object:self];
-        }
+    if ([[url absoluteString] isEqualToString:quitURLTrimmed]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"quitLinkDetected" object:self];
         return NO;
     }
     
