@@ -18,6 +18,21 @@ function SEB_ModifyWindowOpen() {
     window.open =
     function(url,target,param) {
         if (url && url.length > 0) {
+            url = url.trim();
+            if (url.indexOf('/') === 0) {
+                // relative root url e.g. /somePath/etc
+                url = window.location.origin + url;
+            } else if (url.indexOf('://') === -1) {
+                // relative url  e.g. someSubPath/etc as no protocol is in the url
+                var hrefPart = window.location.href;
+                if (hrefPart.substring(hrefPart.length -1) === '/') {
+                    // if the hrefPart ends with /
+                    url = hrefPart + url;
+                } else {
+                    url = hrefPart + '/' + url;
+                }
+                
+            }
             if (!target) target = "_blank";
             if (target == '_blank') {
                 location.href = 'newtab:'+escape(url);
