@@ -233,7 +233,7 @@ static NSMutableSet *browserWindowControllers;
     // Add an observer for the request to quit SEB without asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedQuitWOPwd:)
-                                                 name:@"requestQuitWPwdNotification" object:nil];
+                                                 name:@"requestQuitWOPwdNotification" object:nil];
     
     // Add an observer for the request to quit SEB without confirming or asking for quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1050,7 +1050,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
-    [self restartExam:false pasteboardString:pasteboardString];
+    [self restartExam:NO quittingClientConfig:NO pasteboardString:pasteboardString];
 }
 
 
@@ -1938,20 +1938,26 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             selector:@selector(enteredQuitPassword:)];
         } else {
             // if no quit password is required, then just confirm quitting
-            [self quitExamIgnoringQuitPW];
+            [self sessionQuitRestartIgnoringQuitPW:NO];
         }
     }
 }
 
 
-- (void)requestedQuitWOPwd:(NSNotification *)notification
+- (void)quitLinkDetected:(NSNotification *)notification
 {
-    [self quitExamIgnoringQuitPW];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+        [self sessionQuitRestartIgnoringQuitPW:restart];
+    } else {
+        [self quitExam];
+    }
 }
 
 
 // If no quit password is required, then confirm quitting
-- (void) quitExamIgnoringQuitPW
+- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -2026,11 +2032,12 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) quitExam
 {
-    _quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
-    [self restartExam:true];
+    [self restartExam:true quittingClientConfig:quittingClientConfig
+     pasteboardString:nil];
 }
 
 
@@ -2038,10 +2045,12 @@ void run_on_ui_thread(dispatch_block_t block)
 // before re-initializing SEB with new settings and restarting exam
 - (void) restartExam:(BOOL)quitting
 {
-    [self restartExam:quitting pasteboardString:nil];
+    [self restartExam:quitting quittingClientConfig:NO
+     pasteboardString:nil];
 }
 
-- (void) restartExam:(BOOL)quitting pasteboardString:(NSString *)pasteboardString
+- (void) restartExam:(BOOL)quitting quittingClientConfig:(BOOL)quittingClientConfig
+    pasteboardString:(NSString *)pasteboardString
 {
     // Close the left slider view if it was open
     [self.sideMenuController hideLeftViewAnimated];
@@ -2074,12 +2083,12 @@ void run_on_ui_thread(dispatch_block_t block)
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
 
-        // If there is one or more difference(s) in active kiosk mode
+        // If there are one or more difference(s) in active kiosk mode
         // compared to the new kiosk mode settings, also considering:
         // when we're running in SAM mode, it's not relevant if settings for ASAM differ
         // when we're running in ASAM mode, it's not relevant if settings for SAM differ
-        // we deactivate current kiosk mode
-        if ((_quittingClientConfig && oldSecureMode) ||
+        // we deactivate the current kiosk mode
+        if ((quittingClientConfig && oldSecureMode) ||
             oldSecureMode != _secureMode ||
             (!_singleAppModeActivated && (_ASAMActive != _enableASAM)) ||
             (!_ASAMActive && (_singleAppModeActivated != _allowSAM))) {
