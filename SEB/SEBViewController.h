@@ -169,7 +169,6 @@
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSafeArea;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSuperView;
 
-@property(readwrite) BOOL quittingClientConfig;
 @property(readwrite) BOOL secureMode;
 @property(readwrite) BOOL enableASAM;
 @property(readwrite) BOOL allowSAM;

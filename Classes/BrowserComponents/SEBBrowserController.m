@@ -525,7 +525,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *absoluteRequestURL = [[request URL] absoluteString];
     
     //// Check if quit URL has been clicked (regardless of current URL Filter)
@@ -534,13 +533,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     
     if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitWPwdNotification" object:self];
-        } else {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitNotification" object:self];
-        }
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"quitLinkDetected" object:self];
     }
     
     NSString *fragment = [[request URL] fragment];
