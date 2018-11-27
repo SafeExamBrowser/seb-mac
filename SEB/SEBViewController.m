@@ -225,15 +225,10 @@ static NSMutableSet *browserWindowControllers;
                                              selector:@selector(singleAppModeStatusChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
     
-    // Add an observer for the request to conditionally quit SEB with asking quit password
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(quitExamConditionally)
-                                                 name:@"requestConditionalQuitNotification" object:nil];
-    
     // Add an observer for the request to quit SEB without asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuitWOPwd:)
-                                                 name:@"requestQuitWOPwdNotification" object:nil];
+                                             selector:@selector(quitLinkDetected:)
+                                                 name:@"quitLinkDetected" object:nil];
     
     // Add an observer for the request to quit SEB without confirming or asking for quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1951,12 +1946,20 @@ void run_on_ui_thread(dispatch_block_t block)
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
         [self sessionQuitRestartIgnoringQuitPW:restart];
     } else {
-        [self quitExam];
+        [self sessionQuitRestart:restart];
     }
 }
 
 
-// If no quit password is required, then confirm quitting
+// Quit or restart session without asking for confirmation
+- (void) sessionQuitRestart:(BOOL)restart
+{
+    [self restartExam:restart quittingClientConfig:NO
+     pasteboardString:nil];
+}
+
+
+// Quit or restart session, but ask user for confirmation first
 - (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart
 {
     if (_alertController) {
@@ -1968,7 +1971,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                              _alertController = nil;
-                                                             [self quitExam];
+                                                             [self sessionQuitRestart:restart];
                                                          }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)

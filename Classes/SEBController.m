@@ -209,7 +209,7 @@ bool insideMatrix();
         // Add an observer for the request to unconditionally quit SEB
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(requestedQuit:)
-                                                     name:@"requestQuitNotification" object:nil];
+                                                     name:@"requestQuit" object:nil];
         
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -625,7 +625,7 @@ bool insideMatrix();
             case NSAlertSecondButtonReturn:
             {
 //                [[NSNotificationCenter defaultCenter]
-//                 postNotificationName:@"requestQuitNotification" object:self];
+//                 postNotificationName:@"requestQuit" object:self];
                 [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
             }
                 
