@@ -1954,7 +1954,14 @@ void run_on_ui_thread(dispatch_block_t block)
 // Quit or restart session without asking for confirmation
 - (void) sessionQuitRestart:(BOOL)restart
 {
-    [self restartExam:restart quittingClientConfig:NO
+    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+    
+    // Are exam settings active and we aren't restarting the exam?
+    if (!quittingClientConfig && !restart) {
+        // Switch to system's (persisted) UserDefaults
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+    }
+    [self restartExam:true quittingClientConfig:quittingClientConfig
      pasteboardString:nil];
 }
 
@@ -2035,12 +2042,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) quitExam
 {
-    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
-    // Switch to system's (persisted) UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:NO];
-    
-    [self restartExam:true quittingClientConfig:quittingClientConfig
-     pasteboardString:nil];
+    [self sessionQuitRestart:NO];
 }
 
 
