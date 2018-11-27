@@ -1262,7 +1262,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         // Check if quit URL has been clicked (regardless of current URL Filter)
         if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitWOPwdNotification" object:self];
+             postNotificationName:@"quitLinkDetected" object:self];
             [listener ignore];
             return;
         }
