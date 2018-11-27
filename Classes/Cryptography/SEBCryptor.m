@@ -714,7 +714,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     if (recoveryOptionIndex == 1) { // Quit requested.
         // Terminate SEB without any further user confirmation required
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuitNotification" object:self];
+         postNotificationName:@"requestQuit" object:self];
         success = NO;
     }
     return success;
