@@ -41,6 +41,7 @@
 @property (readwrite) BOOL enableURLFilter;
 @property (readwrite) BOOL enableContentFilter;
 @property (readwrite) BOOL learningMode;
+@property (readwrite) NSInteger urlFilterMessage;
 @property (strong) NSMutableArray *permittedList;
 @property (strong) NSMutableArray *prohibitedList;
 @property (strong) NSMutableArray *ignoreList;

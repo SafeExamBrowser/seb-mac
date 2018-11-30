@@ -361,8 +361,7 @@
         CGFloat messageLabelYOffset = 0;
 
         // Set message for URL blocked according to settings
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        switch ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"]) {
+        switch ([SEBURLFilter sharedSEBURLFilter].urlFilterMessage) {
                 
             case URLFilterMessageText:
                 message.stringValue = NSLocalizedString(@"URL Blocked!", nil);
