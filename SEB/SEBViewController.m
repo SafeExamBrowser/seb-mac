@@ -1601,8 +1601,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-// Prepare for downloading SEB config from URL, returns YES if downloading configs
-// is allowed, otherwise NO
+// Prepare for downloading SEB config from URL
 - (void) conditionallyOpenSEBConfig:(id)sebConfig
                            callback:(id)callback
                            selector:(SEL)selector
@@ -1648,9 +1647,18 @@ void run_on_ui_thread(dispatch_block_t block)
             // or if not reconfiguring is allowed by setting while no quit password is set in current settings
             // or if a quit password is set, then check if the reconfigure config file URL matches the setting
             // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
-            if (NSUserDefaults.userDefaultsPrivate &&
-                !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
-                  [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) {
+            BOOL examSessionReconfigureURLMatch = NO;
+            if (NSUserDefaults.userDefaultsPrivate && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"]) {
+                if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0 &&
+                    [[sebConfig class] isKindOfClass:NSURL.class]) {
+                    NSString *sebConfigURLString = [(NSURL *)sebConfig absoluteString];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
+                    examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
+                }
+            }
+            if ((NSUserDefaults.userDefaultsPrivate &&
+                 ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
+                 ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) || !examSessionReconfigureURLMatch) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
