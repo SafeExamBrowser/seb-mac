@@ -60,6 +60,7 @@
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 @property (nonatomic, strong) UIWebView *sebWebView;
 @property (strong) SEBURLFilter *urlFilter;
+@property (strong) UIView *filterMessageHolder;
 
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
