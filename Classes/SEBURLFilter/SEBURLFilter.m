@@ -74,6 +74,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.enableURLFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnable"];
     self.enableContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
+    self.urlFilterMessage = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"];
     
     NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
     NSDictionary *URLFilterRule;
