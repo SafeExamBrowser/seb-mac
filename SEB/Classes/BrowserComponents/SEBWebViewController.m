@@ -387,7 +387,8 @@
 }
 
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
+ navigationType:(UIWebViewNavigationType) __unused navigationType
 {
     NSURL *url = [request URL];
 
@@ -411,7 +412,11 @@
             /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
             //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
             /// User didn't allow the content, don't load it
-            [self showURLFilterMessage];
+            
+            // We show the URL blocked overlay message only if a link was actively tapped by the user
+            if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+                [self showURLFilterMessage];
+            }
             
             DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
             return NO;
