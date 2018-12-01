@@ -1653,7 +1653,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0 &&
                     [sebConfig isKindOfClass:[NSURL class]]) {
                     NSString *sebConfigURLString = [(NSURL *)sebConfig absoluteString];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
                     examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
                 }
             }
