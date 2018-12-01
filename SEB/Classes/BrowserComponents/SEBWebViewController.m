@@ -437,9 +437,30 @@
     NSString *fileExtension = [url pathExtension];
 
     if ([url.scheme isEqualToString:@"newtab"]) {
-        [_browserTabViewController openNewTabWithURL:originalURL];
+        
+        // First check if links requesting to be opened in a new windows are generally blocked
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
+            // load link only if it's on the same host like the one of the current page
+            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
+                [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
+                    // Open in new tab
+                    [_browserTabViewController openNewTabWithURL:originalURL];
+                    return NO;
+                }
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
+                    // Load URL request in existing tab
+                    request = [NSURLRequest requestWithURL:originalURL];
+                    [webView loadRequest:request];
+                    return NO;
+                }
+            }
+        }
+        // Opening links in new windows is not allowed by current policies
         return NO;
     }
+    
     if ([url.scheme isEqualToString:@"about"]) {
         return NO;
     }
@@ -530,6 +551,7 @@
         }
 
     }
+    _currentMainHost = url.host;
     return YES;
 }
 
