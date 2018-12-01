@@ -154,7 +154,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_examSessionReconfigureConfigURL</string>
 			<key>IASKPlaceholder</key>
-			<string>Exact URL</string>
+			<string>Match URL</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>

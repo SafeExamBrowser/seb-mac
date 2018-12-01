@@ -1647,18 +1647,18 @@ void run_on_ui_thread(dispatch_block_t block)
             // or if not reconfiguring is allowed by setting while no quit password is set in current settings
             // or if a quit password is set, then check if the reconfigure config file URL matches the setting
             // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
+            BOOL examSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
             BOOL examSessionReconfigureURLMatch = NO;
-            if (NSUserDefaults.userDefaultsPrivate && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"]) {
+            if (NSUserDefaults.userDefaultsPrivate && examSessionReconfigureAllow) {
                 if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0 &&
-                    [[sebConfig class] isKindOfClass:NSURL.class]) {
+                    [sebConfig isKindOfClass:[NSURL class]]) {
                     NSString *sebConfigURLString = [(NSURL *)sebConfig absoluteString];
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
                     examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
                 }
             }
-            if ((NSUserDefaults.userDefaultsPrivate &&
-                 ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"] &&
-                 ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0)) || !examSessionReconfigureURLMatch) {
+            if (NSUserDefaults.userDefaultsPrivate &&
+                 !((examSessionReconfigureAllow && [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) || (examSessionReconfigureAllow && examSessionReconfigureURLMatch))) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
