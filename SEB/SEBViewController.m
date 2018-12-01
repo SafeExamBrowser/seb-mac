@@ -1738,6 +1738,13 @@ void run_on_ui_thread(dispatch_block_t block)
         urlComponents.scheme = @"https";
         NSURL *httpsURL = urlComponents.URL;
         sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+        // Couldn't download the .seb file: if deep linking is allowed, treat the link
+        // same as a Universal Link
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAllowDeepLink"]) {
+            [self.browserController handleUniversalLink:httpsURL];
+            return;
+        }
         // Couldn't download the .seb file: present an error and abort
         if (error) {
             error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
