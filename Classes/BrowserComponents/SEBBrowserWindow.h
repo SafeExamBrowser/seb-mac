@@ -49,7 +49,6 @@
 
 {
     SEBWebView *requestingWebView;
-    NSString *currentURL;
     NSString *downloadPath;
     NSView *progressIndicatorHolder;
     
