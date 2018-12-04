@@ -350,7 +350,6 @@ static NSMutableSet *browserWindowControllers;
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
-
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange: previousTraitCollection];
@@ -359,47 +358,75 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+// Messy manual adjusting of navigation and toolbar to achieve the best
+// possible look on iPhone and iPad Pro with new generation displays
 - (void)adjustBars
 {
-    BOOL sideSafeAreaInsets = false;
-    
     if (@available(iOS 11.0, *)) {
-        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        CGFloat leftPadding = window.safeAreaInsets.left;
-        sideSafeAreaInsets = leftPadding != 0;
-    }
-    
-    _bottomBackgroundView.hidden = sideSafeAreaInsets;
-    
-    BOOL iPhoneX = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
-                    self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
-    
-    if (_navigationBarHeightConstraint) {
-
-        CGFloat navigationBarHeight = (sideSafeAreaInsets && iPhoneX) ? 32 : 46;
-        CGFloat navigationBarOffset = ((sideSafeAreaInsets) || !_finishedStartingUp) ? 0 : 12;
-        
-        _navigationBarHeightConstraint.constant = navigationBarHeight;
-        
-        if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden)) {
-            _navigationBarBottomConstraint.constant = navigationBarOffset;
-        } else {
-            _navigationBarBottomConstraint.constant = 0;
-        }
-    }
-    
-    if (_toolBarHeightConstraint) {
-        CGFloat toolBarHeight = iPhoneX ? 36 : 46;
-        _toolBarHeightConstraint.constant = toolBarHeight;
+        BOOL sideSafeAreaInsets = false;
+        CGFloat calculatedNavigationBarHeight = 0;
+        CGFloat calculatedToolbarHeight = 0;
+        navigationBarItemsOffset = 0;
         
         if (@available(iOS 11.0, *)) {
-            if (iPhoneX) {
-                UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
-                self.additionalSafeAreaInsets = newSafeArea;
+            UIWindow *window = UIApplication.sharedApplication.keyWindow;
+            CGFloat leftPadding = window.safeAreaInsets.left;
+            sideSafeAreaInsets = leftPadding != 0;
+            
+            CGFloat statusbarHeight = window.safeAreaInsets.top;
+            CGFloat navigationBarHeight = self.view.safeAreaInsets.top;
+            calculatedNavigationBarHeight = navigationBarHeight - statusbarHeight;
+            
+            CGFloat homeIndicatorSpaceHeight = window.safeAreaInsets.bottom;
+            CGFloat toolbarHeight = self.view.safeAreaInsets.bottom;
+            calculatedToolbarHeight = toolbarHeight - homeIndicatorSpaceHeight;
+        }
+        
+        _bottomBackgroundView.hidden = sideSafeAreaInsets;
+        
+        BOOL iPhoneX = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+                        self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
+        
+        if (_navigationBarHeightConstraint) {
+            CGFloat navigationBarHeight;
+            // iPad Pro 11 and 12.9 3rd generation have 50 pt calculated navigation bar height
+            if (calculatedNavigationBarHeight == 50) {
+                // But this is optically not ideal, so we change it manually
+                navigationBarHeight = 42;
+                navigationBarItemsOffset = -4;
             } else {
-                UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
-                self.additionalSafeAreaInsets = newSafeArea;
+                navigationBarHeight = (sideSafeAreaInsets && iPhoneX) ? 32 : 46;
             }
+            CGFloat navigationBarOffset = ((sideSafeAreaInsets) || !_finishedStartingUp) ? 0 : 12;
+            
+            _navigationBarHeightConstraint.constant = navigationBarHeight;
+            
+            if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden)) {
+                _navigationBarBottomConstraint.constant = navigationBarOffset;
+            } else {
+                _navigationBarBottomConstraint.constant = 0;
+            }
+        }
+        
+        if (_toolBarHeightConstraint) {
+            CGFloat toolBarHeight;
+            UIEdgeInsets newSafeArea;
+            // iPad Pro 11 and 12.9 3rd generation have 46 pt calculated toolbar height
+            if (calculatedToolbarHeight == 46) {
+                // But this is optically not ideal, so we change it manually
+                toolBarHeight = 42;
+                newSafeArea = UIEdgeInsetsMake(-8, 0, -4, 0);
+            } else {
+                if (iPhoneX) {
+                    toolBarHeight = 36;
+                    newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
+                } else {
+                    newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
+                    toolBarHeight = 46;
+                }
+            }
+            _toolBarHeightConstraint.constant = toolBarHeight;
+            self.additionalSafeAreaInsets = newSafeArea;
             [self viewSafeAreaInsetsDidChange];
         }
     }
@@ -1320,12 +1347,10 @@ void run_on_ui_thread(dispatch_block_t block)
                     }
                     BOOL sideSafeAreaInsets = false;
                     
-                    if (@available(iOS 11.0, *)) {
-                        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                        CGFloat leftPadding = window.safeAreaInsets.left;
-                        sideSafeAreaInsets = leftPadding != 0;
-                    }
-                    
+                    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                    CGFloat leftPadding = window.safeAreaInsets.left;
+                    sideSafeAreaInsets = leftPadding != 0;
+
                     _bottomBackgroundView.hidden = sideSafeAreaInsets;
 #ifdef DEBUG
                     CGFloat bottomPadding = window.safeAreaInsets.bottom;
@@ -1354,6 +1379,8 @@ void run_on_ui_thread(dispatch_block_t block)
         } else {
             [self.navigationController setNavigationBarHidden:YES];
         }
+        
+        [self adjustBars];
     });
 }
 
@@ -1426,7 +1453,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                                    constant:0];
             [constraints_H addObject: _navigationBarLeftConstraintToSafeArea];
             
-            // browser toolbar (NavigationBar)  trailling constraint to safe area guide of superview
+            // browser toolbar (NavigationBar) trailling constraint to safe area guide of superview
             [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                   attribute:NSLayoutAttributeTrailing
                                                                   relatedBy:NSLayoutRelationEqual
@@ -1448,7 +1475,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                            constant:navigationBarHeight];
             [constraints_V addObject: _navigationBarHeightConstraint];
             
-            // dock/toolbar bottom constraint to background view top
+            // statusbar background view bottom constraint to navigation bar top
             [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
                                                                   attribute:NSLayoutAttributeBottom
                                                                   relatedBy:NSLayoutRelationEqual
@@ -1466,9 +1493,6 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          multiplier:1.0
                                                                            constant:navigationBarOffset];
             [constraints_V addObject: _navigationBarBottomConstraint];
-            
-//            [NSLayoutConstraint activateConstraints:constraints_H];
-//            [NSLayoutConstraint activateConstraints:constraints_V];
             
             if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                 [self addBlurEffectStyle:UIBlurEffectStyleRegular
@@ -1502,6 +1526,13 @@ void run_on_ui_thread(dispatch_block_t block)
         
         _statusBarView.hidden = false;
         
+#ifdef DEBUG
+        CGFloat topPadding = window.safeAreaInsets.top;
+        CGFloat topMargin = window.layoutMargins.top;
+        CGFloat topInset = self.view.superview.safeAreaInsets.top;
+        NSLog(@"%f, %f, %f, ", topPadding, topMargin, topInset);
+#endif
+
     } else {
         [constraints_V addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[statusBarView(==20)]"
                                                                                    options: 0
@@ -2701,11 +2732,13 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              style:UIBarButtonItemStylePlain
                                                             target:self
                                                             action:@selector(goBack)];
-        
+        toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+
         toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goForward)];
+        toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
         
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
         
@@ -2718,6 +2751,8 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void)setToolbarTitle:(NSString *)title
 {
     self.navigationItem.title = title;
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:navigationBarItemsOffset
+                                                                  forBarMetrics:UIBarMetricsDefault];
 }
 
 
@@ -2950,6 +2985,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                   target:self
                                                                   action:@selector(reload)];
             
+            toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
         }
     } else {

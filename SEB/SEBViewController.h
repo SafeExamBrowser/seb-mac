@@ -121,6 +121,7 @@
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;
+    CGFloat navigationBarItemsOffset;
 }
 
 @property (strong, nonatomic) AppDelegate *appDelegate;
