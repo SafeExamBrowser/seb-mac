@@ -134,6 +134,10 @@
         
         _SEBTitleLabel.textColor = [UIColor whiteColor];
         _SEBTitleLabel.hidden = NO;
+        CGFloat statusBarHeight = [_appDelegate.sebUIController statusBarHeightForDevice];
+        self.statusBarHeight.constant = statusBarHeight;
+        self.backgroundViewbottomDistance.constant = -statusBarHeight;
+
         NSUInteger statusBarAppearance = [self statusBarAppearance];
         if (statusBarAppearance == mobileStatusBarAppearanceNone ||
             statusBarAppearance == mobileStatusBarAppearanceLight ||

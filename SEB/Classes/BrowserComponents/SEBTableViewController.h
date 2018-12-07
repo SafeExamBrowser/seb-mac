@@ -46,6 +46,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *webpagesArray;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *statusBarHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundViewbottomDistance;
 
 @end

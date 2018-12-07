@@ -70,6 +70,8 @@
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearanceForDevice;
 
+- (NSUInteger)statusBarHeightForDevice;
+
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
