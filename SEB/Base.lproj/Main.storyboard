@@ -372,6 +372,8 @@
                     <connections>
                         <outlet property="SEBTitleLabel" destination="T9q-pG-p69" id="5hv-QM-2BO"/>
                         <outlet property="StatusBarBackgroundView" destination="0a6-uW-cSi" id="F7Q-zJ-2GB"/>
+                        <outlet property="backgroundViewbottomDistance" destination="fFM-Gb-YLu" id="dAe-9K-m3f"/>
+                        <outlet property="statusBarHeight" destination="oiY-3L-viP" id="xJ9-hW-Kyq"/>
                         <outlet property="tableView" destination="yZU-Q0-ht8" id="fh2-in-qKk"/>
                     </connections>
                 </viewController>

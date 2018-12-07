@@ -189,6 +189,7 @@
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL settingsOpen;
+@property(readwrite) BOOL settingsDidClose;
 @property(readwrite) BOOL sebLocked;
 @property(readwrite) BOOL unlockPasswordEntered;
 @property(readwrite) BOOL scannedQRCode;
