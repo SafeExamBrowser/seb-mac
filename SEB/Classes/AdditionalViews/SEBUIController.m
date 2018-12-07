@@ -314,6 +314,21 @@
 }
 
 
+// Get statusbar height depending on device type (traditional =20 or iPhone X, new iPad Pro like)
+- (NSUInteger)statusBarHeightForDevice {
+    NSUInteger deviceStatusBarHeight = 20;
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPad Pro with extended display
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        NSUInteger homeIndicatorSafeAreaHeight = window.safeAreaInsets.bottom;
+        if (homeIndicatorSafeAreaHeight == 20) {
+            deviceStatusBarHeight = 24;
+        }
+    }
+    return deviceStatusBarHeight;
+}
+
+
 - (NSString *)backToStartText
 {
     NSString *backToStartText = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];

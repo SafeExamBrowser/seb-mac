@@ -335,6 +335,8 @@ static NSMutableSet *browserWindowControllers;
         if (self.sideMenuController.leftViewShowing && bottomPadding != 0) {
             [self.sideMenuController hideLeftView];
         }
+        [self adjustBars];
+
     } else {
         // If running on iOS < 11, displaying a status and navigation bar
         // and left slider view is showing
@@ -389,19 +391,24 @@ static NSMutableSet *browserWindowControllers;
         
         if (_navigationBarHeightConstraint) {
             CGFloat navigationBarHeight;
+            CGFloat navigationBarOffset;
             // iPad Pro 11 and 12.9 3rd generation have 50 pt calculated navigation bar height
-            if (calculatedNavigationBarHeight == 50) {
+            if (calculatedNavigationBarHeight == 50 || calculatedNavigationBarHeight == 42) {
                 // But this is optically not ideal, so we change it manually
                 navigationBarHeight = 42;
+                navigationBarOffset = 24;
                 navigationBarItemsOffset = -4;
+                self.additionalSafeAreaInsets = UIEdgeInsetsMake(-8, 0, 0, 0);
+
             } else {
                 navigationBarHeight = (sideSafeAreaInsets && iPhoneX) ? 32 : 46;
+                navigationBarOffset = (sideSafeAreaInsets || !_finishedStartingUp) ? 0 : 12;
             }
-            CGFloat navigationBarOffset = ((sideSafeAreaInsets) || !_finishedStartingUp) ? 0 : 12;
             
             _navigationBarHeightConstraint.constant = navigationBarHeight;
             
-            if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden)) {
+            if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden) || _settingsDidClose) {
+                _settingsDidClose = NO;
                 _navigationBarBottomConstraint.constant = navigationBarOffset;
             } else {
                 _navigationBarBottomConstraint.constant = 0;
@@ -1072,6 +1079,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
+    _settingsDidClose = YES;
     [self restartExam:NO quittingClientConfig:NO pasteboardString:pasteboardString];
 }
 
