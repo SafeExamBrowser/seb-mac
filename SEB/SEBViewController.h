@@ -164,6 +164,7 @@
 @property (strong, nonatomic) UIView *bottomBackgroundView;
 @property (strong, nonatomic) NSArray *dockItems;
 
+@property (strong, nonatomic) NSLayoutConstraint *statusBarBottomConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *toolBarHeightConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarHeightConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarBottomConstraint;

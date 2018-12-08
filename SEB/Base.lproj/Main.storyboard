@@ -180,7 +180,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeExamBrowser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9q-pG-p69">
-                                        <rect key="frame" x="8" y="2.5" width="102" height="15"/>
+                                        <rect key="frame" x="34" y="2.5" width="102" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -189,7 +189,7 @@
                                 <constraints>
                                     <constraint firstItem="emk-fr-0hr" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T9q-pG-p69" secondAttribute="trailing" constant="5" id="Xeo-7H-IRR"/>
                                     <constraint firstItem="T9q-pG-p69" firstAttribute="centerY" secondItem="Akj-nl-a50" secondAttribute="centerY" id="ZC8-uW-dE0"/>
-                                    <constraint firstItem="T9q-pG-p69" firstAttribute="leading" secondItem="Akj-nl-a50" secondAttribute="leading" constant="8" id="hFd-rF-QYU"/>
+                                    <constraint firstItem="T9q-pG-p69" firstAttribute="leading" secondItem="Akj-nl-a50" secondAttribute="leading" constant="34" id="hFd-rF-QYU"/>
                                     <constraint firstAttribute="height" constant="20" id="oiY-3L-viP"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="emk-fr-0hr"/>
