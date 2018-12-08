@@ -415,6 +415,9 @@ static NSMutableSet *browserWindowControllers;
             }
         }
         
+        CGFloat statusBarBottomOffset = self.view.superview.safeAreaInsets.top;
+        _statusBarBottomConstraint.constant = statusBarBottomOffset;
+        
         if (_toolBarHeightConstraint) {
             CGFloat toolBarHeight;
             UIEdgeInsets newSafeArea;
@@ -1484,13 +1487,14 @@ void run_on_ui_thread(dispatch_block_t block)
             [constraints_V addObject: _navigationBarHeightConstraint];
             
             // statusbar background view bottom constraint to navigation bar top
-            [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                  attribute:NSLayoutAttributeBottom
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:_navigationBarView
-                                                                  attribute:NSLayoutAttributeTop
-                                                                 multiplier:1.0
-                                                                   constant:0]];
+            _statusBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_navigationBarView
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0
+                                                                       constant:0];
+            [constraints_V addObject:_statusBarBottomConstraint];
             
             // browser tool bar top constraint to safe area guide bottom of superview
             _navigationBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_navigationBarView
@@ -1513,22 +1517,25 @@ void run_on_ui_thread(dispatch_block_t block)
             _navigationBarView.hidden = false;
             
         } else {
+            CGFloat statusBarBottomOffset = self.view.superview.safeAreaInsets.top;
             if (self.sebUIController.browserToolbarEnabled) {
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                      attribute:NSLayoutAttributeHeight
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:nil
-                                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                                     multiplier:1.0
-                                                                       constant:0]];
+                _statusBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                          attribute:NSLayoutAttributeHeight
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:nil
+                                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                                         multiplier:1.0
+                                                                           constant:statusBarBottomOffset];
+                [constraints_V addObject:_statusBarBottomConstraint];
             } else {
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
+                _statusBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_statusBarView
                                                                       attribute:NSLayoutAttributeBottom
                                                                       relatedBy:NSLayoutRelationEqual
                                                                          toItem:_containerView.safeAreaLayoutGuide
                                                                       attribute:NSLayoutAttributeTop
                                                                      multiplier:1.0
-                                                                       constant:0]];
+                                                                       constant:statusBarBottomOffset];
+                [constraints_V addObject:_statusBarBottomConstraint];
             }
         }
         
@@ -1552,7 +1559,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.view addConstraints:constraints_H];
     [self.view addConstraints:constraints_V];
     
-    if (bottomPadding == 0 || UIAccessibilityIsReduceTransparencyEnabled()) {
+    if (UIAccessibilityIsReduceTransparencyEnabled()) {
         _statusBarView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
     } else {
         if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
