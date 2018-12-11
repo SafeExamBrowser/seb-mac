@@ -181,6 +181,7 @@
 
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguring;
+@property(readwrite) BOOL openCloseSlider;
 @property(readwrite) BOOL noSAMAlertDisplayed;
 @property(readwrite) BOOL startSAMWAlertDisplayed;
 @property(readwrite) BOOL pausedSAMAlertDisplayed;

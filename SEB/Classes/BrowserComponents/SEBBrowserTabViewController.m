@@ -334,9 +334,7 @@
 
 - (void) openCloseSliderForNewTab
 {
-    [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
-        [self.sideMenuController hideLeftViewAnimated];
-    }];
+    self.sebViewController.openCloseSlider = YES;
 }
 
 

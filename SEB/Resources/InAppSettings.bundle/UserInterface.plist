@@ -36,7 +36,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended</string>
 			<key>Title</key>
-			<string>iPhone X Status Bar</string>
+			<string>Status Bar (FaceID)</string>
 			<key>Titles</key>
 			<array>
 				<string>Inferred</string>
