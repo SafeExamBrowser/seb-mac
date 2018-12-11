@@ -1400,11 +1400,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) openCloseSliderForNewTab
 {
-    //    if (!self.sebViewController.finishedStartingUp || self.openWebpages.count > 1) {
     [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
         [self.sideMenuController hideLeftViewAnimated];
     }];
-    //    }
 }
 
 

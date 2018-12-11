@@ -156,7 +156,7 @@
 
 - (void)sliderWillCloseByGesture
 {
-    if (![_appDelegate.sebUIController extendedDisplay]) {
+    if (![_appDelegate.sebUIController extendedDisplay] || _appDelegate.sebUIController.iPadExtendedDisplay) {
         _SEBTitleLabel.hidden = YES;
     }
 }
