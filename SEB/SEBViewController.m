@@ -297,10 +297,6 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidAppear:animated];
     
-//    if (_finishedStartingUp) {
-//        [self adjustBars];
-//    }
-    
     if ([self allowediOSVersion]) {
         // Check if we received new settings from an MDM server
         //    [self readDefaultsValues];
@@ -320,6 +316,15 @@ static NSMutableSet *browserWindowControllers;
         // Set flag that SEB is initialized: Now showing alerts is allowed
         [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
     }    
+}
+
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    if (_openCloseSlider) {
+        _openCloseSlider = NO;
+        [self openCloseSliderForNewTab];
+    }
 }
 
 
@@ -370,30 +375,31 @@ static NSMutableSet *browserWindowControllers;
         CGFloat calculatedToolbarHeight = 0;
         navigationBarItemsOffset = 0;
         
-        if (@available(iOS 11.0, *)) {
-            UIWindow *window = UIApplication.sharedApplication.keyWindow;
-            CGFloat leftPadding = window.safeAreaInsets.left;
-            sideSafeAreaInsets = leftPadding != 0;
-            
-            CGFloat statusbarHeight = window.safeAreaInsets.top;
-            CGFloat navigationBarHeight = self.view.safeAreaInsets.top;
-            calculatedNavigationBarHeight = navigationBarHeight - statusbarHeight;
-            
-            CGFloat homeIndicatorSpaceHeight = window.safeAreaInsets.bottom;
-            CGFloat toolbarHeight = self.view.safeAreaInsets.bottom;
-            calculatedToolbarHeight = toolbarHeight - homeIndicatorSpaceHeight;
-        }
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        CGFloat leftPadding = window.safeAreaInsets.left;
+        sideSafeAreaInsets = leftPadding != 0;
         
+        CGFloat statusbarHeight = window.safeAreaInsets.top;
+        CGFloat navigationBarHeight = self.view.safeAreaInsets.top;
+        calculatedNavigationBarHeight = navigationBarHeight - statusbarHeight;
+        
+        CGFloat homeIndicatorSpaceHeight = window.safeAreaInsets.bottom;
+        CGFloat toolbarHeight = self.view.safeAreaInsets.bottom;
+        calculatedToolbarHeight = toolbarHeight - homeIndicatorSpaceHeight;
+        
+        // iPad Pro 11 and 12.9 3rd generation have 50 or 42 pt calculated navigation bar height
+        BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 || calculatedNavigationBarHeight == 42);
+
         _bottomBackgroundView.hidden = sideSafeAreaInsets;
         
-        BOOL iPhoneX = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+        BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                         self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
         
         if (_navigationBarHeightConstraint) {
             CGFloat navigationBarHeight;
             CGFloat navigationBarOffset;
-            // iPad Pro 11 and 12.9 3rd generation have 50 pt calculated navigation bar height
-            if (calculatedNavigationBarHeight == 50 || calculatedNavigationBarHeight == 42) {
+            // iPad Pro 11 and 12.9 3rd generation have 50/42 pt calculated navigation bar height
+            if (iPadExtendedDisplay) {
                 // But this is optically not ideal, so we change it manually
                 navigationBarHeight = 42;
                 navigationBarOffset = 24;
@@ -401,22 +407,18 @@ static NSMutableSet *browserWindowControllers;
                 self.additionalSafeAreaInsets = UIEdgeInsetsMake(-8, 0, 0, 0);
 
             } else {
-                navigationBarHeight = (sideSafeAreaInsets && iPhoneX) ? 32 : 46;
+                navigationBarHeight = (sideSafeAreaInsets && iPhoneXLandscape) ? 32 : 46;
                 navigationBarOffset = (sideSafeAreaInsets || !_finishedStartingUp) ? 0 : 12;
             }
             
             _navigationBarHeightConstraint.constant = navigationBarHeight;
             
-            if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden) || _settingsDidClose) {
-                _settingsDidClose = NO;
+            if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && super.prefersStatusBarHidden)) {
                 _navigationBarBottomConstraint.constant = navigationBarOffset;
             } else {
                 _navigationBarBottomConstraint.constant = 0;
             }
         }
-        
-        CGFloat statusBarBottomOffset = self.view.superview.safeAreaInsets.top;
-        _statusBarBottomConstraint.constant = statusBarBottomOffset;
         
         if (_toolBarHeightConstraint) {
             CGFloat toolBarHeight;
@@ -427,7 +429,7 @@ static NSMutableSet *browserWindowControllers;
                 toolBarHeight = 42;
                 newSafeArea = UIEdgeInsetsMake(-8, 0, -4, 0);
             } else {
-                if (iPhoneX) {
+                if (iPhoneXLandscape) {
                     toolBarHeight = 36;
                     newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
                 } else {
@@ -1396,6 +1398,16 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) openCloseSliderForNewTab
+{
+    //    if (!self.sebViewController.finishedStartingUp || self.openWebpages.count > 1) {
+    [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
+        [self.sideMenuController hideLeftViewAnimated];
+    }];
+    //    }
+}
+
+
 - (void) addBrowserToolBarWithOffset:(CGFloat)navigationBarOffset
 {
     // Draw background view for status bar if it is enabled
@@ -1448,6 +1460,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // running on a device like iPhone X
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
         bottomPadding = window.safeAreaInsets.bottom;
+
         if (bottomPadding != 0 && self.sebUIController.browserToolbarEnabled) {
             
             [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -1517,7 +1530,7 @@ void run_on_ui_thread(dispatch_block_t block)
             _navigationBarView.hidden = false;
             
         } else {
-            CGFloat statusBarBottomOffset = self.view.superview.safeAreaInsets.top;
+            CGFloat statusBarBottomOffset = 0;
             if (self.sebUIController.browserToolbarEnabled) {
                 _statusBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_statusBarView
                                                                           attribute:NSLayoutAttributeHeight
@@ -2118,8 +2131,13 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) restartExam:(BOOL)quitting quittingClientConfig:(BOOL)quittingClientConfig
     pasteboardString:(NSString *)pasteboardString
 {
-    // Close the left slider view if it was open
-    [self.sideMenuController hideLeftViewAnimated];
+    // Close the left slider view first if it was open
+    if (!self.sideMenuController.isLeftViewHidden) {
+        [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+            [self restartExam:quitting quittingClientConfig:quittingClientConfig pasteboardString:pasteboardString];
+        }];
+        return;
+    }
     
     // Close browser tabs and reset browser session
     [self resetSEB];
