@@ -67,6 +67,9 @@
 // Check if running on a device like iPhone X
 - (BOOL)extendedDisplay;
 
+// Check if running on iPad Pro with FaceID and new generation displays
+- (BOOL)iPadExtendedDisplay;
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearanceForDevice;
 

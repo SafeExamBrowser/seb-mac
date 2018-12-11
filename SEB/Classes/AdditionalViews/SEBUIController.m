@@ -329,6 +329,32 @@
 }
 
 
+// Running on iPad Pro with FaceID and new generation displays
+- (BOOL)iPadExtendedDisplay
+{
+    BOOL iPadExtendedDisplay = NO;
+    
+    if (@available(iOS 11.0, *)) {
+        CGFloat calculatedNavigationBarHeight = 0;
+        CGFloat calculatedToolbarHeight = 0;
+        
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        
+        CGFloat statusbarHeight = window.safeAreaInsets.top;
+        CGFloat navigationBarHeight = _sebViewController.view.safeAreaInsets.top;
+        calculatedNavigationBarHeight = navigationBarHeight - statusbarHeight;
+        
+        CGFloat homeIndicatorSpaceHeight = window.safeAreaInsets.bottom;
+        CGFloat toolbarHeight = _sebViewController.view.safeAreaInsets.bottom;
+        calculatedToolbarHeight = toolbarHeight - homeIndicatorSpaceHeight;
+        
+        // iPad Pro 11 and 12.9 3rd generation have 50 or 42 pt calculated navigation bar height
+        iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 || calculatedNavigationBarHeight == 42 || calculatedToolbarHeight == 46);
+    }
+    return iPadExtendedDisplay;
+}
+
+
 - (NSString *)backToStartText
 {
     NSString *backToStartText = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
