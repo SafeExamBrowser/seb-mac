@@ -334,7 +334,7 @@
 
 - (void) openCloseSliderForNewTab
 {
-    self.sebViewController.openCloseSlider = YES;
+    [self.sebViewController newWebViewTabDidMoveToParentViewController];
 }
 
 

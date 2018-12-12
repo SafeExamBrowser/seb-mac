@@ -325,6 +325,18 @@ static NSMutableSet *browserWindowControllers;
         _openCloseSlider = NO;
         [self openCloseSliderForNewTab];
     }
+    _viewDidLayoutSubviewsAlreadyCalled = YES;
+}
+
+
+- (void)newWebViewTabDidMoveToParentViewController
+{
+    if (_viewDidLayoutSubviewsAlreadyCalled) {
+        _openCloseSlider = NO;
+        [self openCloseSliderForNewTab];
+    } else {
+        _openCloseSlider = YES;
+    }
 }
 
 
@@ -1631,6 +1643,8 @@ void run_on_ui_thread(dispatch_block_t block)
     self.appSettingsViewController = nil;
     
     self.browserController = nil;
+    
+    _viewDidLayoutSubviewsAlreadyCalled = NO;
 }
 
 
