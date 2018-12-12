@@ -182,6 +182,7 @@
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguring;
 @property(readwrite) BOOL openCloseSlider;
+@property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
 @property(readwrite) BOOL noSAMAlertDisplayed;
 @property(readwrite) BOOL startSAMWAlertDisplayed;
 @property(readwrite) BOOL pausedSAMAlertDisplayed;
@@ -202,6 +203,7 @@
 
 
 - (BOOL) allowediOSVersion;
+- (void) newWebViewTabDidMoveToParentViewController;
 
 - (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 
