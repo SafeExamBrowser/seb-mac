@@ -7,6 +7,14 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Status/Toolbar/SEB Dock</string>
+			<key>FooterText</key>
+			<string></string>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Key</key>
@@ -36,7 +44,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended</string>
 			<key>Title</key>
-			<string>Status Bar (FaceID)</string>
+			<string>Status Bar (w/FaceID)</string>
 			<key>Titles</key>
 			<array>
 				<string>Inferred</string>
