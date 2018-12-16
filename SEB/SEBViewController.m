@@ -1809,18 +1809,16 @@ void run_on_ui_thread(dispatch_block_t block)
         urlComponents.scheme = @"https";
         NSURL *httpsURL = urlComponents.URL;
         sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-        // Couldn't download the .seb file: if deep linking is allowed, treat the link
-        // same as a Universal Link
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAllowDeepLink"]) {
+        // Couldn't download the .seb file: maybe it's a deep link
+        if (error || !sebFileData) {
+            // Couldn't download the .seb file: for the case it is a deep link, treat the link
+            // same as a Universal Link
             [self.browserController handleUniversalLink:httpsURL];
             return;
-        }
-        // Couldn't download the .seb file: present an error and abort
-        if (error) {
-            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-            [self storeNewSEBSettingsSuccessful:error];
-            return;
+
+//            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+//            [self storeNewSEBSettingsSuccessful:error];
+//            return;
         }
     } else {
         // We got passed a http(s) URL: Try to download the seb data directly
@@ -1856,7 +1854,16 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.browserController handleUniversalLink:directlyDownloadedURL];
             return;
         } else {
-            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+            if ([directlyDownloadedURL.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+                // If it's a sebs:// URL, we try to download it by https
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:directlyDownloadedURL resolvingAgainstBaseURL:NO];
+                urlComponents.scheme = @"https";
+                NSURL *httpsURL = urlComponents.URL;
+                [self.browserController handleUniversalLink:httpsURL];
+                return;
+            } else {
+                error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+            }
         }
     } else {
         // Directly downloading SEB config was successfull
