@@ -348,16 +348,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    if (@available(iOS 11.0, *)) {
-        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        CGFloat bottomPadding = window.safeAreaInsets.bottom;
-        
-        // If the left view is showing on a device with extended display (like iPhone X)
-        // hide the left slider menu before rotating the device
+    if (@available(iOS 11.0, *)) {        
+        // Hide the left slider menu before rotating the device
         // to prevent a black or white bar between side menu and main view
-        if (self.sideMenuController.leftViewShowing && bottomPadding != 0) {
-            [self.sideMenuController hideLeftView];
-        }
+        [self.sideMenuController hideLeftView];
         [self adjustBars];
 
     } else {
