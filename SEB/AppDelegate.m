@@ -214,13 +214,17 @@ void run_block_on_ui_thread(dispatch_block_t block)
     [self populateRegistrationDomain];
     if (_sebViewController) {
         // If the main SEB view controller was already instantiated
-        if ([_sebViewController allowediOSVersion]) {
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
-                [_sebViewController conditionallyShowSettingsModal];
-            } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
-                [_sebViewController conditionallyResetSettings];
-            }
+
+        // Check if we received a new configuration from an MDM server (by MDM managed configuration)
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
+        if (serverConfig) {
+            [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
+        } else if ([preferences boolForKey:@"allowEditingConfig"]) {
+            [preferences setBool:NO forKey:@"allowEditingConfig"];
+            [_sebViewController conditionallyShowSettingsModal];
+        } else if ([preferences boolForKey:@"initiateResetConfig"]) {
+            [_sebViewController conditionallyResetSettings];
         }
     }
 }
@@ -254,28 +258,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
             
             // Is the main SEB view controller already instantiated?
             if (_sebViewController) {
-                if (_sebViewController.settingsOpen) {
-                    // Close settings, but check if settings presented some alert or the share dialog first
-                    if (_sebViewController.appSettingsViewController.presentedViewController) {
-                        [_sebViewController.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-                            if (_sebViewController.appSettingsViewController) {
-                                [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                                    _sebViewController.appSettingsViewController = nil;
-                                    _sebViewController.settingsOpen = false;
-                                    [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
-                                }];
-                            }
-                        }];
-                    } else if (_sebViewController.appSettingsViewController) {
-                        [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                            _sebViewController.appSettingsViewController = nil;
-                            _sebViewController.settingsOpen = false;
-                            [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
-                        }];
-                    }
-                } else {
-                    [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
-                }
+                [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
             } else {
                 // Postpone loading .seb file until app did finish launching
                 _sebFileURL = url;
@@ -306,8 +289,10 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
                             BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
                             completionHandler(handled);
                         }];
+                        return;
                     }
                 }];
+                return;
             } else if (_sebViewController.appSettingsViewController) {
                 [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                     _sebViewController.appSettingsViewController = nil;
@@ -315,6 +300,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
                     BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
                     completionHandler(handled);
                 }];
+                return;
             }
         } else {
             BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
@@ -334,28 +320,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 
     // Is the main SEB view controller already instantiated?
     if (_sebViewController) {
-        if (_sebViewController.settingsOpen) {
-            // Close settings, but check if settings presented some alert or the share dialog first
-            if (_sebViewController.appSettingsViewController.presentedViewController) {
-                [_sebViewController.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-                    if (_sebViewController.appSettingsViewController) {
-                        [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                            _sebViewController.appSettingsViewController = nil;
-                            _sebViewController.settingsOpen = false;
-                            [_sebViewController conditionallyOpenSEBConfigFromUniversalLink:openedURL];
-                        }];
-                    }
-                }];
-            } else if (_sebViewController.appSettingsViewController) {
-                [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                    _sebViewController.appSettingsViewController = nil;
-                    _sebViewController.settingsOpen = false;
-                    [_sebViewController conditionallyOpenSEBConfigFromUniversalLink:openedURL];
-                }];
-            }
-        } else {
-            [_sebViewController conditionallyOpenSEBConfigFromUniversalLink:openedURL];
-        }
+        [_sebViewController conditionallyOpenSEBConfigFromUniversalLink:openedURL];
     } else {
         // Postpone loading Universal Link until app did finish launching
         _universalURL = openedURL;

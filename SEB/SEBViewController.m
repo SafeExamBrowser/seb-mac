@@ -241,18 +241,23 @@ static NSMutableSet *browserWindowControllers;
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
-                                                      [self readDefaultsValues];
+                                                      NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+                                                      if (serverConfig) {
+                                                          [self closeSettingsBeforeOpeningSEBConfig:nil
+                                                                                           callback:self
+                                                                                           selector:@selector(handleMDMServerConfig:)];
+                                                      }
                                                   }];
     
     // Add Notification Center observer to be alerted when the UIScreen isCaptured property changes
-    if (@available(iOS 11.0, *)) {
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
-                                                          object:nil
-                                                           queue:[NSOperationQueue mainQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [self readDefaultsValues];
-                                                      }];
-    }
+//    if (@available(iOS 11.0, *)) {
+//        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
+//                                                          object:nil
+//                                                           queue:[NSOperationQueue mainQueue]
+//                                                      usingBlock:^(NSNotification *note) {
+//                                                          [self readDefaultsValues];
+//                                                      }];
+//    }
     
     // Initialize UI and default UI/browser settings
     [self initSEB];
@@ -531,13 +536,14 @@ static NSMutableSet *browserWindowControllers;
             [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
                 [self conditionallyResetSettings];
             }];
-            
+            return;
         } else if (self.appSettingsViewController) {
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
                 self.appSettingsViewController = nil;
                 _settingsOpen = false;
                 [self conditionallyResetSettings];
             }];
+            return;
         }
     } else {
         if (self.alertController) {
@@ -545,6 +551,7 @@ static NSMutableSet *browserWindowControllers;
                 self.alertController = nil;
                 [self conditionallyResetSettings];
             }];
+            return;
         } else {
             // If there is a hashed admin password the user has to enter it before editing settings
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -716,7 +723,9 @@ static NSMutableSet *browserWindowControllers;
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             _alertController = nil;
+            [self scanQRCode];
         }];
+        return;
     }
     [self.sideMenuController hideLeftViewAnimated];
     
@@ -775,11 +784,13 @@ static NSMutableSet *browserWindowControllers;
             _initAssistantOpen = false;
             [self conditionallyShowSettingsModal];
         }];
+        return;
     } else if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             _alertController = nil;
             [self conditionallyShowSettingsModal];
         }];
+        return;
     } else {
         // Check if settings are already displayed
         if (!_settingsOpen) {
@@ -1016,6 +1027,7 @@ static NSMutableSet *browserWindowControllers;
             [_alertController dismissViewControllerAnimated:NO completion:^{
                 _alertController = nil;
             }];
+            return;
         }
 
         // Get config file name
@@ -1105,13 +1117,22 @@ static NSMutableSet *browserWindowControllers;
 {
     if (!_isReconfiguring) {
         // Check if we received a new configuration from an MDM server
-        NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-        if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
+        BOOL examSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        if (serverConfig &&
+            (!NSUserDefaults.userDefaultsPrivate ||
+             (NSUserDefaults.userDefaultsPrivate && examSessionReconfigureAllow && hashedQuitPassword.length == 0))) {
+
             _isReconfiguring = true;
             // If we did receive a config and SEB isn't running in exam mode currently
             NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-            
-            [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+            // As we handle the config received from the MDM server, we need to remove it from settings
+            [preferences removeObjectForKey:kConfigurationKey];
+            [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
+                                                                  callback:self
+                                                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
     }
 }
@@ -1650,7 +1671,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
-    [self conditionallyOpenSEBConfig:url
+    [self closeSettingsBeforeOpeningSEBConfig:url
                             callback:self
                             selector:@selector(downloadSEBConfigFromURL:)];
 }
@@ -1658,7 +1679,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData
 {
-    [self conditionallyOpenSEBConfig:sebConfigData
+    [self closeSettingsBeforeOpeningSEBConfig:sebConfigData
                             callback:self
                             selector:@selector(storeNewSEBSettings:)];
 }
@@ -1666,9 +1687,55 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL
 {
-    [self conditionallyOpenSEBConfig:universalURL
+    [self closeSettingsBeforeOpeningSEBConfig:universalURL
                             callback:self.browserController
                             selector:@selector(handleUniversalLink:)];
+}
+
+
+- (void) conditionallyOpenSEBConfigFromMDMServer
+{
+    [self closeSettingsBeforeOpeningSEBConfig:nil
+                            callback:self
+                            selector:@selector(handleMDMServerConfig:)];
+}
+
+
+- (void) handleMDMServerConfig:(id)reference
+{
+    [self readDefaultsValues];
+}
+
+
+// Close settings if they are open
+- (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
+                                    callback:(id)callback
+                                    selector:(SEL)selector
+{
+    if (self.settingsOpen) {
+        // Close settings, but check if settings presented some alert or the share dialog first
+        if (self.appSettingsViewController.presentedViewController) {
+            [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                if (self.appSettingsViewController) {
+                    [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                        self.appSettingsViewController = nil;
+                        self.settingsOpen = false;
+                        [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
+                    }];
+                    return;
+                }
+            }];
+            return;
+        } else if (self.appSettingsViewController) {
+            [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                self.appSettingsViewController = nil;
+                self.settingsOpen = false;
+                [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
+            }];
+            return;
+        }
+    }
+    [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
 }
 
 

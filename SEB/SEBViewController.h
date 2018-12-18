@@ -224,9 +224,13 @@
 - (void) conditionallyOpenLockdownWindows;
 - (void) openLockdownWindows;
 
+- (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
+                                    callback:(id)callback
+                                    selector:(SEL)selector;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
+- (void) conditionallyOpenSEBConfigFromMDMServer;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
