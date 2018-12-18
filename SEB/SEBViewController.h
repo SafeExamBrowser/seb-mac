@@ -180,7 +180,7 @@
 @property(readwrite) BOOL singleAppModeActivated;
 
 @property(readwrite) BOOL finishedStartingUp;
-@property(readwrite) BOOL isReconfiguring;
+@property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openCloseSlider;
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
 @property(readwrite) BOOL noSAMAlertDisplayed;

@@ -242,10 +242,11 @@ static NSMutableSet *browserWindowControllers;
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-                                                      if (serverConfig) {
-                                                          [self closeSettingsBeforeOpeningSEBConfig:nil
-                                                                                           callback:self
-                                                                                           selector:@selector(handleMDMServerConfig:)];
+                                                      if (serverConfig && !_settingsOpen) {
+                                                          // Only reconfigure immediately with config received from MDM server
+                                                          // when settings aren't open (otherwise it's postponed to next
+                                                          // session restart or when leaving and returning to SEB
+                                                          [self conditionallyOpenSEBConfigFromMDMServer];
                                                       }
                                                   }];
     
@@ -1113,9 +1114,11 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)readDefaultsValues
+- (BOOL)readMDMServerConfig
 {
-    if (!_isReconfiguring) {
+    BOOL readMDMConfig = NO;
+    
+    if (!_isReconfiguringToMDMConfig) {
         // Check if we received a new configuration from an MDM server
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
@@ -1124,17 +1127,19 @@ static NSMutableSet *browserWindowControllers;
         if (serverConfig &&
             (!NSUserDefaults.userDefaultsPrivate ||
              (NSUserDefaults.userDefaultsPrivate && examSessionReconfigureAllow && hashedQuitPassword.length == 0))) {
-
-            _isReconfiguring = true;
-            // If we did receive a config and SEB isn't running in exam mode currently
-            NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-            // As we handle the config received from the MDM server, we need to remove it from settings
-            [preferences removeObjectForKey:kConfigurationKey];
-            [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
-                                                                  callback:self
-                                                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
-        }
+                
+                _isReconfiguringToMDMConfig = true;
+                readMDMConfig = YES;
+                // If we did receive a config and SEB isn't running in exam mode currently
+                NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+                // As we handle the config received from the MDM server, we need to remove it from settings
+                [preferences removeObjectForKey:kConfigurationKey];
+                [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
+                                                                      callback:self
+                                                                      selector:@selector(storeNewSEBSettingsSuccessful:)];
+            }
     }
+    return readMDMConfig;
 }
 
 
@@ -1703,7 +1708,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) handleMDMServerConfig:(id)reference
 {
-    [self readDefaultsValues];
+    [self readMDMServerConfig];
 }
 
 
@@ -1712,14 +1717,14 @@ void run_on_ui_thread(dispatch_block_t block)
                                     callback:(id)callback
                                     selector:(SEL)selector
 {
-    if (self.settingsOpen) {
+    if (_settingsOpen) {
         // Close settings, but check if settings presented some alert or the share dialog first
         if (self.appSettingsViewController.presentedViewController) {
             [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
                 if (self.appSettingsViewController) {
                     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                         self.appSettingsViewController = nil;
-                        self.settingsOpen = false;
+                        _settingsOpen = false;
                         [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
                     }];
                     return;
@@ -1729,7 +1734,7 @@ void run_on_ui_thread(dispatch_block_t block)
         } else if (self.appSettingsViewController) {
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                 self.appSettingsViewController = nil;
-                self.settingsOpen = false;
+                _settingsOpen = false;
                 [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
             }];
             return;
@@ -1991,7 +1996,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
-        _isReconfiguring = false;
+        _isReconfiguringToMDMConfig = false;
         _scannedQRCode = false;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
@@ -2004,12 +2009,16 @@ void run_on_ui_thread(dispatch_block_t block)
         [self restartExam:false];
         
     } else {
-        _isReconfiguring = false;
         
         // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
-        if (_scannedQRCode) {
+        // When reconfiguring from MDM config fails, the SEB session needs to be restarted
+        if (_isReconfiguringToMDMConfig) {
+            _isReconfiguringToMDMConfig = false;
+            [self restartExam:false];
+            
+        } else if (_scannedQRCode) {
             _scannedQRCode = false;
             if (error.code == SEBErrorNoValidConfigData) {
                 error = [NSError errorWithDomain:sebErrorDomain
@@ -2249,6 +2258,11 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Get new setting for ASAM/AAC enabled
         BOOL oldEnableASAM = _enableASAM;
+        
+        // Check if we received new settings from an MDM server
+        if ([self readMDMServerConfig]) {
+            return;
+        }
         
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
