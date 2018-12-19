@@ -60,6 +60,9 @@
                                    statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
     
     _sebWebView.scalesPageToFit = YES;
+    if (@available(iOS 11.0, *)) {
+        _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
+    }
     _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _sebWebView.scrollView.scrollEnabled = YES;
     [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
