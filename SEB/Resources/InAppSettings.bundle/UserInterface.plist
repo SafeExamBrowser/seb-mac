@@ -10,9 +10,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Status/Toolbar/SEB Dock</string>
+			<string>Status/Tool Bar/SEB Dock</string>
 			<key>FooterText</key>
-			<string></string>
+			<string>On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
