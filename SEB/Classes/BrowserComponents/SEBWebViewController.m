@@ -95,7 +95,7 @@
         //viewFrame.size.height -= kNavbarHeight;
         [self.view setFrame:viewFrame];
         [self adjustScrollPosition];
-        [self.browserTabViewController openCloseSliderForNewTab];
+        openCloseSlider = YES;
     } else {
         [self.view removeFromSuperview];
     }
@@ -105,6 +105,10 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     _sebWebView.frame = self.view.bounds;
+    if (openCloseSlider) {
+        openCloseSlider = NO;
+        [self.browserTabViewController openCloseSliderForNewTab];
+    }
 }
 
 
@@ -256,9 +260,10 @@
                                                   )];
     } else {
         // Fallback on earlier versions
+        CGFloat topLayoutGuide = self.topLayoutGuide.length;
         [_filterMessageHolder setFrame:CGRectMake(
                                                   superviewWidth - messageWidth - 10,
-                                                  self.view.layoutMargins.top + 10,
+                                                  topLayoutGuide + 10,
                                                   messageWidth,
                                                   messageHeight
                                                   )];
@@ -276,7 +281,6 @@
 - (void) hideURLFilterMessage
 {
     [_filterMessageHolder removeFromSuperview];
-    //    self.filterMessageHolder = nil;
 }
 
 

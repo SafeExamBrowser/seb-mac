@@ -54,6 +54,7 @@
     NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
+    BOOL openCloseSlider;
 }
 
 
