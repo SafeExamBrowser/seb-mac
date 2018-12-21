@@ -244,15 +244,6 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
         result = [strongDelegate modifyRequest:result];
     }
 
-    
-//    // Let the delegate decide if the request should be loaded, for example to filter requests,
-//    // including embedded contents according to its URL
-//    id<CustomHTTPProtocolDelegate> strongDelegate;
-//    strongDelegate = [self delegate];
-//    if ([strongDelegate respondsToSelector:@selector(requestAllowed:)]) {
-//        shouldAccept = shouldAccept & [strongDelegate requestAllowed:request];
-//    }
-
     return result;
 }
 
@@ -753,6 +744,14 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 
     if (error == nil) {
         [[self class] customHTTPProtocol:self logWithFormat:@"success"];
+
+        // Let the delegate know that a regular HTTP request or a XMLHttpRequest (XHR) successfully
+        // completed loading. The delegate then can for example scan the newly received HTML data
+        id<CustomHTTPProtocolDelegate> strongDelegate;
+        strongDelegate =  [[self class] delegate];
+        if ([strongDelegate respondsToSelector:@selector(sessionTaskDidCompleteSuccessfully:)]) {
+            [strongDelegate sessionTaskDidCompleteSuccessfully:task];
+        }
 
         [[self client] URLProtocolDidFinishLoading:self];
     } else if ( [[error domain] isEqual:NSURLErrorDomain] && ([error code] == NSURLErrorCancelled) ) {
