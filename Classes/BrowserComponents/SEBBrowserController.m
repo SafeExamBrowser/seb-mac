@@ -63,7 +63,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
         browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
         configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
-        _urlFilter = [SEBURLFilter sharedSEBURLFilter];
     }
     return self;
 }
@@ -115,7 +114,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     // Check if the custom URL protocol needs to be activated
 #if TARGET_OS_IPHONE
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]
-        || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnable"]
         || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
         || [sharedCertService caCerts].count > 0
         || [sharedCertService tlsCerts].count > 0
@@ -622,23 +620,13 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
-//// If enabled, filter content
-- (BOOL)requestAllowed:(NSURLRequest *)request
-{
-    if (_urlFilter.enableURLFilter && _urlFilter.enableContentFilter) {
-        URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:request.URL];
-        if (filterActionResponse != URLFilterActionAllow) {
-            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
-            //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
-            /// User didn't allow the content, don't load it
-            DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
-            // Return nil instead of request
-            return NO;
-            //            }
-        }
-    }
-    return YES;
-}
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+//- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+//{
+//    
+//}
 
 
 #pragma mark - Handling Universal Links
