@@ -59,7 +59,7 @@
                                                                                preferredStyle:UIAlertControllerStyleAlert];
             [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
                                                                                    style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                                       _sebViewController.alertController = nil;
+                                                                                       self->_sebViewController.alertController = nil;
                                                                                        
                                                                                        // Inform callback that storing new settings was successful
                                                                                        [super storeNewSEBSettingsSuccessful:nil];
@@ -111,11 +111,11 @@
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 NSString *password = _sebViewController.alertController.textFields.firstObject.text;
+                                                                 NSString *password = self->_sebViewController.alertController.textFields.firstObject.text;
                                                                  if (!password) {
                                                                      password = @"";
                                                                  }
-                                                                 _sebViewController.alertController = nil;
+                                                                 self->_sebViewController.alertController = nil;
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
                                                                  func(callback, selector, password);
@@ -123,7 +123,7 @@
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                 _sebViewController.alertController = nil;
+                                                                 self->_sebViewController.alertController = nil;
                                                                  // Return nil to callback method to indicate that cancel was pressed
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
@@ -159,7 +159,7 @@
                                                                        preferredStyle:UIAlertControllerStyleAlert];
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               _sebViewController.alertController = nil;
+                                                                               self->_sebViewController.alertController = nil;
                                                                            }]];
     
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
@@ -177,7 +177,7 @@
                                                                        preferredStyle:UIAlertControllerStyleAlert];
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               _sebViewController.alertController = nil;
+                                                                               self->_sebViewController.alertController = nil;
                                                                            }]];
     
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];

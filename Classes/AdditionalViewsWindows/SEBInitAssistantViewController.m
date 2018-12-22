@@ -308,13 +308,13 @@
               withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_downloadTimer invalidate];
-        if (error || !sebFileData || _searchingConfigCanceled) {
+        [self->_downloadTimer invalidate];
+        if (error || !sebFileData || self->_searchingConfigCanceled) {
             [self checkSEBClientConfigURL:url withScheme:configURLScheme];
         } else {
-            storeClienConfigURL = url;
-            storeConfigURLScheme = configURLScheme;
-            [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
+            self->storeClienConfigURL = url;
+            self->storeConfigURLScheme = configURLScheme;
+            [self->_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
         }
     });
 }

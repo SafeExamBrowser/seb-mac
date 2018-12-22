@@ -54,7 +54,7 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
     [sender dismissViewControllerAnimated:YES completion:^{
-        [_sebViewController settingsViewControllerDidEnd:sender];
+        [self->_sebViewController settingsViewControllerDidEnd:sender];
     }];
 }
 
