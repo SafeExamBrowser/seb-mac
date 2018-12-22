@@ -192,13 +192,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
     if (_sebViewController.aboutSEBViewDisplayed) {
         [_sebViewController.aboutSEBViewController dismissViewControllerAnimated:NO completion:^{
-            _sebViewController.aboutSEBViewDisplayed = false;
-            _sebViewController.aboutSEBViewController = nil;
+            self->_sebViewController.aboutSEBViewDisplayed = false;
+            self->_sebViewController.aboutSEBViewController = nil;
         }];
     }
     if (_sebViewController.visibleCodeReaderViewController) {
         [_sebViewController.visibleCodeReaderViewController dismissViewControllerAnimated:NO completion:^{
-            _sebViewController.visibleCodeReaderViewController = nil;
+            self->_sebViewController.visibleCodeReaderViewController = nil;
         }];
     }
 }
@@ -241,10 +241,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
+            options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    DDLogInfo(@"Calling Application Bundle ID: %@", sourceApplication);
     DDLogInfo(@"URL scheme:%@", [url scheme]);
     DDLogInfo(@"URL query: %@", [url query]);
     
@@ -282,11 +280,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
             // Close settings, but check if settings presented some alert or the share dialog first
             if (_sebViewController.appSettingsViewController.presentedViewController) {
                 [_sebViewController.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-                    if (_sebViewController.appSettingsViewController) {
-                        [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                            _sebViewController.appSettingsViewController = nil;
-                            _sebViewController.settingsOpen = false;
-                            BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
+                    if (self->_sebViewController.appSettingsViewController) {
+                        [self->_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                            self->_sebViewController.appSettingsViewController = nil;
+                            self->_sebViewController.settingsOpen = false;
+                            BOOL handled = [self->_sebViewController handleShortcutItem:shortcutItem];
                             completionHandler(handled);
                         }];
                         return;
@@ -295,9 +293,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
                 return;
             } else if (_sebViewController.appSettingsViewController) {
                 [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                    _sebViewController.appSettingsViewController = nil;
-                    _sebViewController.settingsOpen = false;
-                    BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
+                    self->_sebViewController.appSettingsViewController = nil;
+                    self->_sebViewController.settingsOpen = false;
+                    BOOL handled = [self->_sebViewController handleShortcutItem:shortcutItem];
                     completionHandler(handled);
                 }];
                 return;

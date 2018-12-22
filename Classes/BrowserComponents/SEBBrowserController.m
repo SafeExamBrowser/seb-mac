@@ -784,9 +784,9 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                      URL:(NSURL *)url
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        _downloadTask = nil;
+        self->_downloadTask = nil;
         
-        if (error || !sebFileData || _cancelReconfigureWithUniversalLink) {
+        if (error || !sebFileData || self->_cancelReconfigureWithUniversalLink) {
             // Couldn't download config file, try it one level down in the path hierarchy
             [self downloadConfigFile:fileName
                              fromURL:url
@@ -799,16 +799,16 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             
             // The dialog for opening the config file needs to be closed to prevent
             // issues when another alert is presented in the store method
-            if (_isShowingOpeningConfigFileDialog) {
-                [_delegate closeOpeningConfigFileDialog];
-                _isShowingOpeningConfigFileDialog = NO;
+            if (self->_isShowingOpeningConfigFileDialog) {
+                [self->_delegate closeOpeningConfigFileDialog];
+                self->_isShowingOpeningConfigFileDialog = NO;
             }
 
-            cachedConfigFileName = fileName;
-            cachedDownloadURL = url;
-            cachedHostURL = host;
-            cachedUniversalLink = universalLink;
-            [_delegate storeNewSEBSettings:sebFileData
+            self->cachedConfigFileName = fileName;
+            self->cachedDownloadURL = url;
+            self->cachedHostURL = host;
+            self->cachedUniversalLink = universalLink;
+            [self->_delegate storeNewSEBSettings:sebFileData
                                 forEditing:NO
                     forceConfiguringClient:NO
                      showReconfiguredAlert:NO

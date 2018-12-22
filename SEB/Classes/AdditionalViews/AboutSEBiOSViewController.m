@@ -74,8 +74,8 @@
 -(IBAction) closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        _sebViewController.aboutSEBViewDisplayed = false;
-        _sebViewController.aboutSEBViewController = nil;
+        self->_sebViewController.aboutSEBViewDisplayed = false;
+        self->_sebViewController.aboutSEBViewController = nil;
     }];
 }
 
