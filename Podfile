@@ -5,14 +5,23 @@
 
 target 'Safe Exam Browser' do
 
-platform :osx, '10.7'
+platform :osx, '10.8'
 pod 'CocoaLumberjack'
 
 end
 
 target 'SEB' do
 
-platform :ios, '9.0'
+platform :ios, '9.3.5'
+pod 'CocoaLumberjack'
+pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
+pod 'QRCodeReaderViewController', '~> 4.0.2'
+
+end
+
+target 'SEB Dev' do
+
+platform :ios, '9.3.5'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
@@ -21,7 +30,7 @@ end
 
 target 'SEB Enterprise' do
     
-platform :ios, '9.0'
+platform :ios, '9.3.5'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
