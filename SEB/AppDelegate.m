@@ -44,11 +44,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface AppDelegate ()
-{
-    NSMutableArray *_persistentWebpages;
-}
-@end
 
 @implementation AppDelegate
 
@@ -69,9 +64,22 @@ void run_block_on_ui_thread(dispatch_block_t block)
     return _sebUIController;
 }
 
+
+#pragma mark - UIApplicationDelegate methods
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    DDLogWarn(@"%s", __FUNCTION__);
     BOOL shouldPerformAdditionalDelegateHandling = true;
+
+    // Initialize console loggers
+#ifdef DEBUG
+    // We show log messages only in Console.app and the Xcode console in debug mode
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+#endif
+
+    [self initializeTemporaryLogger];
 
     // Check if Single App Mode is active
     // or Autonomous Single App Mode stayed active because
@@ -80,7 +88,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // so we save current time and to another check later
     _dispatchTimeAppLaunched = dispatch_time(DISPATCH_TIME_NOW, 0);
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-    NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    DDLogWarn(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];
@@ -95,12 +103,12 @@ void run_block_on_ui_thread(dispatch_block_t block)
     NSError *setCategoryError = nil;
     BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
     if (!success) {
-        NSLog(@"Couldn't set AVAudioSession category to playback %@!", setCategoryError);
+        DDLogError(@"Couldn't set AVAudioSession category to playback %@!", setCategoryError);
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences setSEBDefaults]) {
-        NSLog(@"SEB was started the first time, UserDefaults were empty.");
+        DDLogInfo(@"SEB was started the first time, UserDefaults were empty.");
     }
 
     // Get default WebKit browser User Agent and create
@@ -141,7 +149,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     if (shortcutItem)
     {
-        NSLog(@"Launched with shortcut item: %@", shortcutItem);
+        DDLogInfo(@"Launched with shortcut item: %@", shortcutItem);
         
         _shortcutItemAtLaunch = shortcutItem;
         
@@ -173,11 +181,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    DDLogWarn(@"%s", __FUNCTION__);
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    DDLogWarn(@"%s", __FUNCTION__);
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         _sebViewController.alertController = nil;
@@ -205,10 +215,12 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    DDLogWarn(@"%s", __FUNCTION__);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    DDLogWarn(@"%s", __FUNCTION__);
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
@@ -231,7 +243,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground
-    
+    DDLogError(@"%s", __FUNCTION__);
+
     [NSURLCache.sharedURLCache removeAllCachedResponses];
 
     // Saves changes in the application's managed object context before the application terminates.
@@ -243,6 +256,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
+    DDLogWarn(@"%s", __FUNCTION__);
     DDLogInfo(@"URL scheme:%@", [url scheme]);
     DDLogInfo(@"URL query: %@", [url query]);
     
@@ -272,7 +286,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
   completionHandler:(void (^)(BOOL succeeded))completionHandler;
 {
-    NSLog(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
+    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogInfo(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
     
     // Is the main SEB view controller already instantiated?
     if (_sebViewController) {
@@ -313,6 +328,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 // Xcode 9:  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
   restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
+    DDLogWarn(@"%s", __FUNCTION__);
     NSURL *openedURL = [self getURLForUserActivity:userActivity];
     _openedURL = true;
 
@@ -325,6 +341,38 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     }
     
     return YES;
+}
+
+
+// Initializes a temporary logger unconditionally with the Debug log level
+// and the standard log file path, so SEB can log startup events before
+// settings are initialized
+- (void) initializeTemporaryLogger
+{
+    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:nil];
+    _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+    _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+    [DDLog addLogger:_myLogger];
+    
+    DDLogError(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
+    DDLogError(@"(log after start up is finished may continue in another file, according to current settings)");
+//    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+//    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+    NSString *userName = NSUserName();
+    NSString *fullUserName = NSFullUserName();
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+    DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    
+//    DDLogInfo(@"Local hostname: %@", localHostname);
+//    DDLogInfo(@"Computer name: %@", computerName);
+    DDLogInfo(@"User name: %@", userName);
+    DDLogInfo(@"Full user name: %@", fullUserName);
 }
 
 
@@ -495,7 +543,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -527,7 +575,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }

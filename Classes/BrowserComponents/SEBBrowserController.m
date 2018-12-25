@@ -298,7 +298,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             OSStatus status = SecTrustEvaluate(serverTrust, &result);
             
 #if DEBUG
-            NSLog(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
+            DDLogDebug(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
 #endif
 
             if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
@@ -360,7 +360,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                     char infoBuf[2048];
                                     *infoBuf = '\0';
                                     mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &serverCert);
-                                    NSLog(@"Server leaf certificate:\n%s", infoBuf);
+                                    DDLogDebug(@"Server leaf certificate:\n%s", infoBuf);
                                     [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
                                                                                stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
 #endif
@@ -430,7 +430,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                                                         NSString *host = debugCertOverrideURL.host;
                                                                         NSNumber *port = debugCertOverrideURL.port;
 #if DEBUG
-                                                                        NSLog(@"Cert host: %@ and port: %@", host, port);
+                                                                        DDLogDebug(@"Cert host: %@ and port: %@", host, port);
 #endif
                                                                         if ([host isEqualToString:serverHost]) {
                                                                             // If the server host name matches the one in the debug cert ...

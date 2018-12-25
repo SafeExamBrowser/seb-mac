@@ -81,7 +81,7 @@
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
-    NSLog(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+    DDLogInfo(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
     [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
 }
 
@@ -618,14 +618,14 @@
 - (void) checkParsedSettingForConfiguringAndStore:(NSDictionary *)sebPreferencesDict {
     NSError *error = nil;
     if (![self checkClassOfSettings:sebPreferencesDict error:&error]) {
-        NSLog(@"%s: Checking settings failed!", __FUNCTION__);
+        DDLogError(@"%s: Checking settings failed!", __FUNCTION__);
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:error];
         return;
     }
     
     // Reading preferences was successful!
-    NSLog(@"%s: Checking received settings was successful", __FUNCTION__);
+    DDLogInfo(@"%s: Checking received settings was successful", __FUNCTION__);
     [self storeDecryptedSEBSettings:sebPreferencesDict];
 }
 
@@ -714,7 +714,7 @@
                     }
                 }
                 // Remove the identity from settings, as it should be only stored in the Certificate Store and not in the locally stored settings file
-                NSLog(@"Removing object at index %ld", (long)i);
+                DDLogVerbose(@"%s: Removing embedded certficate at index %ld", __FUNCTION__, (long)i);
                 [embeddedCertificates removeObjectAtIndex:i];
             }
         }
