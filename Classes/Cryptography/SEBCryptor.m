@@ -691,12 +691,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Remove SEB settings key/values from User Defaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences resetSEBUserDefaults];
-//    [preferences storeSEBDefaultSettings];
     // Update Config and Browser Exam Keys
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-#ifdef DEBUG
-    NSLog(@"Client settings have been reset!");
-#endif
+    DDLogError(@"Client settings have been reset!");
 }
 
 

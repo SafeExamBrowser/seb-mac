@@ -249,7 +249,7 @@
                                                 };
         [lockedExams addObject:interruptedLockedExam];
         // Remove the old entry for the persisted locked exam
-        NSLog(@"%s: remove locked exam directiory", __FUNCTION__);
+        DDLogVerbose(@"%s: remove locked exam directiory", __FUNCTION__);
         [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }

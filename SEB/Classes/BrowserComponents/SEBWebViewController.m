@@ -338,7 +338,7 @@
 {
     if ([error code] != -999) {
         
-        DDLogError(@"Load Error: %@", error.description);
+        DDLogError(@"%s: Load Error: %@", __FUNCTION__, error.description);
         
         // Load error, hide the activity indicator in the status bar
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -385,11 +385,8 @@
         
         [self.browserTabViewController.sebViewController.topMostController presentViewController:self.browserTabViewController.sebViewController.alertController animated:NO completion:nil];
 
-#ifdef DEBUG
     } else {
-        NSLog(@"Load Error: %@", error.description);
-#endif
-        
+        DDLogError(@"Load Error: %@", error.description);
     }
 }
 
@@ -509,7 +506,7 @@
             if (enableDrawingEditor) {
                 // Get the filename of the loaded ressource form the UIWebView's request URL
                 NSString *filename = [url lastPathComponent];
-                NSLog(@"Filename: %@", filename);
+                DDLogInfo(@"%s: Filename: %@", __FUNCTION__, filename);
                 // Get the path to the App's Documents directory
                 NSString *docPath = [self documentsDirectoryPath];
                 // Combine the filename and the path to the documents dir into the full path
@@ -530,7 +527,7 @@
                     // Write the contents of our tmp object into a file
                     [dataForPNGFile writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
                     if (error != nil) {
-                        NSLog(@"Failed to save the file: %@", [error description]);
+                        DDLogError(@"%s: Failed to save the file: %@", __FUNCTION__, [error description]);
                     } else {
                         //                    NSString *base64PNGData = [dataForPNGFile base64EncodedStringWithOptions:0];
                         //                    NSString *simulateDropFunction = [NSString stringWithFormat:@"SEB_replaceImage('%@')", base64PNGData];

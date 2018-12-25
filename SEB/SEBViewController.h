@@ -109,6 +109,7 @@
     BOOL quitPasswordPlaceholder;
     BOOL ASAMActiveChecked;
     BOOL sebUIInitialized;
+    DDFileLogger *_myLogger;
 
     NSURL *currentConfigPath;
     NSURL *directlyDownloadedURL;
@@ -201,6 +202,8 @@
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
+
+- (void) initializeLogger;
 
 - (BOOL) allowediOSVersion;
 - (void) newWebViewTabDidMoveToParentViewController;
