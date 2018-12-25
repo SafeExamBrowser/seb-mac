@@ -378,7 +378,7 @@
         case 0:
         {
             // Section: Open webpages
-            NSLog(@"Close button indexPath.row: %ld", (long)index);
+            DDLogVerbose(@"Close button indexPath.row: %ld", (long)index);
             [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
             
             // If not closing the main web view: remove the webpage from the list

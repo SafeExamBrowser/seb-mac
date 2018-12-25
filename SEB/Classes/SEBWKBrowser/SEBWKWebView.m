@@ -88,26 +88,24 @@
         // if there is a fragment
         requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
     } else requestURLStrippedFragment = absoluteRequestURL;
-    //    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
-    //    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
+    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
     
     NSDictionary *headerFields;
     headerFields = [request allHTTPHeaderFields];
-    //    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
-    NSLog(@"All HTTP header fields: %@", headerFields);
-    //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (true) {
         //    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
         
         NSMutableURLRequest *modifiedRequest = [request mutableCopy];
         
-        NSData *browserExamKey = [NSData data];
-        //        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
         
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
         
-        //        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
+        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
         [browserExamKeyString setString:requestURLStrippedFragment];
@@ -115,7 +113,7 @@
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
         
-        //        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
+        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
         
         const char *urlString = [browserExamKeyString UTF8String];
         
@@ -130,8 +128,7 @@
         [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
         
         headerFields = [modifiedRequest allHTTPHeaderFields];
-        //        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
-        NSLog(@"All HTTP header fields in modified request: %@", headerFields);
+        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
         request = modifiedRequest;
         
     }

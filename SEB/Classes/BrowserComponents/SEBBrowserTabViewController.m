@@ -279,7 +279,7 @@
     [newWebpage setValue:[NSNumber numberWithBool:NO] forKey:@"readingList"];
     NSError *error;
     if (![context save:&error]) {
-        NSLog(@"Couldn't save: %@", [error localizedDescription]);
+        DDLogError(@"%s: Couldn't save context: %@", __FUNCTION__, [error localizedDescription]);
     }
     // Add this to the Array of all persistently saved webpages
     [self.persistentWebpages addObject:newWebpage];
@@ -408,9 +408,9 @@
         // Save everything
         NSError *error = nil;
         if ([context save:&error]) {
-            NSLog(@"The save was successful!");
+            DDLogDebug(@"%s: Saving context was successful!", __FUNCTION__);
         } else {
-            NSLog(@"The save wasn't successful: %@", [error userInfo]);
+            DDLogError(@"%s: Saving context wasn't successful: %@", __FUNCTION__, [error userInfo]);
         }
         
         [_persistentWebpages removeObjectAtIndex:tabIndex];

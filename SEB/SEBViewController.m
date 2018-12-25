@@ -207,6 +207,32 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void) initializeLogger
+{
+    // Initialize file logger if logging enabled
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
+        [DDLog removeLogger:_myLogger];
+    } else {
+        //Set log directory
+//        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+//        [DDLog removeLogger:_myLogger];
+//        if (logPath.length == 0) {
+//            // No log directory indicated: We use the standard one
+//            logPath = nil;
+//        } else {
+//            logPath = [logPath stringByExpandingTildeInPath];
+//            // Add subdirectory with the name of the computer
+//        }
+        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] init];
+        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+        [DDLog addLogger:_myLogger];
+    }
+}
+
+
 #pragma mark - View management delegate methods
 
 - (void)viewDidLoad
@@ -220,6 +246,9 @@ static NSMutableSet *browserWindowControllers;
     _browserTabViewController.sebViewController = self;
     
     self.sideMenuController.delegate = self;
+    
+    DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+    [self initializeLogger];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(singleAppModeStatusChanged)
@@ -635,6 +664,9 @@ static NSMutableSet *browserWindowControllers;
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
+    DDLogError(@"---------- SEB SETTINGS RESET PERFORMED -------------");
+    [self initializeLogger];
+    
     [self resetSEB];
     [self initSEB];
     [self openInitAssistant];
@@ -998,7 +1030,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)shareSettingsAction:(id)sender
 {
-    NSLog(@"Share settings button pressed");
+    DDLogInfo(@"Share settings button pressed");
 
     // Update entered passwords and save their hashes to SEB settings
     // as long as the passwords were really entered and don't contain the hash placeholders
@@ -1125,7 +1157,7 @@ static NSMutableSet *browserWindowControllers;
                 _isReconfiguringToMDMConfig = true;
                 readMDMConfig = YES;
                 // If we did receive a config and SEB isn't running in exam mode currently
-                NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+                DDLogDebug(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
                 // As we handle the config received from the MDM server, we need to remove it from settings
                 [preferences removeObjectForKey:kConfigurationKey];
                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
@@ -1401,7 +1433,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     CGFloat bottomPadding = window.safeAreaInsets.bottom;
                     CGFloat bottomMargin = window.layoutMargins.bottom;
                     CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
-                    NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
+                    DDLogDebug(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
 #endif
                 }
             }
@@ -1588,7 +1620,7 @@ void run_on_ui_thread(dispatch_block_t block)
         CGFloat topPadding = window.safeAreaInsets.top;
         CGFloat topMargin = window.layoutMargins.top;
         CGFloat topInset = self.view.superview.safeAreaInsets.top;
-        NSLog(@"%f, %f, %f, ", topPadding, topMargin, topInset);
+        DDLogDebug(@"%f, %f, %f, ", topPadding, topMargin, topInset);
 #endif
 
     } else {
@@ -1988,7 +2020,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
+    DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         _isReconfiguringToMDMConfig = false;
         _scannedQRCode = false;
@@ -2228,6 +2260,9 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
     
+    DDLogError(@"---------- RESTARTING SEB SESSION -------------");
+    [self initializeLogger];
+    
     // Close browser tabs and reset browser session
     [self resetSEB];
     
@@ -2291,14 +2326,14 @@ void run_on_ui_thread(dispatch_block_t block)
             // If ASAM is active, we stop it now and display the alert for restarting session
             if (oldEnableASAM) {
                 if (_ASAMActive) {
-                    NSLog(@"Requesting to exit Autonomous Single App Mode");
+                    DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
                     UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
                         if (didSucceed) {
-                            NSLog(@"Exited Autonomous Single App Mode");
+                            DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
                             self->_ASAMActive = false;
                         }
                         else {
-                            NSLog(@"Failed to exit Autonomous Single App Mode");
+                            DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
                         }
                         [self restartExamASAM:quitting && self->_secureMode];
                     });
@@ -2577,7 +2612,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) assureSAMNotActive
 {
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-    NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    DDLogWarn(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     if (_SAMActive) {
         // SAM or Guided Access (or ASAM because of previous crash) is already active:
         // refuse starting a secured exam until SAM/Guided Access is switched off
@@ -2601,11 +2636,11 @@ void run_on_ui_thread(dispatch_block_t block)
             UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
                 self->ASAMActiveChecked = true;
                 if (didSucceed) {
-                    NSLog(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
+                    DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
                     [self requestDisablingSAM];
                 }
                 else {
-                    NSLog(@"Failed to exit Autonomous Single App Mode, SAM/Guided Access must be active");
+                    DDLogError(@"%s: Failed to exit Autonomous Single App Mode, SAM/Guided Access must be active", __FUNCTION__);
                     //                _ASAMActive = false;
                     [self requestDisablingSAM];
                 }
@@ -2655,15 +2690,15 @@ void run_on_ui_thread(dispatch_block_t block)
         // Secure mode required, find out which kiosk mode to use
         // Is ASAM enabled in settings?
         if (_enableASAM) {
-            NSLog(@"Requesting Autonomous Single App Mode");
+            DDLogInfo(@"Requesting Autonomous Single App Mode");
             _ASAMActive = true;
             UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
                 if (didSucceed) {
-                    NSLog(@"Entered Autonomous Single App Mode");
+                    DDLogInfo(@"%s: Entered Autonomous Single App Mode", __FUNCTION__);
                     [self startExam];
                 }
                 else {
-                    NSLog(@"Failed to enter Autonomous Single App Mode");
+                    DDLogError(@"%s: Failed to enter Autonomous Single App Mode", __FUNCTION__);
                     self->_ASAMActive = false;
                     [self showNoKioskModeAvailable];
                 }
@@ -2677,14 +2712,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) stopAutonomousSingleAppMode
 {
-    NSLog(@"Requesting to exit Autonomous Single App Mode");
+    DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
     UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
         if (didSucceed) {
-            NSLog(@"Exited Autonomous Single App Mode");
+            DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
             self->_ASAMActive = false;
         }
         else {
-            NSLog(@"Failed to exit Autonomous Single App Mode");
+            DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
         }
     });
 }

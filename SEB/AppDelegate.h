@@ -42,7 +42,13 @@
 @class SEBViewController;
 @class SEBUIController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+    NSMutableArray *_persistentWebpages;
+    
+    @private
+    
+    DDFileLogger *_myLogger;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SEBViewController *sebViewController;
