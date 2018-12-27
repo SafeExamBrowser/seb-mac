@@ -763,7 +763,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="112"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="140"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PK-IY-rk8" userLabel="SEB Header View">
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="72"/>
@@ -831,17 +831,37 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cD-LV-BbY">
+                                                <rect key="frame" x="806" y="100" width="203" height="30"/>
+                                                <state key="normal" title="Send Logs to SEB Developers"/>
+                                                <connections>
+                                                    <action selector="sendLogsByEmail" destination="lcz-oo-6j2" eventType="touchUpInside" id="9Iy-SD-ZiD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhl-kf-W3Q" userLabel="Close About SEB">
+                                                <rect key="frame" x="15" y="100" width="39" height="30"/>
+                                                <state key="normal" title="Close"/>
+                                                <connections>
+                                                    <action selector="closeAbout" destination="lcz-oo-6j2" eventType="touchUpInside" id="fyB-Fe-AxD"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="6PK-IY-rk8" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" id="1Jv-Wd-H4I"/>
                                             <constraint firstAttribute="trailing" secondItem="RLL-cr-aYF" secondAttribute="trailing" constant="15" id="2Gp-Wu-ilA"/>
                                             <constraint firstAttribute="trailing" secondItem="6PK-IY-rk8" secondAttribute="trailing" id="Hmd-wa-0Wf"/>
+                                            <constraint firstItem="1cD-LV-BbY" firstAttribute="top" secondItem="RLL-cr-aYF" secondAttribute="bottom" constant="8" symbolic="YES" id="O06-Ok-ngv"/>
+                                            <constraint firstItem="bhl-kf-W3Q" firstAttribute="top" secondItem="RLL-cr-aYF" secondAttribute="bottom" constant="8" symbolic="YES" id="Y1J-L9-1v2"/>
+                                            <constraint firstAttribute="bottom" secondItem="bhl-kf-W3Q" secondAttribute="bottom" constant="10" id="aEH-Ur-pFE"/>
                                             <constraint firstItem="6PK-IY-rk8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tMF-sG-E2Z" secondAttribute="top" id="ced-rc-cfT"/>
+                                            <constraint firstItem="bhl-kf-W3Q" firstAttribute="leading" secondItem="ZPX-ue-C0r" secondAttribute="leading" constant="15" id="cfO-kZ-bI2"/>
+                                            <constraint firstItem="ZPX-ue-C0r" firstAttribute="trailing" secondItem="1cD-LV-BbY" secondAttribute="trailing" constant="15" id="dBM-Oh-Pat"/>
+                                            <constraint firstItem="1cD-LV-BbY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bhl-kf-W3Q" secondAttribute="trailing" constant="15" id="f0H-1a-xDB"/>
+                                            <constraint firstAttribute="bottom" secondItem="1cD-LV-BbY" secondAttribute="bottom" constant="10" id="g53-BN-dLh"/>
                                             <constraint firstItem="6PK-IY-rk8" firstAttribute="top" secondItem="ZPX-ue-C0r" secondAttribute="top" priority="750" constant="-25" id="ic9-0x-10S"/>
                                             <constraint firstItem="RLL-cr-aYF" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" constant="15" id="pZZ-Er-eCm"/>
                                             <constraint firstItem="RLL-cr-aYF" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="bottom" constant="20" id="sb5-Nw-kdR"/>
-                                            <constraint firstAttribute="bottom" secondItem="RLL-cr-aYF" secondAttribute="bottom" constant="20" id="vY0-p9-DFb"/>
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="ZPX-ue-C0r"/>
                                     </view>

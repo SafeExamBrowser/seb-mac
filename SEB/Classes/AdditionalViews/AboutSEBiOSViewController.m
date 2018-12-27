@@ -34,7 +34,6 @@
 
 #import "AboutSEBiOSViewController.h"
 
-
 @implementation AboutSEBiOSViewController
 
 
@@ -77,6 +76,167 @@
         self->_sebViewController.aboutSEBViewDisplayed = false;
         self->_sebViewController.aboutSEBViewController = nil;
     }];
+}
+
+
+- (IBAction)sendLogsByEmail
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    if (NSUserDefaults.userDefaultsPrivate) {
+        
+        if (_sebViewController.alertController) {
+            [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+        _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Can't Send Log File", nil)
+                                                                                  message:NSLocalizedString(@"You can't send log files while in an exam session. Finish the exam first and try it again.", nil)
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                                   self->_sebViewController.alertController = nil;
+                                                                               }]];
+        
+        [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+
+    } else if ([MFMailComposeViewController canSendMail]) {
+        
+        // If there is a hashed admin password the user has to enter it before editing settings
+        NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_logSendingRequiresAdminPassword"] &&
+            hashedAdminPassword.length > 0) {
+            // Allow up to 5 attempts for entering password
+            attempts = 5;
+            NSString *enterPasswordString = NSLocalizedString(@"You can only send log files after entering the SEB administrator password:", nil);
+            
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [_sebViewController.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                                             title:NSLocalizedString(@"Send Log File",nil)
+                                                                          callback:self
+                                                                          selector:@selector(enteredAdminPassword:)];
+            return;
+        } else {
+            [self composeEmailWithDebugAttachment];
+        }
+    } else {
+        if (_sebViewController.alertController) {
+            [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+        _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Can't Send Log File", nil)
+                                                                                  message:NSLocalizedString(@"This device isn't configured for sending email.", nil)
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                                   self->_sebViewController.alertController = nil;
+                                                                               }]];
+        
+        [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+    }
+}
+
+
+- (void) enteredAdminPassword:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        // Abort sending logs
+        return;
+    }
+    
+    attempts--;
+    
+    if (![self correctAdminPassword:password]) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [_sebViewController.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                                             title:NSLocalizedString(@"Send SEB Logfiles",nil)
+                                                                          callback:self
+                                                                          selector:@selector(enteredAdminPassword:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop reading .seb file
+            DDLogError(@"%s: Cannot Send SEB Logs: User didn't enter the correct SEB administrator password.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Send SEB Logs", nil);
+            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            [_sebViewController.configFileController showAlertWithTitle:title andText:informativeText];
+            
+            // Abort sending logs
+            return;
+        }
+        
+    } else {
+        // The correct admin password was entered: Send logs by email
+        [self composeEmailWithDebugAttachment];
+        return;
+    }
+}
+
+
+- (BOOL)correctAdminPassword: (NSString *)password {
+    // Get admin password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    if (!hashedAdminPassword) {
+        hashedAdminPassword = @"";
+    } else {
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
+    }
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword;
+    if (password.length == 0) {
+        // An empty password has to be an empty hashed password string
+        hashedPassword = @"";
+    } else {
+        hashedPassword = [keychainManager generateSHAHashString:password];
+        hashedPassword = [hashedPassword uppercaseString];
+    }
+    return [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
+}
+
+
+- (void)composeEmailWithDebugAttachment
+{
+    MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+    mailViewController.mailComposeDelegate = self;
+    NSMutableData *errorLogData = [NSMutableData data];
+    for (NSData *errorLogFileData in [self errorLogData]) {
+        [errorLogData appendData:errorLogFileData];
+    }
+    [mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:@"SEB-iOS-Client.log"];
+    [mailViewController setSubject:NSLocalizedString(@"Log File SEB-iOS", nil)];
+    [mailViewController setMessageBody:NSLocalizedString(@"Please shortly describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, date/time when it occurred):\n", nil) isHTML:NO];
+    [mailViewController setToRecipients:[NSArray arrayWithObject:@"info@safeexambrowser.org"]];
+    
+    [self presentViewController:mailViewController animated:YES completion:nil];
+}
+
+
+- (NSMutableArray *)errorLogData
+{
+    DDFileLogger *ddFileLogger = [DDFileLogger new];
+    NSArray <NSString *> *logFilePaths = [ddFileLogger.logFileManager sortedLogFilePaths];
+    NSMutableArray <NSData *> *logFileDataArray = [NSMutableArray new];
+    for (NSString* logFilePath in logFilePaths) {
+        NSURL *fileUrl = [NSURL fileURLWithPath:logFilePath];
+        NSData *logFileData = [NSData dataWithContentsOfURL:fileUrl options:NSDataReadingMappedIfSafe error:nil];
+        if (logFileData) {
+            [logFileDataArray insertObject:logFileData atIndex:0];
+        }
+    }
+    return logFileDataArray;
+}
+
+
+- (void)mailComposeController:(MFMailComposeViewController *)mailer didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self becomeFirstResponder];
+    [mailer dismissViewControllerAnimated:YES completion:nil];
 }
 
 
