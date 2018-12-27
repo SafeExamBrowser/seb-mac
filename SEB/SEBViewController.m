@@ -1271,8 +1271,10 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Add scan QR code command/Home screen quick action/dock button
         // if SEB isn't running in exam mode (= no quit pw)
+        BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
-            [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) {
+            ((!NSUserDefaults.privateUserDefaults && !examSession) || (examSession && allowReconfiguring))) {
 
             // Add scan QR code Home screen quick action
             NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
