@@ -37,17 +37,23 @@
 #import "SEBAboutController.h"
 #import "SEBViewController.h"
 
+#import <MessageUI/MessageUI.h>
+#import "DDLog.h"
+#import "DDFileLogger.h"
+
 
 @class SEBViewController;
 
 
-@interface AboutSEBiOSViewController : UIViewController {
+@interface AboutSEBiOSViewController : UIViewController <MFMailComposeViewControllerDelegate> {
     
     __weak IBOutlet UIScrollView *scrollView;
     __weak IBOutlet UILabel *copyrightLabel;
     __weak IBOutlet UILabel *versionLabel;
     __weak IBOutlet UIButton *closeAbout;
     
+    @private
+    NSInteger attempts;
 }
 
 @property (nonatomic, strong) SEBViewController *sebViewController;

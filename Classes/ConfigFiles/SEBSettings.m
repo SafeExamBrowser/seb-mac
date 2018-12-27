@@ -383,7 +383,10 @@
                    
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
-                   
+
+                   @NO,
+                   @"logSendingRequiresAdminPassword",
+
                    @"100%",
                    @"mainBrowserWindowHeight",
                    
