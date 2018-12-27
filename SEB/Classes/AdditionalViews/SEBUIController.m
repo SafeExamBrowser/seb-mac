@@ -227,8 +227,10 @@
     
     // Add scan QR code command/Home screen quick action/dock button
     // if SEB isn't running in exam mode (= no quit pw)
+    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
-        [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) {
+        ((!NSUserDefaults.privateUserDefaults && !examSession) || (examSession && allowReconfiguring))) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showScanQRCodeButton"]) {
             dockIcon = [UIImage imageNamed:@"SEBQRCodeIcon"];
             dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
