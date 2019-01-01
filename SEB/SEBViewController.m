@@ -1148,12 +1148,13 @@ static NSMutableSet *browserWindowControllers;
         // Check if we received a new configuration from an MDM server
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-        BOOL examSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+        BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
         if (serverConfig &&
-            (!NSUserDefaults.userDefaultsPrivate ||
-             (NSUserDefaults.userDefaultsPrivate && examSessionReconfigureAllow && hashedQuitPassword.length == 0))) {
-                
+            ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
+             (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
+             (examSession && allowReconfiguring))) {
+
                 _isReconfiguringToMDMConfig = true;
                 readMDMConfig = YES;
                 // If we did receive a config and SEB isn't running in exam mode currently
@@ -1274,7 +1275,9 @@ void run_on_ui_thread(dispatch_block_t block)
         BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
         BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
-            ((!NSUserDefaults.privateUserDefaults && !examSession) || (examSession && allowReconfiguring))) {
+            ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
+             (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
+             (examSession && allowReconfiguring))) {
 
             // Add scan QR code Home screen quick action
             NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
@@ -1814,22 +1817,26 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-            // Check if SEB is in exam mode = private UserDefauls are switched on
-            // or if not reconfiguring is allowed by setting while no quit password is set in current settings
-            // or if a quit password is set, then check if the reconfigure config file URL matches the setting
+            // Check if reconfiguring is allowed
+            // If a quit password is set (= running in exam session),
+            // then check if the reconfigure config file URL matches the setting
             // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
+            BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
             BOOL examSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
             BOOL examSessionReconfigureURLMatch = NO;
-            if (NSUserDefaults.userDefaultsPrivate && examSessionReconfigureAllow) {
-                if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0 &&
-                    [sebConfig isKindOfClass:[NSURL class]]) {
+            if (examSession && examSessionReconfigureAllow) {
+                if ([sebConfig isKindOfClass:[NSURL class]]) {
                     NSString *sebConfigURLString = [(NSURL *)sebConfig absoluteString];
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
                     examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
                 }
             }
-            if (NSUserDefaults.userDefaultsPrivate &&
-                 !((examSessionReconfigureAllow && [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) || (examSessionReconfigureAllow && examSessionReconfigureURLMatch))) {
+            // Check if SEB is in exam mode (= quit password is set), but reconfiguring is allowed by setting
+            // and the reconfigure config URL mathches the setting
+            // or SEB isn't in exam mode, but is running with settings for starting an exam and the
+            // reconfigure allow setting isn't set
+            if ((examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
+                (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow)) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
@@ -1845,7 +1852,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
                 
             } else {
-                // SEB isn't in exam mode, reconfiguring is allowed: Invoke the callback to proceed
+                // Reconfiguring is allowed: Invoke the callback to proceed
                 IMP imp = [callback methodForSelector:selector];
                 void (*func)(id, SEL, id) = (void *)imp;
                 func(callback, selector, sebConfig);
