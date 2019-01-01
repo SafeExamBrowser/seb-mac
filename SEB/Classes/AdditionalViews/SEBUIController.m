@@ -230,7 +230,9 @@
     BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
     BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
-        ((!NSUserDefaults.privateUserDefaults && !examSession) || (examSession && allowReconfiguring))) {
+        ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
+         (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
+         (examSession && allowReconfiguring))) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showScanQRCodeButton"]) {
             dockIcon = [UIImage imageNamed:@"SEBQRCodeIcon"];
             dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
