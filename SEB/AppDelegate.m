@@ -220,6 +220,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         if (serverConfig) {
+            DDLogWarn(@"%s: Received MDM Managed Configuration dictionary was present.", __FUNCTION__);
             [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
         } else if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
