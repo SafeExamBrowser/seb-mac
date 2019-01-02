@@ -462,6 +462,10 @@
             }
         }
         // Opening links in new windows is not allowed by current policies
+        // We show the URL blocked overlay message only if a link was actively tapped by the user
+        if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+            [self showURLFilterMessage];
+        }
         return NO;
     }
     
