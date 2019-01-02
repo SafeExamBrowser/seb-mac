@@ -773,6 +773,7 @@ static NSMutableSet *browserWindowControllers;
         _scannedQRCode = true;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
             self->_visibleCodeReaderViewController = nil;
+            [self adjustBars];
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {
@@ -789,7 +790,8 @@ static NSMutableSet *browserWindowControllers;
 {
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
         self->_visibleCodeReaderViewController = nil;
-        [self.sideMenuController hideLeftViewAnimated];
+        [self.sideMenuController hideLeftView];
+        [self adjustBars];
         if (!self->_finishedStartingUp || self->_pausedSAMAlertDisplayed) {
             self->_pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
