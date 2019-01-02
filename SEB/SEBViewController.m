@@ -271,6 +271,7 @@ static NSMutableSet *browserWindowControllers;
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+                                                      DDLogWarn(@"NSUserDefaultsDidChangeNotification: %@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
                                                       if (serverConfig && !self->_settingsOpen) {
                                                           // Only reconfigure immediately with config received from MDM server
                                                           // when settings aren't open (otherwise it's postponed to next
@@ -1145,13 +1146,15 @@ static NSMutableSet *browserWindowControllers;
 - (BOOL)readMDMServerConfig
 {
     BOOL readMDMConfig = NO;
-    
+
     if (!_isReconfiguringToMDMConfig) {
+        DDLogWarn(@"%s", __FUNCTION__);
         // Check if we received a new configuration from an MDM server
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
         BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        DDLogWarn(@"%@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
         if (serverConfig &&
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
@@ -1166,7 +1169,11 @@ static NSMutableSet *browserWindowControllers;
                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
                                                                       callback:self
                                                                       selector:@selector(storeNewSEBSettingsSuccessful:)];
+            } else {
+                DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
             }
+    } else {
+        DDLogWarn(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
     }
     return readMDMConfig;
 }
@@ -2052,10 +2059,12 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
         if (_isReconfiguringToMDMConfig) {
+            DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
             _isReconfiguringToMDMConfig = false;
             [self restartExam:false];
             
         } else if (_scannedQRCode) {
+            DDLogError(@"%s: Reconfiguring from QR code config failed!", __FUNCTION__);
             _scannedQRCode = false;
             if (error.code == SEBErrorNoValidConfigData) {
                 error = [NSError errorWithDomain:sebErrorDomain
@@ -2301,6 +2310,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Check if we received new settings from an MDM server
         if ([self readMDMServerConfig]) {
+            DDLogWarn(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
             return;
         }
         
