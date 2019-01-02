@@ -118,9 +118,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     
     [_window makeKeyAndVisible];
     
-    // Initialize file logger if it's enabled in settings
-//    [self initializeLogger];
-    
     // The registration domain is volatile.  It does not persist across launches.
     // You must register your defaults at each launch; otherwise you will get
     // (system) default values when accessing the values of preferences the
@@ -135,14 +132,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // values associated with these preferences are actually needed.
     [self onDefaultsChanged:nil];
     
-    // Begin listening for changes to our preferences when the Settings app does
-    // so, when we are resumed from the backround, this will give us a chance to
-    // update our UI
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(onDefaultsChanged:)
-//                                                 name:NSUserDefaultsDidChangeNotification
-//                                               object:nil];
-
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
     
@@ -200,7 +189,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
          postNotificationName:@"requestQuit" object:self];
 
     }
-    if (_sebViewController.aboutSEBViewDisplayed) {
+    if (_sebViewController.aboutSEBViewDisplayed && !_sebViewController.mailViewController) {
         [_sebViewController.aboutSEBViewController dismissViewControllerAnimated:NO completion:^{
             self->_sebViewController.aboutSEBViewDisplayed = false;
             self->_sebViewController.aboutSEBViewController = nil;
@@ -224,7 +213,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
-    if (_sebViewController) {
+    if (_sebViewController && !_sebViewController.mailViewController) {
         // If the main SEB view controller was already instantiated
 
         // Check if we received a new configuration from an MDM server (by MDM managed configuration)
@@ -269,7 +258,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
             _openedURL = true;
             
             // Is the main SEB view controller already instantiated?
-            if (_sebViewController) {
+            if (_sebViewController && !_sebViewController.mailViewController) {
                 [_sebViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
             } else {
                 // Postpone loading .seb file until app did finish launching
@@ -290,7 +279,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
     DDLogInfo(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
     
     // Is the main SEB view controller already instantiated?
-    if (_sebViewController) {
+    if (_sebViewController && !_sebViewController.mailViewController) {
         if (_sebViewController.settingsOpen) {
             // Close settings, but check if settings presented some alert or the share dialog first
             if (_sebViewController.appSettingsViewController.presentedViewController) {
@@ -333,7 +322,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     _openedURL = true;
 
     // Is the main SEB view controller already instantiated?
-    if (_sebViewController) {
+    if (_sebViewController && !_sebViewController.mailViewController) {
         [_sebViewController conditionallyOpenSEBConfigFromUniversalLink:openedURL];
     } else {
         // Postpone loading Universal Link until app did finish launching

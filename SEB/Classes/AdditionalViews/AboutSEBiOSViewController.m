@@ -82,8 +82,9 @@
 - (IBAction)sendLogsByEmail
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
 
-    if (NSUserDefaults.userDefaultsPrivate) {
+    if (examSession) {
         
         if (_sebViewController.alertController) {
             [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
@@ -202,18 +203,20 @@
 
 - (void)composeEmailWithDebugAttachment
 {
-    MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-    mailViewController.mailComposeDelegate = self;
-    NSMutableData *errorLogData = [NSMutableData data];
-    for (NSData *errorLogFileData in [self errorLogData]) {
-        [errorLogData appendData:errorLogFileData];
+    if (!_sebViewController.mailViewController) {
+        _sebViewController.mailViewController = [[MFMailComposeViewController alloc] init];
+        _sebViewController.mailViewController.mailComposeDelegate = self;
+        NSMutableData *errorLogData = [NSMutableData data];
+        for (NSData *errorLogFileData in [self errorLogData]) {
+            [errorLogData appendData:errorLogFileData];
+        }
+        [_sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:@"SEB-iOS-Client.log"];
+        [_sebViewController.mailViewController setSubject:NSLocalizedString(@"Log File SEB-iOS", nil)];
+        [_sebViewController.mailViewController setMessageBody:NSLocalizedString(@"Please shortly describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, date/time when it occurred):\n", nil) isHTML:NO];
+        [_sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:@"info@safeexambrowser.org"]];
+        
+        [_sebViewController.topMostController presentViewController:_sebViewController.mailViewController animated:YES completion:nil];
     }
-    [mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:@"SEB-iOS-Client.log"];
-    [mailViewController setSubject:NSLocalizedString(@"Log File SEB-iOS", nil)];
-    [mailViewController setMessageBody:NSLocalizedString(@"Please shortly describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, date/time when it occurred):\n", nil) isHTML:NO];
-    [mailViewController setToRecipients:[NSArray arrayWithObject:@"info@safeexambrowser.org"]];
-    
-    [self presentViewController:mailViewController animated:YES completion:nil];
 }
 
 
@@ -237,6 +240,7 @@
 {
     [self becomeFirstResponder];
     [mailer dismissViewControllerAnimated:YES completion:nil];
+    _sebViewController.mailViewController = nil;
 }
 
 

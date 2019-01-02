@@ -141,7 +141,7 @@
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
 @property (strong, nonatomic) AboutSEBiOSViewController *aboutSEBViewController;
-
+@property (strong, nonatomic) MFMailComposeViewController *mailViewController;
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 @property (strong, nonatomic) SEBLockedViewController *sebLockedViewController;
