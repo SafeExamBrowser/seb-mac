@@ -789,10 +789,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
+    [self.sideMenuController hideLeftView];
+    [self adjustBars];
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
         self->_visibleCodeReaderViewController = nil;
-        [self.sideMenuController hideLeftView];
-        [self adjustBars];
         if (!self->_finishedStartingUp || self->_pausedSAMAlertDisplayed) {
             self->_pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
