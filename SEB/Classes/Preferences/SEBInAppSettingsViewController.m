@@ -23,7 +23,7 @@
         
         // Register notification for changed keys
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(settingsChanged)
+                                                 selector:@selector(settingsChanged:)
                                                      name:kIASKAppSettingChanged
                                                    object:nil];
         
@@ -230,8 +230,11 @@
 }
 
 
-- (void)settingsChanged
+- (void)settingsChanged:(NSNotification *)notification
 {
+    NSArray *changedKeys = [notification.userInfo allKeys];
+    DDLogDebug(@"Changed settings keys: %@", changedKeys);
+
     [[NSUserDefaults standardUserDefaults] setSecureObject:[NSDictionary dictionary]
                                                     forKey:@"org_safeexambrowser_configKeyContainedKeys"];
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
