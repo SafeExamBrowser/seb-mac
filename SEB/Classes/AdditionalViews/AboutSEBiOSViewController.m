@@ -55,9 +55,18 @@
     [super viewDidLoad];
     
     SEBAboutController *aboutController = [SEBAboutController new];
+    appExtraShortName.text = SEBExtraShortAppName;
+    appExtraShortName.textColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
+                                                  green:SEBTintColorGreenValue
+                                                   blue:SEBTintColorBlueValue
+                                                  alpha:1.0];
+    appName.text = SEBFullAppName;
     versionLabel.text = [aboutController version];
     copyrightLabel.text = [aboutController copyright];
-    
+    NSString *sendLogsButtonTitle = [NSString stringWithFormat:NSLocalizedString(@"Send Logs to %@ Developers", nil), SEBExtraShortAppName];
+    [sendLogsButton setTitle:sendLogsButtonTitle forState:UIControlStateNormal];
+    [sendLogsButton setTitle:sendLogsButtonTitle forState:UIControlStateHighlighted];
+
     if (@available(iOS 11.0, *)) {
         scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     };
@@ -108,7 +117,7 @@
             hashedAdminPassword.length > 0) {
             // Allow up to 5 attempts for entering password
             attempts = 5;
-            NSString *enterPasswordString = NSLocalizedString(@"You can only send log files after entering the SEB administrator password:", nil);
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only send log files after entering the %@ administrator password:", nil), SEBShortAppName];
             
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [_sebViewController.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -150,10 +159,10 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"Wrong password! Try again to enter the current %@ administrator password:",nil), SEBShortAppName];
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [_sebViewController.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                                             title:NSLocalizedString(@"Send SEB Logfiles",nil)
+                                                                             title:[NSString stringWithFormat:NSLocalizedString(@"Send %@ Logfiles",nil), SEBExtraShortAppName]
                                                                           callback:self
                                                                           selector:@selector(enteredAdminPassword:)];
             return;
@@ -162,8 +171,8 @@
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Send SEB Logs: User didn't enter the correct SEB administrator password.", __FUNCTION__);
             
-            NSString *title = NSLocalizedString(@"Cannot Send SEB Logs", nil);
-            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Send %@ Logs", nil), SEBExtraShortAppName];
+            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
             [_sebViewController.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Abort sending logs
@@ -210,10 +219,10 @@
         for (NSData *errorLogFileData in [self errorLogData]) {
             [errorLogData appendData:errorLogFileData];
         }
-        [_sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:@"SEB-iOS-Client.log"];
-        [_sebViewController.mailViewController setSubject:NSLocalizedString(@"Log File SEB-iOS", nil)];
+        [_sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"%@-iOS-Client.log", SEBExtraShortAppName]];
+        [_sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", nil), SEBShortAppName]];
         [_sebViewController.mailViewController setMessageBody:NSLocalizedString(@"Please shortly describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, date/time when it occurred):\n", nil) isHTML:NO];
-        [_sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:@"info@safeexambrowser.org"]];
+        [_sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
         
         [_sebViewController.topMostController presentViewController:_sebViewController.mailViewController animated:YES completion:nil];
     }
