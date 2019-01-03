@@ -133,7 +133,7 @@
                                                     userInfo:@{ NSLocalizedDescriptionKey :
                                                                     NSLocalizedString(@"Not Connected to WiFi", nil),
                                                                 NSLocalizedFailureReasonErrorKey :
-                                                                    NSLocalizedString(@"Searching local network for Automatic SEB Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too.", nil)
+                                                                    [NSString stringWithFormat:NSLocalizedString(@"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too.", nil), SEBExtraShortAppName]
                                                                 }]];
         }
     }
@@ -202,9 +202,9 @@
                                                 initWithDomain:sebErrorDomain
                                                 code:SEBErrorASCCCanceled
                                                 userInfo:@{ NSLocalizedDescriptionKey :
-                                                                NSLocalizedString(@"Searching for SEB Configuration Canceled", nil),
+                                                                [NSString stringWithFormat:NSLocalizedString(@"Searching for %@ Configuration Canceled", nil), SEBShortAppName],
                                                             NSLocalizedFailureReasonErrorKey :
-                                                                NSLocalizedString(@"If your institution does not support Automatic SEB Client Configuration, follow instructions of your exam administrator.", nil)
+                                                                [NSString stringWithFormat:NSLocalizedString(@"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator.", nil), SEBExtraShortAppName]
                                                             }]];
 
     } else {
@@ -251,9 +251,9 @@
                                                         initWithDomain:sebErrorDomain
                                                         code:SEBErrorASCCNoConfigFound
                                                         userInfo:@{ NSLocalizedDescriptionKey :
-                                                                        NSLocalizedString(@"No SEB Configuration Found", nil),
+                                                                        [NSString stringWithFormat:NSLocalizedString(@"No %@ Configuration Found", nil), SEBShortAppName],
                                                                     NSLocalizedFailureReasonErrorKey :
-                                                                        NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+                                                                        [NSString stringWithFormat:NSLocalizedString(@"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator.", nil), SEBExtraShortAppName]
                                                                     }]];
                 break;
         }

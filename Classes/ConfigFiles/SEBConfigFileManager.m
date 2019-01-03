@@ -287,7 +287,7 @@
     return [NSError errorWithDomain:sebErrorDomain
                                code:SEBErrorNoValidConfigData
                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Settings Failed", nil),
-                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Loaded data doesn't contain valid SEB settings.", nil),
+                                      NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Loaded data doesn't contain valid %@ settings.", nil), SEBShortAppName],
                                       NSUnderlyingErrorKey : error}];
 }
 
@@ -532,7 +532,7 @@
                 
                 // Allow up to 5 attempts for entering decoding password
                 attempts = 5;
-                NSString *enterPasswordString = NSLocalizedString(@"You can only reconfigure SEB by entering the current SEB administrator password:", nil);
+                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reconfigure by entering the current %@ administrator password:", nil), SEBShortAppName];
                 
                 // Ask the user to enter the settings password and proceed to the callback method after this happend
                 [self.delegate promptPasswordWithMessageText:enterPasswordString
@@ -556,7 +556,7 @@
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsAdminPasswordCanceled
                                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", nil),
-                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Entering the current SEB administrator password was canceled", nil)}]];
+                                                                       NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Entering the current %@ administrator password was canceled", nil), SEBShortAppName]}]];
         return;
     }
 
@@ -585,7 +585,7 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"Wrong password! Try again to enter the current %@ administrator password:",nil), SEBShortAppName];
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
                                                    title:NSLocalizedString(@"Configuring Client",nil)
@@ -598,7 +598,7 @@
             NSError *error = [NSError errorWithDomain:sebErrorDomain
                                                  code:SEBErrorDecryptingNoAdminPasswordEntered
                                              userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", nil),
-                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil)}];
+                                                        NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct current %@ administrator password.", nil), SEBShortAppName]}];
             DDLogError(@"%s: %@ ", __FUNCTION__, error.userInfo);
 
             // Inform callback that storing new settings failed
@@ -871,7 +871,6 @@
     int i = 5;
     NSString *password = nil;
     NSString *hashedPassword;
-//    NSString *enterPasswordString = NSLocalizedString(@"Enter the SEB administrator password used in these settings:",nil);
     bool passwordsMatch;
     do {
         i--;
@@ -888,7 +887,6 @@
         }
         passwordsMatch = ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
         // in case we get an error we allow the user to try it again
-//        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password used in these settings:", nil);
     } while ((password == nil || !passwordsMatch) && i > 0);
     
     if (!passwordsMatch) {

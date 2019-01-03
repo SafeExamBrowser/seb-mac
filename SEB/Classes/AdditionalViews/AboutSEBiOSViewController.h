@@ -49,8 +49,11 @@
     
     __weak IBOutlet UIScrollView *scrollView;
     __weak IBOutlet UILabel *copyrightLabel;
+    __weak IBOutlet UILabel *appExtraShortName;
+    __weak IBOutlet UILabel *appName;
     __weak IBOutlet UILabel *versionLabel;
     __weak IBOutlet UIButton *closeAbout;
+    __weak IBOutlet UIButton *sendLogsButton;
     
     @private
     NSInteger attempts;

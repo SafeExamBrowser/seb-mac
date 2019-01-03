@@ -37,7 +37,13 @@
 
 @class SEBLockedViewController;
 
-@interface SEBiOSLockedViewController : UIViewController <SEBLockedViewUIDelegate>
+@interface SEBiOSLockedViewController : UIViewController <SEBLockedViewUIDelegate> {
+    
+    __weak IBOutlet UITextField *lockedAlertPasswordField;
+    __weak IBOutlet UILabel *passwordWrongLabel;
+    __weak IBOutlet UITextView *logTextView;
+    
+}
 
 @property (nonatomic, strong) SEBLockedViewController *lockedViewController;
 @property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;

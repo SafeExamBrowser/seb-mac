@@ -75,10 +75,10 @@
                    [NSNumber numberWithLong:iOSVersion9],
                    @"allowiOSVersionNumberMajor",
                    
-                   @0,
+                   @3,
                    @"allowiOSVersionNumberMinor",
                    
-                   @0,
+                   @5,
                    @"allowiOSVersionNumberPatch",
 
                    @NO,

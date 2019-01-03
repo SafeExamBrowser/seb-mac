@@ -740,10 +740,15 @@
                     </view>
                     <connections>
                         <outlet property="QRCodeScanButton" destination="TLh-eI-sov" id="kOi-wo-i5i"/>
+                        <outlet property="automaticClientConfigText" destination="lf7-gn-5ng" id="61l-ct-GQB"/>
                         <outlet property="configURLField" destination="7o6-KW-3Qp" id="gxR-q6-rec"/>
+                        <outlet property="initAssistantTitle" destination="Wmj-TM-U1f" id="8kt-4V-sth"/>
+                        <outlet property="initAssistantTitleView" destination="cj0-uR-8kk" id="mJH-VX-JTf"/>
                         <outlet property="loadingConfig" destination="fIn-8J-8FZ" id="Pyr-ve-A0U"/>
                         <outlet property="noConfigQRCodeFoundLabel" destination="fem-Ic-Pih" id="oh9-gt-NO8"/>
                         <outlet property="noConfigURLFoundLabel" destination="9il-ut-H8z" id="cD9-rU-0E5"/>
+                        <outlet property="openSEBLinkText" destination="BE1-ZM-fgu" id="SOb-tM-jc4"/>
+                        <outlet property="scanQRConfigText" destination="z6r-Ir-cTX" id="vCC-NP-1Ly"/>
                         <outlet property="scrollView" destination="ltZ-M4-c8e" id="GGj-C1-NXz"/>
                     </connections>
                 </viewController>
@@ -887,8 +892,11 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="appExtraShortName" destination="NvO-V8-xMf" id="udd-HB-lPS"/>
+                        <outlet property="appName" destination="t05-Ok-qqM" id="v84-rU-9gc"/>
                         <outlet property="copyrightLabel" destination="RLL-cr-aYF" id="QNe-Vg-rTw"/>
                         <outlet property="scrollView" destination="nQa-Q9-gCh" id="lCq-kD-rM8"/>
+                        <outlet property="sendLogsButton" destination="1cD-LV-BbY" id="1Zn-gQ-2Pc"/>
                         <outlet property="versionLabel" destination="C6t-3t-DKh" id="HZO-4A-peS"/>
                     </connections>
                 </viewController>

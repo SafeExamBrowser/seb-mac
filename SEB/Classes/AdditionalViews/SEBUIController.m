@@ -258,7 +258,7 @@
     
     // Add About SEB command to slider items
     sliderIcon = [UIImage imageNamed:@"SEBSliderInfoIcon"];
-    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"About SEB",nil)
+    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"About %@",nil), SEBExtraShortAppName]
                                                         icon:sliderIcon
                                                       target:self
                                                       action:@selector(showAboutSEB)];

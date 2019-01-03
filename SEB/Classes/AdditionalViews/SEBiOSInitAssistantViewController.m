@@ -62,6 +62,16 @@
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
     
+    initAssistantTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Options to start an exam or configure %@ for your institution", nil), SEBFullAppName];
+    initAssistantTitleView.backgroundColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
+                                                  green:SEBTintColorGreenValue
+                                                   blue:SEBTintColorBlueValue
+                                                  alpha:1.0];
+    openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ %@ exam or configuration link from Safari, Mail or a messenger app.", nil), SEBExtraShortAppNameAArticle, SEBExtraShortAppName];
+    automaticClientConfigText.text =[NSString stringWithFormat:NSLocalizedString(@"Enter the URL of an institution which supports %@", nil), SEBExtraShortAppName];
+    scanQRConfigText.text = [NSString stringWithFormat:NSLocalizedString(@"Scan %@ configuration QR code", nil), SEBExtraShortAppName];
+    noConfigQRCodeFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"No %@ configuration found!", nil), SEBExtraShortAppName];
+
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
@@ -153,7 +163,7 @@
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Select Your Role", nil)
-                                                                             message:NSLocalizedString(@"SEB needs to be used differently depending on your role.", nil)
+                                                                             message:[NSString stringWithFormat:NSLocalizedString(@"%@ needs to be used differently depending on your role.", nil), SEBShortAppName]
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Administrator", nil)
@@ -163,7 +173,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions For Administrators", nil)
-                                                                                                                                                      message:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with SEB.\nGeneral instructions on how to configure SEB can be found on safeexambrowser.org.", nil)
+                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with %@.\nGeneral instructions on how to configure SEB can be found on safeexambrowser.org.", nil), SEBShortAppName]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              
                                                                              [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -193,7 +203,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions For Students", nil)
-                                                                                                                                                      message:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in SEB.\nTrying to edit SEB settings yourself may block access to exams.", nil)
+                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in %@.\nTrying to edit %@ settings yourself may block access to exams.", nil), SEBShortAppName, SEBShortAppName]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault

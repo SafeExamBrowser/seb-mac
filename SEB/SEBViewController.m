@@ -196,7 +196,7 @@ static NSMutableSet *browserWindowControllers;
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
-                                                                message:NSLocalizedString(@"For security reasons SEB cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.", nil)
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _allowediOSAlertController = _alertController;
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
@@ -271,12 +271,16 @@ static NSMutableSet *browserWindowControllers;
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-                                                      DDLogWarn(@"NSUserDefaultsDidChangeNotification: %@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
-                                                      if (serverConfig && !self->_settingsOpen) {
-                                                          // Only reconfigure immediately with config received from MDM server
-                                                          // when settings aren't open (otherwise it's postponed to next
-                                                          // session restart or when leaving and returning to SEB
-                                                          [self conditionallyOpenSEBConfigFromMDMServer];
+                                                      if (serverConfig) {
+                                                          if (!self->_settingsOpen) {
+                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
+                                                              // Only reconfigure immediately with config received from MDM server
+                                                              // when settings aren't open (otherwise it's postponed to next
+                                                              // session restart or when leaving and returning to SEB
+                                                              [self conditionallyOpenSEBConfigFromMDMServer];
+                                                          } else {
+                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
+                                                          }
                                                       }
                                                   }];
     
@@ -592,7 +596,7 @@ static NSMutableSet *browserWindowControllers;
             } else {
                 // Allow up to 5 attempts for entering password
                 attempts = 5;
-                NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reset settings after entering the %@ administrator password:", nil), SEBShortAppName];
                 
                 // Ask the user to enter the settings password and proceed to the callback method after this happend
                 [self.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -624,7 +628,7 @@ static NSMutableSet *browserWindowControllers;
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"Wrong password! Try again to enter the current %@ administrator password:",nil), SEBShortAppName];
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                                title:NSLocalizedString(@"Reset Settings",nil)
@@ -636,8 +640,8 @@ static NSMutableSet *browserWindowControllers;
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Reset SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
             
-            NSString *title = NSLocalizedString(@"Cannot Reset SEB Settings", nil);
-            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Reset %@ Settings", nil), SEBExtraShortAppName];
+            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
             if (!_finishedStartingUp) {
@@ -834,7 +838,7 @@ static NSMutableSet *browserWindowControllers;
             } else {
                 // Allow up to 5 attempts for entering password
                 attempts = 5;
-                NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
+                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only edit settings after entering the %@ administrator password:", nil), SEBShortAppName];
                 
                 // Ask the user to enter the settings password and proceed to the callback method after this happend
                 [self.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -866,7 +870,7 @@ static NSMutableSet *browserWindowControllers;
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"Wrong password! Try again to enter the current %@ administrator password:",nil), SEBShortAppName];
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                                title:NSLocalizedString(@"Edit Settings",nil)
@@ -878,8 +882,8 @@ static NSMutableSet *browserWindowControllers;
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Edit SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
             
-            NSString *title = NSLocalizedString(@"Cannot Edit SEB Settings", nil);
-            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Edit %@ Settings", nil), SEBExtraShortAppName];
+            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Continue SEB without displaying settings
@@ -1086,9 +1090,9 @@ static NSMutableSet *browserWindowControllers;
             NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
             hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
             NSString *configKey = hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil;
-            activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], browserExamKey, configKey, configFileRUL ];
+            activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey, configFileRUL ];
         } else {
-            activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
+            activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], configFileRUL ];
         }
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
@@ -1851,8 +1855,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                 }
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
-                                                                        message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil)
+                _alertController = [UIAlertController  alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
+                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil), SEBShortAppName]
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -2070,7 +2074,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 error = [NSError errorWithDomain:sebErrorDomain
                                             code:SEBErrorNoValidConfigData
                                         userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
-                                                   NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No valid SEB config found.", nil),
+                                                   NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No valid %@ config found.", nil), SEBShortAppName],
                                                    NSUnderlyingErrorKey : error}];
             }
             if (_alertController) {
@@ -2391,7 +2395,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
-                                                                message:NSLocalizedString(@"Your device is now unlocked, you can exit SEB using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil)
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit SEB using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -2520,7 +2524,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
 
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
-                                                                message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the iOS version installed on this device.", nil)
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         if (NSUserDefaults.userDefaultsPrivate) {
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -2558,8 +2562,9 @@ void run_on_ui_thread(dispatch_block_t block)
                 allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
             }
         }
-        NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%lu%@%@",
-                                            NSLocalizedString(@"SEB settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
+        NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
+                                            NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
+                                            SEBShortAppName,
                                             (unsigned long)allowiOSVersionMajor,
                                             allowediOSVersionMinorString,
                                             allowediOSVersionPatchString];
@@ -2813,7 +2818,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
-                                                                    message:NSLocalizedString(@"Single App Mode needs to be reactivated before SEB can continue.", nil)
+                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Single App Mode needs to be reactivated before %@ can continue.", nil), SEBShortAppName]
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _singleAppModeActivated = true;
             _startSAMWAlertDisplayed = true;

@@ -200,7 +200,7 @@
                                                 options:false];
     
     DDLogError(@"Lockdown alert: Closing lockdown windows");
-    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), SEBShortAppName, components.minute, components.second];
     DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
     [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
                    withTime:nil];
