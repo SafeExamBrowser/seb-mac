@@ -185,9 +185,11 @@ static NSMutableSet *browserWindowControllers;
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
-    if (currentOSMajorVersion == 11 &&
-        currentOSMinorVersion <= 2 &&
-        currentOSPatchVersion < 5)
+    if ((currentOSMajorVersion == 11 &&
+         currentOSMinorVersion < 2) ||
+        (currentOSMajorVersion == 11 &&
+         currentOSMinorVersion == 2 &&
+         currentOSPatchVersion < 5))
     {
         if (_alertController) {
             if (_alertController == _allowediOSAlertController) {
@@ -2544,9 +2546,18 @@ void run_on_ui_thread(dispatch_block_t block)
     NSUInteger allowiOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
-    if (!(currentOSMajorVersion >= allowiOSVersionMajor &&
-          currentOSMinorVersion >= allowiOSVersionMinor &&
-          currentOSPatchVersion >= allowiOSVersionPatch))
+    if (currentOSMajorVersion < allowiOSVersionMajor ||
+        (currentOSMajorVersion == allowiOSVersionMajor &&
+         currentOSMinorVersion < allowiOSVersionMinor) ||
+        (currentOSMajorVersion == allowiOSVersionMajor &&
+         currentOSMinorVersion == allowiOSVersionMinor &&
+         currentOSPatchVersion < allowiOSVersionPatch) ||
+        (currentOSMajorVersion == 11 &&
+         currentOSMinorVersion < 2) ||
+        (currentOSMajorVersion == 11 &&
+         currentOSMinorVersion == 2 &&
+         currentOSPatchVersion < 5)
+        )
     {
         NSString *allowediOSVersionMinorString = @"";
         NSString *allowediOSVersionPatchString = @"";
@@ -2563,8 +2574,8 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         }
         NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
-                                            NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
                                             SEBShortAppName,
+                                            NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
                                             (unsigned long)allowiOSVersionMajor,
                                             allowediOSVersionMinorString,
                                             allowediOSVersionPatchString];
