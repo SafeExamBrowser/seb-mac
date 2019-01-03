@@ -66,8 +66,7 @@
 
 //    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    _SEBTitleLabel.text = [NSString stringWithFormat:@"SafeExamBrowser %@",
-                           versionString];
+    _SEBTitleLabel.text = [NSString stringWithFormat:@"%@ %@", SEBFullAppName , versionString];
     
     // Add an observer for refreshing the table view
     [[NSNotificationCenter defaultCenter] addObserver:self

@@ -707,14 +707,14 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                         initWithDomain:sebErrorDomain
                         code:SEBErrorOpeningUniversalLinkFailed
                         userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
-                                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"Searching for a valid SEB config file was canceled.", nil),
+                                    NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file was canceled.", nil), SEBShortAppName],
                                     }];
         } else if (!_didReconfigureWithUniversalLink) {
             error = [[NSError alloc]
                      initWithDomain:sebErrorDomain
                      code:SEBErrorOpeningUniversalLinkFailed
                      userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
-                                 NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"No SEB settings have been found at the specified URL. Use a correct link to configure SEB or start an exam.", nil),
+                                 NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam.", nil), SEBShortAppName, SEBShortAppName],
                                  }];
         }
 
@@ -736,7 +736,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                           universalLink:universalLink];
     } else {
         if (!_isShowingOpeningConfigFileDialog) {
-            [_delegate showOpeningConfigFileDialog:NSLocalizedString(@"Searching for a valid SEB config file …", nil)
+            [_delegate showOpeningConfigFileDialog:[NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file …", nil), SEBShortAppName]
                                              title:NSLocalizedString(@"Opening Universal Link", nil)
                                     cancelCallback:self
                                           selector:@selector(cancelDownloadingConfigFile)];

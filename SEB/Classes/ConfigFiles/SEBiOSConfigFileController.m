@@ -54,8 +54,8 @@
             if (_sebViewController.alertController) {
                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
-                                                                                      message:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again.", nil)
+            _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Re-Configured", nil), SEBExtraShortAppName]
+                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"New settings have been saved, they will also be used when you start %@ next time again.", nil), SEBShortAppName]
                                                                                preferredStyle:UIAlertControllerStyleAlert];
             [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
                                                                                    style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -136,13 +136,13 @@
 
 - (void) showAlertWrongPassword {
     NSString *title = NSLocalizedString(@"Cannot Decrypt Settings", nil);
-    NSString *informativeText = NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil);
+    NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible %@ version.", nil), SEBShortAppName];
     [self showAlertWithTitle:title andText:informativeText];
 }
 
 - (void) showAlertCorruptedSettings {
     NSString *title = NSLocalizedString(@"Opening New Settings Failed!", nil);
-    NSString *informativeText = NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil);
+    NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted.", nil), SEBShortAppName];
     [self showAlertWithTitle:title andText:informativeText];
 }
 

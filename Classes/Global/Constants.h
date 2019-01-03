@@ -33,6 +33,7 @@
 //
 
 #import "DDLog.h"
+#import "SEBConstants.h"
 
 #ifndef SafeExamBrowser_Constants_h
 #define SafeExamBrowser_Constants_h
@@ -412,8 +413,6 @@ static NSString __unused *RemoteDictationDefaultsKey = @"Dictation Enabled";
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
 // Error numbers for SEB error domains
-static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
-
 enum {
     SEBErrorASCCNoConfigFound                   = 1000,
     SEBErrorASCCNoWiFi                          = 1001,
@@ -422,21 +421,6 @@ enum {
 };
 typedef NSUInteger SEBErrorDomainErrors;
 
-static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
-static NSString __unused *SEBHelpPage = @"https://safeexambrowser.org/macosx";
-
-static NSString __unused *SEBClientSettings = @"SebClientSettings.seb";
-static NSString __unused *SEBFileExtension = @"seb";
-static NSString __unused *SEBMIMEType = @"application/seb";
-static NSString __unused *SEBProtocolScheme = @"seb";
-static NSString __unused *SEBSSecureProtocolScheme = @"sebs";
-static NSString __unused *SEBClientSettingsACCSubdomainShort = @"seb";
-static NSString __unused *SEBClientSettingsACCSubdomainLong = @"safeexambrowser";
-static NSString __unused *SEBClientSettingsACCPath = @"safeexambrowser";
-static NSString __unused *SEBClientSettingsFilename = @"SEBClientSettings.seb";
-static NSString __unused *SEBSettingsFilename = @"SEBSettings.seb";
-static NSString __unused *SEBExamSettingsFilename = @"SEBExamSettings.seb";
-static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/11.1.2 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
 static NSString __unused *SEBiOSUserAgentDesktopMac = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15";
