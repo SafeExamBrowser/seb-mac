@@ -2116,7 +2116,8 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSURL *startURL = [NSURL URLWithString:startURLString];
     if (startURLString.length == 0 ||
-        ([startURL.host hasSuffix:@"safeexambrowser.org"] &&
+        (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+          [startURL.host hasSuffix:SEBWebsiteShort]) &&
          [startURL.path hasSuffix:@"start"])) {
         // Start URL was set to the default value, show init assistant later
         [self openInitAssistant];
