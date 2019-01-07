@@ -49,6 +49,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
++ (NSArray *)SEBExtensions
+{
+    return @[@"CABSettings"];
+}
+
+
 // Read Info.plist values from bundle
 - (id)infoValueForKey:(NSString*)key
 {

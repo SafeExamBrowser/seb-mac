@@ -37,7 +37,60 @@
 
 @implementation SEBSettings
 
-+ (NSDictionary *)defaultSettings
+
+static SEBSettings *sharedSEBSettings = nil;
+
+
++ (SEBSettings *)sharedSEBSettings
+{
+    @synchronized(self)
+    {
+        if (sharedSEBSettings == nil)
+        {
+            sharedSEBSettings = [[self alloc] init];
+        }
+    }
+    
+    return sharedSEBSettings;
+}
+
+
+- (NSDictionary *)defaultSettings
+{
+    if (!_defaultSettings) {
+        NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:[self defaultSEBSettings]];
+        
+        NSArray *sebExtensions = [MyGlobals SEBExtensions];
+        for (NSString *sebExtensionString in sebExtensions) {
+            Class SEBExtensionClass = NSClassFromString(sebExtensionString);
+            
+            if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(@"defaultSettings")]) {
+                NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:[SEBExtensionClass defaultSettings]];
+                
+                NSArray *subDictionaries = [completeDefaultSettings allKeys];
+                for (NSString *subDictKey in subDictionaries) {
+                    NSDictionary *subCABDict = [defaultExtensionSettings objectForKey:subDictKey];
+                    if (subCABDict.count > 0) {
+                        NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
+                        if (subDict) {
+                            [subDict addEntriesFromDictionary:subCABDict];
+                            [completeDefaultSettings setObject:subDict forKey:subDictKey];
+                            [defaultExtensionSettings removeObjectForKey:subDictKey];
+                        } else {
+                            [completeDefaultSettings setObject:subCABDict forKey:subDictKey];
+                        }
+                    }
+                }
+                [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
+            }
+        }
+        _defaultSettings = completeDefaultSettings.copy;
+    }
+    return _defaultSettings;
+}
+
+
+- (NSDictionary *)defaultSEBSettings
 {
     return  @{@"rootSettings" :
                   [NSDictionary dictionaryWithObjectsAndKeys:
@@ -80,7 +133,7 @@
                    
                    @5,
                    @"allowiOSVersionNumberPatch",
-
+                   
                    @NO,
                    @"allowPDFPlugIn",
                    
@@ -101,7 +154,7 @@
                    
                    @NO,
                    @"allowSwitchToApplications",
-
+                   
                    @NO,
                    @"allowUserAppFolderInstall",
                    
@@ -131,16 +184,16 @@
                    
                    @YES,
                    @"browserURLSalt",
-
+                   
                    @"",
                    @"browserUserAgent",
-
+                   
                    [NSNumber numberWithLong:browserUserAgentModeiOSDefault],
                    @"browserUserAgentiOS",
-
+                   
                    @"",
                    @"browserUserAgentiOSCustom",
-
+                   
                    [NSNumber numberWithLong:browserUserAgentModeMacDefault],
                    @"browserUserAgentMac",
                    
@@ -170,7 +223,7 @@
                    
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
-
+                   
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
                    
@@ -182,10 +235,10 @@
                    
                    @NO,
                    @"configFileEncryptUsingIdentity",
-
+                   
                    @YES,
                    @"createNewDesktop",
-
+                   
                    @YES,
                    @"detectStoppedProcess",
                    
@@ -212,7 +265,7 @@
                    
                    @NO,
                    @"enableDrawingEditor",
-
+                   
                    @NO,
                    @"enableJava",
                    
@@ -383,10 +436,10 @@
                    
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
-
+                   
                    @NO,
                    @"logSendingRequiresAdminPassword",
-
+                   
                    @"100%",
                    @"mainBrowserWindowHeight",
                    
@@ -455,7 +508,7 @@
                    
                    @YES,
                    @"mobilePreventAutoLock",
-
+                   
                    @YES,
                    @"monitorProcesses",
                    
@@ -488,10 +541,10 @@
                    
                    @NO,
                    @"newBrowserWindowShowReloadWarning",
-
+                   
                    [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
                    @"newBrowserWindowShowURL",
-
+                   
                    @NO,
                    @"openDownloads",
                    
@@ -515,13 +568,13 @@
                    
                    @"",
                    @"quitURL",
-
+                   
                    @YES,
                    @"quitURLConfirm",
-
+                   
                    @NO,
                    @"quitURLRestart",
-
+                   
                    @NO,
                    @"removeBrowserProfile",
                    
@@ -560,7 +613,7 @@
                    
                    @YES,
                    @"showBackToStartButton",
-
+                   
                    @NO,
                    @"showInputLanguage",
                    
@@ -569,13 +622,13 @@
                    
                    @NO,
                    @"showNavigationButtons",
-
+                   
                    @YES,
                    @"showReloadButton",
                    
                    @NO,
                    @"showScanQRCodeButton",
-
+                   
                    @NO,
                    @"showReloadWarning",
                    
@@ -590,10 +643,10 @@
                    
                    @NO,
                    @"startURLAllowDeepLink",
-
+                   
                    @NO,
                    @"startURLAppendQueryParameter",
-
+                   
                    [NSNumber numberWithLong:40],
                    @"taskBarHeight",
                    
@@ -732,3 +785,4 @@
 
 
 @end
+
