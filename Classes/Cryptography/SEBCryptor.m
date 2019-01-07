@@ -513,8 +513,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
-    NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
-    
+    NSDictionary *defaultSettings = [[[SEBSettings sharedSEBSettings] defaultSettings] objectForKey:dictionaryKey];
+
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
     if (containedKeys.count == 0 && configKeysAlphabetically.count != 0) {
         // In case this key was empty, we use all current keys
