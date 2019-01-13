@@ -280,7 +280,7 @@ static NSNumber *_logLevel;
             // Generate Exam Settings Key
             NSData *examSettingsKey = [sharedSEBCryptor checksumForLocalPrefDictionary:currentUserDefaults];
             // If exam settings are corrupted
-            if ([sharedSEBCryptor checkExamSettings:examSettingsKey] == false) {
+            if ([sharedSEBCryptor checkExamSettings:examSettingsKey] == NO) {
                 // Delete all corrupted settings
                 [currentUserDefaults removeAllObjects];
                 // Set the flag to indicate to user later that settings have been reset

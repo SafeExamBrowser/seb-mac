@@ -98,7 +98,7 @@
 @class AboutSEBiOSViewController;
 
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate, NSURLSessionDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -153,6 +153,9 @@
 @property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
+
+@property (strong) id URLSession;
+@property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
