@@ -154,9 +154,6 @@
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
-@property (strong) id URLSession;
-@property (strong) NSURLSessionDataTask *downloadTask;
-
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
 @property (strong, nonatomic) UIAlertController *allowediOSAlertController;

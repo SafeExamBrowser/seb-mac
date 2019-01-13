@@ -1910,14 +1910,14 @@ void run_on_ui_thread(dispatch_block_t block)
         urlComponents.scheme = @"http";
         NSURL *httpURL = urlComponents.URL;
         
-        if (!_URLSession) {
+        if (!self.browserController.URLSession) {
             NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+            self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
         }
-        if (_downloadTask) {
-            [_downloadTask cancel];
+        if (self.browserController.downloadTask) {
+            [self.browserController.downloadTask cancel];
         }
-        _downloadTask = [_URLSession dataTaskWithURL:httpURL
+        self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpURL
                                    completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                          {
                              if (error) {
@@ -1925,10 +1925,10 @@ void run_on_ui_thread(dispatch_block_t block)
                                  NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                                  urlComponents.scheme = @"https";
                                  NSURL *httpsURL = urlComponents.URL;
-                                 self.downloadTask = [self.URLSession dataTaskWithURL:httpsURL
+                                 self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
                                                             completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                                   {
-                                                      self.downloadTask = nil;
+                                                      self.browserController.downloadTask = nil;
                                                       // Still couldn't download the .seb file: present an error and abort
                                                       if (error) {
                                                           error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
@@ -1937,12 +1937,12 @@ void run_on_ui_thread(dispatch_block_t block)
                                                           [self storeDownloadedData:sebFileData fromURL:url];
                                                       }
                                                   }];
-                                 [self.downloadTask resume];
+                                 [self.browserController.downloadTask resume];
                              } else {
                                  [self storeDownloadedData:sebFileData fromURL:url];
                              }
                          }];
-        [_downloadTask resume];
+        [self.browserController.downloadTask resume];
         return;
 
     } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
@@ -1950,13 +1950,13 @@ void run_on_ui_thread(dispatch_block_t block)
         NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         urlComponents.scheme = @"https";
         NSURL *httpsURL = urlComponents.URL;
-        if (_downloadTask) {
-            [_downloadTask cancel];
+        if (self.browserController.downloadTask) {
+            [self.browserController.downloadTask cancel];
         }
-        _downloadTask = [self.URLSession dataTaskWithURL:httpsURL
+        self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
                                            completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                              {
-                                 self.downloadTask = nil;
+                                 self.browserController.downloadTask = nil;
                                  // Still couldn't download the .seb file: present an error and abort
                                  if (error || !sebFileData) {
                                      // Couldn't download the .seb file: for the case it is a deep link, treat the link
@@ -1968,10 +1968,13 @@ void run_on_ui_thread(dispatch_block_t block)
                              }];
     } else {
         // We got passed a http(s) URL: Try to download the seb data directly
-        self.downloadTask = [self.URLSession dataTaskWithURL:url
+        if (self.browserController.downloadTask) {
+            [self.browserController.downloadTask cancel];
+        }
+        self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:url
                                            completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                              {
-                                 self.downloadTask = nil;
+                                 self.browserController.downloadTask = nil;
                                  if (error || !sebFileData) {
                                      // Check if the URL is in an associated domain
                                      [self storeSEBSettingsDownloadedDirectlySuccessful:error];
