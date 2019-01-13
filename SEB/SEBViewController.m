@@ -1903,6 +1903,11 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     
+    if (!self.browserController.URLSession) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    }
+
     // Download the .seb file directly into memory (not onto disc like other files)
     if ([url.scheme isEqualToString:SEBProtocolScheme]) {
         // If it's a seb:// URL, we try to download it by http
@@ -1910,10 +1915,6 @@ void run_on_ui_thread(dispatch_block_t block)
         urlComponents.scheme = @"http";
         NSURL *httpURL = urlComponents.URL;
         
-        if (!self.browserController.URLSession) {
-            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-            self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-        }
         if (self.browserController.downloadTask) {
             [self.browserController.downloadTask cancel];
         }
@@ -1966,6 +1967,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                      [self storeDownloadedData:sebFileData fromURL:url];
                                  }
                              }];
+        [self.browserController.downloadTask resume];
+
     } else {
         // We got passed a http(s) URL: Try to download the seb data directly
         if (self.browserController.downloadTask) {
@@ -1989,17 +1992,20 @@ void run_on_ui_thread(dispatch_block_t block)
                                      [self storeDownloadedData:sebFileData fromURL:url];
                                  }
                              }];
+        [self.browserController.downloadTask resume];
     }
 }
 
 
 - (void) storeDownloadedData:(NSData *)sebFileData fromURL:(NSURL *)url
 {
-    directlyDownloadedURL = url;
-    [self.configFileController storeNewSEBSettings:sebFileData
-                                        forEditing:NO
-                                          callback:self
-                                          selector:@selector(storeSEBSettingsDownloadedDirectlySuccessful:)];
+    run_on_ui_thread(^{
+        self->directlyDownloadedURL = url;
+        [self.configFileController storeNewSEBSettings:sebFileData
+                                            forEditing:NO
+                                              callback:self
+                                              selector:@selector(storeSEBSettingsDownloadedDirectlySuccessful:)];
+    });
 }
 
 
