@@ -446,7 +446,6 @@
 		6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		6909E3381A019F7A0086A741 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
 		6909E3391A019F7A0086A741 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
-		690B0A0E1A45ED4800CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		690B5B6019DBEAA400704F36 /* SEBDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItem.h; path = Classes/SEBDock/SEBDockItem.h; sourceTree = "<group>"; };
 		690B5B6119DBEAA400704F36 /* SEBDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItem.m; path = Classes/SEBDock/SEBDockItem.m; sourceTree = "<group>"; };
 		690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockController.h; path = Classes/SEBDock/SEBDockController.h; sourceTree = "<group>"; };
@@ -577,6 +576,8 @@
 		699731C318C8D6ED0069FE35 /* CapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindow.m; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBUIUserDefaultsController.h; path = Classes/Preferences/SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBUIUserDefaultsController.m; path = Classes/Preferences/SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
+		699D2F6721ECDBD900D3A2F1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesGeneral.strings; sourceTree = "<group>"; };
+		699D2F6821ECDBF600D3A2F1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesResources.strings; sourceTree = "<group>"; };
 		699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
 		699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
 		69A23AB51DB500C700110243 /* NSScreen+SEBScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScreen+SEBScreen.h"; sourceTree = "<group>"; };
@@ -584,7 +585,6 @@
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBReloadIcon.iconset; path = Resources/Icons/SEBReloadIcon.iconset; sourceTree = "<group>"; };
 		69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIcon.iconset; path = Resources/Icons/SEBRestartIcon.iconset; sourceTree = "<group>"; };
-		69A68DA11A46143E00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPreferencesController.h; path = Classes/Preferences/PreferencesWindow/MBPreferencesController.h; sourceTree = "<group>"; };
 		69A9A22B1368784500840AE1 /* MBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MBPreferencesController.m; path = Classes/Preferences/PreferencesWindow/MBPreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A22E1369AF9600840AE1 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENCE; path = Resources/LICENCE; sourceTree = "<group>"; };
@@ -2098,8 +2098,8 @@
 		696A3AF719F6FC3F00274214 /* PreferencesResources.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69A68DA11A46143E00ACA34E /* de */,
 				69F0A3331AD3FFDA008A3553 /* Base */,
+				699D2F6821ECDBF600D3A2F1 /* de */,
 			);
 			name = PreferencesResources.xib;
 			sourceTree = "<group>";
@@ -2151,8 +2151,8 @@
 		69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				690B0A0E1A45ED4800CD5FEF /* de */,
 				69F0A32C1AD3FFDA008A3553 /* Base */,
+				699D2F6721ECDBD900D3A2F1 /* de */,
 			);
 			name = PreferencesGeneral.xib;
 			sourceTree = "<group>";
