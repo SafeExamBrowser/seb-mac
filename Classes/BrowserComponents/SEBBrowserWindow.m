@@ -1697,6 +1697,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 //        [listener ignore];
 //        return;
 //    }
+    
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
     if ([request.URL.scheme isEqualToString:@"data"]) {
         CFStringRef mimeType = (__bridge CFStringRef)type;
