@@ -85,4 +85,32 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
+- (NSString *)createUniqueFilename:(NSString *)filename
+{
+    // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
+    // to the filename
+    if (filename.length == 0) {
+        filename = NSLocalizedString(@"untitled", @"untitled filename");
+    } else {
+        NSRange copyStringRange = [filename rangeOfString:NSLocalizedString(@" copy", @"word indicating the duplicate of a file, same as in Finder ' copy'") options:NSBackwardsSearch];
+        if (copyStringRange.location == NSNotFound) {
+            filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+        } else {
+            NSString *copyNumberString = [filename substringFromIndex:copyStringRange.location+copyStringRange.length];
+            if (copyNumberString.length == 0) {
+                filename = [filename stringByAppendingString:NSLocalizedString(@" 1", nil)];
+            } else {
+                NSInteger copyNumber = [[copyNumberString substringFromIndex:1] integerValue];
+                if (copyNumber == 0) {
+                    filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+                } else {
+                    filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", copyNumber+1]];
+                }
+            }
+        }
+    }
+    return filename;
+}
+
+
 @end

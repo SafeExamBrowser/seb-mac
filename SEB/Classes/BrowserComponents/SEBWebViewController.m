@@ -395,6 +395,7 @@
  navigationType:(UIWebViewNavigationType) __unused navigationType
 {
     NSURL *url = [request URL];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
     if ([[url absoluteString] isEqualToString:quitURLTrimmed]) {
@@ -443,7 +444,6 @@
     if ([url.scheme isEqualToString:@"newtab"]) {
         
         // First check if links requesting to be opened in a new windows are generally blocked
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
             // load link only if it's on the same host like the one of the current page
             if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
@@ -480,7 +480,8 @@
         if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
             NSString *mediaType = [urlResourceSpecifier substringToIndex:mediaTypeRange.location];
             NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
-            if ([mediaTypeParameters indexOfObject:@"application/seb"] != NSNotFound) {
+            if ([mediaTypeParameters indexOfObject:@"application/seb"] != NSNotFound &&
+                [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
                 NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                 NSData *sebConfigData;
                 if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
@@ -489,15 +490,29 @@
                     sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 }
                 [_browserTabViewController conditionallyOpenSEBConfigFromData:sebConfigData];
-                return NO;
+            } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"]) {
+                NSString *fileDataString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
+                NSData *fileData;
+                if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
+                    fileData = [fileDataString dataUsingEncoding:NSUTF8StringEncoding];
+                } else {
+                    fileData = [[NSData alloc] initWithBase64EncodedString:fileDataString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                }
+                if ([self saveData:fileData]) {
+                    DDLogInfo(@"Successfully saved website generated data: %@", url);
+                } else {
+                    DDLogError(@"Failed to save website generated data: %@", url);
+                }
             }
         }
+        return NO;
     }
     
     // Check if this is a seb:// or sebs:// link or a .seb file link
-    if ([url.scheme isEqualToString:SEBProtocolScheme] ||
+    if (([url.scheme isEqualToString:SEBProtocolScheme] ||
         [url.scheme isEqualToString:SEBSSecureProtocolScheme] ||
-        [fileExtension isEqualToString:SEBFileExtension]) {
+        [fileExtension isEqualToString:SEBFileExtension]) &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
         [_browserTabViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
@@ -512,7 +527,7 @@
                 NSString *filename = [url lastPathComponent];
                 DDLogInfo(@"%s: Filename: %@", __FUNCTION__, filename);
                 // Get the path to the App's Documents directory
-                NSString *docPath = [self documentsDirectoryPath];
+                NSString *docPath = [self tempDirectoryPath];
                 // Combine the filename and the path to the documents dir into the full path
                 NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", docPath, filename];
                 
@@ -564,6 +579,30 @@
 }
 
 
+- (BOOL) saveData:(NSData *)data
+{
+    // Get the filename of the loaded ressource form the UIWebView's request URL
+//    NSString *filename = [url lastPathComponent];
+//    DDLogInfo(@"%s: Filename: %@", __FUNCTION__, filename);
+    // Get the path to the App's Documents directory
+    NSURL *documentsDirectory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+    // Combine the filename and the path to the documents dir into the full path
+//    NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", docPath, filename];
+    NSString *filename = NSLocalizedString(@"Untitled", @"untitled filename");
+    
+    NSString *fullPath = [documentsDirectory URLByAppendingPathComponent:filename].path;
+    
+    NSDate *time = [NSDate date];
+    NSDateFormatter* dateFormatter = [NSDateFormatter new];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_hh-mm-ssZZZZZ"];
+    NSString *timeString = [dateFormatter stringFromDate:time];
+    fullPath = [NSString stringWithFormat:@"%@_%@", fullPath, timeString];
+
+    return [NSFileManager.defaultManager createFileAtPath:fullPath contents:data attributes:nil];
+}
+
+    
 - (void)setBackForwardAvailabilty
 {
     [_browserTabViewController setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];
@@ -648,8 +687,8 @@
 }
 
 
-- (NSString *)documentsDirectoryPath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+- (NSString *)tempDirectoryPath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     return documentsDirectoryPath;
 }
