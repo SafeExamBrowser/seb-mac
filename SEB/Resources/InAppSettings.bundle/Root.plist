@@ -90,6 +90,14 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
+			<string>Downloads</string>
+			<key>File</key>
+			<string>DownUploads</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
 			<string>Exam Session</string>
 			<key>File</key>
 			<string>Exam</string>
