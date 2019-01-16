@@ -52,7 +52,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Require Admin Password for Sending Logs</string>
+			<string>Sending Logs Requires Admin PW</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_logSendingRequiresAdminPassword</string>
 		</dict>

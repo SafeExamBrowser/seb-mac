@@ -69,7 +69,7 @@
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
 
 - (id) infoValueForKey:(NSString *)key;
-- (NSString *)documentsDirectoryPath;
+- (NSString *)tempDirectoryPath;
 
 - (void)backToStart;
 - (void)goBack;
