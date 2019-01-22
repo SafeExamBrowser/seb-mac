@@ -20,7 +20,7 @@
 - (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
-- (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
+- (SecKeyRef)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
 
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
