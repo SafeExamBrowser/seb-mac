@@ -56,7 +56,6 @@
 - (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
 
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getDataForCertificate:(SecCertificateRef)certificate;
@@ -81,7 +80,6 @@
 - (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
 
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getDataForCertificate:(SecCertificateRef)certificate;

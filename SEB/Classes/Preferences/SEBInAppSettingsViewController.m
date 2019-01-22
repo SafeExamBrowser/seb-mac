@@ -38,10 +38,23 @@
             _identitiesCounter = [NSMutableArray new];
             for (NSUInteger ruleCounter = 0; ruleCounter < self.identitiesNames.count; ruleCounter++) {
                 [_identitiesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
-                ruleCounter++;
             }
         }
 
+        // If certificates aren't available yet, get them from Keychain
+        if (!self.certificatesNames) {
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            NSArray *names;
+            NSArray *certificatesInKeychain = [keychainManager getCertificatesAndNames:&names];
+            self.certificates = certificatesInKeychain;
+            self.certificatesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
+            [self.certificatesNames addObjectsFromArray:names];
+            _certificatesCounter = [NSMutableArray new];
+            for (NSUInteger ruleCounter = 0; ruleCounter < self.certificatesNames.count; ruleCounter++) {
+                [_certificatesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
+            }
+        }
+        
         // Display current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];

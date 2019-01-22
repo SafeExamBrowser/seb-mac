@@ -108,12 +108,6 @@
 }
 
 
-- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate
-{
-    return [self.delegate createIdentityWithCertificate:certificate];
-}
-
-
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef
 {
     return [self.delegate copyCertificateFromIdentity:identityRef];
