@@ -454,7 +454,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
         // namely, the client thread.
 
         [[self class] customHTTPProtocol:self logWithFormat:@"challenge %@ cancelled; other challenge pending", [[challenge protectionSpace] authenticationMethod]];
-        assert(NO);
+        //assert(NO);
         [self clientThreadCancelAuthenticationChallenge:challenge completionHandler:completionHandler];
     } else {
         id<CustomHTTPProtocolDelegate>  strongDelegate;
