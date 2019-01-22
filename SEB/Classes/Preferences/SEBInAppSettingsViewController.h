@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *identitiesCounter;
 @property (strong, nonatomic) NSArray *identities;
 
+@property (strong, nonatomic) NSMutableArray *certificatesNames;
+@property (nonatomic, strong) NSMutableArray *certificatesCounter;
+@property (strong, nonatomic) NSArray *certificates;
+
 @property (nonatomic, strong) NSMutableDictionary *customCells;
 
 @property (nonatomic, strong) NSMutableArray *combinedURLFilterRules;
