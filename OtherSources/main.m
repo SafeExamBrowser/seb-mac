@@ -32,6 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
+#define NDEBUG
 
 #import <Cocoa/Cocoa.h>
 #import "NSWindow+SEBWindow.h"
