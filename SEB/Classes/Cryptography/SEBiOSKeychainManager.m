@@ -19,13 +19,15 @@
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names {
     OSStatus status;
     
-    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                           (__bridge id)kSecClassIdentity, (__bridge id)kSecClass,
+    NSDictionary *query = @{
+                            (id)kSecClass: (id)kSecClassIdentity,
                            //kCFBooleanTrue, kSecAttrCanEncrypt,
                            //kCFBooleanTrue, kSecAttrCanDecrypt,
-                           (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnRef,
-                           (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
-                           nil];
+//                           (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
+//                            (__bridge id)kSecAttrAccessible: (__bridge id)kSecAttrAccessibleWhenUnlocked,
+                            (id)kSecMatchLimit: (id)kSecMatchLimitAll,
+                            (id)kSecReturnRef: @YES,
+                           };
     CFArrayRef items = NULL;
     status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&items);
     if (status != errSecSuccess) {
@@ -526,6 +528,34 @@
 
 
 - (BOOL) importIdentityFromData:(NSData*)identityData {
+    
+    NSString *password = userDefaultsMasala;
+    NSDictionary* options = @{ (id)kSecImportExportPassphrase : password };
+    
+    CFArrayRef rawItems = NULL;
+    OSStatus status = SecPKCS12Import((__bridge CFDataRef)identityData,
+                                      (__bridge CFDictionaryRef)options,
+                                      &rawItems);
+
+    NSArray* items = (NSArray*)CFBridgingRelease(rawItems); // Transfer to ARC
+    NSDictionary* firstItem = nil;
+    if ((status == errSecSuccess) && ([items count]>0)) {
+        firstItem = items[0];
+    }
+
+    SecIdentityRef identity =
+    (SecIdentityRef)CFBridgingRetain(firstItem[(id)kSecImportItemIdentity]);
+
+    NSDictionary* addQuery = @{ (id)kSecValueRef:   (__bridge id)identity,
+//                                (id)kSecClass:      (id)kSecClassCertificate,
+                                (id)kSecAttrLabel:  SEBFullAppName,
+                                };
+
+    status = SecItemAdd((__bridge CFDictionaryRef)addQuery, NULL);
+    if (status != errSecSuccess) {
+        // Handle the error
+    }
+
     //    // Create a trusted application object for SEB
     //    SecTrustedApplicationRef trustedApplicationRef;
     //    OSStatus oserr = SecTrustedApplicationCreateFromPath(NULL, &trustedApplicationRef);
