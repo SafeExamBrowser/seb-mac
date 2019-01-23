@@ -75,8 +75,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // Initialize console loggers
 #ifdef DEBUG
     // We show log messages only in Console.app and the Xcode console in debug mode
-    [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[DDOSLogger sharedInstance]];
 #endif
 
     [self initializeTemporaryLogger];

@@ -39,8 +39,7 @@
 
 + (MyGlobals*)sharedMyGlobals;
 
-+ (int)ddLogLevel;
-//+ (void)ddSetLogLevel:(int)logLevel;
++ (DDLogLevel)ddLogLevel;
 
 + (NSArray *)SEBExtensions;
 
@@ -70,7 +69,5 @@
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
 - (NSString *)createUniqueFilename:(NSString *)filename;
-
-//- (NSArray *)ddLogLevels;
 
 @end
