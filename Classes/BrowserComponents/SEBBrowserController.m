@@ -620,6 +620,13 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+- (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
+{
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:arguments];
+    DDLogVerbose(message);
+}
+
+
 // Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
 // or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
 // for example to scan the newly received HTML data
