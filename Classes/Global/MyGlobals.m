@@ -35,17 +35,15 @@
 #import "SynthesizeSingleton.h"
 #import "MyGlobals.h"
 
-//static int ddLogLevel = LOG_LEVEL_VERBOSE;
-
 @implementation MyGlobals
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 
-+ (int)ddLogLevel
++ (DDLogLevel)ddLogLevel
 {
-    ddLogLevel = [[self sharedMyGlobals] logLevel];
-    return (int)ddLogLevel;
+    ddLogLevel = (DDLogLevel)[[self sharedMyGlobals] logLevel];
+    return ddLogLevel;
 }
 
 
