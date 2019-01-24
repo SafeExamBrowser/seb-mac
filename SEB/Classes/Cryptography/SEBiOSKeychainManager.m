@@ -221,25 +221,47 @@
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate
 {
     SecKeyRef publicKeyRef = [self copyPublicKeyFromCertificate:certificate];
-    
-//    CFTypeRef publicKeyResult = NULL;
-//    OSStatus status;
-//    NSDictionary *query = @{
-//                            (id)kSecClass: (id)kSecClassKey,
-//                            (id)kSecValueRef: (__bridge id)publicKeyRef,
-//                            (id)kSecReturnData: @YES,
-//                            };
-//    status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&publicKeyResult);
-    
-    CFErrorRef error = NULL;
-    NSData *publicKeyData = (NSData*)CFBridgingRelease(  // ARC takes ownership
-                                                 SecKeyCopyExternalRepresentation(publicKeyRef, &error)
-                                                 );
-    if (publicKeyRef) CFRelease(publicKeyRef);
-    if (!publicKeyData) {
-        DDLogError(@"Could not extract public key data:  %@", error);
-        return nil;
+    NSData *publicKeyData;
+
+    if (@available(iOS 10.0, *)) {
+        CFErrorRef error = NULL;
+        publicKeyData = (NSData*)CFBridgingRelease(SecKeyCopyExternalRepresentation(publicKeyRef, &error));
+        if (publicKeyRef) CFRelease(publicKeyRef);
+        if (!publicKeyData) {
+            DDLogError(@"Could not extract public key data:  %@", error);
+            return nil;
+        }
+    } else {
+        // iOS 9 didn't had the API above, ugly workaround to follow:
+        NSString *const keychainTag = @"X509_KEY";
+        OSStatus putResult, delResult = noErr;
+        
+        // Params for putting the key first
+        NSMutableDictionary *putKeyParams = [NSMutableDictionary new];
+        putKeyParams[(__bridge id) kSecClass] = (__bridge id) kSecClassKey;
+        putKeyParams[(__bridge id) kSecAttrKeyType] = (__bridge id) kSecAttrKeyTypeRSA;
+        putKeyParams[(__bridge id) kSecAttrApplicationTag] = keychainTag;
+        putKeyParams[(__bridge id) kSecValueRef] = (__bridge id) (publicKeyRef);
+        putKeyParams[(__bridge id) kSecReturnData] = (__bridge id) (kCFBooleanTrue); // Request the key's data to be returned too
+        
+        // Params for deleting the data
+        NSMutableDictionary *delKeyParams = [[NSMutableDictionary alloc] init];
+        delKeyParams[(__bridge id) kSecClass] = (__bridge id) kSecClassKey;
+        delKeyParams[(__bridge id) kSecAttrApplicationTag] = keychainTag;
+        delKeyParams[(__bridge id) kSecReturnData] = (__bridge id) (kCFBooleanTrue);
+        
+        // Put the key
+        putResult = SecItemAdd((__bridge CFDictionaryRef) putKeyParams, (void *)&publicKeyData);
+        // Delete the key
+        delResult = SecItemDelete((__bridge CFDictionaryRef)(delKeyParams));
+        
+        if ((putResult != errSecSuccess) || (delResult != errSecSuccess))
+        {
+            DDLogError(@"Could not extract public key data: %d", (int)putResult);
+            return nil;
+        }
     }
+    
     
     NSData *publicKeyHash = [self generateSHA1HashForData:publicKeyData];
 
@@ -538,7 +560,6 @@
     (SecIdentityRef)CFBridgingRetain(firstItem[(id)kSecImportItemIdentity]);
 
     NSDictionary* addQuery = @{ (id)kSecValueRef:   (__bridge id)identity,
-//                                (id)kSecClass:      (id)kSecClassCertificate,
                                 (id)kSecAttrLabel:  SEBFullAppName,
                                 };
 
