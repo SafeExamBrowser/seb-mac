@@ -568,6 +568,7 @@
         DDLogError(@"Adding an identity to the Keychain using SecItemAdd failed (oserr=%d)\n", status);
         return NO;
     }
+    DDLogInfo(@"Successfully imported identity into the Keychain");
     
     return YES;
 }
