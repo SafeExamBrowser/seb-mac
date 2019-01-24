@@ -53,7 +53,7 @@
     return nil;
 }
 
-- (SecKeyRef)currentConfigKeyRef {
+- (NSData *)currentConfigKeyHash {
     [NSException raise:NSInternalInconsistencyException
                 format:@"property is write-only"];
     return nil;
@@ -337,7 +337,7 @@
 
 - (void) setConfigFileCredentials
 {
-    [self.configFileVC setCurrentConfigFileKeyRef:_currentConfigKeyRef];
+    [self.configFileVC setCurrentConfigFileKeyHash:_currentConfigKeyHash];
     [self.configFileVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
 }
 
@@ -1020,7 +1020,7 @@
     _currentConfigPassword = nil;
     _currentConfigPasswordIsHash = NO;
     // Reset the config file encrypting identity (key) reference
-    _currentConfigKeyRef = nil;
+    _currentConfigKeyHash = nil;
     // Reset the settings password and confirm password fields and the identity popup menu
     [self.configFileVC resetSettingsPasswordFields];
     // Reset the settings identity popup menu
@@ -1088,7 +1088,7 @@
     _currentConfigPassword = nil;
     _currentConfigPasswordIsHash = NO;
     // Reset the config file encrypting identity (key) reference
-    _currentConfigKeyRef = nil;
+    _currentConfigKeyHash = nil;
     
     // Write values from local to private preferences
     [self.configFileManager storeIntoUserDefaults:localClientPreferences];
@@ -1148,7 +1148,7 @@
             // Pass saved credentials from the last loaded file to the Config File Manager
             self.configFileManager.currentConfigPassword = _currentConfigPassword;
             self.configFileManager.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
-            self.configFileManager.currentConfigKeyRef = _currentConfigKeyRef;
+            self.configFileManager.currentConfigKeyHash = _currentConfigKeyHash;
             
             // Decrypt and store the .seb config file
             if ([self.configFileManager storeNewSEBSettings:sebData forEditing:YES]) {

@@ -213,6 +213,13 @@
 }
 
 
+- (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef
+{
+    SecCertificateRef certificateRef = [self copyCertificateFromIdentity:identityRef];
+    return [self getPublicKeyHashFromCertificate:certificateRef];
+}
+
+
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate
 {
     SecKeyRef publicKeyRef = [self copyPublicKeyFromCertificate:certificate];

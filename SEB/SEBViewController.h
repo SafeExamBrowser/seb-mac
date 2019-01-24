@@ -148,7 +148,7 @@
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
-@property (readwrite) SecKeyRef configFileKeyRef;
+@property (strong, nonatomic) NSData *configFileKeyHash;
 
 @property (strong, nonatomic) QRCodeReaderViewController *codeReaderViewController;
 @property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;

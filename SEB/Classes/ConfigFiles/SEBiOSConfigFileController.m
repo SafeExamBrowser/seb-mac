@@ -41,8 +41,11 @@
     // Save settings password from the opened config file
     // for possible editing in InAppSettings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (!sebFileCrentials.password) {
+        sebFileCrentials.password = @"";
+    }
     [preferences setSecureString:sebFileCrentials.password forKey:@"org_safeexambrowser_settingsPassword"];
-    self.sebViewController.configFileKeyRef = sebFileCrentials.keyRef;
+    self.sebViewController.configFileKeyHash = sebFileCrentials.publicKeyHash;
 }
 
 
@@ -83,8 +86,11 @@
     // Save settings password from the opened config file
     // for possible editing in InAppSettings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (!sebFileCrentials.password) {
+        sebFileCrentials.password = @"";
+    }
     [preferences setSecureString:sebFileCrentials.password forKey:@"org_safeexambrowser_settingsPassword"];
-    self.sebViewController.configFileKeyRef = sebFileCrentials.keyRef;
+    self.sebViewController.configFileKeyHash = sebFileCrentials.publicKeyHash;
 }
 
 

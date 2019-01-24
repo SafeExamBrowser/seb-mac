@@ -36,8 +36,8 @@
 
 @interface SEBConfigFileCredentials : NSObject
 
-@property (strong) NSString *password;
+@property (strong, nonatomic) NSString *password;
 @property (readwrite) BOOL passwordIsHash;
-@property (readwrite) SecKeyRef keyRef;
+@property (strong, nonatomic) NSData *publicKeyHash;
 
 @end

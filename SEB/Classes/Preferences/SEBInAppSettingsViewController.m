@@ -77,19 +77,19 @@
 // Select identity for passed identity reference
 - (void) selectSettingsIdentity
 {
-    SecKeyRef settingsPrivateKeyRef = _sebViewController.configFileKeyRef;
-    if (settingsPrivateKeyRef) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_configFileIdentity"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_configFileIdentity"];
+
+    NSData *settingsPublicKeyHash = _sebViewController.configFileKeyHash;
+    if (settingsPublicKeyHash) {
         NSUInteger i, count = [self.identities count];
         for (i=0; i<count; i++) {
             SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
-            SecKeyRef privateKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:identityFromKeychain];
-            if (settingsPrivateKeyRef == privateKeyRef) {
+            NSData *publicKeyHash = [self.keychainManager getPublicKeyHashFromIdentity:identityFromKeychain];
+            if ([settingsPublicKeyHash isEqualToData:publicKeyHash]) {
                 [preferences setSecureInteger:i+1 forKey:@"org_safeexambrowser_configFileIdentity"];
                 break;
             }
-            if (privateKeyRef) CFRelease(privateKeyRef);
         }
     }
 }

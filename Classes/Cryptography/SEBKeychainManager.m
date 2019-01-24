@@ -78,6 +78,12 @@
 }
 
 
+- (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef
+{
+    return [self.delegate getPublicKeyHashFromIdentity:identityRef];
+}
+
+
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate
 {
     return [self.delegate getPublicKeyHashFromCertificate:certificate];
