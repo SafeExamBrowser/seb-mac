@@ -1719,7 +1719,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
-    
+
     self.browserController = nil;
     
     _viewDidLayoutSubviewsAlreadyCalled = NO;
@@ -2229,6 +2229,10 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!quittingClientConfig && !restart) {
         // Switch to system's (persisted) UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
+        // Reset settings password and config key hash for settings,
+        // as we're returning from exam to client settings
+        [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_settingsPassword"];
+        _configFileKeyHash = nil;
     }
     [self restartExam:true quittingClientConfig:quittingClientConfig
      pasteboardString:nil];

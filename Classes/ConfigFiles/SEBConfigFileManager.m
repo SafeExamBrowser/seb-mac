@@ -52,7 +52,7 @@
     return nil;
 }
 
-- (SecKeyRef)currentConfigKeyRef {
+- (NSData *)currentConfigKeyHash {
     [NSException raise:NSInternalInconsistencyException
                 format:@"property is write-only"];
     return nil;
@@ -144,7 +144,7 @@
     if (forEditing) {
         sebFileCredentials.password = _currentConfigPassword;
         sebFileCredentials.passwordIsHash = _currentConfigPasswordIsHash;
-        sebFileCredentials.keyRef = _currentConfigKeyRef;
+        sebFileCredentials.publicKeyHash = _currentConfigKeyHash;
     }
 
     // Ungzip the .seb (according to specification >= v14) source data
@@ -663,7 +663,7 @@
             // if not editing reset credentials
             _currentConfigPassword = nil;
             _currentConfigPasswordIsHash = NO;
-            _currentConfigKeyRef = nil;
+            _currentConfigKeyHash = nil;
         }
         
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
@@ -726,7 +726,7 @@
         // Reset credentials for reverting to these
         _currentConfigPassword = nil;
         _currentConfigPasswordIsHash = NO;
-        _currentConfigKeyRef = nil;
+        _currentConfigKeyHash = nil;
         
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
@@ -939,15 +939,15 @@
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
                                             NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil)}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
-        
+        sebFileCredentials.publicKeyHash = nil;
         return nil;
     }
 
-    DDLogInfo(@"Private key retrieved with hash: %@", privateKeyRef);
+    DDLogInfo(@"Private key retrieved with hash: %@", publicKeyHash);
 
     // If these settings are being decrypted for editing, we will return the decryption certificate reference
     // in the variable which was passed as reference when calling this method
-    sebFileCredentials.keyRef = privateKeyRef;
+    sebFileCredentials.publicKeyHash = publicKeyHash;
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
     

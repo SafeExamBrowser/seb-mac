@@ -165,7 +165,7 @@
     
 //    NSString *_currentConfigPassword;
 //    BOOL _currentConfigPasswordIsHash;
-    //SecKeyRef _currentConfigKeyRef;
+    //NSData *_currentConfigKeyHash;
 }
 
 @property (weak) id delegate;
@@ -173,10 +173,10 @@
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
-@property (nonatomic) SecKeyRef currentConfigKeyRef;
+@property (nonatomic) NSData *currentConfigKeyHash;
 // To make the getter unavailable
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
-- (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
+- (NSData *)currentConfigKeyHash UNAVAILABLE_ATTRIBUTE;
 
 
 // Helper methods
