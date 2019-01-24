@@ -255,6 +255,13 @@
 - (void) activateReloadButtonsExamTab:(BOOL)examTab;
 - (void) activateReloadButtons:(BOOL)reloadEnabled;
 
+- (void) alertWithTitle:(NSString *)title
+                message:(NSString *)message
+           action1Title:(NSString *)action1Title
+         action1Handler:(void (^)(void))action1Handler
+           action2Title:(NSString *)action2Title
+         action2Handler:(void (^)(void))action2Handler;
+
 // Delegate method to display an enter password dialog with the
 // passed message text asynchronously, calling the callback
 // method with the entered password when one was entered

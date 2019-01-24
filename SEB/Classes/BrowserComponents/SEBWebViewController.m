@@ -498,8 +498,15 @@
                 } else {
                     fileData = [[NSData alloc] initWithBase64EncodedString:fileDataString options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 }
-                if ([self saveData:fileData]) {
+                NSString *filename = [self saveData:fileData];
+                if (filename) {
                     DDLogInfo(@"Successfully saved website generated data: %@", url);
+                    [self.browserTabViewController.sebViewController alertWithTitle:NSLocalizedString(@"Download Finished", nil)
+                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), filename]
+                                                                       action1Title:NSLocalizedString(@"OK", nil)
+                                                                     action1Handler:^{}
+                                                                       action2Title:nil
+                                                                     action2Handler:^{}];
                 } else {
                     DDLogError(@"Failed to save website generated data: %@", url);
                 }
@@ -579,27 +586,28 @@
 }
 
 
-- (BOOL) saveData:(NSData *)data
+- (NSString *)saveData:(NSData *)data
 {
-    // Get the filename of the loaded ressource form the UIWebView's request URL
-//    NSString *filename = [url lastPathComponent];
-//    DDLogInfo(@"%s: Filename: %@", __FUNCTION__, filename);
     // Get the path to the App's Documents directory
     NSURL *documentsDirectory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-    // Combine the filename and the path to the documents dir into the full path
-//    NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", docPath, filename];
     NSString *filename = NSLocalizedString(@"Untitled", @"untitled filename");
-    
-    NSString *fullPath = [documentsDirectory URLByAppendingPathComponent:filename].path;
     
     NSDate *time = [NSDate date];
     NSDateFormatter* dateFormatter = [NSDateFormatter new];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [dateFormatter setDateFormat:@"yyyy-MM-dd_hh-mm-ssZZZZZ"];
     NSString *timeString = [dateFormatter stringFromDate:time];
-    fullPath = [NSString stringWithFormat:@"%@_%@", fullPath, timeString];
+    filename = [NSString stringWithFormat:@"%@_%@", filename, timeString];
 
-    return [NSFileManager.defaultManager createFileAtPath:fullPath contents:data attributes:nil];
+    NSString *fullPath = [documentsDirectory URLByAppendingPathComponent:filename].path;
+    DDLogInfo(@"%s File path: %@", __FUNCTION__, fullPath);
+
+    BOOL success = [NSFileManager.defaultManager createFileAtPath:fullPath contents:data attributes:nil];
+    if (success) {
+        return filename;
+    } else {
+        return nil;
+    }
 }
 
     
