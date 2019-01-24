@@ -1050,13 +1050,20 @@ static NSMutableSet *browserWindowControllers;
     // Get selected config purpose
     sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
     
+    // Get SecIdentityRef for selected identity
+    SecIdentityRef identityRef;
+    identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
+
     // Get password
     NSString *encryptingPassword;
     // Is there one saved from the currently open config file?
-    encryptingPassword = [preferences secureStringForKey:@"settingsPassword"];
+    encryptingPassword = [preferences secureStringForKey:@"org_safeexambrowser_settingsPassword"];
     
     // Encrypt current settings with current credentials
-    NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:NO withIdentity:nil forPurpose:configPurpose];
+    NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
+                                                                          passwordIsHash:NO
+                                                                            withIdentity:nil
+                                                                              forPurpose:configPurpose];
     if (encryptedSEBData) {
 
         if (_alertController) {

@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *embeddedCertificatesList;
 @property (nonatomic, strong) NSMutableArray *embeddedCertificatesListCounter;
 
+
+- (SecIdentityRef) getSelectedIdentity;
+
 @end
 
 NS_ASSUME_NONNULL_END

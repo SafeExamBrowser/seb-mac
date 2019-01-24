@@ -12,11 +12,6 @@
 
 @implementation SEBiOSKeychainManager
 
-//// We ignore "deprecated" warnings for CSSM methods, since Apple doesn't provide any replacement
-//// for asymetric public key cryptography as for OS X 10.10
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names
 {
     OSStatus status;
@@ -258,19 +253,13 @@
         if ((putResult != errSecSuccess) || (delResult != errSecSuccess))
         {
             DDLogError(@"Could not extract public key data: %d", (int)putResult);
+            if (publicKeyRef) CFRelease(publicKeyRef);
             return nil;
         }
     }
-    
-    
+
     NSData *publicKeyHash = [self generateSHA1HashForData:publicKeyData];
 
-//    if (status !=errSecSuccess) {
-//        DDLogError(@"Could not extract public key data:  %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
-//        if (publicKeyResult) CFRelease(publicKeyResult);
-//        return nil;
-//    }
-//    NSData *publicKeyData = (NSData *)CFBridgingRelease(publicKeyResult);
     return publicKeyHash;
 }
 
@@ -352,8 +341,8 @@
 }
 
 
-- (SecKeyRef)copyPublicKeyFromCertificate:(SecCertificateRef)certificate {
-        SecKeyRef key = SecCertificateCopyPublicKey(certificate);
+- (SecKeyRef)copyPublicKeyFromCertificate:(SecCertificateRef)certificateRef {
+        SecKeyRef key = SecCertificateCopyPublicKey(certificateRef);
         if (key == NULL) {
             DDLogError(@"No proper public key found in certificate.");
             if (key) CFRelease(key);
@@ -574,69 +563,57 @@
 }
 
 
-- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
-    //    //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
-    //    SecKeyRef publicKeyRef = NULL;
-    //    OSStatus status = SecCertificateCopyPublicKey(certificate, &publicKeyRef);
-    //    if (status != errSecSuccess) {
-    //            DDLogError(@"No public key found in certificate.");
-    //            if (publicKeyRef) CFRelease(publicKeyRef);
-    //            return nil;
-    //    }
-    //
-    //    CSSM_RETURN crtn;
-    //    CSSM_DATA		ptext;
-    //    CSSM_DATA		ctext;
-    //
-    //    ptext.Data = (uint8 *)[plainData bytes];
-    //    ptext.Length = [plainData length];
-    //    ctext.Data = NULL;
-    //    ctext.Length = 0;
-    //
-    //    const CSSM_ACCESS_CREDENTIALS *creds;
-    //    status = SecKeyGetCredentials(publicKeyRef,
-    //                                  CSSM_ACL_AUTHORIZATION_ENCRYPT,
-    //                                  kSecCredentialTypeWithUI,
-    //                                  &creds);
-    //
-    //    const CSSM_KEY *pubKey;
-    //
-    //    CSSM_CSP_HANDLE cspHandle;
-    //    status = SecKeyGetCSPHandle(publicKeyRef, &cspHandle);
-    //
-    //    status = SecKeyGetCSSMKey(publicKeyRef, &pubKey);
-    //    /*assert(pubKey->KeyHeader.AlgorithmId ==
-    //           CSSM_ALGID_RSA);
-    //    assert(pubKey->KeyHeader.KeyClass ==
-    //           CSSM_KEYCLASS_PUBLIC_KEY);
-    //    assert(pubKey->KeyHeader.KeyUsage ==
-    //           CSSM_KEYUSE_ENCRYPT ||
-    //           pubKey->KeyHeader.KeyUsage ==
-    //           CSSM_KEYUSE_ANY);*/
-    //
-    //    CSSM_CC_HANDLE  ccHandle;
-    //    crtn = CSSM_CSP_CreateAsymmetricContext(cspHandle,
-    //                                            CSSM_ALGID_RSA,
-    //                                            creds, pubKey,
-    //                                            CSSM_PADDING_PKCS1, &ccHandle);
-    //    cssmPerror("encrypt context", crtn);
-    //    assert(crtn == CSSM_OK);
-    //
-    //    CSSM_SIZE       bytesEncrypted;
-    //    CSSM_DATA       remData = {0, NULL};
-    //    crtn = CSSM_EncryptData(ccHandle, &ptext, 1,
-    //                            &ctext, 1, &bytesEncrypted, &remData);
-    //    cssmPerror("encryptdata", crtn);
-    //    assert(crtn == CSSM_OK);
-    //    CSSM_DeleteContext(ccHandle);
-    //
-    //    NSData *cipherData = [NSData dataWithBytes:ctext.Data length:ctext.Length];
-    //
-    //    if (publicKeyRef) CFRelease(publicKeyRef);
-    //    free(ctext.Data);
-    //    return cipherData;
-    //    //[cipherData encodeBase64ForData];
-    return nil;
+- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificateRef
+{
+    SecKeyRef publicKeyRef = [self copyPublicKeyFromCertificate:certificateRef];
+    if (!publicKeyRef) {
+        DDLogError(@"No public key found in certificate.");
+        if (publicKeyRef) CFRelease(publicKeyRef);
+        return nil;
+    }
+
+    const uint8_t *srcbuf = (const uint8_t *)[plainData bytes];
+    size_t srclen = (size_t)plainData.length;
+    
+    size_t block_size = SecKeyGetBlockSize(publicKeyRef) * sizeof(uint8_t);
+    void *outbuf = malloc(block_size);
+    size_t src_block_size = block_size - 11;
+    
+    NSMutableData *cipherData = [[NSMutableData alloc] init];
+    for (int idx=0; idx<srclen; idx+=src_block_size) {
+        //NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
+        size_t data_len = srclen - idx;
+        if (data_len > src_block_size) {
+            data_len = src_block_size;
+        }
+        size_t outlen = block_size;
+        OSStatus status = noErr;
+//        if (isSign) {
+//            status = SecKeyRawSign(publicKeyRef,
+//                                   kSecPaddingPKCS1,
+//                                   srcbuf + idx,
+//                                   data_len,
+//                                   outbuf,
+//                                   &outlen
+//                                   );
+//    }
+        status = SecKeyEncrypt(publicKeyRef,
+                               kSecPaddingPKCS1,
+                               srcbuf + idx,
+                               data_len,
+                               outbuf,
+                               &outlen
+                               );
+        if (status != 0) {
+            NSLog(@"Encrypting data using private key failed! Error Code: %d", status);
+            return nil;
+        } else {
+            [cipherData appendBytes:outbuf length:outlen];
+        }
+    }
+    free(outbuf);
+    CFRelease(publicKeyRef);
+    return cipherData;
 }
 
 
@@ -665,8 +642,5 @@
     }
     return plainData;
 }
-
-// Switch diagnostics for "deprecated" on again
-//#pragma clang diagnostic pop
 
 @end
