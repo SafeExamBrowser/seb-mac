@@ -72,6 +72,21 @@
 }
 
 
+// Get SecIdentityRef for selected identity
+- (SecIdentityRef) getSelectedIdentity
+{
+    SecIdentityRef identityRef = NULL;
+    // Get selected identity certificate
+    NSUInteger selectedIdentity = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"];
+    
+    if (selectedIdentity > 0) {
+        // If an identity is selected, then we get the according SecIdentityRef
+        identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity-1]);
+    }
+    return identityRef;
+}
+
+
 - (NSMutableArray *)combinedURLFilterRulesCounter
 {
     if (!_combinedURLFilterRulesCounter) {

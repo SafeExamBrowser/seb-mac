@@ -70,7 +70,7 @@
 			<key>Title</key>
 			<string>Settings Password</string>
 			<key>Key</key>
-			<string>settingsPassword</string>
+			<string>org_safeexambrowser_settingsPassword</string>
 			<key>IsSecure</key>
 			<true/>
 			<key>IASKPlaceholder</key>
