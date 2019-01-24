@@ -9,6 +9,7 @@
 
 #import "IASKAppSettingsViewController.h"
 #import "SEBViewController.h"
+#import "SEBKeychainManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,16 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) IBOutlet IASKAppSettingsViewController *tabAppSettingsViewController;
+@property (nonatomic, strong) SEBKeychainManager *keychainManager;
 
 @property (nonatomic, weak) SEBViewController *sebViewController;
 
-@property (strong, nonatomic) NSMutableArray *identitiesNames;
+@property (nonatomic, strong) NSMutableArray *identitiesNames;
 @property (nonatomic, strong) NSMutableArray *identitiesCounter;
-@property (strong, nonatomic) NSArray *identities;
+@property (nonatomic, strong) NSArray *identities;
 
-@property (strong, nonatomic) NSMutableArray *certificatesNames;
+@property (nonatomic, strong) NSMutableArray *certificatesNames;
 @property (nonatomic, strong) NSMutableArray *certificatesCounter;
-@property (strong, nonatomic) NSArray *certificates;
+@property (nonatomic, strong) NSArray *certificates;
 
 @property (nonatomic, strong) NSMutableDictionary *customCells;
 
@@ -38,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *embeddedCertificatesList;
 @property (nonatomic, strong) NSMutableArray *embeddedCertificatesListCounter;
 
-
+- (id)initWithSEBViewController:(SEBViewController *)sebViewController;
 - (SecIdentityRef) getSelectedIdentity;
 
 @end

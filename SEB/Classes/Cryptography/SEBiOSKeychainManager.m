@@ -554,7 +554,11 @@
 
     status = SecItemAdd((__bridge CFDictionaryRef)addQuery, NULL);
     if (status != errSecSuccess) {
-        DDLogError(@"Adding an identity to the Keychain using SecItemAdd failed (oserr=%d)\n", status);
+        if (status == errSecDuplicateItem) {
+            DDLogInfo(@"Not adding an identity to the Keychain: The item already exists.");
+        } else {
+            DDLogError(@"Adding an identity to the Keychain using SecItemAdd failed (oserr=%d)\n", status);
+        }
         return NO;
     }
     DDLogInfo(@"Successfully imported identity into the Keychain");
@@ -605,7 +609,7 @@
                                &outlen
                                );
         if (status != 0) {
-            NSLog(@"Encrypting data using private key failed! Error Code: %d", status);
+            DDLogError(@"Encrypting data using private key failed! Error Code: %d", status);
             return nil;
         } else {
             [cipherData appendBytes:outbuf length:outlen];

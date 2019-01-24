@@ -16,9 +16,10 @@
 
 @implementation SEBInAppSettingsViewController
 
-- (id)init {
+- (id)initWithSEBViewController:(SEBViewController *)sebViewController {
     self = [super init];
     if (self) {
+        _sebViewController = sebViewController;
         _customCells = [NSMutableDictionary new];
         
         // Register notification for changed keys
@@ -27,11 +28,12 @@
                                                      name:kIASKAppSettingChanged
                                                    object:nil];
         
+        self.keychainManager = [[SEBKeychainManager alloc] init];
+
         // If identities aren't available yet, get them from Keychain
         if (!self.identitiesNames) {
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             NSArray *names;
-            NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
+            NSArray *identitiesInKeychain = [self.keychainManager getIdentitiesAndNames:&names];
             self.identities = identitiesInKeychain;
             self.identitiesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
             [self.identitiesNames addObjectsFromArray:names];
@@ -43,9 +45,8 @@
 
         // If certificates aren't available yet, get them from Keychain
         if (!self.certificatesNames) {
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             NSArray *names;
-            NSArray *certificatesInKeychain = [keychainManager getCertificatesAndNames:&names];
+            NSArray *certificatesInKeychain = [self.keychainManager getCertificatesAndNames:&names];
             self.certificates = certificatesInKeychain;
             self.certificatesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
             [self.certificatesNames addObjectsFromArray:names];
@@ -54,7 +55,8 @@
                 [_certificatesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
             }
         }
-        
+        // Select identity for passed identity reference
+        [self selectSettingsIdentity];
         // Display current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
@@ -69,6 +71,27 @@
     [sender dismissViewControllerAnimated:YES completion:^{
         [self->_sebViewController settingsViewControllerDidEnd:sender];
     }];
+}
+
+
+// Select identity for passed identity reference
+- (void) selectSettingsIdentity
+{
+    SecKeyRef settingsPrivateKeyRef = _sebViewController.configFileKeyRef;
+    if (settingsPrivateKeyRef) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_configFileIdentity"];
+        NSUInteger i, count = [self.identities count];
+        for (i=0; i<count; i++) {
+            SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
+            SecKeyRef privateKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:identityFromKeychain];
+            if (settingsPrivateKeyRef == privateKeyRef) {
+                [preferences setSecureInteger:i+1 forKey:@"org_safeexambrowser_configFileIdentity"];
+                break;
+            }
+            if (privateKeyRef) CFRelease(privateKeyRef);
+        }
+    }
 }
 
 

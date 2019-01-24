@@ -48,8 +48,7 @@ static NSMutableSet *browserWindowControllers;
 - (IASKAppSettingsViewController*)appSettingsViewController {
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-        _sebInAppSettingsViewController = [[SEBInAppSettingsViewController alloc] init];
-        _sebInAppSettingsViewController.sebViewController = self;
+        _sebInAppSettingsViewController = [[SEBInAppSettingsViewController alloc] initWithSEBViewController:self];
         _sebInAppSettingsViewController.appSettingsViewController = appSettingsViewController;
         appSettingsViewController.delegate = _sebInAppSettingsViewController;
         SEBIASKSecureSettingsStore *sebSecureStore = [[SEBIASKSecureSettingsStore alloc] init];
@@ -1062,7 +1061,7 @@ static NSMutableSet *browserWindowControllers;
     // Encrypt current settings with current credentials
     NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
                                                                           passwordIsHash:NO
-                                                                            withIdentity:nil
+                                                                            withIdentity:identityRef
                                                                               forPurpose:configPurpose];
     if (encryptedSEBData) {
 
