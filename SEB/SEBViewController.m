@@ -2018,6 +2018,11 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error
 {
     if (error) {
+        // Check if config couldn't be decrypted because of an unavailable identity certificate
+        if (error.code == SEBErrorDecryptingIdentityNotFound) {
+            [self storeNewSEBSettingsSuccessful:error];
+            return;
+        }
         // Check if the URL is in an associated domain
         if ([self.browserController isAssociatedDomain:directlyDownloadedURL]) {
             [self.browserController handleUniversalLink:directlyDownloadedURL];
