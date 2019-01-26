@@ -826,7 +826,7 @@
     if (!privateKeyRef) {
         NSAlert *modalAlert = [self.sebController newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Error Decrypting Settings", nil)];
-        [modalAlert setInformativeText:NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil)];
+        [modalAlert setInformativeText:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. SEB might not have been configured correctly for your institution.", nil)];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         [modalAlert runModal];
