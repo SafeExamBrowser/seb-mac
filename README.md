@@ -1,9 +1,9 @@
 # seb-mac
-Safe Exam Browser for Mac OS X and iOS
+Safe Exam Browser for macOS and iOS
 
 Open SafeExamBrowser.xcodeproj in a recent version of Xcode. For building you have to switch off code signing or add your own code signing identities. On master the currently or next to be released version (stable) is available. New versions are being developed on separate branches.
 
-Safe Exam Browser for iOS is currently being developed in the SEB-iOS branch. This is a shared Xcode project with targets for OS X and iOS, just select the right target to build for the according operating system. There is major refactoring going on to be able to share as much code as possible for both OS X and iOS. Currently the building iOS version is a prototype to test Kiosk locking with Guided Access, additional functionality is being added continously. 
+Safe Exam Browser for iOS is currently being developed in the SEB-iOS branch. This is a shared Xcode project with targets for macOS and iOS, just select the right target to build for the according operating system. There is major refactoring going on to be able to share as much code as possible for both macOS and iOS.  
 
 All information about Safe Exam Browser you'll find at http://safeexambrowser.org. Search discussions boards if you don't find  information in the manual and SEB How To document (see links on page Support).
 
