@@ -9,6 +9,10 @@
 #import "SEBiOSKeychainManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
+#import "MscPKCS12.h"
+#import "MscRSAKey_OpenSSL_RSA.h"
+#import <openssl/rsa.h>
+#import <openssl/pem.h>
 
 @implementation SEBiOSKeychainManager
 
@@ -407,46 +411,15 @@
 }
 
 
-- (NSData*)getDataForCertificate:(SecCertificateRef)certificate {
-    //
-    //    SecItemImportExportKeyParameters keyParams;
-    //
-    //    NSString *password = userDefaultsMasala;
-    //
-    //    keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
-    //    keyParams.flags = 0;
-    //    keyParams.passphrase = (__bridge CFTypeRef)(password);
-    ////    keyParams.passphrase = NULL;
-    //    keyParams.alertTitle = NULL;
-    //    keyParams.alertPrompt = NULL;
-    //    keyParams.accessRef = NULL;
-    //    // These two values are for import
-    //    keyParams.keyUsage = NULL;
-    //    keyParams.keyAttributes = NULL;
-    //
-    //    CFDataRef exportedData = NULL;
-    //
-    //    OSStatus success = SecItemExport (
-    //                                      certificate,
-    ////                                      kSecFormatNetscapeCertSequence,
-    //                                      kSecFormatPKCS12,
-    //                                      0,
-    //                                      &keyParams,
-    //                                      &exportedData
-    //                                      );
-    //
-    //    if (success == errSecSuccess) {
-    //        return (NSData*)CFBridgingRelease(exportedData);
-    //    } else {
-    //        DDLogError(@"Error in %s: SecItemImport of embedded certificate failed %@", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:success userInfo:NULL]);
-    //        if (exportedData) CFRelease(exportedData);
-    //        return nil;
-    //    }
-    return nil;
+- (NSData*)getDataForCertificate:(SecCertificateRef)certificate
+{
+    CFDataRef exportedData = SecCertificateCopyData(certificate);
+    return (NSData*)CFBridgingRelease(exportedData);
 }
 
 
-- (BOOL)importCertificateFromData:(NSData*)certificateData {
+- (BOOL)importCertificateFromData:(NSData*)certificateData
+{
     //
     //    SecItemImportExportKeyParameters keyParams;
     //
@@ -502,38 +475,80 @@
 }
 
 
-- (NSData*)getDataForIdentity:(SecIdentityRef)identity {
-    //
-    //    SecItemImportExportKeyParameters keyParams;
-    //
-    //    NSString *password = userDefaultsMasala;
-    //
-    //    keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
-    //    keyParams.flags = 0;
-    //    keyParams.passphrase = (__bridge CFTypeRef)(password);
-    //    keyParams.alertTitle = NULL;
-    //    keyParams.alertPrompt = NULL;
-    //    keyParams.accessRef = NULL;
-    //    // These two values are for import
-    //    keyParams.keyUsage = NULL;
-    //    keyParams.keyAttributes = NULL;
-    //
-    //    CFDataRef exportedData = NULL;
-    //
-    //    OSStatus success = SecItemExport (
-    //                            identity,
-    //                            kSecFormatPKCS12,
-    //                            0,
-    //                            &keyParams,
-    //                            &exportedData
-    //                            );
-    //
-    //    if (success == errSecSuccess) return (NSData*)CFBridgingRelease(exportedData); else return nil;
-    return nil;
+- (NSData*)getDataForPrivateKey:(SecKeyRef)privateKeyRef
+{
+    NSData *privateKeyData;
+    
+    if (@available(iOS 10.0, *)) {
+        CFErrorRef error = NULL;
+        privateKeyData = (NSData*)CFBridgingRelease(SecKeyCopyExternalRepresentation(privateKeyRef, &error));
+        if (privateKeyRef) CFRelease(privateKeyRef);
+        if (!privateKeyData) {
+            DDLogError(@"Could not extract private key data:  %@", error);
+            return nil;
+        }
+    } else {
+        // iOS 9 didn't had the API above, ugly workaround to follow:
+        NSString *const keychainTag = @"X509_KEY";
+        OSStatus putResult, delResult = noErr;
+        
+        // Params for putting the key first
+        NSMutableDictionary *putKeyParams = [NSMutableDictionary new];
+        putKeyParams[(__bridge id) kSecClass] = (__bridge id) kSecClassKey;
+        putKeyParams[(__bridge id) kSecAttrKeyType] = (__bridge id) kSecAttrKeyTypeRSA;
+        putKeyParams[(__bridge id) kSecAttrApplicationTag] = keychainTag;
+        putKeyParams[(__bridge id) kSecValueRef] = (__bridge id) (privateKeyRef);
+        putKeyParams[(__bridge id) kSecReturnData] = (__bridge id) (kCFBooleanTrue); // Request the key's data to be returned too
+        
+        // Params for deleting the data
+        NSMutableDictionary *delKeyParams = [[NSMutableDictionary alloc] init];
+        delKeyParams[(__bridge id) kSecClass] = (__bridge id) kSecClassKey;
+        delKeyParams[(__bridge id) kSecAttrApplicationTag] = keychainTag;
+        delKeyParams[(__bridge id) kSecReturnData] = (__bridge id) (kCFBooleanTrue);
+        
+        // Put the key
+        putResult = SecItemAdd((__bridge CFDictionaryRef) putKeyParams, (void *)&privateKeyData);
+        // Delete the key
+        delResult = SecItemDelete((__bridge CFDictionaryRef)(delKeyParams));
+        
+        if ((putResult != errSecSuccess) || (delResult != errSecSuccess))
+        {
+            DDLogError(@"Could not extract public key data: %d", (int)putResult);
+            if (privateKeyRef) CFRelease(privateKeyRef);
+            return nil;
+        }
+    }
+    
+    return privateKeyData;
 }
 
 
-- (BOOL) importIdentityFromData:(NSData*)identityData {
+- (NSData*)getDataForIdentity:(SecIdentityRef)identityRef
+{
+    SecCertificateRef certificateRef = [self copyCertificateFromIdentity:identityRef];
+    NSData *certificateData = [self getDataForCertificate:certificateRef];
+    MscX509CommonError *error = nil;
+    MscCertificate *certificate = [[MscCertificate alloc] initWithData:certificateData error:&error];
+    
+    SecKeyRef privateKey = [self copyPrivateKeyRefFromIdentityRef:identityRef];
+    NSData *privateKeyData = [self getDataForPrivateKey:privateKey];
+    NSString *pemPrivateKey = [NSString stringWithFormat:@"-----BEGIN RSA PRIVATE KEY-----\n%@\n-----END RSA PRIVATE KEY-----\n", [privateKeyData base64EncodedStringWithOptions:0]];
+
+    const char *key = [pemPrivateKey UTF8String];
+    BIO *bio = BIO_new_mem_buf((void *) key, (int) strlen(key));
+    RSA *privateKeyRSA = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
+    BIO_free(bio);
+
+    MscRSAKey *mscRSAKey = [[MscRSAKey alloc] initWithRSA:privateKeyRSA];
+    
+    MscPKCS12 *mscPKCS12 = [[MscPKCS12 alloc]initWithRSAKey:mscRSAKey certificate:certificate password:userDefaultsMasala error:&error];
+    
+    return [mscPKCS12 data];
+}
+
+
+- (BOOL) importIdentityFromData:(NSData*)identityData
+{
     
     NSString *password = userDefaultsMasala;
     NSDictionary* options = @{ (id)kSecImportExportPassphrase : password };

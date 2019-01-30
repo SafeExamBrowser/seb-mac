@@ -68,6 +68,14 @@
     [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
     _sebWebView.delegate = self;
     self.view = _sebWebView;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        if (UIApplication.sharedApplication.keyWindow == self.view.window) {
+            [self reload];
+        }
+    }];
+    
+
 }
 
 
@@ -143,6 +151,7 @@
     mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
     enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
     _urlFilter = [SEBURLFilter sharedSEBURLFilter];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
