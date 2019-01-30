@@ -631,22 +631,24 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     NSMutableArray *processedArray = [NSMutableArray new];
     for (id object in sourceArray) {
-        Class objectClass = [object superclass];
-        if (objectClass == [NSDictionary class]) {
-            [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
-                                                                              dictionary:object
-                                                                        containedKeysPtr:containedKeysPtr
-                                                                                 jsonPtr:jsonStringPtr]];
-        } else if (objectClass == [NSMutableDictionary class]) {
-            [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
-                                                                                      dictionary:object
-                                                                                containedKeysPtr:containedKeysPtr
-                                                                                         jsonPtr:jsonStringPtr] mutableCopy]];
-        } else {
-            [processedArray addObject:object];
-            [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
+        if (object) {
+            Class objectClass = [object superclass];
+            if (objectClass == [NSDictionary class]) {
+                [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
+                                                                                  dictionary:object
+                                                                            containedKeysPtr:containedKeysPtr
+                                                                                     jsonPtr:jsonStringPtr]];
+            } else if (objectClass == [NSMutableDictionary class]) {
+                [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
+                                                                                          dictionary:object
+                                                                                    containedKeysPtr:containedKeysPtr
+                                                                                             jsonPtr:jsonStringPtr] mutableCopy]];
+            } else {
+                [processedArray addObject:object];
+                [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
+            }
+            [*jsonStringPtr appendString:@","];
         }
-        [*jsonStringPtr appendString:@","];
     }
     if ([*jsonStringPtr length] > 2) {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
