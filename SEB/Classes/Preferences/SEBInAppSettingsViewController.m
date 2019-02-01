@@ -302,18 +302,21 @@
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
             NSData *certificateData = [keychainManager getDataForIdentity:identityRef];
-            
-            NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
-                                             [NSNumber numberWithInt:certificateTypeIdentity], @"type",
-                                             self.identitiesNames[indexOfSelectedIdentity], @"name",
-                                             certificateData, @"certificateData",
-                                             nil];
-            
-            NSMutableArray *embeddedCertificates = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_embeddedCertificates"].mutableCopy;
-            [embeddedCertificates addObject:identityToEmbed];
-            [preferences setSecureObject:embeddedCertificates.copy forKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
-            
-            [preferences setSecureInteger: 0 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+            if (certificateData) {
+                NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [NSNumber numberWithInt:certificateTypeIdentity], @"type",
+                                                 self.identitiesNames[indexOfSelectedIdentity], @"name",
+                                                 certificateData, @"certificateData",
+                                                 nil];
+                
+                NSMutableArray *embeddedCertificates = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_embeddedCertificates"].mutableCopy;
+                [embeddedCertificates addObject:identityToEmbed];
+                [preferences setSecureObject:embeddedCertificates.copy forKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
+                
+                [preferences setSecureInteger: 0 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                _embeddedCertificatesList = nil;
+                _embeddedCertificatesListCounter = nil;
+            }
         }
     }
 }

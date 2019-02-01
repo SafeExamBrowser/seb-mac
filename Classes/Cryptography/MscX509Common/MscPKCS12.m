@@ -95,7 +95,7 @@
             OpenSSL_add_all_ciphers();
             OpenSSL_add_all_digests();
             
-            pkcs12 = PKCS12_create(password ? (char*)[password UTF8String] : NULL, (char*)[SEBFullAppName UTF8String], rsaKey._evp_pkey, certificate._x509, NULL, NID_pbe_WithSHA1And3_Key_TripleDES_CBC, NID_pbe_WithSHA1And3_Key_TripleDES_CBC, 0, 0, KEY_SIG);
+            pkcs12 = PKCS12_create((char *)[password UTF8String], (char*)[SEBFullAppName UTF8String], rsaKey._evp_pkey, certificate._x509, NULL, NID_pbe_WithSHA1And3_Key_TripleDES_CBC, NID_pbe_WithSHA1And3_Key_TripleDES_CBC, PKCS12_DEFAULT_ITER, PKCS12_DEFAULT_ITER, 0);
             if (!pkcs12) {
                 NSLog(@"Failed to generate PKCS12, function: PKCS12_create");
                 @throw [MscX509CommonLocalException exceptionWithCode:FailedToGeneratePKCS12];
