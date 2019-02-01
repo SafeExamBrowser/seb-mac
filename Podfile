@@ -16,7 +16,6 @@ platform :ios, '9.3.5'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'openssl-ios-bitcode', '~> 1.0'
 
 end
 
@@ -26,7 +25,6 @@ platform :ios, '9.3.5'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'openssl-ios-bitcode', '~> 1.0'
 
 end
 
@@ -36,7 +34,6 @@ platform :ios, '9.3.5'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'openssl-ios-bitcode', '~> 1.0'
 
 end
 
