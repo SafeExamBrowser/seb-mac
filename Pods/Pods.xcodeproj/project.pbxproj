@@ -7,135 +7,135 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		026F3F4C9A2148DD1D4480B5E12E6954 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52874B7500C71AB5C02AE8B1C60DE681 /* DDMultiFormatter.m */; };
-		06A7E581317318017DFA23976E3D02B4 /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 931EAF47C6B7CDEF102B307C5C1516B0 /* el.lproj */; };
+		026F3F4C9A2148DD1D4480B5E12E6954 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 13403B9C22AA3E2D3722384C91CC2D86 /* DDMultiFormatter.m */; };
+		06A7E581317318017DFA23976E3D02B4 /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E5EC9AF8781C87F381B82C905472E4A1 /* el.lproj */; };
 		083C0A5FE0E7DFDE8295810A5E32C4D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 339F04B428B602D482B3473AC94E1E9A /* MessageUI.framework */; };
-		08BB5C25F7ACCECC001A8B15D9EB2C68 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B09149879E3A33012F409F5D84DD95E1 /* DDTTYLogger.m */; };
+		08BB5C25F7ACCECC001A8B15D9EB2C68 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AD50FC6F8BB9069B06580E1A9DF8720C /* DDTTYLogger.m */; };
 		08FD67B6D258321AB4361F0CE85BAD9C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBD1D88C5ACA9805100AF2C98EE04CB /* AVFoundation.framework */; };
-		0BADFDA8E54531FFD797E0B75D7A046E /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD28C3C44CEA10D0017582280F09EF4 /* IASKSpecifier.m */; };
-		11523E837900426CB7B9C4B00977BCA6 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEC7508A6AEAF04777A56D30713EEBD /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		14A40D895FFE806B53CE03B2205E4441 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF6B305F199B9F53E726D43E5F7806D /* IASKTextField.m */; };
-		17ECE99B2B4C936561D39073C4F974A8 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 8613E39423754A0A9A98ABD763C281AE /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		0BADFDA8E54531FFD797E0B75D7A046E /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 59116DC662802AF212F834A94FDD3854 /* IASKSpecifier.m */; };
+		11523E837900426CB7B9C4B00977BCA6 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 7575D10519C4C0CDDA82F4EDB0EF0C2E /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		14A40D895FFE806B53CE03B2205E4441 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF09A39AC289C8B533546EE1022D2A /* IASKTextField.m */; };
+		17ECE99B2B4C936561D39073C4F974A8 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DC72410DA924DEAEF0DEE3374B92E3B /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		187EFA31FCF2F4E145FDA990A71E484E /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1FC9B9A1BC1245220B2B6EC7BD32CC /* Pods-Safe Exam Browser-dummy.m */; };
-		18EF799FE008F5009EE130945A93306C /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 11CDA100CD97ADF7975D0979853B7080 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1A8E02D27710CCB3E86941C0D816C694 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3A13F5D0B7BAEFFCF6AEF7EA7F58CC /* IASKSettingsStore.m */; };
-		1DCFD95DCA23CD508DBD97F4205E3233 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDD6908AE5F619C690F2B1BD0BC9047 /* IASKTextView.m */; };
-		1F627227DB2C9CAA0410649CC9962A1D /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C305A93B4E4EB0BE7435253E94E2EE4 /* IASKTextViewCell.m */; };
-		1FFF0B4BA97E1CF837F2F7F3D5FFCBFB /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9A57E3445C6B121F3CBC6269919FD0 /* QRToggleTorchButton.m */; };
-		21F7C3465846F6D5D62B3B2C08C0A06A /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4641570D0AD05BB37297EAFAD09D42DC /* DDASLLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		24F47BBE5211E97AE751966471322EB1 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B09149879E3A33012F409F5D84DD95E1 /* DDTTYLogger.m */; };
-		265A67796DCED3917005D2C02A4A6931 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 847543369A893827A828340455210BB6 /* QRCodeReaderDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		266D53D534C0252A365CF1A979E84807 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5005DBBCBC0D2847058C288541AAC1D3 /* it.lproj */; };
+		18EF799FE008F5009EE130945A93306C /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CFCE842FC23604EDB9506FEB0B79C39 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1A8E02D27710CCB3E86941C0D816C694 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 73744D264DBDA8E6E7981F7CAFF36146 /* IASKSettingsStore.m */; };
+		1DCFD95DCA23CD508DBD97F4205E3233 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9051F27A6C049458607B17EE5254DE86 /* IASKTextView.m */; };
+		1F627227DB2C9CAA0410649CC9962A1D /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A740296B28EC6779156A8B0536C47E3 /* IASKTextViewCell.m */; };
+		1FFF0B4BA97E1CF837F2F7F3D5FFCBFB /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDBED78BAE0CC92BA535E458760AB23 /* QRToggleTorchButton.m */; };
+		21F7C3465846F6D5D62B3B2C08C0A06A /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1699EB1777EC88F54DB1A8099D8BB9CC /* DDASLLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		24F47BBE5211E97AE751966471322EB1 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AD50FC6F8BB9069B06580E1A9DF8720C /* DDTTYLogger.m */; };
+		265A67796DCED3917005D2C02A4A6931 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D94E3F466CA3B55D0BEB5B33B641C8DA /* QRCodeReaderDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		266D53D534C0252A365CF1A979E84807 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B3436785634DB65307B8A418062EFBDD /* it.lproj */; };
 		270D1BC4C7A15B45C0E73422AFF90AD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9755126CF7C0C86A28E738CD400ED675 /* UIKit.framework */; };
-		27FDB6EFD2828546A106C316A84E52B6 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8B89170E83C1F66E79CFE329160978DB /* tr.lproj */; };
-		290119EE1B1895CDE0A08926CEF57872 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B633744A30C910018CA670A42A70609 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2AA2C2C9B7873C9ACD8FBBF7F219A733 /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EB5E957C9378316329FE97BFE6E383D /* QRCodeReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2B19DF7CD1B938557E5E75FD5116B705 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = AC5EA645AA36E55F31BC7D1139D82FC4 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2B61A6A708141830C274C7EC41F2D397 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03BAE2B6ED87D431E7158BA901569D2 /* IASKAppSettingsViewController.m */; };
-		2C20386C831587C3A474B3FE1D8AA6DF /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 13DF773F207E3E0697D63F95DED5009B /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2C6C602D95101F1C1D3B04DE8D1438F0 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C68C074BC1C892F5B4BA5E3CF3544FB9 /* DDASLLogger.m */; };
-		2E19FC3FB3FDA087D99F7498F88A55DA /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = DB93D50DA05E4FAA8E43FA5E39E32BAF /* IASKSwitch.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		304F20A362368D6640DCE5854DB0E117 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E8F3B89EA916DB21CAB08D32DB03BE9F /* de.lproj */; };
-		36BEC729974A674CBE177211FBCA47B7 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = C7B63DB651832EAEAE495FBB029B8B27 /* nl.lproj */; };
-		38B9CA359E2C95A6B5F86FC42F1C0441 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F7E8EF3546D25730E52F83C898358C /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		39E59E5E43F01AE5ADC0D85D3368F5C4 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B43AD1F21672C4A52693C13E67F54B2 /* DDContextFilterLogFormatter.m */; };
-		3A76E5E40B270E20BC89C2C15B4761DB /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 276B63C42B8B5B761475CA7669476766 /* IASKSpecifier.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3CA035E6DF4C211534190789F739B45D /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B62458951F65A6F46637892833A98839 /* DDOSLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3E3065526259EF11871C7F1C1BE075CA /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE0B5551FA09A6A59280DE47D6165F2 /* IASKSettingsStoreUserDefaults.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3ED97ABA20CCFF1CEC5F9D23AB8D918F /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC2944632F85A678AA6588D687F6092 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3F545DC5EF7B2D52154543B45427B619 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = C7FEF4EFEF42B019D676477BA0EBA028 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		40B13EDBE519BA0CAE891E50FDEF564C /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CA6DDAC06156FF218D84196D6987FCE /* IASKMultipleValueSelection.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		4115672BCB53EF5678B2F1F3E7A60E44 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52874B7500C71AB5C02AE8B1C60DE681 /* DDMultiFormatter.m */; };
-		45A0B6D926F073795EC638B0DE485764 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AF944DC24A5AC422FE1A8798E0B37B14 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		464E606D68BB040312B11C51CA73483D /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = C60A386D30025252B47A065DFB7876B0 /* IASKSlider.m */; };
-		47C60E6A954A31322919120693FD0282 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA9995902052934675706CF4BBADCA0 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		4A8B3A92C783F834C1BFACC8501C1429 /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B2B331B4C7607089CDAC8359B25B9359 /* th.lproj */; };
-		4B91F8C4B3A1C17297F2CF85C9BBB9E3 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D3568E4CC985855C42FA4AE4E274666B /* DDLog.m */; };
+		27FDB6EFD2828546A106C316A84E52B6 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8E3FD39D91AC53AA5E9C40E580006CB7 /* tr.lproj */; };
+		290119EE1B1895CDE0A08926CEF57872 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E6B11E0D8BD56295ED8A3C479B8A9A /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2AA2C2C9B7873C9ACD8FBBF7F219A733 /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = B97922BF17600E0FD9B54F7A00D57418 /* QRCodeReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2B19DF7CD1B938557E5E75FD5116B705 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = D9E7DE5CFD66740BDFB616D4326027F0 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2B61A6A708141830C274C7EC41F2D397 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 709B76BC119EED0B9E5A6A0CE2A3201B /* IASKAppSettingsViewController.m */; };
+		2C20386C831587C3A474B3FE1D8AA6DF /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC70C99FE79FBD0C5529572DC69B8D /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2C6C602D95101F1C1D3B04DE8D1438F0 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349BCD91523A0E436BA068F08B498991 /* DDASLLogger.m */; };
+		2E19FC3FB3FDA087D99F7498F88A55DA /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0265B072C097C4D32817FE4AA2CCAF /* IASKSwitch.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		304F20A362368D6640DCE5854DB0E117 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 87877D9618A825655F175DD5E203E551 /* de.lproj */; };
+		36BEC729974A674CBE177211FBCA47B7 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8F157E573FA637EF2A6780D63A6CA764 /* nl.lproj */; };
+		38B9CA359E2C95A6B5F86FC42F1C0441 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = B71ECB1A0E5BE3D60F0E05AB91204AC2 /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		39E59E5E43F01AE5ADC0D85D3368F5C4 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6F24A64DD035D0A3C30EC01568097BB /* DDContextFilterLogFormatter.m */; };
+		3A76E5E40B270E20BC89C2C15B4761DB /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = FBEB45E00884AAB59D86C028F8E9411E /* IASKSpecifier.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3CA035E6DF4C211534190789F739B45D /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = A164C7746B874C39E2A1816DE611CA05 /* DDOSLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3E3065526259EF11871C7F1C1BE075CA /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 923F5D8A25B7E1A15359D81A5BB51D1A /* IASKSettingsStoreUserDefaults.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3ED97ABA20CCFF1CEC5F9D23AB8D918F /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9450970AB5589562D8B64C7A932256D2 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3F545DC5EF7B2D52154543B45427B619 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = C548788C8EC468F6EEE221369B0ECD50 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		40B13EDBE519BA0CAE891E50FDEF564C /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = BFE38ED6653FA2BD76C5F5C80C3ECA6D /* IASKMultipleValueSelection.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4115672BCB53EF5678B2F1F3E7A60E44 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 13403B9C22AA3E2D3722384C91CC2D86 /* DDMultiFormatter.m */; };
+		45A0B6D926F073795EC638B0DE485764 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E6FE99BE09FFB3473632A6D38FF6F7F5 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		464E606D68BB040312B11C51CA73483D /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7B127066CBDBC89596A826DA5ACA61 /* IASKSlider.m */; };
+		47C60E6A954A31322919120693FD0282 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F8A45A5CD22994D7DCE001E97567A107 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4A8B3A92C783F834C1BFACC8501C1429 /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6C8396BB0EEB1F7730528F18FF48A770 /* th.lproj */; };
+		4B91F8C4B3A1C17297F2CF85C9BBB9E3 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F52EFB248C800399A1C0FD3127A4808D /* DDLog.m */; };
 		4FE02599D6F3F59B919D215727301AFE /* Pods-SEB Enterprise-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35C9E0FC0C65BE0472F547DCA84290F8 /* Pods-SEB Enterprise-dummy.m */; };
-		5722A444B38F4D04619E857708775562 /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B2E770F201E5B5AB951FAF973BCB5583 /* zh-Hant.lproj */; };
-		57DEA8A3DB3FAB5EF44DEF86E69E8DBF /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = A0A29DE885174D6ACE46C063522B7982 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		59B0DC59EE5CAC587E3E66907FB382B8 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A8E3AE47041E79624A574B32D2F0CB5 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		5A676C9CD627B0DFF717FCB640CBABB9 /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 3059D91C9A0807C2116F6E2574B71423 /* IASKSlider.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		5ADEA8FB3D7224F0C867FE9891E6572E /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 191EC3DA461B7A187311F30A4F7E3A1D /* hu.lproj */; };
-		5F1D37C8152EFCA3BFA6CB76D6E30F91 /* CocoaLumberjack-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FCEB3DB271B036F046A2CAB38795974C /* CocoaLumberjack-iOS-dummy.m */; };
-		5FA6F32B94BC2CED5E0B691B60CC97BB /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416B171C614A350D281BA48A130D107 /* IASKSwitch.m */; };
-		63B5170CBF0B4ABD783909A494599CD0 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2846A360651FA1E476E8A5A13A50CD4 /* IASKSpecifierValuesViewController.m */; };
-		67932DE320DFBE820B4B321E6F48167C /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D3568E4CC985855C42FA4AE4E274666B /* DDLog.m */; };
-		6819E455713F897773C548131F91AC6C /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E453156FD8C6E2C7E5590D6FE67B13 /* DDASLLogCapture.m */; };
-		69208F56007E7B15AB54009208190091 /* InAppSettingsKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A44337E583296873203D72D4F90BD7E5 /* InAppSettingsKit-dummy.m */; };
-		69C23E8F274AF39C943E5096165501D0 /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BB638D3E8A7A61573FF0A1BB1112A114 /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		6FD6978F5BE567C069B353FEAA346FB1 /* CocoaLumberjack-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1313EF9761BE3BE643ECD74818A73 /* CocoaLumberjack-macOS-dummy.m */; };
-		75DE8774DC506F490F83C222B5828D33 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BC4C1B2C3C1C6763E2593944B3B33 /* DDLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		77D233595975D10B10CE6E352FB3DB93 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E453156FD8C6E2C7E5590D6FE67B13 /* DDASLLogCapture.m */; };
-		7995F60F5BF74C576BF0473B857AB539 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A8E3AE47041E79624A574B32D2F0CB5 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		800CB66BDB59676C4E598953CD878DCD /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D49D7562B0B62B1A26AD0689E75FEED9 /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8047894666BBD948382BEC74DB7D409F /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 11CDA100CD97ADF7975D0979853B7080 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		822D2BC4EE5F973F211DBBECD362E163 /* QRToggleTorchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 346955A960857CCDEE4063E85F31C959 /* QRToggleTorchButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		83C1B8106F6576591A61ADF14B5BB460 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9E2E614D756A2A27987F5DE65E89D4 /* DDFileLogger.m */; };
-		840DAADE93F8FC7E98D312A83D3B4DC4 /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D325F1AFC3E29500092DE047A25CE046 /* sv.lproj */; };
-		84FBE26CAA3E91EC6B57437BA9981379 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C68C074BC1C892F5B4BA5E3CF3544FB9 /* DDASLLogger.m */; };
-		8533DC5617A5D91B66A595F913B60B05 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B35F2A1F2AB3287425F25AB419728CE /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8BC4CB34471BFDC5F2DC55B4C8C15F9B /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A6035327BC89FEEB421140EF5A031FFA /* nb.lproj */; };
-		939B4F6E8F9346C8DE3C96CB2D9CEA38 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E01C2E58AA84E2D61B3A79EDAC976B5D /* DDAbstractDatabaseLogger.m */; };
-		96E228A6CFF2972C7FA1B14AA4D2B45D /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F3E3D30518A43CEC011E0B7317C16866 /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		972EFADFF76AB6CB4CDA4DCFDFC71509 /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40C78773A2496878B5DDECA04F132800 /* QRCodeReaderView.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9784FDAB9FC3DCF63504A3A79B54704E /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7EFA307EAFC0F78FDA07BACEBCF3F5 /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9A66942A1C2793374DAACE78B56906B3 /* pt-PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0F7E2581579D6A9C21BCC5B3090F7A39 /* pt-PT.lproj */; };
-		A03CAA583ED5FC80E2655E6E43ED5FAB /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E7928D7605C5C090DD8C25167BF83F /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A5347131EFC05F49D9F3734D251E64A4 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E63376959F48805B9222E654B047ABE6 /* ru.lproj */; };
-		A8EC6927A091EC2367A780E85ECB3404 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4641570D0AD05BB37297EAFAD09D42DC /* DDASLLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A979201B5AC3195D2C55589EC580D1E1 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C09E2F4F8F83ECE7802E4CACBFB94A2 /* IASKMultipleValueSelection.m */; };
-		AC8D58B572117464A210C48F1BFFAD41 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = CA783475503AE204406528D7DD555AAB /* IASKTextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		AEF6B5CB7A98F12E5861FDB189B1DD6F /* hr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B415240A4956A723AC485B8C01D7EBB9 /* hr.lproj */; };
-		B0DB21586805DD05AF8A15254EF7BFAF /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6C1EC11699CDCC25493F3F897E32FE /* IASKTextView.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B0E822991F72242ACA1947D78B8083CA /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 29E039684096C2AEBA7718D7D3A32C15 /* ja.lproj */; };
-		B17CBD6428AFB3BCD888FD794044B3FC /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 141F6FB9847DC564A815487268DAD25A /* zh-Hans.lproj */; };
-		B26F04E5211024D14C2BA57094C4D651 /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = E81DBC54D67C316C4F4C049495A89C42 /* IASKSettingsStoreUserDefaults.m */; };
-		B2816182DB21520C06BAD5D242CC32A7 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BC4C1B2C3C1C6763E2593944B3B33 /* DDLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B41017D13D3A7CE6C89458D22ADCD701 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D47800E26D286D54B46ED3B4F1FA30B /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B71FB8493275746314F6E3937A1F51F0 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E7928D7605C5C090DD8C25167BF83F /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5722A444B38F4D04619E857708775562 /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 45664807BDF8269B44FF291DA26FA165 /* zh-Hant.lproj */; };
+		57DEA8A3DB3FAB5EF44DEF86E69E8DBF /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 2907F0514EF8132F14CDCEDB24501442 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		59B0DC59EE5CAC587E3E66907FB382B8 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F0922F204A7466FE6362B9E7B06B4406 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5A676C9CD627B0DFF717FCB640CBABB9 /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B7308093D70A256F75423ED043FFFE /* IASKSlider.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5ADEA8FB3D7224F0C867FE9891E6572E /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FF01E0DD1A1669176B68BF4C5D06D4A3 /* hu.lproj */; };
+		5F1D37C8152EFCA3BFA6CB76D6E30F91 /* CocoaLumberjack-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E450940169296B091A27B21DEC572879 /* CocoaLumberjack-iOS-dummy.m */; };
+		5FA6F32B94BC2CED5E0B691B60CC97BB /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C58023C5C7BE2A6785810E58837DF93C /* IASKSwitch.m */; };
+		63B5170CBF0B4ABD783909A494599CD0 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D0507006F5CF4FE603D4F2B1621CFF /* IASKSpecifierValuesViewController.m */; };
+		67932DE320DFBE820B4B321E6F48167C /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F52EFB248C800399A1C0FD3127A4808D /* DDLog.m */; };
+		6819E455713F897773C548131F91AC6C /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822612391DE4EE9D5E3902B9B1209DB /* DDASLLogCapture.m */; };
+		69208F56007E7B15AB54009208190091 /* InAppSettingsKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D19B2D6848731130E7B7C34E363C0A /* InAppSettingsKit-dummy.m */; };
+		69C23E8F274AF39C943E5096165501D0 /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 70D71D3CD1BA60DE0906E5F054A22CAF /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6FD6978F5BE567C069B353FEAA346FB1 /* CocoaLumberjack-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AEF090A38F065DA6D566AC197E8A55 /* CocoaLumberjack-macOS-dummy.m */; };
+		75DE8774DC506F490F83C222B5828D33 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 47835DBEA3FA5BC01CF10DFE2FB93C79 /* DDLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		77D233595975D10B10CE6E352FB3DB93 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822612391DE4EE9D5E3902B9B1209DB /* DDASLLogCapture.m */; };
+		7995F60F5BF74C576BF0473B857AB539 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F0922F204A7466FE6362B9E7B06B4406 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		800CB66BDB59676C4E598953CD878DCD /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B5BE930A55E2803418D51E5BBAFE900 /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8047894666BBD948382BEC74DB7D409F /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CFCE842FC23604EDB9506FEB0B79C39 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		822D2BC4EE5F973F211DBBECD362E163 /* QRToggleTorchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = BCF39387F13C4577CD4CFFA7C73E90B4 /* QRToggleTorchButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		83C1B8106F6576591A61ADF14B5BB460 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AA229E300E76823ECEB707EB0794AA75 /* DDFileLogger.m */; };
+		840DAADE93F8FC7E98D312A83D3B4DC4 /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 787CF3C53EBBAA5A1A806A4059A89CEB /* sv.lproj */; };
+		84FBE26CAA3E91EC6B57437BA9981379 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349BCD91523A0E436BA068F08B498991 /* DDASLLogger.m */; };
+		8533DC5617A5D91B66A595F913B60B05 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BDEA872C6EC060482C7003DC525F31B /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8BC4CB34471BFDC5F2DC55B4C8C15F9B /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E38F233591B71619AB197ABD90BCDBFF /* nb.lproj */; };
+		939B4F6E8F9346C8DE3C96CB2D9CEA38 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CE1049E7C2D26E53204B240196A7B8 /* DDAbstractDatabaseLogger.m */; };
+		96E228A6CFF2972C7FA1B14AA4D2B45D /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E1BB2EF35D08DC90253599646899B8A /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		972EFADFF76AB6CB4CDA4DCFDFC71509 /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FDBE0BCED032DC12D1DED0693056ECA /* QRCodeReaderView.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9784FDAB9FC3DCF63504A3A79B54704E /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5648A5051EA937C2C54332212DFE7613 /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9A66942A1C2793374DAACE78B56906B3 /* pt-PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D92A63D5C70F61DBB749C0CC2755A55A /* pt-PT.lproj */; };
+		A03CAA583ED5FC80E2655E6E43ED5FAB /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE4CC0D08D9CF46D30C758179E21E83 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A5347131EFC05F49D9F3734D251E64A4 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 14412C0268FB3331102FE870B418FABC /* ru.lproj */; };
+		A8EC6927A091EC2367A780E85ECB3404 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1699EB1777EC88F54DB1A8099D8BB9CC /* DDASLLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A979201B5AC3195D2C55589EC580D1E1 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE416BB430AA11EE62C6ECF1873C6CA5 /* IASKMultipleValueSelection.m */; };
+		AC8D58B572117464A210C48F1BFFAD41 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E49C5DB655ACA7DB72AA8A19E01841 /* IASKTextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		AEF6B5CB7A98F12E5861FDB189B1DD6F /* hr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 88E2DB0649B3283A7061E3F0D2E5E60E /* hr.lproj */; };
+		B0DB21586805DD05AF8A15254EF7BFAF /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E42110F9DB2AFEF903C033F5A47708A /* IASKTextView.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B0E822991F72242ACA1947D78B8083CA /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 9522E0C66D9FB0FD24F428C196077646 /* ja.lproj */; };
+		B17CBD6428AFB3BCD888FD794044B3FC /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = EDE3F8C38A5D1FDB4625A104D5EA3B65 /* zh-Hans.lproj */; };
+		B26F04E5211024D14C2BA57094C4D651 /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 58748EFC6C5CD9C4E2E920F446CD7146 /* IASKSettingsStoreUserDefaults.m */; };
+		B2816182DB21520C06BAD5D242CC32A7 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 47835DBEA3FA5BC01CF10DFE2FB93C79 /* DDLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B41017D13D3A7CE6C89458D22ADCD701 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 01538D8B93E94532EE190CB7ECCDEFD0 /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B71FB8493275746314F6E3937A1F51F0 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE4CC0D08D9CF46D30C758179E21E83 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B7B8F0B5B0C8DA1F8501809A98B34184 /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A79F4F01B9305CD7D89B3DA71FF7A47F /* Pods-SEB-dummy.m */; };
-		B7FF9B3A99E4949C418091272C368EB2 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B51D8AD0217389CF13BD2366A8EB45DF /* en.lproj */; };
-		B985D61E3593CF5E6759118696FCD631 /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C667AEF805C832060192F057D25BBFA /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BA860AA4FA11ABDE3A9FC213A45A0AC6 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9E2E614D756A2A27987F5DE65E89D4 /* DDFileLogger.m */; };
-		C26FB88DCCD2F106014F87328E3BDB84 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D486065A2668DB215AB159EE8E5528B /* IASKSettingsStoreFile.m */; };
-		C348880A561E7C093E3E0586A3800297 /* uk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B555C9BA3BDC532801921C62EFF197CC /* uk.lproj */; };
-		C468C33100D327AFF3DBBF2CDA10D783 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF5BCEF9CF69853C04F6BEB819EC3045 /* QRCodeReaderViewController.m */; };
-		C818E00F29010808C9EFB739347A10B4 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 148CFF7A02BC3D43A25FE178FA3E81D0 /* QRCodeReaderView.m */; };
-		C882240B66DD03EF17165AAC920E2ED2 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D7315F32EE0AF77A30E26B2C8F850D43 /* QRCodeReader.m */; };
-		CC72A4F0DF388683C4001A4140750AF5 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEC7508A6AEAF04777A56D30713EEBD /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		CC8A9553D94700C91769ED32BABAE4F3 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA9995902052934675706CF4BBADCA0 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		CDF2C114DF360F1B59BF561E45340F64 /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2706A933A0F11F7E2B9E5E1BE641731C /* DDOSLogger.m */; };
-		CE94C912A4D6AF9B65A7B55647B17B8E /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B3D6418641C73E55F58A03DA056A4F /* IASKPSTextFieldSpecifierViewCell.m */; };
-		CFB4A67ACAB835CFB7620D298523112F /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6D4033E9D01F3413A5C9CB238BAF2A /* IASKSettingsReader.m */; };
-		D14215B9783A3EF0FD32F85E749A92F9 /* es-MX.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 814A0B0605900D1FF4ED55F639333D0A /* es-MX.lproj */; };
-		D3365EFF9B2240FB69E62139D640F74E /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 303091BC33C094CB9F29AA5890102AA4 /* pt.lproj */; };
-		D738EEBDEAF61F05CFF74892C49C09D1 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 73268269C04989706CAEE4678AFF1753 /* DDDispatchQueueLogFormatter.m */; };
-		D8B842A752D6F535910996E422054AB7 /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B62458951F65A6F46637892833A98839 /* DDOSLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DA620C21F0EDB79AABD21B465E5F600D /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C44660818C2E168460F031A4565F5F6D /* QRCameraSwitchButton.m */; };
-		DDBCF98D56F90966251FACEBD161E3B9 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E01C2E58AA84E2D61B3A79EDAC976B5D /* DDAbstractDatabaseLogger.m */; };
-		DE3332276F6C4C3DF4B955C6ED682E89 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AF944DC24A5AC422FE1A8798E0B37B14 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E07003EE154D9D66C82AFA939BD309BF /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 750400F6A1C2827B2539961082D9DF62 /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E091F3A201F4247F0E44B771CE90891D /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8C20C7A0149843944518F08255CFBA11 /* pl.lproj */; };
-		E169B5D12BFA1E9E74D0BE27AE8814F7 /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A935323A4C8FA11D509087A9736AA4DF /* fr.lproj */; };
-		E189AF9B24BCCBA1CBFB85AC84E94786 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F246C10B8EB1CCBBC0C291EC93622D01 /* es.lproj */; };
-		E2BAB0623F7C734ABEC081CF327DFB53 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D7237543B89E2954E3A9DB56793E8E5B /* IASKPSSliderSpecifierViewCell.m */; };
-		E310FC9F37A40AE2CFA67A9A445D4C43 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C29BE89CA5F16DBE17464AD884F4CCA0 /* IASKAppSettingsWebViewController.m */; };
-		E3E8FF16F0251C7F91C463A7C4218FE0 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = C7FEF4EFEF42B019D676477BA0EBA028 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E471683539491F2BF746323D70F45CCC /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D10D4134DA6DF09037BF372BDC5C71B /* IASKViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E744815C4103C81D27DDCC7BA041B101 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 82099779757A77EE5182E2050366A2E4 /* ca.lproj */; };
-		E8C43CFD5B36DB9E069E62715347D05C /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 8613E39423754A0A9A98ABD763C281AE /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EA52316F3D62076DB518988059D7228C /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 73268269C04989706CAEE4678AFF1753 /* DDDispatchQueueLogFormatter.m */; };
-		ED5B8824078D53663558A33EE887BF8D /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6479FBCE512930255552F0F76968AB06 /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		ED91213C263746C8B82307DC5E185AAC /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B633744A30C910018CA670A42A70609 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EE6C1E86E6A9DAD30B1AE4755EDBF394 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = A0A29DE885174D6ACE46C063522B7982 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F320C3036586DF50FA4D546EFB963038 /* QRCodeReaderViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F59A735E9BAE8DDCCC180F4458B90260 /* QRCodeReaderViewController-dummy.m */; };
-		F6A1926916C834779A510A40FCBA6C2A /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = AC5EA645AA36E55F31BC7D1139D82FC4 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B7FF9B3A99E4949C418091272C368EB2 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F3D093616668326949DCE51199108EB0 /* en.lproj */; };
+		B985D61E3593CF5E6759118696FCD631 /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = D64973D6D770072B33B40A9705FE54AD /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		BA860AA4FA11ABDE3A9FC213A45A0AC6 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AA229E300E76823ECEB707EB0794AA75 /* DDFileLogger.m */; };
+		C26FB88DCCD2F106014F87328E3BDB84 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C4144010412AA23F7778F0FA931A7FDA /* IASKSettingsStoreFile.m */; };
+		C348880A561E7C093E3E0586A3800297 /* uk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 82A578D24D3889A578682193F4665755 /* uk.lproj */; };
+		C468C33100D327AFF3DBBF2CDA10D783 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ECB84D2C0B6E963712C13C4B36E5D0 /* QRCodeReaderViewController.m */; };
+		C818E00F29010808C9EFB739347A10B4 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE0E86F2ABC21C14926D64D00682CB8 /* QRCodeReaderView.m */; };
+		C882240B66DD03EF17165AAC920E2ED2 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 173FBC81C5CAA7A3EAB0EEC794C146E9 /* QRCodeReader.m */; };
+		CC72A4F0DF388683C4001A4140750AF5 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 7575D10519C4C0CDDA82F4EDB0EF0C2E /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		CC8A9553D94700C91769ED32BABAE4F3 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F8A45A5CD22994D7DCE001E97567A107 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		CDF2C114DF360F1B59BF561E45340F64 /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 130EF1B1B604672FD0B4751BE7F6B917 /* DDOSLogger.m */; };
+		CE94C912A4D6AF9B65A7B55647B17B8E /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D49C38D5EDF9EA882F3BDF19B7E6ED /* IASKPSTextFieldSpecifierViewCell.m */; };
+		CFB4A67ACAB835CFB7620D298523112F /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5E3C751AA4F6974A561C7F78E01E6A /* IASKSettingsReader.m */; };
+		D14215B9783A3EF0FD32F85E749A92F9 /* es-MX.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 852F8B3B891D920544FABBBA60DB4CBE /* es-MX.lproj */; };
+		D3365EFF9B2240FB69E62139D640F74E /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 85D091B2EFBFF9FA6B1DB18D5E9B7573 /* pt.lproj */; };
+		D738EEBDEAF61F05CFF74892C49C09D1 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AAE847E40F7CC14F956282662AA58 /* DDDispatchQueueLogFormatter.m */; };
+		D8B842A752D6F535910996E422054AB7 /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = A164C7746B874C39E2A1816DE611CA05 /* DDOSLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DA620C21F0EDB79AABD21B465E5F600D /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C9603841CC5D955DDB3F095B00293 /* QRCameraSwitchButton.m */; };
+		DDBCF98D56F90966251FACEBD161E3B9 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CE1049E7C2D26E53204B240196A7B8 /* DDAbstractDatabaseLogger.m */; };
+		DE3332276F6C4C3DF4B955C6ED682E89 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E6FE99BE09FFB3473632A6D38FF6F7F5 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E07003EE154D9D66C82AFA939BD309BF /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 48B10A5093617881DBCC1BCA94B25702 /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E091F3A201F4247F0E44B771CE90891D /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4DFD432F7CE22DBE9A7A213583A58F14 /* pl.lproj */; };
+		E169B5D12BFA1E9E74D0BE27AE8814F7 /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 01EF854B746C7F30C996D9A5265F5B95 /* fr.lproj */; };
+		E189AF9B24BCCBA1CBFB85AC84E94786 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 08BD9E294DB215DC63FA7F4E59B885A7 /* es.lproj */; };
+		E2BAB0623F7C734ABEC081CF327DFB53 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCB8B35FA20FE2F4BEDE20548C448A /* IASKPSSliderSpecifierViewCell.m */; };
+		E310FC9F37A40AE2CFA67A9A445D4C43 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4E5CF9950B9E7798B27ACD1C76E051 /* IASKAppSettingsWebViewController.m */; };
+		E3E8FF16F0251C7F91C463A7C4218FE0 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = C548788C8EC468F6EEE221369B0ECD50 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E471683539491F2BF746323D70F45CCC /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A81C500A1D410A5D273D0A3518DB0D52 /* IASKViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E744815C4103C81D27DDCC7BA041B101 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 54D08E14C770030C08A97E54D4882280 /* ca.lproj */; };
+		E8C43CFD5B36DB9E069E62715347D05C /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DC72410DA924DEAEF0DEE3374B92E3B /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EA52316F3D62076DB518988059D7228C /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AAE847E40F7CC14F956282662AA58 /* DDDispatchQueueLogFormatter.m */; };
+		ED5B8824078D53663558A33EE887BF8D /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 70FFEEA3896A5370814A5F9C0DF65519 /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		ED91213C263746C8B82307DC5E185AAC /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E6B11E0D8BD56295ED8A3C479B8A9A /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EE6C1E86E6A9DAD30B1AE4755EDBF394 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 2907F0514EF8132F14CDCEDB24501442 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F320C3036586DF50FA4D546EFB963038 /* QRCodeReaderViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 25FCD25B88813129434BA37676A272C0 /* QRCodeReaderViewController-dummy.m */; };
+		F6A1926916C834779A510A40FCBA6C2A /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = D9E7DE5CFD66740BDFB616D4326027F0 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F73D97DD176F24B1452C5B1B8A9498D5 /* Pods-SEB Dev-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA666FF4B4D9170DD4B17B3EB1C8010 /* Pods-SEB Dev-dummy.m */; };
-		F89D5B4A737F19C7F7FA4C3B8CA5E395 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC2944632F85A678AA6588D687F6092 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F9CCA8E161106CEE10BE12F1C8C59F07 /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2706A933A0F11F7E2B9E5E1BE641731C /* DDOSLogger.m */; };
-		FA45304185C58105FF1E64CECCB71C2C /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B43AD1F21672C4A52693C13E67F54B2 /* DDContextFilterLogFormatter.m */; };
-		FE687264CF31FB050E9CD9DC976B6E71 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FF218C1FA0BFCC10E77D5A5BCAD25CA6 /* Base.lproj */; };
+		F89D5B4A737F19C7F7FA4C3B8CA5E395 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9450970AB5589562D8B64C7A932256D2 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F9CCA8E161106CEE10BE12F1C8C59F07 /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 130EF1B1B604672FD0B4751BE7F6B917 /* DDOSLogger.m */; };
+		FA45304185C58105FF1E64CECCB71C2C /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6F24A64DD035D0A3C30EC01568097BB /* DDContextFilterLogFormatter.m */; };
+		FE687264CF31FB050E9CD9DC976B6E71 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0CB4A099E6C75F55DB41377122F292F9 /* Base.lproj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,230 +219,153 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0092773B1F76AB321915F2E6A6D0BA38 /* tls1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = tls1.h; path = opensslIncludes/openssl/tls1.h; sourceTree = "<group>"; };
-		013A385515818FF064DB3E29F0B4EA4C /* dsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dsa.h; path = opensslIncludes/openssl/dsa.h; sourceTree = "<group>"; };
-		01ABBFCF0E03D753D48372E1E1597EE7 /* dh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dh.h; path = opensslIncludes/openssl/dh.h; sourceTree = "<group>"; };
-		0379D03B5A49CDF055C7304428575485 /* camellia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = camellia.h; path = opensslIncludes/openssl/camellia.h; sourceTree = "<group>"; };
-		0695B30B2707E1E8901344CA8D854CCA /* x509.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x509.h; path = opensslIncludes/openssl/x509.h; sourceTree = "<group>"; };
+		00CE1049E7C2D26E53204B240196A7B8 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		01538D8B93E94532EE190CB7ECCDEFD0 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsWebViewController.h; path = InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
+		01EF854B746C7F30C996D9A5265F5B95 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fr.lproj; path = InAppSettingsKit/Resources/fr.lproj; sourceTree = "<group>"; };
 		06D9593FD12F90ABF6A37733E68A0FCB /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
-		06E453156FD8C6E2C7E5590D6FE67B13 /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
-		0B3E1E8BE2FDB19632D6E56CC6F5EC4E /* ecdsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdsa.h; path = opensslIncludes/openssl/ecdsa.h; sourceTree = "<group>"; };
-		0B9A57E3445C6B121F3CBC6269919FD0 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRToggleTorchButton.m; path = QRCodeReaderViewController/QRToggleTorchButton.m; sourceTree = "<group>"; };
-		0BE853FA9A21BE385B05A21EC81AC3D7 /* modes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = modes.h; path = opensslIncludes/openssl/modes.h; sourceTree = "<group>"; };
-		0D3A13F5D0B7BAEFFCF6AEF7EA7F58CC /* IASKSettingsStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStore.m; path = InAppSettingsKit/Models/IASKSettingsStore.m; sourceTree = "<group>"; };
-		0F7E2581579D6A9C21BCC5B3090F7A39 /* pt-PT.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-PT.lproj"; path = "InAppSettingsKit/Resources/pt-PT.lproj"; sourceTree = "<group>"; };
-		0F7FBDFD5CF7B31ED5A35FE3EE1A47F3 /* lhash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = lhash.h; path = opensslIncludes/openssl/lhash.h; sourceTree = "<group>"; };
-		10B5D40971C4E5B7798676234F447A00 /* des_old.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = des_old.h; path = opensslIncludes/openssl/des_old.h; sourceTree = "<group>"; };
-		11CDA100CD97ADF7975D0979853B7080 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		11F801DEDFFB8AA537E3B2FAB2E25AFE /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Safe Exam Browser.a"; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13DF773F207E3E0697D63F95DED5009B /* IASKSettingsReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsReader.h; path = InAppSettingsKit/Models/IASKSettingsReader.h; sourceTree = "<group>"; };
-		141F6FB9847DC564A815487268DAD25A /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "InAppSettingsKit/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
-		148CFF7A02BC3D43A25FE178FA3E81D0 /* QRCodeReaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderView.m; path = QRCodeReaderViewController/QRCodeReaderView.m; sourceTree = "<group>"; };
-		15C1E3291EC98DB549919468252C0D29 /* rc4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rc4.h; path = opensslIncludes/openssl/rc4.h; sourceTree = "<group>"; };
-		15CB5C40894F644056E4740F3EE1A40F /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libInAppSettingsKit.a; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		07B7308093D70A256F75423ED043FFFE /* IASKSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSlider.h; path = InAppSettingsKit/Views/IASKSlider.h; sourceTree = "<group>"; };
+		08BD9E294DB215DC63FA7F4E59B885A7 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = es.lproj; path = InAppSettingsKit/Resources/es.lproj; sourceTree = "<group>"; };
+		0CB4A099E6C75F55DB41377122F292F9 /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Base.lproj; path = InAppSettingsKit/Resources/Base.lproj; sourceTree = "<group>"; };
+		0E1BB2EF35D08DC90253599646899B8A /* IASKSettingsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStore.h; path = InAppSettingsKit/Models/IASKSettingsStore.h; sourceTree = "<group>"; };
+		11F801DEDFFB8AA537E3B2FAB2E25AFE /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		12ECB84D2C0B6E963712C13C4B36E5D0 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderViewController.m; path = QRCodeReaderViewController/QRCodeReaderViewController.m; sourceTree = "<group>"; };
+		130EF1B1B604672FD0B4751BE7F6B917 /* DDOSLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDOSLogger.m; path = Classes/DDOSLogger.m; sourceTree = "<group>"; };
+		13403B9C22AA3E2D3722384C91CC2D86 /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Classes/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
+		141A2488A9A72CF937F46D5BD930B145 /* InAppSettingsKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.xcconfig; sourceTree = "<group>"; };
+		14412C0268FB3331102FE870B418FABC /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ru.lproj; path = InAppSettingsKit/Resources/ru.lproj; sourceTree = "<group>"; };
+		15CB5C40894F644056E4740F3EE1A40F /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		15FA0AD6C799DC5384898C24EA55AE03 /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
-		1703C1357DBDE390994DDF55BD54E786 /* whrlpool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = whrlpool.h; path = opensslIncludes/openssl/whrlpool.h; sourceTree = "<group>"; };
-		191EC3DA461B7A187311F30A4F7E3A1D /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = hu.lproj; path = InAppSettingsKit/Resources/hu.lproj; sourceTree = "<group>"; };
-		19C6DDB0B900E8946804BEAFD650B5EA /* ripemd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ripemd.h; path = opensslIncludes/openssl/ripemd.h; sourceTree = "<group>"; };
-		1A8E3AE47041E79624A574B32D2F0CB5 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		1AA96C932F89352C6CAE067E98A77C0B /* opensslconf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = opensslconf.h; path = opensslIncludes/openssl/opensslconf.h; sourceTree = "<group>"; };
-		1C667AEF805C832060192F057D25BBFA /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreFile.h; path = InAppSettingsKit/Models/IASKSettingsStoreFile.h; sourceTree = "<group>"; };
-		1CA6DDAC06156FF218D84196D6987FCE /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKMultipleValueSelection.h; path = InAppSettingsKit/Controllers/IASKMultipleValueSelection.h; sourceTree = "<group>"; };
-		1CDD6908AE5F619C690F2B1BD0BC9047 /* IASKTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextView.m; path = InAppSettingsKit/Views/IASKTextView.m; sourceTree = "<group>"; };
-		2355E870E45B1091AABD199FA06FF6D1 /* seed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = seed.h; path = opensslIncludes/openssl/seed.h; sourceTree = "<group>"; };
+		1699EB1777EC88F54DB1A8099D8BB9CC /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
+		173FBC81C5CAA7A3EAB0EEC794C146E9 /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
+		1822612391DE4EE9D5E3902B9B1209DB /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
+		1B9C9603841CC5D955DDB3F095B00293 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
+		25FCD25B88813129434BA37676A272C0 /* QRCodeReaderViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QRCodeReaderViewController-dummy.m"; sourceTree = "<group>"; };
 		26BD73EF010F5D34C7BEA871599D1E9D /* Pods-SEB-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-resources.sh"; sourceTree = "<group>"; };
-		2706A933A0F11F7E2B9E5E1BE641731C /* DDOSLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDOSLogger.m; path = Classes/DDOSLogger.m; sourceTree = "<group>"; };
-		276B63C42B8B5B761475CA7669476766 /* IASKSpecifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifier.h; path = InAppSettingsKit/Models/IASKSpecifier.h; sourceTree = "<group>"; };
-		27CAE93E3156D88CECCC95940A11FE5B /* crypto.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto.h; path = opensslIncludes/openssl/crypto.h; sourceTree = "<group>"; };
-		29C22E3BA6B69C5CE0805DBEEDC41A81 /* des.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = des.h; path = opensslIncludes/openssl/des.h; sourceTree = "<group>"; };
-		29E039684096C2AEBA7718D7D3A32C15 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = InAppSettingsKit/Resources/ja.lproj; sourceTree = "<group>"; };
-		2D20CDA92EB8220EAB559BD0CD9135B0 /* md5.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = md5.h; path = opensslIncludes/openssl/md5.h; sourceTree = "<group>"; };
-		2E6D4033E9D01F3413A5C9CB238BAF2A /* IASKSettingsReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsReader.m; path = InAppSettingsKit/Models/IASKSettingsReader.m; sourceTree = "<group>"; };
-		2FCA72DFA5E7105D0DA0BECC454B8D6D /* QRCodeReaderViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QRCodeReaderViewController.xcconfig; sourceTree = "<group>"; };
-		30101552A8E5CB0A1CFA412866313CCE /* libcrypto.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcrypto.a; path = lib/libcrypto.a; sourceTree = "<group>"; };
-		303091BC33C094CB9F29AA5890102AA4 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = InAppSettingsKit/Resources/pt.lproj; sourceTree = "<group>"; };
-		3059D91C9A0807C2116F6E2574B71423 /* IASKSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSlider.h; path = InAppSettingsKit/Views/IASKSlider.h; sourceTree = "<group>"; };
+		2907F0514EF8132F14CDCEDB24501442 /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Classes/DDLog+LOGV.h"; sourceTree = "<group>"; };
+		2D8BDEA57234D1E7EF0A7F276EC18632 /* CocoaLumberjack-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CocoaLumberjack-macOS-prefix.pch"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch"; sourceTree = "<group>"; };
+		2DDBED78BAE0CC92BA535E458760AB23 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRToggleTorchButton.m; path = QRCodeReaderViewController/QRToggleTorchButton.m; sourceTree = "<group>"; };
+		2FDBE0BCED032DC12D1DED0693056ECA /* QRCodeReaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderView.h; path = QRCodeReaderViewController/QRCodeReaderView.h; sourceTree = "<group>"; };
 		339F04B428B602D482B3473AC94E1E9A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
-		346955A960857CCDEE4063E85F31C959 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRToggleTorchButton.h; path = QRCodeReaderViewController/QRToggleTorchButton.h; sourceTree = "<group>"; };
-		351F0145AEB2E6395B7CCBA6FD655D50 /* md4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = md4.h; path = opensslIncludes/openssl/md4.h; sourceTree = "<group>"; };
+		349BCD91523A0E436BA068F08B498991 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
 		35C9E0FC0C65BE0472F547DCA84290F8 /* Pods-SEB Enterprise-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB Enterprise-dummy.m"; sourceTree = "<group>"; };
-		378CE3D8473FAB2AD3204DAB40CEB0A5 /* ec.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ec.h; path = opensslIncludes/openssl/ec.h; sourceTree = "<group>"; };
-		3A93B5BA0BCD69B0E7E6DA5729ECB6FE /* dso.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dso.h; path = opensslIncludes/openssl/dso.h; sourceTree = "<group>"; };
-		3B43AD1F21672C4A52693C13E67F54B2 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		3B4854D9BC114DAA67AA923EA1247086 /* blowfish.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = blowfish.h; path = opensslIncludes/openssl/blowfish.h; sourceTree = "<group>"; };
-		3BD993DB5B500BA13136DCE2C28C50E6 /* err.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = err.h; path = opensslIncludes/openssl/err.h; sourceTree = "<group>"; };
+		3BDEA872C6EC060482C7003DC525F31B /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSSliderSpecifierViewCell.h; path = InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
 		3C18EE6E1341B81E2BEB8A1B9A87383F /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
-		3D486065A2668DB215AB159EE8E5528B /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreFile.m; path = InAppSettingsKit/Models/IASKSettingsStoreFile.m; sourceTree = "<group>"; };
+		3DC72410DA924DEAEF0DEE3374B92E3B /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
 		3DFCB9B7FFA315603E545397A91DED4C /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
-		40C78773A2496878B5DDECA04F132800 /* QRCodeReaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderView.h; path = QRCodeReaderViewController/QRCodeReaderView.h; sourceTree = "<group>"; };
-		42B237DC9DC6213F38AB4DD3E9AEBAB2 /* objects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = objects.h; path = opensslIncludes/openssl/objects.h; sourceTree = "<group>"; };
-		43F4BD2142871D40F1EA29FCF352B87A /* ssl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl.h; path = opensslIncludes/openssl/ssl.h; sourceTree = "<group>"; };
 		44C536998942C78F9C22379B1C249BBA /* Pods-SEB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-frameworks.sh"; sourceTree = "<group>"; };
-		4641570D0AD05BB37297EAFAD09D42DC /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
+		45664807BDF8269B44FF291DA26FA165 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hant.lproj"; path = "InAppSettingsKit/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		47835DBEA3FA5BC01CF10DFE2FB93C79 /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
+		48B10A5093617881DBCC1BCA94B25702 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifierValuesViewController.h; path = InAppSettingsKit/Controllers/IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
+		4A1FCBF05EB6DC2C6C5AC73811A8FEB2 /* InAppSettingsKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InAppSettingsKit-prefix.pch"; sourceTree = "<group>"; };
+		4A740296B28EC6779156A8B0536C47E3 /* IASKTextViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextViewCell.m; path = InAppSettingsKit/Views/IASKTextViewCell.m; sourceTree = "<group>"; };
 		4B9DA9099FC61A3039DB124F5B24F6E6 /* Pods-SEB Enterprise-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB Enterprise-resources.sh"; sourceTree = "<group>"; };
-		4F6C1EC11699CDCC25493F3F897E32FE /* IASKTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextView.h; path = InAppSettingsKit/Views/IASKTextView.h; sourceTree = "<group>"; };
+		4DFD432F7CE22DBE9A7A213583A58F14 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pl.lproj; path = InAppSettingsKit/Resources/pl.lproj; sourceTree = "<group>"; };
 		4FBD1D88C5ACA9805100AF2C98EE04CB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		5005DBBCBC0D2847058C288541AAC1D3 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = InAppSettingsKit/Resources/it.lproj; sourceTree = "<group>"; };
-		51828362783E329406E7D240D5147F11 /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SEB.a"; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		52874B7500C71AB5C02AE8B1C60DE681 /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Classes/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
-		537F5987CE2AE03C501A9F500BA885C2 /* pkcs12.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pkcs12.h; path = opensslIncludes/openssl/pkcs12.h; sourceTree = "<group>"; };
-		5450C476EA2AA31E4DC7218C7A62078C /* ssl2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl2.h; path = opensslIncludes/openssl/ssl2.h; sourceTree = "<group>"; };
+		51828362783E329406E7D240D5147F11 /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		54D08E14C770030C08A97E54D4882280 /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ca.lproj; path = InAppSettingsKit/Resources/ca.lproj; sourceTree = "<group>"; };
+		5648A5051EA937C2C54332212DFE7613 /* IASKTextViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextViewCell.h; path = InAppSettingsKit/Views/IASKTextViewCell.h; sourceTree = "<group>"; };
 		5801C30C19C4C8B6A41C487B65C1BFEF /* Pods-Safe Exam Browser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-acknowledgements.plist"; sourceTree = "<group>"; };
+		58748EFC6C5CD9C4E2E920F446CD7146 /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreUserDefaults.m; path = InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
 		58EF04BD0424331EEC15BAD4990AED45 /* Pods-SEB Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB Dev.debug.xcconfig"; sourceTree = "<group>"; };
-		5997C19C22F41BBB305C57594070DFDD /* aes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = aes.h; path = opensslIncludes/openssl/aes.h; sourceTree = "<group>"; };
-		5B35F2A1F2AB3287425F25AB419728CE /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSSliderSpecifierViewCell.h; path = InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
-		5BC6DB4E5110186FA12137AA3F173A8D /* pem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pem.h; path = opensslIncludes/openssl/pem.h; sourceTree = "<group>"; };
-		5BDCB541594D83FD963FFBE0EF51EE8A /* ssl23.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl23.h; path = opensslIncludes/openssl/ssl23.h; sourceTree = "<group>"; };
-		5C09E2F4F8F83ECE7802E4CACBFB94A2 /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKMultipleValueSelection.m; path = InAppSettingsKit/Controllers/IASKMultipleValueSelection.m; sourceTree = "<group>"; };
-		5D10D4134DA6DF09037BF372BDC5C71B /* IASKViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKViewController.h; path = InAppSettingsKit/Controllers/IASKViewController.h; sourceTree = "<group>"; };
-		5E5030E614CE3424FF0D03C35E5BBB6C /* CocoaLumberjack-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CocoaLumberjack-iOS.xcconfig"; sourceTree = "<group>"; };
-		5EEC7508A6AEAF04777A56D30713EEBD /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
-		6438840FCE51C768306FBF7554709629 /* ssl3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl3.h; path = opensslIncludes/openssl/ssl3.h; sourceTree = "<group>"; };
-		6479FBCE512930255552F0F76968AB06 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsViewController.h; path = InAppSettingsKit/Controllers/IASKAppSettingsViewController.h; sourceTree = "<group>"; };
-		665E7A01DF19DF7A4973A0B88D9AE1F9 /* comp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = comp.h; path = opensslIncludes/openssl/comp.h; sourceTree = "<group>"; };
-		68D2CE3560A22531D83456025E4A5787 /* obj_mac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = obj_mac.h; path = opensslIncludes/openssl/obj_mac.h; sourceTree = "<group>"; };
-		6AF1313EF9761BE3BE643ECD74818A73 /* CocoaLumberjack-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CocoaLumberjack-macOS-dummy.m"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-dummy.m"; sourceTree = "<group>"; };
-		6B633744A30C910018CA670A42A70609 /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
-		6DF6B305F199B9F53E726D43E5F7806D /* IASKTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextField.m; path = InAppSettingsKit/Views/IASKTextField.m; sourceTree = "<group>"; };
-		6EB88042F149FF07255E9F47076996BA /* ui.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ui.h; path = opensslIncludes/openssl/ui.h; sourceTree = "<group>"; };
-		705A45C498916DA8C0F6EDB17546F24E /* opensslv.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = opensslv.h; path = opensslIncludes/openssl/opensslv.h; sourceTree = "<group>"; };
-		7125047D033D8601777DF13574A09C02 /* srtp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = srtp.h; path = opensslIncludes/openssl/srtp.h; sourceTree = "<group>"; };
+		59116DC662802AF212F834A94FDD3854 /* IASKSpecifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifier.m; path = InAppSettingsKit/Models/IASKSpecifier.m; sourceTree = "<group>"; };
+		5EE2E67323B278EB7B4CC6A3405E5CF9 /* QRCodeReaderViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QRCodeReaderViewController.xcconfig; sourceTree = "<group>"; };
+		6B5BE930A55E2803418D51E5BBAFE900 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
+		6C8396BB0EEB1F7730528F18FF48A770 /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = th.lproj; path = InAppSettingsKit/Resources/th.lproj; sourceTree = "<group>"; };
+		6D0265B072C097C4D32817FE4AA2CCAF /* IASKSwitch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSwitch.h; path = InAppSettingsKit/Views/IASKSwitch.h; sourceTree = "<group>"; };
+		6E42110F9DB2AFEF903C033F5A47708A /* IASKTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextView.h; path = InAppSettingsKit/Views/IASKTextView.h; sourceTree = "<group>"; };
+		6E4E5CF9950B9E7798B27ACD1C76E051 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsWebViewController.m; path = InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
+		709B76BC119EED0B9E5A6A0CE2A3201B /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsViewController.m; path = InAppSettingsKit/Controllers/IASKAppSettingsViewController.m; sourceTree = "<group>"; };
+		70D71D3CD1BA60DE0906E5F054A22CAF /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSTextFieldSpecifierViewCell.h; path = InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
+		70FFEEA3896A5370814A5F9C0DF65519 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsViewController.h; path = InAppSettingsKit/Controllers/IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		715898BA4449F076ECAB11B6CAD39F7F /* Pods-Safe Exam Browser-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-resources.sh"; sourceTree = "<group>"; };
-		73268269C04989706CAEE4678AFF1753 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		7416B171C614A350D281BA48A130D107 /* IASKSwitch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSwitch.m; path = InAppSettingsKit/Views/IASKSwitch.m; sourceTree = "<group>"; };
-		750400F6A1C2827B2539961082D9DF62 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifierValuesViewController.h; path = InAppSettingsKit/Controllers/IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
-		76A48458A2A07FE024013887F7EE6AFE /* sha.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sha.h; path = opensslIncludes/openssl/sha.h; sourceTree = "<group>"; };
+		73744D264DBDA8E6E7981F7CAFF36146 /* IASKSettingsStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStore.m; path = InAppSettingsKit/Models/IASKSettingsStore.m; sourceTree = "<group>"; };
+		7575D10519C4C0CDDA82F4EDB0EF0C2E /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
+		787CF3C53EBBAA5A1A806A4059A89CEB /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sv.lproj; path = InAppSettingsKit/Resources/sv.lproj; sourceTree = "<group>"; };
 		7B26D7F342F7B754E7A1362C2C395F8C /* Pods-SEB Enterprise-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB Enterprise-acknowledgements.plist"; sourceTree = "<group>"; };
+		7BE4CC0D08D9CF46D30C758179E21E83 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		7D1FC9B9A1BC1245220B2B6EC7BD32CC /* Pods-Safe Exam Browser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser-dummy.m"; sourceTree = "<group>"; };
-		7F7EFA307EAFC0F78FDA07BACEBCF3F5 /* IASKTextViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextViewCell.h; path = InAppSettingsKit/Views/IASKTextViewCell.h; sourceTree = "<group>"; };
-		7F9BC4C1B2C3C1C6763E2593944B3B33 /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
-		814A0B0605900D1FF4ED55F639333D0A /* es-MX.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "es-MX.lproj"; path = "InAppSettingsKit/Resources/es-MX.lproj"; sourceTree = "<group>"; };
 		816E37C798C67428ED57E0EF39212084 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
-		81F7E8EF3546D25730E52F83C898358C /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
-		82099779757A77EE5182E2050366A2E4 /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = InAppSettingsKit/Resources/ca.lproj; sourceTree = "<group>"; };
-		820DF4CF15B1CDC9E96316FC1625B98E /* pem2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pem2.h; path = opensslIncludes/openssl/pem2.h; sourceTree = "<group>"; };
-		8294F966A66567FB9E016C4A3D5D10D0 /* evp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = evp.h; path = opensslIncludes/openssl/evp.h; sourceTree = "<group>"; };
-		83949D12746A966805928B333B6ECC2D /* ts.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ts.h; path = opensslIncludes/openssl/ts.h; sourceTree = "<group>"; };
-		847543369A893827A828340455210BB6 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderDelegate.h; path = QRCodeReaderViewController/QRCodeReaderDelegate.h; sourceTree = "<group>"; };
-		84F63BD6B5BAD95BFF4AE76AC91E552F /* bn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = bn.h; path = opensslIncludes/openssl/bn.h; sourceTree = "<group>"; };
-		8613E39423754A0A9A98ABD763C281AE /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
-		867B23554B7E61FF05C07B370F6BC895 /* symhacks.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = symhacks.h; path = opensslIncludes/openssl/symhacks.h; sourceTree = "<group>"; };
-		87EE8452235E097B9C0E382FCFA4CC56 /* engine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = engine.h; path = opensslIncludes/openssl/engine.h; sourceTree = "<group>"; };
-		89B77AB91D437BB9C054F3B1353A9191 /* pqueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pqueue.h; path = opensslIncludes/openssl/pqueue.h; sourceTree = "<group>"; };
+		82A578D24D3889A578682193F4665755 /* uk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = uk.lproj; path = InAppSettingsKit/Resources/uk.lproj; sourceTree = "<group>"; };
+		83D19B2D6848731130E7B7C34E363C0A /* InAppSettingsKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InAppSettingsKit-dummy.m"; sourceTree = "<group>"; };
+		84E49C5DB655ACA7DB72AA8A19E01841 /* IASKTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextField.h; path = InAppSettingsKit/Views/IASKTextField.h; sourceTree = "<group>"; };
+		852F8B3B891D920544FABBBA60DB4CBE /* es-MX.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "es-MX.lproj"; path = "InAppSettingsKit/Resources/es-MX.lproj"; sourceTree = "<group>"; };
+		85D091B2EFBFF9FA6B1DB18D5E9B7573 /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pt.lproj; path = InAppSettingsKit/Resources/pt.lproj; sourceTree = "<group>"; };
+		87877D9618A825655F175DD5E203E551 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = de.lproj; path = InAppSettingsKit/Resources/de.lproj; sourceTree = "<group>"; };
+		88E2DB0649B3283A7061E3F0D2E5E60E /* hr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hr.lproj; path = InAppSettingsKit/Resources/hr.lproj; sourceTree = "<group>"; };
 		8AA666FF4B4D9170DD4B17B3EB1C8010 /* Pods-SEB Dev-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB Dev-dummy.m"; sourceTree = "<group>"; };
-		8B89170E83C1F66E79CFE329160978DB /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = tr.lproj; path = InAppSettingsKit/Resources/tr.lproj; sourceTree = "<group>"; };
-		8BA9995902052934675706CF4BBADCA0 /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
-		8BB82DDBE957F6BC057E58FD91D098C1 /* dtls1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dtls1.h; path = opensslIncludes/openssl/dtls1.h; sourceTree = "<group>"; };
-		8C20C7A0149843944518F08255CFBA11 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = InAppSettingsKit/Resources/pl.lproj; sourceTree = "<group>"; };
-		8C305A93B4E4EB0BE7435253E94E2EE4 /* IASKTextViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextViewCell.m; path = InAppSettingsKit/Views/IASKTextViewCell.m; sourceTree = "<group>"; };
-		8C7AD9D9A64A78AD5D4777F021835647 /* kssl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = kssl.h; path = opensslIncludes/openssl/kssl.h; sourceTree = "<group>"; };
-		8D47800E26D286D54B46ED3B4F1FA30B /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsWebViewController.h; path = InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
-		8EB5E957C9378316329FE97BFE6E383D /* QRCodeReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReader.h; path = QRCodeReaderViewController/QRCodeReader.h; sourceTree = "<group>"; };
-		92ECCB2AF1FC10B5517C32B53A9CDE69 /* srp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = srp.h; path = opensslIncludes/openssl/srp.h; sourceTree = "<group>"; };
-		931EAF47C6B7CDEF102B307C5C1516B0 /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = el.lproj; path = InAppSettingsKit/Resources/el.lproj; sourceTree = "<group>"; };
+		8B63A63731DC6C06756667E9CBE25AC7 /* ResourceBundle-InAppSettingsKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-InAppSettingsKit-Info.plist"; sourceTree = "<group>"; };
+		8D9AAE847E40F7CC14F956282662AA58 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		8E3FD39D91AC53AA5E9C40E580006CB7 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = tr.lproj; path = InAppSettingsKit/Resources/tr.lproj; sourceTree = "<group>"; };
+		8F157E573FA637EF2A6780D63A6CA764 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = InAppSettingsKit/Resources/nl.lproj; sourceTree = "<group>"; };
+		9051F27A6C049458607B17EE5254DE86 /* IASKTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextView.m; path = InAppSettingsKit/Views/IASKTextView.m; sourceTree = "<group>"; };
+		923F5D8A25B7E1A15359D81A5BB51D1A /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreUserDefaults.h; path = InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
+		92E6B11E0D8BD56295ED8A3C479B8A9A /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
 		93910202E897419786FA54B8B8732F27 /* Pods-SEB Enterprise-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB Enterprise-frameworks.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9450970AB5589562D8B64C7A932256D2 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
+		9522E0C66D9FB0FD24F428C196077646 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ja.lproj; path = InAppSettingsKit/Resources/ja.lproj; sourceTree = "<group>"; };
 		9755126CF7C0C86A28E738CD400ED675 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		982458D397FB47A14174491275751FA9 /* ocsp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ocsp.h; path = opensslIncludes/openssl/ocsp.h; sourceTree = "<group>"; };
 		9A892FA4247E2DD6E6A4106308D77E18 /* Pods-SEB Dev-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB Dev-resources.sh"; sourceTree = "<group>"; };
+		9AAC70C99FE79FBD0C5529572DC69B8D /* IASKSettingsReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsReader.h; path = InAppSettingsKit/Models/IASKSettingsReader.h; sourceTree = "<group>"; };
+		9AE08CE6503C5A3FB9DB44761AEE0DB4 /* CocoaLumberjack-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-iOS-prefix.pch"; sourceTree = "<group>"; };
 		9AF2F4AEEC8925FBDCAECA33F3CB436F /* Pods-SEB Dev-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB Dev-acknowledgements.markdown"; sourceTree = "<group>"; };
-		9C0E401F3E702C6EBFD55959094C28E3 /* libssl.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libssl.a; path = lib/libssl.a; sourceTree = "<group>"; };
+		9CFCE842FC23604EDB9506FEB0B79C39 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
 		9E0ABA80FAE6E121AF261FE43CE65312 /* Pods-SEB Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB Dev.release.xcconfig"; sourceTree = "<group>"; };
-		9F9E2E614D756A2A27987F5DE65E89D4 /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
 		9FB40E888F952CE254F6E55E9E5CBD43 /* Pods-Safe Exam Browser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-frameworks.sh"; sourceTree = "<group>"; };
-		A0A29DE885174D6ACE46C063522B7982 /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Classes/DDLog+LOGV.h"; sourceTree = "<group>"; };
 		A0E92C959F4B7ABEDA8CDE47F90C8AC4 /* Pods-SEB Dev-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB Dev-frameworks.sh"; sourceTree = "<group>"; };
-		A2FD4C8C4B24EE0B8174C4782813925D /* krb5_asn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = krb5_asn.h; path = opensslIncludes/openssl/krb5_asn.h; sourceTree = "<group>"; };
-		A44337E583296873203D72D4F90BD7E5 /* InAppSettingsKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InAppSettingsKit-dummy.m"; sourceTree = "<group>"; };
-		A6035327BC89FEEB421140EF5A031FFA /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nb.lproj; path = InAppSettingsKit/Resources/nb.lproj; sourceTree = "<group>"; };
+		A164C7746B874C39E2A1816DE611CA05 /* DDOSLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDOSLogger.h; path = Classes/DDOSLogger.h; sourceTree = "<group>"; };
+		A3D49C38D5EDF9EA882F3BDF19B7E6ED /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSTextFieldSpecifierViewCell.m; path = InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
+		A5B05CFE443C7485DF26995AE1058716 /* CocoaLumberjack-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CocoaLumberjack-iOS.xcconfig"; sourceTree = "<group>"; };
+		A6F24A64DD035D0A3C30EC01568097BB /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
 		A79F4F01B9305CD7D89B3DA71FF7A47F /* Pods-SEB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB-dummy.m"; sourceTree = "<group>"; };
-		A8B3D6418641C73E55F58A03DA056A4F /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSTextFieldSpecifierViewCell.m; path = InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
-		A935323A4C8FA11D509087A9736AA4DF /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = InAppSettingsKit/Resources/fr.lproj; sourceTree = "<group>"; };
-		AC5EA645AA36E55F31BC7D1139D82FC4 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
-		ADCBFE814CEC09BE0C0CC1A5FAF3458C /* rsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rsa.h; path = opensslIncludes/openssl/rsa.h; sourceTree = "<group>"; };
-		ADE73D172D1891A30900408844670826 /* rand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rand.h; path = opensslIncludes/openssl/rand.h; sourceTree = "<group>"; };
-		AE213BD4331148BD1EA32E11D6E4E18E /* libCocoaLumberjack-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libCocoaLumberjack-iOS.a"; path = "libCocoaLumberjack-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A81C500A1D410A5D273D0A3518DB0D52 /* IASKViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKViewController.h; path = InAppSettingsKit/Controllers/IASKViewController.h; sourceTree = "<group>"; };
+		AA229E300E76823ECEB707EB0794AA75 /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
+		ACD10728D34D7B5CBB4781C3A645EEB3 /* CocoaLumberjack-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CocoaLumberjack-macOS.xcconfig"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS.xcconfig"; sourceTree = "<group>"; };
+		AD50FC6F8BB9069B06580E1A9DF8720C /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
+		AE213BD4331148BD1EA32E11D6E4E18E /* libCocoaLumberjack-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocoaLumberjack-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE416BB430AA11EE62C6ECF1873C6CA5 /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKMultipleValueSelection.m; path = InAppSettingsKit/Controllers/IASKMultipleValueSelection.m; sourceTree = "<group>"; };
 		AE7340F0E924D0F0AE0A1CCB6EC0E833 /* Pods-SEB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB-acknowledgements.markdown"; sourceTree = "<group>"; };
-		AECDD1A321881FFDDA2FC1EEAFBC8B8C /* cast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cast.h; path = opensslIncludes/openssl/cast.h; sourceTree = "<group>"; };
-		AF944DC24A5AC422FE1A8798E0B37B14 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
-		AFB8447BB6BD076F0D9E7AD3E023E3E3 /* e_os2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = opensslIncludes/openssl/e_os2.h; sourceTree = "<group>"; };
-		B09149879E3A33012F409F5D84DD95E1 /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
-		B2B331B4C7607089CDAC8359B25B9359 /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = th.lproj; path = InAppSettingsKit/Resources/th.lproj; sourceTree = "<group>"; };
-		B2E770F201E5B5AB951FAF973BCB5583 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "InAppSettingsKit/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
-		B35327379D217F61B5A4F25BEC9232D1 /* ui_compat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ui_compat.h; path = opensslIncludes/openssl/ui_compat.h; sourceTree = "<group>"; };
-		B3906F6BE98B94827D20D5D896DE7A12 /* cmac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cmac.h; path = opensslIncludes/openssl/cmac.h; sourceTree = "<group>"; };
-		B415240A4956A723AC485B8C01D7EBB9 /* hr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = hr.lproj; path = InAppSettingsKit/Resources/hr.lproj; sourceTree = "<group>"; };
-		B42B0E99283E6A4DA14B4BFC626A5040 /* rc2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rc2.h; path = opensslIncludes/openssl/rc2.h; sourceTree = "<group>"; };
-		B51D8AD0217389CF13BD2366A8EB45DF /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = InAppSettingsKit/Resources/en.lproj; sourceTree = "<group>"; };
-		B555C9BA3BDC532801921C62EFF197CC /* uk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = uk.lproj; path = InAppSettingsKit/Resources/uk.lproj; sourceTree = "<group>"; };
-		B62458951F65A6F46637892833A98839 /* DDOSLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDOSLogger.h; path = Classes/DDOSLogger.h; sourceTree = "<group>"; };
-		B9A3A308B348D1788BE7B54415726D3E /* ecdh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdh.h; path = opensslIncludes/openssl/ecdh.h; sourceTree = "<group>"; };
+		B104959D0CF4E577C2D099A9BD4D7AA6 /* QRCodeReaderViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QRCodeReaderViewController-prefix.pch"; sourceTree = "<group>"; };
+		B3436785634DB65307B8A418062EFBDD /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = it.lproj; path = InAppSettingsKit/Resources/it.lproj; sourceTree = "<group>"; };
+		B71ECB1A0E5BE3D60F0E05AB91204AC2 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
+		B97922BF17600E0FD9B54F7A00D57418 /* QRCodeReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReader.h; path = QRCodeReaderViewController/QRCodeReader.h; sourceTree = "<group>"; };
 		BAEBE00B67DB20CB2FB27B7EFFA63C12 /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
-		BB638D3E8A7A61573FF0A1BB1112A114 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSTextFieldSpecifierViewCell.h; path = InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
-		BC32129B6285C17199FF93F334472FAF /* x509v3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x509v3.h; path = opensslIncludes/openssl/x509v3.h; sourceTree = "<group>"; };
-		BF6853CE1095767343B847645A34FD72 /* buffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = buffer.h; path = opensslIncludes/openssl/buffer.h; sourceTree = "<group>"; };
-		BFD8D283CFB9B64C62B8DADE1E9C3138 /* stack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = stack.h; path = opensslIncludes/openssl/stack.h; sourceTree = "<group>"; };
-		C1369E1AB2A511B1262C286E14044EC8 /* CocoaLumberjack-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CocoaLumberjack-macOS.xcconfig"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS.xcconfig"; sourceTree = "<group>"; };
-		C1E7928D7605C5C090DD8C25167BF83F /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		C29BE89CA5F16DBE17464AD884F4CCA0 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsWebViewController.m; path = InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
-		C30DC12D3C5F4340DB21424326AB47E6 /* conf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = conf.h; path = opensslIncludes/openssl/conf.h; sourceTree = "<group>"; };
-		C44660818C2E168460F031A4565F5F6D /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
-		C4EEE1F4200860D35A473D954B38A5C3 /* CocoaLumberjack-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-iOS-prefix.pch"; sourceTree = "<group>"; };
-		C60A386D30025252B47A065DFB7876B0 /* IASKSlider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSlider.m; path = InAppSettingsKit/Views/IASKSlider.m; sourceTree = "<group>"; };
-		C68C074BC1C892F5B4BA5E3CF3544FB9 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
-		C7219BF99BB08E4A4CC714C50DAB5667 /* QRCodeReaderViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QRCodeReaderViewController-prefix.pch"; sourceTree = "<group>"; };
-		C7B63DB651832EAEAE495FBB029B8B27 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = InAppSettingsKit/Resources/nl.lproj; sourceTree = "<group>"; };
-		C7FEF4EFEF42B019D676477BA0EBA028 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
-		CA783475503AE204406528D7DD555AAB /* IASKTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextField.h; path = InAppSettingsKit/Views/IASKTextField.h; sourceTree = "<group>"; };
+		BB5E3C751AA4F6974A561C7F78E01E6A /* IASKSettingsReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsReader.m; path = InAppSettingsKit/Models/IASKSettingsReader.m; sourceTree = "<group>"; };
+		BCF39387F13C4577CD4CFFA7C73E90B4 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRToggleTorchButton.h; path = QRCodeReaderViewController/QRToggleTorchButton.h; sourceTree = "<group>"; };
+		BDE0E86F2ABC21C14926D64D00682CB8 /* QRCodeReaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderView.m; path = QRCodeReaderViewController/QRCodeReaderView.m; sourceTree = "<group>"; };
+		BFE38ED6653FA2BD76C5F5C80C3ECA6D /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKMultipleValueSelection.h; path = InAppSettingsKit/Controllers/IASKMultipleValueSelection.h; sourceTree = "<group>"; };
+		C3BF09A39AC289C8B533546EE1022D2A /* IASKTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextField.m; path = InAppSettingsKit/Views/IASKTextField.m; sourceTree = "<group>"; };
+		C4144010412AA23F7778F0FA931A7FDA /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreFile.m; path = InAppSettingsKit/Models/IASKSettingsStoreFile.m; sourceTree = "<group>"; };
+		C548788C8EC468F6EEE221369B0ECD50 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
+		C58023C5C7BE2A6785810E58837DF93C /* IASKSwitch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSwitch.m; path = InAppSettingsKit/Views/IASKSwitch.m; sourceTree = "<group>"; };
+		C5BCB8B35FA20FE2F4BEDE20548C448A /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSSliderSpecifierViewCell.m; path = InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
 		CB8770981EB45CF2B268370819361E57 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
-		CFDCAC78F0E7FFA3E961EC1D863A361B /* asn1t.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1t.h; path = opensslIncludes/openssl/asn1t.h; sourceTree = "<group>"; };
-		D009D9B4C427E15B9271DDE99C25C199 /* InAppSettingsKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.xcconfig; sourceTree = "<group>"; };
-		D08F37E4ED62766E0BE784FCEEA3FFFA /* idea.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = idea.h; path = opensslIncludes/openssl/idea.h; sourceTree = "<group>"; };
-		D138A64984594DDD6D46368CD44839A6 /* safestack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = safestack.h; path = opensslIncludes/openssl/safestack.h; sourceTree = "<group>"; };
-		D2846A360651FA1E476E8A5A13A50CD4 /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifierValuesViewController.m; path = InAppSettingsKit/Controllers/IASKSpecifierValuesViewController.m; sourceTree = "<group>"; };
-		D325F1AFC3E29500092DE047A25CE046 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sv.lproj; path = InAppSettingsKit/Resources/sv.lproj; sourceTree = "<group>"; };
-		D340ADB02F95141C3BD18FE1189F983E /* libPods-SEB Dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SEB Dev.a"; path = "libPods-SEB Dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3568E4CC985855C42FA4AE4E274666B /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
-		D376C844E86488A7F62FBBA7D6B6765F /* asn1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1.h; path = opensslIncludes/openssl/asn1.h; sourceTree = "<group>"; };
-		D47DF359FDEF986307A5E979ACA9B611 /* asn1_mac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1_mac.h; path = opensslIncludes/openssl/asn1_mac.h; sourceTree = "<group>"; };
-		D49D7562B0B62B1A26AD0689E75FEED9 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
-		D7237543B89E2954E3A9DB56793E8E5B /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSSliderSpecifierViewCell.m; path = InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
-		D7315F32EE0AF77A30E26B2C8F850D43 /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
-		D9FE69D3420FF11AA19E9D6837A2FAF8 /* mdc2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = mdc2.h; path = opensslIncludes/openssl/mdc2.h; sourceTree = "<group>"; };
-		DABD6F98BD434F0EBF4010DD14BB8EE6 /* libCocoaLumberjack-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libCocoaLumberjack-macOS.a"; path = "libCocoaLumberjack-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB2FDCBB9BA2881FD406CFD6B2053615 /* x509_vfy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x509_vfy.h; path = opensslIncludes/openssl/x509_vfy.h; sourceTree = "<group>"; };
-		DB93D50DA05E4FAA8E43FA5E39E32BAF /* IASKSwitch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSwitch.h; path = InAppSettingsKit/Views/IASKSwitch.h; sourceTree = "<group>"; };
-		DB989745665D10D8FDD1F91241A49536 /* ossl_typ.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ossl_typ.h; path = opensslIncludes/openssl/ossl_typ.h; sourceTree = "<group>"; };
-		DBE0B5551FA09A6A59280DE47D6165F2 /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreUserDefaults.h; path = InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
-		DD4DFF11C8C132BE21662E034A47EB2C /* bio.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = bio.h; path = opensslIncludes/openssl/bio.h; sourceTree = "<group>"; };
-		DE9BA2142111AD04787E4686844C3787 /* ebcdic.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ebcdic.h; path = opensslIncludes/openssl/ebcdic.h; sourceTree = "<group>"; };
-		DF5BCEF9CF69853C04F6BEB819EC3045 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderViewController.m; path = QRCodeReaderViewController/QRCodeReaderViewController.m; sourceTree = "<group>"; };
-		E01C2E58AA84E2D61B3A79EDAC976B5D /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		E1352A90C8487989DBA2CF0D8CFC887F /* cms.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cms.h; path = opensslIncludes/openssl/cms.h; sourceTree = "<group>"; };
-		E1C2932B1A848B52558A7CF91659021E /* InAppSettingsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = InAppSettingsKit.bundle; path = "InAppSettingsKit-InAppSettingsKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D340ADB02F95141C3BD18FE1189F983E /* libPods-SEB Dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5AEF090A38F065DA6D566AC197E8A55 /* CocoaLumberjack-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CocoaLumberjack-macOS-dummy.m"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-dummy.m"; sourceTree = "<group>"; };
+		D64973D6D770072B33B40A9705FE54AD /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreFile.h; path = InAppSettingsKit/Models/IASKSettingsStoreFile.h; sourceTree = "<group>"; };
+		D92A63D5C70F61DBB749C0CC2755A55A /* pt-PT.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "pt-PT.lproj"; path = "InAppSettingsKit/Resources/pt-PT.lproj"; sourceTree = "<group>"; };
+		D94E3F466CA3B55D0BEB5B33B641C8DA /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderDelegate.h; path = QRCodeReaderViewController/QRCodeReaderDelegate.h; sourceTree = "<group>"; };
+		D9E7DE5CFD66740BDFB616D4326027F0 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
+		DABD6F98BD434F0EBF4010DD14BB8EE6 /* libCocoaLumberjack-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocoaLumberjack-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC7B127066CBDBC89596A826DA5ACA61 /* IASKSlider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSlider.m; path = InAppSettingsKit/Views/IASKSlider.m; sourceTree = "<group>"; };
+		E1C2932B1A848B52558A7CF91659021E /* InAppSettingsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E38F233591B71619AB197ABD90BCDBFF /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nb.lproj; path = InAppSettingsKit/Resources/nb.lproj; sourceTree = "<group>"; };
+		E450940169296B091A27B21DEC572879 /* CocoaLumberjack-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-iOS-dummy.m"; sourceTree = "<group>"; };
 		E481BD68543ECD2808BE3BBB92A984EC /* Pods-Safe Exam Browser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser-acknowledgements.markdown"; sourceTree = "<group>"; };
-		E500242F6471408DF2072C2B6C64981C /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SEB Enterprise.a"; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E59C98A2FDD5AC8413C7BE38751E09E1 /* InAppSettingsKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InAppSettingsKit-prefix.pch"; sourceTree = "<group>"; };
-		E63376959F48805B9222E654B047ABE6 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = InAppSettingsKit/Resources/ru.lproj; sourceTree = "<group>"; };
-		E78B5A09057A3F6354456217FFBC1CA3 /* CocoaLumberjack-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CocoaLumberjack-macOS-prefix.pch"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch"; sourceTree = "<group>"; };
-		E81DBC54D67C316C4F4C049495A89C42 /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreUserDefaults.m; path = InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
-		E8F3B89EA916DB21CAB08D32DB03BE9F /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = InAppSettingsKit/Resources/de.lproj; sourceTree = "<group>"; };
-		EAD28C3C44CEA10D0017582280F09EF4 /* IASKSpecifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifier.m; path = InAppSettingsKit/Models/IASKSpecifier.m; sourceTree = "<group>"; };
-		EB381A31A179DA76082CC767DC439842 /* pkcs7.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pkcs7.h; path = opensslIncludes/openssl/pkcs7.h; sourceTree = "<group>"; };
-		ECD41D208B2902783968D5F4963A6729 /* ResourceBundle-InAppSettingsKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-InAppSettingsKit-Info.plist"; sourceTree = "<group>"; };
-		EDA3D77BF4A2F58640111A79CE1D9B97 /* txt_db.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = txt_db.h; path = opensslIncludes/openssl/txt_db.h; sourceTree = "<group>"; };
-		EDC2944632F85A678AA6588D687F6092 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
+		E500242F6471408DF2072C2B6C64981C /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5EC9AF8781C87F381B82C905472E4A1 /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = el.lproj; path = InAppSettingsKit/Resources/el.lproj; sourceTree = "<group>"; };
+		E6FE99BE09FFB3473632A6D38FF6F7F5 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
+		EDE3F8C38A5D1FDB4625A104D5EA3B65 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hans.lproj"; path = "InAppSettingsKit/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 		EE47C5A7AA8FF9B1A7968A7C975596F0 /* Pods-SEB Dev-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB Dev-acknowledgements.plist"; sourceTree = "<group>"; };
-		F03BAE2B6ED87D431E7158BA901569D2 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsViewController.m; path = InAppSettingsKit/Controllers/IASKAppSettingsViewController.m; sourceTree = "<group>"; };
-		F246C10B8EB1CCBBC0C291EC93622D01 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = InAppSettingsKit/Resources/es.lproj; sourceTree = "<group>"; };
-		F3E3D30518A43CEC011E0B7317C16866 /* IASKSettingsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStore.h; path = InAppSettingsKit/Models/IASKSettingsStore.h; sourceTree = "<group>"; };
-		F59A735E9BAE8DDCCC180F4458B90260 /* QRCodeReaderViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QRCodeReaderViewController-dummy.m"; sourceTree = "<group>"; };
+		F0922F204A7466FE6362B9E7B06B4406 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		F3D093616668326949DCE51199108EB0 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = InAppSettingsKit/Resources/en.lproj; sourceTree = "<group>"; };
+		F52EFB248C800399A1C0FD3127A4808D /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
+		F6D0507006F5CF4FE603D4F2B1621CFF /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifierValuesViewController.m; path = InAppSettingsKit/Controllers/IASKSpecifierValuesViewController.m; sourceTree = "<group>"; };
+		F8A45A5CD22994D7DCE001E97567A107 /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
 		FA03BC8467DEF7E7EDFF92F0B879767D /* Pods-SEB Enterprise-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB Enterprise-acknowledgements.markdown"; sourceTree = "<group>"; };
-		FCEB3DB271B036F046A2CAB38795974C /* CocoaLumberjack-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-iOS-dummy.m"; sourceTree = "<group>"; };
-		FE81AAC35B979D047A5C085CFFFCC066 /* hmac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hmac.h; path = opensslIncludes/openssl/hmac.h; sourceTree = "<group>"; };
-		FF218C1FA0BFCC10E77D5A5BCAD25CA6 /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = Base.lproj; path = InAppSettingsKit/Resources/Base.lproj; sourceTree = "<group>"; };
-		FF250A8BF9FE9A983010D10F4C419E01 /* libQRCodeReaderViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libQRCodeReaderViewController.a; path = libQRCodeReaderViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF8C5648BFA91630DDFD27F983C0BF0B /* conf_api.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = conf_api.h; path = opensslIncludes/openssl/conf_api.h; sourceTree = "<group>"; };
+		FBEB45E00884AAB59D86C028F8E9411E /* IASKSpecifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifier.h; path = InAppSettingsKit/Models/IASKSpecifier.h; sourceTree = "<group>"; };
+		FF01E0DD1A1669176B68BF4C5D06D4A3 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hu.lproj; path = InAppSettingsKit/Resources/hu.lproj; sourceTree = "<group>"; };
+		FF250A8BF9FE9A983010D10F4C419E01 /* libQRCodeReaderViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQRCodeReaderViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,26 +438,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		007E0BE68B09EC98E698BB4043168D9B /* CocoaLumberjack */ = {
+		0DFD643B55777AA13AF6CD4B939079F0 /* QRCodeReaderViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E91CE27790064CAD0E2888E60BD175D8 /* Default */,
-				90DA692E2F3C897C462A75262254C2A0 /* Extensions */,
-				B289406CF392DF1794A6034EA92E45FB /* Support Files */,
+				B71ECB1A0E5BE3D60F0E05AB91204AC2 /* QRCameraSwitchButton.h */,
+				1B9C9603841CC5D955DDB3F095B00293 /* QRCameraSwitchButton.m */,
+				B97922BF17600E0FD9B54F7A00D57418 /* QRCodeReader.h */,
+				173FBC81C5CAA7A3EAB0EEC794C146E9 /* QRCodeReader.m */,
+				D94E3F466CA3B55D0BEB5B33B641C8DA /* QRCodeReaderDelegate.h */,
+				2FDBE0BCED032DC12D1DED0693056ECA /* QRCodeReaderView.h */,
+				BDE0E86F2ABC21C14926D64D00682CB8 /* QRCodeReaderView.m */,
+				6B5BE930A55E2803418D51E5BBAFE900 /* QRCodeReaderViewController.h */,
+				12ECB84D2C0B6E963712C13C4B36E5D0 /* QRCodeReaderViewController.m */,
+				BCF39387F13C4577CD4CFFA7C73E90B4 /* QRToggleTorchButton.h */,
+				2DDBED78BAE0CC92BA535E458760AB23 /* QRToggleTorchButton.m */,
+				CE03F30BFEC6A9C0C6B7BBC0BB74C07A /* Support Files */,
 			);
-			name = CocoaLumberjack;
-			path = CocoaLumberjack;
-			sourceTree = "<group>";
-		};
-		0D08E52A5B8E5BC8C37CC12608E58232 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				007E0BE68B09EC98E698BB4043168D9B /* CocoaLumberjack */,
-				B690594769D0C738CEC4E01A780C6C2B /* InAppSettingsKit */,
-				40703EDEB911BB01AF673A2E4FC97569 /* openssl-ios-bitcode */,
-				D19A810A13D6F47E8EFEBDD74BD43AC7 /* QRCodeReaderViewController */,
-			);
-			name = Pods;
+			path = QRCodeReaderViewController;
 			sourceTree = "<group>";
 		};
 		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
@@ -560,128 +480,136 @@
 			path = "Target Support Files/Pods-SEB";
 			sourceTree = "<group>";
 		};
-		30E512F14075D08EEF1B11F7C798BA64 /* Frameworks */ = {
+		40F268E7D275A22A286F4587EF7CC8A6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				30101552A8E5CB0A1CFA412866313CCE /* libcrypto.a */,
-				9C0E401F3E702C6EBFD55959094C28E3 /* libssl.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		40703EDEB911BB01AF673A2E4FC97569 /* openssl-ios-bitcode */ = {
-			isa = PBXGroup;
-			children = (
-				5997C19C22F41BBB305C57594070DFDD /* aes.h */,
-				D376C844E86488A7F62FBBA7D6B6765F /* asn1.h */,
-				D47DF359FDEF986307A5E979ACA9B611 /* asn1_mac.h */,
-				CFDCAC78F0E7FFA3E961EC1D863A361B /* asn1t.h */,
-				DD4DFF11C8C132BE21662E034A47EB2C /* bio.h */,
-				3B4854D9BC114DAA67AA923EA1247086 /* blowfish.h */,
-				84F63BD6B5BAD95BFF4AE76AC91E552F /* bn.h */,
-				BF6853CE1095767343B847645A34FD72 /* buffer.h */,
-				0379D03B5A49CDF055C7304428575485 /* camellia.h */,
-				AECDD1A321881FFDDA2FC1EEAFBC8B8C /* cast.h */,
-				B3906F6BE98B94827D20D5D896DE7A12 /* cmac.h */,
-				E1352A90C8487989DBA2CF0D8CFC887F /* cms.h */,
-				665E7A01DF19DF7A4973A0B88D9AE1F9 /* comp.h */,
-				C30DC12D3C5F4340DB21424326AB47E6 /* conf.h */,
-				FF8C5648BFA91630DDFD27F983C0BF0B /* conf_api.h */,
-				27CAE93E3156D88CECCC95940A11FE5B /* crypto.h */,
-				29C22E3BA6B69C5CE0805DBEEDC41A81 /* des.h */,
-				10B5D40971C4E5B7798676234F447A00 /* des_old.h */,
-				01ABBFCF0E03D753D48372E1E1597EE7 /* dh.h */,
-				013A385515818FF064DB3E29F0B4EA4C /* dsa.h */,
-				3A93B5BA0BCD69B0E7E6DA5729ECB6FE /* dso.h */,
-				8BB82DDBE957F6BC057E58FD91D098C1 /* dtls1.h */,
-				AFB8447BB6BD076F0D9E7AD3E023E3E3 /* e_os2.h */,
-				DE9BA2142111AD04787E4686844C3787 /* ebcdic.h */,
-				378CE3D8473FAB2AD3204DAB40CEB0A5 /* ec.h */,
-				B9A3A308B348D1788BE7B54415726D3E /* ecdh.h */,
-				0B3E1E8BE2FDB19632D6E56CC6F5EC4E /* ecdsa.h */,
-				87EE8452235E097B9C0E382FCFA4CC56 /* engine.h */,
-				3BD993DB5B500BA13136DCE2C28C50E6 /* err.h */,
-				8294F966A66567FB9E016C4A3D5D10D0 /* evp.h */,
-				FE81AAC35B979D047A5C085CFFFCC066 /* hmac.h */,
-				D08F37E4ED62766E0BE784FCEEA3FFFA /* idea.h */,
-				A2FD4C8C4B24EE0B8174C4782813925D /* krb5_asn.h */,
-				8C7AD9D9A64A78AD5D4777F021835647 /* kssl.h */,
-				0F7FBDFD5CF7B31ED5A35FE3EE1A47F3 /* lhash.h */,
-				351F0145AEB2E6395B7CCBA6FD655D50 /* md4.h */,
-				2D20CDA92EB8220EAB559BD0CD9135B0 /* md5.h */,
-				D9FE69D3420FF11AA19E9D6837A2FAF8 /* mdc2.h */,
-				0BE853FA9A21BE385B05A21EC81AC3D7 /* modes.h */,
-				68D2CE3560A22531D83456025E4A5787 /* obj_mac.h */,
-				42B237DC9DC6213F38AB4DD3E9AEBAB2 /* objects.h */,
-				982458D397FB47A14174491275751FA9 /* ocsp.h */,
-				1AA96C932F89352C6CAE067E98A77C0B /* opensslconf.h */,
-				705A45C498916DA8C0F6EDB17546F24E /* opensslv.h */,
-				DB989745665D10D8FDD1F91241A49536 /* ossl_typ.h */,
-				5BC6DB4E5110186FA12137AA3F173A8D /* pem.h */,
-				820DF4CF15B1CDC9E96316FC1625B98E /* pem2.h */,
-				537F5987CE2AE03C501A9F500BA885C2 /* pkcs12.h */,
-				EB381A31A179DA76082CC767DC439842 /* pkcs7.h */,
-				89B77AB91D437BB9C054F3B1353A9191 /* pqueue.h */,
-				ADE73D172D1891A30900408844670826 /* rand.h */,
-				B42B0E99283E6A4DA14B4BFC626A5040 /* rc2.h */,
-				15C1E3291EC98DB549919468252C0D29 /* rc4.h */,
-				19C6DDB0B900E8946804BEAFD650B5EA /* ripemd.h */,
-				ADCBFE814CEC09BE0C0CC1A5FAF3458C /* rsa.h */,
-				D138A64984594DDD6D46368CD44839A6 /* safestack.h */,
-				2355E870E45B1091AABD199FA06FF6D1 /* seed.h */,
-				76A48458A2A07FE024013887F7EE6AFE /* sha.h */,
-				92ECCB2AF1FC10B5517C32B53A9CDE69 /* srp.h */,
-				7125047D033D8601777DF13574A09C02 /* srtp.h */,
-				43F4BD2142871D40F1EA29FCF352B87A /* ssl.h */,
-				5450C476EA2AA31E4DC7218C7A62078C /* ssl2.h */,
-				5BDCB541594D83FD963FFBE0EF51EE8A /* ssl23.h */,
-				6438840FCE51C768306FBF7554709629 /* ssl3.h */,
-				BFD8D283CFB9B64C62B8DADE1E9C3138 /* stack.h */,
-				867B23554B7E61FF05C07B370F6BC895 /* symhacks.h */,
-				0092773B1F76AB321915F2E6A6D0BA38 /* tls1.h */,
-				83949D12746A966805928B333B6ECC2D /* ts.h */,
-				EDA3D77BF4A2F58640111A79CE1D9B97 /* txt_db.h */,
-				6EB88042F149FF07255E9F47076996BA /* ui.h */,
-				B35327379D217F61B5A4F25BEC9232D1 /* ui_compat.h */,
-				1703C1357DBDE390994DDF55BD54E786 /* whrlpool.h */,
-				0695B30B2707E1E8901344CA8D854CCA /* x509.h */,
-				DB2FDCBB9BA2881FD406CFD6B2053615 /* x509_vfy.h */,
-				BC32129B6285C17199FF93F334472FAF /* x509v3.h */,
-				30E512F14075D08EEF1B11F7C798BA64 /* Frameworks */,
-			);
-			name = "openssl-ios-bitcode";
-			path = "openssl-ios-bitcode";
-			sourceTree = "<group>";
-		};
-		5FFFDCAF07B766DBB3BCDCE3359107AF /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				FF218C1FA0BFCC10E77D5A5BCAD25CA6 /* Base.lproj */,
-				82099779757A77EE5182E2050366A2E4 /* ca.lproj */,
-				E8F3B89EA916DB21CAB08D32DB03BE9F /* de.lproj */,
-				931EAF47C6B7CDEF102B307C5C1516B0 /* el.lproj */,
-				B51D8AD0217389CF13BD2366A8EB45DF /* en.lproj */,
-				F246C10B8EB1CCBBC0C291EC93622D01 /* es.lproj */,
-				814A0B0605900D1FF4ED55F639333D0A /* es-MX.lproj */,
-				A935323A4C8FA11D509087A9736AA4DF /* fr.lproj */,
-				B415240A4956A723AC485B8C01D7EBB9 /* hr.lproj */,
-				191EC3DA461B7A187311F30A4F7E3A1D /* hu.lproj */,
-				5005DBBCBC0D2847058C288541AAC1D3 /* it.lproj */,
-				29E039684096C2AEBA7718D7D3A32C15 /* ja.lproj */,
-				A6035327BC89FEEB421140EF5A031FFA /* nb.lproj */,
-				C7B63DB651832EAEAE495FBB029B8B27 /* nl.lproj */,
-				8C20C7A0149843944518F08255CFBA11 /* pl.lproj */,
-				303091BC33C094CB9F29AA5890102AA4 /* pt.lproj */,
-				0F7E2581579D6A9C21BCC5B3090F7A39 /* pt-PT.lproj */,
-				E63376959F48805B9222E654B047ABE6 /* ru.lproj */,
-				D325F1AFC3E29500092DE047A25CE046 /* sv.lproj */,
-				B2B331B4C7607089CDAC8359B25B9359 /* th.lproj */,
-				8B89170E83C1F66E79CFE329160978DB /* tr.lproj */,
-				B555C9BA3BDC532801921C62EFF197CC /* uk.lproj */,
-				141F6FB9847DC564A815487268DAD25A /* zh-Hans.lproj */,
-				B2E770F201E5B5AB951FAF973BCB5583 /* zh-Hant.lproj */,
+				0CB4A099E6C75F55DB41377122F292F9 /* Base.lproj */,
+				54D08E14C770030C08A97E54D4882280 /* ca.lproj */,
+				87877D9618A825655F175DD5E203E551 /* de.lproj */,
+				E5EC9AF8781C87F381B82C905472E4A1 /* el.lproj */,
+				F3D093616668326949DCE51199108EB0 /* en.lproj */,
+				08BD9E294DB215DC63FA7F4E59B885A7 /* es.lproj */,
+				852F8B3B891D920544FABBBA60DB4CBE /* es-MX.lproj */,
+				01EF854B746C7F30C996D9A5265F5B95 /* fr.lproj */,
+				88E2DB0649B3283A7061E3F0D2E5E60E /* hr.lproj */,
+				FF01E0DD1A1669176B68BF4C5D06D4A3 /* hu.lproj */,
+				B3436785634DB65307B8A418062EFBDD /* it.lproj */,
+				9522E0C66D9FB0FD24F428C196077646 /* ja.lproj */,
+				E38F233591B71619AB197ABD90BCDBFF /* nb.lproj */,
+				8F157E573FA637EF2A6780D63A6CA764 /* nl.lproj */,
+				4DFD432F7CE22DBE9A7A213583A58F14 /* pl.lproj */,
+				85D091B2EFBFF9FA6B1DB18D5E9B7573 /* pt.lproj */,
+				D92A63D5C70F61DBB749C0CC2755A55A /* pt-PT.lproj */,
+				14412C0268FB3331102FE870B418FABC /* ru.lproj */,
+				787CF3C53EBBAA5A1A806A4059A89CEB /* sv.lproj */,
+				6C8396BB0EEB1F7730528F18FF48A770 /* th.lproj */,
+				8E3FD39D91AC53AA5E9C40E580006CB7 /* tr.lproj */,
+				82A578D24D3889A578682193F4665755 /* uk.lproj */,
+				EDE3F8C38A5D1FDB4625A104D5EA3B65 /* zh-Hans.lproj */,
+				45664807BDF8269B44FF291DA26FA165 /* zh-Hant.lproj */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		44B41BD11CC3BA3359676F64F3FC9B3D /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				583EA0C28E5F72D265F1410770EE5157 /* Default */,
+				4DD7559767455BAEF718D79EA8804330 /* Extensions */,
+				9222558087102D302816A63366F74221 /* Support Files */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		4DD7559767455BAEF718D79EA8804330 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9CFCE842FC23604EDB9506FEB0B79C39 /* DDContextFilterLogFormatter.h */,
+				A6F24A64DD035D0A3C30EC01568097BB /* DDContextFilterLogFormatter.m */,
+				F0922F204A7466FE6362B9E7B06B4406 /* DDDispatchQueueLogFormatter.h */,
+				8D9AAE847E40F7CC14F956282662AA58 /* DDDispatchQueueLogFormatter.m */,
+				F8A45A5CD22994D7DCE001E97567A107 /* DDMultiFormatter.h */,
+				13403B9C22AA3E2D3722384C91CC2D86 /* DDMultiFormatter.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		583EA0C28E5F72D265F1410770EE5157 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				D9E7DE5CFD66740BDFB616D4326027F0 /* CocoaLumberjack.h */,
+				7BE4CC0D08D9CF46D30C758179E21E83 /* DDAbstractDatabaseLogger.h */,
+				00CE1049E7C2D26E53204B240196A7B8 /* DDAbstractDatabaseLogger.m */,
+				3DC72410DA924DEAEF0DEE3374B92E3B /* DDASLLogCapture.h */,
+				1822612391DE4EE9D5E3902B9B1209DB /* DDASLLogCapture.m */,
+				1699EB1777EC88F54DB1A8099D8BB9CC /* DDASLLogger.h */,
+				349BCD91523A0E436BA068F08B498991 /* DDASLLogger.m */,
+				7575D10519C4C0CDDA82F4EDB0EF0C2E /* DDAssertMacros.h */,
+				E6FE99BE09FFB3473632A6D38FF6F7F5 /* DDFileLogger.h */,
+				AA229E300E76823ECEB707EB0794AA75 /* DDFileLogger.m */,
+				92E6B11E0D8BD56295ED8A3C479B8A9A /* DDLegacyMacros.h */,
+				47835DBEA3FA5BC01CF10DFE2FB93C79 /* DDLog.h */,
+				F52EFB248C800399A1C0FD3127A4808D /* DDLog.m */,
+				2907F0514EF8132F14CDCEDB24501442 /* DDLog+LOGV.h */,
+				C548788C8EC468F6EEE221369B0ECD50 /* DDLogMacros.h */,
+				A164C7746B874C39E2A1816DE611CA05 /* DDOSLogger.h */,
+				130EF1B1B604672FD0B4751BE7F6B917 /* DDOSLogger.m */,
+				9450970AB5589562D8B64C7A932256D2 /* DDTTYLogger.h */,
+				AD50FC6F8BB9069B06580E1A9DF8720C /* DDTTYLogger.m */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
+		68AAB5B708B2F4BB9434C53FB8D60784 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				44B41BD11CC3BA3359676F64F3FC9B3D /* CocoaLumberjack */,
+				68EFF414120326E829252CA00FB57A32 /* InAppSettingsKit */,
+				0DFD643B55777AA13AF6CD4B939079F0 /* QRCodeReaderViewController */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		68EFF414120326E829252CA00FB57A32 /* InAppSettingsKit */ = {
+			isa = PBXGroup;
+			children = (
+				70FFEEA3896A5370814A5F9C0DF65519 /* IASKAppSettingsViewController.h */,
+				709B76BC119EED0B9E5A6A0CE2A3201B /* IASKAppSettingsViewController.m */,
+				01538D8B93E94532EE190CB7ECCDEFD0 /* IASKAppSettingsWebViewController.h */,
+				6E4E5CF9950B9E7798B27ACD1C76E051 /* IASKAppSettingsWebViewController.m */,
+				BFE38ED6653FA2BD76C5F5C80C3ECA6D /* IASKMultipleValueSelection.h */,
+				AE416BB430AA11EE62C6ECF1873C6CA5 /* IASKMultipleValueSelection.m */,
+				3BDEA872C6EC060482C7003DC525F31B /* IASKPSSliderSpecifierViewCell.h */,
+				C5BCB8B35FA20FE2F4BEDE20548C448A /* IASKPSSliderSpecifierViewCell.m */,
+				70D71D3CD1BA60DE0906E5F054A22CAF /* IASKPSTextFieldSpecifierViewCell.h */,
+				A3D49C38D5EDF9EA882F3BDF19B7E6ED /* IASKPSTextFieldSpecifierViewCell.m */,
+				9AAC70C99FE79FBD0C5529572DC69B8D /* IASKSettingsReader.h */,
+				BB5E3C751AA4F6974A561C7F78E01E6A /* IASKSettingsReader.m */,
+				0E1BB2EF35D08DC90253599646899B8A /* IASKSettingsStore.h */,
+				73744D264DBDA8E6E7981F7CAFF36146 /* IASKSettingsStore.m */,
+				D64973D6D770072B33B40A9705FE54AD /* IASKSettingsStoreFile.h */,
+				C4144010412AA23F7778F0FA931A7FDA /* IASKSettingsStoreFile.m */,
+				923F5D8A25B7E1A15359D81A5BB51D1A /* IASKSettingsStoreUserDefaults.h */,
+				58748EFC6C5CD9C4E2E920F446CD7146 /* IASKSettingsStoreUserDefaults.m */,
+				07B7308093D70A256F75423ED043FFFE /* IASKSlider.h */,
+				DC7B127066CBDBC89596A826DA5ACA61 /* IASKSlider.m */,
+				FBEB45E00884AAB59D86C028F8E9411E /* IASKSpecifier.h */,
+				59116DC662802AF212F834A94FDD3854 /* IASKSpecifier.m */,
+				48B10A5093617881DBCC1BCA94B25702 /* IASKSpecifierValuesViewController.h */,
+				F6D0507006F5CF4FE603D4F2B1621CFF /* IASKSpecifierValuesViewController.m */,
+				6D0265B072C097C4D32817FE4AA2CCAF /* IASKSwitch.h */,
+				C58023C5C7BE2A6785810E58837DF93C /* IASKSwitch.m */,
+				84E49C5DB655ACA7DB72AA8A19E01841 /* IASKTextField.h */,
+				C3BF09A39AC289C8B533546EE1022D2A /* IASKTextField.m */,
+				6E42110F9DB2AFEF903C033F5A47708A /* IASKTextView.h */,
+				9051F27A6C049458607B17EE5254DE86 /* IASKTextView.m */,
+				5648A5051EA937C2C54332212DFE7613 /* IASKTextViewCell.h */,
+				4A740296B28EC6779156A8B0536C47E3 /* IASKTextViewCell.m */,
+				A81C500A1D410A5D273D0A3518DB0D52 /* IASKViewController.h */,
+				40F268E7D275A22A286F4587EF7CC8A6 /* Resources */,
+				DD6E3A62AE4C90ED7CB41F603EE9284E /* Support Files */,
+			);
+			path = InAppSettingsKit;
 			sourceTree = "<group>";
 		};
 		7CACD76B9E2E5FE5D9DB735491B75328 /* Pods-SEB Enterprise */ = {
@@ -704,7 +632,7 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
-				0D08E52A5B8E5BC8C37CC12608E58232 /* Pods */,
+				68AAB5B708B2F4BB9434C53FB8D60784 /* Pods */,
 				B1858FDC9580C75E172690106A43F12F /* Products */,
 				8EDE796EEBED9E467029AE4831C661C0 /* Targets Support Files */,
 			);
@@ -721,17 +649,18 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		90DA692E2F3C897C462A75262254C2A0 /* Extensions */ = {
+		9222558087102D302816A63366F74221 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				11CDA100CD97ADF7975D0979853B7080 /* DDContextFilterLogFormatter.h */,
-				3B43AD1F21672C4A52693C13E67F54B2 /* DDContextFilterLogFormatter.m */,
-				1A8E3AE47041E79624A574B32D2F0CB5 /* DDDispatchQueueLogFormatter.h */,
-				73268269C04989706CAEE4678AFF1753 /* DDDispatchQueueLogFormatter.m */,
-				8BA9995902052934675706CF4BBADCA0 /* DDMultiFormatter.h */,
-				52874B7500C71AB5C02AE8B1C60DE681 /* DDMultiFormatter.m */,
+				A5B05CFE443C7485DF26995AE1058716 /* CocoaLumberjack-iOS.xcconfig */,
+				E450940169296B091A27B21DEC572879 /* CocoaLumberjack-iOS-dummy.m */,
+				9AE08CE6503C5A3FB9DB44761AEE0DB4 /* CocoaLumberjack-iOS-prefix.pch */,
+				ACD10728D34D7B5CBB4781C3A645EEB3 /* CocoaLumberjack-macOS.xcconfig */,
+				D5AEF090A38F065DA6D566AC197E8A55 /* CocoaLumberjack-macOS-dummy.m */,
+				2D8BDEA57234D1E7EF0A7F276EC18632 /* CocoaLumberjack-macOS-prefix.pch */,
 			);
-			name = Extensions;
+			name = "Support Files";
+			path = "../Target Support Files/CocoaLumberjack-iOS";
 			sourceTree = "<group>";
 		};
 		B1858FDC9580C75E172690106A43F12F /* Products */ = {
@@ -750,63 +679,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B289406CF392DF1794A6034EA92E45FB /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				5E5030E614CE3424FF0D03C35E5BBB6C /* CocoaLumberjack-iOS.xcconfig */,
-				FCEB3DB271B036F046A2CAB38795974C /* CocoaLumberjack-iOS-dummy.m */,
-				C4EEE1F4200860D35A473D954B38A5C3 /* CocoaLumberjack-iOS-prefix.pch */,
-				C1369E1AB2A511B1262C286E14044EC8 /* CocoaLumberjack-macOS.xcconfig */,
-				6AF1313EF9761BE3BE643ECD74818A73 /* CocoaLumberjack-macOS-dummy.m */,
-				E78B5A09057A3F6354456217FFBC1CA3 /* CocoaLumberjack-macOS-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/CocoaLumberjack-iOS";
-			sourceTree = "<group>";
-		};
-		B690594769D0C738CEC4E01A780C6C2B /* InAppSettingsKit */ = {
-			isa = PBXGroup;
-			children = (
-				6479FBCE512930255552F0F76968AB06 /* IASKAppSettingsViewController.h */,
-				F03BAE2B6ED87D431E7158BA901569D2 /* IASKAppSettingsViewController.m */,
-				8D47800E26D286D54B46ED3B4F1FA30B /* IASKAppSettingsWebViewController.h */,
-				C29BE89CA5F16DBE17464AD884F4CCA0 /* IASKAppSettingsWebViewController.m */,
-				1CA6DDAC06156FF218D84196D6987FCE /* IASKMultipleValueSelection.h */,
-				5C09E2F4F8F83ECE7802E4CACBFB94A2 /* IASKMultipleValueSelection.m */,
-				5B35F2A1F2AB3287425F25AB419728CE /* IASKPSSliderSpecifierViewCell.h */,
-				D7237543B89E2954E3A9DB56793E8E5B /* IASKPSSliderSpecifierViewCell.m */,
-				BB638D3E8A7A61573FF0A1BB1112A114 /* IASKPSTextFieldSpecifierViewCell.h */,
-				A8B3D6418641C73E55F58A03DA056A4F /* IASKPSTextFieldSpecifierViewCell.m */,
-				13DF773F207E3E0697D63F95DED5009B /* IASKSettingsReader.h */,
-				2E6D4033E9D01F3413A5C9CB238BAF2A /* IASKSettingsReader.m */,
-				F3E3D30518A43CEC011E0B7317C16866 /* IASKSettingsStore.h */,
-				0D3A13F5D0B7BAEFFCF6AEF7EA7F58CC /* IASKSettingsStore.m */,
-				1C667AEF805C832060192F057D25BBFA /* IASKSettingsStoreFile.h */,
-				3D486065A2668DB215AB159EE8E5528B /* IASKSettingsStoreFile.m */,
-				DBE0B5551FA09A6A59280DE47D6165F2 /* IASKSettingsStoreUserDefaults.h */,
-				E81DBC54D67C316C4F4C049495A89C42 /* IASKSettingsStoreUserDefaults.m */,
-				3059D91C9A0807C2116F6E2574B71423 /* IASKSlider.h */,
-				C60A386D30025252B47A065DFB7876B0 /* IASKSlider.m */,
-				276B63C42B8B5B761475CA7669476766 /* IASKSpecifier.h */,
-				EAD28C3C44CEA10D0017582280F09EF4 /* IASKSpecifier.m */,
-				750400F6A1C2827B2539961082D9DF62 /* IASKSpecifierValuesViewController.h */,
-				D2846A360651FA1E476E8A5A13A50CD4 /* IASKSpecifierValuesViewController.m */,
-				DB93D50DA05E4FAA8E43FA5E39E32BAF /* IASKSwitch.h */,
-				7416B171C614A350D281BA48A130D107 /* IASKSwitch.m */,
-				CA783475503AE204406528D7DD555AAB /* IASKTextField.h */,
-				6DF6B305F199B9F53E726D43E5F7806D /* IASKTextField.m */,
-				4F6C1EC11699CDCC25493F3F897E32FE /* IASKTextView.h */,
-				1CDD6908AE5F619C690F2B1BD0BC9047 /* IASKTextView.m */,
-				7F7EFA307EAFC0F78FDA07BACEBCF3F5 /* IASKTextViewCell.h */,
-				8C305A93B4E4EB0BE7435253E94E2EE4 /* IASKTextViewCell.m */,
-				5D10D4134DA6DF09037BF372BDC5C71B /* IASKViewController.h */,
-				5FFFDCAF07B766DBB3BCDCE3359107AF /* Resources */,
-				DAC4D09C3160083AA37475DF078793A1 /* Support Files */,
-			);
-			name = InAppSettingsKit;
-			path = InAppSettingsKit;
-			sourceTree = "<group>";
-		};
 		B77D38E3AF777176C5EFEC0E505ABA32 /* Pods-SEB Dev */ = {
 			isa = PBXGroup;
 			children = (
@@ -822,44 +694,24 @@
 			path = "Target Support Files/Pods-SEB Dev";
 			sourceTree = "<group>";
 		};
-		BE6B52C6FA24311A0FF0D71F8584D43E /* Support Files */ = {
+		CE03F30BFEC6A9C0C6B7BBC0BB74C07A /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				2FCA72DFA5E7105D0DA0BECC454B8D6D /* QRCodeReaderViewController.xcconfig */,
-				F59A735E9BAE8DDCCC180F4458B90260 /* QRCodeReaderViewController-dummy.m */,
-				C7219BF99BB08E4A4CC714C50DAB5667 /* QRCodeReaderViewController-prefix.pch */,
+				5EE2E67323B278EB7B4CC6A3405E5CF9 /* QRCodeReaderViewController.xcconfig */,
+				25FCD25B88813129434BA37676A272C0 /* QRCodeReaderViewController-dummy.m */,
+				B104959D0CF4E577C2D099A9BD4D7AA6 /* QRCodeReaderViewController-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/QRCodeReaderViewController";
 			sourceTree = "<group>";
 		};
-		D19A810A13D6F47E8EFEBDD74BD43AC7 /* QRCodeReaderViewController */ = {
+		DD6E3A62AE4C90ED7CB41F603EE9284E /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				81F7E8EF3546D25730E52F83C898358C /* QRCameraSwitchButton.h */,
-				C44660818C2E168460F031A4565F5F6D /* QRCameraSwitchButton.m */,
-				8EB5E957C9378316329FE97BFE6E383D /* QRCodeReader.h */,
-				D7315F32EE0AF77A30E26B2C8F850D43 /* QRCodeReader.m */,
-				847543369A893827A828340455210BB6 /* QRCodeReaderDelegate.h */,
-				40C78773A2496878B5DDECA04F132800 /* QRCodeReaderView.h */,
-				148CFF7A02BC3D43A25FE178FA3E81D0 /* QRCodeReaderView.m */,
-				D49D7562B0B62B1A26AD0689E75FEED9 /* QRCodeReaderViewController.h */,
-				DF5BCEF9CF69853C04F6BEB819EC3045 /* QRCodeReaderViewController.m */,
-				346955A960857CCDEE4063E85F31C959 /* QRToggleTorchButton.h */,
-				0B9A57E3445C6B121F3CBC6269919FD0 /* QRToggleTorchButton.m */,
-				BE6B52C6FA24311A0FF0D71F8584D43E /* Support Files */,
-			);
-			name = QRCodeReaderViewController;
-			path = QRCodeReaderViewController;
-			sourceTree = "<group>";
-		};
-		DAC4D09C3160083AA37475DF078793A1 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D009D9B4C427E15B9271DDE99C25C199 /* InAppSettingsKit.xcconfig */,
-				A44337E583296873203D72D4F90BD7E5 /* InAppSettingsKit-dummy.m */,
-				E59C98A2FDD5AC8413C7BE38751E09E1 /* InAppSettingsKit-prefix.pch */,
-				ECD41D208B2902783968D5F4963A6729 /* ResourceBundle-InAppSettingsKit-Info.plist */,
+				141A2488A9A72CF937F46D5BD930B145 /* InAppSettingsKit.xcconfig */,
+				83D19B2D6848731130E7B7C34E363C0A /* InAppSettingsKit-dummy.m */,
+				4A1FCBF05EB6DC2C6C5AC73811A8FEB2 /* InAppSettingsKit-prefix.pch */,
+				8B63A63731DC6C06756667E9CBE25AC7 /* ResourceBundle-InAppSettingsKit-Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/InAppSettingsKit";
@@ -873,32 +725,6 @@
 				9755126CF7C0C86A28E738CD400ED675 /* UIKit.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		E91CE27790064CAD0E2888E60BD175D8 /* Default */ = {
-			isa = PBXGroup;
-			children = (
-				AC5EA645AA36E55F31BC7D1139D82FC4 /* CocoaLumberjack.h */,
-				C1E7928D7605C5C090DD8C25167BF83F /* DDAbstractDatabaseLogger.h */,
-				E01C2E58AA84E2D61B3A79EDAC976B5D /* DDAbstractDatabaseLogger.m */,
-				8613E39423754A0A9A98ABD763C281AE /* DDASLLogCapture.h */,
-				06E453156FD8C6E2C7E5590D6FE67B13 /* DDASLLogCapture.m */,
-				4641570D0AD05BB37297EAFAD09D42DC /* DDASLLogger.h */,
-				C68C074BC1C892F5B4BA5E3CF3544FB9 /* DDASLLogger.m */,
-				5EEC7508A6AEAF04777A56D30713EEBD /* DDAssertMacros.h */,
-				AF944DC24A5AC422FE1A8798E0B37B14 /* DDFileLogger.h */,
-				9F9E2E614D756A2A27987F5DE65E89D4 /* DDFileLogger.m */,
-				6B633744A30C910018CA670A42A70609 /* DDLegacyMacros.h */,
-				7F9BC4C1B2C3C1C6763E2593944B3B33 /* DDLog.h */,
-				D3568E4CC985855C42FA4AE4E274666B /* DDLog.m */,
-				A0A29DE885174D6ACE46C063522B7982 /* DDLog+LOGV.h */,
-				C7FEF4EFEF42B019D676477BA0EBA028 /* DDLogMacros.h */,
-				B62458951F65A6F46637892833A98839 /* DDOSLogger.h */,
-				2706A933A0F11F7E2B9E5E1BE641731C /* DDOSLogger.m */,
-				EDC2944632F85A678AA6588D687F6092 /* DDTTYLogger.h */,
-				B09149879E3A33012F409F5D84DD95E1 /* DDTTYLogger.m */,
-			);
-			name = Default;
 			sourceTree = "<group>";
 		};
 		EAFB6A24C65DE39E7A90ECB8F4C9C417 /* Pods-Safe Exam Browser */ = {
@@ -1202,7 +1028,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1492,14 +1318,14 @@
 		};
 		199012A5D72D579714AC0A8F56334F04 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2FCA72DFA5E7105D0DA0BECC454B8D6D /* QRCodeReaderViewController.xcconfig */;
+			baseConfigurationReference = 5EE2E67323B278EB7B4CC6A3405E5CF9 /* QRCodeReaderViewController.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1516,7 +1342,7 @@
 		};
 		2124362EB3BDEE7F3DF1B3ABAB37A75C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D009D9B4C427E15B9271DDE99C25C199 /* InAppSettingsKit.xcconfig */;
+			baseConfigurationReference = 141A2488A9A72CF937F46D5BD930B145 /* InAppSettingsKit.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
@@ -1554,14 +1380,14 @@
 		};
 		2E5BEAEB65C6B1FE9D0A8FC51D6E9819 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E5030E614CE3424FF0D03C35E5BBB6C /* CocoaLumberjack-iOS.xcconfig */;
+			baseConfigurationReference = A5B05CFE443C7485DF26995AE1058716 /* CocoaLumberjack-iOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-iOS/CocoaLumberjack-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1620,7 +1446,7 @@
 		};
 		4318DDD78E9BE6BECB981DECC77E96E9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D009D9B4C427E15B9271DDE99C25C199 /* InAppSettingsKit.xcconfig */;
+			baseConfigurationReference = 141A2488A9A72CF937F46D5BD930B145 /* InAppSettingsKit.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1698,8 +1524,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -1729,7 +1554,7 @@
 		};
 		4E4C46770D76BD00C27EF74B7F035B71 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1369E1AB2A511B1262C286E14044EC8 /* CocoaLumberjack-macOS.xcconfig */;
+			baseConfigurationReference = ACD10728D34D7B5CBB4781C3A645EEB3 /* CocoaLumberjack-macOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1752,7 +1577,7 @@
 		};
 		60256AF3E639B92ABB24D7D9856DA07E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1369E1AB2A511B1262C286E14044EC8 /* CocoaLumberjack-macOS.xcconfig */;
+			baseConfigurationReference = ACD10728D34D7B5CBB4781C3A645EEB3 /* CocoaLumberjack-macOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1842,14 +1667,14 @@
 		};
 		67CFB7184D22C5360C3CF855CE3181D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2FCA72DFA5E7105D0DA0BECC454B8D6D /* QRCodeReaderViewController.xcconfig */;
+			baseConfigurationReference = 5EE2E67323B278EB7B4CC6A3405E5CF9 /* QRCodeReaderViewController.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1865,7 +1690,7 @@
 		};
 		94BB637384B26A24DB7757F2B0F78C4C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D009D9B4C427E15B9271DDE99C25C199 /* InAppSettingsKit.xcconfig */;
+			baseConfigurationReference = 141A2488A9A72CF937F46D5BD930B145 /* InAppSettingsKit.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1888,14 +1713,14 @@
 		};
 		AD0F22C111E2FDCE206CC33D341F69FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E5030E614CE3424FF0D03C35E5BBB6C /* CocoaLumberjack-iOS.xcconfig */;
+			baseConfigurationReference = A5B05CFE443C7485DF26995AE1058716 /* CocoaLumberjack-iOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-iOS/CocoaLumberjack-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1933,7 +1758,7 @@
 		};
 		CCCC26BF1C01D22D5B96DE19CCD8C060 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D009D9B4C427E15B9271DDE99C25C199 /* InAppSettingsKit.xcconfig */;
+			baseConfigurationReference = 141A2488A9A72CF937F46D5BD930B145 /* InAppSettingsKit.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
