@@ -1909,6 +1909,22 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     
+    if (url.isFileURL) {
+        run_on_ui_thread(^{
+            NSError *error = nil;
+            [url startAccessingSecurityScopedResource];
+            NSData *sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+            [url stopAccessingSecurityScopedResource];
+            if (error || !sebFileData) {
+                DDLogError(@"Saving the file URL %@ contents failed with error %@", url, error);
+                [self storeNewSEBSettingsSuccessful:error];
+            } else {
+                [self storeDownloadedData:sebFileData fromURL:url];
+            }
+        });
+        return;
+    }
+    
     if (!self.browserController.URLSession) {
         NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
@@ -2156,9 +2172,38 @@ void run_on_ui_thread(dispatch_block_t block)
             [self initSEB];
             [self conditionallyStartKioskMode];
         } else {
-            [_configFileController showAlertWithError:error];
+            [self showAlertWithError:error];
         }
     }
+}
+
+
+- (void) showAlertWithError:(NSError *)error
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    NSString *alertTitle;
+    NSString *alertMessage;
+    NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
+    NSString *underlyingErrorTitle = underlyingError.localizedFailureReason;
+    if (underlyingErrorTitle) {
+        alertTitle = underlyingErrorTitle;
+    } else {
+        alertTitle = error.localizedFailureReason;
+    }
+    alertMessage = error.localizedDescription;
+//    NSString *alertMessage = error.localizedRecoverySuggestion;
+//    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
+    _alertController = [UIAlertController  alertControllerWithTitle:alertTitle
+                                                            message:alertMessage
+                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               self.alertController = nil;
+                                                                           }]];
+    
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 

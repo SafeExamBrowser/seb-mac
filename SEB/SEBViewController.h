@@ -218,6 +218,8 @@
 - (void) conditionallyResetSettings;
 - (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
 
+- (void) showAlertWithError:(NSError *)error;
+
 - (void) showStartSingleAppMode;
 - (void) startExam;
 - (void) quitExamConditionally;
