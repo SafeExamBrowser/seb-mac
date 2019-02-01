@@ -316,6 +316,7 @@
                 [preferences setSecureInteger: 0 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                 _embeddedCertificatesList = nil;
                 _embeddedCertificatesListCounter = nil;
+                [[_sebViewController appSettingsViewController].navigationController popViewControllerAnimated:YES];
             }
         }
     }
