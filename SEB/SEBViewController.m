@@ -984,7 +984,13 @@ static NSMutableSet *browserWindowControllers;
                                target:self
                                action:@selector(shareSettingsAction:)];
     }
-    self.appSettingsViewController.navigationItem.leftBarButtonItem = settingsShareButton;
+    if (!settingsActionButton) {
+        settingsActionButton = [[UIBarButtonItem alloc]
+                               initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                               target:self
+                                action:@selector(moreSettingsActions:)];
+    }
+    self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
     
     // Register notification for changed keys
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1119,6 +1125,73 @@ static NSMutableSet *browserWindowControllers;
         [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedConfigKeyString.copy;
+}
+
+
+- (void)moreSettingsActions:(id)sender
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _alertController = [UIAlertController  alertControllerWithTitle:nil
+                                                            message:nil
+                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Exam Settings", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 self.alertController = nil;
+
+                                                                 DDLogInfo(@"Create Exam Settings");
+                                                                 
+                                                                 // Update entered passwords and save their hashes to SEB settings
+                                                                 // as long as the passwords were really entered and don't contain the hash placeholders
+                                                                 [self updateEnteredPasswords];
+                                                                 
+                                                                 NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                                                                 
+                                                                 // Switch to private UserDefaults (temporary, held only in memory)
+                                                                 [NSUserDefaults setUserDefaultsPrivate:YES];
+                                                                 
+                                                                 // Switch config purpose to "starting exam"
+                                                                 [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+
+                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+
+                                                             }]];
+    } else {
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", nil)
+                                                             style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                                                                 self.alertController = nil;
+                                                                 // Switch to system's UserDefaults (persisted)
+                                                                 [NSUserDefaults setUserDefaultsPrivate:NO];
+                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+
+                                                             }]];
+    }
+    
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset to Default Settings", nil)
+                                                         style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                                                             self.alertController = nil;
+                                                             
+                                                             // Write just default SEB settings to UserDefaults
+                                                             NSDictionary *emptySettings = [NSDictionary dictionary];
+                                                             [self.configFileController storeIntoUserDefaults:emptySettings];
+                                                             
+                                                             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+                                                         }]];
+   
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                             self.alertController = nil;
+                                                             
+                                                         }]];
+    
+    _alertController.popoverPresentationController.barButtonItem = sender;
+    _alertController.popoverPresentationController.sourceView = self.view;
+
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
