@@ -102,7 +102,8 @@
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
-    
+    UIBarButtonItem *settingsActionButton;
+
 @private
     NSInteger attempts;
     BOOL adminPasswordPlaceholder;
