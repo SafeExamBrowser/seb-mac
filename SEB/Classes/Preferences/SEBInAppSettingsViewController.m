@@ -298,7 +298,7 @@
     if ([changedKeys containsObject:@"org_safeexambrowser_chooseIdentityToEmbed"]) {
         NSUInteger indexOfSelectedIdentity = [preferences secureIntegerForKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
         if (indexOfSelectedIdentity > 0) {
-            // Get certificate from selected identity
+            // Get PKCS12 data representation of selected identity
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
             NSData *certificateData = [keychainManager getDataForIdentity:identityRef];
@@ -317,6 +317,8 @@
                 _embeddedCertificatesList = nil;
                 _embeddedCertificatesListCounter = nil;
                 [[_sebViewController appSettingsViewController].navigationController popViewControllerAnimated:YES];
+            } else {
+                [_sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil) message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil) action1Title:NSLocalizedString(@"OK", nil) action1Handler:^{} action2Title:nil action2Handler:^{}];
             }
         }
     }
