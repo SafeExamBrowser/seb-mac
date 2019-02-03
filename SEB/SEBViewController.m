@@ -967,14 +967,11 @@ static NSMutableSet *browserWindowControllers;
     // Dismiss an alert in case one is open
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
-            self->_alertController = nil;
+            self.alertController = nil;
         }];
     }
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-
-    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-    // But we encourage you not to uncomment. Thank you!
 
     self.appSettingsViewController.showDoneButton = YES;
     
@@ -1148,16 +1145,25 @@ static NSMutableSet *browserWindowControllers;
                                                                  // as long as the passwords were really entered and don't contain the hash placeholders
                                                                  [self updateEnteredPasswords];
                                                                  
+                                                                 // Get key/values from local shared client UserDefaults
                                                                  NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                                                                 NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
                                                                  
-                                                                 // Switch to private UserDefaults (temporary, held only in memory)
+                                                                 // Switch to private UserDefaults (saved non-persistently in memory)
+                                                                 NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
                                                                  [NSUserDefaults setUserDefaultsPrivate:YES];
                                                                  
+                                                                 [self.configFileController storeIntoUserDefaults:localClientPreferences];
+                                                                 
+                                                                 DDLogVerbose(@"Private preferences set: %@", privatePreferences);
+
                                                                  // Switch config purpose to "starting exam"
                                                                  [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
 
-                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+//                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
+                                                                 // Close then reopen settings view controller (so new settings are displayed)
+                                                                 [self closeThenReopenSettings];
                                                              }]];
     } else {
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", nil)
@@ -1165,8 +1171,10 @@ static NSMutableSet *browserWindowControllers;
                                                                  self.alertController = nil;
                                                                  // Switch to system's UserDefaults (persisted)
                                                                  [NSUserDefaults setUserDefaultsPrivate:NO];
-                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-
+//                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+                                                                 
+                                                                 // Close then reopen settings view controller (so new settings are displayed)
+                                                                 [self closeThenReopenSettings];
                                                              }]];
     }
     
@@ -1179,7 +1187,9 @@ static NSMutableSet *browserWindowControllers;
                                                              NSDictionary *emptySettings = [NSDictionary dictionary];
                                                              [self.configFileController storeIntoUserDefaults:emptySettings];
                                                              
-                                                             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+//                                                             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+                                                             // Close then reopen settings view controller (so new settings are displayed)
+                                                             [self closeThenReopenSettings];
                                                          }]];
    
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -1192,6 +1202,15 @@ static NSMutableSet *browserWindowControllers;
     _alertController.popoverPresentationController.sourceView = self.view;
 
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+- (void)closeThenReopenSettings
+{
+    [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+        self.appSettingsViewController = nil;
+        [self showSettingsModal];
+    }];
 }
 
 
