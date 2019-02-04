@@ -50,13 +50,10 @@
                 if ((publicKeyRef = SecCertificateCopyPublicKey(certificateRef))) {
                     if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
                         if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
-                            identityName = [NSString stringWithFormat:@"%@%@",
-                                            (__bridge NSString *)commonName ?
-                                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
-                                            @"" ,
-                                            CFArrayGetCount(emailAddressesRef) ?
-                                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                                            @""];
+                            NSString *commonNameString = (__bridge NSString *)commonName;
+                            NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
+                            NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : nil;
+                            identityName = [NSString stringWithFormat:@"%@%@", commonNameString, emailAdress];
                             // Check if there is already an identitiy with the identical name (can happen)
                             if ([identitiesNames containsObject:identityName]) {
                                 // If yes, we need to make the name unique; we add the public key hash
@@ -78,7 +75,7 @@
                                 [identitiesNames addObject:identityName];
                             }
                             
-                            DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+                            DDLogDebug(@"Common name: %@ %@", commonNameString, emailAdress);
                             DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
                             if (emailAddressesRef) CFRelease(emailAddressesRef);
                             if (commonName) CFRelease(commonName);
@@ -162,14 +159,15 @@
             
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
 
+                NSString *commonNameString = (__bridge NSString *)commonName;
+                NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
+                NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : nil;
                 certificateName = [NSString stringWithFormat:@"%@",
-                                   (__bridge NSString *)commonName ?
+                                   commonNameString ?
                                    //There is a commonName: just take that as a name
-                                   [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                   [NSString stringWithFormat:@"%@ ", commonNameString] :
                                    //there is no common name: take the e-mail address (if it exists)
-                                   CFArrayGetCount(emailAddressesRef) ?
-                                   (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                                   @""];
+                                   emailAdress ? emailAdress : @""];
                 if ([certificateName isEqualToString:@""] || [certificatesNames containsObject:certificateName]) {
                     //get public key hash from selected identity's certificate
                     NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
@@ -188,7 +186,7 @@
                 } else {
                     [certificatesNames addObject:certificateName];
                 }
-                DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+                DDLogDebug(@"Common name: %@ %@", commonNameString, emailAdress);
                 
                 if (commonName) CFRelease(commonName);
                 if (emailAddressesRef) CFRelease(emailAddressesRef);
