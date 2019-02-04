@@ -275,6 +275,7 @@
                           didEndSelector:(SEL)didEndSelector;
 // Delegate method to hide the previously displayed enter password dialog
 - (void) hideEnterUsernamePasswordDialog;
+- (UIViewController *) topMostController;
 
 @end
 
