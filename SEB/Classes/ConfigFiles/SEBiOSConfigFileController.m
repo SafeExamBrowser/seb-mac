@@ -138,7 +138,7 @@
                                                                  func(callback, selector, nil);
                                                              }]];
     
-    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 

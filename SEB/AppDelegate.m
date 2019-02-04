@@ -188,7 +188,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
          postNotificationName:@"requestQuit" object:self];
 
     }
-    if (_sebViewController.aboutSEBViewDisplayed && !_sebViewController.mailViewController) {
+    if (_sebViewController.aboutSEBViewDisplayed && !_sebViewController.mailViewController && !_sebViewController.alertController) {
         [_sebViewController.aboutSEBViewController dismissViewControllerAnimated:NO completion:^{
             self->_sebViewController.aboutSEBViewDisplayed = false;
             self->_sebViewController.aboutSEBViewController = nil;
