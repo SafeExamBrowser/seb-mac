@@ -72,7 +72,7 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         if (UIApplication.sharedApplication.keyWindow == self.view.window) {
             DDLogDebug(@"UIWindowDidBecomeKeyNotification with UIApplication.sharedApplication.keyWindow == self.view.window.");
-            // The possible fix below first has to be tested
+            // ToDo: The possible fix below first has to be tested
             //[self reload];
         }
     }];
