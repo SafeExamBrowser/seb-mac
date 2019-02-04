@@ -997,6 +997,12 @@ static NSMutableSet *browserWindowControllers;
     
     _settingsOpen = true;
     
+    if (NSUserDefaults.userDefaultsPrivate) {
+        [self.appSettingsViewController setHiddenKeys:[NSSet setWithObjects:@"autoIdentity",
+                                                       @"org_safeexambrowser_SEB_configFileCreateIdentity",
+                                                       @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity", nil]];
+    }
+    
     [self.topMostController presentViewController:navigationController animated:YES completion:nil];
 }
 
