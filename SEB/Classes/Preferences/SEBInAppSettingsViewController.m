@@ -294,6 +294,16 @@
     [self displayBrowserExamKey];
     [self displayConfigKey];
     
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam) {
+            [self.appSettingsViewController setHiddenKeys:[NSSet setWithObjects:@"autoIdentity",
+                                                           @"org_safeexambrowser_SEB_configFileCreateIdentity",
+                                                           @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity", nil]];
+        } else {
+            [self.appSettingsViewController setHiddenKeys:nil];
+        }
+    }
+    
     // Check if an identity to embed was selected (Settings/Network/Certificates/Choose Identity)
     if ([changedKeys containsObject:@"org_safeexambrowser_chooseIdentityToEmbed"]) {
         NSUInteger indexOfSelectedIdentity = [preferences secureIntegerForKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
