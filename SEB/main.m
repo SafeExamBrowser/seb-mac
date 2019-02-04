@@ -34,12 +34,15 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "UIDragInteraction+Restrict.h"
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
         
-        //[NSUserDefaults setupPrivateUserDefaults];
-
+        if (@available(iOS 11.0, *)) {
+            [UIDragInteraction setupIsEnabled];
+        }
+        
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
