@@ -84,7 +84,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (SEBBrowserController *) browserController
+- (SEBBrowserController *)browserController
 {
     if (!_browserController) {
         _browserController = [[SEBBrowserController alloc] init];
@@ -94,7 +94,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (UIViewController *) topMostController
+- (UIViewController *)topMostController
 {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     while (topController.presentedViewController) {
@@ -1908,7 +1908,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }];
         return;
     } else if (_alertController) {
-        [_alertController dismissViewControllerAnimated:NO completion:^{
+        [_alertController dismissViewControllerAnimated:YES completion:^{
             self->_alertController = nil;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
