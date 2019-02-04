@@ -96,6 +96,12 @@
 
 #pragma mark - IB Action Handler
 
+- (IBAction)aboutSEBIcon:(id)sender
+{
+    [_sebViewController showAboutSEB];
+}
+
+
 - (IBAction) urlEntered:(id)sender
 {
     [_assistantController cancelDownloadingClientConfig];
