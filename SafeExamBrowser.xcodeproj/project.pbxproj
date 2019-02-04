@@ -2052,13 +2052,13 @@
 		690E25A71BFC7E4000B41217 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				69478CF0220897AC00352CFA /* Categories */,
 				69F215E11CE74EBC00BD9AA3 /* SEB Slider */,
 				694FB9CF1CCF0BEB00E80CD9 /* Preferences */,
 				69A223391C20C0BE00766354 /* Config Files */,
 				69E4EDFA1C208ED800F5E5EB /* Cryptography */,
 				69331F031C10AD190038BD31 /* Additional UI */,
 				690E25A81BFC7E7000B41217 /* Browser Components */,
+				69478CF0220897AC00352CFA /* Categories */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
