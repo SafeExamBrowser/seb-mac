@@ -50,9 +50,11 @@
                 if ((publicKeyRef = SecCertificateCopyPublicKey(certificateRef))) {
                     if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
                         if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
-                            NSString *commonNameString = (__bridge NSString *)commonName;
+                            NSString *commonNameString = (__bridge NSString *)commonName ?
+                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                            @"";
                             NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
-                            NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : nil;
+                            NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : @"";
                             identityName = [NSString stringWithFormat:@"%@%@", commonNameString, emailAdress];
                             // Check if there is already an identitiy with the identical name (can happen)
                             if ([identitiesNames containsObject:identityName]) {
@@ -75,7 +77,7 @@
                                 [identitiesNames addObject:identityName];
                             }
                             
-                            DDLogDebug(@"Common name: %@ %@", commonNameString, emailAdress);
+                            DDLogDebug(@"Common name: %@%@", commonNameString, emailAdress);
                             DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
                             if (emailAddressesRef) CFRelease(emailAddressesRef);
                             if (commonName) CFRelease(commonName);
