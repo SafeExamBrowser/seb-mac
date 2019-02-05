@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSEBViewController:(SEBViewController *)sebViewController;
 - (void) selectLatestSettingsIdentity;
 - (SecIdentityRef) getSelectedIdentity;
+- (NSString *) getSelectedIdentityName;
 
 @end
 
