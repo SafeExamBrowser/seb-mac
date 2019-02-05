@@ -1058,9 +1058,22 @@ static NSMutableSet *browserWindowControllers;
     // Get selected config purpose
     sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
     
+    // If this config is for starting an exam
+    if (configPurpose == sebConfigPurposeStartingExam &&
+        // Check if the option "Auto-Select Identity" was enabled in client config
+        [preferences persistedSecureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"] &&
+        // If yes and no identity was manually selected
+        [preferences secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
+        self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
+        // Select the latest identity added to settings
+        [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
+    }
+
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
+    
+    NSString *encryptedWithIdentity = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
 
     // Get password
     NSString *encryptingPassword;
@@ -1097,7 +1110,7 @@ static NSMutableSet *browserWindowControllers;
         NSArray *activityItems;
         
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
-                                       NSLocalizedString(@"for starting an exam", nil) :
+                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentity] :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
                                        NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
@@ -1170,7 +1183,9 @@ static NSMutableSet *browserWindowControllers;
                                                                  [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
 
                                                                  // Check if the option "Auto-Select Identity" was enabled in client config
-                                                                 if (configFileEncryptUsingIdentity && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 && self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
+                                                                 if (configFileEncryptUsingIdentity &&
+                                                                     [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
+                                                                     self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
                                                                      // Select the last identity certificate from the list
                                                                      [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
                                                                  }

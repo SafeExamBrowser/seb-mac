@@ -104,7 +104,7 @@
         SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[autoSelectedIdentityCounter];
         _sebViewController.configFileKeyHash = [self.keychainManager getPublicKeyHashFromIdentity:identityFromKeychain];;
         
-        [[NSUserDefaults standardUserDefaults] setSecureInteger:autoSelectedIdentityCounter
+        [[NSUserDefaults standardUserDefaults] setSecureInteger:autoSelectedIdentityCounter+1
                                                          forKey:@"org_safeexambrowser_configFileIdentity"];
     }
 }
@@ -122,6 +122,22 @@
         identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity-1]);
     }
     return identityRef;
+}
+
+
+// Get name of selected identity
+- (NSString *) getSelectedIdentityName
+{
+    // Get selected identity certificate
+    NSUInteger selectedIdentity = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"];
+    NSString *selectedIdentityName;
+    
+    if (selectedIdentity > 0) {
+        // If an identity is selected, then we get the according SecIdentityRef
+        selectedIdentityName = self.identitiesNames[selectedIdentity];
+        selectedIdentityName = [selectedIdentityName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    return selectedIdentityName;
 }
 
 
