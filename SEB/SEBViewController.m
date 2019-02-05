@@ -1155,6 +1155,9 @@ static NSMutableSet *browserWindowControllers;
                                                                  NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
                                                                  NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
                                                                  
+                                                                 // Cache the option "Auto-Select Identity"
+                                                                 BOOL configFileEncryptUsingIdentity = ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]);
+                                                                 
                                                                  // Switch to private UserDefaults (saved non-persistently in memory)
                                                                  NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
                                                                  [NSUserDefaults setUserDefaultsPrivate:YES];
@@ -1165,6 +1168,13 @@ static NSMutableSet *browserWindowControllers;
 
                                                                  // Switch config purpose to "starting exam"
                                                                  [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+
+                                                                 // Check if the option "Auto-Select Identity" was enabled in client config
+                                                                 if (configFileEncryptUsingIdentity && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 && self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
+                                                                     // Select the last identity certificate from the list
+                                                                     [[NSUserDefaults standardUserDefaults] setSecureInteger:self.sebInAppSettingsViewController.identitiesCounter.count-1 forKey:@"org_safeexambrowser_configFileIdentity"];
+                                                                 }
+
 
 //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
