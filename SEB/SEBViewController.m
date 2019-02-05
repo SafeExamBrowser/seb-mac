@@ -1172,10 +1172,8 @@ static NSMutableSet *browserWindowControllers;
                                                                  // Check if the option "Auto-Select Identity" was enabled in client config
                                                                  if (configFileEncryptUsingIdentity && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 && self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
                                                                      // Select the last identity certificate from the list
-                                                                     [[NSUserDefaults standardUserDefaults] setSecureInteger:self.sebInAppSettingsViewController.identitiesCounter.count-1 forKey:@"org_safeexambrowser_configFileIdentity"];
+                                                                     [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
                                                                  }
-
-
 //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
                                                                  // Close then reopen settings view controller (so new settings are displayed)
