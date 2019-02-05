@@ -95,6 +95,21 @@
 }
 
 
+// Select identity for passed identity reference
+- (void) selectLatestSettingsIdentity
+{
+    // Select the last identity certificate from the list
+    NSUInteger autoSelectedIdentityCounter = self.identities.count-1;
+    if (autoSelectedIdentityCounter >= 0) {
+        SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[autoSelectedIdentityCounter];
+        _sebViewController.configFileKeyHash = [self.keychainManager getPublicKeyHashFromIdentity:identityFromKeychain];;
+        
+        [[NSUserDefaults standardUserDefaults] setSecureInteger:autoSelectedIdentityCounter
+                                                         forKey:@"org_safeexambrowser_configFileIdentity"];
+    }
+}
+
+
 // Get SecIdentityRef for selected identity
 - (SecIdentityRef) getSelectedIdentity
 {
