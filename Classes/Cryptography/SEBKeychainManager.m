@@ -35,6 +35,8 @@
 
 #import "SEBKeychainManager.h"
 #import "RNCryptor.h"
+#import "MscCertificateSigningRequest.h"
+#import "MscRSAKey.h"
 
 #if TARGET_OS_IPHONE
 #import "SEBiOSKeychainManager.h"
@@ -138,8 +140,36 @@
 }
 
 
-- (BOOL) importIdentityFromData:(NSData*)identityData {
+- (BOOL)importIdentityFromData:(NSData*)identityData {
     return [self.delegate importIdentityFromData:identityData];
+}
+
+
+// Generate identity
+- (SecIdentityRef)generateIdentityWithName:(NSString *)commonName
+{
+    NSData* tag = [sebErrorDomain dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary* attributes =
+    @{ (id)kSecAttrKeyType:               (id)kSecAttrKeyTypeRSA,
+       (id)kSecAttrKeySizeInBits:         @2048,
+       (id)kSecPrivateKeyAttrs:
+           @{ (id)kSecAttrIsPermanent:    @YES,
+              (id)kSecAttrApplicationTag: tag,
+              },
+       };
+
+    SecKeyRef publicKey = NULL;
+    SecKeyRef privateKey = NULL;
+    OSStatus success = SecKeyGeneratePair((__bridge CFDictionaryRef)attributes, &publicKey, &privateKey);
+    if (success != errSecSuccess) {
+        DDLogError(@"SecKeyGeneratePair failed generating a key pair with error: %d", (int)success);
+    }
+
+//    MscX509CommonError *error = nil;
+
+//    MscRSAKey *mscRSAKey = [[MscRSAKey alloc] initWithKeySize:2048 error:&error];
+//    MscCertificateSigningRequest* signingRequest = [[MscCertificateSigningRequest alloc] initWithSubject:(MscX509Name *) challengePassword:<#(NSString *)#> error:<#(MscX509CommonError *__autoreleasing *)#>]
+    return NULL;
 }
 
 

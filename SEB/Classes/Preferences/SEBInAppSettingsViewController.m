@@ -7,6 +7,7 @@
 
 #import "SEBInAppSettingsViewController.h"
 #import "CustomViewCell.h"
+#import "SEBUIUserDefaultsController.h"
 
 
 @interface SEBInAppSettingsViewController ()
@@ -357,11 +358,64 @@
                 [preferences setSecureInteger: 0 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                 _embeddedCertificatesList = nil;
                 _embeddedCertificatesListCounter = nil;
-                [[_sebViewController appSettingsViewController].navigationController popViewControllerAnimated:YES];
+                
+                // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+                // workaround to refresh the list of embedded certificates
+                NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+                NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+                [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
+                [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
             } else {
                 [_sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil) message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil) action1Title:NSLocalizedString(@"OK", nil) action1Handler:^{} action2Title:nil action2Handler:^{}];
             }
         }
+    }
+    
+    // Check if embedded certificate was selected
+    if ([changedKeys containsObject:@"org_safeexambrowser_embeddedCertificatesList"]) {
+        NSUInteger indexOfSelectedCertificate = [preferences secureIntegerForKey:@"org_safeexambrowser_embeddedCertificatesList"];
+        NSMutableArray *embeddedCertificates = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_embeddedCertificates"].mutableCopy;
+        NSDictionary *embeddedCertficate = embeddedCertificates[indexOfSelectedCertificate];
+        NSString *certificateName = embeddedCertficate[@"name"];
+        certificateName = [certificateName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSNumber *certificateTypeObject = embeddedCertficate[@"type"];
+        NSString *certficateType = [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_certificateTypes][certificateTypeObject.integerValue];
+        
+        NSString *certificateMessage = [NSString stringWithFormat:@"%@: '%@'\n%@: %@",
+                                        NSLocalizedString(@"Common Name", nil),
+                                        certificateName,
+                                        NSLocalizedString(@"Type", nil),
+                                        certficateType];
+        
+        [_sebViewController alertWithTitle:NSLocalizedString(@"Embedded Certificate", nil)
+                                   message:certificateMessage
+                            preferredStyle:UIAlertControllerStyleAlert
+                              action1Title:NSLocalizedString(@"Remove", nil)
+                              action1Style:UIAlertActionStyleDestructive
+                            action1Handler:^{
+                                [embeddedCertificates removeObject:embeddedCertficate];
+                                [preferences setSecureObject:embeddedCertificates.copy forKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
+                                [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_embeddedCertificatesList"];
+                                self->_embeddedCertificatesList = nil;
+                                self->_embeddedCertificatesListCounter = nil;
+                                
+                                // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+                                // workaround to refresh the list of embedded certificates
+                                NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+                                NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+                                [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
+                                [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+                                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
+                            }
+                              action2Title:NSLocalizedString(@"OK", nil)
+                              action2Style:UIAlertActionStyleDefault
+                            action2Handler:^{
+                                [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_embeddedCertificatesList"];
+                                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                            }];
     }
 }
 
