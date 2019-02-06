@@ -33,10 +33,15 @@
 //
 
 
-
+#if TARGET_OS_IPHONE
+@interface SEBUIUserDefaultsController : NSObject {
+    NSArray *org_safeexambrowser_SEB_cryptoIdentities;
+}
+#else
 @interface SEBUIUserDefaultsController : NSUserDefaultsController {
     NSArray *org_safeexambrowser_SEB_cryptoIdentities;
 }
+#endif
 
 //@property(nonatomic, strong) NSArray *org_safeexambrowser_SEB_cryptoIdentities;
 
@@ -47,6 +52,10 @@
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies;
 
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies;
+
+- (NSArray *) org_safeexambrowser_SEB_certificateTypes;
+
+- (NSArray *) org_safeexambrowser_SEB_SSLCertificateTypes;
 
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities;
 

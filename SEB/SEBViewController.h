@@ -265,6 +265,16 @@
            action2Title:(NSString *)action2Title
          action2Handler:(void (^)(void))action2Handler;
 
+- (void) alertWithTitle:(NSString *)title
+                message:(NSString *)message
+         preferredStyle:(UIAlertControllerStyle)controllerStyle
+           action1Title:(NSString *)action1Title
+           action1Style:(UIAlertActionStyle)action1Style
+         action1Handler:(void (^)(void))action1Handler
+           action2Title:(NSString *)action2Title
+           action2Style:(UIAlertActionStyle)action2Style
+         action2Handler:(void (^)(void))action2Handler;
+
 // Delegate method to display an enter password dialog with the
 // passed message text asynchronously, calling the callback
 // method with the entered password when one was entered

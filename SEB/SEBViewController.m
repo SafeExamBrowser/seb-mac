@@ -3229,20 +3229,44 @@ void run_on_ui_thread(dispatch_block_t block)
            action2Title:(NSString *)action2Title
          action2Handler:(void (^)(void))action2Handler
 {
+    [self alertWithTitle:title
+                 message:message
+          preferredStyle:UIAlertControllerStyleAlert
+            action1Title:action1Title
+            action1Style:UIAlertActionStyleDefault
+          action1Handler:action1Handler
+            action2Title:action2Title
+            action2Style:UIAlertActionStyleCancel
+          action2Handler:action2Handler];
+}
+
+
+- (void) alertWithTitle:(NSString *)title
+                message:(NSString *)message
+         preferredStyle:(UIAlertControllerStyle)controllerStyle
+           action1Title:(NSString *)action1Title
+           action1Style:(UIAlertActionStyle)action1Style
+         action1Handler:(void (^)(void))action1Handler
+           action2Title:(NSString *)action2Title
+           action2Style:(UIAlertActionStyle)action2Style
+         action2Handler:(void (^)(void))action2Handler
+{
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _alertController = [UIAlertController  alertControllerWithTitle:title
                                                             message:message
-                                                     preferredStyle:UIAlertControllerStyleAlert];
+                                                     preferredStyle:controllerStyle];
     [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                         style:action1Style
+                                                       handler:^(UIAlertAction *action) {
                                                              self->_alertController = nil;
                                                              action1Handler();
                                                          }]];
     if (action2Title) {
         [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
-                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                             style:action2Style
+                                                           handler:^(UIAlertAction *action) {
                                                                  self->_alertController = nil;
                                                                  action2Handler();
                                                              }]];
