@@ -1171,6 +1171,9 @@ static NSMutableSet *browserWindowControllers;
                                                                  // Cache the option "Auto-Select Identity"
                                                                  BOOL configFileEncryptUsingIdentity = ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]);
                                                                  
+                                                                 // Reset config file hash, so the auto-select option can do its job
+                                                                 self.configFileKeyHash = nil;
+
                                                                  // Switch to private UserDefaults (saved non-persistently in memory)
                                                                  NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
                                                                  [NSUserDefaults setUserDefaultsPrivate:YES];
@@ -1198,10 +1201,14 @@ static NSMutableSet *browserWindowControllers;
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", nil)
                                                              style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                                                                  self.alertController = nil;
+                                                                 
                                                                  // Switch to system's UserDefaults (persisted)
                                                                  [NSUserDefaults setUserDefaultsPrivate:NO];
 //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
                                                                  
+                                                                 // Reset config file hash (client config isn't encrypted using an identity)
+                                                                 self.configFileKeyHash = nil;
+
                                                                  // Close then reopen settings view controller (so new settings are displayed)
                                                                  [self closeThenReopenSettings];
                                                              }]];
