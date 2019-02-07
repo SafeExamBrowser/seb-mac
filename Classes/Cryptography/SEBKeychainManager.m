@@ -36,7 +36,13 @@
 #import "SEBKeychainManager.h"
 #import "RNCryptor.h"
 #import "MscCertificateSigningRequest.h"
+#import "MscCertificate.h"
+#import "MscCertificate_OpenSSL_X509.h"
+#import "MscPKCS12.h"
 #import "MscRSAKey.h"
+#import "MscRSAKey_OpenSSL_RSA.h"
+#import <openssl/rsa.h>
+#import <openssl/pem.h>
 
 #if TARGET_OS_IPHONE
 #import "SEBiOSKeychainManager.h"
@@ -146,30 +152,82 @@
 
 
 // Generate identity
-- (SecIdentityRef)generateIdentityWithName:(NSString *)commonName
+- (BOOL)generateIdentityWithName:(NSString *)commonName
 {
-    NSData* tag = [sebErrorDomain dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary* attributes =
-    @{ (id)kSecAttrKeyType:               (id)kSecAttrKeyTypeRSA,
-       (id)kSecAttrKeySizeInBits:         @2048,
-       (id)kSecPrivateKeyAttrs:
-           @{ (id)kSecAttrIsPermanent:    @YES,
-              (id)kSecAttrApplicationTag: tag,
-              },
-       };
+//    NSData* tag = [sebErrorDomain dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary* attributes =
+//    @{ (id)kSecAttrKeyType:               (id)kSecAttrKeyTypeRSA,
+//       (id)kSecAttrKeySizeInBits:         @2048,
+//       (id)kSecPrivateKeyAttrs:
+//           @{ (id)kSecAttrIsPermanent:    @YES,
+//              (id)kSecAttrApplicationTag: tag,
+//              },
+//       };
+//
+//    SecKeyRef publicKey = NULL;
+//    SecKeyRef privateKey = NULL;
+//    OSStatus success = SecKeyGeneratePair((__bridge CFDictionaryRef)attributes, &publicKey, &privateKey);
+//    if (success != errSecSuccess) {
+//        DDLogError(@"SecKeyGeneratePair failed generating a key pair with error: %d", (int)success);
+//        return NO;
+//    }
 
-    SecKeyRef publicKey = NULL;
-    SecKeyRef privateKey = NULL;
-    OSStatus success = SecKeyGeneratePair((__bridge CFDictionaryRef)attributes, &publicKey, &privateKey);
-    if (success != errSecSuccess) {
-        DDLogError(@"SecKeyGeneratePair failed generating a key pair with error: %d", (int)success);
+    EVP_PKEY * pkey;
+    pkey = EVP_PKEY_new();
+    
+    RSA * rsa;
+    rsa = RSA_generate_key(
+                           2048,   /* number of bits for the key - 2048 is a sensible value */
+                           RSA_F4, /* exponent - RSA_F4 is defined as 0x10001L */
+                           NULL,   /* callback - can be NULL if we aren't displaying progress */
+                           NULL    /* callback argument - not needed in this case */
+                           );
+    
+    if (!rsa) {
+        DDLogError(@"%s: RSA_generate_key failed!", __FUNCTION__);
+    }
+    
+    EVP_PKEY_assign_RSA(pkey, rsa);
+    
+    X509 * x509;
+    x509 = X509_new();
+    
+    ASN1_INTEGER_set(X509_get_serialNumber(x509), 1);
+    
+    X509_gmtime_adj(X509_get_notBefore(x509), 0);
+    X509_gmtime_adj(X509_get_notAfter(x509), 31536000L);
+    
+    X509_set_pubkey(x509, pkey);
+    
+    X509_NAME * name;
+    name = X509_get_subject_name(x509);
+    
+    X509_NAME_add_entry_by_txt(name, "C",  MBSTRING_ASC,
+                               (unsigned char *)"CA", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "O",  MBSTRING_ASC,
+                               (unsigned char *)"SEB-safeexambrowser.org", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+                               (unsigned char *)[commonName UTF8String], -1, -1, 0);
+    
+    X509_set_issuer_name(x509, name);
+    
+    X509_sign(x509, pkey, EVP_sha1());
+    
+    MscRSAKey *mscRSAKey = [[MscRSAKey alloc] initWithRSA:rsa];
+    MscCertificate *certificate = [[MscCertificate alloc] initWithX509:x509];
+    if (!certificate) {
+        DDLogError(@"%s: [[MscCertificate alloc] initWithX509:x509] failed!", __FUNCTION__);
     }
 
-//    MscX509CommonError *error = nil;
+    MscX509CommonError *error = nil;
+    MscPKCS12 *mscPKCS12 = [[MscPKCS12 alloc] initWithRSAKey:mscRSAKey certificate:certificate password:userDefaultsMasala error:&error];
 
-//    MscRSAKey *mscRSAKey = [[MscRSAKey alloc] initWithKeySize:2048 error:&error];
-//    MscCertificateSigningRequest* signingRequest = [[MscCertificateSigningRequest alloc] initWithSubject:(MscX509Name *) challengePassword:<#(NSString *)#> error:<#(MscX509CommonError *__autoreleasing *)#>]
-    return NULL;
+    if (!mscPKCS12) {
+        DDLogError(@"%s: Generating PKCS12 data from private key and certificate failed!", __FUNCTION__);
+        return NO;
+    }
+    
+    return [self importIdentityFromData:[mscPKCS12 data]];
 }
 
 

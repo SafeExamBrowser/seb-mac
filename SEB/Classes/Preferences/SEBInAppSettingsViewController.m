@@ -33,15 +33,7 @@
 
         // If identities aren't available yet, get them from Keychain
         if (!self.identitiesNames) {
-            NSArray *names;
-            NSArray *identitiesInKeychain = [self.keychainManager getIdentitiesAndNames:&names];
-            self.identities = identitiesInKeychain;
-            self.identitiesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
-            [self.identitiesNames addObjectsFromArray:names];
-            _identitiesCounter = [NSMutableArray new];
-            for (NSUInteger ruleCounter = 0; ruleCounter < self.identitiesNames.count; ruleCounter++) {
-                [_identitiesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
-            }
+            [self getIdentitiesFromKeychain];
         }
 
         // If certificates aren't available yet, get them from Keychain
@@ -64,6 +56,24 @@
         
     }
     return self;
+}
+
+
+// Get identites from Keychain
+- (void)getIdentitiesFromKeychain
+{
+    NSArray *names;
+    NSArray *identitiesInKeychain = [self.keychainManager getIdentitiesAndNames:&names];
+    self.identities = identitiesInKeychain;
+    self.identitiesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"Create New…", nil)];;
+    [self.identitiesNames addObjectsFromArray:names];
+    _identitiesCounter = [NSMutableArray new];
+    for (NSUInteger ruleCounter = 0; ruleCounter < self.identitiesNames.count; ruleCounter++) {
+        [_identitiesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
+    }
+    _configFileIdentitiesNames = _identitiesNames.mutableCopy;
+    _configFileIdentitiesCounter = _identitiesCounter.mutableCopy;
+    _configFileIdentitiesNames[0] = NSLocalizedString(@"None", nil);
 }
 
 
@@ -274,7 +284,7 @@
 //
 - (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier *)specifier {
     if ([specifier.key isEqualToString:@"org_safeexambrowser_configFileIdentity"]) {
-        return self.identitiesCounter;
+        return self.configFileIdentitiesCounter;
     }
     if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
         return self.combinedURLFilterRulesCounter;
@@ -291,7 +301,7 @@
 
 - (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier *)specifier {
     if ([specifier.key isEqualToString:@"org_safeexambrowser_configFileIdentity"]) {
-        return self.identitiesNames;
+        return self.configFileIdentitiesNames;
     }
     if ([specifier.key isEqualToString:@"org_safeexambrowser_URLFilterRulesCombined"]) {
         return self.combinedURLFilterRules;
@@ -339,11 +349,23 @@
     // Check if an identity to embed was selected (Settings/Network/Certificates/Choose Identity)
     if ([changedKeys containsObject:@"org_safeexambrowser_chooseIdentityToEmbed"]) {
         NSUInteger indexOfSelectedIdentity = [preferences secureIntegerForKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+        
+        // "Add new…" selected
+        if (indexOfSelectedIdentity == 0) {
+            // Get config file name
+            NSString *configFileName = [[preferences secureStringForKey:@"configFileName"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            if (configFileName.length == 0) {
+                configFileName = @"SEB Config";
+            }
+            configFileName = [NSString stringWithFormat:@"%@ %@", configFileName, NSLocalizedString(@"Identity", nil)];
+            [self.keychainManager generateIdentityWithName:configFileName];
+            [self getIdentitiesFromKeychain];
+        }
+        // Identity selected
         if (indexOfSelectedIdentity > 0) {
             // Get PKCS12 data representation of selected identity
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
-            NSData *certificateData = [keychainManager getDataForIdentity:identityRef];
+            NSData *certificateData = [self.keychainManager getDataForIdentity:identityRef];
             if (certificateData) {
                 NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
                                                  [NSNumber numberWithInt:certificateTypeIdentity], @"type",
@@ -354,23 +376,22 @@
                 NSMutableArray *embeddedCertificates = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_embeddedCertificates"].mutableCopy;
                 [embeddedCertificates addObject:identityToEmbed];
                 [preferences setSecureObject:embeddedCertificates.copy forKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
-                
-                [preferences setSecureInteger: 0 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                 _embeddedCertificatesList = nil;
                 _embeddedCertificatesListCounter = nil;
                 
-                // Hide the PSMultiValueSpecifier list and unhide it again, this is a
-                // workaround to refresh the list of embedded certificates
-                NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
-                NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
-                [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
-                [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
-                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
-                [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
             } else {
                 [_sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil) message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil) action1Title:NSLocalizedString(@"OK", nil) action1Handler:^{} action2Title:nil action2Handler:^{}];
             }
         }
+        // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+        // workaround to refresh the list of embedded certificates
+        [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+        NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+        [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+        [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
     }
     
     // Check if embedded certificate was selected
@@ -384,7 +405,7 @@
         NSString *certficateType = [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_certificateTypes][certificateTypeObject.integerValue];
         
         NSString *certificateMessage = [NSString stringWithFormat:@"%@: '%@'\n%@: %@",
-                                        NSLocalizedString(@"Common Name", nil),
+                                        NSLocalizedString(@"Name", nil),
                                         certificateName,
                                         NSLocalizedString(@"Type", nil),
                                         certficateType];
