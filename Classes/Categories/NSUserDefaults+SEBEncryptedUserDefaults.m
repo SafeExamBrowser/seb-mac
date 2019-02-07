@@ -173,7 +173,7 @@ static NSNumber *_logLevel;
                                         [NSNumber numberWithLong:0],
                                         @"org_safeexambrowser_browserUserAgentEnvironment",
                                         
-                                        [NSNumber numberWithLong:0],
+                                        [NSNumber numberWithLong:-1],
                                         @"org_safeexambrowser_chooseIdentityToEmbed",
 
                                         [NSNumber numberWithLong:0],

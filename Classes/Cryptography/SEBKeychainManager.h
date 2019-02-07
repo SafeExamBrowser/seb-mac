@@ -88,7 +88,7 @@
 - (BOOL)importCertificateFromData:(NSData*)certificateData;
 - (NSData*)getDataForIdentity:(SecIdentityRef)identity;
 - (BOOL)importIdentityFromData:(NSData*)identityData;
-- (SecIdentityRef)generateIdentityWithName:(NSString *)commonName;
+- (BOOL)generateIdentityWithName:(NSString *)commonName;
 
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;

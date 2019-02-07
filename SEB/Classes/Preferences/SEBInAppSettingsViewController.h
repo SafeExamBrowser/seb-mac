@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) SEBViewController *sebViewController;
 
+@property (nonatomic, strong) NSMutableArray *configFileIdentitiesNames;
+@property (nonatomic, strong) NSMutableArray *configFileIdentitiesCounter;
 @property (nonatomic, strong) NSMutableArray *identitiesNames;
 @property (nonatomic, strong) NSMutableArray *identitiesCounter;
 @property (nonatomic, strong) NSArray *identities;
