@@ -146,7 +146,6 @@
     if (selectedIdentity > 0) {
         // If an identity is selected, then we get the according SecIdentityRef
         selectedIdentityName = self.identitiesNames[selectedIdentity];
-        selectedIdentityName = [selectedIdentityName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     }
     return selectedIdentityName;
 }
@@ -364,12 +363,24 @@
             configFileName = [NSString stringWithFormat:@"%@ %@", configFileName, NSLocalizedString(@"Identity", nil)];
             [self.keychainManager generateIdentityWithName:configFileName];
             [self getIdentitiesFromKeychain];
+            
+            // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+            // workaround to refresh the list of embedded certificates
+            [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+            NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+            NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+            [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
+            [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+            [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+            [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
         }
         // Identity selected
         if (indexOfSelectedIdentity > 0) {
+            SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
+
             // Show alert to choose if identity should be embedded or removed from keychain
-            NSString *identityMessage = NSLocalizedString(@"The identity certificate '%@' can be used to encrypt the config file.", nil);
-            NSString *identityName = [self.identitiesNames[indexOfSelectedIdentity] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSString *identityMessage = NSLocalizedString(@"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page).", nil);
+            NSString *identityName = self.identitiesNames[indexOfSelectedIdentity];
             identityMessage = [NSString stringWithFormat:identityMessage, identityName];
             [_sebViewController alertWithTitle:NSLocalizedString(@"Identity in Keychain", nil)
                                        message:identityMessage
@@ -377,21 +388,43 @@
                                   action1Title:NSLocalizedString(@"Remove", nil)
                                   action1Style:UIAlertActionStyleDestructive
                                 action1Handler:^{
+                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Confirm Removing Identity", nil)
+                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file, installed on another device or exported), then you cannot decrypt exam config files encrypted with this identity.", nil), identityName]
+                                                            preferredStyle:UIAlertControllerStyleAlert
+                                                              action1Title:NSLocalizedString(@"Remove", nil)
+                                                              action1Style:UIAlertActionStyleDestructive
+                                                            action1Handler:^{
+                                                                if (![self.keychainManager removeIdentityFromKeychain:identityRef]) {
+                                                                    [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Removing Identity Failed!", nil)
+                                                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"The identity '%@' could not be removed from the Keychain.", nil), identityName]
+                                                                                              action1Title:NSLocalizedString(@"OK", nil)
+                                                                                            action1Handler:^{}
+                                                                                              action2Title:nil
+                                                                                            action2Handler:^{}];
+                                                                } else {
+                                                                    [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                    [self getIdentitiesFromKeychain];
+                                                                    
+                                                                    // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+                                                                    // workaround to refresh the list of embedded certificates
+                                                                    NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+                                                                    NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+                                                                    [newHiddenKeys addObject: @"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                    [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+                                                                    [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                                    [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
+                                                                }
+                                                            }
+                                                              action2Title:NSLocalizedString(@"Cancel", nil)
+                                                              action2Style:UIAlertActionStyleCancel
+                                                            action2Handler:^{}];
                                     
-                                    // Hide the PSMultiValueSpecifier list and unhide it again, this is a
-                                    // workaround to refresh the list of embedded certificates
-//                                    NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
-//                                    NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
-//                                    [newHiddenKeys addObject: @"org_safeexambrowser_chooseIdentityToEmbed"];
-//                                    [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
-//                                    [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
-//                                    [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
                                 }
                                   action2Title:NSLocalizedString(@"Embed", nil)
                                   action2Style:UIAlertActionStyleDefault
                                 action2Handler:^{
                                     // Get PKCS12 data representation of selected identity
-                                    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
                                     NSData *certificateData = [self.keychainManager getDataForIdentity:identityRef];
                                     if (certificateData) {
                                         NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -417,6 +450,7 @@
                                         [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
                                         
                                     } else {
+                                        [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                                         [self.sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil)
                                                                        message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil)
                                                                   action1Title:NSLocalizedString(@"OK", nil)
@@ -425,7 +459,6 @@
                                                                 action2Handler:^{}];
                                     }
                                 }];
-
         }
     }
     
