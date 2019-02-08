@@ -154,24 +154,6 @@
 // Generate identity
 - (BOOL)generateIdentityWithName:(NSString *)commonName
 {
-//    NSData* tag = [sebErrorDomain dataUsingEncoding:NSUTF8StringEncoding];
-//    NSDictionary* attributes =
-//    @{ (id)kSecAttrKeyType:               (id)kSecAttrKeyTypeRSA,
-//       (id)kSecAttrKeySizeInBits:         @2048,
-//       (id)kSecPrivateKeyAttrs:
-//           @{ (id)kSecAttrIsPermanent:    @YES,
-//              (id)kSecAttrApplicationTag: tag,
-//              },
-//       };
-//
-//    SecKeyRef publicKey = NULL;
-//    SecKeyRef privateKey = NULL;
-//    OSStatus success = SecKeyGeneratePair((__bridge CFDictionaryRef)attributes, &publicKey, &privateKey);
-//    if (success != errSecSuccess) {
-//        DDLogError(@"SecKeyGeneratePair failed generating a key pair with error: %d", (int)success);
-//        return NO;
-//    }
-
     EVP_PKEY * pkey;
     pkey = EVP_PKEY_new();
     
@@ -203,15 +185,15 @@
     name = X509_get_subject_name(x509);
     
     X509_NAME_add_entry_by_txt(name, "C",  MBSTRING_ASC,
-                               (unsigned char *)"CA", -1, -1, 0);
+                               (unsigned char *)[SEBCountry UTF8String], -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "O",  MBSTRING_ASC,
-                               (unsigned char *)"SEB-safeexambrowser.org", -1, -1, 0);
+                               (unsigned char *)[SEBWebsiteShort UTF8String], -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
                                (unsigned char *)[commonName UTF8String], -1, -1, 0);
     
     X509_set_issuer_name(x509, name);
     
-    X509_sign(x509, pkey, EVP_sha1());
+    X509_sign(x509, pkey, EVP_sha256());
     
     MscRSAKey *mscRSAKey = [[MscRSAKey alloc] initWithRSA:rsa];
     MscCertificate *certificate = [[MscCertificate alloc] initWithX509:x509];
