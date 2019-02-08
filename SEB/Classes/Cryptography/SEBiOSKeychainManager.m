@@ -50,14 +50,19 @@
                 if ((publicKeyRef = SecCertificateCopyPublicKey(certificateRef))) {
                     if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
                         if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
-                            NSString *commonNameString = (__bridge NSString *)commonName ?
-                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
-                            @"";
+                            NSString *commonNameString = (__bridge NSString *)commonName;
+                            commonNameString = [commonNameString  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                             NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
                             NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : @"";
-                            identityName = [NSString stringWithFormat:@"%@%@", commonNameString, emailAdress];
+                            emailAdress = [emailAdress stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                            identityName = [NSString stringWithFormat:@"%@",
+                                            commonNameString ?
+                                            //There is a commonName: just take that as a name
+                                            [NSString stringWithFormat:@"%@", commonNameString] :
+                                            //there is no common name: take the e-mail address (if it exists)
+                                            emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
                             // Check if there is already an identitiy with the identical name (can happen)
-                            if ([identitiesNames containsObject:identityName]) {
+                            if (identityName.length == 0 || [identitiesNames containsObject:identityName]) {
                                 // If yes, we need to make the name unique; we add the public key hash
                                 // Get public key hash from selected identity's certificate
                                 NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
@@ -72,12 +77,10 @@
                                 for (int i = 0 ; i < 20 ; ++i) {
                                     [hashedString appendFormat: @"%02x", hashedChars[i]];
                                 }
-                                [identitiesNames addObject:[NSString stringWithFormat:@"%@ %@",identityName, hashedString]];
-                            } else {
-                                [identitiesNames addObject:identityName];
+                                identityName.length == 0 ? identityName = hashedString : [NSString stringWithFormat:@"%@ %@", identityName, hashedString];
                             }
-                            
-                            DDLogDebug(@"Common name: %@%@", commonNameString, emailAdress);
+                            [identitiesNames addObject:identityName];
+                            DDLogDebug(@"Identity name: %@", identityName);
                             DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
                             if (emailAddressesRef) CFRelease(emailAddressesRef);
                             if (commonName) CFRelease(commonName);
@@ -162,15 +165,17 @@
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
 
                 NSString *commonNameString = (__bridge NSString *)commonName;
+                commonNameString = [commonNameString  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
                 NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : nil;
+                emailAdress = [emailAdress  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 certificateName = [NSString stringWithFormat:@"%@",
                                    commonNameString ?
                                    //There is a commonName: just take that as a name
-                                   [NSString stringWithFormat:@"%@ ", commonNameString] :
+                                   [NSString stringWithFormat:@"%@", commonNameString] :
                                    //there is no common name: take the e-mail address (if it exists)
-                                   emailAdress ? emailAdress : @""];
-                if ([certificateName isEqualToString:@""] || [certificatesNames containsObject:certificateName]) {
+                                   emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
+                if (certificateName.length == 0 || [certificatesNames containsObject:certificateName]) {
                     //get public key hash from selected identity's certificate
                     NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
                     if (!publicKeyHash) {
@@ -184,11 +189,10 @@
                     for (int i = 0 ; i < 20 ; ++i) {
                         [hashedString appendFormat: @"%02x", hashedChars[i]];
                     }
-                    [certificatesNames addObject:[NSString stringWithFormat:@"%@ %@",certificateName, hashedString]];
-                } else {
-                    [certificatesNames addObject:certificateName];
+                    certificateName.length == 0 ? certificateName = hashedString : [NSString stringWithFormat:@"%@ %@", certificateName, hashedString];
                 }
-                DDLogDebug(@"Common name: %@ %@", commonNameString, emailAdress);
+                [certificatesNames addObject:certificateName];
+                DDLogDebug(@"Certificate name: %@", certificateName);
                 
                 if (commonName) CFRelease(commonName);
                 if (emailAddressesRef) CFRelease(emailAddressesRef);

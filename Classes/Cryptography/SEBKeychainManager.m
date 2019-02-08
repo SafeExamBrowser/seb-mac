@@ -213,6 +213,22 @@
 }
 
 
+- (BOOL)removeIdentityFromKeychain:(SecIdentityRef)identityRef
+{
+    NSDictionary *query = @{
+                            (id)kSecValueRef: (__bridge id)identityRef
+                            };
+    OSStatus status = SecItemDelete((CFDictionaryRef)query);
+    if (status == errSecSuccess) {
+        DDLogInfo(@"%s: Removing identity from Keychain succeeded.", __FUNCTION__);
+        return YES;
+    } else {
+        DDLogError(@"%s: Removing identity from Keychain failed with OSStatus error code %d!", __FUNCTION__, status);
+        return NO;
+    }
+}
+
+
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate
 {
     return [self.delegate encryptData:plainData withPublicKeyFromCertificate:certificate];

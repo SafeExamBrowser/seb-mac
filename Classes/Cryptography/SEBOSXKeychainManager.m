@@ -113,10 +113,10 @@
                                     if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
                                         identityName = [NSString stringWithFormat:@"%@%@",
                                                         (__bridge NSString *)commonName ?
-                                                        [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                                        [NSString stringWithFormat:@"%@", (__bridge NSString *)commonName] :
                                                         @"" ,
                                                         CFArrayGetCount(emailAddressesRef) ?
-                                                        (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                                                        [NSString stringWithFormat:@" %@", (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0)] :
                                                         @""];
                                         // Check if there is already an identitiy with the identical name (can happen)
                                         if ([identitiesNames containsObject:identityName]) {
@@ -243,12 +243,12 @@
                         certificateName = [NSString stringWithFormat:@"%@",
                                            (__bridge NSString *)commonName ?
                                            //There is a commonName: just take that as a name
-                                           [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                           [NSString stringWithFormat:@"%@",(__bridge NSString *)commonName] :
                                            //there is no common name: take the e-mail address (if it exists)
                                            CFArrayGetCount(emailAddressesRef) ?
                                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
                                            @""];
-                        if ([certificateName isEqualToString:@""] || [certificatesNames containsObject:certificateName]) {
+                        if ([certificateName.length == 0] || [certificatesNames containsObject:certificateName]) {
                             //get public key hash from selected identity's certificate
                             NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
                             if (!publicKeyHash) {
