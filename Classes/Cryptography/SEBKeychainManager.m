@@ -281,7 +281,6 @@
     if (status != errSecSuccess) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
         DDLogError(@"SecItemAdd failed with error: %@. Will now try SecItemUpdate.", outError);
-//        [NSApp presentError:outError];
         return [self updateKeyWithID:keyID keyData:keyData];
     }
 	return (status == errSecSuccess);
