@@ -2311,18 +2311,14 @@ void run_on_ui_thread(dispatch_block_t block)
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    NSString *alertTitle;
-    NSString *alertMessage;
+    NSString *alertTitle = error.localizedDescription;
+    NSString *alertMessage = error.localizedFailureReason;
     NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
-    NSString *underlyingErrorTitle = underlyingError.localizedFailureReason;
-    if (underlyingErrorTitle) {
-        alertTitle = underlyingErrorTitle;
-    } else {
-        alertTitle = error.localizedFailureReason;
+    NSString *underlyingErrorMessage = underlyingError.localizedFailureReason;
+    if (underlyingErrorMessage) {
+        alertMessage = [NSString stringWithFormat:@"%@: %@", alertMessage, underlyingErrorMessage];
     }
-    alertMessage = error.localizedDescription;
-//    NSString *alertMessage = error.localizedRecoverySuggestion;
-//    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
+
     _alertController = [UIAlertController  alertControllerWithTitle:alertTitle
                                                             message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
