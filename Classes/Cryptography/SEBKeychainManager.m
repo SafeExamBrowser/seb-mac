@@ -151,8 +151,8 @@
 }
 
 
-// Generate identity
-- (BOOL)generateIdentityWithName:(NSString *)commonName
+// Generate PKCS12 identity data
+- (NSData *)generatePKCS12IdentityWithName:(NSString *)commonName
 {
     EVP_PKEY * pkey;
     pkey = EVP_PKEY_new();
@@ -206,10 +206,16 @@
 
     if (!mscPKCS12) {
         DDLogError(@"%s: Generating PKCS12 data from private key and certificate failed!", __FUNCTION__);
-        return NO;
+        return nil;
     }
-    
-    return [self importIdentityFromData:[mscPKCS12 data]];
+    return [mscPKCS12 data];
+}
+
+
+// Generate identity and store in Keychain
+- (BOOL)generateIdentityWithName:(NSString *)commonName
+{
+    return [self importIdentityFromData:[self generatePKCS12IdentityWithName:commonName]];
 }
 
 
