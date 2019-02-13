@@ -564,7 +564,7 @@
 
     NSArray* items = (NSArray*)CFBridgingRelease(rawItems); // Transfer to ARC
     NSDictionary* firstItem = nil;
-    if ((status == errSecSuccess) && ([items count]>0)) {
+    if ((status == errSecSuccess) && (items.count > 0)) {
         firstItem = items[0];
     } else {
         DDLogError(@"Importing an identity from PKCS12 data using SecItemImport failed (oserr=%d)\n", status);
@@ -589,6 +589,12 @@
     }
     DDLogInfo(@"Successfully imported identity into the Keychain");
     
+    // Save the current SEB admin password hash for the identity
+    NSData *publicKeyHash = [self getPublicKeyHashFromIdentity:identity];
+    NSString *publicKeyHashBase64 = [publicKeyHash base64EncodedStringWithOptions:(0)];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *adminPasswordHash = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] dataUsingEncoding:NSUTF8StringEncoding];
+    [self.keychainManager storeKeyWithID:publicKeyHashBase64 keyData:adminPasswordHash];
     return YES;
 }
 
