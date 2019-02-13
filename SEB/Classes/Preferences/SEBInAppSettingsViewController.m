@@ -383,9 +383,9 @@
         
         // "Create New…" selected
         if (indexOfSelectedIdentity == 0) {
-            // Get a default config file name derived from the current config file name
-            NSString *configFileName = [self getConfigFileIdentityName];
-            [self createNewIdentityWithName:configFileName];
+            // Get a default idenity name derived from the current config file name
+            NSString *identityName = [self getConfigFileIdentityName];
+            [self createNewIdentityRequestName:identityName];
             
         } else if (indexOfSelectedIdentity > 0) {
             // Identity selected
@@ -519,6 +519,61 @@
                                 [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                             }];
     }
+}
+
+
+// "Create New…" identity: Get name
+- (void)createNewIdentityRequestName:(NSString *)identityName
+{
+    // Allow the user to edit this derived identity name
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Create New Identity", nil)
+                                                                             message:NSLocalizedString(@"Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = NSLocalizedString(@"Identity Name", nil);
+         textField.text = identityName;
+         textField.autocorrectionType = UITextAutocorrectionTypeNo;
+     }];
+    
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               NSString *identityName = self.sebViewController.alertController.textFields.firstObject.text;
+                                                                               self.sebViewController.alertController = nil;
+                                                                               if (identityName.length == 0) {
+                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"No Identity Name Provided", nil)
+                                                                                                              message:NSLocalizedString(@"An identity needs a unique name.", nil)
+                                                                                                         action1Title:NSLocalizedString(@"OK", nil)
+                                                                                                       action1Handler:^{
+                                                                                                           [self createNewIdentityRequestName:[self getConfigFileIdentityName]];
+                                                                                                       }
+                                                                                                         action2Title:NSLocalizedString(@"Cancel", nil)
+                                                                                                       action2Handler:^{}];
+                                                                               } else if ([self.identitiesNames containsObject:identityName]) {
+                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"Identity Name Not Unique", nil)
+                                                                                                                  message:NSLocalizedString(@"An identity with the same name exists in the Keychain. Please use a unique name.", nil)
+                                                                                                             action1Title:NSLocalizedString(@"OK", nil)
+                                                                                                           action1Handler:^{
+                                                                                                               [self createNewIdentityRequestName:[self getConfigFileIdentityName]];
+                                                                                                           }
+                                                                                                             action2Title:NSLocalizedString(@"Cancel", nil)
+                                                                                                           action2Handler:^{}];
+                                                                               } else {
+                                                                                   [self createNewIdentityWithName:identityName];
+                                                                               }
+                                                                           }]];
+    
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                               self.sebViewController.alertController = nil;
+                                                                           }]];
+    
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+
 }
 
 
