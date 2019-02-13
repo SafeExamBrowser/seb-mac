@@ -593,7 +593,7 @@
     NSData *publicKeyHash = [self getPublicKeyHashFromIdentity:identity];
     NSString *publicKeyHashBase64 = [publicKeyHash base64EncodedStringWithOptions:(0)];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *adminPasswordHash = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *adminPasswordHash = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
     [self.keychainManager storeKeyWithID:publicKeyHashBase64 keyData:adminPasswordHash];
     return YES;
 }

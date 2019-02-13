@@ -413,7 +413,9 @@
                                                                     [self.sebViewController alertWithTitle:NSLocalizedString(@"Removing Identity Failed!", nil)
                                                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"The identity '%@' could not be removed from the Keychain.", nil), identityName]
                                                                                               action1Title:NSLocalizedString(@"OK", nil)
-                                                                                            action1Handler:^{}
+                                                                                            action1Handler:^{
+                                                                                                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                                                            }
                                                                                               action2Title:nil
                                                                                             action2Handler:^{}];
                                                                 } else {
@@ -432,7 +434,10 @@
                                                             }
                                                               action2Title:NSLocalizedString(@"Cancel", nil)
                                                               action2Style:UIAlertActionStyleCancel
-                                                            action2Handler:^{}];
+                                                            action2Handler:^{
+                                                                [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                            }];
                                     
                                 }
                                   action2Title:NSLocalizedString(@"Embed", nil)
@@ -440,37 +445,14 @@
                                 action2Handler:^{
                                     NSData *identityAdminPasswordHash = [self.keychainManager retrieveKeyForIdentity:identityRef];
                                     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                                    NSData *adminPasswordHash = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] dataUsingEncoding:NSUTF8StringEncoding];
+                                    NSData *adminPasswordHash = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
 
-                                    if (![identityAdminPasswordHash isEqualToData:adminPasswordHash]) {
-                                        return;
-                                    }
-
-                                    // Get PKCS12 data representation of selected identity
-                                    NSData *identityData = [self.keychainManager getDataForIdentity:identityRef];
-                                    if (identityData) {
-                                        if ([self embedPKCS12Identity:identityData name:self.identitiesNames[indexOfSelectedIdentity]]) {
-                                            self->_embeddedCertificatesList = nil;
-                                            self->_embeddedCertificatesListCounter = nil;
-                                            
-                                            // Hide the PSMultiValueSpecifier list and unhide it again, this is a
-                                            // workaround to refresh the list of embedded certificates
-                                            [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
-                                            NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
-                                            NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
-                                            [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
-                                            [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
-                                            [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
-                                            [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
-                                        }
+                                    // Check if the identity was stored using the same SEB admin password
+                                    // as the one used in current settings
+                                    if (identityAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:adminPasswordHash]) {
+                                        [self embedIdentityRequestAdminPassword:identityRef name:identityName];
                                     } else {
-                                        [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
-                                        [self.sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil)
-                                                                       message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil)
-                                                                  action1Title:NSLocalizedString(@"OK", nil)
-                                                                action1Handler:^{}
-                                                                  action2Title:nil
-                                                                action2Handler:^{}];
+                                        [self embedIdentity:identityRef name:identityName];
                                     }
                                 }];
         }
@@ -553,7 +535,10 @@
                                                                                                            [self createNewIdentityRequestName:[self getConfigFileIdentityName]];
                                                                                                        }
                                                                                                          action2Title:NSLocalizedString(@"Cancel", nil)
-                                                                                                       action2Handler:^{}];
+                                                                                                       action2Handler:^{
+                                                                                                           [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                                                           [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                                                                       }];
                                                                                } else if ([self.identitiesNames containsObject:identityName]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Identity Name Not Unique", nil)
                                                                                                                   message:NSLocalizedString(@"An identity with the same name is already stored in the Keychain. Please use a unique name.", nil)
@@ -562,19 +547,24 @@
                                                                                                                [self createNewIdentityRequestName:[self getConfigFileIdentityName]];
                                                                                                            }
                                                                                                              action2Title:NSLocalizedString(@"Cancel", nil)
-                                                                                                           action2Handler:^{}];
+                                                                                                           action2Handler:^{
+                                                                                                               [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                                                               [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                                                                           }];
                                                                                } else {
                                                                                    [self createNewIdentityWithName:identityName];
                                                                                }
                                                                            }]];
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                           style:UIAlertActionStyleCancel
+                                                                         handler:^(UIAlertAction *action) {
                                                                                self.sebViewController.alertController = nil;
+                                                                             [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                             [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                                                                            }]];
     
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
-
 }
 
 
@@ -607,6 +597,90 @@
     [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
     [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
     [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
+}
+
+
+- (void)embedIdentity:(SecIdentityRef)identityRef name:(NSString *)identityName
+{
+    // Get PKCS12 data representation of selected identity
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *identityData = [self.keychainManager getDataForIdentity:identityRef];
+    if (identityData) {
+        if ([self embedPKCS12Identity:identityData name:identityName]) {
+            self->_embeddedCertificatesList = nil;
+            self->_embeddedCertificatesListCounter = nil;
+            
+            // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+            // workaround to refresh the list of embedded certificates
+            [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+            NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+            NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+            [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
+            [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+            [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+            [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
+        }
+    } else {
+        [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+        [self.sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil)
+                                       message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil)
+                                  action1Title:NSLocalizedString(@"OK", nil)
+                                action1Handler:^{}
+                                  action2Title:nil
+                                action2Handler:^{}];
+    }
+}
+
+
+// "Create New…" identity: Get name
+- (void)embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName
+{
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Identity Admin Password", nil)
+                                                                             message:NSLocalizedString(@"This identity was stored in the Keychain while using another SEB admin password than currently set. Enter the admin password associated with the identity:", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = NSLocalizedString(@"Admin Password", nil);
+         textField.secureTextEntry = YES;
+     }];
+    
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               NSString *identityAdminPassword = self.sebViewController.alertController.textFields.firstObject.text;
+                                                                               NSData *identityAdminPasswordHash = [[self.keychainManager generateSHAHashString:identityAdminPassword].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
+                                                                               NSData *adminPasswordHash = [[[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
+
+                                                                               self.sebViewController.alertController = nil;
+                                                                               if (identityAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:adminPasswordHash]) {
+                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", nil)
+                                                                                                                  message:NSLocalizedString(@"The entered SEB admin password didn't match to the one stored for this identity. Try again.", nil)
+                                                                                                             action1Title:NSLocalizedString(@"OK", nil)
+                                                                                                           action1Handler:^{
+                                                                                                               [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName];
+                                                                                                           }
+                                                                                                             action2Title:NSLocalizedString(@"Cancel", nil)
+                                                                                                           action2Handler:^{
+                                                                                                               [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                                                               [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                                                                           }];
+                                                                               } else {
+                                                                                   [self embedIdentity:identityRef name:identityName];
+                                                                               }
+                                                                           }]];
+    
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                           style:UIAlertActionStyleCancel
+                                                                         handler:^(UIAlertAction *action) {
+                                                                               self.sebViewController.alertController = nil;
+                                                                             [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
+                                                                             [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
+                                                                           }]];
+    
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 
