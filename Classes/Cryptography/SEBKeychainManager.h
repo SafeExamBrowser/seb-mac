@@ -35,8 +35,8 @@
 
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
-//#import <Security/SecRandom.h> //for SecRandom
 
+@class SEBKeychainManager;
 
 /**
  * @protocol    SEBKeychainManagerDelegate
@@ -67,6 +67,10 @@
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 
+@optional
+
+@property (nonatomic, retain) SEBKeychainManager *keychainManager;
+
 @end
 
 
@@ -91,6 +95,7 @@
 - (NSData*)generatePKCS12IdentityWithName:(NSString *)commonName;
 - (BOOL)generateIdentityWithName:(NSString *)commonName;
 - (BOOL)removeIdentityFromKeychain:(SecIdentityRef)identityRef;
+- (NSData *)retrieveKeyForIdentity:(SecIdentityRef)identityRef;
 
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
@@ -102,5 +107,6 @@
 - (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
 - (NSData *) retrieveKey;
 - (NSData *) retrieveKeyWithID:(NSString *)keyID;
+- (BOOL) removeKeyWithID:(NSString *)keyID;
 
 @end

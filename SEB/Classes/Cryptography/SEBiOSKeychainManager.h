@@ -14,6 +14,8 @@
 
 @interface SEBiOSKeychainManager : NSObject <SEBKeychainManagerDelegate>
 
+@property (nonatomic, retain) SEBKeychainManager *keychainManager;
+
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
 - (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef;

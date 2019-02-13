@@ -59,6 +59,7 @@
     if (self) {
 #if TARGET_OS_IPHONE
         self.delegate = [[SEBiOSKeychainManager alloc] init];
+        self.delegate.keychainManager = self;
 
 #else
         self.delegate = [[SEBOSXKeychainManager alloc] init];
@@ -221,17 +222,29 @@
 
 - (BOOL)removeIdentityFromKeychain:(SecIdentityRef)identityRef
 {
+    NSData *publicKeyHash = [self getPublicKeyHashFromIdentity:identityRef];
+    NSString *publicKeyHashBase64 = [publicKeyHash base64EncodedStringWithOptions:(0)];
+
     NSDictionary *query = @{
                             (id)kSecValueRef: (__bridge id)identityRef
                             };
     OSStatus status = SecItemDelete((CFDictionaryRef)query);
     if (status == errSecSuccess) {
         DDLogInfo(@"%s: Removing identity from Keychain succeeded.", __FUNCTION__);
+        [self removeKeyWithID:publicKeyHashBase64];
         return YES;
     } else {
         DDLogError(@"%s: Removing identity from Keychain failed with OSStatus error code %d!", __FUNCTION__, status);
         return NO;
     }
+}
+
+
+- (NSData *)retrieveKeyForIdentity:(SecIdentityRef)identityRef
+{
+    NSData *publicKeyHash = [self getPublicKeyHashFromIdentity:identityRef];
+    NSString *publicKeyHashBase64 = [publicKeyHash base64EncodedStringWithOptions:(0)];
+    return [self retrieveKeyWithID:publicKeyHashBase64];
 }
 
 
@@ -286,7 +299,7 @@
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
     if (status != errSecSuccess) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-        DDLogError(@"SecItemAdd failed with error: %@. Will now try SecItemUpdate.", outError);
+        DDLogError(@"%s: SecItemAdd failed with error: %@. Will now try SecItemUpdate.", __FUNCTION__, outError);
         return [self updateKeyWithID:keyID keyData:keyData];
     }
 	return (status == errSecSuccess);
@@ -318,7 +331,7 @@
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
     if (status != errSecSuccess) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
-        DDLogError(@"SecItemUpdate failed with error: %@", outError);
+        DDLogError(@"%s: SecItemUpdate failed with error: %@", __FUNCTION__, outError);
     }
 	return (status == errSecSuccess);
 //    return true;
@@ -331,6 +344,7 @@
     NSString *keyID = @"4815162342";
     return [self retrieveKeyWithID:keyID];
 }
+
 
 // Get a key with ID from the keychain
 - (NSData *) retrieveKeyWithID:(NSString *)keyID
@@ -349,10 +363,28 @@
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &keyData);
     if (status != errSecSuccess) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
-        DDLogError(@"SecItemCopyMatching failed with error: %@", outError);
+        DDLogError(@"%s: SecItemCopyMatching failed with error: %@", __FUNCTION__, outError);
         return nil;
     }
     return (__bridge_transfer NSData *)keyData;
+}
+
+
+// Remove the key with the passed ID from the keychain
+- (BOOL) removeKeyWithID:(NSString *)keyID
+{
+//    NSString *service = [[NSBundle mainBundle] bundleIdentifier];
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
+                           keyID, (__bridge id)kSecAttrGeneric,
+                           nil];
+    OSStatus status = SecItemDelete((CFDictionaryRef)query);
+    if (status != errSecSuccess) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+        DDLogError(@"%s: SecItemCopyDelete failed with error: %@", __FUNCTION__, outError);
+        return NO;
+    }
+    return YES;
 }
 
 @end
