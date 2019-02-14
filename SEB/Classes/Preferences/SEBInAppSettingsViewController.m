@@ -403,7 +403,7 @@
                                   action1Style:UIAlertActionStyleDestructive
                                 action1Handler:^{
                                     [self.sebViewController alertWithTitle:NSLocalizedString(@"Confirm Removing Identity", nil)
-                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity.", nil), identityName]
+                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore.", nil), identityName]
                                                             preferredStyle:UIAlertControllerStyleAlert
                                                               action1Title:NSLocalizedString(@"Remove", nil)
                                                               action1Style:UIAlertActionStyleDestructive
@@ -450,7 +450,7 @@
                                     // Check if the identity was stored using the same SEB admin password
                                     // as the one used in current settings
                                     if (identityAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:adminPasswordHash]) {
-                                        [self embedIdentityRequestAdminPassword:identityRef name:identityName];
+                                        [self embedIdentityRequestAdminPassword:identityRef name:identityName adminPasswordHash:identityAdminPasswordHash];
                                     } else {
                                         [self embedIdentity:identityRef name:identityName];
                                     }
@@ -633,13 +633,13 @@
 
 
 // "Create New…" identity: Get name
-- (void)embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName
+- (void)embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName adminPasswordHash:(NSData *)identityAdminPasswordHash
 {
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Identity Admin Password", nil)
-                                                                             message:NSLocalizedString(@"This identity was stored in the Keychain while using another SEB admin password than currently set. Enter the admin password associated with the identity:", nil)
+                                                                             message:NSLocalizedString(@"This identity was stored to the Keychain while using a different SEB admin password than currently set. Enter the admin password associated with the identity:", nil)
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
@@ -650,17 +650,16 @@
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               NSString *identityAdminPassword = self.sebViewController.alertController.textFields.firstObject.text;
-                                                                               NSData *identityAdminPasswordHash = [[self.keychainManager generateSHAHashString:identityAdminPassword].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
-                                                                               NSData *adminPasswordHash = [[[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
+                                                                               NSString *enteredAdminPassword = self.sebViewController.alertController.textFields.firstObject.text;
+                                                                               NSData *enteredAdminPasswordHash = [[self.keychainManager generateSHAHashString:enteredAdminPassword].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
 
                                                                                self.sebViewController.alertController = nil;
-                                                                               if (identityAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:adminPasswordHash]) {
+                                                                               if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", nil)
                                                                                                                   message:NSLocalizedString(@"The entered SEB admin password didn't match to the one stored for this identity. Try again.", nil)
                                                                                                              action1Title:NSLocalizedString(@"OK", nil)
                                                                                                            action1Handler:^{
-                                                                                                               [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName];
+                                                                                                               [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName adminPasswordHash:identityAdminPasswordHash];
                                                                                                            }
                                                                                                              action2Title:NSLocalizedString(@"Cancel", nil)
                                                                                                            action2Handler:^{
