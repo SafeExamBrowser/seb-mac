@@ -106,6 +106,22 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>SEB Config QR Code</string>
+			<key>FooterText</key>
+			<string>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow QR Code Config</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileAllowQRCodeConfig</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Editing Settings</string>
 			<key>FooterText</key>
 			<string>Recommended for easier set-up and testing. Shows the &quot;Edit Settings&quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</string>

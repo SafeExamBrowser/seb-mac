@@ -624,6 +624,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"showNavigationButtons",
                    
                    @YES,
+                   @"showQuitButton",
+                   
+                   @YES,
                    @"showReloadButton",
                    
                    @NO,
