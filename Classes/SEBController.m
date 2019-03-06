@@ -1377,7 +1377,8 @@ bool insideMatrix(){
         // Initialize right dock items (controlls and info widgets)
         NSMutableArray *rightDockItems = [NSMutableArray array];
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"]) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBShutDownIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]

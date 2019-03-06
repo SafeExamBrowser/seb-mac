@@ -264,11 +264,12 @@
                                                       action:@selector(showAboutSEB)];
     [sliderCommands addObject:sliderCommandItem];
     
-    // Add Quit button
-    dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
-    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
-    //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBShutDownIconLandscape"]];
-    [newDockItems addObject:dockItem];
+    // Add Quit button if enabled in Dock settings
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
+        dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
+        [newDockItems addObject:dockItem];
+    }
     
     dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     dockItem.width = -12;

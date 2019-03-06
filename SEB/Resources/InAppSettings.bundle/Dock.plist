@@ -28,23 +28,7 @@
 			<key>Title</key>
 			<string>Dock Command Items</string>
 			<key>FooterText</key>
-			<string>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (Browser &gt; Allow Navigation &amp; Allow Reload, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Security &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Show Reload Button</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_showReloadButton</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Show Navigation Buttons</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_showNavigationButtons</string>
+			<string>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (Browser &gt; Allow Navigation &amp; Allow Reload, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -58,9 +42,33 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Show Navigation Buttons</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showNavigationButtons</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Reload Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showReloadButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Show Scan QR Code Button</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showScanQRCodeButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Quit Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showQuitButton</string>
 		</dict>
 	</array>
 </dict>
