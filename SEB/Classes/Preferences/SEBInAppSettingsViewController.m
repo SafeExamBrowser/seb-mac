@@ -64,17 +64,17 @@
         }
 
         // If certificates aren't available yet, get them from Keychain
-        if (!self.certificatesNames) {
-            NSArray *names;
-            NSArray *certificatesInKeychain = [self.keychainManager getCertificatesAndNames:&names];
-            self.certificates = certificatesInKeychain;
-            self.certificatesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
-            [self.certificatesNames addObjectsFromArray:names];
-            _certificatesCounter = [NSMutableArray new];
-            for (NSUInteger ruleCounter = 0; ruleCounter < self.certificatesNames.count; ruleCounter++) {
-                [_certificatesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
-            }
-        }
+//        if (!self.certificatesNames) {
+//            NSArray *names;
+//            NSArray *certificatesInKeychain = [self.keychainManager getCertificatesAndNames:&names];
+//            self.certificates = certificatesInKeychain;
+//            self.certificatesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
+//            [self.certificatesNames addObjectsFromArray:names];
+//            _certificatesCounter = [NSMutableArray new];
+//            for (NSUInteger ruleCounter = 0; ruleCounter < self.certificatesNames.count; ruleCounter++) {
+//                [_certificatesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
+//            }
+//        }
         // Select identity for passed identity reference
         [self selectSettingsIdentity];
         // Display current keys
@@ -357,6 +357,8 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureObject:[NSDictionary dictionary]
                                                     forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+    _sebViewController.browserController.browserExamKey = nil;
+    _sebViewController.browserController.configKey = nil;
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     // Display updated or current keys
     [self displayBrowserExamKey];
@@ -728,16 +730,14 @@
 
 - (void)displayBrowserExamKey
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    NSData *browserExamKey = _sebViewController.browserController.browserExamKey;
     [self displayKeyHash:browserExamKey key:@"browserExamKey"];
 }
 
 
 - (void)displayConfigKey
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    NSData *configKey = _sebViewController.browserController.configKey;
     [self displayKeyHash:configKey key:@"configKey"];
 }
 
