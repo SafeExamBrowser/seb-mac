@@ -56,10 +56,12 @@
     
     SEBAboutController *aboutController = [SEBAboutController new];
     appExtraShortName.text = SEBExtraShortAppName;
-    appExtraShortName.textColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
-                                                  green:SEBTintColorGreenValue
-                                                   blue:SEBTintColorBlueValue
-                                                  alpha:1.0];
+    if (@available(iOS 10.0, *)) {
+        appExtraShortName.textColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
+                                                               green:SEBTintColorGreenValue
+                                                                blue:SEBTintColorBlueValue
+                                                               alpha:1.0];
+    }
     appName.text = SEBFullAppName;
     versionLabel.text = [aboutController version];
     copyrightLabel.text = [aboutController copyright];

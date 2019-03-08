@@ -63,10 +63,12 @@
     _assistantController.controllerDelegate = self;
     
     initAssistantTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Options to start an exam or configure %@ for your institution", nil), SEBFullAppName];
-    initAssistantTitleView.backgroundColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
-                                                  green:SEBTintColorGreenValue
-                                                   blue:SEBTintColorBlueValue
-                                                  alpha:1.0];
+    if (@available(iOS 10.0, *)) {
+        initAssistantTitleView.backgroundColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
+                                                                          green:SEBTintColorGreenValue
+                                                                           blue:SEBTintColorBlueValue
+                                                                          alpha:1.0];
+    }
     openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ %@ exam or configuration link from Safari, Mail or a messenger app.", nil), SEBExtraShortAppNameAArticle, SEBExtraShortAppName];
     automaticClientConfigText.text =[NSString stringWithFormat:NSLocalizedString(@"Enter the URL of an institution which supports %@", nil), SEBExtraShortAppName];
     scanQRConfigText.text = [NSString stringWithFormat:NSLocalizedString(@"Scan %@ configuration QR code", nil), SEBExtraShortAppName];
