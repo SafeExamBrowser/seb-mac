@@ -213,7 +213,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
     
     if (shouldAccept) {
 #if TARGET_OS_IPHONE
-        shouldAccept = YES;
+        shouldAccept = [scheme isEqual:@"http"] || [scheme isEqual:@"https"];
 #else
         shouldAccept = [scheme isEqual:@"https"];
 #endif
