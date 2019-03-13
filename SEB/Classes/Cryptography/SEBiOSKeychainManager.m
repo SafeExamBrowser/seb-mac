@@ -62,66 +62,53 @@
     if (items) CFRelease(items);
     NSMutableArray *identitiesNames = [NSMutableArray arrayWithCapacity:[identities count]];
     
-    CFStringRef commonName;
     SecCertificateRef certificateRef;
     SecKeyRef publicKeyRef;
     SecKeyRef privateKeyRef;
-    CFArrayRef emailAddressesRef;
     NSString *identityName;
     NSUInteger count = [identities count];
     for (NSUInteger i=0; i<count; i++) {
         SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
         if (SecIdentityCopyCertificate(identityRef, &certificateRef) == noErr) {
             if (SecIdentityCopyPrivateKey(identityRef, &privateKeyRef) == noErr) {
-                if ((publicKeyRef = SecCertificateCopyPublicKey(certificateRef))) {
-                    if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
-                        if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
-                            NSString *commonNameString = (__bridge NSString *)commonName;
-                            commonNameString = [commonNameString  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                            NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
-                            NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : @"";
-                            emailAdress = [emailAdress stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                            identityName = [NSString stringWithFormat:@"%@",
-                                            commonNameString ?
-                                            //There is a commonName: just take that as a name
-                                            [NSString stringWithFormat:@"%@", commonNameString] :
-                                            //there is no common name: take the e-mail address (if it exists)
-                                            emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
-                            // Check if there is already an identitiy with the identical name (can happen)
-                            if (identityName.length == 0 || [identitiesNames containsObject:identityName]) {
-                                // If yes, we need to make the name unique; we add the public key hash
-                                // Get public key hash from selected identity's certificate
-                                NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
-                                if (!publicKeyHash) {
-                                    DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
-                                    // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
-                                    publicKeyHash = [RNCryptor randomDataOfLength:20];
-                                }
-                                unsigned char hashedChars[20];
-                                [publicKeyHash getBytes:hashedChars length:20];
-                                NSMutableString* hashedString = [NSMutableString new];
-                                for (int i = 0 ; i < 20 ; ++i) {
-                                    [hashedString appendFormat: @"%02x", hashedChars[i]];
-                                }
-                                identityName.length == 0 ? identityName = hashedString : [NSString stringWithFormat:@"%@ %@", identityName, hashedString];
+                if ((publicKeyRef = [self copyPublicKeyFromCertificate:certificateRef])) {
+                    NSString *commonNameString = [self getCommonNameForCertificate:certificateRef];
+                    if (commonNameString) {
+                        NSString *emailAdress = [self getEmailForCertificate:certificateRef];
+                        commonNameString = [commonNameString  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        emailAdress = [emailAdress stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        identityName = [NSString stringWithFormat:@"%@",
+                                        commonNameString ?
+                                        //There is a commonName: just take that as a name
+                                        [NSString stringWithFormat:@"%@", commonNameString] :
+                                        //there is no common name: take the e-mail address (if it exists)
+                                        emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
+                        // Check if there is already an identitiy with the identical name (can happen)
+                        if (identityName.length == 0 || [identitiesNames containsObject:identityName]) {
+                            // If yes, we need to make the name unique; we add the public key hash
+                            // Get public key hash from selected identity's certificate
+                            NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
+                            if (!publicKeyHash) {
+                                DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
+                                // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
+                                publicKeyHash = [RNCryptor randomDataOfLength:20];
                             }
-                            [identitiesNames addObject:identityName];
-                            DDLogDebug(@"Identity name: %@", identityName);
-                            DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
-                            if (emailAddressesRef) CFRelease(emailAddressesRef);
-                            if (commonName) CFRelease(commonName);
-                            if (publicKeyRef) CFRelease(publicKeyRef);
-                            if (privateKeyRef) CFRelease(privateKeyRef);
-                            if (certificateRef) CFRelease(certificateRef);
-                            // Continue with next element
-                            continue;
-                            
-                        } else {
-                            DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                            unsigned char hashedChars[20];
+                            [publicKeyHash getBytes:hashedChars length:20];
+                            NSMutableString* hashedString = [NSMutableString new];
+                            for (int i = 0 ; i < 20 ; ++i) {
+                                [hashedString appendFormat: @"%02x", hashedChars[i]];
+                            }
+                            identityName.length == 0 ? identityName = hashedString : [NSString stringWithFormat:@"%@ %@", identityName, hashedString];
                         }
-                        if (commonName) {
-                            CFRelease(commonName);
-                        }
+                        [identitiesNames addObject:identityName];
+                        DDLogDebug(@"Identity name: %@", identityName);
+                        DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
+                        if (publicKeyRef) CFRelease(publicKeyRef);
+                        if (privateKeyRef) CFRelease(privateKeyRef);
+                        if (certificateRef) CFRelease(certificateRef);
+                        // Continue with next element
+                        continue;
                     } else {
                         DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                     }
@@ -180,55 +167,39 @@
     NSMutableArray *certificates = [NSMutableArray arrayWithArray:(__bridge_transfer NSArray*)(items)];
     NSMutableArray *certificatesNames = [NSMutableArray arrayWithCapacity:[certificates count]];
     
-    CFStringRef commonName = NULL;
-    CFArrayRef emailAddressesRef = NULL;
     NSString *certificateName;
     NSUInteger i, count = [certificates count];
     for (i=0; i<count; i++) {
         SecCertificateRef certificateRef = (__bridge SecCertificateRef)[certificates objectAtIndex:i];
-        if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
-            
-            if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
-
-                NSString *commonNameString = (__bridge NSString *)commonName;
-                commonNameString = [commonNameString  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
-                NSString *emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : nil;
-                emailAdress = [emailAdress  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                certificateName = [NSString stringWithFormat:@"%@",
-                                   commonNameString ?
-                                   //There is a commonName: just take that as a name
-                                   [NSString stringWithFormat:@"%@", commonNameString] :
-                                   //there is no common name: take the e-mail address (if it exists)
-                                   emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
-                if (certificateName.length == 0 || [certificatesNames containsObject:certificateName]) {
-                    //get public key hash from selected identity's certificate
-                    NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
-                    if (!publicKeyHash) {
-                        DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
-                        // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
-                        publicKeyHash = [RNCryptor randomDataOfLength:20];
-                    }
-                    unsigned char hashedChars[20];
-                    [publicKeyHash getBytes:hashedChars length:20];
-                    NSMutableString* hashedString = [NSMutableString new];
-                    for (int i = 0 ; i < 20 ; ++i) {
-                        [hashedString appendFormat: @"%02x", hashedChars[i]];
-                    }
-                    certificateName.length == 0 ? certificateName = hashedString : [NSString stringWithFormat:@"%@ %@", certificateName, hashedString];
+        NSString *commonNameString = [self getCommonNameForCertificate:certificateRef];
+        if (commonNameString) {
+            NSString *emailAdress = [self getEmailForCertificate:certificateRef];
+            emailAdress = [emailAdress  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            certificateName = [NSString stringWithFormat:@"%@",
+                               commonNameString ?
+                               //There is a commonName: just take that as a name
+                               [NSString stringWithFormat:@"%@", commonNameString] :
+                               //there is no common name: take the e-mail address (if it exists)
+                               emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
+            if (certificateName.length == 0 || [certificatesNames containsObject:certificateName]) {
+                //get public key hash from selected identity's certificate
+                NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
+                if (!publicKeyHash) {
+                    DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
+                    // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
+                    publicKeyHash = [RNCryptor randomDataOfLength:20];
                 }
-                [certificatesNames addObject:certificateName];
-                DDLogDebug(@"Certificate name: %@", certificateName);
-                
-                if (commonName) CFRelease(commonName);
-                if (emailAddressesRef) CFRelease(emailAddressesRef);
-                
-                continue;
-
-            } else {
-                DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                unsigned char hashedChars[20];
+                [publicKeyHash getBytes:hashedChars length:20];
+                NSMutableString* hashedString = [NSMutableString new];
+                for (int i = 0 ; i < 20 ; ++i) {
+                    [hashedString appendFormat: @"%02x", hashedChars[i]];
+                }
+                certificateName.length == 0 ? certificateName = hashedString : [NSString stringWithFormat:@"%@ %@", certificateName, hashedString];
             }
-            if (commonName) CFRelease(commonName);
+            [certificatesNames addObject:certificateName];
+            DDLogDebug(@"Certificate name: %@", certificateName);
+            continue;
         } else {
             DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
         }
@@ -302,6 +273,54 @@
     NSData *publicKeyHash = [self generateSHA1HashForData:publicKeyData];
 
     return publicKeyHash;
+}
+
+
+- (NSString *) getCommonNameForCertificate:(SecCertificateRef)certificateRef
+{
+    NSString *commonNameString = nil;
+    
+    if (@available(iOS 10.0, *)) {
+        CFStringRef commonName = NULL;
+        OSStatus status = SecCertificateCopyCommonName(certificateRef, &commonName);
+        if (status == noErr) {
+            commonNameString = (__bridge NSString *)commonName;
+        }
+        if (commonName) CFRelease(commonName);
+        
+    } else {
+        NSData *certificateData = [self getDataForCertificate:certificateRef];
+        MscX509CommonError *error = nil;
+        MscCertificate *certificate = [[MscCertificate alloc] initWithData:certificateData error:&error];
+        if (certificate) {
+            MscX509Name* subject = certificate.subject;
+            commonNameString = subject.commonName;
+            if (!commonNameString) {
+                commonNameString = @"";
+            }
+        }
+    }
+    commonNameString = [commonNameString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return commonNameString;
+}
+
+
+- (NSString *) getEmailForCertificate:(SecCertificateRef)certificateRef
+{
+    NSString *emailAdress = nil;
+    
+    if (@available(iOS 10.0, *)) {
+        CFArrayRef emailAddressesRef = NULL;
+        OSStatus status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
+        if (status == noErr) {
+            NSArray *emailAdresses = (__bridge NSArray *)(emailAddressesRef);
+            emailAdress = emailAdresses.count > 0 ? emailAdresses[0] : nil;
+            emailAdress = [emailAdress  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        }
+    } else {
+        
+    }
+    return emailAdress;
 }
 
 
@@ -382,14 +401,32 @@
 }
 
 
-- (SecKeyRef)copyPublicKeyFromCertificate:(SecCertificateRef)certificateRef {
-        SecKeyRef key = SecCertificateCopyPublicKey(certificateRef);
-        if (key == NULL) {
+- (SecKeyRef)copyPublicKeyFromCertificate:(SecCertificateRef)certificateRef
+{
+    SecKeyRef publicKey = NULL;
+    
+    if (@available(iOS 10.0, *)) {
+        publicKey = SecCertificateCopyPublicKey(certificateRef);
+        if (publicKey == NULL) {
             DDLogError(@"No proper public key found in certificate.");
-            if (key) CFRelease(key);
             return NULL;
         }
-        return key; // public key contained in certificate
+    } else {
+        // SecCertificateCopyPublicKey() isn't available in iOS 9
+        SecPolicyRef policy = SecPolicyCreateBasicX509();
+        SecTrustRef trust = NULL;
+        OSStatus status = SecTrustCreateWithCertificates(certificateRef, policy, &trust);
+        if (errSecSuccess != status) {
+            DDLogError(@"SecTrustCreateWithCertificates status:%d",(int)status);
+        }
+        
+        if (trust) {
+            publicKey = SecTrustCopyPublicKey(trust);
+            CFRelease(trust);
+        }
+    }
+    
+    return publicKey;
 }
 
 
@@ -593,7 +630,7 @@
     if ((status == errSecSuccess) && (items.count > 0)) {
         firstItem = items[0];
     } else {
-        DDLogError(@"Importing an identity from PKCS12 data using SecItemImport failed (oserr=%d)\n", status);
+        DDLogError(@"Importing an identity from PKCS12 data using SecItemImport failed (oserr=%d)\n", (int)status);
         return NO;
     }
 
@@ -609,7 +646,7 @@
         if (status == errSecDuplicateItem) {
             DDLogInfo(@"Not adding an identity to the Keychain: The item already exists.");
         } else {
-            DDLogError(@"Adding an identity to the Keychain using SecItemAdd failed (oserr=%d)\n", status);
+            DDLogError(@"Adding an identity to the Keychain using SecItemAdd failed (oserr=%d)\n", (int)status);
         }
         return NO;
     }
@@ -667,7 +704,7 @@
                                &outlen
                                );
         if (status != 0) {
-            DDLogError(@"Encrypting data using private key failed! Error Code: %d", status);
+            DDLogError(@"Encrypting data using private key failed! Error Code: %d", (int)status);
             return nil;
         } else {
             [cipherData appendBytes:outbuf length:outlen];
@@ -691,7 +728,7 @@
         
         OSStatus status = SecKeyDecrypt(privateKeyRef, kSecPaddingPKCS1, [subCipherText bytes], [subCipherText length], buffer, &plainTextLen);
         if (status != errSecSuccess) {
-            DDLogError(@"Decrypting data using private key failed! (oserr=%d)\n", status);
+            DDLogError(@"Decrypting data using private key failed! (oserr=%d)\n", (int)status);
             free(buffer);
             return nil;
         }

@@ -38,7 +38,7 @@
 #import "MscCertificateSigningRequest.h"
 #import "MscCertificate.h"
 #import "MscCertificate_OpenSSL_X509.h"
-#import "MscPKCS12.h"
+#import "MscPKCS7.h"
 #import "MscRSAKey.h"
 #import "MscRSAKey_OpenSSL_RSA.h"
 #import <openssl/rsa.h>
@@ -234,7 +234,7 @@
         [self removeKeyWithID:publicKeyHashBase64];
         return YES;
     } else {
-        DDLogError(@"%s: Removing identity from Keychain failed with OSStatus error code %d!", __FUNCTION__, status);
+        DDLogError(@"%s: Removing identity from Keychain failed with OSStatus error code %d!", __FUNCTION__, (int)status);
         return NO;
     }
 }
