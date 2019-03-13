@@ -3106,12 +3106,42 @@ void run_on_ui_thread(dispatch_block_t block)
     // Open the lockdown view
     //    [_lockedViewController willMoveToParentViewController:self];
     
-    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
     //    [rootViewController.view addSubview:_lockedViewController.view];
-    [rootViewController addChildViewController:_lockedViewController];
-    [_lockedViewController didMoveToParentViewController:rootViewController];
+    [_rootViewController addChildViewController:_lockedViewController];
+    [_lockedViewController didMoveToParentViewController:_rootViewController];
     
+    NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                         multiplier:1.0
+                                                           constant:0],
+                             [NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                         multiplier:1.0
+                                                           constant:0],
+                             [NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0],
+                             [NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [_rootViewController.view addConstraints:constraints];
+
     _sebLocked = true;
     
     [_lockedViewController didOpenLockdownWindows];
