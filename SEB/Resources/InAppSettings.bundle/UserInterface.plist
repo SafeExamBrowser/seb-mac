@@ -80,7 +80,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>SEB Dock and Slider</string>
+			<string>SEB Dock</string>
 			<key>File</key>
 			<string>Dock</string>
 		</dict>

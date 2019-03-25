@@ -314,7 +314,7 @@
 
 +(MscKeyUsage)getKeyUsageByIndex:(int)index {
     
-    MscKeyUsage keyUsage;
+    MscKeyUsage keyUsage = 0;
     
     switch (index) {
         case 0:

@@ -265,6 +265,11 @@ static NSMutableSet *browserWindowControllers;
                                              selector:@selector(quitExam)
                                                  name:@"requestQuit" object:nil];
     
+    // Add an observer for locking SEB
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"lockSEB" object:nil];
+    
     // Add Notification Center observer to be alerted of any change to NSUserDefaults.
     // Managed app configuration changes pushed down from an MDM server appear in NSUSerDefaults.
     [[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification
@@ -714,7 +719,7 @@ static NSMutableSet *browserWindowControllers;
     UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
     NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
     UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
-                                                                                         localizedTitle:@"Config QR Code"
+                                                                                         localizedTitle:NSLocalizedString(@"Config QR Code", nil)
                                                                                       localizedSubtitle:nil
                                                                                                    icon:shortcutItemIcon
                                                                                                userInfo:nil];
@@ -1116,9 +1121,9 @@ static NSMutableSet *browserWindowControllers;
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"]) {
-            NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-            NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
-            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+            NSData *hashKey = self.browserController.browserExamKey;
+            NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : @"";
+            hashKey = self.browserController.configKey;
             NSString *configKey = hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil;
             activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey, configFileRUL ];
         } else {
@@ -3085,6 +3090,19 @@ void run_on_ui_thread(dispatch_block_t block)
             [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
         }
     }
+}
+
+
+- (void) lockSEB:(NSNotification *)notification
+{
+    [self openLockdownWindows];
+    NSString *lockReason;
+    NSDictionary *userInfo = notification.userInfo;
+    if (userInfo) {
+        lockReason = [userInfo valueForKey:@"lockReason"];
+    }
+    // Add log string for notification
+    [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
 }
 
 
