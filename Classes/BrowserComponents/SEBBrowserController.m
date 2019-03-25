@@ -61,12 +61,28 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-        browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-        configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
     }
     return self;
 }
 
+- (NSData *)browserExamKey
+{
+    if (!_browserExamKey) {
+        self.browserExamKey = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_currentData"];
+    }
+    return _browserExamKey;
+}
+
+- (NSData *)configKey
+{
+    if (!_configKey) {
+        self.configKey = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_configKey"];
+    }
+    return _configKey;
+}
 
 /// Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
@@ -559,10 +575,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         // Browser Exam Key
         
 #ifdef DEBUG
-        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
+        DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
 #endif
         unsigned char hashedChars[32];
-        [browserExamKey getBytes:hashedChars length:32];
+        [self.browserExamKey getBytes:hashedChars length:32];
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
@@ -584,10 +600,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         
         // Config Key
         
-        [configKey getBytes:hashedChars length:32];
+        [self.configKey getBytes:hashedChars length:32];
         
 #ifdef DEBUG
-        DDLogVerbose(@"Current Config Key: %@", configKey);
+        DDLogVerbose(@"Current Config Key: %@", self.configKey);
 #endif
         
         NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];

@@ -705,6 +705,7 @@
                                );
         if (status != 0) {
             DDLogError(@"Encrypting data using private key failed! Error Code: %d", (int)status);
+            free(outbuf);
             return nil;
         } else {
             [cipherData appendBytes:outbuf length:outlen];

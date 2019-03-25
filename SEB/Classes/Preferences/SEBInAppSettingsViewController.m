@@ -299,7 +299,7 @@
         [_customCells setObject:cell forKey:key];
     }
     NSString *text = [[NSUserDefaults standardUserDefaults] secureObjectForKey:key] != nil ?
-    [[NSUserDefaults standardUserDefaults] secureObjectForKey:specifier.key] : @"Share settings to see Key";
+    [[NSUserDefaults standardUserDefaults] secureObjectForKey:specifier.key] : NSLocalizedString(@"Share settings to see Key", nil);
     cell.textView.text = text;
     cell.textView.delegate = self;
     [cell setNeedsLayout];

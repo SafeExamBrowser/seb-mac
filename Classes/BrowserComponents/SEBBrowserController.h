@@ -121,8 +121,6 @@
     NSURL *cachedUniversalLink;
     NSString *quitURLTrimmed;
     BOOL sendHashKeys;
-    NSData *browserExamKey;
-    NSData *configKey;
 }
 
 @property (weak) id delegate;
@@ -135,6 +133,10 @@
 @property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong) SEBURLFilter *urlFilter;
+
+@property (strong, nonatomic) NSData *browserExamKey;
+@property (strong, nonatomic) NSData *browserExamKeySalt;
+@property (strong, nonatomic) NSData *configKey;
 
 @property (readwrite) BOOL isShowingOpeningConfigFileDialog;
 

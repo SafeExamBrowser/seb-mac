@@ -202,7 +202,7 @@
 			<key>Title</key>
 			<string>Exam Deep Linking</string>
 			<key>FooterText</key>
-			<string>Deep linking allows to directly open several exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</string>
+			<string>Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</string>
 		</dict>
 		<dict>
 			<key>Type</key>

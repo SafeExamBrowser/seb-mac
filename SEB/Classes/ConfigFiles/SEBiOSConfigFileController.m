@@ -116,7 +116,7 @@
         sebFileCrentials.password = @"";
     }
     [preferences setSecureString:sebFileCrentials.password forKey:@"org_safeexambrowser_settingsPassword"];
-    self.sebViewController.configFileKeyHash = sebFileCrentials.publicKeyHash;
+	    self.sebViewController.configFileKeyHash = sebFileCrentials.publicKeyHash;
 }
 
 

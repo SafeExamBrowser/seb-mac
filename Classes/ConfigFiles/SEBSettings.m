@@ -173,6 +173,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"blockPopUpWindows",
                    
+                   @NO,
+                   @"browserMediaAutoplay",
+                   
                    [NSNumber numberWithLong:120000],
                    @"browserMessagingPingTime",
                    
@@ -452,11 +455,17 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBMinOSX10_7],
                    @"minMacOSVersion",
                    
+                   @YES,
+                   @"mobileAllowInlineMediaPlayback",
+                   
                    @NO,
                    @"mobileAllowSingleAppMode",
                    
                    @NO,
                    @"mobileAllowQRCodeConfig",
+                   
+                   @NO,
+                   @"mobileCompactAllowInlineMediaPlayback",
                    
                    @NO,
                    @"mobileEnableGuidedAccessLinkTransform",
