@@ -121,7 +121,7 @@
         OpenWebpages *mainWebpage = _openWebpages[0];
         
         // Determine the right URL depending on settings
-        NSURL* backToStartURL = [NSURL URLWithString:[[SEBBrowserController new] backToStartURLString]];
+        NSURL* backToStartURL = [NSURL URLWithString:[_sebViewController.browserController backToStartURLString]];
         if (backToStartURL) {
             [mainWebpage.webViewController loadURL:backToStartURL];
             

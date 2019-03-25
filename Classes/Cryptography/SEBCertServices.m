@@ -114,7 +114,7 @@ static SEBCertServices *gSharedInstance = nil;
                         if (dataString)
                         {
                             NSData *data;
-                            if (@available(macOS 9, *)) {
+                            if (@available(macOS 9, iOS 9.0, *)) {
                                 data = [[NSData alloc] initWithBase64EncodedString:dataString
                                                                                    options:NSDataBase64DecodingIgnoreUnknownCharacters];
                             } else {
@@ -171,7 +171,7 @@ static SEBCertServices *gSharedInstance = nil;
                         if (dataString)
                         {
                             NSData *data;
-                            if (@available(macOS 9, *)) {
+                            if (@available(macOS 9, iOS 9.0, *)) {
                                 data = [[NSData alloc] initWithBase64EncodedString:dataString
                                                                            options:NSDataBase64DecodingIgnoreUnknownCharacters];
                             } else {
@@ -225,7 +225,7 @@ static SEBCertServices *gSharedInstance = nil;
                         if (dataString)
                         {
                             NSData *data;
-                            if (@available(macOS 9, *)) {
+                            if (@available(macOS 9, iOS 9.0, *)) {
                                 data = [[NSData alloc] initWithBase64EncodedString:dataString
                                                                            options:NSDataBase64DecodingIgnoreUnknownCharacters];
                             } else {
