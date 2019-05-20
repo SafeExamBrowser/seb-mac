@@ -1476,7 +1476,7 @@
 		6940B9901BA0F2FB008C8CFC /* SEBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBUITests.m; sourceTree = "<group>"; };
 		6940B9921BA0F2FB008C8CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6942167F214544AB002EB416 /* SEB Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SEB Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69421680214544AC002EB416 /* SEB copy3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy3-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB copy3-Info.plist"; sourceTree = "<absolute>"; };
+		69421680214544AC002EB416 /* SEBDev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEBDev-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEBDev-Info.plist"; sourceTree = "<absolute>"; };
 		69428CCC172F0C1300C87C58 /* SecurityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SecurityIcon.png; path = Resources/Icons/SecurityIcon.png; sourceTree = "<group>"; };
 		69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SecurityIcon@2x.png"; path = "Resources/Icons/SecurityIcon@2x.png"; sourceTree = "<group>"; };
 		69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBDocumentIcon.icns; path = Resources/Icons/SEBDocumentIcon.icns; sourceTree = "<group>"; };
@@ -1976,7 +1976,7 @@
 				6910F530202900980054ECA6 /* SEB copy-Info.plist */,
 				69B1721520FE2D96004BD0FC /* SEB copy2-Info.plist */,
 				A9DCFB3F301AB1EC72C987AA /* Pods */,
-				69421680214544AC002EB416 /* SEB copy3-Info.plist */,
+				69421680214544AC002EB416 /* SEBDev-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -3462,6 +3462,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
+				English,
 				en,
 				de,
 				Base,
@@ -4803,7 +4804,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4875,7 +4876,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5120,7 +5121,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -5149,7 +5150,7 @@
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
 				);
-				INFOPLIST_FILE = "SEB copy3-Info.plist";
+				INFOPLIST_FILE = "SEBDev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5194,7 +5195,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5224,7 +5225,7 @@
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
 				);
-				INFOPLIST_FILE = "SEB copy3-Info.plist";
+				INFOPLIST_FILE = "SEBDev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5269,7 +5270,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5333,7 +5334,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5504,7 +5505,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5542,7 +5543,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5598,7 +5599,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5657,7 +5658,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13035;
+				CURRENT_PROJECT_VERSION = 13056;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
