@@ -56,12 +56,6 @@
 {
     [super viewDidLoad];
     
-    _lockedViewController = [[SEBLockedViewController alloc] init];
-    _lockedViewController.UIDelegate = self;
-    _lockedViewController.controllerDelegate = self.controllerDelegate;
-    
-    _lockedViewController.boldFontAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]};
-    
     [lockedAlertPasswordField addTarget:lockedAlertPasswordField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
@@ -82,41 +76,68 @@
 }
 
 
-- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
-    [_lockedViewController appendErrorString:errorString withTime:errorTime];
+- (SEBLockedViewController*)lockedViewController
+{
+    if (!_lockedViewController) {
+        _lockedViewController = [[SEBLockedViewController alloc] init];
+        _lockedViewController.UIDelegate = self;
+        _lockedViewController.boldFontAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]};
+    }
+    return _lockedViewController;
 }
 
 
-- (void)scrollToBottom
+// Manage locking SEB if it is attempted to resume an unfinished exam
+
+- (void) addLockedExam:(NSString *)examURLString
 {
-    [logTextView scrollRangeToVisible:NSMakeRange([logTextView.text length], 0)];
+    [self.lockedViewController addLockedExam:examURLString];
+}
+
+- (void) removeLockedExam:(NSString *)examURLString;
+{
+    [self.lockedViewController removeLockedExam:examURLString];
+}
+
+
+- (BOOL) isStartingLockedExam {
+    return [self.lockedViewController isStartingLockedExam];
+}
+
+- (void) shouldCloseLockdownWindows {
+#ifdef DEBUG
+    DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
+#endif
+    [self.lockedViewController closeLockdownWindows];
+}
+
+/// Forward calls to lockview business logic
+
+- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
+    [self.lockedViewController appendErrorString:errorString withTime:errorTime];
 }
 
 
 - (IBAction)passwordEntered:(id)sender {
-    [_lockedViewController passwordEntered:sender];
+    [self.lockedViewController passwordEntered];
 }
 
 
-- (BOOL) shouldOpenLockdownWindows {
-    return [_lockedViewController shouldOpenLockdownWindows];
-}
+/// Platform specific setup for lockview
 
-- (void) didOpenLockdownWindows {
-    [_lockedViewController didOpenLockdownWindows];
-}
-
-- (void) shouldCloseLockdownWindows {
-    [_lockedViewController closeLockdownWindows];
+- (void)setLockdownAlertTitle:(NSString *)newAlertTitle
+                      Message:(NSString *)newAlertMessage
+{
+//    alertTitle.stringValue = newAlertTitle;
+//    alertMessage.stringValue = newAlertMessage;
 }
 
 
 #pragma mark Delegates
 
-- (void) closeLockdownWindows {
-    
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+- (void)scrollToBottom
+{
+    [logTextView scrollRangeToVisible:NSMakeRange([logTextView.text length], 0)];
 }
 
 
@@ -132,6 +153,13 @@
 
 - (void)setPasswordWrongLabelHidden:(BOOL)hidden {
     passwordWrongLabel.hidden = hidden;
+}
+
+
+- (void) lockdownWindowsWillClose
+{
+    [self.view removeFromSuperview];
+    [self removeFromParentViewController];
 }
 
 

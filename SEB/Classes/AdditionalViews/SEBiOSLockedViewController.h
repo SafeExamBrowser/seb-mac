@@ -46,16 +46,20 @@
 }
 
 @property (nonatomic, strong) SEBLockedViewController *lockedViewController;
-@property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
-
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
+- (void)setLockdownAlertTitle:(NSString *)newAlertTitle
+                      Message:(NSString *)newAlertMessage;
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
-- (void)scrollToBottom;
-
+- (void) scrollToBottom;
 - (BOOL) shouldOpenLockdownWindows;
 - (void) didOpenLockdownWindows;
+
+- (void) addLockedExam:(NSString *)examURLString;
+- (void) removeLockedExam:(NSString *)examURLString;
+
+- (BOOL) isStartingLockedExam;
 - (void) shouldCloseLockdownWindows;
 
 @end
