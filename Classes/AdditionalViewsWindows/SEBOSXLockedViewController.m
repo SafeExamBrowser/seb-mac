@@ -36,27 +36,68 @@
 
 @interface SEBOSXLockedViewController() {
     
+    __weak IBOutlet SEBTextField *alertTitle;
+    __weak IBOutlet SEBTextField *alertMessage;
+    __unsafe_unretained IBOutlet NSTextView *logTextView;
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
     __weak IBOutlet NSScrollView *logScrollView;
-
+    
 }
 @end
 
 
 @implementation SEBOSXLockedViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.lockedViewController = [[SEBLockedViewController alloc] init];
-    self.lockedViewController.UIDelegate = self;
-    self.lockedViewController.controllerDelegate = self.controllerDelegate;
 
-    self.lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
+- (SEBController *)sebController
+{
+    return _sebController;
 }
 
+- (void)setSebController:(SEBController *)sebController
+{
+    _sebController = sebController;
+    self.lockedViewController.controllerDelegate = sebController;
+}
+
+
+- (SEBLockedViewController*)lockedViewController
+{
+    if (!_lockedViewController) {
+        _lockedViewController = [[SEBLockedViewController alloc] init];
+        _lockedViewController.UIDelegate = self;
+        _lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
+    }
+    return _lockedViewController;
+}
+
+
+// Manage locking SEB if it is attempted to resume an unfinished exam
+
+- (void) addLockedExam:(NSString *)examURLString
+{
+    [self.lockedViewController addLockedExam:examURLString];
+}
+
+- (void) removeLockedExam:(NSString *)examURLString;
+{
+    [self.lockedViewController removeLockedExam:examURLString];
+}
+
+
+- (BOOL) isStartingLockedExam {
+    return [self.lockedViewController isStartingLockedExam];
+}
+
+- (void) shouldCloseLockdownWindows {
+#ifdef DEBUG
+    DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
+#endif
+    [self.lockedViewController closeLockdownWindows];
+}
+
+/// Forward calls to lockview business logic
 
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
     [self.lockedViewController appendErrorString:errorString withTime:errorTime];
@@ -64,9 +105,25 @@
 
 
 - (IBAction)passwordEntered:(id)sender {
-    [self.lockedViewController passwordEntered:sender];
+    DDLogDebug(@"Password entered in lock view alert");
+    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld",
+               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(self.view.superview.frame)),
+               self.view.window.level);
+    [self.lockedViewController passwordEntered];
 }
 
+
+/// Platform specific setup for lockview
+
+- (void)setLockdownAlertTitle:(NSString *)newAlertTitle
+                      Message:(NSString *)newAlertMessage
+{
+    alertTitle.stringValue = newAlertTitle;
+    alertMessage.stringValue = newAlertMessage;
+}
+
+
+#pragma mark Delegates
 
 - (void)scrollToBottom
 {
@@ -78,7 +135,9 @@
     } else {
         newScrollOrigin = NSMakePoint(0.0,0.0);
     }
-    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f", CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame]), newScrollOrigin.y);
+    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f",
+               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame])),
+               newScrollOrigin.y);
     
     [[logScrollView documentView] scrollPoint:newScrollOrigin];
 }
@@ -96,6 +155,30 @@
 
 - (void)setPasswordWrongLabelHidden:(BOOL)hidden {
     passwordWrongLabel.hidden = hidden;
+}
+
+- (void) lockdownWindowsWillClose
+{
+    // Check for status of individual parameters
+    if (self.overrideCheckForScreenSharing.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForSiri.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForDictation.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForSpecifcProcesses.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForAllProcesses.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
+    }
 }
 
 @end

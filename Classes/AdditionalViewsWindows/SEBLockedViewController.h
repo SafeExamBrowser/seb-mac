@@ -41,16 +41,17 @@
 /**
  * @protocol    SEBLockedViewUIDelegate
  *
- * @brief       All SEBLockedView UI controller must conform to the SEBConfigUIDelegate
+ * @brief       A SEBLockedViewUIController delegate handles UI actions inside
+ *              the lock screen and must conform to the SEBConfigUIDelegate
  *              protocol.
  */
 @protocol SEBLockedViewUIDelegate <NSObject>
 /**
- * @name		Item Attributes
+ * @name        Item Attributes
  */
 @required
 /**
- * @brief       Scroll to the bottom of the locked view scroll view.
+ * @brief       Scroll to the bottom of the scroll view displaying log messages.
  * @details
  */
 - (void) scrollToBottom;
@@ -68,7 +69,7 @@
 - (void) setLockedAlertPassword:(NSString *)password;
 
 /**
- * @brief       Hide or show label indicating wrong password was entered.
+ * @brief       Hide or show the label indicating a wrong password was entered.
  * @details
  */
 - (void) setPasswordWrongLabelHidden:(BOOL)hidden;
@@ -83,16 +84,17 @@
 
 /**
  * @brief       Open lockdown windows to block access to the exam
-.
+ .
  * @details
  */
 //- (void) openLockdownWindows;
 
 /**
- * @brief       Close lockdown windows and allow to access the exam again.
+ * @brief       Let UI delegate read state of platform specific checkboxes
+ *              before lockdown windows will be closed.
  * @details
  */
-- (void) closeLockdownWindows;
+- (void) lockdownWindowsWillClose;
 
 @end
 
@@ -100,23 +102,23 @@
 /**
  * @protocol    SEBLockedViewControllerDelegate
  *
- * @brief       All SEBLockedView root controller must conform to 
+ * @brief       A SEBLockedViewController delegate opens a lock screen before passing
+ *               control to SEBLockedViewController and must conform to
  *              the SEBLockedViewControllerDelegate protocol.
  */
 @protocol SEBLockedViewControllerDelegate <NSObject>
 /**
- * @name		Item Attributes
+ * @name        Item Attributes
  */
 @required
 /**
- * @brief       Return time when active state/Guided Access was
- *              interrupted.
+ * @brief       Time when SEB was lost active state.
  * @details
  */
-@property (strong, readwrite) NSDate *didResignActiveTime;
+@property (strong, readwrite) NSDate *didLockSEBTime;
 
 /**
- * @brief       Return time when active state/Guided Access was activated again.
+ * @brief       Time when SEB got active again.
  * @details
  */
 @property (strong, readwrite) NSDate *didBecomeActiveTime;
@@ -142,20 +144,21 @@
 @property(readwrite) BOOL examRunning;
 
 /**
- * @brief       Indicates if the exam is running.
+ * @brief       Indicates if SEB is locked
  * @details
  */
 @property(readwrite) BOOL sebLocked;
 
 /**
- * @brief       Indicates that the correct quit/restart password was entered and
+ * @brief       Indicates that the correct quit/unlock password was entered and
  *              lockdown windows can be closed now.
  * @details
  */
 @property(readwrite) BOOL unlockPasswordEntered;
 
 /**
- * @brief       Hide or show label indicating wrong password was entered.
+ * @brief       Open a non-modal/overlay alert with details about the last
+ *              lockdown event and possible overrides the user activated
  * @details
  */
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
@@ -188,12 +191,11 @@
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
-- (BOOL) shouldOpenLockdownWindows;
-- (void) didOpenLockdownWindows;
+- (BOOL) isStartingLockedExam;
 
 /// Lockview business logic
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
-- (void) passwordEntered:(id)sender;
+- (void) passwordEntered;
 - (void) closeLockdownWindows;
 
 @end
