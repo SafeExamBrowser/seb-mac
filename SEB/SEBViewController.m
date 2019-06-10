@@ -75,10 +75,10 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (SEBLockedViewController*)sebLockedViewController
+- (SEBiOSLockedViewController*)sebLockedViewController
 {
     if (!_sebLockedViewController) {
-        _sebLockedViewController = [[SEBLockedViewController alloc] init];
+        _sebLockedViewController = [[SEBiOSLockedViewController alloc] init];
     }
     return _sebLockedViewController;
 }
@@ -3079,7 +3079,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyOpenLockdownWindows
 {
-    if ([self.sebLockedViewController shouldOpenLockdownWindows]) {
+    if ([self.sebLockedViewController isStartingLockedExam]) {
         if (_secureMode) {
             [self openLockdownWindows];
             
@@ -3111,7 +3111,6 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!_lockedViewController) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         _lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
-        _lockedViewController.controllerDelegate = self;
     }
     
     if (!_lockedViewController.resignActiveLogString) {
@@ -3161,8 +3160,6 @@ void run_on_ui_thread(dispatch_block_t block)
     [_rootViewController.view addConstraints:constraints];
 
     _sebLocked = true;
-    
-    [_lockedViewController didOpenLockdownWindows];
 }
 
 

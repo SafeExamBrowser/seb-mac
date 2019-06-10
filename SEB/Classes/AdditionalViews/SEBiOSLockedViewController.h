@@ -53,8 +53,6 @@
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
 - (void) scrollToBottom;
-- (BOOL) shouldOpenLockdownWindows;
-- (void) didOpenLockdownWindows;
 
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;

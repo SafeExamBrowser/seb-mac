@@ -116,7 +116,7 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableAttributedString *logString;
-    NSUInteger indexOfLockedExamDictionary;
+    NSUInteger indexOfLockedExamDictionary = 0;
     NSMutableArray *lockedExams;
     NSString *startURL;
     BOOL secureExam = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
