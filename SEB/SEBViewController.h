@@ -74,7 +74,6 @@
 #import "SEBInitAssistantViewController.h"
 #import "SEBiOSInitAssistantViewController.h"
 
-#import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
 #import "SEBiOSConfigFileController.h"
 #import "QRCodeReaderViewController.h"
@@ -146,7 +145,7 @@
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) UIViewController *rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
-@property (strong, nonatomic) SEBLockedViewController *sebLockedViewController;
+@property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
