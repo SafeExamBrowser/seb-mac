@@ -153,19 +153,6 @@
 }
 
 
-- (NSString *) promptPasswordWithMessageText:(NSString *)messageText {
-    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) {
-        return nil;
-    }
-    NSString *password = [self.sebController.enterPassword stringValue];
-    
-    if (!password) {
-        password = @"";
-    }
-    return password;
-}
-
-
 - (void) showAlertWrongPassword {
     NSString *title = NSLocalizedString(@"Cannot Decrypt Settings", nil);
     NSString *informativeText = NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil);
