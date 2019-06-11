@@ -473,11 +473,11 @@
 			};
 			buildConfigurationList = 0E85390B1C1D741600F77D75 /* Build configuration list for PBXProject "mbedtls" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 0E8539071C1D741600F77D75;
 			productRefGroup = 0E8539111C1D741600F77D75 /* Products */;

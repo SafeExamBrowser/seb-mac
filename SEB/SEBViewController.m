@@ -78,8 +78,10 @@ static NSMutableSet *browserWindowControllers;
 - (SEBiOSLockedViewController*)sebLockedViewController
 {
     if (!_sebLockedViewController) {
-        _sebLockedViewController = [[SEBiOSLockedViewController alloc] init];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _sebLockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
     }
+
     return _sebLockedViewController;
 }
 
@@ -2566,8 +2568,8 @@ void run_on_ui_thread(dispatch_block_t block)
             
             // If SAM is active, we display the alert for waiting for it to be switched off
             if (_singleAppModeActivated) {
-                if (_lockedViewController) {
-                    _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+                if (self.sebLockedViewController) {
+                    self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
                 }
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -2677,11 +2679,14 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 // Lock the exam down
                 
+                // Save current time for information about when Guided Access was switched off
+                _didResignActiveTime = [NSDate date];
+
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
-                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime];
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime];
 
             } else {
                 
@@ -2690,12 +2695,12 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
                 
-                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
                 // Close unlock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
                     _unlockPasswordEntered = false;
-                    [_lockedViewController shouldCloseLockdownWindows];
+                    [self.sebLockedViewController shouldCloseLockdownWindows];
                 }
             }
         } else {
@@ -3084,10 +3089,10 @@ void run_on_ui_thread(dispatch_block_t block)
             [self openLockdownWindows];
             
             // Add log string for entering a locked exam
-            [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
         } else {
             // Add log string for entering a previously locked exam
-            [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
+            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
         }
     }
 }
@@ -3102,55 +3107,48 @@ void run_on_ui_thread(dispatch_block_t block)
         lockReason = [userInfo valueForKey:@"lockReason"];
     }
     // Add log string for notification
-    [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
+    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
 }
 
 
 - (void) openLockdownWindows
 {
-    if (!_lockedViewController) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        _lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
+    if (!self.sebLockedViewController.resignActiveLogString) {
+        self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
     }
-    
-    if (!_lockedViewController.resignActiveLogString) {
-        _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-    }
-    // Save current time for information about when Guided Access was switched off
-    _didResignActiveTime = [NSDate date];
-    DDLogError(@"Single App Mode switched off!");
-    
-    // Open the lockdown view
-    //    [_lockedViewController willMoveToParentViewController:self];
+    // Save current time for information about when lock windows were opened
+    self.didLockSEBTime = [NSDate date];
+
+    // This sets us as the SEBLockedViewControllerDelegate
+    _sebLockedViewController.sebViewController = self;
     
     _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
-    //    [rootViewController.view addSubview:_lockedViewController.view];
-    [_rootViewController addChildViewController:_lockedViewController];
-    [_lockedViewController didMoveToParentViewController:_rootViewController];
+    [_rootViewController addChildViewController:self.sebLockedViewController];
+    [self.sebLockedViewController didMoveToParentViewController:_rootViewController];
     
-    NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:_lockedViewController.view
+    NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
                                                           attribute:NSLayoutAttributeLeading
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:_rootViewController.view
                                                           attribute:NSLayoutAttributeLeading
                                                          multiplier:1.0
                                                            constant:0],
-                             [NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                             [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
                                                           attribute:NSLayoutAttributeTrailing
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:_rootViewController.view
                                                           attribute:NSLayoutAttributeTrailing
                                                          multiplier:1.0
                                                            constant:0],
-                             [NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                             [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:_rootViewController.view
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
                                                            constant:0],
-                             [NSLayoutConstraint constraintWithItem:_lockedViewController.view
+                             [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:_rootViewController.view
@@ -3168,7 +3166,7 @@ void run_on_ui_thread(dispatch_block_t block)
     // If (new) setting don't require a kiosk mode or
     // kiosk mode is already switched on, close lockdown window
     if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
-        [_lockedViewController shouldCloseLockdownWindows];
+        [self.sebLockedViewController shouldCloseLockdownWindows];
     } else {
         // If necessary show the dialog to start SAM again
         [self showRestartSingleAppMode];

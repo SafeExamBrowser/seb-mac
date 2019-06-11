@@ -53,9 +53,9 @@
 {
     NSString *examInfo;
     if ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
-        examInfo = [NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Started exam with URL ", nil), examURLString];
+        examInfo = [NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Secure exam session was started, URL: ", nil), examURLString];
     } else {
-        examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Started exam", nil)];
+        examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Secure exam session was started", nil)];
     }
     // Append the new string about the started exam and create/update the persisted exam
     [self appendErrorString:examInfo withTime:[NSDate date]];

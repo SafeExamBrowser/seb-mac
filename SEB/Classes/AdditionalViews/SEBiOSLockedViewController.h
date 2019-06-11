@@ -34,17 +34,22 @@
 
 #import <UIKit/UIKit.h>
 #import "SEBLockedViewController.h"
+#import "SEBViewController.h"
 
+@class SEBViewController;
 @class SEBLockedViewController;
 
 @interface SEBiOSLockedViewController : UIViewController <SEBLockedViewUIDelegate> {
     
+    SEBViewController *_sebViewController;
+
     __weak IBOutlet UITextField *lockedAlertPasswordField;
     __weak IBOutlet UILabel *passwordWrongLabel;
     __weak IBOutlet UITextView *logTextView;
     
 }
 
+@property (nonatomic, strong) SEBViewController *sebViewController;
 @property (nonatomic, strong) SEBLockedViewController *lockedViewController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
