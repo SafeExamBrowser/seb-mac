@@ -93,6 +93,7 @@
 @class SEBInAppSettingsViewController;
 @class SEBInitAssistantViewController;
 @class SEBiOSInitAssistantViewController;
+@class SEBiOSLockedViewController;
 @class QRCodeReaderViewController;
 @class AboutSEBiOSViewController;
 
@@ -142,7 +143,6 @@
 
 @property (strong, nonatomic) AboutSEBiOSViewController *aboutSEBViewController;
 @property (strong, nonatomic) MFMailComposeViewController *mailViewController;
-@property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) UIViewController *rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 @property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;
@@ -200,6 +200,7 @@
 @property(readwrite) BOOL unlockPasswordEntered;
 @property(readwrite) BOOL scannedQRCode;
 
+@property(readwrite, strong) NSDate *didLockSEBTime;
 @property(readwrite, strong) NSDate *didResignActiveTime;
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
 @property(readwrite, strong) NSDate *didResumeExamTime;

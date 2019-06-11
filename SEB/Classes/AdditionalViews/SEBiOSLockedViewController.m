@@ -76,6 +76,18 @@
 }
 
 
+- (SEBViewController *)sebViewController
+{
+    return _sebViewController;
+}
+
+- (void)setSebViewController:(SEBViewController *)sebViewController
+{
+    _sebViewController = sebViewController;
+    self.lockedViewController.controllerDelegate = sebViewController;
+}
+
+
 - (SEBLockedViewController*)lockedViewController
 {
     if (!_lockedViewController) {
