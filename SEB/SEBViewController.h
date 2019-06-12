@@ -145,7 +145,16 @@
 @property (strong, nonatomic) MFMailComposeViewController *mailViewController;
 @property (strong, nonatomic) UIViewController *rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
+
+// Locking down SEB
 @property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;
+@property (readwrite) BOOL sebLocked;
+@property (readwrite) BOOL unlockPasswordEntered;
+@property (readwrite, strong) NSDate *didLockSEBTime;
+@property (readwrite, strong) NSDate *didResignActiveTime;
+@property (readwrite, strong) NSDate *didBecomeActiveTime;
+@property (readwrite, strong) NSDate *didResumeExamTime;
+
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
@@ -178,32 +187,26 @@
 @property(readwrite) BOOL enableASAM;
 @property(readwrite) BOOL allowSAM;
 
+// Flags for managing states for kiosk modes
 @property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL SAMActive;
 @property(readwrite) BOOL singleAppModeActivated;
+@property(readwrite) BOOL noSAMAlertDisplayed;
+@property(readwrite) BOOL startSAMWAlertDisplayed;
+@property(readwrite) BOOL pausedSAMAlertDisplayed;
+@property(readwrite) BOOL endSAMWAlertDisplayed;
 
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openCloseSlider;
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
-@property(readwrite) BOOL noSAMAlertDisplayed;
-@property(readwrite) BOOL startSAMWAlertDisplayed;
-@property(readwrite) BOOL pausedSAMAlertDisplayed;
-@property(readwrite) BOOL endSAMWAlertDisplayed;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL aboutSEBViewDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL settingsDidClose;
-@property(readwrite) BOOL sebLocked;
-@property(readwrite) BOOL unlockPasswordEntered;
 @property(readwrite) BOOL scannedQRCode;
-
-@property(readwrite, strong) NSDate *didLockSEBTime;
-@property(readwrite, strong) NSDate *didResignActiveTime;
-@property(readwrite, strong) NSDate *didBecomeActiveTime;
-@property(readwrite, strong) NSDate *didResumeExamTime;
 
 
 - (void) initializeLogger;
