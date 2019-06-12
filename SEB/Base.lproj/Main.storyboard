@@ -123,6 +123,8 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="alertMessage" destination="72x-TK-QER" id="onA-GB-1Fd"/>
+                        <outlet property="alertTitle" destination="D2p-As-V6t" id="kIJ-BE-9Jw"/>
                         <outlet property="lockedAlertPasswordField" destination="0nm-pU-BZ0" id="hwu-Uq-htk"/>
                         <outlet property="logTextView" destination="M4E-Gh-2wA" id="2Tg-kh-dag"/>
                         <outlet property="passwordWrongLabel" destination="6fi-rT-cNJ" id="DW5-oQ-j2m"/>

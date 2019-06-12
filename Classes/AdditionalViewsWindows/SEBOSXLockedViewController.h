@@ -40,7 +40,15 @@
 @class SEBLockedViewController;
 
 @interface SEBOSXLockedViewController : NSViewController <SEBLockedViewUIDelegate> {
+
     SEBController *_sebController;
+    
+    __weak IBOutlet SEBTextField *alertTitle;
+    __weak IBOutlet SEBTextField *alertMessage;
+    __unsafe_unretained IBOutlet NSTextView *logTextView;
+    __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
+    __weak IBOutlet NSTextField *passwordWrongLabel;
+    __weak IBOutlet NSScrollView *logScrollView;
 }
 
 @property (strong, nonatomic) SEBLockedViewController *lockedViewController;
