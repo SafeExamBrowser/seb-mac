@@ -140,8 +140,16 @@
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
 {
-//    alertTitle.stringValue = newAlertTitle;
-//    alertMessage.stringValue = newAlertMessage;
+    if (newAlertTitle.length > 0) {
+        alertTitle.text = newAlertTitle;
+    } else {
+        alertTitle.text = NSLocalizedString(@"SEB Is Locked!", @"Default title of lock screen alert.");
+    }
+    if (newAlertMessage.length > 0) {
+        alertMessage.text = newAlertMessage;
+    } else {
+        alertMessage.text = NSLocalizedString(@"Unlock SEB with the quit password, which usually exam supervision/support knows.", @"Default message of lock screen alert.");
+    }
 }
 
 

@@ -2697,7 +2697,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
-                // Close unlock windows only if the correct quit/restart password was entered already
+                // Close lock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
                     _unlockPasswordEntered = false;
                     [self.sebLockedViewController shouldCloseLockdownWindows];
@@ -3100,14 +3100,15 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) lockSEB:(NSNotification *)notification
 {
-    [self openLockdownWindows];
     NSString *lockReason;
     NSDictionary *userInfo = notification.userInfo;
     if (userInfo) {
         lockReason = [userInfo valueForKey:@"lockReason"];
     }
-    // Add log string for notification
+    [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
     [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
+    
+    [self openLockdownWindows];
 }
 
 
@@ -3119,45 +3120,47 @@ void run_on_ui_thread(dispatch_block_t block)
     // Save current time for information about when lock windows were opened
     self.didLockSEBTime = [NSDate date];
 
-    // This sets us as the SEBLockedViewControllerDelegate
-    _sebLockedViewController.sebViewController = self;
-    
-    _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    
-    [_rootViewController addChildViewController:self.sebLockedViewController];
-    [self.sebLockedViewController didMoveToParentViewController:_rootViewController];
-    
-    NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
-                                                          attribute:NSLayoutAttributeLeading
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeLeading
-                                                         multiplier:1.0
-                                                           constant:0],
-                             [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
-                                                          attribute:NSLayoutAttributeTrailing
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeTrailing
-                                                         multiplier:1.0
-                                                           constant:0],
-                             [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeTop
-                                                         multiplier:1.0
-                                                           constant:0],
-                             [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:0]];
-    [_rootViewController.view addConstraints:constraints];
+    if (!_sebLocked) {
+        // This sets us as the SEBLockedViewControllerDelegate
+        _sebLockedViewController.sebViewController = self;
+        
+        _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        
+        [_rootViewController addChildViewController:self.sebLockedViewController];
+        [self.sebLockedViewController didMoveToParentViewController:_rootViewController];
+        
+        NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
+                                                              attribute:NSLayoutAttributeLeading
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeLeading
+                                                             multiplier:1.0
+                                                               constant:0],
+                                 [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
+                                                              attribute:NSLayoutAttributeTrailing
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeTrailing
+                                                             multiplier:1.0
+                                                               constant:0],
+                                 [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:0],
+                                 [NSLayoutConstraint constraintWithItem:self.sebLockedViewController.view
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0]];
+        [_rootViewController.view addConstraints:constraints];
 
-    _sebLocked = true;
+        _sebLocked = true;
+    }
 }
 
 
