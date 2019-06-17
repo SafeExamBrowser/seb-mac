@@ -137,7 +137,7 @@
         <!--Root View Controller-->
         <scene sceneID="nCl-Ue-jI3">
             <objects>
-                <viewController id="mpe-hm-d5J" userLabel="Root View Controller" sceneMemberID="viewController">
+                <viewController id="mpe-hm-d5J" userLabel="Root View Controller" customClass="SEBRootViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bzt-N0-bRr">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -161,7 +161,7 @@
         <!--Side Menu Controller-->
         <scene sceneID="3jO-dL-tYP">
             <objects>
-                <viewController id="uRk-Nj-abt" customClass="LGSideMenuController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LGSideMenuController" id="uRk-Nj-abt" customClass="LGSideMenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9oO-YA-MFd">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
