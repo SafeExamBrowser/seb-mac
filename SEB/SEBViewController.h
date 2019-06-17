@@ -128,7 +128,6 @@
 
 @property (strong, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
-@property (weak) IBOutlet LGSideMenuController *lgSideMenuController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 
