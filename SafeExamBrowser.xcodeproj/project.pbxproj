@@ -1175,6 +1175,14 @@
 		69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
 		69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
 		69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
+		69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
+		69E64C0922B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
+		69E64C0A22B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
+		69E64C0B22B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
+		69E64C0C22B7D5F300B593AE /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
+		69E64C0D22B7D5F300B593AE /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
+		69E64C0E22B7D5F300B593AE /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
+		69E64C0F22B7D5F300B593AE /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
 		69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
 		69E87E39202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
 		69E87E3A202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
@@ -1764,6 +1772,8 @@
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
 		69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSKeychainManager.h; path = Classes/Cryptography/SEBiOSKeychainManager.h; sourceTree = "<group>"; };
 		69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSKeychainManager.m; path = Classes/Cryptography/SEBiOSKeychainManager.m; sourceTree = "<group>"; };
+		69E64C0622B7D5F300B593AE /* SEBRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBRootViewController.h; sourceTree = "<group>"; };
+		69E64C0722B7D5F300B593AE /* SEBRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBRootViewController.m; sourceTree = "<group>"; };
 		69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBShutDownIconLandscape@2x.png"; path = "Resources/Icons/Dock/SEBShutDownIconLandscape@2x.png"; sourceTree = "<group>"; };
 		69E87E36202924E40055988F /* SEBShutDownIconLandscape@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBShutDownIconLandscape@3x.png"; path = "Resources/Icons/Dock/SEBShutDownIconLandscape@3x.png"; sourceTree = "<group>"; };
 		69E87E37202924E60055988F /* SEBShutDownIconLandscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBShutDownIconLandscape.png; path = Resources/Icons/Dock/SEBShutDownIconLandscape.png; sourceTree = "<group>"; };
@@ -2214,6 +2224,8 @@
 				6940B99C1BA0FBD6008C8CFC /* Resources */,
 				6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */,
 				6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */,
+				69E64C0622B7D5F300B593AE /* SEBRootViewController.h */,
+				69E64C0722B7D5F300B593AE /* SEBRootViewController.m */,
 				6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */,
 				6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */,
 				6949A4791D0B8D9E0040ABF1 /* SEBNavigationController.h */,
@@ -2890,6 +2902,7 @@
 				69819EC82200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				69421666214544AB002EB416 /* SEBTextField.h in Headers */,
 				69421667214544AB002EB416 /* SEBInitAssistantViewController.h in Headers */,
+				69E64C0922B7D5F300B593AE /* SEBRootViewController.h in Headers */,
 				69421668214544AB002EB416 /* SEBiOSConfigFileController.h in Headers */,
 				69421669214544AB002EB416 /* SEB_Prefix.pch in Headers */,
 				6942166A214544AB002EB416 /* Constants.h in Headers */,
@@ -2971,6 +2984,7 @@
 				69819EC72200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */,
 				69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
+				69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */,
 				69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */,
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
 				694316601BFEBB6500F784EE /* Constants.h in Headers */,
@@ -3152,6 +3166,7 @@
 				69819ECA2200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				69B171FB20FE2D95004BD0FC /* SEBTextField.h in Headers */,
 				69B171FC20FE2D95004BD0FC /* SEBInitAssistantViewController.h in Headers */,
+				69E64C0B22B7D5F300B593AE /* SEBRootViewController.h in Headers */,
 				69B171FD20FE2D95004BD0FC /* SEBiOSConfigFileController.h in Headers */,
 				69B171FE20FE2D95004BD0FC /* SEB_Prefix.pch in Headers */,
 				69B171FF20FE2D95004BD0FC /* Constants.h in Headers */,
@@ -3233,6 +3248,7 @@
 				69819EC92200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				69CFFA641D3641B500FE5655 /* SEBTextField.h in Headers */,
 				69358DE91E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
+				69E64C0A22B7D5F300B593AE /* SEBRootViewController.h in Headers */,
 				69CFFA651D3641B500FE5655 /* SEBiOSConfigFileController.h in Headers */,
 				69CFFA661D3641B500FE5655 /* SEB_Prefix.pch in Headers */,
 				69CFFA671D3641B500FE5655 /* Constants.h in Headers */,
@@ -4205,6 +4221,7 @@
 				69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */,
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
 				697852BD2177AC7300E93AD8 /* SEBSettings.m in Sources */,
+				69E64C0C22B7D5F300B593AE /* SEBRootViewController.m in Sources */,
 				69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */,
 				695370AB2033921C00C638A8 /* LGSideMenuHelper.m in Sources */,
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
@@ -4301,6 +4318,7 @@
 				694215CA214544AB002EB416 /* MethodSwizzling.m in Sources */,
 				694215CB214544AB002EB416 /* SEBiOSKeychainManager.m in Sources */,
 				697852BE2177AC7300E93AD8 /* SEBSettings.m in Sources */,
+				69E64C0D22B7D5F300B593AE /* SEBRootViewController.m in Sources */,
 				694215CC214544AB002EB416 /* NSData+NSDataZIPExtension.m in Sources */,
 				694215CD214544AB002EB416 /* LGSideMenuHelper.m in Sources */,
 				694215CE214544AB002EB416 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
@@ -4381,6 +4399,7 @@
 				69B1715F20FE2D95004BD0FC /* MethodSwizzling.m in Sources */,
 				69B1716020FE2D95004BD0FC /* SEBiOSKeychainManager.m in Sources */,
 				697852C02177AC7300E93AD8 /* SEBSettings.m in Sources */,
+				69E64C0F22B7D5F300B593AE /* SEBRootViewController.m in Sources */,
 				69B1716120FE2D95004BD0FC /* NSData+NSDataZIPExtension.m in Sources */,
 				69B1716220FE2D95004BD0FC /* LGSideMenuHelper.m in Sources */,
 				69B1716320FE2D95004BD0FC /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
@@ -4457,6 +4476,7 @@
 				69CFFA111D3641B500FE5655 /* MethodSwizzling.m in Sources */,
 				69D35D2F217AB4F500C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				695370B82033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
+				69E64C0E22B7D5F300B593AE /* SEBRootViewController.m in Sources */,
 				6914D12A2183A156004F4A4B /* SEBInAppSettingsViewController.m in Sources */,
 				69CFFA121D3641B500FE5655 /* SEBiOSKeychainManager.m in Sources */,
 				69CF582B220B2DEA003DD5C8 /* SEBUIUserDefaultsController.m in Sources */,
@@ -4804,7 +4824,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4876,7 +4896,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5121,7 +5141,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -5195,7 +5215,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5270,7 +5290,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5334,7 +5354,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5505,7 +5525,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5543,7 +5563,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5599,7 +5619,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5658,7 +5678,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13083;
+				CURRENT_PROJECT_VERSION = 13090;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
