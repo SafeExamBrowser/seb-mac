@@ -59,6 +59,7 @@
 #import "RNCryptor.h"
 #import "SEBCryptor.h"
 
+#import "SEBRootViewController.h"
 #import "LGSideMenuController.h"
 #import "UIViewController+LGSideMenuController.h"
 
