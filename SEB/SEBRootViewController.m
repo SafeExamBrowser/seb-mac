@@ -7,40 +7,36 @@
 
 #import "SEBRootViewController.h"
 
-@interface SEBRootViewController () {
-}
-@property (weak, nonatomic) LGSideMenuController *sideMenuController;
-
-@end
-
 @implementation SEBRootViewController
-
-- (LGSideMenuController *)sideMenuController {
-    if (!_sideMenuController) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        _sideMenuController = [storyboard instantiateViewControllerWithIdentifier:@"LGSideMenuController"];
-    }
-    return _sideMenuController;
-}
-
 
 #pragma mark - Status bar appearance
 
 - (BOOL) prefersStatusBarHidden
 {
-    return self.sideMenuController.prefersStatusBarHidden;
+    if (_lgSideMenuController) {
+        return _lgSideMenuController.prefersStatusBarHidden;
+    } else {
+        return NO;
+    }
 }
 
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return self.sideMenuController.preferredStatusBarStyle;
-
+    if (_lgSideMenuController) {
+        return _lgSideMenuController.preferredStatusBarStyle;
+    } else {
+        return UIStatusBarStyleDefault;
+    }
 }
 
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return self.sideMenuController.preferredStatusBarUpdateAnimation;
+    if (_lgSideMenuController) {
+        return _lgSideMenuController.preferredStatusBarUpdateAnimation;
+    } else {
+        return UIStatusBarAnimationNone;
+    }
 }
 
 @end
