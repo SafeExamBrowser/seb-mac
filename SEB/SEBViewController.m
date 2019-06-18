@@ -1125,7 +1125,8 @@ static NSMutableSet *browserWindowControllers;
                                        NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"]) {
+            ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"] ||
+            [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"])) {
             NSData *hashKey = self.browserController.browserExamKey;
             NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : @"";
             hashKey = self.browserController.configKey;
@@ -1266,8 +1267,11 @@ static NSMutableSet *browserWindowControllers;
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
     
-    // Check if settings changed
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Check if settings changed and the user wasn't just checking the Browser/Config Keys
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO] &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"] == NO) {
         // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
         [[NSUserDefaults standardUserDefaults] setSecureObject:nil
                                                         forKey:@"org_safeexambrowser_configKeyContainedKeys"];
@@ -1276,9 +1280,9 @@ static NSMutableSet *browserWindowControllers;
     _settingsOpen = false;
     
     NSString *pasteboardString;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"]) {
+        ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"] ||
+        [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"])) {
         NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
         NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"Browser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
         hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
