@@ -182,6 +182,9 @@ static NSNumber *_logLevel;
                                         @NO,
                                         @"org_safeexambrowser_configFileShareKeys",
                                         
+                                        @NO,
+                                        @"org_safeexambrowser_configFileShareOnlyKeys",
+                                        
                                         [NSDictionary dictionary],
                                         @"org_safeexambrowser_configKeyContainedKeys",
                                         
