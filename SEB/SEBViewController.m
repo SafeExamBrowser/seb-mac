@@ -1058,7 +1058,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)shareSettingsAction:(id)sender
 {
     DDLogInfo(@"Share settings button pressed");
-
+    
     // Update entered passwords and save their hashes to SEB settings
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
@@ -1078,13 +1078,13 @@ static NSMutableSet *browserWindowControllers;
         // Select the latest identity added to settings
         [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
     }
-
+    
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
     
     NSString *encryptedWithIdentity = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
-
+    
     // Get password
     NSString *encryptingPassword;
     // Is there one saved from the currently open config file?
@@ -1096,42 +1096,47 @@ static NSMutableSet *browserWindowControllers;
                                                                             withIdentity:identityRef
                                                                               forPurpose:configPurpose];
     if (encryptedSEBData) {
-
+        
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:^{
                 self->_alertController = nil;
             }];
             return;
         }
-
+        
         // Get config file name
         NSString *configFileName = [preferences secureStringForKey:@"configFileName"];
         if (configFileName.length == 0) {
             configFileName = @"SEBConfigFile";
         }
-
+        
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
         NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : SEBFileExtension];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
-
+        
         NSArray *activityItems;
         
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
                                        [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentity] :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
-                                       NSLocalizedString(@"for configuring clients", nil) :
+                                        NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
             ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"] ||
-            [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"])) {
+             [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"]))
+        {
             NSData *hashKey = self.browserController.browserExamKey;
             NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : @"";
             hashKey = self.browserController.configKey;
             NSString *configKey = hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil;
-            activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey, configFileRUL ];
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"]) {
+                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"Browser Exam and Config Keys for %@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey ];
+            } else {
+                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey, configFileRUL ];
+            }
         } else {
             activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], configFileRUL ];
         }
@@ -1267,11 +1272,8 @@ static NSMutableSet *browserWindowControllers;
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
     
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // Check if settings changed and the user wasn't just checking the Browser/Config Keys
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO] &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"] == NO) {
+    // Check if settings changed
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
         [[NSUserDefaults standardUserDefaults] setSecureObject:nil
                                                         forKey:@"org_safeexambrowser_configKeyContainedKeys"];
@@ -1280,6 +1282,7 @@ static NSMutableSet *browserWindowControllers;
     _settingsOpen = false;
     
     NSString *pasteboardString;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
         ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"] ||
         [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"])) {

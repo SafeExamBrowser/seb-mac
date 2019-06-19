@@ -353,17 +353,29 @@
 {
     NSArray *changedKeys = [notification.userInfo allKeys];
     DDLogDebug(@"Changed settings keys: %@", changedKeys);
-
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setSecureObject:[NSDictionary dictionary]
-                                                    forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    _sebViewController.browserController.browserExamKey = nil;
-    _sebViewController.browserController.configKey = nil;
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    // Display updated or current keys
-    [self displayBrowserExamKey];
-    [self displayConfigKey];
-    
+
+    // Check if permanent SEB settings (which are exported) changed
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", @"org_safeexambrowser_SEB_"];
+    NSArray *results = [changedKeys filteredArrayUsingPredicate:predicate];
+    if (results.count > 0) {
+        // Key/values of permanent SEB settings changed: We reset the contained keys array
+        // so all keys of current SEB settings will be contained in the Config Key
+        // This alters the Browser Exam and Config Key of opened settings, so if you share those,
+        // you need to update the config file when it is for example saved on a server
+        [preferences setSecureObject:[NSDictionary dictionary]
+                              forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        _sebViewController.browserController.browserExamKey = nil;
+        _sebViewController.browserController.configKey = nil;
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        // Display updated or current keys
+        [self displayBrowserExamKey];
+        [self displayConfigKey];
+    }
+        // Otherwise only temporary SEB settings (prefix "org_safeexambrowser_") changed,
+        // then we don't alter the Browser Exam and Config Keys
+
+   
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
