@@ -44,9 +44,10 @@
 
 @implementation SEBInAppSettingsViewController
 
-- (id)initWithSEBViewController:(SEBViewController *)sebViewController {
+- (id)initWithIASKAppSettingsViewController:(IASKAppSettingsViewController *)appSettingsViewController sebViewController:(SEBViewController *)sebViewController {
     self = [super init];
     if (self) {
+        _appSettingsViewController = appSettingsViewController;
         _sebViewController = sebViewController;
         _customCells = [NSMutableDictionary new];
         
@@ -63,20 +64,12 @@
             [self getIdentitiesFromKeychain];
         }
 
-        // If certificates aren't available yet, get them from Keychain
-//        if (!self.certificatesNames) {
-//            NSArray *names;
-//            NSArray *certificatesInKeychain = [self.keychainManager getCertificatesAndNames:&names];
-//            self.certificates = certificatesInKeychain;
-//            self.certificatesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"None", nil)];;
-//            [self.certificatesNames addObjectsFromArray:names];
-//            _certificatesCounter = [NSMutableArray new];
-//            for (NSUInteger ruleCounter = 0; ruleCounter < self.certificatesNames.count; ruleCounter++) {
-//                [_certificatesCounter addObject:([NSNumber numberWithUnsignedInteger:ruleCounter])];
-//            }
-//        }
         // Select identity for passed identity reference
         [self selectSettingsIdentity];
+
+        // Set visibility of keys dependent on specific settings
+        [self setAllDependentKeys];
+
         // Display current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
@@ -379,13 +372,7 @@
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam) {
-            [self.appSettingsViewController setHiddenKeys:[NSSet setWithObjects:@"autoIdentity",
-                                                           @"org_safeexambrowser_SEB_configFileCreateIdentity",
-                                                           @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity", nil]];
-        } else {
-            [self.appSettingsViewController setHiddenKeys:nil];
-        }
+        [self setDependentKeysForSEBConfigPurpose];
     }
     
     if ([changedKeys containsObject:@"org_safeexambrowser_configFileIdentity"]) {
@@ -415,6 +402,13 @@
                 }
             }
         }
+    }
+    
+    /// Exam Session
+    
+    // Check if "Use Browser and Config Keys" was selected
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
+        [self setDependentKeysForSendBrowserExamKey];
     }
     
     /// Network / Certificates
@@ -542,6 +536,49 @@
                                 [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_embeddedCertificatesList"];
                                 [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                             }];
+    }
+}
+
+
+- (void)setAllDependentKeys
+{
+    [self setDependentKeysForSEBConfigPurpose];
+    [self setDependentKeysForSendBrowserExamKey];
+}
+
+
+- (void)setDependentKeysForSEBConfigPurpose
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"autoIdentity",
+                                                 @"org_safeexambrowser_SEB_configFileCreateIdentity",
+                                                 @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam) {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForSendBrowserExamKey
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"examKeysChildPane"]];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] == NO) {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
     }
 }
 
