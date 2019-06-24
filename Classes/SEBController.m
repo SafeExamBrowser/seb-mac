@@ -2940,11 +2940,16 @@ bool insideMatrix(){
 
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
+    NSString *appLocalizedName = application.localizedName;
+    NSURL *appExecutableURL = application.executableURL;
     NSInteger killSuccess = [application kill];
     if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
+        DDLogError(@"Couldn't terminate app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
         [_runningProhibitedProcesses addObject:application];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedProhibitedProcess" object:self];
+    } else {
+        DDLogDebug(@"Successfully terminated app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
     }
     return killSuccess;
 }

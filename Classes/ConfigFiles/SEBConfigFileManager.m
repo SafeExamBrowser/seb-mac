@@ -928,7 +928,7 @@
     NSString *originatorVersion = [NSString stringWithFormat:@"SEB_OSX_%@_%@",
                                    [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                    [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]];
-    [filteredPrefsDict setObject:originatorVersion forKey:@"originatorVersion"];
+        [filteredPrefsDict setObject:originatorVersion forKey:@"originatorVersion"];
     
     // Remove copy Browser Exam Key to clipboard when quitting flag when saving for starting exams
     if (configPurpose == sebConfigPurposeStartingExam) {
