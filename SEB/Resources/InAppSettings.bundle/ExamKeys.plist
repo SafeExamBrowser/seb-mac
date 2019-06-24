@@ -62,6 +62,12 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>Select the key(s) which you want to share and copy to the clipboard after closing Settings. Usually only the Browser Exam Key needs to be copied manually to the according field in the quiz settings of a compatible exam system.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Share Browser Exam Key</string>
