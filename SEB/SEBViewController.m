@@ -1297,11 +1297,10 @@ static NSMutableSet *browserWindowControllers;
                  NSLocalizedString(@"Browser Exam Key", @"Browser Exam Key"),
                  browserExamKey,
                  NSLocalizedString(@"Config Key", @"Config Key")];
-            } else {
-                [pasteboardString appendFormat:@"%@", [self base16StringForHashKey:hashKey]];
             }
+            [pasteboardString appendFormat:@"%@", [self base16StringForHashKey:hashKey]];
         } else {
-            [pasteboardString appendFormat:@"%@", browserExamKey];
+            browserExamKey ? [pasteboardString appendFormat:@"%@", browserExamKey] : nil;
         }
     }
     
