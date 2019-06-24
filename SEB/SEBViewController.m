@@ -48,8 +48,7 @@ static NSMutableSet *browserWindowControllers;
 - (IASKAppSettingsViewController*)appSettingsViewController {
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-        _sebInAppSettingsViewController = [[SEBInAppSettingsViewController alloc] initWithSEBViewController:self];
-        _sebInAppSettingsViewController.appSettingsViewController = appSettingsViewController;
+        _sebInAppSettingsViewController = [[SEBInAppSettingsViewController alloc] initWithIASKAppSettingsViewController:appSettingsViewController sebViewController:self];
         appSettingsViewController.delegate = _sebInAppSettingsViewController;
         SEBIASKSecureSettingsStore *sebSecureStore = [[SEBIASKSecureSettingsStore alloc] init];
         appSettingsViewController.settingsStore = sebSecureStore;
@@ -1125,8 +1124,7 @@ static NSMutableSet *browserWindowControllers;
                                         NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-            ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"] ||
-             [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"]))
+            [preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] != configFileShareKeysNone)
         {
             NSData *hashKey = self.browserController.browserExamKey;
             NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : @"";
@@ -1281,22 +1279,36 @@ static NSMutableSet *browserWindowControllers;
     }
     _settingsOpen = false;
     
-    NSString *pasteboardString;
+    NSMutableString *pasteboardString = NSMutableString.new;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-        ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareKeys"] ||
-        [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"])) {
-        NSData *hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-        NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"Browser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil;
-        hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
-        NSString *configKey = hashKey ? [NSString stringWithFormat:@"Config Key: %@", [self base16StringForHashKey:hashKey]] : nil;
-        pasteboardString =  [NSString stringWithFormat:@"%@ \n%@", browserExamKey, configKey];
+        [preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] != configFileShareKeysNone)
+    {
+        NSData *hashKey;
+        NSString *browserExamKey;
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"]) {
+            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+            browserExamKey = [self base16StringForHashKey:hashKey];
+        }
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]) {
+            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+            if (browserExamKey) {
+                [pasteboardString appendFormat:@"%@: %@\n%@: ",
+                 NSLocalizedString(@"Browser Exam Key", @"Browser Exam Key"),
+                 browserExamKey,
+                 NSLocalizedString(@"Config Key", @"Config Key")];
+            } else {
+                [pasteboardString appendFormat:@"%@", [self base16StringForHashKey:hashKey]];
+            }
+        } else {
+            [pasteboardString appendFormat:@"%@", browserExamKey];
+        }
     }
     
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
     _settingsDidClose = YES;
-    [self restartExam:NO quittingClientConfig:NO pasteboardString:pasteboardString];
+    [self restartExam:NO quittingClientConfig:NO pasteboardString:pasteboardString.copy];
 }
 
 

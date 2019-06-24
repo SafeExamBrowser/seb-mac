@@ -150,6 +150,14 @@ typedef NSUInteger certificateTypes;
 
 
 enum {
+    configFileShareKeysNone                     = 0,
+    configFileShareKeysWithConfig               = 1,
+    configFileShareKeysWithoutConfig            = 2
+};
+typedef NSUInteger configFileShareKeysModes;
+
+
+enum {
     manuallyWithFileRequester                   = 0,
     attemptUploadSameFileDownloadedBefore       = 1,
     onlyAllowUploadSameFileDownloadedBefore     = 2

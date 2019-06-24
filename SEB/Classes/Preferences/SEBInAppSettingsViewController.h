@@ -69,7 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *embeddedCertificatesList;
 @property (nonatomic, strong) NSMutableArray *embeddedCertificatesListCounter;
 
-- (id)initWithSEBViewController:(SEBViewController *)sebViewController;
+- (id)initWithIASKAppSettingsViewController:(IASKAppSettingsViewController *)appSettingsViewController
+                          sebViewController:(SEBViewController *)sebViewController;
 - (void) selectLatestSettingsIdentity;
 - (SecIdentityRef) getSelectedIdentity;
 - (NSString *) getSelectedIdentityName;
