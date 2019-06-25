@@ -1109,7 +1109,7 @@ static NSMutableSet *browserWindowControllers;
             configFileName = @"SEBConfigFile";
         }
         
-        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
         NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : SEBFileExtension];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
@@ -1124,16 +1124,25 @@ static NSMutableSet *browserWindowControllers;
                                         NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-            [preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] != configFileShareKeysNone)
+            ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
+             [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]))
         {
-            NSData *hashKey = self.browserController.browserExamKey;
-            NSString *browserExamKey = hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : @"";
-            hashKey = self.browserController.configKey;
-            NSString *configKey = hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil;
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareOnlyKeys"]) {
-                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"Browser Exam and Config Keys for %@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey ];
+            NSData *hashKey;
+            NSMutableString *activityString = NSMutableString.new;
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"]) {
+                hashKey = self.browserController.browserExamKey;
+                [activityString appendFormat:@"%@",
+                 hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil];
+            }
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]) {
+                hashKey = self.browserController.configKey;
+                [activityString appendFormat:@"%@",
+                 hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil];
+            }
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] == configFileShareKeysWithoutConfig) {
+                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"Browser Exam and/or Config Keys for %@ %@ Config File %@%@", nil), _sebInAppSettingsViewController.permanentSettingsChanged ? @"MODIFIED (!)" : @"unmodified", SEBShortAppName, configFilePurpose, activityString] ];
             } else {
-                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], browserExamKey, configKey, configFileRUL ];
+                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@%@", nil), SEBShortAppName, configFilePurpose, activityString], configFileRUL ];
             }
         } else {
             activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], configFileRUL ];
@@ -1282,7 +1291,8 @@ static NSMutableSet *browserWindowControllers;
     NSMutableString *pasteboardString = NSMutableString.new;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
-        [preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] != configFileShareKeysNone)
+        ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
+         [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]))
     {
         NSData *hashKey;
         NSString *browserExamKey;
