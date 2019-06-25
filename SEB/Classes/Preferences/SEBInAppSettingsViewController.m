@@ -49,6 +49,7 @@
     if (self) {
         _appSettingsViewController = appSettingsViewController;
         _sebViewController = sebViewController;
+        _permanentSettingsChanged = NO;
         _customCells = [NSMutableDictionary new];
         
         // Register notification for changed keys
@@ -356,6 +357,8 @@
         // so all keys of current SEB settings will be contained in the Config Key
         // This alters the Browser Exam and Config Key of opened settings, so if you share those,
         // you need to update the config file when it is for example saved on a server
+        _permanentSettingsChanged = YES;
+        [self setDependentKeysForPermanentSettingsChanged];
         [preferences setSecureObject:[NSDictionary dictionary]
                               forKey:@"org_safeexambrowser_configKeyContainedKeys"];
         _sebViewController.browserController.browserExamKey = nil;
@@ -368,7 +371,6 @@
         // Otherwise only temporary SEB settings (prefix "org_safeexambrowser_") changed,
         // then we don't alter the Browser Exam and Config Keys
 
-   
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
@@ -409,6 +411,11 @@
     // Check if "Use Browser and Config Keys" was selected
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
         [self setDependentKeysForSendBrowserExamKey];
+    }
+    
+    if ([changedKeys containsObject:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
+        [changedKeys containsObject:@"org_safeexambrowser_configFileShareConfigKey"]) {
+        [self setDependentKeysForShareKeys];
     }
     
     /// Network / Certificates
@@ -542,8 +549,27 @@
 
 - (void)setAllDependentKeys
 {
+    [self setDependentKeysForPermanentSettingsChanged];
     [self setDependentKeysForSEBConfigPurpose];
     [self setDependentKeysForSendBrowserExamKey];
+    [self setDependentKeysForShareKeys];
+}
+
+
+- (void)setDependentKeysForPermanentSettingsChanged
+{
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"configModifedWarning"]];
+    if (_permanentSettingsChanged == NO)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
 }
 
 
@@ -553,7 +579,8 @@
     NSSet *dependentKeys = [NSSet setWithArray:@[@"autoIdentity",
                                                  @"org_safeexambrowser_SEB_configFileCreateIdentity",
                                                  @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam) {
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam)
+    {
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
@@ -570,7 +597,27 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSSet *dependentKeys = [NSSet setWithArray:@[@"examKeysChildPane"]];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] == NO) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] == NO)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForShareKeys
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_configFileShareKeys"]];
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"] &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"])
+    {
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
