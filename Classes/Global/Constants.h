@@ -150,9 +150,8 @@ typedef NSUInteger certificateTypes;
 
 
 enum {
-    configFileShareKeysNone                     = 0,
-    configFileShareKeysWithConfig               = 1,
-    configFileShareKeysWithoutConfig            = 2
+    configFileShareKeysWithConfig               = 0,
+    configFileShareKeysWithoutConfig            = 1
 };
 typedef NSUInteger configFileShareKeysModes;
 

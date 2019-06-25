@@ -48,8 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) IBOutlet IASKAppSettingsViewController *tabAppSettingsViewController;
 @property (nonatomic, strong) SEBKeychainManager *keychainManager;
-
 @property (nonatomic, weak) SEBViewController *sebViewController;
+
+@property (readwrite) BOOL permanentSettingsChanged;
 
 @property (nonatomic, strong) NSMutableArray *configFileIdentitiesNames;
 @property (nonatomic, strong) NSMutableArray *configFileIdentitiesCounter;
