@@ -66,6 +66,20 @@
     _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _sebWebView.scrollView.scrollEnabled = YES;
     [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
+    
+    // Set media playback properties on new webview
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    _sebWebView.mediaPlaybackRequiresUserAction = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"];
+    
+    UIUserInterfaceIdiom currentDevice = UIDevice.currentDevice.userInterfaceIdiom;
+    if (currentDevice == UIUserInterfaceIdiomPad) {
+        _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
+    } else {
+        _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
+    }
+    _sebWebView.mediaPlaybackAllowsAirPlay = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowAirPlayMediaPlayback"];
+    _sebWebView.allowsPictureInPictureMediaPlayback = NO;
+
     _sebWebView.delegate = self;
     self.view = _sebWebView;
     
