@@ -178,7 +178,7 @@
 			<key>Title</key>
 			<string>Allow Playback over AirPlay</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_allowDisplayMirroring</string>
+			<string>org_safeexambrowser_SEB_mobileAllowAirPlayMediaPlayback</string>
 		</dict>
 		<dict>
 			<key>Title</key>
