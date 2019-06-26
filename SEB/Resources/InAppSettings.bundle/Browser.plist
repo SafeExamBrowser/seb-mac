@@ -143,6 +143,44 @@
 			<false/>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Media Playback</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Media Autoplay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaAutoplay</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Inline Playback on iPad</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Inline Playback on iPhone</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Playback over AirPlay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowDisplayMirroring</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>User Agent</string>
 			<key>Type</key>
