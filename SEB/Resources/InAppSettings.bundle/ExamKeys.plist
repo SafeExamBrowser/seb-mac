@@ -10,7 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>As soon as you modify settings (change one of the permanent settings), Browser Exam and Config Key are recalculated using all the settings this version of SEB supports. You then have to share these settings as a config file if you want to use it with other versions of SEB, which also use the Browser Exam or Config Key to verify settings for an exam.</string>
+			<string>When you modify settings (change one of the permanent setting options), Browser Exam and Config Key are recalculated using the full set of settings this version of SEB supports. Then you have to share these modified settings as a config file if you want to use it with other versions of SEB (which are also using the Browser Exam or Config Key).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -42,7 +42,7 @@
 			<key>Title</key>
 			<string>Config Key</string>
 			<key>FooterText</key>
-			<string>The Config Key (CK) depends on the current SEB config. It can be generated automatically by a compatible exam server together with the SEB config to be used for an exam. All SEB versions supporting the CK will generate the same CK as long as the same, unmodified SEB config file is used.</string>
+			<string>The Config Key (CK) depends on the current SEB config. It can be generated automatically by a compatible exam server together with the SEB config to be used for an exam. All SEB versions supporting the CK generate the same CK when using the same, unmodified SEB config file.</string>
 		</dict>
 		<dict>
 			<key>Key</key>
@@ -58,7 +58,7 @@
 			<key>Title</key>
 			<string>Share Keys with/without Config</string>
 			<key>FooterText</key>
-			<string>Select the key(s) which you want to be shared (using the Share button in the root Settings view) and copied to the clipboard after closing Settings. Usually only the Browser Exam Key needs to be copied manually to the according field in the quiz settings of a compatible exam system.</string>
+			<string>Select the key(s) which you want to be shared (using the Share button in the main Settings view) and copied to the clipboard after closing Settings. Usually only the Browser Exam Key needs to be copy-pasted manually to the according field in quiz settings of a compatible exam system.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -82,7 +82,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_configFileShareKeys</string>
 			<key>FooterText</key>
-			<string>The Browser Exam and/or Config Key of the current SEB config can be shared (as text strings) together with the exported, modified config file or alone, if the opened config isn&apos;t supposed to be modified. The keys are also copied into the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</string>
+			<string>The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn&apos;t supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>

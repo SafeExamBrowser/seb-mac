@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Browser &amp; Config Keys</string>
 			<key>FooterText</key>
-			<string>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with the correct browser and/or settings.</string>
+			<string>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
