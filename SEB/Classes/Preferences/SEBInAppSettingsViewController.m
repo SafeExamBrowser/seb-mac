@@ -272,8 +272,13 @@
 #pragma mark IASKAppSettingsViewControllerDelegate protocol
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
-    if ([specifier.key isEqualToString:@"browserExamKey"] ||
-        [specifier.key isEqualToString:@"configKey"]) {
+    if ([specifier.key isEqualToString:@"browserExamKey"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setDependentKeysForPermanentSettingsChanged];
+        });
+        return 44;
+    }
+    if ([specifier.key isEqualToString:@"configKey"]) {
         return 44;
     }
     return 0;
@@ -338,7 +343,6 @@
 
 #pragma mark UITextViewDelegate (for CustomViewCell)
 - (void)textViewDidChange:(UITextView *)textView {
-//    [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{@"browserExamKey" : textView.text}];
 }
 
@@ -358,7 +362,6 @@
         // This alters the Browser Exam and Config Key of opened settings, so if you share those,
         // you need to update the config file when it is for example saved on a server
         _permanentSettingsChanged = YES;
-        [self setDependentKeysForPermanentSettingsChanged];
         [preferences setSecureObject:[NSDictionary dictionary]
                               forKey:@"org_safeexambrowser_configKeyContainedKeys"];
         _sebViewController.browserController.browserExamKey = nil;
