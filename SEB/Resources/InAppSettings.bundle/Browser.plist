@@ -176,9 +176,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Playback over AirPlay</string>
+			<string>Allow Picture in Picture Video</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileAllowAirPlayMediaPlayback</string>
+			<string>org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback</string>
 		</dict>
 		<dict>
 			<key>Title</key>
