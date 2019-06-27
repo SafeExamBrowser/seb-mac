@@ -480,7 +480,7 @@ static NSMutableSet *browserWindowControllers;
             CGFloat toolBarHeight;
             UIEdgeInsets newSafeArea;
             // iPad Pro 11 and 12.9 3rd generation have 46 pt calculated toolbar height
-            if (calculatedToolbarHeight == 46) {
+            if (calculatedToolbarHeight == 46 || calculatedToolbarHeight == 26) {
                 // But this is optically not ideal, so we change it manually
                 toolBarHeight = 42;
                 newSafeArea = UIEdgeInsetsMake(-8, 0, -4, 0);

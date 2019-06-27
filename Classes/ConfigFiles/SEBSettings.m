@@ -456,7 +456,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"minMacOSVersion",
                    
                    @NO,
-                   @"mobileAllowAirPlayMediaPlayback",
+                   @"mobileAllowPictureInPictureMediaPlayback",
 
                    @YES,
                    @"mobileAllowInlineMediaPlayback",

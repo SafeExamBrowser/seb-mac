@@ -77,8 +77,8 @@
     } else {
         _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
     }
-    _sebWebView.mediaPlaybackAllowsAirPlay = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowAirPlayMediaPlayback"];
-    _sebWebView.allowsPictureInPictureMediaPlayback = NO;
+    _sebWebView.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];;
+    _sebWebView.mediaPlaybackAllowsAirPlay = NO;
 
     _sebWebView.delegate = self;
     self.view = _sebWebView;
