@@ -273,9 +273,12 @@
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
     if ([specifier.key isEqualToString:@"browserExamKey"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setDependentKeysForPermanentSettingsChanged];
-        });
+        if (_configModified) {
+            _configModified = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setDependentKeysForPermanentSettingsChanged];
+            });
+        }
         return 44;
     }
     if ([specifier.key isEqualToString:@"configKey"]) {
@@ -361,7 +364,10 @@
         // so all keys of current SEB settings will be contained in the Config Key
         // This alters the Browser Exam and Config Key of opened settings, so if you share those,
         // you need to update the config file when it is for example saved on a server
-        _permanentSettingsChanged = YES;
+        if (_permanentSettingsChanged == NO) {
+            _permanentSettingsChanged = YES;
+            _configModified = YES;
+        }
         [preferences setSecureObject:[NSDictionary dictionary]
                               forKey:@"org_safeexambrowser_configKeyContainedKeys"];
         _sebViewController.browserController.browserExamKey = nil;

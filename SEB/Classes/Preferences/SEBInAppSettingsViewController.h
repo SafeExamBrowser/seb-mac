@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) SEBViewController *sebViewController;
 
 @property (readwrite) BOOL permanentSettingsChanged;
+@property (readwrite) BOOL configModified;
 
 @property (nonatomic, strong) NSMutableArray *configFileIdentitiesNames;
 @property (nonatomic, strong) NSMutableArray *configFileIdentitiesCounter;
