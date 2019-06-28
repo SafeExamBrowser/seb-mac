@@ -3136,10 +3136,9 @@ void run_on_ui_thread(dispatch_block_t block)
     if (userInfo) {
         lockReason = [userInfo valueForKey:@"lockReason"];
     }
+    [self openLockdownWindows];
     [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
     [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
-    
-    [self openLockdownWindows];
 }
 
 
