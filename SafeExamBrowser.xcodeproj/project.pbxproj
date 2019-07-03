@@ -1395,7 +1395,6 @@
 		691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBDockIcon@3x.png"; path = "Resources/Icons/Dock/SEBDockIcon@3x.png"; sourceTree = "<group>"; };
 		691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBReloadIcon@2x.png"; path = "Resources/Icons/Dock/SEBReloadIcon@2x.png"; sourceTree = "<group>"; };
 		691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBReloadIcon.png; path = Resources/Icons/Dock/SEBReloadIcon.png; sourceTree = "<group>"; };
-		6910F530202900980054ECA6 /* SEB copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB copy-Info.plist"; sourceTree = "<absolute>"; };
 		6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextFieldNilToEmptyStringTransformer.h; sourceTree = "<group>"; };
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6914D1222183A156004F4A4B /* SEBInAppSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBInAppSettingsViewController.h; path = Classes/Preferences/SEBInAppSettingsViewController.h; sourceTree = "<group>"; };
@@ -1484,7 +1483,7 @@
 		6940B9901BA0F2FB008C8CFC /* SEBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBUITests.m; sourceTree = "<group>"; };
 		6940B9921BA0F2FB008C8CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6942167F214544AB002EB416 /* SEB Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SEB Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69421680214544AC002EB416 /* SEBDev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEBDev-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEBDev-Info.plist"; sourceTree = "<absolute>"; };
+		69421680214544AC002EB416 /* SEBDev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEBDev-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/SEBDev-Info.plist"; sourceTree = "<absolute>"; };
 		69428CCC172F0C1300C87C58 /* SecurityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SecurityIcon.png; path = Resources/Icons/SecurityIcon.png; sourceTree = "<group>"; };
 		69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SecurityIcon@2x.png"; path = "Resources/Icons/SecurityIcon@2x.png"; sourceTree = "<group>"; };
 		69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBDocumentIcon.icns; path = Resources/Icons/SEBDocumentIcon.icns; sourceTree = "<group>"; };
@@ -1683,7 +1682,7 @@
 		69AEC954218A228300848945 /* SEBFilteredURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBFilteredURLCache.h; path = Classes/BrowserComponents/SEBFilteredURLCache.h; sourceTree = "<group>"; };
 		69AEC955218A228300848945 /* SEBFilteredURLCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBFilteredURLCache.m; path = Classes/BrowserComponents/SEBFilteredURLCache.m; sourceTree = "<group>"; };
 		69B1721420FE2D95004BD0FC /* SEB ETH Enterprise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SEB ETH Enterprise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69B1721520FE2D96004BD0FC /* SEB copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy2-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB copy2-Info.plist"; sourceTree = "<absolute>"; };
+		69B1721520FE2D96004BD0FC /* SEB-ETH-Enterprise-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB-ETH-Enterprise-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/SEB-ETH-Enterprise-Info.plist"; sourceTree = "<absolute>"; };
 		69B226DF1D4108BA0065B831 /* Icon-22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-22x29.png"; sourceTree = "<group>"; };
 		69B226E01D4108BA0065B831 /* Icon-22x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-22x29@2x.png"; sourceTree = "<group>"; };
 		69B226E11D4108BA0065B831 /* Icon-320x320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-320x320.png"; sourceTree = "<group>"; };
@@ -1983,10 +1982,7 @@
 				6940B9841BA0F2FB008C8CFC /* SEBTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
-				6910F530202900980054ECA6 /* SEB copy-Info.plist */,
-				69B1721520FE2D96004BD0FC /* SEB copy2-Info.plist */,
 				A9DCFB3F301AB1EC72C987AA /* Pods */,
-				69421680214544AC002EB416 /* SEBDev-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -2276,7 +2272,9 @@
 				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,
 				69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */,
 				690408EA1D4181A800A9EDDA /* Info.plist */,
+				69421680214544AC002EB416 /* SEBDev-Info.plist */,
 				69DD92A01A463435004072E5 /* InfoPlist.strings */,
+				69B1721520FE2D96004BD0FC /* SEB-ETH-Enterprise-Info.plist */,
 				69CFFA771D3641B500FE5655 /* SEB-Enterprise-Info.plist */,
 			);
 			name = Resources;
@@ -4827,7 +4825,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4899,7 +4897,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5144,7 +5142,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -5173,7 +5171,7 @@
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
 				);
-				INFOPLIST_FILE = "SEBDev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEBDev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5218,7 +5216,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5248,7 +5246,7 @@
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
 				);
-				INFOPLIST_FILE = "SEBDev-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEBDev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5293,7 +5291,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5313,7 +5311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = "ios-mbedtls/mbedtls/mbedtls/include";
-				INFOPLIST_FILE = "SEB copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-ETH-Enterprise-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5357,7 +5355,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5376,7 +5374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = "ios-mbedtls/mbedtls/mbedtls/include";
-				INFOPLIST_FILE = "SEB copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-ETH-Enterprise-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3.5;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5528,7 +5526,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -5566,7 +5564,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5622,7 +5620,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5681,7 +5679,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13161;
+				CURRENT_PROJECT_VERSION = 13178;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
