@@ -52,9 +52,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>11070</string>
+	<string>13175</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
