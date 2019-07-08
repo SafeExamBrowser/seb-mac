@@ -558,10 +558,12 @@
 
 - (void)setAllDependentKeys
 {
-    [self setDependentKeysForPermanentSettingsChanged];
     [self setDependentKeysForSEBConfigPurpose];
     [self setDependentKeysForSendBrowserExamKey];
     [self setDependentKeysForShareKeys];
+    
+    // This is necessary because [self setDependentKeysForPermanentSettingsChanged] doesn't work before the Exam Keys pane is actually displayed:
+    _configModified = YES;
 }
 
 

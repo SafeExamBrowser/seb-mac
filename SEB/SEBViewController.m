@@ -1297,11 +1297,11 @@ static NSMutableSet *browserWindowControllers;
         NSData *hashKey;
         NSString *browserExamKey;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"]) {
-            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+            hashKey = self.browserController.browserExamKey;
             browserExamKey = [self base16StringForHashKey:hashKey];
         }
         if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]) {
-            hashKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+            hashKey = self.browserController.configKey;
             if (browserExamKey) {
                 [pasteboardString appendFormat:@"%@: %@\n%@: ",
                  NSLocalizedString(@"Browser Exam Key", @"Browser Exam Key"),
