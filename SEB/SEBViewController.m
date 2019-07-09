@@ -1945,20 +1945,21 @@ void run_on_ui_thread(dispatch_block_t block)
                         self->_settingsOpen = false;
                         [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
                     }];
-                    return;
                 }
             }];
-            return;
         } else if (self.appSettingsViewController) {
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                 self.appSettingsViewController = nil;
                 self->_settingsOpen = false;
                 [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
             }];
-            return;
+        } else {
+            _settingsOpen = false;
+            [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
         }
+    } else {
+        [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
     }
-    [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
 }
 
 
