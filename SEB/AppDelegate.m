@@ -217,15 +217,17 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
         // Check if we received a new configuration from an MDM server (by MDM managed configuration)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-        if (serverConfig) {
-            DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
-            [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
-        } else if ([preferences boolForKey:@"allowEditingConfig"]) {
+        if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
             [_sebViewController conditionallyShowSettingsModal];
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             [_sebViewController conditionallyResetSettings];
+        } else {
+            NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
+            if (serverConfig) {
+                DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
+                [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
+            }
         }
     }
 }
@@ -275,36 +277,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
     
     // Is the main SEB view controller already instantiated?
     if (_sebViewController && !_sebViewController.mailViewController) {
-        if (_sebViewController.settingsOpen) {
-            // Close settings, but check if settings presented some alert or the share dialog first
-            if (_sebViewController.alertController) {
-                DDLogDebug(@"%s: Opening shortcut while Settings and an alert are displayed: Closing alert first.", __FUNCTION__);
-                [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-                _sebViewController.alertController = nil;
-            }
-            if (_sebViewController.appSettingsViewController.presentedViewController) {
-                [_sebViewController.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-                    if (self->_sebViewController.appSettingsViewController) {
-                        [self->_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                            self->_sebViewController.appSettingsViewController = nil;
-                            self->_sebViewController.settingsOpen = false;
-                            BOOL handled = [self->_sebViewController handleShortcutItem:shortcutItem];
-                            completionHandler(handled);
-                        }];
-                        return;
-                    }
-                }];
-                return;
-            } else if (_sebViewController.appSettingsViewController) {
-                [_sebViewController.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                    self->_sebViewController.appSettingsViewController = nil;
-                    self->_sebViewController.settingsOpen = false;
-                    BOOL handled = [self->_sebViewController handleShortcutItem:shortcutItem];
-                    completionHandler(handled);
-                }];
-                return;
-            }
-        } else {
+        // Only handle shortcut if Settings aren't open
+        if (!_sebViewController.settingsOpen) {
             BOOL handled = [_sebViewController handleShortcutItem:shortcutItem];
             completionHandler(handled);
         }
