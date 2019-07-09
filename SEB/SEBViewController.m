@@ -1933,7 +1933,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (_settingsOpen) {
         if (!_alertController && !self.appSettingsViewController.presentedViewController) {
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
-                                                                    message:NSLocalizedString(@"Do you want to close settings and apply this managed configuration?", nil)
+                                                                    message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
