@@ -567,14 +567,17 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallyResetSettings
 {
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self conditionallyResetSettings];
+        }];
+        return;
+    }
     // Check if settings are currently open
     if (_settingsOpen) {
-        // Close settings, but check if settings presented some alert or the share dialog first
+        // Close settings, but check if settings presented the share dialog first
         DDLogInfo(@"SEB settings should be reset, but the Settings view was open, it will be closed first");
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
-            _alertController = nil;
-        }
         if (self.appSettingsViewController.presentedViewController) {
             [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
                 [self conditionallyResetSettings];
@@ -583,42 +586,34 @@ static NSMutableSet *browserWindowControllers;
         } else if (self.appSettingsViewController) {
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
                 self.appSettingsViewController = nil;
-                self->_settingsOpen = false;
+                self.settingsOpen = false;
                 [self conditionallyResetSettings];
             }];
             return;
         }
     } else {
-        if (self.alertController) {
-            [self.alertController dismissViewControllerAnimated:NO completion:^{
-                self.alertController = nil;
-                [self conditionallyResetSettings];
-            }];
-            return;
+        // If there is a hashed admin password the user has to enter it before editing settings
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        // Reset the setting for initiating the reset
+        [preferences setBool:NO forKey:@"initiateResetConfig"];
+        
+        NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        
+        if (hashedAdminPassword.length == 0) {
+            // There is no admin password: Immediately reset settings
+            [self resetSettings];
         } else {
-            // If there is a hashed admin password the user has to enter it before editing settings
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            // Allow up to 5 attempts for entering password
+            attempts = 5;
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reset settings after entering the %@ administrator password:", nil), SEBShortAppName];
             
-            // Reset the setting for initiating the reset
-            [preferences setBool:NO forKey:@"initiateResetConfig"];
-            
-            NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-            
-            if (hashedAdminPassword.length == 0) {
-                // There is no admin password: Immediately reset settings
-                [self resetSettings];
-            } else {
-                // Allow up to 5 attempts for entering password
-                attempts = 5;
-                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reset settings after entering the %@ administrator password:", nil), SEBShortAppName];
-                
-                // Ask the user to enter the settings password and proceed to the callback method after this happend
-                [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                                   title:NSLocalizedString(@"Reset Settings",nil)
-                                                                callback:self
-                                                                selector:@selector(resetSettingsEnteredAdminPassword:)];
-                return;
-            }
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Reset Settings",nil)
+                                                            callback:self
+                                                            selector:@selector(resetSettingsEnteredAdminPassword:)];
+            return;
         }
     }
 }
@@ -697,6 +692,14 @@ static NSMutableSet *browserWindowControllers;
 - (void)openInitAssistant
 {
     if (!_initAssistantOpen) {
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+                [self openInitAssistant];
+            }];
+            return;
+        }
+
         if (!_assistantViewController) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
@@ -707,13 +710,8 @@ static NSMutableSet *browserWindowControllers;
         //// 3D Touch Home screen quick actions
         
         // Add scan QR code Home screen quick action
-        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[ self scanQRCodeShortcutItem]];
+        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
 
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:^{
-                self.alertController = nil;
-            }];
-        }
 
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
             self.initAssistantOpen = true;
@@ -829,7 +827,7 @@ static NSMutableSet *browserWindowControllers;
     // Check if the initialize settings assistant is open
     if (_initAssistantOpen) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self->_initAssistantOpen = false;
+            self.initAssistantOpen = false;
             [self conditionallyShowSettingsModal];
         }];
         return;
@@ -944,7 +942,9 @@ static NSMutableSet *browserWindowControllers;
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
+            [self showAboutSEB];
         }];
+        return;
     }
     [self.sideMenuController hideLeftViewAnimated];
     
@@ -1964,26 +1964,30 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-// Close settings if they are open
+// Close settings if they are open and then execute the callback selector
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback
                                     selector:(SEL)selector
 {
+    DDLogDebug(@"closeSettingsBeforeOpeningSEBConfig: callback:%@ selector:%@", callback, NSStringFromSelector(selector));
     if (_settingsOpen) {
         if (_alertController) {
-            DDLogDebug(@"%s: Received config from MDM server while Settings and an alert are displayed: Closing alert first.", __FUNCTION__);
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
+            DDLogDebug(@"%s: Received config while Settings and an alert are displayed: Closing alert first.", __FUNCTION__);
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+                [self closeSettingsBeforeOpeningSEBConfig:sebConfig callback:callback selector:selector];
+            }];
+            return;
         }
-        _alertController = nil;
         // Close settings, but check if settings presented some alert or the share dialog first
         if (self.appSettingsViewController.presentedViewController) {
-            DDLogDebug(@"%s: Received config from MDM server while Settings and the Share Sheet are displayed: Closing Share Sheet first.", __FUNCTION__);
+            DDLogDebug(@"%s: Received config while Settings and the Share Sheet are displayed: Closing Share Sheet first.", __FUNCTION__);
             [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-                DDLogDebug(@"%s: Received config from MDM server while Settings and the Share Sheet are displayed: Share Sheet closed.", __FUNCTION__);
+                DDLogDebug(@"%s: Received config while Settings and the Share Sheet are displayed: Share Sheet closed.", __FUNCTION__);
                 if (self.appSettingsViewController) {
-                    DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Closing Settings.", __FUNCTION__);
+                    DDLogDebug(@"%s: Received config while Settings are displayed: Closing Settings.", __FUNCTION__);
                     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                        DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Settings closed.", __FUNCTION__);
+                        DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
                         self.appSettingsViewController = nil;
                         self->_settingsOpen = false;
                         [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
@@ -1991,16 +1995,16 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
             }];
         } else if (self.appSettingsViewController) {
-            DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Closing Settings.", __FUNCTION__);
+            DDLogDebug(@"%s: Received config while Settings are displayed: Closing Settings.", __FUNCTION__);
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-                DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Settings closed.", __FUNCTION__);
+                DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
                 self.appSettingsViewController = nil;
-                self->_settingsOpen = false;
+                self.settingsOpen = false;
                 [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
             }];
         } else {
             _settingsOpen = false;
-            DDLogDebug(@"%s: Received config from MDM server while Settings were apparently displayed, but in the meantime closed.", __FUNCTION__);
+            DDLogDebug(@"%s: Received config while Settings were apparently displayed, but in the meantime closed.", __FUNCTION__);
             [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
         }
     } else {
@@ -2744,9 +2748,14 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_examRunning) {
             
             // Dismiss the Activate SAM alert in case it still was visible
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
-            _alertController = nil;
-            _startSAMWAlertDisplayed = false;
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:^{
+                    self.alertController = nil;
+                    self.startSAMWAlertDisplayed = false;
+                    [self singleAppModeStatusChanged];
+                }];
+                return;
+            }
             
             // Exam running: Check if SAM is switched off
             if (UIAccessibilityIsGuidedAccessEnabled() == false) {
@@ -2787,9 +2796,10 @@ void run_on_ui_thread(dispatch_block_t block)
             if (UIAccessibilityIsGuidedAccessEnabled() == true) {
                 
                 // Dismiss the Activate SAM alert in case it still was visible
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-                _alertController = nil;
-                _startSAMWAlertDisplayed = false;
+                [_alertController dismissViewControllerAnimated:NO completion:^{
+                    self.alertController = nil;
+                    self.startSAMWAlertDisplayed = false;
+                }];
                 
                 // Proceed to exam
                 [self startExam];
@@ -3100,8 +3110,11 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) showNoKioskModeAvailable
 {
     if (_alertController) {
-        [_alertController dismissViewControllerAnimated:NO completion:nil];
-        _alertController = nil;
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self showNoKioskModeAvailable];
+        }];
+        return;
     }
     if ([[self.topMostController.presentedViewController superclass] isKindOfClass:[UIAlertController superclass]]) {
         [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
