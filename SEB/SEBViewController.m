@@ -282,7 +282,7 @@ static NSMutableSet *browserWindowControllers;
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
                                                       if (serverConfig) {
-                                                          if (!self->_settingsOpen) {
+                                                          if (self.settingsOpen == NO) {
                                                               DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server
                                                               // when settings aren't open (otherwise it's postponed to next
@@ -571,6 +571,10 @@ static NSMutableSet *browserWindowControllers;
     if (_settingsOpen) {
         // Close settings, but check if settings presented some alert or the share dialog first
         DDLogInfo(@"SEB settings should be reset, but the Settings view was open, it will be closed first");
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+            _alertController = nil;
+        }
         if (self.appSettingsViewController.presentedViewController) {
             [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
                 [self conditionallyResetSettings];
@@ -707,12 +711,12 @@ static NSMutableSet *browserWindowControllers;
 
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:^{
-                self->_alertController = nil;
+                self.alertController = nil;
             }];
         }
 
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
-            self->_initAssistantOpen = true;
+            self.initAssistantOpen = true;
         }];
     }
 }
@@ -764,7 +768,7 @@ static NSMutableSet *browserWindowControllers;
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
-            self->_alertController = nil;
+            self.alertController = nil;
             [self scanQRCode];
         }];
         return;
@@ -831,7 +835,7 @@ static NSMutableSet *browserWindowControllers;
         return;
     } else if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
-            self->_alertController = nil;
+            self.alertController = nil;
             [self conditionallyShowSettingsModal];
         }];
         return;
@@ -939,7 +943,7 @@ static NSMutableSet *browserWindowControllers;
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
-            self->_alertController = nil;
+            self.alertController = nil;
         }];
     }
     [self.sideMenuController hideLeftViewAnimated];
@@ -950,7 +954,7 @@ static NSMutableSet *browserWindowControllers;
     _aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     
     [self.topMostController presentViewController:_aboutSEBViewController animated:YES completion:^{
-        self->_aboutSEBViewDisplayed = true;
+        self.aboutSEBViewDisplayed = true;
     }];
 }
 
@@ -1098,9 +1102,8 @@ static NSMutableSet *browserWindowControllers;
         
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:^{
-                self->_alertController = nil;
+                self.alertController = nil;
             }];
-            return;
         }
         
         // Get config file name
@@ -1337,16 +1340,22 @@ static NSMutableSet *browserWindowControllers;
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
              (examSession && allowReconfiguring))) {
-
-                _isReconfiguringToMDMConfig = true;
-                readMDMConfig = YES;
-                // If we did receive a config and SEB isn't running in exam mode currently
-                DDLogDebug(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-                // As we handle the config received from the MDM server, we need to remove it from settings
-                [preferences removeObjectForKey:kConfigurationKey];
-                [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
-                                                                      callback:self
-                                                                      selector:@selector(storeNewSEBSettingsSuccessful:)];
+                DDLogDebug(@"%s: Received new configuration from MDM server. Exam session: %d, private UserDefaults: %d, examSessionReconfigureAllow: %d", __FUNCTION__, examSession, NSUserDefaults.userDefaultsPrivate, allowReconfiguring);
+                if (!(receivedServerConfig &&
+                      [receivedServerConfig isEqualToDictionary:serverConfig])) {
+                    _isReconfiguringToMDMConfig = true;
+                    receivedServerConfig = serverConfig;
+                    readMDMConfig = YES;
+                    // If we did receive a config and SEB isn't running in exam mode currently
+                    DDLogDebug(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+                    // As we handle the config received from the MDM server, we need to remove it from settings
+                    [preferences removeObjectForKey:kConfigurationKey];
+                    [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
+                                                                          callback:self
+                                                                          selector:@selector(storeNewSEBSettingsSuccessful:)];
+                } else {
+                    DDLogWarn(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+                }
             } else {
                 DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
             }
@@ -1918,9 +1927,34 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyOpenSEBConfigFromMDMServer
 {
-    [self closeSettingsBeforeOpeningSEBConfig:nil
-                            callback:self
-                            selector:@selector(handleMDMServerConfig:)];
+    // This method can only be executed while settings are open when the user
+    // returns to the app and settings are open, otherwise received MDM settings
+    // are ignored
+    if (_settingsOpen) {
+        if (!_alertController && !self.appSettingsViewController.presentedViewController) {
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
+                                                                    message:NSLocalizedString(@"Do you want to close settings and apply this managed configuration?", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     self.alertController = nil;
+                                                                     [self closeSettingsBeforeOpeningSEBConfig:nil
+                                                                                                      callback:self
+                                                                                                      selector:@selector(handleMDMServerConfig:)];
+                                                                 }]];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                     self.alertController = nil;
+                                                                 }]];
+            
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+        } else {
+            DDLogDebug(@"%s: Received config from MDM server while Settings and an alert or the Share Sheet were displayed: Ignoring MDM config.", __FUNCTION__);
+        }
+    } else {
+        [self handleMDMServerConfig:nil];
+    }
 }
 
 
@@ -1936,11 +1970,20 @@ void run_on_ui_thread(dispatch_block_t block)
                                     selector:(SEL)selector
 {
     if (_settingsOpen) {
+        if (_alertController) {
+            DDLogDebug(@"%s: Received config from MDM server while Settings and an alert are displayed: Closing alert first.", __FUNCTION__);
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+        _alertController = nil;
         // Close settings, but check if settings presented some alert or the share dialog first
         if (self.appSettingsViewController.presentedViewController) {
+            DDLogDebug(@"%s: Received config from MDM server while Settings and the Share Sheet are displayed: Closing Share Sheet first.", __FUNCTION__);
             [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                DDLogDebug(@"%s: Received config from MDM server while Settings and the Share Sheet are displayed: Share Sheet closed.", __FUNCTION__);
                 if (self.appSettingsViewController) {
+                    DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Closing Settings.", __FUNCTION__);
                     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                        DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Settings closed.", __FUNCTION__);
                         self.appSettingsViewController = nil;
                         self->_settingsOpen = false;
                         [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
@@ -1948,13 +1991,16 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
             }];
         } else if (self.appSettingsViewController) {
+            DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Closing Settings.", __FUNCTION__);
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                DDLogDebug(@"%s: Received config from MDM server while Settings are displayed: Settings closed.", __FUNCTION__);
                 self.appSettingsViewController = nil;
                 self->_settingsOpen = false;
                 [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
             }];
         } else {
             _settingsOpen = false;
+            DDLogDebug(@"%s: Received config from MDM server while Settings were apparently displayed, but in the meantime closed.", __FUNCTION__);
             [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
         }
     } else {
@@ -2698,9 +2744,7 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_examRunning) {
             
             // Dismiss the Activate SAM alert in case it still was visible
-            [_alertController dismissViewControllerAnimated:NO completion:^{
-                self->_alertController = nil;
-            }];
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
             _alertController = nil;
             _startSAMWAlertDisplayed = false;
             
@@ -3057,6 +3101,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
+        _alertController = nil;
     }
     if ([[self.topMostController.presentedViewController superclass] isKindOfClass:[UIAlertController superclass]]) {
         [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];

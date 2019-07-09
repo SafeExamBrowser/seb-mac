@@ -115,6 +115,8 @@
 
     NSURL *currentConfigPath;
     NSURL *directlyDownloadedURL;
+    
+    NSDictionary *receivedServerConfig;
 
     NSString *currentStartURL;
     NSString *startURLQueryParameter;
