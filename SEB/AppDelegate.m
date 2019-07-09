@@ -219,7 +219,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         if (serverConfig) {
-            DDLogWarn(@"%s: Received MDM Managed Configuration dictionary was present.", __FUNCTION__);
+            DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
             [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
         } else if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
@@ -277,6 +277,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
     if (_sebViewController && !_sebViewController.mailViewController) {
         if (_sebViewController.settingsOpen) {
             // Close settings, but check if settings presented some alert or the share dialog first
+            if (_sebViewController.alertController) {
+                DDLogDebug(@"%s: Opening shortcut while Settings and an alert are displayed: Closing alert first.", __FUNCTION__);
+                [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+                _sebViewController.alertController = nil;
+            }
             if (_sebViewController.appSettingsViewController.presentedViewController) {
                 [_sebViewController.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
                     if (self->_sebViewController.appSettingsViewController) {
