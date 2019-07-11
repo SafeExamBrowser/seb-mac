@@ -3560,6 +3560,9 @@ void run_on_ui_thread(dispatch_block_t block)
 // enable/disable reload buttons in dock and left slider
 - (void) activateReloadButtons:(BOOL)reloadEnabled
 {
+    // Activate/Deactivate reload buttons in dock and slider
+    [self.sebUIController activateReloadButtons:reloadEnabled];
+
     if (reloadEnabled)  {
         if (self.sebUIController.browserToolbarEnabled &&
             !self.sebUIController.dockReloadButton) {
@@ -3571,13 +3574,11 @@ void run_on_ui_thread(dispatch_block_t block)
             
             toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
+            return;
         }
-    } else {
-        // Deactivate reload button in toolbar
-        self.navigationItem.rightBarButtonItem = nil;
     }
-    // Activate/Deactivate reload buttons in dock and slider
-    [self.sebUIController activateReloadButtons:reloadEnabled];
+    // Deactivate reload button in toolbar
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 
