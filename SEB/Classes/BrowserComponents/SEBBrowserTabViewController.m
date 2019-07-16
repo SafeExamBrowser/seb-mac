@@ -395,6 +395,11 @@
         
         NSString *pageToCloseURL = webpageToClose.url;
         if ([pageToCloseURL hasPrefix:@"drawing"]) {
+        } else {
+            OpenWebpages *webpage = _openWebpages[tabIndex];
+            SEBWebViewController *webViewController = webpage.webViewController;
+            
+
         }
         
         [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
