@@ -355,16 +355,23 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    if (error.code != -999 &&
-        error.code != 204) // Don't display the error 204 "Plug-in handled load"
-    {
+    if (error.code == -999) {
+        DDLogError(@"%s: Load Error -999: Another request initiated before the previous request was completed (%@)", __FUNCTION__, error.description);
+        return;
+    }
+    
+    // Hide the activity indicator in the status bar
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [_browserTabViewController setLoading:NO];
+    [self setBackForwardAvailabilty];
+    
+    // Don't display the error 204 "Plug-in handled load")
+    if (error.code == 204) {
+        DDLogDebug(@"%s: Reported Error 204: %@", __FUNCTION__, error.description);
+
+    } else {
         
         DDLogError(@"%s: Load Error: %@", __FUNCTION__, error.description);
-        
-        // Load error, hide the activity indicator in the status bar
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [_browserTabViewController setLoading:NO];
-        [self setBackForwardAvailabilty];
         
         // Decide if of failed load should be displayed in the alert
         // (according to current ShowURL policy settings for exam/additional tab)
@@ -405,9 +412,6 @@
                                                             }]];
         
         [self.browserTabViewController.sebViewController.topMostController presentViewController:self.browserTabViewController.sebViewController.alertController animated:NO completion:nil];
-
-    } else {
-        DDLogError(@"Load Error: %@", error.description);
     }
 }
 
