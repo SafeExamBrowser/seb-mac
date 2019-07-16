@@ -398,8 +398,11 @@
         } else {
             OpenWebpages *webpage = _openWebpages[tabIndex];
             SEBWebViewController *webViewController = webpage.webViewController;
-            
-
+            // Prevent media player from playing audio after its webview was closed.
+            [webViewController.sebWebView loadHTMLString:@"" baseURL:nil];
+            webViewController.sebWebView = nil;
+            webViewController.view = nil;
+            webViewController = nil;
         }
         
         [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
@@ -567,8 +570,12 @@
 
     for (OpenWebpages *webpage in _openWebpages) {
         SEBWebViewController *webViewController = webpage.webViewController;
+        // Prevent media player from playing audio after its webview was closed.
+        [webViewController.sebWebView loadHTMLString:@"" baseURL:nil];
         // Close the webview
+        webViewController.sebWebView = nil;
         webViewController.view = nil;
+        webViewController = nil;
     }
     [_openWebpages removeAllObjects];
     
