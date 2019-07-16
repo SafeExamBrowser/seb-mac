@@ -355,7 +355,9 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    if ([error code] != -999) {
+    if (error.code != -999 &&
+        error.code != 204) // Don't display the error 204 "Plug-in handled load"
+    {
         
         DDLogError(@"%s: Load Error: %@", __FUNCTION__, error.description);
         
