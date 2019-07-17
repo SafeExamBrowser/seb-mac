@@ -365,8 +365,13 @@
     [_browserTabViewController setLoading:NO];
     [self setBackForwardAvailabilty];
     
-    // Don't display the error 204 "Plug-in handled load")
-    if (error.code == 204) {
+    // Don't display the error 102 "Frame load interrupted", this can be caused by
+    // the URL filter canceling loading a blocked URL
+    if (error.code == 102) {
+        DDLogDebug(@"%s: Reported Error 102: %@", __FUNCTION__, error.description);
+        
+    // Don't display the error 204 "Plug-in handled load"
+    } else if (error.code == 204) {
         DDLogDebug(@"%s: Reported Error 204: %@", __FUNCTION__, error.description);
 
     } else {
