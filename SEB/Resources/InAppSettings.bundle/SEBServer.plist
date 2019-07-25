@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Enable SEB Server Support</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebMode</string>
+			<key>FooterText</key>
+			<string>SEB either loads a web resource from Start URL or connects to an SEB Server</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Load Start URL</string>
+				<string>Connect to SEB Server</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Server Connection Settings</string>
+			<key>FooterText</key>
+			<string>When SEB Server Fallback is enabled, the SEB client loads Start URL in a browser window if it cannot connect to the specified SEB Server.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Server URL</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebServerURL</string>
+			<key>IASKPlaceholder</key>
+			<string>Full URL</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>URL</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>SEB Server Fallback</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebServerFallback</string>
+		</dict>
+	</array>
+</dict>
+</plist>
