@@ -173,9 +173,6 @@ bool insideMatrix(void);
             _inactiveScreenWindows = [NSMutableArray new];
         }
         
-        [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-        DDLogDebug(@"Installed get URL event handler");
-        
         // Add an observer for the request to unconditionally quit SEB
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(requestedQuit:)
@@ -488,6 +485,9 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+    DDLogDebug(@"Installed get URL event handler");
+
     [[[NSWorkspace sharedWorkspace] notificationCenter]
      addObserver:self
      selector:@selector(lockSEB:)
