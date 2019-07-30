@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="644" width="615" height="26"/>
+                    <rect key="frame" x="18" y="644" width="615" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -76,7 +76,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
-                                        <rect key="frame" x="74" y="323" width="208" height="17"/>
+                                        <rect key="frame" x="74" y="322" width="208" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Enforce minimum macOS version:" usesSingleLineMode="YES" id="Lff-Up-3Ym">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -84,7 +84,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <popUpButton toolTip="SEB refuses to run on an older system version" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
-                                        <rect key="frame" x="286" y="316" width="305" height="26"/>
+                                        <rect key="frame" x="286" y="316" width="305" height="25"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="0hJ-dB-9wR" userLabel="Log Level Pop Up Button Cell">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu"/>
@@ -189,7 +189,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button toolTip="Use the built-in display (if available) when only one display is allowed or when switching off display mirroring" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
-                                        <rect key="frame" x="466" y="149" width="124" height="18"/>
+                                        <rect key="frame" x="467" y="149" width="123" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use built-in display" bezelStyle="regularSquare" imagePosition="right" alignment="right" controlSize="small" inset="2" id="gma-Qm-KEF">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -199,7 +199,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB can also be installed in the Applications folder of the current user (~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="KKV-0r-AMe">
-                                        <rect key="frame" x="364" y="267" width="222" height="18"/>
+                                        <rect key="frame" x="364" y="268" width="222" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow also user's ~/Applications folder" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="sUj-TY-bKw">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -271,11 +271,11 @@
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" borderType="line" title="Kiosk Mode (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
                                         <rect key="frame" x="13" y="250" width="283" height="100"/>
                                         <view key="contentView" id="LMS-AX-0a5">
-                                            <rect key="frame" x="1" y="1" width="281" height="84"/>
+                                            <rect key="frame" x="3" y="3" width="277" height="82"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <matrix toolTip="The kiosk mode setting reflects how the computer is locked down into SEB." verticalCompressionResistancePriority="1000" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kBz-Xz-wNK">
-                                                    <rect key="frame" x="18" y="16" width="245" height="58"/>
+                                                    <rect key="frame" x="16" y="14" width="245" height="58"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="6vk-1a-Npb"/>
                                                         <constraint firstAttribute="width" constant="245" id="QZ6-L9-1A2"/>
@@ -344,11 +344,11 @@
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="While running SEB" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
                                         <rect key="frame" x="13" y="60" width="283" height="267"/>
                                         <view key="contentView" id="nih-s0-yee">
-                                            <rect key="frame" x="1" y="1" width="281" height="251"/>
+                                            <rect key="frame" x="3" y="3" width="277" height="249"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">
-                                                    <rect key="frame" x="16" y="224" width="140" height="18"/>
+                                                    <rect key="frame" x="14" y="222" width="140" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Switch User" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rm8-cp-dzk">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -358,7 +358,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pf-GF-fho">
-                                                    <rect key="frame" x="16" y="198" width="183" height="18"/>
+                                                    <rect key="frame" x="14" y="196" width="183" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Lock this computer" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n9V-3H-mM5">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -368,7 +368,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hen-ae-pBM">
-                                                    <rect key="frame" x="16" y="172" width="186" height="18"/>
+                                                    <rect key="frame" x="14" y="170" width="186" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Change a password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rgp-1k-Eaw">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -378,7 +378,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MNx-PR-dde">
-                                                    <rect key="frame" x="16" y="146" width="185" height="18"/>
+                                                    <rect key="frame" x="14" y="144" width="185" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Start Task Manager" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uiU-JQ-4Yc">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -388,7 +388,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GqG-hZ-nUG">
-                                                    <rect key="frame" x="16" y="120" width="110" height="18"/>
+                                                    <rect key="frame" x="14" y="118" width="110" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Log off" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LTi-lL-sOs">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -398,7 +398,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-IO-a4g">
-                                                    <rect key="frame" x="16" y="94" width="131" height="18"/>
+                                                    <rect key="frame" x="14" y="92" width="131" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Shut down" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ouk-wE-FFP">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -408,7 +408,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="smt-W3-qyD">
-                                                    <rect key="frame" x="16" y="68" width="158" height="18"/>
+                                                    <rect key="frame" x="14" y="66" width="158" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Ease of Access" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AtG-6Z-aRN">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -418,7 +418,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-t7-rBY">
-                                                    <rect key="frame" x="16" y="16" width="196" height="18"/>
+                                                    <rect key="frame" x="14" y="14" width="196" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable VMware Client Shade" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Y3K-X1-40d">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -428,7 +428,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Esl-Tl-Quf">
-                                                    <rect key="frame" x="16" y="42" width="239" height="18"/>
+                                                    <rect key="frame" x="14" y="40" width="239" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable network connection selector" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cYs-RO-IZD">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -493,11 +493,11 @@
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Special Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
                                         <rect key="frame" x="13" y="110" width="283" height="240"/>
                                         <view key="contentView" id="FRQ-6d-6TB">
-                                            <rect key="frame" x="1" y="1" width="281" height="224"/>
+                                            <rect key="frame" x="3" y="3" width="277" height="222"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="xUc-ld-ncn">
-                                                    <rect key="frame" x="16" y="198" width="88" height="18"/>
+                                                    <rect key="frame" x="14" y="196" width="88" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Esc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="nZw-6z-Ph8">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -507,7 +507,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="kET-K1-KC9">
-                                                    <rect key="frame" x="16" y="172" width="116" height="18"/>
+                                                    <rect key="frame" x="14" y="170" width="116" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Ctrl-Esc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8N0-8l-hwO">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -517,7 +517,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="tps-Vh-eQM">
-                                                    <rect key="frame" x="16" y="146" width="111" height="18"/>
+                                                    <rect key="frame" x="14" y="144" width="111" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Alt-Esc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bTO-u1-Mao">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -527,7 +527,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="P7D-T2-kNc">
-                                                    <rect key="frame" x="16" y="120" width="110" height="18"/>
+                                                    <rect key="frame" x="14" y="118" width="110" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Alt-Tab" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ufj-NR-s2G">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -537,7 +537,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Lpd-Dm-mJe">
-                                                    <rect key="frame" x="16" y="94" width="105" height="18"/>
+                                                    <rect key="frame" x="14" y="92" width="105" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Alt-F4" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TMW-TW-FOP">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -547,7 +547,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="In SEB for macOS this only enables right mouse button/context menu in browser plugins and video players etc. " translatesAutoresizingMaskIntoConstraints="NO" id="Udm-zO-P00">
-                                                    <rect key="frame" x="16" y="68" width="216" height="18"/>
+                                                    <rect key="frame" x="14" y="66" width="216" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Right Mouse (also Mac*)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PWk-fT-HdC">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -557,7 +557,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Controls Print Screen, corresponds with Enable screen capture in macOS" translatesAutoresizingMaskIntoConstraints="NO" id="wUs-SE-6xn">
-                                                    <rect key="frame" x="16" y="42" width="141" height="18"/>
+                                                    <rect key="frame" x="14" y="40" width="141" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Print Screen" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GQb-uN-fJO">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -567,7 +567,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="P88-5S-xeR">
-                                                    <rect key="frame" x="16" y="16" width="165" height="18"/>
+                                                    <rect key="frame" x="14" y="14" width="165" height="18"/>
                                                     <string key="toolTip">Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam</string>
                                                     <buttonCell key="cell" type="check" title="Enable Alt-Mousewheel" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IWf-Eq-wzJ">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -613,11 +613,11 @@
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Function Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
                                         <rect key="frame" x="308" y="6" width="283" height="344"/>
                                         <view key="contentView" id="kSW-ge-fQu">
-                                            <rect key="frame" x="1" y="1" width="281" height="328"/>
+                                            <rect key="frame" x="3" y="3" width="277" height="326"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tdg-eI-qqw">
-                                                    <rect key="frame" x="16" y="302" width="80" height="18"/>
+                                                    <rect key="frame" x="14" y="300" width="80" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F1" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2n4-f2-W9F">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -627,7 +627,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KAI-Zl-SVs">
-                                                    <rect key="frame" x="16" y="276" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="274" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F2" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rd9-dL-Qhi">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -637,7 +637,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d7f-VX-pCo">
-                                                    <rect key="frame" x="16" y="250" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="248" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F3" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n1l-UI-Mxa">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -647,7 +647,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UJn-5k-GnI">
-                                                    <rect key="frame" x="16" y="224" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="222" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F4" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yCu-0c-Hf1">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -657,7 +657,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L4a-yA-hrc">
-                                                    <rect key="frame" x="16" y="198" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="196" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F5" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q9c-zv-s6c">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -667,7 +667,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wqq-sW-IQe">
-                                                    <rect key="frame" x="16" y="172" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="170" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F6" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fmg-wZ-Cpg">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -677,7 +677,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7n5-ya-ICf">
-                                                    <rect key="frame" x="16" y="146" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="144" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F7" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TED-sf-9ZX">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -687,7 +687,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AR2-HL-Z0a">
-                                                    <rect key="frame" x="16" y="120" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="118" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F8" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IXz-wb-IuQ">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -697,7 +697,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jDL-8d-xFd">
-                                                    <rect key="frame" x="16" y="94" width="82" height="18"/>
+                                                    <rect key="frame" x="14" y="92" width="82" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F9" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q3q-Xm-TRl">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -707,7 +707,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="crj-v2-PEo">
-                                                    <rect key="frame" x="16" y="68" width="88" height="18"/>
+                                                    <rect key="frame" x="14" y="66" width="88" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F10" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UUd-ek-uMg">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -717,7 +717,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h36-BC-RvT">
-                                                    <rect key="frame" x="16" y="42" width="86" height="18"/>
+                                                    <rect key="frame" x="14" y="40" width="86" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F11" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0ob-OM-tPV">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -727,7 +727,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GCo-yY-4HB">
-                                                    <rect key="frame" x="16" y="16" width="88" height="18"/>
+                                                    <rect key="frame" x="14" y="14" width="88" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable F12" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UcT-h8-nFW">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -815,11 +815,11 @@
                 <box autoresizesSubviews="NO" borderType="line" title="Logging" translatesAutoresizingMaskIntoConstraints="NO" id="M5z-0E-3yB">
                     <rect key="frame" x="17" y="422" width="616" height="141"/>
                     <view key="contentView" id="zcb-WA-Wne">
-                        <rect key="frame" x="1" y="1" width="614" height="125"/>
+                        <rect key="frame" x="3" y="3" width="610" height="123"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button toolTip="The log can help debugging SEB (send it to the developers) and to find out about possible manipulations" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                                <rect key="frame" x="16" y="96" width="112" height="18"/>
+                                <rect key="frame" x="14" y="94" width="112" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -834,7 +834,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                                <rect key="frame" x="228" y="97" width="62" height="17"/>
+                                <rect key="frame" x="224" y="94" width="62" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" usesSingleLineMode="YES" id="23">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -842,7 +842,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                <rect key="frame" x="294" y="62" width="305" height="26"/>
+                                <rect key="frame" x="290" y="60" width="307" height="25"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -864,7 +864,7 @@
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
-                                <rect key="frame" x="193" y="68" width="97" height="17"/>
+                                <rect key="frame" x="189" y="65" width="97" height="17"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" usesSingleLineMode="YES" id="nui-Ct-A6q">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -872,7 +872,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sAF-ok-Vxz" userLabel="Log Level Popup Button">
-                                <rect key="frame" x="294" y="91" width="305" height="26"/>
+                                <rect key="frame" x="290" y="89" width="307" height="25"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="9eI-c3-Dbw" userLabel="Log Level Pop Up Button Cell">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -899,7 +899,7 @@
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
-                                <rect key="frame" x="296" y="13" width="300" height="22"/>
+                                <rect key="frame" x="292" y="11" width="302" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="auD-JV-04z">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -916,7 +916,7 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-cV-UEx">
-                                <rect key="frame" x="293" y="42" width="143" height="18"/>
+                                <rect key="frame" x="289" y="40" width="143" height="18"/>
                                 <buttonCell key="cell" type="check" title="Use standard directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4vb-oP-Qf1">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
@@ -927,7 +927,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
-                                <rect key="frame" x="121" y="16" width="169" height="17"/>
+                                <rect key="frame" x="117" y="14" width="169" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log file directory Windows:" usesSingleLineMode="YES" id="dbm-W0-7Yt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -966,9 +966,10 @@
                         <constraint firstItem="H9Q-8A-xab" firstAttribute="baseline" secondItem="6DQ-Jd-s1A" secondAttribute="baseline" id="yj2-SS-clN"/>
                     </constraints>
                 </box>
-                <button toolTip="Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
-                    <rect key="frame" x="333" y="616" width="158" height="18"/>
-                    <buttonCell key="cell" type="check" title="Enable screen capture" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
+                    <rect key="frame" x="333" y="616" width="149" height="18"/>
+                    <string key="toolTip">Controls macOS screen capture and recording (invoked with cmd+shift+3/+4/+5), corresponds with option 'Enable Print Screen' in Windows (Hooked Keys)</string>
+                    <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

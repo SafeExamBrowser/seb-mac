@@ -719,6 +719,9 @@ bool insideMatrix(void);
 {
     /// Early kiosk mode setup (as these actions might take some time)
     
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"];
+
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
     
@@ -763,7 +766,7 @@ bool insideMatrix(void);
     _terminatedProcessesExecutableURLs = [NSMutableArray new];
     [self windowWatcher];
    
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
         OSErr        myErr = noErr;
@@ -804,7 +807,7 @@ bool insideMatrix(void);
 - (void) startSystemMonitoring
 {
     // Get all running processes, including daemons
-    NSArray *allRunningProcesses = [self getProcessArray];
+    NSArray *allRunningProcesses = [self getProcessNameArray];
     DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
     
     // Check for activated screen sharing if settings demand it
@@ -1021,7 +1024,7 @@ bool insideMatrix(void);
 
 #pragma mark - Process Monitoring
 
-- (NSArray *) getProcessArray {
+- (NSArray *) getProcessNameArray {
     NSMutableArray *ProcList = [[NSMutableArray alloc] init];
     
     kinfo_proc *mylist;
@@ -1049,6 +1052,42 @@ bool insideMatrix(void);
     
     return ProcList;
 }
+
+
+- (NSArray *) getProcessArray {
+    NSMutableArray *ProcList = [[NSMutableArray alloc] init];
+    
+    kinfo_proc *mylist;
+    size_t mycount = 0;
+    mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
+    GetBSDProcessList(&mylist, &mycount);
+    BOOL numberRunningBSDProcessesChanged = false;
+    if ((NSUInteger)mycount != lastNumberRunningBSDProcesses) {
+        numberRunningBSDProcessesChanged = true;
+        lastNumberRunningBSDProcesses = (NSUInteger)mycount;
+        DDLogVerbose(@"There are %lu running BSD processes.", (unsigned long)lastNumberRunningBSDProcesses);
+    }
+    NSDictionary *processDetails;
+    int k;
+    for(k = 0; k < mycount; k++) {
+        kinfo_proc *proc = NULL;
+        proc = &mylist[k];
+        pid_t processPID = proc-> kp_proc.p_pid;
+        NSString * processName = [self getProcessName:processPID];
+        processDetails = @{
+                           @"name" : processName,
+                           @"PID" : [NSNumber numberWithInt:processPID]
+                           };
+        [ProcList addObject:processDetails];
+        if (numberRunningBSDProcessesChanged) {
+            DDLogVerbose(@"PID: %d - Name: %@", processPID, processName);
+        }
+    }
+    free(mylist);
+    
+    return ProcList;
+}
+
 
 
 -(NSString*) getProcessName:(pid_t) pid {
@@ -1266,9 +1305,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     if (detectSIGSTOP && -[lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow] > 3) {
         DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -[lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow]);
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (!_SIGSTOPDetected) {
-                _SIGSTOPDetected = true;
-                timeProcessCheckBeforeSIGSTOP = lastTimeProcessCheckBeforeSIGSTOP;
+            if (!self.SIGSTOPDetected) {
+                self.SIGSTOPDetected = true;
+                self->timeProcessCheckBeforeSIGSTOP = lastTimeProcessCheckBeforeSIGSTOP;
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedSIGSTOP" object:self];
             }
@@ -1281,7 +1320,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     self.runningProcesses = allRunningProcesses;
     
     // Check for font download process
-    if ([allRunningProcesses containsObject:fontRegistryUIAgent]) {
+    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
+    NSArray *filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+    if (filteredProcesses.count > 0) {
         if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = true;
             DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
@@ -1293,6 +1334,18 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         if (fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = false;
             DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
+        }
+    }
+    // Check for running screen capture process
+    if (!allowScreenRecording) {
+        filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+        
+        if (filteredProcesses.count > 0) {
+            NSDictionary *screenCaptureAgentProcessDetails = filteredProcesses[0];
+            NSNumber *PID = [screenCaptureAgentProcessDetails objectForKey:@"PID"];
+            NSInteger success = [self killProcessWithPID:PID.intValue];
+            DDLogDebug(@"Terminating %@ was %@successfull (code: %ld)", screenCaptureAgentProcessDetails, success == 0 ? @"" : @"not ", (long)success);
         }
     }
     lastTimeProcessCheck = [NSDate date];
@@ -2950,6 +3003,26 @@ bool insideMatrix(){
          postNotificationName:@"detectedProhibitedProcess" object:self];
     } else {
         DDLogDebug(@"Successfully terminated app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
+    }
+    return killSuccess;
+}
+
+
+- (NSInteger) killProcessWithPID:(pid_t)processPID
+{
+    NSInteger killSuccess = (NSInteger)kill(processPID, 9);
+    DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
+
+    if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
+        NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
+        DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
+        if (application) {
+            [_runningProhibitedProcesses addObject:application];
+        }
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"detectedProhibitedProcess" object:self];
+    } else {
+        DDLogDebug(@"Successfully terminated app with PID %d)", processPID);
     }
     return killSuccess;
 }
