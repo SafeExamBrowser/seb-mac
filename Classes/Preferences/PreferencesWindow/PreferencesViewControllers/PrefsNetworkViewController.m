@@ -228,7 +228,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         SEBURLFilterExpression *expressionURL;
         BOOL selectionRegex;
-        id selectionRegexValue = [filterArrayController valueForKeyPath:@"selection.regex"];
+        id selectionRegexValue = [self->filterArrayController valueForKeyPath:@"selection.regex"];
         if ([selectionRegexValue respondsToSelector:@selector(boolValue)]) {
             selectionRegex = [selectionRegexValue boolValue];
         } else {
@@ -237,16 +237,16 @@
         if (selectionRegex == NO) {
             expressionURL = [SEBURLFilterExpression filterExpressionWithString:expression];
         }
-        scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
-        user.stringValue = expressionURL.user ? expressionURL.user : @"";
-        password.stringValue = expressionURL.password ? expressionURL.password : @"";
-        host.stringValue = expressionURL.host ? expressionURL.host : @"";
+        self->scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
+        self->user.stringValue = expressionURL.user ? expressionURL.user : @"";
+        self->password.stringValue = expressionURL.password ? expressionURL.password : @"";
+        self->host.stringValue = expressionURL.host ? expressionURL.host : @"";
         //    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
         self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
         NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
-        query.stringValue = expressionURL.query ? expressionURL.query : @"";
-        fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
+        self->path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
+        self->query.stringValue = expressionURL.query ? expressionURL.query : @"";
+        self->fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
         
         // Update filter rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];

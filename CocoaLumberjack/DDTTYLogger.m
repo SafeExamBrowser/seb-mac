@@ -903,8 +903,8 @@ static DDTTYLogger *sharedInstance;
     __block BOOL result;
 
     dispatch_sync(globalLoggingQueue, ^{
-        dispatch_sync(loggerQueue, ^{
-            result = _colorsEnabled;
+        dispatch_sync(self->loggerQueue, ^{
+            result = self->_colorsEnabled;
         });
     });
 
@@ -914,9 +914,9 @@ static DDTTYLogger *sharedInstance;
 - (void)setColorsEnabled:(BOOL)newColorsEnabled {
     dispatch_block_t block = ^{
         @autoreleasepool {
-            _colorsEnabled = newColorsEnabled;
+            self->_colorsEnabled = newColorsEnabled;
 
-            if ([_colorProfilesArray count] == 0) {
+            if ([self->_colorProfilesArray count] == 0) {
                 [self loadDefaultColorProfiles];
             }
         }
@@ -938,7 +938,7 @@ static DDTTYLogger *sharedInstance;
     dispatch_queue_t globalLoggingQueue = [DDLog loggingQueue];
 
     dispatch_async(globalLoggingQueue, ^{
-        dispatch_async(loggerQueue, block);
+        dispatch_async(self->loggerQueue, block);
     });
 }
 
@@ -959,7 +959,7 @@ static DDTTYLogger *sharedInstance;
 
             NSUInteger i = 0;
 
-            for (DDTTYLoggerColorProfile *colorProfile in _colorProfilesArray) {
+            for (DDTTYLoggerColorProfile *colorProfile in self->_colorProfilesArray) {
                 if ((colorProfile->mask == mask) && (colorProfile->context == ctxt)) {
                     break;
                 }
@@ -967,10 +967,10 @@ static DDTTYLogger *sharedInstance;
                 i++;
             }
 
-            if (i < [_colorProfilesArray count]) {
-                [_colorProfilesArray replaceObjectAtIndex:i withObject:newColorProfile];
+            if (i < [self->_colorProfilesArray count]) {
+                [self->_colorProfilesArray replaceObjectAtIndex:i withObject:newColorProfile];
             } else {
-                [_colorProfilesArray addObject:newColorProfile];
+                [self->_colorProfilesArray addObject:newColorProfile];
             }
         }
     };
@@ -985,7 +985,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
@@ -1003,7 +1003,7 @@ static DDTTYLogger *sharedInstance;
 
             NSLogInfo(@"DDTTYLogger: newColorProfile: %@", newColorProfile);
 
-            [_colorProfilesDict setObject:newColorProfile forKey:tag];
+            [self->_colorProfilesDict setObject:newColorProfile forKey:tag];
         }
     };
 
@@ -1017,7 +1017,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
@@ -1031,7 +1031,7 @@ static DDTTYLogger *sharedInstance;
         @autoreleasepool {
             NSUInteger i = 0;
 
-            for (DDTTYLoggerColorProfile *colorProfile in _colorProfilesArray) {
+            for (DDTTYLoggerColorProfile *colorProfile in self->_colorProfilesArray) {
                 if ((colorProfile->mask == mask) && (colorProfile->context == context)) {
                     break;
                 }
@@ -1039,8 +1039,8 @@ static DDTTYLogger *sharedInstance;
                 i++;
             }
 
-            if (i < [_colorProfilesArray count]) {
-                [_colorProfilesArray removeObjectAtIndex:i];
+            if (i < [self->_colorProfilesArray count]) {
+                [self->_colorProfilesArray removeObjectAtIndex:i];
             }
         }
     };
@@ -1055,7 +1055,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
@@ -1065,7 +1065,7 @@ static DDTTYLogger *sharedInstance;
 
     dispatch_block_t block = ^{
         @autoreleasepool {
-            [_colorProfilesDict removeObjectForKey:tag];
+            [self->_colorProfilesDict removeObjectForKey:tag];
         }
     };
 
@@ -1079,7 +1079,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
@@ -1087,7 +1087,7 @@ static DDTTYLogger *sharedInstance;
 - (void)clearColorsForAllFlags {
     dispatch_block_t block = ^{
         @autoreleasepool {
-            [_colorProfilesArray removeAllObjects];
+            [self->_colorProfilesArray removeAllObjects];
         }
     };
 
@@ -1101,7 +1101,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
@@ -1109,7 +1109,7 @@ static DDTTYLogger *sharedInstance;
 - (void)clearColorsForAllTags {
     dispatch_block_t block = ^{
         @autoreleasepool {
-            [_colorProfilesDict removeAllObjects];
+            [self->_colorProfilesDict removeAllObjects];
         }
     };
 
@@ -1123,7 +1123,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
@@ -1131,8 +1131,8 @@ static DDTTYLogger *sharedInstance;
 - (void)clearAllColors {
     dispatch_block_t block = ^{
         @autoreleasepool {
-            [_colorProfilesArray removeAllObjects];
-            [_colorProfilesDict removeAllObjects];
+            [self->_colorProfilesArray removeAllObjects];
+            [self->_colorProfilesDict removeAllObjects];
         }
     };
 
@@ -1146,7 +1146,7 @@ static DDTTYLogger *sharedInstance;
         NSAssert(![self isOnGlobalLoggingQueue], @"Core architecture requirement failure");
 
         dispatch_async(globalLoggingQueue, ^{
-            dispatch_async(loggerQueue, block);
+            dispatch_async(self->loggerQueue, block);
         });
     }
 }
