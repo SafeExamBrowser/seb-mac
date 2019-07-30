@@ -104,7 +104,7 @@
 "Fmg-wZ-Cpg.title" = "F6 erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
-"g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos (cmd-shift-3 und cmd-shift-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)";
+"g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos und Bildschirmaufnahme (cmd+shift+3/+4/+5), entspricht Option 'Print Screen erlauben' (Windows 'Hooked Keys' Einstellungen)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X"; */
 "Gly-dr-m3X.ibShadowedToolTip" = "SEB verlangt, im Programmverzeichnis installiert zu werden (/Programme)";
