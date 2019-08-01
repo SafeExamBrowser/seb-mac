@@ -623,7 +623,7 @@
     if (_temporaryWebView) {
         dispatch_async(dispatch_get_main_queue(), ^{
             DDLogDebug(@"Closing temporary browser window in: %s", __FUNCTION__);
-            [self closeWebView:_temporaryWebView];
+            [self closeWebView:self.temporaryWebView];
         });
     }
     
@@ -679,7 +679,7 @@
             if (!_directConfigDownloadAttempted) {
                 // Close the temporary browser window
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self closeWebView:_temporaryWebView];
+                    [self closeWebView:self.temporaryWebView];
                 });
                 [self openingConfigURLRoleBack];
 
@@ -702,7 +702,7 @@
                 // by opening the URL in a temporary webview
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // which needs to be done on the main thread!
-                    [self openTempWindowForDownloadingConfigFromURL:_originalURL];
+                    [self openTempWindowForDownloadingConfigFromURL:self->_originalURL];
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -757,9 +757,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self showEnterUsernamePasswordDialog:text
-                                           modalForWindow:_activeBrowserWindow
+                                           modalForWindow:self.activeBrowserWindow
                                               windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                                 username:lastUsername
+                                                 username:self->lastUsername
                                             modalDelegate:self
                                            didEndSelector:@selector(enteredUsername:password:returnCode:)];
                 });
