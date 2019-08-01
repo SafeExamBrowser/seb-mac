@@ -147,8 +147,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
     
     NSString *path = @"CustomURLCache";
 
-    NSUInteger diskCapacity = 30*1024*1024;
-    NSUInteger memoryCapacity = 1024*1024;
+    NSUInteger diskCapacity = 20*1024*1024;
+    NSUInteger memoryCapacity = 512*1024;
     
     SEBFilteredURLCache *cache = [[SEBFilteredURLCache alloc] initWithMemoryCapacity:memoryCapacity
                                                                         diskCapacity:diskCapacity
