@@ -112,6 +112,7 @@
 
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url;
 
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url;
 - (void) openingConfigURLRoleBack;
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;

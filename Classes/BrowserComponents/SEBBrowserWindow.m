@@ -1669,6 +1669,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
 
 #pragma mark WebPolicyDelegates
+#pragma mark Downloading
 
 - (void)webView:(SEBWebView *)sender decidePolicyForMIMEType:(NSString*)type
         request:(NSURLRequest *)request 
@@ -1760,14 +1761,21 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     // Cache the download URL
     downloadURL = url;
-    // Create the request
-    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
-                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                            timeoutInterval:60.0];
-    // Create the download with the request and start loading the data.
-    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
-    if (!theDownload) {
-        DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
+    // OS X 10.9 and newer: Use modern NSURLSession for downloading files which also allows handling
+    // basic/digest/NTLM authentication
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+        [self downloadFileFromURL:url];
+    } else {
+        // OS X 10.7 and 10.8
+        // Create a NSURLDownload object with the request and start loading the data
+        // Create the request
+        NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                timeoutInterval:60.0];
+        NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
+        if (!theDownload) {
+            DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
+        }
     }
 }
 
@@ -1826,7 +1834,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         if (!downloadPath) {
             //if there's no path saved in preferences, set standard path
             downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
-            [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
         }
         downloadPath = [downloadPath stringByExpandingTildeInPath];
         if (self.downloadFilename) {
@@ -1848,8 +1855,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 - (void) download:(NSURLDownload *)download didFailWithError:(NSError *)error
 {
-    // Release the download.
-    
     // Inform the user
     [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
 
@@ -1861,8 +1866,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 - (void) downloadDidFinish:(NSURLDownload *)download
 {
-    // Release the download.
-    
     DDLogInfo(@"Download of File %@ did finish.", downloadPath);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
@@ -1896,6 +1899,102 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
     [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
 }
+
+
+#pragma mark Downloading for macOS 10.9 and higher
+
+- (void) downloadFileFromURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    if (!_URLSession) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self.browserController delegateQueue:nil];
+    }
+    NSURLSessionDownloadTask *downloadTask = [_URLSession downloadTaskWithURL:url
+                                                            completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error)
+                                              {
+                                                  [self didDownloadFile:fileLocation response:response error:error];
+                                              }];
+    
+    [downloadTask resume];
+}
+
+
+- (void) didDownloadFile:(NSURL *)url
+                response:(NSURLResponse *)response
+                   error:(NSError *)error
+{
+    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
+    
+    if (!error) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        if ([url.pathExtension isEqualToString:@"seb"]) {
+            // If file extension indicates a .seb file, we try to open it
+            // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+                // Read the contents of the .seb config file and delete it from disk
+                NSData *sebFileData = [NSData dataWithContentsOfURL:url];
+                NSFileManager *fileManager = [NSFileManager defaultManager];
+                [fileManager removeItemAtURL:url error:&error];
+                if (error) {
+                    DDLogError(@"Failed to remove downloaded SEB config file %@! Error: %@", url, [error userInfo]);
+                }
+                if (sebFileData) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.browserController openDownloadedSEBConfigData:sebFileData fromURL:url];
+                    });
+                    return;
+                }
+            }
+        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+            // If downloading is allowed
+            NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+            if (downloadPath.length == 0) {
+                //if there's no path saved in preferences, set standard path
+                downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
+            }
+            downloadPath = [downloadPath stringByExpandingTildeInPath];
+            NSString *filename = url.lastPathComponent;
+            if (self.downloadFilename) {
+                // If we got the filename from a <a download="... tag, we use that
+                // as WebKit doesn't recognize the filename and suggests "Unknown"
+                filename = self.downloadFilename;
+            } else if (self.downloadFileExtension) {
+                // If we didn't get the file name, at least set the file extension properly
+                filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
+            }
+            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename]];
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            
+             if ([fileManager moveItemAtURL:url toURL:destinationURL error:&error]) {
+                 DDLogDebug(@"Downloaded file was saved: %@", destinationURL.absoluteString);
+                 
+                 return;
+             } else {
+                 DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                 });
+                 return;
+             }
+        } else {
+            // Downloading not allowed
+            return;
+        }
+    }
+    
+    // Download failed: Show error message
+    DDLogError(@"Download failed! Error - %@ %@",
+               error.description,
+               [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+    });
+}
+
 
 
 @end

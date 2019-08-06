@@ -77,8 +77,8 @@
 @property (strong) NSView *filterMessageHolder;
 @property (strong) NSPanel *filterMessageHUD;
 
+@property (strong) id URLSession;
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
-
 @property (copy) NSString *downloadFilename;
 @property (copy) NSString *downloadFileExtension;
 
