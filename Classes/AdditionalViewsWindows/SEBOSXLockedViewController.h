@@ -35,7 +35,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SEBController.h"
-#import "SEBKeychainManager.h"
 #import "SEBLockedViewController.h"
 
 @class SEBController;
@@ -45,7 +44,6 @@
     SEBController *_sebController;
 }
 
-@property (strong, nonatomic) SEBKeychainManager *keychainManager;
 @property (strong, nonatomic) SEBLockedViewController *lockedViewController;
 @property (strong, nonatomic) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;

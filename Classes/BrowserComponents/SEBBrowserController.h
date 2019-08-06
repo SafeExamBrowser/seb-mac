@@ -71,15 +71,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SEBBrowserController : NSObject
+@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate>
 
 @property (weak) id delegate;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
 
+@property (strong) id URLSession;
+
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 - (void) conditionallyInitCustomHTTPProtocol;
+
+- (void) downloadFileFromURL:(NSURL *)url;
 
 @end

@@ -291,7 +291,7 @@
     
     [self.sebController conditionallyLockExam];
     
-    // Save current WebKit Cookie Policy
+    // Log current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
      if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) DDLogInfo(@"NSHTTPCookieAcceptPolicyAlways");
      if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) DDLogInfo(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain");
@@ -507,391 +507,6 @@
 }
 
 
-
-//// Downloading of SEB Config Files
-
-/// Initiating Opening the Config File Link
-
-// Conditionally open a config from an URL passed to SEB as parameter
-// usually with a link using the seb(s):// protocols
-- (void) openConfigFromSEBURL:(NSURL *)url
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            // If yes, we don't download the .seb file
-            // Also reset the flag for SEB starting up
-            _sebController.startingUp = false;
-            NSAlert *modalAlert = [_sebController newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert runModal];
-            [_sebController removeAlertWindow:modalAlert.window];
-            _sebController.openingSettings = false;
-        } else {
-            // SEB isn't in exam mode: reconfiguring is allowed
-            
-            // Figure the download URL out, depending on if http or https should be used
-            if ([url.scheme isEqualToString:@"seb"]) {
-                // If it's a seb:// URL, we try to download it by http
-                url = [url URLByReplacingScheme:@"http"];
-            } else if ([url.scheme isEqualToString:@"sebs"]) {
-                // If it's a sebs:// URL, we try to download it by https
-                url = [url URLByReplacingScheme:@"https"];
-            }
-            _originalURL = url;
-            
-            // Check if we should try to download the config file from the seb(s) URL directly
-            // This is the case when the URL has a .seb filename extension
-            // But we only try it when it didn't fail in a first attempt
-            if (_directConfigDownloadAttempted == false && [url.pathExtension isEqualToString:@"seb"]) {
-                _directConfigDownloadAttempted = true;
-                [self downloadSEBConfigFileFromURL:url];
-            } else {
-                _directConfigDownloadAttempted = false;
-                [self openTempWindowForDownloadingConfigFromURL:url];
-            }
-        }
-    } else {
-        DDLogDebug(@"%s aborted, downloading and opening settings not allowed or temporary webview already open: %@", __FUNCTION__, _temporaryWebView);
-        _sebController.openingSettings = false;
-    }
-}
-
-
-// Open a new, temporary browser window for downloading the linked config file
-// This allows the user to authenticate if the link target is stored on a secured server
-- (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-
-    // Create a new WebView
-    NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
-    _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
-    _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
-    _temporaryWebView.creatingWebView = nil;
-    _temporaryWebView.browserController = self;
-
-    newWindow.isPanel = true;
-    [newWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
-    [newWindow setTitle:tempWindowTitle];
-    
-    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-    [self setCustomWebPreferencesForWebView:_temporaryWebView];
-    
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
-        [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL elevateWindowLevels = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels];
-    
-    [self addBrowserWindow:(SEBBrowserWindow *)newWindow
-               withWebView:_temporaryWebView
-                 withTitle:tempWindowTitle];
-    
-    self.activeBrowserWindow = newWindow;
-    [_temporaryBrowserWindowDocument.mainWindowController showWindow:self];
-    [newWindow makeKeyAndOrderFront:self];
-
-    // Try to download the SEB config file by opening it in the invisible WebView
-    [self tryToDownloadConfigByOpeningURL:url];
-}
-
-
-// Try to download the config by opening the URL in the temporary browser window
-- (void) tryToDownloadConfigByOpeningURL:(NSURL *)url
-{
-    DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
-    [[_temporaryWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
-
-}
-
-
-// Called by the browser webview delegate if loading the config URL failed
-- (void) openingConfigURLFailed {
-    DDLogDebug(@"%s", __FUNCTION__);
-    
-    // Close the temporary browser window if it was opened
-    if (_temporaryWebView) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            DDLogDebug(@"Closing temporary browser window in: %s", __FUNCTION__);
-            [self closeWebView:_temporaryWebView];
-        });
-    }
-    
-    [self openingConfigURLRoleBack];
-
-    // Also reset the flag for SEB starting up
-    _sebController.startingUp = false;
-}
-
-
-/// Performing the Download
-
-// This method is called by the browser webview delegate if the file to download has a .seb extension
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-
-    // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
-    // basic/digest/NTLM authentication without having to open a temporary webview
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        if (!_URLSession) {
-            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-        }
-        NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
-                                                        completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                              {
-                                                  [self didDownloadData:sebFileData response:response error:error URL:url];
-                                              }];
-        
-        [downloadTask resume];
-
-    } else {
-        // OS X 10.7 and 10.8: Use NSURLConnection
-        NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
-        [NSURLConnection sendAsynchronousRequest:downloadRequest
-                                           queue:NSOperationQueue.mainQueue
-                               completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
-         {
-             [self didDownloadData:sebFileData response:response error:error URL:url];
-         }];
-    }
-}
-
-
-- (void) didDownloadData:(NSData *)sebFileData response:(NSURLResponse *)response error:(NSError *)error URL:(NSURL *)url
-{
-    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
-
-    if (error) {
-        if (error.code == NSURLErrorCancelled) {
-            // Only  close temp browser window if this wasn't a direct download attempt
-            if (!_directConfigDownloadAttempted) {
-                // Close the temporary browser window
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self closeWebView:_temporaryWebView];
-                });
-                [self openingConfigURLRoleBack];
-
-            } else {
-                _directConfigDownloadAttempted = false;
-            }
-            return;
-        }
-        if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
-            // If it was a seb:// URL, and http failed, we try to download it by https
-            NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
-            if (_directConfigDownloadAttempted) {
-                [self downloadSEBConfigFileFromURL:downloadURL];
-            } else {
-                [self tryToDownloadConfigByOpeningURL:downloadURL];
-            }
-        } else {
-            if (_directConfigDownloadAttempted) {
-                // If we tried a direct download first, now try to download it
-                // by opening the URL in a temporary webview
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // which needs to be done on the main thread!
-                    [self openTempWindowForDownloadingConfigFromURL:_originalURL];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self downloadingSEBConfigFailed:error];
-                });
-            }
-        }
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self openDownloadedSEBConfigData:sebFileData fromURL:url];
-        });
-    }
-}
-
-
-// NSURLSession download basic/digest/NTLM authentication challenge delegate
-// Only called when downloading .seb files and only when running on OS X 10.9 or higher
-- (void)URLSession:(NSURLSession *)session
-              task:(NSURLSessionTask *)task
-didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
- completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
-{
-    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
-    
-    // We accept any username/password authentication challenges.
-    NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
-    
-    if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
-        [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
-        [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
-        DDLogInfo(@"URLSession didReceive HTTPBasic/HTTPDigest/NTLM challenge");
-        // If we have credentials from a previous login to the server we're on, try these first
-        // but not when the credentials are from a failed username/password attempt
-        if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
-            completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
-            // We reset the cached previously entered credentials, because subsequent
-            // downloads in this session won't need authentication anymore
-            _enteredCredential = nil;
-        } else {
-            // Allow to enter password 3 times
-            if ([challenge previousFailureCount] < 3) {
-                // Display authentication dialog
-                _pendingChallengeCompletionHandler = completionHandler;
-                
-                NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
-                if ([challenge previousFailureCount] == 0) {
-                    text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
-                    lastUsername = @"";
-                } else {
-                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self showEnterUsernamePasswordDialog:text
-                                           modalForWindow:_activeBrowserWindow
-                                              windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                                 username:lastUsername
-                                            modalDelegate:self
-                                           didEndSelector:@selector(enteredUsername:password:returnCode:)];
-                });
-                
-            } else {
-                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-                // inform the user that the user name and password
-                // in the preferences are incorrect
-                
-                [self openingConfigURLRoleBack];
-            }
-        }
-    } else {
-        DDLogInfo(@"URLSession didReceive other challenge (default handling)");
-        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
-    }
-}
-
-
-// Managing entered credentials for .seb file download
-- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
-{
-    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
-    
-    if (_pendingChallengeCompletionHandler) {
-        if (returnCode == SEBEnterPasswordOK) {
-            lastUsername = username;
-            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
-                                                                        password:password
-                                                                     persistence:NSURLCredentialPersistenceForSession];
-            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
-
-            _enteredCredential = newCredential;
-            return;
-            
-        // Authentication wasn't successful
-        } else if (returnCode == SEBEnterPasswordCancel) {
-            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-            _enteredCredential = nil;
-            _pendingChallengeCompletionHandler = nil;
-        } else {
-            // Any other case as when the server aborted the authentication challenge
-            _enteredCredential = nil;
-            _pendingChallengeCompletionHandler = nil;
-        }
-        [self openingConfigURLRoleBack];
-    }
-}
-
-
-// Called when downloading the config file failed
-- (void) downloadingSEBConfigFailed:(NSError *)error
-{
-    DDLogError(@"%s error: %@", __FUNCTION__, error);
-    
-    // Only show the download error and close temp browser window if this wasn't a direct download attempt
-    if (!_directConfigDownloadAttempted) {
-        
-        // Close the temporary browser window
-        [self closeWebView:_temporaryWebView];
-        // Show the load error
-        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-        [self openingConfigURLRoleBack];
-    }
-}
-
-
-// Called when SEB successfully downloaded the config file
-- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-
-    // Close the temporary browser window
-    [self closeWebView:_temporaryWebView];
-    
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    
-    // Get current config path
-    NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Store the URL of the .seb file as current config file path
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-    
-    storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
-    
-    // Reset the pending challenge in case it was an authenticated load
-    _pendingChallengeCompletionHandler = nil;
-
-    if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
-        DDLogInfo(@"Storing downloaded SEB config data was successful");
-
-        // Reset the direct download flag for the case this was a successful direct download
-        _directConfigDownloadAttempted = false;
-        [_sebController didOpenSettings];
-        
-    } else {
-        /// Decrypting new settings wasn't successfull:
-        DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
-
-        // We have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-
-        // Was this an attempt to download the config directly and the downloaded data was corrupted?
-        if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
-            // We try to download the config in a temporary WebView
-            DDLogInfo(@"Trying to download the config in a temporary WebView");
-            [self openConfigFromSEBURL:url];
-        } else {
-            // The download failed definitely or was canceled by the user:
-            DDLogError(@"Decrypting downloaded SEB config data failed!");
-
-            // Reset the direct download flag for the case this was a successful direct download
-            _directConfigDownloadAttempted = false;
-            
-            [self openingConfigURLRoleBack];
-        }
-    }
-}
-
-
-- (void) openingConfigURLRoleBack
-{
-    // If SEB was just started (by opening a seb(s) link)
-    if (_sebController.startingUp) {
-        // we quit, as decrypting the config wasn't successful
-        _sebController.quittingMyself = TRUE; // SEB is terminating itself
-        [NSApp terminate: nil]; // Quit SEB
-    }
-    // Reset the opening settings flag which prevents opening URLs concurrently
-    _sebController.openingSettings = false;
-}
-
-
 // Set web page title for a window/WebView
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
 {
@@ -1070,6 +685,393 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         }
     }
     return placeholderString;
+}
+
+
+#pragma mark Downloading SEB Config Files
+
+/// Initiating Opening the Config File Link
+
+// Conditionally open a config from an URL passed to SEB as parameter
+// usually with a link using the seb(s):// protocols
+- (void) openConfigFromSEBURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
+        // Check if SEB is in exam mode = private UserDefauls are switched on
+        if (NSUserDefaults.userDefaultsPrivate) {
+            // If yes, we don't download the .seb file
+            // Also reset the flag for SEB starting up
+            _sebController.startingUp = false;
+            NSAlert *modalAlert = [_sebController newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            [_sebController removeAlertWindow:modalAlert.window];
+            _sebController.openingSettings = false;
+        } else {
+            // SEB isn't in exam mode: reconfiguring is allowed
+            
+            // Figure the download URL out, depending on if http or https should be used
+            if ([url.scheme isEqualToString:@"seb"]) {
+                // If it's a seb:// URL, we try to download it by http
+                url = [url URLByReplacingScheme:@"http"];
+            } else if ([url.scheme isEqualToString:@"sebs"]) {
+                // If it's a sebs:// URL, we try to download it by https
+                url = [url URLByReplacingScheme:@"https"];
+            }
+            _originalURL = url;
+            
+            // Check if we should try to download the config file from the seb(s) URL directly
+            // This is the case when the URL has a .seb filename extension
+            // But we only try it when it didn't fail in a first attempt
+            if (_directConfigDownloadAttempted == false && [url.pathExtension isEqualToString:@"seb"]) {
+                _directConfigDownloadAttempted = true;
+                [self downloadSEBConfigFileFromURL:url];
+            } else {
+                _directConfigDownloadAttempted = false;
+                [self openTempWindowForDownloadingConfigFromURL:url];
+            }
+        }
+    } else {
+        DDLogDebug(@"%s aborted, downloading and opening settings not allowed or temporary webview already open: %@", __FUNCTION__, _temporaryWebView);
+        _sebController.openingSettings = false;
+    }
+}
+
+
+// Open a new, temporary browser window for downloading the linked config file
+// This allows the user to authenticate if the link target is stored on a secured server
+- (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    // Create a new WebView
+    NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
+    _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
+    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
+    _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
+    _temporaryWebView.creatingWebView = nil;
+    _temporaryWebView.browserController = self;
+    
+    newWindow.isPanel = true;
+    [newWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
+    [newWindow setTitle:tempWindowTitle];
+    
+    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
+    [self setCustomWebPreferencesForWebView:_temporaryWebView];
+    
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL elevateWindowLevels = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    // Order new browser window to the front of our level
+    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels];
+    
+    [self addBrowserWindow:(SEBBrowserWindow *)newWindow
+               withWebView:_temporaryWebView
+                 withTitle:tempWindowTitle];
+    
+    self.activeBrowserWindow = newWindow;
+    [_temporaryBrowserWindowDocument.mainWindowController showWindow:self];
+    [newWindow makeKeyAndOrderFront:self];
+    
+    // Try to download the SEB config file by opening it in the invisible WebView
+    [self tryToDownloadConfigByOpeningURL:url];
+}
+
+
+// Try to download the config by opening the URL in the temporary browser window
+- (void) tryToDownloadConfigByOpeningURL:(NSURL *)url
+{
+    DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
+    [[_temporaryWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
+    
+}
+
+
+// Called by the browser webview delegate if loading the config URL failed
+- (void) openingConfigURLFailed {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    // Close the temporary browser window if it was opened
+    if (_temporaryWebView) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DDLogDebug(@"Closing temporary browser window in: %s", __FUNCTION__);
+            [self closeWebView:_temporaryWebView];
+        });
+    }
+    
+    [self openingConfigURLRoleBack];
+    
+    // Also reset the flag for SEB starting up
+    _sebController.startingUp = false;
+}
+
+
+/// Performing the Download
+
+// This method is called by the browser webview delegate if the file to download has a .seb extension
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
+    // basic/digest/NTLM authentication without having to open a temporary webview
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+        if (!_URLSession) {
+            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+        }
+        NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
+                                                        completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                              {
+                                                  [self didDownloadConfigData:sebFileData response:response error:error URL:url];
+                                              }];
+        
+        [downloadTask resume];
+        
+    } else {
+        // OS X 10.7 and 10.8: Use NSURLConnection
+        NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:downloadRequest
+                                           queue:NSOperationQueue.mainQueue
+                               completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
+         {
+             [self didDownloadConfigData:sebFileData response:response error:error URL:url];
+         }];
+    }
+}
+
+
+- (void) didDownloadConfigData:(NSData *)sebFileData
+                      response:(NSURLResponse *)response
+                         error:(NSError *)error
+                           URL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
+    
+    if (error) {
+        if (error.code == NSURLErrorCancelled) {
+            // Only close temp browser window if this wasn't a direct download attempt
+            if (!_directConfigDownloadAttempted) {
+                // Close the temporary browser window
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self closeWebView:_temporaryWebView];
+                });
+                [self openingConfigURLRoleBack];
+                
+            } else {
+                _directConfigDownloadAttempted = false;
+            }
+            return;
+        }
+        if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
+            // If it was a seb:// URL, and http failed, we try to download it by https
+            NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
+            if (_directConfigDownloadAttempted) {
+                [self downloadSEBConfigFileFromURL:downloadURL];
+            } else {
+                [self tryToDownloadConfigByOpeningURL:downloadURL];
+            }
+        } else {
+            if (_directConfigDownloadAttempted) {
+                // If we tried a direct download first, now try to download it
+                // by opening the URL in a temporary webview
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // which needs to be done on the main thread!
+                    [self openTempWindowForDownloadingConfigFromURL:_originalURL];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self downloadingSEBConfigFailed:error];
+                });
+            }
+        }
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self openDownloadedSEBConfigData:sebFileData fromURL:url];
+        });
+    }
+}
+
+
+// NSURLSession download basic/digest/NTLM authentication challenge delegate
+// Only called when downloading .seb files and only when running on OS X 10.9 or higher
+- (void)URLSession:(NSURLSession *)session
+              task:(NSURLSessionTask *)task
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
+    
+    // We accept any username/password authentication challenges.
+    NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
+    
+    if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+        [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
+        [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
+        DDLogInfo(@"URLSession didReceive HTTPBasic/HTTPDigest/NTLM challenge");
+        // If we have credentials from a previous login to the server we're on, try these first
+        // but not when the credentials are from a failed username/password attempt
+        if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
+            completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
+            // We reset the cached previously entered credentials, because subsequent
+            // downloads in this session won't need authentication anymore
+            _enteredCredential = nil;
+        } else {
+            // Allow to enter password 3 times
+            if ([challenge previousFailureCount] < 3) {
+                // Display authentication dialog
+                _pendingChallengeCompletionHandler = completionHandler;
+                
+                NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+                if ([challenge previousFailureCount] == 0) {
+                    text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+                    lastUsername = @"";
+                } else {
+                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showEnterUsernamePasswordDialog:text
+                                           modalForWindow:_activeBrowserWindow
+                                              windowTitle:NSLocalizedString(@"Authentication Required", nil)
+                                                 username:lastUsername
+                                            modalDelegate:self
+                                           didEndSelector:@selector(enteredUsername:password:returnCode:)];
+                });
+                
+            } else {
+                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+                // inform the user that the user name and password
+                // in the preferences are incorrect
+                
+                [self openingConfigURLRoleBack];
+            }
+        }
+    } else {
+        DDLogInfo(@"URLSession didReceive other challenge (default handling)");
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
+    }
+}
+
+
+// Managing entered credentials for .seb file download
+- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
+{
+    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
+    
+    if (_pendingChallengeCompletionHandler) {
+        if (returnCode == SEBEnterPasswordOK) {
+            lastUsername = username;
+            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
+                                                                        password:password
+                                                                     persistence:NSURLCredentialPersistenceForSession];
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+            
+            _enteredCredential = newCredential;
+            return;
+            
+            // Authentication wasn't successful
+        } else if (returnCode == SEBEnterPasswordCancel) {
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+            _enteredCredential = nil;
+            _pendingChallengeCompletionHandler = nil;
+        } else {
+            // Any other case as when the server aborted the authentication challenge
+            _enteredCredential = nil;
+            _pendingChallengeCompletionHandler = nil;
+        }
+        [self openingConfigURLRoleBack];
+    }
+}
+
+
+// Called when downloading the config file failed
+- (void) downloadingSEBConfigFailed:(NSError *)error
+{
+    DDLogError(@"%s error: %@", __FUNCTION__, error);
+    
+    // Only show the download error and close temp browser window if this wasn't a direct download attempt
+    if (!_directConfigDownloadAttempted) {
+        
+        // Close the temporary browser window
+        [self closeWebView:_temporaryWebView];
+        // Show the load error
+        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        [self openingConfigURLRoleBack];
+    }
+}
+
+
+// Called when SEB successfully downloaded the config file
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    // Close the temporary browser window
+    [self closeWebView:_temporaryWebView];
+    
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    
+    // Get current config path
+    NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    // Store the URL of the .seb file as current config file path
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
+    
+    storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
+    
+    // Reset the pending challenge in case it was an authenticated load
+    _pendingChallengeCompletionHandler = nil;
+    
+    if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
+        DDLogInfo(@"Storing downloaded SEB config data was successful");
+        
+        // Reset the direct download flag for the case this was a successful direct download
+        _directConfigDownloadAttempted = false;
+        [_sebController didOpenSettings];
+        
+    } else {
+        /// Decrypting new settings wasn't successfull:
+        DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
+        
+        // We have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        
+        // Was this an attempt to download the config directly and the downloaded data was corrupted?
+        if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
+            // We try to download the config in a temporary WebView
+            DDLogInfo(@"Trying to download the config in a temporary WebView");
+            [self openConfigFromSEBURL:url];
+        } else {
+            // The download failed definitely or was canceled by the user:
+            DDLogError(@"Decrypting downloaded SEB config data failed!");
+            
+            // Reset the direct download flag for the case this was a successful direct download
+            _directConfigDownloadAttempted = false;
+            
+            [self openingConfigURLRoleBack];
+        }
+    }
+}
+
+
+- (void) openingConfigURLRoleBack
+{
+    // If SEB was just started (by opening a seb(s) link)
+    if (_sebController.startingUp) {
+        // we quit, as decrypting the config wasn't successful
+        _sebController.quittingMyself = TRUE; // SEB is terminating itself
+        [NSApp terminate: nil]; // Quit SEB
+    }
+    // Reset the opening settings flag which prevents opening URLs concurrently
+    _sebController.openingSettings = false;
 }
 
 

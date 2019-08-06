@@ -488,4 +488,127 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+// NSURLSession download basic/digest/NTLM authentication challenge delegate
+// Only called when downloading .seb files and only when running on iOS and macOS 10.9 or higher
+//- (void)URLSession:(NSURLSession *)session
+//              task:(NSURLSessionTask *)task
+//didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+// completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+//{
+//    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
+//
+//    // We accept any username/password authentication challenges.
+//    NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
+//
+//    if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+//        [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
+//        [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
+//        DDLogInfo(@"URLSession didReceive HTTPBasic/HTTPDigest/NTLM challenge");
+//        // If we have credentials from a previous login to the server we're on, try these first
+//        // but not when the credentials are from a failed username/password attempt
+//        if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
+//            completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
+//            // We reset the cached previously entered credentials, because subsequent
+//            // downloads in this session won't need authentication anymore
+//            _enteredCredential = nil;
+//        } else {
+//            // Allow to enter password 3 times
+//            if ([challenge previousFailureCount] < 3) {
+//                // Display authentication dialog
+//                _pendingChallengeCompletionHandler = completionHandler;
+//
+//                NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+//                if ([challenge previousFailureCount] == 0) {
+//                    text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+//                    lastUsername = @"";
+//                } else {
+//                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+//                }
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self showEnterUsernamePasswordDialog:text
+//                                           modalForWindow:_activeBrowserWindow
+//                                              windowTitle:NSLocalizedString(@"Authentication Required", nil)
+//                                                 username:lastUsername
+//                                            modalDelegate:self
+//                                           didEndSelector:@selector(enteredUsername:password:returnCode:)];
+//                });
+//
+//            } else {
+//                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+//                // inform the user that the user name and password
+//                // in the preferences are incorrect
+//
+//                [self openingConfigURLRoleBack];
+//            }
+//        }
+//    } else {
+//        DDLogInfo(@"URLSession didReceive other challenge (default handling)");
+//        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
+//    }
+//}
+//
+//
+//// Managing entered credentials for .seb file download
+//- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
+//{
+//    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
+//
+//    if (_pendingChallengeCompletionHandler) {
+//        if (returnCode == SEBEnterPasswordOK) {
+//            lastUsername = username;
+//            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
+//                                                                        password:password
+//                                                                     persistence:NSURLCredentialPersistenceForSession];
+//            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+//
+//            _enteredCredential = newCredential;
+//            return;
+//
+//            // Authentication wasn't successful
+//        } else if (returnCode == SEBEnterPasswordCancel) {
+//            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+//            _enteredCredential = nil;
+//            _pendingChallengeCompletionHandler = nil;
+//        } else {
+//            // Any other case as when the server aborted the authentication challenge
+//            _enteredCredential = nil;
+//            _pendingChallengeCompletionHandler = nil;
+//        }
+//        [self openingConfigURLRoleBack];
+//    }
+//}
+
+
+
+
+#pragma mark - Downloading Files
+
+- (void) downloadFileFromURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    if (!_URLSession) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    }
+    NSURLSessionDownloadTask *downloadTask = [_URLSession downloadTaskWithURL:url
+                                                    completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error)
+                                          {
+//                                              [self didDownloadConfigData:sebFileData response:response error:error URL:url];
+                                          }];
+    
+    [downloadTask resume];
+}
+
+
+- (void) didDownloadFile:(NSURL *)url
+                response:(NSURLResponse *)response
+                   error:(NSError *)error
+{
+    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
+    [_delegate didDownloadFile:url response:response error:error];
+}
+
+
 @end
