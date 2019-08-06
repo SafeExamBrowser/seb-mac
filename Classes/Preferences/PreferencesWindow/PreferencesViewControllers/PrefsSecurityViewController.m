@@ -151,8 +151,8 @@
                               [preferences setSecureObject:[fileName stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
                               [self setLogDirectory];
                           } else {
-                              [chooseLogDirectoryControl selectItemAtIndex:0];
-                              [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
+                              [self->chooseLogDirectoryControl selectItemAtIndex:0];
+                              [self->chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
                           }
                       }];
 }
