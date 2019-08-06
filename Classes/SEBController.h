@@ -110,6 +110,7 @@
     BOOL _forceAppFolder;
     SEBMinMacOSVersion _enforceMinMacOSVersion;
     pid_t sebPID;
+    BOOL allowScreenRecording;
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;

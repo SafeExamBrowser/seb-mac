@@ -129,8 +129,8 @@
                               [preferences setSecureObject:[fileName stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
                               [self setDownloadDirectory];
                           } else {
-                              [chooseDownloadDirectory selectItemAtIndex:0];
-                              [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
+                              [self->chooseDownloadDirectory selectItemAtIndex:0];
+                              [self->chooseDownloadDirectory synchronizeTitleAndSelectedItem];
                           }
                       }];
 }
