@@ -2985,8 +2985,40 @@ bool insideMatrix(){
     if (launchedApplication && ![launchedApplication isEqual:[NSRunningApplication currentApplication]]) {
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
-        [self performSelector:@selector(killApplication:) withObject:launchedApplication afterDelay:1];
+        
+        DDLogDebug(@"Reinforcing the kiosk mode was requested");
+        // Switch the strict kiosk mode temporary off
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
+        
+        // Close the black background covering windows
+        [self closeCapWindows];
+        
+        [self killApplication:launchedApplication];
         launchedApplication = nil;
+
+        // Reopen the covering Windows and reset the windows elevation levels
+        DDLogDebug(@"requestedReinforceKioskMode: Reopening cap windows.");
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        if (self.browserController.mainBrowserWindow.isVisible) {
+            [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+        }
+        
+        // Open new covering background windows on all currently available screens
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self coverScreens];
+        
+        // Switch the proper kiosk mode on again
+        [self setElevateWindowLevels];
+        
+        //            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        
+        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+        
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
     }
 }
 
