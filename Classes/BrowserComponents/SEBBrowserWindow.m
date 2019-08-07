@@ -1866,11 +1866,40 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 - (void) downloadDidFinish:(NSURLDownload *)download
 {
+    DDLogDebug(@"%s: Downloaded file with path: %@", __FUNCTION__, downloadPath);
+    [self fileDownloadedSuccessfully:downloadPath];
+}
+
+
+- (void) download:(NSURLDownload *)download didCreateDestination:(NSString *)path
+{
+    // path now contains the destination path
+    // of the download, taking into account any
+    // unique naming caused by -setDestination:allowOverwrite:
+    [self storeDownloadPath:path];
+}
+
+
+- (void) storeDownloadPath:(NSString *)path
+{
+    downloadPath = path;
+    NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
+    if (!downloadPaths) {
+        downloadPaths = [NSMutableArray arrayWithCapacity:1];
+    }
+    [downloadPaths addObject:downloadPath];
+    [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
+    [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
+}
+
+
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
     DDLogInfo(@"Download of File %@ did finish.", downloadPath);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
-    // Open downloaded file
-    [[NSWorkspace sharedWorkspace] openFile:downloadPath];
+        // Open downloaded file
+        [[NSWorkspace sharedWorkspace] openFile:path];
     } else {
         NSAlert *modalAlert = [self.browserController.sebController newAlert];
         // Inform user that download succeeded
@@ -1881,23 +1910,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         [modalAlert runModal];
         [self.browserController.sebController removeAlertWindow:modalAlert.window];
     }
-}
-
-
-- (void) download:(NSURLDownload *)download didCreateDestination:(NSString *)path
-{
-    // path now contains the destination path
-    // of the download, taking into account any
-    // unique naming caused by -setDestination:allowOverwrite:
-    DDLogInfo(@"Final file destination: %@",path);
-    downloadPath = path;
-    NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
-    if (!downloadPaths) {
-        downloadPaths = [NSMutableArray arrayWithCapacity:1];
-    }
-    [downloadPaths addObject:downloadPath];
-    [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
-    [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
 }
 
 
@@ -1925,12 +1937,15 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 response:(NSURLResponse *)response
                    error:(NSError *)error
 {
-    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
+    NSString *suggestedFilename = response.suggestedFilename;
+    NSURL *responseURL = response.URL;
+
+    DDLogDebug(@"%s from URL: %@ (NSURLResponse URL: %@, suggestedFilename: %@, error: %@", __FUNCTION__, url, responseURL, suggestedFilename, error);
     
     if (!error) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        if ([url.pathExtension isEqualToString:@"seb"]) {
+        if ([responseURL.pathExtension isEqualToString:@"seb"]) {
             // If file extension indicates a .seb file, we try to open it
             // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1956,7 +1971,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
             }
             downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSString *filename = url.lastPathComponent;
+            NSString *filename = suggestedFilename;
             if (self.downloadFilename) {
                 // If we got the filename from a <a download="... tag, we use that
                 // as WebKit doesn't recognize the filename and suggests "Unknown"
@@ -1968,18 +1983,33 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename]];
             
             NSFileManager *fileManager = [NSFileManager defaultManager];
-            
-             if ([fileManager moveItemAtURL:url toURL:destinationURL error:&error]) {
-                 DDLogDebug(@"Downloaded file was saved: %@", destinationURL.absoluteString);
-                 
-                 return;
-             } else {
-                 DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                 });
-                 return;
-             }
+            int fileIndex = 1;
+            NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
+            NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
+            NSString* extension = [filename pathExtension];
+
+            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename] error:&error] == NO) {
+                if (error.code == NSFileWriteFileExistsError) {
+                    error = nil;
+                    filename = [NSString stringWithFormat:@"%@-%d.%@", filenameWithoutExtension, fileIndex, extension];
+                    fileIndex++;
+                } else {
+                    break;
+                }
+            }
+            if (!error) {
+                [self storeDownloadPath:destinationURL.absoluteString];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self fileDownloadedSuccessfully:destinationURL.absoluteString];
+                });
+                return;
+            } else {
+                DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                });
+                return;
+            }
         } else {
             // Downloading not allowed
             return;
