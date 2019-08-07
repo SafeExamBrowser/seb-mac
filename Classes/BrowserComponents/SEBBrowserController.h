@@ -84,6 +84,4 @@
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 - (void) conditionallyInitCustomHTTPProtocol;
 
-- (void) downloadFileFromURL:(NSURL *)url;
-
 @end
