@@ -63,6 +63,15 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     BOOL remoteDictationEnabled = [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain
                                                                    key:RemoteDictationDefaultsKey] boolValue];
     [preferences setPersistedSecureBool:remoteDictationEnabled forKey:cachedRemoteDictationSettingKey];
+    
+    // Cache current system preferences setting for TouchBar
+    NSString *touchBarGlobalDefaultsValue = (NSString *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
+                                                                             key:TouchBarGlobalDefaultsKey];
+    [preferences setPersistedSecureObject:touchBarGlobalDefaultsValue forKey:cachedTouchBarGlobalSettingsKey];
+    
+    NSDictionary *touchBarFnDictionaryDefaultsValue = (NSDictionary *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
+                                                                             key:TouchBarFnDictionaryDefaultsKey];
+    [preferences setPersistedSecureObject:touchBarFnDictionaryDefaultsValue forKey:cachedTouchBarFnDictionarySettingsKey];
 }
 
 
@@ -88,6 +97,17 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     [preferences setValue:[NSNumber numberWithBool:remoteDictationEnabled]
                    forKey:RemoteDictationDefaultsKey
         forDefaultsDomain:RemoteDictationDefaultsDomain];
+    
+    // Restore setting for TouchBar before SEB was running to system preferences
+    NSString *touchBarGlobalDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarGlobalSettingsKey];
+    [preferences setValue:touchBarGlobalDefaultsValue
+                   forKey:TouchBarGlobalDefaultsKey
+        forDefaultsDomain:TouchBarDefaultsDomain];
+    
+    NSDictionary *touchBarFnDictionaryDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarFnDictionarySettingsKey];
+    [preferences setValue:touchBarFnDictionaryDefaultsValue
+                   forKey:TouchBarFnDictionaryDefaultsKey
+        forDefaultsDomain:TouchBarDefaultsDomain];
 }
 
 
