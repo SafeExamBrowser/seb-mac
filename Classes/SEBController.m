@@ -728,6 +728,8 @@ bool insideMatrix(void);
     // Switch off Siri and dictation if not allowed in settings
     [self conditionallyDisableSpeechInput];
     
+    // Switch off TouchBar features
+    [self disableTouchBarFeatures];
     
     /// Update URL filter flags and rules
     [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
@@ -1348,6 +1350,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             DDLogDebug(@"Terminating %@ was %@successfull (code: %ld)", screenCaptureAgentProcessDetails, success == 0 ? @"" : @"not ", (long)success);
         }
     }
+
     lastTimeProcessCheck = [NSDate date];
     checkingRunningProcesses = false;
 }
@@ -1786,6 +1789,24 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 }
 
 
+- (void)disableTouchBarFeatures
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Setting "Touch bar shows = F1, F2, etc. Keys" in System Preferences / Keyboard
+    [preferences setValue:TouchBarGlobalDefaultsValue
+                   forKey:TouchBarGlobalDefaultsKey
+        forDefaultsDomain:TouchBarDefaultsDomain];
+    
+    // Setting "Press Fn key to = Show App Controls" in System Preferences / Keyboard
+    [preferences setValue:@{TouchBarGlobalDefaultsValue : TouchBarFnDefaultsValue}
+                   forKey:TouchBarFnDictionaryDefaultsKey
+        forDefaultsDomain:TouchBarDefaultsDomain];
+    
+    [self killTouchBarAgent];
+}
+
+
 - (void)killAirPlayUIAgent
 {
     NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
@@ -1795,6 +1816,20 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
             killSuccess = [airPlayAgent kill];
             DDLogWarn(@"Success of terminating AirPlayUIAgent: %ld", (long)killSuccess);
+        }
+    }
+}
+
+
+- (void)killTouchBarAgent
+{
+    NSArray *runningTouchBarAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:TouchBarAgent];
+    if (runningTouchBarAgents.count != 0) {
+        NSInteger killSuccess;
+        for (NSRunningApplication *touchBarAgent in runningTouchBarAgents) {
+            DDLogWarn(@"Terminating TouchBarAgent %@", touchBarAgent);
+            killSuccess = [touchBarAgent kill];
+            DDLogWarn(@"Success of terminating TouchBarAgent: %ld", (long)killSuccess);
         }
     }
 }
@@ -3970,6 +4005,7 @@ bool insideMatrix(){
     [self stopProcessWatcher];
 
     [_systemManager restoreSystemSettings];
+    [self killTouchBarAgent];
     
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
