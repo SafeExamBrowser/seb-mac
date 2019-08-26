@@ -1,11 +1,21 @@
 //
-//  Moodle.swift
+//  SEBServer.swift
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03.08.18.
 //
 
 import Foundation
+
+public struct discovery: Codable {
+    let title: String
+    let description: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case token
+        case privatetoken
+    }
+}
 
 public struct UserToken: Codable {
     let token: String
