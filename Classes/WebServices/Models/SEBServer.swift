@@ -9,12 +9,26 @@ import Foundation
 
 public struct discovery: Codable {
     let title: String
-    let description: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case token
-        case privatetoken
+    let description: String
+    let server_location: String
+    let api_versions: [API_Version]
+}
+
+public struct API_Version: Codable {
+    let name: String
+    let autologinurl: String
+    let warnings: [String]
+}
+
+public struct Endpoint: Codable {
+    let name: String
+    let description: String
+    let location: String
+    enum authorization: String, CodingKey {
+        case Basic
+        case Bearer
     }
+
 }
 
 public struct UserToken: Codable {
