@@ -611,6 +611,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:sebModeStartURL],
                    @"sebMode",
                    
+                   [NSMutableDictionary new],
+                   @"sebServerConfiguration",
+                   
                    @NO,
                    @"sebServerFallback",
                    
@@ -793,6 +796,13 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"SOCKSProxy" : @"",
                       @"SOCKSRequiresPassword" : @NO,
                       @"SOCKSUsername" : @""
+                      },
+              
+              @"sebServerConfiguration" : @{
+                      @"institution" : @"",
+                      @"clientName" : @"",
+                      @"clientSecret" : @"",
+                      @"apiDiscovery" : @""
                       }
               
               };
