@@ -428,7 +428,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[url absoluteString] isEqualToString:quitURLTrimmed]) {
+    if ([[url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
         return NO;
