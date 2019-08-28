@@ -84,6 +84,7 @@
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
 
+#import "ServerController.h"
 
 @class AppDelegate;
 @class SEBUIController;
@@ -97,6 +98,7 @@
 @class SEBiOSLockedViewController;
 @class QRCodeReaderViewController;
 @class AboutSEBiOSViewController;
+@class ServerController;
 
 
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate, NSURLSessionDelegate>
@@ -158,6 +160,7 @@
 @property (readwrite, strong) NSDate *didResumeExamTime;
 
 
+// Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
 @property (strong, nonatomic) NSData *configFileKeyHash;
@@ -166,6 +169,10 @@
 @property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
+
+// SEB Server
+@property (strong, nonatomic) ServerController *serverController;
+
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
