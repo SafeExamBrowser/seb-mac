@@ -12,6 +12,13 @@ public struct discovery: Codable {
     let description: String
     let server_location: String
     let api_versions: [API_Version]
+    
+    enum authorization: String, CodingKey {
+        case title
+        case description
+        case server_location = "server-location"
+        case server_location = "api-versions"
+    }
 }
 
 public struct API_Version: Codable {
@@ -24,13 +31,13 @@ public struct Endpoint: Codable {
     let name: String
     let description: String
     let location: String
-    enum authorization: String, CodingKey {
-        case Basic
-        case Bearer
-    }
-
+    let authorization: String
 }
 
+
+
+
+// Moodle: ToDo: remove
 public struct UserToken: Codable {
     let token: String
     let privatetoken: String?

@@ -95,6 +95,15 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (ServerController*)serverController
+{
+    if (!_serverController) {
+        _serverController = [[ServerController alloc] init];
+    }
+    return _serverController;
+}
+
+
 - (UIViewController *)topMostController
 {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -2422,25 +2431,34 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - Start and quit exam session
 
-- (void) startExam {
-    NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    NSURL *startURL = [NSURL URLWithString:startURLString];
-    if (startURLString.length == 0 ||
-        (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
-          [startURL.host hasSuffix:SEBWebsiteShort]) &&
-         [startURL.path hasSuffix:@"start"])) {
-        // Start URL was set to the default value, show init assistant later
-        [self openInitAssistant];
+- (void) startExam
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+        NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
+        NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
+        [self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration];
     } else {
-        _examRunning = true;
-        
-        // Load all open web pages from the persistent store and re-create webview(s) for them
-        // or if no persisted web pages are available, load the start URL
-        [_browserTabViewController loadPersistedOpenWebPages];
-        
-        currentStartURL = startURLString;
-        if (_secureMode) {
-            [self.sebLockedViewController addLockedExam:startURLString];
+        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        NSURL *startURL = [NSURL URLWithString:startURLString];
+        if (startURLString.length == 0 ||
+            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+              [startURL.host hasSuffix:SEBWebsiteShort]) &&
+             [startURL.path hasSuffix:@"start"]))
+        {
+            // Start URL was set to the default value, show init assistant
+            [self openInitAssistant];
+        } else {
+            _examRunning = true;
+            
+            // Load all open web pages from the persistent store and re-create webview(s) for them
+            // or if no persisted web pages are available, load the start URL
+            [_browserTabViewController loadPersistedOpenWebPages];
+            
+            currentStartURL = startURLString;
+            if (_secureMode) {
+                [self.sebLockedViewController addLockedExam:startURLString];
+            }
         }
     }
 }
