@@ -1,9 +1,7 @@
 //
 //  NetworkRequest.swift
-//  TopQuestion
 //
-//  Created by Matteo Manferdini on 25/05/2017.
-//  Copyright © 2017 Pure Creek. All rights reserved.
+//
 //
 
 import Foundation
