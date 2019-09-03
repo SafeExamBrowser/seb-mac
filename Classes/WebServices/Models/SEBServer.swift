@@ -36,17 +36,15 @@ public struct Endpoint: Codable {
 
 
 
-// Moodle: ToDo: remove
-public struct UserToken: Codable {
-    let token: String
-    let privatetoken: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case token
-        case privatetoken
-    }
+public struct AccessToken: Codable {
+    let access_token: String
+    let token_type: String
+    let expires_in: Int
+    let scope: String
+    let jti: String
 }
 
+// Moodle: ToDo: remove
 public struct AutologinKey: Codable {
     let key: String
     let autologinurl: String

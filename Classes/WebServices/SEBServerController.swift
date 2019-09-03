@@ -17,9 +17,9 @@ import Foundation
 public class SEBServerController : NSObject {
     
     fileprivate var pendingRequests: [AnyObject]? = []
-    
-    fileprivate var token: String?
-    
+    fileprivate var serverAPI: [Endpoint]?
+    fileprivate var accessToken: String?
+
     @objc weak public var delegate: ServerControllerDelegate?
     
     let baseURL: URL
@@ -28,7 +28,6 @@ public class SEBServerController : NSObject {
     @objc public var password: String
     @objc public var discoveryEndpoint: String
 
-    var serverAPI: Discovery?
     
     @objc public init(baseURL: URL, institution:  String, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
         self.baseURL = baseURL
@@ -55,7 +54,12 @@ public extension SEBServerController {
             guard let discovery = discoveryResponse else {
                 return
             }
-            print(discovery as Any)
+            guard let serverAPIEndpoints = discovery?.api_versions[0].endpoints else {
+                return
+            }
+            self.serverAPI = serverAPIEndpoints
+            self.getAccessToken()
+            
 
 //            if token?.token == nil {
 //                self.delegate?.queryCredentialsPresetUsername(self.username)
@@ -70,7 +74,39 @@ public extension SEBServerController {
         }
     }
 
-//    let usernameParameter = "username=" + self.username
+    func getAccessToken() {
+        
+        let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: "/oauth/token", username: self.username, password: self.password)
+        
+        let accessTokenRequest = ApiRequest(resource: accessTokenResource)
+        pendingRequests?.append(accessTokenRequest)
+        // ToDo: Implement timeout and sebServerFallback
+        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, username: self.username, password: self.password, completion: { (accessTokenResponse) in
+            // ToDo: This guard check doesn't work, userToken seems to be a double optional?
+            guard let accessToken = accessTokenResponse else {
+                return
+            }
+            guard let tokenString = accessToken?.access_token else {
+                return
+            }
+            self.accessToken = tokenString
+            
+            
+            //            if token?.token == nil {
+            //                self.delegate?.queryCredentialsPresetUsername(self.username)
+            //            } else {
+            //                self.token = token?.token
+            //
+            //                self.delegate?.didGetUserToken()
+            //
+            //                //self.getCourseList(token: (token?.token)!)
+            //                //self?.configureUI(with: topQuestion)
+            //            }
+        })
+    }
+    
+
+    //    let usernameParameter = "username=" + self.username
 //    let passwordParameter = "password=" + self.password
 //
 //    let userTokenResource = UserTokenResource(baseUrl: self.baseURL, username: usernameParameter, password: passwordParameter)
