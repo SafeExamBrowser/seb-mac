@@ -7,24 +7,23 @@
 
 import Foundation
 
-public struct discovery: Codable {
+public struct Discovery: Codable {
     let title: String
     let description: String
     let server_location: String
     let api_versions: [API_Version]
     
-    enum authorization: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case title
         case description
         case server_location = "server-location"
-        case server_location = "api-versions"
+        case api_versions = "api-versions"
     }
 }
 
 public struct API_Version: Codable {
     let name: String
-    let autologinurl: String
-    let warnings: [String]
+    let endpoints: [Endpoint]
 }
 
 public struct Endpoint: Codable {

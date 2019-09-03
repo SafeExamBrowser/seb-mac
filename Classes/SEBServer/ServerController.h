@@ -6,7 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SafeExamBrowser-Swift.h"
 
+@class SEBServerController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 // *              protocol are providing the interface to connect to LMS specific controllers
 // *              and instantiate those.
 // */
-//@protocol LMSControllerUIDelegate <NSObject>
+//@protocol ServerControllerUIDelegate <NSObject>
 ///**
 // * @name        Item Attributes
 // */
@@ -41,11 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///**
 // * @brief       Delegate method to hide the previously displayed enter password dialog
 // */
-////- (void) hideEnterUsernamePasswordDialog;
+//- (void) hideEnterUsernamePasswordDialog;
 //
 //@end
 
-@interface ServerController : NSObject //<LMSControllerDelegate>
+@interface ServerController : NSObject <ServerControllerDelegate>
 {
     @private
     NSString *lmsLoginLastUsername;
@@ -54,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) id delegate;
 @property (strong) NSDictionary *sebServer;
-@property (strong, nonatomic) id sebController;
+@property (strong, nonatomic) id sebServerController;
 
 - (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
 - (void) loginToServer;
