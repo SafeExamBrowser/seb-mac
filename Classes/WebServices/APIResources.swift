@@ -34,8 +34,8 @@ struct DiscoveryResource: ApiResource {
     }
     
     func makeModel(data: Data) -> Discovery? {
-        let dataString = String(data: data, encoding: .utf8)
-        print(dataString as Any)
+//        let dataString = String(data: data, encoding: .utf8)
+//        print(dataString as Any)
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         guard let discovery = try? decoder.decode(Discovery.self, from: data) else {
@@ -45,29 +45,31 @@ struct DiscoveryResource: ApiResource {
     }
 }
 
-//struct UserTokenResource: ApiResource {
-//
-//    var baseUrl: String
-//    var queryParameters: [String]
-//
-//    let methodPath = "/login/token.php"
-//    let service = "service=moodle_mobile_app"
-//
-//    init(baseUrl: String, username: String, password: String) {
-//        self.baseUrl = baseUrl
-//        self.queryParameters = [username, password, service]
-//    }
-//
-//    func makeModel(data: Data) -> UserToken? {
-//        let decoder = JSONDecoder()
-//        decoder.dateDecodingStrategy = .secondsSince1970
-//        guard let userToken = try? decoder.decode(UserToken.self, from: data) else {
-//            return nil
-//        }
-//        return userToken
-//    }
-//}
-//
+struct AccessTokenResource: ApiResource {
+
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let grantType = "grant_type=client_credentials"
+    let scope = "scope=read,write"
+    let httpMethod = "POST"
+
+    init(baseURL: URL, endpoint: String, username: String, password: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = [grantType, scope]
+    }
+
+    func makeModel(data: Data) -> AccessToken? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        guard let accessToken = try? decoder.decode(AccessToken.self, from: data) else {
+            return nil
+        }
+        return accessToken
+    }
+}
+
 //struct CoursesResource: ApiResource {
 //
 //    var baseUrl: String
