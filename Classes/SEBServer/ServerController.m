@@ -12,7 +12,22 @@
 
 - (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration
 {
-    return YES;
+    NSString *institution =  [sebServerConfiguration valueForKey:@"institution"];
+    NSString *username =  [sebServerConfiguration valueForKey:@"clientName"];
+    NSString *password =  [sebServerConfiguration valueForKey:@"clientSecret"];
+    NSString *discoveryAPIEndpoint = [sebServerConfiguration valueForKey:@"apiDiscovery"];
+    if (url && institution && username && password && discoveryAPIEndpoint)
+    {
+        _sebServerController = [[SEBServerController alloc] initWithBaseURL:url
+                                                                institution:institution
+                                                                   username:username
+                                                                   password:password
+                                                          discoveryEndpoint:discoveryAPIEndpoint
+                                                                   delegate:self];
+        [_sebServerController getServerAPI];
+        return YES;
+    }
+    return NO;
 }
 
 
@@ -57,6 +72,10 @@
 //                            modalDelegate:self
 //                           didEndSelector:@selector(enteredLMSCredentials:password:returnCode:)];
 }
+
+- (void)didGetUserToken { 
+}
+
 
 
 - (void) enteredLMSCredentials:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode

@@ -113,6 +113,10 @@
 		693A39771E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396C1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png */; };
 		693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		693FB268231D22010062E36E /* SEBServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FB267231D22010062E36E /* SEBServerController.swift */; };
+		693FB269231D22010062E36E /* SEBServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FB267231D22010062E36E /* SEBServerController.swift */; };
+		693FB26A231D22010062E36E /* SEBServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FB267231D22010062E36E /* SEBServerController.swift */; };
+		693FB26D231DB1E20062E36E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
 		694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A51CF32B030036C480 /* SEBRestartIcon.png */; };
 		694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */; };
 		694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */; };
@@ -160,7 +164,6 @@
 		694215D5214544AB002EB416 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		694215D6214544AB002EB416 /* SEBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A47A1D0B8D9E0040ABF1 /* SEBNavigationController.m */; };
 		694215D7214544AB002EB416 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
-		694215D8214544AB002EB416 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
 		694215D9214544AB002EB416 /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
 		694215DA214544AB002EB416 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
 		694215DB214544AB002EB416 /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2E1C3C2D0500397E18 /* SEBTextField.m */; };
@@ -962,6 +965,7 @@
 		693F09941BEE18DB00DFCD8B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		693FB267231D22010062E36E /* SEBServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEBServerController.swift; sourceTree = "<group>"; };
 		694055A51CF32B030036C480 /* SEBRestartIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBRestartIcon.png; path = Resources/Icons/Dock/SEBRestartIcon.png; sourceTree = "<group>"; };
 		694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRestartIcon@2x.png"; path = "Resources/Icons/Dock/SEBRestartIcon@2x.png"; sourceTree = "<group>"; };
 		694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRestartIcon@3x.png"; path = "Resources/Icons/Dock/SEBRestartIcon@3x.png"; sourceTree = "<group>"; };
@@ -972,7 +976,7 @@
 		6940A7641853B4BC00D9D00D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		6940A7661853B62000D9D00D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6940B9661BA0F2FB008C8CFC /* SEB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEB.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6940B9691BA0F2FB008C8CFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
+		6940B9691BA0F2FB008C8CFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBViewController.h; sourceTree = "<group>"; };
@@ -1186,7 +1190,7 @@
 		69AEC954218A228300848945 /* SEBFilteredURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBFilteredURLCache.h; path = Classes/BrowserComponents/SEBFilteredURLCache.h; sourceTree = "<group>"; };
 		69AEC955218A228300848945 /* SEBFilteredURLCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBFilteredURLCache.m; path = Classes/BrowserComponents/SEBFilteredURLCache.m; sourceTree = "<group>"; };
 		69B1721520FE2D96004BD0FC /* SEB-ETH-Enterprise-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB-ETH-Enterprise-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/SEB-ETH-Enterprise-Info.plist"; sourceTree = "<absolute>"; };
-		69B1D467230D7584005656B8 /* Safe Exam Browser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Safe Exam Browser-Bridging-Header.h"; sourceTree = "<group>"; };
+		69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEB-Bridging-Header.h"; sourceTree = "<group>"; };
 		69B1D468230D7584005656B8 /* SEB-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEB-Bridging-Header.h"; sourceTree = "<group>"; };
 		69B1D469230D7584005656B8 /* SEB Dev-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEB Dev-Bridging-Header.h"; sourceTree = "<group>"; };
 		69B1D46C230D7585005656B8 /* APIResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResources.swift; sourceTree = "<group>"; };
@@ -1481,7 +1485,7 @@
 			children = (
 				256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				69B1D467230D7584005656B8 /* Safe Exam Browser-Bridging-Header.h */,
+				69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */,
 			);
 			name = "Other Sources";
 			path = OtherSources;
@@ -2201,6 +2205,7 @@
 			children = (
 				69B1D46C230D7585005656B8 /* APIResources.swift */,
 				69B1D47F230D75ED005656B8 /* NetworkRequest.swift */,
+				693FB267231D22010062E36E /* SEBServerController.swift */,
 				69B1D47E230D7598005656B8 /* Models */,
 			);
 			name = WebServices;
@@ -3294,6 +3299,7 @@
 				69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				69819EC22200BEFB0047809D /* MscX509Name.m in Sources */,
 				69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
+				693FB269231D22010062E36E /* SEBServerController.swift in Sources */,
 				69B1D47A230D7586005656B8 /* ServerController.m in Sources */,
 				69D35D23217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
@@ -3356,6 +3362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				693FB26D231DB1E20062E36E /* main.m in Sources */,
 				694215B9214544AB002EB416 /* SEBAboutController.m in Sources */,
 				69B1D488230D8B8F005656B8 /* SEBServer.swift in Sources */,
 				69819EF02200BEFB0047809D /* MscCertificateRevocationList.m in Sources */,
@@ -3395,6 +3402,7 @@
 				694215CF214544AB002EB416 /* SEBInitAssistantViewController.m in Sources */,
 				69819EC32200BEFB0047809D /* MscX509Name.m in Sources */,
 				694215D0214544AB002EB416 /* SEBiOSInitAssistantViewController.m in Sources */,
+				693FB26A231D22010062E36E /* SEBServerController.swift in Sources */,
 				69B1D47B230D7586005656B8 /* ServerController.m in Sources */,
 				69D35D29217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				694215D1214544AB002EB416 /* SEBBrowserController.m in Sources */,
@@ -3407,7 +3415,6 @@
 				69AEC95B218A228300848945 /* SEBFilteredURLCache.m in Sources */,
 				694215D6214544AB002EB416 /* SEBNavigationController.m in Sources */,
 				694215D7214544AB002EB416 /* LGSideMenuSegue.m in Sources */,
-				694215D8214544AB002EB416 /* main.m in Sources */,
 				694215D9214544AB002EB416 /* SEBSliderItem.m in Sources */,
 				694215DA214544AB002EB416 /* SEBConfigFileCredentials.m in Sources */,
 				694215DB214544AB002EB416 /* SEBTextField.m in Sources */,
@@ -3528,6 +3535,7 @@
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
+				693FB268231D22010062E36E /* SEBServerController.swift in Sources */,
 				695370B32033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
 				695370BC2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69819EB22200BEFB0047809D /* MscIssuerAndSubject.m in Sources */,
@@ -3735,7 +3743,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3776,7 +3784,7 @@
 				PROVISIONING_PROFILE = "80253b4f-1e91-432c-8ca1-7a8599289903";
 				PROVISIONING_PROFILE_SPECIFIER = ETHZ_SEB_EDU_Assessment;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/SEB-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3810,7 +3818,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3853,7 +3861,7 @@
 				PROVISIONING_PROFILE = "811a29b9-5087-45e3-b672-734759be75a0";
 				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessment;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/SEB-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4061,7 +4069,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -4100,11 +4108,13 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.let.ios.seb;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ce80de41-5aeb-4b5a-8c65-532f4a35de6b";
 				PROVISIONING_PROFILE_SPECIFIER = "SEB Edu Assessment";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/SEB Dev-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PROJECT_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4138,7 +4148,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4178,11 +4188,13 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.let.ios.seb;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "811a29b9-5087-45e3-b672-734759be75a0";
 				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessment;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/SEB Dev-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PROJECT_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4202,7 +4214,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -4245,7 +4257,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4304,7 +4316,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4335,6 +4347,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PROJECT_NAME)-Swift.h";
 				SYMROOT = ../build;
 				VALID_ARCHS = x86_64;
 			};
@@ -4363,7 +4376,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13292;
+				CURRENT_PROJECT_VERSION = 13309;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4392,6 +4405,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PROJECT_NAME)-Swift.h";
 				SYMROOT = ../build;
 				VALID_ARCHS = x86_64;
 			};
