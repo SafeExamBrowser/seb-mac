@@ -85,6 +85,7 @@
 #import "SEBSearchBarViewController.h"
 
 #import "ServerController.h"
+#import "SEBServerViewController.h"
 
 @class AppDelegate;
 @class SEBUIController;
@@ -99,6 +100,7 @@
 @class QRCodeReaderViewController;
 @class AboutSEBiOSViewController;
 @class ServerController;
+@class SEBServerViewController;
 
 
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate, NSURLSessionDelegate>
@@ -172,7 +174,7 @@
 
 // SEB Server
 @property (strong, nonatomic) ServerController *serverController;
-
+@property (strong, nonatomic) SEBServerViewController *sebServerViewController;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
@@ -211,6 +213,7 @@
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL aboutSEBViewDisplayed;
+@property(readwrite) BOOL sebServerViewDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL settingsOpen;

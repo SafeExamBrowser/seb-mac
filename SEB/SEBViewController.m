@@ -2440,6 +2440,8 @@ void run_on_ui_thread(dispatch_block_t block)
         if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
             // All necessary information for connecting to SEB Server was available in settings:
             // try to connect to SEB Server and wait for delegate method to be called with success/failure
+            [self showSEBServerView];
+            
             return;
         }
     }
@@ -2465,6 +2467,28 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
 
+}
+
+
+- (void)showSEBServerView
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self showSEBServerView];
+        }];
+        return;
+    }
+    [self.sideMenuController hideLeftViewAnimated];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    _sebServerViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
+    _sebServerViewController.sebViewController = self;
+    _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
+        self.aboutSEBViewDisplayed = true;
+    }];
 }
 
 
