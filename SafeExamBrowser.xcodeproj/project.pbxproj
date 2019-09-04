@@ -117,6 +117,10 @@
 		693FB269231D22010062E36E /* SEBServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FB267231D22010062E36E /* SEBServerController.swift */; };
 		693FB26A231D22010062E36E /* SEBServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FB267231D22010062E36E /* SEBServerController.swift */; };
 		693FB26D231DB1E20062E36E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
+		693FB270232064110062E36E /* SEBServerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 693FB26E232064110062E36E /* SEBServerViewController.h */; };
+		693FB271232064110062E36E /* SEBServerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 693FB26E232064110062E36E /* SEBServerViewController.h */; };
+		693FB272232064110062E36E /* SEBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693FB26F232064110062E36E /* SEBServerViewController.m */; };
+		693FB273232064110062E36E /* SEBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693FB26F232064110062E36E /* SEBServerViewController.m */; };
 		694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A51CF32B030036C480 /* SEBRestartIcon.png */; };
 		694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */; };
 		694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */; };
@@ -966,6 +970,8 @@
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		693FB267231D22010062E36E /* SEBServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEBServerController.swift; sourceTree = "<group>"; };
+		693FB26E232064110062E36E /* SEBServerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBServerViewController.h; path = Classes/AdditionalViews/SEBServerViewController.h; sourceTree = "<group>"; };
+		693FB26F232064110062E36E /* SEBServerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBServerViewController.m; path = Classes/AdditionalViews/SEBServerViewController.m; sourceTree = "<group>"; };
 		694055A51CF32B030036C480 /* SEBRestartIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBRestartIcon.png; path = Resources/Icons/Dock/SEBRestartIcon.png; sourceTree = "<group>"; };
 		694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRestartIcon@2x.png"; path = "Resources/Icons/Dock/SEBRestartIcon@2x.png"; sourceTree = "<group>"; };
 		694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRestartIcon@3x.png"; path = "Resources/Icons/Dock/SEBRestartIcon@3x.png"; sourceTree = "<group>"; };
@@ -1671,6 +1677,8 @@
 				69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */,
 				69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */,
 				69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */,
+				693FB26E232064110062E36E /* SEBServerViewController.h */,
+				693FB26F232064110062E36E /* SEBServerViewController.m */,
 			);
 			name = "Additional UI";
 			sourceTree = "<group>";
@@ -2388,6 +2396,7 @@
 				69819F1D2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */,
 				69421653214544AB002EB416 /* AboutSEBiOSViewController.h in Headers */,
 				69D35D24217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
+				693FB271232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC621DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				697852C82177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69421654214544AB002EB416 /* SEBLockedViewController.h in Headers */,
@@ -2472,6 +2481,7 @@
 				69819F1C2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */,
 				69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
 				69D35D1E217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
+				693FB270232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC521DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69331F0B1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */,
@@ -3264,6 +3274,7 @@
 				69B1D487230D8B8F005656B8 /* SEBServer.swift in Sources */,
 				69819EEF2200BEFB0047809D /* MscCertificateRevocationList.m in Sources */,
 				69819EF42200BEFB0047809D /* MscOpenSSLExtension.c in Sources */,
+				693FB272232064110062E36E /* SEBServerViewController.m in Sources */,
 				69819E9F2200BEFB0047809D /* MscPKCS12.m in Sources */,
 				695370B72033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
@@ -3366,6 +3377,7 @@
 				694215B9214544AB002EB416 /* SEBAboutController.m in Sources */,
 				69B1D488230D8B8F005656B8 /* SEBServer.swift in Sources */,
 				69819EF02200BEFB0047809D /* MscCertificateRevocationList.m in Sources */,
+				693FB273232064110062E36E /* SEBServerViewController.m in Sources */,
 				69819EF52200BEFB0047809D /* MscOpenSSLExtension.c in Sources */,
 				69819EA02200BEFB0047809D /* MscPKCS12.m in Sources */,
 				694215BA214544AB002EB416 /* LGSideMenuBorderView.m in Sources */,
@@ -3743,7 +3755,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3818,7 +3830,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4069,7 +4081,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -4148,7 +4160,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4214,7 +4226,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -4257,7 +4269,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4316,7 +4328,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4376,7 +4388,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13331;
+				CURRENT_PROJECT_VERSION = 13337;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
