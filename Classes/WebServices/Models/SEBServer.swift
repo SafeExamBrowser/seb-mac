@@ -33,8 +33,20 @@ public struct Endpoint: Codable {
     let authorization: String
 }
 
+public struct SEB_Endpoint {
+    var name: String
+    var endpoint: Endpoint?
+    
+    init(_ name: String,_ endpoint: Endpoint?) {
+        self.name = name
+        self.endpoint = endpoint
+    }
+}
 
-
+public struct SEB_Endpoints {
+    var accessToken = SEB_Endpoint("access-token-endpoint", nil)
+    var handshake = SEB_Endpoint("seb-handshake-endpoint", nil)
+}
 
 public struct AccessToken: Codable {
     let access_token: String
@@ -43,6 +55,7 @@ public struct AccessToken: Codable {
     let scope: String
     let jti: String
 }
+
 
 // Moodle: ToDo: remove
 public struct AutologinKey: Codable {

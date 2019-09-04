@@ -50,14 +50,13 @@ struct AccessTokenResource: ApiResource {
     var baseURL: URL
     var queryParameters: [String]
     let methodPath: String
-    let grantType = "grant_type=client_credentials"
-    let scope = "scope=read,write"
     let httpMethod = "POST"
+    let body = "grant_type=client_credentials&scope=read,write"
 
     init(baseURL: URL, endpoint: String, username: String, password: String) {
         self.baseURL = baseURL
         self.methodPath = endpoint
-        self.queryParameters = [grantType, scope]
+        self.queryParameters = [""]
     }
 
     func makeModel(data: Data) -> AccessToken? {
