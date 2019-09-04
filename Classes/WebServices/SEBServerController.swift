@@ -17,15 +17,17 @@ import Foundation
 public class SEBServerController : NSObject {
     
     fileprivate var pendingRequests: [AnyObject]? = []
-    fileprivate var serverAPI: [Endpoint]?
+    fileprivate var serverAPI: SEB_Endpoints?
     fileprivate var accessToken: String?
+    fileprivate var username: String
+    fileprivate var password: String
 
     @objc weak public var delegate: ServerControllerDelegate?
     
     let baseURL: URL
     @objc public var institution: String
-    @objc public var username: String
-    @objc public var password: String
+//    @objc public var username: String
+//    @objc public var password: String
     @objc public var discoveryEndpoint: String
 
     
@@ -37,6 +39,12 @@ public class SEBServerController : NSObject {
         self.discoveryEndpoint = discoveryEndpoint
 
         self.delegate = delegate
+    }
+}
+
+extension Array where Element == Endpoint {
+    func endpoint(name: String) -> Endpoint? {
+        return self.first(where: { $0.name == name })
     }
 }
 
@@ -57,7 +65,23 @@ public extension SEBServerController {
             guard let serverAPIEndpoints = discovery?.api_versions[0].endpoints else {
                 return
             }
-            self.serverAPI = serverAPIEndpoints
+            var sebEndpoints = SEB_Endpoints()
+            
+//            for serverEndpoint in serverAPIEndpoints {
+//                let endpointName = serverEndpoint.name
+//                sebEndpoints.
+//            }
+            
+            sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
+            
+//            let mirror = Mirror(reflecting: sebEndpoints)
+//            for child in mirror.children {
+//                let endpointName = (child.value as! SEB_Endpoint).name
+//
+//                var sebEndpoint = sebEndpoints.endpointName
+//            }
+            self.serverAPI = sebEndpoints
+            
             self.getAccessToken()
             
 
@@ -74,14 +98,21 @@ public extension SEBServerController {
         }
     }
 
+    
+    
+    
+    
     func getAccessToken() {
         
-        let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: "/oauth/token", username: self.username, password: self.password)
+        
+
+//        guard let endpoint = serverAPI
+        let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!, username: self.username, password: self.password)
         
         let accessTokenRequest = ApiRequest(resource: accessTokenResource)
         pendingRequests?.append(accessTokenRequest)
         // ToDo: Implement timeout and sebServerFallback
-        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, username: self.username, password: self.password, completion: { (accessTokenResponse) in
+        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, username: self.username, password: self.password, completion: { (accessTokenResponse) in
             // ToDo: This guard check doesn't work, userToken seems to be a double optional?
             guard let accessToken = accessTokenResponse else {
                 return
@@ -91,45 +122,11 @@ public extension SEBServerController {
             }
             self.accessToken = tokenString
             
-            
-            //            if token?.token == nil {
-            //                self.delegate?.queryCredentialsPresetUsername(self.username)
-            //            } else {
-            //                self.token = token?.token
-            //
             //                self.delegate?.didGetUserToken()
             //
             //                //self.getCourseList(token: (token?.token)!)
-            //                //self?.configureUI(with: topQuestion)
-            //            }
         })
     }
-    
-
-    //    let usernameParameter = "username=" + self.username
-//    let passwordParameter = "password=" + self.password
-//
-//    let userTokenResource = UserTokenResource(baseUrl: self.baseURL, username: usernameParameter, password: passwordParameter)
-//
-//    let userTokenRequest = ApiRequest(resource: userTokenResource)
-//    pendingRequests?.append(userTokenRequest)
-//    userTokenRequest.load { (userToken) in
-//    // ToDo: This guard check doesn't work, userToken seems to be a double optional?
-//    guard let token = userToken else {
-//    return
-//    }
-//    print(token as Any)
-//
-//    if token?.token == nil {
-//    self.delegate?.queryCredentialsPresetUsername(self.username)
-//    } else {
-//    self.token = token?.token
-//
-//    self.delegate?.didGetUserToken()
-    
-    //self.getCourseList(token: (token?.token)!)
-    //self?.configureUI(with: topQuestion)
-
     
 //    @objc func getCourseList() {
 //        guard let token = self.token else {
