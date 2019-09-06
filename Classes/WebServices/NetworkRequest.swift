@@ -30,27 +30,34 @@ extension NetworkRequest {
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, httpMethod: String, body: String, username: String, password: String, withCompletion completion: @escaping (Model?) -> Void) {
+    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion completion: @escaping ((Model?), [AnyHashable: Any]?) -> Void) {
         let configuration = URLSessionConfiguration.ephemeral
-        let authorizationString = "Basic " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
-//        configuration.httpAdditionalHeaders = ["Authorization" : authorizationString]
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.addValue(authorizationString, forHTTPHeaderField: "Authorization")
+        if let additionalHeaders = headers {
+            for header in additionalHeaders {
+                request.addValue(header.value as! String, forHTTPHeaderField: header.key as! String)
+            }
+        }
         request.httpBody = body.data(using: .utf8)!
 
         let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             print(data as Any)
+            if (data != nil) {
+                print(String(decoding: data!, as: UTF8.self))
+            }
             print(response as Any)
+            let httpResponse = response as? HTTPURLResponse
+            let responseHeaders = httpResponse?.allHeaderFields
             print(error as Any)
             guard let receivedData = data else {
-                completion(nil)
+                completion(nil, [:])
                 return
             }
-            completion(self?.decode(receivedData))
+            completion(self?.decode(receivedData), responseHeaders)
         })
         task.resume()
     }
@@ -73,8 +80,8 @@ extension ApiRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
 
-    func load(httpMethod: String, body: String, username: String, password: String, completion: @escaping (Resource.Model?) -> Void) {
-        load(resource.url, httpMethod: httpMethod, body: body, username: username, password: password, withCompletion: completion)
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Resource.Model?), [AnyHashable: Any]?) -> Void) {
+        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, withCompletion: completion)
     }
 }
 
