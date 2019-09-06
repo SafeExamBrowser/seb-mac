@@ -9,12 +9,14 @@ import Foundation
 
 @objc public protocol ServerControllerDelegate: class {
     
-    func queryCredentialsPresetUsername(_ username: String)
-    
-    func didGetUserToken()
 }
 
-public class SEBServerController : NSObject {
+@objc public protocol ServerControllerUIDelegate: class {
+    
+    func updateExamList()
+}
+
+@objc public class SEBServerController : NSObject {
     
     fileprivate var pendingRequests: [AnyObject]? = []
     fileprivate var serverAPI: SEB_Endpoints?
@@ -22,15 +24,15 @@ public class SEBServerController : NSObject {
     fileprivate var username: String
     fileprivate var password: String
     fileprivate var connectionToken: String?
+    fileprivate var exams: [Exam]?
 
     @objc weak public var delegate: ServerControllerDelegate?
-    
+    @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
+
     let baseURL: URL
     @objc public var institution: String
-//    @objc public var username: String
-//    @objc public var password: String
     @objc public var discoveryEndpoint: String
-
+    @objc public var examList: [ExamObject]?
     
     @objc public init(baseURL: URL, institution:  String, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
         self.baseURL = baseURL
@@ -71,21 +73,11 @@ public extension SEBServerController {
             sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
             sebEndpoints.handshake.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.handshake.name)
 
-//            let mirror = Mirror(reflecting: sebEndpoints)
-//            for child in mirror.children {
-//                let endpointName = (child.value as! SEB_Endpoint).name
-//
-//                var sebEndpoint = sebEndpoints.endpointName
-//            }
             self.serverAPI = sebEndpoints
             
             self.getAccessToken()
         }
-    }
-
-    
-    
-    
+    }    
     
     func getAccessToken() {
         let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
@@ -112,7 +104,7 @@ public extension SEBServerController {
     
     func getExamList() {
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        handshakeResource.body = "institution_id=" + institution
+        handshakeResource.body = "institutionId=" + institution
         
         let handshakeRequest = ApiRequest(resource: handshakeResource)
         pendingRequests?.append(handshakeRequest)
@@ -124,8 +116,18 @@ public extension SEBServerController {
                 return
             }
             self.connectionToken = connectionTokenString as? String
-            
-            
+            guard let exams = handshakeResponse else {
+                return
+            }
+            self.exams = exams
+            self.examList = [];
+
+            if (exams != nil) {
+                for exam in exams! {
+                    self.examList?.append(ExamObject(exam))
+                }
+            }
+            self.serverControllerUIDelegate?.updateExamList()
         })
     }
     
