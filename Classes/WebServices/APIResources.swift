@@ -53,10 +53,10 @@ struct AccessTokenResource: ApiResource {
     let httpMethod = "POST"
     let body = "grant_type=client_credentials&scope=read,write"
 
-    init(baseURL: URL, endpoint: String, username: String, password: String) {
+    init(baseURL: URL, endpoint: String) {
         self.baseURL = baseURL
         self.methodPath = endpoint
-        self.queryParameters = [""]
+        self.queryParameters = []
     }
 
     func makeModel(data: Data) -> AccessToken? {
@@ -66,6 +66,30 @@ struct AccessTokenResource: ApiResource {
             return nil
         }
         return accessToken
+    }
+}
+
+struct HandshakeResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "POST"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    
+    func makeModel(data: Data) -> Exams? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        guard let exams = try? decoder.decode(Exams.self, from: data) else {
+            return nil
+        }
+        return exams
     }
 }
 
