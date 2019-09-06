@@ -21,6 +21,7 @@ public class SEBServerController : NSObject {
     fileprivate var accessToken: String?
     fileprivate var username: String
     fileprivate var password: String
+    fileprivate var connectionToken: String?
 
     @objc weak public var delegate: ServerControllerDelegate?
     
@@ -66,14 +67,10 @@ public extension SEBServerController {
                 return
             }
             var sebEndpoints = SEB_Endpoints()
-            
-//            for serverEndpoint in serverAPIEndpoints {
-//                let endpointName = serverEndpoint.name
-//                sebEndpoints.
-//            }
-            
+                        
             sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
-            
+            sebEndpoints.handshake.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.handshake.name)
+
 //            let mirror = Mirror(reflecting: sebEndpoints)
 //            for child in mirror.children {
 //                let endpointName = (child.value as! SEB_Endpoint).name
@@ -83,18 +80,6 @@ public extension SEBServerController {
             self.serverAPI = sebEndpoints
             
             self.getAccessToken()
-            
-
-//            if token?.token == nil {
-//                self.delegate?.queryCredentialsPresetUsername(self.username)
-//            } else {
-//                self.token = token?.token
-//
-//                self.delegate?.didGetUserToken()
-//
-//                //self.getCourseList(token: (token?.token)!)
-//                //self?.configureUI(with: topQuestion)
-//            }
         }
     }
 
@@ -103,17 +88,15 @@ public extension SEBServerController {
     
     
     func getAccessToken() {
-        
-        
-
-//        guard let endpoint = serverAPI
-        let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!, username: self.username, password: self.password)
+        let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
         
         let accessTokenRequest = ApiRequest(resource: accessTokenResource)
         pendingRequests?.append(accessTokenRequest)
-        // ToDo: Implement timeout and sebServerFallback
-        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, username: self.username, password: self.password, completion: { (accessTokenResponse) in
-            // ToDo: This guard check doesn't work, userToken seems to be a double optional?
+        // ToDo: Implement timeout and sebServerFallback -> on a higher level
+        let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
+        let requestHeaders = ["Authorization" : authorizationString]
+        
+        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, headers: requestHeaders, completion: { (accessTokenResponse, responseHeaders) in
             guard let accessToken = accessTokenResponse else {
                 return
             }
@@ -121,14 +104,33 @@ public extension SEBServerController {
                 return
             }
             self.accessToken = tokenString
-            
-            //                self.delegate?.didGetUserToken()
-            //
-            //                //self.getCourseList(token: (token?.token)!)
+            // self.delegate?.didGetUserToken()
+
+            self.getExamList()
         })
     }
     
-//    @objc func getCourseList() {
+    func getExamList() {
+        var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+        handshakeResource.body = "institution_id=" + institution
+        
+        let handshakeRequest = ApiRequest(resource: handshakeResource)
+        pendingRequests?.append(handshakeRequest)
+        // ToDo: Implement timeout and sebServerFallback
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = ["Authorization" : authorizationString]
+        handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, responseHeaders) in
+            guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == "SEBConnectionToken" }))?.value else {
+                return
+            }
+            self.connectionToken = connectionTokenString as? String
+            
+            
+        })
+    }
+    
+
+    //    @objc func getCourseList() {
 //        guard let token = self.token else {
 //            return
 //        }

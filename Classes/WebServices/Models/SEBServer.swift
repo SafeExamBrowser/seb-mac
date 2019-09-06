@@ -46,6 +46,9 @@ public struct SEB_Endpoint {
 public struct SEB_Endpoints {
     var accessToken = SEB_Endpoint("access-token-endpoint", nil)
     var handshake = SEB_Endpoint("seb-handshake-endpoint", nil)
+    var configuration = SEB_Endpoint("seb-configuration-endpoint", nil)
+    var ping = SEB_Endpoint("seb-ping-endpoint", nil)
+    var log = SEB_Endpoint("seb-log-endpoint", nil)
 }
 
 public struct AccessToken: Codable {
@@ -54,6 +57,19 @@ public struct AccessToken: Codable {
     let expires_in: Int
     let scope: String
     let jti: String
+}
+
+
+public struct Exams: Codable {
+    let exams: [Exam]
+}
+
+
+public struct Exam: Codable {
+    let examID: String
+    let name: String
+    let url: String
+    let lmsType: String
 }
 
 
