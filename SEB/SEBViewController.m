@@ -2483,11 +2483,13 @@ void run_on_ui_thread(dispatch_block_t block)
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     _sebServerViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
-    _sebServerViewController.sebViewController = self;
     _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
-        self.aboutSEBViewDisplayed = true;
+        self.sebServerViewDisplayed = true;
+        self.sebServerViewController.sebServerController = self.serverController.sebServerController;
+        self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
+        [self.sebServerViewController updateExamList];
     }];
 }
 

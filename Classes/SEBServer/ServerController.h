@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///**
 // * @brief       Delegate method to be called if logging in to the server was canceled
 // */
-//- (void) lmsControllerCancledLogin:(id)lmsController;
+//- (void) updateExamList;
 //
 ///**
 // * @brief       Delegate method to display an enter password dialog with the
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) id delegate;
 @property (strong) NSDictionary *sebServer;
-@property (strong, nonatomic) id sebServerController;
+@property (strong, nonatomic) SEBServerController *sebServerController;
 
 - (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
 - (void) loginToServer;

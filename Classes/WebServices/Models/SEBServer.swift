@@ -60,16 +60,30 @@ public struct AccessToken: Codable {
 }
 
 
-public struct Exams: Codable {
-    let exams: [Exam]
-}
+//public struct Exams: Codable {
+//    let exams: [Exam]
+//}
 
 
 public struct Exam: Codable {
-    let examID: String
+    let examId: String
     let name: String
     let url: String
     let lmsType: String
+}
+
+
+@objc public class ExamObject: NSObject {
+    let exam: Exam
+    
+    init(_ exam: Exam) {
+        self.exam = exam
+    }
+
+    @objc public func examId() -> String { return exam.examId }
+    @objc public func name() -> String { return exam.name }
+    @objc public func url() -> String { return exam.url }
+    @objc public func lmsType() -> String { return exam.lmsType }
 }
 
 
