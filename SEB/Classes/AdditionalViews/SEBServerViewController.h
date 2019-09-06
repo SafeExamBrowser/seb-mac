@@ -13,9 +13,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SEBServerViewController : UIViewController
+@interface SEBServerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ServerControllerUIDelegate>
 
-@property (nonatomic, strong) SEBViewController *sebViewController;
+@property (nonatomic, strong) SEBServerController *sebServerController;
+@property (nonatomic, weak) NSArray * exams;
+
+@property (weak, nonatomic) IBOutlet UITableView *examsTableView;
 
 @end
 

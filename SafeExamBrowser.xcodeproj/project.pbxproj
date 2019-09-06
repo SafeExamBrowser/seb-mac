@@ -817,6 +817,10 @@
 		69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
 		69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
+		69F90020232309BB003A5015 /* ExamCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F9001E232309BB003A5015 /* ExamCell.h */; };
+		69F90021232309BB003A5015 /* ExamCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F9001E232309BB003A5015 /* ExamCell.h */; };
+		69F90022232309BB003A5015 /* ExamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F9001F232309BB003A5015 /* ExamCell.m */; };
+		69F90023232309BB003A5015 /* ExamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F9001F232309BB003A5015 /* ExamCell.m */; };
 		69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */; };
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
@@ -1347,6 +1351,8 @@
 		69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindowDocument.h; path = Classes/BrowserComponents/SEBBrowserWindowDocument.h; sourceTree = "<group>"; };
 		69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserWindowDocument.m; path = Classes/BrowserComponents/SEBBrowserWindowDocument.m; sourceTree = "<group>"; };
 		69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69F9001E232309BB003A5015 /* ExamCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExamCell.h; path = Classes/AdditionalViews/ExamCell.h; sourceTree = "<group>"; };
+		69F9001F232309BB003A5015 /* ExamCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExamCell.m; path = Classes/AdditionalViews/ExamCell.m; sourceTree = "<group>"; };
 		69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsNetworkViewController.h; sourceTree = "<group>"; };
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
@@ -1679,6 +1685,8 @@
 				69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */,
 				693FB26E232064110062E36E /* SEBServerViewController.h */,
 				693FB26F232064110062E36E /* SEBServerViewController.m */,
+				69F9001E232309BB003A5015 /* ExamCell.h */,
+				69F9001F232309BB003A5015 /* ExamCell.m */,
 			);
 			name = "Additional UI";
 			sourceTree = "<group>";
@@ -2451,6 +2459,7 @@
 				69D35D26217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				6942166E214544AB002EB416 /* SEBIASKSecureSettingsStore.h in Headers */,
 				6942166F214544AB002EB416 /* LGSideMenuSegue.h in Headers */,
+				69F90021232309BB003A5015 /* ExamCell.h in Headers */,
 				69421670214544AB002EB416 /* SEBConfigFileManager.h in Headers */,
 				69819EE62200BEFB0047809D /* MscRSAKey.h in Headers */,
 				69421671214544AB002EB416 /* SEBSearchBarViewController.h in Headers */,
@@ -2536,6 +2545,7 @@
 				69D35D20217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */,
 				695370AE2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
+				69F90020232309BB003A5015 /* ExamCell.h in Headers */,
 				69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */,
 				69819EE52200BEFB0047809D /* MscRSAKey.h in Headers */,
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
@@ -3337,6 +3347,7 @@
 				695370A52033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */,
 				69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
 				69B1D481230D75ED005656B8 /* NetworkRequest.swift in Sources */,
+				69F90022232309BB003A5015 /* ExamCell.m in Sources */,
 				697852B82177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
 				6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */,
@@ -3440,6 +3451,7 @@
 				694215DC214544AB002EB416 /* LGSideMenuGesturesHandler.m in Sources */,
 				694215DD214544AB002EB416 /* SEBLockedViewController.m in Sources */,
 				69B1D482230D75ED005656B8 /* NetworkRequest.swift in Sources */,
+				69F90023232309BB003A5015 /* ExamCell.m in Sources */,
 				697852B92177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
 				694215DE214544AB002EB416 /* UIViewController+LGSideMenuController.m in Sources */,
 				694215DF214544AB002EB416 /* SEBTableViewController.m in Sources */,
@@ -3755,7 +3767,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3830,7 +3842,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4081,7 +4093,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -4160,7 +4172,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4226,7 +4238,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -4269,7 +4281,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4328,7 +4340,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4388,7 +4400,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13354;
+				CURRENT_PROJECT_VERSION = 13375;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

@@ -83,10 +83,10 @@ struct HandshakeResource: ApiResource {
         self.queryParameters = []
     }
     
-    func makeModel(data: Data) -> Exams? {
+    func makeModel(data: Data) -> [Exam]? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        guard let exams = try? decoder.decode(Exams.self, from: data) else {
+        guard let exams = try? decoder.decode([Exam].self, from: data) else {
             return nil
         }
         return exams
