@@ -25,6 +25,7 @@ import Foundation
     fileprivate var password: String
     fileprivate var connectionToken: String?
     fileprivate var exams: [Exam]?
+    fileprivate var selectedExamId: String?
 
     @objc weak public var delegate: ServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
@@ -72,6 +73,9 @@ public extension SEBServerController {
                         
             sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
             sebEndpoints.handshake.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.handshake.name)
+            sebEndpoints.configuration.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.configuration.name)
+            sebEndpoints.ping.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.ping.name)
+            sebEndpoints.log.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.log.name)
 
             self.serverAPI = sebEndpoints
             
@@ -102,6 +106,7 @@ public extension SEBServerController {
         })
     }
     
+    
     func getExamList() {
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         handshakeResource.body = keys.institutionId + "=" + institution
@@ -131,12 +136,34 @@ public extension SEBServerController {
         })
     }
     
-
+    
     @objc func examSelected(_ examId: String, url: String) {
-        delegate?.loginToExam(examId, url: url)
+        selectedExamId = examId
+        getExamConfig()
     }
     
     
+    func getExamConfig() {
+        var examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!)
+        examConfigResource.body = keys.examId + "=" + (selectedExamId ?? "")
+        
+        let examConfigRequest = ApiRequest(resource: examConfigResource)
+        pendingRequests?.append(examConfigRequest)
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.authorization : authorizationString, keys.sebConnectionToken : connectionToken!]
+        examConfigRequest.load(httpMethod: examConfigResource.httpMethod, body:examConfigResource.body, headers: requestHeaders, completion: { (examConfigResponse, responseHeaders) in
+            guard let config = examConfigResponse else {
+                return
+            }
+            print(config as Any)
+        })
+    }
+    
+    
+    @objc func loginToExam(_ examId: String, url: String) {
+        delegate?.loginToExam(examId, url: url)
+    }
+
     @objc func startMonitoring(examId: String, userSessionId: String) {
         
     }
