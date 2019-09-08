@@ -99,6 +99,7 @@ static NSMutableSet *browserWindowControllers;
 {
     if (!_serverController) {
         _serverController = [[ServerController alloc] init];
+        _serverController.sebViewController = self;
     }
     return _serverController;
 }
@@ -2470,7 +2471,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void)showSEBServerView
+- (void) showSEBServerView
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
@@ -2491,6 +2492,13 @@ void run_on_ui_thread(dispatch_block_t block)
         self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
         [self.sebServerViewController updateExamList];
     }];
+}
+
+
+- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url
+{
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:nil];
+    [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
 }
 
 
