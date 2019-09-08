@@ -11,6 +11,7 @@ public struct keys {
     static let authorization = "Authorization"
     static let institutionId = "institutionId"
     static let sebConnectionToken = "SEBConnectionToken"
+    static let examId = "examId"
 }
 
 public struct Discovery: Codable {

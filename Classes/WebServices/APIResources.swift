@@ -13,12 +13,26 @@ protocol ApiResource {
     func makeModel(data:Data) -> Model
 }
 
+protocol ApiDataResource {
+    var baseURL: URL { get }
+    var methodPath: String { get }
+    var queryParameters: [String] { get }
+}
+
 extension ApiResource {
 	var url: URL {
         let hostPath = baseURL.absoluteString + methodPath
 		let url = hostPath + "?" + queryParameters.joined(separator: "&")
 		return URL(string: url)!
 	}
+}
+
+extension ApiDataResource {
+    var url: URL {
+        let hostPath = baseURL.absoluteString + methodPath
+        let url = hostPath + "?" + queryParameters.joined(separator: "&")
+        return URL(string: url)!
+    }
 }
 
 struct DiscoveryResource: ApiResource {
@@ -91,6 +105,25 @@ struct HandshakeResource: ApiResource {
         }
         return exams
     }
+}
+
+struct ExamConfigResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "GET"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    func makeModel(data: Data) -> Data? {
+        return data
+    }
+
 }
 
 //struct CoursesResource: ApiResource {
