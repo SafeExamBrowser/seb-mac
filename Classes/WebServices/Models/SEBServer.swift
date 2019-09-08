@@ -7,6 +7,12 @@
 
 import Foundation
 
+public struct keys {
+    static let authorization = "Authorization"
+    static let institutionId = "institutionId"
+    static let sebConnectionToken = "SEBConnectionToken"
+}
+
 public struct Discovery: Codable {
     let title: String
     let description: String

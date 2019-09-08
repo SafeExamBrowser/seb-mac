@@ -31,6 +31,12 @@
 }
 
 
+- (void)loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url {
+    [_sebViewController loginToExamWithExamId:examId url:url];
+}
+
+
+
 - (void) loginToServer
 {
 //    if ([_sebServer[@"type"] intValue] == lmsTypeMoodle) {
@@ -108,6 +114,5 @@
 {
     
 }
-
 
 @end

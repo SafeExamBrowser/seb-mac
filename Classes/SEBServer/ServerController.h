@@ -7,45 +7,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SafeExamBrowser-Swift.h"
+#import "SEBViewController.h"
 
 @class SEBServerController;
+@class SEBViewController;
 
 NS_ASSUME_NONNULL_BEGIN
-
-///**
-// * @protocol    ServerControllerUIDelegate
-// *
-// * @brief       Learning Management System controllers confirming to the LMSControllerDelegate
-// *              protocol are providing the interface to connect to LMS specific controllers
-// *              and instantiate those.
-// */
-//@protocol ServerControllerUIDelegate <NSObject>
-///**
-// * @name        Item Attributes
-// */
-//
-//@required
-///**
-// * @brief       Delegate method to be called if logging in to the server was canceled
-// */
-//- (void) updateExamList;
-//
-///**
-// * @brief       Delegate method to display an enter password dialog with the
-// *              passed message text asynchronously, calling the callback
-// *              method with the entered password when one was entered
-// */
-//- (void) showEnterUsernamePasswordDialog:(NSString *)text
-//                                   title:(NSString *)title
-//                                username:(NSString *)username
-//                           modalDelegate:(id)modalDelegate
-//                          didEndSelector:(SEL)didEndSelector;
-///**
-// * @brief       Delegate method to hide the previously displayed enter password dialog
-// */
-//- (void) hideEnterUsernamePasswordDialog;
-//
-//@end
 
 @interface ServerController : NSObject <ServerControllerDelegate>
 {
@@ -55,10 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (weak) id delegate;
+@property (weak) SEBViewController *sebViewController;
+
 @property (strong) NSDictionary *sebServer;
 @property (strong, nonatomic) SEBServerController *sebServerController;
 
 - (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
+- (void)loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url;
+
 - (void) loginToServer;
 - (void) queryCredentialsPresetUsername:(NSString *)username;
 - (void) loginCanceled;
