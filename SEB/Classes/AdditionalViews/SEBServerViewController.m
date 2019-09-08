@@ -15,6 +15,13 @@
 
 @implementation SEBServerViewController 
 
+
+- (BOOL) prefersStatusBarHidden
+{
+    return true;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -24,10 +31,12 @@
     [self updateExamList];
 }
 
+
 - (void)updateExamList
 {
     [self.examsTableView reloadData];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -37,12 +46,25 @@
     return cell;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *examList = _sebServerController.examList;
     NSInteger count = examList.count;
     return count;
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    ExamObject *exam = _sebServerController.examList[indexPath.row];
+    NSString *examId = exam.examId;
+    NSString *examURL = exam.url;
+    examURL = @"http://ralph.ethz.ch:18000/courses/course-v1:sebserver+SEBServer1+seb/";
+    [_sebServerController examSelected:examId url:examURL];
+}
+
 
 /*
 #pragma mark - Navigation

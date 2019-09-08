@@ -8,7 +8,7 @@
 import Foundation
 
 @objc public protocol ServerControllerDelegate: class {
-    
+    func loginToExam(_ examId: String, url: String)
 }
 
 @objc public protocol ServerControllerUIDelegate: class {
@@ -77,7 +77,7 @@ public extension SEBServerController {
             
             self.getAccessToken()
         }
-    }    
+    }
     
     func getAccessToken() {
         let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
@@ -86,7 +86,7 @@ public extension SEBServerController {
         pendingRequests?.append(accessTokenRequest)
         // ToDo: Implement timeout and sebServerFallback -> on a higher level
         let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
-        let requestHeaders = ["Authorization" : authorizationString]
+        let requestHeaders = [keys.authorization : authorizationString]
         
         accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, headers: requestHeaders, completion: { (accessTokenResponse, responseHeaders) in
             guard let accessToken = accessTokenResponse else {
@@ -104,15 +104,15 @@ public extension SEBServerController {
     
     func getExamList() {
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        handshakeResource.body = "institutionId=" + institution
+        handshakeResource.body = keys.institutionId + "=" + institution
         
         let handshakeRequest = ApiRequest(resource: handshakeResource)
         pendingRequests?.append(handshakeRequest)
         // ToDo: Implement timeout and sebServerFallback
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
-        let requestHeaders = ["Authorization" : authorizationString]
+        let requestHeaders = [keys.authorization : authorizationString]
         handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, responseHeaders) in
-            guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == "SEBConnectionToken" }))?.value else {
+            guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == keys.sebConnectionToken }))?.value else {
                 return
             }
             self.connectionToken = connectionTokenString as? String
@@ -132,6 +132,16 @@ public extension SEBServerController {
     }
     
 
+    @objc func examSelected(_ examId: String, url: String) {
+        delegate?.loginToExam(examId, url: url)
+    }
+    
+    
+    @objc func startMonitoring(examId: String, userSessionId: String) {
+        
+    }
+    
+    
     //    @objc func getCourseList() {
 //        guard let token = self.token else {
 //            return

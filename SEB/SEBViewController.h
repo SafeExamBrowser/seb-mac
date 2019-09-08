@@ -239,6 +239,7 @@
 
 - (void) showStartSingleAppMode;
 - (void) startExam;
+- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url;
 - (void) quitExamConditionally;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
