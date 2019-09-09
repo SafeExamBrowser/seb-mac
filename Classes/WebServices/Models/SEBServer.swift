@@ -11,12 +11,16 @@ public struct keys {
     static let headerAuthorization = "Authorization"
     static let headerContentType = "Content-Type"
     static let contentTypeFormURLEncoded = "application/x-www-form-urlencoded"
+    static let contentTypeJSON = "application/json;charset=UTF-8"
     static let institutionId = "institutionId"
     static let examId = "examId"
     static let sebConnectionToken = "SEBConnectionToken"
     static let sebUserSessionId = "seb_user_session_id"
     static let timestamp = "timestamp"
     static let pingNumber = "ping-number"
+    static let logType = "type"
+    static let logNumericValue = "numericValue"
+    static let logText = "text"
 }
 
 public struct Discovery: Codable {

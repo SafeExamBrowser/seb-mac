@@ -212,6 +212,31 @@ public extension SEBServerController {
     }
     
     
+    @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
+        if serverAPI != nil {
+            var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
+            let logLevel = "ERROR_LOG"
+            let logJSON = [ keys.logType : logLevel, keys.timestamp : timestamp, keys.logNumericValue : 0, keys.logText : message ] as [String : Any]
+            let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
+            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+            logResource.body = jsonString
+            
+            let logRequest = DataRequest(resource: logResource)
+            pendingRequests?.append(logRequest)
+            let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+            let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
+                                  keys.headerAuthorization : authorizationString,
+                                  keys.sebConnectionToken : connectionToken!]
+            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, responseHeaders) in
+                if logResponse != nil  {
+                    let responseBody = String(data: logResponse!, encoding: .utf8)
+                    print(responseBody as Any)
+                }
+            })
+        }
+    }
+    
+    
     @objc func quitSession() {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         
