@@ -8,10 +8,12 @@
 import Foundation
 
 public struct keys {
-    static let authorization = "Authorization"
+    static let headerAuthorization = "Authorization"
     static let institutionId = "institutionId"
     static let sebConnectionToken = "SEBConnectionToken"
     static let examId = "examId"
+    static let headerContentType = "Content-Type"
+    static let contentTypeFormURLEncoded = "application/x-www-form-urlencoded"
 }
 
 public struct Discovery: Codable {

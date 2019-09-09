@@ -90,7 +90,8 @@ public extension SEBServerController {
         pendingRequests?.append(accessTokenRequest)
         // ToDo: Implement timeout and sebServerFallback -> on a higher level
         let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
-        let requestHeaders = [keys.authorization : authorizationString]
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString]
         
         accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, headers: requestHeaders, completion: { (accessTokenResponse, responseHeaders) in
             guard let accessToken = accessTokenResponse else {
@@ -115,7 +116,8 @@ public extension SEBServerController {
         pendingRequests?.append(handshakeRequest)
         // ToDo: Implement timeout and sebServerFallback
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
-        let requestHeaders = [keys.authorization : authorizationString]
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString]
         handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, responseHeaders) in
             guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == keys.sebConnectionToken }))?.value else {
                 return
@@ -144,13 +146,13 @@ public extension SEBServerController {
     
     
     func getExamConfig() {
-        var examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!)
-        examConfigResource.body = keys.examId + "=" + (selectedExamId ?? "")
+        let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + (selectedExamId ?? "")])
         
-        let examConfigRequest = ApiRequest(resource: examConfigResource)
+        let examConfigRequest = DataRequest(resource: examConfigResource)
         pendingRequests?.append(examConfigRequest)
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
-        let requestHeaders = [keys.authorization : authorizationString, keys.sebConnectionToken : connectionToken!]
+        let requestHeaders = [keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken!]
         examConfigRequest.load(httpMethod: examConfigResource.httpMethod, body:examConfigResource.body, headers: requestHeaders, completion: { (examConfigResponse, responseHeaders) in
             guard let config = examConfigResponse else {
                 return

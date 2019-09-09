@@ -13,26 +13,12 @@ protocol ApiResource {
     func makeModel(data:Data) -> Model
 }
 
-protocol ApiDataResource {
-    var baseURL: URL { get }
-    var methodPath: String { get }
-    var queryParameters: [String] { get }
-}
-
 extension ApiResource {
 	var url: URL {
         let hostPath = baseURL.absoluteString + methodPath
-		let url = hostPath + "?" + queryParameters.joined(separator: "&")
+        let url = hostPath + (queryParameters.count == 0 ? "" : ("?" + queryParameters.joined(separator: "&")))
 		return URL(string: url)!
 	}
-}
-
-extension ApiDataResource {
-    var url: URL {
-        let hostPath = baseURL.absoluteString + methodPath
-        let url = hostPath + "?" + queryParameters.joined(separator: "&")
-        return URL(string: url)!
-    }
 }
 
 struct DiscoveryResource: ApiResource {
@@ -44,7 +30,7 @@ struct DiscoveryResource: ApiResource {
     init(baseURL: URL, discoveryEndpoint: String) {
         self.baseURL = baseURL
         self.methodPath = discoveryEndpoint
-        self.queryParameters = [""]
+        self.queryParameters = []
     }
     
     func makeModel(data: Data) -> Discovery? {
@@ -115,10 +101,10 @@ struct ExamConfigResource: ApiResource {
     let httpMethod = "GET"
     var body = ""
     
-    init(baseURL: URL, endpoint: String) {
+    init(baseURL: URL, endpoint: String, queryParameters: [String]) {
         self.baseURL = baseURL
         self.methodPath = endpoint
-        self.queryParameters = []
+        self.queryParameters = queryParameters
     }
     func makeModel(data: Data) -> Data? {
         return data
