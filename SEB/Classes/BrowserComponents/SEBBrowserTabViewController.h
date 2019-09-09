@@ -93,5 +93,7 @@
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 
+- (void) examServerLoginUsername:(NSString *)username;
+
 @end
 

@@ -460,6 +460,12 @@
 }
 
 
+- (void) examServerLoginUsername:(NSString *)username
+{
+    [_sebViewController examServerLoginUsername:username];
+}
+
+
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
     [self.visibleWebViewController.sebWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];

@@ -38,6 +38,12 @@
 }
 
 
+- (void) examServerLoginUsername:(NSString *)username
+{
+    [_sebServerController startMonitoringWithUserSessionId:username];
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ExamCell *cell = [tableView dequeueReusableCellWithIdentifier:@"examListCell" forIndexPath:indexPath];
