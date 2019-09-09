@@ -9,11 +9,14 @@ import Foundation
 
 public struct keys {
     static let headerAuthorization = "Authorization"
-    static let institutionId = "institutionId"
-    static let sebConnectionToken = "SEBConnectionToken"
-    static let examId = "examId"
     static let headerContentType = "Content-Type"
     static let contentTypeFormURLEncoded = "application/x-www-form-urlencoded"
+    static let institutionId = "institutionId"
+    static let examId = "examId"
+    static let sebConnectionToken = "SEBConnectionToken"
+    static let sebUserSessionId = "seb_user_session_id"
+    static let timestamp = "timestamp"
+    static let pingNumber = "ping-number"
 }
 
 public struct Discovery: Codable {

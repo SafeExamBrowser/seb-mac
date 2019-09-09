@@ -42,6 +42,11 @@
 }
 
 
+- (void) quitSession
+{
+    [_sebServerController quitSession];
+}
+
 
 - (void) loginToServer
 {

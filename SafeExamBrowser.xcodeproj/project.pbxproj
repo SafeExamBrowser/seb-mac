@@ -669,6 +669,12 @@
 		69B6759E2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
+		69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
+		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
+		69BBAE58232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
+		69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
+		69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
+		69BBAE5B232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
@@ -1242,6 +1248,8 @@
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
+		69BBAE55232702BD005BC19F /* ServerLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerLogger.m; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
@@ -2339,6 +2347,8 @@
 			children = (
 				69B1D46D230D7586005656B8 /* ServerController.h */,
 				69B1D46E230D7586005656B8 /* ServerController.m */,
+				69BBAE54232702BD005BC19F /* ServerLogger.h */,
+				69BBAE55232702BD005BC19F /* ServerLogger.m */,
 			);
 			name = SEBServer;
 			path = Classes/SEBServer;
@@ -2444,6 +2454,7 @@
 				69819EC82200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				69421666214544AB002EB416 /* SEBTextField.h in Headers */,
 				69421667214544AB002EB416 /* SEBInitAssistantViewController.h in Headers */,
+				69BBAE58232702BD005BC19F /* ServerLogger.h in Headers */,
 				69E64C0922B7D5F300B593AE /* SEBRootViewController.h in Headers */,
 				69421668214544AB002EB416 /* SEBiOSConfigFileController.h in Headers */,
 				69421669214544AB002EB416 /* SEB_Prefix.pch in Headers */,
@@ -2530,6 +2541,7 @@
 				69819EC72200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */,
 				69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
+				69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */,
 				69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */,
 				69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */,
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
@@ -2581,6 +2593,7 @@
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
 				695370A12033921C00C638A8 /* LGSideMenuBorderView.h in Headers */,
 				69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */,
+				69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */,
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
@@ -3294,6 +3307,7 @@
 				69D35D21217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
 				696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
+				69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */,
 				69819ED12200BEFB0047809D /* MscX509CommonError.m in Sources */,
 				69F522CA2146720C009F3999 /* SEBCertServices.m in Sources */,
 				6914D12E2183A260004F4A4B /* CustomViewCell.m in Sources */,
@@ -3398,6 +3412,7 @@
 				694215BD214544AB002EB416 /* SEB.xcdatamodeld in Sources */,
 				69D35D27217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
 				694215BE214544AB002EB416 /* UIWebView+SEBWebView.m in Sources */,
+				69BBAE5B232702BD005BC19F /* ServerLogger.m in Sources */,
 				694215BF214544AB002EB416 /* RNEncryptor.m in Sources */,
 				69819ED22200BEFB0047809D /* MscX509CommonError.m in Sources */,
 				69F522CB2146720C009F3999 /* SEBCertServices.m in Sources */,
@@ -3558,6 +3573,7 @@
 				69819E992200BEFB0047809D /* MscX509CommonLocalException.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
+				69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */,
 				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				693FB268231D22010062E36E /* SEBServerController.swift in Sources */,
 				695370B32033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
@@ -3767,7 +3783,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3842,7 +3858,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4093,7 +4109,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -4172,7 +4188,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4238,7 +4254,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -4281,7 +4297,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4340,7 +4356,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4400,7 +4416,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13418;
+				CURRENT_PROJECT_VERSION = 13423;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
