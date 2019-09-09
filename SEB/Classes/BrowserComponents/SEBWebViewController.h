@@ -58,7 +58,7 @@
 }
 
 
-@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
+@property (weak) SEBBrowserTabViewController *browserTabViewController;
 @property (nonatomic, strong) UIWebView *sebWebView;
 @property (strong) SEBURLFilter *urlFilter;
 @property (strong) UIView *filterMessageHolder;

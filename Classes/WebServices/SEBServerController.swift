@@ -9,6 +9,7 @@ import Foundation
 
 @objc public protocol ServerControllerDelegate: class {
     func loginToExam(_ examId: String, url: String)
+    func reconfigureWithServerExamConfig(_ configData: Data)
 }
 
 @objc public protocol ServerControllerUIDelegate: class {
@@ -25,7 +26,8 @@ import Foundation
     fileprivate var password: String
     fileprivate var connectionToken: String?
     fileprivate var exams: [Exam]?
-    fileprivate var selectedExamId: String?
+    fileprivate var selectedExamId = ""
+    fileprivate var selectedExamURL = ""
 
     @objc weak public var delegate: ServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
@@ -41,7 +43,7 @@ import Foundation
         self.username = username
         self.password = password
         self.discoveryEndpoint = discoveryEndpoint
-
+        
         self.delegate = delegate
     }
 }
@@ -141,12 +143,13 @@ public extension SEBServerController {
     
     @objc func examSelected(_ examId: String, url: String) {
         selectedExamId = examId
+        selectedExamURL = url
         getExamConfig()
     }
     
     
     func getExamConfig() {
-        let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + (selectedExamId ?? "")])
+        let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + (selectedExamId)])
         
         let examConfigRequest = DataRequest(resource: examConfigResource)
         pendingRequests?.append(examConfigRequest)
@@ -157,16 +160,16 @@ public extension SEBServerController {
             guard let config = examConfigResponse else {
                 return
             }
-            print(config as Any)
+            self.delegate?.reconfigureWithServerExamConfig(config)
         })
     }
     
     
-    @objc func loginToExam(_ examId: String, url: String) {
-        delegate?.loginToExam(examId, url: url)
+    @objc func loginToExam() {
+        delegate?.loginToExam(selectedExamId, url: selectedExamURL)
     }
 
-    @objc func startMonitoring(examId: String, userSessionId: String) {
+    @objc func startMonitoring(userSessionId: String) {
         
     }
     
