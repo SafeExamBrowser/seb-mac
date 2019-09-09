@@ -31,7 +31,13 @@
 }
 
 
-- (void)loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url {
+- (void) reconfigureWithServerExamConfig: (NSData *)configData
+{
+    [_sebServerController loginToExam];
+}
+
+
+- (void) loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url {
     [_sebViewController loginToExamWithExamId:examId url:url];
 }
 

@@ -2502,6 +2502,12 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) examServerLoginUsername:(NSString *)username
+{
+    [_sebServerViewController examServerLoginUsername:username];
+}
+
+
 - (void) quitExamConditionally
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
