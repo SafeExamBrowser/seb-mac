@@ -86,6 +86,7 @@
 
 #import "ServerController.h"
 #import "SEBServerViewController.h"
+#import "ServerLogger.h"
 
 @class AppDelegate;
 @class SEBUIController;
@@ -222,6 +223,10 @@
 
 
 - (void) initializeLogger;
+- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
+                        timestamp: (NSString *)timestamp
+                     numericValue:(double)numericValue
+                          message:(NSString *)message;
 
 - (BOOL) allowediOSVersion;
 - (void) newWebViewTabDidMoveToParentViewController;

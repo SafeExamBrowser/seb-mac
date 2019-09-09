@@ -42,6 +42,15 @@
 }
 
 
+- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
+                        timestamp: (NSString *)timestamp
+                     numericValue:(double)numericValue
+                          message:(NSString *)message
+{
+    [_sebServerController sendLogEvent:logLevel timestamp:timestamp numericValue:numericValue message:message];
+}
+
+
 - (void) quitSession
 {
     [_sebServerController quitSession];
