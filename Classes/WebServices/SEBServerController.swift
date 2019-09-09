@@ -28,6 +28,7 @@ import Foundation
     fileprivate var exams: [Exam]?
     fileprivate var selectedExamId = ""
     fileprivate var selectedExamURL = ""
+    fileprivate var pingNumber: Int64 = 0
 
     @objc weak public var delegate: ServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
@@ -36,6 +37,7 @@ import Foundation
     @objc public var institution: String
     @objc public var discoveryEndpoint: String
     @objc public var examList: [ExamObject]?
+    @objc public var pingTimer: Timer?
     
     @objc public init(baseURL: URL, institution:  String, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
         self.baseURL = baseURL
@@ -169,8 +171,62 @@ public extension SEBServerController {
         delegate?.loginToExam(selectedExamId, url: selectedExamURL)
     }
 
+    
     @objc func startMonitoring(userSessionId: String) {
+        var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId
+
+        let handshakeCloseRequest = DataRequest(resource: handshakeCloseResource)
+        pendingRequests?.append(handshakeCloseRequest)
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken!]
+        handshakeCloseRequest.load(httpMethod: handshakeCloseResource.httpMethod, body:handshakeCloseResource.body, headers: requestHeaders, completion: { (handshakeCloseResponse, responseHeaders) in
+            if handshakeCloseResponse != nil  {
+                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
+                print(responseBody as Any)
+            }
+            self.pingTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+        })
+    }
+    
+    
+    @objc func sendPing() {
+        var pingResource = PingResource(baseURL: self.baseURL, endpoint: (serverAPI?.ping.endpoint?.location)!)
+        pingNumber += 1
+        pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970) + "&" + keys.pingNumber + "=" + String(pingNumber)
         
+        let pingRequest = DataRequest(resource: pingResource)
+        pendingRequests?.append(pingRequest)
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken!]
+        pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, responseHeaders) in
+            if pingResponse != nil  {
+                let responseBody = String(data: pingResponse!, encoding: .utf8)
+                print(responseBody as Any)
+            }
+        })
+    }
+    
+    
+    @objc func quitSession() {
+        let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+        
+        let quitSessionRequest = DataRequest(resource: quitSessionResource)
+        pendingRequests?.append(quitSessionRequest)
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken!]
+        quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, responseHeaders) in
+            if quitSessionResponse != nil  {
+                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
+                print(responseBody as Any)
+            }
+        })
     }
     
     

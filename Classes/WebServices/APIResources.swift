@@ -34,8 +34,6 @@ struct DiscoveryResource: ApiResource {
     }
     
     func makeModel(data: Data) -> Discovery? {
-//        let dataString = String(data: data, encoding: .utf8)
-//        print(dataString as Any)
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         guard let discovery = try? decoder.decode(Discovery.self, from: data) else {
@@ -110,6 +108,63 @@ struct ExamConfigResource: ApiResource {
         return data
     }
 
+}
+
+struct HandshakeCloseResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "PUT"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    func makeModel(data: Data) -> Data? {
+        return data
+    }
+    
+}
+
+struct PingResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "POST"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    func makeModel(data: Data) -> Data? {
+        return data
+    }
+    
+}
+
+struct QuitSessionResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "DELETE"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    func makeModel(data: Data) -> Data? {
+        return data
+    }
+    
 }
 
 //struct CoursesResource: ApiResource {
