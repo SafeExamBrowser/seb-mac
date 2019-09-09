@@ -2664,6 +2664,11 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
+    
+    if (self.serverController) {
+        [self.serverController quitSession];
+    }
+    
     [self initializeLogger];
     
     // Close browser tabs and reset browser session

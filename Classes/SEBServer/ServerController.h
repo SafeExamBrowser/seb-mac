@@ -28,7 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SEBServerController *sebServerController;
 
 - (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
-- (void)loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url;
+- (void) loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url;
+- (void) quitSession;
 
 - (void) loginToServer;
 - (void) queryCredentialsPresetUsername:(NSString *)username;
