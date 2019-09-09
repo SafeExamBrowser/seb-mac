@@ -225,6 +225,9 @@ static NSMutableSet *browserWindowControllers;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
         [DDLog removeLogger:_myLogger];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            [DDLog removeLogger:ServerLogger.sharedInstance];
+        }
     } else {
         //Set log directory
 //        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
@@ -241,7 +244,20 @@ static NSMutableSet *browserWindowControllers;
         _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
         _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
         [DDLog addLogger:_myLogger];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            [DDLog addLogger:ServerLogger.sharedInstance];
+            ServerLogger.sharedInstance.sebViewController = self;
+        }
     }
+}
+
+
+- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
+                        timestamp:(NSString *)timestamp
+                     numericValue:(double)numericValue
+                          message:(NSString *)message
+{
+    [self.serverController sendLogEventWithLogLevel:logLevel timestamp:timestamp numericValue:numericValue message:message];
 }
 
 
