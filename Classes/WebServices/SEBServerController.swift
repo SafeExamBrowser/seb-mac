@@ -215,8 +215,20 @@ public extension SEBServerController {
     @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
         if serverAPI != nil {
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
-            let logLevel = "ERROR_LOG"
-            let logJSON = [ keys.logType : logLevel, keys.timestamp : timestamp, keys.logNumericValue : 0, keys.logText : message ] as [String : Any]
+            var serverLogLevel: String
+            switch logLevel {
+            case 1:
+                serverLogLevel = "ERROR_LOG"
+            case 3:
+                serverLogLevel = "WARN_LOG"
+            case 7:
+                serverLogLevel = "INFO_LOG"
+            case 15:
+                serverLogLevel = "DEBUG_LOG"
+            default:
+                serverLogLevel = "UNDEFINED"
+            }
+            let logJSON = [ keys.logType : serverLogLevel, keys.timestamp : timestamp, keys.logNumericValue : 0, keys.logText : message ] as [String : Any]
             let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
             let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
             logResource.body = jsonString
