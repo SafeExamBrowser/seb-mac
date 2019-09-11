@@ -1939,13 +1939,23 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     NSString *suggestedFilename = response.suggestedFilename;
     NSURL *responseURL = response.URL;
-
+    NSString *pathExtension = responseURL.pathExtension;
     DDLogDebug(@"%s from URL: %@ (NSURLResponse URL: %@, suggestedFilename: %@, error: %@", __FUNCTION__, url, responseURL, suggestedFilename, error);
     
     if (!error) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        if ([responseURL.pathExtension isEqualToString:@"seb"]) {
+        NSString *filename = suggestedFilename;
+        if (self.downloadFilename) {
+            // If we got the filename from a <a download="... tag, we use that
+            // as WebKit doesn't recognize the filename and suggests "Unknown"
+            filename = self.downloadFilename;
+        } else if (self.downloadFileExtension) {
+            // If we didn't get the file name, at least set the file extension properly
+            filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
+        }
+
+        if ([pathExtension isEqualToString:@"seb"] || [filename.pathExtension isEqualToString:@"seb"]) {
             // If file extension indicates a .seb file, we try to open it
             // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1971,15 +1981,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
             }
             downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSString *filename = suggestedFilename;
-            if (self.downloadFilename) {
-                // If we got the filename from a <a download="... tag, we use that
-                // as WebKit doesn't recognize the filename and suggests "Unknown"
-                filename = self.downloadFilename;
-            } else if (self.downloadFileExtension) {
-                // If we didn't get the file name, at least set the file extension properly
-                filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
-            }
             NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename]];
             
             NSFileManager *fileManager = [NSFileManager defaultManager];
