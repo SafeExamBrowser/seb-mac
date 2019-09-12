@@ -21,6 +21,11 @@ public struct keys {
     static let logType = "type"
     static let logNumericValue = "numericValue"
     static let logText = "text"
+    static let logLevelError = "ERROR_LOG"
+    static let logLevelWarning = "WARN_LOG"
+    static let logLevelInfo = "INFO_LOG"
+    static let logLevelDebug = "DEBUG_LOG"
+    static let logLevelUnknown = "UNKNOWN"
 }
 
 public struct Discovery: Codable {
