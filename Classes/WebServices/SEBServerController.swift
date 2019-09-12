@@ -218,15 +218,15 @@ public extension SEBServerController {
             var serverLogLevel: String
             switch logLevel {
             case 1:
-                serverLogLevel = "ERROR_LOG"
-            case 3:
-                serverLogLevel = "WARN_LOG"
-            case 7:
-                serverLogLevel = "INFO_LOG"
-            case 15:
-                serverLogLevel = "DEBUG_LOG"
+                serverLogLevel = keys.logLevelError
+            case 2:
+                serverLogLevel = keys.logLevelWarning
+            case 4:
+                serverLogLevel = keys.logLevelInfo
+            case 8:
+                serverLogLevel = keys.logLevelDebug
             default:
-                serverLogLevel = "UNDEFINED"
+                serverLogLevel = keys.logLevelUnknown
             }
             let logJSON = [ keys.logType : serverLogLevel, keys.timestamp : timestamp, keys.logNumericValue : 0, keys.logText : message ] as [String : Any]
             let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
