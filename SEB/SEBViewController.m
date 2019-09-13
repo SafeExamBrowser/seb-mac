@@ -2491,59 +2491,6 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) showSEBServerView
-{
-    if (_sebServerViewDisplayed == false) {
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:^{
-                self.alertController = nil;
-                [self showSEBServerView];
-            }];
-            return;
-        }
-        [self.sideMenuController hideLeftViewAnimated];
-    }
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    _sebServerViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
-    _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    _sebServerViewController.sebViewController = self;
-    
-    [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
-        self.sebServerViewDisplayed = true;
-        self.sebServerViewController.sebServerController = self.serverController.sebServerController;
-        self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
-        [self.sebServerViewController updateExamList];
-    }];
-}
-
-
-- (void) closeSEBServerView
-{
-    _sebServerViewDisplayed = false;
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url
-{
-    [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
-}
-
-
-- (void) examServerLoginUsername:(NSString *)username
-{
-    [_sebServerViewController examServerLoginUsername:username];
-}
-
-
-- (void) didEstablishSEBServerConnection
-{
-    _establishingSEBServerConnection = false;
-    _sebServerConnectionEstablished = true;
-}
-
-
 - (void) quitExamConditionally
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -2838,6 +2785,63 @@ void run_on_ui_thread(dispatch_block_t block)
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL, BOOL) = (void *)imp;
     func(callback, selector, success);
+}
+
+
+#pragma mark - Connecting to SEB Server
+
+- (void) showSEBServerView
+{
+    if (_sebServerViewDisplayed == false) {
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+                [self showSEBServerView];
+            }];
+            return;
+        }
+        [self.sideMenuController hideLeftViewAnimated];
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    _sebServerViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
+    _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    _sebServerViewController.sebViewController = self;
+    
+    [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
+        self.sebServerViewDisplayed = true;
+        self.sebServerViewController.sebServerController = self.serverController.sebServerController;
+        self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
+        [self.sebServerViewController updateExamList];
+    }];
+}
+
+
+- (void) closeSEBServerView
+{
+    _sebServerViewDisplayed = false;
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url
+{
+    [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
+}
+
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineCookies:cookies];
+    }
+}
+
+
+- (void) didEstablishSEBServerConnection
+{
+    _establishingSEBServerConnection = false;
+    _sebServerConnectionEstablished = true;
 }
 
 

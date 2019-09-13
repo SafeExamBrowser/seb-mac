@@ -48,6 +48,27 @@
 }
 
 
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    // Look for a user cookie if logging in to an exam system/LMS supporting SEB Server
+    // ToDo: Only search for cookie when logging in to Open edX
+    NSHTTPCookie *cookie;
+    for (cookie in cookies) {
+        if ([cookie.name isEqualToString:@"edx-user-info"]) {
+            NSString *cookieValue = [cookie.value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\""]];
+            cookieValue = [cookieValue stringByReplacingOccurrencesOfString:@"\\054" withString:@","];
+            cookieValue = [cookieValue stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
+            NSError *error = nil;
+            NSDictionary* cookieKeyValues = [NSJSONSerialization JSONObjectWithData:[cookieValue dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+            NSString *openEdXUsername = [cookieKeyValues valueForKey:@"username"];
+            if (openEdXUsername) {
+                [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
+            }
+        }
+    }
+}
+
+
 - (void)didEstablishSEBServerConnection {
     [_sebViewController didEstablishSEBServerConnection];
 }

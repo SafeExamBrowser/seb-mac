@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
 - (void) startExam;
 - (void) loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url;
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 - (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
                         timestamp: (NSString *)timestamp
                      numericValue:(double)numericValue
