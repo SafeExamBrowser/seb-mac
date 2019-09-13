@@ -38,12 +38,6 @@
 }
 
 
-- (void) examServerLoginUsername:(NSString *)username
-{
-    [_sebServerController startMonitoringWithUserSessionId:username];
-}
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ExamCell *cell = [tableView dequeueReusableCellWithIdentifier:@"examListCell" forIndexPath:indexPath];
@@ -67,7 +61,7 @@
     ExamObject *exam = _sebServerController.examList[indexPath.row];
     NSString *examId = exam.examId;
     NSString *examURL = exam.url;
-    examURL = @"http://ralph.ethz.ch:18000/courses/course-v1:sebserver+SEBServer1+seb/";
+//    examURL = @"http://ralph.ethz.ch:18000/courses/course-v1:sebserver+SEBServer1+seb/";
     [_sebServerController examSelected:examId url:examURL];
     [_sebViewController closeSEBServerView];
 }

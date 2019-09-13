@@ -238,6 +238,7 @@
 - (void) showConfigURLWarning:(NSError *)error;
 - (void) scanQRCode;
 
+#pragma mark - Init, reconfigure and reset SEB
 - (void) conditionallyShowSettingsModal;
 - (void) conditionallyResetSettings;
 - (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
@@ -245,17 +246,22 @@
 - (void) showAlertWithError:(NSError *)error;
 
 - (void) showStartSingleAppMode;
-- (void) startExam;
-- (void) closeSEBServerView;
-- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url;
-- (void) examServerLoginUsername:(NSString *)username;
-- (void) didEstablishSEBServerConnection;
 
+#pragma mark - Start and quit exam session
+- (void) startExam;
 - (void) quitExamConditionally;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
+#pragma mark - Connecting to SEB Server
+- (void) closeSEBServerView;
+- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url;
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
+- (void) didEstablishSEBServerConnection;
+
+#pragma mark - Kiosk mode
 - (void) stopAutonomousSingleAppMode;
 
+#pragma mark - Lockdown windows
 - (void) conditionallyOpenLockdownWindows;
 - (void) openLockdownWindows;
 
@@ -275,7 +281,6 @@
 - (void) setToolbarTitle:(NSString *)title;
 
 #pragma mark - SEB Dock and left slider button handler
-
 - (void) leftDrawerButtonPress:(id)sender;
 - (void) showAboutSEB;
 - (IBAction) backToStart;
