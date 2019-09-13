@@ -2450,57 +2450,64 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) startExam
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
-        NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
-        NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
-        if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
-            // All necessary information for connecting to SEB Server was available in settings:
-            // try to connect to SEB Server and wait for delegate method to be called with success/failure
-            [self showSEBServerView];
-            
-            return;
-        }
-    }
-    NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    NSURL *startURL = [NSURL URLWithString:startURLString];
-    if (startURLString.length == 0 ||
-        (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
-          [startURL.host hasSuffix:SEBWebsiteShort]) &&
-         [startURL.path hasSuffix:@"start"]))
-    {
-        // Start URL was set to the default value, show init assistant
-        [self openInitAssistant];
+    if (_establishingSEBServerConnection == true) {
+        [self.serverController startExam];
     } else {
-        _examRunning = true;
-        
-        // Load all open web pages from the persistent store and re-create webview(s) for them
-        // or if no persisted web pages are available, load the start URL
-        [_browserTabViewController loadPersistedOpenWebPages];
-        
-        currentStartURL = startURLString;
-        if (_secureMode) {
-            [self.sebLockedViewController addLockedExam:startURLString];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
+            NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
+            if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
+                // All necessary information for connecting to SEB Server was available in settings:
+                // try to connect to SEB Server and wait for delegate method to be called with success/failure
+                _establishingSEBServerConnection = true;
+                [self showSEBServerView];
+                
+                return;
+            }
+        }
+        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        NSURL *startURL = [NSURL URLWithString:startURLString];
+        if (startURLString.length == 0 ||
+            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+              [startURL.host hasSuffix:SEBWebsiteShort]) &&
+             [startURL.path hasSuffix:@"start"]))
+        {
+            // Start URL was set to the default value, show init assistant
+            [self openInitAssistant];
+        } else {
+            _examRunning = true;
+            
+            // Load all open web pages from the persistent store and re-create webview(s) for them
+            // or if no persisted web pages are available, load the start URL
+            [_browserTabViewController loadPersistedOpenWebPages];
+            
+            currentStartURL = startURLString;
+            if (_secureMode) {
+                [self.sebLockedViewController addLockedExam:startURLString];
+            }
         }
     }
-
 }
 
 
 - (void) showSEBServerView
 {
-    if (_alertController) {
-        [_alertController dismissViewControllerAnimated:NO completion:^{
-            self.alertController = nil;
-            [self showSEBServerView];
-        }];
-        return;
+    if (_sebServerViewDisplayed == false) {
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+                [self showSEBServerView];
+            }];
+            return;
+        }
+        [self.sideMenuController hideLeftViewAnimated];
     }
-    [self.sideMenuController hideLeftViewAnimated];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     _sebServerViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
     _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    _sebServerViewController.sebViewController = self;
     
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
         self.sebServerViewDisplayed = true;
@@ -2511,9 +2518,15 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) closeSEBServerView
+{
+    _sebServerViewDisplayed = false;
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 - (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url
 {
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:nil];
     [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
 }
 
@@ -2521,6 +2534,13 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) examServerLoginUsername:(NSString *)username
 {
     [_sebServerViewController examServerLoginUsername:username];
+}
+
+
+- (void) didEstablishSEBServerConnection
+{
+    _establishingSEBServerConnection = false;
+    _sebServerConnectionEstablished = true;
 }
 
 
@@ -2681,7 +2701,8 @@ void run_on_ui_thread(dispatch_block_t block)
     
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
     
-    if (self.serverController) {
+    if (_sebServerConnectionEstablished) {
+        _sebServerConnectionEstablished = false;
         [self.serverController quitSession];
     }
     

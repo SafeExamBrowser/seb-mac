@@ -69,6 +69,7 @@
     NSString *examURL = exam.url;
     examURL = @"http://ralph.ethz.ch:18000/courses/course-v1:sebserver+SEBServer1+seb/";
     [_sebServerController examSelected:examId url:examURL];
+    [_sebViewController closeSEBServerView];
 }
 
 
