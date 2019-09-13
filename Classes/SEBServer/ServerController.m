@@ -33,12 +33,23 @@
 
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
+    [_sebViewController storeNewSEBSettings:configData];
+}
+
+
+- (void) startExam
+{
     [_sebServerController loginToExam];
 }
 
 
 - (void) loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url {
     [_sebViewController loginToExamWithExamId:examId url:url];
+}
+
+
+- (void)didEstablishSEBServerConnection {
+    [_sebViewController didEstablishSEBServerConnection];
 }
 
 

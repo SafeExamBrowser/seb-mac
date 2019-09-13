@@ -214,6 +214,8 @@
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL aboutSEBViewDisplayed;
+@property(readwrite) BOOL establishingSEBServerConnection;
+@property(readwrite) BOOL sebServerConnectionEstablished;
 @property(readwrite) BOOL sebServerViewDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
@@ -244,8 +246,10 @@
 
 - (void) showStartSingleAppMode;
 - (void) startExam;
+- (void) closeSEBServerView;
 - (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url;
 - (void) examServerLoginUsername:(NSString *)username;
+- (void) didEstablishSEBServerConnection;
 
 - (void) quitExamConditionally;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
@@ -264,6 +268,7 @@
 - (void) conditionallyOpenSEBConfigFromMDMServer;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
+- (void) storeNewSEBSettings:(NSData *)sebData;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;

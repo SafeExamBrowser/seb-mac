@@ -10,6 +10,7 @@ import Foundation
 @objc public protocol ServerControllerDelegate: class {
     func loginToExam(_ examId: String, url: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
+    func didEstablishSEBServerConnection()
 }
 
 @objc public protocol ServerControllerUIDelegate: class {
@@ -187,6 +188,7 @@ public extension SEBServerController {
                 let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
                 print(responseBody as Any)
             }
+            self.delegate?.didEstablishSEBServerConnection()
             self.pingTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
         })
     }
@@ -213,7 +215,7 @@ public extension SEBServerController {
     
     
     @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
-        if serverAPI != nil {
+        if (serverAPI != nil) && (connectionToken != nil) {
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
             var serverLogLevel: String
             switch logLevel {
