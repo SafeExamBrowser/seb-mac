@@ -353,22 +353,9 @@
     
     // Look for a user cookie if logging in to an exam system/LMS supporting SEB Server
     // ToDo: Only search for cookie when logging in to Open edX
-    NSHTTPCookie *cookie;
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (cookie in [cookieJar cookies]) {
-        if ([cookie.name isEqualToString:@"edx-user-info"]) {
-            NSString *cookieValue = [cookie.value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\""]];
-            cookieValue = [cookieValue stringByReplacingOccurrencesOfString:@"\\054" withString:@","];
-            cookieValue = [cookieValue stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
-            NSError *error = nil;
-            NSDictionary* cookieKeyValues = [NSJSONSerialization JSONObjectWithData:[cookieValue dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
-            NSString *openEdXUsername = [cookieKeyValues valueForKey:@"username"];
-            if (openEdXUsername) {
-                [_browserTabViewController examServerLoginUsername:openEdXUsername];
-            }
-        }
-    }
-    
+    NSArray<NSHTTPCookie *> *cookies = cookieJar.cookies;
+    [_browserTabViewController examineCookies:cookies];
 }
 
 

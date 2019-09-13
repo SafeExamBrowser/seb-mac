@@ -52,7 +52,7 @@
     IBOutlet UIBarButtonItem *MainWebView;
 }
 
-@property (nonatomic, strong) SEBViewController *sebViewController;
+@property (weak) SEBViewController *sebViewController;
 @property (nonatomic, weak) SEBWebViewController *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *openWebpages;
@@ -93,7 +93,7 @@
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 
-- (void) examServerLoginUsername:(NSString *)username;
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 
 @end
 

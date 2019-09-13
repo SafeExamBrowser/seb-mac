@@ -460,12 +460,6 @@
 }
 
 
-- (void) examServerLoginUsername:(NSString *)username
-{
-    [_sebViewController examServerLoginUsername:username];
-}
-
-
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
     [self.visibleWebViewController.sebWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];
@@ -646,6 +640,12 @@
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 {
     [_sebViewController conditionallyOpenSEBConfigFromData:sebConfigData];
+}
+
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    [_sebViewController examineCookies:cookies];
 }
 
 
