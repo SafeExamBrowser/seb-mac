@@ -49,8 +49,8 @@
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
         _defaultImage = itemIcon;
 
-        [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
-        _highlightedImage = itemHighlightedIcon;
+//        [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
+//        _highlightedImage = itemHighlightedIcon;
 
         self.image = _defaultImage;
         
@@ -60,7 +60,8 @@
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
         NSButtonCell *newDockItemButtonCell = self.cell;
-        newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
+        newDockItemButtonCell.highlightsBy = NSCellLightsByGray;
+        newDockItemButtonCell.backgroundColor = [NSColor clearColor];
 
         // Create text label for dock item, if there was a title set for the item
         if (itemTitle) {
@@ -140,9 +141,11 @@
 {
     mouseDown = YES;
 
-    self.highlighted = true;
     if (_highlightedImage) {
         self.image = _highlightedImage;
+    } else {
+        self.alphaValue = 0.5;
+        self.highlighted = true;
     }
     
     [self performSelector:@selector(longMouseDown) withObject: nil afterDelay: 0.5];
@@ -156,7 +159,8 @@
         mouseDown = NO;
         [self performClick:self];
     }
-    self.image = _defaultImage;
+//    self.image = _defaultImage;
+    self.alphaValue = 1;
     self.highlighted = false;
 
     [super mouseUp:theEvent];
@@ -175,9 +179,11 @@
 
 - (void)rightMouseDown:(NSEvent*)theEvent
 {
-    self.highlighted = true;
     if (_highlightedImage) {
         self.image = _highlightedImage;
+    } else {
+        self.alphaValue = 0.5;
+        self.highlighted = true;
     }
 
     if (self.dockMenu)
@@ -193,13 +199,15 @@
 // This method is called when the dock item menu is closed
 - (void)unhighlight
 {
-    self.image = _defaultImage;
+//    self.image = _defaultImage;
+    self.alphaValue = 1;
     self.highlighted = false;
 }
 
 - (void)rightMouseUp:(NSEvent *)theEvent
 {
-    self.image = _defaultImage;
+//    self.image = _defaultImage;
+    self.alphaValue = 1;
     self.highlighted = false;
 }
 
@@ -258,9 +266,12 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10) {
-        [super setHighlighted:highlighted];
-    }
+//    if (@available(macOS 14, *)) {
+//    } else {
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10) {
+            [super setHighlighted:highlighted];
+        }
+//    }
 }
 
 
