@@ -1304,8 +1304,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     checkingRunningProcesses = true;
     
     NSDate *lastTimeProcessCheckBeforeSIGSTOP = lastTimeProcessCheck;
-    if (detectSIGSTOP && -[lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow] > 3) {
-        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -[lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow]);
+    NSTimeInterval timeSinceLastProcessCheck = [lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow];
+    if (!_systemSleeping && detectSIGSTOP && -timeSinceLastProcessCheck > 3 && timeSinceLastProcessCheck <= 0) {
+        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -timeSinceLastProcessCheck);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!self.SIGSTOPDetected) {
                 self.SIGSTOPDetected = true;
@@ -2087,6 +2088,7 @@ OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
 	return noErr;
 }
 
+static bool _systemSleeping;
 
 // Method called by I/O Kit power management
 void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType, void * messageArgument )
@@ -2123,17 +2125,22 @@ void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType
 			 NOTE: If you call IOCancelPowerChange to deny sleep it returns kIOReturnSuccess,
 			 however the system WILL still go to sleep. 
 			 */
-			
+            DDLogDebug(@"kIOMessageSystemWillSleep");
+            _systemSleeping = true;
+
 			//IOCancelPowerChange( root_port, (long)messageArgument );
 			//IOAllowPowerChange( root_port, (long)messageArgument );
             break;
 			
         case kIOMessageSystemWillPowerOn:
             //System has started the wake up process...
+            DDLogDebug(@"kIOMessageSystemWillPowerOn");
             break;
 			
         case kIOMessageSystemHasPoweredOn:
             //System has finished waking up...
+            DDLogDebug(@"kIOMessageSystemHasPoweredOn");
+            _systemSleeping = false;
 			break;
 			
         default:
