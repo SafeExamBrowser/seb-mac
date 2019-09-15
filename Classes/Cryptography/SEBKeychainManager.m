@@ -785,8 +785,9 @@
     keyParams.keyUsage = NULL;
 
 //    keyParams.keyAttributes = forEditing ? (__bridge CFArrayRef) @[ (NSString *)kSecAttrIsExtractable ] : (__bridge CFArrayRef) @[ (NSString *)kSecAttrIsPermanent ];
-    keyParams.keyAttributes = forEditing ? (__bridge CFArrayRef) @[ @{ (NSString *)kSecAttrIsSensitive : @YES} , @{ (NSString *)kSecAttrIsExtractable : @YES } ] : (__bridge CFArrayRef) @[ @{ (NSString *)kSecAttrIsSensitive : @YES} , @{ (NSString *)kSecAttrIsExtractable : @NO } ];
+//    keyParams.keyAttributes = forEditing ? (__bridge CFArrayRef) @[ @{ (NSString *)kSecAttrIsSensitive : @YES} , @{ (NSString *)kSecAttrIsExtractable : @YES } ] : (__bridge CFArrayRef) @[ @{ (NSString *)kSecAttrIsSensitive : @YES} , @{ (NSString *)kSecAttrIsExtractable : @NO } ];
 //    keyParams.keyAttributes = (__bridge CFArrayRef)([NSArray arrayWithObject:(__bridge id)kSecAttrIsExtractable]);
+    keyParams.keyAttributes = (__bridge CFArrayRef) @[ @(CSSM_KEYATTR_SENSITIVE) ];;
 
     SecExternalItemType itemType = kSecItemTypeAggregate;
     SecExternalFormat externalFormat = kSecFormatPKCS12;
