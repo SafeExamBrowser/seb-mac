@@ -388,16 +388,25 @@
         SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedItem-1]);
         //SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
         NSData *certificateData = [keychainManager getDataForIdentity:identityRef];
-        
-        NSMutableDictionary *identityToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                         [NSNumber numberWithInt:certificateTypeIdentity], @"type",
-                                         [sender titleOfSelectedItem], @"name",
-                                         certificateData, @"certificateData",
-                                         nil];
-        [certificatesArrayController addObject:identityToEmbed];
-        
-        [chooseIdentity selectItemAtIndex:0];
-        [chooseIdentity synchronizeTitleAndSelectedItem];
+        if (certificateData) {
+            NSMutableDictionary *identityToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                    [NSNumber numberWithInt:certificateTypeIdentity], @"type",
+                                                    [sender titleOfSelectedItem], @"name",
+                                                    certificateData, @"certificateData",
+                                                    nil];
+            [certificatesArrayController addObject:identityToEmbed];
+            
+            [chooseIdentity selectItemAtIndex:0];
+            [chooseIdentity synchronizeTitleAndSelectedItem];
+        } else {
+            // Display error for exporting identity not successful
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Exporting Identity Failed", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+        }
     }
 }
 
