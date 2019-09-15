@@ -56,7 +56,7 @@
 - (NSData*)getDataForCertificate:(SecCertificateRef)certificate;
 - (BOOL)importCertificateFromData:(NSData*)certificateData;
 - (NSData*)getDataForIdentity:(SecIdentityRef)identity;
-- (BOOL)importIdentityFromData:(NSData*)identityData;
+- (BOOL) importIdentityFromData:(NSData*)identityData forEditing:(BOOL)forEditing;
 
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;

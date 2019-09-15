@@ -737,7 +737,7 @@
 }
 
 
-- (BOOL) importIdentityFromData:(NSData*)identityData
+- (BOOL) importIdentityFromData:(NSData*)identityData forEditing:(BOOL)forEditing
 {
     // Create a trusted application object for SEB
     SecTrustedApplicationRef trustedApplicationRef = NULL;
@@ -761,7 +761,6 @@
         return NO;
     }
 
-    
 //    SecACLRef accessControlRef;
 //    oserr = SecACLCreateWithSimpleContents(access, (__bridge CFArrayRef)([NSArray arrayWithObject:(__bridge id)trustedApplicationRef]), (__bridge CFStringRef)accessLabel, kSecKeychainPromptUnsigned, &accessControlRef);
 //    if (oserr) {
@@ -785,8 +784,9 @@
     // These two values are for import
     keyParams.keyUsage = NULL;
 
-    keyParams.keyAttributes = (__bridge CFArrayRef) @[ @(CSSM_KEYATTR_SENSITIVE) ];;
-//    keyParams.keyAttributes = (__bridge CFArrayRef)([NSArray arrayWithObject:(__bridge id)kSecAttrIsPermanent]);
+//    keyParams.keyAttributes = forEditing ? (__bridge CFArrayRef) @[ (NSString *)kSecAttrIsExtractable ] : (__bridge CFArrayRef) @[ (NSString *)kSecAttrIsPermanent ];
+    keyParams.keyAttributes = forEditing ? (__bridge CFArrayRef) @[ @{ (NSString *)kSecAttrIsSensitive : @YES} , @{ (NSString *)kSecAttrIsExtractable : @YES } ] : (__bridge CFArrayRef) @[ @{ (NSString *)kSecAttrIsSensitive : @YES} , @{ (NSString *)kSecAttrIsExtractable : @NO } ];
+//    keyParams.keyAttributes = (__bridge CFArrayRef)([NSArray arrayWithObject:(__bridge id)kSecAttrIsExtractable]);
 
     SecExternalItemType itemType = kSecItemTypeAggregate;
     SecExternalFormat externalFormat = kSecFormatPKCS12;

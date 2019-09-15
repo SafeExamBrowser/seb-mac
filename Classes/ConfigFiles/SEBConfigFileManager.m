@@ -195,6 +195,29 @@
         NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //this mutable dictionary has to be referenced here, otherwise preferences values will not be saved!
         [NSUserDefaults setUserDefaultsPrivate:YES];
         
+        if (forEditing) {
+            // Check if we have embedded identities and import them into the Keychain
+            NSMutableArray *embeddedCertificates = [sebPreferencesDict valueForKey:@"embeddedCertificates"];
+            if (embeddedCertificates) {
+                SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                for (NSInteger i = embeddedCertificates.count - 1; i >= 0; i--)
+                {
+                    // Get the Embedded Certificate
+                    NSDictionary *embeddedCertificate = embeddedCertificates[i];
+                    // Is it an identity?
+                    if ([[embeddedCertificate objectForKey:@"type"] integerValue] == certificateTypeIdentity)
+                    {
+                        // Store the identity into the Keychain
+                        NSData *certificateData = [embeddedCertificate objectForKey:@"certificateData"];
+                        if (certificateData) {
+                            BOOL success = [keychainManager importIdentityFromData:certificateData forEditing:forEditing];
+                            
+                            DDLogInfo(@"Importing identity <%@> into Keychain %@", [embeddedCertificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+                        }
+                    }
+                }
+            }
+        }
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         
@@ -246,7 +269,7 @@
                     // Store the identity into the Keychain
                     NSData *certificateData = [embeddedCertificate objectForKey:@"certificateData"];
                     if (certificateData) {
-                        BOOL success = [keychainManager importIdentityFromData:certificateData];
+                        BOOL success = [keychainManager importIdentityFromData:certificateData forEditing:forEditing];
                         
                         DDLogInfo(@"Importing identity <%@> into Keychain %@", [embeddedCertificate objectForKey:@"name"], success ? @"succedded" : @"failed");
                     }
