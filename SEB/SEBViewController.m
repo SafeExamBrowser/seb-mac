@@ -2451,7 +2451,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) startExam
 {
     if (_establishingSEBServerConnection == true) {
-        [self.serverController startExam];
+        [self.serverController startExamFromServer];
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
@@ -2817,14 +2817,16 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) closeSEBServerView
+- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
     _sebServerViewDisplayed = false;
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:nil];
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+        [self.serverController examSelected:examId url:url];
+    }];
 }
 
 
-- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url
+- (void) loginToExam:(NSString *)url
 {
     [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
 }
@@ -3244,6 +3246,9 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              self->_noSAMAlertDisplayed = false;
                                                              // We didn't actually succeed to switch a kiosk mode on
                                                              self->_secureMode = false;
+                                                             if (self.establishingSEBServerConnection) {
+                                                                 self.establishingSEBServerConnection = false;
+                                                             }
                                                              [[NSNotificationCenter defaultCenter]
                                                               postNotificationName:@"requestQuit" object:self];
                                                          }]];
