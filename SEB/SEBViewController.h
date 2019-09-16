@@ -214,9 +214,6 @@
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL aboutSEBViewDisplayed;
-@property(readwrite) BOOL establishingSEBServerConnection;
-@property(readwrite) BOOL sebServerConnectionEstablished;
-@property(readwrite) BOOL sebServerViewDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL settingsOpen;
@@ -253,6 +250,10 @@
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
 #pragma mark - Connecting to SEB Server
+@property(readwrite) BOOL establishingSEBServerConnection;
+@property(readwrite) BOOL startingExamFromSEBServer;
+@property(readwrite) BOOL sebServerConnectionEstablished;
+@property(readwrite) BOOL sebServerViewDisplayed;
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
 - (void) loginToExam:(NSString *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;

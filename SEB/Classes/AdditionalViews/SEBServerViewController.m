@@ -70,19 +70,16 @@
     ExamObject *exam = _sebServerController.examList[indexPath.row];
     NSString *examId = exam.examId;
     NSString *examURL = exam.url;
-//    examURL = @"http://ralph.ethz.ch:18000/courses/course-v1:sebserver+SEBServer1+seb/";
     [_sebViewController didSelectExamWithExamId:examId url:examURL];
 }
 
 
-/*
-#pragma mark - Navigation
+#pragma mark - IB Action Handler
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)aboutSEBIcon:(id)sender
+{
+    [_sebViewController showAboutSEB];
 }
-*/
+
 
 @end
