@@ -1000,7 +1000,7 @@
                                                 <viewLayoutGuide key="safeArea" id="5TZ-BG-AVC"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NR0-Cc-JX8" userLabel="SEB Button">
-                                                <rect key="frame" x="763" y="5" width="64" height="64"/>
+                                                <rect key="frame" x="755" y="10" width="64" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="64" id="ahJ-XQ-0Ch"/>
                                                     <constraint firstAttribute="height" constant="64" id="bFz-6Z-ztS"/>
@@ -1012,8 +1012,8 @@
                                         <constraints>
                                             <constraint firstItem="ERg-pp-4QO" firstAttribute="leading" secondItem="M2b-dm-MqG" secondAttribute="leading" id="1NS-Zy-wb1"/>
                                             <constraint firstAttribute="trailing" secondItem="ERg-pp-4QO" secondAttribute="trailing" id="ASu-U1-yx0"/>
-                                            <constraint firstItem="NR0-Cc-JX8" firstAttribute="top" secondItem="M2b-dm-MqG" secondAttribute="top" constant="5" id="T9T-1q-fYH"/>
-                                            <constraint firstAttribute="trailing" secondItem="NR0-Cc-JX8" secondAttribute="trailing" constant="7" id="e7N-yg-suS"/>
+                                            <constraint firstItem="NR0-Cc-JX8" firstAttribute="top" secondItem="M2b-dm-MqG" secondAttribute="top" constant="10" id="T9T-1q-fYH"/>
+                                            <constraint firstAttribute="trailing" secondItem="NR0-Cc-JX8" secondAttribute="trailing" constant="15" id="e7N-yg-suS"/>
                                             <constraint firstAttribute="bottom" secondItem="ERg-pp-4QO" secondAttribute="bottom" id="zkH-CU-Wy1"/>
                                         </constraints>
                                     </view>

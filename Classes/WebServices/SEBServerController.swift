@@ -8,7 +8,7 @@
 import Foundation
 
 @objc public protocol ServerControllerDelegate: class {
-    func loginToExam(_ examId: String, url: String)
+    func loginToExam(_ url: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
     func didEstablishSEBServerConnection()
 }
@@ -169,7 +169,7 @@ public extension SEBServerController {
     
     
     @objc func loginToExam() {
-        delegate?.loginToExam(selectedExamId, url: selectedExamURL)
+        delegate?.loginToExam(selectedExamURL)
     }
 
     
@@ -261,6 +261,8 @@ public extension SEBServerController {
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
         quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, responseHeaders) in
+            self.pingTimer?.invalidate()
+            self.connectionToken = nil
             if quitSessionResponse != nil  {
                 let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
                 print(responseBody as Any)

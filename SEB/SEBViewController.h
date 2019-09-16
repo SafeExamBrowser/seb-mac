@@ -253,8 +253,8 @@
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
 #pragma mark - Connecting to SEB Server
-- (void) closeSEBServerView;
-- (void) loginToExamWithExamId:(NSString *)examId url:(NSString *)url;
+- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
+- (void) loginToExam:(NSString *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 - (void) didEstablishSEBServerConnection;
 

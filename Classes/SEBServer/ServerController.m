@@ -37,14 +37,21 @@
 }
 
 
-- (void) startExam
+- (void) startExamFromServer
 {
     [_sebServerController loginToExam];
 }
 
 
-- (void) loginToExam:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url {
-    [_sebViewController loginToExamWithExamId:examId url:url];
+- (void) loginToExam:(NSString * _Nonnull)url
+{
+    [_sebViewController loginToExam:url];
+}
+
+
+- (void) examSelected:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url
+{
+    [_sebServerController examSelected:examId url:url];
 }
 
 
