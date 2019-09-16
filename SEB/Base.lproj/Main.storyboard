@@ -1006,6 +1006,9 @@
                                                     <constraint firstAttribute="height" constant="64" id="bFz-6Z-ztS"/>
                                                 </constraints>
                                                 <state key="normal" image="SEBAppIcon_256.png"/>
+                                                <connections>
+                                                    <action selector="aboutSEBIcon:" destination="8qk-Ml-E4B" eventType="touchUpInside" id="HlB-QD-aGJ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.42745098040000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>

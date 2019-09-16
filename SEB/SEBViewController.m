@@ -2451,6 +2451,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) startExam
 {
     if (_establishingSEBServerConnection == true) {
+        _startingExamFromSEBServer = true;
         [self.serverController startExamFromServer];
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -2652,6 +2653,11 @@ void run_on_ui_thread(dispatch_block_t block)
         _sebServerConnectionEstablished = false;
         [self.serverController quitSession];
     }
+    if (_startingExamFromSEBServer) {
+        _establishingSEBServerConnection = false;
+        _startingExamFromSEBServer = false;
+        [self.serverController loginToExamAborted];
+    }
     
     [self initializeLogger];
     
@@ -2843,6 +2849,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) didEstablishSEBServerConnection
 {
     _establishingSEBServerConnection = false;
+    _startingExamFromSEBServer = false;
     _sebServerConnectionEstablished = true;
 }
 
