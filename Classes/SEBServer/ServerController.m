@@ -49,6 +49,12 @@
 }
 
 
+- (void) loginToExamAborted
+{
+    [_sebServerController loginToExamAborted];
+}
+
+
 - (void) examSelected:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url
 {
     [_sebServerController examSelected:examId url:url];
