@@ -172,6 +172,11 @@ public extension SEBServerController {
         delegate?.loginToExam(selectedExamURL)
     }
 
+
+    @objc func loginToExamAborted() {
+        connectionToken = nil
+    }
+    
     
     @objc func startMonitoring(userSessionId: String) {
         var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
