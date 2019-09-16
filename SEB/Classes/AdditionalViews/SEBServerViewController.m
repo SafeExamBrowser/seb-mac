@@ -38,6 +38,15 @@
 }
 
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (_sebServerController.examList.count > 0) {
+        return NSLocalizedString(@"Select Exam", @"'Select Exam' header in 'Connecting to SEB Server' table view.");
+    }
+    return NSLocalizedString(@"Connecting…", @"'Connecting…' header in 'Connecting to SEB Server' table view.");
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ExamCell *cell = [tableView dequeueReusableCellWithIdentifier:@"examListCell" forIndexPath:indexPath];
@@ -62,8 +71,7 @@
     NSString *examId = exam.examId;
     NSString *examURL = exam.url;
 //    examURL = @"http://ralph.ethz.ch:18000/courses/course-v1:sebserver+SEBServer1+seb/";
-    [_sebServerController examSelected:examId url:examURL];
-    [_sebViewController closeSEBServerView];
+    [_sebViewController didSelectExamWithExamId:examId url:examURL];
 }
 
 
