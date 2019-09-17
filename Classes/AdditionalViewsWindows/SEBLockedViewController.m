@@ -248,7 +248,7 @@
                                                 options:NSCalendarWrapComponents];
     
     DDLogError(@"Lockdown alert: Closing lockdown windows");
-    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), SEBShortAppName, components.minute, components.second];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];

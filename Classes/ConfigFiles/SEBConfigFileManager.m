@@ -937,7 +937,7 @@
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorDecryptingIdentityNotFound
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. SEB might not have been configured correctly for your institution.", nil)}];
+                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         sebFileCredentials.publicKeyHash = nil;
         return nil;

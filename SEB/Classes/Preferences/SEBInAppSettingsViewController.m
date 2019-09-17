@@ -712,7 +712,7 @@
     NSString *configFileName = [[[NSUserDefaults standardUserDefaults] secureStringForKey:@"configFileName"]
                                 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (configFileName.length == 0) {
-        configFileName = @"SEB Config";
+        configFileName = [NSString stringWithFormat:@"%@ Config", SEBShortAppName];
     }
     configFileName = [NSString stringWithFormat:@"%@ %@", configFileName, NSLocalizedString(@"Identity", nil)];
     return configFileName;
@@ -777,7 +777,7 @@
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Identity Admin Password", nil)
-                                                                             message:NSLocalizedString(@"This identity was stored to the Keychain while using a different SEB admin password than currently set. Enter the admin password associated with the identity:", nil)
+                                                                             message:[NSString stringWithFormat:NSLocalizedString(@"This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:", nil), SEBShortAppName]
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
@@ -794,7 +794,7 @@
                                                                                self.sebViewController.alertController = nil;
                                                                                if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", nil)
-                                                                                                                  message:NSLocalizedString(@"The entered SEB admin password didn't match to the one stored for this identity. Try again.", nil)
+                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match to the one stored for this identity. Try again.", nil), SEBShortAppName]
                                                                                                              action1Title:NSLocalizedString(@"OK", nil)
                                                                                                            action1Handler:^{
                                                                                                                [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName adminPasswordHash:identityAdminPasswordHash];

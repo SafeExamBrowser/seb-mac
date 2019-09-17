@@ -2081,7 +2081,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                 }
                 _alertController = [UIAlertController  alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
-                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil), SEBShortAppName]
+                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in %@ before starting another exam.", nil), SEBShortAppName, SEBShortAppName]
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -2712,7 +2712,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit SEB using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit %@ using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
