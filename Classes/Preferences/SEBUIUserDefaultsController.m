@@ -189,7 +189,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"OS X", nil),
+            NSLocalizedString(@"macOS", nil),
             NSLocalizedString(@"Win", nil),
             nil];
 }
