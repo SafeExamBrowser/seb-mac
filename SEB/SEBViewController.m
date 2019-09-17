@@ -1443,6 +1443,11 @@ void run_on_ui_thread(dispatch_block_t block)
         // Update URL filter ignore rules
         [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        }];
+
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
         
