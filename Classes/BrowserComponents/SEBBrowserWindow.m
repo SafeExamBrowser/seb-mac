@@ -911,6 +911,9 @@
         // Enable the selection of files in the dialog.
         [openFilePanel setCanChooseFiles:YES];
         
+        // Allow the user to open multiple files at a time.
+        openFilePanel.allowsMultipleSelection = YES;
+        
         // Disable the selection of directories in the dialog.
         [openFilePanel setCanChooseDirectories:NO];
         
@@ -931,8 +934,11 @@
                                       // Get an array containing the full filenames of all
                                       // files and directories selected.
                                       NSArray* files = [openFilePanel URLs];
-                                      NSString* fileName = [[files objectAtIndex:0] path];
-                                      [resultListener chooseFilename:fileName];
+                                      NSMutableArray *filenames = [NSMutableArray new];
+                                      for (NSURL *fileURL in files) {
+                                          [filenames addObject:fileURL.path];
+                                      }
+                                      [resultListener chooseFilenames:filenames.copy];
                                   }
                               }];
     }
