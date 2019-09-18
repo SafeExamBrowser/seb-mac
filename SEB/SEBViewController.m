@@ -2074,12 +2074,13 @@ void run_on_ui_thread(dispatch_block_t block)
                     examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
                 }
             }
-            // Check if SEB is in exam mode (= quit password is set), but reconfiguring is allowed by setting
-            // and the reconfigure config URL mathches the setting
+            // Check if SEB is in exam mode (= quit password is set) and exam is running,
+            // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
             // or SEB isn't in exam mode, but is running with settings for starting an exam and the
             // reconfigure allow setting isn't set
-            if ((examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
-                (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow)) {
+            if (_examRunning && (
+                (examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
+                (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow))) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
