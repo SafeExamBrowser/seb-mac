@@ -3140,7 +3140,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              self->_alertController = nil;
                                                              self->_noSAMAlertDisplayed = false;
                                                              // We didn't actually succeed to switch a kiosk mode on
-                                                             self->_secureMode = false;
+                                                             // self->_secureMode = false;
+                                                             // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
                                                              [[NSNotificationCenter defaultCenter]
                                                               postNotificationName:@"requestQuit" object:self];
                                                          }]];
