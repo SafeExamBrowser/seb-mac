@@ -396,8 +396,6 @@
                                                     nil];
             [certificatesArrayController addObject:identityToEmbed];
             
-            [chooseIdentity selectItemAtIndex:0];
-            [chooseIdentity synchronizeTitleAndSelectedItem];
         } else {
             // Display error for exporting identity not successful
             NSAlert *newAlert = [[NSAlert alloc] init];
@@ -407,6 +405,8 @@
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             [newAlert runModal];
         }
+        [chooseIdentity selectItemAtIndex:0];
+        [chooseIdentity synchronizeTitleAndSelectedItem];
     }
 }
 
