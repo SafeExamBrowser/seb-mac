@@ -403,6 +403,25 @@ bool insideMatrix(void);
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedSIGSTOP" object:nil];
     
+    
+    [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
+    {
+        BOOL isLeftOption = (event.modifierFlags & NX_DEVICELALTKEYMASK) != 0;
+        BOOL isLeftShift = (event.modifierFlags & NX_DEVICELSHIFTKEYMASK) != 0;
+        if (isLeftOption && !isLeftShift && event.keyCode == 48) {
+            DDLogDebug(@"Left Option + Tab Key pressed!");
+            [self.browserController activateNextOpenWindow];
+            return nil;
+        } else if (isLeftOption && isLeftShift && event.keyCode == 48) {
+            DDLogDebug(@"Left Option + Left Shift + Tab Key pressed!");
+            [self.browserController activatePreviousOpenWindow];
+            return nil;
+        } else {
+            return event;
+        }
+    }];
+    
+    
     // Prevent display sleep
 #ifndef DEBUG
     IOPMAssertionCreateWithName(

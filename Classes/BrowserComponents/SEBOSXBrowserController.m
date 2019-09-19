@@ -539,6 +539,44 @@
 }
 
 
+- (void) activateNextOpenWindow
+{
+    NSUInteger openBrowserWindowsCount = self.openBrowserWindowsWebViews.count;
+    SEBBrowserOpenWindowWebView *openWindowWebView;
+    for (NSUInteger i = 0; i < openBrowserWindowsCount; i++) {
+        openWindowWebView = self.openBrowserWindowsWebViews[i];
+        if ([openWindowWebView.browserWindow isEqualTo:_activeBrowserWindow]) {
+            if (i == openBrowserWindowsCount-1) {
+                openWindowWebView = self.openBrowserWindowsWebViews[0];
+            } else {
+                openWindowWebView = self.openBrowserWindowsWebViews[i+1];
+            }
+            break;
+        }
+    }
+    [self openWindowSelected:openWindowWebView];
+}
+
+
+- (void) activatePreviousOpenWindow
+{
+    NSUInteger openBrowserWindowsCount = self.openBrowserWindowsWebViews.count;
+    SEBBrowserOpenWindowWebView *openWindowWebView;
+    for (NSUInteger i = 0; i < openBrowserWindowsCount; i++) {
+        openWindowWebView = self.openBrowserWindowsWebViews[i];
+        if ([openWindowWebView.browserWindow isEqualTo:_activeBrowserWindow]) {
+            if (i == 0) {
+                openWindowWebView = self.openBrowserWindowsWebViews[openBrowserWindowsCount-1];
+            } else {
+                openWindowWebView = self.openBrowserWindowsWebViews[i-1];
+            }
+            break;
+        }
+    }
+    [self openWindowSelected:openWindowWebView];
+}
+
+
 // Add an entry for a WebView in a browser window into the array and dock item menu of open browser windows/WebViews
 - (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(SEBWebView *)newWebView withTitle:(NSString *)newTitle
 {
