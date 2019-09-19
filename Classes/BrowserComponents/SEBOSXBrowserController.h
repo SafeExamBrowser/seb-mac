@@ -117,6 +117,8 @@
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
+- (void) activateNextOpenWindow;
+- (void) activatePreviousOpenWindow;
 
 - (void) backToStartCommand;
 - (void) reloadCommand;
