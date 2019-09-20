@@ -1445,9 +1445,14 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        }];
-
+        // if the default value (enabled) for the setting examSessionClearSessionCookies is set
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                // Do something once it's done.
+            }];
+        }
+        
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
         
@@ -1886,16 +1891,6 @@ void run_on_ui_thread(dispatch_block_t block)
     _examRunning = false;
     
     [NSURLCache.sharedURLCache removeAllCachedResponses];
-    
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket
-    // if the default value (enabled) for the setting examSessionClearSessionCookies is set
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            // Do something once it's done.
-        }];
-    }
     
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
