@@ -347,6 +347,8 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidAppear:animated];
     
+    [self becomeFirstResponder];
+
     if ([self allowediOSVersion]) {
         // Check if we received new settings from an MDM server
         //    [self readDefaultsValues];
@@ -558,6 +560,38 @@ static NSMutableSet *browserWindowControllers;
             UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, leftSafeAreaInset);
             self.parentViewController.additionalSafeAreaInsets = newSafeArea;
             [self viewSafeAreaInsetsDidChange];
+        }
+    }
+}
+
+
+#pragma mark -
+#pragma mark Handle hardware keyboard shortcuts
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+
+- (NSArray<UIKeyCommand *> *)keyCommands
+{
+    return @[
+        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
+    ];
+}
+
+
+- (void)performKeyCommand:(UIKeyCommand *)sender
+{
+    NSString *key = sender.input;
+    UIKeyModifierFlags modifier = sender.modifierFlags;
+    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
+    if ([key isEqualToString:@"\t"]) {
+        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
+            [_browserTabViewController switchToPreviousTab];
+        } else if (modifier == (UIKeyModifierControl)) {
+            [_browserTabViewController switchToNextTab];
         }
     }
 }
@@ -1446,7 +1480,6 @@ void run_on_ui_thread(dispatch_block_t block)
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
         // if the default value (enabled) for the setting examSessionClearSessionCookies is set
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
                 // Do something once it's done.
