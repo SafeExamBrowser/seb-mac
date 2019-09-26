@@ -333,8 +333,16 @@
 
 
 // Open new tab and load URL
-- (void) switchToTab:(id)sender {
+- (void) switchToTab:(id)sender
+{
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+    [self switchToTabWithIndex:tabIndex];
+    [self.sideMenuController toggleLeftViewAnimated];
+}
+
+
+- (void) switchToTabWithIndex:(NSUInteger)tabIndex
+{
     if (tabIndex < _openWebpages.count) {
         OpenWebpages *webpageToSwitch = _openWebpages[tabIndex];
         SEBWebViewController *webViewControllerToSwitch = webpageToSwitch.webViewController;
@@ -363,8 +371,37 @@
         [_sebViewController setToolbarTitle:title];
         
         [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
-        [self.sideMenuController toggleLeftViewAnimated];
     }
+}
+
+
+- (void) switchToNextTab
+{
+    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+    NSUInteger tabCount = _openWebpages.count;
+    if (tabIndex == tabCount - 1) {
+        [self switchToTabWithIndex:0];
+    } else {
+        [self switchToTabWithIndex:tabIndex + 1];
+    }
+    [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+        [self.sideMenuController hideLeftViewAnimated];
+    }];
+}
+
+
+- (void) switchToPreviousTab
+{
+    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+    NSUInteger tabCount = _openWebpages.count;
+    if (tabIndex == 0) {
+        [self switchToTabWithIndex:tabCount - 1];
+    } else {
+        [self switchToTabWithIndex:tabIndex - 1];
+    }
+    [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+        [self.sideMenuController hideLeftViewAnimated];
+    }];
 }
 
 

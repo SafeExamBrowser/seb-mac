@@ -88,6 +88,8 @@
 
 - (void) openCloseSliderForNewTab;
 - (void) switchToTab:(id)sender;
+- (void) switchToNextTab;
+- (void) switchToPreviousTab;
 - (void) closeTab;
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
