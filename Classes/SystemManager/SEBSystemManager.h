@@ -44,7 +44,7 @@
 - (void) cacheCurrentSystemSettings;
 
 // Restore cached settings for Siri and dictation
-- (void) restoreSystemSettings;
+- (BOOL) restoreSystemSettings;
 
 - (void) preventScreenCapture;
 - (BOOL) restoreScreenCapture;
