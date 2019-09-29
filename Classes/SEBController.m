@@ -87,6 +87,24 @@
 #import "SEBUIUserDefaultsController.h"
 
 
+@interface NSArray (ProcessArray)
+
+- (NSArray *)containsProcessObject: (NSString *)processName;
+
+@end
+
+@implementation NSArray (ProcessArray)
+
+- (NSArray *)containsProcessObject: (NSString *)processName
+{
+    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", processName];
+    NSArray *foundProcesses = [self filteredArrayUsingPredicate:filterProcessName];
+    return foundProcesses.count > 0 ? foundProcesses : nil;
+}
+
+@end
+
+
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,id sender);
@@ -1490,9 +1508,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     
     // Check for activated screen sharing if settings demand it
     if (!allowScreenSharing && !_screenSharingCheckOverride &&
-        ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent] ||
-         [allRunningProcesses containsObject:ARDAgent])) {
+        ([allRunningProcesses containsProcessObject:screenSharingAgent] ||
+         [allRunningProcesses containsProcessObject:AppleVNCAgent] ||
+         [allRunningProcesses containsProcessObject:ARDAgent])) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedScreenSharing" object:self];
         }
@@ -1500,7 +1518,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (!_startingUp && !allowSiri && !_siriCheckOverride &&
-        [allRunningProcesses containsObject:SiriService] &&
+        [allRunningProcesses containsProcessObject:SiriService] &&
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedSiri" object:self];
@@ -1508,7 +1526,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     
     // Check for activated dictation if settings demand it
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
-        [allRunningProcesses containsObject:DictationProcess] &&
+        [allRunningProcesses containsProcessObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
          [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
             [[NSNotificationCenter defaultCenter]
