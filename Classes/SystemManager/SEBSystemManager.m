@@ -75,8 +75,10 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
-// Restore cached settings for Siri and dictation
-- (void) restoreSystemSettings
+// Restore cached settings for Siri, dictation and TouchBar
+// Returns false if TouchBar mode "AppControl" was active before
+// as this mode cannot be restored automatically by SEB
+- (BOOL) restoreSystemSettings
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -108,6 +110,8 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     [preferences setValue:touchBarFnDictionaryDefaultsValue
                    forKey:TouchBarFnDictionaryDefaultsKey
         forDefaultsDomain:TouchBarDefaultsDomain];
+    
+    return touchBarGlobalDefaultsValue != nil;
 }
 
 

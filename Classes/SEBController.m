@@ -1348,7 +1348,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = true;
             DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
-            CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
+            CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true); //ToDo
             CGEventPost(kCGSessionEventTap, event);
             CFRelease(event);
         }
@@ -1516,6 +1516,16 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         }
     
     checkingForWindows = false;
+    
+    // Check if TouchBar Tool is running
+    NSArray *runningProcessInstances = [allRunningProcesses containsProcessObject:BTouchBarRestartAgent];
+    if (runningProcessInstances.count > 0) {
+        [self killProcess:runningProcessInstances[0]];
+    }
+    runningProcessInstances = [allRunningProcesses containsProcessObject:BTouchBarAgent];
+    if (runningProcessInstances.count > 0) {
+        [self killProcess:runningProcessInstances[0]];
+    }
 }
 
 
@@ -1812,17 +1822,17 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 - (void)disableTouchBarFeatures
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
+
     // Setting "Touch bar shows = F1, F2, etc. Keys" in System Preferences / Keyboard
     [preferences setValue:TouchBarGlobalDefaultsValue
                    forKey:TouchBarGlobalDefaultsKey
         forDefaultsDomain:TouchBarDefaultsDomain];
-    
+
     // Setting "Press Fn key to = Show App Controls" in System Preferences / Keyboard
     [preferences setValue:@{TouchBarGlobalDefaultsValue : TouchBarFnDefaultsValue}
                    forKey:TouchBarFnDictionaryDefaultsKey
         forDefaultsDomain:TouchBarDefaultsDomain];
-    
+
     [self killTouchBarAgent];
 }
 
@@ -3101,12 +3111,39 @@ bool insideMatrix(){
 }
 
 
+- (NSInteger) killProcess:(NSDictionary *)processDictionary
+{
+    NSNumber *PID = [processDictionary objectForKey:@"PID"];
+    pid_t processPID = PID.intValue;
+    NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
+    NSInteger killSuccess = (NSInteger)kill(processPID, 9);
+    DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
+
+    if (killSuccess > 0 && !_processCheckAllOverride) {
+        DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
+        if (application) {
+            [_runningProhibitedProcesses addObject:application];
+        }
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"detectedProhibitedProcess" object:self];
+    } else {
+        DDLogDebug(@"Successfully terminated app with PID %d)", processPID);
+        NSURL *appURL = [self getBundleOrExecutableURL:application];
+        if (appURL) {
+            [_terminatedProcessesExecutableURLs addObject:appURL];
+        }
+    }
+    DDLogDebug(@"Terminating process %@ was %@successfull (code: %ld)", processDictionary, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
+    return killSuccess;
+}
+
+
 - (NSInteger) killProcessWithPID:(pid_t)processPID
 {
     NSInteger killSuccess = (NSInteger)kill(processPID, 9);
     DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
 
-    if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
+    if (killSuccess > 0 && !_processCheckAllOverride) {
         NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
         DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
         if (application) {
@@ -4030,7 +4067,7 @@ bool insideMatrix(){
     [self stopWindowWatcher];
     [self stopProcessWatcher];
 
-    [_systemManager restoreSystemSettings];
+    BOOL touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
     [self killTouchBarAgent];
     
     // If this was a secured exam, we remove it from the list of running exams,
@@ -4046,7 +4083,6 @@ bool insideMatrix(){
     
     for (NSURL *executableURL in uniqueTerminatedProcessesURLs) {
         
-        // Parameter and path to XUL-SEB Application
         NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
         if ([executableURL.pathExtension isEqualToString:@"app"]) {
@@ -4102,6 +4138,31 @@ bool insideMatrix(){
 	IOPMAssertionRelease(assertionID1);
 	/*// Allow system to sleep again
 	success = IOPMAssertionRelease(assertionID2);*/
+    
+    // Display alert in case TouchBar mode AppControl was active
+    // before SEB was started as this mode cannot be automatically restored
+    // and open System Preferences / Keyboard to allow user to restore
+    // TouchBar mode manually
+    if (!touchBarRestoreSuccess) {
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
+        [modalAlert setInformativeText:NSLocalizedString(@"Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you.", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        NSInteger answer = [modalAlert runModal];
+        [self removeAlertWindow:modalAlert.window];
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences]];
+            default:
+            {
+            }
+        }
+    }
+    
     DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
 }
 
