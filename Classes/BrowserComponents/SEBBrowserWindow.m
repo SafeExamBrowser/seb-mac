@@ -1839,7 +1839,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
         if (!downloadPath) {
             //if there's no path saved in preferences, set standard path
-            downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
+            downloadPath = @"~/Downloads";
         }
         downloadPath = [downloadPath stringByExpandingTildeInPath];
         if (self.downloadFilename) {
@@ -1984,7 +1984,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
             if (downloadPath.length == 0) {
                 //if there's no path saved in preferences, set standard path
-                downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
+                downloadPath = @"~/Downloads";
             }
             downloadPath = [downloadPath stringByExpandingTildeInPath];
             NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename]];
