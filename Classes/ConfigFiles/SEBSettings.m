@@ -165,7 +165,7 @@
                    @YES,
                    @"downloadAndOpenSebConfig",
                    
-                   [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
+                   @"~/Downloads",
                    @"downloadDirectoryOSX",
                    
                    @"Downloads",
