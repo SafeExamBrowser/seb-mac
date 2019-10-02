@@ -4161,7 +4161,7 @@ bool insideMatrix(){
     // before SEB was started as this mode cannot be automatically restored
     // and open System Preferences / Keyboard to allow user to restore
     // TouchBar mode manually
-    if (!touchBarRestoreSuccess) {
+    if (NSClassFromString(@"NSTouchBar") != nil && !touchBarRestoreSuccess) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
