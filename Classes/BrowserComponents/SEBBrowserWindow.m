@@ -1956,6 +1956,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             // If we got the filename from a <a download="... tag, we use that
             // as WebKit doesn't recognize the filename and suggests "Unknown"
             filename = self.downloadFilename;
+            pathExtension = filename.pathExtension;
         } else if (self.downloadFileExtension) {
             // If we didn't get the file name, at least set the file extension properly
             filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
