@@ -4086,7 +4086,7 @@ bool insideMatrix(){
     [self stopProcessWatcher];
 
     BOOL touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
-    [self killTouchBarAgent];
+        [self killTouchBarAgent];
     
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
@@ -4161,7 +4161,8 @@ bool insideMatrix(){
     // before SEB was started as this mode cannot be automatically restored
     // and open System Preferences / Keyboard to allow user to restore
     // TouchBar mode manually
-    if (NSClassFromString(@"NSTouchBar") != nil && !touchBarRestoreSuccess) {
+    NSArray *runningTouchBarAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:TouchBarAgent];
+    if (runningTouchBarAgents.count != 0 && !touchBarRestoreSuccess) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
