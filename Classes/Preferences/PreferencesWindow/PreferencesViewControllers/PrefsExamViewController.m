@@ -120,6 +120,7 @@
 - (void)displayMessageOrReGenerateKey
 {
     BOOL settingsChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO];
+    DDLogDebug(@"%s settings changed: %hhd", __FUNCTION__, settingsChanged);
     if (NSUserDefaults.userDefaultsPrivate) {
         // Private UserDefaults are active: Check if there are unsaved changes
         if (settingsChanged) {
