@@ -107,7 +107,6 @@
 
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
-OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,id sender);
 void MySleepCallBack(void * refCon, io_service_t service, natural_t messageType, void * messageArgument);
 bool insideMatrix(void);
 
@@ -434,6 +433,15 @@ bool insideMatrix(void);
             DDLogDebug(@"Left Option + Left Shift + Tab Key pressed!");
             [self.browserController activatePreviousOpenWindow];
             return nil;
+        } else if (event.keyCode == 0x63 ) {  //F3
+            self->f3Pressed = YES;
+            return nil;
+        } else if (event.keyCode == 0x61 ) {  //F6
+            if (self->f3Pressed) {    //if F3 got pressed before
+                self->f3Pressed = NO;
+                [self openPreferences:self]; //show preferences window
+            }
+            return nil;
         } else {
             return event;
         }
@@ -489,27 +497,8 @@ bool insideMatrix(void);
     }
     
     // Handling of Hotkeys for Preferences-Window
-    
-    // Register Carbon event handlers for the required hotkeys
     f3Pressed = FALSE; //Initialize flag for first hotkey
-    EventHotKeyRef gMyHotKeyRef;
-    EventHotKeyID gMyHotKeyID;
-    EventTypeSpec eventType;
-    eventType.eventClass=kEventClassKeyboard;
-    eventType.eventKind=kEventHotKeyPressed;
-    InstallApplicationEventHandler((void*)MyHotKeyHandler, 1, &eventType, (__bridge void*)(SEBController*)self, NULL);
-    //Pass pointer to flag for F3 key to the event handler
-    // Register F3 as a hotkey
-    gMyHotKeyID.signature='htk1';
-    gMyHotKeyID.id=1;
-    RegisterEventHotKey(99, 0, gMyHotKeyID,
-                        GetApplicationEventTarget(), 0, &gMyHotKeyRef);
-    // Register F6 as a hotkey
-    gMyHotKeyID.signature='htk2';
-    gMyHotKeyID.id=2;
-    RegisterEventHotKey(97, 0, gMyHotKeyID,
-                        GetApplicationEventTarget(), 0, &gMyHotKeyRef);
-    
+
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:2];
 }
@@ -2023,7 +2012,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 // Check for command key being held down
 - (void)appSwitcherCheck
 {
-    int modifierFlags = [NSEvent modifierFlags];
+    NSEventModifierFlags modifierFlags = [NSEvent modifierFlags];
     _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
@@ -2039,7 +2028,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 
 -(BOOL)commandKeyPressed
 {
-    int modifierFlags = [NSEvent modifierFlags];
+    NSEventModifierFlags modifierFlags = [NSEvent modifierFlags];
     BOOL cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
     if (cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
@@ -2109,31 +2098,6 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 
 
 #pragma mark - System Lock Down Functionalities
-
-// Method executed when hotkeys are pressed
-OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
-						  id userData)
-{
-	EventHotKeyID hkCom;
-	GetEventParameter(theEvent,kEventParamDirectObject,typeEventHotKeyID,NULL,
-					  sizeof(hkCom),NULL,&hkCom);
-	int l = hkCom.id;
-	id self = userData;
-	
-	switch (l) {
-		case 1: //F3 pressed
-			[self setF3Pressed:TRUE];	//F3 was pressed
-			
-			break;
-		case 2: //F6 pressed
-			if ([self f3Pressed]) {	//if F3 got pressed before
-				[self setF3Pressed:FALSE];
-				[self openPreferences:self]; //show preferences window
-			}
-			break;
-	}
-	return noErr;
-}
 
 static bool _systemSleeping;
 
