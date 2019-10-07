@@ -1352,12 +1352,26 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
     NSArray *filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
     if (filteredProcesses.count > 0) {
-        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
+        if (/*!_allowSwitchToApplications &&*/ !fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = true;
             DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
-            CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true); //ToDo
-            CGEventPost(kCGSessionEventTap, event);
-            CFRelease(event);
+            
+            NSDictionary *options = @{(__bridge id)
+                                      kAXTrustedCheckOptionPrompt : @YES};
+            // Check if we're trusted - and the option means "Prompt the user
+            // to trust this app in System Preferences."
+            if ( AXIsProcessTrustedWithOptions((CFDictionaryRef)options) ) {
+                DDLogDebug(@"SEB is trusted in Privacy / Accessibility");
+                // Now you can use the accessibility APIs
+                CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true); //ToDo
+                CGEventPost(kCGSessionEventTap, event);
+                CFRelease(event);
+
+            } else {
+                DDLogError(@"SEB is not trusted in Privacy / Accessibility, terminating SEB");
+                exit(0); //quit SEB
+            }
+
         }
     } else {
         if (fontRegistryUIAgentDisplayed) {
