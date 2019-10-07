@@ -90,7 +90,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2AEB</string>
+	<string>2AC9</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -102,6 +102,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>SEB needs Accessibility to close the Font Download dialog displayed when a webpage tries to use a font not installed on your Mac. If you don't grant access to SEB, you cannot use such webpages.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSMainNibFile</key>
