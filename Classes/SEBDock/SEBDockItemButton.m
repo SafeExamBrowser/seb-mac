@@ -49,9 +49,12 @@
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
         _defaultImage = itemIcon;
 
-//        [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
-//        _highlightedImage = itemHighlightedIcon;
-
+        if (@available(macOS 10.14, *)) {
+        } else {
+            [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
+            _highlightedImage = itemHighlightedIcon;
+        }
+        
         self.image = _defaultImage;
         
         [self setButtonType:NSMomentaryPushInButton];
@@ -60,9 +63,12 @@
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
         NSButtonCell *newDockItemButtonCell = self.cell;
-        newDockItemButtonCell.highlightsBy = NSCellLightsByGray;
-        newDockItemButtonCell.backgroundColor = [NSColor clearColor];
-
+        if (@available(macOS 10.14, *)) {
+            newDockItemButtonCell.highlightsBy = NSCellLightsByGray;
+            newDockItemButtonCell.backgroundColor = [NSColor clearColor];
+        } else {
+            newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
+        }
         // Create text label for dock item, if there was a title set for the item
         if (itemTitle) {
             NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
@@ -141,11 +147,11 @@
 {
     mouseDown = YES;
 
-    if (_highlightedImage) {
-        self.image = _highlightedImage;
-    } else {
+    self.highlighted = true;
+    if (@available(macOS 10.14, *)) {
         self.alphaValue = 0.5;
-        self.highlighted = true;
+    } else {
+        self.image = _highlightedImage;
     }
     
     [self performSelector:@selector(longMouseDown) withObject: nil afterDelay: 0.5];
@@ -159,8 +165,11 @@
         mouseDown = NO;
         [self performClick:self];
     }
-//    self.image = _defaultImage;
-    self.alphaValue = 1;
+    if (@available(macOS 10.14, *)) {
+        self.alphaValue = 1;
+    } else {
+        self.image = _defaultImage;
+    }
     self.highlighted = false;
 
     [super mouseUp:theEvent];
@@ -179,13 +188,13 @@
 
 - (void)rightMouseDown:(NSEvent*)theEvent
 {
-    if (_highlightedImage) {
-        self.image = _highlightedImage;
-    } else {
+    self.highlighted = true;
+    if (@available(macOS 10.14, *)) {
         self.alphaValue = 0.5;
-        self.highlighted = true;
+    } else {
+        self.image = _highlightedImage;
     }
-
+    
     if (self.dockMenu)
     {
         [self.labelPopover close];
@@ -199,15 +208,21 @@
 // This method is called when the dock item menu is closed
 - (void)unhighlight
 {
-//    self.image = _defaultImage;
+if (@available(macOS 10.14, *)) {
     self.alphaValue = 1;
-    self.highlighted = false;
+} else {
+    self.image = _defaultImage;
+}
+self.highlighted = false;
 }
 
 - (void)rightMouseUp:(NSEvent *)theEvent
 {
-//    self.image = _defaultImage;
-    self.alphaValue = 1;
+    if (@available(macOS 10.14, *)) {
+        self.alphaValue = 1;
+    } else {
+        self.image = _defaultImage;
+    }
     self.highlighted = false;
 }
 
@@ -266,12 +281,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-//    if (@available(macOS 14, *)) {
-//    } else {
         if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10) {
             [super setHighlighted:highlighted];
         }
-//    }
 }
 
 
