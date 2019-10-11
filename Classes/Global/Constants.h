@@ -43,6 +43,48 @@
 #define kMenuBarHeight                          22.0
 #define kMenuBarNotificationCenterIconWidth     46.0
 
+
+// iOS: these are the various screen placement constants used across most the UIViewControllers
+
+// padding for margins
+
+// for general screen
+#define kLeftMargin                20.0
+#define kTopMargin                20.0
+#define kRightMargin            20.0
+#define kTweenMargin            10.0
+
+#define kTextFieldHeight        30.0
+
+// Toolbar height when printing is supported
+#define kToolbarHeight 49
+#define kNavbarHeight 44
+#define kStatusbarHeight 20
+
+#define kCustomButtonHeight     30.0
+
+#define SEBErrorNoValidConfigData 10
+#define SEBErrorNoValidPrefixNoValidUnencryptedHeader 11
+#define SEBErrorDecryptingSettingsCanceled 101
+#define SEBErrorDecryptingNoSettingsPasswordEntered 102
+#define SEBErrorDecryptingSettingsAdminPasswordCanceled 105
+#define SEBErrorDecryptingNoAdminPasswordEntered 106
+#define SEBErrorDecryptingIdentityNotFound 110
+#define SEBErrorParsingSettingsFailedValueClassMissmatch 201
+#define SEBErrorParsingSettingsSerializingFailed 205
+#define SEBErrorOpeningUniversalLinkFailed 300
+
+#define currentStableMajoriOSVersion 13
+
+enum {
+    browserUserAgentModeiOSDefault              = 0,
+    browserUserAgentModeiOSMacDesktop           = 1,
+    browserUserAgentModeiOSCustom               = 2,
+    browserUserAgentModeiOSiPad                 = 3
+};
+typedef NSUInteger browserUserAgentModeiOS;
+
+
 enum {
     browserUserAgentModeMacDefault              = 0,
     browserUserAgentModeMacCustom               = 1
@@ -107,6 +149,13 @@ typedef NSUInteger certificateTypes;
 
 
 enum {
+    configFileShareKeysWithConfig               = 0,
+    configFileShareKeysWithoutConfig            = 1
+};
+typedef NSUInteger configFileShareKeysModes;
+
+
+enum {
     manuallyWithFileRequester                   = 0,
     attemptUploadSameFileDownloadedBefore       = 1,
     onlyAllowUploadSameFileDownloadedBefore     = 2
@@ -118,6 +167,48 @@ enum {
     FetchingIdentities                          = 0
 };
 typedef NSUInteger cryptoIdentities;
+
+
+enum {
+    iOSBetaVersionNone                          = 0,
+    iOSBetaVersion12                            = 12
+};
+typedef NSUInteger iOSBetaVersion;
+
+
+enum {
+    iOSVersion9                                 = 9,
+    iOSVersion10                                = 10,
+    iOSVersion11                                = 11,
+    iOSVersion12                                = 12
+};
+typedef NSUInteger iOSVersion;
+
+
+enum {
+    mobileStatusBarAppearanceNone               = 0,
+    mobileStatusBarAppearanceLight              = 1,
+    mobileStatusBarAppearanceDark               = 2
+};
+typedef NSUInteger mobileStatusBarAppearances;
+
+
+enum {
+    mobileStatusBarAppearanceExtendedInferred   = 0,
+    mobileStatusBarAppearanceExtendedLight      = 1,
+    mobileStatusBarAppearanceExtendedDark       = 2,
+    mobileStatusBarAppearanceExtendedNoneDark   = 3,
+    mobileStatusBarAppearanceExtendedNoneLight  = 4
+};
+typedef NSUInteger mobileStatusBarAppearancesExtended;
+
+
+enum {
+    SEBBackgroundTintStyleNone                  = 0,
+    SEBBackgroundTintStyleLight                 = 1,
+    SEBBackgroundTintStyleDark                  = 2
+};
+typedef NSUInteger SEBBackgroundTintStyle;
 
 
 enum {
