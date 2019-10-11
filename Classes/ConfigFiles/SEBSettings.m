@@ -354,7 +354,7 @@
                    @"100%",
                    @"mainBrowserWindowWidth",
                    
-                   [NSNumber numberWithLong:SEBMinOSX10_7],
+                   [NSNumber numberWithLong:SEBMinMacOS10_12],
                    @"minMacOSVersion",
                    
                    @YES,
