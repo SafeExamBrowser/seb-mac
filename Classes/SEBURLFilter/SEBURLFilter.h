@@ -49,6 +49,7 @@
 + (SEBURLFilter *) sharedSEBURLFilter;
 
 - (NSError *) updateFilterRules;
+- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules;
 
 - (NSError *) updateIgnoreRuleList;
 

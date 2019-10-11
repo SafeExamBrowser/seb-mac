@@ -37,6 +37,7 @@
 #import "PreferencesController.h"
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
+#import "SEBURLFilter.h"
 
 
 @implementation PreferencesController
@@ -861,6 +862,9 @@
         
         /// Local Client settings are active
         
+        // Update filter rules, as those might change the settings checksum
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES];
+
         // Update the Browser Exam Key without re-generating its salt
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
@@ -871,6 +875,9 @@
         
         /// Private settings are active
         
+        // Update filter rules, as those might change the settings checksum
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES];
+
         // Update the Browser Exam Key with a new salt
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
         
