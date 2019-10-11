@@ -728,6 +728,29 @@
 
 #pragma mark Downloading SEB Config Files
 
+// Check if SEB is in exam mode = private UserDefauls are switched on:
+// Then opening a new config file/reconfiguring SEB isn't allowed
+- (BOOL) isReconfiguringAllowed
+{
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // If yes, we don't download the .seb file
+        // Also reset the flag for SEB starting up
+        _sebController.startingUp = false;
+        NSAlert *modalAlert = [_sebController newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+        [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert runModal];
+        [_sebController removeAlertWindow:modalAlert.window];
+        _sebController.openingSettings = false;
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+
 /// Initiating Opening the Config File Link
 
 // Conditionally open a config from an URL passed to SEB as parameter
@@ -739,19 +762,7 @@
     // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
         // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            // If yes, we don't download the .seb file
-            // Also reset the flag for SEB starting up
-            _sebController.startingUp = false;
-            NSAlert *modalAlert = [_sebController newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert runModal];
-            [_sebController removeAlertWindow:modalAlert.window];
-            _sebController.openingSettings = false;
-        } else {
+        if ([self isReconfiguringAllowed]) {
             // SEB isn't in exam mode: reconfiguring is allowed
             
             // Figure the download URL out, depending on if http or https should be used
@@ -1035,6 +1046,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
     DDLogError(@"%s error: %@", __FUNCTION__, error);
+    _sebController.openingSettings = false;
     
     // Only show the download error and close temp browser window if this wasn't a direct download attempt
     if (!_directConfigDownloadAttempted) {
@@ -1056,45 +1068,48 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
     
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    
-    // Get current config path
-    NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Store the URL of the .seb file as current config file path
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-    
-    storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
-    
-    // Reset the pending challenge in case it was an authenticated load
-    _pendingChallengeCompletionHandler = nil;
-    
-    if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
-        DDLogInfo(@"Storing downloaded SEB config data was successful");
+    if (!_sebController.openingSettings && [self isReconfiguringAllowed]) {
+        _sebController.openingSettings = true;
+        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
         
-        // Reset the direct download flag for the case this was a successful direct download
-        _directConfigDownloadAttempted = false;
-        [_sebController didOpenSettings];
+        // Get current config path
+        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+        // Store the URL of the .seb file as current config file path
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
         
-    } else {
-        /// Decrypting new settings wasn't successfull:
-        DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
+        storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
         
-        // We have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        // Reset the pending challenge in case it was an authenticated load
+        _pendingChallengeCompletionHandler = nil;
         
-        // Was this an attempt to download the config directly and the downloaded data was corrupted?
-        if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
-            // We try to download the config in a temporary WebView
-            DDLogInfo(@"Trying to download the config in a temporary WebView");
-            [self openConfigFromSEBURL:url];
-        } else {
-            // The download failed definitely or was canceled by the user:
-            DDLogError(@"Decrypting downloaded SEB config data failed!");
+        if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
+            DDLogInfo(@"Storing downloaded SEB config data was successful");
             
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;
+            [_sebController didOpenSettings];
             
-            [self openingConfigURLRoleBack];
+        } else {
+            /// Decrypting new settings wasn't successfull:
+            DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
+            
+            // We have to restore the path to the old settings
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+            
+            // Was this an attempt to download the config directly and the downloaded data was corrupted?
+            if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
+                // We try to download the config in a temporary WebView
+                DDLogInfo(@"Trying to download the config in a temporary WebView");
+                [self openConfigFromSEBURL:url];
+            } else {
+                // The download failed definitely or was canceled by the user:
+                DDLogError(@"Decrypting downloaded SEB config data failed!");
+                
+                // Reset the direct download flag for the case this was a successful direct download
+                _directConfigDownloadAttempted = false;
+                
+                [self openingConfigURLRoleBack];
+            }
         }
     }
 }
@@ -1105,7 +1120,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     // If SEB was just started (by opening a seb(s) link)
     if (_sebController.startingUp) {
         // we quit, as decrypting the config wasn't successful
-        _sebController.quittingMyself = TRUE; // SEB is terminating itself
+        _sebController.quittingMyself = true; // SEB is terminating itself
         [NSApp terminate: nil]; // Quit SEB
     }
     // Reset the opening settings flag which prevents opening URLs concurrently
