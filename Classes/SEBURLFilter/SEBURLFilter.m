@@ -59,6 +59,13 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 // Updates filter rule arrays with current settings (UserDefaults)
 - (NSError *) updateFilterRules
 {
+    return [self updateFilterRulesSebRules:NO];
+}
+
+
+// Updates filter rule arrays with current settings (UserDefaults)
+- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules
+{
     if (self.prohibitedList) {
         [self.prohibitedList removeAllObjects];
     } else {
@@ -130,8 +137,12 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         [self.permittedList addObject:expression];
     }
     
-    // Convert these rules and add them to the XULRunner seb keys
-    [self createSebRuleLists];
+    if (updateSebRules) {
+        // Convert these rules and add them to the XULRunner seb keys
+        // as this changes the Browser Exam Key and Config Key,
+        // this should only be done when saving a .seb config file
+        [self createSebRuleLists];
+    }
     
     // Updating filter rules worked; don't return any NSError
     return nil;

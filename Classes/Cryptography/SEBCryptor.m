@@ -222,6 +222,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
+    DDLogDebug(@"%s update UserDefaults: %hhd, generate new salt: %hhd", __FUNCTION__, updateUserDefaults, generateNewSalt);
+
     // Only calculate Config Key when UserDefaults should actually be updated
     // Otherwise this method is only used to check if settings changed,
     // then we can save time as the Config Key isn't relevant in this case
@@ -282,7 +284,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Convert preferences dictionary to XML property list
     NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
     *newChecksumPtr = HMACData;
-    
+    #ifdef DEBUG
+            DDLogDebug(@"%s: checksum %@, filteredPrefsDict: %@", __FUNCTION__, HMACData, filteredPrefsDict);
+    #endif
+
     // Get current Browser Exam Key
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
 
@@ -302,10 +307,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
         }
         // Return value: Checksum changed
+        DDLogDebug(@"%s Checksum changed!", __FUNCTION__);
         return YES;
     }
-    
     // Return value: Checksum not changed
+    DDLogDebug(@"%s Checksum did not change!", __FUNCTION__);
     return NO;
 }
 
