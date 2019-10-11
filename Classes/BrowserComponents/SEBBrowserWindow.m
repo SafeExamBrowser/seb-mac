@@ -1736,6 +1736,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 }
             }
         }
+        return;
     } else {
         self.downloadFileExtension = nil;
     }
@@ -1975,7 +1976,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 }
                 if (sebFileData) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.browserController openDownloadedSEBConfigData:sebFileData fromURL:url];
+                            [self.browserController openDownloadedSEBConfigData:sebFileData fromURL:url];
                     });
                     return;
                 }

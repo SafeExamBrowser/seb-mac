@@ -107,6 +107,7 @@
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 
+- (BOOL) isReconfiguringAllowed;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 - (void) openingConfigURLFailed;
 
