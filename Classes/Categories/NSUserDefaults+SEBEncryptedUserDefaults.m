@@ -204,7 +204,7 @@ static NSNumber *_logLevel;
     }
     
     // Get default settings
-    NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
+    NSDictionary *defaultSettings = [[[SEBSettings sharedSEBSettings] defaultSettings] objectForKey:dictionaryKey];
 
     if (!defaultSettings) {
         return [NSDictionary dictionary];

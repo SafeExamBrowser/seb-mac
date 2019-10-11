@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -37,7 +37,60 @@
 
 @implementation SEBSettings
 
-+ (NSDictionary *)defaultSettings
+
+static SEBSettings *sharedSEBSettings = nil;
+
+
++ (SEBSettings *)sharedSEBSettings
+{
+    @synchronized(self)
+    {
+        if (sharedSEBSettings == nil)
+        {
+            sharedSEBSettings = [[self alloc] init];
+        }
+    }
+    
+    return sharedSEBSettings;
+}
+
+
+- (NSDictionary *)defaultSettings
+{
+    if (!_defaultSettings) {
+        NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:[self defaultSEBSettings]];
+        
+        NSArray *sebExtensions = [MyGlobals SEBExtensions];
+        for (NSString *sebExtensionString in sebExtensions) {
+            Class SEBExtensionClass = NSClassFromString(sebExtensionString);
+            
+            if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(@"defaultSettings")]) {
+                NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:[SEBExtensionClass defaultSettings]];
+                
+                NSArray *subDictionaries = [completeDefaultSettings allKeys];
+                for (NSString *subDictKey in subDictionaries) {
+                    NSDictionary *subCABDict = [defaultExtensionSettings objectForKey:subDictKey];
+                    if (subCABDict.count > 0) {
+                        NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
+                        if (subDict) {
+                            [subDict addEntriesFromDictionary:subCABDict];
+                            [completeDefaultSettings setObject:subDict forKey:subDictKey];
+                            [defaultExtensionSettings removeObjectForKey:subDictKey];
+                        } else {
+                            [completeDefaultSettings setObject:subCABDict forKey:subDictKey];
+                        }
+                    }
+                }
+                [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
+            }
+        }
+        _defaultSettings = completeDefaultSettings.copy;
+    }
+    return _defaultSettings;
+}
+
+
+- (NSDictionary *)defaultSEBSettings
 {
     return  @{@"rootSettings" :
                   [NSDictionary dictionaryWithObjectsAndKeys:
@@ -69,6 +122,18 @@
                    @NO,
                    @"allowFlashFullscreen",
                    
+                   [NSNumber numberWithLong:iOSBetaVersionNone],
+                   @"allowiOSBetaVersionNumber",
+                   
+                   [NSNumber numberWithLong:iOSVersion9],
+                   @"allowiOSVersionNumberMajor",
+                   
+                   @3,
+                   @"allowiOSVersionNumberMinor",
+                   
+                   @5,
+                   @"allowiOSVersionNumberPatch",
+                   
                    @NO,
                    @"allowPDFPlugIn",
                    
@@ -89,7 +154,7 @@
                    
                    @NO,
                    @"allowSwitchToApplications",
-
+                   
                    @NO,
                    @"allowUserAppFolderInstall",
                    
@@ -108,6 +173,9 @@
                    @NO,
                    @"blockPopUpWindows",
                    
+                   @NO,
+                   @"browserMediaAutoplay",
+                   
                    [NSNumber numberWithLong:120000],
                    @"browserMessagingPingTime",
                    
@@ -117,8 +185,17 @@
                    @NO,
                    @"browserScreenKeyboard",
                    
+                   @YES,
+                   @"browserURLSalt",
+                   
                    @"",
                    @"browserUserAgent",
+                   
+                   [NSNumber numberWithLong:browserUserAgentModeiOSDefault],
+                   @"browserUserAgentiOS",
+                   
+                   @"",
+                   @"browserUserAgentiOSCustom",
                    
                    [NSNumber numberWithLong:browserUserAgentModeMacDefault],
                    @"browserUserAgentMac",
@@ -138,6 +215,9 @@
                    @"",
                    @"browserUserAgentWinTouchModeCustom",
                    
+                   SEBWinUserAgentTouchiPad,
+                   @"browserUserAgentWinTouchModeIPad",
+                   
                    [NSNumber numberWithLong:browserViewModeWindow],
                    @"browserViewMode",
                    
@@ -146,15 +226,18 @@
                    
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
-
+                   
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
                    
-                   [NSDictionary dictionary],
-                   @"configKeyContainedKeys",
-                   
                    [NSData data],
                    @"configKeySalt",
+                   
+                   @NO,
+                   @"configFileCreateIdentity",
+                   
+                   @NO,
+                   @"configFileEncryptUsingIdentity",
                    
                    @YES,
                    @"createNewDesktop",
@@ -165,7 +248,7 @@
                    @YES,
                    @"downloadAndOpenSebConfig",
                    
-                   @"~/Downloads",
+                   [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
                    @"downloadDirectoryOSX",
                    
                    @"Downloads",
@@ -182,6 +265,9 @@
                    
                    @NO,
                    @"enableBrowserWindowToolbar",
+                   
+                   @NO,
+                   @"enableDrawingEditor",
                    
                    @NO,
                    @"enableJava",
@@ -206,6 +292,15 @@
                    
                    [NSData data],
                    @"examKeySalt",
+                   
+                   @YES,
+                   @"examSessionClearSessionCookies",
+                   
+                   @NO,
+                   @"examSessionReconfigureAllow",
+                   
+                   @"",
+                   @"examSessionReconfigureConfigURL",
                    
                    [NSNumber numberWithLong:2],
                    @"exitKey1",
@@ -345,6 +440,9 @@
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
                    
+                   @NO,
+                   @"logSendingRequiresAdminPassword",
+                   
                    @"100%",
                    @"mainBrowserWindowHeight",
                    
@@ -356,6 +454,72 @@
                    
                    [NSNumber numberWithLong:SEBMinMacOS10_12],
                    @"minMacOSVersion",
+                   
+                   @NO,
+                   @"mobileAllowPictureInPictureMediaPlayback",
+
+                   @YES,
+                   @"mobileAllowInlineMediaPlayback",
+                   
+                   @NO,
+                   @"mobileAllowSingleAppMode",
+                   
+                   @NO,
+                   @"mobileAllowQRCodeConfig",
+                   
+                   @NO,
+                   @"mobileCompactAllowInlineMediaPlayback",
+                   
+                   @NO,
+                   @"mobileEnableGuidedAccessLinkTransform",
+                   
+                   @YES,
+                   @"mobileEnableASAM",
+                   
+                   @NO,
+                   @"mobileShowSettings",
+                   
+                   [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
+                   @"mobileStatusBarAppearance",
+                   
+                   [NSNumber numberWithLong:mobileStatusBarAppearanceExtendedLight],
+                   @"mobileStatusBarAppearanceExtended",
+                   
+                   @YES,
+                   @"mobileSupportedFormFactorsCompact",
+                   
+                   @YES,
+                   @"mobileSupportedFormFactorsNonTelephonyCompact",
+                   
+                   @YES,
+                   @"mobileSupportedFormFactorsRegular",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsCompactPortrait",
+                   
+                   @NO,
+                   @"mobileSupportedScreenOrientationsCompactPortraitUpsideDown",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsCompactLandscapeLeft",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsCompactLandscapeRight",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularPortrait",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularPortraitUpsideDown",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularLandscapeLeft",
+                   
+                   @YES,
+                   @"mobileSupportedScreenOrientationsRegularLandscapeRight",
+                   
+                   @YES,
+                   @"mobilePreventAutoLock",
                    
                    @YES,
                    @"monitorProcesses",
@@ -390,6 +554,9 @@
                    @NO,
                    @"newBrowserWindowShowReloadWarning",
                    
+                   [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
+                   @"newBrowserWindowShowURL",
+                   
                    @NO,
                    @"openDownloads",
                    
@@ -413,6 +580,12 @@
                    
                    @"",
                    @"quitURL",
+                   
+                   @YES,
+                   @"quitURLConfirm",
+                   
+                   @NO,
+                   @"quitURLRestart",
                    
                    @NO,
                    @"removeBrowserProfile",
@@ -450,14 +623,26 @@
                    @NO,
                    @"sendBrowserExamKey",
                    
+                   @YES,
+                   @"showBackToStartButton",
+                   
                    @NO,
                    @"showInputLanguage",
                    
                    @YES,
                    @"showMenuBar",
                    
+                   @NO,
+                   @"showNavigationButtons",
+                   
+                   @YES,
+                   @"showQuitButton",
+                   
                    @YES,
                    @"showReloadButton",
+                   
+                   @NO,
+                   @"showScanQRCodeButton",
                    
                    @NO,
                    @"showReloadWarning",
@@ -470,6 +655,12 @@
                    
                    SEBStartPage,
                    @"startURL",
+                   
+                   @NO,
+                   @"startURLAllowDeepLink",
+                   
+                   @NO,
+                   @"startURLAppendQueryParameter",
                    
                    [NSNumber numberWithLong:40],
                    @"taskBarHeight",
@@ -609,3 +800,4 @@
 
 
 @end
+

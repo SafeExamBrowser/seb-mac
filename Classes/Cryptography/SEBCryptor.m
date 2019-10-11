@@ -513,27 +513,30 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     
     // Get all dictionary keys alphabetically sorted
-    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
+    NSMutableArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
-                                                                                                   selector:@selector(caseInsensitiveCompare:)]]];
+                                                                                                   selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
-    NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
-    
+    NSDictionary *defaultSettings = [[[SEBSettings sharedSEBSettings] defaultSettings] objectForKey:dictionaryKey];
+
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
     if (containedKeys.count == 0 && configKeysAlphabetically.count != 0) {
         // In case this key was empty, we use all current keys
-        containedKeys = configKeysAlphabetically;
+        containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
     }
     
     [*jsonStringPtr appendString:@"{"];
     NSMutableString *dictionaryJSON = [NSMutableString new];
+    NSString *key;
+    NSUInteger counter = 0;
     
     // Iterate keys and read all values
-    for (NSString *key in configKeysAlphabetically) {
+    while (counter < configKeysAlphabetically.count) {
+        key = configKeysAlphabetically[counter];
         id value = [sourceDictionary objectForKey:key];
         id defaultValue = [defaultSettings objectForKey:key];
         Class valueClass = [value superclass];
@@ -557,12 +560,20 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                             dictionary:value
                                       containedKeysPtr:containedKeysPtr
                                                jsonPtr:&dictionaryJSON];
+            if (!value || [(NSDictionary *)value count] == 0) {
+                [configKeysAlphabetically removeObjectAtIndex:counter];
+                continue;
+            }
         }
         if (valueClass == [NSMutableDictionary class]) {
             value = [[self getConfigKeyDictionaryForKey:key
                                              dictionary:value
                                        containedKeysPtr:containedKeysPtr
                                                 jsonPtr:&dictionaryJSON] mutableCopy];
+            if (!value || [(NSMutableDictionary *)value count] == 0) {
+                [configKeysAlphabetically removeObjectAtIndex:counter];
+                continue;
+            }
         }
         
         // Sub-dictionaries are usually contained in arrays, so we have to treat this case separately
@@ -587,7 +598,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         // this is important also for values, where a default value doesn't make sense
         // like for example "originatorVersion"
         if (![containedKeys containsObject:key]) {
-            if (defaultValue && ![value isEqualTo:defaultValue]) {
+            if (defaultValue && ![value isEqual:defaultValue]) {
                 // if this isn't the case, we have to reset the Config Key and abort
                 [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
                 return nil;
@@ -605,7 +616,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             }
         }
         dictionaryJSON.string = @"";
+        
+        counter++;
     }
+    
     if ([*jsonStringPtr length] > 2) {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
     }
@@ -624,22 +638,24 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     NSMutableArray *processedArray = [NSMutableArray new];
     for (id object in sourceArray) {
-        Class objectClass = [object superclass];
-        if (objectClass == [NSDictionary class]) {
-            [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
-                                                                              dictionary:object
-                                                                        containedKeysPtr:containedKeysPtr
-                                                                                 jsonPtr:jsonStringPtr]];
-        } else if (objectClass == [NSMutableDictionary class]) {
-            [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
-                                                                                      dictionary:object
-                                                                                containedKeysPtr:containedKeysPtr
-                                                                                         jsonPtr:jsonStringPtr] mutableCopy]];
-        } else {
-            [processedArray addObject:object];
-            [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
+        if (object) {
+            Class objectClass = [object superclass];
+            if (objectClass == [NSDictionary class]) {
+                [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
+                                                                                  dictionary:object
+                                                                            containedKeysPtr:containedKeysPtr
+                                                                                     jsonPtr:jsonStringPtr]];
+            } else if (objectClass == [NSMutableDictionary class]) {
+                [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
+                                                                                          dictionary:object
+                                                                                    containedKeysPtr:containedKeysPtr
+                                                                                             jsonPtr:jsonStringPtr] mutableCopy]];
+            } else {
+                [processedArray addObject:object];
+                [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
+            }
+            [*jsonStringPtr appendString:@","];
         }
-        [*jsonStringPtr appendString:@","];
     }
     if ([*jsonStringPtr length] > 2) {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];

@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -35,8 +35,31 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * @protocol    SEBExtension
+ *
+ * @brief       Classes conforming to the SEBExtension protocol provide
+ *              default values for additional settings used in the extension.
+ */
+@protocol SEBExtension <NSObject>
+/**
+ * @name        Item Attributes
+ */
+@required
+/**
+ * @brief       Provides default values for settings used by the extension.
+ *              The key name identifies a settings dictionary, at least "rootSettings"
+ *              must be provided.
+ */
++ (NSDictionary *)defaultSettings;
+
+@end
+
+
 @interface SEBSettings : NSDictionary
 
-+ (NSDictionary *)defaultSettings;
++ (SEBSettings *)sharedSEBSettings;
+
+@property (strong, nonatomic) NSDictionary *defaultSettings;
 
 @end

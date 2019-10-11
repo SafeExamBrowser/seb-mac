@@ -41,6 +41,8 @@
 + (int)ddLogLevel;
 //+ (void)ddSetLogLevel:(int)logLevel;
 
++ (NSArray *)SEBExtensions;
+
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
