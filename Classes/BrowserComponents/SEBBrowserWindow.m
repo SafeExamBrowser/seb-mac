@@ -912,7 +912,7 @@
         [openFilePanel setCanChooseFiles:YES];
         
         // Allow the user to open multiple files at a time.
-        openFilePanel.allowsMultipleSelection = allowMultipleFiles;
+        [openFilePanel setAllowsMultipleSelection:allowMultipleFiles];
         
         // Disable the selection of directories in the dialog.
         [openFilePanel setCanChooseDirectories:NO];
