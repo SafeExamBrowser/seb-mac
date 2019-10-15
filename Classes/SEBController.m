@@ -3375,7 +3375,7 @@ bool insideMatrix(){
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
                                                                      icon:[NSApp applicationIconImage]
-                                                          highlightedIcon:nil
+                                                          highlightedIcon:[NSApp applicationIconImage]
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
