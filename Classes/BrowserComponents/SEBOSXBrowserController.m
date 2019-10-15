@@ -1068,7 +1068,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
     
-    if (!_sebController.openingSettings && [self isReconfiguringAllowed]) {
+    if ([self isReconfiguringAllowed]) {
         _sebController.openingSettings = true;
         SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
         
