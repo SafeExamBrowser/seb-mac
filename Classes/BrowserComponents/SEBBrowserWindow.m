@@ -1696,6 +1696,11 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         [self startDownloadingURL:request.URL];
         return;
     }
+	
+    // The filename can optionally be specified in JavaScript as window.SafeExamBrowser.download.filename = filename
+    if ([[sender stringByEvaluatingJavaScriptFromString:@"window.SafeExamBrowser.download.filename"] length] > 0) {
+        self.downloadFilename = [sender stringByEvaluatingJavaScriptFromString:@"window.SafeExamBrowser.download.filename"];
+    }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
