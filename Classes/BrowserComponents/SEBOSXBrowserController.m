@@ -262,11 +262,15 @@
         
         if (webViewToClose == _temporaryWebView) {
             _temporaryWebView = nil;
-            // If this is a temporary browser window used for opening a seb(s) link on a server
-            // requiring authentication, we might need to quit (if SEB was just started)
-            // or reset the opening settings flag which prevents opening URLs concurrently
-            [self openingConfigURLRoleBack];
         }
+    }
+}
+
+
+- (void) checkForClosingTemporaryWebView:(SEBWebView *) webViewToClose
+{
+    if (webViewToClose == _temporaryWebView) {
+        [self openingConfigURLRoleBack];
     }
 }
 
@@ -1089,6 +1093,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             _directConfigDownloadAttempted = false;
             [_sebController didOpenSettings];
             
+            return;
+            
         } else {
             /// Decrypting new settings wasn't successfull:
             DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
@@ -1101,17 +1107,21 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 // We try to download the config in a temporary WebView
                 DDLogInfo(@"Trying to download the config in a temporary WebView");
                 [self openConfigFromSEBURL:url];
+                
+                return;
             } else {
                 // The download failed definitely or was canceled by the user:
                 DDLogError(@"Decrypting downloaded SEB config data failed!");
                 
                 // Reset the direct download flag for the case this was a successful direct download
                 _directConfigDownloadAttempted = false;
-                
-                [self openingConfigURLRoleBack];
             }
         }
     }
+    // Opening downloaded SEB config data definitely failed:
+    // we might need to quit (if SEB was just started)
+    // or reset the opening settings flag which prevents opening URLs concurrently
+    [self openingConfigURLRoleBack];
 }
 
 
@@ -1120,6 +1130,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     // If SEB was just started (by opening a seb(s) link)
     if (_sebController.startingUp) {
         // we quit, as decrypting the config wasn't successful
+        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
         _sebController.quittingMyself = true; // SEB is terminating itself
         [NSApp terminate: nil]; // Quit SEB
     }

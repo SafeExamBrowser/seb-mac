@@ -93,6 +93,7 @@
 
 - (SEBWebView *) openAndShowWebView;
 - (void) closeWebView:(SEBWebView *) webViewToClose;
+- (void) checkForClosingTemporaryWebView:(SEBWebView *) webViewToClose;
 - (void) webViewShow:(SEBWebView *)sender;
 - (void) openMainBrowserWindow;
 - (void) clearBackForwardList;
