@@ -854,7 +854,7 @@
 
 // Downloading and Uploading of Files //
 
-- (void)webView:(SEBWebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
+- (void)webView:(SEBWebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles;
 // Choose file for upload
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -912,7 +912,7 @@
         [openFilePanel setCanChooseFiles:YES];
         
         // Allow the user to open multiple files at a time.
-        openFilePanel.allowsMultipleSelection = YES;
+        [openFilePanel setAllowsMultipleSelection:allowMultipleFiles];
         
         // Disable the selection of directories in the dialog.
         [openFilePanel setCanChooseDirectories:NO];
