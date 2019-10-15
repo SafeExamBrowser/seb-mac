@@ -909,19 +909,19 @@
         NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
         
         // Enable the selection of files in the dialog.
-        [openFilePanel setCanChooseFiles:YES];
+        openFilePanel.canChooseFiles = YES;
         
         // Allow the user to open multiple files at a time.
-        [openFilePanel setAllowsMultipleSelection:allowMultipleFiles];
+        openFilePanel.allowsMultipleSelection = allowMultipleFiles;
         
         // Disable the selection of directories in the dialog.
-        [openFilePanel setCanChooseDirectories:NO];
+        openFilePanel.canChooseDirectories = NO;
         
         // Change text of the open button in file dialog
-        [openFilePanel setPrompt:NSLocalizedString(@"Choose",nil)];
+        openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
         
         // Change default directory in file dialog
-        [openFilePanel setDirectoryURL:[NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]]];
+        openFilePanel.directoryURL = [NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]];
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self makeKeyAndOrderFront:self];
