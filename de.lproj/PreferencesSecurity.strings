@@ -103,7 +103,7 @@
 /* Class = "NSButtonCell"; title = "Enable F6"; ObjectID = "Fmg-wZ-Cpg"; */
 "Fmg-wZ-Cpg.title" = "F6 erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture and recording (invoked with cmd+shift+3/+4/+5), corresponds with option 'Enable Print Screen' in Windows (Hooked Keys)"; ObjectID = "g34-gq-Owk"; */
 "g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos und Bildschirmaufnahme (cmd+shift+3/+4/+5), entspricht Option 'Print Screen erlauben' (Windows 'Hooked Keys' Einstellungen)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X"; */
@@ -151,7 +151,7 @@
 /* Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs"; */
 "LTi-lL-sOs.title" = "Abmelden erlauben";
 
-/* Class = "NSButtonCell"; title = "Enable screen capture"; ObjectID = "lyl-Qv-iTq"; */
+/* Class = "NSButtonCell"; title = "Allow screen capture"; ObjectID = "lyl-Qv-iTq"; */
 "lyl-Qv-iTq.title" = "Bildschirmfotos erlauben";
 
 /* Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB"; */

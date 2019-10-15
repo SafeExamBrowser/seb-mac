@@ -65,6 +65,9 @@
 "Back to Start" = "Zurück zum Start";
 
 /* No comment provided by engineer. */
+"Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you." = "Vor dem Starten von SEB hat die Touch Bar 'App-Steuerungen' angezeigt. SEB kann diese Einstellung nicht automatisch wiederherstellen. Sie müssen entweder Ihren Mac neu starten oder die Einstellung manuell in den Systemeinstellungen / Tastatur / 'Touch Bar zeigt' auswählen. SEB kann diesen Tab in den Systemeinstellungen für Sie öffnen.";
+
+/* No comment provided by engineer. */
 "block" = "blockieren";
 
 /* Title of 'Browser' preference pane */
@@ -93,6 +96,9 @@
 
 /* No comment provided by engineer. */
 "Cannot Reconfigure SEB Settings" = "Konfiguration kann nicht umkonfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Restore Touch Bar Mode" = "Touch Bar Modus kann nicht wiederhergestellt werden";
 
 /* No comment provided by engineer. */
 "Center" = "Zentrieren";
@@ -242,6 +248,9 @@
 "Exam" = "Prüfung";
 
 /* No comment provided by engineer. */
+"Exporting Identity Failed" = "Exportieren des Identitätszertifikats ist fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
 
 /* No comment provided by engineer. */
@@ -335,9 +344,6 @@
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
-"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.\n\nLokale Einstellungen zurücksetzen und weiterfahren?";
-
-/* No comment provided by engineer. */
 "Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
@@ -354,6 +360,9 @@
 
 /* No comment provided by engineer. */
 "Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?" = "Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
+
+/* No comment provided by engineer. */
+"Log in to" = "Einloggen";
 
 /* No comment provided by engineer. */
 "macOS Support Warning" = "Warnung zur macOS-Unterstützung";
@@ -635,6 +644,15 @@
 "Switched back after user switch / login window" = "Wechsel zurück nach Benutzerwechsel / Anmeldefenster";
 
 /* No comment provided by engineer. */
+"the exam page" = "die Prüfungsseite";
+
+/* No comment provided by engineer. */
+"The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." = "Das Identitätszertifikat könnte beschädigt sein oder der dazugehörige private Schlüssel wurde als 'nicht-exportierbar' in den Schlüsselbund importiert. Falls das Identitätszertifikat in einer Konfigurationsdatei eingebettet war, öffnen Sie diese hier im Einstellungen-Fenster. Dann wird der private Schlüssel als 'exportierbar' zum Schlüsselbund hinzugefügt.";
+
+/* No comment provided by engineer. */
+"The identity certificate needed to decrypt these settings isn't installed on this device. SEB might not have been configured correctly for your institution." = "Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. SEB wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+
+/* No comment provided by engineer. */
 "The identity needed to decrypt settings has not been found in the keychain!" = "Identität zur Entschlüsselung dieser SEB-Konfigurationsdatei wurde im Schlüsselbund nicht gefunden!";
 
 /* No comment provided by engineer. */
@@ -645,6 +663,9 @@
 
 /* No comment provided by engineer. */
 "The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Vergewissern Sie sich, dass sie korrekt eingegeben sind, und versuchen Sie es erneut.";
+
+/* No comment provided by engineer. */
+"the webpage" = "die Webseite";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
@@ -789,7 +810,4 @@
 
 /* No comment provided by engineer. */
 "You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.";
-
-/* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.\n\nSie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.";
 
