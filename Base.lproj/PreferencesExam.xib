@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,13 +24,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" verticalHuggingPriority="750" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
-                    <rect key="frame" x="17" y="16" width="616" height="198"/>
+                    <rect key="frame" x="17" y="16" width="616" height="196"/>
                     <view key="contentView" id="LLt-mf-jhD">
-                        <rect key="frame" x="1" y="1" width="614" height="179"/>
+                        <rect key="frame" x="3" y="3" width="610" height="176"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
-                                <rect key="frame" x="11" y="102" width="549" height="14"/>
+                                <rect key="frame" x="9" y="99" width="549" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -39,10 +38,10 @@
                                 </textFieldCell>
                             </textField>
                             <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
-                                <rect key="frame" x="13" y="124" width="588" height="22"/>
+                                <rect key="frame" x="11" y="121" width="588" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="bTx-tu-6Av">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -62,10 +61,7 @@
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="588" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
-                                <rect key="frame" x="11" y="43" width="483" height="14"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="14" id="EbE-qf-e51"/>
-                                </constraints>
+                                <rect key="frame" x="9" y="41" width="483" height="14"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)" id="pdT-tX-Sdp">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -73,10 +69,10 @@
                                 </textFieldCell>
                             </textField>
                             <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
-                                <rect key="frame" x="13" y="65" width="588" height="22"/>
+                                <rect key="frame" x="11" y="63" width="588" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Back to Start" drawsBackground="YES" id="sY9-Fu-u2Z">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -91,7 +87,7 @@
                                 </connections>
                             </textField>
                             <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                <rect key="frame" x="11" y="12" width="378" height="18"/>
+                                <rect key="frame" x="9" y="14" width="378" height="18"/>
                                 <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -102,7 +98,10 @@
                                 </connections>
                             </button>
                             <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
-                                <rect key="frame" x="11" y="152" width="227" height="18"/>
+                                <rect key="frame" x="9" y="150" width="227" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="CJW-Ch-L6P"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -113,43 +112,39 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="QQD-LY-egj" firstAttribute="leading" secondItem="Qei-df-hVI" secondAttribute="leading" id="0Kz-3a-VwN"/>
+                            <constraint firstItem="2Rr-y4-nE8" firstAttribute="trailing" secondItem="Qei-df-hVI" secondAttribute="trailing" id="Kl4-i3-Tp3"/>
+                            <constraint firstAttribute="trailing" secondItem="2Rr-y4-nE8" secondAttribute="trailing" constant="11" id="Lyb-Zp-vX7"/>
+                            <constraint firstItem="2Rr-y4-nE8" firstAttribute="leading" secondItem="QQD-LY-egj" secondAttribute="leading" id="PLx-mw-4V8"/>
+                            <constraint firstItem="ujx-Tz-w75" firstAttribute="top" secondItem="LLt-mf-jhD" secondAttribute="top" constant="8" id="Rus-wO-CsL"/>
+                            <constraint firstItem="Qei-df-hVI" firstAttribute="leading" secondItem="obm-ub-zDL" secondAttribute="leading" id="UJQ-Wd-XIn"/>
+                            <constraint firstItem="ujx-Tz-w75" firstAttribute="leading" secondItem="2Rr-y4-nE8" secondAttribute="leading" id="W7r-DZ-7PP"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QQD-LY-egj" secondAttribute="trailing" constant="20" symbolic="YES" id="Z84-by-euJ"/>
+                            <constraint firstItem="ujx-Tz-w75" firstAttribute="leading" secondItem="LLt-mf-jhD" secondAttribute="leading" constant="11" id="aDH-Un-SSN"/>
+                            <constraint firstItem="obm-ub-zDL" firstAttribute="top" secondItem="Qei-df-hVI" secondAttribute="bottom" constant="8" symbolic="YES" id="aOg-xA-nCV"/>
+                            <constraint firstItem="oJT-BY-ezv" firstAttribute="top" secondItem="obm-ub-zDL" secondAttribute="bottom" constant="11" id="dhL-82-ncm"/>
+                            <constraint firstItem="QQD-LY-egj" firstAttribute="top" secondItem="2Rr-y4-nE8" secondAttribute="bottom" constant="8" symbolic="YES" id="fN4-KC-1Vt"/>
+                            <constraint firstItem="Qei-df-hVI" firstAttribute="top" secondItem="QQD-LY-egj" secondAttribute="bottom" constant="15" id="gpm-xF-QHa"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ujx-Tz-w75" secondAttribute="trailing" constant="20" symbolic="YES" id="lAL-iq-EP6"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oJT-BY-ezv" secondAttribute="trailing" constant="20" symbolic="YES" id="pmE-va-6b5"/>
+                            <constraint firstItem="obm-ub-zDL" firstAttribute="leading" secondItem="oJT-BY-ezv" secondAttribute="leading" id="qhj-VI-mpi"/>
+                            <constraint firstItem="2Rr-y4-nE8" firstAttribute="top" secondItem="ujx-Tz-w75" secondAttribute="bottom" constant="10" id="tgC-qr-zR7"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="obm-ub-zDL" secondAttribute="trailing" constant="20" symbolic="YES" id="xMC-eD-TWf"/>
+                        </constraints>
                     </view>
-                    <constraints>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="obm-ub-zDL" secondAttribute="trailing" constant="11" id="4fN-95-Mbf"/>
-                        <constraint firstItem="obm-ub-zDL" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" constant="11" id="5DL-nT-X5A"/>
-                        <constraint firstItem="2Rr-y4-nE8" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" constant="11" id="5d0-Yu-R8A"/>
-                        <constraint firstItem="Qei-df-hVI" firstAttribute="top" secondItem="QQD-LY-egj" secondAttribute="bottom" constant="15" id="6kg-pn-epe"/>
-                        <constraint firstItem="ujx-Tz-w75" firstAttribute="top" secondItem="czI-08-Q8k" secondAttribute="top" constant="29" id="Aa0-G0-Sq0"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ujx-Tz-w75" secondAttribute="trailing" constant="11" id="C0g-80-odl"/>
-                        <constraint firstAttribute="trailing" secondItem="Qei-df-hVI" secondAttribute="trailing" constant="11" id="CNA-XF-Gab"/>
-                        <constraint firstItem="Qei-df-hVI" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" constant="11" id="I5V-Zp-uzu"/>
-                        <constraint firstItem="QQD-LY-egj" firstAttribute="leading" secondItem="2Rr-y4-nE8" secondAttribute="leading" id="Jde-ir-Fon"/>
-                        <constraint firstItem="oJT-BY-ezv" firstAttribute="top" secondItem="obm-ub-zDL" secondAttribute="bottom" constant="15" id="NgZ-0g-N7R"/>
-                        <constraint firstItem="obm-ub-zDL" firstAttribute="leading" secondItem="Qei-df-hVI" secondAttribute="leading" id="RVs-pw-Sh3"/>
-                        <constraint firstItem="oJT-BY-ezv" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" constant="11" id="TiB-KV-lLy"/>
-                        <constraint firstItem="obm-ub-zDL" firstAttribute="top" secondItem="Qei-df-hVI" secondAttribute="bottom" constant="8" id="XcV-qG-hJ0"/>
-                        <constraint firstItem="ujx-Tz-w75" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" constant="11" id="b0C-A5-BoE"/>
-                        <constraint firstAttribute="trailing" secondItem="2Rr-y4-nE8" secondAttribute="trailing" constant="11" id="dFL-Um-Kzg"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oJT-BY-ezv" secondAttribute="trailing" constant="11" id="eh5-te-Yvs"/>
-                        <constraint firstItem="2Rr-y4-nE8" firstAttribute="top" secondItem="ujx-Tz-w75" secondAttribute="bottom" constant="8" id="hbP-Kr-uhm"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QQD-LY-egj" secondAttribute="trailing" constant="11" id="m4q-NR-nfq"/>
-                        <constraint firstItem="QQD-LY-egj" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" constant="11" id="mTA-aM-j4Q"/>
-                        <constraint firstItem="QQD-LY-egj" firstAttribute="top" secondItem="2Rr-y4-nE8" secondAttribute="bottom" constant="8" id="nnz-m3-b1s"/>
-                        <constraint firstAttribute="bottom" secondItem="oJT-BY-ezv" secondAttribute="bottom" constant="11" id="rxa-zY-JdI"/>
-                    </constraints>
                     <font key="titleFont" metaFont="system"/>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                    <rect key="frame" x="17" y="374" width="616" height="237"/>
+                    <rect key="frame" x="17" y="372" width="616" height="239"/>
                     <view key="contentView" id="25R-Li-36g">
-                        <rect key="frame" x="1" y="1" width="614" height="218"/>
+                        <rect key="frame" x="3" y="3" width="610" height="219"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
-                                <rect key="frame" x="13" y="142" width="588" height="22"/>
+                                <rect key="frame" x="11" y="145" width="588" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="588" id="gG8-II-QoC"/>
-                                    <constraint firstAttribute="height" constant="22" id="jdJ-nL-pyU"/>
+                                    <constraint firstAttribute="height" constant="22" id="kQx-xb-xrE"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="15">
                                     <font key="font" metaFont="system"/>
@@ -161,7 +156,7 @@
                                 </connections>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                <rect key="frame" x="289" y="164" width="314" height="18"/>
+                                <rect key="frame" x="287" y="167" width="314" height="18"/>
                                 <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                                 <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -172,8 +167,8 @@
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting" id="1019"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="751" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                <rect key="frame" x="11" y="110" width="592" height="28"/>
+                            <textField verticalHuggingPriority="751" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                                <rect key="frame" x="9" y="113" width="592" height="28"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="title">Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
@@ -182,10 +177,10 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                <rect key="frame" x="11" y="187" width="328" height="22"/>
+                                <rect key="frame" x="11" y="193" width="328" height="20"/>
                                 <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Edr-p2-rSu"/>
+                                    <constraint firstAttribute="height" constant="16" id="F7C-kd-uJp"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -196,8 +191,8 @@
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
-                                <rect key="frame" x="11" y="166" width="116" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
+                                <rect key="frame" x="11" y="169" width="116" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -205,10 +200,9 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
-                                <rect key="frame" x="13" y="59" width="588" height="22"/>
+                                <rect key="frame" x="11" y="65" width="588" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="588" id="47I-ok-kSA"/>
-                                    <constraint firstAttribute="height" constant="22" id="mCN-dD-gmB"/>
+                                    <constraint firstAttribute="height" constant="22" id="SeX-Uk-abc"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
                                     <font key="font" metaFont="system"/>
@@ -219,8 +213,8 @@
                                     <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
-                                <rect key="frame" x="11" y="11" width="594" height="42"/>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
+                                <rect key="frame" x="9" y="19" width="592" height="42"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation).</string>
@@ -228,8 +222,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
-                                <rect key="frame" x="11" y="83" width="70" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
+                                <rect key="frame" x="9" y="89" width="70" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -238,46 +232,44 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="14" firstAttribute="top" secondItem="Ohm-vb-HPc" secondAttribute="bottom" constant="2" id="2Hs-3M-Svw"/>
-                            <constraint firstItem="20" firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="7Ai-f7-11s"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LZ0-8d-pGk" secondAttribute="trailing" constant="11" id="D7O-OT-YWC"/>
-                            <constraint firstItem="Ohm-vb-HPc" firstAttribute="top" secondItem="3dP-gi-x4W" secondAttribute="bottom" constant="6" id="DQ5-D8-s83"/>
-                            <constraint firstItem="LZ0-8d-pGk" firstAttribute="leading" secondItem="Vag-ov-ItE" secondAttribute="leading" id="Jah-th-YSl"/>
-                            <constraint firstItem="Vag-ov-ItE" firstAttribute="leading" secondItem="ptt-EJ-rsQ" secondAttribute="leading" id="Jcp-uY-fv1"/>
-                            <constraint firstItem="LZ0-8d-pGk" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="10" id="Pbe-3p-MPR"/>
-                            <constraint firstItem="3dP-gi-x4W" firstAttribute="top" secondItem="25R-Li-36g" secondAttribute="top" constant="11" id="Px3-CR-eU3"/>
-                            <constraint firstAttribute="trailing" secondItem="ptt-EJ-rsQ" secondAttribute="trailing" constant="11" id="TdN-j4-uSa"/>
-                            <constraint firstItem="Vag-ov-ItE" firstAttribute="top" secondItem="LZ0-8d-pGk" secondAttribute="bottom" constant="2" id="U7y-T1-1dF"/>
-                            <constraint firstItem="32" firstAttribute="top" secondItem="14" secondAttribute="bottom" constant="4" id="Uyy-nk-mMs"/>
-                            <constraint firstItem="3dP-gi-x4W" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="13" id="gk1-6U-Dyc"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3dP-gi-x4W" secondAttribute="trailing" constant="11" id="iqc-ld-yDO"/>
-                            <constraint firstAttribute="bottom" secondItem="ptt-EJ-rsQ" secondAttribute="bottom" constant="11" id="may-K1-50E"/>
-                            <constraint firstItem="Ohm-vb-HPc" firstAttribute="leading" secondItem="3dP-gi-x4W" secondAttribute="leading" id="pEn-s8-LfN"/>
-                            <constraint firstItem="20" firstAttribute="baseline" secondItem="Ohm-vb-HPc" secondAttribute="baseline" id="tOU-9X-RMC"/>
-                            <constraint firstItem="32" firstAttribute="leading" secondItem="LZ0-8d-pGk" secondAttribute="leading" id="u0x-xZ-Apj"/>
-                            <constraint firstItem="20" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ohm-vb-HPc" secondAttribute="trailing" constant="20" id="w7h-Mu-xP8"/>
-                            <constraint firstItem="ptt-EJ-rsQ" firstAttribute="top" secondItem="Vag-ov-ItE" secondAttribute="bottom" constant="6" id="ymf-sw-8AP"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LZ0-8d-pGk" secondAttribute="trailing" constant="20" symbolic="YES" id="4Od-QR-FkT"/>
+                            <constraint firstItem="Vag-ov-ItE" firstAttribute="trailing" secondItem="ptt-EJ-rsQ" secondAttribute="trailing" id="ELu-kE-q0N"/>
+                            <constraint firstItem="14" firstAttribute="leading" secondItem="32" secondAttribute="leading" id="J2M-t5-zbP"/>
+                            <constraint firstItem="Ohm-vb-HPc" firstAttribute="top" secondItem="3dP-gi-x4W" secondAttribute="bottom" constant="10" id="JqB-NM-DYD"/>
+                            <constraint firstItem="14" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="11" id="KEe-ND-BFr"/>
+                            <constraint firstItem="3dP-gi-x4W" firstAttribute="top" secondItem="25R-Li-36g" secondAttribute="top" constant="8" id="SIO-8s-ZgK"/>
+                            <constraint firstItem="Ohm-vb-HPc" firstAttribute="baseline" secondItem="20" secondAttribute="baseline" id="T4E-qn-hCc"/>
+                            <constraint firstItem="32" firstAttribute="top" secondItem="14" secondAttribute="bottom" constant="4" id="U8n-N6-bhB"/>
+                            <constraint firstItem="LZ0-8d-pGk" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="8" symbolic="YES" id="YKz-4C-vuS"/>
+                            <constraint firstItem="3dP-gi-x4W" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="13" id="ZZt-H7-82X"/>
+                            <constraint firstItem="32" firstAttribute="leading" secondItem="LZ0-8d-pGk" secondAttribute="leading" id="aJA-hV-PPw"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3dP-gi-x4W" secondAttribute="trailing" constant="20" symbolic="YES" id="bz1-3v-QkT"/>
+                            <constraint firstItem="20" firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="cdD-fN-rCo"/>
+                            <constraint firstItem="3dP-gi-x4W" firstAttribute="leading" secondItem="Ohm-vb-HPc" secondAttribute="leading" id="dq1-3v-WHU"/>
+                            <constraint firstItem="14" firstAttribute="top" secondItem="Ohm-vb-HPc" secondAttribute="bottom" constant="2" id="ePc-Hn-eNI"/>
+                            <constraint firstItem="Vag-ov-ItE" firstAttribute="leading" secondItem="ptt-EJ-rsQ" secondAttribute="leading" id="f8w-Z1-Y0F"/>
+                            <constraint firstItem="32" firstAttribute="trailing" secondItem="Vag-ov-ItE" secondAttribute="trailing" id="hwt-ir-owr"/>
+                            <constraint firstItem="14" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="j6M-8X-nfw"/>
+                            <constraint firstItem="14" firstAttribute="centerX" secondItem="25R-Li-36g" secondAttribute="centerX" id="lUE-2n-Bir"/>
+                            <constraint firstItem="ptt-EJ-rsQ" firstAttribute="top" secondItem="Vag-ov-ItE" secondAttribute="bottom" constant="4" id="nxk-Eu-KyF"/>
+                            <constraint firstItem="Vag-ov-ItE" firstAttribute="top" secondItem="LZ0-8d-pGk" secondAttribute="bottom" constant="2" id="osY-rX-pbU"/>
+                            <constraint firstItem="20" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ohm-vb-HPc" secondAttribute="trailing" constant="8" symbolic="YES" id="rnt-4K-RPc"/>
+                            <constraint firstItem="LZ0-8d-pGk" firstAttribute="leading" secondItem="Vag-ov-ItE" secondAttribute="leading" id="sA8-Xk-crR"/>
                         </constraints>
                     </view>
-                    <constraints>
-                        <constraint firstItem="14" firstAttribute="leading" secondItem="57Q-JV-oaf" secondAttribute="leading" constant="11" id="GPF-rq-yuN"/>
-                        <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="11" id="WD8-oD-c7x"/>
-                        <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" constant="11" id="aeg-uf-Fq2"/>
-                        <constraint firstItem="32" firstAttribute="leading" secondItem="57Q-JV-oaf" secondAttribute="leading" constant="11" id="x9E-AL-pqa"/>
-                    </constraints>
                     <font key="titleFont" metaFont="system"/>
                 </box>
                 <box autoresizesSubviews="NO" verticalHuggingPriority="251" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                    <rect key="frame" x="17" y="228" width="616" height="130"/>
+                    <rect key="frame" x="17" y="226" width="616" height="132"/>
                     <view key="contentView" id="Bon-Cy-DW3">
-                        <rect key="frame" x="1" y="1" width="614" height="111"/>
+                        <rect key="frame" x="3" y="3" width="610" height="112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
-                                <rect key="frame" x="13" y="76" width="588" height="22"/>
+                                <rect key="frame" x="11" y="79" width="588" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -291,8 +283,11 @@
                                     <outlet property="delegate" destination="-2" id="1029"/>
                                 </connections>
                             </textField>
-                            <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
-                                <rect key="frame" x="11" y="9" width="190" height="21"/>
+                            <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" placeholderIntrinsicWidth="186" placeholderIntrinsicHeight="31" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
+                                <rect key="frame" x="11" y="11" width="190" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="9tX-ai-hcR"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ji2-gQ-cOh">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -303,9 +298,9 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
-                                <rect key="frame" x="11" y="39" width="592" height="29"/>
+                                <rect key="frame" x="11" y="42" width="587" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="uK5-Cd-Hzm"/>
+                                    <constraint firstAttribute="height" constant="29" id="hWj-6R-eaz"/>
                                 </constraints>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
                                     <font key="font" metaFont="smallSystem"/>
@@ -316,37 +311,36 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="441" firstAttribute="trailing" secondItem="688" secondAttribute="trailing" id="3qN-z2-P9a"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mWl-BQ-Udt" secondAttribute="trailing" constant="11" id="Bpo-KI-EMZ"/>
-                            <constraint firstItem="mWl-BQ-Udt" firstAttribute="top" secondItem="441" secondAttribute="bottom" constant="11" id="KDB-xA-DaQ"/>
-                            <constraint firstAttribute="bottom" secondItem="mWl-BQ-Udt" secondAttribute="bottom" constant="11" id="cu4-vG-XEY"/>
-                            <constraint firstItem="441" firstAttribute="leading" secondItem="mWl-BQ-Udt" secondAttribute="leading" id="dYe-c0-H89"/>
-                            <constraint firstItem="mWl-BQ-Udt" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="13" id="dwK-ic-Mjj"/>
-                            <constraint firstItem="441" firstAttribute="top" secondItem="688" secondAttribute="bottom" constant="8" id="g3y-1g-313"/>
-                            <constraint firstItem="688" firstAttribute="top" secondItem="Bon-Cy-DW3" secondAttribute="top" constant="13" id="jnd-2g-F5b"/>
+                            <constraint firstItem="441" firstAttribute="leading" secondItem="mWl-BQ-Udt" secondAttribute="leading" id="2WQ-mo-qoO"/>
+                            <constraint firstItem="688" firstAttribute="centerX" secondItem="Bon-Cy-DW3" secondAttribute="centerX" id="4tP-RX-Fef"/>
+                            <constraint firstItem="688" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="441" secondAttribute="trailing" id="9yG-VH-1n3"/>
+                            <constraint firstItem="441" firstAttribute="centerY" secondItem="Bon-Cy-DW3" secondAttribute="centerY" id="Cz5-ZX-BOm"/>
+                            <constraint firstItem="441" firstAttribute="top" secondItem="688" secondAttribute="bottom" constant="8" symbolic="YES" id="DAG-aK-sRl"/>
+                            <constraint firstItem="mWl-BQ-Udt" firstAttribute="top" secondItem="441" secondAttribute="bottom" constant="13" id="FTB-ee-OFQ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mWl-BQ-Udt" secondAttribute="trailing" constant="20" symbolic="YES" id="QE0-m1-Yjk"/>
+                            <constraint firstAttribute="trailing" secondItem="688" secondAttribute="trailing" constant="11" id="ciz-XI-nCQ"/>
+                            <constraint firstItem="688" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bon-Cy-DW3" secondAttribute="leading" id="iLR-lb-Zzm"/>
+                            <constraint firstItem="441" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="13" id="tPA-vk-qSt"/>
                         </constraints>
                     </view>
-                    <constraints>
-                        <constraint firstItem="688" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="top" constant="31" id="BAA-Sq-U9D"/>
-                        <constraint firstItem="688" firstAttribute="leading" secondItem="26k-Q1-RaL" secondAttribute="leading" constant="11" id="Wzp-cL-xk3"/>
-                        <constraint firstAttribute="trailing" secondItem="688" secondAttribute="trailing" constant="11" id="hxf-So-TJy"/>
-                    </constraints>
                     <font key="titleFont" metaFont="system"/>
                 </box>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="czI-08-Q8k" secondAttribute="bottom" constant="20" id="3GN-oI-KKC"/>
-                <constraint firstAttribute="trailing" secondItem="26k-Q1-RaL" secondAttribute="trailing" constant="20" id="9jX-Rc-rrq"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" constant="20" id="FVu-9s-KJ5"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="N3J-CS-yEh"/>
-                <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" constant="20" id="ruI-x9-QmF"/>
-                <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" id="xRI-qy-fkv"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="xsc-X4-PkJ"/>
-                <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="18" id="yeN-9B-htr"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="z8m-iy-5fY"/>
-                <constraint firstItem="czI-08-Q8k" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="zNt-7I-Ywp"/>
+                <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" symbolic="YES" id="29Q-Km-qlA"/>
+                <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="26k-Q1-RaL" secondAttribute="leading" id="BmL-Tb-Dds"/>
+                <constraint firstAttribute="bottom" secondItem="czI-08-Q8k" secondAttribute="bottom" constant="20" symbolic="YES" id="Iwt-Wg-bQd"/>
+                <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" id="Jvj-HD-9RT"/>
+                <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="USD-Kn-tYL"/>
+                <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Vd6-Tk-ATw"/>
+                <constraint firstItem="57Q-JV-oaf" firstAttribute="trailing" secondItem="26k-Q1-RaL" secondAttribute="trailing" id="YE7-1a-C0V"/>
+                <constraint firstItem="26k-Q1-RaL" firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" id="aK7-tw-hqJ"/>
+                <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="18" id="dXf-wd-llE"/>
+                <constraint firstAttribute="bottom" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="230" id="ta4-eG-HUW"/>
+                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="1" secondAttribute="top" constant="273" id="wQN-kF-0fo"/>
+                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" constant="18" id="zcV-vh-Wnp"/>
             </constraints>
-            <point key="canvasLocation" x="511" y="871"/>
+            <point key="canvasLocation" x="511" y="870.5"/>
         </customView>
         <userDefaultsController id="211" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="228" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>
