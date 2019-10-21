@@ -1352,7 +1352,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
     NSArray *filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
     if (filteredProcesses.count > 0) {
-        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
+        if (/*!_allowSwitchToApplications &&*/ !fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = true;
             
             DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
@@ -1369,7 +1369,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                     CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
                     CGEventPost(kCGSessionEventTap, event);
                     CFRelease(event);
-                    
+
                 } else {
                     DDLogError(@"SEB is not trusted in Privacy / Accessibility, terminating SEB");
                     exit(0); //quit SEB
@@ -1884,6 +1884,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 {
     NSArray *runningTouchBarAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:TouchBarAgent];
     if (runningTouchBarAgents.count != 0) {
+        _touchBarDetected = YES;
         NSInteger killSuccess;
         for (NSRunningApplication *touchBarAgent in runningTouchBarAgents) {
             DDLogWarn(@"Terminating TouchBarAgent %@", touchBarAgent);
@@ -4147,8 +4148,7 @@ bool insideMatrix(){
     // before SEB was started as this mode cannot be automatically restored
     // and open System Preferences / Keyboard to allow user to restore
     // TouchBar mode manually
-    NSArray *runningTouchBarAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:TouchBarAgent];
-    if (runningTouchBarAgents.count != 0 && !touchBarRestoreSuccess) {
+    if (_touchBarDetected && !touchBarRestoreSuccess) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
