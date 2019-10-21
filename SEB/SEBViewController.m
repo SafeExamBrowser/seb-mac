@@ -2884,6 +2884,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Save current time for information about when Guided Access was switched off
                 _didResignActiveTime = [NSDate date];
 
+                DDLogError(@"Single App Mode switched off!");
+
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
                     [self openLockdownWindows];
@@ -2897,6 +2899,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
                 
+                DDLogWarn(@"Single App Mode was switched on again.");
+
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
                 // Close lock windows only if the correct quit/restart password was entered already
@@ -3296,11 +3300,12 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if ([self.sebLockedViewController isStartingLockedExam]) {
         if (_secureMode) {
+            DDLogError(@"Re-opening an exam which was locked before");
             [self openLockdownWindows];
-            
             // Add log string for entering a locked exam
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
         } else {
+            DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
             // Add log string for entering a previously locked exam
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
         }
@@ -3315,6 +3320,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (userInfo) {
         lockReason = [userInfo valueForKey:@"lockReason"];
     }
+    DDLogError(@"%@", lockReason);
     [self openLockdownWindows];
     [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
     [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
