@@ -143,6 +143,7 @@
 @property(readwrite) BOOL dictationCheckOverride;
 @property(readwrite) BOOL dictationDetected;
 @property(readwrite) BOOL SIGSTOPDetected;
+@property(readwrite) BOOL touchBarDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL startingUp;
