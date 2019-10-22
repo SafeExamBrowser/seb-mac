@@ -1380,6 +1380,12 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 
                     } else {
                         DDLogError(@"SEB is not trusted in Privacy / Accessibility, terminating SEB");
+                        // Persist that this event happened and details
+                        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_fontDownloadAttempted"];
+                        [preferences setSecureString:self.browserController.activeBrowserWindowTitle forKey:@"org_safeexambrowser_fontDownloadAttemptedOnPageTitle"];
+                        [preferences setSecureString:[self.browserController placeholderTitleOrURLForActiveWebpage] forKey:@"org_safeexambrowser_fontDownloadAttemptedOnPageURLOrPlaceholder"];
+
                         exit(0); //quit SEB
                     }
                 } else {
