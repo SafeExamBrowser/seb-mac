@@ -238,6 +238,7 @@
     // Order new browser window to the front of our level
     [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
     self.activeBrowserWindow = newWindow;
+    self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", nil);
     [browserWindowDocument.mainWindowController showWindow:self];
     [newWindow makeKeyAndOrderFront:self];
     
@@ -514,6 +515,7 @@
 // Set web page title for a window/WebView
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
 {
+    _activeBrowserWindowTitle = title;
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setTitle: title];
@@ -708,6 +710,29 @@
     
     // If a temporary webview for loading config is open, close it
     [self openingConfigURLFailed];
+}
+
+
+// Delegate method which returns URL or placeholder text (in case settings
+// don't allow to display its URL) for active browser window
+- (NSString *) placeholderTitleOrURLForActiveWebpage
+{
+    NSString *placeholderOrURLString = nil;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (_activeBrowserWindow == _mainBrowserWindow) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLNever) {
+            placeholderOrURLString = NSLocalizedString(@"the exam page", nil);
+        } else {
+            placeholderOrURLString = _activeBrowserWindow.webView.mainFrameURL;
+        }
+    } else {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLNever) {
+            placeholderOrURLString = NSLocalizedString(@"the webpage", nil);
+        } else {
+            placeholderOrURLString = _activeBrowserWindow.webView.mainFrameURL;
+        }
+    }
+    return placeholderOrURLString;
 }
 
 

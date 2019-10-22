@@ -69,6 +69,7 @@
 @property (assign) SEBBrowserWindow *activeBrowserWindow;
 @property (assign) SEBDockController *dockController;
 #endif
+@property (strong, nonatomic) NSString *activeBrowserWindowTitle;
 
 @property (strong) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
@@ -107,6 +108,8 @@
 
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
+
+- (NSString *) placeholderTitleOrURLForActiveWebpage;
 
 - (BOOL) isReconfiguringAllowed;
 - (void) openConfigFromSEBURL:(NSURL *)url;
