@@ -117,17 +117,20 @@
     BOOL detectSIGSTOP;
     NSString *currentExamStartURL;
     BOOL fontRegistryUIAgentDisplayed;
+    NSUInteger fontRegistryUIAgentSkipDownloadCounter;
     #define logReportCounter 11
     NSUInteger screenSharingLogCounter;
     NSUInteger siriLogCounter;
     NSUInteger dictationLogCounter;
-    NSUInteger prohibitedProcessesLogCounter;
+    NSInteger prohibitedProcessesLogCounter;
     NSModalSession lockdownModalSession;
     NSUInteger lastNumberRunningBSDProcesses;
     BOOL checkingRunningProcesses;
     BOOL checkingForWindows;
     NSDate *lastTimeProcessCheck;
     NSDate *timeProcessCheckBeforeSIGSTOP;
+    
+    CGEventRef keyboardEventReturnKey;
 }
 
 @property(readwrite) BOOL allowSwitchToApplications;
