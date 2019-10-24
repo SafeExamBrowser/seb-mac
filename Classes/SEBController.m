@@ -581,6 +581,32 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
 
+    // Check if the font download alert was triggered from a web page
+    // and SEB didn't had Accessibility permissions
+    // and therefore was terminated to prevent a modal lock
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences persistedSecureBoolForKey:fontDownloadAttemptedKey]) {
+        
+        NSDictionary *options = @{(__bridge id)
+                                  kAXTrustedCheckOptionPrompt : @YES};
+        // Check if we're trusted - and the option means "Prompt the user
+        // to trust this app in System Preferences."
+        if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", nil)];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences. \n\nIf you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", nil),
+             [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey],
+             [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]];
+             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            [self removeAlertWindow:modalAlert.window];
+        }
+        [preferences setPersistedSecureBool:NO forKey:fontDownloadAttemptedKey];
+        [preferences setPersistedSecureObject:@"" forKey:fontDownloadAttemptedOnPageTitleKey];
+        [preferences setPersistedSecureObject:@"" forKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey];
+    }
+
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
     [self coverScreens];
 
@@ -943,8 +969,8 @@ bool insideMatrix(void);
         // Show alert that SEB was reconfigured
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             NSInteger answer = [modalAlert runModal];
             [self removeAlertWindow:modalAlert.window];
@@ -1380,11 +1406,12 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 
                     } else {
                         DDLogError(@"SEB is not trusted in Privacy / Accessibility, terminating SEB");
+                        
                         // Persist that this event happened and details
                         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_fontDownloadAttempted"];
-                        [preferences setSecureString:self.browserController.activeBrowserWindowTitle forKey:@"org_safeexambrowser_fontDownloadAttemptedOnPageTitle"];
-                        [preferences setSecureString:[self.browserController placeholderTitleOrURLForActiveWebpage] forKey:@"org_safeexambrowser_fontDownloadAttemptedOnPageURLOrPlaceholder"];
+                        [preferences setPersistedSecureBool:YES forKey:fontDownloadAttemptedKey];
+                        [preferences setPersistedSecureObject:self.browserController.activeBrowserWindowTitle forKey:fontDownloadAttemptedOnPageTitleKey];
+                        [preferences setPersistedSecureObject:[self.browserController placeholderTitleOrURLForActiveWebpage] forKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey];
 
                         exit(0); //quit SEB
                     }

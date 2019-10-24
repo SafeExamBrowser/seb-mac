@@ -419,6 +419,9 @@ static NSString __unused *cachedDictationSettingKey = @"cachedDictationSettingKe
 static NSString __unused *cachedRemoteDictationSettingKey = @"cachedRemoteDictationSettingKey";
 static NSString __unused *RemoteDictationDefaultsDomain = @"com.apple.assistant.support";
 static NSString __unused *RemoteDictationDefaultsKey = @"Dictation Enabled";
+static NSString __unused *fontDownloadAttemptedKey = @"fontDownloadAttempted";
+static NSString __unused *fontDownloadAttemptedOnPageTitleKey = @"fontDownloadAttemptedOnPageTitle";
+static NSString __unused *fontDownloadAttemptedOnPageURLOrPlaceholderKey = @"fontDownloadAttemptedOnPageURLOrPlaceholder";
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 

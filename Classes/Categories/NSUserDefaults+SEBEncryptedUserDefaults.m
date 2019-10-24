@@ -171,25 +171,25 @@ static NSNumber *_logLevel;
     NSDictionary *processedDictionary = [self getDefaultDictionaryForKey:@"rootSettings"];
     
     NSMutableDictionary *appDefaults = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 
-                                 [NSNumber numberWithLong:0],
-                                 @"org_safeexambrowser_browserUserAgentEnvironment",
-                                 
-                                 [NSDictionary dictionary],
-                                 @"org_safeexambrowser_configKeyContainedKeys",
-                                 
-                                 @NO,
-                                 @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
-                                 
-                                 @YES,
-                                 @"org_safeexambrowser_elevateWindowLevels",
-                                 
-                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
-                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
-                                 @"org_safeexambrowser_originatorVersion",
-                                 
-                                 nil];
+                                        
+                                        [NSNumber numberWithLong:0],
+                                        @"org_safeexambrowser_browserUserAgentEnvironment",
+                                        
+                                        [NSDictionary dictionary],
+                                        @"org_safeexambrowser_configKeyContainedKeys",
+                                        
+                                        @NO,
+                                        @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
+                                        
+                                        @YES,
+                                        @"org_safeexambrowser_elevateWindowLevels",
+                                        
+                                        [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
+                                        @"org_safeexambrowser_originatorVersion",
+                                        
+                                        nil];
     
     [appDefaults addEntriesFromDictionary:processedDictionary];
     
