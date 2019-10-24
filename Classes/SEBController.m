@@ -594,9 +594,9 @@ bool insideMatrix(void);
         if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", nil)];
-            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences. \n\nIf you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", nil),
+            [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.", nil), [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", nil),
              [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey],
-             [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]];
+             [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
              [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert runModal];
