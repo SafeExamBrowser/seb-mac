@@ -11,6 +11,9 @@
 "%@ was downloaded." = "%@ wurde heruntergeladenen.";
 
 /* No comment provided by engineer. */
+"Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
+
+/* No comment provided by engineer. */
 "Add Action to Rule" = "Aktion zur Regel hinzufügen";
 
 /* No comment provided by engineer. */
@@ -305,6 +308,9 @@
 "If you don't enter the right administrator password from these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
+"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font." = "Wenn Sie SEB diese Erlaubnis nicht gewähren, dann können Sie solche Webseiten nicht benutzen. Beim letzten Mal als SEB lief, hat die Webseite mit dem Titel '%1$@' (%2$@) versucht, eine Schriftart herunter zu laden.";
+
+/* No comment provided by engineer. */
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
 
 /* No comment provided by engineer. */
@@ -375,6 +381,9 @@
 
 /* Title of 'Network' preference pane */
 "Network" = "Netzwerk";
+
+/* No comment provided by engineer. */
+"New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB weiterarbeiten oder SEB beenden?";
 
 /* No comment provided by engineer. */
 "New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
@@ -549,6 +558,9 @@
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences." = "SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
 "SEB Not in %@ Folder!" = "SEB nicht im Verzeichnis '%@'!";
