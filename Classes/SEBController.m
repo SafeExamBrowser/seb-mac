@@ -584,27 +584,29 @@ bool insideMatrix(void);
     // Check if the font download alert was triggered from a web page
     // and SEB didn't had Accessibility permissions
     // and therefore was terminated to prevent a modal lock
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences persistedSecureBoolForKey:fontDownloadAttemptedKey]) {
-        
-        NSDictionary *options = @{(__bridge id)
-                                  kAXTrustedCheckOptionPrompt : @YES};
-        // Check if we're trusted - and the option means "Prompt the user
-        // to trust this app in System Preferences."
-        if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", nil)];
-            [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.", nil), [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", nil),
-             [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey],
-             [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
-             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert runModal];
-            [self removeAlertWindow:modalAlert.window];
+    if (@available(macOS 10.9, *)) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences persistedSecureBoolForKey:fontDownloadAttemptedKey]) {
+            
+            NSDictionary *options = @{(__bridge id)
+                                      kAXTrustedCheckOptionPrompt : @YES};
+            // Check if we're trusted - and the option means "Prompt the user
+            // to trust this app in System Preferences."
+            if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", nil)];
+                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.", nil), [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", nil),
+                 [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey],
+                 [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
+                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert runModal];
+                [self removeAlertWindow:modalAlert.window];
+            }
+            [preferences setPersistedSecureBool:NO forKey:fontDownloadAttemptedKey];
+            [preferences setPersistedSecureObject:@"" forKey:fontDownloadAttemptedOnPageTitleKey];
+            [preferences setPersistedSecureObject:@"" forKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey];
         }
-        [preferences setPersistedSecureBool:NO forKey:fontDownloadAttemptedKey];
-        [preferences setPersistedSecureObject:@"" forKey:fontDownloadAttemptedOnPageTitleKey];
-        [preferences setPersistedSecureObject:@"" forKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey];
     }
 
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
