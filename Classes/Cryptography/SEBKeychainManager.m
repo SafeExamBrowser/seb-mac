@@ -302,7 +302,30 @@
         DDLogError(@"%s: SecItemAdd failed with error: %@. Will now try SecItemUpdate.", __FUNCTION__, outError);
         return [self updateKeyWithID:keyID keyData:keyData];
     }
-	return (status == errSecSuccess);
+    return (status == errSecSuccess);
+}
+
+
+- (BOOL) storeInternetPassword:(NSString *)password
+                       account:(NSString *)account
+                        server:(NSString *)server
+                synchronizable:(BOOL)synchronizable
+{
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
+                           server, (__bridge id)kSecAttrServer,
+                           account, (__bridge id)kSecAttrAccount,
+                           (CFBooleanRef)synchronizable, (__bridge id)kSecAttrSynchronizable,
+                           //(__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
+                           [password dataUsingEncoding:NSUTF8StringEncoding], (__bridge id)kSecValueData,
+                           nil];
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
+    if (status != errSecSuccess) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+        DDLogError(@"%s: SecItemAdd failed with error: %@. Will now try SecItemUpdate.", __FUNCTION__, outError);
+        return [self updateInternetPassword:password account:account server:server synchronizable:synchronizable];
+    }
+    return (status == errSecSuccess);
 }
 
 
@@ -333,8 +356,30 @@
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
         DDLogError(@"%s: SecItemUpdate failed with error: %@", __FUNCTION__, outError);
     }
-	return (status == errSecSuccess);
-//    return true;
+    return (status == errSecSuccess);
+}
+
+
+- (BOOL) updateInternetPassword:(NSString *)password
+                        account:(NSString *)account
+                         server:(NSString *)server
+                 synchronizable:(BOOL)synchronizable
+{
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
+                           server, (__bridge id)kSecAttrServer,
+                           account, (__bridge id)kSecAttrAccount,
+                           nil];
+    NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [password dataUsingEncoding:NSUTF8StringEncoding], (__bridge id)kSecValueData,
+                                        (CFBooleanRef)synchronizable, (__bridge id)kSecAttrSynchronizable,
+                                        nil];
+    OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
+    if (status != errSecSuccess) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+        DDLogError(@"%s: SecItemUpdate failed with error: %@", __FUNCTION__, outError);
+    }
+    return (status == errSecSuccess);
 }
 
 
@@ -367,6 +412,27 @@
         return nil;
     }
     return (__bridge_transfer NSData *)keyData;
+}
+
+
+- (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
+                                           server:(NSString *)server
+{
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
+                           (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
+                           server, (__bridge id)kSecAttrServer,
+                           account, (__bridge id)kSecAttrAccount,
+                           (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnData,
+                           nil];
+    CFTypeRef keyData = nil;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &keyData);
+    if (status != errSecSuccess) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+        DDLogError(@"%s: SecItemCopyMatching failed with error: %@", __FUNCTION__, outError);
+        return nil;
+    }
+    return [[NSString alloc] initWithData:(__bridge_transfer NSData *)keyData encoding:NSUTF8StringEncoding];
 }
 
 
