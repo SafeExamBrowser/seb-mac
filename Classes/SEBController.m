@@ -1384,7 +1384,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     NSArray *filteredProcesses;
     
     // Check for font download process
-//    if (!_allowSwitchToApplications) {
+    if (!_allowSwitchToApplications) {
         filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
         if (filteredProcesses.count > 0) {
@@ -1433,7 +1433,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                 
             }
         }
-//    }
+    }
     // Check for running screen capture process
     if (!allowScreenRecording) {
         filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
