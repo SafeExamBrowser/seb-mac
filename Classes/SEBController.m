@@ -940,7 +940,7 @@ bool insideMatrix(void);
 //         postNotificationName:@"requestReinforceKioskMode" object:self];
     
     if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
-        DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
+        DDLogError(@"Presenting alert for 'Local SEB settings have been reset' (which was triggered before)");
         [self presentPreferencesCorruptedError];
     }
     
