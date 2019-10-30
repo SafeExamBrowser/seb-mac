@@ -511,6 +511,10 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    // Create keyboard CGEvent for Return Key which is needed to close
+    // a font download dialog which might be opened on some webpages
+    keyboardEventReturnKey = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
+    
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
     DDLogDebug(@"Installed get URL event handler");
 
@@ -739,8 +743,6 @@ bool insideMatrix(void);
         
         // Start system monitoring and prevent to start SEB if specific
         // system features are activated
-        
-        keyboardEventReturnKey = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
         
         [self startSystemMonitoring];
         
@@ -4117,7 +4119,10 @@ bool insideMatrix(){
     [self stopWindowWatcher];
     [self stopProcessWatcher];
 
-    CFRelease(keyboardEventReturnKey);
+    if (keyboardEventReturnKey) {
+        DDLogDebug(@"%s CFRelease(keyboardEventReturnKey)", __FUNCTION__);
+        CFRelease(keyboardEventReturnKey);
+    }
     
     BOOL touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         [self killTouchBarAgent];
