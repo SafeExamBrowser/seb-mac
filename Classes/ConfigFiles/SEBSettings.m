@@ -623,7 +623,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:forceSebService],
                    @"sebServicePolicy",
                    
-                   @NO,
+                   @YES,
                    @"sendBrowserExamKey",
                    
                    @YES,
