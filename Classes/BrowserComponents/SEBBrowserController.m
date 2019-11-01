@@ -233,6 +233,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM])
     {
         DDLogDebug(@"%s: authentication challenge method: %@", __FUNCTION__, authenticationMethod);
+#if DEBUG
+        NSString *server = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+        DDLogDebug(@"Server which requires authentication: %@", server);
+#endif
         _authenticatingProtocol = protocol;
         _pendingChallenge = challenge;
         
@@ -508,7 +512,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             NSURLCredential *newCredential;
             newCredential = [NSURLCredential credentialWithUser:username
                                                        password:password
-                                                    persistence:NSURLCredentialPersistenceForSession];
+                                                    persistence:NSURLCredentialPersistencePermanent];
             [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
             _authenticatingProtocol = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {
