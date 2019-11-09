@@ -75,6 +75,13 @@
 }
 
 
+- (void) viewDidDisappear:(BOOL)animated
+{
+    self->_sebViewController.aboutSEBViewDisplayed = false;
+    self->_sebViewController.aboutSEBViewController = nil;
+}
+
+
 - (BOOL) prefersStatusBarHidden
 {
     return true;

@@ -739,6 +739,9 @@ static NSMutableSet *browserWindowControllers;
             _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
             _assistantViewController.sebViewController = self;
             _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+            if (@available(iOS 13.0, *)) {
+                _assistantViewController.modalInPopover = YES;
+            }
         }
         //// Initialize SEB Dock, commands section in the slider view and
         //// 3D Touch Home screen quick actions
@@ -1021,7 +1024,10 @@ static NSMutableSet *browserWindowControllers;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
 
     self.appSettingsViewController.showDoneButton = YES;
-    
+    if (@available(iOS 13.0, *)) {
+        self.appSettingsViewController.modalInPopover = YES;
+    }
+
     if (!settingsShareButton) {
         settingsShareButton = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -3653,12 +3659,12 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-         textField.placeholder = NSLocalizedString(@"Password", nil);
-         textField.secureTextEntry = YES;
-         if (@available(iOS 11.0, *)) {
-             textField.textContentType = UITextContentTypePassword;
-         }
-     }];
+        textField.placeholder = NSLocalizedString(@"Password", nil);
+        textField.secureTextEntry = YES;
+        if (@available(iOS 11.0, *)) {
+            textField.textContentType = UITextContentTypePassword;
+        }
+    }];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
