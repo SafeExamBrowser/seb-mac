@@ -39,8 +39,13 @@
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
+static NSString * const authenticationHost = @"host";
+static NSString * const authenticationUsername = @"username";
+static NSString * const authenticationPassword = @"password";
+
 @interface SEBBrowserController () <CustomHTTPProtocolDelegate> {
     NSMutableArray *authorizedHosts;
+    NSMutableArray *previousAuthentications;
 }
 
 @property (nonatomic, strong) CustomHTTPProtocol *authenticatingProtocol;
@@ -123,6 +128,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBCertServices *sharedCertService = [SEBCertServices sharedInstance];
     authorizedHosts = [NSMutableArray new];
+    previousAuthentications = [NSMutableArray new];
 
     // Flush cached embedded certificates (as they might have changed with new settings)
     [sharedCertService flushCachedCertificates];
@@ -240,6 +246,17 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         _authenticatingProtocol = protocol;
         _pendingChallenge = challenge;
         
+        NSString *host = challenge.protectionSpace.host;
+        NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
+        if (previousAuthentication) {
+            NSURLCredential *newCredential;
+            newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
+                                                       password:[previousAuthentication objectForKey:authenticationPassword]
+                                                    persistence:NSURLCredentialPersistenceForSession];
+            [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
+            _authenticatingProtocol = nil;
+            return;
+        }
         // Allow to enter password 3 times
         if ([challenge previousFailureCount] < 3) {
             // Display authentication dialog
@@ -247,7 +264,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             
             NSString *text = [self.delegate showURLplaceholderTitleForWebpage];
             if (!text) {
-                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
             } else {
                 if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
                     text = [NSString stringWithFormat:@"%@ (secure connection)", text];
@@ -512,7 +529,21 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             NSURLCredential *newCredential;
             newCredential = [NSURLCredential credentialWithUser:username
                                                        password:password
-                                                    persistence:NSURLCredentialPersistencePermanent];
+                                                    persistence:NSURLCredentialPersistenceForSession];
+            NSString *host = _pendingChallenge.protectionSpace.host;
+            NSDictionary *newAuthentication = @{ authenticationHost : host, authenticationUsername : username, authenticationPassword : password};
+            BOOL found = NO;
+            for (NSUInteger i=0; i < previousAuthentications.count; i++) {
+                NSDictionary *previousAuthentication = previousAuthentications[i];
+                if ([[previousAuthentication objectForKey:authenticationHost] isEqualToString:host]) {
+                    previousAuthentications[i] = newAuthentication;
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [previousAuthentications addObject:newAuthentication];
+            }
             [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
             _authenticatingProtocol = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {
@@ -530,6 +561,19 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // Any other case as when the server aborted the authentication challenge
             _authenticatingProtocol = nil;
         }
+    }
+}
+
+
+- (NSDictionary *)fetchPreviousAuthenticationForHost:(NSString *)host
+{
+    NSString *predicateString = [[NSString stringWithFormat:@"%@ contains[c] ", authenticationHost] stringByAppendingString:@"%@"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString, host];
+    NSArray *results = [previousAuthentications filteredArrayUsingPredicate:predicate];
+    if (results.count == 1) {
+        return results[0];
+    } else {
+        return nil;
     }
 }
 
