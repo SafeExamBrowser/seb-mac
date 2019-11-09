@@ -593,7 +593,13 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallyResetSettings
 {
-    if (_alertController) {
+    if (_sebServerViewDisplayed) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.sebServerViewDisplayed = false;
+            [self conditionallyResetSettings];
+        }];
+        return;
+    } else if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
             [self conditionallyResetSettings];
@@ -857,6 +863,12 @@ static NSMutableSet *browserWindowControllers;
     if (_initAssistantOpen) {
         [self dismissViewControllerAnimated:YES completion:^{
             self.initAssistantOpen = false;
+            [self conditionallyShowSettingsModal];
+        }];
+        return;
+    } else if (_sebServerViewDisplayed) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.sebServerViewDisplayed = false;
             [self conditionallyShowSettingsModal];
         }];
         return;
@@ -2076,6 +2088,17 @@ void run_on_ui_thread(dispatch_block_t block)
         // Check if the initialize settings assistant is open
         [self dismissViewControllerAnimated:YES completion:^{
             self->_initAssistantOpen = false;
+            // Reset the finished starting up flag, because if loading settings fails or is canceled,
+            // we need to load the webpage
+            self->_finishedStartingUp = false;
+            [self conditionallyOpenSEBConfig:sebConfig
+                                    callback:callback
+                                    selector:selector];
+        }];
+        return;
+    } else if (_sebServerViewDisplayed) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            self->_sebServerViewDisplayed = false;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
             self->_finishedStartingUp = false;
