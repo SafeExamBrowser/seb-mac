@@ -2842,7 +2842,10 @@ void run_on_ui_thread(dispatch_block_t block)
     _sebServerViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
     _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     _sebServerViewController.sebViewController = self;
-    
+    if (@available(iOS 13.0, *)) {
+        _sebServerViewController.modalInPopover = YES;
+    }
+
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
         self.sebServerViewDisplayed = true;
         self.sebServerViewController.sebServerController = self.serverController.sebServerController;
