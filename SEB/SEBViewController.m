@@ -596,6 +596,7 @@ static NSMutableSet *browserWindowControllers;
     if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
             self.sebServerViewDisplayed = false;
+            self.establishingSEBServerConnection = false;
             [self conditionallyResetSettings];
         }];
         return;
@@ -869,6 +870,7 @@ static NSMutableSet *browserWindowControllers;
     } else if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
             self.sebServerViewDisplayed = false;
+            self.establishingSEBServerConnection = false;
             [self conditionallyShowSettingsModal];
         }];
         return;
@@ -2099,6 +2101,7 @@ void run_on_ui_thread(dispatch_block_t block)
     } else if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
             self->_sebServerViewDisplayed = false;
+            self.establishingSEBServerConnection = false;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
             self->_finishedStartingUp = false;
