@@ -446,7 +446,9 @@ static NSMutableSet *browserWindowControllers;
         calculatedToolbarHeight = toolbarHeight - homeIndicatorSpaceHeight;
         
         // iPad Pro 11 and 12.9 3rd generation have 50 or 42 pt calculated navigation bar height
-        BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 || calculatedNavigationBarHeight == 42);
+        BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 ||
+                                                                calculatedNavigationBarHeight == 42 ||
+                                                                calculatedNavigationBarHeight == -24);
 
         _bottomBackgroundView.hidden = sideSafeAreaInsets;
         
@@ -482,7 +484,9 @@ static NSMutableSet *browserWindowControllers;
             CGFloat toolBarHeight;
             UIEdgeInsets newSafeArea;
             // iPad Pro 11 and 12.9 3rd generation have 46 pt calculated toolbar height
-            if (calculatedToolbarHeight == 46 || calculatedToolbarHeight == 26) {
+            if (calculatedToolbarHeight == 46 ||
+                calculatedToolbarHeight == 26 ||
+                calculatedToolbarHeight == -20) {
                 // But this is optically not ideal, so we change it manually
                 toolBarHeight = 42;
                 newSafeArea = UIEdgeInsetsMake(-8, 0, -4, 0);
