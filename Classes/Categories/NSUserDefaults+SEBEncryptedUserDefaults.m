@@ -230,7 +230,7 @@ static NSNumber *_logLevel;
         
         if (value) {
             [filteredPrefsDict setObject:value
-                                  forKey:[NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key]];
+                                  forKey:key];
         }
     }
     return [filteredPrefsDict copy];
