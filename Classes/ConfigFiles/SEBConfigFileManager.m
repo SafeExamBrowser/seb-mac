@@ -541,14 +541,19 @@
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     // First try to decrypt with the current admin password
     // get admin password hash
+    NSDictionary *sebPreferencesDict = nil;
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         hashedAdminPassword = @"";
     }
-    hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    NSDictionary *sebPreferencesDict = nil;
     NSError *error = nil;
     NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
+    if (error || !decryptedSebData) {
+        // For compatibility with the previous (wrong) implementation, we try it with an uppercase hash
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
+        error = nil;
+        decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
+    }
     if (error || !decryptedSebData) {
         // If decryption with admin password didn't work, try it with an empty password
         error = nil;
@@ -570,9 +575,14 @@
                     password = @"";
                 }
                 NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-                hashedPassword = [hashedPassword uppercaseString];
                 error = nil;
                 decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedPassword error:&error];
+                if (!decryptedSebData || error) {
+                    // For compatibility with the previous (wrong) implementation, we try it with an uppercase hash
+                    hashedPassword = [hashedPassword uppercaseString];
+                    error = nil;
+                    decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedPassword error:&error];
+                }
                 // in case we get an error we allow the user to try it again
                 enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password used to encrypt these settings:",nil);
             } while ((!decryptedSebData || error) && i>0);
@@ -1110,7 +1120,6 @@
             // if not empty password and password is not yet hash: hash the pw
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             password = [keychainManager generateSHAHashString:password];
-            password = [password uppercaseString];
         }
     }
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
