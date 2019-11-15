@@ -879,8 +879,7 @@ bool insideMatrix(void);
     
     if (!allowScreenSharing &&
         ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent] ||
-         [allRunningProcesses containsObject:ARDAgent]))
+         [allRunningProcesses containsObject:AppleVNCAgent]))
     {
         // Screen sharing is active
         DDLogError(@"Screen Sharing Detected, SEB will quit");
@@ -1567,8 +1566,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // Check for activated screen sharing if settings demand it
     if (!allowScreenSharing && !_screenSharingCheckOverride &&
         ([allRunningProcesses containsProcessObject:screenSharingAgent] ||
-         [allRunningProcesses containsProcessObject:AppleVNCAgent] ||
-         [allRunningProcesses containsProcessObject:ARDAgent])) {
+         [allRunningProcesses containsProcessObject:AppleVNCAgent])) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedScreenSharing" object:self];
         }
