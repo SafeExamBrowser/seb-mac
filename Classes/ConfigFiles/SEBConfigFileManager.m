@@ -397,11 +397,15 @@
         // If there was no hashed admin password saved, we set it to an empty string
         // as this is the standard password used to encrypt settings for configuring client
         hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
     }
     NSError *error = nil;
     NSData *sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedAdminPassword error:&error];
+    if (error || !sebDataDecrypted) {
+        // For compatibility with the previous (wrong) implementation, we try it with an uppercase hash
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
+        error = nil;
+        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedAdminPassword error:&error];
+    }
     if (error || !sebDataDecrypted) {
         // If decryption with admin password didn't work, try it with an empty password
         error = nil;
@@ -446,10 +450,14 @@
     // In settings for configuring client the hashed password is used for encrypting/decrypting
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-
     NSError *error = nil;
     NSData *sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword error:&error];
+    if (!sebDataDecrypted || error) {
+        // For compatibility with the previous (wrong) implementation, we try it with an uppercase hash
+        hashedPassword = [hashedPassword uppercaseString];
+        error = nil;
+        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword error:&error];
+    }
     attempts--;
     
     if (error || !sebDataDecrypted) {
@@ -1132,7 +1140,6 @@
             // if not empty password and password is not yet hash: hash the pw
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             password = [keychainManager generateSHAHashString:password];
-            password = [password uppercaseString];
         }
     }
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
