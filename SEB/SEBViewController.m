@@ -605,25 +605,13 @@ static NSMutableSet *browserWindowControllers;
 
 - (NSArray<UIKeyCommand *> *)keyCommands
 {
-    return @[
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
-    ];
+    return [_browserTabViewController keyCommands];
 }
 
 
 - (void)performKeyCommand:(UIKeyCommand *)sender
 {
-    NSString *key = sender.input;
-    UIKeyModifierFlags modifier = sender.modifierFlags;
-    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
-    if ([key isEqualToString:@"\t"]) {
-        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
-            [_browserTabViewController switchToPreviousTab];
-        } else if (modifier == (UIKeyModifierControl)) {
-            [_browserTabViewController switchToNextTab];
-        }
-    }
+    [_browserTabViewController performKeyCommand:sender];
 }
 
 
@@ -860,6 +848,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
+    [self becomeFirstResponder];
+
     if (!_scannedQRCode) {
         _scannedQRCode = true;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
@@ -879,6 +869,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
+    [self becomeFirstResponder];
+
     [self.sideMenuController hideLeftView];
     [self adjustBars];
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
@@ -1362,6 +1354,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {    
+    [self becomeFirstResponder];
+
     // Update entered passwords and save their hashes to SEB settings
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
