@@ -93,6 +93,7 @@
     [self dismissViewControllerAnimated:YES completion:^{
         self->_sebViewController.aboutSEBViewDisplayed = false;
         self->_sebViewController.aboutSEBViewController = nil;
+        [self->_sebViewController becomeFirstResponder];
     }];
 }
 

@@ -40,6 +40,24 @@
 @implementation SEBWebViewController
 
 
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+
+- (NSArray<UIKeyCommand *> *)keyCommands
+{
+    return [_browserTabViewController keyCommands];
+}
+
+
+- (void)performKeyCommand:(UIKeyCommand *)sender
+{
+    [_browserTabViewController performKeyCommand:sender];
+}
+
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
@@ -163,6 +181,16 @@
     _urlFilter = [SEBURLFilter sharedSEBURLFilter];
     
 }
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self becomeFirstResponder];
+    
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
