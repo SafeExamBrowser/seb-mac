@@ -579,6 +579,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
+    [self becomeFirstResponder];
 }
 
 
