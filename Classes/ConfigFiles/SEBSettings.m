@@ -294,7 +294,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"examKeySalt",
                    
                    @YES,
-                   @"examSessionClearSessionCookies",
+                   @"examSessionClearCookiesOnEnd",
+                   
+                   @YES,
+                   @"examSessionClearCookiesOnStart",
                    
                    @NO,
                    @"examSessionReconfigureAllow",
