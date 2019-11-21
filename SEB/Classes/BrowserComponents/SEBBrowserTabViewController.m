@@ -96,12 +96,53 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self becomeFirstResponder];
+    
+}
+
+
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 //    [self.searchBarController setLoading:NO];
+}
+
+
+#pragma mark -
+#pragma mark Handle hardware keyboard shortcuts
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+
+- (NSArray<UIKeyCommand *> *)keyCommands
+{
+    return @[
+        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
+    ];
+}
+
+
+- (void)performKeyCommand:(UIKeyCommand *)sender
+{
+    NSString *key = sender.input;
+    UIKeyModifierFlags modifier = sender.modifierFlags;
+    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
+    if ([key isEqualToString:@"\t"]) {
+        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
+            [self switchToPreviousTab];
+        } else if (modifier == (UIKeyModifierControl)) {
+            [self switchToNextTab];
+        }
+    }
 }
 
 
@@ -370,7 +411,7 @@
         NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];
         [_sebViewController setToolbarTitle:title];
         
-        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
+        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = tabIndex;
     }
 }
 
@@ -379,14 +420,16 @@
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
     NSUInteger tabCount = _openWebpages.count;
-    if (tabIndex == tabCount - 1) {
-        [self switchToTabWithIndex:0];
-    } else {
-        [self switchToTabWithIndex:tabIndex + 1];
+    if (tabCount > 1) {
+        if (tabIndex == tabCount - 1) {
+            [self switchToTabWithIndex:0];
+        } else {
+            [self switchToTabWithIndex:tabIndex + 1];
+        }
+        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated];
+        }];
     }
-    [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-        [self.sideMenuController hideLeftViewAnimated];
-    }];
 }
 
 
@@ -394,14 +437,16 @@
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
     NSUInteger tabCount = _openWebpages.count;
-    if (tabIndex == 0) {
-        [self switchToTabWithIndex:tabCount - 1];
-    } else {
-        [self switchToTabWithIndex:tabIndex - 1];
+    if (tabCount > 1) {
+        if (tabIndex == 0) {
+            [self switchToTabWithIndex:tabCount - 1];
+        } else {
+            [self switchToTabWithIndex:tabIndex - 1];
+        }
+        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated];
+        }];
     }
-    [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-        [self.sideMenuController hideLeftViewAnimated];
-    }];
 }
 
 
