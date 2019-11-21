@@ -156,15 +156,23 @@
 			<key>Title</key>
 			<string>Session Cookies</string>
 			<key>FooterText</key>
-			<string>Disable this option in case you don&apos;t want to clear session cookies when starting the exam session. Then users stay logged in if they already were in the previous session.</string>
+			<string>Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Clear Session Cookies</string>
+			<string>Clear on Session Start</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_examSessionClearSessionCookies</string>
+			<string>org_safeexambrowser_SEB_examSessionClearCookiesOnStart</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Clear on Session End</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_examSessionClearCookiesOnEnd</string>
 		</dict>
 		<dict>
 			<key>Type</key>
