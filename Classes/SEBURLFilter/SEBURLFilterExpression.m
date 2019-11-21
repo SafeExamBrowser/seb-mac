@@ -93,7 +93,7 @@
     filterExpression.password = URLFromString.password;
     filterExpression.host = URLFromString.host;
     filterExpression.port = URLFromString.port;
-    filterExpression.path = URLFromString.path;
+    filterExpression.path = [URLFromString.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     filterExpression.query = URLFromString.query;
     filterExpression.fragment = URLFromString.fragment;
     
