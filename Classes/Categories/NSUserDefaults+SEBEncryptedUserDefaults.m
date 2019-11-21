@@ -210,8 +210,11 @@ static NSNumber *_logLevel;
                                         
                                         nil];
 
-    [appDefaults addEntriesFromDictionary:processedDictionary];
-    
+    for (NSString *key in processedDictionary) {
+        NSString *keyWithPrefix = [self prefixKey:key];
+        id value = [processedDictionary objectForKey:key];
+        [appDefaults setValue:value forKey:keyWithPrefix];
+    }
     return [appDefaults copy];
 }
 
