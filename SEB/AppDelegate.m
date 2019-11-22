@@ -155,6 +155,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
                                                                             diskPath:path];
     [NSURLCache setSharedURLCache:cache];
 
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+    }];
+
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     NSDictionary *userActivity = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
     if (userActivity) {
@@ -245,6 +250,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogError(@"%s", __FUNCTION__);
 
     [NSURLCache.sharedURLCache removeAllCachedResponses];
+
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+    }];
 
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
