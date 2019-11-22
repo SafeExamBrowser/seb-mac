@@ -1484,12 +1484,14 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
-        // if the default value (enabled) for the setting examSessionClearSessionCookies is set
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+        // if the default value (enabled) for the setting examSessionClearCookiesOnStart is set
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                // Do something once it's done.
             }];
         }
+        // Cache the setting examSessionClearCookiesOnEnd of the current config,
+        // which will be used for conditionally resetting the browser
+        self.examSessionClearCookiesOnEnd = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"];
         
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
@@ -1928,8 +1930,15 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
     
-    [NSURLCache.sharedURLCache removeAllCachedResponses];
-    
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    // if the setting examSessionClearCookiesOnEnd was true in a previous config
+    if (_examSessionClearCookiesOnEnd) {
+        [NSURLCache.sharedURLCache removeAllCachedResponses];
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        }];
+    }
+
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
 
@@ -2370,6 +2379,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
+        // If decrypting new settings was successfull
         _isReconfiguringToMDMConfig = false;
         _scannedQRCode = false;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
@@ -2384,7 +2394,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
     } else {
         
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        // If decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
@@ -2415,6 +2425,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                          self->_alertController = nil;
                                                                          if (!self->_finishedStartingUp) {
+                                                                             // Continue starting up SEB without resetting settings
                                                                              [self conditionallyStartKioskMode];
                                                                          }
                                                                      }]];
