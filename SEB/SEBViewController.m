@@ -1522,18 +1522,17 @@ void run_on_ui_thread(dispatch_block_t block)
         // Update URL filter ignore rules
         [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
-<<<<<<< HEAD
-=======
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
-        // if the default value (enabled) for the setting examSessionClearSessionCookies is set
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+        // if the default value (enabled) for the setting examSessionClearCookiesOnStart is set
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                // Do something once it's done.
             }];
         }
+        // Cache the setting examSessionClearCookiesOnEnd of the current config,
+        // which will be used for conditionally resetting the browser
+        self.examSessionClearCookiesOnEnd = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"];
         
->>>>>>> a0a381c4... SEBMAC-215 Working on supporting hardware keyboard shortcuts to switch tabs.
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
         
@@ -1971,18 +1970,15 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
     
-    [NSURLCache.sharedURLCache removeAllCachedResponses];
-    
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
     // downloads to disk, and ensures that future requests occur on a new socket
-    // if the default value (enabled) for the setting examSessionClearSessionCookies is set
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+    // if the setting examSessionClearCookiesOnEnd was true in a previous config
+    if (_examSessionClearCookiesOnEnd) {
+        [NSURLCache.sharedURLCache removeAllCachedResponses];
         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            // Do something once it's done.
         }];
     }
-    
+
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
 
@@ -2172,19 +2168,20 @@ void run_on_ui_thread(dispatch_block_t block)
                     examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
                 }
             }
-            // Check if SEB is in exam mode (= quit password is set), but reconfiguring is allowed by setting
-            // and the reconfigure config URL mathches the setting
+            // Check if SEB is in exam mode (= quit password is set) and exam is running,
+            // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
             // or SEB isn't in exam mode, but is running with settings for starting an exam and the
             // reconfigure allow setting isn't set
-            if ((examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
-                (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow)) {
+            if (_examRunning && (
+                (examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
+                (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow))) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                 }
                 _alertController = [UIAlertController  alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
-                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil), SEBShortAppName]
+                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in %@ before starting another exam.", nil), SEBShortAppName, SEBShortAppName]
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -2434,6 +2431,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
+        // If decrypting new settings was successfull
         _isReconfiguringToMDMConfig = false;
         _scannedQRCode = false;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
@@ -2448,7 +2446,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
     } else {
         
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        // If decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
@@ -2479,6 +2477,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                          self->_alertController = nil;
                                                                          if (!self->_finishedStartingUp) {
+                                                                             // Continue starting up SEB without resetting settings
                                                                              [self conditionallyStartKioskMode];
                                                                          }
                                                                      }]];
@@ -2846,7 +2845,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit SEB using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit %@ using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

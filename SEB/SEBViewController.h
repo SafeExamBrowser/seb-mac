@@ -208,6 +208,8 @@
 @property(readwrite) BOOL pausedSAMAlertDisplayed;
 @property(readwrite) BOOL endSAMWAlertDisplayed;
 
+@property(readwrite) BOOL examSessionClearCookiesOnEnd;
+
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openCloseSlider;
