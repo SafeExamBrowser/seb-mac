@@ -103,10 +103,21 @@
 
 - (BOOL) storeKey:(NSData *)keyData;
 - (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
+- (BOOL) storeInternetPassword:(NSString *)password
+                       account:(NSString *)account
+                        server:(NSString *)server
+                synchronizable:(BOOL)synchronizable;
 - (BOOL) updateKey:(NSData *)keyData;
 - (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
+- (BOOL) updateInternetPassword:(NSString *)password
+                        account:(NSString *)account
+                         server:(NSString *)server
+                 synchronizable:(BOOL)synchronizable;
 - (NSData *) retrieveKey;
 - (NSData *) retrieveKeyWithID:(NSString *)keyID;
+- (NSArray *) retrieveInternetPasswordsForServer:(NSString *)server;
+- (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
+                                           server:(NSString *)server;
 - (BOOL) removeKeyWithID:(NSString *)keyID;
 
 @end
