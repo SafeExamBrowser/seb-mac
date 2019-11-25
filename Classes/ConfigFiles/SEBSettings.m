@@ -402,9 +402,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"ignoreExitKeys",
                    
                    @NO,
-                   @"ignoreQuitPassword",
-                   
-                   @NO,
                    @"insideSebEnableChangeAPassword",
                    
                    @NO,
