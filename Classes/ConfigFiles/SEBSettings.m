@@ -458,17 +458,17 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBMinOSX10_7],
                    @"minMacOSVersion",
                    
-                   @NO,
-                   @"mobileAllowPictureInPictureMediaPlayback",
-
                    @YES,
                    @"mobileAllowInlineMediaPlayback",
                    
                    @NO,
-                   @"mobileAllowSingleAppMode",
-                   
+                   @"mobileAllowPictureInPictureMediaPlayback",
+
                    @NO,
                    @"mobileAllowQRCodeConfig",
+                   
+                   @NO,
+                   @"mobileAllowSingleAppMode",
                    
                    @NO,
                    @"mobileCompactAllowInlineMediaPlayback",
