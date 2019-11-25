@@ -115,6 +115,7 @@
                  synchronizable:(BOOL)synchronizable;
 - (NSData *) retrieveKey;
 - (NSData *) retrieveKeyWithID:(NSString *)keyID;
+- (NSArray *) retrieveInternetPasswordsForServer:(NSString *)server;
 - (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
                                            server:(NSString *)server;
 - (BOOL) removeKeyWithID:(NSString *)keyID;
