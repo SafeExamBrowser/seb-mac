@@ -440,7 +440,6 @@
                                            server:(NSString *)server
 {
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                           (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
                            (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
                            server, (__bridge id)kSecAttrServer,
                            account, (__bridge id)kSecAttrAccount,
