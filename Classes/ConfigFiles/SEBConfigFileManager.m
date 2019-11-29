@@ -833,7 +833,10 @@
 {
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
-    sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict configKeyContainedKeysRef:&configKeyContainedKeys configKeyRef:&configKey];
+    sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict
+                                                        configKeyContainedKeysRef:&configKeyContainedKeys
+                                                                     configKeyRef:&configKey
+                                                          initializeContainedKeys:YES];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences storeSEBDictionary:sebPreferencesDict];
