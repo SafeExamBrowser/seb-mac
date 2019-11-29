@@ -307,7 +307,7 @@ static NSMutableSet *browserWindowControllers;
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-                                                      if (serverConfig) {
+                                                      if (serverConfig.count > 0) {
                                                           if (self.settingsOpen == NO) {
                                                               DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server

@@ -229,7 +229,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         } else {
             // Check if we received a new configuration from an MDM server (by MDM managed configuration)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-            if (serverConfig) {
+            if (serverConfig.count > 0) {
                 DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
                 [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
             }
