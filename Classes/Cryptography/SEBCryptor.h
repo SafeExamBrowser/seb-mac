@@ -48,17 +48,25 @@
 
 - (BOOL) hasDefaultsKey;
 - (BOOL) updateUDKey;
-- (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error;
-- (NSData *) decryptData:(NSData *)encryptedData forKey:(NSString *)key error:(NSError **)error;
+- (NSData *) encryptData:(NSData *)data
+                  forKey:(NSString *)key
+                   error:(NSError **)error;
+- (NSData *) decryptData:(NSData *)encryptedData
+                  forKey:(NSString *)key
+                   error:(NSError **)error;
 
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey;
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
 - (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
                    configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
-                                configKeyRef:(NSData **)configKeyRef;
+                                configKeyRef:(NSData **)configKeyRef
+                     initializeContainedKeys:(BOOL)initializeContainedKeys;
 
-- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
-- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults
+                          updateSalt:(BOOL)generateNewSalt;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults
+                          updateSalt:(BOOL)generateNewSalt
+                         newChecksum:(NSData **)newChecksumPtr;
 - (NSData *) checksumForPrefDictionary:(NSDictionary *)prefsDict;
 - (NSData *) checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 
