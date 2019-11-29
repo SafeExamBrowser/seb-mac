@@ -220,7 +220,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     if (_sebViewController && !_sebViewController.mailViewController) {
         // If the main SEB view controller was already instantiated
 
-        // Check if we received a new configuration from an MDM server (by MDM managed configuration)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
@@ -228,6 +227,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             [_sebViewController conditionallyResetSettings];
         } else {
+            // Check if we received a new configuration from an MDM server (by MDM managed configuration)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
             if (serverConfig) {
                 DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
