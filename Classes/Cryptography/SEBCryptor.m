@@ -388,7 +388,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSString *jsonString;
 
     if (objectClass == [NSData class] || objectClass == [NSMutableData class]) {
-        jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64Encoding]];
+        if ([object isEqualToData:[NSData data]]) {
+            jsonString = @"\"\"";
+        } else {
+            jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64EncodedStringWithOptions:0]];
+        }
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
     } else if ((strcmp([object objCType], "c") == 0)) {
@@ -453,10 +457,12 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
     
+    BOOL initializeContainedKeys = NO;
     // Get dictionary with keys covered by the Config Key in the settings to process
     NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    if (!configKeyContainedKeys) {
+    if (configKeyContainedKeys.count == 0) {
         configKeyContainedKeys = [NSDictionary dictionary];
+        initializeContainedKeys = YES;
     }
     if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
         [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
@@ -474,7 +480,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *configKey = [NSData data];
     [self updateConfigKeyInSettings:filteredPrefsDict
           configKeyContainedKeysRef:&configKeyContainedKeys
-                       configKeyRef:&configKey];
+                       configKeyRef:&configKey
+            initializeContainedKeys:initializeContainedKeys];
     
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
 
@@ -486,13 +493,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
                    configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
                                 configKeyRef:(NSData **)configKeyRef
+                     initializeContainedKeys:(BOOL)initializeContainedKeys
 {
     NSMutableDictionary *containedKeysMutable = [*configKeyContainedKeys mutableCopy];
     NSMutableString *jsonString = [NSMutableString new];
     NSDictionary *processedDictionary = [self getConfigKeyDictionaryForKey:@"rootSettings"
-                                                                    dictionary:sourceDictionary
-                                                              containedKeysPtr:&containedKeysMutable
-                                                                       jsonPtr:&jsonString];
+                                                                dictionary:sourceDictionary
+                                                          containedKeysPtr:&containedKeysMutable
+                                                                   jsonPtr:&jsonString
+                                                   initializeContainedKeys:initializeContainedKeys];
 
     *configKeyContainedKeys = [containedKeysMutable copy];
     
@@ -507,6 +516,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                      dictionary:(NSDictionary *)sourceDictionary
                                containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
                                         jsonPtr:(NSMutableString **)jsonStringPtr
+                        initializeContainedKeys:(BOOL)initializeContainedKeys
 {
     if (dictionaryKey.length == 0) {
         return nil;
@@ -517,13 +527,18 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
                                                                                                    selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
+    // Remove the special key "originatorVersion" which doesn't have any functionality,
+    // it's just meta data indicating which SEB version saved the config file
+    [configKeysAlphabetically removeObject:@"originatorVersion"];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
-    // Get default settings
-    NSDictionary *defaultSettings = [[[SEBSettings sharedSEBSettings] defaultSettings] objectForKey:dictionaryKey];
+    // Get default settings including sub-dictionaries and sub-arrays
+    NSDictionary *defaultSettings = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:dictionaryKey];
 
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
-    if (containedKeys.count == 0 && configKeysAlphabetically.count != 0) {
+    if (containedKeys.count == 0 &&
+        configKeysAlphabetically.count != 0 &&
+        initializeContainedKeys) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
@@ -559,9 +574,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             value = [self getConfigKeyDictionaryForKey:key
                                             dictionary:value
                                       containedKeysPtr:containedKeysPtr
-                                               jsonPtr:&dictionaryJSON];
+                                               jsonPtr:&dictionaryJSON
+                               initializeContainedKeys:initializeContainedKeys];
             if (!value || [(NSDictionary *)value count] == 0) {
                 [configKeysAlphabetically removeObjectAtIndex:counter];
+                dictionaryJSON.string = @"";
                 continue;
             }
         }
@@ -569,9 +586,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             value = [[self getConfigKeyDictionaryForKey:key
                                              dictionary:value
                                        containedKeysPtr:containedKeysPtr
-                                                jsonPtr:&dictionaryJSON] mutableCopy];
+                                                jsonPtr:&dictionaryJSON
+                                initializeContainedKeys:initializeContainedKeys] mutableCopy];
             if (!value || [(NSMutableDictionary *)value count] == 0) {
                 [configKeysAlphabetically removeObjectAtIndex:counter];
+                dictionaryJSON.string = @"";
                 continue;
             }
         }
@@ -581,15 +600,16 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             value = [self getConfigKeyArrayForKey:key
                                             array:value
                                  containedKeysPtr:containedKeysPtr
-                                          jsonPtr:&dictionaryJSON];
+                                          jsonPtr:&dictionaryJSON
+                          initializeContainedKeys:initializeContainedKeys];
         }
         if (valueClass == [NSMutableArray class]) {
             value = [[self getConfigKeyArrayForKey:key
                                              array:value
                                   containedKeysPtr:containedKeysPtr
-                                           jsonPtr:&dictionaryJSON] mutableCopy];
+                                           jsonPtr:&dictionaryJSON
+                           initializeContainedKeys:initializeContainedKeys] mutableCopy];
         }
-        
         // If the key isn't contained in the array of keys in current settings
         // probably because those settings were saved in an older or other
         // platform version of SEB
@@ -608,7 +628,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // we use it for calculating the Config Key
             [filteredPrefsDict setObject:value forKey:key];
             // Update JSON string
-            [*jsonStringPtr appendFormat:@"\"%@\":", key];
+                [*jsonStringPtr appendFormat:@"\"%@\":", key];
             if (dictionaryJSON.length > 0) {
                 [*jsonStringPtr appendFormat:@"%@,", dictionaryJSON];
             } else {
@@ -633,6 +653,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                 array:(NSArray *)sourceArray
                      containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
                               jsonPtr:(NSMutableString **)jsonStringPtr
+              initializeContainedKeys:(BOOL)initializeContainedKeys
 {
     [*jsonStringPtr appendString:@"["];
 
@@ -644,12 +665,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                 [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
                                                                                   dictionary:object
                                                                             containedKeysPtr:containedKeysPtr
-                                                                                     jsonPtr:jsonStringPtr]];
+                                                                                     jsonPtr:jsonStringPtr
+                                                                     initializeContainedKeys:initializeContainedKeys]];
             } else if (objectClass == [NSMutableDictionary class]) {
                 [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
                                                                                           dictionary:object
                                                                                     containedKeysPtr:containedKeysPtr
-                                                                                             jsonPtr:jsonStringPtr] mutableCopy]];
+                                                                                             jsonPtr:jsonStringPtr
+                                                                             initializeContainedKeys:initializeContainedKeys] mutableCopy]];
             } else {
                 [processedArray addObject:object];
                 [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
