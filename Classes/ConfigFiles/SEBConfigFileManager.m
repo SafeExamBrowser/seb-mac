@@ -674,8 +674,6 @@
             _currentConfigKeyHash = nil;
         }
         
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        
         // Inform delegate that preferences were reconfigured
         if ([self.delegate respondsToSelector:@selector(didReconfigureTemporaryForEditing:sebFileCredentials:)]) {
             [self.delegate didReconfigureTemporaryForEditing:storeSettingsForEditing
@@ -735,8 +733,6 @@
         _currentConfigPassword = nil;
         _currentConfigPasswordIsHash = NO;
         _currentConfigKeyHash = nil;
-        
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         DDLogInfo(@"Should display dialog SEB Re-Configured");
         
