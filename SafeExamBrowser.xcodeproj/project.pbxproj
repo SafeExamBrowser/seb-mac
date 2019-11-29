@@ -152,6 +152,10 @@
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
+		69B45A4023DB9509006E085E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A3C23DB9509006E085E /* SEBOSXConfigFileController.m */; };
+		69B45A4123DB9509006E085E /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A3D23DB9509006E085E /* SEBConfigFileCredentials.h */; };
+		69B45A4223DB9509006E085E /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A3E23DB9509006E085E /* SEBConfigFileCredentials.m */; };
+		69B45A4323DB9509006E085E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A3F23DB9509006E085E /* SEBOSXConfigFileController.h */; };
 		69C1FFA01D0820E20087A5A1 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */; };
 		69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */; };
 		69C2280A1C767B0900F78634 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277D1C767B0900F78634 /* aes.h */; };
@@ -593,6 +597,10 @@
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
+		69B45A3C23DB9509006E085E /* SEBOSXConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXConfigFileController.m; sourceTree = "<group>"; };
+		69B45A3D23DB9509006E085E /* SEBConfigFileCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileCredentials.h; sourceTree = "<group>"; };
+		69B45A3E23DB9509006E085E /* SEBConfigFileCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBConfigFileCredentials.m; sourceTree = "<group>"; };
+		69B45A3F23DB9509006E085E /* SEBOSXConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXConfigFileController.h; sourceTree = "<group>"; };
 		69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		69C2277D1C767B0900F78634 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -1204,6 +1212,10 @@
 			children = (
 				69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */,
 				69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */,
+				69B45A3D23DB9509006E085E /* SEBConfigFileCredentials.h */,
+				69B45A3E23DB9509006E085E /* SEBConfigFileCredentials.m */,
+				69B45A3F23DB9509006E085E /* SEBOSXConfigFileController.h */,
+				69B45A3C23DB9509006E085E /* SEBOSXConfigFileController.m */,
 				695E02F81F4B15A4004C7611 /* SEBSettings.h */,
 				695E02F91F4B15A4004C7611 /* SEBSettings.m */,
 				6982F78B20D22A090061201A /* SEBEncapsulatedSettings.h */,
@@ -1587,6 +1599,7 @@
 				699D8DFE1C5F998D00A051F2 /* SEBBrowserController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */,
+				69B45A4323DB9509006E085E /* SEBOSXConfigFileController.h in Headers */,
 				6909E34C1A019F7A0086A741 /* DDContextFilterLogFormatter.h in Headers */,
 				6909E33D1A019F7A0086A741 /* DDAbstractDatabaseLogger.h in Headers */,
 				69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */,
@@ -1600,6 +1613,7 @@
 				69C228321C767B0900F78634 /* pem.h in Headers */,
 				69F5BDA11CFB4098006FBF81 /* SEBWebViewController.h in Headers */,
 				69C2283F1C767B0900F78634 /* ssl_cache.h in Headers */,
+				69B45A4123DB9509006E085E /* SEBConfigFileCredentials.h in Headers */,
 				69C228111C767B0900F78634 /* blowfish.h in Headers */,
 				69C2284A1C767B0900F78634 /* x509_csr.h in Headers */,
 				6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */,
@@ -1918,6 +1932,7 @@
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				69C228751C767B0900F78634 /* pkcs12.c in Sources */,
 				69C2289A1C7B64DF00F78634 /* SEBCertServices.m in Sources */,
+				69B45A4223DB9509006E085E /* SEBConfigFileCredentials.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69C2286B1C767B0900F78634 /* md5.c in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
@@ -1936,6 +1951,7 @@
 				69C228861C767B0900F78634 /* threading.c in Sources */,
 				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
 				6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */,
+				69B45A4023DB9509006E085E /* SEBOSXConfigFileController.m in Sources */,
 				69C228551C767B0900F78634 /* ccm.c in Sources */,
 				69C228731C767B0900F78634 /* pk_wrap.c in Sources */,
 				69C228651C767B0900F78634 /* gcm.c in Sources */,
