@@ -114,38 +114,6 @@
 }
 
 
-#pragma mark -
-#pragma mark Handle hardware keyboard shortcuts
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-
-- (NSArray<UIKeyCommand *> *)keyCommands
-{
-    return @[
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
-    ];
-}
-
-
-- (void)performKeyCommand:(UIKeyCommand *)sender
-{
-    NSString *key = sender.input;
-    UIKeyModifierFlags modifier = sender.modifierFlags;
-    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
-    if ([key isEqualToString:@"\t"]) {
-        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
-            [self switchToPreviousTab];
-        } else if (modifier == (UIKeyModifierControl)) {
-            [self switchToNextTab];
-        }
-    }
-}
-
-
 #pragma mark - Controller interface
 
 - (void) backToStart {
