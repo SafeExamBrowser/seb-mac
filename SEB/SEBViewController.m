@@ -596,26 +596,6 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-#pragma mark -
-#pragma mark Handle hardware keyboard shortcuts
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-
-- (NSArray<UIKeyCommand *> *)keyCommands
-{
-    return [_browserTabViewController keyCommands];
-}
-
-
-- (void)performKeyCommand:(UIKeyCommand *)sender
-{
-    [_browserTabViewController performKeyCommand:sender];
-}
-
-
 #pragma mark - Handle request to reset settings
 
 - (void)conditionallyResetSettings
