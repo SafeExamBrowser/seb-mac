@@ -61,8 +61,6 @@
 
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
-- (void)performKeyCommand:(UIKeyCommand *)sender;
-
 - (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) openNewTabWithURL:(NSURL *)url;

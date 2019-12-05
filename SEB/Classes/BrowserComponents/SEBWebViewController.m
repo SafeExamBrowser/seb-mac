@@ -40,24 +40,6 @@
 @implementation SEBWebViewController
 
 
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-
-- (NSArray<UIKeyCommand *> *)keyCommands
-{
-    return [_browserTabViewController keyCommands];
-}
-
-
-- (void)performKeyCommand:(UIKeyCommand *)sender
-{
-    [_browserTabViewController performKeyCommand:sender];
-}
-
-
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
@@ -342,7 +324,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
-{    
+{
+    _currentRequest = nil;
+
     // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
     jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -389,6 +373,8 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    _currentRequest = nil;
+    
     if (error.code == -999) {
         DDLogError(@"%s: Load Error -999: Another request initiated before the previous request was completed (%@)", __FUNCTION__, error.description);
         return;
@@ -645,6 +631,7 @@
         }
 
     }
+    _currentRequest = request;
     _currentMainHost = url.host;
     return YES;
 }
