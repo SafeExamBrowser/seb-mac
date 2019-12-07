@@ -370,10 +370,10 @@
                            (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
                            server, (__bridge id)kSecAttrServer,
                            account, (__bridge id)kSecAttrAccount,
+                           (synchronizable ? kCFBooleanTrue : kCFBooleanFalse), (__bridge id)kSecAttrSynchronizable,
                            nil];
     NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [password dataUsingEncoding:NSUTF8StringEncoding], (__bridge id)kSecValueData,
-                                        (synchronizable ? kCFBooleanTrue : kCFBooleanFalse), (__bridge id)kSecAttrSynchronizable,
                                         nil];
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
     if (status != errSecSuccess) {
@@ -438,11 +438,13 @@
 
 - (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
                                            server:(NSString *)server
+                                   synchronizable:(BOOL)synchronizable
 {
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
                            server, (__bridge id)kSecAttrServer,
                            account, (__bridge id)kSecAttrAccount,
+                           (synchronizable ? kCFBooleanTrue : kCFBooleanFalse), (__bridge id)kSecAttrSynchronizable,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnData,
                            nil];
     CFTypeRef keyData = nil;
