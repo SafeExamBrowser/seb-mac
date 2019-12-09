@@ -693,11 +693,6 @@
 }
 
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
-{
-    [_sebViewController examineCookies:cookies];
-}
-
 // Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
 // or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
 // for example to scan the newly received HTML data
