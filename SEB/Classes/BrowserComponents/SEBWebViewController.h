@@ -63,6 +63,7 @@
 @property (strong) SEBURLFilter *urlFilter;
 @property (strong) UIView *filterMessageHolder;
 @property (strong) NSString *currentMainHost;
+@property (strong) NSURLRequest *currentRequest;
 
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;

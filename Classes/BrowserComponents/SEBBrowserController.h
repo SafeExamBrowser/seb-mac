@@ -106,6 +106,13 @@
  */
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
+/**
+ * @brief       Delegate method called when a regular HTTP request or a XMLHttpRequest (XHR)
+ *              successfully completed loading. The delegate can use this callback
+ *              for example to scan the newly received HTML data is being downloaded.
+ */
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
+
 @end
 
 

@@ -698,6 +698,20 @@
     [_sebViewController examineCookies:cookies];
 }
 
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    NSURLRequest *request = task.originalRequest;
+    for (OpenWebpages *webpage in _openWebpages) {
+        SEBWebViewController *webViewController = webpage.webViewController;
+        if ([webViewController.currentRequest isEqual:request]) {
+            [webViewController webViewDidFinishLoad:webViewController.sebWebView];
+        }
+    }
+}
+
 
 @end
 

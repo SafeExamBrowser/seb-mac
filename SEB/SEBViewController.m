@@ -3891,6 +3891,15 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    [self.browserTabViewController sessionTaskDidCompleteSuccessfully:task];
+}
+
+
 #pragma mark - Search
 
 - (void)searchStarted
