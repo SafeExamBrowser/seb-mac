@@ -1346,7 +1346,7 @@ static NSMutableSet *browserWindowControllers;
 - (BOOL)readMDMServerConfig
 {
     BOOL readMDMConfig = NO;
-
+    
     if (!_isReconfiguringToMDMConfig) {
         DDLogWarn(@"%s", __FUNCTION__);
         // Check if we received a new configuration from an MDM server
@@ -1359,25 +1359,30 @@ static NSMutableSet *browserWindowControllers;
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
              (examSession && allowReconfiguring))) {
-                DDLogDebug(@"%s: Received new configuration from MDM server. Exam session: %d, private UserDefaults: %d, examSessionReconfigureAllow: %d", __FUNCTION__, examSession, NSUserDefaults.userDefaultsPrivate, allowReconfiguring);
-                if (!(receivedServerConfig &&
-                      [receivedServerConfig isEqualToDictionary:serverConfig])) {
-                    _isReconfiguringToMDMConfig = true;
-                    receivedServerConfig = serverConfig;
-                    readMDMConfig = YES;
-                    // If we did receive a config and SEB isn't running in exam mode currently
-                    DDLogDebug(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-                    // As we handle the config received from the MDM server, we need to remove it from settings
-                    [preferences removeObjectForKey:kConfigurationKey];
-                    [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
-                                                                          callback:self
-                                                                          selector:@selector(storeNewSEBSettingsSuccessful:)];
-                } else {
-                    DDLogWarn(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
-                }
+            DDLogDebug(@"%s: Received new configuration from MDM server. Exam session: %d, private UserDefaults: %d, examSessionReconfigureAllow: %d", __FUNCTION__, examSession, NSUserDefaults.userDefaultsPrivate, allowReconfiguring);
+            if (!(receivedServerConfig &&
+                  [receivedServerConfig isEqualToDictionary:serverConfig])) {
+                _isReconfiguringToMDMConfig = true;
+                receivedServerConfig = serverConfig;
+                readMDMConfig = YES;
+                // If we did receive a config and SEB isn't running in exam mode currently
+                DDLogDebug(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+                // As we handle the config received from the MDM server, we need to remove it from settings
+                [preferences removeObjectForKey:kConfigurationKey];
+                NSDictionary *newServerConfig = [preferences dictionaryForKey:kConfigurationKey];
+                DDLogDebug(@"%s: Received new configuration from MDM server and tried to remove the value for its key in UserDefaults. New server config value: %@", __FUNCTION__, newServerConfig);
+                [preferences setObject:nil forKey:kConfigurationKey];
+                newServerConfig = [preferences dictionaryForKey:kConfigurationKey];
+                DDLogDebug(@"%s: Received new configuration from MDM server and tried to overwrite the value for its key with nil in UserDefaults. New server config value: %@", __FUNCTION__, newServerConfig);
+                [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
+                                                                      callback:self
+                                                                      selector:@selector(storeNewSEBSettingsSuccessful:)];
             } else {
-                DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+                DDLogWarn(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             }
+        } else {
+            DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+        }
     } else {
         DDLogWarn(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
     }
@@ -3735,6 +3740,15 @@ void run_on_ui_thread(dispatch_block_t block)
 //        [_alertController dismissViewControllerAnimated:NO completion:nil];
 //        _alertController = nil;
 //    }
+}
+
+
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    [self.browserTabViewController sessionTaskDidCompleteSuccessfully:task];
 }
 
 
