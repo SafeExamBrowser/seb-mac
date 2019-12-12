@@ -3792,13 +3792,17 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-         textField.placeholder = NSLocalizedString(@"User Name", nil);
-         textField.autocorrectionType = UITextAutocorrectionTypeNo;
-         if (@available(iOS 11.0, *)) {
-             textField.textContentType = UITextContentTypeUsername;
-         }
-         textField.text = username;
-     }];
+        textField.placeholder = NSLocalizedString(@"User Name", nil);
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        if (@available(iOS 11.0, *)) {
+            textField.textContentType = UITextContentTypeUsername;
+        }
+        if (username.length > 0) {
+            textField.text = username;
+        } else {
+            [textField becomeFirstResponder];
+        }
+    }];
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
@@ -3807,27 +3811,31 @@ void run_on_ui_thread(dispatch_block_t block)
         if (@available(iOS 11.0, *)) {
             textField.textContentType = UITextContentTypePassword;
         }
+        // If there was a username provided, we select the password field
+        if (username.length > 0) {
+            [textField becomeFirstResponder];
+        }
     }];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             NSString *username = self->_alertController.textFields[0].text;
-                                                             NSString *password = self->_alertController.textFields[1].text;
-                                                             self->_alertController = nil;
-                                                             IMP imp = [modalDelegate methodForSelector:didEndSelector];
-                                                             void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
-                                                             func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
-                                                         }]];
+        NSString *username = self->_alertController.textFields[0].text;
+        NSString *password = self->_alertController.textFields[1].text;
+        self->_alertController = nil;
+        IMP imp = [modalDelegate methodForSelector:didEndSelector];
+        void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+        func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
+    }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                             NSString *username = self->_alertController.textFields[0].text;
-                                                             NSString *password = self->_alertController.textFields[1].text;
-                                                             self->_alertController = nil;
-                                                             IMP imp = [modalDelegate methodForSelector:didEndSelector];
-                                                             void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
-                                                             func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
-                                                         }]];
+        NSString *username = self->_alertController.textFields[0].text;
+        NSString *password = self->_alertController.textFields[1].text;
+        self->_alertController = nil;
+        IMP imp = [modalDelegate methodForSelector:didEndSelector];
+        void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+        func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
+    }]];
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
