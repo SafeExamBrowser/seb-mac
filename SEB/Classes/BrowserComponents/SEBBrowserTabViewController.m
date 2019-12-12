@@ -703,11 +703,14 @@
 // for example to scan the newly received HTML data
 - (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
 {
-    NSURLRequest *request = task.originalRequest;
+    NSURL *requestURL = task.originalRequest.URL;
     for (OpenWebpages *webpage in _openWebpages) {
         SEBWebViewController *webViewController = webpage.webViewController;
-        if ([webViewController.currentRequest isEqual:request]) {
-            [webViewController webViewDidFinishLoad:webViewController.sebWebView];
+        NSURL *webpageCurrentRequestURL = webViewController.currentRequest.URL;
+        if ([webpageCurrentRequestURL isEqual:requestURL]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [webViewController webViewDidFinishLoad:webViewController.sebWebView];
+            });
         }
     }
 }
