@@ -181,6 +181,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     DDLogWarn(@"%s", __FUNCTION__);
+    _didEnterBackground = YES;
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         _sebViewController.alertController = nil;
@@ -214,6 +215,15 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     DDLogWarn(@"%s", __FUNCTION__);
+    if (_didEnterBackground) {
+        DDLogInfo(@"Application returned to active state after it entered background state before. This usually happens when the device is put to sleep.");
+        if (@available(iOS 13.0, *)) {
+            DDLogWarn(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
+        } else {
+            
+        }
+    }
+    _didEnterBackground = NO;
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
