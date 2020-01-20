@@ -43,6 +43,8 @@
 #import "NSURL+KKDomain.h"
 #import "HUDPanel.h"
 #import "NSScreen+SEBScreen.h"
+#include <IOKit/ps/IOPowerSources.h>
+#include <IOKit/ps/IOPSKeys.h>
 
 #include <CoreServices/CoreServices.h>
 
@@ -169,6 +171,25 @@
     for (i=0; i<count; i++) {
         DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
     }
+}
+
+- (void) updateBattery :(NSTimer *)timer
+{
+    CFArrayRef sources = IOPSCopyPowerSourcesList(IOPSCopyPowerSourcesInfo());
+    CFDictionaryRef powerSource = NULL;
+    
+    long numOfSources = CFArrayGetCount(sources);
+    if (numOfSources == 0) return;
+    
+    // Use first power source if there are several available
+    powerSource = IOPSGetPowerSourceDescription(sources, CFArrayGetValueAtIndex(sources, 0));
+    int curCapacity = 0;
+    int maxCapacity = 0;
+    
+    CFNumberGetValue((CFNumberRef)CFDictionaryGetValue(powerSource, CFSTR(kIOPSCurrentCapacityKey)), kCFNumberSInt32Type, &curCapacity);
+    CFNumberGetValue((CFNumberRef)CFDictionaryGetValue(powerSource, CFSTR(kIOPSMaxCapacityKey)), kCFNumberSInt32Type, &maxCapacity);
+    
+    [self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"window.SEB.battery = %f", (double)curCapacity/(double)maxCapacity]];
 }
 
 
@@ -1030,6 +1051,9 @@ initiatedByFrame:(WebFrame *)frame {
     [self backForwardButtonsSetEnabled];
     
     [self stopProgressIndicatorAnimation];
+    
+    NSTimer *batteryTimer = [NSTimer scheduledTimerWithTimeInterval:30.0f target:self selector:@selector(updateBattery:) userInfo:nil repeats:YES];
+    [batteryTimer fire];
 }
 
 
