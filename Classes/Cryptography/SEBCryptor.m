@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -34,7 +34,6 @@
 
 
 #import "SEBCryptor.h"
-#import "SEBEncryptedUserDefaultsController.h"
 #import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
@@ -75,15 +74,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 + (SEBCryptor *)sharedSEBCryptor
 {
-	@synchronized(self)
-	{
-		if (sharedSEBCryptor == nil)
-		{
-			sharedSEBCryptor = [[self alloc] init];
-		}
-	}
+    @synchronized(self)
+    {
+        if (sharedSEBCryptor == nil)
+        {
+            sharedSEBCryptor = [[self alloc] init];
+        }
+    }
     
-	return sharedSEBCryptor;
+    return sharedSEBCryptor;
 }
 
 
@@ -136,7 +135,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
 
-    NSString *password = [HMACData base64Encoding];
+    NSString *password = [HMACData base64EncodedStringWithOptions:0];
     
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
@@ -160,7 +159,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
     
-    NSString *password = [HMACData base64Encoding];
+    NSString *password = [HMACData base64EncodedStringWithOptions:0];
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
@@ -222,8 +221,6 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    DDLogDebug(@"%s update UserDefaults: %hhd, generate new salt: %hhd", __FUNCTION__, updateUserDefaults, generateNewSalt);
-
     // Only calculate Config Key when UserDefaults should actually be updated
     // Otherwise this method is only used to check if settings changed,
     // then we can save time as the Config Key isn't relevant in this case
@@ -284,10 +281,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Convert preferences dictionary to XML property list
     NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
     *newChecksumPtr = HMACData;
-    #ifdef DEBUG
-            DDLogDebug(@"%s: checksum %@, filteredPrefsDict: %@", __FUNCTION__, HMACData, filteredPrefsDict);
-    #endif
-
+    
     // Get current Browser Exam Key
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
 
@@ -307,11 +301,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
         }
         // Return value: Checksum changed
-        DDLogDebug(@"%s Checksum changed!", __FUNCTION__);
         return YES;
     }
+    
     // Return value: Checksum not changed
-    DDLogDebug(@"%s Checksum did not change!", __FUNCTION__);
     return NO;
 }
 
@@ -388,11 +381,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSString *jsonString;
 
     if (objectClass == [NSData class] || objectClass == [NSMutableData class]) {
-        if ([object isEqualToData:[NSData data]]) {
-            jsonString = @"\"\"";
-        } else {
-            jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64EncodedStringWithOptions:0]];
-        }
+        jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64EncodedStringWithOptions:0]];
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
     } else if ((strcmp([object objCType], "c") == 0)) {
@@ -408,7 +397,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData *)generateChecksumForBEK:(NSData *)currentData
 {
     // Get current salt for exam key
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
 
     return [self generateChecksumForData:currentData withSalt:HMACKey];
@@ -457,12 +446,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
     
-    BOOL initializeContainedKeys = NO;
     // Get dictionary with keys covered by the Config Key in the settings to process
     NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    if (configKeyContainedKeys.count == 0) {
+    if (!configKeyContainedKeys) {
         configKeyContainedKeys = [NSDictionary dictionary];
-        initializeContainedKeys = YES;
     }
     if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
         [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
@@ -480,8 +467,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *configKey = [NSData data];
     [self updateConfigKeyInSettings:filteredPrefsDict
           configKeyContainedKeysRef:&configKeyContainedKeys
-                       configKeyRef:&configKey
-            initializeContainedKeys:initializeContainedKeys];
+                       configKeyRef:&configKey];
     
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
 
@@ -493,15 +479,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
                    configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
                                 configKeyRef:(NSData **)configKeyRef
-                     initializeContainedKeys:(BOOL)initializeContainedKeys
 {
     NSMutableDictionary *containedKeysMutable = [*configKeyContainedKeys mutableCopy];
     NSMutableString *jsonString = [NSMutableString new];
     NSDictionary *processedDictionary = [self getConfigKeyDictionaryForKey:@"rootSettings"
-                                                                dictionary:sourceDictionary
-                                                          containedKeysPtr:&containedKeysMutable
-                                                                   jsonPtr:&jsonString
-                                                   initializeContainedKeys:initializeContainedKeys];
+                                                                    dictionary:sourceDictionary
+                                                              containedKeysPtr:&containedKeysMutable
+                                                                       jsonPtr:&jsonString];
 
     *configKeyContainedKeys = [containedKeysMutable copy];
     
@@ -516,7 +500,6 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                      dictionary:(NSDictionary *)sourceDictionary
                                containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
                                         jsonPtr:(NSMutableString **)jsonStringPtr
-                        initializeContainedKeys:(BOOL)initializeContainedKeys
 {
     if (dictionaryKey.length == 0) {
         return nil;
@@ -527,18 +510,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
                                                                                                    selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
-    // Remove the special key "originatorVersion" which doesn't have any functionality,
-    // it's just meta data indicating which SEB version saved the config file
-    [configKeysAlphabetically removeObject:@"originatorVersion"];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
-    // Get default settings including sub-dictionaries and sub-arrays
-    NSDictionary *defaultSettings = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:dictionaryKey];
+    // Get default settings
+    NSDictionary *defaultSettings = [[[SEBSettings sharedSEBSettings] defaultSettings] objectForKey:dictionaryKey];
 
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
-    if (containedKeys.count == 0 &&
-        configKeysAlphabetically.count != 0 &&
-        initializeContainedKeys) {
+    if (containedKeys.count == 0 && configKeysAlphabetically.count != 0) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
@@ -574,11 +552,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             value = [self getConfigKeyDictionaryForKey:key
                                             dictionary:value
                                       containedKeysPtr:containedKeysPtr
-                                               jsonPtr:&dictionaryJSON
-                               initializeContainedKeys:initializeContainedKeys];
+                                               jsonPtr:&dictionaryJSON];
             if (!value || [(NSDictionary *)value count] == 0) {
                 [configKeysAlphabetically removeObjectAtIndex:counter];
-                dictionaryJSON.string = @"";
                 continue;
             }
         }
@@ -586,11 +562,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             value = [[self getConfigKeyDictionaryForKey:key
                                              dictionary:value
                                        containedKeysPtr:containedKeysPtr
-                                                jsonPtr:&dictionaryJSON
-                                initializeContainedKeys:initializeContainedKeys] mutableCopy];
+                                                jsonPtr:&dictionaryJSON] mutableCopy];
             if (!value || [(NSMutableDictionary *)value count] == 0) {
                 [configKeysAlphabetically removeObjectAtIndex:counter];
-                dictionaryJSON.string = @"";
                 continue;
             }
         }
@@ -600,16 +574,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             value = [self getConfigKeyArrayForKey:key
                                             array:value
                                  containedKeysPtr:containedKeysPtr
-                                          jsonPtr:&dictionaryJSON
-                          initializeContainedKeys:initializeContainedKeys];
+                                          jsonPtr:&dictionaryJSON];
         }
         if (valueClass == [NSMutableArray class]) {
             value = [[self getConfigKeyArrayForKey:key
                                              array:value
                                   containedKeysPtr:containedKeysPtr
-                                           jsonPtr:&dictionaryJSON
-                           initializeContainedKeys:initializeContainedKeys] mutableCopy];
+                                           jsonPtr:&dictionaryJSON] mutableCopy];
         }
+        
         // If the key isn't contained in the array of keys in current settings
         // probably because those settings were saved in an older or other
         // platform version of SEB
@@ -628,7 +601,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // we use it for calculating the Config Key
             [filteredPrefsDict setObject:value forKey:key];
             // Update JSON string
-                [*jsonStringPtr appendFormat:@"\"%@\":", key];
+            [*jsonStringPtr appendFormat:@"\"%@\":", key];
             if (dictionaryJSON.length > 0) {
                 [*jsonStringPtr appendFormat:@"%@,", dictionaryJSON];
             } else {
@@ -653,7 +626,6 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                 array:(NSArray *)sourceArray
                      containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
                               jsonPtr:(NSMutableString **)jsonStringPtr
-              initializeContainedKeys:(BOOL)initializeContainedKeys
 {
     [*jsonStringPtr appendString:@"["];
 
@@ -665,14 +637,12 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                 [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
                                                                                   dictionary:object
                                                                             containedKeysPtr:containedKeysPtr
-                                                                                     jsonPtr:jsonStringPtr
-                                                                     initializeContainedKeys:initializeContainedKeys]];
+                                                                                     jsonPtr:jsonStringPtr]];
             } else if (objectClass == [NSMutableDictionary class]) {
                 [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
                                                                                           dictionary:object
                                                                                     containedKeysPtr:containedKeysPtr
-                                                                                             jsonPtr:jsonStringPtr
-                                                                             initializeContainedKeys:initializeContainedKeys] mutableCopy]];
+                                                                                             jsonPtr:jsonStringPtr] mutableCopy]];
             } else {
                 [processedArray addObject:object];
                 [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
@@ -723,12 +693,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Remove SEB settings key/values from User Defaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences resetSEBUserDefaults];
-//    [preferences storeSEBDefaultSettings];
     // Update Config and Browser Exam Keys
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-#ifdef DEBUG
-    NSLog(@"Client settings have been reset!");
-#endif
+    DDLogError(@"Client settings have been reset!");
 }
 
 
@@ -746,7 +713,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     if (recoveryOptionIndex == 1) { // Quit requested.
         // Terminate SEB without any further user confirmation required
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuitNotification" object:self];
+         postNotificationName:@"requestQuit" object:self];
         success = NO;
     }
     return success;

@@ -1102,51 +1102,63 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
         
         // Get current config path
-        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+        currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
         // Store the URL of the .seb file as current config file path
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-        
-        storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
         
         // Reset the pending challenge in case it was an authenticated load
         _pendingChallengeCompletionHandler = nil;
         
-        if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
-            DDLogInfo(@"Storing downloaded SEB config data was successful");
+        [configFileManager storeNewSEBSettings:sebFileData forEditing:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+        
+    } else {
+        // Opening downloaded SEB config data definitely failed:
+        // we might need to quit (if SEB was just started)
+        // or reset the opening settings flag which prevents opening URLs concurrently
+        [self openingConfigURLRoleBack];
+    }
+}
+
+
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error
+{
+    storeDecryptedSEBSettingsResult storingConfigResult;
+    if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
+        DDLogInfo(@"Storing downloaded SEB config data was successful");
+        
+        // Reset the direct download flag for the case this was a successful direct download
+        _directConfigDownloadAttempted = false;
+        [_sebController didOpenSettings];
+        
+        return;
+        
+    } else {
+        /// Decrypting new settings wasn't successfull:
+        DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
+        
+        // We have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        
+        // Was this an attempt to download the config directly and the downloaded data was corrupted?
+        if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
+            // We try to download the config in a temporary WebView
+            DDLogInfo(@"Trying to download the config in a temporary WebView");
+            [self openConfigFromSEBURL:downloadedSEBConfigDataURL];
+            
+            return;
+        } else {
+            // The download failed definitely or was canceled by the user:
+            DDLogError(@"Decrypting downloaded SEB config data failed!");
             
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;
-            [_sebController didOpenSettings];
             
-            return;
-            
-        } else {
-            /// Decrypting new settings wasn't successfull:
-            DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
-            
-            // We have to restore the path to the old settings
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-            
-            // Was this an attempt to download the config directly and the downloaded data was corrupted?
-            if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
-                // We try to download the config in a temporary WebView
-                DDLogInfo(@"Trying to download the config in a temporary WebView");
-                [self openConfigFromSEBURL:url];
-                
-                return;
-            } else {
-                // The download failed definitely or was canceled by the user:
-                DDLogError(@"Decrypting downloaded SEB config data failed!");
-                
-                // Reset the direct download flag for the case this was a successful direct download
-                _directConfigDownloadAttempted = false;
-            }
+            // Opening downloaded SEB config data definitely failed:
+            // we might need to quit (if SEB was just started)
+            // or reset the opening settings flag which prevents opening URLs concurrently
+            [self openingConfigURLRoleBack];
         }
     }
-    // Opening downloaded SEB config data definitely failed:
-    // we might need to quit (if SEB was just started)
-    // or reset the opening settings flag which prevents opening URLs concurrently
-    [self openingConfigURLRoleBack];
 }
 
 

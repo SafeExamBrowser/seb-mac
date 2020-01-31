@@ -35,39 +35,90 @@
 
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
-//#import <Security/SecRandom.h> //for SecRandom
 
+@class SEBKeychainManager;
 
-@interface SEBKeychainManager : NSObject
-
-@property (strong, nonatomic) NSArray *allCertificates;
-
+/**
+ * @protocol    SEBKeychainManagerDelegate
+ *
+ * @brief       OS-specific SEBKeychainManager delegates confirming to the SEBKeychainManagerDelegate
+ *              protocol are connecting SEBKeychainManager to the keychain.
+ */
+@protocol SEBKeychainManagerDelegate <NSObject>
+/**
+ * @name		Item Attributes
+ */
+@required
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
-- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
+- (NSArray*)getCertificatesAndNames:(NSArray **)names;
+- (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
 - (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef) getIdentityForPrivateKey:(SecKeyRef)settingsPrivateKeyRef;
 
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getDataForCertificate:(SecCertificateRef)certificate;
 - (BOOL)importCertificateFromData:(NSData*)certificateData;
 - (NSData*)getDataForIdentity:(SecIdentityRef)identity;
-- (BOOL) importIdentityFromData:(NSData*)identityData forEditing:(BOOL)forEditing;
+- (BOOL)importIdentityFromData:(NSData*)identityData;
 
-//- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
+- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
+- (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
+
+@optional
+
+@property (nonatomic, retain) SEBKeychainManager *keychainManager;
+
+@end
+
+
+@interface SEBKeychainManager : NSObject
+
+@property (strong) id<SEBKeychainManagerDelegate> delegate;
+
+- (NSArray*)getIdentitiesAndNames:(NSArray **)names;
+- (NSArray*)getCertificatesAndNames:(NSArray **)names;
+- (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef;
+- (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
+- (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
+- (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
+- (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
+- (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
+
+- (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
+- (NSData*)getDataForCertificate:(SecCertificateRef)certificate;
+- (BOOL)importCertificateFromData:(NSData*)certificateData;
+- (NSData*)getDataForIdentity:(SecIdentityRef)identity;
+- (BOOL)importIdentityFromData:(NSData*)identityData;
+- (NSData*)generatePKCS12IdentityWithName:(NSString *)commonName;
+- (BOOL)generateIdentityWithName:(NSString *)commonName;
+- (BOOL)removeIdentityFromKeychain:(SecIdentityRef)identityRef;
+- (NSData *)retrieveKeyForIdentity:(SecIdentityRef)identityRef;
+
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 - (NSString*)generateSHAHashString:(NSString*)inputString;
 
 - (BOOL) storeKey:(NSData *)keyData;
 - (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
+- (BOOL) storeInternetPassword:(NSString *)password
+                       account:(NSString *)account
+                        server:(NSString *)server
+                synchronizable:(BOOL)synchronizable;
 - (BOOL) updateKey:(NSData *)keyData;
 - (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
+- (BOOL) updateInternetPassword:(NSString *)password
+                        account:(NSString *)account
+                         server:(NSString *)server
+                 synchronizable:(BOOL)synchronizable;
 - (NSData *) retrieveKey;
 - (NSData *) retrieveKeyWithID:(NSString *)keyID;
+- (NSArray *) retrieveInternetPasswordsForServer:(NSString *)server;
+- (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
+                                           server:(NSString *)server
+                                   synchronizable:(BOOL)synchronizable;
+- (BOOL) removeKeyWithID:(NSString *)keyID;
 
 @end
