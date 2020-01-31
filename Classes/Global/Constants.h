@@ -33,6 +33,7 @@
 //
 
 #import "DDLog.h"
+#import "SEBConstants.h"
 
 #ifndef SafeExamBrowser_Constants_h
 #define SafeExamBrowser_Constants_h
@@ -243,7 +244,8 @@ typedef NSUInteger proxySettingsPolicies;
 
 enum {
     sebConfigPurposeStartingExam                = 0,
-    sebConfigPurposeConfiguringClient           = 1
+    sebConfigPurposeConfiguringClient           = 1,
+    sebConfigPurposeManagedConfiguration        = 2
 };
 typedef NSUInteger sebConfigPurposes;
 
@@ -423,13 +425,6 @@ static NSString __unused *fontDownloadAttemptedOnPageURLOrPlaceholderKey = @"fon
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
-static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
-
-static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
-static NSString __unused *SEBHelpPage = @"https://safeexambrowser.org/macosx";
-
-static NSString __unused *SEBClientSettings = @"SebClientSettings.seb";
-static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/11.1.2 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
 static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0";

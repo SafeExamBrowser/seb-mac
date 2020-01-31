@@ -52,6 +52,10 @@
 @interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate>
 {
     NSString *lastUsername;
+    
+    @private
+    NSURL *downloadedSEBConfigDataURL;
+    NSURL *currentConfigPath;
 }
 
 @property (weak) SEBController *sebController;
