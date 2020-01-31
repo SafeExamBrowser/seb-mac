@@ -1362,7 +1362,7 @@ static NSMutableSet *browserWindowControllers;
             DDLogDebug(@"%s: Received new configuration from MDM server. Exam session: %d, private UserDefaults: %d, examSessionReconfigureAllow: %d", __FUNCTION__, examSession, NSUserDefaults.userDefaultsPrivate, allowReconfiguring);
             if (!(receivedServerConfig &&
                   [receivedServerConfig isEqualToDictionary:serverConfig])) {
-                _isReconfiguringToMDMConfig = true;
+                _isReconfiguringToMDMConfig = YES;
                 receivedServerConfig = serverConfig;
                 readMDMConfig = YES;
                 // If we did receive a config and SEB isn't running in exam mode currently
@@ -2365,8 +2365,9 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
-        _isReconfiguringToMDMConfig = false;
-        _scannedQRCode = false;
+        receivedServerConfig = nil;
+        _isReconfiguringToMDMConfig = NO;
+        _scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
@@ -2385,7 +2386,8 @@ void run_on_ui_thread(dispatch_block_t block)
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
         if (_isReconfiguringToMDMConfig) {
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
-            _isReconfiguringToMDMConfig = false;
+            receivedServerConfig = nil;
+            _isReconfiguringToMDMConfig = NO;
             [self restartExam:false];
             
         } else if (_scannedQRCode) {
