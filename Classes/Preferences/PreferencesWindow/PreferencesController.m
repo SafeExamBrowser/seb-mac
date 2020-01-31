@@ -366,7 +366,7 @@
 
 - (void) setConfigFileCredentials
 {
-    [self.configFileVC setCurrentConfigFileKeyRef:_currentConfigKeyRef];
+    [self.configFileVC setCurrentConfigFileKeyHash:_currentConfigFileKeyHash];
     [self.configFileVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
 }
 
@@ -416,14 +416,21 @@
             return;
         }
         // Decrypt and store the .seb config file
-        if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES] == storeDecryptedSEBSettingsResultSuccess) {
-            // if successfull save the path to the file for possible editing in the preferences window
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
-            
-            [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-            [self reopenPreferencesWindow];
-        }
+        currentSEBFileURL = sebFileURL;
+        [self.configFileManager storeNewSEBSettings:sebData
+                                         forEditing:YES
+                                           callback:self
+                                           selector:@selector(openingSEBPrefsSucessfull)];
     }
+}
+
+
+- (void) openingSEBPrefsSucessfull
+{            // if successfull save the path to the file for possible editing in the preferences window
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
+    
+    [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
+    [self reopenPreferencesWindow];
 }
 
 
@@ -1069,7 +1076,7 @@
     _currentConfigPassword = nil;
     _currentConfigPasswordIsHash = NO;
     // Reset the config file encrypting identity (key) reference
-    _currentConfigKeyRef = nil;
+    _currentConfigFileKeyHash = nil;
     // Reset the settings password and confirm password fields and the identity popup menu
     [self.configFileVC resetSettingsPasswordFields];
     // Reset the settings identity popup menu
@@ -1160,7 +1167,7 @@
     _currentConfigPassword = nil;
     _currentConfigPasswordIsHash = NO;
     // Reset the config file encrypting identity (key) reference
-    _currentConfigKeyRef = nil;
+    _currentConfigFileKeyHash = nil;
     
     // Write values from local to private preferences
     [self.configFileManager storeIntoUserDefaults:localClientPreferences];
@@ -1217,8 +1224,10 @@
     if (NSUserDefaults.userDefaultsPrivate) {
         DDLogInfo(@"Reverting private settings to last saved or opened .seb file");
         NSError *error = nil;
-        NSData *sebData = [NSData dataWithContentsOfURL:[[MyGlobals sharedMyGlobals] currentConfigURL] options:NSDataReadingUncached error:&error];
-        
+        currentSEBFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
+        NSData *sebData = [NSData dataWithContentsOfURL:currentSEBFileURL
+                                                options:NSDataReadingUncached
+                                                  error:&error];
         if (error) {
             // Error when reading configuration data
             [NSApp presentError:error];
@@ -1226,14 +1235,13 @@
             // Pass saved credentials from the last loaded file to the Config File Manager
             self.configFileManager.currentConfigPassword = _currentConfigPassword;
             self.configFileManager.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
-            self.configFileManager.currentConfigKeyRef = _currentConfigKeyRef;
+            self.configFileManager.currentConfigKeyHash = _currentConfigFileKeyHash;
             
             // Decrypt and store the .seb config file
-            if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES] == storeDecryptedSEBSettingsResultSuccess) {
-                
-                [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                [self reopenPreferencesWindow];
-            }
+            [self.configFileManager storeNewSEBSettings:sebData
+                                             forEditing:YES
+                                               callback:self
+                                               selector:@selector(openingSEBPrefsSucessfull)];
         }
     } else {
         // If using local client settings

@@ -48,6 +48,7 @@
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
 #import "SEBEncapsulatedSettings.h"
+#import "SEBOSXBrowserController.h"
 
 @class SEBController;
 @class SEBConfigFileManager;
@@ -64,6 +65,7 @@
 @private
     SEBEncapsulatedSettings *settingsBeforeEditing;
     BOOL restartSEB;
+    NSURL *currentSEBFileURL;
 }
 
 @property BOOL currentConfigPasswordIsHash;
@@ -78,10 +80,10 @@
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
-@property (nonatomic) SecKeyRef currentConfigKeyRef;
+@property (nonatomic) NSData *currentConfigFileKeyHash;
 // To make the getter unavailable
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
-- (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
+- (NSData *)currentConfigFileKeyHash UNAVAILABLE_ATTRIBUTE;
 
 - (void) openSEBPrefsAtURL:(NSURL *)sebFileURL;
 
