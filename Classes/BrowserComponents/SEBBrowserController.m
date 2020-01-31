@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -39,8 +39,13 @@
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
+static NSString * const authenticationHost = @"host";
+static NSString * const authenticationUsername = @"username";
+static NSString * const authenticationPassword = @"password";
+
 @interface SEBBrowserController () <CustomHTTPProtocolDelegate> {
     NSMutableArray *authorizedHosts;
+    NSMutableArray *previousAuthentications;
 }
 
 @property (nonatomic, strong) CustomHTTPProtocol *authenticatingProtocol;
@@ -55,14 +60,36 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 {
     self = [super init];
     if (self) {
-        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
-        [self conditionallyInitCustomHTTPProtocol];
+//        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
+//        [self conditionallyInitCustomHTTPProtocol];
+        
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+        self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
     }
     return self;
 }
 
+- (NSData *)browserExamKey
+{
+    if (!_browserExamKey) {
+        self.browserExamKey = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_currentData"];
+    }
+    return _browserExamKey;
+}
 
-// Save the default user agent of the installed WebKit version
+- (NSData *)configKey
+{
+    if (!_configKey) {
+        self.configKey = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_configKey"];
+    }
+    return _configKey;
+}
+
+/// Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
 {
     // Get WebKit version number string to use it as Safari version
@@ -80,23 +107,49 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+- (NSString *) backToStartURLString
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString* backToStartURL;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
+        // Load start URL from the system's user defaults
+        backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        DDLogInfo(@"Will load Start URL in main browser window: %@", backToStartURL);
+    } else {
+        backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"];
+        DDLogInfo(@"Will load Back to Start URL in main browser window: %@", backToStartURL);
+    }
+    return backToStartURL;
+}
+
+
 -(void) conditionallyInitCustomHTTPProtocol
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBCertServices *sharedCertService = [SEBCertServices sharedInstance];
     authorizedHosts = [NSMutableArray new];
+    previousAuthentications = [NSMutableArray new];
 
     // Flush cached embedded certificates (as they might have changed with new settings)
     [sharedCertService flushCachedCertificates];
 
     // Check if the custom URL protocol needs to be activated
+#if TARGET_OS_IPHONE
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]
+        || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
+        || [sharedCertService caCerts].count > 0
+        || [sharedCertService tlsCerts].count > 0
+        || [sharedCertService debugCerts].count > 0)
+#else
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
         || [sharedCertService caCerts].count > 0
         || [sharedCertService tlsCerts].count > 0
         || [sharedCertService debugCerts].count > 0)
+#endif
     {
-        // OS X 10.7 and 10.8: Custom URL protocol isn't supported
-        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
+        // macOS 10.7 and 10.8: Custom URL protocol isn't supported
+        if (@available(macOS 9, *)) {
+        } else {
             DDLogError(@"When running on OS X 10.7 or 10.8, embedded TLS/SSL/CA certificates and certificate pinning are not supported!");
             return;
         }
@@ -177,6 +230,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
  */
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
     // Check if we deal with a username/password or a server trust authentication challenge
     NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
     if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
@@ -191,6 +246,17 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         _authenticatingProtocol = protocol;
         _pendingChallenge = challenge;
 
+        NSString *host = challenge.protectionSpace.host;
+        NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
+        if (previousAuthentication) {
+            NSURLCredential *newCredential;
+            newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
+                                                       password:[previousAuthentication objectForKey:authenticationPassword]
+                                                    persistence:NSURLCredentialPersistenceForSession];
+            [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
+            _authenticatingProtocol = nil;
+            return;
+        }
         // Allow to enter password 3 times
         if ([challenge previousFailureCount] < 3) {
             // Display authentication dialog
@@ -198,7 +264,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             
             NSString *text = [self.delegate showURLplaceholderTitleForWebpage];
             if (!text) {
-                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
             } else {
                 if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
                     text = [NSString stringWithFormat:@"%@ (secure connection)", text];
@@ -210,7 +276,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                 text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", nil), text];
                 _lastUsername = @"";
             } else {
-                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
             }
             
             [self.delegate showEnterUsernamePasswordDialog:text
@@ -237,7 +303,6 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         {
             SEBCertServices *sc = [SEBCertServices sharedInstance];
             
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             BOOL pinned = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"];
             
             NSArray *trustStore = nil;
@@ -270,7 +335,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             OSStatus status = SecTrustEvaluate(serverTrust, &result);
             
 #if DEBUG
-            NSLog(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
+            DDLogDebug(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
 #endif
 
             if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
@@ -332,8 +397,9 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                     char infoBuf[2048];
                                     *infoBuf = '\0';
                                     mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &serverCert);
-                                    NSLog(@"Server leaf certificate:\n%s", infoBuf);
-                                    [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
+                                    DDLogDebug(@"Server leaf certificate:\n%s", infoBuf);
+                                    [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+                                                                               stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
 #endif
                                     unsigned char *pkBuffer;
                                     unsigned int pkBufferSize;
@@ -401,7 +467,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                                                         NSString *host = debugCertOverrideURL.host;
                                                                         NSNumber *port = debugCertOverrideURL.port;
 #if DEBUG
-                                                                        NSLog(@"Cert host: %@ and port: %@", host, port);
+                                                                        DDLogDebug(@"Cert host: %@ and port: %@", host, port);
 #endif
                                                                         if ([host isEqualToString:serverHost]) {
                                                                             // If the server host name matches the one in the debug cert ...
@@ -464,6 +530,20 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             newCredential = [NSURLCredential credentialWithUser:username
                                                        password:password
                                                     persistence:NSURLCredentialPersistenceForSession];
+            NSString *host = _pendingChallenge.protectionSpace.host;
+            NSDictionary *newAuthentication = @{ authenticationHost : host, authenticationUsername : username, authenticationPassword : password};
+            BOOL found = NO;
+            for (NSUInteger i=0; i < previousAuthentications.count; i++) {
+                NSDictionary *previousAuthentication = previousAuthentications[i];
+                if ([[previousAuthentication objectForKey:authenticationHost] isEqualToString:host]) {
+                    previousAuthentications[i] = newAuthentication;
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [previousAuthentications addObject:newAuthentication];
+            }
             [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
             _authenticatingProtocol = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {
@@ -485,10 +565,391 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 }
 
 
+- (NSDictionary *)fetchPreviousAuthenticationForHost:(NSString *)host
+{
+    NSString *predicateString = [[NSString stringWithFormat:@"%@ contains[c] ", authenticationHost] stringByAppendingString:@"%@"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString, host];
+    NSArray *results = [previousAuthentications filteredArrayUsingPredicate:predicate];
+    if (results.count == 1) {
+        return results[0];
+    } else {
+        return nil;
+    }
+}
+
+
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     DDLogWarn(@"%s", __FUNCTION__);
     [_delegate hideEnterUsernamePasswordDialog];
+}
+
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    NSString *absoluteRequestURL = [[request URL] absoluteString];
+    
+    //// Check if quit URL has been clicked (regardless of current URL Filter)
+    
+    // Trim a possible trailing slash "/"
+    NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    
+    if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"quitLinkDetected" object:self];
+    }
+    
+    NSString *fragment = [[request URL] fragment];
+    NSString *requestURLStrippedFragment;
+    if (fragment.length) {
+        // if there is a fragment
+        requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
+    } else requestURLStrippedFragment = absoluteRequestURL;
+    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
+    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+    
+    NSDictionary *headerFields;
+    headerFields = [request allHTTPHeaderFields];
+    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
+    
+//    if ([request valueForHTTPHeaderField:@"Origin"].length == 0) {
+//        return request;
+//    }
+    
+    if (sendHashKeys) {
+        
+        NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+
+        // Browser Exam Key
+        
+#ifdef DEBUG
+        DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
+#endif
+        unsigned char hashedChars[32];
+        [self.browserExamKey getBytes:hashedChars length:32];
+        
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+#ifdef DEBUG
+        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
+#endif
+        const char *urlString = [browserExamKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+        
+        NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [hashedString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
+        
+        // Config Key
+        
+        [self.configKey getBytes:hashedChars length:32];
+        
+#ifdef DEBUG
+        DDLogVerbose(@"Current Config Key: %@", self.configKey);
+#endif
+        
+        NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [configKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+#ifdef DEBUG
+        DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
+#endif
+        urlString = [configKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+        
+        NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
+        
+        headerFields = [modifiedRequest allHTTPHeaderFields];
+        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+        
+        return [modifiedRequest copy];
+
+    } else {
+
+        return request;
+    }
+}
+
+
+- (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
+{
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:arguments];
+    DDLogVerbose(message);
+}
+
+
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    [_delegate sessionTaskDidCompleteSuccessfully:task];
+}
+
+
+#pragma mark - Handling Universal Links
+
+// Check if a URL is in an associated domain and therefore might have been
+// invoked with a Universal Link
+- (BOOL) isAssociatedDomain:(NSURL *)url
+{
+    if (![url.scheme isEqualToString:@"https"]) {
+        // Universal Links must use the https protocol
+        return NO;
+    }
+    NSString *entitlementsPath = [NSBundle.mainBundle pathForResource:[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+                                                     ofType:@"entitlements"];
+    NSDictionary *entitlements = [[NSDictionary alloc]initWithContentsOfFile:entitlementsPath];
+    NSArray *associatedDomains = [entitlements objectForKey:@"com.apple.developer.associated-domains"];
+    NSString *host = url.host;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", host];
+    NSArray *results = [associatedDomains filteredArrayUsingPredicate:predicate];
+    // The URLs host is contained in our associated domains
+    return (results.count != 0);
+}
+
+
+// Tries to find SEBSettings.seb or SEBExamSettings.seb files stored at folders
+// specified by a Universal Link
+- (void) handleUniversalLink:(NSURL *)universalLink
+{
+    _didReconfigureWithUniversalLink = NO;
+    _cancelReconfigureWithUniversalLink = NO;
+    if (universalLink &&
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+        // Remove query and fragment parts from the Universal Link URL
+        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
+        urlComponents.query = nil;
+        urlComponents.fragment = nil;
+        NSURL *urlWithPartialPath = urlComponents.URL;
+        
+        if (urlWithPartialPath.pathExtension.length != 0) {
+            // If the path specified a file, remove it from the path as well
+            urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
+        }
+        
+        // Check for a file called "SEBSettings.seb" recursivly in the
+        // folder hierarchy specified by the original Universal Link
+        [self downloadConfigFile:SEBSettingsFilename
+                         fromURL:urlWithPartialPath
+               universalLinkHost:urlWithPartialPath
+                   universalLink:universalLink];
+    }
+}
+
+
+// We didn't find valid SEB settings named configFileName in the
+// folder hierarchy specified by the Universal Link
+- (void) universalLinkNoConfigFile:(NSString *)configFileName
+                            atHost:(NSURL *)host
+                     universalLink:(NSURL *)universalLink
+{
+    if ([configFileName isEqualToString:SEBSettingsFilename]) {
+        // No "SEBSettings.seb" file found, search for "SEBExamSettings.seb" file
+        // recursivly starting at the folder addressed by the original Universal Link
+        [self downloadConfigFile:SEBExamSettingsFilename
+                         fromURL:host
+               universalLinkHost:host
+                   universalLink:universalLink];
+    } else {
+        // Also no "SEBExamSettings.seb" file found, stop the search
+        _downloadTask = nil;
+        if (_isShowingOpeningConfigFileDialog) {
+            [_delegate closeOpeningConfigFileDialog];
+            _isShowingOpeningConfigFileDialog = NO;
+        }
+        NSError *error = nil;
+        // If no valid client config was found (in the "SEBSettings.seb" file), return an error message
+        if (_cancelReconfigureWithUniversalLink) {
+            error = [[NSError alloc]
+                        initWithDomain:sebErrorDomain
+                        code:SEBErrorOpeningUniversalLinkFailed
+                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
+                                    NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file was canceled.", nil), SEBShortAppName],
+                                    }];
+        } else if (!_didReconfigureWithUniversalLink) {
+            error = [[NSError alloc]
+                     initWithDomain:sebErrorDomain
+                     code:SEBErrorOpeningUniversalLinkFailed
+                     userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
+                                 NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam.", nil), SEBShortAppName, SEBShortAppName],
+                                 }];
+        }
+
+        [_delegate storeNewSEBSettingsSuccessful:error];
+    }
+}
+
+// Try to recursivly find SEB settings named configFileName starting at the path in universalLinkHost
+// the current path to look for the config file is specified in fromURL
+- (void) downloadConfigFile:(NSString *)configFileName
+                    fromURL:(NSURL *)url
+          universalLinkHost:(NSURL *)host
+              universalLink:(NSURL *)universalLink
+{
+    if (url.path.length == 0 || _cancelReconfigureWithUniversalLink) {
+        // Searched the full subdirectory hierarchy of this host address
+        [self universalLinkNoConfigFile:configFileName
+                                 atHost:host
+                          universalLink:universalLink];
+    } else {
+        if (!_isShowingOpeningConfigFileDialog) {
+            [_delegate showOpeningConfigFileDialog:[NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file …", nil), SEBShortAppName]
+                                             title:NSLocalizedString(@"Opening Universal Link", nil)
+                                    cancelCallback:self
+                                          selector:@selector(cancelDownloadingConfigFile)];
+            _isShowingOpeningConfigFileDialog = YES;
+        }
+
+        NSURL *newURL = url;
+        // Remove the last path component or the trailing slash "/" from the
+        // URL we're currently trying to download the config file
+        if (![url.lastPathComponent isEqualToString:@"/"]) {
+            newURL = [url URLByDeletingLastPathComponent];
+        } else {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            urlComponents.path = nil;
+            newURL = urlComponents.URL;
+        }
+        url = [url URLByAppendingPathComponent:configFileName];
+        
+        if (!_URLSession) {
+            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+        }
+        _downloadTask = [_URLSession dataTaskWithURL:url
+                                   completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                         {
+                             [self didDownloadData:sebFileData
+                                        configFile:configFileName
+                                 universalLinkHost:host
+                                     universalLink:universalLink
+                                             error:error
+                                               URL:newURL];
+                         }];
+        [_downloadTask resume];
+    }
+}
+
+
+// Callback for trying to download SEB config file recursivly from hierarchy
+// of subdirectories specified by universalLinkHost
+- (void) didDownloadData:(NSData *)sebFileData
+              configFile:(NSString *)fileName
+       universalLinkHost:(NSURL *)host
+           universalLink:(NSURL *)universalLink
+                   error:(NSError *)error
+                     URL:(NSURL *)url
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->_downloadTask = nil;
+        
+        if (error || !sebFileData || self->_cancelReconfigureWithUniversalLink) {
+            // Couldn't download config file, try it one level down in the path hierarchy
+            [self downloadConfigFile:fileName
+                             fromURL:url
+                   universalLinkHost:host
+                       universalLink:universalLink];
+        } else {
+            // Successfully downloaded SEB settings file or some other HTML data like a
+            // 404 http page not found error webpage, therefore we have to check if
+            // we downloaded correct SEB settings
+            
+            // The dialog for opening the config file needs to be closed to prevent
+            // issues when another alert is presented in the store method
+            if (self->_isShowingOpeningConfigFileDialog) {
+                [self->_delegate closeOpeningConfigFileDialog];
+                self->_isShowingOpeningConfigFileDialog = NO;
+            }
+
+            self->cachedConfigFileName = fileName;
+            self->cachedDownloadURL = url;
+            self->cachedHostURL = host;
+            self->cachedUniversalLink = universalLink;
+            [self->_delegate storeNewSEBSettings:sebFileData
+                                forEditing:NO
+                    forceConfiguringClient:NO
+                     showReconfiguredAlert:NO
+                                  callback:self
+                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
+        }
+    });
+}
+
+
+// Cancel a processing download
+- (void) cancelDownloadingConfigFile
+{
+    _cancelReconfigureWithUniversalLink = YES;
+    if (_downloadTask) {
+        [_downloadTask cancel];
+        _downloadTask = nil;
+    }
+}
+
+
+// Were correct SEB settings downloaded and sucessfully stored?
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error
+{
+    if (error) {
+        // Downloaded data was either no correct SEB config file
+        // or this couldn't be stored (wrong passwords entered etc)
+        [self downloadConfigFile:cachedConfigFileName
+                         fromURL:cachedDownloadURL
+               universalLinkHost:cachedHostURL
+                   universalLink:cachedUniversalLink];
+    } else {
+        // Successfully found and stored some SEB settings
+        // Store the file name of the .seb file as current config file path
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:cachedConfigFileName]];
+
+        // If these SEB settings came from
+        // a "SEBSettings.seb" file, we check if they contained Client Settings
+        if ([cachedConfigFileName isEqualToString:SEBSettingsFilename] &&
+            ![NSUserDefaults userDefaultsPrivate]) {
+            // SEB successfully read a SEBSettings.seb file with Client Settings
+            // Now we try if there is a "SEBExamSettings.seb" file as well in the
+            // same path hierarchy, as one Universal Link SEB can both configure/
+            // reconfigure SEB Client Settings and start an exam
+            _didReconfigureWithUniversalLink = YES;
+            [self downloadConfigFile:SEBExamSettingsFilename
+                             fromURL:cachedHostURL
+                   universalLinkHost:cachedHostURL
+                       universalLink:cachedUniversalLink];
+        } else {
+            // There either were Exam Settings in the SEBSettings.seb file
+            // (no Client Settings), then we can stop searching further and
+            // start the exam. Or we found Exam Settings in the
+            // SEBExamSettings.seb file, then we can start that exam.
+            if (_isShowingOpeningConfigFileDialog) {
+                [_delegate closeOpeningConfigFileDialog];
+                _isShowingOpeningConfigFileDialog = NO;
+            }
+
+            // Check if the Start URL Deep Link feature is allowed and store the
+            // original full Universal Link as the deep link
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAllowDeepLink"]) {
+                [preferences setSecureString:cachedUniversalLink.absoluteString
+                                      forKey:@"org_safeexambrowser_startURLDeepLink"];
+            }
+
+            [_delegate storeNewSEBSettingsSuccessful:error];
+        }
+    }
 }
 
 

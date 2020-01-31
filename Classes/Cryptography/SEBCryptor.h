@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -48,25 +48,17 @@
 
 - (BOOL) hasDefaultsKey;
 - (BOOL) updateUDKey;
-- (NSData *) encryptData:(NSData *)data
-                  forKey:(NSString *)key
-                   error:(NSError **)error;
-- (NSData *) decryptData:(NSData *)encryptedData
-                  forKey:(NSString *)key
-                   error:(NSError **)error;
+- (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error;
+- (NSData *) decryptData:(NSData *)encryptedData forKey:(NSString *)key error:(NSError **)error;
 
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey;
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
 - (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
                    configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
-                                configKeyRef:(NSData **)configKeyRef
-                     initializeContainedKeys:(BOOL)initializeContainedKeys;
+                                configKeyRef:(NSData **)configKeyRef;
 
-- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults
-                          updateSalt:(BOOL)generateNewSalt;
-- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults
-                          updateSalt:(BOOL)generateNewSalt
-                         newChecksum:(NSData **)newChecksumPtr;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
 - (NSData *) checksumForPrefDictionary:(NSDictionary *)prefsDict;
 - (NSData *) checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 

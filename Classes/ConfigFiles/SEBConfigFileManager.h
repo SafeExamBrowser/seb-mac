@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -34,38 +34,204 @@
 
 
 #import <Foundation/Foundation.h>
-#import "SEBController.h"
+#import "SEBConfigFileCredentials.h"
 
-@class SEBController;
+//#import "SEBController.h"
 
+
+/**
+ * @protocol    SEBConfigUIDelegate
+ *
+ * @brief       SEB config file controllers confirming to the SEBConfigUIDelegate
+ *              protocol are displaying alerts and password dialogs for 
+ *              SEBConfigFileManager.
+ */
+@protocol SEBConfigUIDelegate <NSObject>
+/**
+ * @name		Item Attributes
+ */
+@required
+/**
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text asynchronously, calling the callback
+ *              method with the entered password when one was entered
+ */
+- (void) promptPasswordWithMessageText:(NSString *)messageText
+                              callback:(id)callback
+                              selector:(SEL)aSelector;
+
+/**
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text asynchronously, calling the callback
+ *              method with the entered password when one was entered
+ */
+- (void) promptPasswordWithMessageText:(NSString *)messageText
+                                 title:(NSString *)title
+                              callback:(id)callback
+                              selector:(SEL)aSelector;
+
+/**
+ * @brief       Delegate method to display an alert when wrong password was entered
+ */
+- (void) showAlertWrongPassword;
+
+/**
+ * @brief       Delegate method to display an alert when settings are corrupted or
+ *              in an incompatible format
+ */
+- (void) showAlertCorruptedSettings;
+
+/**
+ * @brief       Delegate method to display an alert for an error
+ */
+- (void) showAlertWithError:(NSError *)error;
+
+/**
+ * @brief       Delegate method to display an alert with free title and text
+ */
+- (void) showAlertWithTitle:(NSString *)title
+                    andText:(NSString *)informativeText;
+
+/**
+ * @brief       Delegate method to display an alert asking if settings should 
+ *              be saved unencrypted
+ */
+- (BOOL) saveSettingsUnencrypted;
+
+/**
+ * @brief       Delegate method to display a NSError
+ */
+- (void) presentErrorAlert:(NSError *)error;
+
+@optional
+
+/**
+ * @brief       Delegate method called before SEB is getting reconfigured temporarily
+ *              for starting an exam.
+ */
+- (void) willReconfigureTemporary;
+
+/**
+ * @brief       Delegate method called after SEB was reconfigured temporarily for
+ *              starting an exam.
+ */
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing
+                        sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
+
+/**
+ * @brief       Delegate method called before SEB is getting reconfigured temporarily
+ *              for starting an exam.
+ */
+- (void) willReconfigurePermanently;
+
+/**
+ * @brief       Delegate method called after SEB was reconfigured temporarily for
+ *              starting an exam.
+ */
+- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient
+                                      sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+                                   showReconfiguredAlert:(BOOL)showReconfiguredAlert;
+
+/**
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text modally
+ */
+- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText;
+
+/**
+ * @brief       Delegate method to fetch persisted client settings
+ */
+- (NSData *) getSEBClientSettings;
+
+@end
+
+/**
+ * @class       SEBConfigFileManager
+ *
+ * @brief       SEBConfigFileManager implements a methods to deal with settings contained in
+ *              .seb config files, which usually will be encrypted with a password or a
+ *              cryptographic identity (certificate and private key)
+ *
+ * @details     SEBConfigFileManager handles the
+ *              
+ */
 @interface SEBConfigFileManager : NSObject {
-//@private
+@private
+    NSData *encryptedSEBData;
+    NSDictionary *parsedSEBPreferencesDict;
+    NSInteger attempts;
+    BOOL storeSettingsForEditing;
+    BOOL storeSettingsForceConfiguringClient;
+    BOOL storeShowReconfiguredAlert;
+    id storeSettingsCallback;
+    SEL storeSettingsSelector;
+    SEBConfigFileCredentials *sebFileCredentials;
+    
 //    NSString *_currentConfigPassword;
 //    BOOL _currentConfigPasswordIsHash;
-    //SecKeyRef _currentConfigKeyRef;
+    //NSData *_currentConfigKeyHash;
 }
 
-@property (nonatomic, strong) SEBController *sebController;
+@property (weak) id delegate;
 @property BOOL currentConfigPasswordIsHash;
-@property BOOL storeDecryptedSEBSettingsResult;
-@property BOOL suppressFileFormatError;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
-@property (nonatomic) SecKeyRef currentConfigKeyRef;
+@property (nonatomic) NSData *currentConfigKeyHash;
 // To make the getter unavailable
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
-- (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
+- (NSData *)currentConfigKeyHash UNAVAILABLE_ATTRIBUTE;
+
+
+// Helper methods
+- (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error;
 
 // Load a SebClientSettings.seb file saved in the preferences directory
 // and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings;
+- (void) reconfigureClientWithSebClientSettings;
 
-// Decrypt, parse and store SEB settings to UserDefaults
--(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
--(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing suppressFileFormatError:(BOOL)suppressFileFormatError;
+// Reconfigure SEB with settings received from an MDM server
+-(void) reconfigueClientWithMDMSettingsDict:(NSDictionary *)sebPreferencesDict
+                                   callback:(id)callback
+                                   selector:(SEL)selector;
+
+// Decrypt, parse and store new SEB settings
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+                   callback:(id)callback
+                   selector:(SEL)selector;
+
+// Decrypt, parse and store new SEB settings
+// When forceConfiguringClient don't show any notification to the user
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+                   callback:(id)callback
+                   selector:(SEL)selector;
+
+
+// Decrypt, parse and store new SEB settings
+// When forceConfiguringClient, Exam Settings have the same effect as Client Settings
+// When showReconfigureAlert=false then don't show the reconfigured notification to the user
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+      showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                   callback:(id)callback
+                   selector:(SEL)selector;
+
 
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict;
+
+// Inform the callback method if decrypting, parsing and storing new settings
+// was successful (error = nil) or failed with some error
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
@@ -73,19 +239,5 @@
                                withIdentity:(SecIdentityRef) identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose;
 
-// Encrypt preferences using a certificate
-- (NSData*) encryptData:(NSData*)data usingIdentity:(SecIdentityRef) identityRef;
-
-// Encrypt preferences using a password
-- (NSData*) encryptData:(NSData*)data usingPassword:(NSString *)password passwordIsHash:(BOOL)passwordIsHash forPurpose:(sebConfigPurposes)configPurpose;
-
-// Basic helper methods
-
-- (NSString *) getPrefixStringFromData:(NSData **)data;
-
-- (NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
-
-- (void) showAlertCorruptedSettings;
-- (void) showAlertCorruptedSettingsWithTitle:(NSString *)title andText:(NSString *)informativeText;
 
 @end

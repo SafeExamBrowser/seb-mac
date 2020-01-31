@@ -49,40 +49,55 @@
 }
 
 
-// Load a SebClientSettings.seb file saved in the preferences directory
-// and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings
+/// Load a SebClientSettings.seb file saved in the preferences directory
+- (NSData *) getSEBClientSettings
+{
+    NSData *sebData;
+    
+    // Try to read SEB client settings from /Library/Preferences/ directory,
+    // valid for all users on a Mac
+    sebData = [self getSEBClientSettingsFromDomain:NSLocalDomainMask];
+    
+    if (!sebData) {
+        // Try to read SEB client settings from ~Library/Preferences/ directory,
+        // valid for the current user
+        sebData = [self getSEBClientSettingsFromDomain:NSUserDomainMask];
+    }
+    
+    return sebData;
+}
+
+
+- (NSData *) getSEBClientSettingsFromDomain:(NSSearchPathDomainMask)domain
 {
     NSError *error;
-    NSURL *preferencesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
-                                                                         inDomain:NSUserDomainMask
-                                                                appropriateForURL:nil
-                                                                           create:NO
-                                                                            error:&error];
-    if (preferencesDirectory) {
-        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:@"Preferences/SebClientSettings.seb"];
-        NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
-        if (sebData) {
-            DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
-            //            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            
-            // Decrypt and store the .seb config file
-            if ([self storeNewSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
-                // if successfull continue with new settings
-                DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
-                // Delete the SebClientSettings.seb file from the Preferences directory
-                error = nil;
-                [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
-                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error.description);
-                // Restart SEB with new settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
-                
-                return YES;
-            }
+    NSData *sebData;
+    NSURL *libraryDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
+                                                                          inDomain:domain
+                                                                 appropriateForURL:nil
+                                                                            create:NO
+                                                                             error:&error];
+    if (libraryDirectory) {
+        NSURL *sebClientSettingsFileURL = [[libraryDirectory URLByAppendingPathComponent:SEBClientSettingsDirectory] URLByAppendingPathComponent:SEBClientSettingsFilename];
+        sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
+        if (sebData && domain == NSUserDomainMask) {
+            // Delete the SEBClientSettings.seb file from the user's Preferences directory
+            error = nil;
+            [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
+            DDLogInfo(@"Attempted to remove file %@, result: %@", sebClientSettingsFileURL, error.description);
         }
     }
-    return NO;
+    return sebData;
+}
+
+
+/// Called after the client was sucesssfully reconfigured with persisted client settings
+- (void) reconfigureClientWithSebClientSettingsCallback
+{
+    DDLogInfo(@"Reconfiguring with client settings was successful");
+    // Restart SEB with new settings
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
 }
 
 
@@ -103,7 +118,7 @@
         // we store the .seb file password/hash and/or certificate/identity
         [prefsController setCurrentConfigPassword:sebFileCrentials.password];
         [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
-        [prefsController setCurrentConfigKeyRef:sebFileCrentials.keyRef];
+        [prefsController setCurrentConfigFileKeyHash:sebFileCrentials.publicKeyHash];
     }
     
     [prefsController initPreferencesWindow];
@@ -120,7 +135,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            int answer = [newAlert runModal];
+            long answer = [newAlert runModal];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
@@ -146,7 +161,7 @@
         // we store the .seb file password/hash and/or certificate/identity
         [prefsController setCurrentConfigPassword:sebFileCrentials.password];
         [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
-        [prefsController setCurrentConfigKeyRef:sebFileCrentials.keyRef];
+        [prefsController setCurrentConfigFileKeyHash:sebFileCrentials.publicKeyHash];
     }
     
     [prefsController initPreferencesWindow];
@@ -182,7 +197,7 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
-    int answer = [newAlert runModal];
+    long answer = [newAlert runModal];
     
     switch(answer)
     {
@@ -203,7 +218,21 @@
 }
 
 
-- (void) presentErrorAlert:(NSError *)error {
+// Ask the user to enter a password for loading settings using the message text and then call the callback selector with the password as parameter
+- (void) promptPasswordWithMessageText:(NSString *)messageText callback:(id)callback selector:(SEL)selector;
+{
+    [self promptPasswordWithMessageText:messageText title:NSLocalizedString(@"Loading Settings",nil) callback:callback selector:selector];
+}
+
+
+- (void)promptPasswordWithMessageText:(NSString *)messageText
+                                title:(NSString *)title
+                             callback:(id)callback
+                             selector:(SEL)aSelector {
+}
+
+
+- (void)showAlertWithError:(NSError *)error { 
     [NSApp presentError:error];
 }
 
