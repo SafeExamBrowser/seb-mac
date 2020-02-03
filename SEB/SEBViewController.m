@@ -739,6 +739,8 @@ static NSMutableSet *browserWindowControllers;
                                                                                       localizedSubtitle:nil
                                                                                                    icon:shortcutItemIcon
                                                                                                userInfo:nil];
+    scanQRCodeShortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", nil);
+    scanQRCodeShortcutItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", nil);
     return scanQRCodeShortcutItem;
 }
 
@@ -1010,12 +1012,18 @@ static NSMutableSet *browserWindowControllers;
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                target:self
                                action:@selector(shareSettingsAction:)];
+        settingsShareButton.accessibilityLabel = NSLocalizedString(@"Share", nil);
+        settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", nil);
+
     }
     if (!settingsActionButton) {
         settingsActionButton = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                target:self
                                 action:@selector(moreSettingsActions:)];
+        settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", nil);
+        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", nil);
+
     }
     self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
     
@@ -3337,13 +3345,17 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             target:self
                                                             action:@selector(goBack)];
         toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
+        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
 
         toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goForward)];
         toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        
+        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
+        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
+
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
         
     } else {
@@ -3617,6 +3629,9 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                   action:@selector(reload)];
             
             toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
             return;
         }
