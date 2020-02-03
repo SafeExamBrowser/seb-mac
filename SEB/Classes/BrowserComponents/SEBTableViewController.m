@@ -119,6 +119,16 @@
 }
 
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (firstTableViewRow) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
+    }
+}
+
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     return [_appDelegate.sebUIController statusBarAppearanceForDevice];
