@@ -87,6 +87,12 @@
 }
 
 
+- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType
+{
+    return [self.delegate getCertificatesOfType:certificateType];
+}
+
+
 - (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef
 {
     return [self.delegate getPublicKeyHashFromIdentity:identityRef];

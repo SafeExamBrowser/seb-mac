@@ -1122,8 +1122,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    storeDecryptedSEBSettingsResult storingConfigResult;
-    if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
+    if (!error) {
         DDLogInfo(@"Storing downloaded SEB config data was successful");
         
         // Reset the direct download flag for the case this was a successful direct download
@@ -1140,7 +1139,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
         // Was this an attempt to download the config directly and the downloaded data was corrupted?
-        if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
+        if (_directConfigDownloadAttempted && error.code == SEBErrorNoValidPrefixNoValidUnencryptedHeader) {
             // We try to download the config in a temporary WebView
             DDLogInfo(@"Trying to download the config in a temporary WebView");
             [self openConfigFromSEBURL:downloadedSEBConfigDataURL];

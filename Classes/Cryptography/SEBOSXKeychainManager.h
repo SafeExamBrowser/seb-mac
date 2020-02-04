@@ -33,12 +33,17 @@
 //
 
 #import "SEBKeychainManager.h"
+#import "RNCryptor.h"
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
-//#import <Security/SecRandom.h> //for SecRandom
+#include "x509_crt.h"
 
+@class SEBKeychainManager;
+@class RNCryptor;
 
 @interface SEBOSXKeychainManager : NSObject <SEBKeychainManagerDelegate>
+
+@property (strong, nonatomic) NSArray *allCertificates;
 
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
