@@ -38,7 +38,7 @@
 @interface SEBTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *StatusBarBackgroundView;
-@property (weak, nonatomic) IBOutlet UILabel *SEBTitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *SEBTitleButtonLabel;
 @property (nonatomic, strong) NSArray *commandItems;
 
 @end
@@ -66,7 +66,7 @@
 
 //    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    _SEBTitleLabel.text = [NSString stringWithFormat:@"%@ %@", SEBFullAppName , versionString];
+    [_SEBTitleButtonLabel setTitle:[NSString stringWithFormat:@"%@ %@", SEBFullAppName , versionString] forState:UIControlStateNormal];
     
     // Add an observer for refreshing the table view
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -77,6 +77,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(initSliderViewAppearance)
                                                  name:@"LGSideMenuWillShowLeftViewNotification" object:nil];
+    
+    // Add an observer for the left slider was displayed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sliderViewDidShow)
+                                                 name:@"LGSideMenuDidShowLeftViewNotification" object:nil];
     
     // Add an observer for the left slider will be hidden by swipe gesture
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -119,16 +124,6 @@
 }
 
 
-- (void) viewDidAppear:(BOOL)animated
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (firstTableViewRow) {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
-    }
-}
-
-
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     return [_appDelegate.sebUIController statusBarAppearanceForDevice];
@@ -141,8 +136,8 @@
         _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
         _commandItems = _appDelegate.sebUIController.leftSliderCommands;
         
-        _SEBTitleLabel.textColor = [UIColor whiteColor];
-        _SEBTitleLabel.hidden = NO;
+        _SEBTitleButtonLabel.tintColor = [UIColor whiteColor];
+        _SEBTitleButtonLabel.hidden = NO;
         CGFloat statusBarHeight = [_appDelegate.sebUIController statusBarHeightForDevice];
         self.statusBarHeight.constant = statusBarHeight;
         self.backgroundViewbottomDistance.constant = -statusBarHeight;
@@ -166,8 +161,14 @@
 - (void)sliderWillCloseByGesture
 {
     if (![_appDelegate.sebUIController extendedDisplay] || _appDelegate.sebUIController.iPadExtendedDisplay) {
-        _SEBTitleLabel.hidden = YES;
+        _SEBTitleButtonLabel.hidden = YES;
     }
+}
+
+
+- (IBAction)closeLeftSideMenu
+{
+    [self.sideMenuController hideLeftViewAnimated];
 }
 
 
