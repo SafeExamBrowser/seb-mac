@@ -89,8 +89,8 @@
                                                 style:UIBarButtonItemStylePlain
                                                target:self
                                                action:@selector(leftDrawerButtonPress:)];
-    dockItem.accessibilityLabel = NSLocalizedString(@"Show left side menu", nil);
-    dockItem.accessibilityHint = NSLocalizedString(@"Shows menu which lists browser tabs (starting with the exam tab) and SEB commands", nil);
+    dockItem.accessibilityLabel = NSLocalizedString(@"Toggle Side Menu", nil);
+    dockItem.accessibilityHint = NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again", nil);
 
     [newDockItems addObject:dockItem];
     
