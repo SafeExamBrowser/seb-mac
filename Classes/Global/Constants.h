@@ -302,11 +302,11 @@ typedef NSUInteger SEBKioskMode;
 
 
 enum {
-    storeDecryptedSEBSettingsResultSuccess      = 0,
-    storeDecryptedSEBSettingsResultCanceled     = 1,
-    storeDecryptedSEBSettingsResultWrongFormat  = 2
+    StoreDecryptedSEBSettingsResultSuccess      = 0,
+    StoreDecryptedSEBSettingsResultCanceled     = 1,
+    StoreDecryptedSEBSettingsResultWrongFormat  = 2
 };
-typedef NSUInteger storeDecryptedSEBSettingsResult;
+typedef NSUInteger StoreDecryptedSEBSettingsResult;
 
 
 enum {

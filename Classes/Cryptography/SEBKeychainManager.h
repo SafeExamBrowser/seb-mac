@@ -68,6 +68,7 @@
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 
 @optional
+- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
 
 @property (nonatomic, retain) SEBKeychainManager *keychainManager;
 
@@ -80,6 +81,7 @@
 
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
+- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
 - (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
 - (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;

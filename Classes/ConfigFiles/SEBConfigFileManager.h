@@ -174,6 +174,8 @@
 
 @property (weak) id delegate;
 @property BOOL currentConfigPasswordIsHash;
+@property StoreDecryptedSEBSettingsResult storeDecryptedSEBSettingsResult;
+@property BOOL suppressFileFormatError;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
