@@ -158,6 +158,16 @@
 }
 
 
+- (void)sliderViewDidShow
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (firstTableViewRow) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
+    }
+}
+
+
 - (void)sliderWillCloseByGesture
 {
     if (![_appDelegate.sebUIController extendedDisplay] || _appDelegate.sebUIController.iPadExtendedDisplay) {
