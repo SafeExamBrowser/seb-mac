@@ -205,17 +205,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Akj-nl-a50" userLabel="Status Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="20"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafeExamBrowser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9q-pG-p69">
-                                        <rect key="frame" x="34" y="2.5" width="102" height="15"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHs-Tc-mxg">
+                                        <rect key="frame" x="34" y="-3.5" width="102" height="27"/>
+                                        <accessibility key="accessibilityConfiguration" label="Hide Side Menu"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal" title="SafeExamBrowser"/>
+                                        <connections>
+                                            <action selector="closeLeftSideMenu" destination="qX6-yp-qcn" eventType="touchUpInside" id="rQo-H7-mSF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="emk-fr-0hr" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T9q-pG-p69" secondAttribute="trailing" constant="5" id="Xeo-7H-IRR"/>
-                                    <constraint firstItem="T9q-pG-p69" firstAttribute="centerY" secondItem="Akj-nl-a50" secondAttribute="centerY" id="ZC8-uW-dE0"/>
-                                    <constraint firstItem="T9q-pG-p69" firstAttribute="leading" secondItem="Akj-nl-a50" secondAttribute="leading" constant="34" id="hFd-rF-QYU"/>
+                                    <constraint firstItem="eHs-Tc-mxg" firstAttribute="centerY" secondItem="Akj-nl-a50" secondAttribute="centerY" id="1cS-vS-J1u"/>
+                                    <constraint firstItem="eHs-Tc-mxg" firstAttribute="leading" secondItem="emk-fr-0hr" secondAttribute="leading" constant="34" id="Ale-mc-kIp"/>
+                                    <constraint firstItem="emk-fr-0hr" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eHs-Tc-mxg" secondAttribute="trailing" constant="5" id="ZVR-Af-3GY"/>
                                     <constraint firstAttribute="height" constant="20" id="oiY-3L-viP"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="emk-fr-0hr"/>
@@ -239,7 +242,7 @@
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8n2-VP-KRt">
                                                     <rect key="frame" x="0.0" y="0.5" width="34" height="32"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <accessibility key="accessibilityConfiguration" hint="Close tab or quit browser session" label="Close"/>
+                                                    <accessibility key="accessibilityConfiguration" hint="Closes tab or quits browser session (on first tab with exam)" label="Close"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="34" id="Kd0-Dw-jKp"/>
                                                         <constraint firstAttribute="height" constant="32" id="xs4-lP-b8t"/>
@@ -252,6 +255,7 @@
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="1000" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aA9-gn-PKl">
                                                     <rect key="frame" x="34" y="3" width="68" height="28"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <accessibility key="accessibilityConfiguration" hint="Hides side menu and switches to this tab"/>
                                                     <viewLayoutGuide key="safeArea" id="bns-C7-kQx"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Webpage">
@@ -400,7 +404,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="SEBTitleLabel" destination="T9q-pG-p69" id="5hv-QM-2BO"/>
+                        <outlet property="SEBTitleButtonLabel" destination="eHs-Tc-mxg" id="Q51-f4-pjy"/>
                         <outlet property="StatusBarBackgroundView" destination="0a6-uW-cSi" id="F7Q-zJ-2GB"/>
                         <outlet property="backgroundViewbottomDistance" destination="fFM-Gb-YLu" id="dAe-9K-m3f"/>
                         <outlet property="statusBarHeight" destination="oiY-3L-viP" id="xJ9-hW-Kyq"/>
@@ -594,6 +598,9 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCX-Ab-h85">
                                                 <rect key="frame" x="20" y="72.5" width="8" height="20.5"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -615,6 +622,9 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCj-e3-Pe5">
                                                 <rect key="frame" x="20" y="128" width="8" height="20.5"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -627,6 +637,7 @@
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-KW-3Qp">
                                                 <rect key="frame" x="32" y="158.5" width="768" height="34"/>
+                                                <accessibility key="accessibilityConfiguration" hint="Enter the domain URL of an institution which supports SEB" label="URL"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                                                 <connections>
@@ -639,7 +650,7 @@
                                             </activityIndicatorView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaL-4I-bjq">
                                                 <rect key="frame" x="32" y="195.5" width="110" height="30"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Search local network for an SEB configuration (requires WiFi)" label="Search Network"/>
+                                                <accessibility key="accessibilityConfiguration" hint="Search local network for a SEB configuration (requires WiFi)" label="Search Network"/>
                                                 <state key="normal" title="Search Network"/>
                                                 <connections>
                                                     <action selector="searchNetwork:" destination="h8j-pm-u2W" eventType="touchUpInside" id="TAP-Y8-ir7"/>
@@ -647,7 +658,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
                                                 <rect key="frame" x="811" y="155.5" width="11" height="40"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Searches for an SEB configuration at the entered domain URL" label="Search for configuration"/>
+                                                <accessibility key="accessibilityConfiguration" hint="Searches for a SEB configuration at the entered domain URL" label="Search for configuration"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="11" id="bj0-dq-iPp"/>
                                                 </constraints>
@@ -668,6 +679,9 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-7Z-Q9L">
                                                 <rect key="frame" x="20" y="257.5" width="8" height="20.5"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
