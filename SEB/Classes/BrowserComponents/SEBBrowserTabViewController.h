@@ -95,7 +95,6 @@
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
 @end
