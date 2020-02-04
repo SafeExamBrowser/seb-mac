@@ -3374,9 +3374,15 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - SEB Dock and left slider button handler
 
--(void)leftDrawerButtonPress:(id)sender
+- (void)leftDrawerButtonPress:(id)sender
 {
     [self.sideMenuController showLeftViewAnimated];
+}
+
+
+- (void)leftDrawerKeyShortcutPress:(id)sender
+{
+    [self.sideMenuController toggleLeftViewAnimated];
 }
 
 
