@@ -256,6 +256,7 @@
 #pragma mark - SEB Dock and left slider button handler
 
 - (void) leftDrawerButtonPress:(id)sender;
+- (void) leftDrawerKeyShortcutPress:(id)sender;
 - (void) showAboutSEB;
 - (IBAction) backToStart;
 - (IBAction) goBack;
