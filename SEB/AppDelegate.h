@@ -56,6 +56,7 @@
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
 @property (strong, nonatomic, readonly) NSURL *universalURL;
 @property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
+@property(readwrite) BOOL didEnterBackground;
 @property(readwrite) BOOL SAMActive;
 @property(readwrite) BOOL openedURL;
 @property(readwrite) BOOL openedUniversalLink;
