@@ -69,7 +69,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     BOOL shouldPerformAdditionalDelegateHandling = true;
 
     // Initialize console loggers
@@ -180,7 +180,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     _didEnterBackground = YES;
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
@@ -209,16 +209,16 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     if (_didEnterBackground) {
         DDLogInfo(@"Application returned to active state after it entered background state before. This usually happens when the device is put to sleep.");
         if (@available(iOS 13.0, *)) {
-            DDLogWarn(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
+            DDLogDebug(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
         } else {
             
         }
@@ -240,7 +240,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         } else {
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
             if (serverConfig.count > 0) {
-                DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
+                DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
                 [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
             }
         }
@@ -275,7 +275,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     DDLogInfo(@"URL scheme:%@", [url scheme]);
     DDLogInfo(@"URL query: %@", [url query]);
     
@@ -300,7 +300,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
   completionHandler:(void (^)(BOOL succeeded))completionHandler;
 {
-    DDLogWarn(@"%s", __FUNCTION__);
     DDLogInfo(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
     
     // Is the main SEB view controller already instantiated?
@@ -319,7 +318,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 // Xcode 9:  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
   restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     NSURL *openedURL = [self getURLForUserActivity:userActivity];
     _openedURL = true;
 
