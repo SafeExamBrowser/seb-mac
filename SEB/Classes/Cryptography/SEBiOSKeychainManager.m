@@ -531,7 +531,7 @@
     //    if (keychain) CFRelease(keychain);
     //    if (status != noErr) {
     //        if (status == errKCDuplicateItem) {
-    //            DDLogWarn(@"%s: SecItemImport of embedded certificate failed, because it is already in the keychain.", __FUNCTION__);
+    //            DDLogDebug(@"%s: SecItemImport of embedded certificate failed, because it is already in the keychain.", __FUNCTION__);
     //        } else {
     //            DDLogError(@"Error in %s: SecItemImport of embedded certificate failed %@", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
     //        }

@@ -309,13 +309,13 @@ static NSMutableSet *browserWindowControllers;
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
                                                       if (serverConfig.count > 0) {
                                                           if (self.settingsOpen == NO) {
-                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
+                                                              DDLogDebug(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server
                                                               // when settings aren't open (otherwise it's postponed to next
                                                               // session restart or when leaving and returning to SEB
                                                               [self conditionallyOpenSEBConfigFromMDMServer];
                                                           } else {
-                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
+                                                              DDLogDebug(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
                                                           }
                                                       }
                                                   }];
@@ -772,6 +772,8 @@ static NSMutableSet *browserWindowControllers;
                                                                                       localizedSubtitle:nil
                                                                                                    icon:shortcutItemIcon
                                                                                                userInfo:nil];
+    scanQRCodeShortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", nil);
+    scanQRCodeShortcutItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", nil);
     return scanQRCodeShortcutItem;
 }
 
@@ -1050,12 +1052,18 @@ static NSMutableSet *browserWindowControllers;
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                target:self
                                action:@selector(shareSettingsAction:)];
+        settingsShareButton.accessibilityLabel = NSLocalizedString(@"Share", nil);
+        settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", nil);
+
     }
     if (!settingsActionButton) {
         settingsActionButton = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                target:self
                                 action:@selector(moreSettingsActions:)];
+        settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", nil);
+        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", nil);
+
     }
     self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
     
@@ -1388,13 +1396,13 @@ static NSMutableSet *browserWindowControllers;
     BOOL readMDMConfig = NO;
     
     if (!_isReconfiguringToMDMConfig) {
-        DDLogWarn(@"%s", __FUNCTION__);
+        DDLogDebug(@"%s", __FUNCTION__);
         // Check if we received a new configuration from an MDM server
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
         BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-        DDLogWarn(@"%@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+        DDLogDebug(@"%@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
         if (serverConfig &&
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
@@ -1402,7 +1410,7 @@ static NSMutableSet *browserWindowControllers;
             DDLogDebug(@"%s: Received new configuration from MDM server. Exam session: %d, private UserDefaults: %d, examSessionReconfigureAllow: %d", __FUNCTION__, examSession, NSUserDefaults.userDefaultsPrivate, allowReconfiguring);
             if (!(receivedServerConfig &&
                   [receivedServerConfig isEqualToDictionary:serverConfig])) {
-                _isReconfiguringToMDMConfig = true;
+                _isReconfiguringToMDMConfig = YES;
                 receivedServerConfig = serverConfig;
                 readMDMConfig = YES;
                 // If we did receive a config and SEB isn't running in exam mode currently
@@ -1418,13 +1426,13 @@ static NSMutableSet *browserWindowControllers;
                                                                       callback:self
                                                                       selector:@selector(storeNewSEBSettingsSuccessful:)];
             } else {
-                DDLogWarn(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+                DDLogDebug(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             }
         } else {
-            DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+            DDLogDebug(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
         }
     } else {
-        DDLogWarn(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
+        DDLogDebug(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
     }
     return readMDMConfig;
 }
@@ -2414,11 +2422,12 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
+    DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
-        _isReconfiguringToMDMConfig = false;
-        _scannedQRCode = false;
+        receivedServerConfig = nil;
+        _isReconfiguringToMDMConfig = NO;
+        _scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
@@ -2437,7 +2446,8 @@ void run_on_ui_thread(dispatch_block_t block)
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
         if (_isReconfiguringToMDMConfig) {
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
-            _isReconfiguringToMDMConfig = false;
+            receivedServerConfig = nil;
+            _isReconfiguringToMDMConfig = NO;
             [self restartExam:false];
             
         } else if (_scannedQRCode) {
@@ -2749,7 +2759,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Check if we received new settings from an MDM server
         if ([self readMDMServerConfig]) {
-            DDLogWarn(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
+            DDLogDebug(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
             return;
         }
         
@@ -2963,7 +2973,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
                 
-                DDLogWarn(@"Single App Mode was switched on again.");
+                DDLogDebug(@"Single App Mode was switched on again.");
 
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
@@ -3483,13 +3493,17 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             target:self
                                                             action:@selector(goBack)];
         toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
+        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
 
         toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goForward)];
         toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        
+        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
+        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
+
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
         
     } else {
@@ -3508,9 +3522,15 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - SEB Dock and left slider button handler
 
--(void)leftDrawerButtonPress:(id)sender
+- (void)leftDrawerButtonPress:(id)sender
 {
     [self.sideMenuController showLeftViewAnimated];
+}
+
+
+- (void)leftDrawerKeyShortcutPress:(id)sender
+{
+    [self.sideMenuController toggleLeftViewAnimated];
 }
 
 
@@ -3763,6 +3783,9 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                   action:@selector(reload)];
             
             toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
             return;
         }

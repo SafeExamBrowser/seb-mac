@@ -501,7 +501,7 @@ static NSString * const authenticationPassword = @"password";
         
         if (authorized)
         {
-            DDLogWarn(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
+            DDLogDebug(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
             
             credential = [NSURLCredential credentialForTrust:serverTrust];
             [protocol resolveAuthenticationChallenge:challenge withCredential:credential];
