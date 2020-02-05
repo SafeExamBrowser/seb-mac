@@ -263,7 +263,7 @@ static NSNumber *_logLevel;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL) setSEBDefaults
 {
-    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
+    DDLogDebug(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];

@@ -283,13 +283,13 @@ static NSMutableSet *browserWindowControllers;
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
                                                       if (serverConfig.count > 0) {
                                                           if (self.settingsOpen == NO) {
-                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
+                                                              DDLogDebug(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server
                                                               // when settings aren't open (otherwise it's postponed to next
                                                               // session restart or when leaving and returning to SEB
                                                               [self conditionallyOpenSEBConfigFromMDMServer];
                                                           } else {
-                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
+                                                              DDLogDebug(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
                                                           }
                                                       }
                                                   }];
@@ -1356,13 +1356,13 @@ static NSMutableSet *browserWindowControllers;
     BOOL readMDMConfig = NO;
     
     if (!_isReconfiguringToMDMConfig) {
-        DDLogWarn(@"%s", __FUNCTION__);
+        DDLogDebug(@"%s", __FUNCTION__);
         // Check if we received a new configuration from an MDM server
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
         BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-        DDLogWarn(@"%@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+        DDLogDebug(@"%@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
         if (serverConfig &&
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
@@ -1386,13 +1386,13 @@ static NSMutableSet *browserWindowControllers;
                                                                       callback:self
                                                                       selector:@selector(storeNewSEBSettingsSuccessful:)];
             } else {
-                DDLogWarn(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+                DDLogDebug(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             }
         } else {
-            DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+            DDLogDebug(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
         }
     } else {
-        DDLogWarn(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
+        DDLogDebug(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
     }
     return readMDMConfig;
 }
@@ -2370,7 +2370,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
+    DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
         receivedServerConfig = nil;
@@ -2676,7 +2676,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Check if we received new settings from an MDM server
         if ([self readMDMServerConfig]) {
-            DDLogWarn(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
+            DDLogDebug(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
             return;
         }
         
@@ -2827,7 +2827,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
                 
-                DDLogWarn(@"Single App Mode was switched on again.");
+                DDLogDebug(@"Single App Mode was switched on again.");
 
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
