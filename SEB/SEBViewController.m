@@ -278,7 +278,7 @@ static NSMutableSet *browserWindowControllers;
     
     self.sideMenuController.delegate = self;
     
-    DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+    DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
     [self initializeLogger];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -718,7 +718,7 @@ static NSMutableSet *browserWindowControllers;
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
-    DDLogError(@"---------- SEB SETTINGS RESET PERFORMED -------------");
+    DDLogInfo(@"---------- SEB SETTINGS RESET PERFORMED -------------");
     [self initializeLogger];
     
     [self resetSEB];
@@ -2718,7 +2718,7 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
     
-    DDLogError(@"---------- RESTARTING SEB SESSION -------------");
+    DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     
     if (_sebServerConnectionEstablished) {
         _sebServerConnectionEstablished = false;
