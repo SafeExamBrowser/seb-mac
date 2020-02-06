@@ -81,11 +81,6 @@ public struct AccessToken: Codable {
 }
 
 
-//public struct Exams: Codable {
-//    let exams: [Exam]
-//}
-
-
 public struct Exam: Codable {
     let examId: String
     let name: String
@@ -105,6 +100,24 @@ public struct Exam: Codable {
     @objc public func name() -> String { return exam.name }
     @objc public func url() -> String { return exam.url }
     @objc public func lmsType() -> String { return exam.lmsType }
+}
+
+
+public struct Ping: Codable {
+    let instruction: String
+    let attributes: Dictionary<String?, String?>
+}
+
+
+@objc public class SEBInstruction: NSObject {
+    let ping: Ping
+    
+    init(_ ping: Ping) {
+        self.ping = ping
+    }
+
+    @objc public func instruction() -> String { return ping.instruction }
+    @objc public func attributes() -> Dictionary<String, String> { return ping.attributes as! Dictionary<String, String> }
 }
 
 
