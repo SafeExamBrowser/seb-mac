@@ -11,6 +11,7 @@ import Foundation
     func loginToExam(_ url: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
     func didEstablishSEBServerConnection()
+    func executeSEBInstruction(_ sebInstruction: SEBInstruction)
 }
 
 @objc public protocol ServerControllerUIDelegate: class {
@@ -204,16 +205,18 @@ public extension SEBServerController {
         pingNumber += 1
         pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970) + "&" + keys.pingNumber + "=" + String(pingNumber)
         
-        let pingRequest = DataRequest(resource: pingResource)
+        let pingRequest = ApiRequest(resource: pingResource)
         pendingRequests?.append(pingRequest)
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
         pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, responseHeaders) in
-            if pingResponse != nil  {
-                let responseBody = String(data: pingResponse!, encoding: .utf8)
-                print(responseBody as Any)
+            guard let ping = pingResponse else {
+                return
+            }
+            if (ping != nil) {
+                self.delegate?.executeSEBInstruction(SEBInstruction(ping!))
             }
         })
     }

@@ -96,6 +96,18 @@
 }
 
 
+- (void) executeSEBInstruction:(SEBInstruction *)sebInstruction
+{
+    if (sebInstruction) {
+        NSString *instruction = sebInstruction.instruction;
+        
+        if ([instruction isEqualToString:@"SEB_QUIT"]) {
+            [_sebViewController sessionQuitRestart:NO];
+        }
+    }
+}
+
+
 - (void) quitSession
 {
     [_sebServerController quitSession];
