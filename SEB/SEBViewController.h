@@ -249,6 +249,7 @@
 #pragma mark - Start and quit exam session
 - (void) startExam;
 - (void) quitExamConditionally;
+- (void) sessionQuitRestart:(BOOL)restart;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
 #pragma mark - Connecting to SEB Server

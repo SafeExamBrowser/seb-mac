@@ -127,7 +127,7 @@ struct HandshakeCloseResource: ApiResource {
     }
 }
 
-struct PingResource: ApiResource {
+struct PingResource: ApiResource {    
     
     var baseURL: URL
     var queryParameters: [String]
@@ -140,8 +140,18 @@ struct PingResource: ApiResource {
         self.methodPath = endpoint
         self.queryParameters = []
     }
-    func makeModel(data: Data) -> Data? {
-        return data
+    func makeModel(data: Data) -> Ping? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        if data.count > 0 {
+            do {
+                let ping = try decoder.decode(Ping.self, from: data)
+                return ping
+            } catch let error {
+                print(error)
+            }
+        }
+        return nil
     }
 }
 
