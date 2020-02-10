@@ -476,9 +476,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobileEnableASAM",
                    
-                   @NO,
-                   @"mobileShowSettings",
-                   
                    [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                    @"mobileStatusBarAppearance",
                    
@@ -640,12 +637,15 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"showReloadButton",
+                                      
+                   @NO,
+                   @"showReloadWarning",
                    
                    @NO,
                    @"showScanQRCodeButton",
                    
                    @NO,
-                   @"showReloadWarning",
+                   @"showSettingsInApp",
                    
                    @YES,
                    @"showTaskBar",
