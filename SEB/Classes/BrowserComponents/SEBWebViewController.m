@@ -343,21 +343,23 @@
     //[self highlightAllOccurencesOfString:@"SEB" inWebView:webView];
     //[self speakWebView:webView];
     
-    NSString *webPageTitle = [_sebWebView title];
+    NSString *webPageTitle;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
-            webPageTitle = nil;
+            webPageTitle = [_sebWebView url].absoluteString;
+        } else {
+            webPageTitle = [_sebWebView title];
         }
     } else {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways) {
-            webPageTitle = nil;
-        }
+                webPageTitle = [_sebWebView url].absoluteString;
+            } else {
+                webPageTitle = [_sebWebView title];
+            }
     }
-    if (webPageTitle.length != 0) {
-        [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
-    }
-    
+    [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
+
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
