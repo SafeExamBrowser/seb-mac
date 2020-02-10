@@ -105,7 +105,7 @@ public struct Exam: Codable {
 
 public struct Ping: Codable {
     let instruction: String
-    let attributes: Dictionary<String?, String?>
+    let attributes: Dictionary<String, String?>?
 }
 
 
