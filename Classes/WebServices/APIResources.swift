@@ -36,6 +36,7 @@ struct DiscoveryResource: ApiResource {
     func makeModel(data: Data) -> Discovery? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
+        print(String(data: data, encoding: String.Encoding.utf8)!)
         guard let discovery = try? decoder.decode(Discovery.self, from: data) else {
             return nil
         }
@@ -60,6 +61,7 @@ struct AccessTokenResource: ApiResource {
     func makeModel(data: Data) -> AccessToken? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
+        print(String(data: data, encoding: String.Encoding.utf8)!)
         guard let accessToken = try? decoder.decode(AccessToken.self, from: data) else {
             return nil
         }
@@ -84,6 +86,7 @@ struct HandshakeResource: ApiResource {
     func makeModel(data: Data) -> [Exam]? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
+        print(String(data: data, encoding: String.Encoding.utf8)!)
         guard let exams = try? decoder.decode([Exam].self, from: data) else {
             return nil
         }
@@ -144,6 +147,7 @@ struct PingResource: ApiResource {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         if data.count > 0 {
+            print(String(data: data, encoding: String.Encoding.utf8)!)
             do {
                 let ping = try decoder.decode(Ping.self, from: data)
                 return ping
