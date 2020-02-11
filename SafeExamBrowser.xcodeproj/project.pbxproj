@@ -159,40 +159,6 @@
 		69B45A4723DC3B3F006E085E /* SEBOSXKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A4523DC3B3E006E085E /* SEBOSXKeychainManager.h */; };
 		69B45A4823DC3B3F006E085E /* SEBOSXKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A4623DC3B3E006E085E /* SEBOSXKeychainManager.m */; };
 		69B45A4A23DC3BD3006E085E /* SEBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A4923DC3BD3006E085E /* SEBConstants.h */; };
-		69B45A6E23DC3DA8006E085E /* MscX509CommonLocalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A4C23DC3DA8006E085E /* MscX509CommonLocalException.m */; };
-		69B45A6F23DC3DA8006E085E /* MscPKCS12.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A4D23DC3DA8006E085E /* MscPKCS12.m */; };
-		69B45A7023DC3DA8006E085E /* MscOpenSSLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A4E23DC3DA8006E085E /* MscOpenSSLExtension.h */; };
-		69B45A7123DC3DA8006E085E /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A4F23DC3DA8006E085E /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */; };
-		69B45A7223DC3DA8006E085E /* MscCertificateRevocationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5023DC3DA8006E085E /* MscCertificateRevocationList.h */; };
-		69B45A7323DC3DA8006E085E /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5123DC3DA8006E085E /* MscIssuerAndSubject.m */; };
-		69B45A7423DC3DA8006E085E /* NSString+MscASCIIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5223DC3DA8006E085E /* NSString+MscASCIIExtension.m */; };
-		69B45A7523DC3DA8006E085E /* MscCertificateSigningRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5323DC3DA8006E085E /* MscCertificateSigningRequest.h */; };
-		69B45A7623DC3DA8006E085E /* MscX509Name.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5423DC3DA8006E085E /* MscX509Name.m */; };
-		69B45A7723DC3DA8006E085E /* MscX509Common-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5523DC3DA8006E085E /* MscX509Common-Prefix.pch */; };
-		69B45A7823DC3DA8006E085E /* MscIssuerAndSerial.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5623DC3DA8006E085E /* MscIssuerAndSerial.h */; };
-		69B45A7923DC3DA8006E085E /* MscX509CommonError.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5723DC3DA8006E085E /* MscX509CommonError.m */; };
-		69B45A7A23DC3DA8006E085E /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5823DC3DA8006E085E /* MscPKCS7.m */; };
-		69B45A7B23DC3DA8006E085E /* MscCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5923DC3DA8006E085E /* MscCertificate.m */; };
-		69B45A7C23DC3DA8006E085E /* MscCertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5A23DC3DA8006E085E /* MscCertificateUtils.h */; };
-		69B45A7D23DC3DA8006E085E /* MscRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5B23DC3DA8006E085E /* MscRSAKey.h */; };
-		69B45A7E23DC3DA8006E085E /* MscIssuerAndSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5C23DC3DA8006E085E /* MscIssuerAndSubject.h */; };
-		69B45A7F23DC3DA8006E085E /* MscCertificateRevocationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5D23DC3DA8006E085E /* MscCertificateRevocationList.m */; };
-		69B45A8023DC3DA8006E085E /* MscOpenSSLExtension.c in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A5E23DC3DA8006E085E /* MscOpenSSLExtension.c */; };
-		69B45A8123DC3DA8006E085E /* MscPKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A5F23DC3DA8006E085E /* MscPKCS12.h */; };
-		69B45A8223DC3DA8006E085E /* MscX509CommonLocalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6023DC3DA8006E085E /* MscX509CommonLocalException.h */; };
-		69B45A8323DC3DA8006E085E /* MscPKCS12_OpenSSL_PKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6123DC3DA8006E085E /* MscPKCS12_OpenSSL_PKCS12.h */; };
-		69B45A8423DC3DA8006E085E /* MscX509Name.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6223DC3DA8006E085E /* MscX509Name.h */; };
-		69B45A8523DC3DA8006E085E /* MscRSAKey_OpenSSL_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6323DC3DA8006E085E /* MscRSAKey_OpenSSL_RSA.h */; };
-		69B45A8623DC3DA8006E085E /* MscCertificateSigningRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A6423DC3DA8006E085E /* MscCertificateSigningRequest.m */; };
-		69B45A8723DC3DA8006E085E /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6523DC3DA8006E085E /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */; };
-		69B45A8823DC3DA8006E085E /* NSString+MscASCIIExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6623DC3DA8006E085E /* NSString+MscASCIIExtension.h */; };
-		69B45A8923DC3DA8006E085E /* MscIssuerAndSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A6723DC3DA8006E085E /* MscIssuerAndSerial.m */; };
-		69B45A8A23DC3DA8006E085E /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6823DC3DA8006E085E /* MscCertificate_OpenSSL_X509.h */; };
-		69B45A8B23DC3DA8006E085E /* MscRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A6923DC3DA8006E085E /* MscRSAKey.m */; };
-		69B45A8C23DC3DA8006E085E /* MscCertificateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B45A6A23DC3DA8006E085E /* MscCertificateUtils.m */; };
-		69B45A8D23DC3DA8006E085E /* MscCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6B23DC3DA8006E085E /* MscCertificate.h */; };
-		69B45A8E23DC3DA8006E085E /* MscPKCS7.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6C23DC3DA8006E085E /* MscPKCS7.h */; };
-		69B45A8F23DC3DA8006E085E /* MscX509CommonError.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B45A6D23DC3DA8006E085E /* MscX509CommonError.h */; };
 		69C1FFA01D0820E20087A5A1 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */; };
 		69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */; };
 		69C2280A1C767B0900F78634 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277D1C767B0900F78634 /* aes.h */; };
@@ -641,40 +607,6 @@
 		69B45A4523DC3B3E006E085E /* SEBOSXKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXKeychainManager.h; sourceTree = "<group>"; };
 		69B45A4623DC3B3E006E085E /* SEBOSXKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXKeychainManager.m; sourceTree = "<group>"; };
 		69B45A4923DC3BD3006E085E /* SEBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBConstants.h; path = Classes/Global/SEBConstants.h; sourceTree = "<group>"; };
-		69B45A4C23DC3DA8006E085E /* MscX509CommonLocalException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509CommonLocalException.m; sourceTree = "<group>"; };
-		69B45A4D23DC3DA8006E085E /* MscPKCS12.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS12.m; sourceTree = "<group>"; };
-		69B45A4E23DC3DA8006E085E /* MscOpenSSLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscOpenSSLExtension.h; sourceTree = "<group>"; };
-		69B45A4F23DC3DA8006E085E /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateSigningRequest_OpenSSL_X509_REQ.h; sourceTree = "<group>"; };
-		69B45A5023DC3DA8006E085E /* MscCertificateRevocationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateRevocationList.h; sourceTree = "<group>"; };
-		69B45A5123DC3DA8006E085E /* MscIssuerAndSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSubject.m; sourceTree = "<group>"; };
-		69B45A5223DC3DA8006E085E /* NSString+MscASCIIExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MscASCIIExtension.m"; sourceTree = "<group>"; };
-		69B45A5323DC3DA8006E085E /* MscCertificateSigningRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateSigningRequest.h; sourceTree = "<group>"; };
-		69B45A5423DC3DA8006E085E /* MscX509Name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509Name.m; sourceTree = "<group>"; };
-		69B45A5523DC3DA8006E085E /* MscX509Common-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MscX509Common-Prefix.pch"; sourceTree = "<group>"; };
-		69B45A5623DC3DA8006E085E /* MscIssuerAndSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscIssuerAndSerial.h; sourceTree = "<group>"; };
-		69B45A5723DC3DA8006E085E /* MscX509CommonError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509CommonError.m; sourceTree = "<group>"; };
-		69B45A5823DC3DA8006E085E /* MscPKCS7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS7.m; sourceTree = "<group>"; };
-		69B45A5923DC3DA8006E085E /* MscCertificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificate.m; sourceTree = "<group>"; };
-		69B45A5A23DC3DA8006E085E /* MscCertificateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateUtils.h; sourceTree = "<group>"; };
-		69B45A5B23DC3DA8006E085E /* MscRSAKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscRSAKey.h; sourceTree = "<group>"; };
-		69B45A5C23DC3DA8006E085E /* MscIssuerAndSubject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscIssuerAndSubject.h; sourceTree = "<group>"; };
-		69B45A5D23DC3DA8006E085E /* MscCertificateRevocationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateRevocationList.m; sourceTree = "<group>"; };
-		69B45A5E23DC3DA8006E085E /* MscOpenSSLExtension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MscOpenSSLExtension.c; sourceTree = "<group>"; };
-		69B45A5F23DC3DA8006E085E /* MscPKCS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS12.h; sourceTree = "<group>"; };
-		69B45A6023DC3DA8006E085E /* MscX509CommonLocalException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509CommonLocalException.h; sourceTree = "<group>"; };
-		69B45A6123DC3DA8006E085E /* MscPKCS12_OpenSSL_PKCS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS12_OpenSSL_PKCS12.h; sourceTree = "<group>"; };
-		69B45A6223DC3DA8006E085E /* MscX509Name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509Name.h; sourceTree = "<group>"; };
-		69B45A6323DC3DA8006E085E /* MscRSAKey_OpenSSL_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscRSAKey_OpenSSL_RSA.h; sourceTree = "<group>"; };
-		69B45A6423DC3DA8006E085E /* MscCertificateSigningRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateSigningRequest.m; sourceTree = "<group>"; };
-		69B45A6523DC3DA8006E085E /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateRevocationList_OpenSSL_X509_CRL.h; sourceTree = "<group>"; };
-		69B45A6623DC3DA8006E085E /* NSString+MscASCIIExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MscASCIIExtension.h"; sourceTree = "<group>"; };
-		69B45A6723DC3DA8006E085E /* MscIssuerAndSerial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSerial.m; sourceTree = "<group>"; };
-		69B45A6823DC3DA8006E085E /* MscCertificate_OpenSSL_X509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate_OpenSSL_X509.h; sourceTree = "<group>"; };
-		69B45A6923DC3DA8006E085E /* MscRSAKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscRSAKey.m; sourceTree = "<group>"; };
-		69B45A6A23DC3DA8006E085E /* MscCertificateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateUtils.m; sourceTree = "<group>"; };
-		69B45A6B23DC3DA8006E085E /* MscCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate.h; sourceTree = "<group>"; };
-		69B45A6C23DC3DA8006E085E /* MscPKCS7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS7.h; sourceTree = "<group>"; };
-		69B45A6D23DC3DA8006E085E /* MscX509CommonError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509CommonError.h; sourceTree = "<group>"; };
 		69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		69C2277D1C767B0900F78634 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -1363,7 +1295,6 @@
 		696F28D815751DF600780DA8 /* Cryptography */ = {
 			isa = PBXGroup;
 			children = (
-				69B45A4B23DC3DA8006E085E /* MscX509Common */,
 				69DFAF2319C468E700CBE69F /* RNCryptor.h */,
 				69DFAF2419C468E700CBE69F /* RNCryptor.m */,
 				69DFAF2519C468E700CBE69F /* RNDecryptor.h */,
@@ -1385,47 +1316,6 @@
 			);
 			name = Cryptography;
 			path = Classes/Cryptography;
-			sourceTree = "<group>";
-		};
-		69B45A4B23DC3DA8006E085E /* MscX509Common */ = {
-			isa = PBXGroup;
-			children = (
-				69B45A4C23DC3DA8006E085E /* MscX509CommonLocalException.m */,
-				69B45A4D23DC3DA8006E085E /* MscPKCS12.m */,
-				69B45A4E23DC3DA8006E085E /* MscOpenSSLExtension.h */,
-				69B45A4F23DC3DA8006E085E /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */,
-				69B45A5023DC3DA8006E085E /* MscCertificateRevocationList.h */,
-				69B45A5123DC3DA8006E085E /* MscIssuerAndSubject.m */,
-				69B45A5223DC3DA8006E085E /* NSString+MscASCIIExtension.m */,
-				69B45A5323DC3DA8006E085E /* MscCertificateSigningRequest.h */,
-				69B45A5423DC3DA8006E085E /* MscX509Name.m */,
-				69B45A5523DC3DA8006E085E /* MscX509Common-Prefix.pch */,
-				69B45A5623DC3DA8006E085E /* MscIssuerAndSerial.h */,
-				69B45A5723DC3DA8006E085E /* MscX509CommonError.m */,
-				69B45A5823DC3DA8006E085E /* MscPKCS7.m */,
-				69B45A5923DC3DA8006E085E /* MscCertificate.m */,
-				69B45A5A23DC3DA8006E085E /* MscCertificateUtils.h */,
-				69B45A5B23DC3DA8006E085E /* MscRSAKey.h */,
-				69B45A5C23DC3DA8006E085E /* MscIssuerAndSubject.h */,
-				69B45A5D23DC3DA8006E085E /* MscCertificateRevocationList.m */,
-				69B45A5E23DC3DA8006E085E /* MscOpenSSLExtension.c */,
-				69B45A5F23DC3DA8006E085E /* MscPKCS12.h */,
-				69B45A6023DC3DA8006E085E /* MscX509CommonLocalException.h */,
-				69B45A6123DC3DA8006E085E /* MscPKCS12_OpenSSL_PKCS12.h */,
-				69B45A6223DC3DA8006E085E /* MscX509Name.h */,
-				69B45A6323DC3DA8006E085E /* MscRSAKey_OpenSSL_RSA.h */,
-				69B45A6423DC3DA8006E085E /* MscCertificateSigningRequest.m */,
-				69B45A6523DC3DA8006E085E /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */,
-				69B45A6623DC3DA8006E085E /* NSString+MscASCIIExtension.h */,
-				69B45A6723DC3DA8006E085E /* MscIssuerAndSerial.m */,
-				69B45A6823DC3DA8006E085E /* MscCertificate_OpenSSL_X509.h */,
-				69B45A6923DC3DA8006E085E /* MscRSAKey.m */,
-				69B45A6A23DC3DA8006E085E /* MscCertificateUtils.m */,
-				69B45A6B23DC3DA8006E085E /* MscCertificate.h */,
-				69B45A6C23DC3DA8006E085E /* MscPKCS7.h */,
-				69B45A6D23DC3DA8006E085E /* MscX509CommonError.h */,
-			);
-			path = MscX509Common;
 			sourceTree = "<group>";
 		};
 		69C227791C767B0900F78634 /* osx-mbedtls */ = {
@@ -1680,13 +1570,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				69C2284B1C767B0900F78634 /* xtea.h in Headers */,
-				69B45A8A23DC3DA8006E085E /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69C2282C1C767B0900F78634 /* md5.h in Headers */,
 				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				69C228151C767B0900F78634 /* certs.h in Headers */,
 				69C228121C767B0900F78634 /* bn_mul.h in Headers */,
-				69B45A8823DC3DA8006E085E /* NSString+MscASCIIExtension.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				69C228991C7B64DF00F78634 /* SEBCertServices.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
@@ -1699,13 +1587,11 @@
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				69C228381C767B0900F78634 /* platform.h in Headers */,
 				69C228201C767B0900F78634 /* ecdsa.h in Headers */,
-				69B45A7E23DC3DA8006E085E /* MscIssuerAndSubject.h in Headers */,
 				69C228211C767B0900F78634 /* ecjpake.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				6950F4731D89F9AB00CCB42A /* HUDPanel.h in Headers */,
 				69C228141C767B0900F78634 /* ccm.h in Headers */,
 				69C228281C767B0900F78634 /* hmac_drbg.h in Headers */,
-				69B45A7123DC3DA8006E085E /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
 				695E02FA1F4B15A4004C7611 /* SEBSettings.h in Headers */,
 				69C2281A1C767B0900F78634 /* config.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
@@ -1732,19 +1618,16 @@
 				69C228221C767B0900F78634 /* ecp.h in Headers */,
 				69C2281F1C767B0900F78634 /* ecdh.h in Headers */,
 				695147AE20B5CC70000BDFBF /* SEBTextViewNonEditing.h in Headers */,
-				69B45A7C23DC3DA8006E085E /* MscCertificateUtils.h in Headers */,
 				69C228481C767B0900F78634 /* x509_crl.h in Headers */,
 				69C228321C767B0900F78634 /* pem.h in Headers */,
 				69F5BDA11CFB4098006FBF81 /* SEBWebViewController.h in Headers */,
 				69C2283F1C767B0900F78634 /* ssl_cache.h in Headers */,
 				69B45A4123DB9509006E085E /* SEBConfigFileCredentials.h in Headers */,
 				69C228111C767B0900F78634 /* blowfish.h in Headers */,
-				69B45A7223DC3DA8006E085E /* MscCertificateRevocationList.h in Headers */,
 				69C2284A1C767B0900F78634 /* x509_csr.h in Headers */,
 				6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */,
 				69C228371C767B0900F78634 /* pkcs5.h in Headers */,
 				69C2280A1C767B0900F78634 /* aes.h in Headers */,
-				69B45A7523DC3DA8006E085E /* MscCertificateSigningRequest.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				69C228271C767B0900F78634 /* havege.h in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
@@ -1753,7 +1636,6 @@
 				69C228341C767B0900F78634 /* pk_internal.h in Headers */,
 				69C228161C767B0900F78634 /* check_config.h in Headers */,
 				69C228331C767B0900F78634 /* pk.h in Headers */,
-				69B45A7023DC3DA8006E085E /* MscOpenSSLExtension.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69C2282E1C767B0900F78634 /* memory_buffer_alloc.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
@@ -1766,9 +1648,7 @@
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69C228181C767B0900F78634 /* cipher_internal.h in Headers */,
-				69B45A8723DC3DA8006E085E /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
 				6982F78D20D22A090061201A /* SEBEncapsulatedSettings.h in Headers */,
-				69B45A7D23DC3DA8006E085E /* MscRSAKey.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
 				69C2280B1C767B0900F78634 /* aesni.h in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
@@ -1776,7 +1656,6 @@
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
 				6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
-				69B45A8523DC3DA8006E085E /* MscRSAKey_OpenSSL_RSA.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				69C228291C767B0900F78634 /* md.h in Headers */,
 				69C228171C767B0900F78634 /* cipher.h in Headers */,
@@ -1786,9 +1665,7 @@
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69C2280D1C767B0900F78634 /* asn1.h in Headers */,
 				69C2283A1C767B0900F78634 /* rsa.h in Headers */,
-				69B45A8E23DC3DA8006E085E /* MscPKCS7.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
-				69B45A8D23DC3DA8006E085E /* MscCertificate.h in Headers */,
 				69C228311C767B0900F78634 /* padlock.h in Headers */,
 				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
 				69519F041DB95E4700159E5B /* CGSPrivate.h in Headers */,
@@ -1796,12 +1673,10 @@
 				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
 				69C228401C767B0900F78634 /* ssl_ciphersuites.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
-				69B45A8223DC3DA8006E085E /* MscX509CommonLocalException.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				6949A4891D0EF5890040ABF1 /* CanonicalRequest.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
-				69B45A8F23DC3DA8006E085E /* MscX509CommonError.h in Headers */,
 				69B45A4A23DC3BD3006E085E /* SEBConstants.h in Headers */,
 				69C228491C767B0900F78634 /* x509_crt.h in Headers */,
 				69C228231C767B0900F78634 /* entropy.h in Headers */,
@@ -1809,7 +1684,6 @@
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				69C2281B1C767B0900F78634 /* ctr_drbg.h in Headers */,
 				69C2281E1C767B0900F78634 /* dhm.h in Headers */,
-				69B45A8423DC3DA8006E085E /* MscX509Name.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				69C2280F1C767B0900F78634 /* base64.h in Headers */,
 				69C228301C767B0900F78634 /* oid.h in Headers */,
@@ -1817,7 +1691,6 @@
 				69C2280E1C767B0900F78634 /* asn1write.h in Headers */,
 				69C2283E1C767B0900F78634 /* ssl.h in Headers */,
 				69C2282B1C767B0900F78634 /* md4.h in Headers */,
-				69B45A7723DC3DA8006E085E /* MscX509Common-Prefix.pch in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
@@ -1828,7 +1701,6 @@
 				69B45A4723DC3B3F006E085E /* SEBOSXKeychainManager.h in Headers */,
 				69C2282A1C767B0900F78634 /* md2.h in Headers */,
 				69C2282F1C767B0900F78634 /* net.h in Headers */,
-				69B45A8123DC3DA8006E085E /* MscPKCS12.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 				69C228471C767B0900F78634 /* x509.h in Headers */,
 				69C2281C1C767B0900F78634 /* debug.h in Headers */,
@@ -1839,7 +1711,6 @@
 				6949A4871D0EF5890040ABF1 /* CacheStoragePolicy.h in Headers */,
 				69EDAC1E1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h in Headers */,
 				69C2283B1C767B0900F78634 /* sha1.h in Headers */,
-				69B45A8323DC3DA8006E085E /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				69C228241C767B0900F78634 /* entropy_poll.h in Headers */,
 				6949A48D1D0EF5890040ABF1 /* QNSURLSessionDemux.h in Headers */,
@@ -1847,7 +1718,6 @@
 				69A23AB71DB500C700110243 /* NSScreen+SEBScreen.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
 				6949A48B1D0EF5890040ABF1 /* CustomHTTPProtocol.h in Headers */,
-				69B45A7823DC3DA8006E085E /* MscIssuerAndSerial.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2027,14 +1897,12 @@
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
 				69C2287A1C767B0900F78634 /* ripemd160.c in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
-				69B45A7323DC3DA8006E085E /* MscIssuerAndSubject.m in Sources */,
 				69C2287B1C767B0900F78634 /* rsa.c in Sources */,
 				69F7B60E14F411FB00FD0761 /* AboutView.m in Sources */,
 				69F7B60F14F411FB00FD0761 /* SEBBrowserWindow.m in Sources */,
 				69C228681C767B0900F78634 /* md.c in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69C2285A1C767B0900F78634 /* debug.c in Sources */,
-				69B45A8023DC3DA8006E085E /* MscOpenSSLExtension.c in Sources */,
 				69C2287F1C767B0900F78634 /* ssl_cache.c in Sources */,
 				6950F4741D89F9AB00CCB42A /* HUDPanel.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
@@ -2043,14 +1911,11 @@
 				69C2288E1C767B0900F78634 /* x509_csr.c in Sources */,
 				6909E3421A019F7A0086A741 /* DDASLLogger.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
-				69B45A7623DC3DA8006E085E /* MscX509Name.m in Sources */,
-				69B45A8923DC3DA8006E085E /* MscIssuerAndSerial.m in Sources */,
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */,
 				69C2286D1C767B0900F78634 /* memory_buffer_alloc.c in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
-				69B45A7A23DC3DA8006E085E /* MscPKCS7.m in Sources */,
 				6982F78E20D22A090061201A /* SEBEncapsulatedSettings.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
 				6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */,
@@ -2071,11 +1936,9 @@
 				69C2288B1C767B0900F78634 /* x509_create.c in Sources */,
 				6949A48C1D0EF5890040ABF1 /* CustomHTTPProtocol.m in Sources */,
 				69C228661C767B0900F78634 /* havege.c in Sources */,
-				69B45A8C23DC3DA8006E085E /* MscCertificateUtils.m in Sources */,
 				69C2284C1C767B0900F78634 /* aes.c in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
 				69C228891C767B0900F78634 /* version_features.c in Sources */,
-				69B45A8B23DC3DA8006E085E /* MscRSAKey.m in Sources */,
 				6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				69C228751C767B0900F78634 /* pkcs12.c in Sources */,
@@ -2106,7 +1969,6 @@
 				69C228651C767B0900F78634 /* gcm.c in Sources */,
 				69C228581C767B0900F78634 /* cipher_wrap.c in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
-				69B45A7F23DC3DA8006E085E /* MscCertificateRevocationList.m in Sources */,
 				69C2287D1C767B0900F78634 /* sha256.c in Sources */,
 				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
 				69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */,
@@ -2121,7 +1983,6 @@
 				6956D3512089232C00298E65 /* SEBLockedViewController.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69C228831C767B0900F78634 /* ssl_srv.c in Sources */,
-				69B45A6E23DC3DA8006E085E /* MscX509CommonLocalException.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				69C228531C767B0900F78634 /* blowfish.c in Sources */,
@@ -2133,16 +1994,13 @@
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
-				69B45A7923DC3DA8006E085E /* MscX509CommonError.m in Sources */,
 				69C228501C767B0900F78634 /* asn1write.c in Sources */,
-				69B45A7423DC3DA8006E085E /* NSString+MscASCIIExtension.m in Sources */,
 				69C2288F1C767B0900F78634 /* x509write_crt.c in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				69C228641C767B0900F78634 /* error.c in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				6941A6631BDB8DED0050BF1E /* SEBDockItemTime.m in Sources */,
-				69B45A7B23DC3DA8006E085E /* MscCertificate.m in Sources */,
 				69C228511C767B0900F78634 /* base64.c in Sources */,
 				69C228851C767B0900F78634 /* ssl_tls.c in Sources */,
 				69C228791C767B0900F78634 /* platform.c in Sources */,
@@ -2169,7 +2027,6 @@
 				69C2285C1C767B0900F78634 /* dhm.c in Sources */,
 				69C228631C767B0900F78634 /* entropy_poll.c in Sources */,
 				6949A48A1D0EF5890040ABF1 /* CanonicalRequest.m in Sources */,
-				69B45A8623DC3DA8006E085E /* MscCertificateSigningRequest.m in Sources */,
 				69C2288A1C767B0900F78634 /* x509.c in Sources */,
 				69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */,
 				69C228721C767B0900F78634 /* pk.c in Sources */,
@@ -2179,7 +2036,6 @@
 				69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */,
 				6949A4881D0EF5890040ABF1 /* CacheStoragePolicy.m in Sources */,
 				69C2286A1C767B0900F78634 /* md4.c in Sources */,
-				69B45A6F23DC3DA8006E085E /* MscPKCS12.m in Sources */,
 				695E02FB1F4B15A4004C7611 /* SEBSettings.m in Sources */,
 				69C2285B1C767B0900F78634 /* des.c in Sources */,
 				69C228521C767B0900F78634 /* bignum.c in Sources */,
@@ -2372,6 +2228,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
@@ -2417,6 +2274,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
@@ -2475,10 +2333,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = SEB/Frameworks/OpenSSL/include;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
-				LIBRARY_SEARCH_PATHS = SEB/Frameworks/OpenSSL/lib;
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Safe Exam Browser";
@@ -2523,10 +2381,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = SEB/Frameworks/OpenSSL/include;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
-				LIBRARY_SEARCH_PATHS = SEB/Frameworks/OpenSSL/lib;
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
