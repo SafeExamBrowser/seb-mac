@@ -626,7 +626,7 @@ bool insideMatrix(void);
 }
 
 
-#pragma mark - Open settings file
+#pragma mark - Open configuration file
 
 - (void)openFile:(NSString *)filename
 {
@@ -682,29 +682,35 @@ bool insideMatrix(void);
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
         
         // Decrypt and store the .seb config file
-        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
-            
-            // If successfull start/restart with new settings
-            _openingSettings = false;
-            
-            if (!_startingUp) {
-                // SEB is being reconfigured by opening a config file
-                [self requestedRestart:nil];
-            }
-            
-        } else {
-            // If SEB was just started (by opening a config file)
-            if (_startingUp) {
-                // we quit, as decrypting the config wasn't successful
-                DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-                quittingMyself = TRUE; // SEB is terminating itself
-                [NSApp terminate: nil]; // Quit SEB
-            } else {
-                // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-            }
-            _openingSettings = false;
+        [configFileManager storeNewSEBSettings:sebData forEditing:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+    }
+}
+
+
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error
+{
+    if (!error) {
+        
+        // If successfull start/restart with new settings
+        _openingSettings = false;
+        
+        if (!_startingUp) {
+            // SEB is being reconfigured by opening a config file
+            [self requestedRestart:nil];
         }
+        
+    } else {
+        // If SEB was just started (by opening a config file)
+        if (_startingUp) {
+            // we quit, as decrypting the config wasn't successful
+            DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
+            quittingMyself = TRUE; // SEB is terminating itself
+            [NSApp terminate: nil]; // Quit SEB
+        } else {
+            // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+//        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        }
+        _openingSettings = false;
     }
 }
 
