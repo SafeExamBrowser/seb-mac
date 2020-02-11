@@ -94,7 +94,6 @@
 - (BOOL)importCertificateFromData:(NSData*)certificateData;
 - (NSData*)getDataForIdentity:(SecIdentityRef)identity;
 - (BOOL)importIdentityFromData:(NSData*)identityData;
-- (NSData*)generatePKCS12IdentityWithName:(NSString *)commonName;
 - (BOOL)generateIdentityWithName:(NSString *)commonName;
 - (BOOL)removeIdentityFromKeychain:(SecIdentityRef)identityRef;
 - (NSData *)retrieveKeyForIdentity:(SecIdentityRef)identityRef;
