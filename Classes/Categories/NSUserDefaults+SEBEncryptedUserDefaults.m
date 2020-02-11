@@ -19,7 +19,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -44,8 +44,6 @@
 //
 
 
-#import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
-#import "SEBEncryptedUserDefaultsController.h"
 #import "MethodSwizzling.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
@@ -175,6 +173,21 @@ static NSNumber *_logLevel;
                                         [NSNumber numberWithLong:0],
                                         @"org_safeexambrowser_browserUserAgentEnvironment",
                                         
+                                        [NSNumber numberWithLong:-1],
+                                        @"org_safeexambrowser_chooseIdentityToEmbed",
+
+                                        [NSNumber numberWithLong:0],
+                                        @"org_safeexambrowser_configFileIdentity",
+                                        
+                                        [NSNumber numberWithLong:configFileShareKeysWithConfig],
+                                        @"org_safeexambrowser_configFileShareKeys",
+                                        
+                                        @YES,
+                                        @"org_safeexambrowser_configFileShareBrowserExamKey",
+                                        
+                                        @NO,
+                                        @"org_safeexambrowser_configFileShareConfigKey",
+
                                         [NSDictionary dictionary],
                                         @"org_safeexambrowser_configKeyContainedKeys",
                                         
@@ -183,16 +196,29 @@ static NSNumber *_logLevel;
                                         
                                         @YES,
                                         @"org_safeexambrowser_elevateWindowLevels",
-                                        
+
+#if TARGET_OS_IPHONE
+                                        [NSString stringWithFormat:@"SEB_iOS_%@_%@",
+#else
                                         [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+#endif
                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                         @"org_safeexambrowser_originatorVersion",
                                         
+                                        @"",
+                                        @"org_safeexambrowser_startURLDeepLink",
+                                        
+                                        @"",
+                                        @"org_safeexambrowser_startURLQueryParameter",
+                                        
                                         nil];
     
-    [appDefaults addEntriesFromDictionary:processedDictionary];
-    
+    for (NSString *key in processedDictionary) {
+        NSString *keyWithPrefix = [self prefixKey:key];
+        id value = [processedDictionary objectForKey:key];
+        [appDefaults setValue:value forKey:keyWithPrefix];
+    }
     return [appDefaults copy];
 }
 
@@ -268,7 +294,7 @@ static NSNumber *_logLevel;
             // Generate Exam Settings Key
             NSData *examSettingsKey = [sharedSEBCryptor checksumForLocalPrefDictionary:currentUserDefaults];
             // If exam settings are corrupted
-            if ([sharedSEBCryptor checkExamSettings:examSettingsKey] == false) {
+            if ([sharedSEBCryptor checkExamSettings:examSettingsKey] == NO) {
                 // Delete all corrupted settings
                 [currentUserDefaults removeAllObjects];
                 // Set the flag to indicate to user later that settings have been reset
