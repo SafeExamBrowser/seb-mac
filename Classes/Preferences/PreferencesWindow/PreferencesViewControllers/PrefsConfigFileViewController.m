@@ -276,8 +276,6 @@
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
 - (NSData *) encryptSEBSettingsWithSelectedCredentials
 {
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
 
@@ -301,7 +299,7 @@
     }
     
     // Encrypt current settings with current credentials
-    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword
+    NSData *encryptedSebData = [self.preferencesController.configFileController encryptSEBSettingsWithPassword:encryptingPassword
                                                                   passwordIsHash:self.configPasswordIsHash
                                                                     withIdentity:identityRef
                                                                       forPurpose:configPurpose];
