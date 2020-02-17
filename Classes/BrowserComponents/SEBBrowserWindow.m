@@ -1736,6 +1736,15 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         self.downloadFileExtension = nil;
     }
 
+    if (([type isEqualToString:@"application/seb"]) ||
+        ([type isEqualToString:@"text/xml"]) ||
+        ([request.URL.pathExtension isEqualToString:@"seb"])) {
+        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
+        [self.browserController downloadSEBConfigFileFromURL:request.URL];
+        [listener ignore];
+        return;
+    }
+
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
