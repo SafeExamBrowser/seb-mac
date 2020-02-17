@@ -98,7 +98,9 @@
         return;
     }
     
-    self.configFileManager = [[SEBConfigFileManager alloc] init];
+    _configFileController = [[SEBOSXConfigFileController alloc] init];
+    _configFileController.sebController = self.sebController;
+
     
     // Save current settings
     self.refreshingPreferences = NO;
@@ -417,7 +419,7 @@
         }
         // Decrypt and store the .seb config file
         currentSEBFileURL = sebFileURL;
-        [self.configFileManager storeNewSEBSettings:sebData
+        [self.configFileController storeNewSEBSettings:sebData
                                          forEditing:YES
                                            callback:self
                                            selector:@selector(openingSEBPrefsSucessfull)];
@@ -1006,7 +1008,7 @@
                     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
                     [NSUserDefaults setUserDefaultsPrivate:YES];
                     
-                    [self.configFileManager storeIntoUserDefaults:localClientPreferences];
+                    [self.configFileController storeIntoUserDefaults:localClientPreferences];
                     DDLogVerbose(@"Private preferences set: %@", privatePreferences);
                     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
@@ -1101,7 +1103,7 @@
     
     // Write just default SEB settings to UserDefaults
     NSDictionary *emptySettings = [NSDictionary dictionary];
-    [self.configFileManager storeIntoUserDefaults:emptySettings];
+    [self.configFileController storeIntoUserDefaults:emptySettings];
     
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -1170,7 +1172,7 @@
     _currentConfigFileKeyHash = nil;
     
     // Write values from local to private preferences
-    [self.configFileManager storeIntoUserDefaults:localClientPreferences];
+    [self.configFileController storeIntoUserDefaults:localClientPreferences];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
@@ -1233,12 +1235,12 @@
             [NSApp presentError:error];
         } else {
             // Pass saved credentials from the last loaded file to the Config File Manager
-            self.configFileManager.currentConfigPassword = _currentConfigPassword;
-            self.configFileManager.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
-            self.configFileManager.currentConfigKeyHash = _currentConfigFileKeyHash;
+            self.configFileController.currentConfigPassword = _currentConfigPassword;
+            self.configFileController.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
+            self.configFileController.currentConfigKeyHash = _currentConfigFileKeyHash;
             
             // Decrypt and store the .seb config file
-            [self.configFileManager storeNewSEBSettings:sebData
+            [self.configFileController storeNewSEBSettings:sebData
                                              forEditing:YES
                                                callback:self
                                                selector:@selector(openingSEBPrefsSucessfull)];
@@ -1339,7 +1341,7 @@
         NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
         [NSUserDefaults setUserDefaultsPrivate:YES];
         
-        [self.configFileManager storeIntoUserDefaults:localClientPreferences];
+        [self.configFileController storeIntoUserDefaults:localClientPreferences];
         
         DDLogVerbose(@"Private preferences set: %@", privatePreferences);
     }
@@ -1397,7 +1399,7 @@
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
     // Write values from .seb config file to the local preferences (shared UserDefaults)
-    [self.configFileManager storeIntoUserDefaults:privatePreferences];
+    [self.configFileController storeIntoUserDefaults:privatePreferences];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     

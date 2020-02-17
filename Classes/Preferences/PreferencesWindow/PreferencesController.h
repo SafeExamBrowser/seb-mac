@@ -35,7 +35,7 @@
 // Controller for the preferences window, populates it with panes
 
 #import <Cocoa/Cocoa.h>
-#import "SEBConfigFileManager.h"
+#import "SEBOSXConfigFileController.h"
 
 #import "PrefsGeneralViewController.h"
 #import "PrefsConfigFileViewController.h"
@@ -51,7 +51,7 @@
 #import "SEBOSXBrowserController.h"
 
 @class SEBController;
-@class SEBConfigFileManager;
+@class SEBOSXConfigFileController;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
 @class PrefsExamViewController;
@@ -72,7 +72,7 @@
 @property BOOL refreshingPreferences;
 @property BOOL certOSWarningDisplayed;
 @property (strong, nonatomic) IBOutlet SEBController *sebController;
-@property (strong, nonatomic) SEBConfigFileManager *configFileManager;
+@property (strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 @property (strong, nonatomic) PrefsExamViewController *examVC;
