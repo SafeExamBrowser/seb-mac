@@ -39,6 +39,7 @@
 #import <IOKit/pwr_mgt/IOPMLib.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
+#import "SEBOSXConfigFileController.h"
 
 #import "CapView.h"
 #import "CapWindow.h"
@@ -62,6 +63,7 @@
 #import "CocoaLumberjack.h"
 
 @class PreferencesController;
+@class SEBOSXConfigFileController;
 @class SEBSystemManager;
 @class SEBDockController;
 @class SEBOSXBrowserController;
@@ -133,6 +135,18 @@
     CGEventRef keyboardEventReturnKey;
 }
 
+@property(strong, nonatomic) IBOutlet id preferencesController;
+@property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
+@property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
+@property(strong, nonatomic) SEBDockController *dockController;
+@property(strong, nonatomic) SEBOSXBrowserController *browserController;
+@property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
+
+@property(strong) NSDate *didLockSEBTime;
+@property(strong) NSDate *didResignActiveTime;
+@property(strong) NSDate *didBecomeActiveTime;
+@property(strong) NSDate *didResumeExamTime;
+
 @property(readwrite) BOOL allowSwitchToApplications;
 
 @property(readwrite) BOOL reOpenedExamDetected;
@@ -161,15 +175,6 @@
 @property(strong) NSScreen *mainScreen;
 @property(strong, atomic) NSMutableArray *modalAlertWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
-@property(strong) IBOutlet id preferencesController;
-@property(strong) IBOutlet SEBSystemManager *systemManager;
-@property(strong) SEBDockController *dockController;
-@property(strong, nonatomic) SEBOSXBrowserController *browserController;
-@property(strong) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
-@property(strong) NSDate *didLockSEBTime;
-@property(strong) NSDate *didResignActiveTime;
-@property(strong) NSDate *didBecomeActiveTime;
-@property(strong) NSDate *didResumeExamTime;
 
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
 @property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
@@ -181,6 +186,12 @@
 
 @property(strong) SEBDockItemButton *dockButtonReload;
 
+- (void)storeNewSEBSettings:(NSData *)sebData
+            forEditing:(BOOL)forEditing
+forceConfiguringClient:(BOOL)forceConfiguringClient
+ showReconfiguredAlert:(BOOL)showReconfiguredAlert
+              callback:(id)callback
+                   selector:(SEL)selector;
 - (void) didOpenSettings;
 
 - (NSAlert *) newAlert;

@@ -1699,12 +1699,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
-//        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-//        [self.browserController downloadSEBConfigFileFromURL:request.URL];
-//        [listener ignore];
-//        return;
-//    }
     
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
     if ([request.URL.scheme isEqualToString:@"data"]) {

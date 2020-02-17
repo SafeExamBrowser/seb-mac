@@ -36,7 +36,7 @@
 #import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
 #import "WebKit+WebKitExtensions.h"
-#import "SEBConfigFileManager.h"
+#import "SEBOSXConfigFileController.h"
 
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
@@ -1099,7 +1099,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     
     if ([self isReconfiguringAllowed]) {
         _sebController.openingSettings = true;
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+        SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
+        configFileController.sebController = self.sebController;
         
         // Get current config path
         currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
@@ -1109,7 +1110,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         // Reset the pending challenge in case it was an authenticated load
         _pendingChallengeCompletionHandler = nil;
         
-        [configFileManager storeNewSEBSettings:sebFileData forEditing:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+        [configFileController storeNewSEBSettings:sebFileData
+                                    forEditing:NO
+                                      callback:self
+                                      selector:@selector(storeNewSEBSettingsSuccessful:)];
         
     } else {
         // Opening downloaded SEB config data definitely failed:
@@ -1158,6 +1162,36 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             [self openingConfigURLRoleBack];
         }
     }
+}
+
+- (void)closeOpeningConfigFileDialog {
+    //TODO: not yet used on macOS
+}
+
+
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
+    //TODO: not yet used on macOS
+}
+
+
+- (void)showOpeningConfigFileDialog:(NSString *)text title:(NSString *)title cancelCallback:(id)callback selector:(SEL)selector {
+    //TODO: not yet used on macOS
+}
+
+
+- (void)storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+      showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                   callback:(id)callback
+                   selector:(SEL)selector
+{
+    [self.sebController storeNewSEBSettings:sebData
+                                 forEditing:forEditing
+                     forceConfiguringClient:forceConfiguringClient
+                      showReconfiguredAlert:showReconfiguredAlert
+                                   callback:callback
+                                   selector:selector];
 }
 
 
