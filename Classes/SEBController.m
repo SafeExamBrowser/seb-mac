@@ -124,16 +124,24 @@ bool insideMatrix(void);
 @synthesize capWindows;
 @synthesize lockdownWindows;
 
-@synthesize browserController;
+
+- (SEBOSXConfigFileController *) configFileController
+{
+    if (!_configFileController) {
+        _configFileController = [[SEBOSXConfigFileController alloc] init];
+        _configFileController.sebController = self;
+    }
+    return _configFileController;
+}
 
 
 - (SEBOSXBrowserController *) browserController
 {
-    if (!browserController) {
-        browserController = [[SEBOSXBrowserController alloc] init];
-        browserController.sebController = self;
+    if (!_browserController) {
+        _browserController = [[SEBOSXBrowserController alloc] init];
+        _browserController.sebController = self;
     }
-    return browserController;
+    return _browserController;
 }
 
 
@@ -203,8 +211,7 @@ bool insideMatrix(void);
         firstStart = [preferences setSEBDefaults];
         
         // Check if there is a SebClientSettings.seb file saved in the preferences directory
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-        [configFileManager reconfigureClientWithSebClientSettings];
+        [self.configFileController reconfigureClientWithSebClientSettings];
         
         // Initialize file logger if it's enabled in client (!) settings,
         // from this point on settings for log level and directory are considered
@@ -674,16 +681,33 @@ bool insideMatrix(void);
         
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
         
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-        
         // Get current config path
-        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+//        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
         // Save the path to the file for possible editing in the preferences window
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
         
         // Decrypt and store the .seb config file
-        [configFileManager storeNewSEBSettings:sebData forEditing:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+        [self.configFileController storeNewSEBSettings:sebData
+                                         forEditing:NO
+                                           callback:self
+                                           selector:@selector(storeNewSEBSettingsSuccessful:)];
     }
+}
+
+
+- (void)storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+      showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                   callback:(id)callback
+                   selector:(SEL)selector
+{
+    [self.configFileController storeNewSEBSettings:sebData
+                                     forEditing:forEditing
+                         forceConfiguringClient:forceConfiguringClient
+                          showReconfiguredAlert:showReconfiguredAlert
+                                       callback:callback
+                                       selector:selector];
 }
 
 

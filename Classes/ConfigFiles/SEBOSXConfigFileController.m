@@ -41,10 +41,9 @@
 {
     self = [super init];
     if (self) {
-        self.sebController = (SEBController *)[NSApp delegate];
         
         [super setDelegate:self];
-    }
+}
     return self;
 }
 
@@ -221,14 +220,25 @@
 // Ask the user to enter a password for loading settings using the message text and then call the callback selector with the password as parameter
 - (void) promptPasswordWithMessageText:(NSString *)messageText callback:(id)callback selector:(SEL)selector;
 {
-    [self promptPasswordWithMessageText:messageText title:NSLocalizedString(@"Loading Settings",nil) callback:callback selector:selector];
+    [self promptPasswordWithMessageText:messageText
+                                  title:NSLocalizedString(@"Loading Settings",nil)
+                               callback:callback
+                               selector:selector];
 }
 
 
 - (void)promptPasswordWithMessageText:(NSString *)messageText
                                 title:(NSString *)title
                              callback:(id)callback
-                             selector:(SEL)aSelector {
+                             selector:(SEL)selector
+{
+    NSString *password = nil;
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+        password = [self.sebController.enterPassword stringValue];
+    }
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, NSString*) = (void *)imp;
+    func(callback, selector, password);
 }
 
 
@@ -239,7 +249,6 @@
 - (void)presentErrorAlert:(NSError *)error {
     [NSApp presentError:error];
 }
-
 
 
 @end
