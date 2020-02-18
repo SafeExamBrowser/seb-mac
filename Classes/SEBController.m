@@ -4096,6 +4096,17 @@ bool insideMatrix(){
         [self.browserController closeAllBrowserWindows];
     }
     
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket.
+    // OS X 10.9 and newer
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+            DDLogInfo(@"Cookies, caches and credential stores were reset");
+        }];
+    } else {
+        DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
+    }
+
     if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
