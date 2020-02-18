@@ -1148,6 +1148,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         // Store the URL of the .seb file as current config file path
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
         
+        downloadedSEBConfigDataURL = url;
+        
         // Reset the pending challenge in case it was an authenticated load
         _pendingChallengeCompletionHandler = nil;
         
@@ -1184,7 +1186,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
         // Was this an attempt to download the config directly and the downloaded data was corrupted?
-        if (_directConfigDownloadAttempted && error.code == SEBErrorNoValidPrefixNoValidUnencryptedHeader) {
+        if (_directConfigDownloadAttempted && error.code == SEBErrorNoValidConfigData) {
             // We try to download the config in a temporary WebView
             DDLogInfo(@"Trying to download the config in a temporary WebView");
             [self openConfigFromSEBURL:downloadedSEBConfigDataURL];
