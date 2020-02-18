@@ -54,6 +54,7 @@
     NSString *lastUsername;
     
     @private
+    BOOL examSessionCookiesClearedOnEnd;
     NSURL *downloadedSEBConfigDataURL;
     NSURL *currentConfigPath;
 }
