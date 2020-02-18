@@ -85,11 +85,18 @@
 
 - (void) resetBrowser
 {
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket.
-//    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-//        // Do something once it's done.
-//    }];
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        // OS X 10.9 and newer
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                DDLogInfo(@"Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = false)");
+            }];
+        } else {
+            DDLogError(@"Cannot reset cookies, caches and credential stores (when starting new browser session) because of running on OS X 10.7 or 10.8.");
+        }
+    }
 
     _activeBrowserWindow = nil;
     
@@ -804,6 +811,24 @@
             }
             _originalURL = url;
             
+            // When the URL of the SEB config file to load is on another host than the current page
+            // then we might need to clear session cookies before attempting to download the config file
+            // when the setting examSessionClearCookiesOnEnd is true
+            if (_currentMainHost && ![url.host isEqualToString:_currentMainHost]) {
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
+                    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+                    // downloads to disk, and ensures that future requests occur on a new socket.
+                    // OS X 10.9 and newer
+                    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+                        examSessionCookiesClearedOnEnd = YES;
+                        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                            DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
+                        }];
+                    } else {
+                        DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
+                    }
+                }
+            }
             // Check if we should try to download the config file from the seb(s) URL directly
             // This is the case when the URL has a .seb filename extension
             // But we only try it when it didn't fail in a first attempt
@@ -1102,6 +1127,22 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
         configFileController.sebController = self.sebController;
         
+        if (examSessionCookiesClearedOnEnd == NO &&
+            [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
+            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+            // downloads to disk, and ensures that future requests occur on a new socket.
+            // OS X 10.9 and newer
+            if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+                [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                    DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
+                }];
+            } else {
+                DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
+            }
+        } else {
+            // reset the flag in case it was YES before
+            examSessionCookiesClearedOnEnd = NO;
+        }
         // Get current config path
         currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
         // Store the URL of the .seb file as current config file path
