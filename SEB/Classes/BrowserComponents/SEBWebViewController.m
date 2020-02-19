@@ -530,7 +530,7 @@
         if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
             NSString *mediaType = [urlResourceSpecifier substringToIndex:mediaTypeRange.location];
             NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
-            if ([mediaTypeParameters indexOfObject:@"application/seb"] != NSNotFound &&
+            if ([mediaTypeParameters indexOfObject:SEBMIMEType] != NSNotFound &&
                 [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
                 NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                 NSData *sebConfigData;
