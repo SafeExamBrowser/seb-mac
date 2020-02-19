@@ -828,6 +828,10 @@
                         DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
                     }
                 }
+            } else if (!_currentMainHost) {
+                // When currentMainHost isn't set yet, SEB was started with a config link, possibly
+                // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
+                examSessionCookiesClearedOnEnd = YES;
             }
             // Check if we should try to download the config file from the seb(s) URL directly
             // This is the case when the URL has a .seb filename extension
