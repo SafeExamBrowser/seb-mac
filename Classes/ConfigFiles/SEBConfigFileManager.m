@@ -755,6 +755,8 @@
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
         }
+        // Inform callback that storing new settings was successful
+        [self storeNewSEBSettingsSuccessful:nil];
         return;
     }
 }
