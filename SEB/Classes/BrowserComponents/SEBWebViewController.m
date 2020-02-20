@@ -443,8 +443,9 @@
 }
 
 
+/// Request handling
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType) __unused navigationType
+ navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *url = [request URL];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
