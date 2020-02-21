@@ -820,7 +820,7 @@
                     // downloads to disk, and ensures that future requests occur on a new socket.
                     // OS X 10.9 and newer
                     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-                        examSessionCookiesClearedOnEnd = YES;
+                        examSessionCookiesAlreadyCleared = YES;
                         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
                             DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
                         }];
@@ -831,7 +831,8 @@
             } else if (!_currentMainHost) {
                 // When currentMainHost isn't set yet, SEB was started with a config link, possibly
                 // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
-                examSessionCookiesClearedOnEnd = YES;
+                // as they were anyways cleared when SEB was started
+                examSessionCookiesAlreadyCleared = YES;
             }
             // Check if we should try to download the config file from the seb(s) URL directly
             // This is the case when the URL has a .seb filename extension
@@ -1131,7 +1132,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
         configFileController.sebController = self.sebController;
         
-        if (examSessionCookiesClearedOnEnd == NO &&
+        if (examSessionCookiesAlreadyCleared == NO &&
             [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
             // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
             // downloads to disk, and ensures that future requests occur on a new socket.
@@ -1145,7 +1146,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             }
         } else {
             // reset the flag in case it was YES before
-            examSessionCookiesClearedOnEnd = NO;
+            examSessionCookiesAlreadyCleared = NO;
         }
         // Get current config path
         currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
