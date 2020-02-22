@@ -8,7 +8,7 @@
 "(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
 
 /* No comment provided by engineer. */
-"%@ was downloaded." = "%@ wurde heruntergeladenen.";
+"%@ was downloaded." = "%@ wurde heruntergeladen.";
 
 /* No comment provided by engineer. */
 "Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
@@ -77,10 +77,10 @@
 "Browser" = "Browser";
 
 /* No comment provided by engineer. */
-"by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladenene Datei auszuwählen";
+"by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladene Datei auszuwählen";
 
 /* No comment provided by engineer. */
-"by only allowing to upload the same file downloaded before" = "nur zuvor heruntergeladenene Datei zulassen";
+"by only allowing to upload the same file downloaded before" = "nur zuvor heruntergeladene Datei zulassen";
 
 /* No comment provided by engineer. */
 "CA Certificate" = "CA-Zertifikat";
@@ -362,10 +362,10 @@
 "Local SEB Settings Have Been Reset" = "Lokale Client-Einstellungen wurden zurückgesetzt";
 
 /* No comment provided by engineer. */
-"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?" = "Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB weiter arbeiten oder beenden?";
+"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?" = "Lokale Einstellungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB weiter arbeiten oder beenden?";
 
 /* No comment provided by engineer. */
-"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?" = "Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
+"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?" = "Lokale Einstellungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
 
 /* No comment provided by engineer. */
 "Log in to" = "Einloggen";
@@ -485,7 +485,7 @@
 "Reading New Settings Failed!" = "Neue Einstellungen laden fehlgeschlagen!";
 
 /* No comment provided by engineer. */
-"Reconfigure SEB Settings" = "Einstelllungen neu konfigurieren";
+"Reconfigure SEB Settings" = "Einstellungen neu konfigurieren";
 
 /* No comment provided by engineer. */
 "Reload" = "Neu laden";
@@ -581,7 +581,7 @@
 "SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %ld:%.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
-"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "SEB wird die zuvor heruntergeladenene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
+"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
 
 /* No comment provided by engineer. */
 "Secure Web Proxy (HTTPS)" = "Sicherer Web-Proxy (HTTPS)";
@@ -818,7 +818,7 @@
 "You edited settings. Do you want to apply them or continue using previous settings?" = "Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren?";
 
 /* No comment provided by engineer. */
-"You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wude mit einer inkompatiblen SEB-Version erstellt.";
+"You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.";
 
 /* No comment provided by engineer. */
 "You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.";
