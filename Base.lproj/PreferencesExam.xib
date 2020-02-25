@@ -19,61 +19,375 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="1" userLabel="Exam Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="631"/>
+        <customView misplaced="YES" id="1" userLabel="Exam Preferences">
+            <rect key="frame" x="0.0" y="0.0" width="650" height="605"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                    <rect key="frame" x="17" y="372" width="616" height="239"/>
-                    <view key="contentView" id="25R-Li-36g">
-                        <rect key="frame" x="3" y="3" width="610" height="219"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
-                                <rect key="frame" x="11" y="17" width="588" height="194"/>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
+                    <rect key="frame" x="20" y="20" width="610" height="567"/>
+                    <subviews>
+                        <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
+                            <rect key="frame" x="-3" y="328" width="616" height="239"/>
+                            <view key="contentView" id="25R-Li-36g">
+                                <rect key="frame" x="3" y="3" width="610" height="219"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                        <rect key="frame" x="-2" y="176" width="328" height="20"/>
-                                        <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="F7C-kd-uJp"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
-                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
-                                        </connections>
-                                    </button>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-0z-l6Z">
-                                        <rect key="frame" x="0.0" y="95" width="586" height="74"/>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
+                                        <rect key="frame" x="11" y="17" width="588" height="194"/>
                                         <subviews>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" spacing="165" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ust-3v-kYO">
-                                                <rect key="frame" x="0.0" y="58" width="586" height="16"/>
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
+                                                <rect key="frame" x="-2" y="176" width="328" height="20"/>
+                                                <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="16" id="F7C-kd-uJp"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
+                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
+                                                </connections>
+                                            </button>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-0z-l6Z">
+                                                <rect key="frame" x="0.0" y="95" width="586" height="74"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
-                                                        <rect key="frame" x="-2" y="0.0" width="116" height="16"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" spacing="165" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ust-3v-kYO">
+                                                        <rect key="frame" x="0.0" y="58" width="586" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
+                                                                <rect key="frame" x="-2" y="0.0" width="116" height="16"/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
+                                                                <rect key="frame" x="274" y="-2" width="314" height="18"/>
+                                                                <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
+                                                                <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="W4K-bF-fFI"/>
+                                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting" id="1019"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
+                                                        <rect key="frame" x="0.0" y="32" width="586" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="kQx-xb-xrE"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="15">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="A4R-q9-m1B"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                                                        <rect key="frame" x="-2" y="0.0" width="590" height="28"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <string key="title">Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="8C8-Uv-UxC"/>
+                                                    <constraint firstItem="32" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" id="dLR-84-dNS"/>
+                                                    <constraint firstItem="14" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" id="hhj-90-vmw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="vCj-EM-TiQ"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzE-Nn-QYd">
+                                                <rect key="frame" x="0.0" y="0.0" width="588" height="86"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
+                                                        <rect key="frame" x="-2" y="70" width="70" height="16"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                                        <rect key="frame" x="274" y="-2" width="314" height="18"/>
-                                                        <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
-                                                        <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
+                                                        <rect key="frame" x="0.0" y="45" width="588" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="SeX-Uk-abc"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
+                                                        <rect key="frame" x="-2" y="0.0" width="592" height="42"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
                                                             <font key="font" metaFont="smallSystem"/>
+                                                            <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation).</string>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="ptt-EJ-rsQ" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" id="3Te-3t-ABS"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Vag-ov-ItE" secondAttribute="trailing" id="dy3-ow-hhh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ptt-EJ-rsQ" secondAttribute="trailing" id="ejs-EE-h0o"/>
+                                                    <constraint firstItem="Vag-ov-ItE" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" id="fTf-Un-rXS"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="FzE-Nn-QYd" secondAttribute="trailing" id="ows-Qd-t1T"/>
+                                            <constraint firstItem="FzE-Nn-QYd" firstAttribute="leading" secondItem="q3M-yD-lYv" secondAttribute="leading" id="sud-9h-vF5"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="q3M-yD-lYv" secondAttribute="trailing" constant="11" id="Ugj-8i-ki0"/>
+                                    <constraint firstItem="q3M-yD-lYv" firstAttribute="top" secondItem="25R-Li-36g" secondAttribute="top" constant="8" id="VnP-Ho-XLj"/>
+                                    <constraint firstAttribute="bottom" secondItem="q3M-yD-lYv" secondAttribute="bottom" constant="17" id="aDV-eR-DBj"/>
+                                    <constraint firstItem="q3M-yD-lYv" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="11" id="chc-kH-xre"/>
+                                </constraints>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="235" id="4cC-MC-v7j"/>
+                            </constraints>
+                            <font key="titleFont" metaFont="system"/>
+                        </box>
+                        <box autoresizesSubviews="NO" verticalHuggingPriority="251" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
+                            <rect key="frame" x="-3" y="188" width="616" height="144"/>
+                            <view key="contentView" id="Bon-Cy-DW3">
+                                <rect key="frame" x="3" y="3" width="610" height="124"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="13" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pGn-ib-7Un">
+                                        <rect key="frame" x="11" y="17" width="588" height="96"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
+                                                <rect key="frame" x="0.0" y="0.0" width="588" height="96"/>
+                                                <subviews>
+                                                    <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
+                                                        <rect key="frame" x="0.0" y="74" width="588" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="PzP-Mf-Ray"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="generateKeys:" target="-2" id="NcY-v5-XrC"/>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="Ymc-lh-u1g">
+                                                                <dictionary key="options">
+                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                    <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <outlet property="delegate" destination="-2" id="1029"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
+                                                        <rect key="frame" x="-2" y="38" width="592" height="33"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" placeholderIntrinsicWidth="186" placeholderIntrinsicHeight="31" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
+                                                        <rect key="frame" x="-2" y="17" width="190" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="16" id="9tX-ai-hcR"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ji2-gQ-cOh">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="W4K-bF-fFI"/>
-                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting" id="1019"/>
+                                                            <action selector="generateKeys:" target="-2" id="tfd-r0-K5J"/>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURLConfirm" id="KbS-z0-hoq"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" placeholderIntrinsicWidth="186" placeholderIntrinsicHeight="31" translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Qt-FY9">
+                                                        <rect key="frame" x="-2" y="-2" width="190" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="16" id="gfk-8C-v9C"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="u5B-hW-58P">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="generateKeys:" target="-2" id="zIj-fo-Qn4"/>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURLConfirm" id="gaN-Hz-LfJ"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="688" firstAttribute="leading" secondItem="xgw-4b-nVf" secondAttribute="leading" id="KR0-We-a19"/>
+                                                    <constraint firstAttribute="trailing" secondItem="688" secondAttribute="trailing" id="Nyd-sQ-uiQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="441" secondAttribute="trailing" id="QZa-5r-is8"/>
+                                                    <constraint firstItem="441" firstAttribute="leading" secondItem="xgw-4b-nVf" secondAttribute="leading" id="vMu-Ju-Xvv"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="xgw-4b-nVf" secondAttribute="trailing" id="YeV-0q-WVP"/>
+                                            <constraint firstItem="xgw-4b-nVf" firstAttribute="leading" secondItem="pGn-ib-7Un" secondAttribute="leading" id="vZS-ef-tmG"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="pGn-ib-7Un" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="11" id="Kv8-ah-LFN"/>
+                                    <constraint firstAttribute="trailing" secondItem="pGn-ib-7Un" secondAttribute="trailing" constant="11" id="MIO-LM-19h"/>
+                                    <constraint firstItem="pGn-ib-7Un" firstAttribute="top" secondItem="Bon-Cy-DW3" secondAttribute="top" constant="11" id="OAZ-2S-DD7"/>
+                                    <constraint firstAttribute="bottom" secondItem="pGn-ib-7Un" secondAttribute="bottom" constant="17" id="c4G-HG-8Bu"/>
+                                </constraints>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="140" id="Olz-Po-eHH"/>
+                            </constraints>
+                            <font key="titleFont" metaFont="system"/>
+                        </box>
+                        <box autoresizesSubviews="NO" verticalHuggingPriority="750" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
+                            <rect key="frame" x="-3" y="-4" width="616" height="196"/>
+                            <view key="contentView" id="LLt-mf-jhD">
+                                <rect key="frame" x="3" y="3" width="610" height="176"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
+                                        <rect key="frame" x="11" y="17" width="588" height="151"/>
+                                        <subviews>
+                                            <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
+                                                <rect key="frame" x="-2" y="133" width="227" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="16" id="CJW-Ch-L6P"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="restartExamUseStartURL:" target="-2" id="uDl-9k-Mbe"/>
+                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="g9n-vv-NdM"/>
+                                                </connections>
+                                            </button>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
+                                                <rect key="frame" x="0.0" y="72" width="588" height="53"/>
+                                                <subviews>
+                                                    <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
+                                                        <rect key="frame" x="0.0" y="31" width="588" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="vQk-RZ-YJB"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="bTx-tu-6Av">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="generateKeys:" target="-2" id="VTm-Oo-6qz"/>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamURL" id="b5R-hF-LwF">
+                                                                <dictionary key="options">
+                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                    <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="3fS-nF-7A2">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
+                                                        <rect key="frame" x="-2" y="0.0" width="549" height="28"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="2Rr-y4-nE8" secondAttribute="trailing" id="oq2-56-rEz"/>
+                                                    <constraint firstItem="2Rr-y4-nE8" firstAttribute="leading" secondItem="Rgb-t0-bFm" secondAttribute="leading" id="uZT-Ng-T6P"/>
+                                                </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
@@ -83,94 +397,75 @@
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
                                             </stackView>
-                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
-                                                <rect key="frame" x="0.0" y="32" width="586" height="22"/>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
+                                                <rect key="frame" x="0.0" y="24" width="588" height="38"/>
+                                                <subviews>
+                                                    <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
+                                                        <rect key="frame" x="0.0" y="17" width="588" height="21"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Back to Start" drawsBackground="YES" id="sY9-Fu-u2Z">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <connections>
+                                                            <action selector="generateKeys:" target="-2" id="QUs-iy-yvv"/>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamText" id="1iF-CY-mCC">
+                                                                <dictionary key="options">
+                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                    <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" preferredMaxLayoutWidth="588" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
+                                                        <rect key="frame" x="-2" y="0.0" width="483" height="14"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)" id="pdT-tX-Sdp">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="22" id="kQx-xb-xrE"/>
+                                                    <constraint firstItem="Qei-df-hVI" firstAttribute="leading" secondItem="nNh-zg-Iff" secondAttribute="leading" id="7Yq-N6-Wai"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Qei-df-hVI" secondAttribute="trailing" id="wrA-en-Riw"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="15">
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
+                                                <rect key="frame" x="-2" y="-2" width="378" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
+                                                </buttonCell>
                                                 <connections>
-                                                    <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="A4R-q9-m1B"/>
+                                                    <action selector="generateKeys:" target="-2" id="Znf-Ar-PBb"/>
+                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamPasswordProtected" id="SdW-dA-oJt"/>
                                                 </connections>
-                                            </textField>
-                                            <textField verticalHuggingPriority="751" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                                <rect key="frame" x="-2" y="0.0" width="590" height="28"/>
-                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
-                                                    <font key="font" metaFont="smallSystem"/>
-                                                    <string key="title">Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
+                                            </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="8C8-Uv-UxC"/>
-                                            <constraint firstItem="32" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" id="dLR-84-dNS"/>
-                                            <constraint firstItem="14" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" id="hhj-90-vmw"/>
-                                            <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="vCj-EM-TiQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="nNh-zg-Iff" secondAttribute="trailing" id="VlI-IS-WM3"/>
+                                            <constraint firstItem="nNh-zg-Iff" firstAttribute="leading" secondItem="Iw2-Sl-eSE" secondAttribute="leading" id="gA2-ha-HJg"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rgb-t0-bFm" secondAttribute="trailing" id="hyi-et-SdD"/>
+                                            <constraint firstItem="Rgb-t0-bFm" firstAttribute="leading" secondItem="Iw2-Sl-eSE" secondAttribute="leading" id="k4z-Lw-YEN"/>
                                         </constraints>
                                         <visibilityPriorities>
+                                            <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
                                             <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzE-Nn-QYd">
-                                        <rect key="frame" x="0.0" y="0.0" width="588" height="86"/>
-                                        <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
-                                                <rect key="frame" x="-2" y="70" width="70" height="16"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
-                                                <rect key="frame" x="0.0" y="45" width="588" height="22"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="22" id="SeX-Uk-abc"/>
-                                                </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                                <connections>
-                                                    <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
-                                                </connections>
-                                            </textField>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
-                                                <rect key="frame" x="-2" y="0.0" width="592" height="42"/>
-                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
-                                                    <font key="font" metaFont="smallSystem"/>
-                                                    <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation).</string>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="ptt-EJ-rsQ" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" id="3Te-3t-ABS"/>
-                                            <constraint firstAttribute="trailing" secondItem="Vag-ov-ItE" secondAttribute="trailing" id="dy3-ow-hhh"/>
-                                            <constraint firstAttribute="trailing" secondItem="ptt-EJ-rsQ" secondAttribute="trailing" id="ejs-EE-h0o"/>
-                                            <constraint firstItem="Vag-ov-ItE" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" id="fTf-Un-rXS"/>
-                                        </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
@@ -178,293 +473,49 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="FzE-Nn-QYd" secondAttribute="trailing" id="ows-Qd-t1T"/>
-                                    <constraint firstItem="FzE-Nn-QYd" firstAttribute="leading" secondItem="q3M-yD-lYv" secondAttribute="leading" id="sud-9h-vF5"/>
+                                    <constraint firstItem="Iw2-Sl-eSE" firstAttribute="leading" secondItem="LLt-mf-jhD" secondAttribute="leading" constant="11" id="MUT-9t-NsG"/>
+                                    <constraint firstAttribute="bottom" secondItem="Iw2-Sl-eSE" secondAttribute="bottom" constant="17" id="SqG-Dz-8K0"/>
+                                    <constraint firstItem="Iw2-Sl-eSE" firstAttribute="top" secondItem="LLt-mf-jhD" secondAttribute="top" constant="8" id="hue-EV-IT2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Iw2-Sl-eSE" secondAttribute="trailing" constant="11" id="vZu-Pj-CqX"/>
                                 </constraints>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="q3M-yD-lYv" secondAttribute="trailing" constant="11" id="Ugj-8i-ki0"/>
-                            <constraint firstItem="q3M-yD-lYv" firstAttribute="top" secondItem="25R-Li-36g" secondAttribute="top" constant="8" id="VnP-Ho-XLj"/>
-                            <constraint firstAttribute="bottom" secondItem="q3M-yD-lYv" secondAttribute="bottom" constant="17" id="aDV-eR-DBj"/>
-                            <constraint firstItem="q3M-yD-lYv" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="11" id="chc-kH-xre"/>
-                        </constraints>
-                    </view>
-                    <font key="titleFont" metaFont="system"/>
-                </box>
-                <box autoresizesSubviews="NO" verticalHuggingPriority="251" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                    <rect key="frame" x="17" y="226" width="616" height="132"/>
-                    <view key="contentView" id="Bon-Cy-DW3">
-                        <rect key="frame" x="3" y="3" width="610" height="112"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="13" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pGn-ib-7Un">
-                                <rect key="frame" x="11" y="17" width="588" height="84"/>
-                                <subviews>
-                                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
-                                        <rect key="frame" x="0.0" y="29" width="588" height="55"/>
-                                        <subviews>
-                                            <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
-                                                <rect key="frame" x="0.0" y="33" width="588" height="22"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="22" id="PzP-Mf-Ray"/>
-                                                </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                                <connections>
-                                                    <action selector="generateKeys:" target="-2" id="NcY-v5-XrC"/>
-                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="Ymc-lh-u1g">
-                                                        <dictionary key="options">
-                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                            <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
-                                                        </dictionary>
-                                                    </binding>
-                                                    <outlet property="delegate" destination="-2" id="1029"/>
-                                                </connections>
-                                            </textField>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
-                                                <rect key="frame" x="1" y="0.0" width="587" height="30"/>
-                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
-                                                    <font key="font" metaFont="smallSystem"/>
-                                                    <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="688" firstAttribute="leading" secondItem="xgw-4b-nVf" secondAttribute="leading" id="KR0-We-a19"/>
-                                            <constraint firstAttribute="trailing" secondItem="688" secondAttribute="trailing" id="Nyd-sQ-uiQ"/>
-                                        </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
-                                    <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" placeholderIntrinsicWidth="186" placeholderIntrinsicHeight="31" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
-                                        <rect key="frame" x="-2" y="-2" width="190" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="9tX-ai-hcR"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ji2-gQ-cOh">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="generateKeys:" target="-2" id="tfd-r0-K5J"/>
-                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURLConfirm" id="KbS-z0-hoq"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xgw-4b-nVf" secondAttribute="trailing" id="YeV-0q-WVP"/>
-                                    <constraint firstItem="xgw-4b-nVf" firstAttribute="leading" secondItem="pGn-ib-7Un" secondAttribute="leading" id="vZS-ef-tmG"/>
-                                </constraints>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="pGn-ib-7Un" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="11" id="Kv8-ah-LFN"/>
-                            <constraint firstAttribute="trailing" secondItem="pGn-ib-7Un" secondAttribute="trailing" constant="11" id="MIO-LM-19h"/>
-                            <constraint firstItem="pGn-ib-7Un" firstAttribute="top" secondItem="Bon-Cy-DW3" secondAttribute="top" constant="11" id="OAZ-2S-DD7"/>
-                            <constraint firstAttribute="bottom" secondItem="pGn-ib-7Un" secondAttribute="bottom" constant="17" id="c4G-HG-8Bu"/>
-                        </constraints>
-                    </view>
-                    <font key="titleFont" metaFont="system"/>
-                </box>
-                <box autoresizesSubviews="NO" verticalHuggingPriority="750" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
-                    <rect key="frame" x="17" y="16" width="616" height="196"/>
-                    <view key="contentView" id="LLt-mf-jhD">
-                        <rect key="frame" x="3" y="3" width="610" height="176"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
-                                <rect key="frame" x="11" y="17" width="588" height="151"/>
-                                <subviews>
-                                    <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
-                                        <rect key="frame" x="-2" y="133" width="227" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="CJW-Ch-L6P"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="restartExamUseStartURL:" target="-2" id="uDl-9k-Mbe"/>
-                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="g9n-vv-NdM"/>
-                                        </connections>
-                                    </button>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
-                                        <rect key="frame" x="0.0" y="82" width="588" height="39"/>
-                                        <subviews>
-                                            <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
-                                                <rect key="frame" x="0.0" y="18" width="588" height="21"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="bTx-tu-6Av">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                                <connections>
-                                                    <action selector="generateKeys:" target="-2" id="VTm-Oo-6qz"/>
-                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamURL" id="b5R-hF-LwF">
-                                                        <dictionary key="options">
-                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                            <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
-                                                        </dictionary>
-                                                    </binding>
-                                                    <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="3fS-nF-7A2">
-                                                        <dictionary key="options">
-                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                        </dictionary>
-                                                    </binding>
-                                                    <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
-                                                </connections>
-                                            </textField>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
-                                                <rect key="frame" x="-2" y="0.0" width="549" height="14"/>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
-                                                    <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="2Rr-y4-nE8" secondAttribute="trailing" id="oq2-56-rEz"/>
-                                            <constraint firstItem="2Rr-y4-nE8" firstAttribute="leading" secondItem="Rgb-t0-bFm" secondAttribute="leading" id="uZT-Ng-T6P"/>
-                                        </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
-                                        <rect key="frame" x="0.0" y="29" width="588" height="39"/>
-                                        <subviews>
-                                            <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
-                                                <rect key="frame" x="0.0" y="18" width="588" height="21"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Back to Start" drawsBackground="YES" id="sY9-Fu-u2Z">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                                <connections>
-                                                    <action selector="generateKeys:" target="-2" id="QUs-iy-yvv"/>
-                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamText" id="1iF-CY-mCC">
-                                                        <dictionary key="options">
-                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                            <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
-                                                        </dictionary>
-                                                    </binding>
-                                                    <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
-                                                </connections>
-                                            </textField>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="588" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
-                                                <rect key="frame" x="-2" y="0.0" width="483" height="14"/>
-                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)" id="pdT-tX-Sdp">
-                                                    <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Qei-df-hVI" firstAttribute="leading" secondItem="nNh-zg-Iff" secondAttribute="leading" id="7Yq-N6-Wai"/>
-                                            <constraint firstAttribute="trailing" secondItem="Qei-df-hVI" secondAttribute="trailing" id="wrA-en-Riw"/>
-                                        </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
-                                    <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                        <rect key="frame" x="-2" y="-2" width="378" height="19"/>
-                                        <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="generateKeys:" target="-2" id="Znf-Ar-PBb"/>
-                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamPasswordProtected" id="SdW-dA-oJt"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="nNh-zg-Iff" secondAttribute="trailing" id="VlI-IS-WM3"/>
-                                    <constraint firstItem="nNh-zg-Iff" firstAttribute="leading" secondItem="Iw2-Sl-eSE" secondAttribute="leading" id="gA2-ha-HJg"/>
-                                    <constraint firstAttribute="trailing" secondItem="Rgb-t0-bFm" secondAttribute="trailing" id="hyi-et-SdD"/>
-                                    <constraint firstItem="Rgb-t0-bFm" firstAttribute="leading" secondItem="Iw2-Sl-eSE" secondAttribute="leading" id="k4z-Lw-YEN"/>
-                                </constraints>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="Iw2-Sl-eSE" firstAttribute="leading" secondItem="LLt-mf-jhD" secondAttribute="leading" constant="11" id="MUT-9t-NsG"/>
-                            <constraint firstAttribute="bottom" secondItem="Iw2-Sl-eSE" secondAttribute="bottom" constant="17" id="SqG-Dz-8K0"/>
-                            <constraint firstItem="Iw2-Sl-eSE" firstAttribute="top" secondItem="LLt-mf-jhD" secondAttribute="top" constant="8" id="hue-EV-IT2"/>
-                            <constraint firstAttribute="trailing" secondItem="Iw2-Sl-eSE" secondAttribute="trailing" constant="11" id="vZu-Pj-CqX"/>
-                        </constraints>
-                    </view>
-                    <font key="titleFont" metaFont="system"/>
-                </box>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="192" id="oJR-0o-vrJ"/>
+                            </constraints>
+                            <font key="titleFont" metaFont="system"/>
+                        </box>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" id="0hX-nT-Urm"/>
+                        <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" id="3eP-Pi-xCc"/>
+                        <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="Ay5-ab-HYm" secondAttribute="leading" id="E3U-s3-Qco"/>
+                        <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" id="NCB-pM-pNG"/>
+                        <constraint firstAttribute="bottom" secondItem="czI-08-Q8k" secondAttribute="bottom" id="RRY-Ey-LYV"/>
+                        <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" id="cno-2c-Ujq"/>
+                        <constraint firstItem="czI-08-Q8k" firstAttribute="leading" secondItem="Ay5-ab-HYm" secondAttribute="leading" id="kg5-A5-cs2"/>
+                        <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" id="lK1-be-AOS"/>
+                        <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" id="nRL-FF-MAh"/>
+                        <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="Ay5-ab-HYm" secondAttribute="leading" id="uHp-4B-4sx"/>
+                        <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="Ay5-ab-HYm" secondAttribute="top" id="xeG-59-oNe"/>
+                        <constraint firstAttribute="trailing" secondItem="26k-Q1-RaL" secondAttribute="trailing" id="zgg-zo-esa"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" symbolic="YES" id="29Q-Km-qlA"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="26k-Q1-RaL" secondAttribute="leading" id="BmL-Tb-Dds"/>
-                <constraint firstAttribute="bottom" secondItem="czI-08-Q8k" secondAttribute="bottom" constant="20" symbolic="YES" id="Iwt-Wg-bQd"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="czI-08-Q8k" secondAttribute="leading" id="Jvj-HD-9RT"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="USD-Kn-tYL"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Vd6-Tk-ATw"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="trailing" secondItem="26k-Q1-RaL" secondAttribute="trailing" id="YE7-1a-C0V"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" id="aK7-tw-hqJ"/>
-                <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="18" id="dXf-wd-llE"/>
-                <constraint firstAttribute="bottom" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="230" id="ta4-eG-HUW"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="1" secondAttribute="top" constant="273" id="wQN-kF-0fo"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" constant="18" id="zcV-vh-Wnp"/>
+                <constraint firstAttribute="trailing" secondItem="Ay5-ab-HYm" secondAttribute="trailing" constant="20" id="c9c-Df-5wh"/>
+                <constraint firstItem="Ay5-ab-HYm" firstAttribute="top" secondItem="1" secondAttribute="top" constant="10" id="eBq-wl-On1"/>
+                <constraint firstAttribute="bottom" secondItem="Ay5-ab-HYm" secondAttribute="bottom" constant="20" id="ksK-s9-pAf"/>
+                <constraint firstItem="Ay5-ab-HYm" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="yhF-Tf-8de"/>
             </constraints>
             <point key="canvasLocation" x="511" y="870.5"/>
         </customView>
