@@ -209,13 +209,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="13" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pGn-ib-7Un">
-                                <rect key="frame" x="11" y="11" width="588" height="90"/>
+                                <rect key="frame" x="11" y="17" width="588" height="84"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
-                                        <rect key="frame" x="0.0" y="29" width="588" height="61"/>
+                                        <rect key="frame" x="0.0" y="29" width="588" height="55"/>
                                         <subviews>
                                             <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
-                                                <rect key="frame" x="0.0" y="39" width="588" height="22"/>
+                                                <rect key="frame" x="0.0" y="33" width="588" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="22" id="PzP-Mf-Ray"/>
                                                 </constraints>
@@ -236,7 +236,7 @@
                                                 </connections>
                                             </textField>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
-                                                <rect key="frame" x="1" y="0.0" width="587" height="36"/>
+                                                <rect key="frame" x="1" y="0.0" width="587" height="30"/>
                                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
@@ -291,7 +291,7 @@
                             <constraint firstItem="pGn-ib-7Un" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="11" id="Kv8-ah-LFN"/>
                             <constraint firstAttribute="trailing" secondItem="pGn-ib-7Un" secondAttribute="trailing" constant="11" id="MIO-LM-19h"/>
                             <constraint firstItem="pGn-ib-7Un" firstAttribute="top" secondItem="Bon-Cy-DW3" secondAttribute="top" constant="11" id="OAZ-2S-DD7"/>
-                            <constraint firstAttribute="bottom" secondItem="pGn-ib-7Un" secondAttribute="bottom" constant="11" id="c4G-HG-8Bu"/>
+                            <constraint firstAttribute="bottom" secondItem="pGn-ib-7Un" secondAttribute="bottom" constant="17" id="c4G-HG-8Bu"/>
                         </constraints>
                     </view>
                     <font key="titleFont" metaFont="system"/>
@@ -303,10 +303,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
-                                <rect key="frame" x="11" y="11" width="588" height="157"/>
+                                <rect key="frame" x="11" y="17" width="588" height="151"/>
                                 <subviews>
                                     <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
-                                        <rect key="frame" x="-2" y="139" width="227" height="20"/>
+                                        <rect key="frame" x="-2" y="133" width="227" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="CJW-Ch-L6P"/>
                                         </constraints>
@@ -320,7 +320,7 @@
                                         </connections>
                                     </button>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
-                                        <rect key="frame" x="0.0" y="88" width="588" height="39"/>
+                                        <rect key="frame" x="0.0" y="82" width="588" height="39"/>
                                         <subviews>
                                             <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
                                                 <rect key="frame" x="0.0" y="18" width="588" height="21"/>
@@ -368,7 +368,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
-                                        <rect key="frame" x="0.0" y="35" width="588" height="39"/>
+                                        <rect key="frame" x="0.0" y="29" width="588" height="39"/>
                                         <subviews>
                                             <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                                 <rect key="frame" x="0.0" y="18" width="588" height="21"/>
@@ -411,7 +411,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                        <rect key="frame" x="-2" y="-2" width="378" height="25"/>
+                                        <rect key="frame" x="-2" y="-2" width="378" height="19"/>
                                         <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -444,7 +444,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="Iw2-Sl-eSE" firstAttribute="leading" secondItem="LLt-mf-jhD" secondAttribute="leading" constant="11" id="MUT-9t-NsG"/>
-                            <constraint firstAttribute="bottom" secondItem="Iw2-Sl-eSE" secondAttribute="bottom" constant="11" id="SqG-Dz-8K0"/>
+                            <constraint firstAttribute="bottom" secondItem="Iw2-Sl-eSE" secondAttribute="bottom" constant="17" id="SqG-Dz-8K0"/>
                             <constraint firstItem="Iw2-Sl-eSE" firstAttribute="top" secondItem="LLt-mf-jhD" secondAttribute="top" constant="8" id="hue-EV-IT2"/>
                             <constraint firstAttribute="trailing" secondItem="Iw2-Sl-eSE" secondAttribute="trailing" constant="11" id="vZu-Pj-CqX"/>
                         </constraints>
