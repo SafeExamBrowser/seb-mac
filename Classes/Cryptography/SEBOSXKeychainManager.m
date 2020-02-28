@@ -538,38 +538,44 @@
 
 
 - (NSData *)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef {
-    SecCertificateRef certificateRef = [self copyCertificateFromIdentity:identityRef];
-    return [self getPublicKeyHashFromCertificate:certificateRef];
+    if (identityRef) {
+        SecCertificateRef certificateRef = [self copyCertificateFromIdentity:identityRef];
+        return [self getPublicKeyHashFromCertificate:certificateRef];
+    } else {
+        return nil;
+    }
 }
 
 
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate {
-    NSData *subjectKeyIdentifier = nil;
-    static const UInt32 desiredAttributeTags[1] = { kSecPublicKeyHashItemAttr };
-    static const UInt32 desiredAttributeFormats[1] = { CSSM_DB_ATTRIBUTE_FORMAT_BLOB };
-    static const SecKeychainAttributeInfo desiredAtts = {
-        .count = 1,
-        .tag = (UInt32 *)desiredAttributeTags,
-        .format = (UInt32 *)desiredAttributeFormats
-    };
-    
-    SecKeychainAttributeList *retrievedAtts = NULL;
-    
-    SecKeychainItemRef asKCItem = (SecKeychainItemRef)certificate; // Superclass, but the compiler doesn't know that for CFTypes
-    OSStatus err = SecKeychainItemCopyAttributesAndData(asKCItem, (SecKeychainAttributeInfo *)&desiredAtts, NULL, &retrievedAtts, NULL, NULL);
-    
-    if (err == noErr) {
-        if (retrievedAtts->count == 1 &&
-            retrievedAtts->attr[0].tag == kSecPublicKeyHashItemAttr) {
-            //retrievedAtts->attr[0].length == [subjectKeyIdentifier length] &&
-            //memcmp(retrievedAtts->attr[0].data, [subjectKeyIdentifier bytes], retrievedAtts->attr[0].length);
-            subjectKeyIdentifier = [NSData dataWithBytes:retrievedAtts->attr[0].data length:retrievedAtts->attr[0].length];
+    if (certificate) {
+        NSData *subjectKeyIdentifier = nil;
+        static const UInt32 desiredAttributeTags[1] = { kSecPublicKeyHashItemAttr };
+        static const UInt32 desiredAttributeFormats[1] = { CSSM_DB_ATTRIBUTE_FORMAT_BLOB };
+        static const SecKeychainAttributeInfo desiredAtts = {
+            .count = 1,
+            .tag = (UInt32 *)desiredAttributeTags,
+            .format = (UInt32 *)desiredAttributeFormats
+        };
+        
+        SecKeychainAttributeList *retrievedAtts = NULL;
+        
+        SecKeychainItemRef asKCItem = (SecKeychainItemRef)certificate; // Superclass, but the compiler doesn't know that for CFTypes
+        OSStatus err = SecKeychainItemCopyAttributesAndData(asKCItem, (SecKeychainAttributeInfo *)&desiredAtts, NULL, &retrievedAtts, NULL, NULL);
+        
+        if (err == noErr) {
+            if (retrievedAtts->count == 1 &&
+                retrievedAtts->attr[0].tag == kSecPublicKeyHashItemAttr) {
+                //retrievedAtts->attr[0].length == [subjectKeyIdentifier length] &&
+                //memcmp(retrievedAtts->attr[0].data, [subjectKeyIdentifier bytes], retrievedAtts->attr[0].length);
+                subjectKeyIdentifier = [NSData dataWithBytes:retrievedAtts->attr[0].data length:retrievedAtts->attr[0].length];
+                SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
+                return subjectKeyIdentifier;
+            }
+        } else if (err == errKCNotAvailable) {
+            DDLogError(@"Keychain Manager was not loaded.");
             SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
-            return subjectKeyIdentifier;
         }
-    } else if (err == errKCNotAvailable) {
-        DDLogError(@"Keychain Manager was not loaded.");
-        SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
     }
     return nil;
 }
