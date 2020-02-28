@@ -29,10 +29,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="685"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
-                                <rect key="frame" x="0.0" y="0.0" width="650" height="753"/>
+                                <rect key="frame" x="0.0" y="0.0" width="650" height="694"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                                        <rect key="frame" x="17" y="499" width="616" height="234"/>
+                                        <rect key="frame" x="17" y="445" width="616" height="234"/>
                                         <view key="contentView" id="25R-Li-36g">
                                             <rect key="frame" x="3" y="3" width="610" height="214"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,13 +216,13 @@
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                                        <rect key="frame" x="17" y="341" width="616" height="144"/>
+                                        <rect key="frame" x="17" y="312" width="616" height="119"/>
                                         <view key="contentView" id="Bon-Cy-DW3">
-                                            <rect key="frame" x="3" y="3" width="610" height="124"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
-                                                    <rect key="frame" x="11" y="38" width="588" height="78"/>
+                                                    <rect key="frame" x="11" y="13" width="588" height="78"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BME-1F-4b7">
                                                             <rect key="frame" x="0.0" y="25" width="588" height="53"/>
@@ -273,7 +273,7 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRp-nu-0tq">
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="firstBaseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRp-nu-0tq">
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="16"/>
                                                             <subviews>
                                                                 <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
@@ -340,12 +340,12 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="610" id="KSp-eF-age"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="Xfm-iF-UnG"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="115" id="Xfm-iF-UnG"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
-                                        <rect key="frame" x="17" y="149" width="616" height="178"/>
+                                        <rect key="frame" x="17" y="120" width="616" height="178"/>
                                         <view key="contentView" id="LLt-mf-jhD">
                                             <rect key="frame" x="3" y="3" width="610" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -522,42 +522,55 @@
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box title="Session Cookies" translatesAutoresizingMaskIntoConstraints="NO" id="Uuj-be-mvj">
-                                        <rect key="frame" x="17" y="16" width="616" height="119"/>
+                                        <rect key="frame" x="17" y="16" width="616" height="90"/>
                                         <view key="contentView" id="n6h-gS-HDc">
-                                            <rect key="frame" x="3" y="3" width="610" height="99"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ie9-ZQ-spU">
-                                                    <rect key="frame" x="11" y="13" width="588" height="78"/>
+                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ie9-ZQ-spU">
+                                                    <rect key="frame" x="11" y="13" width="588" height="49"/>
                                                     <subviews>
-                                                        <button toolTip="Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="Suk-hp-L3I">
-                                                            <rect key="frame" x="-2" y="60" width="154" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="HPg-iY-Hbk"/>
-                                                            </constraints>
-                                                            <buttonCell key="cell" type="check" title="Clear on session start" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Wv-pu-d1v">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="generateKeys:" target="-2" id="6eI-oF-BpE"/>
-                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_examSessionClearCookiesOnStart" id="3g0-Se-LBs"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button toolTip="Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="6Uo-fx-mC8">
-                                                            <rect key="frame" x="-2" y="35" width="149" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="hpt-SN-2lf"/>
-                                                            </constraints>
-                                                            <buttonCell key="cell" type="check" title="Clear on session end" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wYr-ul-Cng">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="generateKeys:" target="-2" id="ZfJ-G2-sUi"/>
-                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_examSessionClearCookiesOnEnd" id="N8H-wL-otk"/>
-                                                            </connections>
-                                                        </button>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="firstBaseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nJS-Hc-HWX">
+                                                            <rect key="frame" x="0.0" y="33" width="588" height="16"/>
+                                                            <subviews>
+                                                                <button toolTip="Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="Suk-hp-L3I">
+                                                                    <rect key="frame" x="-2" y="-2" width="294" height="20"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="16" id="HPg-iY-Hbk"/>
+                                                                    </constraints>
+                                                                    <buttonCell key="cell" type="check" title="Clear on session start" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Wv-pu-d1v">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="generateKeys:" target="-2" id="6eI-oF-BpE"/>
+                                                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_examSessionClearCookiesOnStart" id="3g0-Se-LBs"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button toolTip="Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="6Uo-fx-mC8">
+                                                                    <rect key="frame" x="297" y="-2" width="293" height="20"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="16" id="hpt-SN-2lf"/>
+                                                                    </constraints>
+                                                                    <buttonCell key="cell" type="check" title="Clear on session end" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wYr-ul-Cng">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="generateKeys:" target="-2" id="ZfJ-G2-sUi"/>
+                                                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_examSessionClearCookiesOnEnd" id="N8H-wL-otk"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQh-Dn-8pj">
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="XHR-6b-cHs">
@@ -569,16 +582,16 @@
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="nJS-Hc-HWX" secondAttribute="trailing" id="QaH-03-jG8"/>
                                                         <constraint firstItem="xQh-Dn-8pj" firstAttribute="leading" secondItem="Ie9-ZQ-spU" secondAttribute="leading" constant="2" id="U0f-pF-esn"/>
                                                         <constraint firstAttribute="trailing" secondItem="xQh-Dn-8pj" secondAttribute="trailing" constant="2" id="akC-0r-EFo"/>
+                                                        <constraint firstItem="nJS-Hc-HWX" firstAttribute="leading" secondItem="Ie9-ZQ-spU" secondAttribute="leading" id="xei-xL-sin"/>
                                                     </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
-                                                        <integer value="1000"/>
                                                     </visibilityPriorities>
                                                     <customSpacing>
-                                                        <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
                                                     </customSpacing>
@@ -591,13 +604,13 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="115" id="CK1-OR-9To"/>
+                                            <constraint firstAttribute="height" constant="86" id="CK1-OR-9To"/>
                                             <constraint firstAttribute="width" constant="610" id="aMA-2I-8kg"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                 </subviews>
-                                <edgeInsets key="edgeInsets" left="20" right="20" top="20" bottom="20"/>
+                                <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="650" id="C1U-DZ-RWr"/>
                                 </constraints>
@@ -627,7 +640,7 @@
                         <rect key="frame" x="1" y="686" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.95588235294117652" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="685"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
