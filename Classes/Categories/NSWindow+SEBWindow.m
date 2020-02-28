@@ -69,46 +69,18 @@
 {
     viewToAdd.frame = NSMakeRect(x, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
     
-    NSUInteger mask = 0;
-    if( x > self.frame.size.width / 2.0 )
-    {
-        mask |= NSViewMinXMargin;
-    }
-    else
-    {
-        mask |= NSViewMaxXMargin;
-    }
-    [viewToAdd setAutoresizingMask:mask | NSViewMinYMargin];
-    
     [[[self contentView] superview] addSubview:viewToAdd];
 }
 
 -(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffset:(CGFloat)x
 {
-    //viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
     viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
-    DDLogDebug(@"View to add frame size: %f, %f at origin: %f, %f", viewToAdd.frame.size.width, viewToAdd.frame.size.height, viewToAdd.frame.origin.x, viewToAdd.frame.origin.y);
 
-    NSUInteger mask = 0;
-    if( x > self.frame.size.width / 2.0 )
-    {
-        mask |= NSViewMaxXMargin;
-    }
-    else
-    {
-        mask |= NSViewMinXMargin;
-    }
-    [viewToAdd setAutoresizingMask:mask | NSViewMinYMargin];
-    //[viewToAdd setAutoresizingMask:mask | NSViewMaxYMargin];
-    
-    [[[self contentView] superview] addSubview:viewToAdd];
+    [self addPositionedViewToTitleBar:viewToAdd atRightOffset:x];
 }
 
 -(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffsetToTitle:(CGFloat)x verticalOffset:(CGFloat)y
 {
-    //viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
-//    viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
-    
     CGFloat freeSpaceRightFromTitle = (self.frame.size.width
                                        - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask]
                                        + 86
@@ -116,6 +88,12 @@
     
     viewToAdd.frame = NSMakeRect(self.frame.size.width-freeSpaceRightFromTitle+x, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3 + y, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
     
+    [self addPositionedViewToTitleBar:viewToAdd atRightOffset:x];
+}
+
+- (void)addPositionedViewToTitleBar:(NSView *)viewToAdd atRightOffset:(CGFloat)x {
+    DDLogDebug(@"View to add frame size: %f, %f at origin: %f, %f", viewToAdd.frame.size.width, viewToAdd.frame.size.height, viewToAdd.frame.origin.x, viewToAdd.frame.origin.y);
+    
     NSUInteger mask = 0;
     if( x > self.frame.size.width / 2.0 )
     {
@@ -126,7 +104,6 @@
         mask |= NSViewMinXMargin;
     }
     [viewToAdd setAutoresizingMask:mask | NSViewMinYMargin];
-    //[viewToAdd setAutoresizingMask:mask | NSViewMaxYMargin];
     
     [[[self contentView] superview] addSubview:viewToAdd];
 }
