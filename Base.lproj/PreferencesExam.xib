@@ -21,7 +21,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Exam Preferences">
             <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
             <subviews>
                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liH-wg-Uu0">
                     <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
@@ -29,10 +29,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="685"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
-                                <rect key="frame" x="0.0" y="0.0" width="650" height="840"/>
+                                <rect key="frame" x="0.0" y="0.0" width="650" height="1048"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                                        <rect key="frame" x="17" y="592" width="616" height="233"/>
+                                        <rect key="frame" x="17" y="800" width="616" height="233"/>
                                         <view key="contentView" id="25R-Li-36g">
                                             <rect key="frame" x="3" y="3" width="610" height="213"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +216,7 @@
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                                        <rect key="frame" x="17" y="459" width="616" height="119"/>
+                                        <rect key="frame" x="17" y="667" width="616" height="119"/>
                                         <view key="contentView" id="Bon-Cy-DW3">
                                             <rect key="frame" x="3" y="3" width="610" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -345,7 +345,7 @@
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
-                                        <rect key="frame" x="17" y="267" width="616" height="178"/>
+                                        <rect key="frame" x="17" y="475" width="616" height="178"/>
                                         <view key="contentView" id="LLt-mf-jhD">
                                             <rect key="frame" x="3" y="3" width="610" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -522,7 +522,7 @@
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Reconfiguring Exam Session" translatesAutoresizingMaskIntoConstraints="NO" id="olf-PG-s0j" userLabel="Reconfiguring Exam Session">
-                                        <rect key="frame" x="17" y="120" width="616" height="133"/>
+                                        <rect key="frame" x="17" y="328" width="616" height="133"/>
                                         <view key="contentView" id="XgF-VQ-a5h">
                                             <rect key="frame" x="3" y="3" width="610" height="113"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -593,7 +593,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="dN3-5O-Rpi">
                                                                         <font key="font" metaFont="smallSystem"/>
-                                                                        <string key="title">Allow reconfiguring while using the client config or during an exam session by loading an SEB exam config file. If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</string>
+                                                                        <string key="title">Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -642,7 +642,7 @@
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box title="Session Cookies" translatesAutoresizingMaskIntoConstraints="NO" id="Uuj-be-mvj">
-                                        <rect key="frame" x="17" y="16" width="616" height="90"/>
+                                        <rect key="frame" x="17" y="224" width="616" height="90"/>
                                         <view key="contentView" id="n6h-gS-HDc">
                                             <rect key="frame" x="3" y="3" width="610" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -729,6 +729,124 @@
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
+                                    <box title="Query String Parameter" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eM-mgd">
+                                        <rect key="frame" x="17" y="120" width="616" height="90"/>
+                                        <view key="contentView" id="Ab6-5s-cBF">
+                                            <rect key="frame" x="3" y="3" width="610" height="70"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYx-uc-ezO">
+                                                    <rect key="frame" x="11" y="13" width="588" height="49"/>
+                                                    <subviews>
+                                                        <button toolTip="If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="EZa-c9-03S">
+                                                            <rect key="frame" x="-2" y="31" width="161" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="XoB-Vi-iRo"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="check" title="Allow Query Parameter" bezelStyle="regularSquare" imagePosition="left" inset="2" id="y9P-96-cCz">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="generateKeys:" target="-2" id="SHl-9i-bXE"/>
+                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_startURLAppendQueryParameter" id="UrK-qf-mhu"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uR7-ht-MIe">
+                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="2GO-IF-iYo">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <string key="title">The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL.</string>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="uR7-ht-MIe" firstAttribute="leading" secondItem="kYx-uc-ezO" secondAttribute="leading" constant="2" id="3E6-z5-NQ9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="uR7-ht-MIe" secondAttribute="trailing" constant="2" id="AMQ-ZM-OVq"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="kYx-uc-ezO" secondAttribute="trailing" constant="11" id="b5L-A8-fYW"/>
+                                                <constraint firstItem="kYx-uc-ezO" firstAttribute="top" secondItem="Ab6-5s-cBF" secondAttribute="top" constant="8" id="tz8-fZ-DrF"/>
+                                                <constraint firstItem="kYx-uc-ezO" firstAttribute="leading" secondItem="Ab6-5s-cBF" secondAttribute="leading" constant="11" id="yzK-FF-iiO"/>
+                                            </constraints>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="86" id="h63-qm-O7D"/>
+                                            <constraint firstAttribute="width" constant="610" id="lUk-yG-Qtd"/>
+                                        </constraints>
+                                        <font key="titleFont" metaFont="system"/>
+                                    </box>
+                                    <box title="Exam Deep Linking (iOS)" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-G2-uN8">
+                                        <rect key="frame" x="17" y="16" width="616" height="90"/>
+                                        <view key="contentView" id="Oob-Qk-EkQ">
+                                            <rect key="frame" x="3" y="3" width="610" height="70"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aJX-Dd-gws">
+                                                    <rect key="frame" x="11" y="13" width="588" height="49"/>
+                                                    <subviews>
+                                                        <button toolTip="If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting" translatesAutoresizingMaskIntoConstraints="NO" id="5sV-hT-oqR">
+                                                            <rect key="frame" x="-2" y="31" width="201" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="IA5-zf-nsQ"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="check" title="Allow Deep Linking for Exams" bezelStyle="regularSquare" imagePosition="left" inset="2" id="sOA-63-en9">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="generateKeys:" target="-2" id="DVk-wR-Zj8"/>
+                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_startURLAllowDeepLink" id="rSt-rE-m64"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZX-3b-7tg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Vfv-tN-rLa">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <string key="title">Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</string>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="wZX-3b-7tg" firstAttribute="leading" secondItem="aJX-Dd-gws" secondAttribute="leading" constant="2" id="NL5-PJ-bXo"/>
+                                                        <constraint firstAttribute="trailing" secondItem="wZX-3b-7tg" secondAttribute="trailing" constant="2" id="gft-YM-g94"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="aJX-Dd-gws" secondAttribute="trailing" constant="11" id="hgt-8w-Y8B"/>
+                                                <constraint firstItem="aJX-Dd-gws" firstAttribute="top" secondItem="Oob-Qk-EkQ" secondAttribute="top" constant="8" id="tyA-s5-I4T"/>
+                                                <constraint firstItem="aJX-Dd-gws" firstAttribute="leading" secondItem="Oob-Qk-EkQ" secondAttribute="leading" constant="11" id="vHg-W0-IfQ"/>
+                                            </constraints>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="610" id="Dbg-si-IfR"/>
+                                            <constraint firstAttribute="height" constant="86" id="Khq-Fw-7uv"/>
+                                        </constraints>
+                                        <font key="titleFont" metaFont="system"/>
+                                    </box>
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="20"/>
                                 <constraints>
@@ -740,8 +858,12 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -762,7 +884,7 @@
                         <rect key="frame" x="1" y="686" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.090322580645161299" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94490358126721763" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="685"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
