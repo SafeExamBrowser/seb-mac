@@ -122,7 +122,7 @@
 			<key>Title</key>
 			<string>Reconfiguring Exam Session</string>
 			<key>FooterText</key>
-			<string>Allow reconfiguring during an exam session by downloading another SEB exam config file. If the running exam session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring Config URL (wildcard character &apos;*&apos; can be used). It has to match the URL of the link which invokes reconfiguring.</string>
+			<string>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character &apos;*&apos; can be used).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -180,7 +180,7 @@
 			<key>Title</key>
 			<string>Query String Parameter</string>
 			<key>FooterText</key>
-			<string>An additional query string added to the link to a SEB config file will be appended to the Start URL of an exam. It needs to be separated from the main URL by &apos;?&apos; or &apos;??&apos; if the URL itself doesn&apos;t contain a query.  This works when loading the exam config file with seb(s):// links or QR codes.</string>
+			<string>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by &apos;?&apos; or &apos;??&apos; (if the URL itself doesn&apos;t contain a query). SEB will then append this query string to the Start URL.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
