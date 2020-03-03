@@ -50,7 +50,7 @@ struct AccessTokenResource: ApiResource {
     var queryParameters: [String]
     let methodPath: String
     let httpMethod = "POST"
-    let body = "grant_type=client_credentials&scope=read,write"
+    let body = "grant_type=client_credentials&scope=read write"
 
     init(baseURL: URL, endpoint: String) {
         self.baseURL = baseURL
