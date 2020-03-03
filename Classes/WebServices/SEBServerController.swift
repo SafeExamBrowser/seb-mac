@@ -195,7 +195,7 @@ public extension SEBServerController {
                 print(responseBody as Any)
             }
             self.delegate?.didEstablishSEBServerConnection()
-            self.pingTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+            self.pingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
         })
     }
     
