@@ -21,15 +21,15 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Exam Preferences">
             <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
-            <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liH-wg-Uu0">
                     <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
                     <clipView key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bcI-T6-8hm">
                         <rect key="frame" x="1" y="1" width="650" height="685"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
-                                <rect key="frame" x="0.0" y="0.0" width="650" height="1048"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="1048"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
                                         <rect key="frame" x="17" y="800" width="616" height="233"/>
@@ -37,15 +37,12 @@
                                             <rect key="frame" x="3" y="3" width="610" height="213"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
-                                                    <rect key="frame" x="11" y="13" width="588" height="192"/>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
+                                                    <rect key="frame" x="11" y="16" width="588" height="189"/>
                                                     <subviews>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                                            <rect key="frame" x="-2" y="174" width="328" height="20"/>
+                                                            <rect key="frame" x="-2" y="173" width="328" height="18"/>
                                                             <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="F7C-kd-uJp"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -55,14 +52,14 @@
                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
                                                             </connections>
                                                         </button>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-0z-l6Z">
-                                                            <rect key="frame" x="0.0" y="95" width="588" height="72"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-0z-l6Z">
+                                                            <rect key="frame" x="0.0" y="94" width="588" height="72"/>
                                                             <subviews>
-                                                                <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" spacing="165" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ust-3v-kYO">
-                                                                    <rect key="frame" x="0.0" y="56" width="586" height="16"/>
+                                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ust-3v-kYO">
+                                                                    <rect key="frame" x="0.0" y="56" width="588" height="16"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
-                                                                            <rect key="frame" x="-2" y="0.0" width="116" height="16"/>
+                                                                            <rect key="frame" x="-2" y="0.0" width="274" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -70,7 +67,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                                                            <rect key="frame" x="274" y="-2" width="314" height="18"/>
+                                                                            <rect key="frame" x="276" y="-2" width="314" height="18"/>
                                                                             <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                                                                             <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -132,11 +129,11 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzE-Nn-QYd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="86"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="FzE-Nn-QYd">
+                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="85"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
-                                                                    <rect key="frame" x="-2" y="70" width="70" height="16"/>
+                                                                    <rect key="frame" x="-2" y="69" width="70" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -144,10 +141,7 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
-                                                                    <rect key="frame" x="0.0" y="45" width="588" height="22"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="22" id="SeX-Uk-abc"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="45" width="588" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -211,7 +205,6 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="229" id="4cC-MC-v7j"/>
-                                            <constraint firstAttribute="width" constant="610" id="unj-eT-SXb"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
@@ -221,17 +214,14 @@
                                             <rect key="frame" x="3" y="3" width="610" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
-                                                    <rect key="frame" x="11" y="13" width="588" height="78"/>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
+                                                    <rect key="frame" x="11" y="16" width="588" height="75"/>
                                                     <subviews>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BME-1F-4b7">
-                                                            <rect key="frame" x="0.0" y="25" width="588" height="53"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="BME-1F-4b7">
+                                                            <rect key="frame" x="0.0" y="23" width="588" height="52"/>
                                                             <subviews>
                                                                 <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
-                                                                    <rect key="frame" x="0.0" y="31" width="588" height="22"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="22" id="PzP-Mf-Ray"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="31" width="588" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -273,14 +263,11 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="firstBaseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRp-nu-0tq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="16"/>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="ZRp-nu-0tq">
+                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="14"/>
                                                             <subviews>
                                                                 <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
-                                                                    <rect key="frame" x="-2" y="-2" width="294" height="20"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="16" id="9tX-ai-hcR"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="-2" y="-2" width="294" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ji2-gQ-cOh">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -291,10 +278,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB." translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Qt-FY9">
-                                                                    <rect key="frame" x="297" y="-2" width="293" height="20"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="16" id="gfk-8C-v9C"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="297" y="-2" width="293" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Restart instead of quitting (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="u5B-hW-58P">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -339,7 +323,6 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="610" id="KSp-eF-age"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="115" id="Xfm-iF-UnG"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
@@ -350,14 +333,11 @@
                                             <rect key="frame" x="3" y="3" width="610" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
-                                                    <rect key="frame" x="11" y="13" width="588" height="137"/>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
+                                                    <rect key="frame" x="11" y="19" width="588" height="131"/>
                                                     <subviews>
                                                         <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
-                                                            <rect key="frame" x="-2" y="119" width="227" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="CJW-Ch-L6P"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="-2" y="115" width="227" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -367,14 +347,11 @@
                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="g9n-vv-NdM"/>
                                                             </connections>
                                                         </button>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
-                                                            <rect key="frame" x="0.0" y="73" width="588" height="39"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
+                                                            <rect key="frame" x="0.0" y="70" width="588" height="38"/>
                                                             <subviews>
                                                                 <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
-                                                                    <rect key="frame" x="0.0" y="17" width="588" height="22"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="22" id="vQk-RZ-YJB"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="17" width="588" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="bTx-tu-6Av">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -396,12 +373,9 @@
                                                                         <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="14"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="14" id="C5C-zo-wj1"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
+                                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -423,14 +397,11 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
-                                                            <rect key="frame" x="0.0" y="25" width="588" height="39"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
+                                                            <rect key="frame" x="0.0" y="23" width="588" height="38"/>
                                                             <subviews>
                                                                 <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
-                                                                    <rect key="frame" x="0.0" y="17" width="588" height="22"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="22" id="kfi-PL-yiU"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="17" width="588" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Back to Start" drawsBackground="YES" id="sY9-Fu-u2Z">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -447,11 +418,8 @@
                                                                         <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="588" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="14"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="14" id="y3O-2a-8ZK"/>
-                                                                    </constraints>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)" id="pdT-tX-Sdp">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -475,10 +443,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                                            <rect key="frame" x="-2" y="-2" width="378" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="DEu-C2-udT"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="-2" y="-2" width="378" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -516,7 +481,6 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="610" id="LNB-nU-PSx"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="174" id="oJR-0o-vrJ"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
@@ -527,14 +491,11 @@
                                             <rect key="frame" x="3" y="3" width="610" height="113"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LfX-Xg-yil">
-                                                    <rect key="frame" x="11" y="13" width="588" height="92"/>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LfX-Xg-yil">
+                                                    <rect key="frame" x="11" y="16" width="588" height="89"/>
                                                     <subviews>
                                                         <button toolTip="Allow reconfiguring while using the client config or during an exam session by loading an SEB exam config file" translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
-                                                            <rect key="frame" x="-2" y="74" width="143" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="x6l-Fg-ANC"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="-2" y="73" width="143" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Allow Reconfiguring" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lNW-hv-6s5">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -544,11 +505,11 @@
                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_examSessionReconfigureAllow" id="ZNC-HL-ExO"/>
                                                             </connections>
                                                         </button>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNL-H6-o7B">
-                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="67"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="sNL-H6-o7B">
+                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="66"/>
                                                             <subviews>
-                                                                <stackView distribution="fill" orientation="horizontal" alignment="baseline" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NPS-ca-73o">
-                                                                    <rect key="frame" x="0.0" y="45" width="588" height="22"/>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="baseline" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="NPS-ca-73o">
+                                                                    <rect key="frame" x="0.0" y="45" width="588" height="21"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pHV-jf-Gb3">
                                                                             <rect key="frame" x="-2" y="3" width="118" height="16"/>
@@ -559,10 +520,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField toolTip="The match URL  has to match the URL of the seb(s) link which invokes reconfiguring." verticalHuggingPriority="750" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-Me-HJd">
-                                                                            <rect key="frame" x="124" y="0.0" width="464" height="22"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" constant="22" id="VB5-UL-a1R"/>
-                                                                            </constraints>
+                                                                            <rect key="frame" x="124" y="0.0" width="464" height="21"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Match URL" drawsBackground="YES" id="SdD-R8-hNc">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -580,6 +538,10 @@
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="ZFB-Me-HJd" secondAttribute="trailing" id="RdM-oF-1Ep"/>
+                                                                        <constraint firstItem="ZFB-Me-HJd" firstAttribute="leading" secondItem="pHV-jf-Gb3" secondAttribute="trailing" constant="10" id="y2O-rd-pDd"/>
+                                                                    </constraints>
                                                                     <visibilityPriorities>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
@@ -616,8 +578,8 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="sNL-H6-o7B" firstAttribute="leading" secondItem="LfX-Xg-yil" secondAttribute="leading" id="tOw-xr-rCq"/>
-                                                        <constraint firstAttribute="trailing" secondItem="sNL-H6-o7B" secondAttribute="trailing" id="y7b-SH-xdM"/>
+                                                        <constraint firstItem="sNL-H6-o7B" firstAttribute="trailing" secondItem="LfX-Xg-yil" secondAttribute="trailing" id="VdZ-Z7-pHD"/>
+                                                        <constraint firstItem="sNL-H6-o7B" firstAttribute="leading" secondItem="LfX-Xg-yil" secondAttribute="leading" id="iuj-zv-Wqg"/>
                                                     </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
@@ -636,7 +598,6 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="610" id="7Yc-Ng-gHq"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="129" id="TeW-eW-EyE"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
@@ -647,17 +608,14 @@
                                             <rect key="frame" x="3" y="3" width="610" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ie9-ZQ-spU">
-                                                    <rect key="frame" x="11" y="13" width="588" height="49"/>
+                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ie9-ZQ-spU">
+                                                    <rect key="frame" x="11" y="15" width="588" height="47"/>
                                                     <subviews>
-                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="firstBaseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nJS-Hc-HWX">
-                                                            <rect key="frame" x="0.0" y="33" width="588" height="16"/>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="nJS-Hc-HWX">
+                                                            <rect key="frame" x="0.0" y="33" width="588" height="14"/>
                                                             <subviews>
                                                                 <button toolTip="Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="Suk-hp-L3I">
-                                                                    <rect key="frame" x="-2" y="-2" width="294" height="20"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="16" id="HPg-iY-Hbk"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="-2" y="-2" width="294" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Clear on session start" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Wv-pu-d1v">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -668,10 +626,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="6Uo-fx-mC8">
-                                                                    <rect key="frame" x="297" y="-2" width="293" height="20"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="16" id="hpt-SN-2lf"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="297" y="-2" width="293" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Clear on session end" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wYr-ul-Cng">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -724,8 +679,7 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="86" id="CK1-OR-9To"/>
-                                            <constraint firstAttribute="width" constant="610" id="aMA-2I-8kg"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="CK1-OR-9To"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
@@ -735,14 +689,11 @@
                                             <rect key="frame" x="3" y="3" width="610" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYx-uc-ezO">
-                                                    <rect key="frame" x="11" y="13" width="588" height="49"/>
+                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="kYx-uc-ezO">
+                                                    <rect key="frame" x="11" y="15" width="588" height="47"/>
                                                     <subviews>
                                                         <button toolTip="If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="EZa-c9-03S">
-                                                            <rect key="frame" x="-2" y="31" width="161" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="XoB-Vi-iRo"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="-2" y="31" width="161" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Allow Query Parameter" bezelStyle="regularSquare" imagePosition="left" inset="2" id="y9P-96-cCz">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -783,8 +734,7 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="86" id="h63-qm-O7D"/>
-                                            <constraint firstAttribute="width" constant="610" id="lUk-yG-Qtd"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="h63-qm-O7D"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
@@ -794,14 +744,11 @@
                                             <rect key="frame" x="3" y="3" width="610" height="70"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aJX-Dd-gws">
-                                                    <rect key="frame" x="11" y="13" width="588" height="49"/>
+                                                <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="aJX-Dd-gws">
+                                                    <rect key="frame" x="11" y="15" width="588" height="47"/>
                                                     <subviews>
                                                         <button toolTip="If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting" translatesAutoresizingMaskIntoConstraints="NO" id="5sV-hT-oqR">
-                                                            <rect key="frame" x="-2" y="31" width="201" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="IA5-zf-nsQ"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="-2" y="31" width="201" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Allow Deep Linking for Exams" bezelStyle="regularSquare" imagePosition="left" inset="2" id="sOA-63-en9">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -842,15 +789,22 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="610" id="Dbg-si-IfR"/>
-                                            <constraint firstAttribute="height" constant="86" id="Khq-Fw-7uv"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="Khq-Fw-7uv"/>
                                         </constraints>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="650" id="C1U-DZ-RWr"/>
+                                    <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" id="HYT-Yx-Vnx"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="630" id="Ppw-kc-tYm"/>
+                                    <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="Ay5-ab-HYm" secondAttribute="leading" constant="20" id="Uhr-0K-PcB"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vu0-G2-uN8" secondAttribute="trailing" id="WRb-Gy-3Cu"/>
+                                    <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" id="arf-QQ-7UO"/>
+                                    <constraint firstAttribute="trailing" secondItem="4aU-eM-mgd" secondAttribute="trailing" id="f0O-hw-fue"/>
+                                    <constraint firstAttribute="trailing" secondItem="26k-Q1-RaL" secondAttribute="trailing" id="lyb-DU-ZIi"/>
+                                    <constraint firstAttribute="trailing" secondItem="olf-PG-s0j" secondAttribute="trailing" id="meJ-w9-0oJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uuj-be-mvj" secondAttribute="trailing" id="vpm-Ig-ddc"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
@@ -891,8 +845,12 @@
                 </scrollView>
             </subviews>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="liH-wg-Uu0" secondAttribute="trailing" id="1gE-RJ-bK8"/>
                 <constraint firstAttribute="bottom" secondItem="liH-wg-Uu0" secondAttribute="bottom" id="7cA-bM-wsH"/>
+                <constraint firstItem="liH-wg-Uu0" firstAttribute="top" secondItem="1" secondAttribute="top" id="8Ms-zh-cIn"/>
                 <constraint firstAttribute="trailing" secondItem="liH-wg-Uu0" secondAttribute="trailing" id="XKa-ct-qCa"/>
+                <constraint firstItem="liH-wg-Uu0" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="egP-Xb-fmJ"/>
+                <constraint firstAttribute="bottom" secondItem="liH-wg-Uu0" secondAttribute="bottom" id="hdB-Jc-8kc"/>
                 <constraint firstItem="liH-wg-Uu0" firstAttribute="top" secondItem="1" secondAttribute="top" id="mOu-Yv-2Nn"/>
                 <constraint firstItem="liH-wg-Uu0" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="tfO-jz-Iiy"/>
             </constraints>
