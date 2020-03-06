@@ -3222,12 +3222,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - Lockdown windows
 
-- (void) conditionallyOpenLockdownWindows
+- (void) conditionallyOpenStartExamLockdownWindows
 {
     if ([self.sebLockedViewController isStartingLockedExam]) {
         if (_secureMode) {
             DDLogError(@"Re-opening an exam which was locked before");
             [self openLockdownWindows];
+            [self.sebLockedViewController setLockdownAlertTitle: nil
+                                                        Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
             // Add log string for entering a locked exam
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
         } else {
@@ -3235,6 +3237,27 @@ void run_on_ui_thread(dispatch_block_t block)
             // Add log string for entering a previously locked exam
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
         }
+    }
+}
+
+
+- (BOOL) conditionallyOpenSleepModeLockdownWindows
+{
+    if (_secureMode) {
+        [self openLockdownWindows];
+        [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Device Was in Sleep Mode!", @"Lockdown alert title text for device was in sleep mode")
+                                                    Message:NSLocalizedString(@"The device was put to sleep mode, for example by closing an iPad case. Before unlocking, check if the lock screen of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+        // Add log string for trying to re-open a locked exam
+        // Calculate time difference between session resigning active and becoming active again
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
+                                                   fromDate:_appDidEnterBackgroundTime
+                                                     toDate:_appDidBecomeActiveTime
+                                                    options:NSCalendarWrapComponents];
+        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime];
+        return YES;
+    } else {
+        return NO;
     }
 }
 
