@@ -523,7 +523,7 @@
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
     
-    [_sebViewController conditionallyOpenLockdownWindows];
+    [_sebViewController conditionallyOpenStartExamLockdownWindows];
     
     NSArray *persistedOpenWebPages;
     
