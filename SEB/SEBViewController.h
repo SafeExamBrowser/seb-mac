@@ -156,7 +156,8 @@
 @property (readwrite, strong) NSDate *didResignActiveTime;
 @property (readwrite, strong) NSDate *didBecomeActiveTime;
 @property (readwrite, strong) NSDate *didResumeExamTime;
-
+@property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
+@property (readwrite, strong) NSDate *appDidBecomeActiveTime;
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
@@ -236,7 +237,8 @@
 
 - (void) stopAutonomousSingleAppMode;
 
-- (void) conditionallyOpenLockdownWindows;
+- (void) conditionallyOpenStartExamLockdownWindows;
+- (BOOL) conditionallyOpenSleepModeLockdownWindows;
 - (void) openLockdownWindows;
 
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig

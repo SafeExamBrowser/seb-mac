@@ -182,6 +182,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     DDLogDebug(@"%s", __FUNCTION__);
     _didEnterBackground = YES;
+    _sebViewController.appDidEnterBackgroundTime = [NSDate date];
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         _sebViewController.alertController = nil;
@@ -215,23 +216,24 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     DDLogDebug(@"%s", __FUNCTION__);
+    _sebViewController.appDidBecomeActiveTime = [NSDate date];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (_didEnterBackground) {
         DDLogInfo(@"Application returned to active state after it entered background state before. This usually happens when the device is put to sleep.");
+        _didEnterBackground = NO;
         if (@available(iOS 13.0, *)) {
             DDLogDebug(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
         } else {
-            
+            if ([_sebViewController conditionallyOpenSleepModeLockdownWindows]) {
+                return;
+            }
         }
     }
-    _didEnterBackground = NO;
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
     if (_sebViewController && !_sebViewController.mailViewController) {
         // If the main SEB view controller was already instantiated
-
-        // Check if we received a new configuration from an MDM server (by MDM managed configuration)
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
             [_sebViewController conditionallyShowSettingsModal];
