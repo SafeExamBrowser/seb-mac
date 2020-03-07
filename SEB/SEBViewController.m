@@ -295,14 +295,14 @@ static NSMutableSet *browserWindowControllers;
                                                   }];
     
     // Add Notification Center observer to be alerted when the UIScreen isCaptured property changes
-//    if (@available(iOS 11.0, *)) {
-//        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
-//                                                          object:nil
-//                                                           queue:[NSOperationQueue mainQueue]
-//                                                      usingBlock:^(NSNotification *note) {
-//                                                          [self readDefaultsValues];
-//                                                      }];
-//    }
+    if (@available(iOS 11.0, *)) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          [self conditionallyOpenScreenCaptureLockdownWindows];
+                                                      }];
+    }
     
     // Initialize UI and default UI/browser settings
     [self initSEB];
@@ -1386,13 +1386,13 @@ static NSMutableSet *browserWindowControllers;
                                                                       callback:self
                                                                       selector:@selector(storeNewSEBSettingsSuccessful:)];
             } else {
-                DDLogDebug(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+                DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             }
         } else {
-            DDLogDebug(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+            DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
         }
     } else {
-        DDLogDebug(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
+        DDLogVerbose(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
     }
     return readMDMConfig;
 }
@@ -2756,15 +2756,17 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
+        _clientConfigSecureModePaused = YES;
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit %@ using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 self->_alertController = nil;
-                                                                 [self initSEB];
-                                                                 [self conditionallyStartKioskMode];
-                                                             }]];
+            self->_alertController = nil;
+            self.clientConfigSecureModePaused = NO;
+            [self initSEB];
+            [self conditionallyStartKioskMode];
+        }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     } else {
         [self initSEB];
@@ -2968,10 +2970,40 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
 
-    _finishedStartingUp = true;
-    
     // Update kiosk flags according to current settings
     [self updateKioskSettingFlags];
+    
+    if (@available(iOS 11.0, *)) {
+        if (_secureMode &&
+            UIScreen.mainScreen.isCaptured &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
+                                                                    message:alertMessageiOSVersion
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     self->_alertController = nil;
+                                                                     [self conditionallyStartKioskMode];
+                                                                 }]];
+            if (NSUserDefaults.userDefaultsPrivate) {
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         self->_alertController = nil;
+                                                                         [[NSNotificationCenter defaultCenter]
+                                                                          postNotificationName:@"requestQuit" object:self];
+                                                                     }]];
+            }
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
+        }
+    }
+    
+    _finishedStartingUp = true;
     
     if (_secureMode) {
         // Clear Pasteboard
@@ -3241,12 +3273,41 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) conditionallyOpenScreenCaptureLockdownWindows
+{
+    if (@available(iOS 11.0, *)) {
+        if (UIScreen.mainScreen.isCaptured &&
+            _secureMode &&
+            !_clientConfigSecureModePaused &&
+            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"]) {
+            DDLogError(@"Screen is being captured while in secure mode!");
+            [self openLockdownWindows];
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
+                                                        Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
+            // Add log string for entering a locked exam
+            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date]];
+        } else {
+            NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
+                                   UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
+                                   _secureMode ? @"" : @"not ",
+                                   [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ? @" and it is allowed in current settings" : @""];
+            DDLogInfo(@"%@", logString);
+            if (!UIScreen.mainScreen.isCaptured) {
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", logString] withTime:[NSDate date]];
+            }
+        }
+    }
+}
+
+
 - (BOOL) conditionallyOpenSleepModeLockdownWindows
 {
-    if (_secureMode) {
+    if (_secureMode &&
+        !_clientConfigSecureModePaused &&
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
         [self openLockdownWindows];
         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Device Was in Sleep Mode!", @"Lockdown alert title text for device was in sleep mode")
-                                                    Message:NSLocalizedString(@"The device was put to sleep mode, for example by closing an iPad case. Before unlocking, check if the lock screen of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
