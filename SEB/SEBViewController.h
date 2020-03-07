@@ -198,6 +198,7 @@
 @property(readwrite) BOOL startSAMWAlertDisplayed;
 @property(readwrite) BOOL pausedSAMAlertDisplayed;
 @property(readwrite) BOOL endSAMWAlertDisplayed;
+@property(readwrite) BOOL clientConfigSecureModePaused;
 
 @property(readwrite) BOOL examSessionClearCookiesOnEnd;
 

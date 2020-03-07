@@ -476,6 +476,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobileEnableASAM",
                    
+                   @YES,
+                   @"mobileSleepModeLockScreen",
+                   
                    [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                    @"mobileStatusBarAppearance",
                    
