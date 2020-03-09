@@ -3134,8 +3134,28 @@ void run_on_ui_thread(dispatch_block_t block)
             _ASAMActive = true;
             UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
                 if (didSucceed) {
-                    DDLogInfo(@"%s: Entered Autonomous Single App Mode", __FUNCTION__);
-                    [self startExam];
+                    if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+                        // This is an issue happening on older iOS versions:
+                        // the device needs to be restarted
+                        if (self.alertController) {
+                            [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                        }
+                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", nil)
+                                                                                message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", nil)
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                                 self->_alertController = nil;
+                                                                                 [[NSNotificationCenter defaultCenter]
+                                                                                  postNotificationName:@"requestQuit" object:self];
+                                                                             }]];
+                        
+                        [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                    } else {
+                        DDLogInfo(@"%s: Entered Autonomous Single App Mode", __FUNCTION__);
+                        [self startExam];
+                    }
                 }
                 else {
                     DDLogError(@"%s: Failed to enter Autonomous Single App Mode", __FUNCTION__);
