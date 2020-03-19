@@ -116,6 +116,12 @@
 
 #pragma mark - Controller interface
 
+- (NSString *) currentMainHost
+{
+    return _visibleWebViewController.currentMainHost;
+}
+
+
 - (void) backToStart {
 //    [_visibleWebViewController backToStart];
     
