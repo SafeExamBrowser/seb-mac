@@ -240,6 +240,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             [_sebViewController conditionallyResetSettings];
         } else {
+            // Check if we received a new configuration from an MDM server (by MDM managed configuration)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
             if (serverConfig.count > 0) {
                 DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
