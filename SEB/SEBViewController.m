@@ -2808,9 +2808,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self->_alertController = nil;
-            self.clientConfigSecureModePaused = NO;
             [self initSEB];
             [self conditionallyStartKioskMode];
+            self.clientConfigSecureModePaused = NO;
         }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     } else {
@@ -3343,6 +3343,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (@available(iOS 11.0, *)) {
         if (UIScreen.mainScreen.isCaptured &&
             _secureMode &&
+            _examRunning &&
             !_clientConfigSecureModePaused &&
             ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"]) {
             DDLogError(@"Screen is being captured while in secure mode!");
@@ -3357,9 +3358,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                    _secureMode ? @"" : @"not ",
                                    [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ? @" and it is allowed in current settings" : @""];
             DDLogInfo(@"%@", logString);
-            if (!UIScreen.mainScreen.isCaptured) {
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", logString] withTime:[NSDate date]];
-            }
         }
     }
 }
