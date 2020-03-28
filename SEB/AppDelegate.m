@@ -281,6 +281,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s", __FUNCTION__);
     DDLogInfo(@"URL scheme:%@", [url scheme]);
     DDLogInfo(@"URL query: %@", [url query]);
+    DDLogInfo(@"URL handling options: %@", options);
     
     if (url) {
         DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
@@ -318,7 +319,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 
 - (BOOL) application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
-// Xcode 9:  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
   restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
     DDLogDebug(@"%s", __FUNCTION__);

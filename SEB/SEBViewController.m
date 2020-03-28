@@ -2209,15 +2209,30 @@ void run_on_ui_thread(dispatch_block_t block)
     if (url.isFileURL) {
         run_on_ui_thread(^{
             NSError *error = nil;
-            [url startAccessingSecurityScopedResource];
-            NSData *sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-            [url stopAccessingSecurityScopedResource];
-            if (error || !sebFileData) {
-                DDLogError(@"Saving the file URL %@ contents failed with error %@", url, error);
-                [self storeNewSEBSettingsSuccessful:error];
-            } else {
-                [self storeDownloadedData:sebFileData fromURL:url];
-            }
+            NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+            [fileCoordinator coordinateReadingItemAtURL:url options:NSFileCoordinatorReadingWithoutChanges error:&error byAccessor:^(NSURL * _Nonnull newURL) {
+                if (!error) {
+                    NSError *fileReadingError = nil;
+                    NSData *sebFileData;
+                    if ([url startAccessingSecurityScopedResource]) {
+                        DDLogDebug(@"%s: Reading a security scoped resource from URL %@", __FUNCTION__, url);
+                        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&fileReadingError];
+                        [url stopAccessingSecurityScopedResource];
+                    } else {
+                        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&fileReadingError];
+                    }
+                    if (fileReadingError || !sebFileData) {
+                        DDLogError(@"Reading the file URL %@ contents failed with error %@", url, fileReadingError);
+                        [self storeNewSEBSettingsSuccessful:error];
+                    } else {
+                        [self storeDownloadedData:sebFileData fromURL:url];
+                    }
+                }
+                else {
+                    DDLogError(@"Coordinating reading the file URL %@ contents failed with error %@", url, error);
+                }
+            }];
+
         });
         return;
     }
