@@ -3381,6 +3381,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (BOOL) conditionallyOpenSleepModeLockdownWindows
 {
     if (_secureMode &&
+        _examRunning &&
         !_clientConfigSecureModePaused &&
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
         [self openLockdownWindows];
