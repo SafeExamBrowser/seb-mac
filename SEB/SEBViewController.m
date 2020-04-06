@@ -1384,6 +1384,8 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Handle MDM Managed App Configuration
+
 - (BOOL)conditionallyReadMDMServerConfig
 {
     BOOL readMDMConfig = NO;
@@ -1417,7 +1419,8 @@ static NSMutableSet *browserWindowControllers;
     BOOL readMDMConfig = NO;
     if (!_isReconfiguringToMDMConfig &&
         !(receivedServerConfig &&
-          [receivedServerConfig isEqualToDictionary:serverConfig])) {
+          [receivedServerConfig isEqualToDictionary:serverConfig]) &&
+        [self isReceivedServerConfigNew:serverConfig]) {
         _isReconfiguringToMDMConfig = YES;
         receivedServerConfig = serverConfig;
         readMDMConfig = YES;
@@ -1437,6 +1440,21 @@ static NSMutableSet *browserWindowControllers;
         DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
     }
     return readMDMConfig;
+}
+
+
+- (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
+{
+    for (NSString *key in newReceivedServerConfig) {
+        id newValue = [newReceivedServerConfig objectForKey:key];
+        id currentValue = [[NSUserDefaults standardUserDefaults] secureObjectForKey:key];
+        if (![newValue isEqual:currentValue]) {
+            DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
+            return YES;
+        }
+    }
+    DDLogVerbose(@"%s: Configuration received from MDM server is same as current settings, ignore it.", __FUNCTION__);
+    return NO;
 }
 
 
@@ -2696,6 +2714,7 @@ void run_on_ui_thread(dispatch_block_t block)
 quittingClientConfig:(BOOL)quittingClientConfig
     pasteboardString:(NSString *)pasteboardString
 {
+    receivedServerConfig = nil;
     // Close the left slider view first if it was open
     if (!self.sideMenuController.isLeftViewHidden) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
