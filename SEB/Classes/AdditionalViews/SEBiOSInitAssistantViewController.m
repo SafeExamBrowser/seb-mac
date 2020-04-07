@@ -86,6 +86,8 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [_assistantController cancelDownloadingClientConfig];
 }
 
@@ -249,7 +251,7 @@
 
 
 - (void) setConfigURLString:(NSString *)URLString {
-    configURLField.text = URLString;
+    configURLField.text = [NSMutableString stringWithString:URLString];
 }
 
 

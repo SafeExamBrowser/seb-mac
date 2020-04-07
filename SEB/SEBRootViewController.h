@@ -37,12 +37,8 @@
 #import "LGSideMenuController.h"
 #import "UIViewController+LGSideMenuController.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SEBRootViewController : UIViewController
 
 @property (weak, nonatomic) LGSideMenuController *lgSideMenuController;
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -61,7 +61,6 @@
 
 #import "SEBRootViewController.h"
 #import "LGSideMenuController.h"
-#import "UIViewController+LGSideMenuController.h"
 
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
@@ -122,7 +121,6 @@
     NSString *startURLQueryParameter;
 
     NSUInteger statusBarAppearance;
-    BOOL browserToolbarEnabled;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;

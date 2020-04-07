@@ -35,9 +35,6 @@
 #import <CoreData/CoreData.h>
 
 #import "SEBBrowserTabViewController.h"
-
-#import "LGSideMenuController.h"
-#import "UIViewController+LGSideMenuController.h"
 #import "SEBURLFilter.h"
 
 @class SEBBrowserTabViewController;

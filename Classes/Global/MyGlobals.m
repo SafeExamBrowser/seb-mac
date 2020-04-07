@@ -102,7 +102,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
                 if (copyNumber == 0) {
                     filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
                 } else {
-                    filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", copyNumber+1]];
+                    filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)copyNumber+1]];
                 }
             }
         }
