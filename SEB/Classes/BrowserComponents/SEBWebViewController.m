@@ -39,7 +39,6 @@
 
 @implementation SEBWebViewController
 
-
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
@@ -479,7 +478,7 @@
         if (navigationType == UIWebViewNavigationTypeLinkClicked &&
             mobileEnableGuidedAccessLinkTransform) {
             navigationType = UIWebViewNavigationTypeOther;
-            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
+            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther (%ld)", __FUNCTION__, (long)navigationType);
             [webView loadRequest:request];
             return NO;
         }

@@ -77,6 +77,8 @@
 
 - (void) viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
+    
     self->_sebViewController.aboutSEBViewDisplayed = false;
     self->_sebViewController.aboutSEBViewController = nil;
 }

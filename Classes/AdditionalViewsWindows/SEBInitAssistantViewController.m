@@ -174,6 +174,7 @@
                     
                     hostname = hostnames.firstObject;
                 }
+                CFRelease(hostRef);
             }
         }
     }
