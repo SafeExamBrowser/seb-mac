@@ -38,8 +38,6 @@
 #import "SEBViewController.h"
 #import "SEBKeychainManager.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @class SEBViewController;
 
 @interface SEBInAppSettingsViewController : UIViewController <IASKSettingsDelegate, UITextViewDelegate> {
@@ -78,5 +76,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) getSelectedIdentityName;
 
 @end
-
-NS_ASSUME_NONNULL_END

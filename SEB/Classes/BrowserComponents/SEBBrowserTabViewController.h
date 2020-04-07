@@ -39,9 +39,6 @@
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
-#import "LGSideMenuController.h"
-#import "UIViewController+LGSideMenuController.h"
-
 @class SEBViewController;
 @class SEBWebViewController;
 @class SEBSearchBarViewController;

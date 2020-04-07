@@ -35,6 +35,7 @@
 #import "Webpages.h"
 #import "SEBSliderItem.h"
 
+
 @interface SEBTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *StatusBarBackgroundView;
@@ -337,7 +338,7 @@
         }
             
         default:
-            return nil;
+            return [[UITableViewCell alloc] init];
             break;
     }
 }

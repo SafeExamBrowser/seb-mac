@@ -36,8 +36,6 @@
 #import "SEBInitAssistantViewController.h"
 #import "SEBViewController.h"
 
-
-@class SEBInitAssistantViewController;
 @class SEBViewController;
 
 

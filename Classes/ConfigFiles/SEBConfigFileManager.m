@@ -771,10 +771,12 @@
             // If yes, then cancel reading .seb file
             DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
 
-            *error = [NSError errorWithDomain:sebErrorDomain
-                                         code:SEBErrorParsingSettingsFailedValueClassMissmatch
-                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
-                                                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
+            if (*error) {
+                *error = [NSError errorWithDomain:sebErrorDomain
+                                             code:SEBErrorParsingSettingsFailedValueClassMissmatch
+                                         userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
+                                                    NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
+            }
             
             return NO; //we abort reading the new settings here
         }

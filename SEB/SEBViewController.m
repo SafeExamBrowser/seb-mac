@@ -33,6 +33,7 @@
 
 #import <WebKit/WebKit.h>
 #import "Constants.h"
+#import "UIViewController+LGSideMenuController.h"
 
 #import "SEBViewController.h"
 
