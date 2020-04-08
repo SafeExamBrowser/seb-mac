@@ -81,7 +81,9 @@
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
-    DDLogInfo(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#ifdef DEBUG
+    DDLogDebug(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#endif
     [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
 }
 
