@@ -1393,10 +1393,15 @@ static NSMutableSet *browserWindowControllers;
     
     if (!_isReconfiguringToMDMConfig) {
         // Check if we received a new configuration from an MDM server
+        _isReconfiguringToMDMConfig = YES;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
-        DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
+        DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost is equal to currentStartURL: %d or clientConfigSecureModePaused: %d)",
+                     __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't",
+                     (unsigned long)self.browserTabViewController.openWebpages.count,
+                     [[self.browserTabViewController currentMainHost] isEqualToString:currentStartURL],
+                     _clientConfigSecureModePaused);
         if (serverConfig.count > 0 &&
             clientConfigActive &&
             ((self.browserTabViewController.openWebpages.count == 1 &&
@@ -1406,6 +1411,7 @@ static NSMutableSet *browserWindowControllers;
             readMDMConfig = [self readMDMServerConfig:serverConfig];
         } else {
             DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
+            _isReconfiguringToMDMConfig = NO;
         }
     } else {
         DDLogVerbose(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
