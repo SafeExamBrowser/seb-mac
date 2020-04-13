@@ -627,6 +627,7 @@
 
     }
     _currentRequest = request;
+    _currentURL = url.absoluteString;
     _currentMainHost = url.host;
     return YES;
 }

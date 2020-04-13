@@ -283,7 +283,9 @@ static NSMutableSet *browserWindowControllers;
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
                                                       if (serverConfig.count > 0) {
-                                                          if (self.settingsOpen == NO) {
+                                                          if (self.isReconfiguringToMDMConfig == NO &&
+                                                              self.settingsOpen == NO &&
+                                                              !NSUserDefaults.userDefaultsPrivate) {
                                                               DDLogVerbose(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server
                                                               // when settings aren't open (otherwise it's postponed to next
@@ -981,7 +983,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)showSettingsModalCheckMDMSettingsReceived
 {
     [self.sideMenuController hideLeftViewAnimated];
-
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
     BOOL isClientConfigActive = !NSUserDefaults.userDefaultsPrivate;
@@ -992,20 +994,22 @@ static NSMutableSet *browserWindowControllers;
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 self.alertController = nil;
-                                                                 if (![self readMDMServerConfig:serverConfig]) {
-                                                                     [self showSettingsModal];
-                                                                 }
-                                                             }]];
+            self.alertController = nil;
+            self->receivedServerConfig = nil;
+            
+            if (![self readMDMServerConfig:serverConfig]) {
+                [self showSettingsModal];
+            }
+        }]];
         
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                 self.alertController = nil;
-                                                                 [self showSettingsModal];
-                                                             }]];
+            self.alertController = nil;
+            [self showSettingsModal];
+        }]];
         
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-
+        
         return;
     }
     [self showSettingsModal];
@@ -1397,15 +1401,19 @@ static NSMutableSet *browserWindowControllers;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
         BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
-        DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost is equal to currentStartURL: %d or clientConfigSecureModePaused: %d)",
+        NSString *currentURL = [[self.browserTabViewController currentURL] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        NSString *currentStartURLTrimmed = [currentStartURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost == nil OR currentMainHost %@ is equal to currentStartURL %@ OR clientConfigSecureModePaused: %d)",
                      __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't",
                      (unsigned long)self.browserTabViewController.openWebpages.count,
-                     [[self.browserTabViewController currentMainHost] isEqualToString:currentStartURL],
+                     currentURL,
+                     currentStartURLTrimmed,
                      _clientConfigSecureModePaused);
         if (serverConfig.count > 0 &&
             clientConfigActive &&
-            ((self.browserTabViewController.openWebpages.count == 1 &&
-            [[self.browserTabViewController currentMainHost] isEqualToString:currentStartURL]) ||
+            (!currentURL ||
+             (self.browserTabViewController.openWebpages.count == 1 &&
+            [currentURL isEqualToString:currentStartURLTrimmed]) ||
              _clientConfigSecureModePaused)) {
             DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
             readMDMConfig = [self readMDMServerConfig:serverConfig];
@@ -1424,8 +1432,7 @@ static NSMutableSet *browserWindowControllers;
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL readMDMConfig = NO;
-    if (!_isReconfiguringToMDMConfig &&
-        !(receivedServerConfig &&
+    if (!(receivedServerConfig &&
           [receivedServerConfig isEqualToDictionary:serverConfig]) &&
         [self isReceivedServerConfigNew:serverConfig]) {
         _isReconfiguringToMDMConfig = YES;
@@ -1445,6 +1452,7 @@ static NSMutableSet *browserWindowControllers;
                                                               selector:@selector(storeNewSEBSettingsSuccessful:)];
     } else {
         DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+        _isReconfiguringToMDMConfig = NO;
     }
     return readMDMConfig;
 }
@@ -1452,12 +1460,15 @@ static NSMutableSet *browserWindowControllers;
 
 - (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     for (NSString *key in newReceivedServerConfig) {
-        id newValue = [newReceivedServerConfig objectForKey:key];
-        id currentValue = [[NSUserDefaults standardUserDefaults] secureObjectForKey:key];
-        if (![newValue isEqual:currentValue]) {
-            DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
-            return YES;
+        if (![key isEqualToString:@"originatorVersion"]) {
+            id newValue = [newReceivedServerConfig objectForKey:key];
+            id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
+            if (![newValue isEqual:currentValue]) {
+                DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
+                return YES;
+            }
         }
     }
     DDLogVerbose(@"%s: Configuration received from MDM server is same as current settings, ignore it.", __FUNCTION__);
@@ -2057,7 +2068,9 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogDebug(@"%s: Received config from MDM server while Settings and an alert or the Share Sheet were displayed: Ignoring MDM config.", __FUNCTION__);
         }
     } else {
-        [self handleMDMServerConfig:nil];
+        [self closeSettingsBeforeOpeningSEBConfig:nil
+                                         callback:self
+                                         selector:@selector(handleMDMServerConfig:)];
     }
 }
 
@@ -2452,7 +2465,6 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
-        receivedServerConfig = nil;
         _isReconfiguringToMDMConfig = NO;
         _scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
@@ -2473,7 +2485,6 @@ void run_on_ui_thread(dispatch_block_t block)
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
         if (_isReconfiguringToMDMConfig) {
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
-            receivedServerConfig = nil;
             _isReconfiguringToMDMConfig = NO;
             [self restartExam:NO];
             
@@ -2721,7 +2732,7 @@ void run_on_ui_thread(dispatch_block_t block)
 quittingClientConfig:(BOOL)quittingClientConfig
     pasteboardString:(NSString *)pasteboardString
 {
-    receivedServerConfig = nil;
+    _isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
     if (!self.sideMenuController.isLeftViewHidden) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
@@ -2761,10 +2772,10 @@ quittingClientConfig:(BOOL)quittingClientConfig
         BOOL oldEnableASAM = _enableASAM;
         
         // Check if we received new settings from an MDM server
-        if (quittingClientConfig && [self conditionallyReadMDMServerConfig]) {
-            DDLogDebug(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
-            return;
-        }
+//        if (quittingClientConfig && [self conditionallyReadMDMServerConfig]) {
+//            DDLogDebug(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
+//            return;
+//        }
         
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
