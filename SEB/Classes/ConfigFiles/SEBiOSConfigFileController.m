@@ -103,10 +103,12 @@
                 // Set the flag to eventually display the dialog later
                 [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
             }
-            
             // Inform callback that storing new settings was successful
             [super storeNewSEBSettingsSuccessful:nil];
         }
+    } else {
+        // Inform callback that storing new settings was successful
+        [super storeNewSEBSettingsSuccessful:nil];
     }
     
     // Save settings password from the opened config file

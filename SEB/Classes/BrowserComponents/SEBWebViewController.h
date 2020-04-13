@@ -59,6 +59,7 @@
 @property (nonatomic, strong) UIWebView *sebWebView;
 @property (strong) SEBURLFilter *urlFilter;
 @property (strong) UIView *filterMessageHolder;
+@property (strong) NSString *currentURL;
 @property (strong) NSString *currentMainHost;
 @property (strong) NSURLRequest *currentRequest;
 

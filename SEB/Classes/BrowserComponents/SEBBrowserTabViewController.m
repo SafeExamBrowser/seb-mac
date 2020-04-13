@@ -116,6 +116,12 @@
 
 #pragma mark - Controller interface
 
+- (NSString *) currentURL
+{
+    return _visibleWebViewController.currentURL;
+}
+
+
 - (NSString *) currentMainHost
 {
     return _visibleWebViewController.currentMainHost;
