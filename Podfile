@@ -28,12 +28,5 @@ pod 'QRCodeReaderViewController', '~> 4.0.2'
 
 end
 
-target 'SEB Enterprise' do
-    
-platform :ios, '9.3.5'
-pod 'CocoaLumberjack'
-pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
-pod 'QRCodeReaderViewController', '~> 4.0.2'
-
 end
 
