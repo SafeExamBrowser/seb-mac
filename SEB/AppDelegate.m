@@ -246,6 +246,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
                 DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
                 // The cached, previously received server config needs to be reset
                 // for the new one to be conditionally applied
+                _sebViewController.didReceiveMDMConfig = YES;
                 [_sebViewController resetReceivedServerConfig];
                 [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
             }
