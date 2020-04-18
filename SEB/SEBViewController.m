@@ -2103,6 +2103,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                     self.alertController = nil;
+                    self.didReceiveMDMConfig = NO;
                 }]];
                 
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
