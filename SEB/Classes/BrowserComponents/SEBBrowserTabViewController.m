@@ -618,6 +618,9 @@
                 urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
             }
         }
+        // This should prevent that a race condition with
+        // receiving MDM server config already added an empty webpage
+        [_openWebpages removeAllObjects];
         [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
 }
