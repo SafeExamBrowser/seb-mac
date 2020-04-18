@@ -201,6 +201,7 @@
 @property(readwrite) BOOL examSessionClearCookiesOnEnd;
 
 @property(readwrite) BOOL finishedStartingUp;
+@property(readwrite) BOOL didReceiveMDMConfig;
 @property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openCloseSlider;
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
@@ -246,7 +247,8 @@
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
-- (void) conditionallyOpenSEBConfigFromMDMServer;
+- (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig;
+- (void) resetReceivedServerConfig;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
