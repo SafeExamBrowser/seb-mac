@@ -1005,7 +1005,7 @@ static NSMutableSet *browserWindowControllers;
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
             self->receivedServerConfig = nil;
-            
+            self.didReceiveMDMConfig = YES;
             if (![self readMDMServerConfig:serverConfig]) {
                 [self showSettingsModal];
             }
