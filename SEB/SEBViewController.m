@@ -283,16 +283,22 @@ static NSMutableSet *browserWindowControllers;
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
                                                       if (serverConfig.count > 0) {
-                                                          if (self.isReconfiguringToMDMConfig == NO &&
+                                                          if (self.didReceiveMDMConfig == NO &&
+                                                              self.isReconfiguringToMDMConfig == NO &&
                                                               self.settingsOpen == NO &&
-                                                              !NSUserDefaults.userDefaultsPrivate) {
+                                                              NSUserDefaults.userDefaultsPrivate == NO) {
+                                                              self.didReceiveMDMConfig = YES;
                                                               DDLogVerbose(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server
                                                               // when settings aren't open (otherwise it's postponed to next
                                                               // session restart or when leaving and returning to SEB
-                                                              [self conditionallyOpenSEBConfigFromMDMServer];
+                                                              [self conditionallyReadMDMServerConfig:serverConfig];
                                                           } else {
-                                                              DDLogVerbose(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
+                                                              DDLogVerbose(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but%@%@%@%@. Not appying the MDM config for now.",
+                                                                           self.didReceiveMDMConfig ? @" already processing received MDM config" : @"",
+                                                                           self.isReconfiguringToMDMConfig ? @" already reconfiguring to MDM config" : @"",
+                                                                           self.settingsOpen ? @" InAppSettings are open" : @"",
+                                                                           NSUserDefaults.userDefaultsPrivate ? @" running with exam settings" : @"");
                                                           }
                                                       }
                                                   }];
@@ -988,7 +994,10 @@ static NSMutableSet *browserWindowControllers;
     NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
     BOOL isClientConfigActive = !NSUserDefaults.userDefaultsPrivate;
     DDLogDebug(@"%s: %@ receive MDM Managed Configuration dictionary while client config is%@ active.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't", isClientConfigActive ? @"" : @"n't");
-    if (isClientConfigActive && serverConfig.count) {
+    if (isClientConfigActive &&
+        serverConfig.count &&
+        [self isReceivedServerConfigNew:serverConfig])
+    {
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
                                                                 message:NSLocalizedString(@"Do you want to abort opening Settings and apply this managed configuration?", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
@@ -1391,72 +1400,98 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Handle MDM Managed App Configuration
 
-- (BOOL)conditionallyReadMDMServerConfig
+- (BOOL)conditionallyReadMDMServerConfig:(NSDictionary *)serverConfig
 {
     BOOL readMDMConfig = NO;
     
-    if (!_isReconfiguringToMDMConfig) {
-        // Check if we received a new configuration from an MDM server
-        _isReconfiguringToMDMConfig = YES;
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-        BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
-        NSString *currentURL = [[self.browserTabViewController currentURL] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        NSString *currentStartURLTrimmed = [currentStartURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost == nil OR currentMainHost %@ is equal to currentStartURL %@ OR clientConfigSecureModePaused: %d)",
-                     __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't",
-                     (unsigned long)self.browserTabViewController.openWebpages.count,
-                     currentURL,
-                     currentStartURLTrimmed,
-                     _clientConfigSecureModePaused);
-        if (serverConfig.count > 0 &&
-            clientConfigActive &&
-            (!currentURL ||
-             (self.browserTabViewController.openWebpages.count == 1 &&
-            [currentURL isEqualToString:currentStartURLTrimmed]) ||
-             _clientConfigSecureModePaused)) {
-            DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
-            readMDMConfig = [self readMDMServerConfig:serverConfig];
+    // Check again if not running in exam mode, to catch timing related issues
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        if (!_isReconfiguringToMDMConfig) {
+            // Check if we received a new configuration from an MDM server
+            _isReconfiguringToMDMConfig = YES;
+            BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
+            NSString *currentURL = [[self.browserTabViewController currentURL] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+            NSString *currentStartURLTrimmed = [currentStartURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+            DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost == nil OR currentMainHost %@ is equal to currentStartURL %@ OR clientConfigSecureModePaused: %d)",
+                         __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't",
+                         (unsigned long)self.browserTabViewController.openWebpages.count,
+                         currentURL,
+                         currentStartURLTrimmed,
+                         _clientConfigSecureModePaused);
+            if (serverConfig.count > 0 &&
+                clientConfigActive &&
+                (!currentURL ||
+                 (self.browserTabViewController.openWebpages.count == 1 &&
+                [currentURL isEqualToString:currentStartURLTrimmed]) ||
+                 _clientConfigSecureModePaused))
+            {
+                DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
+                readMDMConfig = [self readMDMServerConfig:serverConfig];
+                _didReceiveMDMConfig = NO;
+                return readMDMConfig;
+            } else {
+                DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
+                _isReconfiguringToMDMConfig = NO;
+            }
         } else {
-            DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
-            _isReconfiguringToMDMConfig = NO;
+            DDLogVerbose(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
         }
     } else {
-        DDLogVerbose(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
+        _isReconfiguringToMDMConfig = NO;
     }
+    _didReceiveMDMConfig = NO;
     return readMDMConfig;
 }
 
 
 - (BOOL)readMDMServerConfig:(NSDictionary *)serverConfig
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL readMDMConfig = NO;
-    if (!(receivedServerConfig &&
-          [receivedServerConfig isEqualToDictionary:serverConfig]) &&
-        [self isReceivedServerConfigNew:serverConfig]) {
-        _isReconfiguringToMDMConfig = YES;
-        receivedServerConfig = serverConfig;
-        readMDMConfig = YES;
-        // If we did receive a config and SEB isn't running in exam mode currently
-        DDLogDebug(@"%s: Received new configuration from MDM server with %lu keys", __FUNCTION__, (unsigned long)serverConfig.count);
-        // As we handle the config received from the MDM server, we need to remove it from settings
-        [preferences removeObjectForKey:kConfigurationKey];
-        NSDictionary *newServerConfig = [preferences dictionaryForKey:kConfigurationKey];
-        DDLogDebug(@"%s: Received new configuration from MDM server and tried to remove the value for its key in UserDefaults. Now server config in UserDefaults has %lu keys", __FUNCTION__, (unsigned long)newServerConfig.count);
-        [preferences setObject:nil forKey:kConfigurationKey];
-        newServerConfig = [preferences dictionaryForKey:kConfigurationKey];
-        DDLogDebug(@"%s: Received new configuration from MDM server and tried to overwrite the value for its key with nil in UserDefaults. Now server config in UserDefaults has %lu keys", __FUNCTION__, (unsigned long)newServerConfig.count);
-        [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
-                                                              callback:self
-                                                              selector:@selector(storeNewSEBSettingsSuccessful:)];
-    } else {
-        DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
-        _isReconfiguringToMDMConfig = NO;
+    // Check again if not running in exam mode, to catch timing related issues
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        if ([self didNotReceiveSameServerConfig:serverConfig]) {
+            _isReconfiguringToMDMConfig = YES;
+            readMDMConfig = YES;
+            // If we did receive a config and SEB isn't running in exam mode currently
+            DDLogDebug(@"%s: Received new configuration from MDM server with %lu keys", __FUNCTION__, (unsigned long)serverConfig.count);
+            // Close all open alerts first before applying SEB settings
+            [self conditionallyOpenSEBConfig:serverConfig
+                                    callback:self
+                                    selector:@selector(handleMDMServerConfig:)];
+
+        } else {
+            DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+            _isReconfiguringToMDMConfig = NO;
+        }
     }
     return readMDMConfig;
 }
 
+
+- (void) handleMDMServerConfig:(NSDictionary *)serverConfig
+{
+    [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
+                                                          callback:self
+                                                          selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
+- (void)resetReceivedServerConfig
+{
+    receivedServerConfig = nil;
+}
+
+- (BOOL)didNotReceiveSameServerConfig:(NSDictionary *)newReceivedServerConfig
+{
+    if (!receivedServerConfig) {
+        receivedServerConfig = newReceivedServerConfig;
+        return [self isReceivedServerConfigNew:newReceivedServerConfig];
+    } else if ([receivedServerConfig isEqualToDictionary:newReceivedServerConfig]) {
+        return NO;
+    } else {
+        return [self isReceivedServerConfigNew:newReceivedServerConfig];
+    }
+}
 
 - (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
 {
@@ -1467,6 +1502,7 @@ static NSMutableSet *browserWindowControllers;
             id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
             if (![newValue isEqual:currentValue]) {
                 DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
+                receivedServerConfig = newReceivedServerConfig;
                 return YES;
             }
         }
@@ -2043,41 +2079,34 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) conditionallyOpenSEBConfigFromMDMServer
+- (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig
 {
-    if (_settingsOpen) {
-        if (!_alertController && !self.appSettingsViewController.presentedViewController) {
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
-                                                                    message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", nil)
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self.alertController = nil;
-                                                                     [self closeSettingsBeforeOpeningSEBConfig:nil
-                                                                                                      callback:self
-                                                                                                      selector:@selector(handleMDMServerConfig:)];
-                                                                 }]];
-            
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                     self.alertController = nil;
-                                                                 }]];
-            
-            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+    // Check if not running in exam mode
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        if (_settingsOpen) {
+            if (!_alertController && !self.appSettingsViewController.presentedViewController) {
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
+                                                                        message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", nil)
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         self.alertController = nil;
+                    [self conditionallyReadMDMServerConfig:serverConfig];
+                                                                     }]];
+                
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                         self.alertController = nil;
+                                                                     }]];
+                
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            } else {
+                DDLogDebug(@"%s: Received config from MDM server while Settings and an alert or the Share Sheet were displayed: Ignoring MDM config.", __FUNCTION__);
+            }
         } else {
-            DDLogDebug(@"%s: Received config from MDM server while Settings and an alert or the Share Sheet were displayed: Ignoring MDM config.", __FUNCTION__);
+            [self conditionallyReadMDMServerConfig:serverConfig];
         }
-    } else {
-        [self closeSettingsBeforeOpeningSEBConfig:nil
-                                         callback:self
-                                         selector:@selector(handleMDMServerConfig:)];
     }
-}
-
-
-- (void) handleMDMServerConfig:(id)reference
-{
-    [self conditionallyReadMDMServerConfig];
 }
 
 
@@ -2169,7 +2198,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                     selector:selector];
         }];
         return;
-    } else {
+    } else if (!_didReceiveMDMConfig) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Check if reconfiguring is allowed
@@ -2206,17 +2235,17 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          self->_alertController = nil;
                                                                      }]];
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                
-            } else {
-                // Reconfiguring is allowed: Invoke the callback to proceed
-                IMP imp = [callback methodForSelector:selector];
-                void (*func)(id, SEL, id) = (void *)imp;
-                func(callback, selector, sebConfig);
+                return;
             }
         } else {
             _scannedQRCode = false;
+            return;
         }
     }
+    // Reconfiguring is allowed: Invoke the callback to proceed
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, id) = (void *)imp;
+    func(callback, selector, sebConfig);
 }
 
 
@@ -2465,7 +2494,6 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
-        _isReconfiguringToMDMConfig = NO;
         _scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
@@ -2474,7 +2502,8 @@ void run_on_ui_thread(dispatch_block_t block)
         if (newSettingsFilename.length > 0) {
             [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
         }
-        
+        _isReconfiguringToMDMConfig = NO;
+        _didReceiveMDMConfig = NO;
         [self restartExam:false];
         
     } else {
@@ -2486,6 +2515,7 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_isReconfiguringToMDMConfig) {
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
             _isReconfiguringToMDMConfig = NO;
+            _didReceiveMDMConfig = NO;
             [self restartExam:NO];
             
         } else if (_scannedQRCode) {
@@ -2714,6 +2744,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) quitExam
 {
+    receivedServerConfig = nil;
     [self sessionQuitRestart:NO];
 }
 

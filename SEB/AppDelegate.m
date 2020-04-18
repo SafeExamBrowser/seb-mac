@@ -244,7 +244,10 @@ void run_block_on_ui_thread(dispatch_block_t block)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
             if (!_openedURL && serverConfig.count > 0) {
                 DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
-                [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
+                // The cached, previously received server config needs to be reset
+                // for the new one to be conditionally applied
+                [_sebViewController resetReceivedServerConfig];
+                [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
             }
         }
     }
