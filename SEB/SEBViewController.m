@@ -2090,14 +2090,20 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         self.alertController = nil;
-                    [self conditionallyReadMDMServerConfig:serverConfig];
-                                                                     }]];
+                    self.alertController = nil;
+                    DDLogDebug(@"%s: Received config while Settings are displayed: Closing Settings.", __FUNCTION__);
+                    [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                        DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
+                        self.appSettingsViewController = nil;
+                        self.settingsOpen = NO;
+                        [self conditionallyReadMDMServerConfig:serverConfig];
+                    }];
+                }]];
                 
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                         self.alertController = nil;
-                                                                     }]];
+                    self.alertController = nil;
+                }]];
                 
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
             } else {
