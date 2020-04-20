@@ -2,7 +2,7 @@
 //  SEBViewController.h
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -61,7 +61,6 @@
 
 #import "SEBRootViewController.h"
 #import "LGSideMenuController.h"
-#import "UIViewController+LGSideMenuController.h"
 
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
@@ -127,7 +126,6 @@
     NSString *startURLQueryParameter;
 
     NSUInteger statusBarAppearance;
-    BOOL browserToolbarEnabled;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;
@@ -161,7 +159,8 @@
 @property (readwrite, strong) NSDate *didResignActiveTime;
 @property (readwrite, strong) NSDate *didBecomeActiveTime;
 @property (readwrite, strong) NSDate *didResumeExamTime;
-
+@property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
+@property (readwrite, strong) NSDate *appDidBecomeActiveTime;
 
 // Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
@@ -207,10 +206,14 @@
 @property(readwrite) BOOL startSAMWAlertDisplayed;
 @property(readwrite) BOOL pausedSAMAlertDisplayed;
 @property(readwrite) BOOL endSAMWAlertDisplayed;
+@property(readwrite) BOOL clientConfigSecureModePaused;
+
+@property(readwrite) BOOL examSessionClearCookiesOnEnd;
 
 @property(readwrite) BOOL examSessionClearCookiesOnEnd;
 
 @property(readwrite) BOOL finishedStartingUp;
+@property(readwrite) BOOL didReceiveMDMConfig;
 @property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openCloseSlider;
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
@@ -266,7 +269,8 @@
 - (void) stopAutonomousSingleAppMode;
 
 #pragma mark - Lockdown windows
-- (void) conditionallyOpenLockdownWindows;
+- (void) conditionallyOpenStartExamLockdownWindows;
+- (BOOL) conditionallyOpenSleepModeLockdownWindows;
 - (void) openLockdownWindows;
 
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
@@ -275,7 +279,8 @@
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
-- (void) conditionallyOpenSEBConfigFromMDMServer;
+- (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig;
+- (void) resetReceivedServerConfig;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
 - (void) storeNewSEBSettings:(NSData *)sebData;
