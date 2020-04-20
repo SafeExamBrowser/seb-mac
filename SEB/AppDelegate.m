@@ -3,7 +3,7 @@
 //  SEB
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -182,6 +182,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     DDLogDebug(@"%s", __FUNCTION__);
     _didEnterBackground = YES;
+    _sebViewController.appDidEnterBackgroundTime = [NSDate date];
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         _sebViewController.alertController = nil;
@@ -215,15 +216,19 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     DDLogDebug(@"%s", __FUNCTION__);
+    _sebViewController.appDidBecomeActiveTime = [NSDate date];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (_didEnterBackground) {
         DDLogInfo(@"Application returned to active state after it entered background state before. This usually happens when the device is put to sleep.");
+        _didEnterBackground = NO;
         if (@available(iOS 13.0, *)) {
             DDLogDebug(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
         } else {
-            
+            if ([_sebViewController conditionallyOpenSleepModeLockdownWindows]) {
+                return;
+            }
         }
     }
-    _didEnterBackground = NO;
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
@@ -239,9 +244,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
         } else {
             // Check if we received a new configuration from an MDM server (by MDM managed configuration)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-            if (serverConfig.count > 0) {
+            if (!_openedURL && serverConfig.count > 0) {
                 DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
-                [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
+                // The cached, previously received server config needs to be reset
+                // for the new one to be conditionally applied
+                [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
             }
         }
     }
@@ -278,10 +285,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s", __FUNCTION__);
     DDLogInfo(@"URL scheme:%@", [url scheme]);
     DDLogInfo(@"URL query: %@", [url query]);
+    DDLogInfo(@"URL handling options: %@", options);
     
     if (url) {
         DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
-        _openedURL = true;
+        _openedURL = YES;
         
         // Is the main SEB view controller already instantiated?
         if (_sebViewController && !_sebViewController.mailViewController) {
@@ -315,7 +323,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 
 - (BOOL) application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
-// Xcode 9:  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
   restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
     DDLogDebug(@"%s", __FUNCTION__);

@@ -2,7 +2,7 @@
 //  SEBTableViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -35,10 +35,11 @@
 #import "Webpages.h"
 #import "SEBSliderItem.h"
 
+
 @interface SEBTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *StatusBarBackgroundView;
-@property (weak, nonatomic) IBOutlet UILabel *SEBTitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *SEBTitleButtonLabel;
 @property (nonatomic, strong) NSArray *commandItems;
 
 @end
@@ -66,7 +67,7 @@
 
 //    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    _SEBTitleLabel.text = [NSString stringWithFormat:@"%@ %@", SEBFullAppName , versionString];
+    [_SEBTitleButtonLabel setTitle:[NSString stringWithFormat:@"%@ %@", SEBFullAppName , versionString] forState:UIControlStateNormal];
     
     // Add an observer for refreshing the table view
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -77,6 +78,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(initSliderViewAppearance)
                                                  name:@"LGSideMenuWillShowLeftViewNotification" object:nil];
+    
+    // Add an observer for the left slider was displayed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sliderViewDidShow)
+                                                 name:@"LGSideMenuDidShowLeftViewNotification" object:nil];
     
     // Add an observer for the left slider will be hidden by swipe gesture
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -141,8 +147,8 @@
         _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
         _commandItems = _appDelegate.sebUIController.leftSliderCommands;
         
-        _SEBTitleLabel.textColor = [UIColor whiteColor];
-        _SEBTitleLabel.hidden = NO;
+        _SEBTitleButtonLabel.tintColor = [UIColor whiteColor];
+        _SEBTitleButtonLabel.hidden = NO;
         CGFloat statusBarHeight = [_appDelegate.sebUIController statusBarHeightForDevice];
         self.statusBarHeight.constant = statusBarHeight;
         self.backgroundViewbottomDistance.constant = -statusBarHeight;
@@ -176,8 +182,14 @@
 - (void)sliderWillCloseByGesture
 {
     if (![_appDelegate.sebUIController extendedDisplay] || _appDelegate.sebUIController.iPadExtendedDisplay) {
-        _SEBTitleLabel.hidden = YES;
+        _SEBTitleButtonLabel.hidden = YES;
     }
+}
+
+
+- (IBAction)closeLeftSideMenu
+{
+    [self.sideMenuController hideLeftViewAnimated];
 }
 
 
@@ -336,7 +348,7 @@
         }
             
         default:
-            return nil;
+            return [[UITableViewCell alloc] init];
             break;
     }
 }

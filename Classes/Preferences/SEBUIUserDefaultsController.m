@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 07.11.11.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -189,7 +189,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"OS X", nil),
+            NSLocalizedString(@"macOS", nil),
             NSLocalizedString(@"Win", nil),
             nil];
 }
