@@ -210,8 +210,6 @@
 
 @property(readwrite) BOOL examSessionClearCookiesOnEnd;
 
-@property(readwrite) BOOL examSessionClearCookiesOnEnd;
-
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL didReceiveMDMConfig;
 @property(readwrite) BOOL isReconfiguringToMDMConfig;
