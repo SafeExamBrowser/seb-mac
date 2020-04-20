@@ -2082,7 +2082,10 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig
 {
     // Check if not running in exam mode
-    if (!NSUserDefaults.userDefaultsPrivate) {
+    if (!NSUserDefaults.userDefaultsPrivate  && [self isReceivedServerConfigNew:serverConfig]) {
+        _didReceiveMDMConfig = YES;
+        [self resetReceivedServerConfig];
+
         if (_settingsOpen) {
             if (!_alertController && !self.appSettingsViewController.presentedViewController) {
                 _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
