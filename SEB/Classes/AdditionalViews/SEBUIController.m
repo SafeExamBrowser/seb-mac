@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.02.18.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -89,6 +89,9 @@
                                                 style:UIBarButtonItemStylePlain
                                                target:self
                                                action:@selector(leftDrawerButtonPress:)];
+    dockItem.accessibilityLabel = NSLocalizedString(@"Toggle Side Menu", nil);
+    dockItem.accessibilityHint = NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again", nil);
+
     [newDockItems addObject:dockItem];
     
     // Add flexible space between left and right items
@@ -127,6 +130,8 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(backToStart)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Back to Start", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"Navigates back to the start URL or to another preset URL. Doesn't log users out", nil);
             //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBSliderSkipBackIcon"]];
             [newDockItems addObject:dockItem];
             
@@ -151,6 +156,9 @@
                                                        target:self
                                                        action:@selector(goBack)];
             dockItem.enabled = false;
+            dockItem.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
+
             [newDockItems addObject:dockItem];
             dockBackButton = dockItem;
             
@@ -177,6 +185,8 @@
                                                        target:self
                                                        action:@selector(goForward)];
             dockItem.enabled = false;
+            dockItem.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
             [newDockItems addObject:dockItem];
             dockForwardButton = dockItem;
             
@@ -205,6 +215,8 @@
                                                     style:UIBarButtonItemStylePlain
                                                    target:self
                                                    action:@selector(reload)];
+        dockItem.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+        dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
         //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
         [newDockItems addObject:dockItem];
         _dockReloadButton = dockItem;
@@ -239,6 +251,8 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(scanQRCode)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", nil);
             [newDockItems addObject:dockItem];
             
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -268,6 +282,8 @@
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
         dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
+        dockItem.accessibilityLabel = NSLocalizedString(@"Quit Session", nil);
+        dockItem.accessibilityHint = NSLocalizedString(@"Ends an exam session and returns to client settings", nil);
         [newDockItems addObject:dockItem];
     }
     

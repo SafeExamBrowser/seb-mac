@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24.01.13.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -48,17 +48,25 @@
 
 - (BOOL) hasDefaultsKey;
 - (BOOL) updateUDKey;
-- (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error;
-- (NSData *) decryptData:(NSData *)encryptedData forKey:(NSString *)key error:(NSError **)error;
+- (NSData *) encryptData:(NSData *)data
+                  forKey:(NSString *)key
+                   error:(NSError **)error;
+- (NSData *) decryptData:(NSData *)encryptedData
+                  forKey:(NSString *)key
+                   error:(NSError **)error;
 
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey;
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
 - (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
                    configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
-                                configKeyRef:(NSData **)configKeyRef;
+                                configKeyRef:(NSData **)configKeyRef
+                     initializeContainedKeys:(BOOL)initializeContainedKeys;
 
-- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
-- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults
+                          updateSalt:(BOOL)generateNewSalt;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults
+                          updateSalt:(BOOL)generateNewSalt
+                         newChecksum:(NSData **)newChecksumPtr;
 - (NSData *) checksumForPrefDictionary:(NSDictionary *)prefsDict;
 - (NSData *) checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 

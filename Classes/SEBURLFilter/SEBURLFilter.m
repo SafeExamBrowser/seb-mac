@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 06.10.13.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -59,6 +59,13 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 // Updates filter rule arrays with current settings (UserDefaults)
 - (NSError *) updateFilterRules
 {
+    return [self updateFilterRulesSebRules:NO];
+}
+
+
+// Updates filter rule arrays with current settings (UserDefaults)
+- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules
+{
     if (self.prohibitedList) {
         [self.prohibitedList removeAllObjects];
     } else {
@@ -70,7 +77,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     } else {
         self.permittedList = [NSMutableArray new];
     }
-
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.enableURLFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnable"];
     self.enableContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
@@ -113,23 +120,30 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     }
     
-    // Check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
+    // If URL filtering is enabled, then
+    // check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
     NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSURL *startURL = [NSURL URLWithString:startURLString];
-    if ([self testURLAllowed:startURL] != URLFilterActionAllow) {
+    if (self.enableURLFilter && [self testURLAllowed:startURL] != URLFilterActionAllow) {
         // If Start URL is not allowed: Create one using the full Start URL
         id expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
         if (error) {
             [self.prohibitedList removeAllObjects];
             [self.permittedList removeAllObjects];
+            // Convert these rules and add them to the XULRunner seb keys
+            [self createSebRuleLists];
             return error;
         }
         // Add this Start URL filter expression to the permitted filter list
         [self.permittedList addObject:expression];
     }
     
-    // Convert these rules and add them to the XULRunner seb keys
-    [self createSebRuleLists];
+    if (updateSebRules) {
+        // Convert these rules and add them to the XULRunner seb keys
+        // as this changes the Browser Exam Key and Config Key,
+        // this should only be done when saving a .seb config file
+        [self createSebRuleLists];
+    }
     
     // Updating filter rules worked; don't return any NSError
     return nil;
@@ -261,6 +275,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         return URLFilterActionBlock;
     }
     
+    // Check if URL starts with "about:" and ignore such URLs
+    if ([URLToFilter.scheme isEqualToString:@"about"]) {
+        return URLFilterActionAllow;
+    }
+    
     /// Apply permitted filter expressions
     
     for (expression in self.permittedList) {
@@ -314,50 +333,57 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     filterComponent = filterExpression.scheme;
     if (filterComponent &&
         ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.scheme]) {
-            // Scheme of the URL to filter doesn't match the one from the filter expression: Exit with matching = NO
-            return NO;
-        }
+        // Scheme of the URL to filter doesn't match the one from the filter expression: Exit with matching = NO
+        return NO;
+    }
     
     filterComponent = filterExpression.user;
     if (filterComponent &&
         ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.user]) {
-            return NO;
-        }
+        return NO;
+    }
     
     filterComponent = filterExpression.password;
     if (filterComponent &&
         ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.password]) {
-            return NO;
-        }
+        return NO;
+    }
     
     filterComponent = filterExpression.host;
     if (filterComponent &&
         ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.host]) {
-            return NO;
-        }
+        return NO;
+    }
     
     if (filterExpression.port && URLToFilter.port &&
         URLToFilter.port.intValue != filterExpression.port.intValue) {
-            return NO;
-        }
+        return NO;
+    }
     
     filterComponent = filterExpression.path;
     if (filterComponent &&
-        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.path]) {
-            return NO;
-        }
+        ![self regexFilterExpression:filterComponent hasMatchesInString:[URLToFilter.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]]]) {
+        return NO;
+    }
     
     filterComponent = filterExpression.query;
-    if (filterComponent &&
-        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.query]) {
+    if (filterComponent) {
+        // If there's a query filter component, then we need to even filter empty URL query strings
+        // as the filter might either allow some specific queries or no query at all ("?." query filter)
+        NSString *queryString = URLToFilter.query;
+        if (!queryString) {
+            queryString = @"";
+        }
+        if (![self regexFilterExpression:filterComponent hasMatchesInString:queryString]) {
             return NO;
         }
+    }
     
     filterComponent = filterExpression.fragment;
     if (filterComponent &&
         ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.fragment]) {
-            return NO;
-        }
+        return NO;
+    }
     
     // URL matches the filter expression
     return YES;
@@ -367,7 +393,8 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 - (BOOL) regexFilterExpression:(NSRegularExpression *)regexFilter hasMatchesInString:(NSString *)stringToMatch
 {
     if (!stringToMatch) return NO;
-    return [regexFilter rangeOfFirstMatchInString:stringToMatch options:NSRegularExpressionCaseInsensitive |  NSRegularExpressionAnchorsMatchLines range:NSMakeRange(0, stringToMatch.length)].location != NSNotFound;
+    return [regexFilter rangeOfFirstMatchInString:stringToMatch options:NSRegularExpressionCaseInsensitive |
+            NSRegularExpressionAnchorsMatchLines range:NSMakeRange(0, stringToMatch.length)].location != NSNotFound;
 }
 
 
@@ -405,11 +432,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             
             NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"]];
             NSMutableDictionary *URLFilterRule = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                                 @"active" : @YES,
-                                                                                                 @"regex" : @NO,
-                                                                                                 @"action" : [NSNumber numberWithLong:action],
-                                                                                                 @"expression" : filterExpression.string,
-                                                                                                 }];
+                @"active" : @YES,
+                @"regex" : @NO,
+                @"action" : [NSNumber numberWithLong:action],
+                @"expression" : filterExpression.string,
+            }];
             
             // Post a notification that a new filter rule action should be added
             [[NSNotificationCenter defaultCenter]

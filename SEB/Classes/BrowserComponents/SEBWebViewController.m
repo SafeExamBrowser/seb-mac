@@ -2,7 +2,7 @@
 //  SEBWebViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -38,7 +38,6 @@
 
 
 @implementation SEBWebViewController
-
 
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
@@ -163,6 +162,16 @@
     _urlFilter = [SEBURLFilter sharedSEBURLFilter];
     
 }
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self becomeFirstResponder];
+    
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -314,7 +323,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
-{    
+{
+    _currentRequest = nil;
+
     // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
     jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -331,21 +342,23 @@
     //[self highlightAllOccurencesOfString:@"SEB" inWebView:webView];
     //[self speakWebView:webView];
     
-    NSString *webPageTitle = [_sebWebView title];
+    NSString *webPageTitle;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
-            webPageTitle = nil;
+            webPageTitle = [_sebWebView url].absoluteString;
+        } else {
+            webPageTitle = [_sebWebView title];
         }
     } else {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways) {
-            webPageTitle = nil;
-        }
+                webPageTitle = [_sebWebView url].absoluteString;
+            } else {
+                webPageTitle = [_sebWebView title];
+            }
     }
-    if (webPageTitle.length != 0) {
-        [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
-    }
-    
+    [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
+
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
@@ -355,6 +368,8 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    _currentRequest = nil;
+    
     if (error.code == -999) {
         DDLogError(@"%s: Load Error -999: Another request initiated before the previous request was completed (%@)", __FUNCTION__, error.description);
         return;
@@ -422,7 +437,7 @@
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType) __unused navigationType
+ navigationType:(UIWebViewNavigationType) navigationType
 {
     NSURL *url = [request URL];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -463,7 +478,7 @@
         if (navigationType == UIWebViewNavigationTypeLinkClicked &&
             mobileEnableGuidedAccessLinkTransform) {
             navigationType = UIWebViewNavigationTypeOther;
-            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
+            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther (%ld)", __FUNCTION__, (long)navigationType);
             [webView loadRequest:request];
             return NO;
         }
@@ -611,6 +626,8 @@
         }
 
     }
+    _currentRequest = request;
+    _currentURL = url.absoluteString;
     _currentMainHost = url.host;
     return YES;
 }

@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15/12/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -103,10 +103,12 @@
                 // Set the flag to eventually display the dialog later
                 [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
             }
-            
             // Inform callback that storing new settings was successful
             [super storeNewSEBSettingsSuccessful:nil];
         }
+    } else {
+        // Inform callback that storing new settings was successful
+        [super storeNewSEBSettingsSuccessful:nil];
     }
     
     // Save settings password from the opened config file
