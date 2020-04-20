@@ -2,7 +2,7 @@
 //  SEBWebpageManager.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -115,6 +115,18 @@
 
 
 #pragma mark - Controller interface
+
+- (NSString *) currentURL
+{
+    return _visibleWebViewController.currentURL;
+}
+
+
+- (NSString *) currentMainHost
+{
+    return _visibleWebViewController.currentMainHost;
+}
+
 
 - (void) backToStart {
 //    [_visibleWebViewController backToStart];
@@ -523,7 +535,7 @@
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
     
-    [_sebViewController conditionallyOpenLockdownWindows];
+    [_sebViewController conditionallyOpenStartExamLockdownWindows];
     
     NSArray *persistedOpenWebPages;
     
@@ -606,6 +618,9 @@
                 urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
             }
         }
+        // This should prevent that a race condition with
+        // receiving MDM server config already added an empty webpage
+        [_openWebpages removeAllObjects];
         [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
 }

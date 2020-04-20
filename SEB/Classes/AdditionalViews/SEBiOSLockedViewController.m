@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03/12/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -143,12 +143,12 @@
     if (newAlertTitle.length > 0) {
         alertTitle.text = newAlertTitle;
     } else {
-        alertTitle.text = NSLocalizedString(@"SEB Is Locked!", @"Default title of lock screen alert.");
+        alertTitle.text = [NSString stringWithFormat:NSLocalizedString(@"%@ Is Locked!", @"Default title of lock screen alert."), SEBShortAppName];
     }
     if (newAlertMessage.length > 0) {
         alertMessage.text = newAlertMessage;
     } else {
-        alertMessage.text = NSLocalizedString(@"Unlock SEB with the quit password, which usually exam supervision/support knows.", @"Default message of lock screen alert.");
+        alertMessage.text = [NSString stringWithFormat:NSLocalizedString(@"Unlock %@ with the quit password, which usually exam supervision/support knows.", @"Default message of lock screen alert."), SEBShortAppName];
     }
 }
 

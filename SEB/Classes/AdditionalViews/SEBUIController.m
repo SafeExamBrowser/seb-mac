@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.02.18.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -89,8 +89,8 @@
                                                 style:UIBarButtonItemStylePlain
                                                target:self
                                                action:@selector(leftDrawerButtonPress:)];
-    dockItem.accessibilityLabel = NSLocalizedString(@"Show left side menu", nil);
-    dockItem.accessibilityHint = NSLocalizedString(@"Shows menu which lists browser tabs (starting with the exam tab) and SEB commands", nil);
+    dockItem.accessibilityLabel = NSLocalizedString(@"Toggle Side Menu", nil);
+    dockItem.accessibilityHint = NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again", nil);
 
     [newDockItems addObject:dockItem];
     

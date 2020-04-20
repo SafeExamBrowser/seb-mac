@@ -55,7 +55,7 @@
                 @throw [MscX509CommonLocalException exceptionWithCode:FailedToGenerateKey];
             }
         
-            returnCode = RSA_generate_key_ex(rsa, keySize, bigNumber, NULL);
+            returnCode = RSA_generate_key_ex(rsa, (int)keySize, bigNumber, NULL);
             if (returnCode != 1) {
                 NSLog(@"Failed to generate RSA key, function RSA_generate_key_ex returned with %d", returnCode);
                 @throw [MscX509CommonLocalException exceptionWithCode:FailedToGenerateKey];

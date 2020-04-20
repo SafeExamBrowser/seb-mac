@@ -615,6 +615,7 @@
 		69AEC957218A228300848945 /* SEBFilteredURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AEC954218A228300848945 /* SEBFilteredURLCache.h */; };
 		69AEC95A218A228300848945 /* SEBFilteredURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AEC955218A228300848945 /* SEBFilteredURLCache.m */; };
 		69AEC95B218A228300848945 /* SEBFilteredURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AEC955218A228300848945 /* SEBFilteredURLCache.m */; };
+<<<<<<< HEAD
 		69B1D46F230D7586005656B8 /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D46C230D7585005656B8 /* APIResources.swift */; };
 		69B1D470230D7586005656B8 /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D46C230D7585005656B8 /* APIResources.swift */; };
 		69B1D471230D7586005656B8 /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D46C230D7585005656B8 /* APIResources.swift */; };
@@ -630,6 +631,8 @@
 		69B1D486230D8B8F005656B8 /* SEBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D485230D8B8F005656B8 /* SEBServer.swift */; };
 		69B1D487230D8B8F005656B8 /* SEBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D485230D8B8F005656B8 /* SEBServer.swift */; };
 		69B1D488230D8B8F005656B8 /* SEBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D485230D8B8F005656B8 /* SEBServer.swift */; };
+=======
+>>>>>>> SEB-iOS
 		69B226E31D4108BA0065B831 /* Icon-22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226DF1D4108BA0065B831 /* Icon-22x29.png */; };
 		69B226E41D4108BA0065B831 /* Icon-22x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E01D4108BA0065B831 /* Icon-22x29@2x.png */; };
 		69B226E51D4108BA0065B831 /* Icon-320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* Icon-320x320.png */; };
@@ -2790,7 +2793,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1120;
 				TargetAttributes = {
 					6940B9651BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
@@ -2827,10 +2830,13 @@
 							};
 						};
 					};
+<<<<<<< HEAD
 					69F7B5FA14F411FB00FD0761 = {
 						DevelopmentTeam = 6F38DNSC7X;
 						LastSwiftMigration = 1030;
 					};
+=======
+>>>>>>> SEB-iOS
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SafeExamBrowser" */;
@@ -3765,7 +3771,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -3779,11 +3784,15 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3817,19 +3826,23 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 2.1.50;
+=======
+				MARKETING_VERSION = 2.1.16;
+>>>>>>> SEB-iOS
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "80253b4f-1e91-432c-8ca1-7a8599289903";
-				PROVISIONING_PROFILE_SPECIFIER = ETHZ_SEB_EDU_Assessment;
+				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessmentDev;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -3841,7 +3854,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -3856,10 +3868,14 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ETH Zurich (9Z623UDZ5L)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3895,7 +3911,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 2.1.50;
+=======
+				MARKETING_VERSION = 2.1.16;
+>>>>>>> SEB-iOS
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
@@ -3907,7 +3927,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -4093,7 +4113,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -4111,7 +4131,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4147,6 +4171,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
+				MARKETING_VERSION = 2.1.16;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.let.ios.seb;
@@ -4160,7 +4185,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -4172,7 +4197,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -4190,7 +4215,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4227,6 +4256,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
+				MARKETING_VERSION = 2.1.16;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
@@ -4240,7 +4270,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -4256,7 +4286,12 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+				ENABLE_HARDENED_RUNTIME = YES;
+>>>>>>> SEB-iOS
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -4298,9 +4333,16 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4327,6 +4369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/Safe Exam Browser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -4358,7 +4401,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4421,7 +4468,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
+<<<<<<< HEAD
 				CURRENT_PROJECT_VERSION = 12115;
+=======
+				CURRENT_PROJECT_VERSION = 12205;
+>>>>>>> SEB-iOS
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

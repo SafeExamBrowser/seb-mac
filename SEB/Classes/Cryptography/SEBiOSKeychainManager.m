@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15/12/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -261,11 +261,11 @@
         putResult = SecItemAdd((__bridge CFDictionaryRef) putKeyParams, (void *)&publicKeyData);
         // Delete the key
         delResult = SecItemDelete((__bridge CFDictionaryRef)(delKeyParams));
-        
+        if (publicKeyRef) CFRelease(publicKeyRef);
+
         if ((putResult != errSecSuccess) || (delResult != errSecSuccess))
         {
             DDLogError(@"Could not extract public key data: %d", (int)putResult);
-            if (publicKeyRef) CFRelease(publicKeyRef);
             return nil;
         }
     }
@@ -416,6 +416,7 @@
         SecPolicyRef policy = SecPolicyCreateBasicX509();
         SecTrustRef trust = NULL;
         OSStatus status = SecTrustCreateWithCertificates(certificateRef, policy, &trust);
+        CFRelease(policy);
         if (errSecSuccess != status) {
             DDLogError(@"SecTrustCreateWithCertificates status:%d",(int)status);
         }
@@ -637,7 +638,7 @@
     SecIdentityRef identity =
     (SecIdentityRef)CFBridgingRetain(firstItem[(id)kSecImportItemIdentity]);
 
-    NSDictionary* addQuery = @{ (id)kSecValueRef:   (__bridge id)identity,
+    NSDictionary* addQuery = @{ (id)kSecValueRef:   (__bridge_transfer id)identity,
                                 (id)kSecAttrLabel:  SEBFullAppName,
                                 };
 
@@ -667,7 +668,6 @@
     SecKeyRef publicKeyRef = [self copyPublicKeyFromCertificate:certificateRef];
     if (!publicKeyRef) {
         DDLogError(@"No public key found in certificate.");
-        if (publicKeyRef) CFRelease(publicKeyRef);
         return nil;
     }
 
@@ -706,6 +706,7 @@
         if (status != 0) {
             DDLogError(@"Encrypting data using private key failed! Error Code: %d", (int)status);
             free(outbuf);
+            CFRelease(publicKeyRef);
             return nil;
         } else {
             [cipherData appendBytes:outbuf length:outlen];

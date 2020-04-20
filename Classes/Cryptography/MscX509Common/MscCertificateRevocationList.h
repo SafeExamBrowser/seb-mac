@@ -12,7 +12,7 @@
 
 -(id)init __attribute__((unavailable("please, use initWithContentsOfFile for initialization")));
 -(id)initWithContentsOfFile:(NSString*)path error:(NSError**)error;
--(void)saveToPath:(NSString*)path error:(NSError**)error;
+-(BOOL)saveToPath:(NSString*)path error:(NSError**)error;
 -(BOOL)isEqualToMscCertificateRevocationList:(MscCertificateRevocationList*)otherMscCertificateRevocationList;
 
 @end

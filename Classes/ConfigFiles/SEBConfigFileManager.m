@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 28.04.13.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -81,7 +81,9 @@
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
-    DDLogInfo(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#ifdef DEBUG
+    DDLogDebug(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#endif
     [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
 }
 
@@ -771,10 +773,12 @@
             // If yes, then cancel reading .seb file
             DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
 
-            *error = [NSError errorWithDomain:sebErrorDomain
-                                         code:SEBErrorParsingSettingsFailedValueClassMissmatch
-                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
-                                                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
+            if (*error) {
+                *error = [NSError errorWithDomain:sebErrorDomain
+                                             code:SEBErrorParsingSettingsFailedValueClassMissmatch
+                                         userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
+                                                    NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
+            }
             
             return NO; //we abort reading the new settings here
         }
@@ -944,7 +948,7 @@
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorDecryptingIdentityNotFound
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. SEB might not have been configured correctly for your institution.", nil)}];
+                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         sebFileCredentials.publicKeyHash = nil;
         return nil;
