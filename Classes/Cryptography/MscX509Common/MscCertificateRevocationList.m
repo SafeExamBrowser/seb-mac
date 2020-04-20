@@ -65,7 +65,7 @@
     return nil;
 }
 
--(void)saveToPath:(NSString*)path error:(NSError**)error {
+-(BOOL)saveToPath:(NSString*)path error:(NSError**)error {
     
     FILE* file;
     
@@ -90,12 +90,14 @@
         
         if (error) {
             *error = [MscX509CommonError errorWithCode:e.errorCode];
+            return NO;
         }
-        return;
+        return YES;
     }
     @finally {
         
         fclose(file);
+        return NO;
     }
 }
 

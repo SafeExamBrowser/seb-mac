@@ -57,6 +57,16 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string></string>
+			<key>FooterText</key>
+			<string>On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Screen Capture</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enablePrintScreen</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -65,6 +75,14 @@
 			<string>Prevent Auto-Lock</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobilePreventAutoLock</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Lock Screen After Sleep Mode</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileSleepModeLockScreen</string>
 		</dict>
 		<dict>
 			<key>Type</key>

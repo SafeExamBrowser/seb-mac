@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsDownUploadsViewController">
@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button toolTip="Usually to be used with permitted third party applications for which you want to provide files to be downloaded." translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                <button toolTip="Usually to be used with permitted third party applications for which you want to provide files to be downloaded." ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                     <rect key="frame" x="18" y="264" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow downloading and uploading files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -34,7 +34,7 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="169"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                     <rect key="frame" x="161" y="236" width="163" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save downloaded files to:" id="23">
                         <font key="font" metaFont="system"/>
@@ -42,7 +42,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton toolTip="Choose download directory" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                <popUpButton toolTip="Choose download directory" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                     <rect key="frame" x="328" y="230" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="248"/>
@@ -67,7 +67,7 @@
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="172"/>
                     </connections>
                 </popUpButton>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38">
                     <rect key="frame" x="328" y="212" width="304" height="18"/>
                     <string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type</string>
                     <buttonCell key="cell" type="check" title="Open files after downloading" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="39">
@@ -79,7 +79,7 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_openDownloads" id="175"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76">
                     <rect key="frame" x="38" y="69" width="594" height="18"/>
                     <string key="toolTip">PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</string>
                     <buttonCell key="cell" type="check" title="Download and open PDF files instead of displaying them inline" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="77">
@@ -92,7 +92,7 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadPDFFiles" id="181"/>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                     <rect key="frame" x="38" y="112" width="595" height="26"/>
                     <string key="toolTip">SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</string>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
@@ -114,7 +114,7 @@
                         <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_chooseFileToUploadPolicy" previousBinding="202" id="203"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                <textField verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                     <rect key="frame" x="38" y="140" width="594" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose file to upload …" id="100">
                         <font key="font" metaFont="system"/>
@@ -122,7 +122,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button toolTip="Download and open .seb config files regardless if downloading and opening other file types is allowed" translatesAutoresizingMaskIntoConstraints="NO" id="265">
+                <button toolTip="Download and open .seb config files regardless if downloading and opening other file types is allowed" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="265">
                     <rect key="frame" x="18" y="18" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Download and open SEB config files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="266">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -132,14 +132,14 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadAndOpenSebConfig" id="289"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
+                <textField verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
                     <rect key="frame" x="330" y="181" width="300" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="zmv-ZO-ixQ"/>
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="e6e-se-efm">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -152,7 +152,7 @@
                         </binding>
                     </connections>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
                     <rect key="frame" x="135" y="183" width="189" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Download directory Windows:" id="24Q-1c-lTs">
                         <font key="font" metaFont="system"/>
@@ -160,7 +160,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
                     <rect key="frame" x="38" y="49" width="594" height="18"/>
                     <string key="toolTip">The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services</string>
                     <buttonCell key="cell" type="check" title="Allow using Acrobat Reader PDF plugin (insecure)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zhK-R4-XtF">
@@ -212,6 +212,7 @@
                 <constraint firstItem="eP3-ce-aHz" firstAttribute="baseline" secondItem="fKA-Ye-zQz" secondAttribute="baseline" id="tHE-9l-JK8"/>
                 <constraint firstItem="fKA-Ye-zQz" firstAttribute="leading" secondItem="eP3-ce-aHz" secondAttribute="trailing" constant="8" id="xhb-KQ-OGx"/>
             </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>

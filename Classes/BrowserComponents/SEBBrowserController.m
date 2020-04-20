@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 22/01/16.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -39,8 +39,13 @@
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
+static NSString * const authenticationHost = @"host";
+static NSString * const authenticationUsername = @"username";
+static NSString * const authenticationPassword = @"password";
+
 @interface SEBBrowserController () <CustomHTTPProtocolDelegate> {
     NSMutableArray *authorizedHosts;
+    NSMutableArray *previousAuthentications;
 }
 
 @property (nonatomic, strong) CustomHTTPProtocol *authenticatingProtocol;
@@ -123,6 +128,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBCertServices *sharedCertService = [SEBCertServices sharedInstance];
     authorizedHosts = [NSMutableArray new];
+    previousAuthentications = [NSMutableArray new];
 
     // Flush cached embedded certificates (as they might have changed with new settings)
     [sharedCertService flushCachedCertificates];
@@ -233,9 +239,24 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM])
     {
         DDLogDebug(@"%s: authentication challenge method: %@", __FUNCTION__, authenticationMethod);
+#if DEBUG
+        NSString *server = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+        DDLogDebug(@"Server which requires authentication: %@", server);
+#endif
         _authenticatingProtocol = protocol;
         _pendingChallenge = challenge;
         
+        NSString *host = challenge.protectionSpace.host;
+        NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
+        if (previousAuthentication) {
+            NSURLCredential *newCredential;
+            newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
+                                                       password:[previousAuthentication objectForKey:authenticationPassword]
+                                                    persistence:NSURLCredentialPersistenceForSession];
+            [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
+            _authenticatingProtocol = nil;
+            return;
+        }
         // Allow to enter password 3 times
         if ([challenge previousFailureCount] < 3) {
             // Display authentication dialog
@@ -243,7 +264,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             
             NSString *text = [self.delegate showURLplaceholderTitleForWebpage];
             if (!text) {
-                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
             } else {
                 if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
                     text = [NSString stringWithFormat:@"%@ (secure connection)", text];
@@ -480,7 +501,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         
         if (authorized)
         {
-            DDLogWarn(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
+            DDLogDebug(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
             
             credential = [NSURLCredential credentialForTrust:serverTrust];
             [protocol resolveAuthenticationChallenge:challenge withCredential:credential];
@@ -509,6 +530,20 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             newCredential = [NSURLCredential credentialWithUser:username
                                                        password:password
                                                     persistence:NSURLCredentialPersistenceForSession];
+            NSString *host = _pendingChallenge.protectionSpace.host;
+            NSDictionary *newAuthentication = @{ authenticationHost : host, authenticationUsername : username, authenticationPassword : password};
+            BOOL found = NO;
+            for (NSUInteger i=0; i < previousAuthentications.count; i++) {
+                NSDictionary *previousAuthentication = previousAuthentications[i];
+                if ([[previousAuthentication objectForKey:authenticationHost] isEqualToString:host]) {
+                    previousAuthentications[i] = newAuthentication;
+                    found = YES;
+                    break;
+                }
+            }
+            if (!found) {
+                [previousAuthentications addObject:newAuthentication];
+            }
             [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
             _authenticatingProtocol = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {
@@ -526,6 +561,19 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // Any other case as when the server aborted the authentication challenge
             _authenticatingProtocol = nil;
         }
+    }
+}
+
+
+- (NSDictionary *)fetchPreviousAuthenticationForHost:(NSString *)host
+{
+    NSString *predicateString = [[NSString stringWithFormat:@"%@ contains[c] ", authenticationHost] stringByAppendingString:@"%@"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString, host];
+    NSArray *results = [previousAuthentications filteredArrayUsingPredicate:predicate];
+    if (results.count == 1) {
+        return results[0];
+    } else {
+        return nil;
     }
 }
 
@@ -646,10 +694,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 // Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
 // or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
 // for example to scan the newly received HTML data
-//- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
-//{
-//    
-//}
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    [_delegate sessionTaskDidCompleteSuccessfully:task];
+}
 
 
 #pragma mark - Handling Universal Links

@@ -2,7 +2,7 @@
 //  SEBWebpageManager.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -96,6 +96,15 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self becomeFirstResponder];
+    
+}
+
+
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -106,6 +115,18 @@
 
 
 #pragma mark - Controller interface
+
+- (NSString *) currentURL
+{
+    return _visibleWebViewController.currentURL;
+}
+
+
+- (NSString *) currentMainHost
+{
+    return _visibleWebViewController.currentMainHost;
+}
+
 
 - (void) backToStart {
 //    [_visibleWebViewController backToStart];
@@ -370,7 +391,7 @@
         NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];
         [_sebViewController setToolbarTitle:title];
         
-        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
+        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = tabIndex;
     }
 }
 
@@ -379,14 +400,16 @@
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
     NSUInteger tabCount = _openWebpages.count;
-    if (tabIndex == tabCount - 1) {
-        [self switchToTabWithIndex:0];
-    } else {
-        [self switchToTabWithIndex:tabIndex + 1];
+    if (tabCount > 1) {
+        if (tabIndex == tabCount - 1) {
+            [self switchToTabWithIndex:0];
+        } else {
+            [self switchToTabWithIndex:tabIndex + 1];
+        }
+        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated];
+        }];
     }
-    [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-        [self.sideMenuController hideLeftViewAnimated];
-    }];
 }
 
 
@@ -394,14 +417,16 @@
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
     NSUInteger tabCount = _openWebpages.count;
-    if (tabIndex == 0) {
-        [self switchToTabWithIndex:tabCount - 1];
-    } else {
-        [self switchToTabWithIndex:tabIndex - 1];
+    if (tabCount > 1) {
+        if (tabIndex == 0) {
+            [self switchToTabWithIndex:tabCount - 1];
+        } else {
+            [self switchToTabWithIndex:tabIndex - 1];
+        }
+        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated];
+        }];
     }
-    [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-        [self.sideMenuController hideLeftViewAnimated];
-    }];
 }
 
 
@@ -510,7 +535,7 @@
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
     
-    [_sebViewController conditionallyOpenLockdownWindows];
+    [_sebViewController conditionallyOpenStartExamLockdownWindows];
     
     NSArray *persistedOpenWebPages;
     
@@ -593,6 +618,9 @@
                 urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
             }
         }
+        // This should prevent that a race condition with
+        // receiving MDM server config already added an empty webpage
+        [_openWebpages removeAllObjects];
         [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
 }
@@ -677,6 +705,24 @@
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 {
     [_sebViewController conditionallyOpenSEBConfigFromData:sebConfigData];
+}
+
+
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    NSURL *requestURL = task.originalRequest.URL;
+    for (OpenWebpages *webpage in _openWebpages) {
+        SEBWebViewController *webViewController = webpage.webViewController;
+        NSURL *webpageCurrentRequestURL = webViewController.currentRequest.URL;
+        if ([webpageCurrentRequestURL isEqual:requestURL]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [webViewController webViewDidFinishLoad:webViewController.sebWebView];
+            });
+        }
+    }
 }
 
 

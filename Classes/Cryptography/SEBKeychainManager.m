@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07.11.12.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -311,13 +311,14 @@
                         server:(NSString *)server
                 synchronizable:(BOOL)synchronizable
 {
+    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
                            server, (__bridge id)kSecAttrServer,
                            account, (__bridge id)kSecAttrAccount,
-                           (CFBooleanRef)synchronizable, (__bridge id)kSecAttrSynchronizable,
+                           (synchronizable ? kCFBooleanTrue : kCFBooleanFalse), (__bridge id)kSecAttrSynchronizable,
                            //(__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
-                           [password dataUsingEncoding:NSUTF8StringEncoding], (__bridge id)kSecValueData,
+                           passwordData, (__bridge id)kSecValueData,
                            nil];
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
     if (status != errSecSuccess) {
@@ -369,10 +370,10 @@
                            (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
                            server, (__bridge id)kSecAttrServer,
                            account, (__bridge id)kSecAttrAccount,
+                           (synchronizable ? kCFBooleanTrue : kCFBooleanFalse), (__bridge id)kSecAttrSynchronizable,
                            nil];
     NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [password dataUsingEncoding:NSUTF8StringEncoding], (__bridge id)kSecValueData,
-                                        (CFBooleanRef)synchronizable, (__bridge id)kSecAttrSynchronizable,
                                         nil];
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
     if (status != errSecSuccess) {
@@ -415,14 +416,35 @@
 }
 
 
-- (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
-                                           server:(NSString *)server
+- (NSArray *) retrieveInternetPasswordsForServer:(NSString *)server
 {
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                           (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
+                           (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
+                           server, (__bridge id)kSecAttrServer,
+                           @YES, (__bridge id)kSecReturnAttributes,
+                           (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnData,
+                           (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
+                           nil];
+    CFTypeRef resultsArray = nil;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &resultsArray);
+    if (status != errSecSuccess) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+        DDLogError(@"%s: SecItemCopyMatching failed with error: %@", __FUNCTION__, outError);
+        return nil;
+    }
+    return (__bridge_transfer NSArray *)resultsArray;
+}
+
+
+- (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
+                                           server:(NSString *)server
+                                   synchronizable:(BOOL)synchronizable
+{
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)kSecClassInternetPassword, (__bridge id)kSecClass,
                            server, (__bridge id)kSecAttrServer,
                            account, (__bridge id)kSecAttrAccount,
+                           (synchronizable ? kCFBooleanTrue : kCFBooleanFalse), (__bridge id)kSecAttrSynchronizable,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnData,
                            nil];
     CFTypeRef keyData = nil;

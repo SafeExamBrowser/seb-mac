@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 21.08.17.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -294,7 +294,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"examKeySalt",
                    
                    @YES,
-                   @"examSessionClearSessionCookies",
+                   @"examSessionClearCookiesOnEnd",
+                   
+                   @YES,
+                   @"examSessionClearCookiesOnStart",
                    
                    @NO,
                    @"examSessionReconfigureAllow",
@@ -399,9 +402,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"ignoreExitKeys",
                    
                    @NO,
-                   @"ignoreQuitPassword",
-                   
-                   @NO,
                    @"insideSebEnableChangeAPassword",
                    
                    @NO,
@@ -455,17 +455,17 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBMinOSX10_7],
                    @"minMacOSVersion",
                    
-                   @NO,
-                   @"mobileAllowPictureInPictureMediaPlayback",
-
                    @YES,
                    @"mobileAllowInlineMediaPlayback",
                    
                    @NO,
-                   @"mobileAllowSingleAppMode",
-                   
+                   @"mobileAllowPictureInPictureMediaPlayback",
+
                    @NO,
                    @"mobileAllowQRCodeConfig",
+                   
+                   @NO,
+                   @"mobileAllowSingleAppMode",
                    
                    @NO,
                    @"mobileCompactAllowInlineMediaPlayback",
@@ -476,8 +476,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobileEnableASAM",
                    
-                   @NO,
-                   @"mobileShowSettings",
+                   @YES,
+                   @"mobileSleepModeLockScreen",
                    
                    [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                    @"mobileStatusBarAppearance",
@@ -640,12 +640,15 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"showReloadButton",
+                                      
+                   @NO,
+                   @"showReloadWarning",
                    
                    @NO,
                    @"showScanQRCodeButton",
                    
                    @NO,
-                   @"showReloadWarning",
+                   @"showSettingsInApp",
                    
                    @YES,
                    @"showTaskBar",

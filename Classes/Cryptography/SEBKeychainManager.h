@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07.11.12.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -115,8 +115,10 @@
                  synchronizable:(BOOL)synchronizable;
 - (NSData *) retrieveKey;
 - (NSData *) retrieveKeyWithID:(NSString *)keyID;
+- (NSArray *) retrieveInternetPasswordsForServer:(NSString *)server;
 - (NSString *) retrieveInternetPasswordForAccount:(NSString *)account
-                                           server:(NSString *)server;
+                                           server:(NSString *)server
+                                   synchronizable:(BOOL)synchronizable;
 - (BOOL) removeKeyWithID:(NSString *)keyID;
 
 @end

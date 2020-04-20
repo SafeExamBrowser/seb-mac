@@ -3,7 +3,7 @@
 //  SEB
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -69,7 +69,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     BOOL shouldPerformAdditionalDelegateHandling = true;
 
     // Initialize console loggers
@@ -155,6 +155,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
                                                                             diskPath:path];
     [NSURLCache setSharedURLCache:cache];
 
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+    }];
+
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     NSDictionary *userActivity = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
     if (userActivity) {
@@ -175,7 +180,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
+    _didEnterBackground = YES;
+    _sebViewController.appDidEnterBackgroundTime = [NSDate date];
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         _sebViewController.alertController = nil;
@@ -203,30 +210,43 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
+    _sebViewController.appDidBecomeActiveTime = [NSDate date];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (_didEnterBackground) {
+        DDLogInfo(@"Application returned to active state after it entered background state before. This usually happens when the device is put to sleep.");
+        _didEnterBackground = NO;
+        if (@available(iOS 13.0, *)) {
+            DDLogDebug(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
+        } else {
+            if ([_sebViewController conditionallyOpenSleepModeLockdownWindows]) {
+                return;
+            }
+        }
+    }
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
     if (_sebViewController && !_sebViewController.mailViewController) {
         // If the main SEB view controller was already instantiated
-
-        // Check if we received a new configuration from an MDM server (by MDM managed configuration)
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
             [_sebViewController conditionallyShowSettingsModal];
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             [_sebViewController conditionallyResetSettings];
         } else {
+            // Check if we received a new configuration from an MDM server (by MDM managed configuration)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-            if (serverConfig) {
-                DDLogWarn(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
-                [_sebViewController conditionallyOpenSEBConfigFromMDMServer];
+            if (!_openedURL && serverConfig.count > 0) {
+                DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
+                // The cached, previously received server config needs to be reset
+                // for the new one to be conditionally applied
+                [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
             }
         }
     }
@@ -246,6 +266,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
     [NSURLCache.sharedURLCache removeAllCachedResponses];
 
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+    }];
+
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
@@ -255,13 +280,14 @@ void run_block_on_ui_thread(dispatch_block_t block)
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     DDLogInfo(@"URL scheme:%@", [url scheme]);
     DDLogInfo(@"URL query: %@", [url query]);
+    DDLogInfo(@"URL handling options: %@", options);
     
     if (url) {
         DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
-        _openedURL = true;
+        _openedURL = YES;
         
         // Is the main SEB view controller already instantiated?
         if (_sebViewController && !_sebViewController.mailViewController) {
@@ -280,7 +306,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
   completionHandler:(void (^)(BOOL succeeded))completionHandler;
 {
-    DDLogWarn(@"%s", __FUNCTION__);
     DDLogInfo(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
     
     // Is the main SEB view controller already instantiated?
@@ -296,10 +321,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 
 - (BOOL) application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
-// Xcode 9:  restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
   restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
-    DDLogWarn(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s", __FUNCTION__);
     NSURL *openedURL = [self getURLForUserActivity:userActivity];
     _openedURL = true;
 
@@ -326,8 +350,8 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
     [DDLog addLogger:_myLogger];
     
-    DDLogError(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
-    DDLogError(@"(log after start up is finished may continue in another file, according to current settings)");
+    DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
+    DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
 //    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
 //    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
     NSString *userName = NSUserName();
@@ -337,8 +361,8 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
     NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
     NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
     
 //    DDLogInfo(@"Local hostname: %@", localHostname);
 //    DDLogInfo(@"Computer name: %@", computerName);
@@ -470,6 +494,42 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 - (void) setPersistentWebpages:(NSMutableArray *)newPersistentWebpages
 {
     _persistentWebpages = newPersistentWebpages;
+}
+
+
+#pragma mark -
+#pragma mark Handle hardware keyboard shortcuts
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+
+- (NSArray<UIKeyCommand *> *)keyCommands
+{
+    return @[
+        [UIKeyCommand keyCommandWithInput:@"m" modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
+    ];
+}
+
+
+- (void)performKeyCommand:(UIKeyCommand *)sender
+{
+    NSString *key = sender.input;
+    UIKeyModifierFlags modifier = sender.modifierFlags;
+    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
+    if ([key isEqualToString:@"\t"]) {
+        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
+            [_sebViewController.browserTabViewController switchToPreviousTab];
+        } else if (modifier == (UIKeyModifierControl)) {
+            [_sebViewController.browserTabViewController switchToNextTab];
+        }
+    }
+    if ([key isEqualToString:@"m"] && modifier == UIKeyModifierCommand) {
+        [_sebViewController leftDrawerKeyShortcutPress:self];
+    }
 }
 
 #pragma mark - Core Data stack
