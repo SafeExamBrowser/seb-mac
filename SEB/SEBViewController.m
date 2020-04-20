@@ -2,7 +2,7 @@
 //  SEBViewController.m
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,6 +33,7 @@
 
 #import <WebKit/WebKit.h>
 #import "Constants.h"
+#import "UIViewController+LGSideMenuController.h"
 
 #import "SEBViewController.h"
 
@@ -252,7 +253,7 @@ static NSMutableSet *browserWindowControllers;
     
     self.sideMenuController.delegate = self;
     
-    DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+    DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
     [self initializeLogger];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -281,28 +282,36 @@ static NSMutableSet *browserWindowControllers;
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note) {
                                                       NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-                                                      if (serverConfig) {
-                                                          if (self.settingsOpen == NO) {
-                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
+                                                      if (serverConfig.count > 0) {
+                                                          if (self.didReceiveMDMConfig == NO &&
+                                                              self.isReconfiguringToMDMConfig == NO &&
+                                                              self.settingsOpen == NO &&
+                                                              NSUserDefaults.userDefaultsPrivate == NO) {
+                                                              self.didReceiveMDMConfig = YES;
+                                                              DDLogVerbose(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary.");
                                                               // Only reconfigure immediately with config received from MDM server
                                                               // when settings aren't open (otherwise it's postponed to next
                                                               // session restart or when leaving and returning to SEB
-                                                              [self conditionallyOpenSEBConfigFromMDMServer];
+                                                              [self conditionallyReadMDMServerConfig:serverConfig];
                                                           } else {
-                                                              DDLogWarn(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but InAppSettings are open. Delaying appying the MDM config.");
+                                                              DDLogVerbose(@"NSUserDefaultsDidChangeNotification: Did receive MDM Managed Configuration dictionary, but%@%@%@%@. Not appying the MDM config for now.",
+                                                                           self.didReceiveMDMConfig ? @" already processing received MDM config" : @"",
+                                                                           self.isReconfiguringToMDMConfig ? @" already reconfiguring to MDM config" : @"",
+                                                                           self.settingsOpen ? @" InAppSettings are open" : @"",
+                                                                           NSUserDefaults.userDefaultsPrivate ? @" running with exam settings" : @"");
                                                           }
                                                       }
                                                   }];
     
     // Add Notification Center observer to be alerted when the UIScreen isCaptured property changes
-//    if (@available(iOS 11.0, *)) {
-//        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
-//                                                          object:nil
-//                                                           queue:[NSOperationQueue mainQueue]
-//                                                      usingBlock:^(NSNotification *note) {
-//                                                          [self readDefaultsValues];
-//                                                      }];
-//    }
+    if (@available(iOS 11.0, *)) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIScreenCapturedDidChangeNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          [self conditionallyOpenScreenCaptureLockdownWindows];
+                                                      }];
+    }
     
     // Initialize UI and default UI/browser settings
     [self initSEB];
@@ -446,7 +455,9 @@ static NSMutableSet *browserWindowControllers;
         calculatedToolbarHeight = toolbarHeight - homeIndicatorSpaceHeight;
         
         // iPad Pro 11 and 12.9 3rd generation have 50 or 42 pt calculated navigation bar height
-        BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 || calculatedNavigationBarHeight == 42);
+        BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 ||
+                                                                calculatedNavigationBarHeight == 42 ||
+                                                                calculatedNavigationBarHeight == -24);
 
         _bottomBackgroundView.hidden = sideSafeAreaInsets;
         
@@ -482,7 +493,9 @@ static NSMutableSet *browserWindowControllers;
             CGFloat toolBarHeight;
             UIEdgeInsets newSafeArea;
             // iPad Pro 11 and 12.9 3rd generation have 46 pt calculated toolbar height
-            if (calculatedToolbarHeight == 46 || calculatedToolbarHeight == 26) {
+            if (calculatedToolbarHeight == 46 ||
+                calculatedToolbarHeight == 26 ||
+                calculatedToolbarHeight == -20) {
                 // But this is optically not ideal, so we change it manually
                 toolBarHeight = 42;
                 newSafeArea = UIEdgeInsetsMake(-8, 0, -4, 0);
@@ -549,6 +562,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
+    [self becomeFirstResponder];
 }
 
 
@@ -560,38 +574,6 @@ static NSMutableSet *browserWindowControllers;
             UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, leftSafeAreaInset);
             self.parentViewController.additionalSafeAreaInsets = newSafeArea;
             [self viewSafeAreaInsetsDidChange];
-        }
-    }
-}
-
-
-#pragma mark -
-#pragma mark Handle hardware keyboard shortcuts
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-
-- (NSArray<UIKeyCommand *> *)keyCommands
-{
-    return @[
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
-    ];
-}
-
-
-- (void)performKeyCommand:(UIKeyCommand *)sender
-{
-    NSString *key = sender.input;
-    UIKeyModifierFlags modifier = sender.modifierFlags;
-    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
-    if ([key isEqualToString:@"\t"]) {
-        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
-            [_browserTabViewController switchToPreviousTab];
-        } else if (modifier == (UIKeyModifierControl)) {
-            [_browserTabViewController switchToNextTab];
         }
     }
 }
@@ -712,7 +694,7 @@ static NSMutableSet *browserWindowControllers;
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
-    DDLogError(@"---------- SEB SETTINGS RESET PERFORMED -------------");
+    DDLogInfo(@"---------- SEB SETTINGS RESET PERFORMED -------------");
     [self initializeLogger];
     
     [self resetSEB];
@@ -739,6 +721,9 @@ static NSMutableSet *browserWindowControllers;
             _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
             _assistantViewController.sebViewController = self;
             _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+            if (@available(iOS 13.0, *)) {
+                _assistantViewController.modalInPopover = YES;
+            }
         }
         //// Initialize SEB Dock, commands section in the slider view and
         //// 3D Touch Home screen quick actions
@@ -763,6 +748,8 @@ static NSMutableSet *browserWindowControllers;
                                                                                       localizedSubtitle:nil
                                                                                                    icon:shortcutItemIcon
                                                                                                userInfo:nil];
+    scanQRCodeShortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", nil);
+    scanQRCodeShortcutItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", nil);
     return scanQRCodeShortcutItem;
 }
 
@@ -820,6 +807,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
+    [self becomeFirstResponder];
+
     if (!_scannedQRCode) {
         _scannedQRCode = true;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
@@ -839,6 +828,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
+    [self becomeFirstResponder];
+
     [self.sideMenuController hideLeftView];
     [self adjustBars];
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
@@ -880,7 +871,7 @@ static NSMutableSet *browserWindowControllers;
             
             if (hashedAdminPassword.length == 0) {
                 // There is no admin password: Just open settings
-                [self showSettingsModal];
+                [self showSettingsModalCheckMDMSettingsReceived];
             } else {
                 // Allow up to 5 attempts for entering password
                 attempts = 5;
@@ -941,7 +932,7 @@ static NSMutableSet *browserWindowControllers;
         
     } else {
         // The correct admin password was entered: continue processing the parsed SEB settings it
-        [self showSettingsModal];
+        [self showSettingsModalCheckMDMSettingsReceived];
         return;
     }
 }
@@ -995,12 +986,50 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Show in-app settings
 
-- (void)showSettingsModal
+- (void)showSettingsModalCheckMDMSettingsReceived
 {
     [self.sideMenuController hideLeftViewAnimated];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
+    BOOL isClientConfigActive = !NSUserDefaults.userDefaultsPrivate;
+    DDLogDebug(@"%s: %@ receive MDM Managed Configuration dictionary while client config is%@ active.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't", isClientConfigActive ? @"" : @"n't");
+    if (isClientConfigActive &&
+        serverConfig.count &&
+        [self isReceivedServerConfigNew:serverConfig])
+    {
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
+                                                                message:NSLocalizedString(@"Do you want to abort opening Settings and apply this managed configuration?", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+            self->receivedServerConfig = nil;
+            self.didReceiveMDMConfig = YES;
+            if (![self readMDMServerConfig:serverConfig]) {
+                [self showSettingsModal];
+            }
+        }]];
+        
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+            [self showSettingsModal];
+        }]];
+        
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+        
+        return;
+    }
+    [self showSettingsModal];
+}
+
+
+- (void)showSettingsModal
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Get hashed passwords and put empty or placeholder strings into the password fields in InAppSettings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     NSString *placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"adminPassword"];
@@ -1021,18 +1050,27 @@ static NSMutableSet *browserWindowControllers;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
 
     self.appSettingsViewController.showDoneButton = YES;
-    
+    if (@available(iOS 13.0, *)) {
+        self.appSettingsViewController.modalInPopover = YES;
+    }
+
     if (!settingsShareButton) {
         settingsShareButton = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                target:self
                                action:@selector(shareSettingsAction:)];
+        settingsShareButton.accessibilityLabel = NSLocalizedString(@"Share", nil);
+        settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", nil);
+
     }
     if (!settingsActionButton) {
         settingsActionButton = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                target:self
                                 action:@selector(moreSettingsActions:)];
+        settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", nil);
+        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", nil);
+
     }
     self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
     
@@ -1305,13 +1343,15 @@ static NSMutableSet *browserWindowControllers;
 {
     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
         self.appSettingsViewController = nil;
-        [self showSettingsModal];
+        [self showSettingsModalCheckMDMSettingsReceived];
     }];
 }
 
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {    
+    [self becomeFirstResponder];
+
     // Update entered passwords and save their hashes to SEB settings
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
@@ -1358,45 +1398,117 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (BOOL)readMDMServerConfig
+#pragma mark - Handle MDM Managed App Configuration
+
+- (BOOL)conditionallyReadMDMServerConfig:(NSDictionary *)serverConfig
 {
     BOOL readMDMConfig = NO;
-
-    if (!_isReconfiguringToMDMConfig) {
-        DDLogWarn(@"%s", __FUNCTION__);
-        // Check if we received a new configuration from an MDM server
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-        BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-        BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-        DDLogWarn(@"%@ receive MDM Managed Configuration dictionary.", serverConfig.count > 0 ? @"Did" : @"Didn't");
-        if (serverConfig &&
-            ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
-             (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
-             (examSession && allowReconfiguring))) {
-                DDLogDebug(@"%s: Received new configuration from MDM server. Exam session: %d, private UserDefaults: %d, examSessionReconfigureAllow: %d", __FUNCTION__, examSession, NSUserDefaults.userDefaultsPrivate, allowReconfiguring);
-                if (!(receivedServerConfig &&
-                      [receivedServerConfig isEqualToDictionary:serverConfig])) {
-                    _isReconfiguringToMDMConfig = true;
-                    receivedServerConfig = serverConfig;
-                    readMDMConfig = YES;
-                    // If we did receive a config and SEB isn't running in exam mode currently
-                    DDLogDebug(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-                    // As we handle the config received from the MDM server, we need to remove it from settings
-                    [preferences removeObjectForKey:kConfigurationKey];
-                    [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
-                                                                          callback:self
-                                                                          selector:@selector(storeNewSEBSettingsSuccessful:)];
-                } else {
-                    DDLogWarn(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
-                }
+    
+    // Check again if not running in exam mode, to catch timing related issues
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        if (!_isReconfiguringToMDMConfig) {
+            // Check if we received a new configuration from an MDM server
+            _isReconfiguringToMDMConfig = YES;
+            BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
+            NSString *currentURL = [[self.browserTabViewController currentURL] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+            NSString *currentStartURLTrimmed = [currentStartURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+            DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost == nil OR currentMainHost %@ is equal to currentStartURL %@ OR clientConfigSecureModePaused: %d)",
+                         __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't",
+                         (unsigned long)self.browserTabViewController.openWebpages.count,
+                         currentURL,
+                         currentStartURLTrimmed,
+                         _clientConfigSecureModePaused);
+            if (serverConfig.count > 0 &&
+                clientConfigActive &&
+                (!currentURL ||
+                 (self.browserTabViewController.openWebpages.count == 1 &&
+                [currentURL isEqualToString:currentStartURLTrimmed]) ||
+                 _clientConfigSecureModePaused))
+            {
+                DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
+                readMDMConfig = [self readMDMServerConfig:serverConfig];
+                _didReceiveMDMConfig = NO;
+                return readMDMConfig;
             } else {
-                DDLogWarn(@"%@ receive MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", serverConfig.count > 0 ? @"Did" : @"Didn't");
+                DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
+                _isReconfiguringToMDMConfig = NO;
             }
+        } else {
+            DDLogVerbose(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
+        }
     } else {
-        DDLogWarn(@"%s: Already reconfiguring to MDM config!", __FUNCTION__);
+        _isReconfiguringToMDMConfig = NO;
+    }
+    _didReceiveMDMConfig = NO;
+    return readMDMConfig;
+}
+
+
+- (BOOL)readMDMServerConfig:(NSDictionary *)serverConfig
+{
+    BOOL readMDMConfig = NO;
+    // Check again if not running in exam mode, to catch timing related issues
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        if ([self didNotReceiveSameServerConfig:serverConfig]) {
+            _isReconfiguringToMDMConfig = YES;
+            readMDMConfig = YES;
+            // If we did receive a config and SEB isn't running in exam mode currently
+            DDLogDebug(@"%s: Received new configuration from MDM server with %lu keys", __FUNCTION__, (unsigned long)serverConfig.count);
+            // Close all open alerts first before applying SEB settings
+            [self conditionallyOpenSEBConfig:serverConfig
+                                    callback:self
+                                    selector:@selector(handleMDMServerConfig:)];
+
+        } else {
+            DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
+            _isReconfiguringToMDMConfig = NO;
+        }
     }
     return readMDMConfig;
+}
+
+
+- (void) handleMDMServerConfig:(NSDictionary *)serverConfig
+{
+    [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
+                                                          callback:self
+                                                          selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
+- (void)resetReceivedServerConfig
+{
+    receivedServerConfig = nil;
+}
+
+- (BOOL)didNotReceiveSameServerConfig:(NSDictionary *)newReceivedServerConfig
+{
+    if (!receivedServerConfig) {
+        receivedServerConfig = newReceivedServerConfig;
+        return [self isReceivedServerConfigNew:newReceivedServerConfig];
+    } else if ([receivedServerConfig isEqualToDictionary:newReceivedServerConfig]) {
+        return NO;
+    } else {
+        return [self isReceivedServerConfigNew:newReceivedServerConfig];
+    }
+}
+
+- (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in newReceivedServerConfig) {
+        if (![key isEqualToString:@"originatorVersion"]) {
+            id newValue = [newReceivedServerConfig objectForKey:key];
+            id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
+            if (![newValue isEqual:currentValue]) {
+                DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
+                receivedServerConfig = newReceivedServerConfig;
+                return YES;
+            }
+        }
+    }
+    DDLogVerbose(@"%s: Configuration received from MDM server is same as current settings, ignore it.", __FUNCTION__);
+    return NO;
 }
 
 
@@ -1479,12 +1591,14 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
-        // if the default value (enabled) for the setting examSessionClearSessionCookies is set
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearSessionCookies"]) {
+        // if the default value (enabled) for the setting examSessionClearCookiesOnStart is set
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                // Do something once it's done.
             }];
         }
+        // Cache the setting examSessionClearCookiesOnEnd of the current config,
+        // which will be used for conditionally resetting the browser
+        self.examSessionClearCookiesOnEnd = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"];
         
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
         [self.browserController conditionallyInitCustomHTTPProtocol];
@@ -1923,8 +2037,15 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
     
-    [NSURLCache.sharedURLCache removeAllCachedResponses];
-    
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    // if the setting examSessionClearCookiesOnEnd was true in a previous config
+    if (_examSessionClearCookiesOnEnd) {
+        [NSURLCache.sharedURLCache removeAllCachedResponses];
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        }];
+    }
+
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
 
@@ -1958,42 +2079,44 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) conditionallyOpenSEBConfigFromMDMServer
+- (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig
 {
-    // This method can only be executed while settings are open when the user
-    // returns to the app and settings are open, otherwise received MDM settings
-    // are ignored
-    if (_settingsOpen) {
-        if (!_alertController && !self.appSettingsViewController.presentedViewController) {
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
-                                                                    message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", nil)
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self.alertController = nil;
-                                                                     [self closeSettingsBeforeOpeningSEBConfig:nil
-                                                                                                      callback:self
-                                                                                                      selector:@selector(handleMDMServerConfig:)];
-                                                                 }]];
-            
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                     self.alertController = nil;
-                                                                 }]];
-            
-            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+    // Check if not running in exam mode
+    if (!NSUserDefaults.userDefaultsPrivate  && [self isReceivedServerConfigNew:serverConfig]) {
+        _didReceiveMDMConfig = YES;
+        [self resetReceivedServerConfig];
+
+        if (_settingsOpen) {
+            if (!_alertController && !self.appSettingsViewController.presentedViewController) {
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
+                                                                        message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", nil)
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self.alertController = nil;
+                    DDLogDebug(@"%s: Received config while Settings are displayed: Closing Settings.", __FUNCTION__);
+                    [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+                        DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
+                        self.appSettingsViewController = nil;
+                        self.settingsOpen = NO;
+                        [self conditionallyReadMDMServerConfig:serverConfig];
+                    }];
+                }]];
+                
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                    self.alertController = nil;
+                    self.didReceiveMDMConfig = NO;
+                }]];
+                
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            } else {
+                DDLogDebug(@"%s: Received config from MDM server while Settings and an alert or the Share Sheet were displayed: Ignoring MDM config.", __FUNCTION__);
+            }
         } else {
-            DDLogDebug(@"%s: Received config from MDM server while Settings and an alert or the Share Sheet were displayed: Ignoring MDM config.", __FUNCTION__);
+            [self conditionallyReadMDMServerConfig:serverConfig];
         }
-    } else {
-        [self handleMDMServerConfig:nil];
     }
-}
-
-
-- (void) handleMDMServerConfig:(id)reference
-{
-    [self readMDMServerConfig];
 }
 
 
@@ -2085,7 +2208,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                     selector:selector];
         }];
         return;
-    } else {
+    } else if (!_didReceiveMDMConfig) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Check if reconfiguring is allowed
@@ -2122,17 +2245,17 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          self->_alertController = nil;
                                                                      }]];
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                
-            } else {
-                // Reconfiguring is allowed: Invoke the callback to proceed
-                IMP imp = [callback methodForSelector:selector];
-                void (*func)(id, SEL, id) = (void *)imp;
-                func(callback, selector, sebConfig);
+                return;
             }
         } else {
             _scannedQRCode = false;
+            return;
         }
     }
+    // Reconfiguring is allowed: Invoke the callback to proceed
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, id) = (void *)imp;
+    func(callback, selector, sebConfig);
 }
 
 
@@ -2163,15 +2286,30 @@ void run_on_ui_thread(dispatch_block_t block)
     if (url.isFileURL) {
         run_on_ui_thread(^{
             NSError *error = nil;
-            [url startAccessingSecurityScopedResource];
-            NSData *sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-            [url stopAccessingSecurityScopedResource];
-            if (error || !sebFileData) {
-                DDLogError(@"Saving the file URL %@ contents failed with error %@", url, error);
-                [self storeNewSEBSettingsSuccessful:error];
-            } else {
-                [self storeDownloadedData:sebFileData fromURL:url];
-            }
+            NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+            [fileCoordinator coordinateReadingItemAtURL:url options:NSFileCoordinatorReadingWithoutChanges error:&error byAccessor:^(NSURL * _Nonnull newURL) {
+                if (!error) {
+                    NSError *fileReadingError = nil;
+                    NSData *sebFileData;
+                    if ([url startAccessingSecurityScopedResource]) {
+                        DDLogDebug(@"%s: Reading a security scoped resource from URL %@", __FUNCTION__, url);
+                        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&fileReadingError];
+                        [url stopAccessingSecurityScopedResource];
+                    } else {
+                        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&fileReadingError];
+                    }
+                    if (fileReadingError || !sebFileData) {
+                        DDLogError(@"Reading the file URL %@ contents failed with error %@", url, fileReadingError);
+                        [self storeNewSEBSettingsSuccessful:error];
+                    } else {
+                        [self storeDownloadedData:sebFileData fromURL:url];
+                    }
+                }
+                else {
+                    DDLogError(@"Coordinating reading the file URL %@ contents failed with error %@", url, error);
+                }
+            }];
+
         });
         return;
     }
@@ -2363,10 +2501,10 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    DDLogWarn(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
+    DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
-        _isReconfiguringToMDMConfig = false;
-        _scannedQRCode = false;
+        // If decrypting new settings was successfull
+        _scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
@@ -2374,19 +2512,21 @@ void run_on_ui_thread(dispatch_block_t block)
         if (newSettingsFilename.length > 0) {
             [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
         }
-        
+        _isReconfiguringToMDMConfig = NO;
+        _didReceiveMDMConfig = NO;
         [self restartExam:false];
         
     } else {
         
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        // If decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
         if (_isReconfiguringToMDMConfig) {
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
-            _isReconfiguringToMDMConfig = false;
-            [self restartExam:false];
+            _isReconfiguringToMDMConfig = NO;
+            _didReceiveMDMConfig = NO;
+            [self restartExam:NO];
             
         } else if (_scannedQRCode) {
             DDLogError(@"%s: Reconfiguring from QR code config failed!", __FUNCTION__);
@@ -2410,6 +2550,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                          self->_alertController = nil;
                                                                          if (!self->_finishedStartingUp) {
+                                                                             // Continue starting up SEB without resetting settings
                                                                              [self conditionallyStartKioskMode];
                                                                          }
                                                                      }]];
@@ -2454,7 +2595,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-#pragma mark - Start and quit exam session
+#pragma mark - Start, restart and quit exam session
 
 - (void) startExam {
     NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
@@ -2531,7 +2672,8 @@ void run_on_ui_thread(dispatch_block_t block)
         [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_settingsPassword"];
         _configFileKeyHash = nil;
     }
-    [self restartExam:true quittingClientConfig:quittingClientConfig
+    [self restartExam:true
+ quittingClientConfig:quittingClientConfig
      pasteboardString:nil];
 }
 
@@ -2612,6 +2754,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) quitExam
 {
+    receivedServerConfig = nil;
     [self sessionQuitRestart:NO];
 }
 
@@ -2620,22 +2763,28 @@ void run_on_ui_thread(dispatch_block_t block)
 // before re-initializing SEB with new settings and restarting exam
 - (void) restartExam:(BOOL)quitting
 {
-    [self restartExam:quitting quittingClientConfig:NO
+    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+    [self restartExam:quitting
+ quittingClientConfig:quittingClientConfig
      pasteboardString:nil];
 }
 
-- (void) restartExam:(BOOL)quitting quittingClientConfig:(BOOL)quittingClientConfig
+- (void) restartExam:(BOOL)quitting
+quittingClientConfig:(BOOL)quittingClientConfig
     pasteboardString:(NSString *)pasteboardString
 {
+    _isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
     if (!self.sideMenuController.isLeftViewHidden) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
-            [self restartExam:quitting quittingClientConfig:quittingClientConfig pasteboardString:pasteboardString];
+            [self restartExam:quitting
+         quittingClientConfig:quittingClientConfig
+             pasteboardString:pasteboardString];
         }];
         return;
     }
     
-    DDLogError(@"---------- RESTARTING SEB SESSION -------------");
+    DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     [self initializeLogger];
     
     // Close browser tabs and reset browser session
@@ -2664,10 +2813,10 @@ void run_on_ui_thread(dispatch_block_t block)
         BOOL oldEnableASAM = _enableASAM;
         
         // Check if we received new settings from an MDM server
-        if ([self readMDMServerConfig]) {
-            DDLogWarn(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
-            return;
-        }
+//        if (quittingClientConfig && [self conditionallyReadMDMServerConfig]) {
+//            DDLogDebug(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
+//            return;
+//        }
         
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
@@ -2745,15 +2894,17 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
+        _clientConfigSecureModePaused = YES;
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit %@ using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 self->_alertController = nil;
-                                                                 [self initSEB];
-                                                                 [self conditionallyStartKioskMode];
-                                                             }]];
+            self->_alertController = nil;
+            [self initSEB];
+            [self conditionallyStartKioskMode];
+            self.clientConfigSecureModePaused = NO;
+        }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     } else {
         [self initSEB];
@@ -2816,7 +2967,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
                 
-                DDLogWarn(@"Single App Mode was switched on again.");
+                DDLogDebug(@"Single App Mode was switched on again.");
 
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
@@ -2957,10 +3108,40 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
 
-    _finishedStartingUp = true;
-    
     // Update kiosk flags according to current settings
     [self updateKioskSettingFlags];
+    
+    if (@available(iOS 11.0, *)) {
+        if (_secureMode &&
+            UIScreen.mainScreen.isCaptured &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
+                                                                    message:alertMessageiOSVersion
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     self->_alertController = nil;
+                                                                     [self conditionallyStartKioskMode];
+                                                                 }]];
+            if (NSUserDefaults.userDefaultsPrivate) {
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         self->_alertController = nil;
+                                                                         [[NSNotificationCenter defaultCenter]
+                                                                          postNotificationName:@"requestQuit" object:self];
+                                                                     }]];
+            }
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
+        }
+    }
+    
+    _finishedStartingUp = true;
     
     if (_secureMode) {
         // Clear Pasteboard
@@ -3091,8 +3272,28 @@ void run_on_ui_thread(dispatch_block_t block)
             _ASAMActive = true;
             UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
                 if (didSucceed) {
-                    DDLogInfo(@"%s: Entered Autonomous Single App Mode", __FUNCTION__);
-                    [self startExam];
+                    if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+                        // This is an issue happening on older iOS versions:
+                        // the device needs to be restarted
+                        if (self.alertController) {
+                            [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                        }
+                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", nil)
+                                                                                message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", nil)
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                                 self->_alertController = nil;
+                                                                                 [[NSNotificationCenter defaultCenter]
+                                                                                  postNotificationName:@"requestQuit" object:self];
+                                                                             }]];
+                        
+                        [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                    } else {
+                        DDLogInfo(@"%s: Entered Autonomous Single App Mode", __FUNCTION__);
+                        [self startExam];
+                    }
                 }
                 else {
                     DDLogError(@"%s: Failed to enter Autonomous Single App Mode", __FUNCTION__);
@@ -3211,12 +3412,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - Lockdown windows
 
-- (void) conditionallyOpenLockdownWindows
+- (void) conditionallyOpenStartExamLockdownWindows
 {
     if ([self.sebLockedViewController isStartingLockedExam]) {
         if (_secureMode) {
             DDLogError(@"Re-opening an exam which was locked before");
             [self openLockdownWindows];
+            [self.sebLockedViewController setLockdownAlertTitle: nil
+                                                        Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
             // Add log string for entering a locked exam
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
         } else {
@@ -3224,6 +3427,55 @@ void run_on_ui_thread(dispatch_block_t block)
             // Add log string for entering a previously locked exam
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
         }
+    }
+}
+
+
+- (void) conditionallyOpenScreenCaptureLockdownWindows
+{
+    if (@available(iOS 11.0, *)) {
+        if (UIScreen.mainScreen.isCaptured &&
+            _secureMode &&
+            _examRunning &&
+            !_clientConfigSecureModePaused &&
+            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"]) {
+            DDLogError(@"Screen is being captured while in secure mode!");
+            [self openLockdownWindows];
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
+                                                        Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
+            // Add log string for entering a locked exam
+            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date]];
+        } else {
+            NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
+                                   UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
+                                   _secureMode ? @"" : @"not ",
+                                   [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ? @" and it is allowed in current settings" : @""];
+            DDLogInfo(@"%@", logString);
+        }
+    }
+}
+
+
+- (BOOL) conditionallyOpenSleepModeLockdownWindows
+{
+    if (_secureMode &&
+        _examRunning &&
+        !_clientConfigSecureModePaused &&
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
+        [self openLockdownWindows];
+        [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Device Was in Sleep Mode!", @"Lockdown alert title text for device was in sleep mode")
+                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+        // Add log string for trying to re-open a locked exam
+        // Calculate time difference between session resigning active and becoming active again
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
+                                                   fromDate:_appDidEnterBackgroundTime
+                                                     toDate:_appDidBecomeActiveTime
+                                                    options:NSCalendarWrapComponents];
+        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime];
+        return YES;
+    } else {
+        return NO;
     }
 }
 
@@ -3334,13 +3586,17 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             target:self
                                                             action:@selector(goBack)];
         toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
+        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
 
         toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goForward)];
         toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        
+        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
+        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
+
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
         
     } else {
@@ -3359,9 +3615,15 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - SEB Dock and left slider button handler
 
--(void)leftDrawerButtonPress:(id)sender
+- (void)leftDrawerButtonPress:(id)sender
 {
     [self.sideMenuController showLeftViewAnimated];
+}
+
+
+- (void)leftDrawerKeyShortcutPress:(id)sender
+{
+    [self.sideMenuController toggleLeftViewAnimated];
 }
 
 
@@ -3614,6 +3876,9 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                   action:@selector(reload)];
             
             toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
             return;
         }
@@ -3643,42 +3908,50 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-         textField.placeholder = NSLocalizedString(@"User Name", nil);
-         textField.autocorrectionType = UITextAutocorrectionTypeNo;
-         if (@available(iOS 11.0, *)) {
-             textField.textContentType = UITextContentTypeUsername;
-         }
-         textField.text = username;
-     }];
+        textField.placeholder = NSLocalizedString(@"User Name", nil);
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        if (@available(iOS 11.0, *)) {
+            textField.textContentType = UITextContentTypeUsername;
+        }
+        if (username.length > 0) {
+            textField.text = username;
+        } else {
+            [textField becomeFirstResponder];
+        }
+    }];
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-         textField.placeholder = NSLocalizedString(@"Password", nil);
-         textField.secureTextEntry = YES;
-         if (@available(iOS 11.0, *)) {
-             textField.textContentType = UITextContentTypePassword;
-         }
-     }];
+        textField.placeholder = NSLocalizedString(@"Password", nil);
+        textField.secureTextEntry = YES;
+        if (@available(iOS 11.0, *)) {
+            textField.textContentType = UITextContentTypePassword;
+        }
+        // If there was a username provided, we select the password field
+        if (username.length > 0) {
+            [textField becomeFirstResponder];
+        }
+    }];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             NSString *username = self->_alertController.textFields[0].text;
-                                                             NSString *password = self->_alertController.textFields[1].text;
-                                                             self->_alertController = nil;
-                                                             IMP imp = [modalDelegate methodForSelector:didEndSelector];
-                                                             void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
-                                                             func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
-                                                         }]];
+        NSString *username = self->_alertController.textFields[0].text;
+        NSString *password = self->_alertController.textFields[1].text;
+        self->_alertController = nil;
+        IMP imp = [modalDelegate methodForSelector:didEndSelector];
+        void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+        func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
+    }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                             NSString *username = self->_alertController.textFields[0].text;
-                                                             NSString *password = self->_alertController.textFields[1].text;
-                                                             self->_alertController = nil;
-                                                             IMP imp = [modalDelegate methodForSelector:didEndSelector];
-                                                             void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
-                                                             func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
-                                                         }]];
+        NSString *username = self->_alertController.textFields[0].text;
+        NSString *password = self->_alertController.textFields[1].text;
+        self->_alertController = nil;
+        IMP imp = [modalDelegate methodForSelector:didEndSelector];
+        void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+        func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
+    }]];
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
@@ -3739,6 +4012,15 @@ void run_on_ui_thread(dispatch_block_t block)
 //        [_alertController dismissViewControllerAnimated:NO completion:nil];
 //        _alertController = nil;
 //    }
+}
+
+
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    [self.browserTabViewController sessionTaskDidCompleteSuccessfully:task];
 }
 
 

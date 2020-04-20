@@ -266,19 +266,19 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
 
 + (NSData *)keyForPassword:(NSString *)password salt:(NSData *)salt settings:(RNCryptorKeyDerivationSettings)keySettings
 {
-  NSMutableData *derivedKey = [NSMutableData dataWithLength:keySettings.keySize];
-
-  // See Issue #77. V2 incorrectly calculated key for multi-byte characters.
-  NSData *passwordData;
-  if (keySettings.hasV2Password) {
-    passwordData = [NSData dataWithBytes:[password UTF8String] length:[password length]];
-  }
-  else {
-    passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-  }
-
-  // Use the built-in PBKDF2 if it's available. Otherwise, we have our own. Hello crazy function pointer.
-  int result;
+    NSMutableData *derivedKey = [NSMutableData dataWithLength:keySettings.keySize];
+    
+    // See Issue #77. V2 incorrectly calculated key for multi-byte characters.
+    NSData *passwordData;
+    if (keySettings.hasV2Password) {
+        passwordData = [NSData dataWithBytes:[password UTF8String] length:[password length]];
+    }
+    else {
+        passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    // Use the built-in PBKDF2 if it's available. Otherwise, we have our own. Hello crazy function pointer.
+    int result;
     if (CCKeyDerivationPBKDF != NULL) {
         result = CCKeyDerivationPBKDF(keySettings.PBKDFAlgorithm,         // algorithm
                                       password.UTF8String,                // password
@@ -301,11 +301,14 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
                                          derivedKey.mutableBytes,            // derivedKey
                                          derivedKey.length);                 // derivedKeyLen
     }
-
-  // Do not log password here
-  NSAssert(result == kCCSuccess, @"Unable to create AES key for password: %d", result);
-
-  return derivedKey;
+    
+    // Do not log password here
+    NSAssert(result == kCCSuccess, @"Unable to create AES key for password, error code: %d", result);
+    if (result != kCCSuccess) {
+        DDLogError(@"%s: Unable to create AES key for password, error code: %d", __FUNCTION__, result);
+    }
+    
+    return derivedKey;
 }
 
 // For use on OS X 10.6
@@ -370,8 +373,11 @@ static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
     } else {
         result = RN_SecRandomCopyBytes(NULL, length, data.mutableBytes);
     }
-    NSAssert(result == 0, @"Unable to generate random bytes: %d", errno);
-    
+    NSAssert(result == kCCSuccess, @"Unable to generate random bytes, error code: %d", result);
+    if (result != kCCSuccess) {
+        DDLogError(@"%s: Unable to generate random bytes, error code: %d", __FUNCTION__, result);
+    }
+
     return data;
 }
 

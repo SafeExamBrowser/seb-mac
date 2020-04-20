@@ -75,6 +75,15 @@
 }
 
 
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    self->_sebViewController.aboutSEBViewDisplayed = false;
+    self->_sebViewController.aboutSEBViewController = nil;
+}
+
+
 - (BOOL) prefersStatusBarHidden
 {
     return true;
@@ -86,6 +95,7 @@
     [self dismissViewControllerAnimated:YES completion:^{
         self->_sebViewController.aboutSEBViewDisplayed = false;
         self->_sebViewController.aboutSEBViewController = nil;
+        [self->_sebViewController becomeFirstResponder];
     }];
 }
 

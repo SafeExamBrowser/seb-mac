@@ -15,7 +15,7 @@
 //  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -36,7 +36,7 @@
 //  The Original Code is Safe Exam Browser for Mac OS X.
 //
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -210,8 +210,11 @@ static NSNumber *_logLevel;
                                         
                                         nil];
 
-    [appDefaults addEntriesFromDictionary:processedDictionary];
-    
+    for (NSString *key in processedDictionary) {
+        NSString *keyWithPrefix = [self prefixKey:key];
+        id value = [processedDictionary objectForKey:key];
+        [appDefaults setValue:value forKey:keyWithPrefix];
+    }
     return [appDefaults copy];
 }
 
@@ -249,7 +252,7 @@ static NSNumber *_logLevel;
         
         if (value) {
             [filteredPrefsDict setObject:value
-                                  forKey:[NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key]];
+                                  forKey:key];
         }
     }
     return [filteredPrefsDict copy];
@@ -260,7 +263,7 @@ static NSNumber *_logLevel;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL) setSEBDefaults
 {
-    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
+    DDLogDebug(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];

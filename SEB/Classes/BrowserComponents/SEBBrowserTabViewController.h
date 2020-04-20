@@ -2,7 +2,7 @@
 //  SEBWebpageManager.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -39,9 +39,6 @@
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
-#import "LGSideMenuController.h"
-#import "UIViewController+LGSideMenuController.h"
-
 @class SEBViewController;
 @class SEBWebViewController;
 @class SEBSearchBarViewController;
@@ -52,7 +49,7 @@
     IBOutlet UIBarButtonItem *MainWebView;
 }
 
-@property (nonatomic, strong) SEBViewController *sebViewController;
+@property (weak) SEBViewController *sebViewController;
 @property (nonatomic, weak) SEBWebViewController *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *openWebpages;
@@ -61,7 +58,10 @@
 
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
-- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
+- (NSString *) currentURL;
+- (NSString *) currentMainHost;
+
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) openNewTabWithURL:(NSURL *)url;
 - (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
@@ -94,6 +94,8 @@
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
 @end
 

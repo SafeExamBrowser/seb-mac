@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 27.11.14.
-//  Copyright (c) 2010-2019 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2019 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -52,6 +52,10 @@
 + (NSRegularExpression *) regexForFilterString:(NSString *)filterString error:(NSError **)error;
 
 + (NSRegularExpression *) regexForHostFilterString:(NSString *)filterString error:(NSError **)error;
+
++ (NSRegularExpression *) regexForPathFilterString:(NSString *)filterString error:(NSError **)error;
+
++ (NSRegularExpression *) regexForQueryFilterString:(NSString *)filterString error:(NSError **)error;
 
 - (NSString *) string;
 
