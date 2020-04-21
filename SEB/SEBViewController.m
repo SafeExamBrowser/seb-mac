@@ -3040,7 +3040,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) loginToExam:(NSString *)url
 {
-    [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
+    NSURL *examURL = [NSURL URLWithString:url];
+    [_browserTabViewController openNewTabWithURL:examURL];
+    self.browserController.sebServerExamStartURL = examURL;
     _examRunning = true;
 }
 

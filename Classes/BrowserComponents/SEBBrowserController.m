@@ -107,17 +107,29 @@ static NSString * const authenticationPassword = @"password";
 }
 
 
+- (NSString *) urlOrPlaceholderForURL:(NSString *)url
+{
+    NSString *urlOrPlaceholder = [self.delegate showURLplaceholderTitleForWebpage];
+    return urlOrPlaceholder ? urlOrPlaceholder : url;
+}
+
+
 - (NSString *) backToStartURLString
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString* backToStartURL;
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
-        // Load start URL from the system's user defaults
-        backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        DDLogInfo(@"Will load Start URL in main browser window: %@", backToStartURL);
+        // Check if SEB Server started the exam and we have its Start URL
+        if (_sebServerExamStartURL) {
+            backToStartURL = _sebServerExamStartURL.absoluteString;
+        } else {
+            // Load start URL from the system's user defaults
+            backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        }
+        DDLogInfo(@"Will load Start URL in main browser window: %@", [self urlOrPlaceholderForURL:backToStartURL]);
     } else {
         backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"];
-        DDLogInfo(@"Will load Back to Start URL in main browser window: %@", backToStartURL);
+        DDLogInfo(@"Will load Back to Start URL in main browser window: %@", [self urlOrPlaceholderForURL:backToStartURL]);
     }
     return backToStartURL;
 }
