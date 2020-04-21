@@ -132,6 +132,8 @@
 
 @property (weak) id delegate;
 
+@property (strong, nonatomic) NSURL *sebServerExamStartURL;
+
 @property (readwrite) BOOL usingCustomURLProtocol;
 
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
@@ -150,6 +152,7 @@
 @property (readwrite) BOOL didReconfigureWithUniversalLink;
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 
+- (NSString *) urlOrPlaceholderForURL:(NSString *)url;
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 - (NSString *) backToStartURLString;
 
