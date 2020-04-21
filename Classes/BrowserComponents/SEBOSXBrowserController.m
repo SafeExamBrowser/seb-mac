@@ -533,14 +533,15 @@
 }
 
 
+// Select the current window in the SEB Dock popup menu with the titles of all open browser windows
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
 {
-    DDLogDebug(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
+    DDLogVerbose(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
 
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if (openWindowWebView && [openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setState:NSOnState];
-            DDLogDebug(@"setState: NSOnState: %@", webView);
+            DDLogVerbose(@"setState: NSOnState: %@", webView);
         } else if (openWindowWebView) {
             [openWindowWebView setState:NSOffState];
         }
