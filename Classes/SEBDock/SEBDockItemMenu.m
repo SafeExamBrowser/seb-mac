@@ -106,7 +106,7 @@
 - (void) setPopoverMenuSize
 {
     NSSize SEBDockMenuSize = [self size];
-    DDLogDebug(@"SEBDockItemMenu size: %f, %f", SEBDockMenuSize.width, SEBDockMenuSize.height);
+    DDLogVerbose(@"setPopoverMenuSize – SEBDockItemMenu size: %f, %f", SEBDockMenuSize.width, SEBDockMenuSize.height);
     NSUInteger numberOfItems = self.numberOfItems;
     NSRect newMenuViewFrame = NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height - (numberOfItems == 2 ? 3 : numberOfItems));
     NSRect currentMenuViewFrame = self.dockMenuView.frame;
