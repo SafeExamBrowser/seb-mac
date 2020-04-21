@@ -230,16 +230,6 @@ static NSMutableSet *browserWindowControllers;
             [DDLog removeLogger:ServerLogger.sharedInstance];
         }
     } else {
-        //Set log directory
-//        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-//        [DDLog removeLogger:_myLogger];
-//        if (logPath.length == 0) {
-//            // No log directory indicated: We use the standard one
-//            logPath = nil;
-//        } else {
-//            logPath = [logPath stringByExpandingTildeInPath];
-//            // Add subdirectory with the name of the computer
-//        }
         DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] init];
         _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
         _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
@@ -3522,11 +3512,10 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              self->_alertController = nil;
                                                              self->_noSAMAlertDisplayed = false;
-                                                             // We didn't actually succeed to switch a kiosk mode on
-                                                             self->_secureMode = false;
                                                              if (self.establishingSEBServerConnection) {
                                                                  self.establishingSEBServerConnection = false;
                                                              }
+                                                             // We didn't actually succeed to switch a kiosk mode on
                                                              // self->_secureMode = false;
                                                              // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
                                                              [[NSNotificationCenter defaultCenter]
