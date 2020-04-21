@@ -989,14 +989,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examListCell" id="7kU-4n-zRN" customClass="ExamCell">
-                                                <rect key="frame" x="0.0" y="28" width="834" height="44.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="834" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7kU-4n-zRN" id="2ZN-V2-0ax">
-                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-Xm-hMN">
-                                                            <rect key="frame" x="15" y="11" width="804" height="21.5"/>
+                                                            <rect key="frame" x="15" y="11" width="804" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

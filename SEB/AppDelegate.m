@@ -234,8 +234,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     [self populateRegistrationDomain];
     if (_sebViewController && !_sebViewController.mailViewController) {
         // If the main SEB view controller was already instantiated
-
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
             [_sebViewController conditionallyShowSettingsModal];
