@@ -201,24 +201,26 @@ public extension SEBServerController {
     
     
     @objc func sendPing() {
-        var pingResource = PingResource(baseURL: self.baseURL, endpoint: (serverAPI?.ping.endpoint?.location)!)
-        pingNumber += 1
-        pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970) + "&" + keys.pingNumber + "=" + String(pingNumber)
-        
-        let pingRequest = ApiRequest(resource: pingResource)
-        pendingRequests?.append(pingRequest)
-        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
-        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
-                              keys.headerAuthorization : authorizationString,
-                              keys.sebConnectionToken : connectionToken!]
-        pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, responseHeaders) in
-            guard let ping = pingResponse else {
-                return
-            }
-            if (ping != nil) {
-                self.delegate?.executeSEBInstruction(SEBInstruction(ping!))
-            }
-        })
+        if connectionToken != nil {
+            var pingResource = PingResource(baseURL: self.baseURL, endpoint: (serverAPI?.ping.endpoint?.location)!)
+            pingNumber += 1
+            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970) + "&" + keys.pingNumber + "=" + String(pingNumber)
+            
+            let pingRequest = ApiRequest(resource: pingResource)
+            pendingRequests?.append(pingRequest)
+            let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+            let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                                  keys.headerAuthorization : authorizationString,
+                                  keys.sebConnectionToken : connectionToken!]
+            pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, responseHeaders) in
+                guard let ping = pingResponse else {
+                    return
+                }
+                if (ping != nil) {
+                    self.delegate?.executeSEBInstruction(SEBInstruction(ping!))
+                }
+            })
+        }
     }
     
     
