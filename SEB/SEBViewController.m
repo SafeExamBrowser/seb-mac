@@ -3051,6 +3051,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (void) loginToExam:(NSString *)url
 {
     [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:url]];
+    _examRunning = true;
 }
 
 
