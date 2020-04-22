@@ -756,7 +756,7 @@ static NSMutableSet *browserWindowControllers;
 
 
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
-            self.initAssistantOpen = true;
+        self.initAssistantOpen = true;
         }];
     }
 }
@@ -3034,6 +3034,16 @@ quittingClientConfig:(BOOL)quittingClientConfig
     _sebServerViewDisplayed = false;
     [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
         [self.serverController examSelected:examId url:url];
+    }];
+}
+
+
+- (void) closeServerView:(id)sender
+{
+    _establishingSEBServerConnection = false;
+    _sebServerViewDisplayed = false;
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+        [self sessionQuitRestart:NO];
     }];
 }
 

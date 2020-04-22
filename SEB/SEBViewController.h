@@ -259,6 +259,7 @@
 @property(readwrite) BOOL sebServerConnectionEstablished;
 @property(readwrite) BOOL sebServerViewDisplayed;
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
+- (void) closeServerView:(id)sender;
 - (void) loginToExam:(NSString *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 - (void) didEstablishSEBServerConnection;

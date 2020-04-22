@@ -9,11 +9,8 @@
 #import "ExamCell.h"
 #import "SafeExamBrowser-Swift.h"
 
-@interface SEBServerViewController ()
 
-@end
-
-@implementation SEBServerViewController 
+@implementation SEBServerViewController
 
 
 - (BOOL) prefersStatusBarHidden
@@ -75,6 +72,12 @@
 
 
 #pragma mark - IB Action Handler
+
+- (IBAction)closeButtonAction:(id)sender
+{
+    [_sebViewController closeServerView:sender];
+}
+
 
 - (IBAction)aboutSEBIcon:(id)sender
 {
