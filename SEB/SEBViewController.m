@@ -754,9 +754,8 @@ static NSMutableSet *browserWindowControllers;
         // Add scan QR code Home screen quick action
         [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
 
-
-        [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
         self.initAssistantOpen = true;
+        [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
         }];
     }
 }
