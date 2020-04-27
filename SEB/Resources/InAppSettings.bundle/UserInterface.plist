@@ -90,7 +90,7 @@
 			<key>Title</key>
 			<string>Auto-Correction &amp; Predictive Text</string>
 			<key>FooterText</key>
-			<string>In AAC/ASAM single app modes, auto-correction and predictive text are always disabled.</string>
+			<string>In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
