@@ -10,15 +10,15 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Automatic Assessment Configuration (AAC) &amp; ASAM</string>
+			<string>Assessment Mode (AAC &amp; ASAM)</string>
 			<key>FooterText</key>
-			<string>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC).</string>
+			<string>Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Use AAC/ASAM If Available</string>
+			<string>Use Assessment Mode If Available</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileEnableASAM</string>
 		</dict>
@@ -58,7 +58,7 @@
 			<key>Title</key>
 			<string></string>
 			<key>FooterText</key>
-			<string>On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</string>
+			<string>On devices with iOS &lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

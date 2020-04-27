@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Classic Single App Mode (SAM)</string>
 			<key>FooterText</key>
-			<string>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
+			<string>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
