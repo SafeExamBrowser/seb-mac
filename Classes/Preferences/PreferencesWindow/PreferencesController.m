@@ -71,6 +71,14 @@
 }
 
 
+- (SEBBrowserController *)browserController {
+    if (!_browserController) {
+        _browserController = _sebController.browserController.browserController;
+    }
+    return _browserController;
+}
+
+
 #pragma mark -
 #pragma mark Methods for initializing, opening, closing, releasing and re-opening preferences window
 
@@ -125,6 +133,7 @@
 	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc]
                                                    initWithNibName:@"PreferencesDownUploads" bundle:nil];
 	self.examVC = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
+    self.examVC.browserController = self.browserController;
 	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc]
                                                      initWithNibName:@"PreferencesApplications" bundle:nil];
 //	PrefsResourcesViewController *resources = [[PrefsResourcesViewController alloc] initWithNibName:@"PreferencesResources" bundle:nil];

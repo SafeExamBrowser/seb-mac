@@ -34,6 +34,7 @@
 
 #import "SEBConfigFileManager.h"
 #import "SEBController.h"
+#import "SEBCryptor.h"
 
 @class SEBController;
 

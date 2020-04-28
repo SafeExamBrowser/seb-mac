@@ -36,6 +36,11 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import "MBPreferencesController.h"
+#import "PreferencesController.h"
+#import "SEBBrowserController.h"
+
+@class PreferencesController;
+@class SEBBrowserController;
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
     IBOutlet NSTextField *examKeyTextField;
@@ -48,6 +53,9 @@
     
     @private
 }
+
+@property (weak, nonatomic) PreferencesController *preferencesController;
+@property (weak, nonatomic) SEBBrowserController *browserController;
 
 @property (strong, nonatomic) IBOutlet NSTextField *examKeyTextField;
 

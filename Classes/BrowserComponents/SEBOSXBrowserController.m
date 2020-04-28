@@ -78,6 +78,16 @@
 }
 
 
+- (NSData *)browserExamKey
+{
+    return _browserController.browserExamKey;
+}
+
+- (NSData *)configKey
+{
+    return _browserController.configKey;
+}
+
 - (NSScreen *) mainScreen
 {
     return _sebController.mainScreen;
@@ -110,6 +120,9 @@
     
     self.currentMainHost = nil;
     _temporaryWebView = nil;
+    
+    _browserController.browserExamKey = nil;
+    _browserController.configKey = nil;
     
     [_browserController conditionallyInitCustomHTTPProtocol];
 }
