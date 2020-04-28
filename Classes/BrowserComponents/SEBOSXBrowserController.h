@@ -89,6 +89,8 @@
 @property (strong) NSArray *privatePasteboardItems;
 @property(strong) NSTimer *panelWatchTimer;
 
+@property (strong, nonatomic) NSData *browserExamKey;
+@property (strong, nonatomic) NSData *configKey;
 
 - (NSScreen *) mainScreen;
 

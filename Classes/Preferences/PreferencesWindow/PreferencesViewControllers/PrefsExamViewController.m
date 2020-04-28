@@ -150,16 +150,14 @@
 
 - (void)displayBrowserExamKey
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    NSData *browserExamKey = _browserController.browserExamKey;
     [self displayKeyHash:browserExamKey keyTextField:examKeyTextField];
 }
 
 
 - (void)displayConfigKey
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    NSData *configKey = _browserController.configKey;
     [self displayKeyHash:configKey keyTextField:configKeyTextField];
 }
 
