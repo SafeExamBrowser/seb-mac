@@ -48,7 +48,7 @@
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
 #import "SEBEncapsulatedSettings.h"
-#import "SEBOSXBrowserController.h"
+#import "SEBBrowserController.h"
 
 @class SEBController;
 @class SEBOSXConfigFileController;
@@ -56,6 +56,7 @@
 @class PrefsConfigFileViewController;
 @class PrefsExamViewController;
 @class PrefsNetworkViewController;
+@class SEBBrowserController;
 
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
@@ -71,8 +72,9 @@
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
 @property BOOL certOSWarningDisplayed;
-@property (strong, nonatomic) IBOutlet SEBController *sebController;
+@property (weak, nonatomic) IBOutlet SEBController *sebController;
 @property (strong, nonatomic) SEBOSXConfigFileController *configFileController;
+@property (weak, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 @property (strong, nonatomic) PrefsExamViewController *examVC;

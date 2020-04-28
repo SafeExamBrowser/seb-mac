@@ -1256,7 +1256,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         // Browser Exam Key
         
-        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        NSData *browserExamKey = _browserController.browserExamKey;
 #ifdef DEBUG
         DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
 #endif
@@ -1283,7 +1283,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
         // Config Key
         
-        NSData *configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        NSData *configKey = _browserController.configKey;
         [configKey getBytes:hashedChars length:32];
         
 #ifdef DEBUG

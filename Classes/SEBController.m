@@ -2959,7 +2959,7 @@ bool insideMatrix(){
 
 - (void) openInfoHUD:(NSString *)lockedTimeInfo
 {
-    informationHUDLabel.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
+    informationHUDLabel.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];   
     informationHUDLabel.textColor = [NSColor whiteColor];
     NSMutableString *informationText = [NSMutableString stringWithString:(lockedTimeInfo)];
     
