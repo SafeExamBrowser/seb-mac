@@ -119,7 +119,8 @@
         [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
         [prefsController setCurrentConfigFileKeyHash:sebFileCrentials.publicKeyHash];
     }
-    
+    // Update Browser Exam Key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     [prefsController initPreferencesWindow];
 }
 
@@ -162,7 +163,8 @@
         [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
         [prefsController setCurrentConfigFileKeyHash:sebFileCrentials.publicKeyHash];
     }
-    
+    // Update Browser Exam Key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     [prefsController initPreferencesWindow];
 }
 
