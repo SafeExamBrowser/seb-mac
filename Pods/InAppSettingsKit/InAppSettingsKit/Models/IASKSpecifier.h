@@ -43,6 +43,7 @@
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;
 - (NSArray*)multipleTitles;
+- (NSArray *)multipleIconNames;
 - (NSString*)file;
 - (id)defaultValue;
 - (id)defaultStringValue;
@@ -58,6 +59,7 @@
 - (UIKeyboardType)keyboardType;
 - (UITextAutocapitalizationType)autocapitalizationType;
 - (UITextAutocorrectionType)autoCorrectionType;
+- (NSRegularExpression*)regex;
 - (NSString*)footerText;
 - (Class)viewControllerClass;
 - (SEL)viewControllerSelector;

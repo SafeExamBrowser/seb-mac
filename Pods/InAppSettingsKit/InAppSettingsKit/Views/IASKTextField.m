@@ -19,4 +19,16 @@
 
 @implementation IASKTextField
 
+- (void)shake {
+	self.transform = CGAffineTransformMakeTranslation(20.f, 0.f);
+	[UIView animateWithDuration:0.4f
+						  delay:0.0f
+		 usingSpringWithDamping:0.2f
+		  initialSpringVelocity:1.0f
+						options:UIViewAnimationOptionCurveEaseInOut
+					 animations:^{
+		self.transform = CGAffineTransformIdentity;
+	} completion:nil];
+}
+
 @end

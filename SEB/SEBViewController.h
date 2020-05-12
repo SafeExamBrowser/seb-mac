@@ -176,6 +176,9 @@
 @property (strong, nonatomic) ServerController *serverController;
 @property (strong, nonatomic) SEBServerViewController *sebServerViewController;
 
+// Jitsi Meet
+@property (strong, nonatomic) JitsiViewController *jitsiViewController;
+
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
 @property (strong, nonatomic) UIAlertController *allowediOSAlertController;

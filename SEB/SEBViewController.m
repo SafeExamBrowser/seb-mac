@@ -86,6 +86,16 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (JitsiViewController*)jitsiViewController
+{
+    if (!_jitsiViewController) {
+        _jitsiViewController = [[JitsiViewController alloc] init];
+    }
+
+    return _jitsiViewController;
+}
+
+
 - (SEBBrowserController *)browserController
 {
     if (!_browserController) {
@@ -371,9 +381,11 @@ static NSMutableSet *browserWindowControllers;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     [self becomeFirstResponder];
 
+    [self adjustJitsiPiPDragBoundInsets];
+    
     if ([self allowediOSVersion]) {
         // Check if we received new settings from an MDM server
         //    [self readDefaultsValues];
@@ -1845,6 +1857,11 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         [self adjustBars];
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
+            [self openJitsiView];
+            [self.jitsiViewController openJitsiMeetWithSender:self];
+        }
     });
 }
 
@@ -2080,6 +2097,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
     self.browserController = nil;
     
+    [_jitsiViewController closeJitsiMeetWithSender:self];
+
     _viewDidLayoutSubviewsAlreadyCalled = NO;
 }
 
@@ -3709,6 +3728,60 @@ quittingClientConfig:(BOOL)quittingClientConfig
         // If necessary show the dialog to start SAM again
         [self showRestartSingleAppMode];
     }
+}
+
+
+#pragma mark - Jitsi
+
+- (void) openJitsiView
+{
+    _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    
+    [_rootViewController addChildViewController:self.jitsiViewController];
+    self.jitsiViewController.safeAreaLayoutGuideInsets = self.view.safeAreaInsets;
+    [self.jitsiViewController didMoveToParentViewController:_rootViewController];
+    
+    NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                         multiplier:1.0
+                                                           constant:0],
+                             [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                         multiplier:1.0
+                                                           constant:0],
+                             [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0],
+                             [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_rootViewController.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [_rootViewController.view addConstraints:constraints];
+}
+
+
+- (void) adjustJitsiPiPDragBoundInsets
+{
+    CGFloat navigationBarHeight = self.view.safeAreaInsets.top;
+    CGFloat toolbarHeight = self.view.safeAreaInsets.bottom;
+    UIEdgeInsets safeAreaFrameInsets = UIEdgeInsetsMake(navigationBarHeight,
+                                                        self.view.safeAreaInsets.left,
+                                                        toolbarHeight,
+                                                        self.view.safeAreaInsets.right);
+    self.jitsiViewController.safeAreaLayoutGuideInsets = safeAreaFrameInsets;
 }
 
 
