@@ -1,6 +1,8 @@
 InAppSettingsKit
 ================
 
+[![Build Status](https://travis-ci.org/futuretap/InAppSettingsKit.svg?branch=master)](https://travis-ci.org/futuretap/InAppSettingsKit)
+
 InAppSettingsKit (IASK) is an open source solution to easily add in-app settings to your iPhone apps. Normally iOS apps use the `Settings.bundle` resource to [make app's settings](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html) to be present in "Settings" app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings. More details about the history of this development on the [FutureTap Blog](http://www.futuretap.com/blog/inappsettingskit) and the [Edovia Blog](http://www.edovia.com/blog/inappsettingskit).
 
 <a href="https://flattr.com/thing/799297/futuretapInAppSettingsKit-on-GitHub" target="_blank">
@@ -31,18 +33,13 @@ Add to your `Podfile`:
 
     pod 'InAppSettingsKit'
 
-**Including the source code**
-
-
-Copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. `InAppSettingsKitSampleApp.xcodeproj` demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
-
 **Using a static library**
 
 Use the static library project to include InAppSettingsKit. To see an example on how to do it, open `InAppSettingsKit.xcworkspace`. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
 
 * add the `InAppSettingsKit.xcodeproject` into your application's workspace
 * add `libInAppSettingsKit.a` to your application's libraries by opening the Build-Phases pane of the main application and adding it in `Link Binary with Libraries`
-* use IASK by importing it via #import "InAppSettingsKit/..."
+* use IASK by importing it via #import <InAppSettingsKit/...>
 * for Archive builds there's a minor annoyance: To make those work, you'll need to add `$(OBJROOT)/UninstalledProducts/include` to the `HEADER_SEARCH_PATHS`
 
 Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
@@ -133,9 +130,9 @@ In summary, the plists are searched in this order:
 Different in-app settings are useful in a variety of situations. For example, [Where To?](http://www.futuretap.com/whereto) uses this mechanism to change the wording of "At next start" (for resetting confirmation dialogs) to be appropriate if the app is already running.
 
 
-iOS 8+: Privacy link
+Privacy link
 --------------------
-On iOS 8.0 or newer, if the app includes a usage key for various privacy features such as camera or location access in its `Info.plist`, IASK displays a "Privacy" cell at the top of the root settings page. This cell opens the system Settings app and displays the settings pane for the app where the user can specify the privacy settings for the app.
+If the app includes a usage key for various privacy features such as camera or location access in its `Info.plist`, IASK displays a "Privacy" cell at the top of the root settings page. This cell opens the system Settings app and displays the settings pane for the app where the user can specify the privacy settings for the app.
 
 If you don't want to show Privacy cells, set the property `neverShowPrivacySettings` to `YES`.
 
@@ -151,9 +148,9 @@ IASKMailComposeSpecifier
 ------------------------
 The custom `IASKMailComposeSpecifier` element allows to send mail from within the app by opening a mail compose view. You can set the following (optional) parameters using the settings plist: `IASKMailComposeToRecipents`, `IASKMailComposeCcRecipents`, `IASKMailComposeBccRecipents`, `IASKMailComposeSubject`, `IASKMailComposeBody`, `IASKMailComposeBodyIsHTML`. Optionally, you can implement
 
-    - (NSString*)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier*)specifier;
+    - (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController forSpecifier:(IASKSpecifier*)specifier;
 
-in your delegate to pre-fill the body with dynamic content (great to add device-specific data in support mails for example). An alert is displayed if Email is not configured on the device. `IASKSpecifier` is the internal model object defining a single settings cell. Important IASKSpecifier properties:
+in your delegate to customize the mail (e.g. pre-fill the body with dynamic content, add attachments) modify the appearance of the compose view controller or even block the standard presentation. An alert is displayed if Email is not configured on the device. `IASKSpecifier` is the internal model object defining a single settings cell. Important IASKSpecifier properties:
 
 - `key`: corresponds to the `Key` in the Settings plist
 - `title`: the localized title of settings key
@@ -179,7 +176,7 @@ Similar to `PSTextFieldSpecifier` this element displays a full-width, multi line
 
 FooterText
 ----------
-The FooterText key for Group elements is available in system settings since iOS 4. It is supported in InAppSettingsKit as well. On top of that, we support this key for Multi Value elements as well. The footer text is displayed below the table of multi value options.
+The FooterText key for Group elements is available in system settings. It is supported in InAppSettingsKit as well. On top of that, we support this key for Multi Value elements as well. The footer text is displayed below the table of multi value options.
 
 
 IASKCustomViewSpecifier
@@ -245,6 +242,15 @@ Placeholder
 The `IASKPlaceholder` key allows to define placeholder for TextField and TextView (`IASKTextViewSpecifier`).
 
 
+Regular expression validation
+-----------------------------
+The `IASKRegex` key can be used to specify a regular expression for validating text entered into TextField. For example checking the text entered is a valid number (only one decimal point, if a minus sign is present it must be the first charecter, etc). When this key is used the settings store is only update when editting of the field finishes. This enables easier editing as the field doesn't have to be valid after every charecter change.
+
+By default, the text field shakes on a validation failure when leaving the field. The following optional delegate methods can be used to customise the behaviour on a validation failure and a subsequent validation sucess. For example, the text field could be set to red to indicate the value isn't valid. The delegate can prevent the default validation failure behaviour by returning `NO` from the `validationFailureForSpecifier` method.
+- `(BOOL)settingsViewController:(IASKAppSettingsViewController*)sender validationFailureForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field previousValue:(NSString*)prevValue;`
+- `(void)settingsViewController:(IASKAppSettingsViewController*)sender validationSuccessForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field;`
+
+
 Text alignment
 --------------
 For some element types, a `IASKTextAlignment` attribute may be added with the following values to override the default alignment:
@@ -275,7 +281,7 @@ MultiValue lists (`PSMultiValueSpecifier`) can fetch their values and titles dyn
 The sample app returns a list of all country codes as values and the localized country names as titles.
 
 MultiValue lists can be sorted alphabetically by adding a `true` Boolean `DisplaySortedByTitle` key in the Plist.
-
+MultiValue list entries can be given an image. Specify images via the `IconNames` attribute (next to Values/Titles/ShortTitles etc.).
 
 Settings Storage
 ----------------
@@ -312,4 +318,4 @@ Please don't use Github issues for support requests, we'll close them. Instead, 
 The License
 ===========
 
-We released the code under the liberal BSD license in order to make it possible to include it in every project, be it a free or paid app. The only thing we ask for is giving the [original developers](http://www.inappsettingskit.com/about) some credit. The easiest way to include credits is by leaving the "Powered by InAppSettingsKit" notice in the code. If you decide to remove this notice, a noticeable mention on the App Store description page or homepage is fine, too. To gain some exposure for your app we suggest [adding your app](http://www.inappsettingskit.com/apps) to our list.
+We released the code under the liberal BSD license in order to make it possible to include it in every project, be it a free or paid app. The only thing we ask for is giving the original developers some credit. The easiest way to include credits is by leaving the "Powered by InAppSettingsKit" notice in the code. If you decide to remove this notice, a noticeable mention on the App Store description page or homepage is fine, too. 

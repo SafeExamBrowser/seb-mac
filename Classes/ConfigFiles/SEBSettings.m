@@ -428,6 +428,54 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"insideSebEnableVmWareClientShade",
                    
+                   @YES,
+                   @"jitsiMeetAudioMuted",
+                   
+                   @NO,
+                   @"jitsiMeetAudioOnly",
+                   
+                   @NO,
+                   @"jitsiMeetEnable",
+                   
+                   @NO,
+                   @"jitsiMeetFeatureFlagChat",
+                   
+                   @NO,
+                   @"jitsiMeetFeatureFlagCloseCaptions",
+                   
+                   @NO,
+                   @"jitsiMeetFeatureFlagDisplayMeetingName",
+                   
+                   @NO,
+                   @"jitsiMeetFeatureFlagRaiseHand",
+                   
+                   @NO,
+                   @"jitsiMeetFeatureFlagTileView",
+                   
+                   @"",
+                   @"jitsiMeetRoom",
+                   
+                   @"",
+                   @"jitsiMeetServerURL",
+                   
+                   @"",
+                   @"jitsiMeetSubject",
+                   
+                   @"",
+                   @"jitsiMeetToken",
+                   
+                   @"",
+                   @"jitsiMeetUserInfoAvatarURL",
+                   
+                   @"",
+                   @"jitsiMeetUserInfoDisplayName",
+                   
+                   @"",
+                   @"jitsiMeetUserInfoEMail",
+                   
+                   @NO,
+                   @"jitsiMeetVideoMuted",
+                   
                    @NO,
                    @"killExplorerShell",
                    

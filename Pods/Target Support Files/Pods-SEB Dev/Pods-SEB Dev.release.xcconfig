@@ -1,9 +1,11 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/JitsiMeetSDK/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/InAppSettingsKit" "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReaderViewController"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/CocoaLumberjack" -isystem "${PODS_ROOT}/Headers/Public/InAppSettingsKit" -isystem "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"CocoaLumberjack-iOS" -l"InAppSettingsKit" -l"QRCodeReaderViewController" -framework "AVFoundation" -framework "MessageUI" -framework "UIKit"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"CocoaLumberjack-iOS" -l"InAppSettingsKit" -l"QRCodeReaderViewController" -framework "AVFoundation" -framework "JitsiMeet" -framework "MessageUI" -framework "UIKit" -framework "WebRTC"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

@@ -35,8 +35,10 @@
 #define KIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
+#define kIASKRegex                            @"IASKRegex"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
+#define kIASKIconNames                        @"IconNames"
 #define kIASKShortTitles                      @"ShortTitles"
 #define kIASKSupportedUserInterfaceIdioms     @"SupportedUserInterfaceIdioms"
 #define kIASKSubtitle                         @"IASKSubtitle"
@@ -133,52 +135,6 @@
 
 #ifndef kCFCoreFoundationVersionNumber_iOS_11_0
 #define kCFCoreFoundationVersionNumber_iOS_11_0 1429.150000
-#endif
-
-#ifdef __IPHONE_6_0
-#define IASK_IF_IOS6_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0) \
-{ \
-__VA_ARGS__ \
-}
-#else
-#define IASK_IF_IOS6_OR_GREATER(...)
-#endif
-
-#ifdef __IPHONE_6_0
-#define IASK_IF_PRE_IOS6(...) \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
-if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_6_0) \
-{ \
-__VA_ARGS__ \
-} \
-_Pragma("clang diagnostic pop")
-#else
-#define IASK_IF_PRE_IOS6(...)  __VA_ARGS__
-#endif
-
-#ifdef __IPHONE_7_0
-#define IASK_IF_IOS7_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0) \
-{ \
-__VA_ARGS__ \
-}
-#else
-#define IASK_IF_IOS7_OR_GREATER(...)
-#endif
-
-#ifdef __IPHONE_7_0
-#define IASK_IF_PRE_IOS7(...) \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
-if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_7_0) \
-{ \
-__VA_ARGS__ \
-} \
-_Pragma("clang diagnostic pop")
-#else
-#define IASK_IF_PRE_IOS7(...)  __VA_ARGS__
 #endif
 
 #ifdef __IPHONE_8_0

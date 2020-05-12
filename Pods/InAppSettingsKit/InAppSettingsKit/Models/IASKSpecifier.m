@@ -55,6 +55,7 @@
     }
     return self;
 }
+
 - (void)updateMultiValuesDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
@@ -63,31 +64,38 @@
 
 - (void)setMultipleValuesDictValues:(NSArray*)values titles:(NSArray*)titles {
     NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
+    NSArray *iconNames = [_specifierDict objectForKey:kIASKIconNames];
     NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
    
     if (values) {
-		[multipleValuesDict setObject:values forKey:kIASKValues];
-	}
+        [multipleValuesDict setObject:values forKey:kIASKValues];
+    }
 	
     if (titles) {
-		[multipleValuesDict setObject:titles forKey:kIASKTitles];
-	}
-    
+        [multipleValuesDict setObject:titles forKey:kIASKTitles];
+    }
+
     if (shortTitles.count) {
-		[multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
-	}
-    
+        [multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
+    }
+
+    if (iconNames.count) {
+        [multipleValuesDict setObject:iconNames forKey:kIASKIconNames];
+    }
+
     [self setMultipleValuesDict:multipleValuesDict];
 }
 
 - (void)sortIfNeeded {
     if (self.displaySortedByTitle) {
-		NSArray *values = self.multipleValues ?: [_specifierDict objectForKey:kIASKValues];
-		NSArray *titles = self.multipleTitles ?: [_specifierDict objectForKey:kIASKTitles];
-		NSArray *shortTitles = self.multipleShortTitles ?: [_specifierDict objectForKey:kIASKShortTitles];
+        NSArray *values = self.multipleValues ?: [_specifierDict objectForKey:kIASKValues];
+        NSArray *titles = self.multipleTitles ?: [_specifierDict objectForKey:kIASKTitles];
+        NSArray *shortTitles = self.multipleShortTitles ?: [_specifierDict objectForKey:kIASKShortTitles];
+        NSArray *iconNames = self.multipleIconNames ?: [_specifierDict objectForKey:kIASKIconNames];
 
         NSAssert(values.count == titles.count, @"Malformed multi-value specifier found in settings bundle. Number of values and titles differ.");
         NSAssert(shortTitles == nil || shortTitles.count == values.count, @"Malformed multi-value specifier found in settings bundle. Number of short titles and values differ.");
+        NSAssert(iconNames == nil || iconNames.count == values.count, @"Malformed multi-value specifier found in settings bundle. Number of icon names and values differ.");
 
         NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
 
@@ -96,7 +104,9 @@
         static NSString *const titleKey = @"title";
         static NSString *const shortTitleKey = @"shortTitle";
         static NSString *const localizedTitleKey = @"localizedTitle";
+        static NSString *const iconNamesKey = @"iconNamesKey";
         static NSString *const valueKey = @"value";
+
         IASKSettingsReader *strongSettingsReader = self.settingsReader;
         [titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSString *localizedTitle = [strongSettingsReader titleForId:obj];
@@ -104,6 +114,7 @@
                                                   valueKey : values[idx],
                                                   localizedTitleKey : localizedTitle,
                                                   shortTitleKey : (shortTitles[idx] ?: [NSNull null]),
+                                                  iconNamesKey : (iconNames[idx] ?: [NSNull null]),
                                                   }];
         }];
         
@@ -121,18 +132,23 @@
         NSMutableArray *sortedTitles = [NSMutableArray arrayWithCapacity:sortedTemporaryMappings.count];
         NSMutableArray *sortedShortTitles = [NSMutableArray arrayWithCapacity:sortedTemporaryMappings.count];
         NSMutableArray *sortedValues = [NSMutableArray arrayWithCapacity:sortedTemporaryMappings.count];
+        NSMutableArray *sortedIconNames = [NSMutableArray arrayWithCapacity:sortedTemporaryMappings.count];
 
         [sortedTemporaryMappings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *mapping = obj;
-            sortedTitles[idx] = mapping[titleKey];
-            sortedValues[idx] = mapping[valueKey];
+            sortedTitles[idx] = (NSString *)mapping[titleKey];
+            sortedValues[idx] = (id)mapping[valueKey];
             if (mapping[shortTitleKey] != [NSNull null]) {
-                sortedShortTitles[idx] = mapping[shortTitleKey];
+                sortedShortTitles[idx] = (id)mapping[shortTitleKey];
+            }
+            if (mapping[iconNamesKey] != [NSNull null]) {
+                sortedIconNames[idx] = (id)mapping[iconNamesKey];
             }
         }];
         titles = [sortedTitles copy];
         values = [sortedValues copy];
         shortTitles = [sortedShortTitles copy];
+        iconNames = [iconNames copy];
         
         if (values) {
             [multipleValuesDict setObject:values forKey:kIASKValues];
@@ -145,7 +161,11 @@
         if (shortTitles.count) {
             [multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
         }
-        
+
+        if (iconNames.count) {
+            [multipleValuesDict setObject:iconNames forKey:kIASKIconNames];
+        }
+
         [self setMultipleValuesDict:multipleValuesDict];
     }
 }
@@ -193,7 +213,8 @@
 }
 
 - (SEL)viewControllerSelector {
-    return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
+    NSString *selector = [_specifierDict objectForKey:kIASKViewControllerSelector];
+    return selector ? NSSelectorFromString(selector) : nil;
 }
 
 - (NSString*)viewControllerStoryBoardFile {
@@ -209,11 +230,13 @@
 }
 
 - (Class)buttonClass {
-    return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
+    NSString *buttonClassString = [_specifierDict objectForKey:kIASKButtonClass];
+    return buttonClassString ? NSClassFromString(buttonClassString) : nil;
 }
 
 - (SEL)buttonAction {
-    return NSSelectorFromString([_specifierDict objectForKey:kIASKButtonAction]);
+    NSString *buttonAction = [_specifierDict objectForKey:kIASKButtonAction];
+    return buttonAction ? NSSelectorFromString(buttonAction) : nil;
 }
 
 - (NSString*)key {
@@ -255,6 +278,10 @@
 
 - (NSArray*)multipleTitles {
     return [_multipleValuesDict objectForKey:kIASKTitles];
+}
+
+- (NSArray *)multipleIconNames {
+    return [_multipleValuesDict objectForKey:kIASKIconNames];
 }
 
 - (NSArray*)multipleShortTitles {
@@ -372,6 +399,21 @@
     return UITextAutocorrectionTypeDefault;
 }
 
+- (NSRegularExpression*)regex {
+    NSRegularExpression *regex = nil;
+    NSString *pattern;
+    NSError *error;
+
+    pattern = [_specifierDict objectForKey:kIASKRegex];
+    if (pattern != nil) {
+        regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error: &error];
+        if (error != nil) {
+            regex = nil;
+        }
+    }
+    return regex;
+}
+
 - (UIImage *)cellImage
 {
     NSString *imageName = [_specifierDict objectForKey:kIASKCellImage];
@@ -392,7 +434,7 @@
 
 - (BOOL)adjustsFontSizeToFitWidth {
 	NSNumber *boxedResult = [_specifierDict objectForKey:kIASKAdjustsFontSizeToFitWidth];
-	return !boxedResult || [boxedResult boolValue];
+	return (boxedResult == nil) || [boxedResult boolValue];
 }
 
 - (NSTextAlignment)textAlignment

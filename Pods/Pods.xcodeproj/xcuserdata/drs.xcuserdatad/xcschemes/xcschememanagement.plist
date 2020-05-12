@@ -24,12 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-SEB Dev.xcscheme</key>
+		<key>JitsiMeetSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-SEB Enterprise.xcscheme</key>
+		<key>Pods-SEB Dev.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
