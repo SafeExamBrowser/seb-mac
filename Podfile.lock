@@ -5,17 +5,20 @@ PODS:
   - CocoaLumberjack/Default (3.4.2)
   - CocoaLumberjack/Extensions (3.4.2):
     - CocoaLumberjack/Default
-  - InAppSettingsKit (2.10)
+  - InAppSettingsKit (2.15)
+  - JitsiMeetSDK (2.5.3)
   - QRCodeReaderViewController (4.0.2)
 
 DEPENDENCIES:
   - CocoaLumberjack
   - InAppSettingsKit (from `https://github.com/futuretap/InAppSettingsKit.git`)
+  - JitsiMeetSDK (~> 2.5.2)
   - QRCodeReaderViewController (~> 4.0.2)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - CocoaLumberjack
+    - JitsiMeetSDK
     - QRCodeReaderViewController
 
 EXTERNAL SOURCES:
@@ -24,14 +27,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   InAppSettingsKit:
-    :commit: 2fb2fa0d6a83f3b47ed18333cc4e028b5207268f
+    :commit: ee74d890b13c4977c0378f4b8e84babea3e05053
     :git: https://github.com/futuretap/InAppSettingsKit.git
 
 SPEC CHECKSUMS:
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
-  InAppSettingsKit: d965e29be941eb19857271e4625de3fba6e23c9f
+  InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
+  JitsiMeetSDK: 0a62228b34f13846d1d18d9b47e8fb046e1d4099
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: bc987c24dc328fa386ddf4d29858f09811d3d5fd
+PODFILE CHECKSUM: 777f0bb0bcf2ee6053e597c16057d1757a02bcb6
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.1

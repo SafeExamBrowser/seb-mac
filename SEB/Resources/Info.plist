@@ -67,9 +67,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera is needed to scan QR codes</string>
+	<string>Camera is needed to scan QR codes and for remote proctoring</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is required for remote proctoring.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
