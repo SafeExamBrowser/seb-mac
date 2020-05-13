@@ -20,22 +20,11 @@ class JitsiViewController: UIViewController {
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
     fileprivate var jitsiMeetView: JitsiMeetView?
     
-//    override func loadView() {
-//        view = TouchDelegatingView(frame: view.frame)
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-//        self.view = TouchDelegatingView(frame: view.frame)
-//
-//        if let delegatingView = view as? TouchDelegatingView {
-//            delegatingView.touchDelegate = parent?.view
-//        }
         view.isUserInteractionEnabled = false
-//        view.backgroundColor = .clear
     }
     
     override func didMove(toParent parent: UIViewController?) {
@@ -67,13 +56,46 @@ class JitsiViewController: UIViewController {
         jitsiMeetView.delegate = self
         self.jitsiMeetView = jitsiMeetView
         jitsiMeetView.isUserInteractionEnabled = true
-
+        
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.welcomePageEnabled = false
             builder.serverURL = URL(string: UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetServerURL"))
             builder.room = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetRoom")
-//            builder.featureFlags
-//            builder.userInfo
+            builder.subject = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetRoom")
+            builder.token = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetSubject")
+            builder.audioMuted = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
+            builder.videoMuted = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
+            builder.audioOnly = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
+            
+            builder.setFeatureFlag("add-people.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("calendar.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("call-integration.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("close-captions.enabled",
+                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagCloseCaptions"))
+            builder.setFeatureFlag("chat.enabled",
+                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagChat"))
+            builder.setFeatureFlag("invite.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("ios.recording.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("live-streaming.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("meeting-name.enabled",
+                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagDisplayMeetingName"))
+            builder.setFeatureFlag("meeting-password.enabled",
+                                   withBoolean: false)
+            builder.setFeatureFlag("pip.enabled",
+                                   withBoolean: true)
+            builder.setFeatureFlag("raise-hand.enabled",
+                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagRaiseHand"))
+            builder.setFeatureFlag("recording.enabled",
+                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagRecording"))
+            builder.setFeatureFlag("tile_view.enabled",
+                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView"))
+            //            builder.userInfo
         }
         jitsiMeetView.join(options)
         
@@ -116,22 +138,5 @@ extension JitsiViewController: JitsiMeetViewDelegate {
         DispatchQueue.main.async {
             self.pipViewCoordinator?.enterPictureInPicture()
         }
-    }
-}
-
-class TouchDelegatingView: JitsiMeetView {
-    weak var touchDelegate: UIView? = nil
-
-
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard let view = super.hitTest(point, with: event) else {
-            return nil
-        }
-
-        guard view === self, let point = touchDelegate?.convert(point, from: self) else {
-            return view
-        }
-
-        return touchDelegate?.hitTest(point, with: event)
     }
 }
