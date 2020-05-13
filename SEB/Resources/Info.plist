@@ -66,6 +66,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in SEB.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera is needed to scan QR codes and for remote proctoring</string>
 	<key>NSHumanReadableCopyright</key>
