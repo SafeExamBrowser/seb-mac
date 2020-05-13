@@ -450,6 +450,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"jitsiMeetFeatureFlagRaiseHand",
                    
                    @NO,
+                   @"jitsiMeetFeatureFlagRecording",
+                   
+                   @NO,
                    @"jitsiMeetFeatureFlagTileView",
                    
                    @"",

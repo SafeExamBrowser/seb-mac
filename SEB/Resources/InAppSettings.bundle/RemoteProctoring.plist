@@ -38,7 +38,7 @@
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
-			<string>No</string>
+			<string>NO</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -54,7 +54,23 @@
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
-			<string>No</string>
+			<string>NO</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Subject</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetSubject</string>
+			<key>IASKPlaceholder</key>
+			<string>Conference Subject</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>AutocapitalizationType</key>
+			<string>Sentences</string>
+			<key>AutocorrectionType</key>
+			<string>YES</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -70,7 +86,47 @@
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
-			<string>No</string>
+			<string>NO</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audio Muted</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetAudioMuted</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Video Muted</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetVideoMuted</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audio Only</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetAudioOnly</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Chat</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagChat</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Close Captions</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagCloseCaptions</string>
 		</dict>
 	</array>
 </dict>
