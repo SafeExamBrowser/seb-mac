@@ -3772,6 +3772,11 @@ quittingClientConfig:(BOOL)quittingClientConfig
     [_rootViewController.view addConstraints:constraints];
 }
 
+- (void) toggleProctoringViewVisibility
+{
+    [self.jitsiViewController toggleJitsiViewVisibilityWithSender:self];
+    [self.sideMenuController hideLeftViewAnimated];
+}
 
 - (void) adjustJitsiPiPDragBoundInsets
 {

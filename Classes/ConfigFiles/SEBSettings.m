@@ -638,6 +638,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"quitURLRestart",
                    
+                   [NSNumber numberWithLong:remoteConferenceViewShowAllowToHide],
+                   @"remoteProctoringViewShow",
+
                    @NO,
                    @"removeBrowserProfile",
                    
@@ -688,6 +691,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"showNavigationButtons",
+                   
+                   @YES,
+                   @"showProctoringViewButton",
                    
                    @YES,
                    @"showQuitButton",

@@ -58,6 +58,14 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Show Proctoring Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showProctoringViewButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Show Scan QR Code Button</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showScanQRCodeButton</string>

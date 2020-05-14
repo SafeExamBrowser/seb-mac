@@ -128,6 +128,30 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagCloseCaptions</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Proctoring View Display Policy</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_remoteProctoringViewShow</string>
+			<key>FooterText</key>
+			<string>You can hide or show the overlay view showing the candidate, the proctor (and currently other candidates) with this setting or allow candidates to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command.</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Never</string>
+				<string>Allow to Show</string>
+				<string>Allow to Hide</string>
+				<string>Always</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>
