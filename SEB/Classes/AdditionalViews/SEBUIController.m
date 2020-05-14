@@ -237,6 +237,37 @@
         [sliderCommands addObject:sliderReloadButtonItem];
     }
     
+    // Add Proctoring slider command and dock button if enabled and dock visible
+    _proctoringViewButton = nil;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"] &&
+         [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"] != remoteConferenceViewShowNever) {
+        
+        // Functionality enabled, add to slider menu
+        sliderIcon = [UIImage imageNamed:@"SEBSliderProctoringViewIcon"];
+        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Toggle Proctoring View",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(toggleProctoringViewVisibility)];
+        [sliderCommands addObject:sliderReloadButtonItem];
+
+        if (_dockEnabled &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showProctoringViewButton"]) {
+            dockIcon = [UIImage imageNamed:@"SEBProctoringViewIcon"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(toggleProctoringViewVisibility)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Show/Hide Proctoring View", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.", nil);
+            [newDockItems addObject:dockItem];
+            _proctoringViewButton = dockItem;
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+        }
+    }
+    
     // Add scan QR code command/Home screen quick action/dock button
     // if SEB isn't running in exam mode (= no quit pw)
     BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
@@ -469,6 +500,12 @@
 - (void)showAboutSEB
 {
     [_sebViewController showAboutSEB];
+}
+
+
+- (void) toggleProctoringViewVisibility
+{
+    [_sebViewController toggleProctoringViewVisibility];
 }
 
 
