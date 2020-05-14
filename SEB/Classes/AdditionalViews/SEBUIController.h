@@ -56,6 +56,7 @@
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
 @property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
+@property (nonatomic, strong) UIBarButtonItem *proctoringViewButton;
 
 
 @property (readwrite) NSUInteger statusBarAppearance;

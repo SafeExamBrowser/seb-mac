@@ -275,6 +275,8 @@
 - (BOOL) conditionallyOpenSleepModeLockdownWindows;
 - (void) openLockdownWindows;
 
+- (void) toggleProctoringViewVisibility;
+
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback
                                     selector:(SEL)selector;

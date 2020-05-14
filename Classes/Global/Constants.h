@@ -187,6 +187,15 @@ typedef NSUInteger iOSVersion;
 
 
 enum {
+    remoteConferenceViewShowNever               = 0,
+    remoteConferenceViewShowAllowToShow         = 1,
+    remoteConferenceViewShowAllowToHide         = 2,
+    remoteConferenceViewShowAlways              = 3
+};
+typedef NSUInteger remoteConferenceViewShowPolicies;
+
+
+enum {
     mobileStatusBarAppearanceNone               = 0,
     mobileStatusBarAppearanceLight              = 1,
     mobileStatusBarAppearanceDark               = 2

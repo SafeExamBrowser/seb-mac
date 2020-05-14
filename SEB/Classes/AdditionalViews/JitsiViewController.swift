@@ -16,6 +16,7 @@ class JitsiViewController: UIViewController {
             pipViewCoordinator?.enterPictureInPicture()
         }
     }
+    @objc public var viewIsVisible = false
     
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
     fileprivate var jitsiMeetView: JitsiMeetView?
@@ -109,7 +110,16 @@ class JitsiViewController: UIViewController {
         jitsiMeetView.alpha = 1
         pipViewCoordinator?.dragBoundInsets = safeAreaLayoutGuideInsets
         pipViewCoordinator?.enterPictureInPicture()
-        pipViewCoordinator?.show()
+        
+        let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
+        if remoteProctoringViewShowPolicy == remoteConferenceViewShowAllowToHide ||
+            remoteProctoringViewShowPolicy == remoteConferenceViewShowAlways {
+            viewIsVisible = true
+            pipViewCoordinator?.show()
+        } else {
+            viewIsVisible = false
+            pipViewCoordinator?.hide()
+        }
     }
     
     fileprivate func cleanUp() {
@@ -118,6 +128,16 @@ class JitsiViewController: UIViewController {
         pipViewCoordinator = nil
     }
     
+    @IBAction func toggleJitsiViewVisibility(sender: Any?) {
+        if viewIsVisible {
+            viewIsVisible = false
+            pipViewCoordinator?.hide()
+        } else {
+            viewIsVisible = true
+            pipViewCoordinator?.show()
+        }
+    }
+
     @IBAction func closeJitsiMeet(sender: Any?) {
         self.jitsiMeetView?.leave()
         cleanUp()
