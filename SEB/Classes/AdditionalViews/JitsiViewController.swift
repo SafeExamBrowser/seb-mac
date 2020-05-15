@@ -153,6 +153,9 @@ class JitsiViewController: UIViewController {
 
 extension JitsiViewController: JitsiMeetViewDelegate {
     func conferenceTerminated(_ data: [AnyHashable : Any]!) {
+        #if DEBUG
+        print(data as Any)
+        #endif
         DispatchQueue.main.async {
             self.openJitsiMeet(sender: self)
 //            self.pipViewCoordinator?.hide() { _ in
@@ -160,6 +163,10 @@ extension JitsiViewController: JitsiMeetViewDelegate {
 //            }
         }
     }
+    
+//    func conferenceJoined(_ data: [AnyHashable : Any]!) {
+//        print(data as Any)
+//    }
     
     func enterPicture(inPicture data: [AnyHashable : Any]!) {
         DispatchQueue.main.async {
