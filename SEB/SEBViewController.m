@@ -3781,7 +3781,17 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (allowToggleProctoringView) {
         [self.jitsiViewController toggleJitsiViewVisibilityWithSender:self];
     } else {
-        
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Remote Proctoring Active", nil)
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 self->_alertController = nil;
+                                                             }]];
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     }
     [self.sideMenuController hideLeftViewAnimated];
 }
@@ -3934,7 +3944,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    _alertController = [UIAlertController  alertControllerWithTitle:title
+    _alertController = [UIAlertController alertControllerWithTitle:title
                                                             message:message
                                                      preferredStyle:controllerStyle];
     [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
