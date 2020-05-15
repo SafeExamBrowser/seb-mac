@@ -44,8 +44,8 @@
     
 }
 
-@property (strong, nonatomic) AppDelegate *appDelegate;
-@property (strong, nonatomic) SEBUIController *sebUIController;
+@property (weak, nonatomic) AppDelegate *appDelegate;
+@property (weak, nonatomic) SEBUIController *sebUIController;
 
 
 @end

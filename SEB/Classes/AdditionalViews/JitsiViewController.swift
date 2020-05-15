@@ -8,6 +8,10 @@
 import UIKit
 import JitsiMeet
 
+@objc protocol ProctoringUIDelegate {
+    func setProctoringViewButtonState(_ remoteProctoringButtonState: remoteProctoringButtonStates)
+}
+
 class JitsiViewController: UIViewController {
     
     @objc public var safeAreaLayoutGuideInsets: UIEdgeInsets = UIEdgeInsets.zero {
@@ -16,6 +20,7 @@ class JitsiViewController: UIViewController {
             pipViewCoordinator?.enterPictureInPicture()
         }
     }
+    @objc public weak var proctoringUIDelegate: ProctoringUIDelegate?
     @objc public var viewIsVisible = false
     
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
@@ -112,8 +117,8 @@ class JitsiViewController: UIViewController {
         pipViewCoordinator?.enterPictureInPicture()
         
         let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
-        if remoteProctoringViewShowPolicy == remoteConferenceViewShowAllowToHide ||
-            remoteProctoringViewShowPolicy == remoteConferenceViewShowAlways {
+        if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+            remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways {
             viewIsVisible = true
             pipViewCoordinator?.show()
         } else {
@@ -132,9 +137,11 @@ class JitsiViewController: UIViewController {
         if viewIsVisible {
             viewIsVisible = false
             pipViewCoordinator?.hide()
+            proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateNormal)
         } else {
             viewIsVisible = true
             pipViewCoordinator?.show()
+            proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateDefault)
         }
     }
 
