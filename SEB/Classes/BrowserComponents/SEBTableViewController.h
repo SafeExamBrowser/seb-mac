@@ -40,7 +40,7 @@
 
 @interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
 
-@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (weak, nonatomic) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *webpagesArray;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;

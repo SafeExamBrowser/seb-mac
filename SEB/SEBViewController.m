@@ -91,7 +91,7 @@ static NSMutableSet *browserWindowControllers;
     if (!_jitsiViewController) {
         _jitsiViewController = [[JitsiViewController alloc] init];
     }
-
+    _jitsiViewController.proctoringUIDelegate = self.sebUIController;
     return _jitsiViewController;
 }
 
@@ -3774,7 +3774,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) toggleProctoringViewVisibility
 {
-    [self.jitsiViewController toggleJitsiViewVisibilityWithSender:self];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUInteger remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+    BOOL allowToggleProctoringView = (remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+                                      remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
+    if (allowToggleProctoringView) {
+        [self.jitsiViewController toggleJitsiViewVisibilityWithSender:self];
+    } else {
+        
+    }
     [self.sideMenuController hideLeftViewAnimated];
 }
 

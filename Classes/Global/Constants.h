@@ -187,12 +187,21 @@ typedef NSUInteger iOSVersion;
 
 
 enum {
-    remoteConferenceViewShowNever               = 0,
-    remoteConferenceViewShowAllowToShow         = 1,
-    remoteConferenceViewShowAllowToHide         = 2,
-    remoteConferenceViewShowAlways              = 3
+    remoteProctoringViewShowNever               = 0,
+    remoteProctoringViewShowAllowToShow         = 1,
+    remoteProctoringViewShowAllowToHide         = 2,
+    remoteProctoringViewShowAlways              = 3
 };
-typedef NSUInteger remoteConferenceViewShowPolicies;
+typedef NSInteger remoteProctoringViewShowPolicies;
+
+
+enum {
+    remoteProctoringButtonStateDefault          = 0,
+    remoteProctoringButtonStateNormal           = 1,
+    remoteProctoringButtonStateWarning          = 2,
+    remoteProctoringButtonStateError            = 3
+};
+typedef NSInteger remoteProctoringButtonStates;
 
 
 enum {

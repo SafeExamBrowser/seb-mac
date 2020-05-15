@@ -36,11 +36,12 @@
 #import "AppDelegate.h"
 #import "SEBViewController.h"
 #import "SEBSliderItem.h"
+#import "SafeExamBrowser-Swift.h"
 
 @class AppDelegate;
 @class SEBViewController;
 
-@interface SEBUIController : NSObject {
+@interface SEBUIController : NSObject <ProctoringUIDelegate> {
     
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
@@ -50,7 +51,7 @@
 
 }
 
-@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (weak, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) SEBViewController *sebViewController;
 
 @property (nonatomic, strong) NSArray *leftSliderCommands;
@@ -79,5 +80,7 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState;
 
 @end

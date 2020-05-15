@@ -638,7 +638,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"quitURLRestart",
                    
-                   [NSNumber numberWithLong:remoteConferenceViewShowAllowToHide],
+                   [NSNumber numberWithLong:remoteProctoringViewShowAllowToHide],
                    @"remoteProctoringViewShow",
 
                    @NO,
