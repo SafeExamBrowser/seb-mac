@@ -132,7 +132,7 @@
     CGFloat navigationBarItemsOffset;
 }
 
-@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (weak, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
@@ -140,7 +140,7 @@
 @property (strong, nonatomic) UIViewController *topMostController;
 @property (strong, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
-@property (strong, nonatomic) SEBUIController *sebUIController;
+@property (weak, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
 

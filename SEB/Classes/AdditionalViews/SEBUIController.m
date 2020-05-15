@@ -239,12 +239,17 @@
     
     // Add Proctoring slider command and dock button if enabled and dock visible
     _proctoringViewButton = nil;
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"] &&
-         [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"] != remoteConferenceViewShowNever) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
         
+        NSUInteger remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+        BOOL allowToggleProctoringView = (remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+                                          remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
+
         // Functionality enabled, add to slider menu
         sliderIcon = [UIImage imageNamed:@"SEBSliderProctoringViewIcon"];
-        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Toggle Proctoring View",nil)
+        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:allowToggleProctoringView ?
+                                  NSLocalizedString(@"Toggle Proctoring View",nil) :
+                                  NSLocalizedString(@"Remote Proctoring",nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(toggleProctoringViewVisibility)];
@@ -257,11 +262,20 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(toggleProctoringViewVisibility)];
-            dockItem.accessibilityLabel = NSLocalizedString(@"Show/Hide Proctoring View", nil);
-            dockItem.accessibilityHint = NSLocalizedString(@"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.", nil);
-            [newDockItems addObject:dockItem];
+            dockItem.accessibilityLabel = allowToggleProctoringView ?
+            NSLocalizedString(@"Toggle Proctoring View", nil) :
+            NSLocalizedString(@"Show Remote Proctoring Information", nil);
+            dockItem.accessibilityHint = remoteProctoringViewShowPolicy != remoteProctoringViewShowNever ?
+            NSLocalizedString(@"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.", nil) : @"";
+                    
             _proctoringViewButton = dockItem;
+            [newDockItems addObject:dockItem];
             
+            if (remoteProctoringViewShowPolicy == remoteProctoringViewShowNever ||
+                remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow) {
+                [self setProctoringViewButtonState:remoteProctoringButtonStateNormal];
+            }
+
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
@@ -463,6 +477,29 @@
         _dockReloadButton.enabled = false;
         sliderReloadButtonItem.enabled = false;
     }
+}
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+{
+    UIColor *remoteProctoringButtonTintColor;
+    switch (remoteProctoringButtonState) {
+        case remoteProctoringButtonStateNormal:
+            remoteProctoringButtonTintColor = [UIColor systemGreenColor];
+            break;
+            
+        case remoteProctoringButtonStateWarning:
+            remoteProctoringButtonTintColor = [UIColor colorWithRed:255.0/255.0 green:149.0/255.0 blue:0.0/255.0 alpha:1.0];
+            break;
+            
+        case remoteProctoringButtonStateError:
+            remoteProctoringButtonTintColor = [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0];;
+            break;
+            
+        default:
+            remoteProctoringButtonTintColor = nil;
+            break;
+    }
+    _proctoringViewButton.tintColor = remoteProctoringButtonTintColor;
 }
 
 

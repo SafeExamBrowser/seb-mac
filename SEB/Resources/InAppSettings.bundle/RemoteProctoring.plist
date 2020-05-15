@@ -92,7 +92,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Audio Muted</string>
+			<string>Audio Initially Muted</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_jitsiMeetAudioMuted</string>
 		</dict>
@@ -100,7 +100,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Video Muted</string>
+			<string>Video Initially Muted</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_jitsiMeetVideoMuted</string>
 		</dict>
