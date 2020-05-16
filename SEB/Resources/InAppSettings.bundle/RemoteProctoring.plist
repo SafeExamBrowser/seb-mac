@@ -114,19 +114,11 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Enable Chat</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagChat</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Enable Close Captions</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagCloseCaptions</string>
+			<string>Proctoring Features</string>
+			<key>File</key>
+			<string>RemoteProctoringFeatures</string>
 		</dict>
 		<dict>
 			<key>Type</key>
