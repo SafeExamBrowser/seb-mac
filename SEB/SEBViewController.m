@@ -3204,17 +3204,17 @@ quittingClientConfig:(BOOL)quittingClientConfig
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
-
+        
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", nil), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         if (NSUserDefaults.userDefaultsPrivate) {
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
-                                                                     [[NSNotificationCenter defaultCenter]
-                                                                      postNotificationName:@"requestQuit" object:self];
-                                                                 }]];
+                self->_alertController = nil;
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"requestQuit" object:self];
+            }]];
         }
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         return;
@@ -3268,15 +3268,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
         if (NSUserDefaults.userDefaultsPrivate) {
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
-                                                                     [[NSNotificationCenter defaultCenter]
-                                                                      postNotificationName:@"requestQuit" object:self];
-                                                                 }]];
+                self->_alertController = nil;
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"requestQuit" object:self];
+            }]];
         }
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         return;
     }
-
+    
     // Update kiosk flags according to current settings
     [self updateKioskSettingFlags];
     
@@ -3294,22 +3294,80 @@ quittingClientConfig:(BOOL)quittingClientConfig
             
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
-                                                                     [self conditionallyStartKioskMode];
-                                                                 }]];
+                self->_alertController = nil;
+                [self conditionallyStartKioskMode];
+            }]];
             if (NSUserDefaults.userDefaultsPrivate) {
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         self->_alertController = nil;
-                                                                         [[NSNotificationCenter defaultCenter]
-                                                                          postNotificationName:@"requestQuit" object:self];
-                                                                     }]];
+                    self->_alertController = nil;
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                }]];
             }
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
             return;
         }
     }
     
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
+        AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+        AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+              videoAuthorization == AVAuthorizationStatusAuthorized)) {
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"Microphone", nil) : @"";
+            NSString *camera = @"";
+            if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+            }
+            
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permission for Remote Capturing", nil)
+                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access before you can start this session.", nil), camera, microphone]
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                self->_alertController = nil;
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                    if (granted){
+                        DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                        
+                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                            if (granted){
+                                DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
+                                [self conditionallyStartKioskMode];
+                            } else {
+                                DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuit" object:self];
+                            }
+                        }];
+                        return;
+                        
+                    } else {
+                        DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestQuit" object:self];
+                    }
+                }];
+                return;
+            }]];
+            
+            if (NSUserDefaults.userDefaultsPrivate) {
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self->_alertController = nil;
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                }]];
+            }
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
+        }
+    }
     _finishedStartingUp = true;
     
     if (_secureMode) {
