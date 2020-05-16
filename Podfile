@@ -14,9 +14,9 @@ target 'SEB' do
 
 platform :ios, '11'
 pod 'CocoaLumberjack'
-pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
+pod 'InAppSettingsKit', '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '~> 2.5.2'
+pod 'JitsiMeetSDK'
 
 end
 
@@ -24,9 +24,9 @@ target 'SEB Dev' do
 
 platform :ios, '11'
 pod 'CocoaLumberjack'
-pod 'InAppSettingsKit', :git => 'https://github.com/futuretap/InAppSettingsKit.git'
+pod 'InAppSettingsKit', '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '~> 2.5.2'
+pod 'JitsiMeetSDK'
 
 end
 
