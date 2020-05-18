@@ -338,15 +338,11 @@ static NSMutableSet *browserWindowControllers;
                                                           [self conditionallyOpenScreenCaptureLockdownWindows];
                                                       }];
     }
-    
-    // Initialize UI and default UI/browser settings
-    [self initSEB];
-    
     // Was SEB opened by loading a .seb file/using a seb:// link?
-    if (_appDelegate.sebFileURL) {
+    if (self.appDelegate.sebFileURL) {
         DDLogInfo(@"SEB was started by loading a .seb file/using a seb:// link");
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
-        if (_settingsOpen) {
+        if (self.settingsOpen) {
             DDLogInfo(@"SEB was started by loading a .seb file / seb:// link, but Settings were open, they need to be closed first");
             // Close settings
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
@@ -354,26 +350,31 @@ static NSMutableSet *browserWindowControllers;
                 self->_settingsOpen = false;
                 [self conditionallyDownloadAndOpenSEBConfigFromURL:self->_appDelegate.sebFileURL];
                 
-                // Set flag that SEB is initialized to prevent the client config
+                // Set flag that SEB is initialized to prevent applying the client config
                 // Start URL to be loaded
                 [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
             }];
         } else {
-            [self conditionallyDownloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
+            [self conditionallyDownloadAndOpenSEBConfigFromURL:self.appDelegate.sebFileURL];
             
-            // Set flag that SEB is initialized to prevent the client config
+            // Set flag that SEB is initialized to prevent applying the client config
             // Start URL to be loaded
             [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
         }
-    } else if (_appDelegate.shortcutItemAtLaunch) {
+    } else if (self.appDelegate.shortcutItemAtLaunch) {
         // Was SEB opened by a Home screen quick action shortcut item?
         DDLogInfo(@"SEB was started by a Home screen quick action shortcut item");
 
-        // Set flag that SEB is initialized to prevent the client config
+        // Set flag that SEB is initialized to prevent applying the client config
         // Start URL to be loaded
         [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 
-        [self handleShortcutItem:_appDelegate.shortcutItemAtLaunch];
+        [self handleShortcutItem:self.appDelegate.shortcutItemAtLaunch];
+    } else {
+        // Initialize UI using client UI/browser settings
+        [self initSEBWithCompletionBlock:^{
+            [self conditionallyStartKioskMode];
+        }];
     }
 }
 
@@ -399,7 +400,7 @@ static NSMutableSet *browserWindowControllers;
             [self conditionallyResetSettings];
         } else if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedUniversalLink == NO) {
-            [self conditionallyStartKioskMode];
+//            [self conditionallyStartKioskMode];
         }
         
         // Set flag that SEB is initialized: Now showing alerts is allowed
@@ -733,8 +734,9 @@ static NSMutableSet *browserWindowControllers;
     [self initializeLogger];
     
     [self resetSEB];
-    [self initSEB];
-    [self openInitAssistant];
+    [self initSEBWithCompletionBlock:^{
+        [self openInitAssistant];
+    }];
 }
 
 
@@ -872,8 +874,9 @@ static NSMutableSet *browserWindowControllers;
             self->_pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
-            [self initSEB];
-            [self conditionallyStartKioskMode];
+            [self initSEBWithCompletionBlock:^{
+                [self conditionallyStartKioskMode];
+            }];
         }
     }];
 }
@@ -1589,7 +1592,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) initSEB
+- (void) initSEBWithCompletionBlock:(dispatch_block_t)completionBlock
 {
     if (sebUIInitialized) {
         _appDelegate.sebUIController = nil;
@@ -1858,10 +1861,104 @@ void run_on_ui_thread(dispatch_block_t block)
         
         [self adjustBars];
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
-            [self openJitsiView];
-            [self.jitsiViewController openJitsiMeetWithSender:self];
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
+            AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+            AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                if (self.alertController) {
+                    [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                }
+                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                NSString *camera = @"";
+                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                }
+                NSString *resolveSuggestion;
+                NSString *resolveSuggestion2;
+                NSString *message;
+                if (videoAuthorization == AVAuthorizationStatusDenied ||
+                    audioAuthorization == AVAuthorizationStatusDenied) {
+                    resolveSuggestion = NSLocalizedString(@"in Settings ", nil);
+                    resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
+                } else {
+                    resolveSuggestion = @"";
+                    resolveSuggestion2 = @"";
+                }
+                if (videoAuthorization == AVAuthorizationStatusRestricted ||
+                    audioAuthorization == AVAuthorizationStatusRestricted) {
+                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
+                } else {
+                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
+                }
+                
+                self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
+                                                                        message:message
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                
+                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
+                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
+                [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self->_alertController = nil;
+                    if (videoAuthorization == AVAuthorizationStatusDenied ||
+                    audioAuthorization == AVAuthorizationStatusDenied) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestQuit" object:self];
+                        return;
+                    }
+                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                        if (granted){
+                            DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                            
+                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                                if (granted){
+                                    DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
+
+                                    run_on_ui_thread(^{
+                                        [self openJitsiView];
+                                        [self.jitsiViewController openJitsiMeetWithSender:self];
+                                        
+                                        run_on_ui_thread(completionBlock);
+                                    });
+                                    
+                                } else {
+                                    DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
+                                    [[NSNotificationCenter defaultCenter]
+                                     postNotificationName:@"requestQuit" object:self];
+                                }
+                            }];
+                            return;
+                            
+                        } else {
+                            DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuit" object:self];
+                        }
+                    }];
+                    return;
+                }]];
+                
+                if (NSUserDefaults.userDefaultsPrivate) {
+                    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        self->_alertController = nil;
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestQuit" object:self];
+                    }]];
+                }
+                
+                [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                return;
+            } else {
+                run_on_ui_thread(^{
+                    [self openJitsiView];
+                    [self.jitsiViewController openJitsiMeetWithSender:self];
+                });
+            }
         }
+        run_on_ui_thread(completionBlock);
     });
 }
 
@@ -2080,26 +2177,28 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSEB
 {
-    [_browserTabViewController closeAllTabs];
-    _examRunning = false;
-    
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket
-    // if the setting examSessionClearCookiesOnEnd was true in a previous config
-    if (_examSessionClearCookiesOnEnd) {
-        [NSURLCache.sharedURLCache removeAllCachedResponses];
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        }];
-    }
+    run_on_ui_thread(^{
+        [self.browserTabViewController closeAllTabs];
+        self.examRunning = false;
+        
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket
+        // if the setting examSessionClearCookiesOnEnd was true in a previous config
+        if (self.examSessionClearCookiesOnEnd) {
+            [NSURLCache.sharedURLCache removeAllCachedResponses];
+            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+            }];
+        }
 
-    // Reset settings view controller (so new settings are displayed)
-    self.appSettingsViewController = nil;
+        // Reset settings view controller (so new settings are displayed)
+        self.appSettingsViewController = nil;
 
-    self.browserController = nil;
-    
-    [_jitsiViewController closeJitsiMeetWithSender:self];
+        self.browserController = nil;
+        
+        [self.jitsiViewController closeJitsiMeetWithSender:self];
 
-    _viewDidLayoutSubviewsAlreadyCalled = NO;
+        self.viewDidLayoutSubviewsAlreadyCalled = NO;
+    });
 }
 
 
@@ -2623,8 +2722,9 @@ void run_on_ui_thread(dispatch_block_t block)
             _pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
-            [self initSEB];
-            [self conditionallyStartKioskMode];
+            [self initSEBWithCompletionBlock:^{
+                [self conditionallyStartKioskMode];
+            }];
         } else {
             [self showAlertWithError:error];
         }
@@ -2836,8 +2936,10 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) quitExam
 {
-    receivedServerConfig = nil;
-    [self sessionQuitRestart:NO];
+    run_on_ui_thread(^{
+        self->receivedServerConfig = nil;
+        [self sessionQuitRestart:NO];
+    });
 }
 
 
@@ -2960,13 +3062,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 }
             } else {
                 // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
-                [self initSEB];
-                [self conditionallyStartKioskMode];
+                [self initSEBWithCompletionBlock:^{
+                    [self conditionallyStartKioskMode];
+                }];
             }
         } else {
             // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
-            [self initSEB];
-            [self startExam];
+            [self initSEBWithCompletionBlock:^{
+                [self startExam];
+            }];
         }
         
     } else {
@@ -2975,8 +3079,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
         if (pasteboardString) {
             pasteboard.string = pasteboardString;
         }
-        [self initSEB];
-        [self conditionallyStartKioskMode];
+        [self initSEBWithCompletionBlock:^{
+            [self conditionallyStartKioskMode];
+        }];
     }
 }
 
@@ -2994,14 +3099,16 @@ quittingClientConfig:(BOOL)quittingClientConfig
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self->_alertController = nil;
-            [self initSEB];
-            [self conditionallyStartKioskMode];
-            self.clientConfigSecureModePaused = NO;
+            [self initSEBWithCompletionBlock:^{
+                [self conditionallyStartKioskMode];
+                self.clientConfigSecureModePaused = NO;
+            }];
         }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     } else {
-        [self initSEB];
-        [self conditionallyStartKioskMode];
+        [self initSEBWithCompletionBlock:^{
+            [self conditionallyStartKioskMode];
+        }];
     }
 }
 
@@ -3318,13 +3425,13 @@ quittingClientConfig:(BOOL)quittingClientConfig
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"Microphone", nil) : @"";
+            NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
             NSString *camera = @"";
             if (videoAuthorization != AVAuthorizationStatusAuthorized) {
-                camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
             }
             
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permission for Remote Capturing", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
                                                                     message:[NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access before you can start this session.", nil), camera, microphone]
                                                              preferredStyle:UIAlertControllerStyleAlert];
             
@@ -3634,8 +3741,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
     } else {
         // If no quit password is defined, then we can initialize SEB with new settings
         // quit and restart the exam / reload the start page directly
-        [self initSEB];
-        [self startExam];
+        [self initSEBWithCompletionBlock:^{
+            [self startExam];
+        }];
     }
 }
 
