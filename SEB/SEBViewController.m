@@ -2583,7 +2583,8 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (error) {
         // Check if config couldn't be decrypted because of an unavailable identity certificate
-        if (error.code == SEBErrorDecryptingIdentityNotFound) {
+        if (!(error.code == SEBErrorNoValidConfigData ||
+            error.code == SEBErrorNoValidPrefixNoValidUnencryptedHeader)) {
             [self storeNewSEBSettingsSuccessful:error];
             return;
         }
