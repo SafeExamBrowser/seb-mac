@@ -370,11 +370,6 @@ static NSMutableSet *browserWindowControllers;
         [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 
         [self handleShortcutItem:self.appDelegate.shortcutItemAtLaunch];
-    } else {
-        // Initialize UI using client UI/browser settings
-        [self initSEBWithCompletionBlock:^{
-            [self conditionallyStartKioskMode];
-        }];
     }
 }
 
@@ -399,8 +394,12 @@ static NSMutableSet *browserWindowControllers;
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             [self conditionallyResetSettings];
         } else if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
+                   _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
-//            [self conditionallyStartKioskMode];
+            // Initialize UI using client UI/browser settings
+            [self initSEBWithCompletionBlock:^{
+                [self conditionallyStartKioskMode];
+            }];
         }
         
         // Set flag that SEB is initialized: Now showing alerts is allowed
@@ -2727,13 +2726,13 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self conditionallyStartKioskMode];
             }];
         } else {
-            [self showAlertWithError:error];
+            [self showReconfiguringAlertWithError:error];
         }
     }
 }
 
 
-- (void) showAlertWithError:(NSError *)error
+- (void) showReconfiguringAlertWithError:(NSError *)error
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -2745,14 +2744,16 @@ void run_on_ui_thread(dispatch_block_t block)
     if (underlyingErrorMessage) {
         alertMessage = [NSString stringWithFormat:@"%@: %@", alertMessage, underlyingErrorMessage];
     }
-
+    
     _alertController = [UIAlertController  alertControllerWithTitle:alertTitle
                                                             message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               self.alertController = nil;
-                                                                           }]];
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuit" object:self];
+    }]];
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
@@ -3423,57 +3424,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
         AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
               videoAuthorization == AVAuthorizationStatusAuthorized)) {
-            if (_alertController) {
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-            }
             NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
             NSString *camera = @"";
             if (videoAuthorization != AVAuthorizationStatusAuthorized) {
                 camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
             }
-            
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
-                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access before you can start this session.", nil), camera, microphone]
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-            
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                self->_alertController = nil;
-                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                    if (granted){
-                        DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
-                        
-                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                            if (granted){
-                                DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-                                [self conditionallyStartKioskMode];
-                            } else {
-                                DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestQuit" object:self];
-                            }
-                        }];
-                        return;
-                        
-                    } else {
-                        DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestQuit" object:self];
-                    }
-                }];
-                return;
-            }]];
-            
-            if (NSUserDefaults.userDefaultsPrivate) {
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:@"requestQuit" object:self];
-                }]];
-            }
-            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-            return;
+            DDLogError(@"Enabled remote proctoring require %@%@ permissions, which are not granted currently. Aborting starting this session.", camera, microphone);
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuit" object:self];
         }
     }
     _finishedStartingUp = true;
