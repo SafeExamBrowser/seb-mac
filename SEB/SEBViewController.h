@@ -246,7 +246,7 @@
 - (void) conditionallyResetSettings;
 - (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
 
-- (void) showAlertWithError:(NSError *)error;
+- (void) showReconfiguringAlertWithError:(NSError *)error;
 
 - (void) showStartSingleAppMode;
 
