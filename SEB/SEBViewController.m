@@ -1861,6 +1861,25 @@ void run_on_ui_thread(dispatch_block_t block)
         [self adjustBars];
         
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
+                void (^conditionallyStartProctoring)(void) =
+                ^{
+                    [self alertWithTitle:NSLocalizedString(@"Starting Remote Proctoring", nil)
+                                 message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
+                            action1Title:NSLocalizedString(@"OK", nil)
+                          action1Handler:^ {
+                        run_on_ui_thread(^{
+                            [self openJitsiView];
+                            [self.jitsiViewController openJitsiMeetWithSender:self];
+                            run_on_ui_thread(completionBlock);
+                        });
+                    }
+                            action2Title:NSLocalizedString(@"Cancel", nil)
+                          action2Handler:^ {
+                        self->_alertController = nil;
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestQuit" object:self];
+                    }];
+                };
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
             if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
@@ -1915,12 +1934,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                 if (granted){
                                     DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
 
-                                    run_on_ui_thread(^{
-                                        [self openJitsiView];
-                                        [self.jitsiViewController openJitsiMeetWithSender:self];
-                                        
-                                        run_on_ui_thread(completionBlock);
-                                    });
+                                    run_on_ui_thread(conditionallyStartProctoring);
                                     
                                 } else {
                                     DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
@@ -1951,10 +1965,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
                 return;
             } else {
-                run_on_ui_thread(^{
-                    [self openJitsiView];
-                    [self.jitsiViewController openJitsiMeetWithSender:self];
-                });
+                run_on_ui_thread(conditionallyStartProctoring);
+                return;
             }
         }
         run_on_ui_thread(completionBlock);
