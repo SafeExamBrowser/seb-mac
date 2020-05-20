@@ -140,7 +140,7 @@
 @property (strong, nonatomic) UIViewController *topMostController;
 @property (strong, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
-@property (weak, nonatomic) SEBUIController *sebUIController;
+@property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
 

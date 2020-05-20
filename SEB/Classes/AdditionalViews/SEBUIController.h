@@ -48,6 +48,7 @@
     SEBSliderItem *sliderBackButtonItem;
     SEBSliderItem *sliderForwardButtonItem;
     SEBSliderItem *sliderReloadButtonItem;
+    SEBSliderItem *sliderProctoringViewButtonItem;
 
 }
 
