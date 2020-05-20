@@ -2207,6 +2207,8 @@ void run_on_ui_thread(dispatch_block_t block)
         self.browserController = nil;
         
         [self.jitsiViewController closeJitsiMeetWithSender:self];
+        
+        self.appDelegate.sebUIController = nil;
 
         self.viewDidLayoutSubviewsAlreadyCalled = NO;
     });

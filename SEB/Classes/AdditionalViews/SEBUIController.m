@@ -247,13 +247,13 @@
 
         // Functionality enabled, add to slider menu
         sliderIcon = [UIImage imageNamed:@"SEBSliderProctoringViewIcon"];
-        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:allowToggleProctoringView ?
+        sliderProctoringViewButtonItem = [[SEBSliderItem alloc] initWithTitle:allowToggleProctoringView ?
                                   NSLocalizedString(@"Toggle Proctoring View",nil) :
                                   NSLocalizedString(@"Remote Proctoring",nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(toggleProctoringViewVisibility)];
-        [sliderCommands addObject:sliderReloadButtonItem];
+        [sliderCommands addObject:sliderProctoringViewButtonItem];
 
         if (_dockEnabled &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showProctoringViewButton"]) {
