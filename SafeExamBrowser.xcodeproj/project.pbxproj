@@ -467,6 +467,10 @@
 		696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
 		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */; };
+		6974C04A2475E354009F0529 /* ProctoringVideoCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */; };
+		6974C04B2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */; };
+		6974C04C2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */; };
 		69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4D1CCE068C00C2AA9A /* Settings.bundle */; };
 		69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */; };
 		69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
@@ -1143,6 +1147,8 @@
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ApplicationsIcon.png; path = Resources/Icons/ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ApplicationsIcon@2x.png"; path = "Resources/Icons/ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProctoringVideoCapturer.h; sourceTree = "<group>"; };
+		6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProctoringVideoCapturer.m; sourceTree = "<group>"; };
 		69782A4D1CCE068C00C2AA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = Resources/InAppSettings.bundle; sourceTree = "<group>"; };
 		697852B32177AC7200E93AD8 /* SEBEncapsulatedSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBEncapsulatedSettings.m; sourceTree = "<group>"; };
@@ -1597,6 +1603,7 @@
 		690E25A71BFC7E4000B41217 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6974C0462475E257009F0529 /* Proctoring */,
 				69F215E11CE74EBC00BD9AA3 /* SEB Slider */,
 				694FB9CF1CCF0BEB00E80CD9 /* Preferences */,
 				69A223391C20C0BE00766354 /* Config Files */,
@@ -2192,6 +2199,16 @@
 			path = Classes/Cryptography;
 			sourceTree = "<group>";
 		};
+		6974C0462475E257009F0529 /* Proctoring */ = {
+			isa = PBXGroup;
+			children = (
+				6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */,
+				6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */,
+			);
+			name = Proctoring;
+			path = Classes/Proctoring;
+			sourceTree = "<group>";
+		};
 		69819E762200BEFB0047809D /* MscX509Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -2442,6 +2459,7 @@
 				69819F1D2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */,
 				69421653214544AB002EB416 /* AboutSEBiOSViewController.h in Headers */,
 				69D35D24217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
+				6974C04A2475E354009F0529 /* ProctoringVideoCapturer.h in Headers */,
 				693FB271232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC621DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				697852C82177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
@@ -2529,6 +2547,7 @@
 				69819F1C2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */,
 				69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
 				69D35D1E217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
+				6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */,
 				693FB270232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC521DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
@@ -3371,6 +3390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6974C04B2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */,
 				69B581881ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				69B1D487230D8B8F005656B8 /* SEBServer.swift in Sources */,
 				69819EEF2200BEFB0047809D /* MscCertificateRevocationList.m in Sources */,
@@ -3477,6 +3497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6974C04C2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */,
 				693FB26D231DB1E20062E36E /* main.m in Sources */,
 				694215B9214544AB002EB416 /* SEBAboutController.m in Sources */,
 				69B1D488230D8B8F005656B8 /* SEBServer.swift in Sources */,
@@ -3863,7 +3884,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12270;
+				CURRENT_PROJECT_VERSION = 12285;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -3891,6 +3912,7 @@
 					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
+					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -3941,7 +3963,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ETH Zurich (9Z623UDZ5L)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12270;
+				CURRENT_PROJECT_VERSION = 12285;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -3971,6 +3993,7 @@
 					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
+					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
