@@ -10,7 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ProctoringImageAnalyzer;
+
 @interface RTCCameraVideoCapturer (ProctoringVideoCapturer)
+
 
 + (void)setupCaptureOutputHook;
 
