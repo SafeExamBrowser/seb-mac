@@ -35,6 +35,8 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "UIDragInteraction+Restrict.h"
+#import "ProctoringVideoCapturer.h"
+
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
@@ -42,6 +44,8 @@ int main(int argc, char * argv[]) {
         if (@available(iOS 11.0, *)) {
             [UIDragInteraction setupIsEnabled];
         }
+        
+        [RTCCameraVideoCapturer setupCaptureOutputHook];
         
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
