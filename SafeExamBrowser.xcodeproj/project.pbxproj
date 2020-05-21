@@ -414,6 +414,8 @@
 		69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */; };
 		69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
 		69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
+		6962A3B324772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962A3B224772ECD00F2C88B /* ProctoringImageAnalyzer.swift */; };
+		6962A3B424772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962A3B224772ECD00F2C88B /* ProctoringImageAnalyzer.swift */; };
 		69633E571E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E541E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png */; };
 		69633E591E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E551E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png */; };
 		69633E5B1E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E561E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png */; };
@@ -1097,6 +1099,7 @@
 		69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPreferencesPrivate.h; sourceTree = "<group>"; };
 		69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+SEBURL.h"; sourceTree = "<group>"; };
 		69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+SEBURL.m"; sourceTree = "<group>"; };
+		6962A3B224772ECD00F2C88B /* ProctoringImageAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProctoringImageAnalyzer.swift; sourceTree = "<group>"; };
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		69633E541E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBQuickActionQRCodeIcon.png; sourceTree = "<group>"; };
 		69633E551E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBQuickActionQRCodeIcon@2x.png"; sourceTree = "<group>"; };
@@ -2204,6 +2207,7 @@
 			children = (
 				6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */,
 				6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */,
+				6962A3B224772ECD00F2C88B /* ProctoringImageAnalyzer.swift */,
 			);
 			name = Proctoring;
 			path = Classes/Proctoring;
@@ -3409,6 +3413,7 @@
 				69819ED12200BEFB0047809D /* MscX509CommonError.m in Sources */,
 				69F522CA2146720C009F3999 /* SEBCertServices.m in Sources */,
 				6914D12E2183A260004F4A4B /* CustomViewCell.m in Sources */,
+				6962A3B324772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */,
 				69819F302200BEFB0047809D /* MscCertificateUtils.m in Sources */,
 				69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */,
 				69819F212200BEFB0047809D /* MscIssuerAndSerial.m in Sources */,
@@ -3516,6 +3521,7 @@
 				694215BF214544AB002EB416 /* RNEncryptor.m in Sources */,
 				69819ED22200BEFB0047809D /* MscX509CommonError.m in Sources */,
 				69F522CB2146720C009F3999 /* SEBCertServices.m in Sources */,
+				6962A3B424772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */,
 				6914D12F2183A260004F4A4B /* CustomViewCell.m in Sources */,
 				69819F312200BEFB0047809D /* MscCertificateUtils.m in Sources */,
 				694215C0214544AB002EB416 /* SEBActionUITableViewCell.m in Sources */,

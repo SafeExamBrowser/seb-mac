@@ -176,8 +176,9 @@
 @property (strong, nonatomic) ServerController *serverController;
 @property (strong, nonatomic) SEBServerViewController *sebServerViewController;
 
-// Jitsi Meet
+// Remote Proctoring
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
+@property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
@@ -276,6 +277,7 @@
 - (void) openLockdownWindows;
 
 - (void) toggleProctoringViewVisibility;
+- (void) detectFace:(CVPixelBufferRef)sampleBuffer;
 
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback

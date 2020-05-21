@@ -270,6 +270,7 @@ static NSMutableSet *browserWindowControllers;
     
     _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     _appDelegate.sebViewController = self;
+    [[MyGlobals sharedMyGlobals] setSebViewController:self];
     
     SEBRootViewController *rootViewController = (SEBRootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     rootViewController.lgSideMenuController = self.sideMenuController;
@@ -3944,6 +3945,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                         toolbarHeight,
                                                         self.view.safeAreaInsets.right);
     self.jitsiViewController.safeAreaLayoutGuideInsets = safeAreaFrameInsets;
+}
+
+
+- (void) detectFace:(CVPixelBufferRef)sampleBuffer
+{
+    if (!_proctoringImageAnalyzer) {
+        _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
+    }
+    [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
 }
 
 

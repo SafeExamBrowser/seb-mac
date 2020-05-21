@@ -34,6 +34,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Constants.h"
+#import "SEBViewController.h"
 
 @interface MyGlobals : NSObject
 
@@ -61,6 +62,8 @@
 @property(readwrite) NSUInteger logLevel;
 @property(copy, readwrite) NSString *defaultUserAgent;
 @property(copy, readwrite) NSString *currentUserAgent;
+
+@property(weak, nonatomic) SEBViewController *sebViewController;
 
 // SEB for iOS
 @property(readwrite) NSInteger currentWebpageIndexPathRow;
