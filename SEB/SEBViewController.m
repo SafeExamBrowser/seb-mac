@@ -3952,8 +3952,33 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     if (!_proctoringImageAnalyzer) {
         _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
+        _proctoringImageAnalyzer.delegate = self;
     }
     [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
+}
+
+
+- (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent
+{
+    remoteProctoringButtonStates proctoringButtonState;
+    switch (proctoringEvent) {
+        case RemoteProctoringEventTypeNormal:
+            proctoringButtonState = remoteProctoringButtonStateNormal;
+            break;
+            
+        case RemoteProctoringEventTypeWarning:
+            proctoringButtonState = remoteProctoringButtonStateWarning;
+            break;
+            
+        case RemoteProctoringEventTypeError:
+            proctoringButtonState = remoteProctoringButtonStateError;
+            break;
+            
+        default:
+            proctoringButtonState = remoteProctoringButtonStateDefault;
+            break;
+    }
+    [self.sebUIController setProctoringViewButtonState:proctoringButtonState];
 }
 
 
