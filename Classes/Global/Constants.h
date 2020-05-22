@@ -205,6 +205,14 @@ typedef NSInteger remoteProctoringButtonStates;
 
 
 enum {
+    RemoteProctoringEventTypeNormal             = 0,
+    RemoteProctoringEventTypeWarning            = 1,
+    RemoteProctoringEventTypeError              = 2
+};
+typedef NSInteger RemoteProctoringEventType;
+
+
+enum {
     mobileStatusBarAppearanceNone               = 0,
     mobileStatusBarAppearanceLight              = 1,
     mobileStatusBarAppearanceDark               = 2
