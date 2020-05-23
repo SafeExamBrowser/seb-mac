@@ -22,16 +22,27 @@ public class ProctoringImageAnalyzer: NSObject {
         let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
             DispatchQueue.main.async {
                 if let results = request.results as? [VNFaceObservation], results.count > 0 {
-//                    print("did detect \(results.count) face(s)")
                     if results.count != 1 {
                         self.updateProctoringState(RemoteProctoringEventTypeError, message: "Number of detected faces: \(results.count)")
                     } else {
+                        guard let landmarks = results.first?.landmarks else {
+                            return
+                        }
+                                    let leftPupil = landmarks.leftPupil?.normalizedPoints.first
+                                    let rightPupil = landmarks.rightPupil?.normalizedPoints.first
+
+                        //            print((faceBounds.origin.y - leftPupil!.y)/faceBounds.size.height)
+                        let facePitch = 0.5 - ((leftPupil!.y + rightPupil!.y)/2)
+                                    
+                        let faceYawCalculated = (0.5 - ((rightPupil!.x - leftPupil!.x)/2+leftPupil!.x))
+
                         if #available(iOS 12, *) {
 //                            let faceRoll = results[0].roll
-//                            print("first face roll angle \(String(describing: faceRoll)), yaw angle \(String(describing: faceYaw))")
                             guard let faceYaw = results.first?.yaw else {
                                 return
                             }
+                            print("first face yaw angle: \(String(describing: faceYaw)), calculated: \(String(describing: faceYawCalculated)), pitch: \(facePitch)")
+
                             let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
                             if abs(faceYawDegrees) > 20 {
                                 self.updateProctoringState(RemoteProctoringEventTypeWarning, message: "Face has an angle of \(faceYawDegrees)")
