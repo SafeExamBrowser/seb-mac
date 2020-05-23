@@ -25,23 +25,29 @@ public class ProctoringImageAnalyzer: NSObject {
                     if results.count != 1 {
                         self.updateProctoringState(RemoteProctoringEventTypeError, message: "Number of detected faces: \(results.count)")
                     } else {
-                        guard let landmarks = results.first?.landmarks else {
-                            return
-                        }
-                                    let leftPupil = landmarks.leftPupil?.normalizedPoints.first
-                                    let rightPupil = landmarks.rightPupil?.normalizedPoints.first
+//                        guard let landmarks = results.first?.landmarks else {
+//                            return
+//                        }
+//                        let leftPupil = landmarks.leftPupil?.normalizedPoints.first
+//                        let rightPupil = landmarks.rightPupil?.normalizedPoints.first
 
                         //            print((faceBounds.origin.y - leftPupil!.y)/faceBounds.size.height)
-                        let facePitch = 0.5 - ((leftPupil!.y + rightPupil!.y)/2)
+//                        if leftPupil != nil && rightPupil != nil {
+//                            let facePitch = 0.5 - ((leftPupil!.y + rightPupil!.y)/2)
+//                            print(facePitch)
+//                            if abs(facePitch) > 0.1 {
+//                                self.updateProctoringState(RemoteProctoringEventTypeWarning, message: "Face has a too high Pitch angle (\(facePitch))")
+//                            }
+//                        }
                                     
-                        let faceYawCalculated = (0.5 - ((rightPupil!.x - leftPupil!.x)/2+leftPupil!.x))
+//                        let faceYawCalculated = (0.5 - ((rightPupil!.x - leftPupil!.x)/2+leftPupil!.x))
 
                         if #available(iOS 12, *) {
 //                            let faceRoll = results[0].roll
                             guard let faceYaw = results.first?.yaw else {
                                 return
                             }
-                            print("first face yaw angle: \(String(describing: faceYaw)), calculated: \(String(describing: faceYawCalculated)), pitch: \(facePitch)")
+//                            print("first face yaw angle: \(String(describing: faceYaw)), calculated: \(String(describing: faceYawCalculated)), pitch: \(facePitch)")
 
                             let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
                             if abs(faceYawDegrees) > 20 {
