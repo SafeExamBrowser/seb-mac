@@ -3958,24 +3958,28 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent
+- (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent message:(NSString *)message
 {
     remoteProctoringButtonStates proctoringButtonState;
     switch (proctoringEvent) {
         case RemoteProctoringEventTypeNormal:
             proctoringButtonState = remoteProctoringButtonStateNormal;
+            DDLogInfo(@"%@", message);
             break;
             
         case RemoteProctoringEventTypeWarning:
             proctoringButtonState = remoteProctoringButtonStateWarning;
+            DDLogWarn(@"%@", message);
             break;
             
         case RemoteProctoringEventTypeError:
             proctoringButtonState = remoteProctoringButtonStateError;
+            DDLogError(@"%@", message);
             break;
             
         default:
             proctoringButtonState = remoteProctoringButtonStateDefault;
+            DDLogDebug(@"%@", message);
             break;
     }
     [self.sebUIController setProctoringViewButtonState:proctoringButtonState];
