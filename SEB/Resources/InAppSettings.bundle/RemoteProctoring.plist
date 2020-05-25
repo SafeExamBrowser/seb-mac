@@ -64,7 +64,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_jitsiMeetSubject</string>
 			<key>IASKPlaceholder</key>
-			<string>Conference Subject</string>
+			<string>Subject</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>AutocapitalizationType</key>
@@ -116,9 +116,25 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Proctoring Features</string>
+			<string>Jitsi Meet Features</string>
 			<key>File</key>
 			<string>RemoteProctoringFeatures</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>AI Proctoring Support</string>
+			<key>FooterText</key>
+			<string>AI-based proctoring features like face tracking create log events and send notifications to SEB Server.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>AI Proctoring</string>
+			<key>File</key>
+			<string>AIProctoringSupport</string>
 		</dict>
 		<dict>
 			<key>Type</key>

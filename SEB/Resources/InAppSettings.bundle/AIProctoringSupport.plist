@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Enable AI Proctoring Support</string>
+			<key>FooterText</key>
+			<string>AI proctoring features use computer vision algorithms, which are performed on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged and send to a SEB Server instance (if connected to one).</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable AI Proctoring</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableAIProctoring</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Events to Detect</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Number of Faces</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_proctoringDetectFaceCount</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Face Movement Sideways (Yaw)</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_proctoringDetectFaceYaw</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Face Movement Up &amp; Down (Tilt)</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_proctoringDetectFaceTilt</string>
+		</dict>
+	</array>
+</dict>
+</plist>
