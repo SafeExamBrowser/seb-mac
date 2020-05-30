@@ -64,7 +64,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_jitsiMeetSubject</string>
 			<key>IASKPlaceholder</key>
-			<string>Subject</string>
+			<string>Subject Text</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>AutocapitalizationType</key>
