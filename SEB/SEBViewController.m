@@ -2189,6 +2189,18 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSEB
 {
+    // Reset settings view controller (so new settings are displayed)
+    self.appSettingsViewController = nil;
+
+    self.browserController = nil;
+    
+    [self.jitsiViewController closeJitsiMeetWithSender:self];
+    self.proctoringImageAnalyzer = nil;
+    
+    self.appDelegate.sebUIController = nil;
+
+    self.viewDidLayoutSubviewsAlreadyCalled = NO;
+
     run_on_ui_thread(^{
         [self.browserTabViewController closeAllTabs];
         self.examRunning = false;
@@ -2201,17 +2213,6 @@ void run_on_ui_thread(dispatch_block_t block)
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
             }];
         }
-
-        // Reset settings view controller (so new settings are displayed)
-        self.appSettingsViewController = nil;
-
-        self.browserController = nil;
-        
-        [self.jitsiViewController closeJitsiMeetWithSender:self];
-        
-        self.appDelegate.sebUIController = nil;
-
-        self.viewDidLayoutSubviewsAlreadyCalled = NO;
     });
 }
 
@@ -3954,8 +3955,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
         _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
         _proctoringImageAnalyzer.delegate = self;
     }
-    [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
-}
+        [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
+    }
 
 
 - (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent message:(NSString *)message
