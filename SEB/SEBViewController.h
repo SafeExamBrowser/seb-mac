@@ -277,7 +277,7 @@
 - (void) openLockdownWindows;
 
 - (void) toggleProctoringViewVisibility;
-- (void) detectFace:(CVPixelBufferRef)sampleBuffer;
+- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
 
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback

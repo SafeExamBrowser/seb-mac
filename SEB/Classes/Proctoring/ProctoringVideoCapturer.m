@@ -22,15 +22,16 @@
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    CMSampleBufferRef copiedSampleBuffer;
-    OSStatus success = CMSampleBufferCreateCopy(kCFAllocatorDefault, sampleBuffer, &copiedSampleBuffer);
-    if (success == noErr) {
-        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(copiedSampleBuffer);
-        if (pixelBuffer) {
-            [[[MyGlobals sharedMyGlobals] sebViewController] detectFace:pixelBuffer];
-        }
-        CFRelease(copiedSampleBuffer);
-    }
+//    CMSampleBufferRef copiedSampleBuffer;
+//    OSStatus success = CMSampleBufferCreateCopy(kCFAllocatorDefault, sampleBuffer, &copiedSampleBuffer);
+//    if (success == noErr) {
+//        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(copiedSampleBuffer);
+//        if (pixelBuffer) {
+//            [[[MyGlobals sharedMyGlobals] sebViewController] detectFace:pixelBuffer];
+//        }
+//        CFRelease(copiedSampleBuffer);
+//    }
+    [[[MyGlobals sharedMyGlobals] sebViewController] detectFace:sampleBuffer];
     [self newCaptureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
 }
 
