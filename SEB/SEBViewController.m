@@ -3949,14 +3949,16 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (void) detectFace:(CVPixelBufferRef)sampleBuffer
+- (void) detectFace:(CMSampleBufferRef)sampleBuffer
 {
     if (!_proctoringImageAnalyzer) {
         _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
         _proctoringImageAnalyzer.delegate = self;
     }
+    if (_proctoringImageAnalyzer.enabled) {
         [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
     }
+}
 
 
 - (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent message:(NSString *)message
