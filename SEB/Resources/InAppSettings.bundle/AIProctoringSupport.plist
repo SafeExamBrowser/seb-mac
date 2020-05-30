@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Enable AI Proctoring Support</string>
 			<key>FooterText</key>
-			<string>AI proctoring features use computer vision algorithms, which are performed on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged and send to a SEB Server instance (if connected to one).</string>
+			<string>AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -20,13 +20,15 @@
 			<key>Title</key>
 			<string>Enable AI Proctoring</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_enableAIProctoring</string>
+			<string>org_safeexambrowser_SEB_proctoringAIEnable</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Events to Detect</string>
+			<string>Detect Number of Faces</string>
+			<key>FooterText</key>
+			<string>You can display AI proctoring feedback for candidates in the proctoring Dock button.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -35,6 +37,22 @@
 			<string>Number of Faces</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_proctoringDetectFaceCount</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Feedback for Candidate</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_proctoringDetectFaceCountDisplay</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Detect Face Angle</string>
+			<key>FooterText</key>
+			<string>SEB is using the iOS Vision framework for this detection. See the Apple documentation for details about privacy. No face recognition is performed, only face and face features detection and tracking (looking for faces, not for faces of particular people).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -51,6 +69,14 @@
 			<string>Face Movement Up &amp; Down (Tilt)</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_proctoringDetectFaceTilt</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Feedback for Candidate</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_proctoringDetectFaceAngleDisplay</string>
 		</dict>
 	</array>
 </dict>

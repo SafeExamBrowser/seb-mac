@@ -620,6 +620,24 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"pinEmbeddedCertificates",
                    
+                   @NO,
+                   @"proctoringAIEnable",
+                   
+                   @YES,
+                   @"proctoringDetectFaceCount",
+                   
+                   @YES,
+                   @"proctoringDetectFaceCountDisplay",
+                   
+                   @YES,
+                   @"proctoringDetectFaceAngleDisplay",
+                   
+                   @YES,
+                   @"proctoringDetectFaceTilt",
+                   
+                   @YES,
+                   @"proctoringDetectFaceYaw",
+                   
                    [NSArray array],
                    @"prohibitedProcesses",
                    
