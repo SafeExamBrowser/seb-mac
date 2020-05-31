@@ -66,9 +66,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Face Movement Up &amp; Down (Tilt)</string>
+			<string>Face Movement Up &amp; Down (Pitch)</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_proctoringDetectFaceTilt</string>
+			<string>org_safeexambrowser_SEB_proctoringDetectFacePitch</string>
 		</dict>
 		<dict>
 			<key>Type</key>

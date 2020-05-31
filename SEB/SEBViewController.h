@@ -151,7 +151,7 @@
 @property (strong, nonatomic) UIViewController *rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 
-// Locking down SEB
+/// Locking down SEB
 @property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;
 @property (readwrite) BOOL sebLocked;
 @property (readwrite) BOOL unlockPasswordEntered;
@@ -162,7 +162,7 @@
 @property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
 @property (readwrite, strong) NSDate *appDidBecomeActiveTime;
 
-// Settings
+/// Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
 @property (strong, nonatomic) NSData *configFileKeyHash;
@@ -172,14 +172,15 @@
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
-// SEB Server
+/// SEB Server
 @property (strong, nonatomic) ServerController *serverController;
 @property (strong, nonatomic) SEBServerViewController *sebServerViewController;
 
-// Remote Proctoring
+/// Remote Proctoring
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
 @property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer;
 
+/// Views and bars
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
 @property (strong, nonatomic) UIAlertController *allowediOSAlertController;
