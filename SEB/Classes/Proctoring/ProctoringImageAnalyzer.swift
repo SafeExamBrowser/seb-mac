@@ -18,14 +18,15 @@ public class ProctoringImageAnalyzer: NSObject {
     @objc public var enabled: Bool
     
     fileprivate var proctoringDetectFaceCount: Bool
-    fileprivate var proctoringDetectFaceTilt: Bool
+    fileprivate var proctoringDetectFacePitch: Bool
     fileprivate var proctoringDetectFaceYaw: Bool
-    
+
     fileprivate var faceDetectionDispatchQueue = DispatchQueue(label: "org.safeexambrowser.SEB.FaceDetection", qos: .background)
     
     fileprivate var detectingFace = false
     fileprivate var proctoringState = remoteProctoringButtonStateDefault
-    
+    fileprivate var previousProctoringState = remoteProctoringButtonStateDefault
+
     private var detectionRequests: [VNDetectFaceRectanglesRequest]?
     private var trackingRequests: [VNTrackObjectRequest]?
     
@@ -39,9 +40,9 @@ public class ProctoringImageAnalyzer: NSObject {
         let preferences = UserDefaults.standard
         enabled = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringAIEnable")
         proctoringDetectFaceCount = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceCount")
-        proctoringDetectFaceTilt = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceTilt")
+        proctoringDetectFacePitch = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFacePitch")
         proctoringDetectFaceYaw = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceYaw")
-        
+
         super.init()
     }
     
@@ -106,6 +107,7 @@ public class ProctoringImageAnalyzer: NSObject {
         self.sequenceRequestHandler = VNSequenceRequestHandler()
     }
     
+    
     @objc public func detectFace(in sampleBuffer: CMSampleBuffer) {
         
             if !self.detectingFace {
@@ -136,8 +138,10 @@ public class ProctoringImageAnalyzer: NSObject {
     
     func detectedFace(request: VNRequest, error: Error?) {
         if let results = request.results as? [VNFaceObservation], results.count > 0 {
-            if results.count != 1 {
+            if proctoringDetectFaceCount && results.count != 1 {
                 self.updateProctoringState(RemoteProctoringEventTypeError, message: "Number of detected faces: \(results.count)")
+                self.detectingFace = false
+                return
             } else {
                 
                 if let landmarks = results.first?.landmarks {
@@ -151,12 +155,20 @@ public class ProctoringImageAnalyzer: NSObject {
 //                        return
 //                    }
                     //            print((faceBounds.origin.y - leftPupil!.y)/faceBounds.size.height)
-                    if leftPupil != nil && rightPupil != nil {
+                    
+                    if proctoringDetectFacePitch && leftPupil != nil && rightPupil != nil {
                         let facePitch = (leftPupil!.y + rightPupil!.y)/2
                         print(leftPupil!.y, rightPupil!.y, facePitch)
                         print("First face yaw angle: \(String(describing: faceYawCalculated)), pitch: \(facePitch)")
-                        if facePitch >= 0.76 || facePitch < 0.71 {
-                            self.updateProctoringState(RemoteProctoringEventTypeWarning, message: "Face has a too high or too low Pitch angle (\(leftPupil!.y))")
+                        var faceAngleMessage : String? = nil
+                        if facePitch >= 0.76 {
+                            faceAngleMessage = "Face turned downwards"
+                        }
+                        if facePitch < 0.68 {
+                            faceAngleMessage = "Face turned upwards"
+                        }
+                        if faceAngleMessage != nil {
+                            self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: faceAngleMessage!)
                             self.detectingFace = false
                             return
                         }
@@ -164,26 +176,37 @@ public class ProctoringImageAnalyzer: NSObject {
                 }
                 
                 if #available(iOS 12, *) {
-                    //                            let faceRoll = results[0].roll
-                    guard let faceYaw = results.first?.yaw else {
-                        self.detectingFace = false
-                        return
-                    }
-                    
-                    let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
-                    if abs(faceYawDegrees) > 20 {
-                        self.updateProctoringState(RemoteProctoringEventTypeWarning, message: "Face has an angle of \(faceYawDegrees)")
-                        self.detectingFace = false
-                        return
+                    if proctoringDetectFaceYaw {
+                        if let faceYaw = results.first?.yaw {
+                            let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
+                            if abs(faceYawDegrees) > 20 {
+                                self.updateProctoringState(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYawDegrees > 0 ? "right" : "left"))
+                                self.detectingFace = false
+                                return
+                            }
+                        }
                     }
                 }
             }
-            self.updateProctoringState(RemoteProctoringEventTypeNormal, message: "One face detected")
+            if proctoringDetectFaceCount {
+                self.updateProctoringState(RemoteProctoringEventTypeNormal, message: "One face detected")
+            } else {
+                self.updateProctoringState(RemoteProctoringEventTypeNormal, message: "")
+            }
         } else {
-            //                    print("did not detect any face")
-            self.updateProctoringState(RemoteProctoringEventTypeError, message: "No candidate face detected!")
+            if proctoringDetectFaceCount {
+                self.updateProctoringState(RemoteProctoringEventTypeError, message: "No candidate face detected!")
+            }
         }
         self.detectingFace = false
+    }
+
+    func updateProctoringStateTriggered(_ proctoringEventType: RemoteProctoringEventType, message: String?) -> Void {
+        if proctoringEventType == previousProctoringState {
+            updateProctoringState(proctoringEventType, message: message)
+        } else {
+            previousProctoringState = proctoringEventType
+        }
     }
     
     func updateProctoringState(_ proctoringEventType: RemoteProctoringEventType, message: String?) -> Void {

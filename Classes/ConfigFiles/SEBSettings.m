@@ -633,7 +633,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"proctoringDetectFaceAngleDisplay",
                    
                    @YES,
-                   @"proctoringDetectFaceTilt",
+                   @"proctoringDetectFacePitch",
                    
                    @YES,
                    @"proctoringDetectFaceYaw",
