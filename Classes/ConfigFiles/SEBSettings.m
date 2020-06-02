@@ -624,19 +624,25 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"proctoringAIEnable",
                    
                    @YES,
+                   @"proctoringDetectFaceAngleDisplay",
+                   
+                   @YES,
                    @"proctoringDetectFaceCount",
                    
                    @YES,
                    @"proctoringDetectFaceCountDisplay",
                    
                    @YES,
-                   @"proctoringDetectFaceAngleDisplay",
-                   
-                   @YES,
                    @"proctoringDetectFacePitch",
                    
                    @YES,
                    @"proctoringDetectFaceYaw",
+                   
+                   @YES,
+                   @"proctoringDetectTalking",
+                   
+                   @YES,
+                   @"proctoringDetectTalkingDisplay",
                    
                    [NSArray array],
                    @"prohibitedProcesses",
@@ -656,7 +662,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"quitURLRestart",
                    
-                   [NSNumber numberWithLong:remoteProctoringViewShowAllowToHide],
+                   [NSNumber numberWithLong:remoteProctoringViewShowNever],
                    @"remoteProctoringViewShow",
 
                    @NO,
