@@ -3961,7 +3961,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent message:(NSString *)message
+- (void) proctoringEvent:(RemoteProctoringEventType)proctoringEvent
+                 message:(NSString *)message
+            userFeedback: (BOOL)userFeedback
 {
     remoteProctoringButtonStates proctoringButtonState;
     switch (proctoringEvent) {
@@ -3985,7 +3987,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
             DDLogDebug(@"%@", message);
             break;
     }
-    [self.sebUIController setProctoringViewButtonState:proctoringButtonState];
+    if (userFeedback) {
+        [self.sebUIController setProctoringViewButtonState:proctoringButtonState];
+    }
 }
 
 
