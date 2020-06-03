@@ -22,8 +22,11 @@
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    [[[MyGlobals sharedMyGlobals] sebViewController] detectFace:sampleBuffer];
-    [self newCaptureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
+    CMSampleBufferRef modifiedSampleBuffer = [[[MyGlobals sharedMyGlobals] sebViewController] detectFace:sampleBuffer];
+    
+    [self newCaptureOutput:captureOutput
+     didOutputSampleBuffer:modifiedSampleBuffer
+            fromConnection:connection];
 }
 
 @end
