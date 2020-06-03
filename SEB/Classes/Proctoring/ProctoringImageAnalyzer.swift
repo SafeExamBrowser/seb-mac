@@ -26,8 +26,8 @@ public class ProctoringImageAnalyzer: NSObject {
     fileprivate var faceDetectionDispatchQueue = DispatchQueue(label: "org.safeexambrowser.SEB.FaceDetection", qos: .background)
     
     fileprivate var detectingFace = false
-    fileprivate var proctoringState = remoteProctoringButtonStateDefault
-    fileprivate var previousProctoringState = remoteProctoringButtonStateDefault
+    fileprivate var proctoringState = RemoteProctoringEventTypeDefault
+    fileprivate var previousProctoringState = RemoteProctoringEventTypeDefault
 
     private var detectionRequests: [VNDetectFaceRectanglesRequest]?
     private var trackingRequests: [VNTrackObjectRequest]?
@@ -46,6 +46,7 @@ public class ProctoringImageAnalyzer: NSObject {
         proctoringDetectFacePitch = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFacePitch")
         proctoringDetectFaceYaw = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceYaw")
         proctoringDetectFaceAngleDisplay = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceAngleDisplay")
+        proctoringState = remoteProctoringButtonStateDefault
 
         super.init()
     }
@@ -106,7 +107,7 @@ public class ProctoringImageAnalyzer: NSObject {
     func detectedFace(request: VNRequest, error: Error?) {
         if let results = request.results as? [VNFaceObservation], results.count > 0 {
             if proctoringDetectFaceCount && results.count != 1 {
-                self.updateProctoringState(RemoteProctoringEventTypeError, message: "Number of detected faces: \(results.count)", userFeedback: proctoringDetectFaceCountDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeError, message: "Number of detected faces: \(results.count)", userFeedback: proctoringDetectFaceCountDisplay)
                 self.detectingFace = false
                 return
             } else {
@@ -143,7 +144,7 @@ public class ProctoringImageAnalyzer: NSObject {
                         if let faceYaw = results.first?.yaw {
                             let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
                             if abs(faceYawDegrees) > 20 {
-                                self.updateProctoringState(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYawDegrees > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
+                                self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYawDegrees > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
                                 self.detectingFace = false
                                 return
                             }
@@ -152,13 +153,13 @@ public class ProctoringImageAnalyzer: NSObject {
                 }
             }
             if proctoringDetectFaceCount {
-                self.updateProctoringState(RemoteProctoringEventTypeNormal, message: "One properly front facing face detected", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeNormal, message: "One properly front facing face detected", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
             } else {
-                self.updateProctoringState(RemoteProctoringEventTypeNormal, message: "", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeNormal, message: "", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
             }
         } else {
             if proctoringDetectFaceCount {
-                self.updateProctoringState(RemoteProctoringEventTypeError, message: "No candidate face detected!", userFeedback: proctoringDetectFaceCountDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeError, message: "No candidate face detected!", userFeedback: proctoringDetectFaceCountDisplay)
             }
         }
         self.detectingFace = false

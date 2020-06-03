@@ -205,9 +205,10 @@ typedef NSInteger remoteProctoringButtonStates;
 
 
 enum {
-    RemoteProctoringEventTypeNormal             = 0,
-    RemoteProctoringEventTypeWarning            = 1,
-    RemoteProctoringEventTypeError              = 2
+    RemoteProctoringEventTypeDefault            = 0,
+    RemoteProctoringEventTypeNormal             = 1,
+    RemoteProctoringEventTypeWarning            = 2,
+    RemoteProctoringEventTypeError              = 3
 };
 typedef NSInteger RemoteProctoringEventType;
 

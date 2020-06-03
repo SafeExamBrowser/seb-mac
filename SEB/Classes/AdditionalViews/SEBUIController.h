@@ -50,6 +50,13 @@
     SEBSliderItem *sliderReloadButtonItem;
     SEBSliderItem *sliderProctoringViewButtonItem;
 
+    UIImage *ProctoringIconDefaultState;
+    UIImage *ProctoringIconNormalState;
+    UIImage *ProctoringIconWarningState;
+    UIImage *ProctoringIconErrorState;
+    UIColor *ProctoringIconColorNormalState;
+    UIColor *ProctoringIconColorWarningState;
+    UIColor *ProctoringIconColorErrorState;
 }
 
 @property (weak, nonatomic) AppDelegate *appDelegate;

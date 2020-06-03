@@ -257,8 +257,8 @@
 
         if (_dockEnabled &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showProctoringViewButton"]) {
-            dockIcon = [UIImage imageNamed:@"SEBProctoringViewIcon"];
-            dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
+            ProctoringIconDefaultState = [UIImage imageNamed:@"SEBProctoringViewIcon"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:ProctoringIconDefaultState
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(toggleProctoringViewVisibility)];
@@ -279,6 +279,13 @@
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
+            
+            ProctoringIconNormalState = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+            ProctoringIconColorNormalState = [UIColor systemGreenColor];
+            ProctoringIconWarningState = [UIImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ProctoringIconColorWarningState = [UIColor systemOrangeColor];
+            ProctoringIconErrorState = [UIImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ProctoringIconColorErrorState = [UIColor systemRedColor];
         }
     }
     
@@ -481,24 +488,30 @@
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
 {
+    UIImage *remoteProctoringButtonImage;
     UIColor *remoteProctoringButtonTintColor;
     switch (remoteProctoringButtonState) {
         case remoteProctoringButtonStateNormal:
-            remoteProctoringButtonTintColor = [UIColor systemGreenColor];
+            remoteProctoringButtonImage = ProctoringIconNormalState;
+            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
             break;
             
         case remoteProctoringButtonStateWarning:
-            remoteProctoringButtonTintColor = [UIColor colorWithRed:255.0/255.0 green:149.0/255.0 blue:0.0/255.0 alpha:1.0];
+            remoteProctoringButtonImage = ProctoringIconWarningState;
+            remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
             break;
             
         case remoteProctoringButtonStateError:
-            remoteProctoringButtonTintColor = [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0];;
+            remoteProctoringButtonImage = ProctoringIconErrorState;
+            remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
             break;
             
         default:
+            remoteProctoringButtonImage = ProctoringIconDefaultState;
             remoteProctoringButtonTintColor = nil;
             break;
     }
+    _proctoringViewButton.image = remoteProctoringButtonImage;
     _proctoringViewButton.tintColor = remoteProctoringButtonTintColor;
 }
 
