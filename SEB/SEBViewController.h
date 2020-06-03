@@ -130,6 +130,8 @@
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;
     CGFloat navigationBarItemsOffset;
+    
+    CIContext *coreImageContext;
 }
 
 @property (weak, nonatomic) AppDelegate *appDelegate;
@@ -278,7 +280,7 @@
 - (void) openLockdownWindows;
 
 - (void) toggleProctoringViewVisibility;
-- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+- (CMSampleBufferRef) detectFace:(CMSampleBufferRef)sampleBuffer;
 
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback

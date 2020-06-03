@@ -3949,15 +3949,50 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (void) detectFace:(CMSampleBufferRef)sampleBuffer
+- (CMSampleBufferRef) detectFace:(CMSampleBufferRef)sampleBuffer
 {
     if (!_proctoringImageAnalyzer) {
         _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
         _proctoringImageAnalyzer.delegate = self;
     }
     if (_proctoringImageAnalyzer.enabled) {
-        [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
+        
+        CMSampleBufferRef copiedSampleBuffer;
+        OSStatus success = CMSampleBufferCreateCopy(kCFAllocatorDefault, sampleBuffer, &copiedSampleBuffer);
+
+        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        [_proctoringImageAnalyzer detectFaceIn:pixelBuffer];
+
+        if (success == noErr) {
+            CVPixelBufferRef copiedPixelBuffer = CMSampleBufferGetImageBuffer(copiedSampleBuffer);
+            // Overlay a badge image representing the AI proctoring state
+            @synchronized(self) {
+                CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
+
+                EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+                [EAGLContext setCurrentContext:eaglContext];
+                CIContext *ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
+
+                UIImage *proctoringStatusImage = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+                CIImage *filteredImage = [[CIImage alloc] initWithCGImage:proctoringStatusImage.CGImage];
+
+                [ciContext render:filteredImage toCVPixelBuffer:copiedPixelBuffer bounds:[filteredImage extent] colorSpace:CGColorSpaceCreateDeviceRGB()];
+
+                CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+
+            CMVideoFormatDescriptionRef videoInfo = CMSampleBufferGetFormatDescription(copiedSampleBuffer);
+            CMSampleBufferRef modifiedSampleBuffer = NULL;
+            CMSampleTimingInfo timingInfoOut;
+            CMSampleBufferGetSampleTimingInfo(copiedSampleBuffer, 0, &timingInfoOut);
+            OSStatus error = CMSampleBufferCreateReadyWithImageBuffer(kCFAllocatorDefault, copiedPixelBuffer, videoInfo, &timingInfoOut, &modifiedSampleBuffer); //CMSampleBufferCreateForImageBuffer(kCFAllocatorDefault,  pixelBuffer, true, NULL, NULL, videoInfo, &timingInfoOut, &modifiedSampleBuffer);
+
+            return modifiedSampleBuffer;
+            }
+        }
+        
     }
+    
+    return sampleBuffer;
 }
 
 

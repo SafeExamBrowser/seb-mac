@@ -76,17 +76,12 @@ public class ProctoringImageAnalyzer: NSObject {
         return exifOrientationForDeviceOrientation(UIDevice.current.orientation)
     }
         
-    @objc public func detectFace(in sampleBuffer: CMSampleBuffer) {
-        
+    @objc public func detectFace(in pixelBuffer: CVPixelBuffer) {
+
             if !self.detectingFace {
                 self.detectingFace = true
                 
                 faceDetectionDispatchQueue.async {
-                    guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-                        print("Failed to obtain a CVPixelBuffer for the current output frame.")
-                        self.detectingFace = false
-                        return
-                    }
                     let exifOrientation = self.exifOrientationForCurrentDeviceOrientation()
                     let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: self.detectedFace(request:error:))
 
