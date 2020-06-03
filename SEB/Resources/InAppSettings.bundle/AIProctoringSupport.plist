@@ -52,7 +52,7 @@
 			<key>Title</key>
 			<string>Detect Face Angle</string>
 			<key>FooterText</key>
-			<string>SEB is using the iOS Vision framework for this detection. See the Apple documentation for details about privacy. No face recognition is performed, only face and face features detection and tracking (looking for faces, not for faces of particular people).</string>
+			<string>SEB is using the iOS Vision framework running on device for this detection. No face recognition is performed, only face and face features detection and tracking (looking for faces, not for faces of particular people).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
