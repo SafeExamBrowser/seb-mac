@@ -100,7 +100,7 @@ public class ProctoringImageAnalyzer: NSObject {
                     }
                 }
             } else {
-                print("Still detecting face, dropping current request")
+//                print("Still detecting face, dropping current request")
             }
     }
     
@@ -112,29 +112,54 @@ public class ProctoringImageAnalyzer: NSObject {
                 return
             } else {
                 
+                var innerLipsBoundingBox: CGRect?
+
                 if let landmarks = results.first?.landmarks {
                     let innerLipsPoints = landmarks.innerLips?.normalizedPoints
+                    if innerLipsPoints != nil {
+                        innerLipsBoundingBox = boundingBox(points: innerLipsPoints!)
+                    }
 
-                    if proctoringDetectFacePitch && innerLipsPoints != nil {
-                        var faceAngleMessage : String? = nil
-                        // Inner lips
-                        let innerLipsPoints = landmarks.innerLips?.normalizedPoints
-                        if innerLipsPoints != nil {
+                    if innerLipsBoundingBox != nil && (proctoringDetectFacePitch || proctoringDetectFaceYaw) {
+                        
+                        if proctoringDetectFacePitch {
+                            var faceAngleMessage : String? = nil
+                            // Inner lips
+                            let innerLipsUpper = innerLipsBoundingBox!.origin.y + innerLipsBoundingBox!.size.height
+                            //                        print(innerLipsUpper)
+                            
+                            if innerLipsUpper >= 0.39 {
+                                faceAngleMessage = "Face turned upwards"
+                            }
+                            if innerLipsUpper < 0.31 {
+                                faceAngleMessage = "Face turned downwards"
+                            }
+                            if faceAngleMessage != nil {
+                                self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: faceAngleMessage!, userFeedback: proctoringDetectFaceAngleDisplay)
+                                self.detectingFace = false
+                                return
+                            }
                         }
-                        let innerLipsBoundingBox = boundingBox(points: innerLipsPoints!)
-                        let innerLipsUpper = innerLipsBoundingBox.origin.y + innerLipsBoundingBox.size.height
-//                        print(innerLipsUpper)
+                        
+                        if #available(iOS 12, *) {
+                        } else {
+                            if proctoringDetectFaceYaw {
+                                let leftPupilX = landmarks.leftPupil?.normalizedPoints.first?.x
+                                let rightPupilX = landmarks.rightPupil?.normalizedPoints.first?.x
+                                if leftPupilX != nil && rightPupilX != nil {
+                                    let midEyesX = (rightPupilX! - leftPupilX!) / 2 + leftPupilX!
 
-                        if innerLipsUpper >= 0.39 {
-                            faceAngleMessage = "Face turned upwards"
-                        }
-                        if innerLipsUpper < 0.31 {
-                            faceAngleMessage = "Face turned downwards"
-                        }
-                        if faceAngleMessage != nil {
-                            self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: faceAngleMessage!, userFeedback: proctoringDetectFaceAngleDisplay)
-                            self.detectingFace = false
-                            return
+                                    let faceYaw = innerLipsBoundingBox!.midX - midEyesX
+                                    
+//                                    print("Calculated face yaw: \(faceYaw)")
+                                    if abs(faceYaw) > 0.05 {
+                                        self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYaw > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
+                                        self.detectingFace = false
+                                        return
+                                    }
+                                }
+                                
+                            }
                         }
                     }
                 }
@@ -144,6 +169,7 @@ public class ProctoringImageAnalyzer: NSObject {
                         if let faceYaw = results.first?.yaw {
                             let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
                             if abs(faceYawDegrees) > 20 {
+//                                print("Face turned to the \(faceYawDegrees > 0 ? "right" : "left")")
                                 self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYawDegrees > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
                                 self.detectingFace = false
                                 return
