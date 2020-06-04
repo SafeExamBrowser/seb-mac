@@ -258,6 +258,12 @@
         if (_dockEnabled &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showProctoringViewButton"]) {
             ProctoringIconDefaultState = [UIImage imageNamed:@"SEBProctoringViewIcon"];
+            ProctoringIconNormalState = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+            ProctoringIconColorNormalState = [UIColor systemGreenColor];
+            ProctoringIconWarningState = [UIImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ProctoringIconColorWarningState = [UIColor systemOrangeColor];
+            ProctoringIconErrorState = [UIImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ProctoringIconColorErrorState = [UIColor systemRedColor];
             dockItem = [[UIBarButtonItem alloc] initWithImage:ProctoringIconDefaultState
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
@@ -271,21 +277,9 @@
             _proctoringViewButton = dockItem;
             [newDockItems addObject:dockItem];
             
-            if (remoteProctoringViewShowPolicy == remoteProctoringViewShowNever ||
-                remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow) {
-                [self setProctoringViewButtonState:remoteProctoringButtonStateNormal];
-            }
-
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
-            
-            ProctoringIconNormalState = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
-            ProctoringIconColorNormalState = [UIColor systemGreenColor];
-            ProctoringIconWarningState = [UIImage imageNamed:@"SEBProctoringViewIcon_warning"];
-            ProctoringIconColorWarningState = [UIColor systemOrangeColor];
-            ProctoringIconErrorState = [UIImage imageNamed:@"SEBProctoringViewIcon_error"];
-            ProctoringIconColorErrorState = [UIColor systemRedColor];
         }
     }
     

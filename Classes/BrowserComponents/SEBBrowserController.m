@@ -699,7 +699,7 @@ static NSString * const authenticationPassword = @"password";
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
 {
     NSString *message = [[NSString alloc] initWithFormat:format arguments:arguments];
-    DDLogVerbose(message);
+    DDLogVerbose(@"%@", message);
 }
 
 
