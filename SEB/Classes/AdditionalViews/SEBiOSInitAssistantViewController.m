@@ -251,7 +251,7 @@
 
 
 - (void) setConfigURLString:(NSString *)URLString {
-    configURLField.text = [NSMutableString stringWithString:URLString];
+    configURLField.text = [NSString stringWithFormat:@"%@", URLString];
 }
 
 
