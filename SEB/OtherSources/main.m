@@ -46,6 +46,10 @@ int main(int argc, char * argv[]) {
         }
         
         [RTCCameraVideoCapturer setupCaptureOutputHook];
+        [RTCAudioSession setupIsAudioEnabledHook];
+        [RTCMediaStreamTrack setupIsTrackEnabledHook];
+        [RTCMediaStream setupAudioTracksHook];
+        [RTCVideoTrack setupVideoTrackHook];
         
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
