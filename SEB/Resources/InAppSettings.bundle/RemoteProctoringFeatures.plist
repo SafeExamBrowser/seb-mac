@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Jitsi Meet Features</string>
 			<key>FooterText</key>
-			<string>Note: The settings Enable Raise Hand and Allow Tile View are not yet functional in this beta version.</string>
+			<string>Note: Disabling Allow Tile View is not yet functional in this version.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
