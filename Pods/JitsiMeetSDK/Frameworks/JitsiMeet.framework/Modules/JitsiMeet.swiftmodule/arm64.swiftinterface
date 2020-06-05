@@ -27,7 +27,8 @@ public class PiPViewCoordinator {
     public func hash(into hasher: inout Swift.Hasher)
   }
   public var initialPositionInSuperview: JitsiMeet.PiPViewCoordinator.Position
-  public var pipSizeRatio: CoreGraphics.CGFloat
+  @available(*, deprecated, message: "The PiP window size is now fixed to 150px.")
+  public var c: CoreGraphics.CGFloat
   weak public var delegate: JitsiMeet.PiPViewCoordinatorDelegate?
   public init(withView view: UIKit.UIView)
   public func configureAsStickyView(withParentView parentView: UIKit.UIView? = nil)
