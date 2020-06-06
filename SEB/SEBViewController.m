@@ -3872,10 +3872,19 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-#pragma mark - Jitsi
+#pragma mark - Remote Proctoring
 
 - (void) openJitsiView
 {
+    // Initialize Jitsi Meet WebRTC settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    _jitsiMeetReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveAudio"];
+    _jitsiMeetReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveVideo"];
+    _jitsiMeetSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendAudio"];
+    _jitsiMeetSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendVideo"];
+    _allRTCTracks = [NSMutableArray new];
+    _localRTCTracks = [NSMutableArray new];
+    
     _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
     [_rootViewController addChildViewController:self.jitsiViewController];
@@ -3948,6 +3957,34 @@ quittingClientConfig:(BOOL)quittingClientConfig
     self.jitsiViewController.safeAreaLayoutGuideInsets = safeAreaFrameInsets;
 }
 
+
+/// WebRTC Callback Methods
+
+- (BOOL) rtcAudioInputEnabled
+{
+    return _jitsiMeetSendAudio;
+}
+
+- (BOOL) rtcAudioReceivingEnabled
+{
+    return _jitsiMeetReceiveAudio;
+}
+
+- (BOOL) rtcVideoSendingEnabled
+{
+    return _jitsiMeetSendVideo;
+}
+
+- (BOOL) rtcVideoReceivingEnabled
+{
+    return _jitsiMeetReceiveVideo;
+}
+
+- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack
+{
+    BOOL videoTrackIsLocal = [_localRTCTracks containsObject:videoTrack];
+    return videoTrackIsLocal;
+}
 
 - (void) detectFace:(CMSampleBufferRef)sampleBuffer
 {

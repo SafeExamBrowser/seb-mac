@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)newAddVideoTrack:(RTCVideoTrack *)videoTrack;
 
+- (void)newRemoveVideoTrack:(RTCVideoTrack *)videoTrack;
+
 @end
 
 
@@ -70,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)setupVideoTrackHook;
 
-- (__kindof instancetype)initWithFactory:(RTCPeerConnectionFactory *)factory
+- (instancetype)initWithFactory:(RTCPeerConnectionFactory *)factory
                          source:(RTCVideoSource *)source
                         trackId:(NSString *)trackId;
 
