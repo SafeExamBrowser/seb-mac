@@ -428,7 +428,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"insideSebEnableVmWareClientShade",
                    
-                   @YES,
+                   @NO,
                    @"jitsiMeetAudioMuted",
                    
                    @NO,
@@ -455,8 +455,20 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"jitsiMeetFeatureFlagTileView",
                    
+                   @NO,
+                   @"jitsiMeetReceiveAudio",
+                   
+                   @NO,
+                   @"jitsiMeetReceiveVideo",
+                   
                    @"",
                    @"jitsiMeetRoom",
+                   
+                   @YES,
+                   @"jitsiMeetSendAudio",
+                   
+                   @YES,
+                   @"jitsiMeetSendVideo",
                    
                    @"",
                    @"jitsiMeetServerURL",
