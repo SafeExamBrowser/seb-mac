@@ -87,6 +87,8 @@
 #import "SEBServerViewController.h"
 #import "ServerLogger.h"
 
+#import "RTCVideoTrack.h"
+
 @class AppDelegate;
 @class SEBUIController;
 @class SEBBrowserController;
@@ -101,7 +103,7 @@
 @class AboutSEBiOSViewController;
 @class ServerController;
 @class SEBServerViewController;
-
+@class RTCVideoTrack;
 
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate, NSURLSessionDelegate, ProctoringImageAnayzerDelegate>
 {
@@ -179,6 +181,23 @@
 /// Remote Proctoring
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
 @property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer;
+@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
+@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
+
+@property(readwrite) BOOL jitsiMeetReceiveAudio;
+@property(readwrite) BOOL jitsiMeetReceiveVideo;
+@property(readwrite) BOOL jitsiMeetSendAudio;
+@property(readwrite) BOOL jitsiMeetSendVideo;
+
+- (void) toggleProctoringViewVisibility;
+- (BOOL) rtcAudioInputEnabled;
+- (BOOL) rtcAudioReceivingEnabled;
+- (BOOL) rtcVideoSendingEnabled;
+- (BOOL) rtcVideoReceivingEnabled;
+- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
+
+- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+
 
 /// Views and bars
 @property (strong, nonatomic) UIAlertController *alertController;
@@ -276,9 +295,6 @@
 - (void) conditionallyOpenStartExamLockdownWindows;
 - (BOOL) conditionallyOpenSleepModeLockdownWindows;
 - (void) openLockdownWindows;
-
-- (void) toggleProctoringViewVisibility;
-- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
 
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback

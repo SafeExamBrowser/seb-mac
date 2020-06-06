@@ -90,6 +90,22 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Jitsi Meet Features</string>
+			<key>File</key>
+			<string>RemoteProctoringFeatures</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Jitsi Meet User Controls</string>
+			<key>FooterText</key>
+			<string>When the proctoring view is displayed (see its display policy below), users can mute and unmute audio and video manually. Audio and video streams can be disabled globally with the settings below.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Audio Initially Muted</string>
@@ -114,11 +130,43 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Jitsi Meet Features</string>
-			<key>File</key>
-			<string>RemoteProctoringFeatures</string>
+			<string>Audio/Video Streams</string>
+			<key>FooterText</key>
+			<string>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Receive Audio</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetReceiveAudio</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Receive Video</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetReceiveVideo</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Send Audio</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetSendAudio</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Send Video</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetSendVideo</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -144,7 +192,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_remoteProctoringViewShow</string>
 			<key>FooterText</key>
-			<string>You can hide or show the overlay view showing the candidate, the proctor (and currently other candidates) with this setting or allow candidates to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command.</string>
+			<string>You can hide or show the overlay view showing the user (and if enabled other candidates and the proctor) with this setting or allow users to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command.</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>

@@ -36,31 +36,24 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
              withMethod:@selector(newUseManualAudio)];
     [self swizzleMethod:@selector(isAudioEnabled)
              withMethod:@selector(newIsAudioEnabled)];
-//    [self swizzleMethod:@selector(outputVolume)
-//             withMethod:@selector(newOutputVolume)];
     [self swizzleMethod:@selector(inputAvailable)
              withMethod:@selector(newInputAvailable)];
 }
 
 - (BOOL)newUseManualAudio
 {
-    return YES;
+    return NO;
 }
 
 - (BOOL)newIsAudioEnabled
 {
-    BOOL overrideIsAudioEnabled = YES; //[[[MyGlobals sharedMyGlobals] sebViewController] rtcAudioEnabled];
+    BOOL overrideIsAudioEnabled = YES;
     return overrideIsAudioEnabled;
 }
 
-//- (float)newOutputVolume
-//{
-//    return 0.0;
-//}
-
 - (BOOL)newInputAvailable
 {
-    return YES;
+    return [[[MyGlobals sharedMyGlobals] sebViewController] rtcAudioInputEnabled];;
 }
 
 @end
@@ -99,8 +92,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
              withMethod:@selector(newVideoTracks)];
     [self swizzleMethod:@selector(addVideoTrack:)
              withMethod:@selector(newAddVideoTrack:)];
-    [self swizzleMethod:@selector(initWithFactory:source:trackId:)
-             withMethod:@selector(newInitWithFactory:source:trackId:)];
+    [self swizzleMethod:@selector(removeVideoTrack:)
+             withMethod:@selector(newRemoveVideoTrack:)];
 }
 
 - (NSArray<RTCAudioTrack *> *)newAudioTracks
@@ -108,8 +101,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSArray<RTCAudioTrack *> *audioTracks = [self newAudioTracks];
     if (audioTracks.count > 0) {
         RTCAudioTrack *remoteAudioTrack = audioTracks[0];
-        DDLogDebug(@"Muting remote RTCAudioTrack: %@", remoteAudioTrack);
-        [remoteAudioTrack setIsEnabled:NO];
+        BOOL rtcAudioReceivingEnabled = [[[MyGlobals sharedMyGlobals] sebViewController] rtcAudioReceivingEnabled];
+        DDLogDebug(@"%@ remote RTCAudioTrack: %@", rtcAudioReceivingEnabled ? @"Unmuting" : @"Muting", remoteAudioTrack);
+        [remoteAudioTrack setIsEnabled:rtcAudioReceivingEnabled];
     }
     return audioTracks;
 }
@@ -118,22 +112,32 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     NSArray<RTCVideoTrack *> *videoTracks = [self newVideoTracks];
     if (videoTracks.count > 0) {
-        RTCVideoTrack *remoteVideoTrack = videoTracks[0];
-        BOOL localTrack = remoteVideoTrack.source != nil;
-        NSString *trackId = remoteVideoTrack.trackId;
-        DDLogDebug(@"%@RTCVideoTrack: Id %@", localTrack ? @"Local " : @"Remote ", trackId);
-        
-        [remoteVideoTrack setIsEnabled:localTrack];
+        RTCVideoTrack *videoTrack = videoTracks[0];
+        BOOL isLocalVideoTrack = [[[MyGlobals sharedMyGlobals] sebViewController] rtcVideoTrackIsLocal:videoTrack];
+        BOOL enableVideoTrack = isLocalVideoTrack ?
+        [[[MyGlobals sharedMyGlobals] sebViewController] rtcVideoSendingEnabled] :
+        [[[MyGlobals sharedMyGlobals] sebViewController] rtcVideoReceivingEnabled];
+
+        NSString *trackId = videoTrack.trackId;
+        DDLogDebug(@"%@ %@ RTCVideoTrack: Id %@", enableVideoTrack ? @"Enable" : @"Disable", isLocalVideoTrack ? @"local" : @"remote", trackId);
+        [videoTrack setIsEnabled:enableVideoTrack];
     }
     return videoTracks;
 }
 
 - (void)newAddVideoTrack:(RTCVideoTrack *)videoTrack
 {
-    DDLogDebug(@"Adding RTCVideoTrack: %@", videoTrack);
+    DDLogDebug(@"Adding local RTCVideoTrack: %@", videoTrack);
+    [[[MyGlobals sharedMyGlobals] sebViewController].localRTCTracks addObject:videoTrack];
     [self newAddVideoTrack:videoTrack];
 }
 
+- (void)newRemoveVideoTrack:(RTCVideoTrack *)videoTrack
+{
+    DDLogDebug(@"Removing RTCVideoTrack: %@", videoTrack);
+    [[[MyGlobals sharedMyGlobals] sebViewController].localRTCTracks removeObject:videoTrack];
+    [self newRemoveVideoTrack:videoTrack];
+}
 
 @end
 
