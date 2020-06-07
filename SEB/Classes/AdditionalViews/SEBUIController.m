@@ -260,10 +260,13 @@
             ProctoringIconDefaultState = [UIImage imageNamed:@"SEBProctoringViewIcon"];
             ProctoringIconNormalState = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
             ProctoringIconColorNormalState = [UIColor systemGreenColor];
+            ProctoringBadgeNormalState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeCheckmark"].CGImage];
             ProctoringIconWarningState = [UIImage imageNamed:@"SEBProctoringViewIcon_warning"];
             ProctoringIconColorWarningState = [UIColor systemOrangeColor];
+            ProctoringBadgeWarningState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeWarning"].CGImage];
             ProctoringIconErrorState = [UIImage imageNamed:@"SEBProctoringViewIcon_error"];
             ProctoringIconColorErrorState = [UIColor systemRedColor];
+            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
             dockItem = [[UIBarButtonItem alloc] initWithImage:ProctoringIconDefaultState
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
@@ -482,32 +485,53 @@
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
 {
+    // Don't change the button state if AI proctoring is active
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_proctoringAIEnable"]) {
+        [self setProctoringViewButtonState:remoteProctoringButtonState userFeedback:YES];
+    }
+}
+
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+                         userFeedback:(BOOL)userFeedback
+{
     UIImage *remoteProctoringButtonImage;
     UIColor *remoteProctoringButtonTintColor;
     switch (remoteProctoringButtonState) {
         case remoteProctoringButtonStateNormal:
             remoteProctoringButtonImage = ProctoringIconNormalState;
             remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            _sebViewController.proctoringStateIcon = ProctoringBadgeNormalState;
             break;
             
         case remoteProctoringButtonStateWarning:
             remoteProctoringButtonImage = ProctoringIconWarningState;
             remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
+            _sebViewController.proctoringStateIcon = ProctoringBadgeWarningState;
             break;
             
         case remoteProctoringButtonStateError:
             remoteProctoringButtonImage = ProctoringIconErrorState;
             remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
+            _sebViewController.proctoringStateIcon = ProctoringBadgeErrorState;
+            break;
+            
+        case remoteProctoringButtonStateAIInactive:
+            remoteProctoringButtonImage = ProctoringIconDefaultState;
+            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            _sebViewController.proctoringStateIcon = nil;
             break;
             
         default:
             remoteProctoringButtonImage = ProctoringIconDefaultState;
             remoteProctoringButtonTintColor = nil;
+            _sebViewController.proctoringStateIcon = nil;
             break;
     }
-    _proctoringViewButton.image = remoteProctoringButtonImage;
-    _proctoringViewButton.tintColor = remoteProctoringButtonTintColor;
-    _sebViewController.proctoringStateIcon = [[CIImage alloc] initWithCGImage:remoteProctoringButtonImage.CGImage];
+    if (userFeedback) {
+        _proctoringViewButton.image = remoteProctoringButtonImage;
+        _proctoringViewButton.tintColor = remoteProctoringButtonTintColor;
+    }
 }
 
 
