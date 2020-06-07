@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RTCCameraVideoCapturer.h"
+#import "RTCVideoSource.h"
 #import "RTCAudioSession.h"
 #import "RTCMediaStreamTrack.h"
 #import "RTCMediaStream.h"
@@ -26,6 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)newCaptureOutput:(AVCaptureOutput *)captureOutput
    didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
           fromConnection:(AVCaptureConnection *)connection;
+
+@end
+
+
+@interface RTCVideoSource (ProctoringVideoCapturer)
+
++ (void)setupCaptureVideoFrameHook;
+
+- (void)newCapturer:(RTCVideoCapturer *)capturer didCaptureVideoFrame:(RTCVideoFrame *)frame;
 
 @end
 

@@ -88,6 +88,8 @@
 #import "ServerLogger.h"
 
 #import "RTCVideoTrack.h"
+#import "RTCVideoFrame.h"
+#import "RTCCVPixelBuffer.h"
 
 @class AppDelegate;
 @class SEBUIController;
@@ -104,6 +106,7 @@
 @class ServerController;
 @class SEBServerViewController;
 @class RTCVideoTrack;
+@class RTCVideoFrame;
 
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate, NSURLSessionDelegate, ProctoringImageAnayzerDelegate>
 {
@@ -132,6 +135,7 @@
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;
     CGFloat navigationBarItemsOffset;
+    
 }
 
 @property (weak, nonatomic) AppDelegate *appDelegate;
@@ -183,6 +187,8 @@
 @property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
+@property (strong, nonatomic) CIContext *ciContext;
+@property (strong, nonatomic) CIImage *proctoringStateIcon;
 
 @property(readwrite) BOOL jitsiMeetReceiveAudio;
 @property(readwrite) BOOL jitsiMeetReceiveVideo;
@@ -197,7 +203,7 @@
 - (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
 
 - (void) detectFace:(CMSampleBufferRef)sampleBuffer;
-
+- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
 
 /// Views and bars
 @property (strong, nonatomic) UIAlertController *alertController;

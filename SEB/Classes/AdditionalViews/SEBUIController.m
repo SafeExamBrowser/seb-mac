@@ -507,6 +507,7 @@
     }
     _proctoringViewButton.image = remoteProctoringButtonImage;
     _proctoringViewButton.tintColor = remoteProctoringButtonTintColor;
+    _sebViewController.proctoringStateIcon = [[CIImage alloc] initWithCGImage:remoteProctoringButtonImage.CGImage];
 }
 
 
