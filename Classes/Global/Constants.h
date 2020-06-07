@@ -199,7 +199,8 @@ enum {
     remoteProctoringButtonStateDefault          = 0,
     remoteProctoringButtonStateNormal           = 1,
     remoteProctoringButtonStateWarning          = 2,
-    remoteProctoringButtonStateError            = 3
+    remoteProctoringButtonStateError            = 3,
+    remoteProctoringButtonStateAIInactive       = 4
 };
 typedef NSInteger remoteProctoringButtonStates;
 

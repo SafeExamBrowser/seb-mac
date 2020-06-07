@@ -41,8 +41,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     @synchronized(self) {
         RTCVideoFrame *modifiedFrame = [[[MyGlobals sharedMyGlobals] sebViewController] overlayFrame:frame];
         [self newCapturer:capturer didCaptureVideoFrame:modifiedFrame];
-//        frame = [[[MyGlobals sharedMyGlobals] sebViewController] overlayFrame:frame];
-//        [self newCapturer:capturer didCaptureVideoFrame:frame];
     }
 }
 

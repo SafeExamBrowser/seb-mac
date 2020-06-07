@@ -57,6 +57,10 @@
     UIColor *ProctoringIconColorNormalState;
     UIColor *ProctoringIconColorWarningState;
     UIColor *ProctoringIconColorErrorState;
+    
+    CIImage *ProctoringBadgeNormalState;
+    CIImage *ProctoringBadgeWarningState;
+    CIImage *ProctoringBadgeErrorState;
 }
 
 @property (weak, nonatomic) AppDelegate *appDelegate;
@@ -89,6 +93,7 @@
 
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
 
-- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState;
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+                         userFeedback:(BOOL)userFeedback;
 
 @end

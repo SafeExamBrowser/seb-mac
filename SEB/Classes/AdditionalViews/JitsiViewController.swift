@@ -137,7 +137,7 @@ class JitsiViewController: UIViewController {
         if viewIsVisible {
             viewIsVisible = false
             pipViewCoordinator?.hide()
-            proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateNormal)
+            proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateAIInactive)
         } else {
             viewIsVisible = true
             pipViewCoordinator?.show()
