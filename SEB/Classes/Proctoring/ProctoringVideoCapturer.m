@@ -28,6 +28,27 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 @end
 
 
+@implementation RTCVideoSource (ProctoringVideoCapturer)
+
++ (void)setupCaptureVideoFrameHook
+{
+    [self swizzleMethod:@selector(capturer:didCaptureVideoFrame:)
+             withMethod:@selector(newCapturer:didCaptureVideoFrame:)];
+}
+
+- (void)newCapturer:(RTCVideoCapturer *)capturer didCaptureVideoFrame:(RTCVideoFrame *)frame
+{
+    @synchronized(self) {
+        RTCVideoFrame *modifiedFrame = [[[MyGlobals sharedMyGlobals] sebViewController] overlayFrame:frame];
+        [self newCapturer:capturer didCaptureVideoFrame:modifiedFrame];
+//        frame = [[[MyGlobals sharedMyGlobals] sebViewController] overlayFrame:frame];
+//        [self newCapturer:capturer didCaptureVideoFrame:frame];
+    }
+}
+
+@end
+
+
 @implementation RTCAudioSession (ProctoringVideoCapturer)
 
 + (void)setupIsAudioEnabledHook

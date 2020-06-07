@@ -46,6 +46,7 @@ int main(int argc, char * argv[]) {
         }
         
         [RTCCameraVideoCapturer setupCaptureOutputHook];
+        [RTCVideoSource setupCaptureVideoFrameHook];
         [RTCAudioSession setupIsAudioEnabledHook];
         [RTCMediaStreamTrack setupIsTrackEnabledHook];
         [RTCMediaStream setupAudioTracksHook];

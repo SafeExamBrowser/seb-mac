@@ -3885,6 +3885,13 @@ quittingClientConfig:(BOOL)quittingClientConfig
     _allRTCTracks = [NSMutableArray new];
     _localRTCTracks = [NSMutableArray new];
     
+//    UIImage *overlayIcon = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+//    self.proctoringStateIcon = [[CIImage alloc] initWithCGImage:overlayIcon.CGImage];
+
+    EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    [EAGLContext setCurrentContext:eaglContext];
+    _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
+
     _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
     [_rootViewController addChildViewController:self.jitsiViewController];
@@ -3994,6 +4001,35 @@ quittingClientConfig:(BOOL)quittingClientConfig
     }
     if (_proctoringImageAnalyzer.enabled) {
         [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
+    }
+}
+
+
+- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame
+{
+    @synchronized(self) {
+        
+        RTCCVPixelBuffer *rtcPixelBuffer = frame.buffer;
+        CVPixelBufferRef pixelBuffer = rtcPixelBuffer.pixelBuffer;
+        
+        CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
+
+        CIImage *cameraImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer];
+        CGRect cameraExtend = cameraImage.extent;
+        CGFloat badgeX = (cameraExtend.size.width - cameraExtend.size.height)/2 + cameraExtend.size.height - 100;
+        
+        CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
+        CIImage *rotatedBadge = [self.proctoringStateIcon imageByApplyingOrientation:kCGImagePropertyOrientationDown];
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(badgeX,30);
+        CIImage *transformedOverlayImage = [rotatedBadge imageByApplyingTransform:transform];
+
+        cameraImage = [transformedOverlayImage imageByCompositingOverImage:cameraImage];
+        [self.ciContext render:cameraImage toCVPixelBuffer:pixelBuffer bounds:cameraExtend colorSpace:cSpace];
+
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+        CGColorSpaceRelease(cSpace);
+
+    return frame;
     }
 }
 
