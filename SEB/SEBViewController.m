@@ -4009,25 +4009,44 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     @synchronized(self) {
         
-        RTCCVPixelBuffer *rtcPixelBuffer = frame.buffer;
-        CVPixelBufferRef pixelBuffer = rtcPixelBuffer.pixelBuffer;
-        
-        CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
+        if (_proctoringImageAnalyzer.enabled) {
+            RTCCVPixelBuffer *rtcPixelBuffer = frame.buffer;
+            CVPixelBufferRef pixelBuffer = rtcPixelBuffer.pixelBuffer;
+            
+            CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
 
-        CIImage *cameraImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer];
-        CGRect cameraExtend = cameraImage.extent;
-        CGFloat badgeX = (cameraExtend.size.width - cameraExtend.size.height)/2 + cameraExtend.size.height - 100;
-        
-        CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
-        CIImage *rotatedBadge = [self.proctoringStateIcon imageByApplyingOrientation:kCGImagePropertyOrientationDown];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(badgeX,30);
-        CIImage *transformedOverlayImage = [rotatedBadge imageByApplyingTransform:transform];
+            CIImage *cameraImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer];
+            CGRect cameraExtend = cameraImage.extent;
+            CGFloat badgeX = (cameraExtend.size.width - cameraExtend.size.height)/2 + cameraExtend.size.height - 100;
+            
+            CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
+            RTCVideoRotation rotation = frame.rotation;
+            int orientation;
+            switch (rotation) {
+              case RTCVideoRotation_0:
+                orientation = kCGImagePropertyOrientationUp;
+                break;
+              case RTCVideoRotation_90:
+                orientation = kCGImagePropertyOrientationLeft;
+                break;
+              case RTCVideoRotation_180:
+                orientation = kCGImagePropertyOrientationDown;
+                break;
+              case RTCVideoRotation_270:
+                orientation = kCGImagePropertyOrientationRight;
+                break;
+            }
+            NSLog(@"Rotation: %ld", (long)rotation);
+            CIImage *rotatedBadge = [self.proctoringStateIcon imageByApplyingOrientation:orientation];
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(badgeX,30);
+            CIImage *transformedOverlayImage = [rotatedBadge imageByApplyingTransform:transform];
 
-        cameraImage = [transformedOverlayImage imageByCompositingOverImage:cameraImage];
-        [self.ciContext render:cameraImage toCVPixelBuffer:pixelBuffer bounds:cameraExtend colorSpace:cSpace];
+            cameraImage = [transformedOverlayImage imageByCompositingOverImage:cameraImage];
+            [self.ciContext render:cameraImage toCVPixelBuffer:pixelBuffer bounds:cameraExtend colorSpace:cSpace];
 
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-        CGColorSpaceRelease(cSpace);
+            CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+            CGColorSpaceRelease(cSpace);
+        }
 
     return frame;
     }
@@ -4060,9 +4079,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             DDLogDebug(@"%@", message);
             break;
     }
-    if (userFeedback) {
-        [self.sebUIController setProctoringViewButtonState:proctoringButtonState];
-    }
+    [self.sebUIController setProctoringViewButtonState:proctoringButtonState userFeedback:userFeedback];
 }
 
 
