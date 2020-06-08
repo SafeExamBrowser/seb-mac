@@ -4036,7 +4036,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 orientation = kCGImagePropertyOrientationRight;
                 break;
             }
-            NSLog(@"Rotation: %ld", (long)rotation);
             CIImage *rotatedBadge = [self.proctoringStateIcon imageByApplyingOrientation:orientation];
             CGAffineTransform transform = CGAffineTransformMakeTranslation(badgeX,30);
             CIImage *transformedOverlayImage = [rotatedBadge imageByApplyingTransform:transform];
