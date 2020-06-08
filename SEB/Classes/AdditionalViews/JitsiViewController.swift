@@ -62,6 +62,8 @@ class JitsiViewController: UIViewController {
         jitsiMeetView.delegate = self
         self.jitsiMeetView = jitsiMeetView
         jitsiMeetView.isUserInteractionEnabled = true
+        let userInfo = JitsiMeetUserInfo()
+        userInfo.displayName = UIDevice().name
         
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.welcomePageEnabled = false
@@ -72,7 +74,8 @@ class JitsiViewController: UIViewController {
             builder.audioMuted = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
             builder.videoMuted = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
             builder.audioOnly = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
-            
+            builder.userInfo = userInfo
+                
             builder.setFeatureFlag("add-people.enabled",
                                    withBoolean: false)
             builder.setFeatureFlag("calendar.enabled",
@@ -101,7 +104,6 @@ class JitsiViewController: UIViewController {
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagRecording"))
             builder.setFeatureFlag("tile_view.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView"))
-            //            builder.userInfo
         }
         jitsiMeetView.join(options)
         
