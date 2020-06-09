@@ -160,9 +160,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 
 @implementation RTCVideoTrack (ProctoringVideoCapturer)
-
 
 + (void)setupVideoTrackHook
 {
@@ -178,6 +179,6 @@ trackId:(NSString *)trackId
     return newInstance;
 }
 
-
-
 @end
+
+#pragma clang diagnostic pop
