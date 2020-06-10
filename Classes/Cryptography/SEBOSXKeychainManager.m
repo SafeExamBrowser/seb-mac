@@ -136,8 +136,8 @@
                                             [identitiesNames addObject:identityName];
                                         }
                                         
-                                        DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
-                                        DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
+                                        DDLogVerbose(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+                                        DDLogVerbose(@"Public key can be used for encryption, private key can be used for decryption");
                                         if (emailAddressesRef) CFRelease(emailAddressesRef);
                                         if (commonName) CFRelease(commonName);
                                         if (publicKeyRef) CFRelease(publicKeyRef);
@@ -263,7 +263,7 @@
                         } else {
                             [certificatesNames addObject:certificateName];
                         }
-                        DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+                        DDLogVerbose(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
                         
                         if (commonName) CFRelease(commonName);
                         if (emailAddressesRef) CFRelease(emailAddressesRef);
@@ -275,7 +275,7 @@
                     if (error != NULL) {
                         errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
                     }
-                    DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
+                    DDLogVerbose(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
                 }
                 if (emailAddressesRef) CFRelease(emailAddressesRef);
             } else {
@@ -424,7 +424,7 @@
                         *infoBuf = '\0';
                         mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
                         certificateInfo = [NSString stringWithFormat:@"%s", infoBuf];
-                        DDLogDebug(@"\n%s\n", infoBuf);
+                        DDLogVerbose(@"\n%s\n", infoBuf);
                     }
                 }
                 
@@ -443,7 +443,7 @@
                                                               @"ref" : (__bridge id)certificateRef,
                                                               @"name" : certificateName
                                                               }];
-                                    DDLogDebug(@"Adding SSL certificate with common name: %@", certificateName);
+                                    DDLogVerbose(@"Adding SSL certificate with common name: %@", certificateName);
                                     
                                     break;
                                 }
@@ -452,7 +452,7 @@
                                 if (error != NULL) {
                                     errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
                                 }
-                                DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.",
+                                DDLogVerbose(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.",
                                            certificateName , errorDescription);
                             }
                         }
@@ -472,7 +472,7 @@
                                                               @"ref" : (__bridge id)certificateRef,
                                                               @"name" : certificateName
                                                               }];
-                                    DDLogDebug(@"\nAdding CA certificate:\n%@\n", certificateInfo);
+                                    DDLogVerbose(@"\nAdding CA certificate:\n%@\n", certificateInfo);
                                     
                                     //                                            break;
                                 }
@@ -493,7 +493,7 @@
                                                   @"isExpired" : [NSNumber numberWithBool:isExpired],
                                                   @"info" : certificateInfo
                                                   }];
-                        DDLogDebug(@"Adding debug certificate with common name: %@", certificateName);
+                        DDLogVerbose(@"Adding debug certificate with common name: %@", certificateName);
                         
                         break;
                     }
