@@ -73,7 +73,10 @@ public class ProctoringImageAnalyzer: NSObject {
     }
     
     func exifOrientationForCurrentDeviceOrientation() -> CGImagePropertyOrientation {
-        return exifOrientationForDeviceOrientation(UIDevice.current.orientation)
+        let deviceOrientation = UIDevice.current.orientation
+        let exifOrientation = exifOrientationForDeviceOrientation(deviceOrientation)
+        print("Device orientation: \(deviceOrientation), EXIF orientation: \(exifOrientation)")
+        return exifOrientationForDeviceOrientation(deviceOrientation)
     }
         
     @objc public func detectFace(in sampleBuffer: CMSampleBuffer) {
