@@ -185,6 +185,7 @@
 /// Remote Proctoring
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
 @property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer;
+@property (readwrite) UIInterfaceOrientation userInterfaceOrientation;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
 @property (strong, nonatomic) CIContext *ciContext;

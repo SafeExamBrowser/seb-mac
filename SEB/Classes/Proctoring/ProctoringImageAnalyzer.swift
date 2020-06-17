@@ -11,6 +11,7 @@ import Vision
 
 @objc public protocol ProctoringImageAnayzerDelegate {
     func proctoringEvent(_ proctoringEvent: RemoteProctoringEventType, message: String?, userFeedback: Bool) -> Void
+    func userInterfaceOrientation() -> UIInterfaceOrientation
 }
 
 public class ProctoringImageAnalyzer: NSObject {
@@ -67,6 +68,32 @@ public class ProctoringImageAnalyzer: NSObject {
         case .landscapeRight:
             return .upMirrored
             
+        case .unknown:
+            guard let uiOrientation = self.delegate?.userInterfaceOrientation() else {
+                return .downMirrored
+            }
+            return exifOrientationForInterfaceOrientation(uiOrientation)
+            
+        default:
+            return .leftMirrored
+        }
+    }
+    
+    func exifOrientationForInterfaceOrientation(_ deviceOrientation: UIInterfaceOrientation) -> CGImagePropertyOrientation {
+        
+        switch deviceOrientation {
+        case .portraitUpsideDown:
+            return .rightMirrored
+            
+        case .landscapeLeft:
+            return .upMirrored
+
+        case .landscapeRight:
+            return .downMirrored
+            
+        case .unknown:
+            return .downMirrored
+            
         default:
             return .leftMirrored
         }
@@ -74,8 +101,6 @@ public class ProctoringImageAnalyzer: NSObject {
     
     func exifOrientationForCurrentDeviceOrientation() -> CGImagePropertyOrientation {
         let deviceOrientation = UIDevice.current.orientation
-        let exifOrientation = exifOrientationForDeviceOrientation(deviceOrientation)
-        print("Device orientation: \(deviceOrientation), EXIF orientation: \(exifOrientation)")
         return exifOrientationForDeviceOrientation(deviceOrientation)
     }
         
