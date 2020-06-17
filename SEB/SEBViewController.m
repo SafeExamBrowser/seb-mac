@@ -3895,8 +3895,13 @@ quittingClientConfig:(BOOL)quittingClientConfig
     _allRTCTracks = [NSMutableArray new];
     _localRTCTracks = [NSMutableArray new];
     
-//    UIImage *overlayIcon = [UIImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
-//    self.proctoringStateIcon = [[CIImage alloc] initWithCGImage:overlayIcon.CGImage];
+    // For the case that the device orientation is unknown (accelerometer can't get accurate read of orientation)
+    // we use the current UI orientation for the camera video stream
+    if (@available(iOS 13.0, *)) {
+        _userInterfaceOrientation = UIApplication.sharedApplication.windows.firstObject.windowScene.interfaceOrientation;
+    } else {
+        _userInterfaceOrientation = UIApplication.sharedApplication.statusBarOrientation;
+    }
 
     EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     [EAGLContext setCurrentContext:eaglContext];
@@ -4031,12 +4036,37 @@ quittingClientConfig:(BOOL)quittingClientConfig
             
             CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
             RTCVideoRotation rotation = frame.rotation;
+            // When the device orientation is unknown (accelerometer can't get accurate read of orientation),
+            // use the initially determined UIInterfaceOrientation
+            if (UIDevice.currentDevice.orientation == UIDeviceOrientationUnknown) {
+                switch (_userInterfaceOrientation) {
+                    case UIInterfaceOrientationPortrait:
+                        rotation = RTCVideoRotation_90;
+                        break;
+                    case UIInterfaceOrientationPortraitUpsideDown:
+                        rotation = RTCVideoRotation_270;
+                        break;
+                    case UIInterfaceOrientationLandscapeLeft:
+                        rotation = RTCVideoRotation_0;
+                        break;
+                    case UIInterfaceOrientationLandscapeRight:
+                        rotation = RTCVideoRotation_180;
+                        break;
+                    case UIInterfaceOrientationUnknown:
+                        rotation = RTCVideoRotation_180;
+                        break;
+                }
+                RTCVideoFrame *rotatedFrame = [[RTCVideoFrame alloc] initWithBuffer:rtcPixelBuffer
+                                                                           rotation:rotation
+                                                                        timeStampNs:frame.timeStampNs];
+                frame = rotatedFrame;
+            }
             int orientation;
             switch (rotation) {
               case RTCVideoRotation_0:
                 orientation = kCGImagePropertyOrientationUp;
                 break;
-              case RTCVideoRotation_90:
+                case RTCVideoRotation_90:
                 orientation = kCGImagePropertyOrientationLeft;
                 break;
               case RTCVideoRotation_180:
