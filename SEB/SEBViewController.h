@@ -190,6 +190,8 @@
 @property (strong, nonatomic) CIContext *ciContext;
 @property (strong, nonatomic) CIImage *proctoringStateIcon;
 
+@property(readwrite) BOOL previousSessionJitsiMeetEnabled;
+
 @property(readwrite) BOOL jitsiMeetReceiveAudio;
 @property(readwrite) BOOL jitsiMeetReceiveVideo;
 @property(readwrite) BOOL jitsiMeetSendAudio;
