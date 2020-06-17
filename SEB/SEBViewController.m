@@ -1614,7 +1614,7 @@ void run_on_ui_thread(dispatch_block_t block)
         if (browserUserAgentSuffix.length != 0) {
             browserUserAgentSuffix = [NSString stringWithFormat:@" %@", browserUserAgentSuffix];
         }
-
+        
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentiOS"] == browserUserAgentModeiOSDefault) {
             overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
         } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentiOS"] == browserUserAgentModeiOSMacDesktop) {
@@ -1624,7 +1624,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
         overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@%@", SEBUserAgentDefaultSuffix, versionString, browserUserAgentSuffix]];
-
+        
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
         
@@ -1650,7 +1650,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // UI
         
         [self addBrowserToolBarWithOffset:0];
-
+        
         //// Initialize SEB Dock, commands section in the slider view and
         //// 3D Touch Home screen quick actions
         
@@ -1675,7 +1675,7 @@ void run_on_ui_thread(dispatch_block_t block)
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
              (examSession && allowReconfiguring))) {
-
+            
             // Add scan QR code Home screen quick action
             NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
             [shortcutItems addObject:[self scanQRCodeShortcutItem]];
@@ -1706,7 +1706,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     self->_bottomBackgroundView = [UIView new];
                     [self->_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
                     [self.view addSubview:self->_bottomBackgroundView];
-
+                    
                     if (self->_toolBarView) {
                         [self->_toolBarView removeFromSuperview];
                     }
@@ -1714,7 +1714,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self->_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
                     [self.view addSubview:self->_toolBarView];
                     
-
+                    
                     NSDictionary *viewsDictionary = @{@"toolBarView" : self->_toolBarView,
                                                       @"bottomBackgroundView" : self->_bottomBackgroundView,
                                                       @"containerView" : self->_containerView};
@@ -1751,14 +1751,14 @@ void run_on_ui_thread(dispatch_block_t block)
                     }
                     CGFloat toolBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                                              self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 36 : 46;
-
+                    
                     self->_toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                            attribute:NSLayoutAttributeHeight
-                                                                            relatedBy:NSLayoutRelationEqual
-                                                                               toItem:nil
-                                                                            attribute:NSLayoutAttributeNotAnAttribute
-                                                                           multiplier:1.0
-                                                                             constant:toolBarHeight];
+                                                                                  attribute:NSLayoutAttributeHeight
+                                                                                  relatedBy:NSLayoutRelationEqual
+                                                                                     toItem:nil
+                                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                                 multiplier:1.0
+                                                                                   constant:toolBarHeight];
                     [constraints_V addObject: self->_toolBarHeightConstraint];
                     
                     // dock/toolbar top constraint to safe area guide bottom of superview
@@ -1793,7 +1793,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                     SEBBackgroundTintStyle backgroundTintStyle = (self->statusBarAppearance == mobileStatusBarAppearanceNone | self->statusBarAppearance == mobileStatusBarAppearanceLight |
                                                                   self->statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
-
+                    
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                         [self addBlurEffectStyle:UIBlurEffectStyleRegular
                                        toBarView:self->_toolBarView
@@ -1808,7 +1808,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                                                          options: 0
                                                                                                          metrics: nil
                                                                                                            views: viewsDictionary];
-
+                    
                     [self.view addConstraints:bottomBackgroundViewConstraints_H];
                     
                     if (UIAccessibilityIsReduceTransparencyEnabled()) {
@@ -1829,7 +1829,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     UIWindow *window = UIApplication.sharedApplication.keyWindow;
                     CGFloat leftPadding = window.safeAreaInsets.left;
                     sideSafeAreaInsets = leftPadding != 0;
-
+                    
                     self->_bottomBackgroundView.hidden = sideSafeAreaInsets;
 #ifdef DEBUG
                     CGFloat bottomPadding = window.safeAreaInsets.bottom;
@@ -1861,18 +1861,26 @@ void run_on_ui_thread(dispatch_block_t block)
         
         [self adjustBars];
         
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
-                void (^conditionallyStartProctoring)(void) =
+        BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
+        if (jitsiMeetEnable) {
+            void (^conditionallyStartProctoring)(void) =
+            ^{
+                // OK action handler
+                void (^startRemoteProctoringOK)(void) =
                 ^{
+                    [self openJitsiView];
+                    [self.jitsiViewController openJitsiMeetWithSender:self];
+                    run_on_ui_thread(completionBlock);
+                };
+                // Check if previous SEB session already had proctoring active
+                if (self.previousSessionJitsiMeetEnabled) {
+                    run_on_ui_thread(startRemoteProctoringOK);
+                } else {
                     [self alertWithTitle:NSLocalizedString(@"Starting Remote Proctoring", nil)
                                  message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
                             action1Title:NSLocalizedString(@"OK", nil)
                           action1Handler:^ {
-                        run_on_ui_thread(^{
-                            [self openJitsiView];
-                            [self.jitsiViewController openJitsiMeetWithSender:self];
-                            run_on_ui_thread(completionBlock);
-                        });
+                        run_on_ui_thread(startRemoteProctoringOK);
                     }
                             action2Title:NSLocalizedString(@"Cancel", nil)
                           action2Handler:^ {
@@ -1880,7 +1888,8 @@ void run_on_ui_thread(dispatch_block_t block)
                         [[NSNotificationCenter defaultCenter]
                          postNotificationName:@"requestQuit" object:self];
                     }];
-                };
+                }
+            };
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
             if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
@@ -1912,16 +1921,16 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
                 
                 self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
-                                                                        message:message
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                                                                            message:message
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
                 
                 NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
                                               audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
                 [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self->_alertController = nil;
                     if (videoAuthorization == AVAuthorizationStatusDenied ||
-                    audioAuthorization == AVAuthorizationStatusDenied) {
+                        audioAuthorization == AVAuthorizationStatusDenied) {
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
                         [[NSNotificationCenter defaultCenter]
                          postNotificationName:@"requestQuit" object:self];
@@ -1934,7 +1943,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
                                 if (granted){
                                     DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-
+                                    
                                     run_on_ui_thread(conditionallyStartProctoring);
                                     
                                 } else {
@@ -1956,7 +1965,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 if (NSUserDefaults.userDefaultsPrivate) {
                     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                         self->_alertController = nil;
                         [[NSNotificationCenter defaultCenter]
                          postNotificationName:@"requestQuit" object:self];
@@ -1969,6 +1978,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 run_on_ui_thread(conditionallyStartProctoring);
                 return;
             }
+        } else {
+            self.previousSessionJitsiMeetEnabled = NO;
         }
         run_on_ui_thread(completionBlock);
     });
@@ -3025,12 +3036,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
         // Get new setting for ASAM/AAC enabled
         BOOL oldEnableASAM = _enableASAM;
         
-        // Check if we received new settings from an MDM server
-//        if (quittingClientConfig && [self conditionallyReadMDMServerConfig]) {
-//            DDLogDebug(@"%s: Received new settings from an MDM server, canceling restarting SEB session for now.", __FUNCTION__);
-//            return;
-//        }
-        
+        if (quittingClientConfig) {
+            self.previousSessionJitsiMeetEnabled = NO;
+        }
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
 
@@ -3876,6 +3884,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) openJitsiView
 {
+    self.previousSessionJitsiMeetEnabled = YES;
+    
     // Initialize Jitsi Meet WebRTC settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _jitsiMeetReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveAudio"];
