@@ -139,12 +139,16 @@
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    // Allow the animation to complete
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
-        // and bottom is above the tool bar (if SEB dock is enabled)
-        [self adjustScrollPosition];
-    });
+    if (@available(iOS 11.0, *)) {
+        // Not necessary for iOS 11 thanks to Safe Area
+    } else {
+        // Allow the animation to complete
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
+            // and bottom is above the tool bar (if SEB dock is enabled)
+            [self adjustScrollPosition];
+        });
+    }
 }
 
 
@@ -186,6 +190,27 @@
 
 #pragma mark -
 #pragma mark Controller interface
+
+- (void)toggleScrollLock {
+    _isScrollLockActive = !_isScrollLockActive;
+    _sebWebView.scrollView.scrollEnabled = !_isScrollLockActive;
+    _sebWebView.scrollView.bounces = !_isScrollLockActive;
+    if (_isScrollLockActive) {
+        // Disable text/content selection
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='none';"];
+        // Disable selection context popup (copy/paste etc.)
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='none';"];
+        // Disable magnifier glass
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='none';"];
+    } else {
+        // Enable text/content selection
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='text';"];
+        // Enable selection context popup (copy/paste etc.)
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='default';"];
+        // Enable magnifier glass
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='default';"];
+    }
+}
 
 - (void)backToStart {
     [_sebWebView goBack];
