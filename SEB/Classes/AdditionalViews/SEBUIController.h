@@ -40,22 +40,44 @@
 @class AppDelegate;
 @class SEBViewController;
 
-@interface SEBUIController : NSObject {
+@interface SEBUIController : NSObject <ProctoringUIDelegate> {
     
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
     SEBSliderItem *sliderBackButtonItem;
     SEBSliderItem *sliderForwardButtonItem;
     SEBSliderItem *sliderReloadButtonItem;
+    SEBSliderItem *sliderProctoringViewButtonItem;
 
+    UIImage *scrollLockIcon;
+    UIImage *scrollLockIconLocked;
+    UIImage *sliderScrollLockIcon;
+    UIImage *sliderScrollLockIconLocked;
+    NSString *sliderScrollLockItemTitle;
+    NSString *sliderScrollLockItemTitleLocked;
+
+    UIImage *ProctoringIconDefaultState;
+    UIImage *ProctoringIconNormalState;
+    UIImage *ProctoringIconWarningState;
+    UIImage *ProctoringIconErrorState;
+    UIColor *ProctoringIconColorNormalState;
+    UIColor *ProctoringIconColorWarningState;
+    UIColor *ProctoringIconColorErrorState;
+    
+    CIImage *ProctoringBadgeNormalState;
+    CIImage *ProctoringBadgeWarningState;
+    CIImage *ProctoringBadgeErrorState;
 }
 
-@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (weak, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) SEBViewController *sebViewController;
 
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
+@property (nonatomic, strong) SEBSliderItem *sliderScrollLockItem;
+@property (nonatomic, strong) UIBarButtonItem *scrollLockButton;
 @property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
+@property (nonatomic, strong) UIBarButtonItem *proctoringViewButton;
 
 
 @property (readwrite) NSUInteger statusBarAppearance;
@@ -78,5 +100,10 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
+
+- (void) updateScrollLockButtonStates;
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+                         userFeedback:(BOOL)userFeedback;
 
 @end
