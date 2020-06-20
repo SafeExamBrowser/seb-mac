@@ -110,6 +110,38 @@
         [sliderCommands addObject:sliderCommandItem];
     }
     
+    // Add Scroll Lock button if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScrollLock"]) {
+        
+        // Add Scroll Lock command to slider items
+        sliderScrollLockIcon = [UIImage imageNamed:@"SEBSliderScrollLockIcon"];
+        sliderScrollLockIconLocked = [UIImage imageNamed:@"SEBSliderScrollLockIcon_locked"];
+        sliderScrollLockItemTitle = NSLocalizedString(@"Enable Scroll Lock", nil);
+        sliderScrollLockItemTitleLocked = NSLocalizedString(@"Disable Scroll Lock", nil);
+        _sliderScrollLockItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Activate Scroll Lock", nil)
+                                                            icon:sliderScrollLockIcon
+                                                          target:self
+                                                          action:@selector(toggleScrollLock)];
+        [sliderCommands addObject:_sliderScrollLockItem];
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showScrollLockButton"]) {
+            scrollLockIcon = [UIImage imageNamed:@"SEBScrollLockIcon"];
+            scrollLockIconLocked = [UIImage imageNamed:@"SEBScrollLockIcon_locked"];
+
+            _scrollLockButton = [[UIBarButtonItem alloc] initWithImage:scrollLockIcon
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(toggleScrollLock)];
+            _scrollLockButton.accessibilityLabel = NSLocalizedString(@"Scroll Lock", nil);
+            _scrollLockButton.accessibilityHint = NSLocalizedString(@"Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements.", nil);
+            [newDockItems addObject:_scrollLockButton];
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+        }
+    }
+    
     // Add Back to Start button if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
         [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
@@ -444,6 +476,27 @@
 - (void)conditionallyShowSettingsModal
 {
     [_sebViewController conditionallyShowSettingsModal];
+}
+
+- (IBAction)toggleScrollLock
+{
+    [_sebViewController toggleScrollLock];
+    [self updateScrollLockButtonStates];
+}
+
+- (void)updateScrollLockButtonStates
+{
+    if (_sebViewController.isScrollLockActive) {
+        _scrollLockButton.image = scrollLockIconLocked;
+        _scrollLockButton.tintColor = [UIColor systemYellowColor];
+        _sliderScrollLockItem.icon = sliderScrollLockIconLocked;
+        _sliderScrollLockItem.title = sliderScrollLockItemTitleLocked;
+    } else {
+        _scrollLockButton.image = scrollLockIcon;
+        _scrollLockButton.tintColor = nil;
+        _sliderScrollLockItem.icon = sliderScrollLockIcon;
+        _sliderScrollLockItem.title = sliderScrollLockItemTitle;
+    }
 }
 
 - (IBAction)backToStart

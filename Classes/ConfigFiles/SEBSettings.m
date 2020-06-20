@@ -350,6 +350,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableRightMouse",
                    
+                   @YES,
+                   @"enableScrollLock",
+                   
                    @NO,
                    @"enableStartMenu",
                    
@@ -646,6 +649,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"showScanQRCodeButton",
+                   
+                   @YES,
+                   @"showScrollLockButton",
                    
                    @NO,
                    @"showSettingsInApp",

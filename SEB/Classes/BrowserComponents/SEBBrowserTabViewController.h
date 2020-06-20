@@ -75,6 +75,8 @@
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *) documentsDirectoryPath;
 
+- (void) toggleScrollLock;
+@property (readonly) BOOL isScrollLockActive;
 - (void) backToStart;
 - (void) goBack;
 - (void) goForward;

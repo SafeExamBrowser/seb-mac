@@ -62,6 +62,7 @@
 @property (strong) NSString *currentURL;
 @property (strong) NSString *currentMainHost;
 @property (strong) NSURLRequest *currentRequest;
+@property (readonly) BOOL isScrollLockActive;
 
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
@@ -70,6 +71,7 @@
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *)tempDirectoryPath;
 
+- (void)toggleScrollLock;
 - (void)backToStart;
 - (void)goBack;
 - (void)goForward;
