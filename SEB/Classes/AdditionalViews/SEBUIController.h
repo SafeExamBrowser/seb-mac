@@ -50,6 +50,13 @@
     SEBSliderItem *sliderReloadButtonItem;
     SEBSliderItem *sliderProctoringViewButtonItem;
 
+    UIImage *scrollLockIcon;
+    UIImage *scrollLockIconLocked;
+    UIImage *sliderScrollLockIcon;
+    UIImage *sliderScrollLockIconLocked;
+    NSString *sliderScrollLockItemTitle;
+    NSString *sliderScrollLockItemTitleLocked;
+
     UIImage *ProctoringIconDefaultState;
     UIImage *ProctoringIconNormalState;
     UIImage *ProctoringIconWarningState;
@@ -68,6 +75,8 @@
 
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
+@property (nonatomic, strong) SEBSliderItem *sliderScrollLockItem;
+@property (nonatomic, strong) UIBarButtonItem *scrollLockButton;
 @property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
 @property (nonatomic, strong) UIBarButtonItem *proctoringViewButton;
 
@@ -92,6 +101,8 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
+
+- (void) updateScrollLockButtonStates;
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
                          userFeedback:(BOOL)userFeedback;

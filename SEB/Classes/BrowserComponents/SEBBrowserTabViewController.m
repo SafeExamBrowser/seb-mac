@@ -128,6 +128,16 @@
 }
 
 
+- (void) toggleScrollLock
+{
+    [_visibleWebViewController toggleScrollLock];
+}
+
+- (BOOL) isScrollLockActive
+{
+    return [_visibleWebViewController isScrollLockActive];
+}
+
 - (void) backToStart {
 //    [_visibleWebViewController backToStart];
     
@@ -341,6 +351,8 @@
     
     [_sebViewController activateReloadButtonsExamTab:index == 0];
 
+    [_sebViewController updateScrollLockButtonStates];
+    
     [_visibleWebViewController loadURL:url];
     
 //    self.searchBarController.url = url.absoluteString;
@@ -386,6 +398,9 @@
         
         // Update reload button depending if switching to exam or new tab
         [_sebViewController activateReloadButtonsExamTab:tabIndex == 0];
+        
+        // Update state of scroll lock buttons for the new webview
+        [_sebViewController updateScrollLockButtonStates];
         
         // Update title in toolbar according to new visible webview
         NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];

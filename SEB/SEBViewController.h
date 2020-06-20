@@ -325,6 +325,9 @@
 - (void) leftDrawerButtonPress:(id)sender;
 - (void) leftDrawerKeyShortcutPress:(id)sender;
 - (void) showAboutSEB;
+- (IBAction) toggleScrollLock;
+- (void) updateScrollLockButtonStates;
+@property (readonly) BOOL isScrollLockActive;
 - (IBAction) backToStart;
 - (IBAction) goBack;
 - (IBAction) goForward;
