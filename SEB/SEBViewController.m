@@ -3626,6 +3626,22 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
+- (IBAction)toggleScrollLock
+{
+    [_browserTabViewController toggleScrollLock];
+}
+
+- (void) updateScrollLockButtonStates
+{
+    [self.sebUIController updateScrollLockButtonStates];
+}
+
+- (BOOL) isScrollLockActive
+{
+    return [_browserTabViewController isScrollLockActive];
+}
+
+
 - (IBAction)backToStart
 {
     NSString *backToStartText = [self backToStartText];
