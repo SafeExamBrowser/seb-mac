@@ -15,8 +15,6 @@
 			<string>On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<integer>0</integer>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileStatusBarAppearance</string>
 			<key>Title</key>
@@ -39,8 +37,6 @@
 			<false/>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<integer>0</integer>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended</string>
 			<key>Title</key>
@@ -73,8 +69,6 @@
 			<string>Browser Toolbar</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_enableBrowserWindowToolbar</string>
-			<key>DefaultValue</key>
-			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -83,6 +77,22 @@
 			<string>SEB Dock</string>
 			<key>File</key>
 			<string>Dock</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Scroll Lock</string>
+			<key>FooterText</key>
+			<string>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Scroll Lock</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableScrollLock</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -99,8 +109,6 @@
 			<string>Allow Auto-Correction</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowSpellCheck</string>
-			<key>DefaultValue</key>
-			<false/>
 		</dict>
 	</array>
 </dict>
