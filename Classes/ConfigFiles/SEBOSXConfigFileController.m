@@ -244,6 +244,17 @@
 }
 
 
+- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText
+                                            title:(NSString *)title
+{
+    NSString *password = nil;
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+        password = [self.sebController.enterPassword stringValue];
+    }
+    return password;
+}
+
+
 - (void)showAlertWithError:(NSError *)error { 
     [NSApp presentError:error];
 }
