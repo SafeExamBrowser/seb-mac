@@ -38,15 +38,11 @@
 
 @implementation PreferencesWindow
 
-- (instancetype)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation;
+- (instancetype)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
 {
-     self = [super initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation];
+    self = [super initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation];
     if (self) {
-        if (@available(macOS 10.13, *)) {
-            [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSPasteboardTypeFileURL, nil]];
-        } else {
-            [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
-        }
+        [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
     }
     return self;
 }
@@ -63,23 +59,13 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
     NSPasteboard *pboard = [sender draggingPasteboard];
+    NSArray *filenames = [pboard propertyListForType:NSFilenamesPboardType];
     
-    if (@available(macOS 10.13, *)) {
-        if ( [[pboard types] containsObject:NSPasteboardTypeFileURL] ) {
-            NSURL *fileURL = [NSURL URLFromPasteboard:pboard];
-            if ([fileURL.pathExtension isEqualToString:@"seb"]) {
-                return [(SEBController *)[NSApp delegate] application:NSApp openFile:fileURL.absoluteString];
-            }
-        }
-    } else {
-        NSArray *filenames = [pboard propertyListForType:NSFilenamesPboardType];
-        
-        if (filenames.count == 1) {
-            if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
-                NSString *filename = [filenames lastObject];
-                if ([filename.pathExtension isEqualToString:@"seb"]) {
-                    return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
-                }
+    if (filenames.count == 1) {
+        if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
+            NSString *filename = [filenames lastObject];
+            if ([filename.pathExtension isEqualToString:@"seb"]) {
+                return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
             }
         }
     }
