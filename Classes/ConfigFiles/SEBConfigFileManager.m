@@ -881,7 +881,7 @@
     // We can only ask for the admin password if the SEBConfigUIDelegate implements a modal
     // password dialog. This isn't the case on iOS, but there this method never should be called
     // because opening SEB settings for editing isn't supported in SEB for iOS
-    if (![self.delegate respondsToSelector:@selector(promptPasswordWithMessageTextModal:)]) {
+    if (![self.delegate respondsToSelector:@selector(promptPasswordWithMessageTextModal:title:)]) {
         return false;
     }
     // Ask for a SEB administrator password and
@@ -895,7 +895,8 @@
     do {
         i--;
         // Prompt for password
-        password = [self.delegate promptPasswordWithMessageTextModal:NSLocalizedString(@"Loading settings",nil)];
+        password = [self.delegate promptPasswordWithMessageTextModal:[NSString stringWithFormat:NSLocalizedString(@"Enter the %@ administrator password used in these settings:",nil), SEBShortAppName]
+                                                               title:NSLocalizedString(@"Loading settings",nil)];
         if (!password) {
             // If cancel was pressed, abort
             return false;
