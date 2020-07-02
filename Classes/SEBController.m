@@ -522,8 +522,12 @@ bool insideMatrix(void);
     // a font download dialog which might be opened on some webpages
     keyboardEventReturnKey = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
     
-    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-    DDLogDebug(@"Installed get URL event handler");
+    if (@available(macOS 10.13, *)) {
+        DDLogDebug(@"Installing get URL event handler is not necessary, as running on macOS >= 10.13");
+    } else {
+        [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+        DDLogDebug(@"Installed get URL event handler");
+    }
 
     [[[NSWorkspace sharedWorkspace] notificationCenter]
      addObserver:self
@@ -557,13 +561,14 @@ bool insideMatrix(void);
         _openingSettings = true;
         if (_startingUp) {
             DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
-            _openingSettingsFilename = filename;
+            _openingSettingsFileURL = [NSURL URLWithString:filename];
         } else {
-            [self openFile:filename];
+            [self openFile:[NSURL fileURLWithPath:filename]];
         }
     }
     return YES;
 }
+
 
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
@@ -584,6 +589,31 @@ bool insideMatrix(void);
         _openingSettings = true;
         DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
         [self.browserController openConfigFromSEBURL:url];
+    }
+}
+
+
+- (void)application:(NSApplication *)sender openURLs:(nonnull NSArray<NSURL *> *)urls
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+
+    // Check if any alerts are open in SEB, abort opening if yes
+    if (_modalAlertWindows.count) {
+        DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
+        return;
+    }
+    
+    NSURL *url = urls.firstObject;
+    if (url.isFileURL) {
+        [self application:sender openFile:url.absoluteString];
+    } else {
+        if (url && !_openingSettings) {
+            // If we have any URL, we try to download and open (conditionally) a .seb file
+            // hopefully linked by this URL (also supporting redirections and authentification)
+            _openingSettings = true;
+            DDLogInfo(@"openURLs event: Loading .seb settings file with URL %@", url.absoluteString);
+            [self.browserController openConfigFromSEBURL:url];
+        }
     }
 }
 
@@ -623,10 +653,10 @@ bool insideMatrix(void);
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
     [self coverScreens];
 
-    if (_openingSettings && _openingSettingsFilename) {
-        DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFilename);
-        [self openFile:_openingSettingsFilename];
-        _openingSettingsFilename = nil;
+    if (_openingSettings && _openingSettingsFileURL) {
+        DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
+        [self openFile:_openingSettingsFileURL];
+        _openingSettingsFileURL = nil;
     }
     
     [self didFinishLaunchingWithSettings];
@@ -635,13 +665,11 @@ bool insideMatrix(void);
 
 #pragma mark - Open configuration file
 
-- (void)openFile:(NSString *)filename
+- (void)openFile:(NSURL *)sebFileURL
 {
-    DDLogDebug(@"%s Open file: %@", __FUNCTION__, filename);
+    DDLogDebug(@"%s Open file: %@", __FUNCTION__, sebFileURL.absoluteString);
     
-    NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
-    
-    DDLogInfo(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
+    DDLogInfo(@"Open file event: Loading .seb settings file with URL %@", sebFileURL);
     
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
