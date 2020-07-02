@@ -166,7 +166,7 @@
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL quittingMyself;
-@property(strong) NSString *openingSettingsFilename;
+@property(strong) NSURL *openingSettingsFileURL;
 
 @property(weak) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
