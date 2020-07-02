@@ -707,7 +707,8 @@ bool insideMatrix(void);
             return;
         }
         
-        NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+        NSError *error = nil;
+        NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
         
         // Get current config path
 //        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
