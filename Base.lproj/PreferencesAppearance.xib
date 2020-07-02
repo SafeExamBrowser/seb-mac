@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <deployment version="1090" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,613 +26,796 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Appearance Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="605"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="667" height="605"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" borderType="line" title="Main browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="540">
-                    <rect key="frame" x="17" y="372" width="616" height="88"/>
-                    <view key="contentView" id="FTd-Yu-Btn">
-                        <rect key="frame" x="1" y="1" width="614" height="72"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zt-BR-4CC">
+                    <rect key="frame" x="0.0" y="0.0" width="667" height="605"/>
+                    <clipView key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gog-Jg-8KC">
+                        <rect key="frame" x="1" y="1" width="650" height="588"/>
                         <subviews>
-                            <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="594">
-                                <rect key="frame" x="154" y="38" width="90" height="26"/>
+                            <view translatesAutoresizingMaskIntoConstraints="NO" id="cAp-z6-BlY">
+                                <rect key="frame" x="0.0" y="15" width="630" height="573"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rzv-jh-EaT">
+                                        <rect key="frame" x="0.0" y="0.0" width="630" height="573"/>
+                                        <subviews>
+                                            <box autoresizesSubviews="NO" borderType="line" title="Browser view mode" translatesAutoresizingMaskIntoConstraints="NO" id="Xr6-D9-xmk">
+                                                <rect key="frame" x="17" y="474" width="616" height="99"/>
+                                                <view key="contentView" id="w3t-Gm-6Pi">
+                                                    <rect key="frame" x="3" y="3" width="610" height="81"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5eg-9S-Z8y">
+                                                            <rect key="frame" x="11" y="15" width="588" height="58"/>
+                                                            <subviews>
+                                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EJo-Ey-7jK">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="588" height="58"/>
+                                                                    <subviews>
+                                                                        <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="287" height="58"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="58" id="IYm-P2-CKq"/>
+                                                                            </constraints>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            <size key="cellSize" width="223" height="18"/>
+                                                                            <size key="intercellSpacing" width="4" height="2"/>
+                                                                            <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="744">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <cells>
+                                                                                <column>
+                                                                                    <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="745">
+                                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                    </buttonCell>
+                                                                                    <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" inset="2" id="746">
+                                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                    </buttonCell>
+                                                                                    <buttonCell type="radio" title="Touch optimized (Win)" imagePosition="left" alignment="left" inset="2" id="qpg-Rd-u54">
+                                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                    </buttonCell>
+                                                                                </column>
+                                                                            </cells>
+                                                                            <connections>
+                                                                                <action selector="browserViewModeMatrix:" target="-2" id="jTa-qo-qhg"/>
+                                                                                <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="753">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </matrix>
+                                                                        <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="8IN-wN-3ta">
+                                                                            <rect key="frame" x="298" y="-3" width="292" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="09Z-lD-USh">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="ImE-zI-lQy"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="5eg-9S-Z8y" secondAttribute="trailing" constant="11" id="634-PJ-qc2"/>
+                                                        <constraint firstItem="5eg-9S-Z8y" firstAttribute="leading" secondItem="w3t-Gm-6Pi" secondAttribute="leading" constant="11" id="hNB-zK-VuU"/>
+                                                        <constraint firstItem="5eg-9S-Z8y" firstAttribute="top" secondItem="w3t-Gm-6Pi" secondAttribute="top" constant="8" id="uXg-bO-IrK"/>
+                                                    </constraints>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="95" id="RzL-qp-L0z"/>
+                                                </constraints>
+                                            </box>
+                                            <box autoresizesSubviews="NO" verticalHuggingPriority="249" borderType="line" title="Main browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="540">
+                                                <rect key="frame" x="17" y="387" width="616" height="81"/>
+                                                <view key="contentView" id="FTd-Yu-Btn">
+                                                    <rect key="frame" x="3" y="3" width="610" height="63"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="140" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HpY-00-VzE">
+                                                            <rect key="frame" x="11" y="8" width="588" height="47"/>
+                                                            <subviews>
+                                                                <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yZW-eB-fMw">
+                                                                    <rect key="frame" x="0.0" y="1" width="205" height="46"/>
+                                                                    <subviews>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bfo-ju-k3t">
+                                                                            <rect key="frame" x="71" y="27" width="134" height="19"/>
+                                                                            <subviews>
+                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="723">
+                                                                                    <rect key="frame" x="-2" y="2" width="40" height="16"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="724">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                                <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="594">
+                                                                                    <rect key="frame" x="44" y="-4" width="93" height="25"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="90" id="731"/>
+                                                                                    </constraints>
+                                                                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="3" id="611">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <objectValues>
+                                                                                            <string>50%</string>
+                                                                                            <string>100%</string>
+                                                                                            <string>800</string>
+                                                                                            <string>1000</string>
+                                                                                        </objectValues>
+                                                                                    </comboBoxCell>
+                                                                                    <connections>
+                                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="YzD-q5-GOo">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowWidth" id="729"/>
+                                                                                        <outlet property="nextKeyView" destination="596" id="cfc-Eu-Ai1"/>
+                                                                                    </connections>
+                                                                                </comboBox>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pzR-we-01h">
+                                                                            <rect key="frame" x="17" y="0.0" width="188" height="19"/>
+                                                                            <subviews>
+                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="597">
+                                                                                    <rect key="frame" x="-2" y="2" width="94" height="16"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="606">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                                <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="596">
+                                                                                    <rect key="frame" x="98" y="-4" width="93" height="25"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="90" id="nkt-Sq-IPZ"/>
+                                                                                    </constraints>
+                                                                                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="607">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <objectValues>
+                                                                                            <string>100%</string>
+                                                                                            <string>80%</string>
+                                                                                            <string>600</string>
+                                                                                            <string>800</string>
+                                                                                        </objectValues>
+                                                                                    </comboBoxCell>
+                                                                                    <connections>
+                                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="Eph-w2-sNd">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowHeight" id="730"/>
+                                                                                        <outlet property="nextKeyView" destination="DiJ-eI-WGU" id="uDT-j9-Jhg"/>
+                                                                                    </connections>
+                                                                                </comboBox>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                                <stackView distribution="fillProportionally" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1mF-uv-HQ9">
+                                                                    <rect key="frame" x="345" y="26" width="243" height="21"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="598">
+                                                                            <rect key="frame" x="-2" y="4" width="137" height="16"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="605">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <popUpButton toolTip="Position browser window on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="599">
+                                                                            <rect key="frame" x="139" y="-3" width="107" height="25"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="708"/>
+                                                                            </constraints>
+                                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="604" id="600">
+                                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <menu key="menu" id="601">
+                                                                                    <items>
+                                                                                        <menuItem state="on" id="604"/>
+                                                                                        <menuItem id="603"/>
+                                                                                        <menuItem id="602"/>
+                                                                                    </items>
+                                                                                </menu>
+                                                                            </popUpButtonCell>
+                                                                            <connections>
+                                                                                <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="737"/>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="832-KE-xVX">
+                                                                                    <dictionary key="options">
+                                                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                                <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowPositioning" previousBinding="737" id="738"/>
+                                                                            </connections>
+                                                                        </popUpButton>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="HpY-00-VzE" secondAttribute="bottom" constant="8" id="AAh-8H-UP8"/>
+                                                        <constraint firstAttribute="trailing" secondItem="HpY-00-VzE" secondAttribute="trailing" constant="11" id="Avc-d1-wrg"/>
+                                                        <constraint firstItem="HpY-00-VzE" firstAttribute="top" secondItem="FTd-Yu-Btn" secondAttribute="top" constant="8" id="H9j-3O-s7t"/>
+                                                        <constraint firstItem="HpY-00-VzE" firstAttribute="leading" secondItem="FTd-Yu-Btn" secondAttribute="leading" constant="11" id="sST-Fk-qdV"/>
+                                                    </constraints>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="77" id="YqG-8d-tCb"/>
+                                                </constraints>
+                                            </box>
+                                            <box autoresizesSubviews="NO" borderType="line" title="Browser Window Toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="d5d-zh-qxU">
+                                                <rect key="frame" x="17" y="303" width="616" height="78"/>
+                                                <view key="contentView" id="DNm-GU-yko">
+                                                    <rect key="frame" x="3" y="3" width="610" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIJ-T3-Uhi">
+                                                            <rect key="frame" x="11" y="18" width="588" height="34"/>
+                                                            <subviews>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7uq-m7-ijT">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="34"/>
+                                                                    <subviews>
+                                                                        <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" translatesAutoresizingMaskIntoConstraints="NO" id="371">
+                                                                            <rect key="frame" x="-2" y="18" width="211" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable browser window toolbar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="372">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="enableBrowserWindowToolbarButton:" target="-2" id="uOW-IG-c4f"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="382"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
+                                                                            <rect key="frame" x="18" y="-2" width="160" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="Dcv-uf-TA1">
+                                                                                    <dictionary key="options">
+                                                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                                                        <integer key="NSNullPlaceholder" value="-1"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_hideBrowserWindowToolbar" id="761">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="383" firstAttribute="leading" secondItem="7uq-m7-ijT" secondAttribute="leading" constant="20" id="WRu-Q4-Fjf"/>
+                                                                    </constraints>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                                <button toolTip="Show the macOS menu bar to allow accessing settings like Wi-Fi" translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                                                                    <rect key="frame" x="299" y="18" width="291" height="18"/>
+                                                                    <buttonCell key="cell" type="check" title="Show menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showMenuBar" id="281"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="zIJ-T3-Uhi" secondAttribute="trailing" constant="11" id="451-aK-s2h"/>
+                                                        <constraint firstItem="zIJ-T3-Uhi" firstAttribute="top" secondItem="DNm-GU-yko" secondAttribute="top" constant="8" id="d1b-Qm-MOx"/>
+                                                        <constraint firstItem="zIJ-T3-Uhi" firstAttribute="leading" secondItem="DNm-GU-yko" secondAttribute="leading" constant="11" id="qdP-m2-aBo"/>
+                                                    </constraints>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="74" id="ZFi-pv-t1t"/>
+                                                </constraints>
+                                            </box>
+                                            <box autoresizesSubviews="NO" borderType="line" title="SEB dock/taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
+                                                <rect key="frame" x="17" y="159" width="616" height="138"/>
+                                                <view key="contentView" id="cqS-Gs-8lG">
+                                                    <rect key="frame" x="3" y="3" width="610" height="120"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2G-CY-JF8">
+                                                            <rect key="frame" x="476" y="92.5" width="123" height="21"/>
+                                                            <subviews>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
+                                                                    <rect key="frame" x="-2" y="2" width="77" height="18"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="18" id="MQ9-I9-ll4"/>
+                                                                    </constraints>
+                                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
+                                                                    <rect key="frame" x="83" y="0.0" width="40" height="21"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
+                                                                    </constraints>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Ngq-60-2cc">
+                                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="Mo3-nk-rKF">
+                                                                            <real key="minimum" value="40"/>
+                                                                            <real key="maximum" value="256"/>
+                                                                        </numberFormatter>
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="t9a-eZ-CdG"/>
+                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="uOf-4w-fbs">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n2u-Xr-W3w">
+                                                            <rect key="frame" x="11" y="18" width="208" height="94"/>
+                                                            <subviews>
+                                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                                                                    <rect key="frame" x="-2" y="78" width="117" height="18"/>
+                                                                    <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</string>
+                                                                    <buttonCell key="cell" type="check" title="Show SEB dock" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="showTaskBarButton:" target="-2" id="BJM-L8-i03"/>
+                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="741">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIg-b3-KYb">
+                                                                    <rect key="frame" x="20" y="0.0" width="188" height="74"/>
+                                                                    <subviews>
+                                                                        <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="NYh-TA-SfI">
+                                                                            <rect key="frame" x="-2" y="58" width="174" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vAt-Tk-BEf">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWlan" id="Msa-GO-Oec"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Reloads current web page. Shows warning if enabled in Browser settings pane" translatesAutoresizingMaskIntoConstraints="NO" id="E2T-SZ-Z6U">
+                                                                            <rect key="frame" x="-2" y="38" width="140" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Show reload button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3wD-Cd-yYF">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showReloadButton" id="oOi-QJ-KuB"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Show current time" translatesAutoresizingMaskIntoConstraints="NO" id="VqV-Zw-hin">
+                                                                            <rect key="frame" x="-2" y="18" width="86" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6CP-QX-2NV">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTime" id="x9p-Aq-LZQ"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="cvI-1t-MPD">
+                                                                            <rect key="frame" x="-2" y="-2" width="192" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="LmJ-5H-c7O"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="DIg-b3-KYb" firstAttribute="leading" secondItem="n2u-Xr-W3w" secondAttribute="leading" constant="20" id="moO-bu-Usq"/>
+                                                            </constraints>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="n2u-Xr-W3w" firstAttribute="leading" secondItem="cqS-Gs-8lG" secondAttribute="leading" constant="11" id="Tfo-G4-Hii"/>
+                                                        <constraint firstItem="n2u-Xr-W3w" firstAttribute="top" secondItem="cqS-Gs-8lG" secondAttribute="top" constant="8" id="Uqh-PD-K5c"/>
+                                                    </constraints>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="134" id="Zsg-2a-Z2v"/>
+                                                </constraints>
+                                            </box>
+                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wBR-Rg-txm">
+                                                <rect key="frame" x="20" y="79" width="610" height="74"/>
+                                                <subviews>
+                                                    <box autoresizesSubviews="NO" borderType="line" title="Enable zoom (Mac/Win)" translatesAutoresizingMaskIntoConstraints="NO" id="VBE-Ah-xWx">
+                                                        <rect key="frame" x="-3" y="-4" width="301" height="78"/>
+                                                        <view key="contentView" id="ufX-Jf-5sT">
+                                                            <rect key="frame" x="3" y="3" width="295" height="60"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1N-NG-2fh">
+                                                                    <rect key="frame" x="11" y="18" width="273" height="34"/>
+                                                                    <subviews>
+                                                                        <button toolTip="Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
+                                                                            <rect key="frame" x="-2" y="18" width="134" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YEg-Qr-xf0">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="enablePageZoomButton:" target="-2" id="Sxc-mD-ZJd"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="qbh-Ts-jQp">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
+                                                                            <rect key="frame" x="-2" y="-2" width="127" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zfV-ml-478">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="enableTextZoomButton:" target="-2" id="gnX-tg-N2H"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="L4B-bb-wb6">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="h1N-NG-2fh" firstAttribute="top" secondItem="ufX-Jf-5sT" secondAttribute="top" constant="8" id="IyD-c4-PuM"/>
+                                                                <constraint firstItem="h1N-NG-2fh" firstAttribute="leading" secondItem="ufX-Jf-5sT" secondAttribute="leading" constant="11" id="WKJ-LI-YAg"/>
+                                                                <constraint firstAttribute="trailing" secondItem="h1N-NG-2fh" secondAttribute="trailing" constant="11" id="nED-di-T1P"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="295" id="bkR-ni-LYn"/>
+                                                        </constraints>
+                                                    </box>
+                                                    <box autoresizesSubviews="NO" borderType="line" title="Zoom mode Win (Ctrl-Mousewheel)" translatesAutoresizingMaskIntoConstraints="NO" id="eGR-0O-pYN">
+                                                        <rect key="frame" x="312" y="-4" width="301" height="78"/>
+                                                        <view key="contentView" id="1Ex-0F-GKu">
+                                                            <rect key="frame" x="3" y="3" width="295" height="60"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <matrix toolTip="Zoom whole web pages or just text using Ctrl-Mousewheel (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCR-0v-z7a">
+                                                                    <rect key="frame" x="11" y="14" width="273" height="38"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    <size key="cellSize" width="267" height="18"/>
+                                                                    <size key="intercellSpacing" width="4" height="2"/>
+                                                                    <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="WBf-bg-fBA">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <cells>
+                                                                        <column>
+                                                                            <buttonCell type="radio" title="Use page zoom" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="iqK-dQ-5mz">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <connections>
+                                                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="uPH-1p-SR9"/>
+                                                                                </connections>
+                                                                            </buttonCell>
+                                                                            <buttonCell type="radio" title="Use text zoom" imagePosition="left" alignment="left" inset="2" id="Hgy-sG-HYK">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <connections>
+                                                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="Koi-wB-kDd"/>
+                                                                                </connections>
+                                                                            </buttonCell>
+                                                                        </column>
+                                                                    </cells>
+                                                                    <connections>
+                                                                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_zoomMode" id="xSg-K4-3qn">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </matrix>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="yCR-0v-z7a" firstAttribute="top" secondItem="1Ex-0F-GKu" secondAttribute="top" constant="8" id="gaw-1r-6Um"/>
+                                                                <constraint firstAttribute="trailing" secondItem="yCR-0v-z7a" secondAttribute="trailing" constant="11" id="m8V-nz-ahb"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <constraints>
+                                                            <constraint firstItem="yCR-0v-z7a" firstAttribute="leading" secondItem="eGR-0O-pYN" secondAttribute="leading" constant="11" id="Bhc-CB-AAN"/>
+                                                            <constraint firstAttribute="width" constant="295" id="GtO-to-54z"/>
+                                                            <constraint firstAttribute="height" constant="74" id="lfn-vw-G5C"/>
+                                                        </constraints>
+                                                    </box>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="74" id="2PA-C6-zJq"/>
+                                                    <constraint firstItem="VBE-Ah-xWx" firstAttribute="top" secondItem="wBR-Rg-txm" secondAttribute="top" id="Z8D-Hn-hA5"/>
+                                                    <constraint firstAttribute="bottom" secondItem="VBE-Ah-xWx" secondAttribute="bottom" id="t4L-yM-nfd"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <box borderType="line" title="Spell Checker" translatesAutoresizingMaskIntoConstraints="NO" id="vMQ-fj-dzo">
+                                                <rect key="frame" x="17" y="11" width="616" height="58"/>
+                                                <view key="contentView" id="RqZ-6v-9OK">
+                                                    <rect key="frame" x="3" y="3" width="610" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="174" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="D76-uX-3Zd">
+                                                            <rect key="frame" x="11" y="12" width="588" height="20"/>
+                                                            <subviews>
+                                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ed5-Hx-UyH">
+                                                                    <rect key="frame" x="0.0" y="3" width="588" height="14"/>
+                                                                    <subviews>
+                                                                        <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="2KI-tS-neq">
+                                                                            <rect key="frame" x="-2" y="-2" width="291" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Allow spell checking" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="9oR-jn-THC">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="NOB-hj-Urb"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Allow looking up text elements on a web site using the 3-finger tap on a trackpad" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
+                                                                            <rect key="frame" x="299" y="-2" width="291" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Allow dictionary look up" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iYV-Zg-Pat">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictionaryLookup" id="SdL-Ts-JPM"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="ed5-Hx-UyH" secondAttribute="trailing" id="7ZE-pk-ayU"/>
+                                                                <constraint firstItem="ed5-Hx-UyH" firstAttribute="top" secondItem="D76-uX-3Zd" secondAttribute="top" constant="3" id="Ne6-6O-edZ"/>
+                                                                <constraint firstItem="ed5-Hx-UyH" firstAttribute="leading" secondItem="D76-uX-3Zd" secondAttribute="leading" id="Zr7-6K-fWK"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ed5-Hx-UyH" secondAttribute="bottom" constant="3" id="c7g-E7-T8r"/>
+                                                            </constraints>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="D76-uX-3Zd" firstAttribute="leading" secondItem="RqZ-6v-9OK" secondAttribute="leading" constant="11" id="Cxs-3Y-804"/>
+                                                        <constraint firstItem="D76-uX-3Zd" firstAttribute="top" secondItem="RqZ-6v-9OK" secondAttribute="top" constant="8" id="DMz-Nx-PtK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="D76-uX-3Zd" secondAttribute="trailing" constant="11" id="nQp-Tk-HLj"/>
+                                                    </constraints>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="y2j-FP-zi5"/>
+                                                </constraints>
+                                            </box>
+                                        </subviews>
+                                        <edgeInsets key="edgeInsets" left="20" right="20" top="0.0" bottom="15"/>
+                                        <constraints>
+                                            <constraint firstItem="wBR-Rg-txm" firstAttribute="leading" secondItem="Rzv-jh-EaT" secondAttribute="leading" constant="20" id="9YU-s6-Gdp"/>
+                                            <constraint firstAttribute="trailing" secondItem="wBR-Rg-txm" secondAttribute="trailing" id="DyT-4v-Hga"/>
+                                            <constraint firstAttribute="trailing" secondItem="vMQ-fj-dzo" secondAttribute="trailing" id="cBy-fS-RF3"/>
+                                            <constraint firstAttribute="trailing" secondItem="d5d-zh-qxU" secondAttribute="trailing" id="eK1-Kz-HfE"/>
+                                            <constraint firstAttribute="trailing" secondItem="Q3v-Xi-ylG" secondAttribute="trailing" id="fzs-J7-hAZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="540" secondAttribute="trailing" id="tS4-g7-IJ8"/>
+                                            <constraint firstAttribute="trailing" secondItem="Xr6-D9-xmk" secondAttribute="trailing" id="x7m-qJ-UCb"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="87" id="731"/>
+                                    <constraint firstAttribute="trailing" secondItem="Rzv-jh-EaT" secondAttribute="trailing" id="Ba1-ny-Av5"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rzv-jh-EaT" secondAttribute="bottom" id="RI1-B5-cVs"/>
+                                    <constraint firstItem="Rzv-jh-EaT" firstAttribute="top" secondItem="cAp-z6-BlY" secondAttribute="top" id="uYD-u8-aD9"/>
+                                    <constraint firstItem="Rzv-jh-EaT" firstAttribute="leading" secondItem="cAp-z6-BlY" secondAttribute="leading" id="x2j-pg-4Wd"/>
                                 </constraints>
-                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="3" id="611">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <objectValues>
-                                        <string>50%</string>
-                                        <string>100%</string>
-                                        <string>800</string>
-                                        <string>1000</string>
-                                    </objectValues>
-                                </comboBoxCell>
-                                <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="YzD-q5-GOo">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowWidth" id="729"/>
-                                    <outlet property="nextKeyView" destination="596" id="cfc-Eu-Ai1"/>
-                                </connections>
-                            </comboBox>
-                            <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="596">
-                                <rect key="frame" x="154" y="10" width="90" height="26"/>
-                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="607">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <objectValues>
-                                        <string>100%</string>
-                                        <string>80%</string>
-                                        <string>600</string>
-                                        <string>800</string>
-                                    </objectValues>
-                                </comboBoxCell>
-                                <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="Eph-w2-sNd">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowHeight" id="730"/>
-                                    <outlet property="nextKeyView" destination="DiJ-eI-WGU" id="uDT-j9-Jhg"/>
-                                </connections>
-                            </comboBox>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="597">
-                                <rect key="frame" x="103" y="14" width="45" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="606">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="598">
-                                <rect key="frame" x="351" y="42" width="137" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="605">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton toolTip="Position browser window on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="599">
-                                <rect key="frame" x="492" y="35" width="107" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="708"/>
-                                </constraints>
-                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="604" id="600">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="601">
-                                        <items>
-                                            <menuItem state="on" id="604"/>
-                                            <menuItem id="603"/>
-                                            <menuItem id="602"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="737"/>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="832-KE-xVX">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowPositioning" previousBinding="737" id="738"/>
-                                </connections>
-                            </popUpButton>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="723">
-                                <rect key="frame" x="108" y="42" width="40" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="724">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="597" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FTd-Yu-Btn" secondAttribute="leading" constant="20" symbolic="YES" id="EZu-G3-rTG"/>
-                            <constraint firstItem="723" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FTd-Yu-Btn" secondAttribute="leading" constant="20" symbolic="YES" id="pS2-gf-GfR"/>
+                            <constraint firstItem="cAp-z6-BlY" firstAttribute="leading" secondItem="gog-Jg-8KC" secondAttribute="leading" id="ElW-DV-NQz"/>
+                            <constraint firstAttribute="trailing" secondItem="cAp-z6-BlY" secondAttribute="trailing" constant="15" id="PEI-kd-Lxi"/>
+                            <constraint firstItem="cAp-z6-BlY" firstAttribute="top" secondItem="gog-Jg-8KC" secondAttribute="top" id="ukx-Dm-xnI"/>
+                            <constraint firstAttribute="bottom" secondItem="cAp-z6-BlY" secondAttribute="bottom" constant="15" id="yvl-pY-roW"/>
                         </constraints>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="723" firstAttribute="baseline" secondItem="594" secondAttribute="baseline" id="3WF-Bo-Kqw"/>
-                        <constraint firstItem="596" firstAttribute="trailing" secondItem="594" secondAttribute="trailing" id="7D8-Um-qWw"/>
-                        <constraint firstItem="594" firstAttribute="top" secondItem="540" secondAttribute="top" constant="25" id="EYe-ww-ZEf"/>
-                        <constraint firstItem="598" firstAttribute="baseline" secondItem="594" secondAttribute="baseline" id="EoT-VB-08K"/>
-                        <constraint firstItem="599" firstAttribute="leading" secondItem="598" secondAttribute="trailing" constant="8" symbolic="YES" id="LZp-GJ-0Ty"/>
-                        <constraint firstAttribute="bottom" secondItem="597" secondAttribute="bottom" constant="11" id="Pgf-9R-Zfa"/>
-                        <constraint firstItem="596" firstAttribute="leading" secondItem="597" secondAttribute="trailing" constant="8" symbolic="YES" id="PiO-PP-MXt"/>
-                        <constraint firstItem="599" firstAttribute="baseline" secondItem="598" secondAttribute="baseline" id="W10-wM-UO6"/>
-                        <constraint firstItem="594" firstAttribute="leading" secondItem="596" secondAttribute="leading" id="Xyg-10-Ka0"/>
-                        <constraint firstItem="598" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="594" secondAttribute="trailing" constant="8" symbolic="YES" id="bRv-Cd-DIW"/>
-                        <constraint firstItem="594" firstAttribute="leading" secondItem="540" secondAttribute="leading" constant="152" id="cxz-Ii-utd"/>
-                        <constraint firstAttribute="trailing" secondItem="599" secondAttribute="trailing" constant="16" id="dB5-U3-yWa"/>
-                        <constraint firstAttribute="bottom" secondItem="596" secondAttribute="bottom" constant="11" id="eo7-5j-UHc"/>
-                        <constraint firstItem="596" firstAttribute="top" secondItem="594" secondAttribute="bottom" constant="8" symbolic="YES" id="rmB-QI-wkf"/>
-                        <constraint firstItem="596" firstAttribute="leading" secondItem="540" secondAttribute="leading" constant="152" id="wgi-cb-EWA"/>
-                        <constraint firstItem="594" firstAttribute="leading" secondItem="723" secondAttribute="trailing" constant="8" symbolic="YES" id="zTp-qI-bki"/>
-                    </constraints>
-                </box>
-                <box autoresizesSubviews="NO" borderType="line" title="Browser view mode" translatesAutoresizingMaskIntoConstraints="NO" id="Xr6-D9-xmk">
-                    <rect key="frame" x="17" y="471" width="301" height="119"/>
-                    <view key="contentView" id="w3t-Gm-6Pi">
-                        <rect key="frame" x="1" y="1" width="299" height="103"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="8IN-wN-3ta">
-                                <rect key="frame" x="29" y="14" width="144" height="18"/>
-                                <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="09Z-lD-USh">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="ImE-zI-lQy"/>
-                                </connections>
-                            </button>
-                            <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
-                                <rect key="frame" x="18" y="35" width="223" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="IYm-P2-CKq"/>
-                                </constraints>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                <size key="cellSize" width="223" height="18"/>
-                                <size key="intercellSpacing" width="4" height="2"/>
-                                <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="744">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <cells>
-                                    <column>
-                                        <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="745">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" inset="2" id="746">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <buttonCell type="radio" title="Touch optimized (Win)" imagePosition="left" alignment="left" inset="2" id="qpg-Rd-u54">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </column>
-                                </cells>
-                                <connections>
-                                    <action selector="browserViewModeMatrix:" target="-2" id="jTa-qo-qhg"/>
-                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="753">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </matrix>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="743" secondAttribute="trailing" constant="20" symbolic="YES" id="m5R-gq-d12"/>
-                        </constraints>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="8IN-wN-3ta" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="30" id="4wR-IZ-wJA"/>
-                        <constraint firstItem="8IN-wN-3ta" firstAttribute="top" secondItem="743" secondAttribute="bottom" constant="6" id="Jz0-63-BFN"/>
-                        <constraint firstItem="743" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="top" constant="25" id="QPj-l0-Ni2"/>
-                        <constraint firstAttribute="bottom" secondItem="8IN-wN-3ta" secondAttribute="bottom" constant="14" id="XzC-6Y-Qa6"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8IN-wN-3ta" secondAttribute="trailing" constant="11" id="eTF-4F-QNc"/>
-                        <constraint firstItem="743" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="16" id="n0k-Rw-tf4"/>
-                    </constraints>
-                </box>
-                <box autoresizesSubviews="NO" borderType="line" title="SEB dock/taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
-                    <rect key="frame" x="17" y="134" width="616" height="138"/>
-                    <view key="contentView" id="cqS-Gs-8lG">
-                        <rect key="frame" x="1" y="1" width="614" height="122"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
-                                <rect key="frame" x="561" y="94" width="40" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Ngq-60-2cc">
-                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="Mo3-nk-rKF">
-                                        <real key="minimum" value="40"/>
-                                        <real key="maximum" value="256"/>
-                                    </numberFormatter>
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="t9a-eZ-CdG"/>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="uOf-4w-fbs">
-                                        <dictionary key="options">
-                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                            <bool key="NSValidatesImmediately" value="YES"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
-                                <rect key="frame" x="476" y="95" width="77" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="MQ9-I9-ll4"/>
-                                </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                                <rect key="frame" x="11" y="95" width="117" height="18"/>
-                                <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</string>
-                                <buttonCell key="cell" type="check" title="Show SEB dock" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="showTaskBarButton:" target="-2" id="BJM-L8-i03"/>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="741">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
-                            <button toolTip="Reloads current web page. Shows warning if enabled in Browser settings pane" translatesAutoresizingMaskIntoConstraints="NO" id="E2T-SZ-Z6U">
-                                <rect key="frame" x="30" y="55" width="140" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show reload button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3wD-Cd-yYF">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showReloadButton" id="oOi-QJ-KuB"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Show current time" translatesAutoresizingMaskIntoConstraints="NO" id="VqV-Zw-hin">
-                                <rect key="frame" x="30" y="35" width="86" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6CP-QX-2NV">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTime" id="x9p-Aq-LZQ"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="cvI-1t-MPD">
-                                <rect key="frame" x="30" y="15" width="192" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="LmJ-5H-c7O"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="NYh-TA-SfI">
-                                <rect key="frame" x="30" y="75" width="174" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vAt-Tk-BEf">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWlan" id="Msa-GO-Oec"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VqV-Zw-hin" secondAttribute="trailing" constant="20" symbolic="YES" id="2ii-FN-Lrv"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cvI-1t-MPD" secondAttribute="trailing" constant="20" symbolic="YES" id="6Zj-OM-CR9"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NYh-TA-SfI" secondAttribute="trailing" constant="20" symbolic="YES" id="cGa-aS-BF7"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="E2T-SZ-Z6U" secondAttribute="trailing" constant="20" symbolic="YES" id="iSw-HU-qqG"/>
-                        </constraints>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="E2T-SZ-Z6U" firstAttribute="top" secondItem="NYh-TA-SfI" secondAttribute="bottom" constant="6" id="185-PN-szP"/>
-                        <constraint firstItem="RFK-qQ-lel" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="D86-by-nkt"/>
-                        <constraint firstItem="RFK-qQ-lel" firstAttribute="baseline" secondItem="DiJ-eI-WGU" secondAttribute="baseline" constant="2" id="Drx-8d-9iV"/>
-                        <constraint firstItem="NYh-TA-SfI" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" id="HjI-Da-7MW"/>
-                        <constraint firstItem="E2T-SZ-Z6U" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="IbE-zS-0F6"/>
-                        <constraint firstItem="VqV-Zw-hin" firstAttribute="top" secondItem="E2T-SZ-Z6U" secondAttribute="bottom" constant="6" id="N66-bj-228"/>
-                        <constraint firstItem="cvI-1t-MPD" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="Ycd-oB-YiD"/>
-                        <constraint firstItem="76" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="11" id="djJ-68-JPR"/>
-                        <constraint firstItem="cvI-1t-MPD" firstAttribute="top" secondItem="VqV-Zw-hin" secondAttribute="bottom" constant="6" id="fg7-Hx-WvK"/>
-                        <constraint firstItem="76" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="top" constant="26" id="grm-Tb-bDy"/>
-                        <constraint firstAttribute="bottom" secondItem="cvI-1t-MPD" secondAttribute="bottom" constant="14" id="j72-bU-xj6"/>
-                        <constraint firstItem="DiJ-eI-WGU" firstAttribute="leading" secondItem="RFK-qQ-lel" secondAttribute="trailing" constant="10" id="lxY-nJ-qRC"/>
-                        <constraint firstItem="DiJ-eI-WGU" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="top" constant="21" id="oMC-kZ-0ZM"/>
-                        <constraint firstItem="VqV-Zw-hin" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="pZQ-Z7-Idt"/>
-                        <constraint firstAttribute="trailing" secondItem="DiJ-eI-WGU" secondAttribute="trailing" constant="11" id="vuJ-ny-84r"/>
-                        <constraint firstItem="NYh-TA-SfI" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="zXT-s0-caZ"/>
-                    </constraints>
-                </box>
-                <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="2KI-tS-neq">
-                    <rect key="frame" x="18" y="18" width="145" height="18"/>
-                    <buttonCell key="cell" type="check" title="Allow spell checking" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="9oR-jn-THC">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="NOB-hj-Urb"/>
-                    </connections>
-                </button>
-                <box autoresizesSubviews="NO" borderType="line" title="Enable zoom (Mac/Win)" translatesAutoresizingMaskIntoConstraints="NO" id="VBE-Ah-xWx">
-                    <rect key="frame" x="17" y="45" width="301" height="78"/>
-                    <view key="contentView" id="ufX-Jf-5sT">
-                        <rect key="frame" x="1" y="1" width="299" height="62"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button toolTip="Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
-                                <rect key="frame" x="11" y="35" width="134" height="18"/>
-                                <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YEg-Qr-xf0">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="enablePageZoomButton:" target="-2" id="Sxc-mD-ZJd"/>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="qbh-Ts-jQp">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
-                            <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
-                                <rect key="frame" x="11" y="15" width="127" height="18"/>
-                                <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zfV-ml-478">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="enableTextZoomButton:" target="-2" id="gnX-tg-N2H"/>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="L4B-bb-wb6">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="baa-Wm-1db" secondAttribute="trailing" constant="20" symbolic="YES" id="lgO-te-QAz"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S0v-zb-D4L" secondAttribute="trailing" constant="20" symbolic="YES" id="tW6-bq-nhA"/>
-                        </constraints>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="S0v-zb-D4L" firstAttribute="top" secondItem="baa-Wm-1db" secondAttribute="bottom" constant="6" id="0nM-xd-qaR"/>
-                        <constraint firstAttribute="bottom" secondItem="S0v-zb-D4L" secondAttribute="bottom" constant="14" id="ANg-Kb-fUR"/>
-                        <constraint firstItem="baa-Wm-1db" firstAttribute="top" secondItem="VBE-Ah-xWx" secondAttribute="top" constant="26" id="DPc-e0-efG"/>
-                        <constraint firstItem="baa-Wm-1db" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="leading" constant="11" id="KKS-8p-xg9"/>
-                        <constraint firstItem="S0v-zb-D4L" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="leading" constant="11" id="SQC-wj-I1M"/>
-                        <constraint firstAttribute="width" constant="295" id="bkR-ni-LYn"/>
-                    </constraints>
-                </box>
-                <box autoresizesSubviews="NO" borderType="line" title="Zoom mode Win (Ctrl-Mousewheel)" translatesAutoresizingMaskIntoConstraints="NO" id="eGR-0O-pYN">
-                    <rect key="frame" x="332" y="45" width="301" height="78"/>
-                    <view key="contentView" id="1Ex-0F-GKu">
-                        <rect key="frame" x="1" y="1" width="299" height="62"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <matrix toolTip="Zoom whole web pages or just text using Ctrl-Mousewheel (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCR-0v-z7a">
-                                <rect key="frame" x="13" y="15" width="273" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="TrX-AT-ZeX"/>
-                                </constraints>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                <size key="cellSize" width="267" height="18"/>
-                                <size key="intercellSpacing" width="4" height="2"/>
-                                <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="WBf-bg-fBA">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <cells>
-                                    <column>
-                                        <buttonCell type="radio" title="Use page zoom" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="iqK-dQ-5mz">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="uPH-1p-SR9"/>
-                                            </connections>
-                                        </buttonCell>
-                                        <buttonCell type="radio" title="Use text zoom" imagePosition="left" alignment="left" inset="2" id="Hgy-sG-HYK">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="Koi-wB-kDd"/>
-                                            </connections>
-                                        </buttonCell>
-                                    </column>
-                                </cells>
-                                <connections>
-                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_zoomMode" id="xSg-K4-3qn">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </matrix>
-                        </subviews>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="yCR-0v-z7a" firstAttribute="leading" secondItem="eGR-0O-pYN" secondAttribute="leading" constant="11" id="Bhc-CB-AAN"/>
-                        <constraint firstAttribute="width" constant="295" id="GtO-to-54z"/>
-                        <constraint firstAttribute="trailing" secondItem="yCR-0v-z7a" secondAttribute="trailing" constant="11" id="kCL-Q3-uOW"/>
-                        <constraint firstAttribute="bottom" secondItem="yCR-0v-z7a" secondAttribute="bottom" constant="12" id="t9m-bY-dpC"/>
-                        <constraint firstItem="yCR-0v-z7a" firstAttribute="top" secondItem="eGR-0O-pYN" secondAttribute="top" constant="24" id="xlV-Xu-830"/>
-                    </constraints>
-                </box>
-                <box autoresizesSubviews="NO" borderType="line" title="Browser Window Toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="d5d-zh-qxU">
-                    <rect key="frame" x="17" y="283" width="616" height="78"/>
-                    <view key="contentView" id="DNm-GU-yko">
-                        <rect key="frame" x="1" y="1" width="614" height="62"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" translatesAutoresizingMaskIntoConstraints="NO" id="371">
-                                <rect key="frame" x="11" y="35" width="211" height="18"/>
-                                <buttonCell key="cell" type="check" title="Enable browser window toolbar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="372">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="enableBrowserWindowToolbarButton:" target="-2" id="uOW-IG-c4f"/>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="382"/>
-                                </connections>
-                            </button>
-                            <button toolTip="Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
-                                <rect key="frame" x="30" y="15" width="160" height="18"/>
-                                <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="Dcv-uf-TA1">
-                                        <dictionary key="options">
-                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                            <integer key="NSNullPlaceholder" value="-1"/>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_hideBrowserWindowToolbar" id="761">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                            <bool key="NSValidatesImmediately" value="YES"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
-                            <button toolTip="Show the macOS menu bar to allow accessing settings like Wi-Fi" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                                <rect key="frame" x="315" y="35" width="116" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showMenuBar" id="281"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="13" firstAttribute="leading" secondItem="DNm-GU-yko" secondAttribute="trailing" constant="-297" id="DYt-Ng-Z3d"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="383" secondAttribute="trailing" constant="20" symbolic="YES" id="c8T-H8-U9Y"/>
-                        </constraints>
-                    </view>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="383" secondAttribute="bottom" constant="14" id="0Lh-J2-jce"/>
-                        <constraint firstItem="13" firstAttribute="top" secondItem="d5d-zh-qxU" secondAttribute="top" constant="26" id="DgF-Xd-3eU"/>
-                        <constraint firstItem="371" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="Pti-Vz-N69"/>
-                        <constraint firstItem="13" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="371" secondAttribute="trailing" constant="20" id="RkR-tR-SII"/>
-                        <constraint firstItem="371" firstAttribute="top" secondItem="d5d-zh-qxU" secondAttribute="top" constant="26" id="Toa-8A-uGe"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="13" secondAttribute="trailing" constant="11" id="fu2-hS-a4m"/>
-                        <constraint firstItem="383" firstAttribute="leading" secondItem="d5d-zh-qxU" secondAttribute="leading" constant="30" id="gnh-2z-EWs"/>
-                        <constraint firstItem="371" firstAttribute="leading" secondItem="d5d-zh-qxU" secondAttribute="leading" constant="11" id="ry6-Dq-hJI"/>
-                        <constraint firstItem="383" firstAttribute="top" secondItem="371" secondAttribute="bottom" constant="6" id="wHm-oJ-X84"/>
-                    </constraints>
-                </box>
-                <button toolTip="Allow looking up text elements on a web site using the 3-finger tap on a trackpad" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
-                    <rect key="frame" x="333" y="18" width="167" height="18"/>
-                    <buttonCell key="cell" type="check" title="Allow dictionary look up" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iYV-Zg-Pat">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictionaryLookup" id="SdL-Ts-JPM"/>
-                    </connections>
-                </button>
-                <box autoresizesSubviews="NO" borderType="line" title="Automatic on-screen keyboard behavior (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-Yr-UT7">
-                    <rect key="frame" x="332" y="471" width="301" height="119"/>
-                    <view key="contentView" id="Yx6-Bp-e0B">
-                        <rect key="frame" x="1" y="1" width="299" height="103"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <matrix toolTip="Sets how the on-screen keyboard is displayed when selecting a text field in the touch optimized mode on tablets (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w24-FI-jsH">
-                                <rect key="frame" x="18" y="35" width="263" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="9LC-Ah-Zqg"/>
-                                </constraints>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                <size key="cellSize" width="263" height="18"/>
-                                <size key="intercellSpacing" width="4" height="2"/>
-                                <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="XP7-99-gJu">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <cells>
-                                    <column>
-                                        <buttonCell type="radio" title="Always show" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="mvM-mc-Uty">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="AcW-v5-NlJ"/>
-                                            </connections>
-                                        </buttonCell>
-                                        <buttonCell type="radio" title="Never show" imagePosition="left" alignment="left" inset="2" id="hAx-4j-pP9">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="6MJ-1g-MKe"/>
-                                            </connections>
-                                        </buttonCell>
-                                        <buttonCell type="radio" title="Detect physical keyboard" imagePosition="left" alignment="left" inset="2" id="olD-Iu-XnX">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </column>
-                                </cells>
-                                <connections>
-                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_oskBehavior" id="hmU-q5-1Vq">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </matrix>
-                        </subviews>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="w24-FI-jsH" firstAttribute="leading" secondItem="gKH-Yr-UT7" secondAttribute="leading" constant="16" id="2dX-KB-sIM"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w24-FI-jsH" secondAttribute="trailing" constant="16" id="9Pc-A9-FRP"/>
-                        <constraint firstAttribute="bottom" secondItem="w24-FI-jsH" secondAttribute="bottom" constant="32" id="JH8-pY-4Qz"/>
-                        <constraint firstItem="w24-FI-jsH" firstAttribute="top" secondItem="gKH-Yr-UT7" secondAttribute="top" constant="25" id="XOm-ri-jm3"/>
-                        <constraint firstAttribute="width" constant="295" id="zyK-mF-1KF"/>
-                    </constraints>
-                </box>
+                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="c4O-O8-cxs">
+                        <rect key="frame" x="1" y="589" width="650" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="b8O-Lq-LsF">
+                        <rect key="frame" x="651" y="1" width="15" height="588"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
             </subviews>
             <constraints>
-                <constraint firstItem="540" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="542"/>
-                <constraint firstAttribute="trailing" secondItem="540" secondAttribute="trailing" constant="20" id="559"/>
-                <constraint firstItem="d5d-zh-qxU" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="15" id="0KW-G3-PRd"/>
-                <constraint firstItem="eGR-0O-pYN" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="4Vb-7h-293"/>
-                <constraint firstItem="mbj-mD-F32" firstAttribute="top" secondItem="eGR-0O-pYN" secondAttribute="bottom" constant="15" id="BAI-Wp-i4d"/>
-                <constraint firstAttribute="trailing" secondItem="gKH-Yr-UT7" secondAttribute="trailing" constant="20" id="Bp3-WF-lD4"/>
-                <constraint firstItem="mbj-mD-F32" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2KI-tS-neq" secondAttribute="trailing" constant="20" id="FPg-XV-mG9"/>
-                <constraint firstItem="VBE-Ah-xWx" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="IaV-rQ-53E"/>
-                <constraint firstItem="gKH-Yr-UT7" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="NLv-JJ-gUa"/>
-                <constraint firstItem="2KI-tS-neq" firstAttribute="top" secondItem="VBE-Ah-xWx" secondAttribute="bottom" constant="15" id="PTJ-aD-CtY"/>
-                <constraint firstItem="2KI-tS-neq" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Pcz-AM-66S"/>
-                <constraint firstItem="eGR-0O-pYN" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="trailing" constant="20" id="RzO-bC-W8E"/>
-                <constraint firstAttribute="trailing" secondItem="d5d-zh-qxU" secondAttribute="trailing" constant="20" id="U4d-Ts-j4I"/>
-                <constraint firstItem="Q3v-Xi-ylG" firstAttribute="top" secondItem="d5d-zh-qxU" secondAttribute="bottom" constant="15" id="VjS-RC-eDS"/>
-                <constraint firstAttribute="bottom" secondItem="2KI-tS-neq" secondAttribute="bottom" constant="20" id="YYA-un-4cf"/>
-                <constraint firstItem="Xr6-D9-xmk" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="ZcR-R0-gxS"/>
-                <constraint firstItem="mbj-mD-F32" firstAttribute="leading" secondItem="eGR-0O-pYN" secondAttribute="leading" id="bxO-67-def"/>
-                <constraint firstItem="540" firstAttribute="top" secondItem="gKH-Yr-UT7" secondAttribute="bottom" constant="15" id="cRz-op-U2w"/>
-                <constraint firstAttribute="bottom" secondItem="mbj-mD-F32" secondAttribute="bottom" constant="20" id="dao-gv-zqe"/>
-                <constraint firstItem="d5d-zh-qxU" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="gec-YD-0h1"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mbj-mD-F32" secondAttribute="trailing" constant="20" id="keL-yz-9yL"/>
-                <constraint firstItem="gKH-Yr-UT7" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="trailing" constant="20" id="knl-4x-chd"/>
-                <constraint firstItem="540" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="bottom" constant="15" id="mj8-B2-jAa"/>
-                <constraint firstItem="Q3v-Xi-ylG" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="nA1-7S-hPq"/>
-                <constraint firstAttribute="trailing" secondItem="eGR-0O-pYN" secondAttribute="trailing" constant="20" id="oQS-bh-HcE"/>
-                <constraint firstItem="VBE-Ah-xWx" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="uPW-FW-Nxi"/>
-                <constraint firstItem="Xr6-D9-xmk" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="yVI-7K-0yQ"/>
-                <constraint firstAttribute="trailing" secondItem="Q3v-Xi-ylG" secondAttribute="trailing" constant="20" id="zPg-iu-rdN"/>
+                <constraint firstAttribute="trailing" secondItem="2zt-BR-4CC" secondAttribute="trailing" id="AHG-ql-fkN"/>
+                <constraint firstItem="2zt-BR-4CC" firstAttribute="top" secondItem="1" secondAttribute="top" id="JuA-nD-MD7"/>
+                <constraint firstItem="2zt-BR-4CC" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="WaM-cl-vdu"/>
+                <constraint firstAttribute="bottom" secondItem="2zt-BR-4CC" secondAttribute="bottom" id="syc-mW-3Zh"/>
             </constraints>
-            <point key="canvasLocation" x="368" y="593"/>
+            <point key="canvasLocation" x="368" y="592.5"/>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>

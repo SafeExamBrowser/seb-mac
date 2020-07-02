@@ -134,9 +134,10 @@
 
 /**
  * @brief       Delegate method to display an enter password dialog with the
- *              passed message text modally
+ *              passed message text and title modally
  */
-- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText;
+- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText
+                                            title:(NSString *)title;
 
 /**
  * @brief       Delegate method to fetch persisted client settings
