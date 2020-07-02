@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,17 +28,17 @@
                     <clipView key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bcI-T6-8hm">
                         <rect key="frame" x="1" y="1" width="650" height="685"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="1048"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="1000"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                                        <rect key="frame" x="17" y="800" width="616" height="233"/>
+                                        <rect key="frame" x="17" y="752" width="616" height="233"/>
                                         <view key="contentView" id="25R-Li-36g">
-                                            <rect key="frame" x="3" y="3" width="610" height="213"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="215"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
-                                                    <rect key="frame" x="11" y="16" width="588" height="189"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="189"/>
                                                     <subviews>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
                                                             <rect key="frame" x="-2" y="173" width="328" height="18"/>
@@ -71,7 +71,7 @@
                                                                             <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                                                                             <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <font key="font" metaFont="message" size="11"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="W4K-bF-fFI"/>
@@ -105,7 +105,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
-                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -154,7 +154,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
-                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation).</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -206,16 +206,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="229" id="4cC-MC-v7j"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                                        <rect key="frame" x="17" y="667" width="616" height="119"/>
+                                        <rect key="frame" x="17" y="627" width="616" height="119"/>
                                         <view key="contentView" id="Bon-Cy-DW3">
-                                            <rect key="frame" x="3" y="3" width="610" height="99"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="101"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
-                                                    <rect key="frame" x="11" y="16" width="588" height="75"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="75"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="BME-1F-4b7">
                                                             <rect key="frame" x="0.0" y="23" width="588" height="52"/>
@@ -241,7 +240,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
-                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -325,16 +324,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="115" id="Xfm-iF-UnG"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
-                                        <rect key="frame" x="17" y="475" width="616" height="178"/>
+                                        <rect key="frame" x="17" y="443" width="616" height="178"/>
                                         <view key="contentView" id="LLt-mf-jhD">
-                                            <rect key="frame" x="3" y="3" width="610" height="158"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="160"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
-                                                    <rect key="frame" x="11" y="19" width="588" height="131"/>
+                                                    <rect key="frame" x="11" y="21" width="588" height="131"/>
                                                     <subviews>
                                                         <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
                                                             <rect key="frame" x="-2" y="115" width="227" height="18"/>
@@ -376,7 +374,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="14"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
-                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -421,7 +419,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="14"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)" id="pdT-tX-Sdp">
-                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -483,16 +481,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="174" id="oJR-0o-vrJ"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Reconfiguring Exam Session" translatesAutoresizingMaskIntoConstraints="NO" id="olf-PG-s0j" userLabel="Reconfiguring Exam Session">
-                                        <rect key="frame" x="17" y="328" width="616" height="133"/>
+                                        <rect key="frame" x="17" y="304" width="616" height="133"/>
                                         <view key="contentView" id="XgF-VQ-a5h">
-                                            <rect key="frame" x="3" y="3" width="610" height="113"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="115"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LfX-Xg-yil">
-                                                    <rect key="frame" x="11" y="16" width="588" height="89"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="89"/>
                                                     <subviews>
                                                         <button toolTip="Allow reconfiguring while using the client config or during an exam session by loading an SEB exam config file" translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
                                                             <rect key="frame" x="-2" y="73" width="143" height="18"/>
@@ -554,7 +551,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLU-GH-U2z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="dN3-5O-Rpi">
-                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -600,16 +597,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="129" id="TeW-eW-EyE"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box title="Session Cookies" translatesAutoresizingMaskIntoConstraints="NO" id="Uuj-be-mvj">
-                                        <rect key="frame" x="17" y="224" width="616" height="90"/>
+                                        <rect key="frame" x="17" y="208" width="616" height="90"/>
                                         <view key="contentView" id="n6h-gS-HDc">
-                                            <rect key="frame" x="3" y="3" width="610" height="70"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ie9-ZQ-spU">
-                                                    <rect key="frame" x="11" y="15" width="588" height="47"/>
+                                                    <rect key="frame" x="11" y="17" width="588" height="47"/>
                                                     <subviews>
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="nJS-Hc-HWX">
                                                             <rect key="frame" x="0.0" y="33" width="588" height="14"/>
@@ -649,7 +645,7 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQh-Dn-8pj">
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="XHR-6b-cHs">
-                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <font key="font" metaFont="message" size="11"/>
                                                                 <string key="title">Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session.</string>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -681,16 +677,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="CK1-OR-9To"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box title="Query String Parameter" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eM-mgd">
-                                        <rect key="frame" x="17" y="120" width="616" height="90"/>
+                                        <rect key="frame" x="17" y="112" width="616" height="90"/>
                                         <view key="contentView" id="Ab6-5s-cBF">
-                                            <rect key="frame" x="3" y="3" width="610" height="70"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="kYx-uc-ezO">
-                                                    <rect key="frame" x="11" y="15" width="588" height="47"/>
+                                                    <rect key="frame" x="11" y="17" width="588" height="47"/>
                                                     <subviews>
                                                         <button toolTip="If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="EZa-c9-03S">
                                                             <rect key="frame" x="-2" y="31" width="161" height="18"/>
@@ -706,7 +701,7 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uR7-ht-MIe">
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="2GO-IF-iYo">
-                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <font key="font" metaFont="message" size="11"/>
                                                                 <string key="title">The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL.</string>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -736,16 +731,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="h63-qm-O7D"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                     <box title="Exam Deep Linking (iOS)" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-G2-uN8">
                                         <rect key="frame" x="17" y="16" width="616" height="90"/>
                                         <view key="contentView" id="Oob-Qk-EkQ">
-                                            <rect key="frame" x="3" y="3" width="610" height="70"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="aJX-Dd-gws">
-                                                    <rect key="frame" x="11" y="15" width="588" height="47"/>
+                                                    <rect key="frame" x="11" y="17" width="588" height="47"/>
                                                     <subviews>
                                                         <button toolTip="If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting" translatesAutoresizingMaskIntoConstraints="NO" id="5sV-hT-oqR">
                                                             <rect key="frame" x="-2" y="31" width="201" height="18"/>
@@ -761,7 +755,7 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZX-3b-7tg">
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Vfv-tN-rLa">
-                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <font key="font" metaFont="message" size="11"/>
                                                                 <string key="title">Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</string>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -791,7 +785,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="Khq-Fw-7uv"/>
                                         </constraints>
-                                        <font key="titleFont" metaFont="system"/>
                                     </box>
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="20"/>
@@ -838,7 +831,7 @@
                         <rect key="frame" x="1" y="686" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94490358126721763" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.047619047619047672" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="685"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
