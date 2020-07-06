@@ -69,6 +69,7 @@
 @property BOOL isFullScreen;
 @property BOOL isPanel;
 @property BOOL allowDownloads;
+@property BOOL allowDeveloperConsole;
 @property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
