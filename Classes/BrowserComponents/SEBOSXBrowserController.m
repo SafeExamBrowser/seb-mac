@@ -168,11 +168,6 @@
         [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
         [prefs setWebGLEnabled:YES];
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_removeLocalStorage"]) {
-            [prefs setLocalStorageEnabled:NO];
-            
-            [webView setPreferences:prefs];
-        } else {
         // Check if paths match and if not, create a new local storage database file
         // (otherwise localstorage file is erased when starting program)
         // Thanks to Derek Wade!
