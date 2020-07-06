@@ -291,7 +291,8 @@
         [super sendEvent:theEvent];
     } else {
         // Allow right mouse button/context menu according to setting
-        // This only has an effect in browser plugins and video players etc. (not on regular website elements)
+        // This is the only way how to block the context menu in browser plugins
+        // and video players etc. (not on regular website elements)
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouse"]) {
             [super sendEvent:theEvent];
         }
@@ -947,10 +948,34 @@
 
 
 // Delegate method for disabling right-click context menu
-- (NSArray *)webView:(SEBWebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
+- (NSArray *)webView:(SEBWebView *)sender contextMenuItemsForElement:(NSDictionary *)element
     defaultMenuItems:(NSArray *)defaultMenuItems {
-    // disable right-click context menu
-    return [NSArray array];
+    // Only use allowed items in right-click context menu
+    NSMutableArray <NSMenuItem *>* elementContextMenuItems = [NSMutableArray new];
+    
+    for (NSMenuItem *menuItem in defaultMenuItems) {
+        switch (menuItem.tag) {
+//            case WebMenuItemTagCopy:
+//                [elementContextMenuItems addObject:menuItem];
+//                break;
+//                
+//            case WebMenuItemTagCut:
+//                [elementContextMenuItems addObject:menuItem];
+//                break;
+//                
+//            case WebMenuItemTagPaste:
+//                [elementContextMenuItems addObject:menuItem];
+//                break;
+                
+            case 2024:
+                [elementContextMenuItems addObject:menuItem];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    return elementContextMenuItems.copy;
 }
 
 
