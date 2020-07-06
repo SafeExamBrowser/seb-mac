@@ -160,6 +160,7 @@
     [self.webView setPreferences:webPrefs];
     
     _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
+    _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
 
     quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     
@@ -860,7 +861,7 @@
 // Choose file for upload
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+    if (_allowDownloads == YES) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
             // If the policy isn't "manually with file requester"
             // We try to choose the filename and path ourselves, it's the last dowloaded file
@@ -950,32 +951,20 @@
 // Delegate method for disabling right-click context menu
 - (NSArray *)webView:(SEBWebView *)sender contextMenuItemsForElement:(NSDictionary *)element
     defaultMenuItems:(NSArray *)defaultMenuItems {
-    // Only use allowed items in right-click context menu
-    NSMutableArray <NSMenuItem *>* elementContextMenuItems = [NSMutableArray new];
     
-    for (NSMenuItem *menuItem in defaultMenuItems) {
-        switch (menuItem.tag) {
-//            case WebMenuItemTagCopy:
-//                [elementContextMenuItems addObject:menuItem];
-//                break;
-//                
-//            case WebMenuItemTagCut:
-//                [elementContextMenuItems addObject:menuItem];
-//                break;
-//                
-//            case WebMenuItemTagPaste:
-//                [elementContextMenuItems addObject:menuItem];
-//                break;
-                
-            case 2024:
-                [elementContextMenuItems addObject:menuItem];
-                break;
-                
-            default:
-                break;
-        }
+    if (_allowDeveloperConsole) {
+            for (NSMenuItem *menuItem in defaultMenuItems) {
+                // If "Inspect Element" is being offered for the current element
+                if (menuItem.tag == 2024) {
+                    //... we pass it as an item to the context menu
+                    // unfortunately the menu always contains the "Services" submenu
+                    // that's why it should be completely disabled when not using the dev console
+                    return [NSArray arrayWithObject:menuItem];
+                }
+            }
     }
-    return elementContextMenuItems.copy;
+    // Disable right-click context menu completely
+    return [NSArray array];
 }
 
 
@@ -1864,7 +1853,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+    if (_allowDownloads == YES) {
         // If downloading is allowed
         downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
         if (!downloadPath) {
@@ -2010,7 +1999,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                     return;
                 }
             }
-        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+        } else if (_allowDownloads == YES) {
             // If downloading is allowed
             NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
             if (downloadPath.length == 0) {
