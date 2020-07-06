@@ -102,8 +102,11 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowBrowsingBackForward",
                    
                    @NO,
-                   @"allowDictation",
+                   @"allowDeveloperConsole",
                    
+                   @NO,
+                   @"allowDictation",
+
                    @NO,
                    @"allowDictionaryLookup",
                    
