@@ -181,7 +181,6 @@
             [prefs setOfflineWebApplicationCacheEnabled:YES];
             
             [prefs setDatabasesEnabled:YES];
-            //        [prefs setDeveloperExtrasEnabled:[[NSUserDefaults standardUserDefaults] boolForKey: @"developer"]];
             [prefs _setLocalStorageDatabasePath:dbPath];
             [prefs setLocalStorageEnabled:YES];
         } else {
