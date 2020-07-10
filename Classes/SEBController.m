@@ -563,7 +563,7 @@ bool insideMatrix(void);
             DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
             _openingSettingsFileURL = [NSURL URLWithString:filename];
         } else {
-            [self openFile:[NSURL fileURLWithPath:filename]];
+            [self openFile:[NSURL URLWithString:filename]];
         }
     }
     return YES;
@@ -4301,15 +4301,15 @@ bool insideMatrix(){
                        context:(void *)context
 {
     DDLogInfo(@"Value for key path %@ changed: %@", keyPath, change);
-
+    
     // If the startKioskMode method changed presentation options, then we don't do nothing here
     if ([keyPath isEqual:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
         }
-
-		// Current Presentation Options changed, so make SEB active and reset them
+        
+        // Current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -4320,7 +4320,7 @@ bool insideMatrix(){
             if (flashView) {
                 if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
                     // and either third party Apps or Flash fullscreen is allowed
-                    //... then we switch plugins off and on again to prevent 
+                    //... then we switch plugins off and on again to prevent
                     //the security risk Flash full screen video
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
                     [[self.webView preferences] setPlugInsEnabled:NO];
@@ -4339,14 +4339,14 @@ bool insideMatrix(){
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
+            
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
     } else {
         if ([keyPath isEqual:@"isActive"]) {
-            DDLogWarn(@"isActive property of SEB changed!");
-            [self regainActiveStatus:nil];
+        DDLogWarn(@"isActive property of SEB changed!");
+        [self regainActiveStatus:nil];
 //            [self appLaunch:nil];
         }
     }
