@@ -29,10 +29,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="685"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="1000"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="995"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser &amp; Config Keys" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                                        <rect key="frame" x="17" y="752" width="616" height="233"/>
+                                        <rect key="frame" x="17" y="747" width="616" height="233"/>
                                         <view key="contentView" id="25R-Li-36g">
                                             <rect key="frame" x="3" y="3" width="610" height="215"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,7 +208,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                                        <rect key="frame" x="17" y="627" width="616" height="119"/>
+                                        <rect key="frame" x="17" y="622" width="616" height="119"/>
                                         <view key="contentView" id="Bon-Cy-DW3">
                                             <rect key="frame" x="3" y="3" width="610" height="101"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -326,7 +326,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Back to Start Button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
-                                        <rect key="frame" x="17" y="443" width="616" height="178"/>
+                                        <rect key="frame" x="17" y="438" width="616" height="178"/>
                                         <view key="contentView" id="LLt-mf-jhD">
                                             <rect key="frame" x="3" y="3" width="610" height="160"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -483,7 +483,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Reconfiguring Exam Session" translatesAutoresizingMaskIntoConstraints="NO" id="olf-PG-s0j" userLabel="Reconfiguring Exam Session">
-                                        <rect key="frame" x="17" y="304" width="616" height="133"/>
+                                        <rect key="frame" x="17" y="299" width="616" height="133"/>
                                         <view key="contentView" id="XgF-VQ-a5h">
                                             <rect key="frame" x="3" y="3" width="610" height="115"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -599,7 +599,7 @@
                                         </constraints>
                                     </box>
                                     <box title="Session Cookies" translatesAutoresizingMaskIntoConstraints="NO" id="Uuj-be-mvj">
-                                        <rect key="frame" x="17" y="208" width="616" height="90"/>
+                                        <rect key="frame" x="17" y="203" width="616" height="90"/>
                                         <view key="contentView" id="n6h-gS-HDc">
                                             <rect key="frame" x="3" y="3" width="610" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -679,7 +679,7 @@
                                         </constraints>
                                     </box>
                                     <box title="Query String Parameter" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eM-mgd">
-                                        <rect key="frame" x="17" y="112" width="616" height="90"/>
+                                        <rect key="frame" x="17" y="107" width="616" height="90"/>
                                         <view key="contentView" id="Ab6-5s-cBF">
                                             <rect key="frame" x="3" y="3" width="610" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -733,7 +733,7 @@
                                         </constraints>
                                     </box>
                                     <box title="Exam Deep Linking (iOS)" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-G2-uN8">
-                                        <rect key="frame" x="17" y="16" width="616" height="90"/>
+                                        <rect key="frame" x="17" y="11" width="616" height="90"/>
                                         <view key="contentView" id="Oob-Qk-EkQ">
                                             <rect key="frame" x="3" y="3" width="610" height="72"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -787,7 +787,7 @@
                                         </constraints>
                                     </box>
                                 </subviews>
-                                <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="20"/>
+                                <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="15"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" id="HYT-Yx-Vnx"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="630" id="Ppw-kc-tYm"/>
@@ -831,7 +831,7 @@
                         <rect key="frame" x="1" y="686" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.047619047619047672" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.032258064516129004" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="685"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
