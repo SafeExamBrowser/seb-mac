@@ -47,6 +47,8 @@
     __weak IBOutlet NSTextField *userAgentWinDesktopDefault;
     __weak IBOutlet NSTextField *userAgentWinTouchDefault;
     __weak IBOutlet NSTextField *userAgentWinTouchiPad;
+    __weak IBOutlet NSTextField *userAgentiOSDefault;
+    __weak IBOutlet NSTextField *userAgentiOSMacDesktop;
     __weak IBOutlet NSTabView *userAgentEnvironmentTabView;
 
 }
