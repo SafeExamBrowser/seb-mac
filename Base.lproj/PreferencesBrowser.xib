@@ -435,7 +435,7 @@
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="180">
                                                                     <rect key="frame" x="-2" y="68" width="121" height="18"/>
-                                                                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                                                    <string key="toolTip">Disabling browsing to previously visited pages (back/forward buttons in browser toolbar or cmd + cursor left/right) may increase security, because browsing back might allow to leave an exam</string>
                                                                     <buttonCell key="cell" type="check" title="Allow navigation" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="181">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -475,7 +475,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="7c3-3L-Itj">
+                                                                        <popUpButton toolTip="For some exam scenarios, you might want to keep URLs secret" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="7c3-3L-Itj">
                                                                             <rect key="frame" x="79" y="-3" width="38" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="47Q-9G-OO8">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -580,7 +580,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Nqe-fJ-MeT">
+                                                                        <popUpButton toolTip="For some exam scenarios, you might want to keep URLs secret" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Nqe-fJ-MeT">
                                                                             <rect key="frame" x="75" y="-3" width="38" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="gLQ-HQ-mev">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -666,7 +666,7 @@
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-3j-b2T">
                                                                     <rect key="frame" x="-2" y="18" width="114" height="18"/>
-                                                                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                                                    <string key="toolTip">Some video/audio content will start playing without user interaction. Some other content might not be playable without enabling this setting (but will not auto play)</string>
                                                                     <buttonCell key="cell" type="check" title="Media autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Afc-A3-r3P">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -677,7 +677,8 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IqX-2Y-Ffc">
                                                                     <rect key="frame" x="-2" y="-2" width="198" height="18"/>
-                                                                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                                                    <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps
+</string>
                                                                     <buttonCell key="cell" type="check" title="Allow picture in picture video" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zZ5-9g-Lhz">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -700,9 +701,9 @@
                                                             <rect key="frame" x="304" y="0.0" width="284" height="34"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-A3-rqm">
-                                                                    <rect key="frame" x="-2" y="18" width="188" height="18"/>
-                                                                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
-                                                                    <buttonCell key="cell" type="check" title="Allow inline playack on iPad" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fRI-Y9-Qs5">
+                                                                    <rect key="frame" x="-2" y="18" width="196" height="18"/>
+                                                                    <string key="toolTip">Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
+                                                                    <buttonCell key="cell" type="check" title="Allow inline playback on iPad" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fRI-Y9-Qs5">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -711,9 +712,9 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="rf6-Kj-obV">
-                                                                    <rect key="frame" x="-2" y="-2" width="204" height="18"/>
-                                                                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
-                                                                    <buttonCell key="cell" type="check" title="Allow inline playack on iPhone" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LQ1-WH-kpW">
+                                                                    <rect key="frame" x="-2" y="-2" width="212" height="18"/>
+                                                                    <string key="toolTip">Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
+                                                                    <buttonCell key="cell" type="check" title="Allow inline playback on iPhone" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LQ1-WH-kpW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -753,13 +754,13 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                                        <rect key="frame" x="17" y="52" width="613" height="201"/>
+                                        <rect key="frame" x="17" y="52" width="616" height="201"/>
                                         <view key="contentView" id="axo-2J-CZ8">
-                                            <rect key="frame" x="3" y="3" width="607" height="183"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="183"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                                    <rect key="frame" x="9" y="121" width="590" height="25"/>
+                                                    <rect key="frame" x="9" y="121" width="593" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -780,7 +781,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <tabView verticalCompressionResistancePriority="1000" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                                    <rect key="frame" x="11" y="12" width="585" height="104"/>
+                                                    <rect key="frame" x="11" y="12" width="588" height="104"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="105" id="rSZ-FD-lbj"/>
                                                     </constraints>
@@ -1131,7 +1132,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1k-Qz-pMS">
+                                                                    <textField toolTip="Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1k-Qz-pMS">
                                                                         <rect key="frame" x="114" y="85" width="471" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="471" id="ORT-KL-agB"/>
@@ -1142,7 +1143,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-0l-x3s" userLabel="User Agent iOS Mac Desktop">
+                                                                    <textField toolTip="Mac Safari (desktop browser) user agent string" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-0l-x3s" userLabel="User Agent iOS Mac Desktop">
                                                                         <rect key="frame" x="114" y="64" width="471" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="iOS Mac desktop user agent" id="Bmg-9t-VQK">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -1185,7 +1186,7 @@
                                                     </connections>
                                                 </tabView>
                                                 <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
-                                                    <rect key="frame" x="127" y="153" width="467" height="22"/>
+                                                    <rect key="frame" x="127" y="153" width="470" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
                                                     </constraints>
