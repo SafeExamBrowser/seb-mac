@@ -1070,8 +1070,8 @@ bool insideMatrix(void);
     _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
     [DDLog addLogger:_myLogger];
     
-    DDLogError(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
-    DDLogError(@"(log after start up is finished may continue in another file, according to current settings)");
+    DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
+    DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
     NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
     NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
     NSString *userName = NSUserName();
@@ -1081,8 +1081,8 @@ bool insideMatrix(void);
     NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
     NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
     NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
     
     DDLogInfo(@"Local hostname: %@", localHostname);
     DDLogInfo(@"Computer name: %@", computerName);
@@ -1114,7 +1114,7 @@ bool insideMatrix(void);
         _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
         [DDLog addLogger:_myLogger];
         
-        DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
         NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
         NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
         NSString *userName = NSUserName();
@@ -1130,8 +1130,8 @@ bool insideMatrix(void);
         NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
         NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
         NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-        DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-        DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+        DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+        DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
         
         DDLogInfo(@"Local hostname: %@", localHostname);
         DDLogInfo(@"Computer name: %@", computerName);
@@ -1221,6 +1221,7 @@ bool insideMatrix(void);
 }
 
 
+// Obsolete
 - (NSDictionary *) getProcessDictionary {
     NSMutableDictionary *ProcList = [[NSMutableDictionary alloc] init];
     
@@ -4302,10 +4303,10 @@ bool insideMatrix(){
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    DDLogInfo(@"Value for key path %@ changed: %@", keyPath, change);
+    DDLogDebug(@"Value for key path %@ changed: %@", keyPath, change);
     
     // If the startKioskMode method changed presentation options, then we don't do nothing here
-    if ([keyPath isEqual:@"currentSystemPresentationOptions"]) {
+    if ([keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
@@ -4345,8 +4346,7 @@ bool insideMatrix(){
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
-    } else {
-        if ([keyPath isEqual:@"isActive"]) {
+    } else if ([keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
 //            [self appLaunch:nil];
