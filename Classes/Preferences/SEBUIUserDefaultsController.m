@@ -69,7 +69,8 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"Standard user agent", nil),
             NSLocalizedString(@"Win: User agent for desktop mode", nil),
-            NSLocalizedString(@"Win: User agent for touch/tablet mode", nil), nil];
+            NSLocalizedString(@"Win: User agent for touch/tablet mode", nil),
+            NSLocalizedString(@"iOS User agent", nil), nil];
 }
 
 
@@ -107,6 +108,16 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             NSLocalizedString(@"Left", nil),
             NSLocalizedString(@"Center", nil),
             NSLocalizedString(@"Right", nil),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_browserWindowShowURLPolicies {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Never", nil),
+            NSLocalizedString(@"Only on load error", nil),
+            NSLocalizedString(@"Before receiving title", nil),
+            NSLocalizedString(@"Always", nil),
             nil];
 }
 

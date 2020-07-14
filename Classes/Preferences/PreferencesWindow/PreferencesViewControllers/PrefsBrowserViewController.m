@@ -43,9 +43,10 @@
 #ifdef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [enablePlugIns setEnabled:NO]; // disable the checkbox for plug-ins
 #endif
-    [userAgentWinDesktopDefault setStringValue:SEBWinUserAgentDesktopDefault];
-    [userAgentWinTouchDefault setStringValue:SEBWinUserAgentTouchDefault];
-    [userAgentWinTouchiPad setStringValue:SEBWinUserAgentTouchiPad];
+    userAgentWinDesktopDefault.stringValue = SEBWinUserAgentDesktopDefault;
+    userAgentWinTouchDefault.stringValue = SEBWinUserAgentTouchDefault;
+    userAgentWinTouchiPad.stringValue = SEBWinUserAgentTouchiPad;
+    userAgentiOSDefault.stringValue = SEBiOSUserAgentiPadDefault;
 }
 
 
@@ -73,7 +74,8 @@
     if (defaultUserAgent.length == 0) {
         defaultUserAgent = @"";
     }
-    [defaultUserAgentMac setStringValue:defaultUserAgent];
+    defaultUserAgentMac.stringValue = defaultUserAgent;
+    userAgentiOSMacDesktop.stringValue = defaultUserAgent;
 }
 
 

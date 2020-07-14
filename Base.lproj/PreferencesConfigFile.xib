@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <deployment version="1090" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,391 +20,518 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Config File Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="652" height="434"/>
+            <rect key="frame" x="0.0" y="0.0" width="652" height="430"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="NXM-L3-fFd">
-                    <rect key="frame" x="0.0" y="0.0" width="652" height="130"/>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LlI-AX-322">
+                    <rect key="frame" x="20" y="21" width="611" height="389"/>
                     <subviews>
-                        <button toolTip="Save settings file with same name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                            <rect key="frame" x="14" y="46" width="201" height="32"/>
-                            <buttonCell key="cell" type="push" title="Save Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
+                            <rect key="frame" x="0.0" y="349" width="591" height="40"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
+                                    <rect key="frame" x="-2" y="24" width="127" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use config file for ..." usesSingleLineMode="YES" id="239">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="249">
+                                    <rect key="frame" x="131" y="0.0" width="460" height="40"/>
+                                    <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</string>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="cellSize" width="460" height="18"/>
+                                    <size key="intercellSpacing" width="4" height="4"/>
+                                    <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="250">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <cells>
+                                        <column>
+                                            <buttonCell type="radio" title="starting exams" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings" tag="1" inset="2" id="251">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
+                                                </connections>
+                                            </buttonCell>
+                                            <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </column>
+                                    </cells>
+                                    <connections>
+                                        <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
+                                    </connections>
+                                </matrix>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
+                            <rect key="frame" x="0.0" y="299" width="282" height="34"/>
+                            <subviews>
+                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                                    <rect key="frame" x="-2" y="18" width="286" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Allow to open Preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
+                                    <rect key="frame" x="-2" y="-2" width="183" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Show settings in app (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b4O-Hy-kCT">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileShowSettings" id="HFx-dG-knS"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3KG-u1-aHh">
+                            <rect key="frame" x="0.0" y="227" width="434" height="56"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
+                                    <rect key="frame" x="-2" y="40" width="438" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity certificate to be used for encrypting SEB settings file ..." usesSingleLineMode="YES" id="75">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69">
+                                    <rect key="frame" x="-3" y="15" width="440" height="22"/>
+                                    <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
+                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="70">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="message" size="11"/>
+                                        <menu key="menu" id="71">
+                                            <items>
+                                                <menuItem id="73"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                                    <rect key="frame" x="-2" y="0.0" width="308" height="14"/>
+                                    <string key="toolTip">If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="14" id="cUz-TI-gUQ"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Use either a cryptographic identity or a password or both." usesSingleLineMode="YES" id="174">
+                                        <font key="font" metaFont="message" size="11"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="69" secondAttribute="trailing" id="5s7-ub-sVx"/>
+                                <constraint firstItem="69" firstAttribute="leading" secondItem="3KG-u1-aHh" secondAttribute="leading" id="BRn-WH-NUw"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DBU-0A-Xbb">
+                            <rect key="frame" x="0.0" y="147" width="471" height="64"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="naq-c2-eME">
+                                    <rect key="frame" x="52" y="43" width="419" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
+                                            <rect key="frame" x="-2" y="3" width="116" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                                            <rect key="frame" x="119" y="0.0" width="300" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
+                                            </constraints>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="115">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <binding destination="560" name="value" keyPath="selection.settingsPassword" id="1340">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <outlet property="nextKeyView" destination="110" id="tyb-Yc-dTE"/>
+                                            </connections>
+                                        </secureTextField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-7P-OVb">
+                                    <rect key="frame" x="0.0" y="18" width="471" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
+                                            <rect key="frame" x="-2" y="3" width="167" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
+                                            <rect key="frame" x="171" y="0.0" width="300" height="21"/>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="119">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <binding destination="560" name="value" keyPath="selection.confirmSettingsPassword" id="1339">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <outlet property="nextKeyView" destination="114" id="bSo-sO-VvY"/>
+                                            </connections>
+                                        </secureTextField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                                    <rect key="frame" x="266" y="0.0" width="207" height="14"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="116">
+                                        <font key="font" metaFont="message" size="11"/>
+                                        <color key="textColor" red="0.72156864399999998" green="0.2588235438" blue="0.1764705926" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="560" name="value" keyPath="selection.compareSettingsPasswords" id="572">
+                                            <dictionary key="options">
+                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bjh-ZV-2zp">
+                            <rect key="frame" x="-2" y="115" width="187" height="18"/>
+                            <buttonCell key="cell" type="check" title="Allow QR code config (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="53p-kc-87m">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="saveSEBPrefs:" target="-2" id="217"/>
-                                <binding destination="560" name="enabled" keyPath="selection.compareSettingsPasswords" id="577">
-                                    <dictionary key="options">
-                                        <string key="NSValueTransformerName">NSIsNil</string>
-                                    </dictionary>
-                                </binding>
-                                <binding destination="-2" name="enabled2" keyPath="self.usingPrivateDefaults" previousBinding="577" id="1336">
-                                    <dictionary key="options">
-                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                        <integer key="NSNullPlaceholder" value="-1"/>
-                                    </dictionary>
-                                </binding>
+                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
                             </connections>
                         </button>
-                        <button toolTip="Choose file name and destination to save settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
-                            <rect key="frame" x="14" y="13" width="201" height="32"/>
-                            <buttonCell key="cell" type="push" title="Save Settings As..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1107">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="saveSEBPrefsAs:" target="-2" id="1314"/>
-                                <binding destination="560" name="enabled" keyPath="selection.compareSettingsPasswords" id="1109">
-                                    <dictionary key="options">
-                                        <string key="NSValueTransformerName">NSIsNil</string>
-                                    </dictionary>
-                                </binding>
-                            </connections>
-                        </button>
-                        <button toolTip="Open a settings file for editing" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
-                            <rect key="frame" x="14" y="79" width="201" height="32"/>
-                            <buttonCell key="cell" type="push" title="Open Settings..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1047">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="openSEBPrefs:" target="-2" id="1313"/>
-                            </connections>
-                        </button>
-                        <button toolTip="Revert to last saved (or opened) settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
-                            <rect key="frame" x="226" y="13" width="200" height="32"/>
-                            <buttonCell key="cell" type="push" title="Last Saved" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1062">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="revertToLastSaved:" target="-2" id="GAc-Rh-nw1"/>
-                                <binding destination="-2" name="enabled" keyPath="self.editingSettingsFile" id="H2x-be-PFI"/>
-                            </connections>
-                        </button>
-                        <button toolTip="Apply current settings and restart SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1292">
-                            <rect key="frame" x="437" y="13" width="201" height="32"/>
-                            <buttonCell key="cell" type="push" title="Apply and Restart SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1294">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="applyAndRestartSEB:" target="-2" id="1368"/>
-                            </connections>
-                        </button>
-                        <button toolTip="Configure client using current settings (overwriting current local settings)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1157">
-                            <rect key="frame" x="437" y="46" width="201" height="32"/>
-                            <buttonCell key="cell" type="push" title="Configure Client" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1158">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="configureClient:" target="-2" id="1366"/>
-                                <binding destination="-2" name="enabled" keyPath="self.usingPrivateDefaults" id="1356"/>
-                            </connections>
-                        </button>
-                        <button toolTip="Revert to the local client settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
-                            <rect key="frame" x="226" y="46" width="200" height="32"/>
-                            <buttonCell key="cell" type="push" title="Local Client Settings" bezelStyle="rounded" alignment="center" scrollable="YES" lineBreakMode="clipping" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="revertToLocalClientSettings:" target="-2" id="1363"/>
-                                <binding destination="-2" name="enabled" keyPath="self.usingPrivateDefaults" id="1367">
-                                    <dictionary key="options">
-                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
-                                    </dictionary>
-                                </binding>
-                            </connections>
-                        </button>
-                        <button toolTip="Create duplicate of current settings for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
-                            <rect key="frame" x="437" y="79" width="201" height="32"/>
-                            <buttonCell key="cell" type="push" title="Edit Duplicate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1166">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="editDuplicate:" target="-2" id="1361"/>
-                            </connections>
-                        </button>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
-                            <rect key="frame" x="230" y="116" width="108" height="14"/>
-                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Revert Settings to…" usesSingleLineMode="YES" id="1120">
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
-                            <rect key="frame" x="441" y="116" width="137" height="14"/>
-                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Use Current Settings to…" usesSingleLineMode="YES" id="1190">
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <button toolTip="Revert current settings to SEB defaults" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1072">
-                            <rect key="frame" x="226" y="79" width="200" height="32"/>
-                            <buttonCell key="cell" type="push" title="Default Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1073">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="revertToDefaultSettings:" target="-2" id="1364"/>
-                            </connections>
-                        </button>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
-                            <rect key="frame" x="18" y="116" width="103" height="14"/>
-                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Config File Editing:" usesSingleLineMode="YES" id="1174">
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
+                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="76" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="mYx-S8-prr">
+                            <rect key="frame" x="0.0" y="0.0" width="611" height="101"/>
+                            <subviews>
+                                <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="s3a-rg-MhB">
+                                    <rect key="frame" x="0.0" y="0.0" width="141" height="101"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
+                                            <rect key="frame" x="-2" y="87" width="103" height="14"/>
+                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Config File Editing:" usesSingleLineMode="YES" id="1174">
+                                                <font key="font" metaFont="message" size="11"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button toolTip="Open a settings file for editing" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
+                                            <rect key="frame" x="-6" y="51" width="153" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Open Settings..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1047">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="openSEBPrefs:" target="-2" id="1313"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Save settings file with same name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                                            <rect key="frame" x="-6" y="22" width="153" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Save Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="saveSEBPrefs:" target="-2" id="217"/>
+                                                <binding destination="560" name="enabled" keyPath="selection.compareSettingsPasswords" id="577">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSIsNil</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="-2" name="enabled2" keyPath="self.usingPrivateDefaults" previousBinding="577" id="1336">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                        <integer key="NSNullPlaceholder" value="-1"/>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Choose file name and destination to save settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
+                                            <rect key="frame" x="-6" y="-7" width="153" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Save Settings As..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1107">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="saveSEBPrefsAs:" target="-2" id="1314"/>
+                                                <binding destination="560" name="enabled" keyPath="selection.compareSettingsPasswords" id="1109">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSIsNil</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="1106" firstAttribute="leading" secondItem="s3a-rg-MhB" secondAttribute="leading" id="9lR-at-O8g"/>
+                                        <constraint firstAttribute="trailing" secondItem="1106" secondAttribute="trailing" id="Amh-Fq-hL3"/>
+                                        <constraint firstItem="3" firstAttribute="leading" secondItem="s3a-rg-MhB" secondAttribute="leading" id="CjO-3p-BuW"/>
+                                        <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="cD1-DU-0Db"/>
+                                        <constraint firstItem="1046" firstAttribute="leading" secondItem="s3a-rg-MhB" secondAttribute="leading" id="kJH-ub-4oP"/>
+                                        <constraint firstAttribute="trailing" secondItem="1046" secondAttribute="trailing" id="mFi-kp-oL7"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YUG-9w-qce">
+                                    <rect key="frame" x="217" y="0.0" width="153" height="101"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
+                                            <rect key="frame" x="-2" y="87" width="108" height="14"/>
+                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Revert Settings to…" usesSingleLineMode="YES" id="1120">
+                                                <font key="font" metaFont="message" size="11"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button toolTip="Revert current settings to SEB defaults" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1072">
+                                            <rect key="frame" x="-6" y="51" width="165" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Default Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1073">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="revertToDefaultSettings:" target="-2" id="1364"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Revert to the local client settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
+                                            <rect key="frame" x="-6" y="22" width="165" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Local Client Settings" bezelStyle="rounded" alignment="center" scrollable="YES" lineBreakMode="clipping" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="revertToLocalClientSettings:" target="-2" id="1363"/>
+                                                <binding destination="-2" name="enabled" keyPath="self.usingPrivateDefaults" id="1367">
+                                                    <dictionary key="options">
+                                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Revert to last saved (or opened) settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
+                                            <rect key="frame" x="-6" y="-7" width="165" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Last Saved" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1062">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="revertToLastSaved:" target="-2" id="GAc-Rh-nw1"/>
+                                                <binding destination="-2" name="enabled" keyPath="self.editingSettingsFile" id="H2x-be-PFI"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="1072" firstAttribute="leading" secondItem="YUG-9w-qce" secondAttribute="leading" id="Ajk-22-wur"/>
+                                        <constraint firstItem="1060" firstAttribute="leading" secondItem="YUG-9w-qce" secondAttribute="leading" id="Azi-yf-4Xz"/>
+                                        <constraint firstAttribute="trailing" secondItem="1072" secondAttribute="trailing" id="BSY-Hw-iop"/>
+                                        <constraint firstItem="1137" firstAttribute="leading" secondItem="YUG-9w-qce" secondAttribute="leading" id="Coz-su-0R5"/>
+                                        <constraint firstAttribute="trailing" secondItem="1137" secondAttribute="trailing" id="hS4-Qe-Kyv"/>
+                                        <constraint firstAttribute="trailing" secondItem="1060" secondAttribute="trailing" id="qYc-QB-fix"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="RaO-Jh-GiT">
+                                    <rect key="frame" x="446" y="0.0" width="165" height="101"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
+                                            <rect key="frame" x="-2" y="87" width="137" height="14"/>
+                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Use Current Settings to…" usesSingleLineMode="YES" id="1190">
+                                                <font key="font" metaFont="message" size="11"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button toolTip="Create duplicate of current settings for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
+                                            <rect key="frame" x="-6" y="51" width="177" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Edit Duplicate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1166">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="editDuplicate:" target="-2" id="1361"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Configure client using current settings (overwriting current local settings)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1157">
+                                            <rect key="frame" x="-6" y="22" width="177" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Configure Client" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1158">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="configureClient:" target="-2" id="1366"/>
+                                                <binding destination="-2" name="enabled" keyPath="self.usingPrivateDefaults" id="1356"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Apply current settings and restart SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1292">
+                                            <rect key="frame" x="-6" y="-7" width="177" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Apply and Restart SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1294">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="applyAndRestartSEB:" target="-2" id="1368"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="1292" firstAttribute="leading" secondItem="RaO-Jh-GiT" secondAttribute="leading" id="1b9-yG-WLe"/>
+                                        <constraint firstItem="1165" firstAttribute="leading" secondItem="RaO-Jh-GiT" secondAttribute="leading" id="BgP-zV-9AB"/>
+                                        <constraint firstAttribute="trailing" secondItem="1157" secondAttribute="trailing" id="COO-vS-YCI"/>
+                                        <constraint firstAttribute="trailing" secondItem="1292" secondAttribute="trailing" id="JP8-fM-U1H"/>
+                                        <constraint firstAttribute="trailing" secondItem="1165" secondAttribute="trailing" id="LTd-9V-O5X"/>
+                                        <constraint firstItem="1157" firstAttribute="leading" secondItem="RaO-Jh-GiT" secondAttribute="leading" id="p2H-1T-yAc"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="3" firstAttribute="leading" secondItem="1106" secondAttribute="leading" id="0Jg-l2-6bN"/>
-                        <constraint firstItem="1137" firstAttribute="top" secondItem="1072" secondAttribute="bottom" constant="12" id="1uM-tx-hjN"/>
-                        <constraint firstItem="1157" firstAttribute="trailing" secondItem="1292" secondAttribute="trailing" id="29Y-JR-f7n"/>
-                        <constraint firstItem="1046" firstAttribute="top" secondItem="1172" secondAttribute="bottom" constant="9" id="2vr-ca-ssK"/>
-                        <constraint firstItem="1072" firstAttribute="trailing" secondItem="1137" secondAttribute="trailing" id="4wd-tt-yIs"/>
-                        <constraint firstItem="1137" firstAttribute="baseline" secondItem="1157" secondAttribute="baseline" id="65d-nh-CyE"/>
-                        <constraint firstItem="1046" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="98A-mL-FL3"/>
-                        <constraint firstItem="1106" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="12" symbolic="YES" id="AAn-ud-KxP"/>
-                        <constraint firstItem="1189" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1119" secondAttribute="trailing" constant="23" id="B96-A6-N0n"/>
-                        <constraint firstItem="1119" firstAttribute="top" secondItem="NXM-L3-fFd" secondAttribute="top" id="BC6-jw-hhg"/>
-                        <constraint firstItem="1165" firstAttribute="top" secondItem="1189" secondAttribute="bottom" constant="9" id="FeE-aD-1kR"/>
-                        <constraint firstItem="1119" firstAttribute="leading" secondItem="1072" secondAttribute="leading" id="Hvt-oR-IR4"/>
-                        <constraint firstAttribute="trailing" secondItem="1165" secondAttribute="trailing" constant="20" symbolic="YES" id="KFs-De-1dd"/>
-                        <constraint firstItem="1060" firstAttribute="baseline" secondItem="1292" secondAttribute="baseline" id="LGj-D3-lrR"/>
-                        <constraint firstItem="1189" firstAttribute="top" secondItem="NXM-L3-fFd" secondAttribute="top" id="LcB-eL-Krx"/>
-                        <constraint firstItem="1060" firstAttribute="top" secondItem="1137" secondAttribute="bottom" constant="12" id="LyM-Wn-PDu"/>
-                        <constraint firstItem="1292" firstAttribute="top" secondItem="1157" secondAttribute="bottom" constant="12" id="R1c-Ju-kbo"/>
-                        <constraint firstItem="1046" firstAttribute="baseline" secondItem="1072" secondAttribute="baseline" id="RCZ-1V-S4o"/>
-                        <constraint firstItem="1046" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="RmW-ie-vGL"/>
-                        <constraint firstItem="1072" firstAttribute="top" secondItem="1119" secondAttribute="bottom" constant="9" id="SAp-51-Fy0"/>
-                        <constraint firstItem="3" firstAttribute="baseline" secondItem="1137" secondAttribute="baseline" id="TFO-4o-uRR"/>
-                        <constraint firstItem="1072" firstAttribute="width" secondItem="1046" secondAttribute="width" id="TsW-5c-Olu"/>
-                        <constraint firstAttribute="bottom" secondItem="1106" secondAttribute="bottom" constant="20" symbolic="YES" id="Vpf-PT-7la"/>
-                        <constraint firstItem="1072" firstAttribute="leading" secondItem="1046" secondAttribute="trailing" constant="23" id="W4v-mI-atk"/>
-                        <constraint firstItem="1046" firstAttribute="leading" secondItem="NXM-L3-fFd" secondAttribute="leading" constant="20" symbolic="YES" id="WC2-Le-dKN"/>
-                        <constraint firstItem="3" firstAttribute="top" secondItem="1046" secondAttribute="bottom" constant="12" symbolic="YES" id="Y76-K3-TTD"/>
-                        <constraint firstItem="1172" firstAttribute="top" secondItem="NXM-L3-fFd" secondAttribute="top" id="ZCo-Ub-vmU"/>
-                        <constraint firstItem="3" firstAttribute="trailing" secondItem="1106" secondAttribute="trailing" id="cf0-gg-RVJ"/>
-                        <constraint firstItem="1165" firstAttribute="leading" secondItem="1072" secondAttribute="trailing" constant="23" id="eLN-gi-Ft9"/>
-                        <constraint firstItem="1157" firstAttribute="top" secondItem="1165" secondAttribute="bottom" constant="12" id="eRW-4u-4aD"/>
-                        <constraint firstItem="1137" firstAttribute="leading" secondItem="1060" secondAttribute="leading" id="g2d-TV-uxC"/>
-                        <constraint firstAttribute="bottom" secondItem="1292" secondAttribute="bottom" constant="20" id="g3j-WF-r9S"/>
-                        <constraint firstItem="1106" firstAttribute="baseline" secondItem="1060" secondAttribute="baseline" id="hwh-Oh-S1V"/>
-                        <constraint firstAttribute="bottom" secondItem="1060" secondAttribute="bottom" constant="20" id="i5v-Js-aRT"/>
-                        <constraint firstItem="1165" firstAttribute="width" secondItem="1046" secondAttribute="width" id="j83-1a-qfW"/>
-                        <constraint firstItem="1137" firstAttribute="trailing" secondItem="1060" secondAttribute="trailing" id="nXU-f4-VfQ"/>
-                        <constraint firstItem="1189" firstAttribute="leading" secondItem="1165" secondAttribute="leading" id="nqU-cc-NJK"/>
-                        <constraint firstItem="1119" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1172" secondAttribute="trailing" constant="23" id="pzR-j7-pl4"/>
-                        <constraint firstItem="1165" firstAttribute="trailing" secondItem="1157" secondAttribute="trailing" id="qpk-q3-JKv"/>
-                        <constraint firstItem="1072" firstAttribute="leading" secondItem="1137" secondAttribute="leading" id="tGT-gz-Fq8"/>
-                        <constraint firstItem="1165" firstAttribute="leading" secondItem="1157" secondAttribute="leading" id="uo2-6D-Cfg"/>
-                        <constraint firstItem="1172" firstAttribute="leading" secondItem="NXM-L3-fFd" secondAttribute="leading" constant="20" id="vtB-BS-zFJ"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1189" secondAttribute="trailing" constant="20" symbolic="YES" id="wrU-Mn-8ZS"/>
-                        <constraint firstItem="1157" firstAttribute="leading" secondItem="1292" secondAttribute="leading" id="ywH-J1-HTy"/>
-                        <constraint firstItem="1072" firstAttribute="baseline" secondItem="1165" secondAttribute="baseline" id="zSe-ev-idt"/>
-                    </constraints>
-                </customView>
-                <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
-                    <rect key="frame" x="18" y="290" width="373" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity to be used for encrypting SEB settings file ..." usesSingleLineMode="YES" id="75">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69">
-                    <rect key="frame" x="17" y="265" width="618" height="22"/>
-                    <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="70">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                        <menu key="menu" id="71">
-                            <items>
-                                <menuItem id="73"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
-                <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
-                    <rect key="frame" x="332" y="169" width="300" height="22"/>
-                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="119">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        <allowedInputSourceLocales>
-                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                        </allowedInputSourceLocales>
-                    </secureTextFieldCell>
-                    <connections>
-                        <binding destination="560" name="value" keyPath="selection.confirmSettingsPassword" id="1339">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                        <outlet property="nextKeyView" destination="114" id="bSo-sO-VvY"/>
-                    </connections>
-                </secureTextField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
-                    <rect key="frame" x="210" y="202" width="116" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
-                    <rect key="frame" x="159" y="172" width="167" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                    <rect key="frame" x="330" y="152" width="207" height="14"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="116">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" red="0.72156864399999998" green="0.2588235438" blue="0.1764705926" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="560" name="value" keyPath="selection.compareSettingsPasswords" id="572">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
-                    <rect key="frame" x="332" y="199" width="300" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
-                    </constraints>
-                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="115">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        <allowedInputSourceLocales>
-                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                        </allowedInputSourceLocales>
-                    </secureTextFieldCell>
-                    <connections>
-                        <binding destination="560" name="value" keyPath="selection.settingsPassword" id="1340">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                        <outlet property="nextKeyView" destination="110" id="tyb-Yc-dTE"/>
-                    </connections>
-                </secureTextField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
-                    <rect key="frame" x="18" y="246" width="308" height="14"/>
-                    <string key="toolTip">If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="14" id="cUz-TI-gUQ"/>
-                    </constraints>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Use either a cryptographic identity or a password or both." usesSingleLineMode="YES" id="174">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
-                    <rect key="frame" x="18" y="397" width="166" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use SEB settings file for ..." usesSingleLineMode="YES" id="239">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                    <rect key="frame" x="20" y="349" width="612" height="40"/>
-                    <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</string>
-                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    <size key="cellSize" width="460" height="18"/>
-                    <size key="intercellSpacing" width="4" height="4"/>
-                    <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="250">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <cells>
-                        <column>
-                            <buttonCell type="radio" title="starting an exam" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings" tag="1" inset="2" id="251">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                                <connections>
-                                    <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
-                                </connections>
-                            </buttonCell>
-                            <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </column>
-                    </cells>
-                    <connections>
-                        <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
-                    </connections>
-                </matrix>
-                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
-                    <rect key="frame" x="20" y="325" width="285" height="18"/>
-                    <buttonCell key="cell" type="check" title="Allow to open preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
-                    </connections>
-                </button>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
-            <constraints>
-                <constraint firstItem="259" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="22" id="248-jI-F6g"/>
-                <constraint firstItem="114" firstAttribute="leading" secondItem="110" secondAttribute="leading" id="2PK-CB-F1X"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="237" secondAttribute="trailing" constant="20" symbolic="YES" id="3Yt-ty-LD0"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="68" secondAttribute="trailing" constant="20" symbolic="YES" id="60y-f8-UDv"/>
-                <constraint firstItem="NXM-L3-fFd" firstAttribute="top" secondItem="113" secondAttribute="bottom" constant="22" id="9gu-t1-qMv"/>
-                <constraint firstAttribute="trailing" secondItem="NXM-L3-fFd" secondAttribute="trailing" id="A9A-ZX-GSd"/>
-                <constraint firstAttribute="trailing" secondItem="249" secondAttribute="trailing" constant="20" symbolic="YES" id="BKA-59-ZyD"/>
-                <constraint firstAttribute="trailing" secondItem="69" secondAttribute="trailing" constant="20" symbolic="YES" id="Bu1-k4-U3w"/>
-                <constraint firstItem="110" firstAttribute="leading" secondItem="112" secondAttribute="trailing" constant="8" symbolic="YES" id="E7F-qw-HZN"/>
-                <constraint firstItem="114" firstAttribute="top" secondItem="69" secondAttribute="bottom" constant="47" id="GMi-gQ-bjP"/>
-                <constraint firstItem="111" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="HOk-3v-a8H"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="259" secondAttribute="trailing" constant="20" symbolic="YES" id="Lgy-OI-3yw"/>
-                <constraint firstItem="110" firstAttribute="leading" secondItem="113" secondAttribute="leading" id="MRk-Am-5PC"/>
-                <constraint firstItem="113" firstAttribute="top" secondItem="110" secondAttribute="bottom" constant="3" id="Mn6-OW-ofu"/>
-                <constraint firstItem="173" firstAttribute="top" secondItem="69" secondAttribute="bottom" constant="8" symbolic="YES" id="NoI-if-rYI"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="113" secondAttribute="trailing" constant="20" symbolic="YES" id="QUk-Yo-nca"/>
-                <constraint firstItem="237" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Sr7-9R-eD8"/>
-                <constraint firstItem="69" firstAttribute="top" secondItem="68" secondAttribute="bottom" constant="4" id="Tn6-4V-EFW"/>
-                <constraint firstItem="68" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="VdG-EY-izb"/>
-                <constraint firstItem="249" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="XnA-nF-9g7"/>
-                <constraint firstAttribute="bottom" secondItem="NXM-L3-fFd" secondAttribute="bottom" id="Ywg-Ie-Znd"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="173" secondAttribute="trailing" constant="20" symbolic="YES" id="Zmz-w0-WPv"/>
-                <constraint firstItem="237" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="ak5-Te-5SS"/>
-                <constraint firstAttribute="trailing" secondItem="110" secondAttribute="trailing" constant="20" symbolic="YES" id="auu-CJ-3Lh"/>
-                <constraint firstAttribute="trailing" secondItem="114" secondAttribute="trailing" constant="20" symbolic="YES" id="fQb-ax-VH7"/>
-                <constraint firstItem="114" firstAttribute="leading" secondItem="111" secondAttribute="trailing" constant="8" symbolic="YES" id="fih-mD-OX7"/>
-                <constraint firstItem="111" firstAttribute="baseline" secondItem="114" secondAttribute="baseline" id="gGt-cl-Rwp"/>
-                <constraint firstItem="112" firstAttribute="baseline" secondItem="110" secondAttribute="baseline" id="hgV-bD-5oB"/>
-                <constraint firstItem="249" firstAttribute="top" secondItem="237" secondAttribute="bottom" constant="8" symbolic="YES" id="kAE-9i-ibh"/>
-                <constraint firstItem="NXM-L3-fFd" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="l9U-d5-4pn"/>
-                <constraint firstItem="68" firstAttribute="top" secondItem="259" secondAttribute="bottom" constant="20" id="m5B-O3-5BB"/>
-                <constraint firstItem="69" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="pPi-4u-adn"/>
-                <constraint firstItem="173" firstAttribute="leading" secondItem="69" secondAttribute="leading" id="s43-8X-4p5"/>
-                <constraint firstItem="110" firstAttribute="top" secondItem="114" secondAttribute="bottom" constant="8" id="tEb-on-vst"/>
-                <constraint firstItem="259" firstAttribute="top" secondItem="249" secondAttribute="bottom" constant="8" symbolic="YES" id="vrx-UI-Q2O"/>
-                <constraint firstItem="112" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="xv4-dT-0yk"/>
-            </constraints>
             <point key="canvasLocation" x="673" y="453"/>
         </customView>
         <userDefaultsController id="211" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
