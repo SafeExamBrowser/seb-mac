@@ -82,6 +82,21 @@
 }
 
 
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    NSString *query = url.query;
+    // Search for the testsession ID query parameter which Moodle sends back
+    // after a user logs in to a quiz
+    NSRange testsessionRange = [query rangeOfString:@"testsession="];
+    if (testsessionRange.location != NSNotFound) {
+        NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
+        if (testsessionID.length > 0) {
+            [_sebServerController startMonitoringWithUserSessionId:testsessionID];
+        }
+    }
+}
+
+
 - (void)didEstablishSEBServerConnection {
     [_sebViewController didEstablishSEBServerConnection];
 }

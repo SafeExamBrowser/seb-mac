@@ -295,6 +295,7 @@
 - (void) closeServerView:(id)sender;
 - (void) loginToExam:(NSString *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) didEstablishSEBServerConnection;
 
 #pragma mark - Kiosk mode

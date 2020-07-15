@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) loginToExam:(NSString * _Nonnull)url;
 - (void) examSelected:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
                         timestamp: (NSString *)timestamp
                      numericValue:(double)numericValue

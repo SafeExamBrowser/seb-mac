@@ -98,6 +98,7 @@
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
 @end

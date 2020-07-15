@@ -483,6 +483,11 @@
     
     NSURL *originalURL = url;
     
+    // This is currently used for SEB Server handshake after logging in to Moodle
+    if (navigationType == UIWebViewNavigationTypeFormSubmitted) {
+        [_browserTabViewController shouldStartLoadFormSubmittedURL:url];
+    }
+    
     if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         originalURL = [NSURL URLWithString:urlString relativeToURL:[webView url]];
