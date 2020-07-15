@@ -3216,6 +3216,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController shouldStartLoadFormSubmittedURL:url];
+    }
+}
+
+
 - (void) didEstablishSEBServerConnection
 {
     _establishingSEBServerConnection = false;
