@@ -82,7 +82,6 @@
 @property (readwrite) BOOL reinforceKioskModeRequested;
 @property (readwrite) BOOL directConfigDownloadAttempted;
 @property (readwrite) BOOL allowSpellCheck;
-@property (strong) NSURL *originalURL;
 @property (strong) NSURLCredential *enteredCredential;
 @property (strong) id URLSession;
 @property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
@@ -118,13 +117,13 @@
 
 - (NSString *) placeholderTitleOrURLForActiveWebpage;
 
-- (BOOL) isReconfiguringAllowed;
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 - (void) openingConfigURLFailed;
 
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url;
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 
-- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url;
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 - (void) openingConfigURLRoleBack;
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
