@@ -1754,7 +1754,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         ([type isEqualToString:@"text/xml"]) ||
         ([request.URL.pathExtension isEqualToString:@"seb"])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        [self.browserController downloadSEBConfigFileFromURL:request.URL];
+        NSURL *originalURL = self.webView.originalURL;
+        [self.browserController downloadSEBConfigFileFromURL:request.URL originalURL:originalURL];
         [listener ignore];
         return;
     }
@@ -1844,7 +1845,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         // Because this method is also called when a .seb file is downloaded (besides opening a seb(s):// URL)
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             // Download the .seb config file directly to memory
-            [self.browserController downloadSEBConfigFileFromURL:downloadURL];
+            [self.browserController downloadSEBConfigFileFromURL:downloadURL originalURL:nil];
             // and cancel the download to disc below
         }
         // We cancel the download in any case, because .seb config files should be opened directly and not downloaded to disc
@@ -1994,7 +1995,10 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 }
                 if (sebFileData) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.browserController openDownloadedSEBConfigData:sebFileData fromURL:url];
+                        NSURL *originalURL = self.webView.originalURL;
+                        [self.browserController openDownloadedSEBConfigData:sebFileData
+                                                                    fromURL:url
+                                                                originalURL:originalURL];
                     });
                     return;
                 }
