@@ -773,9 +773,9 @@
 
 // Check if SEB is in exam mode = private UserDefauls are switched on:
 // Then opening a new config file/reconfiguring SEB isn't allowed
-- (BOOL) isReconfiguringAllowed
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
 {
-    if (NSUserDefaults.userDefaultsPrivate) {
+    if (![self.browserController isReconfiguringAllowedFromURL:url]) {
         // If yes, we don't download the .seb file
         // Also reset the flag for SEB starting up
         _sebController.startingUp = false;
@@ -805,9 +805,9 @@
     // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
         // Check if SEB is in exam mode = private UserDefauls are switched on
-        if ([self isReconfiguringAllowed]) {
+        if ([self isReconfiguringAllowedFromURL:url]) {
             // SEB isn't in exam mode: reconfiguring is allowed
-            
+            NSURL *sebURL = url;
             // Figure the download URL out, depending on if http or https should be used
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
@@ -816,7 +816,6 @@
                 // If it's a sebs:// URL, we try to download it by https
                 url = [url URLByReplacingScheme:@"https"];
             }
-            _originalURL = url;
             
             // When the URL of the SEB config file to load is on another host than the current page
             // then we might need to clear session cookies before attempting to download the config file
@@ -846,10 +845,10 @@
             // But we only try it when it didn't fail in a first attempt
             if (_directConfigDownloadAttempted == false && [url.pathExtension isEqualToString:@"seb"]) {
                 _directConfigDownloadAttempted = true;
-                [self downloadSEBConfigFileFromURL:url];
+                [self downloadSEBConfigFileFromURL:url originalURL:sebURL];
             } else {
                 _directConfigDownloadAttempted = false;
-                [self openTempWindowForDownloadingConfigFromURL:url];
+                [self openTempWindowForDownloadingConfigFromURL:url originalURL:sebURL];
             }
         }
     } else {
@@ -861,7 +860,7 @@
 
 // Open a new, temporary browser window for downloading the linked config file
 // This allows the user to authenticate if the link target is stored on a secured server
-- (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
+- (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
@@ -872,6 +871,7 @@
     _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
     _temporaryWebView.creatingWebView = nil;
     _temporaryWebView.browserController = self;
+    _temporaryWebView.originalURL = originalURL;
     
     newWindow.isPanel = true;
     [newWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
@@ -932,7 +932,7 @@
 /// Performing the Download
 
 // This method is called by the browser webview delegate if the file to download has a .seb extension
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
@@ -946,7 +946,7 @@
         NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
                                                         completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                               {
-                                                  [self didDownloadConfigData:sebFileData response:response error:error URL:url];
+                                                  [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL];
                                               }];
         
         [downloadTask resume];
@@ -958,7 +958,7 @@
                                            queue:NSOperationQueue.mainQueue
                                completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
          {
-             [self didDownloadConfigData:sebFileData response:response error:error URL:url];
+             [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL];
          }];
     }
 }
@@ -968,6 +968,7 @@
                       response:(NSURLResponse *)response
                          error:(NSError *)error
                            URL:(NSURL *)url
+                   originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
     
@@ -990,7 +991,7 @@
             // If it was a seb:// URL, and http failed, we try to download it by https
             NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
             if (_directConfigDownloadAttempted) {
-                [self downloadSEBConfigFileFromURL:downloadURL];
+                [self downloadSEBConfigFileFromURL:downloadURL originalURL:originalURL];
             } else {
                 [self tryToDownloadConfigByOpeningURL:downloadURL];
             }
@@ -1000,7 +1001,7 @@
                 // by opening the URL in a temporary webview
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // which needs to be done on the main thread!
-                    [self openTempWindowForDownloadingConfigFromURL:self->_originalURL];
+                    [self openTempWindowForDownloadingConfigFromURL:url originalURL:originalURL];
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -1010,7 +1011,7 @@
         }
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self openDownloadedSEBConfigData:sebFileData fromURL:url];
+            [self openDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
         });
     }
 }
@@ -1127,14 +1128,14 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 
 // Called when SEB successfully downloaded the config file
-- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
     
-    if ([self isReconfiguringAllowed]) {
+    if ([self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
         _sebController.openingSettings = true;
         SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
         configFileController.sebController = self.sebController;

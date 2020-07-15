@@ -155,6 +155,8 @@
 
 - (void) conditionallyInitCustomHTTPProtocol;
 
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
+
 /**
  * @brief       Checks if a URL is in an associated domain and therefore might have
  *              been invoked with a Universal Link
