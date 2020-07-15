@@ -228,4 +228,24 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_mobileStatusBarAppearances {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"None", nil),
+            NSLocalizedString(@"White on Black", nil),
+            NSLocalizedString(@"Black on White", nil),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_mobileStatusBarAppearancesExtended {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"None", nil),
+            NSLocalizedString(@"White on Black", nil),
+            NSLocalizedString(@"Black on White", nil),
+            NSLocalizedString(@"None - Black", nil),
+            NSLocalizedString(@"None - White", nil),
+            nil];
+}
+
+
 @end
