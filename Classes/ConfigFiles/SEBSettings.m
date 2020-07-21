@@ -288,6 +288,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enablePrivateClipboard",
                    
                    @YES,
+                   @"enablePrivateClipboardMac",
+                   
+                   @YES,
                    @"enableSebBrowser",
                    
                    @NO,
@@ -331,7 +334,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableEsc",
-                   
+
                    @NO,
                    @"enableCtrlEsc",
                    
@@ -743,6 +746,7 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"description" : @"",
                       @"executable" : @"",
                       @"identifier" : @"",
+                      @"ignoreInAAC" : @YES,
                       @"os" : @0,
                       @"strongKill" : @NO,
                       @"user" : @""
