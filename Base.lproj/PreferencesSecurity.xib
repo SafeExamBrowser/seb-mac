@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,16 +28,108 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="708"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button toolTip="Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="617" width="230" height="18"/>
-                    <buttonCell key="cell" type="check" title="Allow to run inside virtual machine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
-                    </connections>
-                </button>
+                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fzP-sx-Pjd">
+                    <rect key="frame" x="20" y="579" width="610" height="54"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Z8-1t-DB7">
+                            <rect key="frame" x="0.0" y="20" width="295" height="34"/>
+                            <subviews>
+                                <button toolTip="Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                                    <rect key="frame" x="-2" y="18" width="230" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Allow to run inside virtual machine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Allows macOS screen sharing to be used (VNC based)" translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
+                                    <rect key="frame" x="-2" y="-2" width="148" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Allow screen sharing" bezelStyle="regularSquare" imagePosition="left" inset="2" id="zzi-ch-X4d">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="lY1-JA-gPh"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LBV-sq-zoK">
+                            <rect key="frame" x="315" y="0.0" width="295" height="54"/>
+                            <subviews>
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
+                                    <rect key="frame" x="-2" y="38" width="149" height="18"/>
+                                    <string key="toolTip">Controls macOS screen capture and recording (invoked with cmd+shift+3/+4/+5), corresponds with option 'Enable Print Screen' in Windows (Hooked Keys)</string>
+                                    <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="Jkg-6F-iaL"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
+                                    <rect key="frame" x="-2" y="18" width="151" height="18"/>
+                                    <string key="toolTip">Private clipboard should always be used besides when working with third party applications in a managed user account, as it also stops iCloud Clipboard (if not using AAC)</string>
+                                    <buttonCell key="cell" type="check" title="Use private clipboard" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="293">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrivateClipboardMac" id="hVB-Y5-46B">
+                                            <dictionary key="options">
+                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qqs-ZA-6ds">
+                                    <rect key="frame" x="-2" y="-2" width="188" height="18"/>
+                                    <string key="toolTip">Private clipboard should always be used besides when working with third party applications in a managed user account (this setting only affects SEB for Windows and older Mac versions)</string>
+                                    <buttonCell key="cell" type="check" title="Use private clipboard (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="cfE-bh-Syt">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrivateClipboard" id="lW4-8m-Xvj">
+                                            <dictionary key="options">
+                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
                 <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                     <rect key="frame" x="18" y="645" width="615" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
@@ -1111,16 +1203,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button toolTip="Allows macOS screen sharing to be used" translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
-                    <rect key="frame" x="18" y="597" width="148" height="18"/>
-                    <buttonCell key="cell" type="check" title="Allow screen sharing" bezelStyle="regularSquare" imagePosition="left" inset="2" id="zzi-ch-X4d">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="lY1-JA-gPh"/>
-                    </connections>
-                </button>
                 <box autoresizesSubviews="NO" borderType="line" title="Logging" translatesAutoresizingMaskIntoConstraints="NO" id="M5z-0E-3yB">
                     <rect key="frame" x="17" y="425" width="616" height="139"/>
                     <view key="contentView" id="zcb-WA-Wne">
@@ -1275,62 +1357,27 @@
                         <constraint firstItem="H9Q-8A-xab" firstAttribute="baseline" secondItem="6DQ-Jd-s1A" secondAttribute="baseline" id="yj2-SS-clN"/>
                     </constraints>
                 </box>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
-                    <rect key="frame" x="333" y="617" width="149" height="18"/>
-                    <string key="toolTip">Controls macOS screen capture and recording (invoked with cmd+shift+3/+4/+5), corresponds with option 'Enable Print Screen' in Windows (Hooked Keys)</string>
-                    <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="Jkg-6F-iaL"/>
-                    </connections>
-                </button>
-                <button toolTip="Private clipboard should always be used besides when working with third party applications in a managed user account" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="333" y="597" width="151" height="18"/>
-                    <buttonCell key="cell" type="check" title="Use private clipboard" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="293">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrivateClipboard" id="SKk-Wz-ZBP">
-                            <dictionary key="options">
-                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g34-gq-Owk" secondAttribute="trailing" constant="20" id="1cB-Cj-a8U"/>
-                <constraint firstItem="76" firstAttribute="leading" secondItem="PH3-Cb-12g" secondAttribute="leading" id="48c-Cy-whl"/>
+                <constraint firstItem="fzP-sx-Pjd" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="1Np-1d-OmH"/>
                 <constraint firstItem="93" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="4rm-Md-YRc"/>
-                <constraint firstItem="76" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="76B-ST-fRW"/>
                 <constraint firstItem="M5z-0E-3yB" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="8Tc-ud-89i"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
-                <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" symbolic="YES" id="BiT-EG-tlD"/>
-                <constraint firstItem="292" firstAttribute="top" secondItem="g34-gq-Owk" secondAttribute="bottom" constant="6" symbolic="YES" id="EWr-V0-Mub"/>
-                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="35" id="J4z-Ya-l8I"/>
-                <constraint firstItem="292" firstAttribute="leading" secondItem="1" secondAttribute="trailing" priority="750" constant="-315" id="JjB-j0-KEF"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" constant="-8" id="N3J-Hn-YtI"/>
-                <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="Pfg-x9-9mr"/>
                 <constraint firstItem="pBJ-HX-kB3" firstAttribute="top" secondItem="M5z-0E-3yB" secondAttribute="bottom" constant="15" id="PwU-Tn-2TO"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="292" secondAttribute="trailing" constant="20" id="SNH-IN-m2g"/>
+                <constraint firstItem="fzP-sx-Pjd" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="R9d-su-fvh"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Sbg-bM-tcZ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
-                <constraint firstItem="g34-gq-Owk" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="TXS-Ar-EIs"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
-                <constraint firstItem="g34-gq-Owk" firstAttribute="leading" secondItem="1" secondAttribute="trailing" priority="750" constant="-315" id="fED-Ur-NVC"/>
+                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="fzP-sx-Pjd" secondAttribute="bottom" constant="15" id="hI5-0Z-NaR"/>
                 <constraint firstAttribute="trailing" secondItem="99" secondAttribute="trailing" constant="20" symbolic="YES" id="iU5-oJ-zbC"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="99" secondAttribute="leading" id="jud-Va-gdy"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="4" id="pBx-kl-Hfh"/>
                 <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" id="pD8-oa-qZe"/>
-                <constraint firstItem="292" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PH3-Cb-12g" secondAttribute="trailing" constant="20" id="rBN-ox-wIV"/>
-                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="35" id="rrb-uj-dFv"/>
                 <constraint firstAttribute="trailing" secondItem="M5z-0E-3yB" secondAttribute="trailing" constant="20" id="sN8-nQ-MD4"/>
-                <constraint firstItem="g34-gq-Owk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="xbg-8q-yHR"/>
+                <constraint firstAttribute="trailing" secondItem="fzP-sx-Pjd" secondAttribute="trailing" constant="20" id="xx2-BU-Jv1"/>
             </constraints>
             <point key="canvasLocation" x="812" y="753"/>
         </customView>
