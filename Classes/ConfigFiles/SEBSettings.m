@@ -69,15 +69,15 @@ static SEBSettings *sharedSEBSettings = nil;
                 
                 NSArray *subDictionaries = [completeDefaultSettings allKeys];
                 for (NSString *subDictKey in subDictionaries) {
-                    NSDictionary *subCABDict = [defaultExtensionSettings objectForKey:subDictKey];
-                    if (subCABDict.count > 0) {
+                    NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
+                    if (subExtensionDict.count > 0) {
                         NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
                         if (subDict) {
-                            [subDict addEntriesFromDictionary:subCABDict];
+                            [subDict addEntriesFromDictionary:subExtensionDict];
                             [completeDefaultSettings setObject:subDict forKey:subDictKey];
                             [defaultExtensionSettings removeObjectForKey:subDictKey];
                         } else {
-                            [completeDefaultSettings setObject:subCABDict forKey:subDictKey];
+                            [completeDefaultSettings setObject:subExtensionDict forKey:subDictKey];
                         }
                     }
                 }
@@ -331,6 +331,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"hookKeys",
+                   
+                   @YES,
+                   @"enableAAC",
                    
                    @YES,
                    @"enableEsc",
@@ -673,6 +676,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:40],
                    @"taskBarHeight",
+                   
+                   @NO,
+                   @"terminateProcesses",
                    
                    @NO,
                    @"touchOptimized",
