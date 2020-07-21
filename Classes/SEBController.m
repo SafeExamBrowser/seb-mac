@@ -306,6 +306,15 @@ bool insideMatrix(void);
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:nil];
     
+    // Add key/value observing for any new application/process being run
+    // also background apps or for apps that have the LSUIElement key in their Info.plist file
+    static const void *kMyKVOContext = (void*)&kMyKVOContext;
+
+    [[NSWorkspace sharedWorkspace] addObserver:self
+                                    forKeyPath:@"runningApplications"
+                                       options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
+                                       context:NULL];
+    
     // Add an observer for the notification that another application was unhidden by the finder
     [[workspace notificationCenter] addObserver:self
                                        selector:@selector(spaceSwitch:)
@@ -4349,9 +4358,17 @@ bool insideMatrix(){
     } else if ([keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
-//            [self appLaunch:nil];
+    } else if ([keyPath isEqualToString:@"runningApplications"]) {
+        NSArray *startedProcesses = [change objectForKey:@"new"];
+        if (startedProcesses.count > 0) {
+            NSRunningApplication *startedApplication = startedProcesses[0];
+            if (startedApplication) {
+                NSString *bundleID = startedApplication.bundleIdentifier;
+                DDLogDebug(@"Started process bundle ID: %@", bundleID);
+            }
         }
     }
+    
 }
 
 

@@ -51,6 +51,8 @@
 #import "SEBKeychainManager.h"
 #import "SEBConfigFileManager.h"
 #import "SEBSettings.h"
+#import "NSDictionary+Extensions.h"
+
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -392,21 +394,80 @@ static NSNumber *_logLevel;
 {
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
-
+    
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
+        NSString *keyWithPrefix = [self prefixKey:key];
         
         // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
         // will cause a crash when trying to modify the dictionary
         if ([value isKindOfClass:[NSDictionary class]]) {
             value = [NSMutableDictionary dictionaryWithDictionary:value];
         }
-        NSString *keyWithPrefix = [self prefixKey:key];
+        
+        // We need to join loaded prohibited processes with preset default processes
+        if ([key isEqualToString:@"prohibitedProcesses"]) {
+            NSDictionary *process;
+            NSMutableArray *processes = ((NSArray *)value).mutableCopy;
+            NSArray *presetProcesses = [self secureArrayForKey:keyWithPrefix];
+            for (NSUInteger i = 0; i < processes.count; i++) {
+                process = processes[i];
+                NSInteger os = [process[@"os"] longValue];
+                if (os == operatingSystemMacOS) {
+                    NSString *bundleID = process[@"identifier"];
+                    NSString *executable = process[@"executable"];
+                    NSArray *matches;
+                    if (bundleID.length > 0) {
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+                        matches = [presetProcesses filteredArrayUsingPredicate:predicate];
+                    } else {
+                        // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
+                        if (executable.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                            matches = [presetProcesses filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingExistingProcess;
+                            for (NSDictionary *existingProcess in matches) {
+                                NSString *existingProcessBundleID = existingProcess[@"identifier"];
+                                if (existingProcessBundleID.length == 0) {
+                                    // we join processes with same executable only if they both
+                                    // don't specify a bundle ID
+                                    matchingExistingProcess = existingProcess;
+                                    break;
+                                }
+                            }
+                            if (matchingExistingProcess) {
+                                matches = [NSArray arrayWithObject:matchingExistingProcess];
+                            }
+                        }
+                    }
+                    if (matches.count > 0) {
+                        NSDictionary *matchingPresetProcess = matches[0];
+                        if (executable.length == 0) {
+                            [process setMatchingValueInDictionary:matchingPresetProcess forKey:keyWithPrefix];
+                        }
+                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"active"];
+                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"currentUser"];
+                        NSString *description = process[@"description"];
+                        if (description.length > 0) {
+                            [process setMatchingValueInDictionary:matchingPresetProcess forKey:@"description"];
+                        }
+                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"ignoreInAAC"];
+                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"strongKill"];
+                        
+                        processes[i] = process;
+                    }
+                }
+            }
+            value = processes.copy;
+        }
+        
         [self setSecureObject:value forKey:keyWithPrefix];
     }
 }
-
+                                    
+                                    
+                                    
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {
