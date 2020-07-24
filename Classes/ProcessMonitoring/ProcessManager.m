@@ -71,9 +71,9 @@ static ProcessManager *sharedProcessManager = nil;
             
             NSString *bundleID = prohibitedProcess[@"identifier"];
             if (bundleID.length > 0) {
-                [self.prohibitedRunningApplications addObject:prohibitedProcess];
+                [self.prohibitedRunningApplications addObject:bundleID];
             } else {
-                [self.prohibitedBSDProcesses addObject:prohibitedProcess];
+                [self.prohibitedBSDProcesses addObject:prohibitedProcess[@"executable"]];
             }
         }
     }
@@ -88,9 +88,9 @@ static ProcessManager *sharedProcessManager = nil;
                 
                 NSString *bundleID = permittedProcess[@"identifier"];
                 if (bundleID.length > 0) {
-                    [self.permittedRunningApplications addObject:permittedProcess];
+                    [self.permittedRunningApplications addObject:bundleID];
                 } else {
-                    [self.permittedBSDProcesses addObject:permittedProcesses];
+                    [self.permittedBSDProcesses addObject:permittedProcess[@"executable"]];
                 }
             }
         }
