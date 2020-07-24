@@ -389,7 +389,7 @@
                                                         </buttonCell>
                                                         <connections>
                                                             <action selector="setEnableAllowUserAppFolderInstall:" target="-2" id="uez-qK-bmK"/>
-                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="lc1-iX-etX"/>
+                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowSingleAppMode" id="eyv-9H-fQx"/>
                                                         </connections>
                                                     </button>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="gaS-9v-32d">
@@ -400,7 +400,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSiri" id="Bjw-AF-3tF"/>
+                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform" id="tqp-K2-XEt"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
