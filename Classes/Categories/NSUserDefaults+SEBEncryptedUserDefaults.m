@@ -408,58 +408,63 @@ static NSNumber *_logLevel;
         
         // We need to join loaded prohibited processes with preset default processes
         if ([key isEqualToString:@"prohibitedProcesses"]) {
-            NSDictionary *process;
-            NSMutableArray *processes = ((NSArray *)value).mutableCopy;
-            NSArray *presetProcesses = [self secureArrayForKey:keyWithPrefix];
-            for (NSUInteger i = 0; i < processes.count; i++) {
-                process = processes[i];
-                NSInteger os = [process[@"os"] longValue];
+            NSDictionary *presetProcess;
+            NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
+            NSMutableArray *presetProcesses = [self secureArrayForKey:keyWithPrefix].mutableCopy;
+            NSMutableArray *newProcesses = [NSMutableArray new];
+            for (NSUInteger i = 0; i < presetProcesses.count; i++) {
+                presetProcess = presetProcesses[i];
+                NSInteger os = [presetProcess[@"os"] longValue];
                 if (os == operatingSystemMacOS) {
-                    NSString *bundleID = process[@"identifier"];
-                    NSString *executable = process[@"executable"];
+                    NSString *bundleID = presetProcess[@"identifier"];
+                    NSString *executable = presetProcess[@"executable"];
                     NSArray *matches;
                     if (bundleID.length > 0) {
                         NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
-                        matches = [presetProcesses filteredArrayUsingPredicate:predicate];
+                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
                     } else {
                         // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
                         if (executable.length > 0) {
                             NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
-                            matches = [presetProcesses filteredArrayUsingPredicate:predicate];
-                            NSDictionary *matchingExistingProcess;
-                            for (NSDictionary *existingProcess in matches) {
-                                NSString *existingProcessBundleID = existingProcess[@"identifier"];
-                                if (existingProcessBundleID.length == 0) {
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingProcess;
+                            for (NSDictionary *processFromSettings in matches) {
+                                NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
+                                if (processFromSettingsBundleID.length == 0) {
                                     // we join processes with same executable only if they both
                                     // don't specify a bundle ID
-                                    matchingExistingProcess = existingProcess;
+                                    matchingProcess = processFromSettings;
                                     break;
                                 }
                             }
-                            if (matchingExistingProcess) {
-                                matches = [NSArray arrayWithObject:matchingExistingProcess];
+                            if (matchingProcess) {
+                                matches = [NSArray arrayWithObject:matchingProcess];
                             }
                         }
                     }
                     if (matches.count > 0) {
-                        NSDictionary *matchingPresetProcess = matches[0];
+                        NSDictionary *matchingProcessFromSettings = matches[0];
+                        [processesFromSettings removeObject:matchingProcessFromSettings];
                         if (executable.length == 0) {
-                            [process setMatchingValueInDictionary:matchingPresetProcess forKey:keyWithPrefix];
+                            [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:keyWithPrefix];
                         }
-                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"active"];
-                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"currentUser"];
-                        NSString *description = process[@"description"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
+                        NSString *description = matchingProcessFromSettings[@"description"];
                         if (description.length > 0) {
-                            [process setMatchingValueInDictionary:matchingPresetProcess forKey:@"description"];
+                            [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:@"description"];
                         }
-                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"ignoreInAAC"];
-                        [process setNonexistingValueInDictionary:matchingPresetProcess forKey:@"strongKill"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
                         
-                        processes[i] = process;
+                        [newProcesses addObject:matchingProcessFromSettings];
+                    } else {
+                        [newProcesses addObject:presetProcess];
                     }
                 }
             }
-            value = processes.copy;
+            [newProcesses addObjectsFromArray:processesFromSettings];
+            value = newProcesses.copy;
         }
         
         [self setSecureObject:value forKey:keyWithPrefix];
