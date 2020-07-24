@@ -67,6 +67,28 @@ static SEBSettings *sharedSEBSettings = nil;
             if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(@"defaultSettings")]) {
                 NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:[SEBExtensionClass defaultSettings]];
                 
+                NSArray *extensionDictionaryKeys = [defaultExtensionSettings allKeys];
+                for (NSString *extensionDictKey in extensionDictionaryKeys) {
+                    // First check if extension settings dictionary contains arrays of subdictionaries with missing default keys
+                    NSMutableDictionary *extensionSubDict = [[defaultExtensionSettings objectForKey:extensionDictKey] mutableCopy];
+                    NSArray *extensionSubDictionaryKeys = [extensionSubDict allKeys];
+                    for (NSString *extensionSubDictKey in extensionSubDictionaryKeys) {
+                        id extensionSubElement = [extensionSubDict objectForKey:extensionSubDictKey];
+                        if ([extensionSubElement isKindOfClass:[NSArray class]]) {
+                            NSMutableArray *extensionSubArray = NSMutableArray.new;
+                            for (NSDictionary* extensionSubDict in extensionSubElement) {
+                                NSMutableDictionary *completedExtensionSubDict = [[completeDefaultSettings objectForKey:extensionSubDictKey] mutableCopy];
+                                [completedExtensionSubDict addEntriesFromDictionary:extensionSubDict];
+                                [extensionSubArray addObject:completedExtensionSubDict];
+                            }
+                            if (extensionSubArray) {
+                                [extensionSubDict setObject:extensionSubArray.copy forKey:extensionSubDictKey];
+                            }
+                        }
+                    }
+                    [defaultExtensionSettings setObject:extensionSubDict.copy forKey:extensionDictKey];
+                }
+                
                 NSArray *subDictionaries = [completeDefaultSettings allKeys];
                 for (NSString *subDictKey in subDictionaries) {
                     NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
