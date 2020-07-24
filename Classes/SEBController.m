@@ -74,6 +74,7 @@
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
 #import "NSRunningApplication+SEB.h"
+#import "ProcessManager.h"
 
 #import "SEBDockItemMenu.h"
 
@@ -266,6 +267,8 @@ bool insideMatrix(void);
             DDLogDebug(@"App %@ owns menu bar", iterApp);
         }
     }
+    
+    [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     /// First kiosk mode setup which doesn't depend on settings
     
@@ -871,6 +874,8 @@ bool insideMatrix(void);
     
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
+    
+    [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
@@ -4365,6 +4370,13 @@ bool insideMatrix(){
             if (startedApplication) {
                 NSString *bundleID = startedApplication.bundleIdentifier;
                 DDLogDebug(@"Started process bundle ID: %@", bundleID);
+                if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
+                    NSURL *appURL = [self getBundleOrExecutableURL:startedApplication];
+                    if (appURL) {
+                        [_terminatedProcessesExecutableURLs addObject:appURL];
+                    }
+                    [self killApplication:startedApplication];
+                }
             }
         }
     }
