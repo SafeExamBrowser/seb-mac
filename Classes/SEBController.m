@@ -851,7 +851,7 @@ bool insideMatrix(void);
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"];
-
+    
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
     
@@ -882,7 +882,7 @@ bool insideMatrix(void);
     
     // Clear pasteboard and save current string for pasting start URL in Preferences Window
     [self clearPasteboardSavingCurrentString];
-
+    
     // Check if the Force Quit window is open
     [self forceQuitWindowCheck];
     
@@ -893,13 +893,13 @@ bool insideMatrix(void);
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                     withObject:NULL waitUntilDone:NO];
-
+    
     // Run watchdog event for windows and events which need to be observed
     // on the main (UI!) thread once, to initialize
     _runningProhibitedProcesses = [NSMutableArray new];
     _terminatedProcessesExecutableURLs = [NSMutableArray new];
     [self windowWatcher];
-   
+    
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
