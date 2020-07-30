@@ -801,6 +801,9 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    _runningProhibitedProcesses = [NSMutableArray new];
+    _terminatedProcessesExecutableURLs = [NSMutableArray new];
+
     if (!_openingSettings)
     {
         // Check for command key being held down
@@ -875,7 +878,43 @@ bool insideMatrix(void);
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     
+    
+    // Check if any prohibited processes are running and terminate them
+    
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
+    
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    self.runningProcesses = allRunningProcesses;
+    
+    NSMutableArray <NSRunningApplication *>*runningProhibitedApplications = [NSMutableArray new];
+    NSMutableArray <NSDictionary *>*runningProhibitedProcesses = [NSMutableArray new];
+    
+    // Check if any prohibited processes are running
+    for (NSDictionary *process in allRunningProcesses) {
+        NSNumber *PID = process[@"PID"];
+        pid_t processPID = PID.intValue;
+        NSRunningApplication *runningApplication = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
+        NSString *bundleID = runningApplication.bundleIdentifier;
+        if (bundleID) {
+            if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
+                [runningProhibitedApplications addObject:runningApplication];
+                NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
+                if (appURL) {
+                    // Add the app's file URL, so we can restart it when exiting SEB
+                    [_terminatedProcessesExecutableURLs addObject:appURL];
+                }
+                [runningApplication terminate];
+            }
+        } else {
+            [runningProhibitedProcesses addObject:process];
+        }
+    }
+    
+    // Check if all prohibited processes did terminate and otherwise prompt the user
+
+    //    [self killApplication:runningApplication];
+    
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
@@ -896,8 +935,6 @@ bool insideMatrix(void);
     
     // Run watchdog event for windows and events which need to be observed
     // on the main (UI!) thread once, to initialize
-    _runningProhibitedProcesses = [NSMutableArray new];
-    _terminatedProcessesExecutableURLs = [NSMutableArray new];
     [self windowWatcher];
     
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
@@ -941,8 +978,9 @@ bool insideMatrix(void);
 - (void) startSystemMonitoring
 {
     // Get all running processes, including daemons
-    NSArray *allRunningProcesses = [self getProcessNameArray];
-    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
+    NSArray *allRunningProcesses = [self getProcessArray];
+    NSArray *allRunningProcessNames = [allRunningProcesses valueForKey:@"name"];
+    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcessNames.count, allRunningProcessNames);
     
     // Check for activated screen sharing if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -951,8 +989,8 @@ bool insideMatrix(void);
     allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
     
     if (!allowScreenSharing &&
-        ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent]))
+        ([allRunningProcessNames containsObject:screenSharingAgent] ||
+         [allRunningProcessNames containsObject:AppleVNCAgent]))
     {
         // Screen sharing is active
         DDLogError(@"Screen Sharing Detected, SEB will quit");
@@ -965,7 +1003,7 @@ bool insideMatrix(void);
     }
     
     if (!allowSiri &&
-        [allRunningProcesses containsObject:SiriService] &&
+        [allRunningProcessNames containsObject:SiriService] &&
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue])
     {
         // Siri is active
@@ -977,7 +1015,7 @@ bool insideMatrix(void);
     }
     
     if (!allowDictation &&
-        [allRunningProcesses containsObject:DictationProcess] &&
+        [allRunningProcessNames containsObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
          [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue]))
     {
@@ -1187,7 +1225,7 @@ bool insideMatrix(void);
 }
 
 
-- (NSArray *) getProcessArray {
+- (NSArray <NSDictionary *>*) getProcessArray {
     NSMutableArray *ProcList = [[NSMutableArray alloc] init];
     
     kinfo_proc *mylist;
@@ -4373,6 +4411,7 @@ bool insideMatrix(){
                 if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
                     NSURL *appURL = [self getBundleOrExecutableURL:startedApplication];
                     if (appURL) {
+                        // Add the app's file URL, so we can restart it when exiting SEB
                         [_terminatedProcessesExecutableURLs addObject:appURL];
                     }
                     [self killApplication:startedApplication];
