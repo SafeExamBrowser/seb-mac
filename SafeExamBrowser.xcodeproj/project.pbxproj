@@ -96,6 +96,9 @@
 		6949A48C1D0EF5890040ABF1 /* CustomHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4841D0EF5890040ABF1 /* CustomHTTPProtocol.m */; };
 		6949A48D1D0EF5890040ABF1 /* QNSURLSessionDemux.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4851D0EF5890040ABF1 /* QNSURLSessionDemux.h */; };
 		6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */; };
+		694A8A5724D20B5300F7DA31 /* ProcessListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 694A8A5424D20B5300F7DA31 /* ProcessListViewController.h */; };
+		694A8A5824D20B5300F7DA31 /* ProcessListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694A8A5524D20B5300F7DA31 /* ProcessListViewController.m */; };
+		694A8A5924D20B5300F7DA31 /* ProcessListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 694A8A5624D20B5300F7DA31 /* ProcessListViewController.xib */; };
 		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		6950F4731D89F9AB00CCB42A /* HUDPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6950F4711D89F9AB00CCB42A /* HUDPanel.h */; };
@@ -538,6 +541,9 @@
 		6949A4841D0EF5890040ABF1 /* CustomHTTPProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHTTPProtocol.m; sourceTree = "<group>"; };
 		6949A4851D0EF5890040ABF1 /* QNSURLSessionDemux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNSURLSessionDemux.h; sourceTree = "<group>"; };
 		6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNSURLSessionDemux.m; sourceTree = "<group>"; };
+		694A8A5424D20B5300F7DA31 /* ProcessListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessListViewController.h; sourceTree = "<group>"; };
+		694A8A5524D20B5300F7DA31 /* ProcessListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessListViewController.m; sourceTree = "<group>"; };
+		694A8A5624D20B5300F7DA31 /* ProcessListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessListViewController.xib; sourceTree = "<group>"; };
 		694B08A116B14ABF00E4997C /* SEBCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCryptor.h; sourceTree = "<group>"; };
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		6950F4711D89F9AB00CCB42A /* HUDPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDPanel.h; sourceTree = "<group>"; };
@@ -1314,6 +1320,9 @@
 			children = (
 				695BC4EA24C237F7005C2350 /* ProcessManager.h */,
 				695BC4EB24C237F7005C2350 /* ProcessManager.m */,
+				694A8A5424D20B5300F7DA31 /* ProcessListViewController.h */,
+				694A8A5524D20B5300F7DA31 /* ProcessListViewController.m */,
+				694A8A5624D20B5300F7DA31 /* ProcessListViewController.xib */,
 			);
 			name = ProcessMonitoring;
 			path = Classes/ProcessMonitoring;
@@ -1673,6 +1682,7 @@
 				690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */,
 				69E9EA321DB1A2D500C949FE /* NSRunningApplication+SEB.h in Headers */,
 				6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */,
+				694A8A5724D20B5300F7DA31 /* ProcessListViewController.h in Headers */,
 				69C228191C767B0900F78634 /* compat-1.3.h in Headers */,
 				69C228391C767B0900F78634 /* ripemd160.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
@@ -1834,6 +1844,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				694A8A5924D20B5300F7DA31 /* ProcessListViewController.xib in Resources */,
 				69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */,
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
@@ -1992,6 +2003,7 @@
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				69C228861C767B0900F78634 /* threading.c in Sources */,
+				694A8A5824D20B5300F7DA31 /* ProcessListViewController.m in Sources */,
 				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
 				6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */,
 				69B45A4023DB9509006E085E /* SEBOSXConfigFileController.m in Sources */,
