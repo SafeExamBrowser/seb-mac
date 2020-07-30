@@ -354,7 +354,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"hookKeys",
                    
-                   @YES,
+                   @NO,
                    @"enableAAC",
                    
                    @YES,
