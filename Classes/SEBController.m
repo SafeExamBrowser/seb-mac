@@ -75,6 +75,7 @@
 #import "SEBConfigFileManager.h"
 #import "NSRunningApplication+SEB.h"
 #import "ProcessManager.h"
+#import "ProcessListViewController.h"
 
 #import "SEBDockItemMenu.h"
 
@@ -887,9 +888,9 @@ bool insideMatrix(void);
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
     
-    NSMutableArray <NSRunningApplication *>*runningProhibitedApplications = [NSMutableArray new];
-    NSMutableArray <NSDictionary *>*runningProhibitedProcesses = [NSMutableArray new];
-    
+    NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
+    NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
+
     // Check if any prohibited processes are running
     for (NSDictionary *process in allRunningProcesses) {
         NSNumber *PID = process[@"PID"];
@@ -898,7 +899,7 @@ bool insideMatrix(void);
         NSString *bundleID = runningApplication.bundleIdentifier;
         if (bundleID) {
             if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
-                [runningProhibitedApplications addObject:runningApplication];
+                [runningApplications addObject:runningApplication];
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
                 if (appURL) {
                     // Add the app's file URL, so we can restart it when exiting SEB
@@ -907,12 +908,28 @@ bool insideMatrix(void);
                 [runningApplication terminate];
             }
         } else {
-            [runningProhibitedProcesses addObject:process];
+            if ([[ProcessManager sharedProcessManager].prohibitedBSDProcesses containsObject:process]) {
+                [runningProcesses addObject:process];
+            }
         }
     }
     
     // Check if all prohibited processes did terminate and otherwise prompt the user
-
+    ProcessListViewController *processListViewController = [[ProcessListViewController alloc] initWithNibName:@"ProcessListView" bundle:nil];
+    processListViewController.runningApplications = runningApplications.copy;
+    processListViewController.runningProcesses = runningProcesses.copy;
+    
+    if (!_runningProcessesListWindow) {
+        _runningProcessesListWindow = [NSWindow windowWithContentViewController:processListViewController];
+//                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+//        [_runningProcessesListWindow setReleasedWhenClosed:YES];
+        //[prefsWindow setLevel:NSModalPanelWindowLevel];
+        //[prefsWindow setLevel:NSNormalWindowLevel];
+        [_runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
+    }
+    NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:_runningProcessesListWindow];
+    [processListWindowController showWindow:nil];
+    
     //    [self killApplication:runningApplication];
     
     

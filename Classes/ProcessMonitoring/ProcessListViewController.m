@@ -6,16 +6,23 @@
 //
 
 #import "ProcessListViewController.h"
-
-@interface ProcessListViewController ()
-
-@end
+#import "ProcessListElement.h"
 
 @implementation ProcessListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+    NSMutableArray *allProcesses = [NSMutableArray new];
+    for (NSRunningApplication *runningApplication in _runningApplications) {
+        ProcessListElement *processListElement = [[ProcessListElement alloc] initWithProcess:runningApplication];
+        if (processListElement) {
+            [allProcesses addObject:processListElement];
+        }
+    }
+    for (NSDictionary *runningProcess in _runningProcesses) {
+        [allProcesses addObject:[[ProcessListElement alloc] initWithProcess:runningProcess]];
+    }
+    _processListArrayController.content = allProcesses.copy;
 }
 
 @end
