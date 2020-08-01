@@ -59,12 +59,14 @@
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
+#import "ProcessListViewController.h"
 
 #import "CocoaLumberjack.h"
 
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
+@class ProcessListViewController;
 @class SEBDockController;
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
@@ -179,6 +181,7 @@
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
 @property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property(strong, atomic) NSArray <NSDictionary*> *runningProcesses;
+@property(strong, nonatomic) ProcessListViewController *processListViewController;
 @property(strong, nonatomic) NSWindow *runningProcessesListWindow;
 
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
