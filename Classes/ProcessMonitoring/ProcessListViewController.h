@@ -13,8 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) IBOutlet NSArrayController *processListArrayController;
 
-@property (strong, nonatomic) NSArray <NSRunningApplication *>*runningApplications;
-@property (strong, nonatomic) NSArray <NSDictionary *>*runningProcesses;
+@property (strong, nonatomic) NSMutableArray <NSRunningApplication *>*runningApplications;
+@property (strong, nonatomic) NSMutableArray <NSDictionary *>*runningProcesses;
+
+- (void)didTerminateRunningApplications:(NSArray *)terminatedApplications;
 
 @end
 
