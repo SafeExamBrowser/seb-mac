@@ -75,7 +75,6 @@
 #import "SEBConfigFileManager.h"
 #import "NSRunningApplication+SEB.h"
 #import "ProcessManager.h"
-#import "ProcessListViewController.h"
 
 #import "SEBDockItemMenu.h"
 
@@ -144,6 +143,15 @@ bool insideMatrix(void);
         _browserController.sebController = self;
     }
     return _browserController;
+}
+
+
+- (ProcessListViewController *) processListViewController
+{
+    if (!_processListViewController) {
+        _processListViewController = [[ProcessListViewController alloc] initWithNibName:@"ProcessListView" bundle:nil];
+    }
+    return _processListViewController;
 }
 
 
@@ -316,6 +324,11 @@ bool insideMatrix(void);
 
     [[NSWorkspace sharedWorkspace] addObserver:self
                                     forKeyPath:@"runningApplications"
+                                       options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                       context:NULL];
+    
+    [[NSWorkspace sharedWorkspace] addObserver:self
+                                    forKeyPath:@"isTerminated"
                                        options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
                                        context:NULL];
     
@@ -915,23 +928,19 @@ bool insideMatrix(void);
     }
     
     // Check if all prohibited processes did terminate and otherwise prompt the user
-    ProcessListViewController *processListViewController = [[ProcessListViewController alloc] initWithNibName:@"ProcessListView" bundle:nil];
-    processListViewController.runningApplications = runningApplications.copy;
-    processListViewController.runningProcesses = runningProcesses.copy;
-    
-    if (!_runningProcessesListWindow) {
-        _runningProcessesListWindow = [NSWindow windowWithContentViewController:processListViewController];
-//                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
-//        [_runningProcessesListWindow setReleasedWhenClosed:YES];
-        //[prefsWindow setLevel:NSModalPanelWindowLevel];
-        //[prefsWindow setLevel:NSNormalWindowLevel];
-        [_runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
+    if (runningApplications.count + runningProcesses.count > 0) {
+        self.processListViewController.runningApplications = runningApplications;
+        self.processListViewController.runningProcesses = runningProcesses;
+        
+        if (!_runningProcessesListWindow) {
+            _runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
+            //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+            //        [_runningProcessesListWindow setReleasedWhenClosed:YES];
+            [_runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
+        }
+        NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:_runningProcessesListWindow];
+        [processListWindowController showWindow:nil];
     }
-    NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:_runningProcessesListWindow];
-    [processListWindowController showWindow:nil];
-    
-    //    [self killApplication:runningApplication];
-    
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
@@ -4434,9 +4443,13 @@ bool insideMatrix(){
                     [self killApplication:startedApplication];
                 }
             }
+        } else {
+            NSArray *terminatedProcesses = [change objectForKey:@"old"];
+            if (terminatedProcesses.count > 0 && _processListViewController != nil) {
+                [_processListViewController didTerminateRunningApplications:terminatedProcesses];
+            }
         }
     }
-    
 }
 
 

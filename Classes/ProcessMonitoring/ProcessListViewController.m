@@ -8,10 +8,22 @@
 #import "ProcessListViewController.h"
 #import "ProcessListElement.h"
 
+@interface ProcessListViewController () {
+    NSMutableArray *allProcesses;
+}
+
+@end
+
 @implementation ProcessListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _processListArrayController.content = [self allProcessListElements];
+}
+
+
+- (NSArray *)allProcessListElements
+{
     NSMutableArray *allProcesses = [NSMutableArray new];
     for (NSRunningApplication *runningApplication in _runningApplications) {
         ProcessListElement *processListElement = [[ProcessListElement alloc] initWithProcess:runningApplication];
@@ -22,7 +34,19 @@
     for (NSDictionary *runningProcess in _runningProcesses) {
         [allProcesses addObject:[[ProcessListElement alloc] initWithProcess:runningProcess]];
     }
-    _processListArrayController.content = allProcesses.copy;
+    return allProcesses.copy;
+}
+
+
+- (void)didTerminateRunningApplications:(NSArray *)terminatedApplications
+{
+    for (NSRunningApplication *terminatedApplication in terminatedApplications) {
+        if ([_runningApplications containsObject:terminatedApplication]) {
+            [_runningApplications removeObject:terminatedApplication];
+            _processListArrayController.content = [self allProcessListElements];
+        }
+    }
+
 }
 
 @end
