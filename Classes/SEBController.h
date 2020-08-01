@@ -179,6 +179,7 @@
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
 @property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property(strong, atomic) NSArray <NSDictionary*> *runningProcesses;
+@property(strong, nonatomic) NSWindow *runningProcessesListWindow;
 
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
 @property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
