@@ -72,7 +72,7 @@
 @class SEBOSXLockedViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate> {
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate> {
 	
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
