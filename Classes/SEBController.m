@@ -150,6 +150,7 @@ bool insideMatrix(void);
 {
     if (!_processListViewController) {
         _processListViewController = [[ProcessListViewController alloc] initWithNibName:@"ProcessListView" bundle:nil];
+        _processListViewController.delegate = self;
     }
     return _processListViewController;
 }
@@ -676,9 +677,6 @@ bool insideMatrix(void);
         }
     }
 
-    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-    [self coverScreens];
-
     if (_openingSettings && _openingSettingsFileURL) {
         DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
         [self openFile:_openingSettingsFileURL];
@@ -820,70 +818,60 @@ bool insideMatrix(void);
 
     if (!_openingSettings)
     {
-        // Check for command key being held down
-        [self appSwitcherCheck];
-        
-        // Block screen shots
-        [self.systemManager preventScreenCapture];
-        
         // Initialize SEB according to client settings
-        [self conditionallyInitSEB];
-        
-        // Start system monitoring and prevent to start SEB if specific
-        // system features are activated
-        
-        [self startSystemMonitoring];
-        
-        // Set up SEB Browser
-        
-        self.browserController.reinforceKioskModeRequested = YES;
-        
-        // Open the main browser window
-        DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
-        
-        [self.browserController openMainBrowserWindow];
-        
-        // Persist start URL of a "secure" exam
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-            currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-            [self.sebLockedViewController addLockedExam:currentExamStartURL];
-        } else {
-            currentExamStartURL = nil;
-        }
-        
-        // SEB finished starting up, reset the flag for starting up
-        _startingUp = false;
-
-        [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+        [self conditionallyInitSEBWithCallback:self
+                                      selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
+    } else {
+        // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+        [self coverScreens];
     }
 }
 
+- (void)didFinishLaunchingWithSettingsProcessesChecked
+{
+    // Check for command key being held down
+    [self appSwitcherCheck];
+    
+    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+    [self coverScreens];
+
+    // Block screen shots
+    [self.systemManager preventScreenCapture];
+    
+    // Start system monitoring and prevent to start SEB if specific
+    // system features are activated
+    
+    [self startSystemMonitoring];
+    
+    // Set up SEB Browser
+    
+    self.browserController.reinforceKioskModeRequested = YES;
+    
+    // Open the main browser window
+    DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
+    
+    [self.browserController openMainBrowserWindow];
+    
+    // Persist start URL of a "secure" exam
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+    } else {
+        currentExamStartURL = nil;
+    }
+    
+    // SEB finished starting up, reset the flag for starting up
+    _startingUp = false;
+
+    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+}
 
 #pragma mark - Initialization depending on client or opened settings
 
-- (void) conditionallyInitSEB
+- (void) conditionallyInitSEBWithCallback:(id)callback
+                                 selector:(SEL)selector;
 {
-    /// Early kiosk mode setup (as these actions might take some time)
-    
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"];
-    
-    // Switch off display mirroring and find main active screen according to settings
-    [self conditionallyTerminateDisplayMirroring];
-    
-    // Switch off Siri and dictation if not allowed in settings
-    [self conditionallyDisableSpeechInput];
-    
-    // Switch off TouchBar features
-    [self disableTouchBarFeatures];
-    
-    /// Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-    // Update URL filter ignore rules
-    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
-    
-    
     /// Kiosk mode checks
     
     // Check if running on minimal macOS version
@@ -931,16 +919,44 @@ bool insideMatrix(void);
     if (runningApplications.count + runningProcesses.count > 0) {
         self.processListViewController.runningApplications = runningApplications;
         self.processListViewController.runningProcesses = runningProcesses;
+        self.processListViewController.callback = callback;
+        self.processListViewController.selector = selector;
         
         if (!_runningProcessesListWindow) {
             _runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
             //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
-            //        [_runningProcessesListWindow setReleasedWhenClosed:YES];
             [_runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
         }
+        _runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
         NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:_runningProcessesListWindow];
         [processListWindowController showWindow:nil];
+    } else {
+        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
     }
+}
+
+- (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
+                                                 selector:(SEL)selector
+{
+    /// Early kiosk mode setup (as these actions might take some time)
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"];
+    
+    // Switch off display mirroring and find main active screen according to settings
+    [self conditionallyTerminateDisplayMirroring];
+    
+    // Switch off Siri and dictation if not allowed in settings
+    [self conditionallyDisableSpeechInput];
+    
+    // Switch off TouchBar features
+    [self disableTouchBarFeatures];
+    
+    /// Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+    
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
@@ -998,6 +1014,10 @@ bool insideMatrix(void);
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
         }
     }
+    // Continue to starting the exam session
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
 }
 
 
@@ -4031,30 +4051,33 @@ bool insideMatrix(){
         [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
-    // Clear private pasteboard
-    self.browserController.privatePasteboardItems = [NSArray array];
-    
-    // Adjust screen shot blocking
-    [self.systemManager adjustScreenCapture];
-    
     // Close all browser windows (documents)
     [self.browserController closeAllBrowserWindows];
 
     // Reset SEB Browser
     [self.browserController resetBrowser];
+
+    // Clear private pasteboard
+    self.browserController.privatePasteboardItems = [NSArray array];
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
     
+    [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+}
+
+- (void)requestedRestartProcessesChecked
+{
     // Check for command key being held down
     while ([self commandKeyPressed]) {
         DDLogError(@"Command key was pressed and forbidden, retest");
     }
     
+    // Adjust screen shot blocking
+    [self.systemManager adjustScreenCapture];
+    
     [self setElevateWindowLevels];
 
-    [self conditionallyInitSEB];
-    
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     
@@ -4452,5 +4475,13 @@ bool insideMatrix(){
     }
 }
 
+
+- (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
+{
+    [_runningProcessesListWindow.windowController close];
+    _processListViewController = nil;
+    // Continue to initializing SEB and then starting the exam session
+    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+}
 
 @end
