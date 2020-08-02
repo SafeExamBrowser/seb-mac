@@ -894,7 +894,6 @@ bool insideMatrix(void);
         NSString *bundleID = runningApplication.bundleIdentifier;
         if (bundleID) {
             if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
-                [runningApplications addObject:runningApplication];
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
                 if (appURL) {
                     // Add the app's file URL, so we can restart it when exiting SEB
@@ -902,8 +901,11 @@ bool insideMatrix(void);
                 }
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithIdentifier:bundleID];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
-                    [runningApplication kill];
+                    if ([runningApplication kill] != ERR_SUCCESS) {
+                        [runningApplications addObject:runningApplication];
+                    }
                 } else {
+                    [runningApplications addObject:runningApplication];
                     [runningApplication terminate];
                 }
             }
