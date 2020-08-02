@@ -58,11 +58,11 @@ static ProcessManager *sharedProcessManager = nil;
     NSDictionary *prohibitedProcess;
     
     BOOL isAACActive;
-    if (@available(macOS 10.15.4, *)) {
-        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-    } else {
+//    if (@available(macOS 10.15.4, *)) {
+//        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+//    } else {
         isAACActive = NO;
-    }
+//    }
     
     for (prohibitedProcess in prohibitedProcesses) {
         
@@ -97,5 +97,19 @@ static ProcessManager *sharedProcessManager = nil;
     }
 }
 
+
+- (NSDictionary *) prohibitedProcessWithIdentifier:(NSString *)bundleID
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
+
+    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+    NSArray *foundProcesses = [prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
+    if (foundProcesses) {
+        return foundProcesses[0];
+    } else {
+        return nil;
+    }
+}
 
 @end
