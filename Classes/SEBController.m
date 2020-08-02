@@ -280,12 +280,6 @@ bool insideMatrix(void);
     
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
-    /// First kiosk mode setup which doesn't depend on settings
-    
-    // Hide all other applications
-    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
-    
     /// Setup Notifications
     
     // Add an observer for the notification that another application became active (SEB got inactive)
@@ -906,7 +900,12 @@ bool insideMatrix(void);
                     // Add the app's file URL, so we can restart it when exiting SEB
                     [_terminatedProcessesExecutableURLs addObject:appURL];
                 }
-                [runningApplication terminate];
+                NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithIdentifier:bundleID];
+                if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
+                    [runningApplication kill];
+                } else {
+                    [runningApplication terminate];
+                }
             }
         } else {
             if ([[ProcessManager sharedProcessManager].prohibitedBSDProcesses containsObject:process]) {
@@ -922,14 +921,13 @@ bool insideMatrix(void);
         self.processListViewController.callback = callback;
         self.processListViewController.selector = selector;
         
-        if (!_runningProcessesListWindow) {
-            _runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
-            //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
-            [_runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
-        }
-        _runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
-        NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:_runningProcessesListWindow];
-        [processListWindowController showWindow:nil];
+        NSWindow *runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
+        //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+        [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
+        runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
+        NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
+        _runningProcessesListWindowController = processListWindowController;
+        [_runningProcessesListWindowController showWindow:nil];
     } else {
         [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
     }
@@ -4478,7 +4476,7 @@ bool insideMatrix(){
 
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
 {
-    [_runningProcessesListWindow.windowController close];
+    [_runningProcessesListWindowController close];
     _processListViewController = nil;
     // Continue to initializing SEB and then starting the exam session
     [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
