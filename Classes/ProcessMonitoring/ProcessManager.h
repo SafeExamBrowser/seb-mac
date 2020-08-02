@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *permittedBSDProcesses;
 
 + (ProcessManager *)sharedProcessManager;
-- (void) updateMonitoredProcesses;
-
+- (void)updateMonitoredProcesses;
+- (NSDictionary *)prohibitedProcessWithIdentifier:(NSString *)bundleID;
 
 @end
 
