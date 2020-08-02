@@ -10,6 +10,8 @@
 
 @interface ProcessListViewController () {
     NSMutableArray *allProcesses;
+    __weak IBOutlet NSButton *forceQuitButton;
+    __weak IBOutlet NSButton *quitSEBSessionButton;
 }
 
 @end
@@ -18,7 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _processListArrayController.content = [self allProcessListElements];
+    NSArray *allProcessListElements = [self allProcessListElements];
+    if (allProcessListElements.count == 0) {
+        [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+    } else {
+        _processListArrayController.content = allProcessListElements;
+    }
 }
 
 
@@ -46,7 +53,16 @@
             _processListArrayController.content = [self allProcessListElements];
         }
     }
+    if (_runningApplications.count + _runningProcesses.count == 0) {
+        [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+    }
+}
 
+
+- (IBAction)forceQuitAllProcesses:(id)sender {
+}
+
+- (IBAction)quitSEBSession:(id)sender {
 }
 
 @end
