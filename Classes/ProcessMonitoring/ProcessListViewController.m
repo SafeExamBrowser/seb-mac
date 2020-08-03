@@ -7,9 +7,9 @@
 
 #import "ProcessListViewController.h"
 #import "ProcessListElement.h"
+#import "NSRunningApplication+SEB.h"
 
 @interface ProcessListViewController () {
-    NSMutableArray *allProcesses;
     __weak IBOutlet NSButton *forceQuitButton;
     __weak IBOutlet NSButton *quitSEBSessionButton;
 }
@@ -18,7 +18,8 @@
 
 @implementation ProcessListViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     NSArray *allProcessListElements = [self allProcessListElements];
     if (allProcessListElements.count == 0) {
@@ -59,7 +60,38 @@
 }
 
 
-- (IBAction)forceQuitAllProcesses:(id)sender {
+- (IBAction)forceQuitAllProcesses:(id)sender
+{
+    NSUInteger i=0;
+    while (i < _runningApplications.count) {
+        NSRunningApplication *runningApplication = _runningApplications[i];
+        NSString *runningApplicationName = runningApplication.localizedName;
+        NSString *runningApplicationIdentifier = runningApplication.bundleIdentifier;
+        if ([runningApplication kill] == ERR_SUCCESS) {
+            DDLogDebug(@"Running application %@ (%@) successfully force terminated", runningApplicationName, runningApplicationIdentifier);
+            [_runningApplications removeObjectAtIndex:i];
+        } else {
+            DDLogError(@"Force terminating running application %@ (%@) failed!", runningApplicationName, runningApplicationIdentifier);
+            i++;
+        }
+    }
+    i=0;
+    while (i < _runningProcesses.count) {
+        NSDictionary *runningProcess = _runningProcesses[i];
+        NSNumber *PID = runningProcess[@"PID"];
+        pid_t processPID = PID.intValue;
+        if (kill(processPID, 9) == ERR_SUCCESS) {
+            DDLogDebug(@"Running process %@ successfully force terminated", runningProcess);
+            // ToDo: Restart terminated BSD processes when quitting
+            [_runningProcesses removeObjectAtIndex:i];
+        } else {
+            DDLogError(@"Force terminating running process %@ failed!", runningProcess);
+            i++;
+        }
+    }
+    if (_runningApplications.count + _runningProcesses.count == 0) {
+        [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+    }
 }
 
 - (IBAction)quitSEBSession:(id)sender {
