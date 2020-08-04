@@ -112,4 +112,19 @@ static ProcessManager *sharedProcessManager = nil;
     }
 }
 
+
+- (NSDictionary *) prohibitedProcessWithExecutable:(NSString *)executable
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
+
+    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+    NSArray *foundProcesses = [prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
+    if (foundProcesses) {
+        return foundProcesses[0];
+    } else {
+        return nil;
+    }
+}
+
 @end
