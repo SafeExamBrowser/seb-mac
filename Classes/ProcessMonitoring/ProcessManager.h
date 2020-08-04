@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (ProcessManager *)sharedProcessManager;
 - (void)updateMonitoredProcesses;
 - (NSDictionary *)prohibitedProcessWithIdentifier:(NSString *)bundleID;
+- (NSDictionary *)prohibitedProcessWithExecutable:(NSString *)executable;
 
 @end
 

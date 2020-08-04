@@ -554,7 +554,7 @@
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
 /* No comment provided by engineer. */
-"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";

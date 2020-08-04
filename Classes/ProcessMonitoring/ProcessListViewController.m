@@ -81,11 +81,11 @@
         NSNumber *PID = runningProcess[@"PID"];
         pid_t processPID = PID.intValue;
         if (kill(processPID, 9) == ERR_SUCCESS) {
-            DDLogDebug(@"Running process %@ successfully force terminated", runningProcess);
+            DDLogDebug(@"Running process %@ successfully force terminated", runningProcess[@"name"]);
             // ToDo: Restart terminated BSD processes when quitting
             [_runningProcesses removeObjectAtIndex:i];
         } else {
-            DDLogError(@"Force terminating running process %@ failed!", runningProcess);
+            DDLogError(@"Force terminating running process %@ failed!", runningProcess[@"name"]);
             i++;
         }
     }
