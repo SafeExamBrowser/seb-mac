@@ -6,6 +6,7 @@
 //
 
 #import "ProcessListElement.h"
+#import "ProcessManager.h"
 
 @interface ProcessListElement() {
     @private
@@ -56,6 +57,21 @@
         return runningApplication.bundleIdentifier;
     } else {
         return nil;
+    }
+}
+
+- (NSString *)path
+{
+    if (runningApplication) {
+        NSURL *fileURL = runningApplication.bundleURL;
+        if (!fileURL) {
+            fileURL = runningApplication.executableURL;
+        }
+        return fileURL.path;
+    } else {
+        NSNumber *PID = runningProcess[@"PID"];
+        pid_t processPID = PID.intValue;
+        return [ProcessManager getExecutablePathForPID:processPID];
     }
 }
 

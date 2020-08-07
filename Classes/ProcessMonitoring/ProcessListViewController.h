@@ -13,12 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)closeProcessListWindowWithCallback:(id)callback
                                   selector:(SEL)selector;
+- (NSAlert *)newAlert;
+- (void)removeAlertWindow:(NSWindow *)alertWindow;
+@property (readwrite) BOOL quittingMyself;
 
 @end
 
 @interface ProcessListViewController : NSViewController
 
-@property (weak) id delegate;
+@property (weak) id <ProcessListViewControllerDelegate> delegate;
 
 @property (strong) IBOutlet NSArrayController *processListArrayController;
 
