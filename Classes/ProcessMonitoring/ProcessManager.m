@@ -6,6 +6,7 @@
 //
 
 #import "ProcessManager.h"
+#include <libproc.h>
 
 @implementation ProcessManager
 
@@ -22,6 +23,25 @@ static ProcessManager *sharedProcessManager = nil;
     }
     
     return sharedProcessManager;
+}
+
++ (NSString *)getExecutablePathForPID:(pid_t) runningExecutablePID
+{
+    int ret;
+    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+    
+    ret = proc_pidpath (runningExecutablePID, pathbuf, sizeof(pathbuf));
+    if ( ret <= 0 ) {
+        fprintf(stderr, "PID %d: proc_pidpath ();\n", runningExecutablePID);
+        fprintf(stderr, "    %s\n", strerror(errno));
+    } else {
+#ifdef DEBUG
+        printf("proc %d: %s\n", runningExecutablePID, pathbuf);
+#endif
+    }
+    
+    NSString *executablePath = [NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding];
+    return executablePath;
 }
 
 

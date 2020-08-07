@@ -925,23 +925,34 @@ bool insideMatrix(void);
         }
     }
     
-    // Check if all prohibited processes did terminate and otherwise prompt the user
-    if (runningApplications.count + runningProcesses.count > 0) {
-        self.processListViewController.runningApplications = runningApplications;
-        self.processListViewController.runningProcesses = runningProcesses;
-        self.processListViewController.callback = callback;
-        self.processListViewController.selector = selector;
-        
-        NSWindow *runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
-        //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
-        [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
-        runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
-        NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
-        _runningProcessesListWindowController = processListWindowController;
-        [_runningProcessesListWindowController showWindow:nil];
-    } else {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // Check if all prohibited processes did terminate and otherwise prompt the user
+        if (runningApplications.count + runningProcesses.count > 0) {
+            self.processListViewController.runningApplications = runningApplications;
+            self.processListViewController.runningProcesses = runningProcesses;
+            self.processListViewController.callback = callback;
+            self.processListViewController.selector = selector;
+            
+            NSWindow *runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
+            //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+            [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
+            runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
+            NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
+            self.runningProcessesListWindowController = processListWindowController;
+            // Check if the process wasn't closed in the meantime (race condition)
+            // important: processListViewController must be accessed with the instance variable
+            // _processListViewController here and not using the property self.processListViewController
+            // as otherwise a new instance of the controller will be allocated
+            if (self->_processListViewController &&
+                self->_processListViewController.runningApplications.count +
+                self->_processListViewController.runningProcesses.count > 0) {
+                [self.runningProcessesListWindowController showWindow:nil];
+                return;
+            }
+        }
         [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-    }
+
+    });
 }
 
 - (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
@@ -1801,20 +1812,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 {
     SecStaticCodeRef ref = NULL;
     
-    int ret;
-    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
-    
-    ret = proc_pidpath (runningExecutablePID, pathbuf, sizeof(pathbuf));
-    if ( ret <= 0 ) {
-        fprintf(stderr, "PID %d: proc_pidpath ();\n", runningExecutablePID);
-        fprintf(stderr, "    %s\n", strerror(errno));
-    } else {
-#ifdef DEBUG
-        printf("proc %d: %s\n", runningExecutablePID, pathbuf);
-#endif
-    }
-
-    NSString *executablePath = [NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding];
+    NSString * executablePath = [ProcessManager getExecutablePathForPID:runningExecutablePID];
     NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
 
     DDLogDebug(@"Evaluating code signature of %@", executablePath);
