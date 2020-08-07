@@ -18,23 +18,23 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <arrayController id="D8l-HQ-Ieo"/>
         <view id="XM7-W8-YHX">
-            <rect key="frame" x="0.0" y="0.0" width="581" height="450"/>
+            <rect key="frame" x="0.0" y="0.0" width="700" height="450"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLj-q4-6Ht">
-                    <rect key="frame" x="0.0" y="41" width="581" height="341"/>
+                    <rect key="frame" x="0.0" y="41" width="700" height="341"/>
                     <clipView key="contentView" id="szO-rz-V7T">
-                        <rect key="frame" x="1" y="0.0" width="579" height="340"/>
+                        <rect key="frame" x="1" y="0.0" width="698" height="340"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="LvP-0W-CJN" id="EkZ-vB-pPS">
-                                <rect key="frame" x="0.0" y="0.0" width="579" height="315"/>
+                                <rect key="frame" x="0.0" y="0.0" width="698" height="315"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="40" minWidth="40" maxWidth="40" id="6VA-0i-Vai">
+                                    <tableColumn width="35" minWidth="35" maxWidth="40" id="6VA-0i-Vai">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -45,8 +45,8 @@
                                             <binding destination="D8l-HQ-Ieo" name="value" keyPath="arrangedObjects.icon" id="J1P-Pe-iFR"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="265" minWidth="40" maxWidth="1000" id="C9P-Qf-NaI">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                    <tableColumn width="180" minWidth="40" maxWidth="1000" id="C9P-Qf-NaI">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Executable Name">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -60,8 +60,8 @@
                                             <binding destination="D8l-HQ-Ieo" name="value" keyPath="arrangedObjects.name" id="AJM-2K-7CH"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="265" minWidth="10" maxWidth="1000" id="e3I-eM-l5i">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                    <tableColumn width="180" minWidth="10" maxWidth="1000" id="e3I-eM-l5i">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Bundle ID">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableHeaderCell>
@@ -73,6 +73,21 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <connections>
                                             <binding destination="D8l-HQ-Ieo" name="value" keyPath="arrangedObjects.bundleID" id="erS-Za-ULs"/>
+                                        </connections>
+                                    </tableColumn>
+                                    <tableColumn width="290" minWidth="10" maxWidth="3.4028234663852886e+38" id="6ZV-tc-FOU">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Path">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="zWo-zb-Aau">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <connections>
+                                            <binding destination="D8l-HQ-Ieo" name="value" keyPath="arrangedObjects.path" id="dHG-TH-gxd"/>
                                         </connections>
                                     </tableColumn>
                                 </tableColumns>
@@ -87,19 +102,19 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="LvP-0W-CJN">
-                        <rect key="frame" x="0.0" y="0.0" width="579" height="25"/>
+                    <tableHeaderView key="headerView" toolTip="Icon for bundled applications, BSD processes don't have icons" id="LvP-0W-CJN">
+                        <rect key="frame" x="0.0" y="0.0" width="698" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AJo-iy-uCV">
-                    <rect key="frame" x="473" y="3" width="94" height="32"/>
-                    <buttonCell key="cell" type="push" title="Quit SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0H1-qr-5QU">
+                    <rect key="frame" x="613" y="3" width="73" height="32"/>
+                    <buttonCell key="cell" type="push" title="Retry" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0H1-qr-5QU">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="quitSEBSession:" target="-2" id="sHw-yq-iMj"/>
+                        <action selector="retry:" target="-2" id="sHw-yq-iMj"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Te1-5w-Eei">
@@ -113,10 +128,10 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="yUA-3C-XZW">
-                    <rect key="frame" x="18" y="392" width="545" height="48"/>
+                    <rect key="frame" x="18" y="392" width="664" height="48"/>
                     <textFieldCell key="cell" selectable="YES" id="jMN-hX-gi7">
                         <font key="font" metaFont="system"/>
-                        <string key="title">The processes below are running, they need to be closed before starting the exam. You can quit those processes yourself and return to SEB to continue to the exam. You can also force quit these processes, but this may lead to loss of data.</string>
+                        <string key="title">The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam. You can also force quit these processes, but this may lead to loss of data.</string>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

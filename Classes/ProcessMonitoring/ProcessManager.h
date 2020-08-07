@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *permittedBSDProcesses;
 
 + (ProcessManager *)sharedProcessManager;
+
++ (NSString *)getExecutablePathForPID:(pid_t) runningExecutablePID;
+
 - (void)updateMonitoredProcesses;
 - (NSDictionary *)prohibitedProcessWithIdentifier:(NSString *)bundleID;
 - (NSDictionary *)prohibitedProcessWithExecutable:(NSString *)executable;

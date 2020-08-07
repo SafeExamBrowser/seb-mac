@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSImage *icon;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *bundleID;
+@property (strong, nonatomic) NSString *path;
 @property (readwrite, nonatomic) BOOL terminated;
 
 - (instancetype)initWithProcess:(id)process;
