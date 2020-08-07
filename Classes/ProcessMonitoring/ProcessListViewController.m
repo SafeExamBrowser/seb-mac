@@ -89,12 +89,41 @@
             i++;
         }
     }
-    if (_runningApplications.count + _runningProcesses.count == 0) {
-        [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
-    }
-}
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.runningApplications.count + self.runningProcesses.count == 0) {
+            [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
+        } else {
+            NSAlert *modalAlert = [self.delegate newAlert];
+            DDLogError(@"Force quitting processes failed!");
+            [modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit SEB", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            NSInteger answer = [modalAlert runModal];
+            [self.delegate removeAlertWindow:modalAlert.window];
+            switch(answer)
+            {
+                case NSAlertFirstButtonReturn:
+                {
+                    // Quit SEB
+                    DDLogError(@"User selected Quit SEB in the 'Running Prohibited Processes' window.");
+                    self.delegate.quittingMyself = YES; //SEB is terminating itself
+                    [NSApp terminate: nil]; //quit SEB
+                }
+                    
+                case NSAlertSecondButtonReturn:
+                {
+                    DDLogInfo(@"User closed 'Running Prohibited Processes' window.");
+                    break; // Test if window is closed now
+                }
+            }
+        }
+    });}
 
-- (IBAction)quitSEBSession:(id)sender {
+
+- (IBAction)retry:(id)sender {
+    
 }
 
 @end
