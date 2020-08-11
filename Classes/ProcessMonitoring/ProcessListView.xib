@@ -11,6 +11,7 @@
                 <outlet property="forceQuitButton" destination="Te1-5w-Eei" id="eig-3Q-1mc"/>
                 <outlet property="processListArrayController" destination="D8l-HQ-Ieo" id="o1U-g1-tRN"/>
                 <outlet property="quitSEBSessionButton" destination="AJo-iy-uCV" id="ISl-sD-3wz"/>
+                <outlet property="runningProhibitedProcessesText" destination="yUA-3C-XZW" id="fnF-BE-s7H"/>
                 <outlet property="view" destination="XM7-W8-YHX" id="gEU-Sv-DRe"/>
             </connections>
         </customObject>
