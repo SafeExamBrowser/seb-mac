@@ -121,6 +121,7 @@ bool insideMatrix(void);
 
 @synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
+@synthesize quitSession;
 @synthesize webView;
 @synthesize capWindows;
 @synthesize lockdownWindows;
@@ -254,7 +255,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s", __FUNCTION__);
     
     // Flag initializing
-    quittingMyself = FALSE; //flag to know if quit application was called externally
+    quittingMyself = false; //flag to know if quit application was called externally
     
     // Terminate invisibly running applications
     if ([NSRunningApplication respondsToSelector:@selector(terminateAutomaticallyTerminableApplications)]) {
@@ -775,7 +776,7 @@ bool insideMatrix(void);
         if (_startingUp) {
             // we quit, as decrypting the config wasn't successful
             DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            quittingMyself = TRUE; // SEB is terminating itself
+            quittingMyself = true; // quit SEB without asking for confirmation or password
             [NSApp terminate: nil]; // Quit SEB
         } else {
             // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
@@ -955,6 +956,29 @@ bool insideMatrix(void);
     });
 }
 
+
+- (BOOL)checkProcessesRunning:(__strong NSMutableArray *_Nonnull*_Nonnull)runningProcesses
+{
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    self.runningProcesses = allRunningProcesses;
+    
+    BOOL processesTerminated = NO;
+    NSUInteger i=0;
+    while (i < (*runningProcesses).count) {
+        NSDictionary *runningProcess = (*runningProcesses)[i];
+        if (![allRunningProcesses containsObject:runningProcess]) {
+            DDLogDebug(@"Running process %@ did terminate", runningProcess[@"name"]);
+            [*runningProcesses removeObjectAtIndex:i];
+            processesTerminated = YES;
+        } else {
+            i++;
+        }
+    }
+    return processesTerminated;
+}
+
+
 - (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
@@ -1019,7 +1043,7 @@ bool insideMatrix(void);
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 [modalAlert runModal];
                 [self removeAlertWindow:modalAlert.window];
-                quittingMyself = TRUE; //SEB is terminating itself
+                quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
                 
             } else {
@@ -1038,6 +1062,23 @@ bool insideMatrix(void);
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
     func(callback, selector);
+}
+
+
+- (BOOL) quitSession
+{
+    return !_startingUp && NSUserDefaults.userDefaultsPrivate;
+}
+
+
+- (void) quitSEBOrSession
+{
+    if (self.quitSession) {
+        [self.configFileController reconfigureClientWithSebClientSettings];
+    } else {
+        quittingMyself = true; //quit SEB without asking for confirmation or password
+        [NSApp terminate: nil]; //quit SEB
+    }
 }
 
 
@@ -1064,7 +1105,7 @@ bool insideMatrix(void);
                                  text:[NSString stringWithFormat:@"%@\n\n%@",
                                        NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
                                        NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     }
     
@@ -1076,7 +1117,7 @@ bool insideMatrix(void);
         DDLogError(@"Siri Detected, SEB will quit");
         [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
                                  text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     }
     
@@ -1089,7 +1130,7 @@ bool insideMatrix(void);
         DDLogError(@"Dictation Detected, SEB will quit");
         [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
                                  text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     }
     
@@ -1461,28 +1502,20 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 #pragma mark - Window/Panel Monitoring
 
-dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispatch_queue_t queue, dispatch_block_t block)
-{
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    if (timer)
-    {
-        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
-        dispatch_source_set_event_handler(timer, block);
-        dispatch_resume(timer);
-    }
-    return timer;
-}
-
-
 // Start the process watcher if it's not yet running
 - (void)startProcessWatcher
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (!_processWatchTimer) {
-        _processWatchTimer = CreateDispatchTimer(0.25 * NSEC_PER_SEC, (0.25 * NSEC_PER_SEC) / 10, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_source_t newProcessWatchTimer =
+        [ProcessManager createDispatchTimerWithInterval:0.25 * NSEC_PER_SEC
+                                                 leeway:(0.25 * NSEC_PER_SEC) / 10
+                                          dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                                          dispatchBlock:^{
             [self processWatcher];
-        });
+        }];
+        _processWatchTimer = newProcessWatchTimer;
     }
 }
 
@@ -2200,7 +2233,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
     if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
         DDLogError(@"Current settings require SEB to be running at least on %@, but it isn't! SEB will therefore quit!", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]);
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     } else {
         DDLogInfo(@"SEB is running at least on the minimal macOS version %@ required by current settings (actually on version %f)", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion], floor(NSAppKitVersionNumber));
@@ -2221,7 +2254,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 #ifndef DEBUG
             DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
             _forceAppFolder = YES;
-            quittingMyself = TRUE; //SEB is terminating itself
+            quittingMyself = true; //quit SEB without asking for confirmation or password
             [NSApp terminate: nil]; //quit SEB
 #else
             DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
@@ -2263,7 +2296,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             DDLogError(@"Command key is pressed and forbidden, SEB cannot restart");
-            quittingMyself = TRUE; //SEB is terminating itself
+            quittingMyself = true; //quit SEB without asking for confirmation or password
             [NSApp terminate: nil]; //quit SEB
         } else {
             DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
@@ -2320,7 +2353,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                 {
                     // Quit SEB
                     DDLogError(@"Force Quit window was open, user decided to quit SEB.");
-                    quittingMyself = TRUE; //SEB is terminating itself
+                    quittingMyself = true; //quit SEB without asking for confirmation or password
                     [NSApp terminate: nil]; //quit SEB
                 }
             }
@@ -4057,7 +4090,7 @@ bool insideMatrix(){
             if ([self.preferencesController preferencesAreOpen]) {
                 [self.preferencesController quitSEB:self];
             } else {
-                quittingMyself = TRUE; //SEB is terminating itself
+                quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
             }
         }
@@ -4067,7 +4100,7 @@ bool insideMatrix(){
 
 - (void)requestedQuit:(NSNotification *)notification
 {
-    quittingMyself = TRUE; //SEB is terminating itself
+    quittingMyself = true; //quit SEB without asking for confirmation or password
     [NSApp terminate: nil]; //quit SEB
 }
 
@@ -4202,7 +4235,7 @@ bool insideMatrix(){
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                 // if the correct quit password was entered
-                quittingMyself = TRUE; //SEB is terminating itself
+                quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 // Wrong quit password was entered
@@ -4233,7 +4266,7 @@ bool insideMatrix(){
                     if ([self.preferencesController preferencesAreOpen]) {
                         [self.preferencesController quitSEB:self];
                     } else {
-                        quittingMyself = TRUE; //SEB is terminating itself
+                        quittingMyself = true; //quit SEB without asking for confirmation or password
                         [NSApp terminate: nil]; //quit SEB
                     }
                 }
@@ -4505,6 +4538,12 @@ bool insideMatrix(){
     }
 }
 
+
+- (void)closeProcessListWindow
+{
+    [_runningProcessesListWindowController close];
+    _processListViewController = nil;
+}
 
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
 {
