@@ -887,6 +887,8 @@ bool insideMatrix(void);
     NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
 
+    BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
+
     // Check if any prohibited processes are running
     for (NSDictionary *process in allRunningProcesses) {
         NSNumber *PID = process[@"PID"];
@@ -908,7 +910,9 @@ bool insideMatrix(void);
                     }
                 } else {
                     [runningApplications addObject:runningApplication];
-                    [runningApplication terminate];
+                    if (autoQuitApplications) {
+                        [runningApplication terminate];
+                    }
                 }
             }
         } else {
