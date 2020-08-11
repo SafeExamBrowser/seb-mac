@@ -1257,7 +1257,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (_sebController.startingUp) {
         // we quit, as decrypting the config wasn't successful
         DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
-        _sebController.quittingMyself = true; // SEB is terminating itself
+        _sebController.quittingMyself = true; // quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; // Quit SEB
     }
     // Reset the opening settings flag which prevents opening URLs concurrently
