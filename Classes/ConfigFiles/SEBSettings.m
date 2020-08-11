@@ -195,6 +195,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowWlan",
                    
+                   @YES,
+                   @"autoQuitApplications",
+                   
                    @NO,
                    @"blockPopUpWindows",
                    
