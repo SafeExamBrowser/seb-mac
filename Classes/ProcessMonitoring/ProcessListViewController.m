@@ -6,8 +6,10 @@
 //
 
 #import "ProcessListViewController.h"
+#import "ProcessManager.h"
 #import "ProcessListElement.h"
 #import "NSRunningApplication+SEB.h"
+#import "SEBController.h"
 
 @interface ProcessListViewController () {
     __weak IBOutlet NSButton *forceQuitButton;
@@ -26,7 +28,44 @@
         [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
     } else {
         _processListArrayController.content = allProcessListElements;
+        quitSEBSessionButton.title = [self quitSEBOrSessionString];
     }
+    if (!_processWatchTimer) {
+        dispatch_source_t newProcessWatchTimer =
+        [ProcessManager createDispatchTimerWithInterval:0.25 * NSEC_PER_SEC
+                                                 leeway:(0.25 * NSEC_PER_SEC) / 10
+                                          dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                                          dispatchBlock:^{
+            [self checkRunningProcessesTerminated];
+        }];
+        _processWatchTimer = newProcessWatchTimer;
+    }
+}
+
+- (NSString *)quitSEBOrSessionString
+{
+    NSString *quitSEBOrSessionString;
+    if (_delegate.quitSession) {
+        quitSEBOrSessionString = NSLocalizedString(@"Quit Session", nil);
+    } else {
+        quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", nil);
+    }
+    return quitSEBOrSessionString;
+}
+
+
+- (void)stopProcessWatcher
+{
+    if (_processWatchTimer) {
+        dispatch_source_cancel(_processWatchTimer);
+        _processWatchTimer = 0;
+    }
+}
+
+- (void)closeWindow
+{
+    [self stopProcessWatcher];
+    [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
 }
 
 
@@ -55,13 +94,48 @@
         }
     }
     if (_runningApplications.count + _runningProcesses.count == 0) {
-        [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+        [self closeWindow];
+    }
+}
+
+
+- (void)checkRunningProcessesTerminated
+{
+    if ([_delegate checkProcessesRunning:&_runningProcesses]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.processListArrayController.content = [self allProcessListElements];
+            if (self.runningApplications.count + self.runningProcesses.count == 0) {
+                [self closeWindow];
+            }
+        });
     }
 }
 
 
 - (IBAction)forceQuitAllProcesses:(id)sender
 {
+    NSAlert *modalAlert = [self.delegate newAlert];
+    [modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
+    [modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
+    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSInteger answer = [modalAlert runModal];
+    [self.delegate removeAlertWindow:modalAlert.window];
+    switch(answer)
+    {
+        case NSAlertFirstButtonReturn:
+        {
+            break;
+        }
+            
+        case NSAlertSecondButtonReturn:
+        {
+            // Cancel force quit
+            return;
+        }
+    }
+    
     NSUInteger i=0;
     while (i < _runningApplications.count) {
         NSRunningApplication *runningApplication = _runningApplications[i];
@@ -98,32 +172,34 @@
             [modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
             [modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit SEB", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
             NSInteger answer = [modalAlert runModal];
             [self.delegate removeAlertWindow:modalAlert.window];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
                 {
-                    // Quit SEB
-                    DDLogError(@"User selected Quit SEB in the 'Running Prohibited Processes' window.");
-                    self.delegate.quittingMyself = YES; //SEB is terminating itself
-                    [NSApp terminate: nil]; //quit SEB
+                    break;
                 }
                     
                 case NSAlertSecondButtonReturn:
                 {
-                    DDLogInfo(@"User closed 'Running Prohibited Processes' window.");
-                    break; // Test if window is closed now
+                    // Quit SEB or the session
+                    DDLogInfo(@"User selected Quit SEB or Quit Session in the Force Quitting Processes Failed alert displayed in the 'Running Prohibited Processes' window.");
+                    [self quitSEBSession:self];
                 }
             }
         }
-    });}
+    });
+}
 
 
-- (IBAction)retry:(id)sender {
-    
+- (IBAction)quitSEBSession:(id)sender
+{
+    // As we are quitting SEB or the session, the callback method should not be called
+    [_delegate closeProcessListWindow];
+    [_delegate quitSEBOrSession];
 }
 
 @end
