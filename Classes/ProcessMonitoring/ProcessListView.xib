@@ -108,13 +108,13 @@
                     </tableHeaderView>
                 </scrollView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AJo-iy-uCV">
-                    <rect key="frame" x="613" y="3" width="73" height="32"/>
-                    <buttonCell key="cell" type="push" title="Retry" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0H1-qr-5QU">
+                    <rect key="frame" x="620" y="3" width="66" height="32"/>
+                    <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0H1-qr-5QU">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="retry:" target="-2" id="sHw-yq-iMj"/>
+                        <action selector="quitSEBSession:" target="-2" id="sHw-yq-iMj"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Te1-5w-Eei">

@@ -25,6 +25,24 @@ static ProcessManager *sharedProcessManager = nil;
     return sharedProcessManager;
 }
 
+
++ (dispatch_source_t) createDispatchTimerWithInterval: (uint64_t)interval
+                                               leeway:(uint64_t)leeway
+                                        dispatchQueue:(dispatch_queue_t)queue
+                                        dispatchBlock:(dispatch_block_t)block
+{
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    if (timer)
+    {
+        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
+        dispatch_source_set_event_handler(timer, block);
+        dispatch_resume(timer);
+    }
+    return timer;
+}
+
+
+
 + (NSString *)getExecutablePathForPID:(pid_t) runningExecutablePID
 {
     int ret;
@@ -146,5 +164,6 @@ static ProcessManager *sharedProcessManager = nil;
         return nil;
     }
 }
+
 
 @end

@@ -11,11 +11,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProcessListViewControllerDelegate <NSObject>
 
-- (void)closeProcessListWindowWithCallback:(id)callback
+- (BOOL) checkProcessesRunning:(NSMutableArray __strong*_Nonnull*_Nonnull)runningProcesses;
+- (void) closeProcessListWindow;
+- (void) closeProcessListWindowWithCallback:(id)callback
                                   selector:(SEL)selector;
-- (NSAlert *)newAlert;
-- (void)removeAlertWindow:(NSWindow *)alertWindow;
+- (NSAlert *) newAlert;
+- (void) removeAlertWindow:(NSWindow *)alertWindow;
+- (void) quitSEBOrSession;
+
 @property (readwrite) BOOL quittingMyself;
+@property (readwrite) BOOL quitSession;
 
 @end
 
@@ -27,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSMutableArray <NSRunningApplication *>*runningApplications;
 @property (strong, nonatomic) NSMutableArray <NSDictionary *>*runningProcesses;
+@property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
 
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;

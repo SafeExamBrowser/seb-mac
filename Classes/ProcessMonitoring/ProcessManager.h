@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ProcessManager *)sharedProcessManager;
 
++ (dispatch_source_t) createDispatchTimerWithInterval: (uint64_t)interval
+                                               leeway:(uint64_t)leeway
+                                        dispatchQueue:(dispatch_queue_t)queue
+                                        dispatchBlock:(dispatch_block_t)block;
+
 + (NSString *)getExecutablePathForPID:(pid_t) runningExecutablePID;
 
 - (void)updateMonitoredProcesses;
