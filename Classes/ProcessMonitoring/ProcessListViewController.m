@@ -14,6 +14,8 @@
 @interface ProcessListViewController () {
     __weak IBOutlet NSButton *forceQuitButton;
     __weak IBOutlet NSButton *quitSEBSessionButton;
+    __weak IBOutlet NSTextField *runningProhibitedProcessesText;
+    BOOL autoQuitApplications;
 }
 
 @end
@@ -25,9 +27,11 @@
     [super viewDidLoad];
     NSArray *allProcessListElements = [self allProcessListElements];
     if (allProcessListElements.count == 0) {
-        [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+        [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
     } else {
         _processListArrayController.content = allProcessListElements;
+        autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
+        [self updateUIStrings];
         quitSEBSessionButton.title = [self quitSEBOrSessionString];
     }
     if (!_processWatchTimer) {
@@ -42,10 +46,16 @@
     }
 }
 
+- (void)updateUIStrings
+{
+    forceQuitButton.title = autoQuitApplications ? NSLocalizedString(@"Force Quit All Processes", nil) : NSLocalizedString(@"Quit All Applications", nil);
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", nil), autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+}
+
 - (NSString *)quitSEBOrSessionString
 {
     NSString *quitSEBOrSessionString;
-    if (_delegate.quitSession) {
+    if (self.delegate.quitSession) {
         quitSEBOrSessionString = NSLocalizedString(@"Quit Session", nil);
     } else {
         quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", nil);
@@ -65,9 +75,17 @@
 - (void)closeWindow
 {
     [self stopProcessWatcher];
-    [_delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+    [self closeModalAlert];
+    [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
 }
 
+- (void)closeModalAlert
+{
+    [[NSApplication sharedApplication] abortModal];
+    [self.modalAlert.window orderOut:self];
+    [self.modalAlert.window close];
+    [self.delegate removeAlertWindow:self.modalAlert.window];
+}
 
 - (NSArray *)allProcessListElements
 {
@@ -101,7 +119,7 @@
 
 - (void)checkRunningProcessesTerminated
 {
-    if ([_delegate checkProcessesRunning:&_runningProcesses]) {
+    if ([self.delegate checkProcessesRunning:&_runningProcesses]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.processListArrayController.content = [self allProcessListElements];
             if (self.runningApplications.count + self.runningProcesses.count == 0) {
@@ -114,92 +132,101 @@
 
 - (IBAction)forceQuitAllProcesses:(id)sender
 {
-    NSAlert *modalAlert = [self.delegate newAlert];
-    [modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
-    [modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
-    [modalAlert setAlertStyle:NSCriticalAlertStyle];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    NSInteger answer = [modalAlert runModal];
-    [self.delegate removeAlertWindow:modalAlert.window];
-    switch(answer)
-    {
-        case NSAlertFirstButtonReturn:
+    if (autoQuitApplications) {
+        self.modalAlert = [self.delegate newAlert];
+        [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
+        [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
+        [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        NSInteger answer = [self.modalAlert runModal];
+        [self.delegate removeAlertWindow:self.modalAlert.window];
+        switch(answer)
         {
-            break;
-        }
-            
-        case NSAlertSecondButtonReturn:
-        {
-            // Cancel force quit
-            return;
-        }
-    }
-    
-    NSUInteger i=0;
-    while (i < _runningApplications.count) {
-        NSRunningApplication *runningApplication = _runningApplications[i];
-        NSString *runningApplicationName = runningApplication.localizedName;
-        NSString *runningApplicationIdentifier = runningApplication.bundleIdentifier;
-        if ([runningApplication kill] == ERR_SUCCESS) {
-            DDLogDebug(@"Running application %@ (%@) successfully force terminated", runningApplicationName, runningApplicationIdentifier);
-            [_runningApplications removeObjectAtIndex:i];
-        } else {
-            DDLogError(@"Force terminating running application %@ (%@) failed!", runningApplicationName, runningApplicationIdentifier);
-            i++;
-        }
-    }
-    i=0;
-    while (i < _runningProcesses.count) {
-        NSDictionary *runningProcess = _runningProcesses[i];
-        NSNumber *PID = runningProcess[@"PID"];
-        pid_t processPID = PID.intValue;
-        if (kill(processPID, 9) == ERR_SUCCESS) {
-            DDLogDebug(@"Running process %@ successfully force terminated", runningProcess[@"name"]);
-            // ToDo: Restart terminated BSD processes when quitting
-            [_runningProcesses removeObjectAtIndex:i];
-        } else {
-            DDLogError(@"Force terminating running process %@ failed!", runningProcess[@"name"]);
-            i++;
-        }
-    }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.runningApplications.count + self.runningProcesses.count == 0) {
-            [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
-        } else {
-            NSAlert *modalAlert = [self.delegate newAlert];
-            DDLogError(@"Force quitting processes failed!");
-            [modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
-            NSInteger answer = [modalAlert runModal];
-            [self.delegate removeAlertWindow:modalAlert.window];
-            switch(answer)
+            case NSAlertFirstButtonReturn:
             {
-                case NSAlertFirstButtonReturn:
-                {
-                    break;
-                }
-                    
-                case NSAlertSecondButtonReturn:
-                {
-                    // Quit SEB or the session
-                    DDLogInfo(@"User selected Quit SEB or Quit Session in the Force Quitting Processes Failed alert displayed in the 'Running Prohibited Processes' window.");
-                    [self quitSEBSession:self];
-                }
+                break;
+            }
+                
+            case NSAlertSecondButtonReturn:
+            {
+                // Cancel force quit
+                return;
             }
         }
-    });
+        
+        NSUInteger i=0;
+        while (i < _runningApplications.count) {
+            NSRunningApplication *runningApplication = _runningApplications[i];
+            NSString *runningApplicationName = runningApplication.localizedName;
+            NSString *runningApplicationIdentifier = runningApplication.bundleIdentifier;
+            if ([runningApplication kill] == ERR_SUCCESS) {
+                DDLogDebug(@"Running application %@ (%@) successfully force terminated", runningApplicationName, runningApplicationIdentifier);
+                [_runningApplications removeObjectAtIndex:i];
+            } else {
+                DDLogError(@"Force terminating running application %@ (%@) failed!", runningApplicationName, runningApplicationIdentifier);
+                i++;
+            }
+        }
+        i=0;
+        while (i < _runningProcesses.count) {
+            NSDictionary *runningProcess = _runningProcesses[i];
+            NSNumber *PID = runningProcess[@"PID"];
+            pid_t processPID = PID.intValue;
+            if (kill(processPID, 9) == ERR_SUCCESS) {
+                DDLogDebug(@"Running process %@ successfully force terminated", runningProcess[@"name"]);
+                // ToDo: Restart terminated BSD processes when quitting
+                [_runningProcesses removeObjectAtIndex:i];
+            } else {
+                DDLogError(@"Force terminating running process %@ failed!", runningProcess[@"name"]);
+                i++;
+            }
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.runningApplications.count + self.runningProcesses.count == 0) {
+                [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
+            } else {
+                self.modalAlert = [self.delegate newAlert];
+                DDLogError(@"Force quitting processes failed!");
+                [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
+                [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
+                [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
+                NSInteger answer = [self.modalAlert runModal];
+                [self.delegate removeAlertWindow:self.modalAlert.window];
+                switch(answer)
+                {
+                    case NSAlertFirstButtonReturn:
+                    {
+                        break;
+                    }
+                        
+                    case NSAlertSecondButtonReturn:
+                    {
+                        // Quit SEB or the session
+                        DDLogInfo(@"User selected Quit SEB or Quit Session in the Force Quitting Processes Failed alert displayed in the 'Running Prohibited Processes' window.");
+                        [self quitSEBSession:self];
+                    }
+                }
+            }
+        });
+    } else {
+        for (NSRunningApplication* runningApplication in _runningApplications) {
+            [runningApplication terminate];
+        }
+        autoQuitApplications = YES;
+        [self updateUIStrings];
+    }
 }
 
 
 - (IBAction)quitSEBSession:(id)sender
 {
     // As we are quitting SEB or the session, the callback method should not be called
-    [_delegate closeProcessListWindow];
-    [_delegate quitSEBOrSession];
+    [self closeModalAlert];
+    [self.delegate closeProcessListWindow];
+    [self.delegate quitSEBOrSession];
 }
 
 @end

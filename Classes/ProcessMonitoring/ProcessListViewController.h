@@ -32,10 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSMutableArray <NSRunningApplication *>*runningApplications;
 @property (strong, nonatomic) NSMutableArray <NSDictionary *>*runningProcesses;
-@property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
+@property (readwrite, nonatomic) dispatch_source_t processWatchTimer;
 
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;
+
+@property (strong, nonatomic) NSAlert *modalAlert;
 
 - (void)didTerminateRunningApplications:(NSArray *)terminatedApplications;
 
