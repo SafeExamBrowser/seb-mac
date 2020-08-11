@@ -144,7 +144,7 @@
                     
                 case NSAlertSecondButtonReturn:
                     
-                    self.sebController.quittingMyself = TRUE; //SEB is terminating itself
+                    self.sebController.quittingMyself = true; //quit SEB without asking for confirmation or password
                     [NSApp terminate: nil]; //quit SEB
             }
         } else {
