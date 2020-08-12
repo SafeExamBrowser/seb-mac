@@ -153,6 +153,11 @@
                 // Cancel force quit
                 return;
             }
+                
+            case NSModalResponseAbort:
+            {
+                return;
+            }
         }
         
         NSUInteger i=0;
@@ -207,6 +212,11 @@
                         // Quit SEB or the session
                         DDLogInfo(@"User selected Quit SEB or Quit Session in the Force Quitting Processes Failed alert displayed in the 'Running Prohibited Processes' window.");
                         [self quitSEBSession:self];
+                    }
+                        
+                    case NSModalResponseAbort:
+                    {
+                        return;
                     }
                 }
             }
