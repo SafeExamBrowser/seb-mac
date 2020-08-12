@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;
 
-@property (strong, nonatomic) NSAlert *modalAlert;
+@property (strong, nonatomic) NSAlert *_Nullable modalAlert;
 
 - (void)didTerminateRunningApplications:(NSArray *)terminatedApplications;
 
