@@ -918,10 +918,14 @@ bool insideMatrix(void);
         } else {
             // BSD process
             if ([[ProcessManager sharedProcessManager].prohibitedBSDProcesses containsObject:process[@"name"]]) {
+                NSURL *processURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
                     if ((NSInteger)kill(processPID, 9) != ERR_SUCCESS) {
                         [runningProcesses addObject:process];
+                    } else {
+                        // Add the process' file URL, so we can restart it when exiting SEB
+                        [_terminatedProcessesExecutableURLs addObject:processURL];
                     }
                 } else {
                     [runningProcesses addObject:process];
@@ -1669,7 +1673,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             for (NSDictionary *runningProhibitedProcess in filteredProcesses) {
                 NSNumber *PID = [runningProhibitedProcess objectForKey:@"PID"];
                 NSInteger success = [self killProcessWithPID:PID.intValue];
-                DDLogDebug(@"Terminating running prohibited BSD process %@ was %@successfull (code: %ld)", runningProhibitedProcess, success == 0 ? @"" : @"not ", (long)success);
+                DDLogDebug(@"Terminating running prohibited BSD process %@ was %@successfull (code: %ld)", runningProhibitedProcess, success == ERR_SUCCESS ? @"" : @"not ", (long)success);
             }
         }
     }
@@ -1769,10 +1773,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     //[appWithPanel terminate];
                                 } else {
                                     DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
-                                    NSURL *appURL = [self getBundleOrExecutableURL:appWithPanel];
-                                    if (appURL) {
-                                        [_terminatedProcessesExecutableURLs addObject:appURL];
-                                    }
                                     [self killProcessWithPID:windowOwnerPID];
                                     fishyWindowWasOpened = true;
                                 }
@@ -2969,7 +2969,8 @@ bool insideMatrix(){
                     if (self.processCheckAllOverride == false) {
                         [self openLockdownWindows];
                     }
-                    
+                    if (self.overriddenProhibitedProcesses.count > 0) {
+                    }
                     // Add log string for prohibited process detected
                     [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime];
                 } else {
@@ -3365,17 +3366,39 @@ bool insideMatrix(){
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
     NSString *appLocalizedName = application.localizedName;
-    NSURL *appExecutableURL = application.executableURL;
+    NSURL *appURL = [self getBundleOrExecutableURL:application];
     NSInteger killSuccess = [application kill];
     if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
-        DDLogError(@"Couldn't terminate app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
-        [_runningProhibitedProcesses addObject:application];
+        DDLogError(@"Couldn't terminate app with localized name: %@, bundle or executable URL: %@)", appLocalizedName, appURL);
+        NSDictionary *processDetails = @{
+            @"name" : appLocalizedName,
+            @"PID" : [NSNumber numberWithInt:application.processIdentifier],
+            @"URL": appURL.absoluteString,
+            @"bundleID" : application.bundleIdentifier
+        };
+        [_runningProhibitedProcesses addObject:processDetails];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedProhibitedProcess" object:self];
     } else {
-        DDLogDebug(@"Successfully terminated app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
+        DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@)", appLocalizedName, appURL);
+        if (appURL) {
+            // Add the app's file URL, so we can restart it when exiting SEB
+            [_terminatedProcessesExecutableURLs addObject:appURL];
+        }
     }
     return killSuccess;
+}
+
+
+- (NSInteger) killProcessWithPID:(pid_t)processPID
+{
+    NSString * processName = [self getProcessName:processPID];
+    NSDictionary *processDetails = @{
+        @"name" : processName,
+        @"PID" : [NSNumber numberWithInt:processPID],
+        @"URL": [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID]]
+    };
+    return [self killProcess:processDetails];
 }
 
 
@@ -3383,53 +3406,37 @@ bool insideMatrix(){
 {
     NSNumber *PID = [processDictionary objectForKey:@"PID"];
     pid_t processPID = PID.intValue;
+    
     NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
+    NSURL *appURL = processDictionary[@"URL"];
+    NSMutableDictionary *processDetails = processDictionary.mutableCopy;
+    if (!appURL) {
+        if (application) {
+            appURL = [self getBundleOrExecutableURL:application];
+        } else {
+            appURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID]];
+        }
+        [processDetails setValue:application.bundleIdentifier forKey:@"URL"];
+    }
+
     NSInteger killSuccess = (NSInteger)kill(processPID, 9);
     DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
 
-    if (killSuccess != 0 && !_processCheckAllOverride) {
+    if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
         DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
         if (application) {
-            [_runningProhibitedProcesses addObject:processDictionary];
+            [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
         }
+        [_runningProhibitedProcesses addObject:processDetails.copy];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedProhibitedProcess" object:self];
     } else {
         DDLogDebug(@"Successfully terminated app with PID %d)", processPID);
-        NSURL *appURL = [self getBundleOrExecutableURL:application];
         if (appURL) {
             [_terminatedProcessesExecutableURLs addObject:appURL];
         }
     }
-    DDLogDebug(@"Terminating process %@ was %@successfull (code: %ld)", processDictionary, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
-    return killSuccess;
-}
-
-
-- (NSInteger) killProcessWithPID:(pid_t)processPID
-{
-    NSInteger killSuccess = (NSInteger)kill(processPID, 9);
-    DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
-
-    if (killSuccess != 0 && !_processCheckAllOverride) {
-        NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
-        if (application) {
-            DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
-            [_runningProhibitedProcesses addObject:application];
-        } else {
-            NSString * processName = [self getProcessName:processPID];
-            DDLogError(@"Couldn't terminate process with PID %d, executable: %@, error code: %ld", processPID, processName, (long)killSuccess);
-            NSDictionary *processDetails = @{
-                @"name" : processName,
-                @"PID" : [NSNumber numberWithInt:processPID]
-            };
-            [_runningProhibitedProcesses addObject:processDetails];
-        }
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"detectedProhibitedProcess" object:self];
-    } else {
-        DDLogDebug(@"Successfully terminated app with PID %d)", processPID);
-    }
+    DDLogDebug(@"Terminating process %@ was %@successfull (code: %ld)", processDictionary, killSuccess == ERR_SUCCESS ? @"" : @"not ", (long)killSuccess);
     return killSuccess;
 }
 
@@ -4525,11 +4532,6 @@ bool insideMatrix(){
                 NSString *bundleID = startedApplication.bundleIdentifier;
                 DDLogDebug(@"Started process bundle ID: %@", bundleID);
                 if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
-                    NSURL *appURL = [self getBundleOrExecutableURL:startedApplication];
-                    if (appURL) {
-                        // Add the app's file URL, so we can restart it when exiting SEB
-                        [_terminatedProcessesExecutableURLs addObject:appURL];
-                    }
                     [self killApplication:startedApplication];
                 }
             }
