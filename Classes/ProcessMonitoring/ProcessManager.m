@@ -49,15 +49,15 @@ static ProcessManager *sharedProcessManager = nil;
     char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
     
     ret = proc_pidpath (runningExecutablePID, pathbuf, sizeof(pathbuf));
+    #ifdef DEBUG
     if ( ret <= 0 ) {
         fprintf(stderr, "PID %d: proc_pidpath ();\n", runningExecutablePID);
         fprintf(stderr, "    %s\n", strerror(errno));
     } else {
-#ifdef DEBUG
         printf("proc %d: %s\n", runningExecutablePID, pathbuf);
-#endif
     }
-    
+    #endif
+
     NSString *executablePath = [NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding];
     return executablePath;
 }
