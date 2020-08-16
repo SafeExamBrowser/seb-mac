@@ -187,6 +187,8 @@
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
 @property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
+@property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
+
 
 @property(strong) SEBDockItemButton *dockButtonReload;
 
