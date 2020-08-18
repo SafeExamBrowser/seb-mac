@@ -66,6 +66,10 @@ static ProcessManager *sharedProcessManager = nil;
 // Updates process arrays with current settings (UserDefaults)
 - (void) updateMonitoredProcesses
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    _prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
+    _permittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+
     if (self.prohibitedRunningApplications) {
         [self.prohibitedRunningApplications removeAllObjects];
     } else {
@@ -90,9 +94,6 @@ static ProcessManager *sharedProcessManager = nil;
         self.permittedBSDProcesses = [NSMutableArray new];
     }
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    NSArray *prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
     NSDictionary *prohibitedProcess;
     
     BOOL isAACActive;
@@ -102,7 +103,7 @@ static ProcessManager *sharedProcessManager = nil;
         isAACActive = NO;
 //    }
     
-    for (prohibitedProcess in prohibitedProcesses) {
+    for (prohibitedProcess in _prohibitedProcesses) {
         
         if ([prohibitedProcess[@"active"] boolValue] == YES &&
             !(isAACActive && [prohibitedProcess[@"ignoreInAAC"] boolValue] == YES)) {
@@ -117,10 +118,9 @@ static ProcessManager *sharedProcessManager = nil;
     }
     
     if (!isAACActive && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_terminateProcesses"]) {
-        NSArray *permittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
         NSDictionary *permittedProcess;
         
-        for (permittedProcess in permittedProcesses) {
+        for (permittedProcess in _permittedProcesses) {
             
             if ([permittedProcess[@"active"] boolValue] == YES) {
                 
@@ -138,11 +138,8 @@ static ProcessManager *sharedProcessManager = nil;
 
 - (NSDictionary *) prohibitedProcessWithIdentifier:(NSString *)bundleID
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSArray *prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
-
-    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
-    NSArray *foundProcesses = [prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
+    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"identifier ==[cd] %@", bundleID];
+    NSArray *foundProcesses = [_prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
     if (foundProcesses) {
         return foundProcesses[0];
     } else {
@@ -153,11 +150,8 @@ static ProcessManager *sharedProcessManager = nil;
 
 - (NSDictionary *) prohibitedProcessWithExecutable:(NSString *)executable
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSArray *prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
-
-    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
-    NSArray *foundProcesses = [prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
+    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"executable ==[cd] %@", executable];
+    NSArray *foundProcesses = [_prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
     if (foundProcesses) {
         return foundProcesses[0];
     } else {
