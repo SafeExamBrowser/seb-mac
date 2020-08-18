@@ -136,6 +136,22 @@ static ProcessManager *sharedProcessManager = nil;
 }
 
 
+- (void) removeOverriddenProhibitedBSDProcesses:(NSArray *)overriddenProhibitedProcesses
+{
+    NSUInteger i = 0;
+    while (i < _prohibitedBSDProcesses.count) {
+        NSString *processName = _prohibitedBSDProcesses[i];
+        NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@", processName];
+        NSArray *filteredOverriddenProcesses = [overriddenProhibitedProcesses filteredArrayUsingPredicate:processFilter];
+        if (filteredOverriddenProcesses.count != 0) {
+            [_prohibitedBSDProcesses removeObjectAtIndex:i];
+        } else {
+            i++;
+        }
+    }
+}
+
+
 - (NSDictionary *) prohibitedProcessWithIdentifier:(NSString *)bundleID
 {
     NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"identifier ==[cd] %@", bundleID];
