@@ -18,18 +18,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *prohibitedBSDProcesses;
 @property (strong, nonatomic) NSMutableArray *permittedBSDProcesses;
 
-+ (ProcessManager *)sharedProcessManager;
++ (ProcessManager *) sharedProcessManager;
 
 + (dispatch_source_t) createDispatchTimerWithInterval: (uint64_t)interval
                                                leeway:(uint64_t)leeway
                                         dispatchQueue:(dispatch_queue_t)queue
                                         dispatchBlock:(dispatch_block_t)block;
 
-+ (NSString *)getExecutablePathForPID:(pid_t) runningExecutablePID;
++ (NSString *) getExecutablePathForPID:(pid_t) runningExecutablePID;
 
-- (void)updateMonitoredProcesses;
-- (NSDictionary *)prohibitedProcessWithIdentifier:(NSString *)bundleID;
-- (NSDictionary *)prohibitedProcessWithExecutable:(NSString *)executable;
+- (void) updateMonitoredProcesses;
+- (void) removeOverriddenProhibitedBSDProcesses:(NSArray *)overriddenProhibitedProcesses;
+- (NSDictionary *) prohibitedProcessWithIdentifier:(NSString *)bundleID;
+- (NSDictionary *) prohibitedProcessWithExecutable:(NSString *)executable;
 
 @end
 
