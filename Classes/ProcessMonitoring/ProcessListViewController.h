@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProcessListViewControllerDelegate <NSObject>
 
-- (BOOL) checkProcessesRunning:(NSMutableArray __strong*_Nonnull*_Nonnull)runningProcesses;
+- (NSMutableArray *)checkProcessesRunning:(NSMutableArray *)runningProcesses;
 - (void) closeProcessListWindow;
 - (void) closeProcessListWindowWithCallback:(id)callback
                                   selector:(SEL)selector;
