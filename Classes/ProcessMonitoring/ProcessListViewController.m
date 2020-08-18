@@ -119,7 +119,9 @@
 
 - (void)checkRunningProcessesTerminated
 {
-    if ([self.delegate checkProcessesRunning:&_runningProcesses]) {
+    NSUInteger runningProcessesCount = _runningProcesses.count;
+    _runningProcesses = [self.delegate checkProcessesRunning:_runningProcesses];
+    if (_runningProcesses.count != runningProcessesCount) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.processListArrayController.content = [self allProcessListElements];
             if (self.runningApplications.count + self.runningProcesses.count == 0) {

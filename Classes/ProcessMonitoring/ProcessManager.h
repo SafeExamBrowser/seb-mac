@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProcessManager : NSObject
 
+@property (strong, nonatomic) NSArray *prohibitedProcesses;
+@property (strong, nonatomic) NSArray *permittedProcesses;
 @property (strong, nonatomic) NSMutableArray *prohibitedRunningApplications;
 @property (strong, nonatomic) NSMutableArray *permittedRunningApplications;
 @property (strong, nonatomic) NSMutableArray *prohibitedBSDProcesses;
