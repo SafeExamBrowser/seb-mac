@@ -887,6 +887,8 @@ bool insideMatrix(void);
     NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
 
+    NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+    NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
 
     // Check if any prohibited processes are running
@@ -897,7 +899,9 @@ bool insideMatrix(void);
         NSString *bundleID = runningApplication.bundleIdentifier;
         if (bundleID) {
             // NSRunningApplication
-            if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
+            NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
+            NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
+            if (matchingProhibitedApplications.count != 0) {
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
                 if (appURL) {
                     // Add the app's file URL, so we can restart it when exiting SEB
@@ -917,7 +921,9 @@ bool insideMatrix(void);
             }
         } else {
             // BSD process
-            if ([[ProcessManager sharedProcessManager].prohibitedBSDProcesses containsObject:process[@"name"]]) {
+            NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"name LIKE %@", process[@"name"]];
+            NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
+            if (filteredProcesses.count > 0) {
                 NSURL *processURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
@@ -1596,13 +1602,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
-    NSPredicate *filterProcessName;
+    NSPredicate *processNameFilter;
     NSArray *filteredProcesses;
     
     // Check for font download process
     if (!_allowSwitchToApplications) {
-        filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
-        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+        processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
             if (!fontRegistryUIAgentDisplayed) {
                 fontRegistryUIAgentDisplayed = YES;
@@ -1652,8 +1658,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     // Check for running screen capture process
     if (!allowScreenRecording) {
-        filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
-        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+        processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         
         if (filteredProcesses.count > 0) {
             NSDictionary *screenCaptureAgentProcessDetails = filteredProcesses[0];
@@ -1665,13 +1671,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Check for prohibited BSD processes
     NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     for (NSString *executableName in prohibitedProcesses) {
-        filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", executableName];
-        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+        // Wildcards are allowed when filtering process names
+        processNameFilter = [NSPredicate predicateWithFormat:@"name LIKE %@", executableName];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
             for (NSDictionary *runningProhibitedProcess in filteredProcesses) {
                 NSNumber *PID = [runningProhibitedProcess objectForKey:@"PID"];
-                NSInteger success = [self killProcessWithPID:PID.intValue];
-                DDLogDebug(@"Terminating running prohibited BSD process %@ was %@successfull (code: %ld)", runningProhibitedProcess, success == ERR_SUCCESS ? @"" : @"not ", (long)success);
+                [self killProcessWithPID:PID.intValue];
             }
         }
     }
@@ -3114,6 +3120,9 @@ bool insideMatrix(){
             } else {
                 [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
             }
+            // Check if overridden processes are prohibited BSD processes from settings
+            // and remove them from list the periodically called process watcher checks
+            [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
         }
         _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
@@ -3432,9 +3441,11 @@ bool insideMatrix(){
         killSuccess = (NSInteger)kill(processPID, 9);
         if (killSuccess != ERR_SUCCESS) {
             DDLogError(@"Couldn't terminate application/process: %@, error code: %ld", processDetails, (long)killSuccess);
-            [_runningProhibitedProcesses addObject:processDetails.copy];
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"detectedProhibitedProcess" object:self];
+            if (![_runningProhibitedProcesses containsObject:processDetails.copy]) {
+                [_runningProhibitedProcesses addObject:processDetails.copy];
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"detectedProhibitedProcess" object:self];
+            }
         } else {
             DDLogDebug(@"Successfully terminated application/process: %@", processDetails);
             if (appURL) {
@@ -4565,11 +4576,13 @@ bool insideMatrix(){
     } else if ([keyPath isEqualToString:@"runningApplications"]) {
         NSArray *startedProcesses = [change objectForKey:@"new"];
         if (startedProcesses.count > 0) {
-            NSRunningApplication *startedApplication = startedProcesses[0];
-            if (startedApplication) {
+            NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+            for (NSRunningApplication *startedApplication in startedProcesses) {
                 NSString *bundleID = startedApplication.bundleIdentifier;
-                DDLogDebug(@"Started process bundle ID: %@", bundleID);
-                if ([[ProcessManager sharedProcessManager].prohibitedRunningApplications containsObject:bundleID]) {
+                DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
+                NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
+                if (matchingProhibitedApplications.count != 0) {
                     [self killApplication:startedApplication];
                 }
             }
