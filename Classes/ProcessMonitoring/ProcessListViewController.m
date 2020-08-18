@@ -30,7 +30,10 @@
         [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
     } else {
         _processListArrayController.content = allProcessListElements;
-        autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
+        // If the setting autoQuitApplications = true or there are no running applications (only BSD processes)
+        // we show the force quit option
+        autoQuitApplications = _runningApplications.count == 0 ||
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
         [self updateUIStrings];
         quitSEBSessionButton.title = [self quitSEBOrSessionString];
     }
@@ -121,10 +124,10 @@
 {
     NSUInteger runningProcessesCount = _runningProcesses.count;
     _runningProcesses = [self.delegate checkProcessesRunning:_runningProcesses];
-    if (_runningProcesses.count != runningProcessesCount) {
+    if (_runningProcesses.count != runningProcessesCount || _runningProcesses.count == _runningApplications.count == 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.processListArrayController.content = [self allProcessListElements];
-            if (self.runningApplications.count + self.runningProcesses.count == 0) {
+            if (self.runningApplications.count == self.runningProcesses.count == 0) {
                 [self closeWindow];
             }
         });
