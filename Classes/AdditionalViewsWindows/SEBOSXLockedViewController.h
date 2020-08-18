@@ -48,11 +48,12 @@
 @property (strong, nonatomic) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
-@property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;
-@property (strong) IBOutlet NSButton *overrideCheckForSiri;
-@property (strong) IBOutlet NSButton *overrideCheckForDictation;
-@property (strong) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
-@property (strong) IBOutlet NSButton *overrideCheckForAllProcesses;
+@property (weak) IBOutlet NSButton *quitInsteadUnlockingButton;
+@property (weak) IBOutlet NSButton *overrideCheckForScreenSharing;
+@property (weak) IBOutlet NSButton *overrideCheckForSiri;
+@property (weak) IBOutlet NSButton *overrideCheckForDictation;
+@property (weak) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
+@property (weak) IBOutlet NSButton *overrideCheckForAllProcesses;
 
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage;
