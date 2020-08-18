@@ -3134,14 +3134,19 @@ bool insideMatrix(){
         _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
     }
     
-    [_sebLockedViewController.view removeFromSuperview];
-    [self closeCoveringWindows:self.lockdownWindows];
-    self.lockdownWindows = nil;
     if (_screenSharingCheckOverride == false) {
         _screenSharingDetected = false;
     }
     lastTimeProcessCheck = [NSDate date];
     _SIGSTOPDetected = false;
+    
+    if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+        [self quitSEBOrSession];
+    }
+    
+    [_sebLockedViewController.view removeFromSuperview];
+    [self closeCoveringWindows:self.lockdownWindows];
+    self.lockdownWindows = nil;
 }
 
 
