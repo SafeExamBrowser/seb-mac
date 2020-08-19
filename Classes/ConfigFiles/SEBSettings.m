@@ -169,6 +169,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowQuit",
                    
                    @NO,
+                   @"allowScreenCapture",
+                   
+                   @NO,
+                   @"allowScreenRecording",
+                   
+                   @NO,
                    @"allowScreenSharing",
                    
                    @NO,
@@ -200,6 +206,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"blockPopUpWindows",
+                   
+                   @NO,
+                   @"blockScreenShotsLegacy",
                    
                    @NO,
                    @"browserMediaAutoplay",
