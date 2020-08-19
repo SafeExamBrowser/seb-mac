@@ -184,7 +184,8 @@
 - (void)copy:(id)sender
 {
     [super copy:sender];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMac"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]) {
         NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
         NSArray *archive = [generalPasteboard archiveObjects];
         _browserController.privatePasteboardItems = archive;
@@ -196,7 +197,8 @@
 - (void)cut:(id)sender
 {
     [super cut:sender];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMac"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]) {
         NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
         NSArray *archive = [generalPasteboard archiveObjects];
         _browserController.privatePasteboardItems = archive;
@@ -207,7 +209,8 @@
 
 - (void)paste:(id)sender
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMac"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
+        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]) {
         NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
         [generalPasteboard clearContents];
         NSArray *archive = _browserController.privatePasteboardItems;
