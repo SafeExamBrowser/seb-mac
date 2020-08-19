@@ -119,9 +119,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
     // as NSWindowSharingType = NSWindowSharingNone works correctly
+    BOOL blockScreenShots = NO;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
+        blockScreenShots = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"];
+    }
+    if (blockScreenShots) {
         /// Check if there is a redirected sc location persistantly stored
         /// What only happends when it couldn't be reset last time SEB has run
         
@@ -154,7 +157,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         }
         
         // Check if screenshots should be blocked in current settings
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if (blockScreenShots) {
             
             /// Block screenshots
             
@@ -215,9 +218,6 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (BOOL) restoreScreenCapture
 {
-    // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
-    // as NSWindowSharingType = NSWindowSharingNone works correctly
-    if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10) {
         // Check if screenshots were blocked in the previously active settings
         if (scLocation.length > 0) {
             
@@ -256,9 +256,6 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             }
         }
         return YES;
-    } else {
-        return YES;
-    }
 }
 
 
@@ -273,7 +270,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         /// Yes, screenshots were blocked
         
         // Check if screenshots are allowed in current settings
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == YES) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShots"] == NO) {
             // Yes, screenshots are no longer blocked: restore SC and switch to non-blocking
             [self restoreScreenCapture];
             [self preventScreenCapture];
@@ -284,7 +281,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         /// No, screenshots were not blocked
         
         // Check if screenshots are allowed in current settings
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShots"] == YES) {
             // No, screenshots are blocked in new settings: activate blocking
             [self preventScreenCapture];
         } // otherwise leave blocking inactive and don't do nothing
