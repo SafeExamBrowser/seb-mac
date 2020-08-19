@@ -997,7 +997,7 @@ bool insideMatrix(void);
     /// Early kiosk mode setup (as these actions might take some time)
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"];
+    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenRecording"];
     
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -2543,7 +2543,7 @@ bool insideMatrix(){
         
         [window setReleasedWhenClosed:YES];
         [window setBackgroundColor:windowColor];
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"] == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [window newSetLevel:windowLevel];

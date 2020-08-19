@@ -65,7 +65,7 @@
 - (void)awakeFromNib
 {
     DDLogDebug(@"Cap window %@ awakeFromNib.", self.window);
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"] == NO) {
         [self.window setSharingType:NSWindowSharingNone];
     }
 }
