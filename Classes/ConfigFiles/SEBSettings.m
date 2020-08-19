@@ -313,7 +313,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enablePrivateClipboard",
                    
                    @YES,
-                   @"enablePrivateClipboardMac",
+                   @"enablePrivateClipboardMacEnforce",
                    
                    @YES,
                    @"enableSebBrowser",
@@ -641,6 +641,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"restartExamUseStartURL",
+                   
+                   @NO,
+                   @"screenSharingMacEnforceBlocked",
                    
                    [NSNumber numberWithLong:sebConfigPurposeConfiguringClient],
                    @"sebConfigPurpose",

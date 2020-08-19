@@ -1103,7 +1103,8 @@ bool insideMatrix(void);
     
     // Check for activated screen sharing if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
     allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
     allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
     
@@ -1915,7 +1916,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
     
     // Also set flags for screen sharing
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+       ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
 
     // Also set flag for SIGSTOP detection
     detectSIGSTOP = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectStoppedProcess"];
