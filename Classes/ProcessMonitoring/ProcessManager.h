@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ProcessManager : NSObject
 
 @property (strong, nonatomic) NSArray *prohibitedProcesses;
@@ -33,5 +31,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *) prohibitedProcessWithExecutable:(NSString *)executable;
 
 @end
-
-NS_ASSUME_NONNULL_END
