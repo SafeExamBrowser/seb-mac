@@ -25,6 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _windowOpen = YES;
     NSArray *allProcessListElements = [self allProcessListElements];
     if (allProcessListElements.count == 0) {
         [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
@@ -78,16 +79,22 @@
 - (void)closeWindow
 {
     [self stopProcessWatcher];
-    [self closeModalAlert];
-    [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+    if (_windowOpen) {
+        [self closeModalAlert];
+        [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+        _callback = nil;
+        _windowOpen = NO;
+    }
 }
 
 - (void)closeModalAlert
 {
     [[NSApplication sharedApplication] abortModal];
-    [self.modalAlert.window orderOut:self];
-    [self.modalAlert.window close];
-    [self.delegate removeAlertWindow:self.modalAlert.window];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.modalAlert.window orderOut:self];
+        [self.modalAlert.window close];
+        [self.delegate removeAlertWindow:self.modalAlert.window];
+    });
 }
 
 - (NSArray *)allProcessListElements
@@ -124,13 +131,11 @@
 {
     NSUInteger runningProcessesCount = _runningProcesses.count;
     _runningProcesses = [self.delegate checkProcessesRunning:_runningProcesses];
-    if (_runningProcesses.count != runningProcessesCount || _runningProcesses.count == _runningApplications.count == 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.processListArrayController.content = [self allProcessListElements];
-            if (self.runningApplications.count == self.runningProcesses.count == 0) {
-                [self closeWindow];
-            }
-        });
+    if (_runningProcesses.count != runningProcessesCount || _runningProcesses.count + _runningApplications.count == 0) {
+        self.processListArrayController.content = [self allProcessListElements];
+        if (self.runningApplications.count + self.runningProcesses.count == 0) {
+            [self closeWindow];
+        }
     }
 }
 
