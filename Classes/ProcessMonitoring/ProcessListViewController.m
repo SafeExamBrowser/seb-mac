@@ -81,8 +81,11 @@
     [self stopProcessWatcher];
     if (_windowOpen) {
         [self closeModalAlert];
-        [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
-        _callback = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            id callbackMethod = self.callback;
+            self.callback = nil;
+            [self.delegate closeProcessListWindowWithCallback:callbackMethod selector:self.selector];
+        });
         _windowOpen = NO;
     }
 }
@@ -116,8 +119,10 @@
 - (void)didTerminateRunningApplications:(NSArray *)terminatedApplications
 {
     for (NSRunningApplication *terminatedApplication in terminatedApplications) {
+        DDLogDebug(@"Application %@ was terminated.", terminatedApplication);
         if ([_runningApplications containsObject:terminatedApplication]) {
             [_runningApplications removeObject:terminatedApplication];
+            DDLogDebug(@"Terminated application %@ was removed from list of running prohibited processes.", terminatedApplication);
             _processListArrayController.content = [self allProcessListElements];
         }
     }
@@ -131,8 +136,8 @@
 {
     NSUInteger runningProcessesCount = _runningProcesses.count;
     _runningProcesses = [self.delegate checkProcessesRunning:_runningProcesses];
+    self.processListArrayController.content = [self allProcessListElements];
     if (_runningProcesses.count != runningProcessesCount || _runningProcesses.count + _runningApplications.count == 0) {
-        self.processListArrayController.content = [self allProcessListElements];
         if (self.runningApplications.count + self.runningProcesses.count == 0) {
             [self closeWindow];
         }

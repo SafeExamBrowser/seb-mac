@@ -30,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) IBOutlet NSArrayController *processListArrayController;
 
-@property (strong, nonatomic) NSMutableArray <NSRunningApplication *>*runningApplications;
-@property (strong, nonatomic) NSMutableArray <NSDictionary *>*runningProcesses;
+@property (strong, atomic) NSMutableArray <NSRunningApplication *>*runningApplications;
+@property (strong, atomic) NSMutableArray <NSDictionary *>*runningProcesses;
 @property (readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property (readwrite) BOOL windowOpen;
 

@@ -4605,10 +4605,8 @@ bool insideMatrix(){
 
 - (void)closeProcessListWindow
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.runningProcessesListWindowController close];
-        self.processListViewController = nil;
-    });
+    [_runningProcessesListWindowController close];
+    _processListViewController = nil;
 }
 
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
