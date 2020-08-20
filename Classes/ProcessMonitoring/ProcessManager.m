@@ -154,9 +154,9 @@ static ProcessManager *sharedProcessManager = nil;
 
 - (NSDictionary *) prohibitedProcessWithIdentifier:(NSString *)bundleID
 {
-    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"identifier ==[cd] %@", bundleID];
+    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"%@ LIKE identifier", bundleID];
     NSArray *foundProcesses = [_prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
-    if (foundProcesses) {
+    if (foundProcesses.count > 0) {
         return foundProcesses[0];
     } else {
         return nil;
@@ -166,9 +166,9 @@ static ProcessManager *sharedProcessManager = nil;
 
 - (NSDictionary *) prohibitedProcessWithExecutable:(NSString *)executable
 {
-    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"executable ==[cd] %@", executable];
+    NSPredicate *filterProcessIdentifier = [NSPredicate predicateWithFormat:@"%@ LIKE executable", executable];
     NSArray *foundProcesses = [_prohibitedProcesses filteredArrayUsingPredicate:filterProcessIdentifier];
-    if (foundProcesses) {
+    if (foundProcesses.count > 0) {
         return foundProcesses[0];
     } else {
         return nil;
