@@ -921,9 +921,9 @@ bool insideMatrix(void);
             }
         } else {
             // BSD process
-            NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"name LIKE %@", process[@"name"]];
+            NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", process[@"name"]];
             NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
-            if (filteredProcesses.count > 0) {
+            if (filteredProcesses.count != 0) {
                 NSURL *processURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
@@ -4605,8 +4605,10 @@ bool insideMatrix(){
 
 - (void)closeProcessListWindow
 {
-    [_runningProcessesListWindowController close];
-    _processListViewController = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.runningProcessesListWindowController close];
+        self.processListViewController = nil;
+    });
 }
 
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
@@ -4614,7 +4616,9 @@ bool insideMatrix(){
     [_runningProcessesListWindowController close];
     _processListViewController = nil;
     // Continue to initializing SEB and then starting the exam session
-    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+    if (callback) {
+        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+    }
 }
 
 @end
