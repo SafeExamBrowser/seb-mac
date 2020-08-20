@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSMutableArray *)checkProcessesRunning:(NSMutableArray *)runningProcesses;
 - (void) closeProcessListWindow;
-- (void) closeProcessListWindowWithCallback:(id)callback
+- (void) closeProcessListWindowWithCallback:(id _Nullable)callback
                                   selector:(SEL)selector;
 - (NSAlert *) newAlert;
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray <NSRunningApplication *>*runningApplications;
 @property (strong, nonatomic) NSMutableArray <NSDictionary *>*runningProcesses;
 @property (readwrite, nonatomic) dispatch_source_t processWatchTimer;
+@property (readwrite) BOOL windowOpen;
 
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;
