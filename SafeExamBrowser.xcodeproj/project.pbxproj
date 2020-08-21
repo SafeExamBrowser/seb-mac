@@ -1250,8 +1250,8 @@
 				695E02F81F4B15A4004C7611 /* SEBSettings.h */,
 				695E02F91F4B15A4004C7611 /* SEBSettings.m */,
 				69F9C10924C595C600788BBD /* SEBPresetSettings.h */,
-				6982F78C20D22A090061201A /* SEBEncapsulatedSettings.m */,
 				69F9C10A24C595C600788BBD /* SEBPresetSettings.m */,
+				6982F78C20D22A090061201A /* SEBEncapsulatedSettings.m */,
 				6982F78B20D22A090061201A /* SEBEncapsulatedSettings.h */,
 			);
 			name = "Config Files";
