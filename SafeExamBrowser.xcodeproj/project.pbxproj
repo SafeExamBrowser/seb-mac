@@ -98,7 +98,6 @@
 		6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */; };
 		694A8A5724D20B5300F7DA31 /* ProcessListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 694A8A5424D20B5300F7DA31 /* ProcessListViewController.h */; };
 		694A8A5824D20B5300F7DA31 /* ProcessListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694A8A5524D20B5300F7DA31 /* ProcessListViewController.m */; };
-		694A8A5924D20B5300F7DA31 /* ProcessListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 694A8A5624D20B5300F7DA31 /* ProcessListView.xib */; };
 		694A8A5C24D422A200F7DA31 /* ProcessListElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 694A8A5A24D422A200F7DA31 /* ProcessListElement.h */; };
 		694A8A5D24D422A200F7DA31 /* ProcessListElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 694A8A5B24D422A200F7DA31 /* ProcessListElement.m */; };
 		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
@@ -143,6 +142,7 @@
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6988D22324C5F78000953781 /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 6988D22124C5F78000953781 /* NSDictionary+Extensions.h */; };
 		6988D22424C5F78000953781 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988D22224C5F78000953781 /* NSDictionary+Extensions.m */; };
+		6989BA0924EFC5950045D894 /* ProcessListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6989BA0B24EFC5950045D894 /* ProcessListView.xib */; };
 		6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */; };
 		6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsConfigFileViewController.m */; };
 		6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */; };
@@ -545,7 +545,6 @@
 		6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNSURLSessionDemux.m; sourceTree = "<group>"; };
 		694A8A5424D20B5300F7DA31 /* ProcessListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessListViewController.h; sourceTree = "<group>"; };
 		694A8A5524D20B5300F7DA31 /* ProcessListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessListViewController.m; sourceTree = "<group>"; };
-		694A8A5624D20B5300F7DA31 /* ProcessListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcessListView.xib; sourceTree = "<group>"; };
 		694A8A5A24D422A200F7DA31 /* ProcessListElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessListElement.h; sourceTree = "<group>"; };
 		694A8A5B24D422A200F7DA31 /* ProcessListElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessListElement.m; sourceTree = "<group>"; };
 		694B08A116B14ABF00E4997C /* SEBCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCryptor.h; sourceTree = "<group>"; };
@@ -590,6 +589,8 @@
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		6988D22124C5F78000953781 /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
 		6988D22224C5F78000953781 /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
+		6989BA1124EFC5C70045D894 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/ProcessListView.xib; sourceTree = "<group>"; };
+		6989BA1224EFC60D0045D894 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProcessListView.xib; sourceTree = "<group>"; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = Classes/Global/SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyGlobals.h; path = Classes/Global/MyGlobals.h; sourceTree = "<group>"; };
 		6991A79114471F8C00F9149D /* MyGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyGlobals.m; path = Classes/Global/MyGlobals.m; sourceTree = "<group>"; };
@@ -1326,7 +1327,7 @@
 				695BC4EB24C237F7005C2350 /* ProcessManager.m */,
 				694A8A5424D20B5300F7DA31 /* ProcessListViewController.h */,
 				694A8A5524D20B5300F7DA31 /* ProcessListViewController.m */,
-				694A8A5624D20B5300F7DA31 /* ProcessListView.xib */,
+				6989BA0B24EFC5950045D894 /* ProcessListView.xib */,
 				694A8A5A24D422A200F7DA31 /* ProcessListElement.h */,
 				694A8A5B24D422A200F7DA31 /* ProcessListElement.m */,
 			);
@@ -1851,7 +1852,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				694A8A5924D20B5300F7DA31 /* ProcessListView.xib in Resources */,
+				6989BA0924EFC5950045D894 /* ProcessListView.xib in Resources */,
 				69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */,
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
@@ -2208,6 +2209,15 @@
 				69F3122F1B6FC85500169E9A /* de */,
 			);
 			name = PreferencesSecurity.xib;
+			sourceTree = "<group>";
+		};
+		6989BA0B24EFC5950045D894 /* ProcessListView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6989BA1124EFC5C70045D894 /* de */,
+				6989BA1224EFC60D0045D894 /* en */,
+			);
+			name = ProcessListView.xib;
 			sourceTree = "<group>";
 		};
 		69BE8662145872C900E87C22 /* PreferencesBrowser.xib */ = {
