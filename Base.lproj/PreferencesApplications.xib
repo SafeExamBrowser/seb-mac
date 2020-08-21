@@ -970,7 +970,7 @@
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
                                                     <rect key="frame" x="258" y="49" width="297" height="21"/>
-                                                    <string key="toolTip">User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used.</string>
+                                                    <string key="toolTip">User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used. Currently not supported</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1016,8 +1016,9 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <button toolTip="The prohibited process has to run under the currently logged in user. Use it instead of indicating the user." translatesAutoresizingMaskIntoConstraints="NO" id="1856">
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="1856">
                                                     <rect key="frame" x="14" y="50" width="99" height="20"/>
+                                                    <string key="toolTip">The prohibited process has to run under the currently logged in user. Use it instead of indicating the user. Currently not supported</string>
                                                     <buttonCell key="cell" type="check" title="Current user" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1920">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1049,8 +1050,9 @@
                                                                 </binding>
                                                             </connections>
                                                         </button>
-                                                        <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="kwe-Gh-ELP">
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="kwe-Gh-ELP">
                                                             <rect key="frame" x="436" y="-2" width="105" height="18"/>
+                                                            <string key="toolTip">When using the new AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process</string>
                                                             <buttonCell key="cell" type="check" title="Ignore in AAC" bezelStyle="regularSquare" imagePosition="left" alignment="right" inset="2" id="0ME-6B-zzQ">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1237,7 +1239,7 @@
                     <rect key="frame" x="20" y="666" width="610" height="14"/>
                     <subviews>
                         <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
-                            <rect key="frame" x="-2" y="-2" width="299" height="18"/>
+                            <rect key="frame" x="-2" y="-2" width="614" height="18"/>
                             <buttonCell key="cell" type="check" title="Attempt to quit prohibited applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="MVu-c3-I1R">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -1251,8 +1253,8 @@
                             </connections>
                         </button>
                         <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="299" userLabel="Require to quit all applications">
-                            <rect key="frame" x="313" y="-2" width="299" height="18"/>
-                            <string key="toolTip">SEB will attempt to quit processes/applications which are not permitted to run during an exam and require to terminate those which are prohibited</string>
+                            <rect key="frame" x="313" y="-2" width="205" height="18"/>
+                            <string key="toolTip">SEB will attempt to quit applications/processes which are not permitted to run during an exam and require to terminate those which are prohibited</string>
                             <buttonCell key="cell" type="check" title="Require to quit all applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
