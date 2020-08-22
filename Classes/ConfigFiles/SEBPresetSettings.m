@@ -57,6 +57,10 @@
                           @"identifier" : @"com.logmein.GoToMeeting",
                       },
                       @{
+                          @"executable" : @"Join.me",
+                          @"identifier" : @"com.logmein.join.me",
+                      },
+                      @{
                           @"executable" : @"Slack",
                           @"identifier" : @"com.tinyspeck.slackmacgap",
                       },
@@ -73,12 +77,50 @@
                           @"identifier" : @"com.adiumX.adiumX",
                       },
                       @{
+                          @"executable" : @"TeamViewer",
+                          @"identifier" : @"com.TeamViewer.TeamViewer",
+                      },
+                      @{
+                          @"executable" : @"Chicken",
+                          @"identifier" : @"com.geekspiff.chickenofthevnc",
+                      },
+                      @{
+                          @"executable" : @"Chicken",
+                          @"identifier" : @"net.sourceforge.chicken",
+                      },
+                      @{
+                          @"executable" : @"Screenconnect",
+                          @"identifier" : @"com.elsitech.screenconnect.client",
+                      },
+                      @{
                           @"executable" : @"Camtasia*",
                           @"identifier" : @"com.techsmith.camtasia*",
                       },
                       @{
                           @"executable" : @"Alfred*",
                           @"identifier" : @"com.runningwithcrayons.Alfred*",
+                      },
+                      @{
+                          @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
+                          @"executable" : @"Safari Networking",
+                          @"identifier" : @"com.apple.WebKit.Networking",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
+                          @"executable" : @"Chromium Helper",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
+                          @"executable" : @"Opera Helper",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser. Users have to restore their open tabs afterwards though.",
+                          @"executable" : @"plugin-container",
+                          @"identifier" : @"org.mozilla.plugincontainer",
+                          @"strongKill" : @YES,
                       },
                   ], // prohibitedProcesses end
               
