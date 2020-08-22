@@ -1850,14 +1850,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 // Check if application is a legit Apple system executable
 - (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
 {
-    SecStaticCodeRef ref = NULL;
-    
     NSString * executablePath = [ProcessManager getExecutablePathForPID:runningExecutablePID];
     NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
 
     DDLogDebug(@"Evaluating code signature of %@", executablePath);
     
     OSStatus status;
+    SecStaticCodeRef ref = NULL;
     
     // obtain the cert info from the executable
     status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
@@ -1890,15 +1889,18 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // create the requirement to check against
     status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
     
+    if (status == noErr && req != NULL) {
+        status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+    }
+    
+    if (ref) {
+        CFRelease(ref);
+    }
+    if (req) {
+        CFRelease(req);
+    }
+    
     if (status != noErr) return false;
-    if (req == NULL) return false;
-    
-    status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
-    
-    if (status != noErr) return false;
-    
-    CFRelease(ref);
-    CFRelease(req);
     
     DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
     
