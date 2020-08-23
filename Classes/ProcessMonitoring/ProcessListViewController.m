@@ -249,7 +249,6 @@
 - (IBAction)quitSEBSession:(id)sender
 {
     // As we are quitting SEB or the session, the callback method should not be called
-    [self closeModalAlert];
     [self.delegate closeProcessListWindow];
     [self.delegate quitSEBOrSession];
 }
