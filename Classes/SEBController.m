@@ -948,8 +948,16 @@ bool insideMatrix(void);
             self.processListViewController.callback = callback;
             self.processListViewController.selector = selector;
             
-            NSWindow *runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
-            //                                       Rect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+            NSWindow *runningProcessesListWindow;
+            if (@available(macOS 10.10, *)) {
+                runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
+            } else {
+                runningProcessesListWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+                NSRect newWindowFrame = self.processListViewController.view.frame;
+                runningProcessesListWindow.contentView = self.processListViewController.view;
+            [runningProcessesListWindow setFrame:newWindowFrame display:YES animate:NO];
+            [runningProcessesListWindow center];
+            }
             [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
             runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
             NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
@@ -1086,7 +1094,8 @@ bool insideMatrix(void);
 - (void) quitSEBOrSession
 {
     if (self.quitSession) {
-        [self.configFileController reconfigureClientWithSebClientSettings];
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        [self requestedRestart:nil];
     } else {
         quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
@@ -1670,7 +1679,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     }
     // Check for prohibited BSD processes
-    NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
+    NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses.copy;
     for (NSString *executableName in prohibitedProcesses) {
         // Wildcards are allowed when filtering process names
         processNameFilter = [NSPredicate predicateWithFormat:@"name LIKE %@", executableName];
