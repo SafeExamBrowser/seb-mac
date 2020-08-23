@@ -996,6 +996,10 @@ bool insideMatrix(void);
 {
     /// Early kiosk mode setup (as these actions might take some time)
     
+    // Hide all other applications
+    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                    withObject:NULL waitUntilDone:NO];
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenRecording"];
     
@@ -1026,10 +1030,6 @@ bool insideMatrix(void);
     // Set up and open SEB Dock
     [self openSEBDock];
     self.browserController.dockController = self.dockController;
-    
-    // Hide all other applications
-    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
     
     // Run watchdog event for windows and events which need to be observed
     // on the main (UI!) thread once, to initialize
