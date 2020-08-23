@@ -143,6 +143,8 @@
 		6988D22324C5F78000953781 /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 6988D22124C5F78000953781 /* NSDictionary+Extensions.h */; };
 		6988D22424C5F78000953781 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988D22224C5F78000953781 /* NSDictionary+Extensions.m */; };
 		6989BA0924EFC5950045D894 /* ProcessListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6989BA0B24EFC5950045D894 /* ProcessListView.xib */; };
+		6989BA1524F315CA0045D894 /* ProhibitedProcessesArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6989BA1324F315CA0045D894 /* ProhibitedProcessesArrayController.h */; };
+		6989BA1624F315CA0045D894 /* ProhibitedProcessesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6989BA1424F315CA0045D894 /* ProhibitedProcessesArrayController.m */; };
 		6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */; };
 		6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsConfigFileViewController.m */; };
 		6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */; };
@@ -591,6 +593,8 @@
 		6988D22224C5F78000953781 /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
 		6989BA1124EFC5C70045D894 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/ProcessListView.xib; sourceTree = "<group>"; };
 		6989BA1224EFC60D0045D894 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProcessListView.xib; sourceTree = "<group>"; };
+		6989BA1324F315CA0045D894 /* ProhibitedProcessesArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProhibitedProcessesArrayController.h; sourceTree = "<group>"; };
+		6989BA1424F315CA0045D894 /* ProhibitedProcessesArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProhibitedProcessesArrayController.m; sourceTree = "<group>"; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = Classes/Global/SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyGlobals.h; path = Classes/Global/MyGlobals.h; sourceTree = "<group>"; };
 		6991A79114471F8C00F9149D /* MyGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyGlobals.m; path = Classes/Global/MyGlobals.m; sourceTree = "<group>"; };
@@ -1585,6 +1589,8 @@
 				69CE1C161741309C0072207D /* SEBFilterTreeController.m */,
 				69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */,
 				69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */,
+				6989BA1324F315CA0045D894 /* ProhibitedProcessesArrayController.h */,
+				6989BA1424F315CA0045D894 /* ProhibitedProcessesArrayController.m */,
 			);
 			name = "Preferences View Controllers";
 			path = Classes/Preferences/PreferencesWindow/PreferencesViewControllers;
@@ -1690,6 +1696,7 @@
 				69E9EA321DB1A2D500C949FE /* NSRunningApplication+SEB.h in Headers */,
 				6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */,
 				694A8A5724D20B5300F7DA31 /* ProcessListViewController.h in Headers */,
+				6989BA1524F315CA0045D894 /* ProhibitedProcessesArrayController.h in Headers */,
 				694A8A5C24D422A200F7DA31 /* ProcessListElement.h in Headers */,
 				69C228191C767B0900F78634 /* compat-1.3.h in Headers */,
 				69C228391C767B0900F78634 /* ripemd160.h in Headers */,
@@ -2054,6 +2061,7 @@
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				6941A6631BDB8DED0050BF1E /* SEBDockItemTime.m in Sources */,
+				6989BA1624F315CA0045D894 /* ProhibitedProcessesArrayController.m in Sources */,
 				69C228511C767B0900F78634 /* base64.c in Sources */,
 				69C228851C767B0900F78634 /* ssl_tls.c in Sources */,
 				69C228791C767B0900F78634 /* platform.c in Sources */,
