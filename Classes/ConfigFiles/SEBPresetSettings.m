@@ -81,6 +81,10 @@
                           @"identifier" : @"com.TeamViewer.TeamViewer",
                       },
                       @{
+                          @"executable" : @"vncserver",
+                          @"description" : @"The user will have to deactivate/uninstall RealVNC server to use SEB.",
+                      },
+                      @{
                           @"executable" : @"Chicken",
                           @"identifier" : @"com.geekspiff.chickenofthevnc",
                       },
@@ -109,6 +113,11 @@
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Chromium Helper",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
+                          @"executable" : @"Brave Browser Helper",
                           @"strongKill" : @YES,
                       },
                       @{
