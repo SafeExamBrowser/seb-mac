@@ -62,4 +62,6 @@
 
 @property (strong, nonatomic) NSDictionary *defaultSettings;
 
+- (NSDictionary *)defaultSEBSettings;
+
 @end
