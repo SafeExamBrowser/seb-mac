@@ -50,7 +50,7 @@
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="message" size="11"/>
+                                            <font key="font" metaFont="controlContent" size="11"/>
                                         </buttonCell>
                                         <connections>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
@@ -1318,7 +1318,7 @@
                 </binding>
             </connections>
         </arrayController>
-        <arrayController avoidsEmptySelection="NO" id="1726" userLabel="Prohibited Processes Array Controller">
+        <arrayController avoidsEmptySelection="NO" id="1726" userLabel="Prohibited Processes Array Controller" customClass="ProhibitedProcessesArrayController">
             <connections>
                 <binding destination="110" name="contentArray" keyPath="values.org_safeexambrowser_SEB_prohibitedProcesses" id="1727">
                     <dictionary key="options">
