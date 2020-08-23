@@ -336,7 +336,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"examSessionClearCookiesOnEnd",
                    
-                   @NO,
+                   @YES,
                    @"examSessionClearCookiesOnStart",
                    
                    @NO,
