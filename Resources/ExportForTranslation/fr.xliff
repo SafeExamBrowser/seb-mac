@@ -2421,8 +2421,8 @@
         <source>If you don't enter the correct quit password, then you cannot quit SEB.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them.">
-        <source>If you don't enter the right administrator password from these settings you cannot open them.</source>
+      <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them.">
+        <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Important Notice for First Time Users">

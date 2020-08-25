@@ -101,6 +101,9 @@
 "Cannot Reconfigure SEB Settings" = "Konfiguration kann nicht umkonfiguriert werden";
 
 /* No comment provided by engineer. */
+"Cannot Remove Preset Prohibited Process" = "Voreingestellter verbotener Prozess kann nicht entfernt werden";
+
+/* No comment provided by engineer. */
 "Cannot Restore Touch Bar Mode" = "Touch Bar Modus kann nicht wiederhergestellt werden";
 
 /* No comment provided by engineer. */
@@ -149,9 +152,6 @@
 "Debug Certificate" = "Debug-Zertifikat";
 
 /* No comment provided by engineer. */
-"Decrypting settings with identity from the keychain failed!" = "Fehler beim Entschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!";
-
-/* No comment provided by engineer. */
 "Detecting dictation was disabled!" = "Detektieren der Diktat-Funktion wurde ausgeschaltet!";
 
 /* No comment provided by engineer. */
@@ -185,6 +185,9 @@
 "Dictation was activated" = "Diktat-Funktion wurde aktiviert";
 
 /* No comment provided by engineer. */
+"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse zwangsweise beenden? Programme könnten ungespeicherte Dokumentenänderungen verlieren, insbesondere wenn diese kein automatisches Speichern unterstützen.";
+
+/* No comment provided by engineer. */
 "Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
 
 /* No comment provided by engineer. */
@@ -215,9 +218,6 @@
 "Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running." = "Entweder wurde eine inkompatible SEB-Version auf diesem Rechner benutzt oder die Einstellungen-Datei wurde beschädigt. Im ersten Fall können Sie SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen. Anderenfalls müssen die lokalen Einstellungen zurückgesetzt werden, damit SEB weiter laufen kann.";
 
 /* No comment provided by engineer. */
-"Encrypting settings with identity from the keychain failed!" = "Fehler beim Verschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!";
-
-/* No comment provided by engineer. */
 "Enter administrator password:" = "Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -240,9 +240,6 @@
 
 /* No comment provided by engineer. */
 "Error Decrypting Settings" = "Fehler beim Entschlüsseln der Einstellungen";
-
-/* No comment provided by engineer. */
-"Error Encrypting Settings" = "Fehler beim Verschlüsseln der Einstellungen";
 
 /* No comment provided by engineer. */
 "Error Loading Page" = "Fehler beim Laden der Seite";
@@ -305,7 +302,7 @@
 "If you don't enter the correct SEB administrator password, then you cannot open preferences." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
-"If you don't enter the right administrator password from these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
+"If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
 "If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font." = "Wenn Sie SEB diese Erlaubnis nicht gewähren, dann können Sie solche Webseiten nicht benutzen. Beim letzten Mal als SEB lief, hat die Webseite mit dem Titel '%1$@' (%2$@) versucht, eine Schriftart herunter zu laden.";
@@ -353,7 +350,7 @@
 "Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
-"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
+"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
 "Local SEB settings are corrupted!" = "Lokale Client-Einstellungen sind beschädigt!";
@@ -384,9 +381,6 @@
 
 /* No comment provided by engineer. */
 "New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB weiterarbeiten oder SEB beenden?";
-
-/* No comment provided by engineer. */
-"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
 
 /* No comment provided by engineer. */
 "No encryption credentials chosen" = "Keine Verschlüsselung gewählt";
@@ -455,6 +449,9 @@
 "Prohibited Process Locked SEB!" = "SEB gesperrt wegen verbotenem Prozess!";
 
 /* No comment provided by engineer. */
+"Prohibited Processes Are Running" = "Verbotene Prozesse laufen";
+
+/* No comment provided by engineer. */
 "Prohibited processes detected" = "Verbotene Prozesse wurden detektiert!";
 
 /* No comment provided by engineer. */
@@ -480,9 +477,6 @@
 
 /* Lockdown alert title text for re-opening a locked exam */
 "Re-Opening Locked Exam!" = "Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet";
-
-/* No comment provided by engineer. */
-"Reading New Settings Failed!" = "Neue Einstellungen laden fehlgeschlagen!";
 
 /* No comment provided by engineer. */
 "Reconfigure SEB Settings" = "Einstellungen neu konfigurieren";
@@ -599,9 +593,6 @@
 "settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
-"Settings Corrupted" = "Einstellungen sind beschädigt";
-
-/* No comment provided by engineer. */
 "Settings for Configuring Client" = "Einstellungen zum Umkonfigurieren eines SEB-Clients";
 
 /* No comment provided by engineer. */
@@ -662,9 +653,6 @@
 "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." = "Das Identitätszertifikat könnte beschädigt sein oder der dazugehörige private Schlüssel wurde als 'nicht-exportierbar' in den Schlüsselbund importiert. Falls das Identitätszertifikat in einer Konfigurationsdatei eingebettet war, öffnen Sie diese hier im Einstellungen-Fenster. Dann wird der private Schlüssel als 'exportierbar' zum Schlüsselbund hinzugefügt.";
 
 /* No comment provided by engineer. */
-"The identity certificate needed to decrypt these settings isn't installed on this device. SEB might not have been configured correctly for your institution." = "Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. SEB wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
-
-/* No comment provided by engineer. */
 "The identity needed to decrypt settings has not been found in the keychain!" = "Identität zur Entschlüsselung dieser SEB-Konfigurationsdatei wurde im Schlüsselbund nicht gefunden!";
 
 /* No comment provided by engineer. */
@@ -693,6 +681,9 @@
 
 /* No comment provided by engineer. */
 "This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." = "Dies ist ein voreingestellter verbotener Prozess, welcher nicht entfernt werden kann. SEB fügt diesen automatisch zu jeder Konfiguration hinzu. Sie können diesen voreingestellten Prozess deaktivieren oder seine Parameter anpassen.";
 
 /* No comment provided by engineer. */
 "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
@@ -806,12 +797,6 @@
 "You can only reconfigure SEB by entering the current SEB administrator password:" = "Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:";
 
 /* No comment provided by engineer. */
-"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.";
-
-/* No comment provided by engineer. */
-"You didn't enter the correct current SEB administrator password." = "Sie haben das SEB Administrator-Passwort nicht korrekt eingegeben.";
-
-/* No comment provided by engineer. */
 "You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?" = "Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren (bearbeitete Einstellungen werden verworfen)?";
 
 /* No comment provided by engineer. */
@@ -819,7 +804,4 @@
 
 /* No comment provided by engineer. */
 "You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.";
-
-/* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.";
 

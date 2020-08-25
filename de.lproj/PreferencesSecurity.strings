@@ -46,7 +46,7 @@
 /* Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100"; */
 "100.title" = "SEB-Service Richtlinie (Win)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account"; ObjectID = "292"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account, as it also stops iCloud Clipboard (if not using AAC)"; ObjectID = "292"; */
 "292.ibShadowedToolTip" = "Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen gearbeitet werden soll";
 
 /* Class = "NSButtonCell"; title = "Use private clipboard"; ObjectID = "293"; */
@@ -103,7 +103,7 @@
 /* Class = "NSButtonCell"; title = "Enable F6"; ObjectID = "Fmg-wZ-Cpg"; */
 "Fmg-wZ-Cpg.title" = "F6 erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture and recording (invoked with cmd+shift+3/+4/+5), corresponds with option 'Enable Print Screen' in Windows (Hooked Keys)"; ObjectID = "g34-gq-Owk"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen shots (invoked with cmd-shift-3/-4/-5)"; ObjectID = "g34-gq-Owk"; */
 "g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos und Bildschirmaufnahme (cmd+shift+3/+4/+5), entspricht Option 'Print Screen erlauben' (Windows 'Hooked Keys' Einstellungen)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X"; */
@@ -151,7 +151,7 @@
 /* Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs"; */
 "LTi-lL-sOs.title" = "Abmelden erlauben";
 
-/* Class = "NSButtonCell"; title = "Allow screen capture"; ObjectID = "lyl-Qv-iTq"; */
+/* Class = "NSButtonCell"; title = "Allow screen capture (screen shots)"; ObjectID = "lyl-Qv-iTq"; */
 "lyl-Qv-iTq.title" = "Bildschirmfotos erlauben";
 
 /* Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB"; */
@@ -184,7 +184,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR"; */
 "P88-5S-xeR.ibShadowedToolTip" = "Entspricht 'Seiten-Navigation in Prüfung' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used"; ObjectID = "PH3-Cb-12g"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen recording (cmd - shift - 5)"; ObjectID = "PH3-Cb-12g"; */
 "PH3-Cb-12g.ibShadowedToolTip" = "Bildschirmfreigabe kann genutzt werden, während SEB läuft";
 
 /* Class = "NSButtonCell"; title = "Enable Right Mouse (also Mac*)"; ObjectID = "PWk-fT-HdC"; */
@@ -223,7 +223,7 @@
 /* Class = "NSTabViewItem"; label = "System Lockdown"; ObjectID = "UDI-4x-V3M"; */
 "UDI-4x-V3M.label" = "System sperren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "In SEB for macOS this only enables right mouse button/context menu in browser plugins and video players etc. "; ObjectID = "Udm-zO-P00"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Enable in SEB for macOS to access context menu for Web Inspector (see Browser pane). Disable to prevent right mouse button actions/context menu in browser plugins and video players"; ObjectID = "Udm-zO-P00"; */
 "Udm-zO-P00.ibShadowedToolTip" = "In SEB für macOS erlaubt dies die Benutzung der rechten Maustaste/des Kontextmenüs in Browser Plug-Ins und Videoplayern etc.";
 
 /* Class = "NSBox"; title = "Kiosk Mode (Win)"; ObjectID = "UEX-8o-YnQ"; */
@@ -244,7 +244,7 @@
 /* Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb"; */
 "WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses detektieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in macOS"; ObjectID = "wUs-SE-6xn"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen"; ObjectID = "wUs-SE-6xn"; */
 "wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)";
 
 /* Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "Y3K-X1-40d"; */
@@ -256,6 +256,6 @@
 /* Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "ZZ6-sG-BWw"; */
 "ZZ6-sG-BWw.ibShadowedToolTip" = "Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt";
 
-/* Class = "NSButtonCell"; title = "Allow screen sharing"; ObjectID = "zzi-ch-X4d"; */
+/* Class = "NSButtonCell"; title = "Allow screen recording"; ObjectID = "zzi-ch-X4d"; */
 "zzi-ch-X4d.title" = "Bildschirmfreigabe erlauben";
 
