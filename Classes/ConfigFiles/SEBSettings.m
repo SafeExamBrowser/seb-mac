@@ -172,9 +172,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowScreenCapture",
                    
                    @NO,
-                   @"allowScreenRecording",
-                   
-                   @NO,
                    @"allowScreenSharing",
                    
                    @NO,
@@ -197,6 +194,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowVirtualMachine",
+                   
+                   @NO,
+                   @"allowWindowCapture",
                    
                    @NO,
                    @"allowWlan",

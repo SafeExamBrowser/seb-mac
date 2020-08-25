@@ -1009,7 +1009,7 @@ bool insideMatrix(void);
                                                     withObject:NULL waitUntilDone:NO];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenRecording"];
+    allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
     
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -1667,7 +1667,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     }
     // Check for running screen capture process
-    if (!allowScreenRecording) {
+    if (!allowScreenCapture) {
         processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         
@@ -2554,7 +2554,7 @@ bool insideMatrix(){
         
         [window setReleasedWhenClosed:YES];
         [window setBackgroundColor:windowColor];
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"] == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [window newSetLevel:windowLevel];
@@ -3154,6 +3154,7 @@ bool insideMatrix(){
     _SIGSTOPDetected = false;
     
     if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+        _sebLockedViewController.quitInsteadUnlockingButton.state = false;
         [self quitSEBOrSession];
     }
     

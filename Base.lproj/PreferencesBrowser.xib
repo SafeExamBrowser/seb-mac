@@ -381,7 +381,7 @@
                                                                 </stackView>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
                                                                     <rect key="frame" x="-2" y="-2" width="261" height="18"/>
-                                                                    <string key="toolTip">If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with "Inspect Element". Win: Use browser window toolbar menu for developer tools.</string>
+                                                                    <string key="toolTip">If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
                                                                     <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -677,8 +677,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IqX-2Y-Ffc">
                                                                     <rect key="frame" x="-2" y="-2" width="198" height="18"/>
-                                                                    <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps
-</string>
+                                                                    <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps</string>
                                                                     <buttonCell key="cell" type="check" title="Allow picture in picture video" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zZ5-9g-Lhz">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -754,13 +753,13 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                                        <rect key="frame" x="17" y="52" width="616" height="201"/>
+                                        <rect key="frame" x="17" y="52" width="613" height="201"/>
                                         <view key="contentView" id="axo-2J-CZ8">
-                                            <rect key="frame" x="3" y="3" width="610" height="183"/>
+                                            <rect key="frame" x="3" y="3" width="607" height="183"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                                    <rect key="frame" x="9" y="121" width="593" height="25"/>
+                                                <popUpButton toolTip="Each SEB version/device type has separate user agent settings" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
+                                                    <rect key="frame" x="9" y="121" width="590" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -781,7 +780,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <tabView verticalCompressionResistancePriority="1000" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                                    <rect key="frame" x="11" y="12" width="588" height="104"/>
+                                                    <rect key="frame" x="11" y="12" width="585" height="104"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="105" id="rSZ-FD-lbj"/>
                                                     </constraints>
@@ -1185,8 +1184,8 @@
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" id="4fH-Ky-Giv"/>
                                                     </connections>
                                                 </tabView>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
-                                                    <rect key="frame" x="127" y="153" width="470" height="22"/>
+                                                <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
+                                                    <rect key="frame" x="127" y="153" width="467" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
                                                     </constraints>
@@ -1319,7 +1318,7 @@
                         <rect key="frame" x="1" y="634" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.89696969696969697" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.55151515151515151" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="633"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

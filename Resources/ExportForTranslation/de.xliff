@@ -2744,9 +2744,9 @@
         <note>Class = "NSButtonCell"; title = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk";</note>
       </trans-unit>
       <trans-unit id="LEn-zs-oJl.ibShadowedToolTip" xml:space="preserve">
-        <source>Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling setting 'Allow screen capture' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win).</source>
-        <target>Blockiert macOS Bildschirmfotos (cmd-shift-3/-4/-5) mittels einer älteren Methode (kompatibel mit einigen Remote Proctoring Tools). Für Bildschirmfotos diese Einstellung deaktivieren und 'Bildschirmaufnahme erlauben' aktivieren. Für Windows die Option 'Print Screen erlauben' (Sicherheit / 'Hooked Keys' Einstellungen) verwenden.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling setting 'Allow screen capture' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win)."; ObjectID = "LEn-zs-oJl";</note>
+        <source>Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win).</source>
+        <target>Blockiert macOS Bildschirmfotos (cmd-shift-3/-4/-5) mittels einer älteren Methode (kompatibel mit einigen Remote Proctoring Tools). Für Bildschirmfotos diese Einstellung deaktivieren und 'Bildschirmaufnahme erlauben' und 'Fenster auf Bildschirmfotos darstellen' aktivieren. Für Windows die Option 'Print Screen erlauben' (Sicherheit / 'Hooked Keys' Einstellungen) verwenden.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win)."; ObjectID = "LEn-zs-oJl";</note>
       </trans-unit>
       <trans-unit id="LHf-yE-fnG.title" xml:space="preserve">
         <source>Block screen shots (Legacy)</source>
@@ -2794,9 +2794,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR";</note>
       </trans-unit>
       <trans-unit id="PH3-Cb-12g.ibShadowedToolTip" xml:space="preserve">
-        <source>Allows macOS screen recording (cmd - shift - 5)</source>
-        <target>Erlaubt Bildschirmvideoaufzeichnung (cmd-shift-5)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen recording (cmd - shift - 5)"; ObjectID = "PH3-Cb-12g";</note>
+        <source>Allows macOS screen capture (screen shots) and recording (cmd-shift-3/-4/-5)</source>
+        <target>Erlaubt Bildschirmfotos und Bildschirm-Videoaufzeichnung (cmd-shift-3/-4/-5)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen capture (screen shots) and recording (cmd-shift-3/-4/-5)"; ObjectID = "PH3-Cb-12g";</note>
       </trans-unit>
       <trans-unit id="PWk-fT-HdC.title" xml:space="preserve">
         <source>Enable Right Mouse (also Mac*)</source>
@@ -2924,9 +2924,9 @@
         <note>Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi";</note>
       </trans-unit>
       <trans-unit id="g34-gq-Owk.ibShadowedToolTip" xml:space="preserve">
-        <source>Controls macOS screen shots (invoked with cmd-shift-3/-4/-5)</source>
+        <source>Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)</source>
         <target>Steuert macOS Bildschirmfotos (cmd-shift-3/-4/-5)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen shots (invoked with cmd-shift-3/-4/-5)"; ObjectID = "g34-gq-Owk";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)"; ObjectID = "g34-gq-Owk";</note>
       </trans-unit>
       <trans-unit id="gaS-9v-32d.ibShadowedToolTip" xml:space="preserve">
         <source>Transforms specific HTTP requests for clicked links to prevent the "Guided Access is enabled" message being displayed when clicking all links</source>
@@ -2974,9 +2974,9 @@
         <note>Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK";</note>
       </trans-unit>
       <trans-unit id="lyl-Qv-iTq.title" xml:space="preserve">
-        <source>Allow screen capture (screen shots)</source>
-        <target>Bildschirmfotos erlauben</target>
-        <note>Class = "NSButtonCell"; title = "Allow screen capture (screen shots)"; ObjectID = "lyl-Qv-iTq";</note>
+        <source>Allow window capture (screen shots)</source>
+        <target>Fenster auf Bildschirmfotos darstellen</target>
+        <note>Class = "NSButtonCell"; title = "Allow window capture (screen shots)"; ObjectID = "lyl-Qv-iTq";</note>
       </trans-unit>
       <trans-unit id="mCE-kG-rgQ.ibShadowedToolTip" xml:space="preserve">
         <source>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)</source>
@@ -3093,9 +3093,9 @@
         <note>Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1";</note>
       </trans-unit>
       <trans-unit id="zzi-ch-X4d.title" xml:space="preserve">
-        <source>Allow screen recording</source>
-        <target>Bildschirmvideoaufzeichnung erlauben</target>
-        <note>Class = "NSButtonCell"; title = "Allow screen recording"; ObjectID = "zzi-ch-X4d";</note>
+        <source>Allow screen capture/recording</source>
+        <target>Bildschirmaufzeichnung erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Allow screen capture/recording"; ObjectID = "zzi-ch-X4d";</note>
       </trans-unit>
     </body>
   </file>
