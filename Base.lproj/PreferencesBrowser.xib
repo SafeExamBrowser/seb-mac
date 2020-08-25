@@ -34,10 +34,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="630" height="798"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="717" width="354" height="66"/>
+                                        <rect key="frame" x="20" y="717" width="590" height="66"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                                                <rect key="frame" x="-2" y="49" width="358" height="17"/>
+                                                <rect key="frame" x="-2" y="49" width="594" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="biv-Ti-nzG"/>
                                                 </constraints>
@@ -48,7 +48,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                                                <rect key="frame" x="-2" y="18" width="359" height="25"/>
+                                                <rect key="frame" x="-2" y="18" width="595" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -85,6 +85,8 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="85" secondAttribute="trailing" id="CrX-G9-ezu"/>
+                                            <constraint firstItem="84" firstAttribute="leading" secondItem="1WX-zZ-3xi" secondAttribute="leading" id="GmZ-Ds-xPc"/>
+                                            <constraint firstAttribute="trailing" secondItem="84" secondAttribute="trailing" id="eDG-wH-Gdw"/>
                                         </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
@@ -210,10 +212,10 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="He9-jM-mVJ">
-                                        <rect key="frame" x="20" y="591" width="372" height="24"/>
+                                        <rect key="frame" x="20" y="591" width="610" height="24"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                                                <rect key="frame" x="-2" y="4" width="186" height="16"/>
+                                                <rect key="frame" x="-2" y="4" width="305" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -221,7 +223,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                                                <rect key="frame" x="188" y="-3" width="187" height="25"/>
+                                                <rect key="frame" x="307" y="-3" width="306" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1234,7 +1236,7 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="UVG-B6-tb2">
-                                        <rect key="frame" x="20" y="15" width="489" height="31"/>
+                                        <rect key="frame" x="20" y="15" width="590" height="31"/>
                                         <subviews>
                                             <button toolTip="When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
                                                 <rect key="frame" x="-3" y="16" width="229" height="18"/>
@@ -1255,7 +1257,7 @@
                                                 </connections>
                                             </button>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="447">
-                                                <rect key="frame" x="-2" y="0.0" width="493" height="14"/>
+                                                <rect key="frame" x="-2" y="0.0" width="594" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="14" id="mYD-wH-oFy"/>
                                                 </constraints>
@@ -1266,6 +1268,10 @@
                                                 </textFieldCell>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="447" secondAttribute="trailing" id="JoJ-hy-GVb"/>
+                                            <constraint firstItem="447" firstAttribute="leading" secondItem="UVG-B6-tb2" secondAttribute="leading" id="OmX-pn-dSQ"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -1278,11 +1284,17 @@
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="15"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="UVG-B6-tb2" secondAttribute="trailing" constant="20" id="4DD-Uy-j6u"/>
+                                    <constraint firstItem="UVG-B6-tb2" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="4Vd-Fx-Nzj"/>
                                     <constraint firstAttribute="trailing" secondItem="567" secondAttribute="trailing" id="75U-fk-Jm2"/>
                                     <constraint firstAttribute="trailing" secondItem="u8M-48-HFC" secondAttribute="trailing" id="8kT-Dd-Lie"/>
                                     <constraint firstAttribute="width" constant="630" id="DP4-vU-y1O"/>
+                                    <constraint firstAttribute="trailing" secondItem="1WX-zZ-3xi" secondAttribute="trailing" constant="20" id="KCf-R5-sDx"/>
+                                    <constraint firstItem="He9-jM-mVJ" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="Kr7-zU-glf"/>
+                                    <constraint firstItem="1WX-zZ-3xi" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="M5w-Wy-gkn"/>
                                     <constraint firstAttribute="trailing" secondItem="13B-3r-AKS" secondAttribute="trailing" id="Yqj-Rb-XTo"/>
                                     <constraint firstAttribute="trailing" secondItem="7nL-Z2-JAg" secondAttribute="trailing" id="vBJ-tg-70p"/>
+                                    <constraint firstAttribute="trailing" secondItem="He9-jM-mVJ" secondAttribute="trailing" id="wYa-pF-EAb"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
@@ -1318,7 +1330,7 @@
                         <rect key="frame" x="1" y="634" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.55151515151515151" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.90909090909090906" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="633"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

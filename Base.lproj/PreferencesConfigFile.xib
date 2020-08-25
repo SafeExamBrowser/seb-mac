@@ -26,10 +26,10 @@
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LlI-AX-322">
                     <rect key="frame" x="20" y="20" width="612" height="390"/>
                     <subviews>
-                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
-                            <rect key="frame" x="0.0" y="350" width="591" height="40"/>
+                        <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
+                            <rect key="frame" x="0.0" y="350" width="612" height="40"/>
                             <subviews>
-                                <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
+                                <textField horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
                                     <rect key="frame" x="-2" y="24" width="127" height="16"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use config file for ..." usesSingleLineMode="YES" id="239">
                                         <font key="font" metaFont="system"/>
@@ -37,8 +37,8 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                                    <rect key="frame" x="131" y="0.0" width="460" height="40"/>
+                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
+                                    <rect key="frame" x="131" y="0.0" width="481" height="40"/>
                                     <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</string>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     <size key="cellSize" width="460" height="18"/>
@@ -298,11 +298,11 @@
                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
                             </connections>
                         </button>
-                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="76" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="mYx-S8-prr">
-                            <rect key="frame" x="0.0" y="0.0" width="611" height="101"/>
+                        <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="mYx-S8-prr">
+                            <rect key="frame" x="0.0" y="0.0" width="612" height="101"/>
                             <subviews>
                                 <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="s3a-rg-MhB">
-                                    <rect key="frame" x="0.0" y="0.0" width="141" height="101"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="191" height="101"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
                                             <rect key="frame" x="-2" y="87" width="103" height="14"/>
@@ -313,7 +313,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button toolTip="Open a settings file for editing" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
-                                            <rect key="frame" x="-6" y="51" width="153" height="32"/>
+                                            <rect key="frame" x="-6" y="51" width="203" height="32"/>
                                             <buttonCell key="cell" type="push" title="Open Settings..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1047">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -323,7 +323,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Save settings file with same name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                                            <rect key="frame" x="-6" y="22" width="153" height="32"/>
+                                            <rect key="frame" x="-6" y="22" width="203" height="32"/>
                                             <buttonCell key="cell" type="push" title="Save Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -346,7 +346,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Choose file name and destination to save settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
-                                            <rect key="frame" x="-6" y="-7" width="153" height="32"/>
+                                            <rect key="frame" x="-6" y="-7" width="203" height="32"/>
                                             <buttonCell key="cell" type="push" title="Save Settings As..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1107">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -383,7 +383,7 @@
                                     </customSpacing>
                                 </stackView>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YUG-9w-qce">
-                                    <rect key="frame" x="217" y="0.0" width="153" height="101"/>
+                                    <rect key="frame" x="211" y="0.0" width="190" height="101"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
                                             <rect key="frame" x="-2" y="87" width="108" height="14"/>
@@ -394,7 +394,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button toolTip="Revert current settings to SEB defaults" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1072">
-                                            <rect key="frame" x="-6" y="51" width="165" height="32"/>
+                                            <rect key="frame" x="-6" y="51" width="202" height="32"/>
                                             <buttonCell key="cell" type="push" title="Default Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1073">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -404,7 +404,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Revert to the local client settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
-                                            <rect key="frame" x="-6" y="22" width="165" height="32"/>
+                                            <rect key="frame" x="-6" y="22" width="202" height="32"/>
                                             <buttonCell key="cell" type="push" title="Local Client Settings" bezelStyle="rounded" alignment="center" scrollable="YES" lineBreakMode="clipping" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -419,7 +419,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Revert to last saved (or opened) settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
-                                            <rect key="frame" x="-6" y="-7" width="165" height="32"/>
+                                            <rect key="frame" x="-6" y="-7" width="202" height="32"/>
                                             <buttonCell key="cell" type="push" title="Last Saved" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1062">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -452,7 +452,7 @@
                                     </customSpacing>
                                 </stackView>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="RaO-Jh-GiT">
-                                    <rect key="frame" x="446" y="0.0" width="165" height="101"/>
+                                    <rect key="frame" x="421" y="0.0" width="191" height="101"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
                                             <rect key="frame" x="-2" y="87" width="137" height="14"/>
@@ -463,7 +463,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button toolTip="Create duplicate of current settings for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
-                                            <rect key="frame" x="-6" y="51" width="177" height="32"/>
+                                            <rect key="frame" x="-6" y="51" width="203" height="32"/>
                                             <buttonCell key="cell" type="push" title="Edit Duplicate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1166">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -473,7 +473,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Configure client using current settings (overwriting current local settings)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1157">
-                                            <rect key="frame" x="-6" y="22" width="177" height="32"/>
+                                            <rect key="frame" x="-6" y="22" width="203" height="32"/>
                                             <buttonCell key="cell" type="push" title="Configure Client" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1158">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -484,7 +484,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Apply current settings and restart SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1292">
-                                            <rect key="frame" x="-6" y="-7" width="177" height="32"/>
+                                            <rect key="frame" x="-6" y="-7" width="203" height="32"/>
                                             <buttonCell key="cell" type="push" title="Apply and Restart SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1294">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -528,6 +528,12 @@
                             </customSpacing>
                         </stackView>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="xoU-sN-L4a" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="3wX-VR-uge"/>
+                        <constraint firstAttribute="trailing" secondItem="xoU-sN-L4a" secondAttribute="trailing" id="66N-im-QIj"/>
+                        <constraint firstAttribute="trailing" secondItem="mYx-S8-prr" secondAttribute="trailing" id="nme-qU-nKz"/>
+                        <constraint firstItem="mYx-S8-prr" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="p7t-3f-ObJ"/>
+                    </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
                         <integer value="1000"/>

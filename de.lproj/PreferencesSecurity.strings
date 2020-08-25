@@ -46,8 +46,8 @@
 /* Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100"; */
 "100.title" = "SEB-Service Richtlinie (Win)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account, as it also stops iCloud Clipboard (if not using AAC)"; ObjectID = "292"; */
-"292.ibShadowedToolTip" = "Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen gearbeitet werden soll";
+/* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "292"; */
+"292.ibShadowedToolTip" = "Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen in einem verwalteten Benutzerkonto gearbeitet werden soll (wenn 'Private Zwischenablage auf Mac erzwingen' aktiv ist, beeinflusst diese Einstellung nur SEB für Windows und ältere Mac-Versionen)";
 
 /* Class = "NSButtonCell"; title = "Use private clipboard"; ObjectID = "293"; */
 "293.title" = "Private Zwischenablage verwenden";
@@ -86,10 +86,10 @@
 "cfE-bh-Syt.title" = "Private Zwischenablage auf Mac erzwingen";
 
 /* Class = "NSButtonCell"; title = "Enforce blocking screen sharing on Mac"; ObjectID = "CP1-uX-itB"; */
-"CP1-uX-itB.title" = "Blockieren der Bildschirmfreigabe auf Mac erzwingen";
+"CP1-uX-itB.title" = "Bildschirmfreigabe Blockieren erzwingen (Mac)";
 
-/* Class = "NSComboBox"; ibShadowedToolTip = "SEB refuses to run on an older iOS version"; ObjectID = "cqk-oB-iLU"; */
-"cqk-oB-iLU.ibShadowedToolTip" = "SEB verweigert die Benutzung einer älteren iOS-Version";
+/* Class = "NSComboBox"; ibShadowedToolTip = "SEB refuses to run on a major iOS beta version, unless it is allowed here"; ObjectID = "cqk-oB-iLU"; */
+"cqk-oB-iLU.ibShadowedToolTip" = "SEB verweigert die Benutzung einer iOS-Major-Betaversion, sofern diese nicht hier erlaubt ist";
 
 /* Class = "NSButtonCell"; title = "Allow Single App Mode"; ObjectID = "Ctf-z6-c6e"; */
 "Ctf-z6-c6e.title" = "Einzel-App-Modus erlauben";
@@ -128,9 +128,9 @@
 "Fmg-wZ-Cpg.title" = "F6 erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)"; ObjectID = "g34-gq-Owk"; */
-"g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos (cmd-shift-3/-4/-5)";
+"g34-gq-Owk.ibShadowedToolTip" = "Zeigt oder versteckt SEB-Fenster auf macOS Bildschirmfotos (cmd-shift-3/-4/-5)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Transforms specific HTTP requests for clicked links to prevent the \"Guided Access is enabled\" message being displayed when clicking all links"; ObjectID = "gaS-9v-32d"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links"; ObjectID = "gaS-9v-32d"; */
 "gaS-9v-32d.ibShadowedToolTip" = "Spezifische HTTP-Request für angeklickte Links werden angepasst, um die Meldung 'Geführter Zugriff ist aktiv' zu vermeiden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X"; */
@@ -191,7 +191,7 @@
 "Lff-Up-3Ym.title" = "Minimale macOS-Version erzwingen:";
 
 /* Class = "NSButtonCell"; title = "Block screen shots (Legacy)"; ObjectID = "LHf-yE-fnG"; */
-"LHf-yE-fnG.title" = "Bildschirmfotos blockieren (ältere Methode)";
+"LHf-yE-fnG.title" = "Bildschirmfotos blockieren (Legacy)";
 
 /* Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs"; */
 "LTi-lL-sOs.title" = "Abmelden erlauben";
@@ -224,7 +224,7 @@
 "O4R-7z-oLy.title" = "Diktieren erlauben";
 
 /* Class = "NSBox"; title = "Allow running from iOS version"; ObjectID = "oIi-XG-JWG"; */
-"oIi-XG-JWG.title" = "Erlaube Benutzung ab iOS-Betaversion";
+"oIi-XG-JWG.title" = "Erlaube Benutzung ab iOS-Version";
 
 /* Class = "NSButton"; ibShadowedToolTip = "If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)"; ObjectID = "oq3-9u-BrJ"; */
 "oq3-9u-BrJ.ibShadowedToolTip" = "SEB verhindert, dass der Hauptbildschirm auf einen anderen gespiegelt wird (beispielsweise auf einen AirPlay-Monitor)";
@@ -244,7 +244,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen capture (screen shots) and recording (cmd-shift-3/-4/-5)"; ObjectID = "PH3-Cb-12g"; */
 "PH3-Cb-12g.ibShadowedToolTip" = "Erlaubt Bildschirmfotos und Bildschirm-Videoaufzeichnung (cmd-shift-3/-4/-5)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Overrides the original screen sharing setting"; ObjectID = "pn0-dK-cZw"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Overrides the original screen sharing setting (on Mac clients)"; ObjectID = "pn0-dK-cZw"; */
 "pn0-dK-cZw.ibShadowedToolTip" = "Übersteuert die originale Einstellung für die Bildschirmfreigabe";
 
 /* Class = "NSButtonCell"; title = "Enable Right Mouse (also Mac*)"; ObjectID = "PWk-fT-HdC"; */
@@ -256,8 +256,8 @@
 /* Class = "NSButtonCell"; title = "Enable F5"; ObjectID = "q9c-zv-s6c"; */
 "q9c-zv-s6c.title" = "F5 erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "qqs-ZA-6ds"; */
-"qqs-ZA-6ds.ibShadowedToolTip" = "Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen gearbeitet werden soll (diese Einstellung beeinflusst nur SEB für Windows und ältere Mac-Versionen)";
+/* Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds"; */
+"qqs-ZA-6ds.ibShadowedToolTip" = "Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können";
 
 /* Class = "NSButtonCell"; title = "Enable F2"; ObjectID = "rd9-dL-Qhi"; */
 "rd9-dL-Qhi.title" = "F2 erlauben";
