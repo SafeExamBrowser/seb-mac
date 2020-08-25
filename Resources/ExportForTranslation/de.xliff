@@ -20,9 +20,9 @@
         <note>Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF";</note>
       </trans-unit>
       <trans-unit id="6AG-ln-h1N.ibShadowedToolTip" xml:space="preserve">
-        <source>Reloads current web page. Shows warning if enabled in Browser settings pane</source>
-        <target>Neuladen der aktuellen Webseite. Eine Warnung wird angezeigt, falls diese in den Browser-Einstellungen aktiviert ist.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "6AG-ln-h1N";</note>
+        <source>Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</source>
+        <target>Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "6AG-ln-h1N";</note>
       </trans-unit>
       <trans-unit id="6CP-QX-2NV.title" xml:space="preserve">
         <source>Show time</source>
@@ -85,9 +85,9 @@
         <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372";</note>
       </trans-unit>
       <trans-unit id="383.ibShadowedToolTip" xml:space="preserve">
-        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T.</source>
+        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T</source>
         <target>Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "383";</note>
       </trans-unit>
       <trans-unit id="384.title" xml:space="preserve">
         <source>Hide toolbar as default</source>
@@ -255,19 +255,19 @@
         <note>Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "YEg-Qr-xf0";</note>
       </trans-unit>
       <trans-unit id="YvJ-jy-ANl.ibShadowedToolTip" xml:space="preserve">
-        <source>For some exam scenarios, you might want to keep URLs secret</source>
-        <target>In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "YvJ-jy-ANl";</note>
+        <source>Status Bar appearance on devices with FaceID</source>
+        <target>Darstellung der Statusleiste auf Geräten mit FaceID</target>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "YvJ-jy-ANl";</note>
       </trans-unit>
       <trans-unit id="a8D-Ip-MvZ.ibShadowedToolTip" xml:space="preserve">
-        <source>For some exam scenarios, you might want to keep URLs secret</source>
-        <target>In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "a8D-Ip-MvZ";</note>
+        <source>Status Bar appearance on devices without FaceID</source>
+        <target>Darstellung der Statusleiste auf Geräten ohne FaceID</target>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices without FaceID"; ObjectID = "a8D-Ip-MvZ";</note>
       </trans-unit>
       <trans-unit id="aoE-hs-Q9u.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows current keyboard layout and allows to change it</source>
-        <target>Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "aoE-hs-Q9u";</note>
+        <source>Shows the Quit SEB/Session (iOS) Dock button</source>
+        <target>Zeigt die 'SEB Beenden'-Taste im Dock an</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "aoE-hs-Q9u";</note>
       </trans-unit>
       <trans-unit id="baa-Wm-1db.ibShadowedToolTip" xml:space="preserve">
         <source>Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar</source>
@@ -286,12 +286,12 @@
       </trans-unit>
       <trans-unit id="d5d-zh-qxU.title" xml:space="preserve">
         <source>Toolbar/Menu Bar/Status Bar</source>
-        <target>Mac-spezifisch</target>
+        <target>Symbolleiste/Menüleiste/Statusleiste</target>
         <note>Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "d5d-zh-qxU";</note>
       </trans-unit>
       <trans-unit id="dvK-KY-6zd.ibShadowedToolTip" xml:space="preserve">
         <source>Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed </source>
-        <target>Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt.</target>
+        <target>Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed "; ObjectID = "dvK-KY-6zd";</note>
       </trans-unit>
       <trans-unit id="eGR-0O-pYN.title" xml:space="preserve">
@@ -315,9 +315,9 @@
         <note>Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "iqK-dQ-5mz";</note>
       </trans-unit>
       <trans-unit id="mbj-mD-F32.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow looking up text elements on a web site using the 3-finger tap on a trackpad</source>
+        <source>Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad</source>
         <target>Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "mbj-mD-F32";</note>
       </trans-unit>
       <trans-unit id="qpg-Rd-u54.title" xml:space="preserve">
         <source>Touch optimized (Win)</source>
@@ -805,7 +805,7 @@
       </trans-unit>
       <trans-unit id="9F7-Qa-r8S.title" xml:space="preserve">
         <source>Show URLs </source>
-        <target>URLs anzeigen</target>
+        <target>Zeige URL</target>
         <note>Class = "NSTextFieldCell"; title = "Show URLs "; ObjectID = "9F7-Qa-r8S";</note>
       </trans-unit>
       <trans-unit id="9tX-IU-bN7.title" xml:space="preserve">
@@ -825,7 +825,7 @@
       </trans-unit>
       <trans-unit id="29c-3t-HLf.title" xml:space="preserve">
         <source>Enable Web Inspector (developer tools)</source>
-        <target>Local Storage deaktivieren (Mac)</target>
+        <target>Web Inspector erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Web Inspector (developer tools)"; ObjectID = "29c-3t-HLf";</note>
       </trans-unit>
       <trans-unit id="91.title" xml:space="preserve">
@@ -915,7 +915,7 @@
       </trans-unit>
       <trans-unit id="449.title" xml:space="preserve">
         <source>to start another application in kiosk mode (for example a virtual desktop infrastructure client)</source>
-        <target>um eine Drittapplikation im Kiosk-Modus zu starten (z.B. einen Client für virtuelle Desktop-Infrastruktur)</target>
+        <target>um eine Drittapplikation im Kiosk-Modus zu starten (z.B. Client für virtuelle Desktop-Infrastruktur)</target>
         <note>Class = "NSTextFieldCell"; title = "to start another application in kiosk mode (for example a virtual desktop infrastructure client)"; ObjectID = "449";</note>
       </trans-unit>
       <trans-unit id="567.title" xml:space="preserve">
@@ -1049,10 +1049,9 @@
         <note>Class = "NSBox"; title = "Restrictions in Exam Window"; ObjectID = "IEP-y6-APQ";</note>
       </trans-unit>
       <trans-unit id="IqX-2Y-Ffc.ibShadowedToolTip" xml:space="preserve">
-        <source>On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps
-</source>
-        <target>Auf Geräten, welche Bild-in-Bild-Darstellung erlauben, wird das Video in einem verschiebbaren und skalierbaren, im Vordergrund schwebenden Fenster angezeigt.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps\n"; ObjectID = "IqX-2Y-Ffc";</note>
+        <source>On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps</source>
+        <target>Auf Geräten, welche Bild-in-Bild-Darstellung erlauben, wird das Video in einem verschiebbaren und skalierbaren, im Vordergrund schwebenden Fenster angezeigt</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps"; ObjectID = "IqX-2Y-Ffc";</note>
       </trans-unit>
       <trans-unit id="LQ1-WH-kpW.title" xml:space="preserve">
         <source>Allow inline playback on iPhone</source>
@@ -1090,9 +1089,9 @@
         <note>Class = "NSButtonCell"; title = "Mac Desktop:"; ObjectID = "T01-cf-vMr";</note>
       </trans-unit>
       <trans-unit id="UsO-tg-591.ibShadowedToolTip" xml:space="preserve">
-        <source>USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work</source>
+        <source>Each SEB version/device type has separate user agent settings</source>
         <target>VORSICHT: Wenn '' angewählt ist, können einige JavaScript-/HTML5-Funktionen (wie etwa File API) nicht verwendet werden</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "UsO-tg-591";</note>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Each SEB version/device type has separate user agent settings"; ObjectID = "UsO-tg-591";</note>
       </trans-unit>
       <trans-unit id="VER-Ja-0d8.ibShadowedToolTip" xml:space="preserve">
         <source>For content opening in additional browser windows reload can be enabled/disabled separately with this setting</source>
@@ -1126,7 +1125,7 @@
       </trans-unit>
       <trans-unit id="YP6-xU-uXJ.title" xml:space="preserve">
         <source>Show URLs</source>
-        <target>URLs anzeigen</target>
+        <target>Zeige URL</target>
         <note>Class = "NSTextFieldCell"; title = "Show URLs"; ObjectID = "YP6-xU-uXJ";</note>
       </trans-unit>
       <trans-unit id="Z3B-Za-z4X.ibShadowedToolTip" xml:space="preserve">
@@ -1205,9 +1204,9 @@
         <note>Class = "NSButtonCell"; title = "iPad"; ObjectID = "mRw-O9-H0n";</note>
       </trans-unit>
       <trans-unit id="p3T-fI-3bu.ibShadowedToolTip" xml:space="preserve">
-        <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
+        <source>This string will be appended to any user agent string (independent from the other user agent settings below)</source>
         <target>Standard-String auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)</target>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "p3T-fI-3bu";</note>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu";</note>
       </trans-unit>
       <trans-unit id="qVa-6O-Lcc.title" xml:space="preserve">
         <source>Custom</source>
@@ -1235,9 +1234,9 @@
         <note>Class = "NSBox"; title = "Media Playback (iOS)"; ObjectID = "u8M-48-HFC";</note>
       </trans-unit>
       <trans-unit id="wFa-eR-NzK.ibShadowedToolTip" xml:space="preserve">
-        <source>If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with "Inspect Element". Win: Use browser window toolbar menu for developer tools.</source>
-        <target>Wenn eine Web-Applikation benutzt wird, sollte sichergestellt sein, dass kritische Daten verschlüsselt gespeichert und entfernt werden, wenn sie nicht mehr benötigt werden, weil SEB Local Storage nicht löscht</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with \"Inspect Element\". Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
+        <source>If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
+        <target>Wenn erlaubt und der Rechtsklick nicht deaktiviert ist (siehe Sicherheit/Abgefangene Tasten/Rechte Maustaste erlauben), dann kann mittels Rechtsklick/ctrl-Linksklick auf ein Element einer Webseite der Web Inspector mittels 'Inspect Element' angezeigt werden. Win: Entwicklertools in Browserfenster-Symbolleiste anzeigen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
       </trans-unit>
       <trans-unit id="yW3-rB-jbe.title" xml:space="preserve">
         <source>Default strings depend on installed iOS version and therefore can differ on exam clients.</source>
@@ -1452,9 +1451,9 @@
         <note>Class = "NSButtonCell"; title = "Apply and Restart SEB"; ObjectID = "1294";</note>
       </trans-unit>
       <trans-unit id="VYd-lj-NUe.ibShadowedToolTip" xml:space="preserve">
-        <source>Usually disable preferences window on exam clients besides for debugging purposes</source>
-        <target>Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "VYd-lj-NUe";</note>
+        <source>Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</source>
+        <target>Zeigt die 'Edit Settings'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config"; ObjectID = "VYd-lj-NUe";</note>
       </trans-unit>
       <trans-unit id="b4O-Hy-kCT.title" xml:space="preserve">
         <source>Show settings in app (iOS)</source>
@@ -1462,9 +1461,9 @@
         <note>Class = "NSButtonCell"; title = "Show settings in app (iOS)"; ObjectID = "b4O-Hy-kCT";</note>
       </trans-unit>
       <trans-unit id="bjh-ZV-2zp.ibShadowedToolTip" xml:space="preserve">
-        <source>Usually disable preferences window on exam clients besides for debugging purposes</source>
-        <target>Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "bjh-ZV-2zp";</note>
+        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action</source>
+        <target>Erlaubt das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes, mit Befehl im Seitenmenü, Dock-Taste (wenn in den Benutzeroberfläche-Einstellungen aktiviert) oder Home-Bildschirm Schnellaktion</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action"; ObjectID = "bjh-ZV-2zp";</note>
       </trans-unit>
     </body>
   </file>
@@ -1656,9 +1655,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL"; ObjectID = "EZa-c9-03S";</note>
       </trans-unit>
       <trans-unit id="HG9-Qt-FY9.ibShadowedToolTip" xml:space="preserve">
-        <source>Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB.</source>
+        <source>Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB</source>
         <target>Prüfungssession wird neu gestartet anstatt SEB zu beenden, nachdem die Beenden-URL erkannt wurde</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB."; ObjectID = "HG9-Qt-FY9";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB"; ObjectID = "HG9-Qt-FY9";</note>
       </trans-unit>
       <trans-unit id="Ji2-gQ-cOh.title" xml:space="preserve">
         <source>Ask user to confirm quitting</source>
@@ -2619,9 +2618,9 @@
         <note>Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100";</note>
       </trans-unit>
       <trans-unit id="292.ibShadowedToolTip" xml:space="preserve">
-        <source>Private clipboard should always be used besides when working with third party applications in a managed user account, as it also stops iCloud Clipboard (if not using AAC)</source>
-        <target>Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen gearbeitet werden soll</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account, as it also stops iCloud Clipboard (if not using AAC)"; ObjectID = "292";</note>
+        <source>Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)</source>
+        <target>Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen in einem verwalteten Benutzerkonto gearbeitet werden soll (wenn 'Private Zwischenablage auf Mac erzwingen' aktiv ist, beeinflusst diese Einstellung nur SEB für Windows und ältere Mac-Versionen)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "292";</note>
       </trans-unit>
       <trans-unit id="293.title" xml:space="preserve">
         <source>Use private clipboard</source>
@@ -2655,7 +2654,7 @@
       </trans-unit>
       <trans-unit id="CP1-uX-itB.title" xml:space="preserve">
         <source>Enforce blocking screen sharing on Mac</source>
-        <target>Blockieren der Bildschirmfreigabe auf Mac erzwingen</target>
+        <target>Bildschirmfreigabe Blockieren erzwingen (Mac)</target>
         <note>Class = "NSButtonCell"; title = "Enforce blocking screen sharing on Mac"; ObjectID = "CP1-uX-itB";</note>
       </trans-unit>
       <trans-unit id="Ctf-z6-c6e.title" xml:space="preserve">
@@ -2750,7 +2749,7 @@
       </trans-unit>
       <trans-unit id="LHf-yE-fnG.title" xml:space="preserve">
         <source>Block screen shots (Legacy)</source>
-        <target>Bildschirmfotos blockieren (ältere Methode)</target>
+        <target>Bildschirmfotos blockieren (Legacy)</target>
         <note>Class = "NSButtonCell"; title = "Block screen shots (Legacy)"; ObjectID = "LHf-yE-fnG";</note>
       </trans-unit>
       <trans-unit id="LTi-lL-sOs.title" xml:space="preserve">
@@ -2904,9 +2903,9 @@
         <note>Class = "NSButtonCell"; title = "Enforce private clipboard on Mac"; ObjectID = "cfE-bh-Syt";</note>
       </trans-unit>
       <trans-unit id="cqk-oB-iLU.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB refuses to run on an older iOS version</source>
-        <target>SEB verweigert die Benutzung einer älteren iOS-Version</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "SEB refuses to run on an older iOS version"; ObjectID = "cqk-oB-iLU";</note>
+        <source>SEB refuses to run on a major iOS beta version, unless it is allowed here</source>
+        <target>SEB verweigert die Benutzung einer iOS-Major-Betaversion, sofern diese nicht hier erlaubt ist</target>
+        <note>Class = "NSComboBox"; ibShadowedToolTip = "SEB refuses to run on a major iOS beta version, unless it is allowed here"; ObjectID = "cqk-oB-iLU";</note>
       </trans-unit>
       <trans-unit id="dYr-I9-VL8.title" xml:space="preserve">
         <source>While running SEB</source>
@@ -2925,13 +2924,13 @@
       </trans-unit>
       <trans-unit id="g34-gq-Owk.ibShadowedToolTip" xml:space="preserve">
         <source>Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)</source>
-        <target>Steuert macOS Bildschirmfotos (cmd-shift-3/-4/-5)</target>
+        <target>Zeigt oder versteckt SEB-Fenster auf macOS Bildschirmfotos (cmd-shift-3/-4/-5)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)"; ObjectID = "g34-gq-Owk";</note>
       </trans-unit>
       <trans-unit id="gaS-9v-32d.ibShadowedToolTip" xml:space="preserve">
-        <source>Transforms specific HTTP requests for clicked links to prevent the "Guided Access is enabled" message being displayed when clicking all links</source>
+        <source>Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links</source>
         <target>Spezifische HTTP-Request für angeklickte Links werden angepasst, um die Meldung 'Geführter Zugriff ist aktiv' zu vermeiden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Transforms specific HTTP requests for clicked links to prevent the \"Guided Access is enabled\" message being displayed when clicking all links"; ObjectID = "gaS-9v-32d";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links"; ObjectID = "gaS-9v-32d";</note>
       </trans-unit>
       <trans-unit id="gma-Qm-KEF.title" xml:space="preserve">
         <source>Use built-in display</source>
@@ -3005,7 +3004,7 @@
       </trans-unit>
       <trans-unit id="oIi-XG-JWG.title" xml:space="preserve">
         <source>Allow running from iOS version</source>
-        <target>Erlaube Benutzung ab iOS-Betaversion</target>
+        <target>Erlaube Benutzung ab iOS-Version</target>
         <note>Class = "NSBox"; title = "Allow running from iOS version"; ObjectID = "oIi-XG-JWG";</note>
       </trans-unit>
       <trans-unit id="oX1-uW-Zow.title" xml:space="preserve">
@@ -3019,9 +3018,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)"; ObjectID = "oq3-9u-BrJ";</note>
       </trans-unit>
       <trans-unit id="pn0-dK-cZw.ibShadowedToolTip" xml:space="preserve">
-        <source>Overrides the original screen sharing setting</source>
+        <source>Overrides the original screen sharing setting (on Mac clients)</source>
         <target>Übersteuert die originale Einstellung für die Bildschirmfreigabe</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Overrides the original screen sharing setting"; ObjectID = "pn0-dK-cZw";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Overrides the original screen sharing setting (on Mac clients)"; ObjectID = "pn0-dK-cZw";</note>
       </trans-unit>
       <trans-unit id="q3q-Xm-TRl.title" xml:space="preserve">
         <source>Enable F9</source>
@@ -3038,9 +3037,9 @@
         <note>Class = "NSTabViewItem"; label = "iOS"; ObjectID = "qR0-7R-jPL";</note>
       </trans-unit>
       <trans-unit id="qqs-ZA-6ds.ibShadowedToolTip" xml:space="preserve">
-        <source>Private clipboard should always be used besides when working with third party applications in a managed user account (this setting only affects SEB for Windows and older Mac versions)</source>
-        <target>Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen gearbeitet werden soll (diese Einstellung beeinflusst nur SEB für Windows und ältere Mac-Versionen)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "qqs-ZA-6ds";</note>
+        <source>If enabled, overrides the old setting 'Use private clipboard" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows</source>
+        <target>Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds";</note>
       </trans-unit>
       <trans-unit id="rd9-dL-Qhi.title" xml:space="preserve">
         <source>Enable F2</source>

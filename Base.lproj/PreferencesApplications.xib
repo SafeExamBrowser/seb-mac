@@ -50,7 +50,7 @@
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="controlContent" size="11"/>
+                                            <font key="font" metaFont="message" size="11"/>
                                         </buttonCell>
                                         <connections>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
@@ -1032,11 +1032,11 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="159" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxG-qL-0eW">
+                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="159" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="zxG-qL-0eW">
                                                     <rect key="frame" x="16" y="27" width="539" height="14"/>
                                                     <subviews>
                                                         <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="1855">
-                                                            <rect key="frame" x="-2" y="-2" width="283" height="18"/>
+                                                            <rect key="frame" x="-2" y="-2" width="194" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1921">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1051,7 +1051,7 @@
                                                             </connections>
                                                         </button>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="kwe-Gh-ELP">
-                                                            <rect key="frame" x="436" y="-2" width="105" height="18"/>
+                                                            <rect key="frame" x="347" y="-2" width="194" height="18"/>
                                                             <string key="toolTip">When using the new AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process</string>
                                                             <buttonCell key="cell" type="check" title="Ignore in AAC" bezelStyle="regularSquare" imagePosition="left" alignment="right" inset="2" id="0ME-6B-zzQ">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
