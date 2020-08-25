@@ -2763,11 +2763,6 @@
         <target>Minimale macOS-Version erzwingen:</target>
         <note>Class = "NSTextFieldCell"; title = "Enforce minimum macOS version:"; ObjectID = "Lff-Up-3Ym";</note>
       </trans-unit>
-      <trans-unit id="Lid-g0-Fjz.ibShadowedToolTip" xml:space="preserve">
-        <source>If more displays are connected, these are blanked with an orange full screen window</source>
-        <target>Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "Lid-g0-Fjz";</note>
-      </trans-unit>
       <trans-unit id="M5z-0E-3yB.title" xml:space="preserve">
         <source>Logging</source>
         <target>Loggen</target>
@@ -2909,14 +2904,9 @@
         <note>Class = "NSButtonCell"; title = "Enforce private clipboard on Mac"; ObjectID = "cfE-bh-Syt";</note>
       </trans-unit>
       <trans-unit id="cqk-oB-iLU.ibShadowedToolTip" xml:space="preserve">
-        <source>If more displays are connected, these are blanked with an orange full screen window</source>
-        <target>Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "cqk-oB-iLU";</note>
-      </trans-unit>
-      <trans-unit id="dGB-Ao-RnH.ibShadowedToolTip" xml:space="preserve">
-        <source>If more displays are connected, these are blanked with an orange full screen window</source>
-        <target>Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "dGB-Ao-RnH";</note>
+        <source>SEB refuses to run on an older iOS version</source>
+        <target>SEB verweigert die Benutzung einer älteren iOS-Version</target>
+        <note>Class = "NSComboBox"; ibShadowedToolTip = "SEB refuses to run on an older iOS version"; ObjectID = "cqk-oB-iLU";</note>
       </trans-unit>
       <trans-unit id="dYr-I9-VL8.title" xml:space="preserve">
         <source>While running SEB</source>
@@ -2987,11 +2977,6 @@
         <source>Allow screen capture (screen shots)</source>
         <target>Bildschirmfotos erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow screen capture (screen shots)"; ObjectID = "lyl-Qv-iTq";</note>
-      </trans-unit>
-      <trans-unit id="m5k-oe-ViX.ibShadowedToolTip" xml:space="preserve">
-        <source>If more displays are connected, these are blanked with an orange full screen window</source>
-        <target>Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "m5k-oe-ViX";</note>
       </trans-unit>
       <trans-unit id="mCE-kG-rgQ.ibShadowedToolTip" xml:space="preserve">
         <source>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)</source>
@@ -3685,11 +3670,6 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Wenn Sie das korrekte Beenden/Entsperren-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them." xml:space="preserve">
-        <source>If you don't enter the right administrator password from these settings you cannot open them.</source>
-        <target>Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them." xml:space="preserve">
         <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
         <target>Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.</target>
@@ -3780,20 +3760,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.  Reset local settings and continue?" xml:space="preserve">
-        <source>Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
-
-Reset local settings and continue?</source>
-        <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie können diese auf die Voreinstellungen zurücksetzten. Lokale Einstellungen zurücksetzen und fortfahren?</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." xml:space="preserve">
         <source>Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
-        <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." xml:space="preserve">
-        <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
         <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -4636,6 +4604,11 @@ Reset local settings and continue?</source>
         <target>Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
+        <source>You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+        <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="You didn't enter the correct current %@ administrator password." xml:space="preserve">
         <source>You didn't enter the correct current %@ administrator password.</source>
         <target>Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.</target>
@@ -4666,11 +4639,9 @@ Reset local settings and continue?</source>
         <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.  You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
-
-You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
-        <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln. Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden.</target>
+      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." xml:space="preserve">
+        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
+        <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="administrator" xml:space="preserve">

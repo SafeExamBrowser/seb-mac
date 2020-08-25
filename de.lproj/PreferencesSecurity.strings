@@ -88,6 +88,9 @@
 /* Class = "NSButtonCell"; title = "Enforce blocking screen sharing on Mac"; ObjectID = "CP1-uX-itB"; */
 "CP1-uX-itB.title" = "Blockieren der Bildschirmfreigabe auf Mac erzwingen";
 
+/* Class = "NSComboBox"; ibShadowedToolTip = "SEB refuses to run on an older iOS version"; ObjectID = "cqk-oB-iLU"; */
+"cqk-oB-iLU.ibShadowedToolTip" = "SEB verweigert die Benutzung einer älteren iOS-Version";
+
 /* Class = "NSButtonCell"; title = "Allow Single App Mode"; ObjectID = "Ctf-z6-c6e"; */
 "Ctf-z6-c6e.title" = "Einzel-App-Modus erlauben";
 
