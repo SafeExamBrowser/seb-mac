@@ -1,8 +1,17 @@
+/* Class = "NSTextFieldCell"; title = "The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL."; ObjectID = "2GO-IF-iYo"; */
+"2GO-IF-iYo.title" = "Der seb(s):// Link zur Konfigurationsdatei kann einen zusätzlichen Query-String beeinhalten, mittels '?' oder '??' (wenn die URL selber keine Query enthält) von der Haupt-URL getrennt. SEB wird dann diesen Query-String an die Start URL anhängen.";
+
 /* Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed"; ObjectID = "2Rr-y4-nE8"; */
 "2Rr-y4-nE8.ibShadowedToolTip" = "Vollständige URL (beginnend mit http:// oder https://) der Seite, die mittels der Taste 'Zurück zum Start' geöffnet werden soll";
 
 /* Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W"; */
 "3dP-gi-x4W.ibShadowedToolTip" = "Der Browser Exam Key wird an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
+
+/* Class = "NSButtonCell"; title = "Clear on session start"; ObjectID = "3Wv-pu-d1v"; */
+"3Wv-pu-d1v.title" = "Zu Beginn der Session löschen";
+
+/* Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd"; */
+"4aU-eM-mgd.title" = "Query-String-Parameter";
 
 /* Class = "NSButtonCell"; title = "Protect Back to Start Button with the quit/unlock password"; ObjectID = "5SR-dU-gy3"; */
 "5SR-dU-gy3.title" = "'Zurück zum Start'-Taste mit dem Beenden/Entsperren-Passwort schützen";
