@@ -8,8 +8,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
+                <outlet property="allowScreenCaptureButton" destination="PH3-Cb-12g" id="5RA-zw-afm"/>
                 <outlet property="allowUserAppFolderInstallButton" destination="KKV-0r-AMe" id="SAx-VW-RgK"/>
+                <outlet property="allowWindowCaptureButton" destination="g34-gq-Owk" id="bka-Sl-cHS"/>
                 <outlet property="allowediOSBetaVersion" destination="cqk-oB-iLU" id="Fea-sk-Twq"/>
+                <outlet property="blockScreenShotsButton" destination="LEn-zs-oJl" id="R72-nA-g6z"/>
                 <outlet property="chooseLogDirectoryControl" destination="32" id="PAj-RI-Adi"/>
                 <outlet property="chooseLogLevelControl" destination="sAF-ok-Vxz" id="gv7-Mj-Yj2"/>
                 <outlet property="kioskMode" destination="kBz-Xz-wNK" id="9SP-SX-zJf"/>
@@ -24,18 +27,18 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="1" userLabel="Security Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="723"/>
+        <customView misplaced="YES" id="1" userLabel="Security Preferences">
+            <rect key="frame" x="0.0" y="0.0" width="650" height="725"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fzP-sx-Pjd">
-                    <rect key="frame" x="20" y="576" width="610" height="72"/>
+                    <rect key="frame" x="20" y="576" width="610" height="74"/>
                     <subviews>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Z8-1t-DB7">
-                            <rect key="frame" x="0.0" y="0.0" width="295" height="72"/>
+                            <rect key="frame" x="0.0" y="0.0" width="295" height="74"/>
                             <subviews>
                                 <button toolTip="Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                                    <rect key="frame" x="-2" y="56" width="230" height="18"/>
+                                    <rect key="frame" x="-2" y="58" width="230" height="18"/>
                                     <buttonCell key="cell" type="check" title="Allow to run inside virtual machine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -44,37 +47,56 @@
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Allows macOS screen recording (cmd - shift - 5)" translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
-                                    <rect key="frame" x="-2" y="36" width="161" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Allow screen recording" bezelStyle="regularSquare" imagePosition="left" inset="2" id="zzi-ch-X4d">
+                                <button toolTip="Allows macOS screen capture (screen shots) and recording (cmd-shift-3/-4/-5)" translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
+                                    <rect key="frame" x="-2" y="38" width="211" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Allow screen capture/recording" bezelStyle="regularSquare" imagePosition="left" inset="2" id="zzi-ch-X4d">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenRecording" id="W1w-no-A0z"/>
+                                        <action selector="setEnableScreenCapture:" target="-2" id="eRG-tm-tIo"/>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="fI3-J0-1AS"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Allows macOS screen sharing to be used (VNC based)" translatesAutoresizingMaskIntoConstraints="NO" id="k8Y-ym-LrR">
-                                    <rect key="frame" x="-2" y="16" width="200" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Allow network screen sharing" bezelStyle="regularSquare" imagePosition="left" inset="2" id="oX1-uW-Zow">
+                                <button toolTip="Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
+                                    <rect key="frame" x="13" y="18" width="245" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Allow window capture (screen shots)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="obs-kk-Tc9"/>
+                                        <action selector="setEnableWindowCapture:" target="-2" id="TjD-fs-fAl"/>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="CHP-kt-Jhr"/>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Overrides the original screen sharing setting" translatesAutoresizingMaskIntoConstraints="NO" id="pn0-dK-cZw">
-                                    <rect key="frame" x="-3" y="-3" width="232" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Enforce blocking screen sharing on Mac" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="CP1-uX-itB">
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="LEn-zs-oJl">
+                                    <rect key="frame" x="28" y="-2" width="194" height="18"/>
+                                    <string key="toolTip">Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win).</string>
+                                    <buttonCell key="cell" type="check" title="Block screen shots (Legacy)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="LHf-yE-fnG">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="message" size="11"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_screenSharingMacEnforceBlocked" id="EVh-BB-EGO"/>
+                                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" previousBinding="ezh-c8-Zhz" id="vg0-9n-uJh">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="ezh-c8-Zhz"/>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_blockScreenShotsLegacy" id="9kj-yX-N2C"/>
                                     </connections>
                                 </button>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="g34-gq-Owk" firstAttribute="leading" secondItem="4Z8-1t-DB7" secondAttribute="leading" constant="15" id="6bX-XY-rkD"/>
+                                <constraint firstItem="LEn-zs-oJl" firstAttribute="leading" secondItem="4Z8-1t-DB7" secondAttribute="leading" constant="30" id="O9X-ZB-f28"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LEn-zs-oJl" secondAttribute="trailing" id="UJr-pd-qTB"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g34-gq-Owk" secondAttribute="trailing" id="fxe-FH-Shq"/>
+                            </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
@@ -88,33 +110,32 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LBV-sq-zoK">
-                            <rect key="frame" x="315" y="0.0" width="295" height="72"/>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LBV-sq-zoK">
+                            <rect key="frame" x="315" y="1" width="295" height="73"/>
                             <subviews>
-                                <button toolTip="Controls macOS screen shots (invoked with cmd-shift-3/-4/-5)" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
-                                    <rect key="frame" x="-2" y="56" width="240" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Allow screen capture (screen shots)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
+                                <button toolTip="Allows macOS screen sharing to be used (VNC based)" translatesAutoresizingMaskIntoConstraints="NO" id="k8Y-ym-LrR">
+                                    <rect key="frame" x="-2" y="57" width="200" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Allow network screen sharing" bezelStyle="regularSquare" imagePosition="left" inset="2" id="oX1-uW-Zow">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="bct-iK-yPr"/>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="obs-kk-Tc9"/>
                                     </connections>
                                 </button>
-                                <button translatesAutoresizingMaskIntoConstraints="NO" id="LEn-zs-oJl">
-                                    <rect key="frame" x="-2" y="36" width="194" height="18"/>
-                                    <string key="toolTip">Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling setting 'Allow screen capture' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win).</string>
-                                    <buttonCell key="cell" type="check" title="Block screen shots (Legacy)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="LHf-yE-fnG">
+                                <button toolTip="Overrides the original screen sharing setting (on Mac clients)" translatesAutoresizingMaskIntoConstraints="NO" id="pn0-dK-cZw">
+                                    <rect key="frame" x="-3" y="37" width="232" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Enforce blocking screen sharing on Mac" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="CP1-uX-itB">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="message" size="11"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_blockScreenShotsLegacy" id="9kj-yX-N2C"/>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_screenSharingMacEnforceBlocked" id="EVh-BB-EGO"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                                    <rect key="frame" x="-2" y="16" width="151" height="18"/>
-                                    <string key="toolTip">Private clipboard should always be used besides when working with third party applications in a managed user account, as it also stops iCloud Clipboard (if not using AAC)</string>
+                                    <rect key="frame" x="-2" y="17" width="151" height="18"/>
+                                    <string key="toolTip">Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)</string>
                                     <buttonCell key="cell" type="check" title="Use private clipboard" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="293">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -129,7 +150,7 @@
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qqs-ZA-6ds">
                                     <rect key="frame" x="-3" y="-3" width="195" height="18"/>
-                                    <string key="toolTip">Private clipboard should always be used besides when working with third party applications in a managed user account (this setting only affects SEB for Windows and older Mac versions)</string>
+                                    <string key="toolTip">If enabled, overrides the old setting 'Use private clipboard" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows</string>
                                     <buttonCell key="cell" type="check" title="Enforce private clipboard on Mac" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="cfE-bh-Syt">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="message" size="11"/>
@@ -167,7 +188,7 @@
                     </customSpacing>
                 </stackView>
                 <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="660" width="615" height="25"/>
+                    <rect key="frame" x="18" y="662" width="615" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -191,7 +212,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                    <rect key="frame" x="18" y="687" width="614" height="16"/>
+                    <rect key="frame" x="18" y="689" width="614" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SEB Service policy (Win)" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -204,11 +225,11 @@
                     <tabViewItems>
                         <tabViewItem label="macOS" identifier="" id="Dcg-5G-FDH">
                             <view key="view" id="ot5-GZ-LBL">
-                                <rect key="frame" x="10" y="33" width="604" height="353"/>
+                                <rect key="frame" x="10" y="33" width="604" height="351"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
-                                        <rect key="frame" x="74" y="323" width="208" height="16"/>
+                                        <rect key="frame" x="74" y="321" width="208" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Enforce minimum macOS version:" usesSingleLineMode="YES" id="Lff-Up-3Ym">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -216,7 +237,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <popUpButton toolTip="SEB refuses to run on an older system version" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
-                                        <rect key="frame" x="286" y="316" width="305" height="25"/>
+                                        <rect key="frame" x="286" y="314" width="305" height="25"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="0hJ-dB-9wR" userLabel="Log Level Pop Up Button Cell">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -242,7 +263,7 @@
                                         </connections>
                                     </popUpButton>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                                        <rect key="frame" x="15" y="289" width="235" height="18"/>
+                                        <rect key="frame" x="15" y="287" width="235" height="18"/>
                                         <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
                                         <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -253,7 +274,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB enforces to be installed in the Applications folder (/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                                        <rect key="frame" x="15" y="269" width="261" height="18"/>
+                                        <rect key="frame" x="15" y="267" width="261" height="18"/>
                                         <buttonCell key="cell" type="check" title="Force installation in /Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -264,7 +285,7 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="FJP-p9-xw7">
-                                        <rect key="frame" x="15" y="249" width="119" height="18"/>
+                                        <rect key="frame" x="15" y="247" width="119" height="18"/>
                                         <string key="toolTip">If enabled, Siri can be used by tapping the menu bar icon, Touch Bar icon or shortcut set in System Preferences/Siri (default: hold command space). The Siri window won't be displayed though</string>
                                         <buttonCell key="cell" type="check" title="Allow to use Siri" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3JA-FW-lAf">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -275,7 +296,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
-                                        <rect key="frame" x="15" y="229" width="152" height="18"/>
+                                        <rect key="frame" x="15" y="227" width="152" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow to use dictation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4R-7z-oLy">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -285,7 +306,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                        <rect key="frame" x="15" y="189" width="575" height="18"/>
+                                        <rect key="frame" x="15" y="187" width="575" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow display mirroring (affects also AirPlay Display)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -295,7 +316,7 @@
                                         </connections>
                                     </button>
                                     <comboBox toolTip="If more displays are connected, these are blanked with an orange full screen window" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
-                                        <rect key="frame" x="530" y="165" width="60" height="25"/>
+                                        <rect key="frame" x="530" y="163" width="60" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="AAT-5S-sGW"/>
                                         </constraints>
@@ -313,7 +334,7 @@
                                         </connections>
                                     </comboBox>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
-                                        <rect key="frame" x="225" y="171" width="299" height="16"/>
+                                        <rect key="frame" x="225" y="169" width="299" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="maximum allowed number of connected displays" id="hpd-SM-vcA">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -321,7 +342,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button toolTip="Use the built-in display (if available) when only one display is allowed or when switching off display mirroring" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
-                                        <rect key="frame" x="467" y="150" width="123" height="18"/>
+                                        <rect key="frame" x="467" y="148" width="123" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use built-in display" bezelStyle="regularSquare" imagePosition="right" alignment="right" controlSize="small" inset="2" id="gma-Qm-KEF">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="message" size="11"/>
@@ -331,7 +352,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB can also be installed in the Applications folder of the current user (~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="KKV-0r-AMe">
-                                        <rect key="frame" x="364" y="268" width="222" height="18"/>
+                                        <rect key="frame" x="364" y="266" width="222" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow also user's ~/Applications folder" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="sUj-TY-bKw">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="message" size="11"/>
@@ -346,7 +367,7 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="FHY-jc-rXS">
-                                        <rect key="frame" x="15" y="209" width="259" height="18"/>
+                                        <rect key="frame" x="15" y="207" width="259" height="18"/>
                                         <string key="toolTip">SEB displays a lock screen (requiring to enter the quit/unlock password) if it detects that its process was stopped, which can indicate manipulation</string>
                                         <buttonCell key="cell" type="check" title="Detect when SEB process was stopped" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WA3-Fp-0nb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -397,11 +418,11 @@
                         </tabViewItem>
                         <tabViewItem label="iOS" identifier="" id="qR0-7R-jPL">
                             <view key="view" id="ygF-kY-Ym5">
-                                <rect key="frame" x="10" y="33" width="604" height="353"/>
+                                <rect key="frame" x="10" y="33" width="604" height="351"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-xT-OWu">
-                                        <rect key="frame" x="20" y="59" width="564" height="279"/>
+                                        <rect key="frame" x="20" y="57" width="564" height="279"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1A-i1-vyN">
                                                 <rect key="frame" x="0.0" y="225" width="192" height="54"/>
@@ -430,7 +451,7 @@
                                                     </button>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="gaS-9v-32d">
                                                         <rect key="frame" x="-2" y="-2" width="196" height="18"/>
-                                                        <string key="toolTip">Transforms specific HTTP requests for clicked links to prevent the "Guided Access is enabled" message being displayed when clicking all links</string>
+                                                        <string key="toolTip">Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links</string>
                                                         <buttonCell key="cell" type="check" title="Guided Access Compatibility" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JG9-Mn-nzE">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -645,7 +666,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <comboBox toolTip="SEB refuses to run on an older iOS version" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqk-oB-iLU">
+                                                    <comboBox toolTip="SEB refuses to run on a major iOS beta version, unless it is allowed here" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqk-oB-iLU">
                                                         <rect key="frame" x="165" y="-4" width="60" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="57" id="V1z-gN-FHh"/>
