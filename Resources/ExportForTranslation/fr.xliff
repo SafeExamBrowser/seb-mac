@@ -2481,10 +2481,6 @@
         <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?">
-        <source>Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
         <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
         <note>No comment provided by engineer.</note>
@@ -2779,10 +2775,6 @@
       </trans-unit>
       <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible SEB version.">
         <source>You either entered the wrong password or these settings were saved with an incompatible SEB version.</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="administrator">
