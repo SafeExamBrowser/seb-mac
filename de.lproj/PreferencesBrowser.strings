@@ -29,7 +29,7 @@
 "9tX-IU-bN7.title" = "Navigation in neuen Fenstern";
 
 /* Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC"; */
-"9wd-E4-JwC.title" = "Standard-Strings hängen von der installierten SEB-Version ab. ";
+"9wd-E4-JwC.title" = "Standard-Zeichenketten hängen von der installierten SEB-Version ab. ";
 
 /* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "16K-h7-SCc"; */
 "16K-h7-SCc.title" = "Neuladen-Warnung in Prüfung";
@@ -180,6 +180,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Default user agent Mac"; ObjectID = "EZ4-9b-Idz"; */
 "EZ4-9b-Idz.title" = "Standard Mac User Agent";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS"; */
+"F1k-Qz-pMS.ibShadowedToolTip" = "Standard-Zeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L"; */
 "FfE-2h-C1L.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab.";
