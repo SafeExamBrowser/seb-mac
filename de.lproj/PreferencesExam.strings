@@ -67,7 +67,7 @@
 /* Class = "NSButtonCell"; title = "Use Browser & Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
 "gk0-kD-QIq.title" = "Browser & Config Key benutzen (im HTTP-Header senden)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB."; ObjectID = "HG9-Qt-FY9"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB"; ObjectID = "HG9-Qt-FY9"; */
 "HG9-Qt-FY9.ibShadowedToolTip" = "Prüfungssession wird neu gestartet anstatt SEB zu beenden, nachdem die Beenden-URL erkannt wurde";
 
 /* Class = "NSTextFieldCell"; title = "Browser Exam Key"; ObjectID = "iVS-rH-hVZ"; */

@@ -115,9 +115,9 @@
 /* Class = "NSButtonCell"; title = "Show settings in app (iOS)"; ObjectID = "b4O-Hy-kCT"; */
 "b4O-Hy-kCT.title" = "Einstellungen innerhalb der App anzeigen (iOS)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "bjh-ZV-2zp"; */
-"bjh-ZV-2zp.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden";
+/* Class = "NSButton"; ibShadowedToolTip = "Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action"; ObjectID = "bjh-ZV-2zp"; */
+"bjh-ZV-2zp.ibShadowedToolTip" = "Erlaubt das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes, mit Befehl im Seitenmenü, Dock-Taste (wenn in den Benutzeroberfläche-Einstellungen aktiviert) oder Home-Bildschirm Schnellaktion";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "VYd-lj-NUe"; */
-"VYd-lj-NUe.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config"; ObjectID = "VYd-lj-NUe"; */
+"VYd-lj-NUe.ibShadowedToolTip" = "Zeigt die 'Edit Settings'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar";
 
