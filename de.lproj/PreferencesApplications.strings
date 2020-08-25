@@ -1,3 +1,6 @@
+/* Class = "NSButtonCell"; title = "Ignore in AAC"; ObjectID = "0ME-6B-zzQ"; */
+"0ME-6B-zzQ.title" = "Im AAC-Modus ignorieren";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5"; */
 "3ET-Le-SL5.ibShadowedToolTip" = "Icon der erlaubten Applikation im Dock/Taskleiste anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)";
 
@@ -19,10 +22,10 @@
 /* Class = "NSTabViewItem"; label = "Prohibited Processes"; ObjectID = "241"; */
 "241.label" = "Verbotener Prozess";
 
-/* Class = "NSButton"; ibShadowedToolTip = "SEB will attempt to quit processes/applications which are not permitted to run during an exam and require to terminate those which are prohibited"; ObjectID = "299"; */
+/* Class = "NSButton"; ibShadowedToolTip = "SEB will attempt to quit applications/processes which are not permitted to run during an exam and require to terminate those which are prohibited"; ObjectID = "299"; */
 "299.ibShadowedToolTip" = "SEB überwacht, welche Prozesse/Applikationen während einer Prüfung laufen. Die nicht explizit erlaubten werden ausgeblendet, die verbotenen werden beendet";
 
-/* Class = "NSButtonCell"; title = "Require to quit running processes"; ObjectID = "301"; */
+/* Class = "NSButtonCell"; title = "Require to quit all applications"; ObjectID = "301"; */
 "301.title" = "Laufende Prozesse müssen beendet werden";
 
 /* Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "351"; */
@@ -157,13 +160,10 @@
 /* Class = "NSButtonCell"; title = "Choose Process..."; ObjectID = "1853"; */
 "1853.title" = "Prozess auswählen …";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Show details about the application/process code signature"; ObjectID = "1854"; */
-"1854.ibShadowedToolTip" = "Details zur Codesignatur anzeigen";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Force terminate process, which may cause data loss if the application had unsaved data"; ObjectID = "1855"; */
 "1855.ibShadowedToolTip" = "Prozesse sofort beenden, was einen Verlust von nicht gesicherten Daten zur Folge haben könnte";
 
-/* Class = "NSButton"; ibShadowedToolTip = "The prohibited process has to run under the currently logged in user. Use it instead of indicating the user."; ObjectID = "1856"; */
+/* Class = "NSButton"; ibShadowedToolTip = "The prohibited process has to run under the currently logged in user. Use it instead of indicating the user. Currently not supported"; ObjectID = "1856"; */
 "1856.ibShadowedToolTip" = "Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title"; ObjectID = "1859"; */
@@ -175,7 +175,7 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "1895"; */
 "1895.ibShadowedToolTip" = "Optionale Beschreibung um was für einen Prozess es sich handelt, wenn dies nicht aus der Executable ersichtlich ist";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used."; ObjectID = "1896"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used. Currently not supported"; ObjectID = "1896"; */
 "1896.ibShadowedToolTip" = "Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "This prohibited process item is active"; ObjectID = "1898"; */
@@ -208,9 +208,6 @@
 /* Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "1921"; */
 "1921.title" = "Sofort beenden (Datenverlust möglich)";
 
-/* Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1923"; */
-"1923.title" = "Code-Signaturen …";
-
 /* Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "1929"; */
 "1929.headerCell.title" = "Executable";
 
@@ -231,6 +228,12 @@
 
 /* Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "2246"; */
 "2246.title" = "Sofort beenden (Datenverlust möglich)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "When using the new AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process"; ObjectID = "kwe-Gh-ELP"; */
+"kwe-Gh-ELP.ibShadowedToolTip" = "Diesen verbotenen Prozess ignorieren, wenn der neue AAC-Kioskmodus benutzt wird (welcher Netzwerk- und Bildschirmzugriff für andere Prozesse verhindert)";
+
+/* Class = "NSButtonCell"; title = "Attempt to quit prohibited applications"; ObjectID = "MVu-c3-I1R"; */
+"MVu-c3-I1R.title" = "Versuche verbotene Applikationen zu beenden";
 
 /* Class = "NSButtonCell"; title = "Icon in taskbar"; ObjectID = "rR0-Mm-VzA"; */
 "rR0-Mm-VzA.title" = "Icon in Dock/Taskleiste";
