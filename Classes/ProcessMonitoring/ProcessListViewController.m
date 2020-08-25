@@ -28,7 +28,9 @@
     _windowOpen = YES;
     NSArray *allProcessListElements = [self allProcessListElements];
     if (allProcessListElements.count == 0) {
+        _callback = nil;
         [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
+        return;
     } else {
         _processListArrayController.content = allProcessListElements;
         // If the setting autoQuitApplications = true or there are no running applications (only BSD processes)
