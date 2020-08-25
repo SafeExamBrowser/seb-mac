@@ -319,7 +319,7 @@
                                                     <rect key="frame" x="3" y="3" width="610" height="103"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OuX-M9-iWf">
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="OuX-M9-iWf">
                                                             <rect key="frame" x="11" y="9" width="588" height="86"/>
                                                             <subviews>
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="zIJ-T3-Uhi">
@@ -395,7 +395,7 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
-                                                                <stackView distribution="fillEqually" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7P-dh-abM">
+                                                                <stackView distribution="fillEqually" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="R7P-dh-abM">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="46"/>
                                                                     <subviews>
                                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3QS-vl-NxX">
@@ -450,7 +450,7 @@
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                 </textField>
-                                                                                <popUpButton toolTip="For some exam scenarios, you might want to keep URLs secret" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="YvJ-jy-ANl">
+                                                                                <popUpButton toolTip="Status Bar appearance on devices with FaceID" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="YvJ-jy-ANl">
                                                                                     <rect key="frame" x="296" y="-3" width="295" height="25"/>
                                                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="Y9h-eu-VIw">
                                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -987,7 +987,7 @@
                         <rect key="frame" x="1" y="589" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.1339285714285714" horizontal="NO" id="b8O-Lq-LsF">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.8660714285714286" horizontal="NO" id="b8O-Lq-LsF">
                         <rect key="frame" x="651" y="1" width="15" height="588"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

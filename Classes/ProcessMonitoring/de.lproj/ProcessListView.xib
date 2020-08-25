@@ -128,7 +128,7 @@
                         <action selector="forceQuitAllProcesses:" target="-2" id="1Vz-By-Fsm"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="yUA-3C-XZW">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUA-3C-XZW">
                     <rect key="frame" x="18" y="376" width="664" height="64"/>
                     <textFieldCell key="cell" selectable="YES" id="jMN-hX-gi7">
                         <font key="font" metaFont="system"/>

@@ -7,8 +7,8 @@
 /* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF"; */
 "3wD-Cd-yYF.title" = "Neuladen-Taste anzeigen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "6AG-ln-h1N"; */
-"6AG-ln-h1N.ibShadowedToolTip" = "Neuladen der aktuellen Webseite. Eine Warnung wird angezeigt, falls diese in den Browser-Einstellungen aktiviert ist.";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "6AG-ln-h1N"; */
+"6AG-ln-h1N.ibShadowedToolTip" = "Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft";
 
 /* Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV"; */
 "6CP-QX-2NV.title" = "Uhrzeit anzeigen";
@@ -46,7 +46,7 @@
 /* Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372"; */
 "372.title" = "Symbolleiste anzeigen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T."; ObjectID = "383"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "383"; */
 "383.ibShadowedToolTip" = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.";
 
 /* Class = "NSButtonCell"; title = "Hide toolbar as default"; ObjectID = "384"; */
@@ -106,11 +106,11 @@
 /* Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "746"; */
 "746.title" = "Vollbildmodus benutzen";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "a8D-Ip-MvZ"; */
-"a8D-Ip-MvZ.ibShadowedToolTip" = "In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices without FaceID"; ObjectID = "a8D-Ip-MvZ"; */
+"a8D-Ip-MvZ.ibShadowedToolTip" = "Darstellung der Statusleiste auf Geräten ohne FaceID";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "aoE-hs-Q9u"; */
-"aoE-hs-Q9u.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "aoE-hs-Q9u"; */
+"aoE-hs-Q9u.ibShadowedToolTip" = "Zeigt die 'SEB Beenden'-Taste im Dock an";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
 "baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
@@ -122,13 +122,13 @@
 "cvI-1t-MPD.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
 
 /* Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "d5d-zh-qxU"; */
-"d5d-zh-qxU.title" = "Mac-spezifisch";
+"d5d-zh-qxU.title" = "Symbolleiste/Menüleiste/Statusleiste";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "SEB dock height in points (pixel height*2 on Retina displays)"; ObjectID = "DiJ-eI-WGU"; */
 "DiJ-eI-WGU.ibShadowedToolTip" = "SEB-Dockhöhe in Punkten";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed "; ObjectID = "dvK-KY-6zd"; */
-"dvK-KY-6zd.ibShadowedToolTip" = "Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt.";
+"dvK-KY-6zd.ibShadowedToolTip" = "Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "E2T-SZ-Z6U"; */
 "E2T-SZ-Z6U.ibShadowedToolTip" = "Lädt die aktuelle Webseite neu. Zeigt eine Warnung an, wenn diese in den Browser-Einstellungen aktiviert ist";
@@ -157,7 +157,7 @@
 /* Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "LVc-Qj-ZrZ"; */
 "LVc-Qj-ZrZ.title" = "Darstellung Statusleiste (iOS)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "mbj-mD-F32"; */
 "mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen";
 
 /* Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "NVt-Gb-hG5"; */
@@ -196,8 +196,8 @@
 /* Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "YEg-Qr-xf0"; */
 "YEg-Qr-xf0.title" = "Seiten-Zoom zulassen";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "YvJ-jy-ANl"; */
-"YvJ-jy-ANl.ibShadowedToolTip" = "In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "YvJ-jy-ANl"; */
+"YvJ-jy-ANl.ibShadowedToolTip" = "Darstellung der Statusleiste auf Geräten mit FaceID";
 
 /* Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "zfV-ml-478"; */
 "zfV-ml-478.title" = "Text-Zoom zulassen";
