@@ -10,6 +10,9 @@
 /* Class = "NSButtonCell"; title = "Allow switching to third party applications"; ObjectID = "6"; */
 "6.title" = "Umschalten auf Drittapplikationen erlauben";
 
+/* Class = "NSButton"; ibShadowedToolTip = "SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents"; ObjectID = "48u-14-9LW"; */
+"48u-14-9LW.ibShadowedToolTip" = "SEB versucht verbotene Applikationen automatisch zu beenden und ihnen die Gelegenheit zum Abspeichern von ungesicherten Änderungen zu geben";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all."; ObjectID = "134"; */
 "134.ibShadowedToolTip" = "Videos mittels Flash im Vollbildmodus abzuspielen ist ein Sicherheitsproblem. Deshalb wird empfohlen, HTML5-Video anstatt Flash zu benutzen (dort ist der Vollbildmodus kein Problem). Bei deaktiviertem Umschalten auf Drittapplikationen ist der Flash-Vollbildmodus grundsätzlich nicht möglich.";
 
