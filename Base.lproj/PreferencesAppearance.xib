@@ -339,7 +339,7 @@
                                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="382"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <button toolTip="Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
+                                                                                <button toolTip="Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T" translatesAutoresizingMaskIntoConstraints="NO" id="383">
                                                                                     <rect key="frame" x="18" y="-2" width="160" height="18"/>
                                                                                     <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
                                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -409,7 +409,7 @@
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                 </textField>
-                                                                                <popUpButton toolTip="For some exam scenarios, you might want to keep URLs secret" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="a8D-Ip-MvZ">
+                                                                                <popUpButton toolTip="Status Bar appearance on devices without FaceID" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="a8D-Ip-MvZ">
                                                                                     <rect key="frame" x="296" y="-3" width="295" height="25"/>
                                                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="nSx-fG-1B6">
                                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -594,8 +594,9 @@
                                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showReloadButton" id="oOi-QJ-KuB"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <button toolTip="Reloads current web page. Shows warning if enabled in Browser settings pane" translatesAutoresizingMaskIntoConstraints="NO" id="6AG-ln-h1N">
+                                                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="6AG-ln-h1N">
                                                                                     <rect key="frame" x="-2" y="58" width="221" height="18"/>
+                                                                                    <string key="toolTip">Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</string>
                                                                                     <buttonCell key="cell" type="check" title="Show scan QR code button (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Fnv-Ww-s4h">
                                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                         <font key="font" metaFont="system"/>
@@ -624,7 +625,7 @@
                                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="LmJ-5H-c7O"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="aoE-hs-Q9u">
+                                                                                <button toolTip="Shows the Quit SEB/Session (iOS) Dock button" translatesAutoresizingMaskIntoConstraints="NO" id="aoE-hs-Q9u">
                                                                                     <rect key="frame" x="-2" y="-2" width="126" height="18"/>
                                                                                     <buttonCell key="cell" type="check" title="Show quit button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="HOe-Aa-XdY">
                                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -892,7 +893,7 @@
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="NOB-hj-Urb"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Allow looking up text elements on a web site using the 3-finger tap on a trackpad" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
+                                                                        <button toolTip="Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
                                                                             <rect key="frame" x="299" y="-2" width="291" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Allow dictionary look up" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iYV-Zg-Pat">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -986,7 +987,7 @@
                         <rect key="frame" x="1" y="589" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.3392857142857143" horizontal="NO" id="b8O-Lq-LsF">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.1339285714285714" horizontal="NO" id="b8O-Lq-LsF">
                         <rect key="frame" x="651" y="1" width="15" height="588"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
