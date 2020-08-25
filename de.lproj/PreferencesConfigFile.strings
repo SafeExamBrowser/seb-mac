@@ -4,10 +4,13 @@
 /* Class = "NSButtonCell"; title = "Save Settings"; ObjectID = "4"; */
 "4.title" = "Speichern";
 
+/* Class = "NSButtonCell"; title = "Allow QR code config (iOS)"; ObjectID = "53p-kc-87m"; */
+"53p-kc-87m.title" = "Konfiguration mittels QR-Code erlauben (iOS)";
+
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69"; */
 "69.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund \"Anmeldung\", die für Verschlüsselung und Entschlüsselung benutzt werden können";
 
-/* Class = "NSTextFieldCell"; title = "Choose identity to be used for encrypting SEB settings file ..."; ObjectID = "75"; */
+/* Class = "NSTextFieldCell"; title = "Choose identity certificate to be used for encrypting SEB settings file ..."; ObjectID = "75"; */
 "75.title" = "Identität zur Verschlüsselung der SEB Konfigurationsdatei auswählen …";
 
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the settings password"; ObjectID = "110"; */
@@ -31,7 +34,7 @@
 /* Class = "NSTextFieldCell"; title = "Use either a cryptographic identity or a password or both."; ObjectID = "174"; */
 "174.title" = "Entweder eine kryptografische Identität, ein Passwort oder beides verwenden.";
 
-/* Class = "NSTextFieldCell"; title = "Use SEB settings file for ..."; ObjectID = "239"; */
+/* Class = "NSTextFieldCell"; title = "Use config file for ..."; ObjectID = "239"; */
 "239.title" = "SEB-Konfigurationsdatei verwenden zum …";
 
 /* Class = "NSMatrix"; ibShadowedToolTip = "A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)"; ObjectID = "249"; */
@@ -40,16 +43,16 @@
 /* Class = "NSButtonCell"; ibShadowedToolTip = "A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings"; ObjectID = "251"; */
 "251.ibShadowedToolTip" = "Eine mit dieser Option gespeicherte Konfigurationsdatei startet eine Prüfung, aber ändert nicht die lokalen Einstellungen des SEB-Clients";
 
-/* Class = "NSButtonCell"; title = "starting an exam"; ObjectID = "251"; */
+/* Class = "NSButtonCell"; title = "starting exams"; ObjectID = "251"; */
 "251.title" = "Starten einer Prüfung";
 
 /* Class = "NSButtonCell"; title = "configuring clients"; ObjectID = "252"; */
 "252.title" = "Konfigurieren von Clients";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "259"; */
-"259.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients deaktiviert werden";
+"259.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden";
 
-/* Class = "NSButtonCell"; title = "Allow to open preferences window on client"; ObjectID = "260"; */
+/* Class = "NSButtonCell"; title = "Allow to open Preferences window on client"; ObjectID = "260"; */
 "260.title" = "Einstellungen-Fenster darf auf Client geöffnet werden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Open a settings file for editing"; ObjectID = "1046"; */
@@ -108,4 +111,13 @@
 
 /* Class = "NSButtonCell"; title = "Apply and Restart SEB"; ObjectID = "1294"; */
 "1294.title" = "Anwenden und Neustart";
+
+/* Class = "NSButtonCell"; title = "Show settings in app (iOS)"; ObjectID = "b4O-Hy-kCT"; */
+"b4O-Hy-kCT.title" = "Einstellungen innerhalb der App anzeigen (iOS)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "bjh-ZV-2zp"; */
+"bjh-ZV-2zp.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "VYd-lj-NUe"; */
+"VYd-lj-NUe.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden";
 
