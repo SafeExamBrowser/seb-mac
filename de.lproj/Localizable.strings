@@ -31,6 +31,9 @@
 /* No comment provided by engineer. */
 "allow to use SEB without service" = "SEB darf ohne Service laufen";
 
+/* No comment provided by engineer. */
+"Always" = "Immer";
+
 /* Title of 'Appearance' preference pane */
 "Appearance" = "User Interface";
 
@@ -68,7 +71,13 @@
 "Back to Start" = "Zurück zum Start";
 
 /* No comment provided by engineer. */
+"Before receiving title" = "Bevor Titel empfangen wird";
+
+/* No comment provided by engineer. */
 "Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you." = "Vor dem Starten von SEB hat die Touch Bar 'App-Steuerungen' angezeigt. SEB kann diese Einstellung nicht automatisch wiederherstellen. Sie müssen entweder Ihren Mac neu starten oder die Einstellung manuell in den Systemeinstellungen / Tastatur / 'Touch Bar zeigt' auswählen. SEB kann diesen Tab in den Systemeinstellungen für Sie öffnen.";
+
+/* No comment provided by engineer. */
+"Black on White" = "Schwarz auf Weiss";
 
 /* No comment provided by engineer. */
 "block" = "blockieren";
@@ -89,6 +98,9 @@
 "Cancel" = "Abbrechen";
 
 /* No comment provided by engineer. */
+"Cannot Configure Client" = "Client kann nicht konfiguriert werden";
+
+/* No comment provided by engineer. */
 "Cannot Decrypt SEB Settings" = "SEB-Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
@@ -98,13 +110,19 @@
 "Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
-"Cannot Reconfigure SEB Settings" = "Konfiguration kann nicht umkonfiguriert werden";
+"Cannot Reconfigure Client" = "Client kann nicht umkonfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Reconfigure SEB Settings" = "Einstellungen können nicht umkonfiguriert werden";
 
 /* No comment provided by engineer. */
 "Cannot Remove Preset Prohibited Process" = "Voreingestellter verbotener Prozess kann nicht entfernt werden";
 
 /* No comment provided by engineer. */
 "Cannot Restore Touch Bar Mode" = "Touch Bar Modus kann nicht wiederhergestellt werden";
+
+/* No comment provided by engineer. */
+"Cannot Start Exam" = "Prüfung kann nicht gestartet werden";
 
 /* No comment provided by engineer. */
 "Center" = "Zentrieren";
@@ -131,6 +149,9 @@
 "Config File" = "Konfiguration";
 
 /* No comment provided by engineer. */
+"Configuring Client" = "Client konfigurieren";
+
+/* No comment provided by engineer. */
 "Continue" = "Weiter";
 
 /* No comment provided by engineer. */
@@ -150,6 +171,12 @@
 
 /* No comment provided by engineer. */
 "Debug Certificate" = "Debug-Zertifikat";
+
+/* No comment provided by engineer. */
+"Decrypting exam settings was canceled" = "Entschlüsselung der Prüfungseinstellungen wurde abgebrochen";
+
+/* No comment provided by engineer. */
+"Decrypting settings was canceled" = "Entschlüsselung der Einstellungen wurde abgebrochen";
 
 /* No comment provided by engineer. */
 "Detecting dictation was disabled!" = "Detektieren der Diktat-Funktion wurde ausgeschaltet!";
@@ -185,7 +212,7 @@
 "Dictation was activated" = "Diktat-Funktion wurde aktiviert";
 
 /* No comment provided by engineer. */
-"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse zwangsweise beenden? Programme könnten ungespeicherte Dokumentenänderungen verlieren, insbesondere wenn diese kein automatisches Speichern unterstützen.";
+"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse zwangsweise beenden? Programme könnten ungesicherte Dokumentenänderungen verlieren, insbesondere wenn diese kein automatisches Speichern unterstützen.";
 
 /* No comment provided by engineer. */
 "Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
@@ -221,6 +248,9 @@
 "Enter administrator password:" = "Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
+"Enter Exam Password:" = "Prüfungspasswort eingeben:";
+
+/* No comment provided by engineer. */
 "Enter password used to encrypt these settings:" = "Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -233,7 +263,13 @@
 "Enter quit/unlock password:" = "Beenden/Entsperren-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Enter the SEB administrator password used in these settings:" = "Geben Sie das in diesen Einstellungen verwendete Administrator-Passwort ein:";
+"Enter the %@ administrator password used in these settings:" = "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter the SEB administrator password used in these settings:" = "In diesen Einstellungen verwendetes Administrator-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Entering the current %@ administrator password was canceled" = "Eingabe des aktuellen %@ Administrator-Passworts wurde abgebrochen";
 
 /* No comment provided by engineer. */
 "Error" = "Fehler";
@@ -267,6 +303,9 @@
 
 /* No comment provided by engineer. */
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
+
+/* No comment provided by engineer. */
+"Force Quit All Processes" = "";
 
 /* No comment provided by engineer. */
 "FTP Proxy" = "FTP-Proxy";
@@ -320,6 +359,9 @@
 "Left" = "Links";
 
 /* No comment provided by engineer. */
+"Loaded data doesn't contain valid %@ settings." = "Geladene Daten beinhalten keine gültigen %@ Einstellungen.";
+
+/* No comment provided by engineer. */
 "Loaded settings are empty and cannot be used." = "Geladene Konfigurationsdatei ist leer und kann nicht benutzt werden.";
 
 /* No comment provided by engineer. */
@@ -347,10 +389,7 @@
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
-"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
-
-/* No comment provided by engineer. */
-"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
+"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
 "Local SEB settings are corrupted!" = "Lokale Client-Einstellungen sind beschädigt!";
