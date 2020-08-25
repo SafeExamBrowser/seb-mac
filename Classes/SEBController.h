@@ -59,18 +59,20 @@
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
+#import "ProcessListViewController.h"
 
 #import "CocoaLumberjack.h"
 
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
+@class ProcessListViewController;
 @class SEBDockController;
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate> {
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate> {
 	
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -112,7 +114,7 @@
     BOOL _forceAppFolder;
     SEBMinMacOSVersion _enforceMinMacOSVersion;
     pid_t sebPID;
-    BOOL allowScreenRecording;
+    BOOL allowScreenCapture;
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;
@@ -179,10 +181,14 @@
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
 @property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property(strong, atomic) NSArray <NSDictionary*> *runningProcesses;
+@property(strong, nonatomic) ProcessListViewController *processListViewController;
+@property(strong, nonatomic) NSWindowController *runningProcessesListWindowController;
 
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
 @property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
+@property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
+
 
 @property(strong) SEBDockItemButton *dockButtonReload;
 

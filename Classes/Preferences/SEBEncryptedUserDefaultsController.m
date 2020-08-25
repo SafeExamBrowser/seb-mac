@@ -53,25 +53,6 @@ static SEBEncryptedUserDefaultsController *sharedSEBEncryptedUserDefaultsControl
 
 	return sharedSEBEncryptedUserDefaultsController;
 }
-/*
-+ (id)allocWithZone:(NSZone *)zone
-{
-	@synchronized(self)
-	{
-		if (sharedSEBEncryptedUserDefaultsController == nil)
-		{
-			sharedSEBEncryptedUserDefaultsController = [super allocWithZone:zone];
-			return sharedSEBEncryptedUserDefaultsController;
-		}
-	}
-
-	return nil;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-	return self;
-} */
 
 
 // Getter Method used by bindings
@@ -83,25 +64,11 @@ static SEBEncryptedUserDefaultsController *sharedSEBEncryptedUserDefaultsControl
 }
 
 
-//- (id)valueForKey:(NSString *)key
-//{
-//    id object = [super valueForKey:key]; //call secure method used by bindings
-//	return object;
-//    
-//}
-
-
 // Setter method used by bindings
 - (void)setValue:(id)value forKeyPath:(NSString *)keyPath
 {
     [super setSecureValue:value forKeyPath:keyPath]; //call secure method used by bindings
 }
-
-
-//- (void)setValue:(id)value forKey:(NSString *)key
-//{
-//    [super setValue:value forKey:key]; //call secure method used by bindings
-//}
 
 
 @end

@@ -51,9 +51,13 @@ int main(int argc, char *argv[])
 
     // Swizzle NSWindow setLevel: Method
     [NSWindow setupChangingWindowLevels];
-    [WebView setupOverridePlugins];
-
-    //[NSUserDefaults setupPrivateUserDefaults];
+        if (@available(macOS 10.15, *)) {
+            // The method used to prevent the Acrobat Reader plug-in to be registered for the
+            // MIME type "application/pdf" crashes the Flash plug-in on macOS 10.15. As the
+            // Acrobat Reader plug-in isn't available for macOS 10.15 anymore, we don't need this
+        } else {
+            [WebView setupOverridePlugins];
+        }
 
     return NSApplicationMain(argc,  (const char **) argv);
     }

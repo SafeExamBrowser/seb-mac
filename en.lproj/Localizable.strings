@@ -176,7 +176,7 @@
 "If you don't enter the correct SEB administrator password, then you cannot open preferences." = "If you don't enter the correct SEB administrator password, then you cannot open preferences.";
 
 /* No comment provided by engineer. */
-"If you don't enter the right administrator password from these settings you cannot open them." = "If you don't enter the right administrator password from these settings you cannot open them.";
+"If you don't enter the right administrator password used in these settings you cannot open them." = "If you don't enter the right administrator password used in these settings you cannot open them.";
 
 /* No comment provided by engineer. */
 "Important Notice for First Time Users" = "Important Notice for First Time Users";
@@ -206,10 +206,7 @@
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.";
 
 /* No comment provided by engineer. */
-"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?" = "Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?";
-
-/* No comment provided by engineer. */
-"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.";
+"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.";
 
 /* No comment provided by engineer. */
 "Local SEB settings are corrupted!" = "Local SEB settings are corrupted!";
@@ -417,7 +414,4 @@
 
 /* No comment provided by engineer. */
 "You either entered the wrong password or these settings were saved with an incompatible SEB version." = "You either entered the wrong password or these settings were saved with an incompatible SEB version.";
-
-/* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams." = "You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.";
 
