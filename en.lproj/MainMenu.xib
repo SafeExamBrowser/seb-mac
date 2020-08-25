@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -409,6 +409,7 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="59" y="36"/>
         </menu>
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="543" userLabel="SEB Controller" customClass="SEBController">
@@ -455,7 +456,7 @@
                             <constraint firstAttribute="width" constant="106" id="qMA-rg-OR5"/>
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="873">
-                            <font key="font" metaFont="cellTitle"/>
+                            <font key="font" metaFont="label" size="12"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -477,7 +478,7 @@
                                         <fragment content=" ">
                                             <attributes>
                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" metaFont="miniSystem"/>
+                                                <font key="NSFont" metaFont="menu" size="9"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -597,18 +598,18 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="rLU-be-IrT" userLabel="Password Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="108"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
-                        <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
                         <subviews>
                             <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
-                                <rect key="frame" x="18" y="77" width="376" height="18"/>
+                                <rect key="frame" x="18" y="76" width="376" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="eit-hR-UwU"/>
                                 </constraints>
@@ -651,7 +652,7 @@ Gw
                                 </connections>
                             </button>
                             <secureTextField verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="8aH-DI-gaF">
-                                <rect key="frame" x="20" y="43" width="371" height="22"/>
+                                <rect key="frame" x="20" y="43" width="371" height="21"/>
                                 <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="WHV-Hz-eSu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -686,6 +687,7 @@ Gw
                     <constraint firstItem="w4A-0q-NaR" firstAttribute="top" secondItem="vWC-gd-xPh" secondAttribute="top" id="aam-jB-cCA"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="1006" y="895"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
         <viewController id="agr-W5-n2K" userLabel="SEB Locked View Controller" customClass="SEBOSXLockedViewController">
@@ -701,6 +703,7 @@ Gw
                 <outlet property="overrideCheckForSiri" destination="yt2-Rs-d1G" id="orS-G4-UYQ"/>
                 <outlet property="overrideCheckForSpecifcProcesses" destination="uLX-fM-8i5" id="vQh-5m-9oF"/>
                 <outlet property="passwordWrongLabel" destination="5gu-rS-ItL" id="Pgk-p0-4JF"/>
+                <outlet property="quitInsteadUnlockingButton" destination="AcD-fw-97S" id="c6i-al-vPg"/>
                 <outlet property="view" destination="opR-sj-lUP" id="lJC-D1-R9g"/>
             </connections>
         </viewController>
@@ -712,7 +715,7 @@ Gw
                     <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
                     <subviews>
                         <textField verticalHuggingPriority="1000" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
-                            <rect key="frame" x="2" y="6" width="46" height="23"/>
+                            <rect key="frame" x="2" y="8" width="46" height="18"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="center" placeholderString="09:41" id="ITD-IF-Cv9">
                                 <dateFormatter key="formatter" formatterBehavior="custom10_4" dateFormat="HH:mm" id="kfS-SN-RBm"/>
                                 <font key="font" size="15" name="HelveticaNeue-Bold"/>
@@ -741,15 +744,15 @@ Gw
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="aPD-nQ-pl7" userLabel="Authentication Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="158"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="156"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>
+                <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Kab-W5-RGJ">
-                        <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Odg-nf-m29">
                                 <rect key="frame" x="302" y="5" width="96" height="32"/>
@@ -781,7 +784,7 @@ Gw
                                 </connections>
                             </button>
                             <secureTextField verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="WxA-I6-hf2">
-                                <rect key="frame" x="90" y="43" width="302" height="22"/>
+                                <rect key="frame" x="90" y="43" width="302" height="21"/>
                                 <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="l8a-6R-mRl">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -792,7 +795,7 @@ Gw
                                 </secureTextFieldCell>
                             </secureTextField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="62" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-Uw-nFp">
-                                <rect key="frame" x="18" y="46" width="66" height="17"/>
+                                <rect key="frame" x="18" y="46" width="66" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="XL9-tP-eEk">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -800,7 +803,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="302" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-qP-q3l">
-                                <rect key="frame" x="90" y="73" width="302" height="22"/>
+                                <rect key="frame" x="90" y="72" width="302" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aal-ls-xSb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -808,7 +811,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="7iw-YD-is5">
-                                <rect key="frame" x="40" y="76" width="44" height="17"/>
+                                <rect key="frame" x="40" y="75" width="44" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name:" id="BaL-l1-4iZ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -816,7 +819,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="XNo-Zw-SiV" customClass="SEBTextField">
-                                <rect key="frame" x="18" y="108" width="376" height="36"/>
+                                <rect key="frame" x="18" y="106" width="376" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="36" id="ty9-mD-Gm9"/>
                                 </constraints>
@@ -867,7 +870,7 @@ Gw
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="149" translatesAutoresizingMaskIntoConstraints="NO" id="8UT-LK-qvz" customClass="SEBTextField">
-                    <rect key="frame" x="204" y="463" width="93" height="25"/>
+                    <rect key="frame" x="204" y="464" width="93" height="24"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Warning!" id="f7N-eB-F22">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -875,22 +878,22 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="JXZ-17-yJM" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="399" width="464" height="56"/>
+                    <rect key="frame" x="18" y="395" width="464" height="61"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="a6z-Ti-hnP"/>
                     </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="YeX-5O-huE">
-                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
+                        <font key="font" metaFont="system"/>
                         <string key="title">Some tool tried to circumvent the SEB kiosk mode. Make sure you don't use any key combinations or trackpad gestures which might trigger such tools or the Notification Center.</string>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osr-Hv-b9S">
-                    <rect key="frame" x="20" y="92" width="460" height="292"/>
+                    <rect key="frame" x="20" y="88" width="460" height="292"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="poc-GF-ali">
                         <rect key="frame" x="1" y="1" width="458" height="290"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="Yge-oE-zei">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="290"/>
@@ -937,7 +940,7 @@ DQ
                     </buttonCell>
                 </button>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="DHa-tO-um5" customClass="SEBTextField">
-                    <rect key="frame" x="146" y="56" width="209" height="21"/>
+                    <rect key="frame" x="146" y="56" width="209" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This event has been recorded." id="Dex-y3-8UD">
                         <font key="font" size="14" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -967,10 +970,10 @@ DQ
             <point key="canvasLocation" x="440" y="1486"/>
         </customView>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="seo-VR-ST1" userLabel="SEB Inactive Screen View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="88"/>
             <subviews>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="fBQ-HD-9r1" customClass="SEBTextField">
-                    <rect key="frame" x="134" y="20" width="232" height="50"/>
+                    <rect key="frame" x="134" y="20" width="232" height="48"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This screen is disabled in current settings" id="0RK-x9-0F0">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -988,10 +991,10 @@ DQ
             <point key="canvasLocation" x="1006" y="709"/>
         </customView>
         <customView verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="opR-sj-lUP" userLabel="SEB Locked View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="665"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="679"/>
             <subviews>
                 <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
-                    <rect key="frame" x="65" y="121" width="370" height="22"/>
+                    <rect key="frame" x="65" y="138" width="370" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="PWR-5S-MX2"/>
                     </constraints>
@@ -1008,7 +1011,7 @@ DQ
                     </connections>
                 </secureTextField>
                 <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="628" width="464" height="25"/>
+                    <rect key="frame" x="18" y="643" width="464" height="24"/>
                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1016,7 +1019,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
-                    <rect key="frame" x="118" y="151" width="264" height="17"/>
+                    <rect key="frame" x="118" y="167" width="264" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password to unlock SEB:" id="toT-ZU-d4i">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1024,27 +1027,27 @@ DQ
                     </textFieldCell>
                 </textField>
                 <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
-                    <rect key="frame" x="148" y="104" width="205" height="17"/>
+                    <rect key="frame" x="152" y="122" width="197" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password!" id="2XV-dZ-8rd">
-                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
+                        <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="564" width="464" height="56"/>
+                    <rect key="frame" x="18" y="579" width="464" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="ejj-7G-oh9"/>
                     </constraints>
                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
-                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
+                        <font key="font" metaFont="system"/>
                         <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.</string>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
-                    <rect key="frame" x="20" y="176" width="460" height="380"/>
+                    <rect key="frame" x="20" y="191" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1082,7 +1085,7 @@ DQ
                     </scroller>
                 </scrollView>
                 <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
-                    <rect key="frame" x="443" y="122" width="18" height="20"/>
+                    <rect key="frame" x="443" y="139" width="18" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
                         <constraint firstAttribute="width" constant="18" id="EzV-RX-A8U"/>
@@ -1099,41 +1102,49 @@ DQ
                     <rect key="frame" x="62" y="9" width="253" height="18"/>
                     <buttonCell key="cell" type="check" title="Override process security check completely" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPO-LF-2DU">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
                     <rect key="frame" x="62" y="27" width="280" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for the processes listed above" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
                     <rect key="frame" x="62" y="63" width="156" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for Siri" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="H1g-uS-wch">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
                     <rect key="frame" x="62" y="81" width="217" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for screen sharing" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bsl-EU-pHD">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
                     <rect key="frame" x="62" y="45" width="185" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for dictation" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7xF-1g-PGT">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
+                    <rect key="frame" x="62" y="99" width="178" height="18"/>
+                    <buttonCell key="cell" type="check" title="Quit SEB instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                 </button>
             </subviews>
             <constraints>
                 <constraint firstItem="5sW-Md-KnP" firstAttribute="top" secondItem="5Ez-0g-525" secondAttribute="bottom" constant="8" id="4JV-S6-lbE"/>
                 <constraint firstAttribute="trailing" secondItem="SZz-tz-Eao" secondAttribute="trailing" constant="20" id="4xS-1B-zfo"/>
+                <constraint firstItem="AcD-fw-97S" firstAttribute="top" secondItem="5gu-rS-ItL" secondAttribute="bottom" constant="8" id="6vP-6Y-zwp"/>
                 <constraint firstItem="d45-bx-wxa" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="7p4-0Y-fDN"/>
                 <constraint firstItem="d45-bx-wxa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="9RW-Dg-SgD"/>
                 <constraint firstItem="K91-6e-rl1" firstAttribute="top" secondItem="d45-bx-wxa" secondAttribute="bottom" constant="8" id="B5X-MD-tHu"/>
@@ -1147,6 +1158,7 @@ DQ
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5gu-rS-ItL" secondAttribute="trailing" constant="20" id="KoP-GP-eDH"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2hk-Dl-Z63" secondAttribute="trailing" constant="20" id="Lm9-cR-0ZU"/>
                 <constraint firstItem="62k-M2-j1C" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="LqD-38-tOb"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AcD-fw-97S" secondAttribute="trailing" constant="20" id="P6e-B0-ufg"/>
                 <constraint firstItem="SZz-tz-Eao" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Q1s-8z-TXu"/>
                 <constraint firstItem="5gu-rS-ItL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Rgu-R6-Dh2"/>
                 <constraint firstItem="5Ez-0g-525" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="T4b-fZ-Ehf"/>
@@ -1162,6 +1174,8 @@ DQ
                 <constraint firstItem="2hk-Dl-Z63" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="iiF-hv-gY2"/>
                 <constraint firstAttribute="trailing" secondItem="5Ez-0g-525" secondAttribute="trailing" constant="20" id="isT-4f-tYS"/>
                 <constraint firstItem="5Ez-0g-525" firstAttribute="top" secondItem="opR-sj-lUP" secondAttribute="top" constant="12" id="lTN-7V-P4C"/>
+                <constraint firstItem="2n3-Tk-TFb" firstAttribute="top" secondItem="AcD-fw-97S" secondAttribute="bottom" constant="6" id="mj7-uc-i7g"/>
+                <constraint firstItem="AcD-fw-97S" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="mlM-tj-D7d"/>
                 <constraint firstItem="yt2-Rs-d1G" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="rLO-W8-01m"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uLX-fM-8i5" secondAttribute="trailing" constant="20" id="s5y-yV-Axg"/>
                 <constraint firstItem="5gu-rS-ItL" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="u19-NV-DVx"/>
@@ -1170,21 +1184,20 @@ DQ
                 <constraint firstItem="2hk-Dl-Z63" firstAttribute="top" secondItem="yt2-Rs-d1G" secondAttribute="bottom" constant="6" id="xHe-IU-mnq"/>
                 <constraint firstItem="62k-M2-j1C" firstAttribute="top" secondItem="uLX-fM-8i5" secondAttribute="bottom" constant="6" id="xkb-Xf-t11"/>
                 <constraint firstItem="yt2-Rs-d1G" firstAttribute="top" secondItem="2n3-Tk-TFb" secondAttribute="bottom" constant="6" id="y7R-RW-Uuq"/>
-                <constraint firstItem="2n3-Tk-TFb" firstAttribute="top" secondItem="5gu-rS-ItL" secondAttribute="bottom" constant="8" id="yQp-Vd-yGu"/>
             </constraints>
             <point key="canvasLocation" x="999" y="1124.5"/>
         </customView>
         <window title="SEB Lockdown Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="HUDPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="274" width="500" height="45"/>
+            <rect key="contentRect" x="196" y="274" width="500" height="44"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="94S-Ha-RmY">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="j4C-Za-nAA" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="17" width="464" height="17"/>
+                        <rect key="frame" x="18" y="17" width="464" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="6w8-6M-a1v">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
