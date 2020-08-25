@@ -151,6 +151,9 @@
 /* Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo"; */
 "i04-6r-xmo.title" = "Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster";
 
+/* Class = "NSButtonCell"; title = "Use AAC/ASAM if available"; ObjectID = "iCr-0C-5NT"; */
+"iCr-0C-5NT.title" = "AAC/ASAM verwenden";
+
 /* Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp"; */
 "ifL-Zz-OJp.label" = "Registry";
 
@@ -308,7 +311,7 @@
 "vh3-YR-Pun.ibShadowedToolTip" = "Diktieren kann mittels der in den Systemeinstellungen/Tastatur/Diktat definierten Tastenkombination (Standard: fn zweimal drücken) aktiviert werden";
 
 /* Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb"; */
-"WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses detektieren";
+"WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses deaktivieren";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen"; ObjectID = "wUs-SE-6xn"; */
 "wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)";

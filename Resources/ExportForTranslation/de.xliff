@@ -518,7 +518,7 @@
       </trans-unit>
       <trans-unit id="887.ibShadowedToolTip" xml:space="preserve">
         <source>Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</source>
-        <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
+        <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887";</note>
       </trans-unit>
       <trans-unit id="897.title" xml:space="preserve">
@@ -638,7 +638,7 @@
       </trans-unit>
       <trans-unit id="1859.ibShadowedToolTip" xml:space="preserve">
         <source>Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title</source>
-        <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
+        <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title"; ObjectID = "1859";</note>
       </trans-unit>
       <trans-unit id="1893.ibShadowedToolTip" xml:space="preserve">
@@ -1039,9 +1039,9 @@
         <note>Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L";</note>
       </trans-unit>
       <trans-unit id="FwJ-dG-wCg.ibShadowedToolTip" xml:space="preserve">
-        <source>Reload can be disabled completely for the exam with this setting, because it might break some offlne caching functionalities</source>
+        <source>Reload can be disabled completely for the exam with this setting, because it might break some offline caching functionalities</source>
         <target>Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb der Prüfung zurückkehrt</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Reload can be disabled completely for the exam with this setting, because it might break some offlne caching functionalities"; ObjectID = "FwJ-dG-wCg";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Reload can be disabled completely for the exam with this setting, because it might break some offline caching functionalities"; ObjectID = "FwJ-dG-wCg";</note>
       </trans-unit>
       <trans-unit id="IEP-y6-APQ.title" xml:space="preserve">
         <source>Restrictions in Exam Window</source>
@@ -1150,9 +1150,9 @@
         <note>Class = "NSBox"; title = "Restrictions in Additional Windows"; ObjectID = "bgd-GA-QC3";</note>
       </trans-unit>
       <trans-unit id="cg4-A3-rqm.ibShadowedToolTip" xml:space="preserve">
-        <source>Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</source>
+        <source>Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</source>
         <target>Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "cg4-A3-rqm";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "cg4-A3-rqm";</note>
       </trans-unit>
       <trans-unit id="ckm-lX-Woj.title" xml:space="preserve">
         <source>User agent</source>
@@ -1215,9 +1215,9 @@
         <note>Class = "NSButtonCell"; title = "Custom"; ObjectID = "qVa-6O-Lcc";</note>
       </trans-unit>
       <trans-unit id="rf6-Kj-obV.ibShadowedToolTip" xml:space="preserve">
-        <source>Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</source>
+        <source>Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</source>
         <target>Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "rf6-Kj-obV";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "rf6-Kj-obV";</note>
       </trans-unit>
       <trans-unit id="t6p-Cb-xTk.title" xml:space="preserve">
         <source>Default:</source>
@@ -1567,7 +1567,7 @@
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
         <source>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL.</source>
-        <target>Der seb(s):// Link zur Konfigurationsdatei kann eine zusätzliche Query-Zeichenkette beeinhalten, mittels '?' oder '??' (wenn die URL selber keine Query enthält) von der Haupt-URL getrennt. SEB wird dann diesen Query-Parameter an die Start URL anhängen.</target>
+        <target>Der seb(s):// Link zur Konfigurationsdatei kann eine zusätzliche Query-Zeichenkette beinhalten, mittels '?' oder '??' (wenn die URL selber keine Query enthält) von der Haupt-URL getrennt. SEB wird dann diesen Query-Parameter an die Start URL anhängen.</target>
         <note>Class = "NSTextFieldCell"; title = "The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL."; ObjectID = "2GO-IF-iYo";</note>
       </trans-unit>
       <trans-unit id="2Rr-y4-nE8.ibShadowedToolTip" xml:space="preserve">
@@ -1597,12 +1597,12 @@
       </trans-unit>
       <trans-unit id="5sV-hT-oqR.ibShadowedToolTip" xml:space="preserve">
         <source>If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting</source>
-        <target>Wenn ein Universal Link oder ein indirekter seb(s):// Link benutzt wird, sucht SEB in der Pfad-Hierarchie des Links nach Konfigurationdateien</target>
+        <target>Wenn ein Universal Link oder ein indirekter seb(s):// Link benutzt wird, sucht SEB in der Pfad-Hierarchie des Links nach Konfigurationsdateien</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting"; ObjectID = "5sV-hT-oqR";</note>
       </trans-unit>
       <trans-unit id="6Uo-fx-mC8.ibShadowedToolTip" xml:space="preserve">
         <source>Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)</source>
-        <target>Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Rekonfigurieren beendet wird</target>
+        <target>Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren beendet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)"; ObjectID = "6Uo-fx-mC8";</note>
       </trans-unit>
       <trans-unit id="20.ibShadowedToolTip" xml:space="preserve">
@@ -1687,7 +1687,7 @@
       </trans-unit>
       <trans-unit id="Suk-hp-L3I.ibShadowedToolTip" xml:space="preserve">
         <source>Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)</source>
-        <target>Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Rekonfigurieren gestartet wird</target>
+        <target>Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren gestartet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)"; ObjectID = "Suk-hp-L3I";</note>
       </trans-unit>
       <trans-unit id="Uuj-be-mvj.title" xml:space="preserve">
@@ -2860,7 +2860,7 @@
       </trans-unit>
       <trans-unit id="WA3-Fp-0nb.title" xml:space="preserve">
         <source>Detect when SEB process was stopped</source>
-        <target>Stoppen des SEB-Prozesses detektieren</target>
+        <target>Stoppen des SEB-Prozesses deaktivieren</target>
         <note>Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb";</note>
       </trans-unit>
       <trans-unit id="Y3K-X1-40d.title" xml:space="preserve">
@@ -2965,6 +2965,7 @@
       </trans-unit>
       <trans-unit id="iCr-0C-5NT.title" xml:space="preserve">
         <source>Use AAC/ASAM if available</source>
+        <target>AAC/ASAM verwenden</target>
         <note>Class = "NSButtonCell"; title = "Use AAC/ASAM if available"; ObjectID = "iCr-0C-5NT";</note>
       </trans-unit>
       <trans-unit id="ifL-Zz-OJp.label" xml:space="preserve">
@@ -3469,7 +3470,7 @@
       </trans-unit>
       <trans-unit id="Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." xml:space="preserve">
         <source>Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.</source>
-        <target>Wollen Sie wirklich alle laufenden verbotenen Prozesse zwangsweise beenden? Programme könnten ungesicherte Dokumentenänderungen verlieren, insbesondere wenn diese kein automatisches Speichern unterstützen.</target>
+        <target>Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you really want to reload the current web page?" xml:space="preserve">
@@ -3631,11 +3632,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Quit All Processes" xml:space="preserve">
         <source>Force Quit All Processes</source>
-        <target></target>
+        <target>Prozesse sofort beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Quitting Processes Failed" xml:space="preserve">
         <source>Force Quitting Processes Failed</source>
+        <target>Sofort beenden fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="General" xml:space="preserve">
@@ -3683,8 +3685,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Wenn Sie das korrekte Beenden/Entsperren-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them." xml:space="preserve">
-        <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
+      <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them." xml:space="preserve">
+        <source>If you don't enter the right administrator password from these settings you cannot open them.</source>
         <target>Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -3778,11 +3780,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version. Reset local settings and continue?" xml:space="preserve">
+      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.  Reset local settings and continue?" xml:space="preserve">
         <source>Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
 
 Reset local settings and continue?</source>
-        <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
+        <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie können diese auf die Voreinstellungen zurücksetzten. Lokale Einstellungen zurücksetzen und fortfahren?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." xml:space="preserve">
@@ -3790,8 +3792,8 @@ Reset local settings and continue?</source>
         <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." xml:space="preserve">
-        <source>Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
+      <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." xml:space="preserve">
+        <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
         <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -3826,19 +3828,22 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Never" xml:space="preserve">
         <source>Never</source>
+        <target>Nie</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" xml:space="preserve">
         <source>New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?</source>
+        <target>Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder SEB beenden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" xml:space="preserve">
         <source>New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?</source>
-        <target>Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB weiterarbeiten oder SEB beenden?</target>
+        <target>Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder SEB beenden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." xml:space="preserve">
         <source>No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.</source>
+        <target>An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Encryption Credentials Chosen" xml:space="preserve">
@@ -3858,10 +3863,12 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="None - Black" xml:space="preserve">
         <source>None - Black</source>
+        <target>Keine - Schwarz</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None - White" xml:space="preserve">
         <source>None - White</source>
+        <target>Keine - Weiss</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Not Running Minimal macOS Version!" xml:space="preserve">
@@ -3906,10 +3913,12 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Only on load error" xml:space="preserve">
         <source>Only on load error</source>
+        <target>Nur bei Verbindungsfehlern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Open edX" xml:space="preserve">
         <source>Open edX</source>
+        <target>Open edX</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
@@ -3934,10 +3943,12 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Opening Universal Link" xml:space="preserve">
         <source>Opening Universal Link</source>
+        <target>Universal Link wird geöffnet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening Universal Link Failed" xml:space="preserve">
         <source>Opening Universal Link Failed</source>
+        <target>Öffnen eines Universal Links ist fehlgeschlagen!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening new settings failed!" xml:space="preserve">
@@ -3952,6 +3963,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Parsing Settings Failed" xml:space="preserve">
         <source>Parsing Settings Failed</source>
+        <target>Auslesen der Konfiguration ist fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." xml:space="preserve">
@@ -4016,6 +4028,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Quit All Applications" xml:space="preserve">
         <source>Quit All Applications</source>
+        <target>Alle Programme beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit SEB" xml:space="preserve">
@@ -4030,6 +4043,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Quit Session" xml:space="preserve">
         <source>Quit Session</source>
+        <target>Session beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Re-Opening Locked Exam!" xml:space="preserve">
@@ -4044,6 +4058,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Reading Settings Failed" xml:space="preserve">
         <source>Reading Settings Failed</source>
+        <target>Lesen der Einstellungen ist fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reconfigure SEB Settings" xml:space="preserve">
@@ -4153,6 +4168,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
         <source>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</source>
+        <target>SEB konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden).</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." xml:space="preserve">
@@ -4227,10 +4243,12 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Searching for a valid %@ config file was canceled." xml:space="preserve">
         <source>Searching for a valid %@ config file was canceled.</source>
+        <target>Suche nach einer gültigen %@ Konfigurationsdatei wurde abgebrochen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching for a valid %@ config file …" xml:space="preserve">
         <source>Searching for a valid %@ config file …</source>
+        <target>Suche eine gültige %@ Konfigurationsdatei …</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Secure Web Proxy (HTTPS)" xml:space="preserve">
@@ -4325,6 +4343,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Starting Exam" xml:space="preserve">
         <source>Starting Exam</source>
+        <target>Prüfung starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Streaming Proxy (RTSP)" xml:space="preserve">
@@ -4344,6 +4363,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." xml:space="preserve">
         <source>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</source>
+        <target>Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." xml:space="preserve">
@@ -4353,6 +4373,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." xml:space="preserve">
         <source>The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.</source>
+        <target>Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The identity needed to decrypt settings has not been found in the keychain!" xml:space="preserve">
@@ -4367,6 +4388,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
+        <target>Der Benutzername oder das Passwort für %@ waren falsch. Bitte versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again." xml:space="preserve">
@@ -4391,7 +4413,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" xml:space="preserve">
         <source>This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:</source>
-        <target>Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
+        <target>Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
@@ -4501,6 +4523,7 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="White on Black" xml:space="preserve">
         <source>White on Black</source>
+        <target>Weiss auf Schwarz</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Win" xml:space="preserve">
@@ -4555,14 +4578,17 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the correct exam password:" xml:space="preserve">
         <source>Wrong password! Try again to enter the correct exam password:</source>
+        <target>Falsches Passwort! Bitte das korrekte Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the correct password used to encrypt these settings:" xml:space="preserve">
         <source>Wrong password! Try again to enter the correct password used to encrypt these settings:</source>
+        <target>Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the current %@ administrator password:" xml:space="preserve">
         <source>Wrong password! Try again to enter the current %@ administrator password:</source>
+        <target>Falsches Passwort! Bitte das korrekte %@ Administrator-Passwort erneut eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong quit/unlock password." xml:space="preserve">
@@ -4592,10 +4618,12 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="You can also force quit these processes, but this may lead to loss of data." xml:space="preserve">
         <source>You can also force quit these processes, but this may lead to loss of data.</source>
+        <target>Sie können diese Prozesse auch sofort beenden, aber das kann zu Datenverlust führen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can also send all the listed applications a quit instruction, they can still ask about saving edited documents." xml:space="preserve">
         <source>You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.</source>
+        <target>Sie können auch allen aufgeführten Programmen ein Beenden-Kommando senden, diese können dann noch bearbeitete Dokumente speichern.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only reconfigure SEB by entering the current SEB administrator password:" xml:space="preserve">
@@ -4605,18 +4633,22 @@ Reset local settings and continue?</source>
       </trans-unit>
       <trans-unit id="You can only reconfigure by entering the current %@ administrator password:" xml:space="preserve">
         <source>You can only reconfigure by entering the current %@ administrator password:</source>
+        <target>Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct current %@ administrator password." xml:space="preserve">
         <source>You didn't enter the correct current %@ administrator password.</source>
+        <target>Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct exam password." xml:space="preserve">
         <source>You didn't enter the correct exam password.</source>
+        <target>Das korrekte Prüfungspasswort wurde nicht eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct settings password." xml:space="preserve">
         <source>You didn't enter the correct settings password.</source>
+        <target>Das korrekte Passwort dieser Einstellungen wurde nicht eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?" xml:space="preserve">
@@ -4634,10 +4666,11 @@ Reset local settings and continue?</source>
         <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file. You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
+      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.  You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
         <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
 
 You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+        <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln. Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="administrator" xml:space="preserve">
