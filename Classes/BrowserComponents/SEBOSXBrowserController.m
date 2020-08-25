@@ -243,7 +243,7 @@
                withWebView:newWindowWebView
                  withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
     
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
         [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -359,7 +359,7 @@
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
         [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     [self.mainBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
@@ -506,7 +506,7 @@
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:&error];
     if (!error) {
         NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
             [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
@@ -880,7 +880,7 @@
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:_temporaryWebView];
     
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
         [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1257,7 +1257,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (_sebController.startingUp) {
         // we quit, as decrypting the config wasn't successful
         DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
-        _sebController.quittingMyself = true; // SEB is terminating itself
+        _sebController.quittingMyself = true; // quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; // Quit SEB
     }
     // Reset the opening settings flag which prevents opening URLs concurrently

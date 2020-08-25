@@ -67,17 +67,39 @@ static SEBSettings *sharedSEBSettings = nil;
             if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(@"defaultSettings")]) {
                 NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:[SEBExtensionClass defaultSettings]];
                 
+                NSArray *extensionDictionaryKeys = [defaultExtensionSettings allKeys];
+                for (NSString *extensionDictKey in extensionDictionaryKeys) {
+                    // First check if extension settings dictionary contains arrays of subdictionaries with missing default keys
+                    NSMutableDictionary *extensionSubDict = [[defaultExtensionSettings objectForKey:extensionDictKey] mutableCopy];
+                    NSArray *extensionSubDictionaryKeys = [extensionSubDict allKeys];
+                    for (NSString *extensionSubDictKey in extensionSubDictionaryKeys) {
+                        id extensionSubElement = [extensionSubDict objectForKey:extensionSubDictKey];
+                        if ([extensionSubElement isKindOfClass:[NSArray class]]) {
+                            NSMutableArray *extensionSubArray = NSMutableArray.new;
+                            for (NSDictionary* extensionSubDict in extensionSubElement) {
+                                NSMutableDictionary *completedExtensionSubDict = [[completeDefaultSettings objectForKey:extensionSubDictKey] mutableCopy];
+                                [completedExtensionSubDict addEntriesFromDictionary:extensionSubDict];
+                                [extensionSubArray addObject:completedExtensionSubDict];
+                            }
+                            if (extensionSubArray) {
+                                [extensionSubDict setObject:extensionSubArray.copy forKey:extensionSubDictKey];
+                            }
+                        }
+                    }
+                    [defaultExtensionSettings setObject:extensionSubDict.copy forKey:extensionDictKey];
+                }
+                
                 NSArray *subDictionaries = [completeDefaultSettings allKeys];
                 for (NSString *subDictKey in subDictionaries) {
-                    NSDictionary *subCABDict = [defaultExtensionSettings objectForKey:subDictKey];
-                    if (subCABDict.count > 0) {
+                    NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
+                    if (subExtensionDict.count > 0) {
                         NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
                         if (subDict) {
-                            [subDict addEntriesFromDictionary:subCABDict];
+                            [subDict addEntriesFromDictionary:subExtensionDict];
                             [completeDefaultSettings setObject:subDict forKey:subDictKey];
                             [defaultExtensionSettings removeObjectForKey:subDictKey];
                         } else {
-                            [completeDefaultSettings setObject:subCABDict forKey:subDictKey];
+                            [completeDefaultSettings setObject:subExtensionDict forKey:subDictKey];
                         }
                     }
                 }
@@ -147,6 +169,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowQuit",
                    
                    @NO,
+                   @"allowScreenCapture",
+                   
+                   @NO,
                    @"allowScreenSharing",
                    
                    @NO,
@@ -171,10 +196,19 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowVirtualMachine",
                    
                    @NO,
+                   @"allowWindowCapture",
+                   
+                   @NO,
                    @"allowWlan",
+                   
+                   @YES,
+                   @"autoQuitApplications",
                    
                    @NO,
                    @"blockPopUpWindows",
+                   
+                   @NO,
+                   @"blockScreenShotsLegacy",
                    
                    @NO,
                    @"browserMediaAutoplay",
@@ -288,7 +322,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enablePrivateClipboard",
                    
                    @YES,
-                   @"enablePrivateClipboardMac",
+                   @"enablePrivateClipboardMacEnforce",
                    
                    @YES,
                    @"enableSebBrowser",
@@ -302,7 +336,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"examSessionClearCookiesOnEnd",
                    
-                   @NO,
+                   @YES,
                    @"examSessionClearCookiesOnStart",
                    
                    @NO,
@@ -331,6 +365,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"hookKeys",
+                   
+                   @YES,
+                   @"enableAAC",
                    
                    @YES,
                    @"enableEsc",
@@ -614,6 +651,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"restartExamUseStartURL",
                    
+                   @NO,
+                   @"screenSharingMacEnforceBlocked",
+                   
                    [NSNumber numberWithLong:sebConfigPurposeConfiguringClient],
                    @"sebConfigPurpose",
                    
@@ -673,6 +713,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:40],
                    @"taskBarHeight",
+                   
+                   @NO,
+                   @"terminateProcesses",
                    
                    @NO,
                    @"touchOptimized",

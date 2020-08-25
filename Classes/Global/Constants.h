@@ -221,7 +221,7 @@ typedef NSUInteger newBrowserWindowPolicies;
 
 
 enum {
-    operatingSystemOSX                          = 0,
+    operatingSystemMacOS                        = 0,
     operatingSystemWin                          = 1,
 };
 typedef NSUInteger operatingSystems;

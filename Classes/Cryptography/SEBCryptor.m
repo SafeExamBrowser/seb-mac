@@ -529,9 +529,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSDictionary *defaultSettings = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:dictionaryKey];
 
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
-    if (containedKeys.count == 0 &&
+    if (!containedKeys || (containedKeys.count == 0 &&
         configKeysAlphabetically.count != 0 &&
-        initializeContainedKeys) {
+        initializeContainedKeys)) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];

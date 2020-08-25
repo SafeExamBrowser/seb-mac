@@ -39,12 +39,15 @@
 
 @interface PrefsSecurityViewController : NSViewController <MBPreferencesModule> {
 
-    IBOutlet NSPopUpButton *chooseLogLevelControl;
-    IBOutlet NSPopUpButton *chooseLogDirectoryControl;
-    IBOutlet NSButton *selectStandardDirectoryButton;
-    IBOutlet NSButton *allowUserAppFolderInstallButton;
-    IBOutlet NSMenuItem *logDirectory;
-    IBOutlet NSMatrix *kioskMode;
+    __weak IBOutlet NSButton *allowScreenCaptureButton;
+    __weak IBOutlet NSButton *allowWindowCaptureButton;
+    __weak IBOutlet NSButton *blockScreenShotsButton;
+    __weak IBOutlet NSPopUpButton *chooseLogLevelControl;
+    __weak IBOutlet NSPopUpButton *chooseLogDirectoryControl;
+    __weak IBOutlet NSButton *selectStandardDirectoryButton;
+    __weak IBOutlet NSButton *allowUserAppFolderInstallButton;
+    __weak IBOutlet NSMenuItem *logDirectory;
+    __weak IBOutlet NSMatrix *kioskMode;
     __weak IBOutlet NSComboBox *maxNumberDisplays;
     
     __weak IBOutlet NSComboBox *miniOSVersionMajor;
