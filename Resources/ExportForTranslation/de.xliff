@@ -373,7 +373,7 @@
       </trans-unit>
       <trans-unit id="48u-14-9LW.ibShadowedToolTip" xml:space="preserve">
         <source>SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents</source>
-        <target>SEB versucht verbotene Applikationen automatisch zu beenden und ihnen die Gelegenheit zum Abspeichern von ungespeicherten Änderungen zu geben</target>
+        <target>SEB versucht verbotene Applikationen automatisch zu beenden und ihnen die Gelegenheit zum Abspeichern von ungesicherten Änderungen zu geben</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents"; ObjectID = "48u-14-9LW";</note>
       </trans-unit>
       <trans-unit id="134.ibShadowedToolTip" xml:space="preserve">
@@ -2635,7 +2635,7 @@
       </trans-unit>
       <trans-unit id="AUn-ex-rqQ.ibShadowedToolTip" xml:space="preserve">
         <source>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC</source>
-        <target>Einzel-App-Modus aktiviert durch Classroom, ein MDM-System oder Apple Configurator benutzen, anstall AAC/ASAM</target>
+        <target>Einzel-App-Modus aktiviert durch Classroom, ein MDM-System oder Apple Configurator benutzen, anstatt AAC/ASAM</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC"; ObjectID = "AUn-ex-rqQ";</note>
       </trans-unit>
       <trans-unit id="AtG-6Z-aRN.title" xml:space="preserve">
@@ -3469,7 +3469,7 @@
       </trans-unit>
       <trans-unit id="Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." xml:space="preserve">
         <source>Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.</source>
-        <target>Wollen Sie wirklich alle laufenden verbotenen Prozesse zwangsweise beenden? Programme könnten ungespeicherte Dokumentenänderungen verlieren, insbesondere wenn diese kein automatisches Speichern unterstützen.</target>
+        <target>Wollen Sie wirklich alle laufenden verbotenen Prozesse zwangsweise beenden? Programme könnten ungesicherte Dokumentenänderungen verlieren, insbesondere wenn diese kein automatisches Speichern unterstützen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you really want to reload the current web page?" xml:space="preserve">
@@ -3778,9 +3778,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
-
-Reset local settings and continue?" xml:space="preserve">
+      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version. Reset local settings and continue?" xml:space="preserve">
         <source>Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
 
 Reset local settings and continue?</source>
@@ -4636,9 +4634,7 @@ Reset local settings and continue?</source>
         <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
-
-You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
+      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file. You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
         <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
 
 You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
