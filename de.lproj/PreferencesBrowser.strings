@@ -160,7 +160,7 @@
 /* Class = "NSButtonCell"; title = "Custom"; ObjectID = "Bth-dN-6f1"; */
 "Bth-dN-6f1.title" = "Benutzerdefiniert";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "cg4-A3-rqm"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "cg4-A3-rqm"; */
 "cg4-A3-rqm.ibShadowedToolTip" = "Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen";
 
 /* Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj"; */
@@ -190,7 +190,7 @@
 /* Class = "NSButtonCell"; title = "Allow inline playback on iPad"; ObjectID = "fRI-Y9-Qs5"; */
 "fRI-Y9-Qs5.title" = "Inline-Wiedergabe auf iPad";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Reload can be disabled completely for the exam with this setting, because it might break some offlne caching functionalities"; ObjectID = "FwJ-dG-wCg"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Reload can be disabled completely for the exam with this setting, because it might break some offline caching functionalities"; ObjectID = "FwJ-dG-wCg"; */
 "FwJ-dG-wCg.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb der Prüfung zurückkehrt";
 
 /* Class = "NSButtonCell"; title = "Desktop default:"; ObjectID = "fzm-2I-vcw"; */
@@ -238,7 +238,7 @@
 /* Class = "NSButtonCell"; title = "Allow video capture (webcam, Win)"; ObjectID = "RdC-g0-HsE"; */
 "RdC-g0-HsE.title" = "Videoaufnahme zulassen (Webcam, Win)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "rf6-Kj-obV"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "rf6-Kj-obV"; */
 "rf6-Kj-obV.ibShadowedToolTip" = "Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen";
 
 /* Class = "NSButtonCell"; title = "Mac Desktop:"; ObjectID = "T01-cf-vMr"; */

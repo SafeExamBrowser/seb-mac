@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -444,7 +444,7 @@
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="6v2-eF-cEt"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button toolTip="Reload can be disabled completely for the exam with this setting, because it might break some offlne caching functionalities" translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
+                                                                <button toolTip="Reload can be disabled completely for the exam with this setting, because it might break some offline caching functionalities" translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
                                                                     <rect key="frame" x="-2" y="48" width="96" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Allow reload" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1TN-dk-xIy">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -702,7 +702,7 @@
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-A3-rqm">
                                                                     <rect key="frame" x="-2" y="18" width="196" height="18"/>
-                                                                    <string key="toolTip">Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
+                                                                    <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPad" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fRI-Y9-Qs5">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -713,7 +713,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="rf6-Kj-obV">
                                                                     <rect key="frame" x="-2" y="-2" width="212" height="18"/>
-                                                                    <string key="toolTip">Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
+                                                                    <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPhone" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LQ1-WH-kpW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -1319,7 +1319,7 @@
                         <rect key="frame" x="1" y="634" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.87878787878787878" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.89696969696969697" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="633"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
