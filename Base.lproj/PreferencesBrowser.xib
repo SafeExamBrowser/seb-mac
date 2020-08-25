@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,10 +34,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="630" height="798"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="717" width="354" height="66"/>
+                                        <rect key="frame" x="20" y="717" width="590" height="66"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                                                <rect key="frame" x="-2" y="49" width="358" height="17"/>
+                                                <rect key="frame" x="-2" y="49" width="594" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="biv-Ti-nzG"/>
                                                 </constraints>
@@ -48,7 +48,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                                                <rect key="frame" x="-2" y="18" width="359" height="25"/>
+                                                <rect key="frame" x="-2" y="18" width="595" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -85,6 +85,8 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="85" secondAttribute="trailing" id="CrX-G9-ezu"/>
+                                            <constraint firstItem="84" firstAttribute="leading" secondItem="1WX-zZ-3xi" secondAttribute="leading" id="GmZ-Ds-xPc"/>
+                                            <constraint firstAttribute="trailing" secondItem="84" secondAttribute="trailing" id="eDG-wH-Gdw"/>
                                         </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
@@ -210,10 +212,10 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="He9-jM-mVJ">
-                                        <rect key="frame" x="20" y="591" width="372" height="24"/>
+                                        <rect key="frame" x="20" y="591" width="610" height="24"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                                                <rect key="frame" x="-2" y="4" width="186" height="16"/>
+                                                <rect key="frame" x="-2" y="4" width="305" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -221,7 +223,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                                                <rect key="frame" x="188" y="-3" width="187" height="25"/>
+                                                <rect key="frame" x="307" y="-3" width="306" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -381,7 +383,7 @@
                                                                 </stackView>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
                                                                     <rect key="frame" x="-2" y="-2" width="261" height="18"/>
-                                                                    <string key="toolTip">If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with "Inspect Element". Win: Use browser window toolbar menu for developer tools.</string>
+                                                                    <string key="toolTip">If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
                                                                     <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -444,7 +446,7 @@
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="6v2-eF-cEt"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button toolTip="Reload can be disabled completely for the exam with this setting, because it might break some offlne caching functionalities" translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
+                                                                <button toolTip="Reload can be disabled completely for the exam with this setting, because it might break some offline caching functionalities" translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
                                                                     <rect key="frame" x="-2" y="48" width="96" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Allow reload" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1TN-dk-xIy">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -677,8 +679,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IqX-2Y-Ffc">
                                                                     <rect key="frame" x="-2" y="-2" width="198" height="18"/>
-                                                                    <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps
-</string>
+                                                                    <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps</string>
                                                                     <buttonCell key="cell" type="check" title="Allow picture in picture video" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zZ5-9g-Lhz">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -702,7 +703,7 @@
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-A3-rqm">
                                                                     <rect key="frame" x="-2" y="18" width="196" height="18"/>
-                                                                    <string key="toolTip">Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
+                                                                    <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPad" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fRI-Y9-Qs5">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -713,7 +714,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="rf6-Kj-obV">
                                                                     <rect key="frame" x="-2" y="-2" width="212" height="18"/>
-                                                                    <string key="toolTip">Video contant can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
+                                                                    <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPhone" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LQ1-WH-kpW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -754,13 +755,13 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                                        <rect key="frame" x="17" y="52" width="616" height="201"/>
+                                        <rect key="frame" x="17" y="52" width="613" height="201"/>
                                         <view key="contentView" id="axo-2J-CZ8">
-                                            <rect key="frame" x="3" y="3" width="610" height="183"/>
+                                            <rect key="frame" x="3" y="3" width="607" height="183"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                                    <rect key="frame" x="9" y="121" width="593" height="25"/>
+                                                <popUpButton toolTip="Each SEB version/device type has separate user agent settings" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
+                                                    <rect key="frame" x="9" y="121" width="590" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -781,7 +782,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <tabView verticalCompressionResistancePriority="1000" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                                    <rect key="frame" x="11" y="12" width="588" height="104"/>
+                                                    <rect key="frame" x="11" y="12" width="585" height="104"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="105" id="rSZ-FD-lbj"/>
                                                     </constraints>
@@ -1185,8 +1186,8 @@
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" id="4fH-Ky-Giv"/>
                                                     </connections>
                                                 </tabView>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
-                                                    <rect key="frame" x="127" y="153" width="470" height="22"/>
+                                                <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
+                                                    <rect key="frame" x="127" y="153" width="467" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
                                                     </constraints>
@@ -1235,7 +1236,7 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="UVG-B6-tb2">
-                                        <rect key="frame" x="20" y="15" width="489" height="31"/>
+                                        <rect key="frame" x="20" y="15" width="590" height="31"/>
                                         <subviews>
                                             <button toolTip="When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
                                                 <rect key="frame" x="-3" y="16" width="229" height="18"/>
@@ -1256,7 +1257,7 @@
                                                 </connections>
                                             </button>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="447">
-                                                <rect key="frame" x="-2" y="0.0" width="493" height="14"/>
+                                                <rect key="frame" x="-2" y="0.0" width="594" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="14" id="mYD-wH-oFy"/>
                                                 </constraints>
@@ -1267,6 +1268,10 @@
                                                 </textFieldCell>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="447" secondAttribute="trailing" id="JoJ-hy-GVb"/>
+                                            <constraint firstItem="447" firstAttribute="leading" secondItem="UVG-B6-tb2" secondAttribute="leading" id="OmX-pn-dSQ"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -1279,11 +1284,17 @@
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="15"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="UVG-B6-tb2" secondAttribute="trailing" constant="20" id="4DD-Uy-j6u"/>
+                                    <constraint firstItem="UVG-B6-tb2" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="4Vd-Fx-Nzj"/>
                                     <constraint firstAttribute="trailing" secondItem="567" secondAttribute="trailing" id="75U-fk-Jm2"/>
                                     <constraint firstAttribute="trailing" secondItem="u8M-48-HFC" secondAttribute="trailing" id="8kT-Dd-Lie"/>
                                     <constraint firstAttribute="width" constant="630" id="DP4-vU-y1O"/>
+                                    <constraint firstAttribute="trailing" secondItem="1WX-zZ-3xi" secondAttribute="trailing" constant="20" id="KCf-R5-sDx"/>
+                                    <constraint firstItem="He9-jM-mVJ" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="Kr7-zU-glf"/>
+                                    <constraint firstItem="1WX-zZ-3xi" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="M5w-Wy-gkn"/>
                                     <constraint firstAttribute="trailing" secondItem="13B-3r-AKS" secondAttribute="trailing" id="Yqj-Rb-XTo"/>
                                     <constraint firstAttribute="trailing" secondItem="7nL-Z2-JAg" secondAttribute="trailing" id="vBJ-tg-70p"/>
+                                    <constraint firstAttribute="trailing" secondItem="He9-jM-mVJ" secondAttribute="trailing" id="wYa-pF-EAb"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
@@ -1319,7 +1330,7 @@
                         <rect key="frame" x="1" y="634" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.87878787878787878" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.90909090909090906" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="633"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

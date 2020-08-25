@@ -74,6 +74,7 @@
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
 #import "NSRunningApplication+SEB.h"
+#import "ProcessManager.h"
 
 #import "SEBDockItemMenu.h"
 
@@ -120,6 +121,7 @@ bool insideMatrix(void);
 
 @synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
+@synthesize quitSession;
 @synthesize webView;
 @synthesize capWindows;
 @synthesize lockdownWindows;
@@ -142,6 +144,16 @@ bool insideMatrix(void);
         _browserController.sebController = self;
     }
     return _browserController;
+}
+
+
+- (ProcessListViewController *) processListViewController
+{
+    if (!_processListViewController) {
+        _processListViewController = [[ProcessListViewController alloc] initWithNibName:@"ProcessListView" bundle:nil];
+        _processListViewController.delegate = self;
+    }
+    return _processListViewController;
 }
 
 
@@ -243,7 +255,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s", __FUNCTION__);
     
     // Flag initializing
-    quittingMyself = FALSE; //flag to know if quit application was called externally
+    quittingMyself = false; //flag to know if quit application was called externally
     
     // Terminate invisibly running applications
     if ([NSRunningApplication respondsToSelector:@selector(terminateAutomaticallyTerminableApplications)]) {
@@ -267,11 +279,7 @@ bool insideMatrix(void);
         }
     }
     
-    /// First kiosk mode setup which doesn't depend on settings
-    
-    // Hide all other applications
-    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
+    [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     /// Setup Notifications
     
@@ -305,6 +313,20 @@ bool insideMatrix(void);
                                        selector:@selector(appLaunch:)
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:nil];
+    
+    // Add key/value observing for any new application/process being run
+    // also background apps or for apps that have the LSUIElement key in their Info.plist file
+    static const void *kMyKVOContext = (void*)&kMyKVOContext;
+
+    [[NSWorkspace sharedWorkspace] addObserver:self
+                                    forKeyPath:@"runningApplications"
+                                       options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                       context:NULL];
+    
+    [[NSWorkspace sharedWorkspace] addObserver:self
+                                    forKeyPath:@"isTerminated"
+                                       options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
+                                       context:NULL];
     
     // Add an observer for the notification that another application was unhidden by the finder
     [[workspace notificationCenter] addObserver:self
@@ -650,9 +672,6 @@ bool insideMatrix(void);
         }
     }
 
-    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-    [self coverScreens];
-
     if (_openingSettings && _openingSettingsFileURL) {
         DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
         [self openFile:_openingSettingsFileURL];
@@ -757,7 +776,7 @@ bool insideMatrix(void);
         if (_startingUp) {
             // we quit, as decrypting the config wasn't successful
             DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            quittingMyself = TRUE; // SEB is terminating itself
+            quittingMyself = true; // quit SEB without asking for confirmation or password
             [NSApp terminate: nil]; // Quit SEB
         } else {
             // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
@@ -789,57 +808,209 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    _runningProhibitedProcesses = [NSMutableArray new];
+    _terminatedProcessesExecutableURLs = [NSMutableArray new];
+
     if (!_openingSettings)
     {
-        // Check for command key being held down
-        [self appSwitcherCheck];
-        
-        // Block screen shots
-        [self.systemManager preventScreenCapture];
-        
         // Initialize SEB according to client settings
-        [self conditionallyInitSEB];
-        
-        // Start system monitoring and prevent to start SEB if specific
-        // system features are activated
-        
-        [self startSystemMonitoring];
-        
-        // Set up SEB Browser
-        
-        self.browserController.reinforceKioskModeRequested = YES;
-        
-        // Open the main browser window
-        DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
-        
-        [self.browserController openMainBrowserWindow];
-        
-        // Persist start URL of a "secure" exam
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-            currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-            [self.sebLockedViewController addLockedExam:currentExamStartURL];
-        } else {
-            currentExamStartURL = nil;
-        }
-        
-        // SEB finished starting up, reset the flag for starting up
-        _startingUp = false;
-
-        [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+        [self conditionallyInitSEBWithCallback:self
+                                      selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
+    } else {
+        // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+        [self coverScreens];
     }
 }
 
+- (void)didFinishLaunchingWithSettingsProcessesChecked
+{
+    // Check for command key being held down
+    [self appSwitcherCheck];
+    
+    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+    [self coverScreens];
+
+    // Block screen shots
+    [self.systemManager preventScreenCapture];
+    
+    // Start system monitoring and prevent to start SEB if specific
+    // system features are activated
+    
+    [self startSystemMonitoring];
+    
+    // Set up SEB Browser
+    
+    self.browserController.reinforceKioskModeRequested = YES;
+    
+    // Open the main browser window
+    DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
+    
+    [self.browserController openMainBrowserWindow];
+    
+    // Persist start URL of a "secure" exam
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+    } else {
+        currentExamStartURL = nil;
+    }
+    
+    // SEB finished starting up, reset the flag for starting up
+    _startingUp = false;
+
+    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+}
 
 #pragma mark - Initialization depending on client or opened settings
 
-- (void) conditionallyInitSEB
+- (void) conditionallyInitSEBWithCallback:(id)callback
+                                 selector:(SEL)selector;
+{
+    /// Kiosk mode checks
+    
+    // Check if running on minimal macOS version
+    [self checkMinMacOSVersion];
+    
+    // Check if launched SEB is placed ("installed") in an Applications folder
+    [self installedInApplicationsFolder];
+    
+    
+    // Check if any prohibited processes are running and terminate them
+    
+    [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
+    
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    self.runningProcesses = allRunningProcesses;
+    
+    NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
+    NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
+
+    NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+    NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
+    BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
+
+    // Check if any prohibited processes are running
+    for (NSDictionary *process in allRunningProcesses) {
+        NSNumber *PID = process[@"PID"];
+        pid_t processPID = PID.intValue;
+        NSRunningApplication *runningApplication = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
+        NSString *bundleID = runningApplication.bundleIdentifier;
+        if (bundleID) {
+            // NSRunningApplication
+            NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
+            NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
+            if (matchingProhibitedApplications.count != 0) {
+                NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
+                if (appURL) {
+                    // Add the app's file URL, so we can restart it when exiting SEB
+                    [_terminatedProcessesExecutableURLs addObject:appURL];
+                }
+                NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithIdentifier:bundleID];
+                if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
+                    if ([runningApplication kill] != ERR_SUCCESS) {
+                        [runningApplications addObject:runningApplication];
+                    }
+                } else {
+                    [runningApplications addObject:runningApplication];
+                    if (autoQuitApplications) {
+                        [runningApplication terminate];
+                    }
+                }
+            }
+        } else {
+            // BSD process
+            NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", process[@"name"]];
+            NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
+            if (filteredProcesses.count != 0) {
+                NSURL *processURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
+                NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
+                if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
+                    if ((NSInteger)kill(processPID, 9) != ERR_SUCCESS) {
+                        [runningProcesses addObject:process];
+                    } else {
+                        // Add the process' file URL, so we can restart it when exiting SEB
+                        [_terminatedProcessesExecutableURLs addObject:processURL];
+                    }
+                } else {
+                    [runningProcesses addObject:process];
+                }
+            }
+        }
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // Check if all prohibited processes did terminate and otherwise prompt the user
+        if (runningApplications.count + runningProcesses.count > 0) {
+            self.processListViewController.runningApplications = runningApplications;
+            self.processListViewController.runningProcesses = runningProcesses;
+            self.processListViewController.callback = callback;
+            self.processListViewController.selector = selector;
+            
+            NSWindow *runningProcessesListWindow;
+            if (@available(macOS 10.10, *)) {
+                runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
+            } else {
+                runningProcessesListWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
+                NSRect newWindowFrame = self.processListViewController.view.frame;
+                runningProcessesListWindow.contentView = self.processListViewController.view;
+            [runningProcessesListWindow setFrame:newWindowFrame display:YES animate:NO];
+            [runningProcessesListWindow center];
+            }
+            [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
+            runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
+            NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
+            self.runningProcessesListWindowController = processListWindowController;
+            // Check if the process wasn't closed in the meantime (race condition)
+            // important: processListViewController must be accessed with the instance variable
+            // _processListViewController here and not using the property self.processListViewController
+            // as otherwise a new instance of the controller will be allocated
+            if (self->_processListViewController &&
+                self->_processListViewController.runningApplications.count +
+                self->_processListViewController.runningProcesses.count > 0) {
+                [self.runningProcessesListWindowController showWindow:nil];
+                return;
+            }
+        }
+        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+
+    });
+}
+
+
+- (NSMutableArray *)checkProcessesRunning:(NSMutableArray *)runningProcesses
+{
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    self.runningProcesses = allRunningProcesses;
+    
+    NSUInteger i=0;
+    while (i < (runningProcesses).count) {
+        NSDictionary *runningProcess = (runningProcesses)[i];
+        if (![allRunningProcesses containsObject:runningProcess]) {
+            DDLogDebug(@"Running process %@ did terminate", runningProcess[@"name"]);
+            [runningProcesses removeObjectAtIndex:i];
+        } else {
+            i++;
+        }
+    }
+    return runningProcesses;
+}
+
+
+- (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
+                                                 selector:(SEL)selector
 {
     /// Early kiosk mode setup (as these actions might take some time)
     
+    // Hide all other applications
+    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                    withObject:NULL waitUntilDone:NO];
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenRecording = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"];
-
+    allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+    
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
     
@@ -855,20 +1026,12 @@ bool insideMatrix(void);
     [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
     
-    /// Kiosk mode checks
-    
-    // Check if running on minimal macOS version
-    [self checkMinMacOSVersion];
-    
-    // Check if launched SEB is placed ("installed") in an Applications folder
-    [self installedInApplicationsFolder];
-    
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
     
     // Clear pasteboard and save current string for pasting start URL in Preferences Window
     [self clearPasteboardSavingCurrentString];
-
+    
     // Check if the Force Quit window is open
     [self forceQuitWindowCheck];
     
@@ -876,16 +1039,10 @@ bool insideMatrix(void);
     [self openSEBDock];
     self.browserController.dockController = self.dockController;
     
-    // Hide all other applications
-    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
-
     // Run watchdog event for windows and events which need to be observed
     // on the main (UI!) thread once, to initialize
-    _runningProhibitedProcesses = [NSMutableArray new];
-    _terminatedProcessesExecutableURLs = [NSMutableArray new];
     [self windowWatcher];
-   
+    
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
@@ -906,7 +1063,7 @@ bool insideMatrix(void);
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 [modalAlert runModal];
                 [self removeAlertWindow:modalAlert.window];
-                quittingMyself = TRUE; //SEB is terminating itself
+                quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
                 
             } else {
@@ -921,24 +1078,48 @@ bool insideMatrix(void);
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
         }
     }
+    // Continue to starting the exam session
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
+}
+
+
+- (BOOL) quitSession
+{
+    return !_startingUp && NSUserDefaults.userDefaultsPrivate;
+}
+
+
+- (void) quitSEBOrSession
+{
+    if (self.quitSession) {
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        [self requestedRestart:nil];
+    } else {
+        quittingMyself = true; //quit SEB without asking for confirmation or password
+        [NSApp terminate: nil]; //quit SEB
+    }
 }
 
 
 - (void) startSystemMonitoring
 {
     // Get all running processes, including daemons
-    NSArray *allRunningProcesses = [self getProcessNameArray];
-    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
+    NSArray *allRunningProcesses = [self getProcessArray];
+    NSArray *allRunningProcessNames = [allRunningProcesses valueForKey:@"name"];
+    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcessNames.count, allRunningProcessNames);
     
     // Check for activated screen sharing if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
     allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
     allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
     
     if (!allowScreenSharing &&
-        ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent]))
+        ([allRunningProcessNames containsObject:screenSharingAgent] ||
+         [allRunningProcessNames containsObject:AppleVNCAgent]))
     {
         // Screen sharing is active
         DDLogError(@"Screen Sharing Detected, SEB will quit");
@@ -946,24 +1127,24 @@ bool insideMatrix(void);
                                  text:[NSString stringWithFormat:@"%@\n\n%@",
                                        NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
                                        NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     }
     
     if (!allowSiri &&
-        [allRunningProcesses containsObject:SiriService] &&
+        [allRunningProcessNames containsObject:SiriService] &&
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue])
     {
         // Siri is active
         DDLogError(@"Siri Detected, SEB will quit");
         [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
                                  text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     }
     
     if (!allowDictation &&
-        [allRunningProcesses containsObject:DictationProcess] &&
+        [allRunningProcessNames containsObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
          [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue]))
     {
@@ -971,7 +1152,7 @@ bool insideMatrix(void);
         DDLogError(@"Dictation Detected, SEB will quit");
         [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
                                  text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     }
     
@@ -1173,7 +1354,7 @@ bool insideMatrix(void);
 }
 
 
-- (NSArray *) getProcessArray {
+- (NSArray <NSDictionary *>*) getProcessArray {
     NSMutableArray *ProcList = [[NSMutableArray alloc] init];
     
     kinfo_proc *mylist;
@@ -1343,28 +1524,20 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 #pragma mark - Window/Panel Monitoring
 
-dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispatch_queue_t queue, dispatch_block_t block)
-{
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    if (timer)
-    {
-        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
-        dispatch_source_set_event_handler(timer, block);
-        dispatch_resume(timer);
-    }
-    return timer;
-}
-
-
 // Start the process watcher if it's not yet running
 - (void)startProcessWatcher
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (!_processWatchTimer) {
-        _processWatchTimer = CreateDispatchTimer(0.25 * NSEC_PER_SEC, (0.25 * NSEC_PER_SEC) / 10, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_source_t newProcessWatchTimer =
+        [ProcessManager createDispatchTimerWithInterval:0.25 * NSEC_PER_SEC
+                                                 leeway:(0.25 * NSEC_PER_SEC) / 10
+                                          dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                                          dispatchBlock:^{
             [self processWatcher];
-        });
+        }];
+        _processWatchTimer = newProcessWatchTimer;
     }
 }
 
@@ -1439,13 +1612,13 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
-    NSPredicate *filterProcessName;
+    NSPredicate *processNameFilter;
     NSArray *filteredProcesses;
     
     // Check for font download process
     if (!_allowSwitchToApplications) {
-        filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
-        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+        processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
             if (!fontRegistryUIAgentDisplayed) {
                 fontRegistryUIAgentDisplayed = YES;
@@ -1494,9 +1667,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         }
     }
     // Check for running screen capture process
-    if (!allowScreenRecording) {
-        filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
-        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:filterProcessName];
+    if (!allowScreenCapture) {
+        processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         
         if (filteredProcesses.count > 0) {
             NSDictionary *screenCaptureAgentProcessDetails = filteredProcesses[0];
@@ -1505,7 +1678,20 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             DDLogDebug(@"Terminating %@ was %@successfull (code: %ld)", screenCaptureAgentProcessDetails, success == 0 ? @"" : @"not ", (long)success);
         }
     }
-
+    // Check for prohibited BSD processes
+    NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses.copy;
+    for (NSString *executableName in prohibitedProcesses) {
+        // Wildcards are allowed when filtering process names
+        processNameFilter = [NSPredicate predicateWithFormat:@"name LIKE %@", executableName];
+        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
+        if (filteredProcesses.count > 0) {
+            for (NSDictionary *runningProhibitedProcess in filteredProcesses) {
+                NSNumber *PID = [runningProhibitedProcess objectForKey:@"PID"];
+                [self killProcessWithPID:PID.intValue];
+            }
+        }
+    }
+    
     lastTimeProcessCheck = [NSDate date];
     checkingRunningProcesses = false;
 }
@@ -1545,7 +1731,9 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 #endif
 
         // Close the Notification Center panel in case switching to applications is allowed
-        if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"] && ![_preferencesController preferencesAreOpen]) {
+        if (_allowSwitchToApplications &&
+            [windowName isEqualToString:@"NotificationTableWindow"] &&
+            ![_preferencesController preferencesAreOpen]) {
             // If switching to applications is allowed and the Notification Center was opened
             DDLogWarn(@"Notification Center panel was opened (owning process name: %@", windowOwner);
             
@@ -1582,10 +1770,6 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                                 //[appWithPanel terminate];
                             } else {
                                 DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
-                                NSURL *appURL = [self getBundleOrExecutableURL:appWithPanel];
-                                if (appURL) {
-                                    [_terminatedProcessesExecutableURLs addObject:appURL];
-                                }
                                 [self killApplication:appWithPanel];
                                 fishyWindowWasOpened = true;
                             }
@@ -1601,11 +1785,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                                     //[appWithPanel terminate];
                                 } else {
                                     DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
-                                    NSURL *appURL = [self getBundleOrExecutableURL:appWithPanel];
-                                    if (appURL) {
-                                        [_terminatedProcessesExecutableURLs addObject:appURL];
-                                    }
-                                    [self killApplication:appWithPanel];
+                                    [self killProcessWithPID:windowOwnerPID];
                                     fishyWindowWasOpened = true;
                                 }
                             }
@@ -1679,27 +1859,13 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 // Check if application is a legit Apple system executable
 - (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
 {
-    SecStaticCodeRef ref = NULL;
-    
-    int ret;
-    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
-    
-    ret = proc_pidpath (runningExecutablePID, pathbuf, sizeof(pathbuf));
-    if ( ret <= 0 ) {
-        fprintf(stderr, "PID %d: proc_pidpath ();\n", runningExecutablePID);
-        fprintf(stderr, "    %s\n", strerror(errno));
-    } else {
-#ifdef DEBUG
-        printf("proc %d: %s\n", runningExecutablePID, pathbuf);
-#endif
-    }
-
-    NSString *executablePath = [NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding];
+    NSString * executablePath = [ProcessManager getExecutablePathForPID:runningExecutablePID];
     NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
 
     DDLogDebug(@"Evaluating code signature of %@", executablePath);
     
     OSStatus status;
+    SecStaticCodeRef ref = NULL;
     
     // obtain the cert info from the executable
     status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
@@ -1732,15 +1898,18 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // create the requirement to check against
     status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
     
+    if (status == noErr && req != NULL) {
+        status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+    }
+    
+    if (ref) {
+        CFRelease(ref);
+    }
+    if (req) {
+        CFRelease(req);
+    }
+    
     if (status != noErr) return false;
-    if (req == NULL) return false;
-    
-    status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
-    
-    if (status != noErr) return false;
-    
-    CFRelease(ref);
-    CFRelease(req);
     
     DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
     
@@ -1758,7 +1927,8 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
     
     // Also set flags for screen sharing
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+       ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
 
     // Also set flag for SIGSTOP detection
     detectSIGSTOP = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectStoppedProcess"];
@@ -2082,7 +2252,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
     if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
         DDLogError(@"Current settings require SEB to be running at least on %@, but it isn't! SEB will therefore quit!", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]);
-        quittingMyself = TRUE; //SEB is terminating itself
+        quittingMyself = true; //quit SEB without asking for confirmation or password
         [NSApp terminate: nil]; //quit SEB
     } else {
         DDLogInfo(@"SEB is running at least on the minimal macOS version %@ required by current settings (actually on version %f)", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion], floor(NSAppKitVersionNumber));
@@ -2103,7 +2273,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 #ifndef DEBUG
             DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
             _forceAppFolder = YES;
-            quittingMyself = TRUE; //SEB is terminating itself
+            quittingMyself = true; //quit SEB without asking for confirmation or password
             [NSApp terminate: nil]; //quit SEB
 #else
             DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
@@ -2145,7 +2315,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             DDLogError(@"Command key is pressed and forbidden, SEB cannot restart");
-            quittingMyself = TRUE; //SEB is terminating itself
+            quittingMyself = true; //quit SEB without asking for confirmation or password
             [NSApp terminate: nil]; //quit SEB
         } else {
             DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
@@ -2202,7 +2372,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                 {
                     // Quit SEB
                     DDLogError(@"Force Quit window was open, user decided to quit SEB.");
-                    quittingMyself = TRUE; //SEB is terminating itself
+                    quittingMyself = true; //quit SEB without asking for confirmation or password
                     [NSApp terminate: nil]; //quit SEB
                 }
             }
@@ -2384,7 +2554,7 @@ bool insideMatrix(){
         
         [window setReleasedWhenClosed:YES];
         [window setBackgroundColor:windowColor];
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [window newSetLevel:windowLevel];
@@ -2614,246 +2784,250 @@ bool insideMatrix(){
 {
     self.didBecomeActiveTime = [NSDate date];
 
-    /// Handler called when SEB resigns active state (by user switch / switch to login window)
-    
-    if ([[notification name] isEqualToString:
-         NSWorkspaceSessionDidResignActiveNotification])
-    {
-        self.didResignActiveTime = [NSDate date];
+    dispatch_async(dispatch_get_main_queue(), ^{
 
-        // Set alert title and message strings
-        [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
-                                                Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
-        
-        DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
-        [self openLockdownWindows];
-        
-        // Add log string for resign active
-        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
-        
-    }
+            /// Handler called when SEB resigns active state (by user switch / switch to login window)
+            
+            if ([[notification name] isEqualToString:
+                 NSWorkspaceSessionDidResignActiveNotification])
+            {
+                self.didResignActiveTime = [NSDate date];
 
-    /// Handler called when SEB becomes active again (after user switch / switch to login window)
-    
-    else if ([[notification name] isEqualToString:
-              NSWorkspaceSessionDidBecomeActiveNotification])
-    {
-        // Perform activation tasks here.
-        
-        DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
-        
-        // Add log string for becoming active
-        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
-        
-        // Calculate time difference between session resigning active and becoming active again
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
-                                                   fromDate:self.didResignActiveTime
-                                                     toDate:self.didBecomeActiveTime
-                                                    options:NSCalendarWrapComponents];
-        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
-        DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
-        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockedTimeInfo] withTime:nil];
-    }
-    
-    /// Handler called when attempting to re-open an exam which was interrupted before
-    
-    else if ([[notification name] isEqualToString:
-              @"detectedReOpeningExam"])
-    {
-        _reOpenedExamDetected = true;
+                // Set alert title and message strings
+                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
+                                                        Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
+                
+                DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
+                [self openLockdownWindows];
+                
+                // Add log string for resign active
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
+                
+            }
 
-        [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
-                                                Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                         NSLocalizedString(@"This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
-                                                         NSLocalizedString(@"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running.", nil)
-                                                         ]];
+            /// Handler called when SEB becomes active again (after user switch / switch to login window)
+            
+            else if ([[notification name] isEqualToString:
+                      NSWorkspaceSessionDidBecomeActiveNotification])
+            {
+                // Perform activation tasks here.
+                
+                DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
+                
+                // Add log string for becoming active
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
+                
+                // Calculate time difference between session resigning active and becoming active again
+                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
+                                                           fromDate:self.didResignActiveTime
+                                                             toDate:self.didBecomeActiveTime
+                                                            options:NSCalendarWrapComponents];
+                NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+                DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockedTimeInfo] withTime:nil];
+            }
+            
+            /// Handler called when attempting to re-open an exam which was interrupted before
+            
+            else if ([[notification name] isEqualToString:
+                      @"detectedReOpeningExam"])
+            {
+                self.reOpenedExamDetected = true;
 
-        // Add log string for trying to re-open a locked exam
-        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:self.didBecomeActiveTime];
+                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
+                                                        Message:[NSString stringWithFormat:@"%@\n\n%@",
+                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
+                                                                 NSLocalizedString(@"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running.", nil)
+                                                                 ]];
 
-        [self openLockdownWindows];
-    }
-    
-    /// Handler called when screen sharing was detected
-    
-    else if ([[notification name] isEqualToString:
-              @"detectedScreenSharing"])
-    {
-        if (!_screenSharingDetected) {
-            _screenSharingDetected = true;
-            _sebLockedViewController.overrideCheckForScreenSharing.state = false;
-            _sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
-            
-            // Set custom alert message string
-            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
-                                                    Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                             NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
-                                                             NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
-                                                             ]];
-            
-            // Report screen sharing is still active every 3rd second
-            screenSharingLogCounter = logReportCounter;
-            DDLogError(@"Screen sharing was activated!");
-            
-            if (_screenSharingCheckOverride == false) {
-                [self openLockdownWindows];
-            }
-            
-            // Add log string for screen sharing active
-            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didBecomeActiveTime];
-        } else {
-            if (!self.lockdownWindows) {
-                _sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
-                [self openLockdownWindows];
-            }
-            // Add log string for screen sharing still active
-            if (!screenSharingLogCounter--) {
-                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:self.didBecomeActiveTime];
-                screenSharingLogCounter = logReportCounter;
-            }
-        }
-    }
-    
-    /// Handler called when Siri was detected
-    
-    else if ([[notification name] isEqualToString:
-              @"detectedSiri"])
-    {
-        if (!_siriDetected) {
-            _siriDetected = true;
-            _sebLockedViewController.overrideCheckForSiri.state = false;
-            _sebLockedViewController.overrideCheckForSiri.hidden = false;
-            
-            // Set custom alert message string
-            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
-                                                    Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
-            
-            // Report Siri is still active every 3rd second
-            siriLogCounter = logReportCounter;
-            DDLogError(@"Screen sharing was activated!");
-            
-            if (_siriCheckOverride == false) {
-                [self openLockdownWindows];
-            }
-            
-            // Add log string for Siri active
-            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didBecomeActiveTime];
-        } else {
-            if (!self.lockdownWindows) {
-                _sebLockedViewController.overrideCheckForSiri.hidden = false;
-                [self openLockdownWindows];
-            }
-            // Add log string for Siri still active
-            if (!siriLogCounter--) {
-                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:self.didBecomeActiveTime];
-                siriLogCounter = logReportCounter;
-            }
-        }
-    }
-    
-    /// Handler called when dictation was detected
-    
-    else if ([[notification name] isEqualToString:
-              @"detectedDictation"])
-    {
-        if (!_dictationDetected) {
-            _dictationDetected = true;
-            _sebLockedViewController.overrideCheckForDictation.state = false;
-            _sebLockedViewController.overrideCheckForDictation.hidden = false;
-            
-            // Set custom alert message string
-            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
-                                                    Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
-            
-            // Report dictation is still active every 3rd second
-            dictationLogCounter = logReportCounter;
-            DDLogError(@"Dictation was activated!");
-            
-            if (_dictationCheckOverride == false) {
-                [self openLockdownWindows];
-            }
-            
-            // Add log string for dictation active
-            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didBecomeActiveTime];
-        } else {
-            if (!self.lockdownWindows) {
-                _sebLockedViewController.overrideCheckForDictation.hidden = false;
-                [self openLockdownWindows];
-            }
-            // Add log string for dictation still active
-            if (!dictationLogCounter--) {
-                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:self.didBecomeActiveTime];
-                dictationLogCounter = logReportCounter;
-            }
-        }
-    }
-    
-    /// Handler called when a prohibited process was detected
-    
-    else if ([[notification name] isEqualToString:
-              @"detectedProhibitedProcess"])
-    {
-        if (!_processesDetected) {
-            _processesDetected = true;
-            _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-            _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
-            _sebLockedViewController.overrideCheckForAllProcesses.state = false;
-            _sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
-            
-            // Set custom alert message string
-            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
-                                                    Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.", nil)];
-            
-            // Report processes are still active every 3rd second
-            prohibitedProcessesLogCounter = logReportCounter;
-            DDLogError(@"Prohibited processes detected!");
-            
-            if (_processCheckAllOverride == false) {
-                [self openLockdownWindows];
-            }
-            
-            // Add log string for prohibited process detected
-            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), _runningProhibitedProcesses] withTime:self.didBecomeActiveTime];
-        } else {
-            if (!self.lockdownWindows) {
-                _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
-                _sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
-                [self openLockdownWindows];
-            }
-            // Add log string for detected prohibited process
-            if (!prohibitedProcessesLogCounter--) {
-                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:self.didBecomeActiveTime];
-                prohibitedProcessesLogCounter = logReportCounter;
-            }
-        }
-    }
-    
-    /// Handler called when a SIGSTOP was detected
-    
-    else if ([[notification name] isEqualToString:
-              @"detectedSIGSTOP"])
-    {
-#ifndef DEBUG
+                // Add log string for trying to re-open a locked exam
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:self.didBecomeActiveTime];
 
-        [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
-                                                Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
-        // Add log string for trying to re-open a locked exam
-        // Calculate time difference between session resigning active and becoming active again
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
-                                                   fromDate:timeProcessCheckBeforeSIGSTOP
-                                                     toDate:self.didBecomeActiveTime
-                                                    options:NSCalendarWrapComponents];
-        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
-        
-        if (!self.lockdownWindows) {
-            [self openLockdownWindows];
-            self.didLockSEBTime = timeProcessCheckBeforeSIGSTOP;
-        }
-#endif
-    }
-    
+                [self openLockdownWindows];
+            }
+            
+            /// Handler called when screen sharing was detected
+            
+            else if ([[notification name] isEqualToString:
+                      @"detectedScreenSharing"])
+            {
+                if (!self.screenSharingDetected) {
+                    self.screenSharingDetected = true;
+                    self.sebLockedViewController.overrideCheckForScreenSharing.state = false;
+                    self.sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+                    
+                    // Set custom alert message string
+                    [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
+                                                            Message:[NSString stringWithFormat:@"%@\n\n%@",
+                                                                     NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
+                                                                     NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
+                                                                     ]];
+                    
+                    // Report screen sharing is still active every 3rd second
+                    self->screenSharingLogCounter = logReportCounter;
+                    DDLogError(@"Screen sharing was activated!");
+                    
+                    if (self.screenSharingCheckOverride == false) {
+                        [self openLockdownWindows];
+                    }
+                    
+                    // Add log string for screen sharing active
+                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didBecomeActiveTime];
+                } else {
+                    if (!self.lockdownWindows) {
+                        self.sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+                        [self openLockdownWindows];
+                    }
+                    // Add log string for screen sharing still active
+                    if (!self->screenSharingLogCounter--) {
+                        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:self.didBecomeActiveTime];
+                        self->screenSharingLogCounter = logReportCounter;
+                    }
+                }
+            }
+            
+            /// Handler called when Siri was detected
+            
+            else if ([[notification name] isEqualToString:
+                      @"detectedSiri"])
+            {
+                if (!self.siriDetected) {
+                    self.siriDetected = true;
+                    self.sebLockedViewController.overrideCheckForSiri.state = false;
+                    self.sebLockedViewController.overrideCheckForSiri.hidden = false;
+                    
+                    // Set custom alert message string
+                    [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
+                                                            Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                    
+                    // Report Siri is still active every 3rd second
+                    self->siriLogCounter = logReportCounter;
+                    DDLogError(@"Screen sharing was activated!");
+                    
+                    if (self.siriCheckOverride == false) {
+                        [self openLockdownWindows];
+                    }
+                    
+                    // Add log string for Siri active
+                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didBecomeActiveTime];
+                } else {
+                    if (!self.lockdownWindows) {
+                        self.sebLockedViewController.overrideCheckForSiri.hidden = false;
+                        [self openLockdownWindows];
+                    }
+                    // Add log string for Siri still active
+                    if (!self->siriLogCounter--) {
+                        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:self.didBecomeActiveTime];
+                        self->siriLogCounter = logReportCounter;
+                    }
+                }
+            }
+            
+            /// Handler called when dictation was detected
+            
+            else if ([[notification name] isEqualToString:
+                      @"detectedDictation"])
+            {
+                if (!self.dictationDetected) {
+                    self.dictationDetected = true;
+                    self.sebLockedViewController.overrideCheckForDictation.state = false;
+                    self.sebLockedViewController.overrideCheckForDictation.hidden = false;
+                    
+                    // Set custom alert message string
+                    [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
+                                                            Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                    
+                    // Report dictation is still active every 3rd second
+                    self->dictationLogCounter = logReportCounter;
+                    DDLogError(@"Dictation was activated!");
+                    
+                    if (self.dictationCheckOverride == false) {
+                        [self openLockdownWindows];
+                    }
+                    
+                    // Add log string for dictation active
+                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didBecomeActiveTime];
+                } else {
+                    if (!self.lockdownWindows) {
+                        self.sebLockedViewController.overrideCheckForDictation.hidden = false;
+                        [self openLockdownWindows];
+                    }
+                    // Add log string for dictation still active
+                    if (!self->dictationLogCounter--) {
+                        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:self.didBecomeActiveTime];
+                        self->dictationLogCounter = logReportCounter;
+                    }
+                }
+            }
+            
+            /// Handler called when a prohibited process was detected
+            
+            else if ([[notification name] isEqualToString:
+                      @"detectedProhibitedProcess"])
+            {
+                if (!self.processesDetected) {
+                    self.processesDetected = true;
+                    self.sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
+                    self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
+                    self.sebLockedViewController.overrideCheckForAllProcesses.state = false;
+                    self.sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+                    
+                    // Set custom alert message string
+                    [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
+                                                            Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                    
+                    // Report processes are still active every 3rd second
+                    self->prohibitedProcessesLogCounter = logReportCounter;
+                    DDLogError(@"Prohibited processes detected: %@", self.runningProhibitedProcesses);
+                    
+                    if (self.processCheckAllOverride == false) {
+                        [self openLockdownWindows];
+                    }
+                    if (self.overriddenProhibitedProcesses.count > 0) {
+                    }
+                    // Add log string for prohibited process detected
+                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime];
+                } else {
+                    if (!self.lockdownWindows) {
+                        self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
+                        self.sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+                        [self openLockdownWindows];
+                    }
+                    // Add log string for detected prohibited process
+                    if (!self->prohibitedProcessesLogCounter--) {
+                        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:self.didBecomeActiveTime];
+                        self->prohibitedProcessesLogCounter = logReportCounter;
+                    }
+                }
+            }
+            
+            /// Handler called when a SIGSTOP was detected
+            
+            else if ([[notification name] isEqualToString:
+                      @"detectedSIGSTOP"])
+            {
+        #ifndef DEBUG
+
+                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
+                                                        Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                // Add log string for trying to re-open a locked exam
+                // Calculate time difference between session resigning active and becoming active again
+                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
+                                                           fromDate:timeProcessCheckBeforeSIGSTOP
+                                                             toDate:self.didBecomeActiveTime
+                                                            options:NSCalendarWrapComponents];
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
+                
+                if (!self.lockdownWindows) {
+                    [self openLockdownWindows];
+                    self.didLockSEBTime = timeProcessCheckBeforeSIGSTOP;
+                }
+        #endif
+            }
+            
+    });
 }
 
 
@@ -2953,6 +3127,16 @@ bool insideMatrix(){
     
     if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
         _processCheckSpecificOverride = true;
+        if (_runningProhibitedProcesses.count > 0) {
+            if (!_overriddenProhibitedProcesses) {
+                _overriddenProhibitedProcesses = _runningProhibitedProcesses.mutableCopy;
+            } else {
+                [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
+            }
+            // Check if overridden processes are prohibited BSD processes from settings
+            // and remove them from list the periodically called process watcher checks
+            [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
+        }
         _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
     }
@@ -2963,14 +3147,20 @@ bool insideMatrix(){
         _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
     }
     
-    [_sebLockedViewController.view removeFromSuperview];
-    [self closeCoveringWindows:self.lockdownWindows];
-    self.lockdownWindows = nil;
     if (_screenSharingCheckOverride == false) {
         _screenSharingDetected = false;
     }
     lastTimeProcessCheck = [NSDate date];
     _SIGSTOPDetected = false;
+    
+    if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+        _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+        [self quitSEBOrSession];
+    }
+    
+    [_sebLockedViewController.view removeFromSuperview];
+    [self closeCoveringWindows:self.lockdownWindows];
+    self.lockdownWindows = nil;
 }
 
 
@@ -3207,17 +3397,43 @@ bool insideMatrix(){
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
     NSString *appLocalizedName = application.localizedName;
-    NSURL *appExecutableURL = application.executableURL;
-    NSInteger killSuccess = [application kill];
-    if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
-        DDLogError(@"Couldn't terminate app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
-        [_runningProhibitedProcesses addObject:application];
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"detectedProhibitedProcess" object:self];
+    NSURL *appURL = [self getBundleOrExecutableURL:application];
+    NSDictionary *processDetails = @{
+        @"name" : appLocalizedName,
+        @"PID" : [NSNumber numberWithInt:application.processIdentifier],
+        @"URL": appURL,
+        @"bundleID" : application.bundleIdentifier
+    };
+    if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
+        NSInteger killSuccess = [application kill];
+        if (killSuccess != ERR_SUCCESS) {
+            DDLogError(@"Couldn't terminate app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            [_runningProhibitedProcesses addObject:processDetails];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"detectedProhibitedProcess" object:self];
+        } else {
+            DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            if (appURL) {
+                // Add the app's file URL, so we can restart it when exiting SEB
+                [_terminatedProcessesExecutableURLs addObject:appURL];
+            }
+        }
+        return killSuccess;
     } else {
-        DDLogDebug(@"Successfully terminated app with localized name: %@, executable URL: %@)", appLocalizedName, appExecutableURL);
+        DDLogWarn(@"Didn't terminate app with localized name: %@, bundle or executable URL: %@, because a user did override it with the quit/unlock password.", appLocalizedName, appURL);
+        return ERR_SUCCESS;
     }
-    return killSuccess;
+}
+
+
+- (NSInteger) killProcessWithPID:(pid_t)processPID
+{
+    NSString * processName = [self getProcessName:processPID];
+    NSDictionary *processDetails = @{
+        @"name" : processName,
+        @"PID" : [NSNumber numberWithInt:processPID]
+    };
+    return [self killProcess:processDetails];
 }
 
 
@@ -3225,46 +3441,71 @@ bool insideMatrix(){
 {
     NSNumber *PID = [processDictionary objectForKey:@"PID"];
     pid_t processPID = PID.intValue;
+    
     NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
-    NSInteger killSuccess = (NSInteger)kill(processPID, 9);
-    DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
-
-    if (killSuccess > 0 && !_processCheckAllOverride) {
-        DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
+    NSURL *appURL = processDictionary[@"URL"];
+    NSMutableDictionary *processDetails = processDictionary.mutableCopy;
+    if (!appURL) {
         if (application) {
-            [_runningProhibitedProcesses addObject:application];
+            appURL = [self getBundleOrExecutableURL:application];
+            [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
+        } else {
+            appURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID]];
         }
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"detectedProhibitedProcess" object:self];
-    } else {
-        DDLogDebug(@"Successfully terminated app with PID %d)", processPID);
-        NSURL *appURL = [self getBundleOrExecutableURL:application];
-        if (appURL) {
-            [_terminatedProcessesExecutableURLs addObject:appURL];
-        }
+        [processDetails setValue:appURL forKey:@"URL"];
     }
-    DDLogDebug(@"Terminating process %@ was %@successfull (code: %ld)", processDictionary, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
+    
+    NSInteger killSuccess = ERR_SUCCESS;
+    if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
+        killSuccess = (NSInteger)kill(processPID, 9);
+        if (killSuccess != ERR_SUCCESS) {
+            DDLogError(@"Couldn't terminate application/process: %@, error code: %ld", processDetails, (long)killSuccess);
+            if (![_runningProhibitedProcesses containsObject:processDetails.copy]) {
+                [_runningProhibitedProcesses addObject:processDetails.copy];
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"detectedProhibitedProcess" object:self];
+            }
+        } else {
+            DDLogDebug(@"Successfully terminated application/process: %@", processDetails);
+            if (appURL) {
+                [_terminatedProcessesExecutableURLs addObject:appURL];
+            }
+        }
+    } else {
+        DDLogWarn(@"Didn't terminate app with localized name '%@' or process with bundle or executable URL '%@', because a user did override it with the quit/unlock password.", application.localizedName, appURL);
+    }
     return killSuccess;
 }
 
 
-- (NSInteger) killProcessWithPID:(pid_t)processPID
+- (BOOL) isOverriddenProhibitedProcess:(NSDictionary *)processDetails
 {
-    NSInteger killSuccess = (NSInteger)kill(processPID, 9);
-    DDLogDebug(@"Terminating process with PID %d was %@successfull (code: %ld)", processPID, killSuccess == 0 ? @"" : @"not ", (long)killSuccess);
-
-    if (killSuccess > 0 && !_processCheckAllOverride) {
-        NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
-        DDLogError(@"Couldn't terminate app with PID %d, NSRunningApplication: %@, error code: %ld", processPID, application, (long)killSuccess);
-        if (application) {
-            [_runningProhibitedProcesses addObject:application];
+    if (_overriddenProhibitedProcesses) {
+        NSArray *filteredOverriddenProcesses = _overriddenProhibitedProcesses.copy;
+        NSString *bundleID = processDetails[@"bundleID"];
+        if (bundleID) {
+            NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"bundleID ==[cd] %@", bundleID];
+            filteredOverriddenProcesses = [filteredOverriddenProcesses filteredArrayUsingPredicate:processFilter];
+            if (filteredOverriddenProcesses.count == 0) {
+                return NO;
+            }
         }
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"detectedProhibitedProcess" object:self];
-    } else {
-        DDLogDebug(@"Successfully terminated app with PID %d)", processPID);
+        NSURL* processURL = processDetails[@"URL"];
+        if (processURL) {
+            NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"URL ==[cd] %@", processURL];
+            filteredOverriddenProcesses = [filteredOverriddenProcesses filteredArrayUsingPredicate:processFilter];
+            if (filteredOverriddenProcesses.count == 0) {
+                return NO;
+            }
+        }
+        NSString *processName = processDetails[@"name"];
+        NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@", processName];
+        filteredOverriddenProcesses = [filteredOverriddenProcesses filteredArrayUsingPredicate:processFilter];
+        if (filteredOverriddenProcesses.count != 0) {
+            return YES;
+        }
     }
-    return killSuccess;
+    return NO;
 }
 
 
@@ -3928,7 +4169,7 @@ bool insideMatrix(){
             if ([self.preferencesController preferencesAreOpen]) {
                 [self.preferencesController quitSEB:self];
             } else {
-                quittingMyself = TRUE; //SEB is terminating itself
+                quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
             }
         }
@@ -3938,7 +4179,7 @@ bool insideMatrix(){
 
 - (void)requestedQuit:(NSNotification *)notification
 {
-    quittingMyself = TRUE; //SEB is terminating itself
+    quittingMyself = true; //quit SEB without asking for confirmation or password
     [NSApp terminate: nil]; //quit SEB
 }
 
@@ -3953,30 +4194,33 @@ bool insideMatrix(){
         [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
-    // Clear private pasteboard
-    self.browserController.privatePasteboardItems = [NSArray array];
-    
-    // Adjust screen shot blocking
-    [self.systemManager adjustScreenCapture];
-    
     // Close all browser windows (documents)
     [self.browserController closeAllBrowserWindows];
 
     // Reset SEB Browser
     [self.browserController resetBrowser];
+
+    // Clear private pasteboard
+    self.browserController.privatePasteboardItems = [NSArray array];
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
     
+    [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+}
+
+- (void)requestedRestartProcessesChecked
+{
     // Check for command key being held down
     while ([self commandKeyPressed]) {
         DDLogError(@"Command key was pressed and forbidden, retest");
     }
     
+    // Adjust screen shot blocking
+    [self.systemManager adjustScreenCapture];
+    
     [self setElevateWindowLevels];
 
-    [self conditionallyInitSEB];
-    
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     
@@ -4070,7 +4314,7 @@ bool insideMatrix(){
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                 // if the correct quit password was entered
-                quittingMyself = TRUE; //SEB is terminating itself
+                quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 // Wrong quit password was entered
@@ -4101,7 +4345,7 @@ bool insideMatrix(){
                     if ([self.preferencesController preferencesAreOpen]) {
                         [self.preferencesController quitSEB:self];
                     } else {
-                        quittingMyself = TRUE; //SEB is terminating itself
+                        quittingMyself = true; //quit SEB without asking for confirmation or password
                         [NSApp terminate: nil]; //quit SEB
                     }
                 }
@@ -4228,7 +4472,6 @@ bool insideMatrix(){
             //        NSString *path = [executableURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
             [task setLaunchPath:executableURL.path];
             
-            // The argument that we pass to XULRunner (in the form of an array) is the path to the SEB-XUL-App
             [task setArguments:taskArguments];
             
             // Launch the process asynchronously
@@ -4349,10 +4592,43 @@ bool insideMatrix(){
     } else if ([keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
-//            [self appLaunch:nil];
+    } else if ([keyPath isEqualToString:@"runningApplications"]) {
+        NSArray *startedProcesses = [change objectForKey:@"new"];
+        if (startedProcesses.count > 0) {
+            NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+            for (NSRunningApplication *startedApplication in startedProcesses) {
+                NSString *bundleID = startedApplication.bundleIdentifier;
+                DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
+                NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
+                if (matchingProhibitedApplications.count != 0) {
+                    [self killApplication:startedApplication];
+                }
+            }
+        } else {
+            NSArray *terminatedProcesses = [change objectForKey:@"old"];
+            if (terminatedProcesses.count > 0 && _processListViewController != nil) {
+                [_processListViewController didTerminateRunningApplications:terminatedProcesses];
+            }
         }
     }
 }
 
+
+- (void)closeProcessListWindow
+{
+    [_runningProcessesListWindowController close];
+    _processListViewController = nil;
+}
+
+- (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
+{
+    [_runningProcessesListWindowController close];
+    _processListViewController = nil;
+    // Continue to initializing SEB and then starting the exam session
+    if (callback) {
+        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+    }
+}
 
 @end

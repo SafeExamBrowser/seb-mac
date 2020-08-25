@@ -31,6 +31,9 @@
 /* No comment provided by engineer. */
 "allow to use SEB without service" = "SEB darf ohne Service laufen";
 
+/* No comment provided by engineer. */
+"Always" = "Immer";
+
 /* Title of 'Appearance' preference pane */
 "Appearance" = "User Interface";
 
@@ -68,7 +71,13 @@
 "Back to Start" = "Zurück zum Start";
 
 /* No comment provided by engineer. */
+"Before receiving title" = "Bevor Titel empfangen wird";
+
+/* No comment provided by engineer. */
 "Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you." = "Vor dem Starten von SEB hat die Touch Bar 'App-Steuerungen' angezeigt. SEB kann diese Einstellung nicht automatisch wiederherstellen. Sie müssen entweder Ihren Mac neu starten oder die Einstellung manuell in den Systemeinstellungen / Tastatur / 'Touch Bar zeigt' auswählen. SEB kann diesen Tab in den Systemeinstellungen für Sie öffnen.";
+
+/* No comment provided by engineer. */
+"Black on White" = "Schwarz auf Weiss";
 
 /* No comment provided by engineer. */
 "block" = "blockieren";
@@ -89,6 +98,9 @@
 "Cancel" = "Abbrechen";
 
 /* No comment provided by engineer. */
+"Cannot Configure Client" = "Client kann nicht konfiguriert werden";
+
+/* No comment provided by engineer. */
 "Cannot Decrypt SEB Settings" = "SEB-Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
@@ -98,10 +110,19 @@
 "Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
-"Cannot Reconfigure SEB Settings" = "Konfiguration kann nicht umkonfiguriert werden";
+"Cannot Reconfigure Client" = "Client kann nicht umkonfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Reconfigure SEB Settings" = "Einstellungen können nicht umkonfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Remove Preset Prohibited Process" = "Voreingestellter verbotener Prozess kann nicht entfernt werden";
 
 /* No comment provided by engineer. */
 "Cannot Restore Touch Bar Mode" = "Touch Bar Modus kann nicht wiederhergestellt werden";
+
+/* No comment provided by engineer. */
+"Cannot Start Exam" = "Prüfung kann nicht gestartet werden";
 
 /* No comment provided by engineer. */
 "Center" = "Zentrieren";
@@ -128,6 +149,9 @@
 "Config File" = "Konfiguration";
 
 /* No comment provided by engineer. */
+"Configuring Client" = "Client konfigurieren";
+
+/* No comment provided by engineer. */
 "Continue" = "Weiter";
 
 /* No comment provided by engineer. */
@@ -149,7 +173,10 @@
 "Debug Certificate" = "Debug-Zertifikat";
 
 /* No comment provided by engineer. */
-"Decrypting settings with identity from the keychain failed!" = "Fehler beim Entschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!";
+"Decrypting exam settings was canceled" = "Entschlüsselung der Prüfungseinstellungen wurde abgebrochen";
+
+/* No comment provided by engineer. */
+"Decrypting settings was canceled" = "Entschlüsselung der Einstellungen wurde abgebrochen";
 
 /* No comment provided by engineer. */
 "Detecting dictation was disabled!" = "Detektieren der Diktat-Funktion wurde ausgeschaltet!";
@@ -185,6 +212,9 @@
 "Dictation was activated" = "Diktat-Funktion wurde aktiviert";
 
 /* No comment provided by engineer. */
+"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.";
+
+/* No comment provided by engineer. */
 "Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
 
 /* No comment provided by engineer. */
@@ -215,10 +245,10 @@
 "Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running." = "Entweder wurde eine inkompatible SEB-Version auf diesem Rechner benutzt oder die Einstellungen-Datei wurde beschädigt. Im ersten Fall können Sie SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen. Anderenfalls müssen die lokalen Einstellungen zurückgesetzt werden, damit SEB weiter laufen kann.";
 
 /* No comment provided by engineer. */
-"Encrypting settings with identity from the keychain failed!" = "Fehler beim Verschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!";
+"Enter administrator password:" = "Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Enter administrator password:" = "Administrator-Passwort eingeben:";
+"Enter Exam Password:" = "Prüfungspasswort eingeben:";
 
 /* No comment provided by engineer. */
 "Enter password used to encrypt these settings:" = "Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:";
@@ -233,16 +263,19 @@
 "Enter quit/unlock password:" = "Beenden/Entsperren-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Enter the SEB administrator password used in these settings:" = "Geben Sie das in diesen Einstellungen verwendete Administrator-Passwort ein:";
+"Enter the %@ administrator password used in these settings:" = "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter the SEB administrator password used in these settings:" = "In diesen Einstellungen verwendetes Administrator-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Entering the current %@ administrator password was canceled" = "Eingabe des aktuellen %@ Administrator-Passworts wurde abgebrochen";
 
 /* No comment provided by engineer. */
 "Error" = "Fehler";
 
 /* No comment provided by engineer. */
 "Error Decrypting Settings" = "Fehler beim Entschlüsseln der Einstellungen";
-
-/* No comment provided by engineer. */
-"Error Encrypting Settings" = "Fehler beim Verschlüsseln der Einstellungen";
 
 /* No comment provided by engineer. */
 "Error Loading Page" = "Fehler beim Laden der Seite";
@@ -270,6 +303,12 @@
 
 /* No comment provided by engineer. */
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
+
+/* No comment provided by engineer. */
+"Force Quit All Processes" = "Prozesse sofort beenden";
+
+/* No comment provided by engineer. */
+"Force Quitting Processes Failed" = "Sofort beenden fehlgeschlagen";
 
 /* No comment provided by engineer. */
 "FTP Proxy" = "FTP-Proxy";
@@ -305,7 +344,7 @@
 "If you don't enter the correct SEB administrator password, then you cannot open preferences." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
-"If you don't enter the right administrator password from these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
+"If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
 "If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font." = "Wenn Sie SEB diese Erlaubnis nicht gewähren, dann können Sie solche Webseiten nicht benutzen. Beim letzten Mal als SEB lief, hat die Webseite mit dem Titel '%1$@' (%2$@) versucht, eine Schriftart herunter zu laden.";
@@ -321,6 +360,9 @@
 
 /* No comment provided by engineer. */
 "Left" = "Links";
+
+/* No comment provided by engineer. */
+"Loaded data doesn't contain valid %@ settings." = "Geladene Daten beinhalten keine gültigen %@ Einstellungen.";
 
 /* No comment provided by engineer. */
 "Loaded settings are empty and cannot be used." = "Geladene Konfigurationsdatei ist leer und kann nicht benutzt werden.";
@@ -350,10 +392,7 @@
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
-"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
-
-/* No comment provided by engineer. */
-"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
+"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
 "Local SEB settings are corrupted!" = "Lokale Client-Einstellungen sind beschädigt!";
@@ -383,10 +422,16 @@
 "Network" = "Netzwerk";
 
 /* No comment provided by engineer. */
-"New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB weiterarbeiten oder SEB beenden?";
+"Never" = "Nie";
 
 /* No comment provided by engineer. */
-"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
+"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder SEB beenden?";
+
+/* No comment provided by engineer. */
+"New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder SEB beenden?";
+
+/* No comment provided by engineer. */
+"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten";
 
 /* No comment provided by engineer. */
 "No encryption credentials chosen" = "Keine Verschlüsselung gewählt";
@@ -398,6 +443,12 @@
 "None" = "Keine";
 
 /* No comment provided by engineer. */
+"None - Black" = "Keine - Schwarz";
+
+/* No comment provided by engineer. */
+"None - White" = "Keine - Weiss";
+
+/* No comment provided by engineer. */
 "Not Running Minimal macOS Version!" = "Zu alte macOS-Version!";
 
 /* No comment provided by engineer. */
@@ -405,6 +456,12 @@
 
 /* No comment provided by engineer. */
 "On macOS 10.7 and 10.8 SEB can only be used as an exam client. Run SEB on macOS 10.9 or higher to create a .seb configuration file to configure this SEB client as well." = "Unter macOS 10.7 und 10.8 kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.9 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.";
+
+/* No comment provided by engineer. */
+"Only on load error" = "Nur bei Verbindungsfehlern";
+
+/* No comment provided by engineer. */
+"Open edX" = "Open edX";
 
 /* No comment provided by engineer. */
 "open in new window" = "werden in neuem Fenster geöffnet";
@@ -428,10 +485,19 @@
 "Opening Settings Failed" = "Öffnen der Einstellungen fehlgeschlagen!";
 
 /* No comment provided by engineer. */
+"Opening Universal Link" = "Universal Link wird geöffnet";
+
+/* No comment provided by engineer. */
+"Opening Universal Link Failed" = "Öffnen eines Universal Links ist fehlgeschlagen!";
+
+/* No comment provided by engineer. */
 "OS X" = "OS X";
 
 /* No comment provided by engineer. */
 "Override" = "Ignorieren";
+
+/* No comment provided by engineer. */
+"Parsing Settings Failed" = "Auslesen der Konfiguration ist fehlgeschlagen";
 
 /* No comment provided by engineer. */
 "Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
@@ -455,6 +521,9 @@
 "Prohibited Process Locked SEB!" = "SEB gesperrt wegen verbotenem Prozess!";
 
 /* No comment provided by engineer. */
+"Prohibited Processes Are Running" = "Verbotene Prozesse laufen";
+
+/* No comment provided by engineer. */
 "Prohibited processes detected" = "Verbotene Prozesse wurden detektiert!";
 
 /* No comment provided by engineer. */
@@ -470,10 +539,16 @@
 "Quit" = "Beenden";
 
 /* No comment provided by engineer. */
+"Quit All Applications" = "Alle Programme beenden";
+
+/* No comment provided by engineer. */
 "Quit Safe Exam Browser" = "Safe Exam Browser beenden";
 
 /* No comment provided by engineer. */
 "Quit SEB" = "SEB Beenden";
+
+/* No comment provided by engineer. */
+"Quit Session" = "Session beenden";
 
 /* No comment provided by engineer. */
 "Re-opening an exam which was locked before" = "Erneutes Starten einer zuvor unterbrochenen Prüfungssession";
@@ -482,7 +557,7 @@
 "Re-Opening Locked Exam!" = "Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet";
 
 /* No comment provided by engineer. */
-"Reading New Settings Failed!" = "Neue Einstellungen laden fehlgeschlagen!";
+"Reading Settings Failed" = "Lesen der Einstellungen ist fehlgeschlagen";
 
 /* No comment provided by engineer. */
 "Reconfigure SEB Settings" = "Einstellungen neu konfigurieren";
@@ -539,6 +614,12 @@
 "Screen sharing was activated" = "Bildschirmfreigabe wurde aktiviert";
 
 /* No comment provided by engineer. */
+"Searching for a valid %@ config file …" = "Suche eine gültige %@ Konfigurationsdatei …";
+
+/* No comment provided by engineer. */
+"Searching for a valid %@ config file was canceled." = "Suche nach einer gültigen %@ Konfigurationsdatei wurde abgebrochen.";
+
+/* No comment provided by engineer. */
 "SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." = "SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.";
 
 /* No comment provided by engineer. */
@@ -554,7 +635,7 @@
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
 /* No comment provided by engineer. */
-"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
@@ -581,6 +662,9 @@
 "SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %ld:%.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
+"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." = "SEB konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden).";
+
+/* No comment provided by engineer. */
 "SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
 
 /* No comment provided by engineer. */
@@ -597,9 +681,6 @@
 
 /* No comment provided by engineer. */
 "settings" = "Einstellungen";
-
-/* No comment provided by engineer. */
-"Settings Corrupted" = "Einstellungen sind beschädigt";
 
 /* No comment provided by engineer. */
 "Settings for Configuring Client" = "Einstellungen zum Umkonfigurieren eines SEB-Clients";
@@ -650,10 +731,16 @@
 "Started exam with URL " = "Prüfung gestartet mit URL";
 
 /* No comment provided by engineer. */
+"Starting Exam" = "Prüfung starten";
+
+/* No comment provided by engineer. */
 "Streaming Proxy (RTSP)" = "Streaming-Proxy (RTSP)";
 
 /* No comment provided by engineer. */
 "Switched back after user switch / login window" = "Wechsel zurück nach Benutzerwechsel / Anmeldefenster";
+
+/* No comment provided by engineer. */
+"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.";
 
 /* No comment provided by engineer. */
 "the exam page" = "die Prüfungsseite";
@@ -662,7 +749,7 @@
 "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." = "Das Identitätszertifikat könnte beschädigt sein oder der dazugehörige private Schlüssel wurde als 'nicht-exportierbar' in den Schlüsselbund importiert. Falls das Identitätszertifikat in einer Konfigurationsdatei eingebettet war, öffnen Sie diese hier im Einstellungen-Fenster. Dann wird der private Schlüssel als 'exportierbar' zum Schlüsselbund hinzugefügt.";
 
 /* No comment provided by engineer. */
-"The identity certificate needed to decrypt these settings isn't installed on this device. SEB might not have been configured correctly for your institution." = "Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. SEB wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." = "Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
 "The identity needed to decrypt settings has not been found in the keychain!" = "Identität zur Entschlüsselung dieser SEB-Konfigurationsdatei wurde im Schlüsselbund nicht gefunden!";
@@ -672,6 +759,9 @@
 
 /* No comment provided by engineer. */
 "The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Bitte versuchen Sie es erneut.";
 
 /* No comment provided by engineer. */
 "The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Vergewissern Sie sich, dass sie korrekt eingegeben sind, und versuchen Sie es erneut.";
@@ -689,10 +779,13 @@
 "These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "Diese Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option während der aktuellen Session ignorieren.";
 
 /* No comment provided by engineer. */
-"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
+"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
 "This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." = "Dies ist ein voreingestellter verbotener Prozess, welcher nicht entfernt werden kann. SEB fügt diesen automatisch zu jeder Konfiguration hinzu. Sie können diesen voreingestellten Prozess deaktivieren oder seine Parameter anpassen.";
 
 /* No comment provided by engineer. */
 "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
@@ -758,6 +851,9 @@
 "Web Proxy (HTTP)" = "Web-Proxy (HTTP)";
 
 /* No comment provided by engineer. */
+"White on Black" = "Weiss auf Schwarz";
+
+/* No comment provided by engineer. */
 "Win" = "Win";
 
 /* No comment provided by engineer. */
@@ -776,6 +872,12 @@
 "Wrong Password! Try again to enter the correct current SEB administrator password:" = "Falsches Passwort! Bitte das korrekte SEB Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
+"Wrong password! Try again to enter the correct exam password:" = "Falsches Passwort! Bitte das korrekte Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the correct password used to encrypt these settings:" = "Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:";
+
+/* No comment provided by engineer. */
 "Wrong Password! Try again to enter the correct password used to encrypt these settings:" = "Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -783,6 +885,9 @@
 
 /* No comment provided by engineer. */
 "Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte das korrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the current %@ administrator password:" = "Falsches Passwort! Bitte das korrekte %@ Administrator-Passwort erneut eingeben:";
 
 /* No comment provided by engineer. */
 "Wrong Quit Password" = "Falsches Beenden/Entsperren-Passwort";
@@ -803,13 +908,28 @@
 "You are not allowed to run SEB inside a virtual machine!" = "Es ist nicht erlaubt, SEB innerhalb einer virtuellen Maschine zu betreiben!";
 
 /* No comment provided by engineer. */
+"You can also force quit these processes, but this may lead to loss of data." = "Sie können diese Prozesse auch sofort beenden, aber das kann zu Datenverlust führen.";
+
+/* No comment provided by engineer. */
+"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents." = "Sie können auch allen aufgeführten Programmen ein Beenden-Kommando senden, diese können dann noch bearbeitete Dokumente speichern.";
+
+/* No comment provided by engineer. */
+"You can only reconfigure by entering the current %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:";
+
+/* No comment provided by engineer. */
 "You can only reconfigure SEB by entering the current SEB administrator password:" = "Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:";
 
 /* No comment provided by engineer. */
-"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.";
+"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden.";
 
 /* No comment provided by engineer. */
-"You didn't enter the correct current SEB administrator password." = "Sie haben das SEB Administrator-Passwort nicht korrekt eingegeben.";
+"You didn't enter the correct current %@ administrator password." = "Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct exam password." = "Das korrekte Prüfungspasswort wurde nicht eingegeben.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct settings password." = "Das korrekte Passwort dieser Einstellungen wurde nicht eingegeben.";
 
 /* No comment provided by engineer. */
 "You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?" = "Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren (bearbeitete Einstellungen werden verworfen)?";
@@ -821,5 +941,5 @@
 "You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.";
 
 /* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.";
+"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.";
 

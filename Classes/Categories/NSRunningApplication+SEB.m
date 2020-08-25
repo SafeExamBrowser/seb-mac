@@ -54,9 +54,13 @@
 
 - (NSInteger)kill
 {
-    NSInteger success = (NSInteger)kill([self processIdentifier], 9);
-    DDLogDebug(@"Success of terminating %@: %ld", self, (long)success);
-    return success;
+    if (!self.terminated) {
+        NSInteger success = (NSInteger)kill([self processIdentifier], 9);
+        DDLogDebug(@"Success of terminating %@: %ld", self, (long)success);
+        return success;
+    } else {
+        return -99;
+    }
 }
 
 

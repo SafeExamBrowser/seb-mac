@@ -86,6 +86,27 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
+- (IBAction) setEnableScreenCapture:(NSButton *)sender
+{
+    BOOL screenCaptureEnabled = sender.state;
+    
+    allowWindowCaptureButton.enabled = screenCaptureEnabled;
+    blockScreenShotsButton.enabled = screenCaptureEnabled && allowWindowCaptureButton.state;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) setEnableWindowCapture:(NSButton *)sender
+{
+    BOOL windowCaptureEnabled = sender.state;
+    
+    blockScreenShotsButton.enabled = windowCaptureEnabled;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) setEnableLogging:(NSButton *)sender
 {
     BOOL loggingEnabled = sender.state;
