@@ -447,39 +447,42 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
-    
-    BOOL initializeContainedKeys = NO;
-    // Get dictionary with keys covered by the Config Key in the settings to process
-    NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    if (configKeyContainedKeys.count == 0) {
-        configKeyContainedKeys = [NSDictionary dictionary];
-        initializeContainedKeys = YES;
-    }
-    if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
-        [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
-        // Class of local preferences value is different than the one from the default value
-        // If yes, then cancel reading .seb file and create error object
-        DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
-        DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
-        // Reset Config Key
-        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
-        [self presentPreferencesCorruptedError];
-        [self resetSEBUserDefaults];
-        return;
-    }
+    NSData *configKey = [preferences secureDataForKey:@"org_safeexambrowser_configKey"];
+    if (!configKey) {
+        // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
+        NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
+        
+        BOOL initializeContainedKeys = NO;
+        // Get dictionary with keys covered by the Config Key in the settings to process
+        NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        if (configKeyContainedKeys.count == 0) {
+            configKeyContainedKeys = [NSDictionary dictionary];
+            initializeContainedKeys = YES;
+        }
+        if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
+            [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
+            // Class of local preferences value is different than the one from the default value
+            // If yes, then cancel reading .seb file and create error object
+            DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
+            DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
+            // Reset Config Key
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+            [self presentPreferencesCorruptedError];
+            [self resetSEBUserDefaults];
+            return;
+        }
 
-    NSData *configKey = [NSData data];
-    [self updateConfigKeyInSettings:filteredPrefsDict
-          configKeyContainedKeysRef:&configKeyContainedKeys
-                       configKeyRef:&configKey
-            initializeContainedKeys:initializeContainedKeys];
-    
-    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        configKey = [NSData data];
+        [self updateConfigKeyInSettings:filteredPrefsDict
+              configKeyContainedKeysRef:&configKeyContainedKeys
+                           configKeyRef:&configKey
+                initializeContainedKeys:initializeContainedKeys];
+        
+        [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
 
-    // Store new Config Key in UserDefaults
-    [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
+        // Store new Config Key in UserDefaults
+        [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
+    }
 }
 
 
