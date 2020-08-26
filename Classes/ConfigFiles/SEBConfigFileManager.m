@@ -930,12 +930,14 @@
 {
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // We reset the Config Key in current user defaults, to make sure it is freshly calculated for loaded settings
+    [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
     sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict
                                                         configKeyContainedKeysRef:&configKeyContainedKeys
                                                                      configKeyRef:&configKey
                                                           initializeContainedKeys:YES];
     
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences storeSEBDictionary:sebPreferencesDict];
 
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
