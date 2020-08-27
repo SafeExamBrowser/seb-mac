@@ -139,6 +139,8 @@
             // the current SEB version should be used to re-calculate the Config Key
             [[NSUserDefaults standardUserDefaults] setSecureObject:[NSDictionary dictionary]
                                                             forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+            _browserController.browserExamKey = nil;
+            _browserController.configKey = nil;
             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         }
         // Display updated or current keys
