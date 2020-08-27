@@ -932,7 +932,7 @@
     NSData *configKey = [NSData data];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // We reset the Config Key in current user defaults, to make sure it is freshly calculated for loaded settings
-    [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
+    [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
     sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict
                                                         configKeyContainedKeysRef:&configKeyContainedKeys
                                                                      configKeyRef:&configKey
