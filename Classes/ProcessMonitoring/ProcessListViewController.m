@@ -175,6 +175,11 @@
             {
                 return;
             }
+                
+            default:
+            {
+                return;
+            }
         }
         
         NSUInteger i=0;
@@ -232,6 +237,11 @@
                     }
                         
                     case NSModalResponseAbort:
+                    {
+                        return;
+                    }
+                        
+                    default:
                     {
                         return;
                     }
