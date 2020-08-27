@@ -1134,8 +1134,8 @@ DQ
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
-                    <rect key="frame" x="62" y="99" width="178" height="18"/>
-                    <buttonCell key="cell" type="check" title="Quit SEB instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
+                    <rect key="frame" x="62" y="99" width="252" height="18"/>
+                    <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
