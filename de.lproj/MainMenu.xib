@@ -831,8 +831,8 @@ Gw
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="lWR-2e-5z1">
-                    <rect key="frame" x="62" y="99" width="192" height="18"/>
-                    <buttonCell key="cell" type="check" title="SEB beenden anstatt entsperren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="fVU-lF-Tri">
+                    <rect key="frame" x="62" y="99" width="283" height="18"/>
+                    <buttonCell key="cell" type="check" title="SEB/Prüfungssession beenden anstatt entsperren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="fVU-lF-Tri">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
