@@ -105,10 +105,17 @@
 - (NSArray *)allProcessListElements
 {
     NSMutableArray *allProcesses = [NSMutableArray new];
-    for (NSRunningApplication *runningApplication in _runningApplications) {
-        ProcessListElement *processListElement = [[ProcessListElement alloc] initWithProcess:runningApplication];
-        if (processListElement) {
-            [allProcesses addObject:processListElement];
+    NSUInteger i=0;
+    while (i < _runningApplications.count) {
+        NSRunningApplication *runningApplication = _runningApplications[i];
+        if (runningApplication && !runningApplication.terminated) {
+            ProcessListElement *processListElement = [[ProcessListElement alloc] initWithProcess:runningApplication];
+            if (processListElement) {
+                [allProcesses addObject:processListElement];
+            }
+            i++;
+        } else {
+            [_runningApplications removeObjectAtIndex:i];
         }
     }
     for (NSDictionary *runningProcess in _runningProcesses) {
