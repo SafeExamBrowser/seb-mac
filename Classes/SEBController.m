@@ -706,7 +706,7 @@ bool insideMatrix(void);
         /// Open settings file for exam/reconfiguring client
         
         // Check if any alerts are open in SEB, abort opening if yes
-        if (_modalAlertWindows.count) {
+        if (_modalAlertWindows.count > 0) {
             DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
             _openingSettings = false;
             // We have to return YES anyways, because otherwise the system displays an error message
@@ -4085,6 +4085,11 @@ bool insideMatrix(){
             // Close the black background covering windows
             [self closeCapWindows];
 
+            // Check if the running prohibited processes window is open and close it if yes
+            if (_processListViewController) {
+                [self closeProcessListWindow];
+            }
+
             // Show preferences window
             [self.preferencesController openPreferencesWindow];
             
@@ -4194,6 +4199,11 @@ bool insideMatrix(){
         [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
+    // Check if the running prohibited processes window is open and close it if yes
+    if (_processListViewController) {
+        [self closeProcessListWindow];
+    }
+
     // Close all browser windows (documents)
     [self.browserController closeAllBrowserWindows];
 
