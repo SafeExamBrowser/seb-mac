@@ -860,6 +860,13 @@ bool insideMatrix(void);
     _startingUp = false;
 
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+    
+    if (_openingSettings && _openingSettingsFileURL) {
+        DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
+        [self performSelector:@selector(openFile:) withObject: _openingSettingsFileURL.copy afterDelay: 2.5];
+        _openingSettingsFileURL = nil;
+    }
+
 }
 
 #pragma mark - Initialization depending on client or opened settings
