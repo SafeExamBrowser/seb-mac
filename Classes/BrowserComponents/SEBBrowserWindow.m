@@ -94,6 +94,12 @@
 }
 
 
+- (BOOL) isTemporaryWindowWhileStartingUp
+{
+    return self.webView.creatingWebView == self.webView;
+}
+
+
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
@@ -1240,7 +1246,9 @@ willPerformClientRedirectToURL:(NSURL *)URL
     
     //// If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableURLFilter && URLFilter.enableContentFilter) {
+    if (URLFilter.enableURLFilter &&
+        URLFilter.enableContentFilter &&
+        ![self isTemporaryWindowWhileStartingUp]) {
         URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
         if (filterActionResponse != URLFilterActionAllow) {
             /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
@@ -1566,7 +1574,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         
         // If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter) {
+        if (URLFilter.enableURLFilter && ![self isTemporaryWindowWhileStartingUp]) {
             URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 
@@ -1658,7 +1666,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
         //// If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter) {
+        if (URLFilter.enableURLFilter && ![self isTemporaryWindowWhileStartingUp]) {
             URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 /// URL is not allowed: Show teach URL alert if activated or just indicate URL is blocked
