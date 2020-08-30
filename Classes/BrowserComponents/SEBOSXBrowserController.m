@@ -1187,6 +1187,12 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         
         // Reset the direct download flag for the case this was a successful direct download
         _directConfigDownloadAttempted = false;
+        
+        // Reset BrowserController to force re-reading parameters like Browser Exam and Config Key
+        // from changed settings even if SEB was started opening a new config
+        _browserController = [SEBBrowserController new];
+        _browserController.delegate = self;
+
         [_sebController didOpenSettings];
         
         return;
