@@ -53,7 +53,7 @@
     if (self) {
         _browserController = [SEBBrowserController new];
         _browserController.delegate = self;
-        
+
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
         // Initialize SEB dock item menu for open browser windows/WebViews
@@ -869,7 +869,11 @@
     _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
     _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
-    _temporaryWebView.creatingWebView = nil;
+    if (_sebController.startingUp) {
+        _temporaryWebView.creatingWebView = _temporaryWebView;
+    } else {
+        _temporaryWebView.creatingWebView = nil;
+    }
     _temporaryWebView.browserController = self;
     _temporaryWebView.originalURL = originalURL;
     
