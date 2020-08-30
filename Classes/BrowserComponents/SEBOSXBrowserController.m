@@ -54,6 +54,9 @@
         _browserController = [SEBBrowserController new];
         _browserController.delegate = self;
 
+        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
+        [_browserController conditionallyInitCustomHTTPProtocol];
+
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
         // Initialize SEB dock item menu for open browser windows/WebViews

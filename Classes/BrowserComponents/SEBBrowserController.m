@@ -59,10 +59,7 @@ static NSString * const authenticationPassword = @"password";
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
-//        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
-//        [self conditionallyInitCustomHTTPProtocol];
-        
+    if (self) {        
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
@@ -464,14 +461,15 @@ static NSString * const authenticationPassword = @"password";
                                                                     NSURL *debugCertOverrideURL = [NSURL URLWithString:debugCertOverrideURLString];
                                                                     if (debugCertOverrideURL) {
                                                                         // If certificate doesn't have any correct override domain in its name field, abort
-                                                                        NSString *host = debugCertOverrideURL.host;
-                                                                        NSNumber *port = debugCertOverrideURL.port;
+                                                                        NSString *certHost = debugCertOverrideURL.host;
+                                                                        NSNumber *certPort = debugCertOverrideURL.port;
 #if DEBUG
-                                                                        DDLogDebug(@"Cert host: %@ and port: %@", host, port);
+                                                                        DDLogDebug(@"Cert host: %@ and port: %@", certHost, certPort);
 #endif
-                                                                        if ([host isEqualToString:serverHost]) {
+                                                                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", certHost];
+                                                                        if ([predicate evaluateWithObject:serverHost]) {
                                                                             // If the server host name matches the one in the debug cert ...
-                                                                            if (!port || port.integerValue == serverPort) {
+                                                                            if (!certPort || certPort.integerValue == serverPort) {
                                                                                 // ... and there either is not port indicated in the cert
                                                                                 // or it is same as the one of the server we're connecting to, we accept it
                                                                                 authorized = YES;
