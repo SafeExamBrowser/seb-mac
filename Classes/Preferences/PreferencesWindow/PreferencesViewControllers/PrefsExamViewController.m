@@ -129,9 +129,15 @@
 {
     BOOL settingsChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO];
     DDLogDebug(@"%s settings changed: %hhd", __FUNCTION__, settingsChanged);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (NSUserDefaults.userDefaultsPrivate) {
         // Private UserDefaults are active: Check if there are unsaved changes
         if (settingsChanged) {
+            self.browserController.browserExamKey = nil;
+            self.browserController.configKey = nil;
+            // Force recalculating Config Key
+            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
             // Yes: Display message instead of Browser Exam Key
             [self displayMessageKeyChanged];
         } else {
@@ -145,10 +151,12 @@
             // Also reset (it will be re-generated) the dictionary containing all keys which
             // were used to calculate the Config Key. When a config is changed, all keys of
             // the current SEB version should be used to re-calculate the Config Key
-            [[NSUserDefaults standardUserDefaults] setSecureObject:[NSDictionary dictionary]
-                                                            forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+            [preferences setSecureObject:[NSDictionary dictionary]
+                                  forKey:@"org_safeexambrowser_configKeyContainedKeys"];
             self.browserController.browserExamKey = nil;
             self.browserController.configKey = nil;
+            // Force recalculating Config Key
+            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         }
         // Display updated or current keys

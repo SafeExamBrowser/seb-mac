@@ -132,7 +132,9 @@
                                            initWithNibName:@"PreferencesBrowser" bundle:nil];
 	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc]
                                                    initWithNibName:@"PreferencesDownUploads" bundle:nil];
-	self.examVC = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
+    self.browserController.browserExamKey = nil;
+    self.browserController.configKey = nil;
+    self.examVC = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
     self.examVC.preferencesController = self;
 	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc]
                                                      initWithNibName:@"PreferencesApplications" bundle:nil];
