@@ -81,6 +81,14 @@
 }
 
 
+- (SEBBrowserController *)browserController {
+    if (!_browserController) {
+        _browserController = _preferencesController.browserController;
+    }
+    return _browserController;
+}
+
+
 #pragma mark -
 #pragma mark Action methods to recalculate and display new keys/message for key changed when
 #pragma mark one of the settings in the Exam Pane is changed and private user defaults are active
@@ -139,8 +147,8 @@
             // the current SEB version should be used to re-calculate the Config Key
             [[NSUserDefaults standardUserDefaults] setSecureObject:[NSDictionary dictionary]
                                                             forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-            _browserController.browserExamKey = nil;
-            _browserController.configKey = nil;
+            self.browserController.browserExamKey = nil;
+            self.browserController.configKey = nil;
             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         }
         // Display updated or current keys
@@ -152,14 +160,14 @@
 
 - (void)displayBrowserExamKey
 {
-    NSData *browserExamKey = _browserController.browserExamKey;
+    NSData *browserExamKey = self.browserController.browserExamKey;
     [self displayKeyHash:browserExamKey keyTextField:examKeyTextField];
 }
 
 
 - (void)displayConfigKey
 {
-    NSData *configKey = _browserController.configKey;
+    NSData *configKey = self.browserController.configKey;
     [self displayKeyHash:configKey keyTextField:configKeyTextField];
 }
 
