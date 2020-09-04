@@ -162,7 +162,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowPDFPlugIn",
                    
-                   @YES,
+                   @NO,
                    @"allowPreferencesWindow",
                    
                    @YES,
