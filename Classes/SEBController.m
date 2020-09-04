@@ -98,7 +98,7 @@
 
 - (NSArray *)containsProcessObject: (NSString *)processName
 {
-    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", processName];
+    NSPredicate *filterProcessName = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", processName];
     NSArray *foundProcesses = [self filteredArrayUsingPredicate:filterProcessName];
     return foundProcesses.count > 0 ? foundProcesses : nil;
 }
@@ -1624,7 +1624,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // Check for font download process
     if (!_allowSwitchToApplications) {
-        processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", fontRegistryUIAgent];
+        processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", fontRegistryUIAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
             if (!fontRegistryUIAgentDisplayed) {
@@ -1675,7 +1675,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     // Check for running screen capture process
     if (!allowScreenCapture) {
-        processNameFilter = [NSPredicate predicateWithFormat:@"name contains[c] %@ ", screenCaptureAgent];
+        processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", screenCaptureAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         
         if (filteredProcesses.count > 0) {
