@@ -71,6 +71,11 @@
 }
 
 
+- (void)awakeFromNib {
+    [self scrollToTop:scrollView];
+}
+
+
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     [self displayMessageOrReGenerateKey];

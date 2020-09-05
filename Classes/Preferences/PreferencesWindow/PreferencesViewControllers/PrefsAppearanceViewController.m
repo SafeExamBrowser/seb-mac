@@ -54,6 +54,9 @@
 	return [NSImage imageNamed:@"Appearance.icns"];
 }
 
+- (void)awakeFromNib {
+    [self scrollToTop:scrollView];
+}
 
 // Before displaying pane set browser view mode correctly even when touch optimized is selected
 - (void)willBeDisplayed

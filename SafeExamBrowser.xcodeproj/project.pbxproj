@@ -132,6 +132,8 @@
 		696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF719F6FC3F00274214 /* PreferencesResources.xib */; };
 		696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFB19F6FC4C00274214 /* PreferencesNetwork.xib */; };
 		696A3AFC19F6FC5600274214 /* PreferencesSecurity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFF19F6FC5600274214 /* PreferencesSecurity.xib */; };
+		696BFC6025032026007725FE /* PreferencesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696BFC5E25032026007725FE /* PreferencesViewController.h */; };
+		696BFC6125032026007725FE /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696BFC5F25032026007725FE /* PreferencesViewController.m */; };
 		696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
 		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
@@ -579,6 +581,8 @@
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6969B1D1127C7AB60027FF8D /* AboutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindow.h; sourceTree = "<group>"; };
 		6969B1D2127C7AB60027FF8D /* AboutWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AboutWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		696BFC5E25032026007725FE /* PreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
+		696BFC5F25032026007725FE /* PreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ApplicationsIcon.png; path = Resources/Icons/ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ApplicationsIcon@2x.png"; path = "Resources/Icons/ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1563,6 +1567,8 @@
 		69CE9C5A173269E80011609B /* Preferences View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				696BFC5E25032026007725FE /* PreferencesViewController.h */,
+				696BFC5F25032026007725FE /* PreferencesViewController.m */,
 				69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */,
 				69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */,
 				6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */,
@@ -1636,6 +1642,7 @@
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				69C228381C767B0900F78634 /* platform.h in Headers */,
 				69C228201C767B0900F78634 /* ecdsa.h in Headers */,
+				696BFC6025032026007725FE /* PreferencesViewController.h in Headers */,
 				69F9C10B24C595C600788BBD /* SEBPresetSettings.h in Headers */,
 				69C228211C767B0900F78634 /* ecjpake.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
@@ -2043,6 +2050,7 @@
 				69C228831C767B0900F78634 /* ssl_srv.c in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
+				696BFC6125032026007725FE /* PreferencesViewController.m in Sources */,
 				69C228531C767B0900F78634 /* blowfish.c in Sources */,
 				69C2288C1C767B0900F78634 /* x509_crl.c in Sources */,
 				69A23AB81DB500C700110243 /* NSScreen+SEBScreen.m in Sources */,
