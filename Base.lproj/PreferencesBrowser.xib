@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
                 <outlet property="defaultUserAgentMac" destination="dP1-5V-zqF" id="JKi-qC-uHi"/>
                 <outlet property="enablePlugIns" destination="107" id="195"/>
                 <outlet property="newBrowserWindowByLinkBlockForeignButton" destination="101" id="56g-jL-5S0"/>
+                <outlet property="scrollView" destination="y6G-Hf-v7L" id="D66-Qm-dkg"/>
                 <outlet property="userAgentEnvironmentTabView" destination="WH0-5V-GCS" id="28V-0e-PPl"/>
                 <outlet property="userAgentWinDesktopDefault" destination="Z3B-Za-z4X" id="h12-gB-ot4"/>
                 <outlet property="userAgentWinTouchDefault" destination="XSw-aj-V6a" id="zQ6-EM-JTv"/>
