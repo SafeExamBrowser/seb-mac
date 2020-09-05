@@ -37,9 +37,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "PreferencesViewController.h"
 
-@interface PrefsAppearanceViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsAppearanceViewController : PreferencesViewController <MBPreferencesModule> {
 
+    __weak IBOutlet NSScrollView *scrollView;
+    
     IBOutlet NSComboBox *mainBrowserWindowWidth;
     IBOutlet NSComboBox *mainBrowserWindowHeight;
     IBOutlet NSPopUpButton *mainBrowserWindowPositioning;

@@ -42,7 +42,8 @@
 @class PreferencesController;
 @class SEBBrowserController;
 
-@interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
+@interface PrefsExamViewController : PreferencesViewController <MBPreferencesModule, NSTextFieldDelegate> {
+    __weak IBOutlet NSScrollView *scrollView;
     IBOutlet NSTextField *examKeyTextField;
     IBOutlet NSTextField *configKeyTextField;
     __weak IBOutlet NSButton *copyBEKToClipboard;
