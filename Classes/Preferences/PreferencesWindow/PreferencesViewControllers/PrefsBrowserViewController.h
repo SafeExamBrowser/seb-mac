@@ -37,10 +37,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "PreferencesViewController.h"
 
 
-@interface PrefsBrowserViewController : NSViewController <MBPreferencesModule> {
-	IBOutlet NSButton *enablePlugIns;
+@interface PrefsBrowserViewController : PreferencesViewController <MBPreferencesModule> {
+    __weak IBOutlet NSScrollView *scrollView;
+    IBOutlet NSButton *enablePlugIns;
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
     IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
     __weak IBOutlet NSTextField *defaultUserAgentMac;
