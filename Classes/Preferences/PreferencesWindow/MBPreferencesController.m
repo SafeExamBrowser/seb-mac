@@ -224,6 +224,13 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	return nil;
 }
 
+
+- (id<MBPreferencesModule>)currentModule
+{
+    return _currentModule;
+}
+
+
 - (void)setModules:(NSArray *)newModules
 {
 	if (_modules) {
