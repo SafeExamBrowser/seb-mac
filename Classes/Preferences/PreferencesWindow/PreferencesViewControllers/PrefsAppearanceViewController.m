@@ -55,7 +55,7 @@
 }
 
 - (void)awakeFromNib {
-    [self scrollToTop:scrollView];
+    [self scrollToTop:_scrollView];
 }
 
 // Before displaying pane set browser view mode correctly even when touch optimized is selected

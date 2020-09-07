@@ -41,7 +41,6 @@
 
 
 @interface PrefsBrowserViewController : PreferencesViewController <MBPreferencesModule> {
-    __weak IBOutlet NSScrollView *scrollView;
     IBOutlet NSButton *enablePlugIns;
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
     IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
@@ -54,6 +53,8 @@
     __weak IBOutlet NSTabView *userAgentEnvironmentTabView;
 
 }
+
+@property(weak, nonatomic) IBOutlet NSScrollView *scrollView;
 
 - (NSString *)identifier;
 - (NSImage *)image;

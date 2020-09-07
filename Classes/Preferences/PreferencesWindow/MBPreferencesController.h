@@ -135,6 +135,7 @@
  * @see         modules
  */
 - (id<MBPreferencesModule>)moduleForIdentifier:(NSString *)identifier;
+- (id<MBPreferencesModule>)currentModule;
 
 - (void)changeToModuleWithIdentifier:(NSString *)identifier;
 - (IBAction)dropDownAction:(id)sender;

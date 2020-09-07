@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsAppearanceViewController">
             <connections>
-                <outlet property="scrollView" destination="IAy-iH-ikl" id="FhP-Wj-H0j"/>
+                <outlet property="scrollView" destination="IAy-iH-ikl" id="HKs-WD-5vZ"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
         </customObject>
@@ -18,10 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="667" height="650"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAy-iH-ikl">
+                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAy-iH-ikl">
                     <rect key="frame" x="0.0" y="0.0" width="667" height="650"/>
                     <clipView key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bmI-dS-Jv0">
-                        <rect key="frame" x="1" y="1" width="650" height="633"/>
+                        <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Kpu-hv-Qpn">
                                 <rect key="frame" x="0.0" y="0.0" width="630" height="700"/>
@@ -954,12 +954,12 @@
                         </constraints>
                         <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="1lh-SG-lOZ">
-                        <rect key="frame" x="1" y="634" width="650" height="15"/>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="1lh-SG-lOZ">
+                        <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="8g8-Kg-p4v">
-                        <rect key="frame" x="651" y="1" width="15" height="633"/>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.44230769230769229" horizontal="NO" id="8g8-Kg-p4v">
+                        <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

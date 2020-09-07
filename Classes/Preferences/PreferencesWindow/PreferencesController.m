@@ -38,7 +38,7 @@
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
 #import "SEBURLFilter.h"
-
+#import "PreferencesViewController.h"
 
 @implementation PreferencesController
 
@@ -260,6 +260,29 @@
         }
     }
     self.refreshingPreferences = NO;
+}
+
+
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
+{
+    NSSize windowSize = sender.frame.size;
+
+    NSViewController *viewController = (NSViewController *)[MBPreferencesController sharedController].currentModule;
+    if ([viewController respondsToSelector:@selector(scrollView)]) {
+        NSScrollView *scrollView = [viewController performSelector:@selector(scrollView)];
+        NSSize contentViewSize = scrollView.contentView.bounds.size;
+        NSSize fullContentSize = [scrollView documentView].fittingSize;
+        CGFloat windowBorderWidth = windowSize.width - fullContentSize.width;
+        CGFloat windowBorderHeight = windowSize.height - contentViewSize.height;
+
+        NSSize newFrameSize = NSMakeSize(fullContentSize.width + windowBorderWidth, (frameSize.height < fullContentSize.height + windowBorderHeight ? frameSize.height : fullContentSize.height + windowBorderHeight));
+#ifdef DEBUG
+        DDLogVerbose(@"New frame size for Preferences window containing a scroll view: %f, %f", newFrameSize.width, newFrameSize.height);
+#endif
+        return newFrameSize;
+    } else {
+        return windowSize;;
+    }
 }
 
 

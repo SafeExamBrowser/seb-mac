@@ -72,7 +72,7 @@
 
 
 - (void)awakeFromNib {
-    [self scrollToTop:scrollView];
+    [self scrollToTop:_scrollView];
 }
 
 
