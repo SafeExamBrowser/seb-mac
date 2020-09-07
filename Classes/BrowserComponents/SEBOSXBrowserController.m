@@ -314,8 +314,12 @@
     
     // Log current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
-     if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) DDLogInfo(@"NSHTTPCookieAcceptPolicyAlways");
-     if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) DDLogInfo(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain");
+    if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) {
+        DDLogInfo(@"NSHTTPCookieAcceptPolicyAlways");
+    }
+    if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) {
+        DDLogInfo(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain");
+    }
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
