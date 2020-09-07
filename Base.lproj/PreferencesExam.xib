@@ -14,7 +14,7 @@
                 <outlet property="examKeyTextField" destination="14" id="210"/>
                 <outlet property="quitURL" destination="688" id="1033"/>
                 <outlet property="restartExamURLTextField" destination="2Rr-y4-nE8" id="bOd-pD-Q8p"/>
-                <outlet property="scrollView" destination="liH-wg-Uu0" id="tMd-wM-DpM"/>
+                <outlet property="scrollView" destination="liH-wg-Uu0" id="DJF-fq-CxG"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -24,10 +24,10 @@
             <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liH-wg-Uu0">
+                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liH-wg-Uu0">
                     <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
                     <clipView key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bcI-T6-8hm">
-                        <rect key="frame" x="1" y="1" width="650" height="685"/>
+                        <rect key="frame" x="1" y="1" width="650" height="700"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-ab-HYm">
                                 <rect key="frame" x="0.0" y="0.0" width="630" height="995"/>
@@ -72,7 +72,7 @@
                                                                             <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                                                                             <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="label" size="11"/>
+                                                                                <font key="font" metaFont="message" size="11"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="W4K-bF-fFI"/>
@@ -106,7 +106,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -155,7 +155,7 @@
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation).</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -828,12 +828,12 @@
                         </constraints>
                         <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="jws-hN-h2I">
-                        <rect key="frame" x="1" y="686" width="650" height="15"/>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="jws-hN-h2I">
+                        <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94516129032258067" horizontal="NO" id="r6K-Tc-3wx">
-                        <rect key="frame" x="651" y="1" width="15" height="685"/>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94237288135593222" horizontal="NO" id="r6K-Tc-3wx">
+                        <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

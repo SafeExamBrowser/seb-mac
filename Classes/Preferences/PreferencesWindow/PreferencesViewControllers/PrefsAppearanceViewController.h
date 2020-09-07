@@ -41,8 +41,6 @@
 
 @interface PrefsAppearanceViewController : PreferencesViewController <MBPreferencesModule> {
 
-    __weak IBOutlet NSScrollView *scrollView;
-    
     IBOutlet NSComboBox *mainBrowserWindowWidth;
     IBOutlet NSComboBox *mainBrowserWindowHeight;
     IBOutlet NSPopUpButton *mainBrowserWindowPositioning;
@@ -60,6 +58,7 @@
     __weak IBOutlet NSMatrix *zoomModeMatrix;
 }
 
+@property(weak, nonatomic) IBOutlet NSScrollView *scrollView;
 @property(readwrite) BOOL touchOptimizedWarning;
 
 - (NSString *)identifier;
