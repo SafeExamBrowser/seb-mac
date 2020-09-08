@@ -963,7 +963,7 @@
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorDecryptingIdentityNotFound
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
+                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         sebFileCredentials.publicKeyHash = nil;
         return nil;
@@ -977,6 +977,17 @@
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
     
+    if (!sebData) {
+
+        *error = [NSError errorWithDomain:sebErrorDomain
+                                     code:SEBErrorDecryptingIdentityNotFound
+                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
+        DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
+        sebFileCredentials.publicKeyHash = nil;
+        return nil;
+    }
+
     return sebData;
 }
 
