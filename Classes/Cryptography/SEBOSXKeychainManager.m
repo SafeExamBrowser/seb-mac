@@ -1015,15 +1015,15 @@
     crtn = CSSM_DecryptData(ccHandle, &ctext, 1,
                             &ptext, 1, &bytesEncrypted, &remData);
     cssmPerror("decryptdata", crtn);
-    assert(crtn == CSSM_OK);
     CSSM_DeleteContext(ccHandle);
     
-    if(crtn) {
+    NSData *plainData;
+    if (crtn != CSSM_OK) {
         cssmPerror("cdsaEncrypt", crtn);
-        return nil;
+        plainData = nil;
+    } else {
+        plainData = [NSData dataWithBytes:ptext.Data length:bytesEncrypted];
     }
-    
-    NSData *plainData = [NSData dataWithBytes:ptext.Data length:bytesEncrypted];
     
     if (privateKeyRef) CFRelease(privateKeyRef);
     free(ptext.Data);

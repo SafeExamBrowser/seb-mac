@@ -456,13 +456,18 @@
         [self.configFileController storeNewSEBSettings:sebData
                                          forEditing:YES
                                            callback:self
-                                           selector:@selector(openingSEBPrefsSucessfull)];
+                                              selector:@selector(openingSEBPrefsSucessfull:)];
     }
 }
 
 
-- (void) openingSEBPrefsSucessfull
-{            // if successfull save the path to the file for possible editing in the preferences window
+- (void) openingSEBPrefsSucessfull:(NSError *)error
+{
+    if (error) {
+        // Error when reading configuration data
+        [NSApp presentError:error];
+    }
+    // if successfull save the path to the file for possible editing in the preferences window
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
     
     [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
@@ -1277,7 +1282,7 @@
             [self.configFileController storeNewSEBSettings:sebData
                                              forEditing:YES
                                                callback:self
-                                               selector:@selector(openingSEBPrefsSucessfull)];
+                                                  selector:@selector(openingSEBPrefsSucessfull:)];
         }
     } else {
         // If using local client settings
