@@ -242,7 +242,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
                                                                         <font key="font" metaFont="message" size="11"/>
-                                                                        <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
+                                                                        <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit or restart SEB without having to enter the quit password.</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -483,7 +483,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="174" id="oJR-0o-vrJ"/>
                                         </constraints>
                                     </box>
-                                    <box autoresizesSubviews="NO" borderType="line" title="Reconfiguring Exam Session" translatesAutoresizingMaskIntoConstraints="NO" id="olf-PG-s0j" userLabel="Reconfiguring Exam Session">
+                                    <box autoresizesSubviews="NO" borderType="line" title="Reconfiguring Secure/Exam Session" translatesAutoresizingMaskIntoConstraints="NO" id="olf-PG-s0j" userLabel="Reconfiguring Exam Session">
                                         <rect key="frame" x="17" y="299" width="616" height="133"/>
                                         <view key="contentView" id="XgF-VQ-a5h">
                                             <rect key="frame" x="3" y="3" width="610" height="115"/>
@@ -492,9 +492,10 @@
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LfX-Xg-yil">
                                                     <rect key="frame" x="11" y="18" width="588" height="89"/>
                                                     <subviews>
-                                                        <button toolTip="Allow reconfiguring while using the client config or during an exam session by loading an SEB exam config file" translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
-                                                            <rect key="frame" x="-2" y="73" width="143" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Allow Reconfiguring" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lNW-hv-6s5">
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
+                                                            <rect key="frame" x="-2" y="73" width="269" height="18"/>
+                                                            <string key="toolTip">Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file</string>
+                                                            <buttonCell key="cell" type="check" title="Allow reconfiguring secure/exam session" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lNW-hv-6s5">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -517,7 +518,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <textField toolTip="The match URL  has to match the URL of the seb(s) link which invokes reconfiguring." verticalHuggingPriority="750" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-Me-HJd">
+                                                                        <textField toolTip="The URL of the seb(s) link which invokes reconfiguring a secure session has to be matched by this string" verticalHuggingPriority="750" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-Me-HJd">
                                                                             <rect key="frame" x="124" y="0.0" width="464" height="21"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Match URL" drawsBackground="YES" id="SdD-R8-hNc">
                                                                                 <font key="font" metaFont="system"/>
@@ -553,7 +554,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="dN3-5O-Rpi">
                                                                         <font key="font" metaFont="message" size="11"/>
-                                                                        <string key="title">Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</string>
+                                                                        <string key="title">Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -679,7 +680,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="CK1-OR-9To"/>
                                         </constraints>
                                     </box>
-                                    <box title="Query String Parameter" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eM-mgd">
+                                    <box title="Query String Parameter (iOS)" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eM-mgd">
                                         <rect key="frame" x="17" y="107" width="616" height="90"/>
                                         <view key="contentView" id="Ab6-5s-cBF">
                                             <rect key="frame" x="3" y="3" width="610" height="72"/>
@@ -757,7 +758,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Vfv-tN-rLa">
                                                                 <font key="font" metaFont="message" size="11"/>
-                                                                <string key="title">Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</string>
+                                                                <string key="title">Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL).</string>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -832,7 +833,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94237288135593222" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99322033898305084" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

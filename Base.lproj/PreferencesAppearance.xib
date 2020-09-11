@@ -553,8 +553,9 @@
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showBackToStartButton" id="og8-rv-IvE"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed " translatesAutoresizingMaskIntoConstraints="NO" id="8gT-1Z-xTw">
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="8gT-1Z-xTw">
                                                                             <rect key="frame" x="-2" y="98" width="206" height="18"/>
+                                                                            <string key="toolTip">Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu.</string>
                                                                             <buttonCell key="cell" type="check" title="Show navigation buttons (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vVA-cT-h1p">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -958,7 +959,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.44230769230769229" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.73076923076923084" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
