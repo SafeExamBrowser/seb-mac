@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -78,6 +78,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="ezh-c8-Zhz"/>
                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" previousBinding="ezh-c8-Zhz" id="vg0-9n-uJh">
                                             <dictionary key="options">
                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -86,7 +87,6 @@
                                                 <integer key="NSNullPlaceholder" value="-1"/>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="ezh-c8-Zhz"/>
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_blockScreenShotsLegacy" id="9kj-yX-N2C"/>
                                     </connections>
                                 </button>
@@ -225,11 +225,11 @@
                     <tabViewItems>
                         <tabViewItem label="macOS" identifier="" id="Dcg-5G-FDH">
                             <view key="view" id="ot5-GZ-LBL">
-                                <rect key="frame" x="10" y="33" width="604" height="351"/>
+                                <rect key="frame" x="10" y="33" width="604" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
-                                        <rect key="frame" x="74" y="321" width="208" height="16"/>
+                                        <rect key="frame" x="74" y="323" width="208" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Enforce minimum macOS version:" usesSingleLineMode="YES" id="Lff-Up-3Ym">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -237,7 +237,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <popUpButton toolTip="SEB refuses to run on an older system version" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
-                                        <rect key="frame" x="286" y="314" width="305" height="25"/>
+                                        <rect key="frame" x="286" y="316" width="305" height="25"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="0hJ-dB-9wR" userLabel="Log Level Pop Up Button Cell">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -263,7 +263,7 @@
                                         </connections>
                                     </popUpButton>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                                        <rect key="frame" x="15" y="287" width="235" height="18"/>
+                                        <rect key="frame" x="15" y="289" width="235" height="18"/>
                                         <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
                                         <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -274,7 +274,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB enforces to be installed in the Applications folder (/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                                        <rect key="frame" x="15" y="267" width="261" height="18"/>
+                                        <rect key="frame" x="15" y="269" width="261" height="18"/>
                                         <buttonCell key="cell" type="check" title="Force installation in /Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -285,7 +285,7 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="FJP-p9-xw7">
-                                        <rect key="frame" x="15" y="247" width="119" height="18"/>
+                                        <rect key="frame" x="15" y="249" width="119" height="18"/>
                                         <string key="toolTip">If enabled, Siri can be used by tapping the menu bar icon, Touch Bar icon or shortcut set in System Preferences/Siri (default: hold command space). The Siri window won't be displayed though</string>
                                         <buttonCell key="cell" type="check" title="Allow to use Siri" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3JA-FW-lAf">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -296,7 +296,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
-                                        <rect key="frame" x="15" y="227" width="152" height="18"/>
+                                        <rect key="frame" x="15" y="229" width="152" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow to use dictation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4R-7z-oLy">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -306,7 +306,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                        <rect key="frame" x="15" y="187" width="575" height="18"/>
+                                        <rect key="frame" x="15" y="189" width="575" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow display mirroring (affects also AirPlay Display)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -316,7 +316,7 @@
                                         </connections>
                                     </button>
                                     <comboBox toolTip="If more displays are connected, these are blanked with an orange full screen window" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
-                                        <rect key="frame" x="530" y="163" width="60" height="25"/>
+                                        <rect key="frame" x="530" y="165" width="60" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="AAT-5S-sGW"/>
                                         </constraints>
@@ -333,16 +333,16 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplaysMaxNumber" id="wCO-jz-tZL"/>
                                         </connections>
                                     </comboBox>
-                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
-                                        <rect key="frame" x="225" y="169" width="299" height="16"/>
+                                    <textField toolTip="Maximum allowed number of connected displays (including built-in)" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
+                                        <rect key="frame" x="225" y="171" width="299" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="maximum allowed number of connected displays" id="hpd-SM-vcA">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button toolTip="Use the built-in display (if available) when only one display is allowed or when switching off display mirroring" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
-                                        <rect key="frame" x="467" y="148" width="123" height="18"/>
+                                    <button toolTip="Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
+                                        <rect key="frame" x="467" y="150" width="123" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use built-in display" bezelStyle="regularSquare" imagePosition="right" alignment="right" controlSize="small" inset="2" id="gma-Qm-KEF">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="message" size="11"/>
@@ -352,7 +352,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB can also be installed in the Applications folder of the current user (~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="KKV-0r-AMe">
-                                        <rect key="frame" x="364" y="266" width="222" height="18"/>
+                                        <rect key="frame" x="364" y="268" width="222" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow also user's ~/Applications folder" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="sUj-TY-bKw">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="message" size="11"/>
@@ -367,7 +367,7 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="FHY-jc-rXS">
-                                        <rect key="frame" x="15" y="207" width="259" height="18"/>
+                                        <rect key="frame" x="15" y="209" width="259" height="18"/>
                                         <string key="toolTip">SEB displays a lock screen (requiring to enter the quit/unlock password) if it detects that its process was stopped, which can indicate manipulation</string>
                                         <buttonCell key="cell" type="check" title="Detect when SEB process was stopped" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WA3-Fp-0nb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
