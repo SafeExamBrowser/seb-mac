@@ -150,7 +150,7 @@
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qqs-ZA-6ds">
                                     <rect key="frame" x="-3" y="-3" width="195" height="18"/>
-                                    <string key="toolTip">If enabled, overrides the old setting 'Use private clipboard" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows</string>
+                                    <string key="toolTip">If enabled, overrides the old setting 'Use private clipboard" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows</string>
                                     <buttonCell key="cell" type="check" title="Enforce private clipboard on Mac" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="cfE-bh-Syt">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="message" size="11"/>
