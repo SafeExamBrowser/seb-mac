@@ -705,20 +705,20 @@ static NSString * const authenticationPassword = @"password";
     // then check if the reconfigure config file URL matches the setting
     // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    BOOL examSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-    BOOL examSessionReconfigureURLMatch = NO;
-    if (examSession && examSessionReconfigureAllow) {
+    BOOL secureSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL secureSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+    BOOL secureSessionReconfigureURLMatch = NO;
+    if (secureSession && secureSessionReconfigureAllow) {
         NSString *sebConfigURLString = url.absoluteString;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
-        examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
+        secureSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
     }
     // Check if SEB is in exam mode (= quit password is set) and exam is running,
     // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
     // or SEB isn't in exam mode, but is running with settings for starting an exam and the
     // reconfigure allow setting isn't set
-    if ((examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
-        (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow)) {
+    if ((secureSession && !(secureSessionReconfigureAllow && secureSessionReconfigureURLMatch)) ||
+        (!secureSession && NSUserDefaults.userDefaultsPrivate && !secureSessionReconfigureAllow)) {
         // If yes, we don't download the .seb file
         return NO;
     } else {
