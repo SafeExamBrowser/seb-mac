@@ -119,6 +119,11 @@
         if ([instruction isEqualToString:@"SEB_QUIT"]) {
             [_sebViewController sessionQuitRestart:NO];
         }
+        
+        if ([instruction isEqualToString:@"SEB_PROCTORING"]) {
+            NSDictionary *attributes = sebInstruction.attributes;
+
+        }
     }
 }
 
