@@ -1861,125 +1861,127 @@ void run_on_ui_thread(dispatch_block_t block)
         
         [self adjustBars];
         
-        BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
-        if (jitsiMeetEnable) {
-            void (^conditionallyStartProctoring)(void) =
-            ^{
-                // OK action handler
-                void (^startRemoteProctoringOK)(void) =
+        if (@available(iOS 11.0, *)) {
+            BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
+            if (jitsiMeetEnable) {
+                void (^conditionallyStartProctoring)(void) =
                 ^{
-                    [self openJitsiView];
-                    [self.jitsiViewController openJitsiMeetWithSender:self];
-                    run_on_ui_thread(completionBlock);
-                };
-                // Check if previous SEB session already had proctoring active
-                if (self.previousSessionJitsiMeetEnabled) {
-                    run_on_ui_thread(startRemoteProctoringOK);
-                } else {
-                    [self alertWithTitle:NSLocalizedString(@"Starting Remote Proctoring", nil)
-                                 message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
-                            action1Title:NSLocalizedString(@"OK", nil)
-                          action1Handler:^ {
+                    // OK action handler
+                    void (^startRemoteProctoringOK)(void) =
+                    ^{
+                        [self openJitsiView];
+                        [self.jitsiViewController openJitsiMeetWithSender:self];
+                        run_on_ui_thread(completionBlock);
+                    };
+                    // Check if previous SEB session already had proctoring active
+                    if (self.previousSessionJitsiMeetEnabled) {
                         run_on_ui_thread(startRemoteProctoringOK);
-                    }
-                            action2Title:NSLocalizedString(@"Cancel", nil)
-                          action2Handler:^ {
-                        self->_alertController = nil;
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestQuit" object:self];
-                    }];
-                }
-            };
-            AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-            AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
-                if (self.alertController) {
-                    [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                }
-                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
-                NSString *camera = @"";
-                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
-                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
-                }
-                NSString *resolveSuggestion;
-                NSString *resolveSuggestion2;
-                NSString *message;
-                if (videoAuthorization == AVAuthorizationStatusDenied ||
-                    audioAuthorization == AVAuthorizationStatusDenied) {
-                    resolveSuggestion = NSLocalizedString(@"in Settings ", nil);
-                    resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
-                } else {
-                    resolveSuggestion = @"";
-                    resolveSuggestion2 = @"";
-                }
-                if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                    audioAuthorization == AVAuthorizationStatusRestricted) {
-                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
-                } else {
-                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
-                }
-                
-                self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
-                                                                            message:message
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-                
-                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
-                [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
-                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
-                    if (videoAuthorization == AVAuthorizationStatusDenied ||
-                        audioAuthorization == AVAuthorizationStatusDenied) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestQuit" object:self];
-                        return;
-                    }
-                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                        if (granted){
-                            DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
-                            
-                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                                if (granted){
-                                    DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-                                    
-                                    run_on_ui_thread(conditionallyStartProctoring);
-                                    
-                                } else {
-                                    DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
-                                    [[NSNotificationCenter defaultCenter]
-                                     postNotificationName:@"requestQuit" object:self];
-                                }
-                            }];
-                            return;
-                            
-                        } else {
-                            DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                    } else {
+                        [self alertWithTitle:NSLocalizedString(@"Starting Remote Proctoring", nil)
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
+                                action1Title:NSLocalizedString(@"OK", nil)
+                              action1Handler:^ {
+                            run_on_ui_thread(startRemoteProctoringOK);
+                        }
+                                action2Title:NSLocalizedString(@"Cancel", nil)
+                              action2Handler:^ {
+                            self->_alertController = nil;
                             [[NSNotificationCenter defaultCenter]
                              postNotificationName:@"requestQuit" object:self];
-                        }
-                    }];
-                    return;
-                }]];
-                
-                if (NSUserDefaults.userDefaultsPrivate) {
-                    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                        }];
+                    }
+                };
+                AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+                AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+                      videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                    if (self.alertController) {
+                        [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                    }
+                    NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                    NSString *camera = @"";
+                    if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                        camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                    }
+                    NSString *resolveSuggestion;
+                    NSString *resolveSuggestion2;
+                    NSString *message;
+                    if (videoAuthorization == AVAuthorizationStatusDenied ||
+                        audioAuthorization == AVAuthorizationStatusDenied) {
+                        resolveSuggestion = NSLocalizedString(@"in Settings ", nil);
+                        resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
+                    } else {
+                        resolveSuggestion = @"";
+                        resolveSuggestion2 = @"";
+                    }
+                    if (videoAuthorization == AVAuthorizationStatusRestricted ||
+                        audioAuthorization == AVAuthorizationStatusRestricted) {
+                        message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
+                    } else {
+                        message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
+                    }
+                    
+                    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
+                                                                                message:message
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
+                                                  audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
+                    [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
                                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                         self->_alertController = nil;
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestQuit" object:self];
+                        if (videoAuthorization == AVAuthorizationStatusDenied ||
+                            audioAuthorization == AVAuthorizationStatusDenied) {
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuit" object:self];
+                            return;
+                        }
+                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                            if (granted){
+                                DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                                
+                                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                                    if (granted){
+                                        DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
+                                        
+                                        run_on_ui_thread(conditionallyStartProctoring);
+                                        
+                                    } else {
+                                        DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
+                                        [[NSNotificationCenter defaultCenter]
+                                         postNotificationName:@"requestQuit" object:self];
+                                    }
+                                }];
+                                return;
+                                
+                            } else {
+                                DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuit" object:self];
+                            }
+                        }];
+                        return;
                     }]];
+                    
+                    if (NSUserDefaults.userDefaultsPrivate) {
+                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                            self->_alertController = nil;
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuit" object:self];
+                        }]];
+                    }
+                    
+                    [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                    return;
+                } else {
+                    run_on_ui_thread(conditionallyStartProctoring);
+                    return;
                 }
-                
-                [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
-                return;
             } else {
-                run_on_ui_thread(conditionallyStartProctoring);
-                return;
+                self.previousSessionJitsiMeetEnabled = NO;
             }
-        } else {
-            self.previousSessionJitsiMeetEnabled = NO;
         }
         run_on_ui_thread(completionBlock);
     });
