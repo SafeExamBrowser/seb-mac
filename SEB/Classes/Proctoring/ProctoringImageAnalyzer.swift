@@ -14,6 +14,7 @@ import Vision
     func userInterfaceOrientation() -> UIInterfaceOrientation
 }
 
+@available(iOS 11, *)
 public class ProctoringImageAnalyzer: NSObject {
     
     @objc public var enabled: Bool
