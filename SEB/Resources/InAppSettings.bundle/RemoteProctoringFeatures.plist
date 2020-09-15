@@ -11,8 +11,6 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Jitsi Meet Features</string>
-			<key>FooterText</key>
-			<string>Note: Disabling Allow Tile View is not yet functional in this version.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
