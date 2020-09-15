@@ -92,6 +92,8 @@ class JitsiViewController: UIViewController {
                                    withBoolean: false)
             builder.setFeatureFlag("live-streaming.enabled",
                                    withBoolean: false)
+            builder.setFeatureFlag("video-share.enabled",
+                                   withBoolean: false)
             builder.setFeatureFlag("meeting-name.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagDisplayMeetingName"))
             builder.setFeatureFlag("meeting-password.enabled",
@@ -102,7 +104,7 @@ class JitsiViewController: UIViewController {
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagRaiseHand"))
             builder.setFeatureFlag("recording.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagRecording"))
-            builder.setFeatureFlag("tile_view.enabled",
+            builder.setFeatureFlag("tile-view.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView"))
         }
         jitsiMeetView.join(options)
