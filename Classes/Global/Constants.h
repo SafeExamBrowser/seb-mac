@@ -75,7 +75,7 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 13
+#define currentStableMajoriOSVersion 14
 
 enum {
     browserUserAgentModeiOSDefault              = 0,
@@ -172,7 +172,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion12                            = 12
+    iOSBetaVersion14                            = 14
 };
 typedef NSUInteger iOSBetaVersion;
 
@@ -181,7 +181,8 @@ enum {
     iOSVersion9                                 = 9,
     iOSVersion10                                = 10,
     iOSVersion11                                = 11,
-    iOSVersion12                                = 12
+    iOSVersion12                                = 12,
+    iOSVersion13                                = 13
 };
 typedef NSUInteger iOSVersion;
 
