@@ -122,7 +122,7 @@
         
         if ([instruction isEqualToString:@"SEB_PROCTORING"]) {
             NSDictionary *attributes = sebInstruction.attributes;
-
+            [_sebViewController startProctoringWithAttributes:(NSDictionary *)attributes];
         }
     }
 }

@@ -184,7 +184,7 @@
 
 /// Remote Proctoring
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
-@property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer;
+@property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer API_AVAILABLE(ios(11));
 @property (readwrite) UIInterfaceOrientation userInterfaceOrientation;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
@@ -198,6 +198,7 @@
 @property(readwrite) BOOL jitsiMeetSendAudio;
 @property(readwrite) BOOL jitsiMeetSendVideo;
 
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
 - (BOOL) rtcAudioInputEnabled;
 - (BOOL) rtcAudioReceivingEnabled;
