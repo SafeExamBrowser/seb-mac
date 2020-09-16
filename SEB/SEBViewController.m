@@ -3023,35 +3023,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
         return;
     }
     
-    // Check if running on beta iOS
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSUInteger allowBetaiOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
-    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
-    if (currentOSMajorVersion > currentStableMajoriOSVersion && //first check if we're running on a beta at all
-        (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
-         allowBetaiOSVersion != currentOSMajorVersion))
-    { //if allowed, version has to match current iOS
-        
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
-        }
-
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", nil), SEBShortAppName]
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        if (NSUserDefaults.userDefaultsPrivate) {
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
-                                                                     [[NSNotificationCenter defaultCenter]
-                                                                      postNotificationName:@"requestQuit" object:self];
-                                                                 }]];
-        }
-        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-        return;
-    }
-    
     // Check if running on older iOS version than the one allowed in settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
     NSUInteger allowiOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMajor"];
     NSUInteger allowiOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMinor"];
     NSUInteger allowiOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
