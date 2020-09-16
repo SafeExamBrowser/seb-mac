@@ -205,7 +205,9 @@ public extension SEBServerController {
         if connectionToken != nil {
             var pingResource = PingResource(baseURL: self.baseURL, endpoint: (serverAPI?.ping.endpoint?.location)!)
             pingNumber += 1
-            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970) + "&" + keys.pingNumber + "=" + String(pingNumber)
+            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970)
+                + "&" + keys.pingNumber + "=" + String(pingNumber)
+                + (pingInstruction == nil ? "" : "&" + keys.pingInstructionConfirm + "=" + pingInstruction!)
             
             let pingRequest = ApiRequest(resource: pingResource)
             pendingRequests?.append(pingRequest)
@@ -217,6 +219,7 @@ public extension SEBServerController {
                 guard let ping = pingResponse else {
                     return
                 }
+                self.pingInstruction = nil
                 if (ping != nil) {
                     self.delegate?.executeSEBInstruction(SEBInstruction(ping!))
                 }
