@@ -18,6 +18,7 @@ public struct keys {
     static let sebUserSessionId = "seb_user_session_id"
     static let timestamp = "timestamp"
     static let pingNumber = "ping-number"
+    static let pingInstructionConfirm = "instruction-confirm"
     static let logType = "type"
     static let logNumericValue = "numericValue"
     static let logText = "text"
