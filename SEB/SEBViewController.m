@@ -282,7 +282,28 @@ static NSMutableSet *browserWindowControllers;
     
     DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
     [self initializeLogger];
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
     
+    UIDevice *device = UIDevice.currentDevice;
+    NSString *deviceName = device.name;
+    NSString *systemName = device.systemName;
+    NSString *systemVersion = device.systemVersion;
+    NSString *deviceModel = device.model;
+    
+    device.batteryMonitoringEnabled = YES;
+    float batteryLevel = device.batteryLevel;
+    UIDeviceBatteryState batteryState = device.batteryState;
+
+    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    DDLogInfo(@"%@, running %@ %@", deviceModel, systemName, systemVersion);
+    DDLogInfo(@"Device name: %@", deviceName);
+    DDLogInfo(@"Battery level: %.0f%% \(%ld)", batteryLevel*100, (long)batteryState);
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(singleAppModeStatusChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
