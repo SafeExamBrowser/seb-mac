@@ -224,20 +224,33 @@
 
 - (void)composeEmailWithDebugAttachment
 {
-    if (!_sebViewController.mailViewController) {
-        _sebViewController.mailViewController = [[MFMailComposeViewController alloc] init];
-        _sebViewController.mailViewController.mailComposeDelegate = self;
-        NSMutableData *errorLogData = [NSMutableData data];
-        for (NSData *errorLogFileData in [self errorLogData]) {
-            [errorLogData appendData:errorLogFileData];
-        }
-        [_sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"%@-iOS-Client.log", SEBExtraShortAppName]];
-        [_sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", nil), SEBShortAppName]];
-        [_sebViewController.mailViewController setMessageBody:NSLocalizedString(@"Please shortly describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, date/time when it occurred):\n", nil) isHTML:NO];
-        [_sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
-        
-        [_sebViewController.topMostController presentViewController:_sebViewController.mailViewController animated:YES completion:nil];
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
+    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Issue Description Required", nil)
+                                                                              message:NSLocalizedString(@"Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description.", nil)
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!self.sebViewController.mailViewController) {
+                self.sebViewController.mailViewController = [[MFMailComposeViewController alloc] init];
+                self.sebViewController.mailViewController.mailComposeDelegate = self;
+                NSMutableData *errorLogData = [NSMutableData data];
+                for (NSData *errorLogFileData in [self errorLogData]) {
+                    [errorLogData appendData:errorLogFileData];
+                }
+                [self.sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"%@-iOS-Client.log", SEBExtraShortAppName]];
+                [self.sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", nil), SEBShortAppName]];
+                [self.sebViewController.mailViewController setMessageBody:NSLocalizedString(@"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):\n", nil) isHTML:NO];
+                [self.sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
+                
+                [self.sebViewController.topMostController presentViewController:self.sebViewController.mailViewController animated:YES completion:nil];
+            }
+        });
+    }]];
+    
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 
