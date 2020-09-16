@@ -40,7 +40,8 @@ import Foundation
     @objc public var discoveryEndpoint: String
     @objc public var examList: [ExamObject]?
     @objc public var pingTimer: Timer?
-    
+    @objc public var pingInstruction: String?
+
     @objc public init(baseURL: URL, institution:  String, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
         self.baseURL = baseURL
         self.institution = institution

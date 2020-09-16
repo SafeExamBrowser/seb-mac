@@ -282,6 +282,7 @@ static NSMutableSet *browserWindowControllers;
     
     DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
     [self initializeLogger];
+    
     NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
@@ -3918,64 +3919,87 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) openJitsiView
 {
-    self.previousSessionJitsiMeetEnabled = YES;
-    
-    // Initialize Jitsi Meet WebRTC settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _jitsiMeetReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveAudio"];
-    _jitsiMeetReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveVideo"];
-    _jitsiMeetSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendAudio"];
-    _jitsiMeetSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendVideo"];
-    _allRTCTracks = [NSMutableArray new];
-    _localRTCTracks = [NSMutableArray new];
-    
-    // For the case that the device orientation is unknown (accelerometer can't get accurate read of orientation)
-    // we use the current UI orientation for the camera video stream
-    if (@available(iOS 13.0, *)) {
-        _userInterfaceOrientation = UIApplication.sharedApplication.windows.firstObject.windowScene.interfaceOrientation;
-    } else {
-        _userInterfaceOrientation = UIApplication.sharedApplication.statusBarOrientation;
+    if (@available(iOS 11.0, *)) {
+        self.previousSessionJitsiMeetEnabled = YES;
+        
+        // Initialize Jitsi Meet WebRTC settings
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        _jitsiMeetReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveAudio"];
+        _jitsiMeetReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveVideo"];
+        _jitsiMeetSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendAudio"];
+        _jitsiMeetSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendVideo"];
+        _allRTCTracks = [NSMutableArray new];
+        _localRTCTracks = [NSMutableArray new];
+        
+        // For the case that the device orientation is unknown (accelerometer can't get accurate read of orientation)
+        // we use the current UI orientation for the camera video stream
+        if (@available(iOS 13.0, *)) {
+            _userInterfaceOrientation = UIApplication.sharedApplication.windows.firstObject.windowScene.interfaceOrientation;
+        } else {
+            _userInterfaceOrientation = UIApplication.sharedApplication.statusBarOrientation;
+        }
+        
+        EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        [EAGLContext setCurrentContext:eaglContext];
+        _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
+        
+        _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        
+        [_rootViewController addChildViewController:self.jitsiViewController];
+        self.jitsiViewController.safeAreaLayoutGuideInsets = self.view.safeAreaInsets;
+        [self.jitsiViewController didMoveToParentViewController:_rootViewController];
+        
+        NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                              attribute:NSLayoutAttributeLeading
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeLeading
+                                                             multiplier:1.0
+                                                               constant:0],
+                                 [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                              attribute:NSLayoutAttributeTrailing
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeTrailing
+                                                             multiplier:1.0
+                                                               constant:0],
+                                 [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:0],
+                                 [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_rootViewController.view
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0]];
+        [_rootViewController.view addConstraints:constraints];
     }
+}
 
-    EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    [EAGLContext setCurrentContext:eaglContext];
-    _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
-
-    _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    
-    [_rootViewController addChildViewController:self.jitsiViewController];
-    self.jitsiViewController.safeAreaLayoutGuideInsets = self.view.safeAreaInsets;
-    [self.jitsiViewController didMoveToParentViewController:_rootViewController];
-    
-    NSArray *constraints = @[[NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
-                                                          attribute:NSLayoutAttributeLeading
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeLeading
-                                                         multiplier:1.0
-                                                           constant:0],
-                             [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
-                                                          attribute:NSLayoutAttributeTrailing
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeTrailing
-                                                         multiplier:1.0
-                                                           constant:0],
-                             [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeTop
-                                                         multiplier:1.0
-                                                           constant:0],
-                             [NSLayoutConstraint constraintWithItem:self.jitsiViewController.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_rootViewController.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:0]];
-    [_rootViewController.view addConstraints:constraints];
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes
+{
+    NSString *serviceType = attributes[@"service-type"];
+    DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+    if ([serviceType isEqualToString:@"JITSI_MEET"]) {
+        NSURL *jitsiMeetServerURL = [NSURL URLWithString:attributes[@"jitsiMeetServerURL"]];
+        NSString *jitsiMeetRoom = attributes[@"jitsiMeetRoom"];
+        NSString *jitsiMeetToken = attributes[@"jitsiMeetToken"];
+        NSString *instructionConfirm = attributes[@"instruction-confirm"];
+        if (jitsiMeetServerURL && jitsiMeetRoom && jitsiMeetToken && instructionConfirm) {
+//            DDLogInfo(@"%s: Starting Jitsi Meet proctoring.", __FUNCTION__);
+            [self.jitsiViewController openJitsiMeetWithServerURL:jitsiMeetServerURL
+                                                            room:jitsiMeetRoom
+                                                           token:jitsiMeetToken];
+            self.serverController.sebServerController.pingInstruction = instructionConfirm;
+        } else {
+            DDLogError(@"%s: Cannot start proctoring, missing parameters in attributes %@!", __FUNCTION__, attributes);
+        }
+    }
 }
 
 - (void) toggleProctoringViewVisibility
@@ -4004,13 +4028,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) adjustJitsiPiPDragBoundInsets
 {
-    CGFloat navigationBarHeight = self.view.safeAreaInsets.top;
-    CGFloat toolbarHeight = self.view.safeAreaInsets.bottom;
-    UIEdgeInsets safeAreaFrameInsets = UIEdgeInsetsMake(navigationBarHeight,
-                                                        self.view.safeAreaInsets.left,
-                                                        toolbarHeight,
-                                                        self.view.safeAreaInsets.right);
-    self.jitsiViewController.safeAreaLayoutGuideInsets = safeAreaFrameInsets;
+    if (@available(iOS 11.0, *)) {
+        CGFloat navigationBarHeight = self.view.safeAreaInsets.top;
+        CGFloat toolbarHeight = self.view.safeAreaInsets.bottom;
+        UIEdgeInsets safeAreaFrameInsets = UIEdgeInsetsMake(navigationBarHeight,
+                                                            self.view.safeAreaInsets.left,
+                                                            toolbarHeight,
+                                                            self.view.safeAreaInsets.right);
+        self.jitsiViewController.safeAreaLayoutGuideInsets = safeAreaFrameInsets;
+    }
 }
 
 
@@ -4044,12 +4070,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) detectFace:(CMSampleBufferRef)sampleBuffer
 {
-    if (!_proctoringImageAnalyzer) {
-        _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
-        _proctoringImageAnalyzer.delegate = self;
-    }
-    if (_proctoringImageAnalyzer.enabled) {
-        [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
+    if (@available(iOS 11.0, *)) {
+        if (!_proctoringImageAnalyzer) {
+            _proctoringImageAnalyzer = [[ProctoringImageAnalyzer alloc] init];
+            _proctoringImageAnalyzer.delegate = self;
+        }
+        if (_proctoringImageAnalyzer.enabled) {
+            [_proctoringImageAnalyzer detectFaceIn:sampleBuffer];
+        }
     }
 }
 
