@@ -647,6 +647,30 @@
 		69B6759E2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
+		69C81170251404D80053F7BD /* SEBScrollLock_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116A251404D70053F7BD /* SEBScrollLock_locked@2x.png */; };
+		69C81171251404D80053F7BD /* SEBScrollLock_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116A251404D70053F7BD /* SEBScrollLock_locked@2x.png */; };
+		69C81172251404D80053F7BD /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116B251404D70053F7BD /* SEBScrollLockIcon_locked.png */; };
+		69C81173251404D80053F7BD /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116B251404D70053F7BD /* SEBScrollLockIcon_locked.png */; };
+		69C81174251404D80053F7BD /* SEBScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116C251404D70053F7BD /* SEBScrollLockIcon@3x.png */; };
+		69C81175251404D80053F7BD /* SEBScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116C251404D70053F7BD /* SEBScrollLockIcon@3x.png */; };
+		69C81176251404D80053F7BD /* SEBScrollLock_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116D251404D80053F7BD /* SEBScrollLock_locked@3x.png */; };
+		69C81177251404D80053F7BD /* SEBScrollLock_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116D251404D80053F7BD /* SEBScrollLock_locked@3x.png */; };
+		69C81178251404D80053F7BD /* SEBScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116E251404D80053F7BD /* SEBScrollLockIcon@2x.png */; };
+		69C81179251404D80053F7BD /* SEBScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116E251404D80053F7BD /* SEBScrollLockIcon@2x.png */; };
+		69C8117A251404D80053F7BD /* SEBScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116F251404D80053F7BD /* SEBScrollLockIcon.png */; };
+		69C8117B251404D80053F7BD /* SEBScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8116F251404D80053F7BD /* SEBScrollLockIcon.png */; };
+		69C81182251405110053F7BD /* SEBSliderScrollLockIcon_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117C251405100053F7BD /* SEBSliderScrollLockIcon_locked@3x.png */; };
+		69C81183251405110053F7BD /* SEBSliderScrollLockIcon_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117C251405100053F7BD /* SEBSliderScrollLockIcon_locked@3x.png */; };
+		69C81184251405110053F7BD /* SEBSliderScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117D251405100053F7BD /* SEBSliderScrollLockIcon_locked.png */; };
+		69C81185251405110053F7BD /* SEBSliderScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117D251405100053F7BD /* SEBSliderScrollLockIcon_locked.png */; };
+		69C81186251405110053F7BD /* SEBSliderScrollLockIcon_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117E251405100053F7BD /* SEBSliderScrollLockIcon_locked@2x.png */; };
+		69C81187251405110053F7BD /* SEBSliderScrollLockIcon_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117E251405100053F7BD /* SEBSliderScrollLockIcon_locked@2x.png */; };
+		69C81188251405110053F7BD /* SEBSliderScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117F251405110053F7BD /* SEBSliderScrollLockIcon.png */; };
+		69C81189251405110053F7BD /* SEBSliderScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C8117F251405110053F7BD /* SEBSliderScrollLockIcon.png */; };
+		69C8118A251405110053F7BD /* SEBSliderScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C81180251405110053F7BD /* SEBSliderScrollLockIcon@3x.png */; };
+		69C8118B251405110053F7BD /* SEBSliderScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C81180251405110053F7BD /* SEBSliderScrollLockIcon@3x.png */; };
+		69C8118C251405110053F7BD /* SEBSliderScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C81181251405110053F7BD /* SEBSliderScrollLockIcon@2x.png */; };
+		69C8118D251405110053F7BD /* SEBSliderScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C81181251405110053F7BD /* SEBSliderScrollLockIcon@2x.png */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
@@ -1205,6 +1229,18 @@
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
+		69C8116A251404D70053F7BD /* SEBScrollLock_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLock_locked@2x.png"; path = "Resources/Icons/Dock/SEBScrollLock_locked@2x.png"; sourceTree = "<group>"; };
+		69C8116B251404D70053F7BD /* SEBScrollLockIcon_locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBScrollLockIcon_locked.png; path = Resources/Icons/Dock/SEBScrollLockIcon_locked.png; sourceTree = "<group>"; };
+		69C8116C251404D70053F7BD /* SEBScrollLockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLockIcon@3x.png"; path = "Resources/Icons/Dock/SEBScrollLockIcon@3x.png"; sourceTree = "<group>"; };
+		69C8116D251404D80053F7BD /* SEBScrollLock_locked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLock_locked@3x.png"; path = "Resources/Icons/Dock/SEBScrollLock_locked@3x.png"; sourceTree = "<group>"; };
+		69C8116E251404D80053F7BD /* SEBScrollLockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLockIcon@2x.png"; path = "Resources/Icons/Dock/SEBScrollLockIcon@2x.png"; sourceTree = "<group>"; };
+		69C8116F251404D80053F7BD /* SEBScrollLockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBScrollLockIcon.png; path = Resources/Icons/Dock/SEBScrollLockIcon.png; sourceTree = "<group>"; };
+		69C8117C251405100053F7BD /* SEBSliderScrollLockIcon_locked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderScrollLockIcon_locked@3x.png"; path = "Resources/Icons/Slider/SEBSliderScrollLockIcon_locked@3x.png"; sourceTree = "<group>"; };
+		69C8117D251405100053F7BD /* SEBSliderScrollLockIcon_locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderScrollLockIcon_locked.png; path = Resources/Icons/Slider/SEBSliderScrollLockIcon_locked.png; sourceTree = "<group>"; };
+		69C8117E251405100053F7BD /* SEBSliderScrollLockIcon_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderScrollLockIcon_locked@2x.png"; path = "Resources/Icons/Slider/SEBSliderScrollLockIcon_locked@2x.png"; sourceTree = "<group>"; };
+		69C8117F251405110053F7BD /* SEBSliderScrollLockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderScrollLockIcon.png; path = Resources/Icons/Slider/SEBSliderScrollLockIcon.png; sourceTree = "<group>"; };
+		69C81180251405110053F7BD /* SEBSliderScrollLockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderScrollLockIcon@3x.png"; path = "Resources/Icons/Slider/SEBSliderScrollLockIcon@3x.png"; sourceTree = "<group>"; };
+		69C81181251405110053F7BD /* SEBSliderScrollLockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderScrollLockIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderScrollLockIcon@2x.png"; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
 		69CBEB541834C55C00FB0460 /* SEBSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSystemManager.h; sourceTree = "<group>"; };
 		69CBEB551834C55C00FB0460 /* SEBSystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSystemManager.m; sourceTree = "<group>"; };
@@ -1590,6 +1626,12 @@
 				69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */,
 				69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */,
 				69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */,
+				69C8116B251404D70053F7BD /* SEBScrollLockIcon_locked.png */,
+				69C8116A251404D70053F7BD /* SEBScrollLock_locked@2x.png */,
+				69C8116D251404D80053F7BD /* SEBScrollLock_locked@3x.png */,
+				69C8116F251404D80053F7BD /* SEBScrollLockIcon.png */,
+				69C8116E251404D80053F7BD /* SEBScrollLockIcon@2x.png */,
+				69C8116C251404D70053F7BD /* SEBScrollLockIcon@3x.png */,
 				691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */,
 				691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */,
 				694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */,
@@ -2052,6 +2094,12 @@
 				695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */,
 				695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */,
 				695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */,
+				69C8117D251405100053F7BD /* SEBSliderScrollLockIcon_locked.png */,
+				69C8117E251405100053F7BD /* SEBSliderScrollLockIcon_locked@2x.png */,
+				69C8117C251405100053F7BD /* SEBSliderScrollLockIcon_locked@3x.png */,
+				69C8117F251405110053F7BD /* SEBSliderScrollLockIcon.png */,
+				69C81181251405110053F7BD /* SEBSliderScrollLockIcon@2x.png */,
+				69C81180251405110053F7BD /* SEBSliderScrollLockIcon@3x.png */,
 				6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */,
 				6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */,
 				69B253E81E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png */,
@@ -2755,7 +2803,9 @@
 				69B226E51D4108BA0065B831 /* Icon-320x320.png in Resources */,
 				69B253DA1E4E2200000B4A6D /* SEBSliderClosePage@3x.png in Resources */,
 				69331F021C10AC1B0038BD31 /* continueCircle@2x.png in Resources */,
+				69C81182251405110053F7BD /* SEBSliderScrollLockIcon_locked@3x.png in Resources */,
 				69B253E31E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png in Resources */,
+				69C81176251404D80053F7BD /* SEBScrollLock_locked@3x.png in Resources */,
 				69E87E39202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */,
 				694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */,
 				696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */,
@@ -2763,11 +2813,14 @@
 				695A8EEE1E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png in Resources */,
 				693A39771E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png in Resources */,
 				696DAD161C3C2AB900397E18 /* Cancel.png in Resources */,
+				69C81172251404D80053F7BD /* SEBScrollLockIcon_locked.png in Resources */,
 				69B253E91E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png in Resources */,
 				694055AC1CF32B1D0036C480 /* SEBReloadIcon@3x.png in Resources */,
 				696DAD1A1C3C2AB900397E18 /* Previous.png in Resources */,
 				691018D31CF1EA8300AB8803 /* SEBDockIcon@3x.png in Resources */,
+				69C81178251404D80053F7BD /* SEBScrollLockIcon@2x.png in Resources */,
 				698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */,
+				69C8117A251404D80053F7BD /* SEBScrollLockIcon.png in Resources */,
 				695A8EF71E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
 				69E87E51202927330055988F /* SEBDockIconLandscape.png in Resources */,
 				69B253F61E4E275D000B4A6D /* SEBSkipBackIcon@2x.png in Resources */,
@@ -2783,16 +2836,20 @@
 				69B581791ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */,
 				69E87E45202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69E87E4B202926080055988F /* SEBReloadIconLandscape@3x.png in Resources */,
+				69C81184251405110053F7BD /* SEBSliderScrollLockIcon_locked.png in Resources */,
 				6966F8881D1DE07100684182 /* SEBSliderSettingsIcon@2x.png in Resources */,
 				691018C61CF1B33900AB8803 /* SEBShutDownIcon.png in Resources */,
+				69C81170251404D80053F7BD /* SEBScrollLock_locked@2x.png in Resources */,
 				693A39731E60AC8F005030B0 /* SEBSliderNavigateForwardIcon.png in Resources */,
 				69B253F41E4E275D000B4A6D /* SEBSkipBackIcon.png in Resources */,
+				69C81188251405110053F7BD /* SEBSliderScrollLockIcon.png in Resources */,
 				6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */,
 				695A8EF11E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69633E5B1E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png in Resources */,
 				693A395B1E60AC6C005030B0 /* SEBNavigateBackIcon.png in Resources */,
 				69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */,
 				6966F8801D1D4E7200684182 /* SEBSliderReloadIcon@2x.png in Resources */,
+				69C8118C251405110053F7BD /* SEBSliderScrollLockIcon@2x.png in Resources */,
 				694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */,
 				691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */,
 				69E87E3C202924E70055988F /* SEBShutDownIconLandscape@3x.png in Resources */,
@@ -2802,11 +2859,13 @@
 				6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */,
 				69B253EF1E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png in Resources */,
 				695A8EE51E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
+				69C81186251405110053F7BD /* SEBSliderScrollLockIcon_locked@2x.png in Resources */,
 				695A8EFA1E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				695A8EE11E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
 				69633E601E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */,
 				69E87E3F202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
 				69B226E31D4108BA0065B831 /* Icon-22x29.png in Resources */,
+				69C81174251404D80053F7BD /* SEBScrollLockIcon@3x.png in Resources */,
 				694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */,
 				69633E591E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png in Resources */,
 				691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */,
@@ -2834,6 +2893,7 @@
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
 				693A396D1E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png in Resources */,
 				6914D1372183B3CC004F4A4B /* CustomViewCell.xib in Resources */,
+				69C8118A251405110053F7BD /* SEBSliderScrollLockIcon@3x.png in Resources */,
 				695AEAD91EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png in Resources */,
 				69633E641E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */,
 				69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
@@ -2880,7 +2940,9 @@
 				694215EB214544AB002EB416 /* Icon-320x320.png in Resources */,
 				694215EC214544AB002EB416 /* SEBSliderClosePage@3x.png in Resources */,
 				694215ED214544AB002EB416 /* continueCircle@2x.png in Resources */,
+				69C81183251405110053F7BD /* SEBSliderScrollLockIcon_locked@3x.png in Resources */,
 				694215EE214544AB002EB416 /* SEBSliderSkipBackIcon@3x.png in Resources */,
+				69C81177251404D80053F7BD /* SEBScrollLock_locked@3x.png in Resources */,
 				694215EF214544AB002EB416 /* SEBShutDownIconLandscape@2x.png in Resources */,
 				694215F0214544AB002EB416 /* SEBRestartIcon.png in Resources */,
 				694215F1214544AB002EB416 /* ModifyPages.js in Resources */,
@@ -2888,11 +2950,14 @@
 				694215F3214544AB002EB416 /* SEBToolbarNavigateBackIcon.png in Resources */,
 				694215F4214544AB002EB416 /* SEBSliderNavigateForwardIcon@3x.png in Resources */,
 				694215F5214544AB002EB416 /* Cancel.png in Resources */,
+				69C81173251404D80053F7BD /* SEBScrollLockIcon_locked.png in Resources */,
 				694215F6214544AB002EB416 /* SEBSliderReloadIcon@3x.png in Resources */,
 				694215F7214544AB002EB416 /* SEBReloadIcon@3x.png in Resources */,
 				694215F8214544AB002EB416 /* Previous.png in Resources */,
 				694215F9214544AB002EB416 /* SEBDockIcon@3x.png in Resources */,
+				69C81179251404D80053F7BD /* SEBScrollLockIcon@2x.png in Resources */,
 				694215FA214544AB002EB416 /* Settings@2x.png in Resources */,
+				69C8117B251404D80053F7BD /* SEBScrollLockIcon.png in Resources */,
 				694215FB214544AB002EB416 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
 				694215FC214544AB002EB416 /* SEBDockIconLandscape.png in Resources */,
 				694215FD214544AB002EB416 /* SEBSkipBackIcon@2x.png in Resources */,
@@ -2908,16 +2973,20 @@
 				69421607214544AB002EB416 /* SEBAppIcon_256.png in Resources */,
 				69421608214544AB002EB416 /* SEBReloadIconLandscape@2x.png in Resources */,
 				69421609214544AB002EB416 /* SEBReloadIconLandscape@3x.png in Resources */,
+				69C81185251405110053F7BD /* SEBSliderScrollLockIcon_locked.png in Resources */,
 				6942160A214544AB002EB416 /* SEBSliderSettingsIcon@2x.png in Resources */,
 				6942160B214544AB002EB416 /* SEBShutDownIcon.png in Resources */,
+				69C81171251404D80053F7BD /* SEBScrollLock_locked@2x.png in Resources */,
 				6942160C214544AB002EB416 /* SEBSliderNavigateForwardIcon.png in Resources */,
 				6942160D214544AB002EB416 /* SEBSkipBackIcon.png in Resources */,
+				69C81189251405110053F7BD /* SEBSliderScrollLockIcon.png in Resources */,
 				6942160E214544AB002EB416 /* LaunchScreen.storyboard in Resources */,
 				6942160F214544AB002EB416 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69421610214544AB002EB416 /* SEBQuickActionQRCodeIcon@3x.png in Resources */,
 				69421611214544AB002EB416 /* SEBNavigateBackIcon.png in Resources */,
 				69421612214544AB002EB416 /* InAppSettings.bundle in Resources */,
 				69421613214544AB002EB416 /* SEBSliderReloadIcon@2x.png in Resources */,
+				69C8118D251405110053F7BD /* SEBSliderScrollLockIcon@2x.png in Resources */,
 				69421614214544AB002EB416 /* SEBRestartIcon@3x.png in Resources */,
 				69421615214544AB002EB416 /* SEBDockIcon@2x.png in Resources */,
 				69421616214544AB002EB416 /* SEBShutDownIconLandscape@3x.png in Resources */,
@@ -2927,11 +2996,13 @@
 				6942161A214544AB002EB416 /* SEBSliderRestartIcon.png in Resources */,
 				6942161B214544AB002EB416 /* SEBSliderShutDownIcon@3x.png in Resources */,
 				6942161C214544AB002EB416 /* SEBToolbarReloadIcon@2x.png in Resources */,
+				69C81187251405110053F7BD /* SEBSliderScrollLockIcon_locked@2x.png in Resources */,
 				6942161D214544AB002EB416 /* SEBToolbarReloadIcon.png in Resources */,
 				6942161E214544AB002EB416 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
 				6942161F214544AB002EB416 /* SEBSliderQRCodeIcon.png in Resources */,
 				69421620214544AB002EB416 /* SEBShutDownIconLandscape.png in Resources */,
 				69421621214544AB002EB416 /* Icon-22x29.png in Resources */,
+				69C81175251404D80053F7BD /* SEBScrollLockIcon@3x.png in Resources */,
 				69421622214544AB002EB416 /* SEBShutDownIcon@3x.png in Resources */,
 				69421623214544AB002EB416 /* SEBQuickActionQRCodeIcon@2x.png in Resources */,
 				69421624214544AB002EB416 /* SEBReloadIcon@2x.png in Resources */,
@@ -2959,6 +3030,7 @@
 				6942163A214544AB002EB416 /* Reload.png in Resources */,
 				6942163B214544AB002EB416 /* SEBSliderNavigateBackIcon.png in Resources */,
 				6914D1382183B3CC004F4A4B /* CustomViewCell.xib in Resources */,
+				69C8118B251405110053F7BD /* SEBSliderScrollLockIcon@3x.png in Resources */,
 				6942163C214544AB002EB416 /* SEBSliderInfoIcon@2x.png in Resources */,
 				6942163D214544AB002EB416 /* SEBSliderQRCodeIcon@3x.png in Resources */,
 				6942163E214544AB002EB416 /* SEBQRCode.png in Resources */,
@@ -3651,7 +3723,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3723,7 +3795,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ETH Zurich (9Z623UDZ5L)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3969,7 +4041,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -4044,7 +4116,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4106,7 +4178,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4146,7 +4218,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4205,7 +4277,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4264,7 +4336,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 12244;
+				CURRENT_PROJECT_VERSION = 12247;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
