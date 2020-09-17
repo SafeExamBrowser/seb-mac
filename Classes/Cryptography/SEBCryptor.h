@@ -35,6 +35,14 @@
 
 #import <Foundation/Foundation.h>
 
+
+@interface NSString (SEBCryptor)
+
+- (NSComparisonResult)caseInsensitiveOrdinalCompare:(NSString *)string;
+
+@end
+
+
 @interface SEBCryptor : NSObject {
     
     @private

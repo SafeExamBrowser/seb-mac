@@ -40,6 +40,16 @@
 #import "SEBKeychainManager.h"
 #import "SEBSettings.h"
 
+
+@implementation NSString (SEBCryptor)
+
+- (NSComparisonResult)caseInsensitiveOrdinalCompare:(NSString *)string {
+    return [self compare:string options:NSCaseInsensitiveSearch | NSForcedOrderingSearch];
+}
+
+@end
+
+
 @implementation SEBCryptor
 
 //@synthesize HMACKey = _HMACKey;
@@ -447,39 +457,42 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
-    
-    BOOL initializeContainedKeys = NO;
-    // Get dictionary with keys covered by the Config Key in the settings to process
-    NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    if (configKeyContainedKeys.count == 0) {
-        configKeyContainedKeys = [NSDictionary dictionary];
-        initializeContainedKeys = YES;
+    NSData *configKey = [preferences secureDataForKey:@"org_safeexambrowser_configKey"];
+    if (!configKey) {
+        // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
+        NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
+        
+        BOOL initializeContainedKeys = NO;
+        // Get dictionary with keys covered by the Config Key in the settings to process
+        NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        if (configKeyContainedKeys.count == 0) {
+            configKeyContainedKeys = [NSDictionary dictionary];
+            initializeContainedKeys = YES;
+        }
+        if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
+            [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
+            // Class of local preferences value is different than the one from the default value
+            // If yes, then cancel reading .seb file and create error object
+            DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
+            DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
+            // Reset Config Key
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+            [self presentPreferencesCorruptedError];
+            [self resetSEBUserDefaults];
+            return;
+        }
+        
+        configKey = [NSData data];
+        [self updateConfigKeyInSettings:filteredPrefsDict
+              configKeyContainedKeysRef:&configKeyContainedKeys
+                           configKeyRef:&configKey
+                initializeContainedKeys:initializeContainedKeys];
+        
+        [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+        
+        // Store new Config Key in UserDefaults
+        [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
     }
-    if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
-        [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
-        // Class of local preferences value is different than the one from the default value
-        // If yes, then cancel reading .seb file and create error object
-        DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
-        DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
-        // Reset Config Key
-        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
-        [self presentPreferencesCorruptedError];
-        [self resetSEBUserDefaults];
-        return;
-    }
-
-    NSData *configKey = [NSData data];
-    [self updateConfigKeyInSettings:filteredPrefsDict
-          configKeyContainedKeysRef:&configKeyContainedKeys
-                       configKeyRef:&configKey
-            initializeContainedKeys:initializeContainedKeys];
-    
-    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-
-    // Store new Config Key in UserDefaults
-    [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
 }
 
 
@@ -519,7 +532,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
-                                                                                                   selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
+                                                                                                   selector:@selector(caseInsensitiveOrdinalCompare:)]]].mutableCopy;
     // Remove the special key "originatorVersion" which doesn't have any functionality,
     // it's just meta data indicating which SEB version saved the config file
     [configKeysAlphabetically removeObject:@"originatorVersion"];
@@ -529,9 +542,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSDictionary *defaultSettings = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:dictionaryKey];
 
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
-    if (containedKeys.count == 0 &&
+    if (!containedKeys || (containedKeys.count == 0 &&
         configKeysAlphabetically.count != 0 &&
-        initializeContainedKeys) {
+        initializeContainedKeys)) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
