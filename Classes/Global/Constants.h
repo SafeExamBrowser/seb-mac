@@ -75,7 +75,7 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 13
+#define currentStableMajoriOSVersion 14
 
 enum {
     browserUserAgentModeiOSDefault              = 0,
@@ -184,6 +184,16 @@ enum {
     iOSVersion12                                = 12
 };
 typedef NSUInteger iOSVersion;
+
+
+enum {
+    remoteProctoringButtonStateDefault          = 0,
+    remoteProctoringButtonStateNormal           = 1,
+    remoteProctoringButtonStateWarning          = 2,
+    remoteProctoringButtonStateError            = 3,
+    remoteProctoringButtonStateAIInactive       = 4
+};
+typedef NSInteger remoteProctoringButtonStates;
 
 
 enum {
