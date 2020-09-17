@@ -40,7 +40,7 @@
 @class AppDelegate;
 @class SEBViewController;
 
-@interface SEBUIController : NSObject <ProctoringUIDelegate> {
+@interface SEBUIController : NSObject {
     
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
