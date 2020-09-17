@@ -134,10 +134,15 @@
 
 /**
  * @brief       Delegate method to display an enter password dialog with the
- *              passed message text modally
+ *              passed message text and title modally
  */
-- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText;
+- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText
+                                            title:(NSString *)title;
 
+/**
+ * @brief       Delegate method to fetch persisted client settings
+ */
+- (NSData *) getSEBClientSettings;
 
 @end
 
@@ -145,7 +150,7 @@
  * @class       SEBConfigFileManager
  *
  * @brief       SEBConfigFileManager implements a methods to deal with settings contained in
- *              .seb config files, which usually will be encrypted with a password or a$
+ *              .seb config files, which usually will be encrypted with a password or a
  *              cryptographic identity (certificate and private key)
  *
  * @details     SEBConfigFileManager handles the
@@ -170,6 +175,8 @@
 
 @property (weak) id delegate;
 @property BOOL currentConfigPasswordIsHash;
+@property StoreDecryptedSEBSettingsResult storeDecryptedSEBSettingsResult;
+@property BOOL suppressFileFormatError;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
