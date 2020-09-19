@@ -103,7 +103,4 @@
 
 - (void) updateScrollLockButtonStates;
 
-- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
-                         userFeedback:(BOOL)userFeedback;
-
 @end
