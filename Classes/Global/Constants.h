@@ -250,7 +250,7 @@ typedef NSUInteger newBrowserWindowPolicies;
 
 
 enum {
-    operatingSystemOSX                          = 0,
+    operatingSystemMacOS                        = 0,
     operatingSystemWin                          = 1,
 };
 typedef NSUInteger operatingSystems;
@@ -341,11 +341,11 @@ typedef NSUInteger SEBKioskMode;
 
 
 enum {
-    storeDecryptedSEBSettingsResultSuccess      = 0,
-    storeDecryptedSEBSettingsResultCanceled     = 1,
-    storeDecryptedSEBSettingsResultWrongFormat  = 2
+    StoreDecryptedSEBSettingsResultSuccess      = 0,
+    StoreDecryptedSEBSettingsResultCanceled     = 1,
+    StoreDecryptedSEBSettingsResultWrongFormat  = 2
 };
-typedef NSUInteger storeDecryptedSEBSettingsResult;
+typedef NSUInteger StoreDecryptedSEBSettingsResult;
 
 
 enum {
@@ -380,7 +380,9 @@ enum {
     SEBMinOSX10_9                               = 2,
     SEBMinOSX10_10                              = 3,
     SEBMinOSX10_11                              = 4,
-    SEBMinMacOS10_12                            = 5
+    SEBMinMacOS10_12                            = 5,
+    SEBMinMacOS10_13                            = 6,
+    SEBMinMacOS10_14                            = 7
 };
 typedef NSUInteger SEBMinMacOSVersion;
 
@@ -426,6 +428,7 @@ typedef NSUInteger SEBZoomModes;
 
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
 static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
+static NSString __unused *screenCaptureAgent = @"screencapture";
 static NSString __unused *AppleVNCAgent = @"AppleVNCServer";
 static NSString __unused *AppleVNCAgentBundleID = @"com.apple.AppleVNCServer";
 static NSString __unused *ARDAgent = @"ARDAgent";
@@ -436,6 +439,18 @@ static NSString __unused *SiriService = @"SiriNCService";
 static NSString __unused *SiriDefaultsDomain = @"com.apple.assistant.support";
 static NSString __unused *SiriDefaultsKey = @"Assistant Enabled";
 static NSString __unused *cachedSiriSettingKey = @"cachedSiriSettingKey";
+static NSString __unused *TouchBarAgent = @"com.apple.controlstrip";
+static NSString __unused *TouchBarDefaultsDomain = @"com.apple.touchbar.agent";
+static NSString __unused *TouchBarGlobalDefaultsKey = @"PresentationModeGlobal";
+static NSString __unused *TouchBarGlobalDefaultsValue = @"fullControlStrip";
+static NSString __unused *TouchBarFnDictionaryDefaultsKey = @"PresentationModeFnModes";
+static NSString __unused *TouchBarFnDefaultsKey = @"fullControlStrip";
+static NSString __unused *TouchBarFnDefaultsValue = @"functionKeys";
+static NSString __unused *BTouchBarAgent = @"BetterTouchTool";
+static NSString __unused *BTouchBarRestartAgent = @"BTTRelaunch";
+static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
+static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
+static NSString __unused *pathToKeyboardPreferences = @"/System/Library/PreferencePanes/Keyboard.prefPane";
 static NSString __unused *DictationProcess = @"DictationIM";
 static NSString __unused *DictationDefaultsDomain = @"com.apple.speech.recognition.AppleSpeechRecognition.prefs";
 static NSString __unused *DictationDefaultsKey = @"DictationIMMasterDictationEnabled";
@@ -445,6 +460,9 @@ static NSString __unused *cachedDictationSettingKey = @"cachedDictationSettingKe
 static NSString __unused *cachedRemoteDictationSettingKey = @"cachedRemoteDictationSettingKey";
 static NSString __unused *RemoteDictationDefaultsDomain = @"com.apple.assistant.support";
 static NSString __unused *RemoteDictationDefaultsKey = @"Dictation Enabled";
+static NSString __unused *fontDownloadAttemptedKey = @"fontDownloadAttempted";
+static NSString __unused *fontDownloadAttemptedOnPageTitleKey = @"fontDownloadAttemptedOnPageTitle";
+static NSString __unused *fontDownloadAttemptedOnPageURLOrPlaceholderKey = @"fontDownloadAttemptedOnPageURLOrPlaceholder";
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 

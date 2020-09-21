@@ -84,7 +84,7 @@
 			<key>Title</key>
 			<string>Scroll Lock</string>
 			<key>FooterText</key>
-			<string>With the Scroll Lock Dock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</string>
+			<string>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -100,7 +100,7 @@
 			<key>Title</key>
 			<string>Auto-Correction &amp; Predictive Text</string>
 			<key>FooterText</key>
-			<string>In AAC/ASAM single app modes, auto-correction and predictive text are always disabled.</string>
+			<string>In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
