@@ -66,7 +66,21 @@
 // and if it existed and was loaded, use it to re-configure SEB
 - (void) reconfigureClientWithSebClientSettings
 {
-    [self.delegate reconfigureClientWithSebClientSettings];
+    NSData *sebData = [self.delegate getSEBClientSettings];
+    if (sebData) {
+        [self storeNewSEBSettings:sebData
+                       forEditing:NO
+           forceConfiguringClient:YES
+                         callback:self
+                         selector:@selector(reconfigureClientWithSebClientSettingsCallback)];
+    }
+}
+
+
+/// Called after the client was sucesssfully reconfigured with persisted client settings
+- (void) reconfigureClientWithSebClientSettingsCallback
+{
+    [self.delegate reconfigureClientWithSebClientSettingsCallback];
 }
 
 
@@ -743,6 +757,8 @@
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
         }
+        // Inform callback that storing new settings was successful
+        [self storeNewSEBSettingsSuccessful:nil];
         return;
     }
 }
@@ -773,12 +789,10 @@
             // If yes, then cancel reading .seb file
             DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
 
-            if (*error) {
                 *error = [NSError errorWithDomain:sebErrorDomain
                                              code:SEBErrorParsingSettingsFailedValueClassMissmatch
                                          userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
                                                     NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
-            }
             
             return NO; //we abort reading the new settings here
         }
@@ -869,7 +883,7 @@
     // We can only ask for the admin password if the SEBConfigUIDelegate implements a modal
     // password dialog. This isn't the case on iOS, but there this method never should be called
     // because opening SEB settings for editing isn't supported in SEB for iOS
-    if (![self.delegate respondsToSelector:@selector(promptPasswordWithMessageTextModal:)]) {
+    if (![self.delegate respondsToSelector:@selector(promptPasswordWithMessageTextModal:title:)]) {
         return false;
     }
     // Ask for a SEB administrator password and
@@ -883,7 +897,8 @@
     do {
         i--;
         // Prompt for password
-        password = [self.delegate promptPasswordWithMessageTextModal:NSLocalizedString(@"Loading settings",nil)];
+        password = [self.delegate promptPasswordWithMessageTextModal:[NSString stringWithFormat:NSLocalizedString(@"Enter the %@ administrator password used in these settings:",nil), SEBShortAppName]
+                                                               title:NSLocalizedString(@"Loading settings",nil)];
         if (!password) {
             // If cancel was pressed, abort
             return false;
@@ -917,12 +932,14 @@
 {
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // We reset the Config Key in current user defaults, to make sure it is freshly calculated for loaded settings
+    [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
     sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict
                                                         configKeyContainedKeysRef:&configKeyContainedKeys
                                                                      configKeyRef:&configKey
                                                           initializeContainedKeys:YES];
     
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences storeSEBDictionary:sebPreferencesDict];
 
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
@@ -948,7 +965,7 @@
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorDecryptingIdentityNotFound
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
+                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         sebFileCredentials.publicKeyHash = nil;
         return nil;
@@ -961,6 +978,17 @@
     sebFileCredentials.publicKeyHash = publicKeyHash;
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
+    
+    if (!sebData) {
+
+        *error = [NSError errorWithDomain:sebErrorDomain
+                                     code:SEBErrorDecryptingIdentityNotFound
+                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
+        DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
+        sebFileCredentials.publicKeyHash = nil;
+        return nil;
+    }
     
     return sebData;
 }
