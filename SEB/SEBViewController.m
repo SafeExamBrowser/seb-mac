@@ -2224,6 +2224,18 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSEB
 {
+    [_browserTabViewController closeAllTabs];
+    _sessionRunning = false;
+    
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket
+    // if the setting examSessionClearCookiesOnEnd was true in a previous config
+    if (_examSessionClearCookiesOnEnd) {
+        [NSURLCache.sharedURLCache removeAllCachedResponses];
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        }];
+    }
+
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
 
@@ -2438,7 +2450,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
             // or SEB isn't in exam mode, but is running with settings for starting an exam and the
             // reconfigure allow setting isn't set
-            if (_examRunning && (
+            if (_sessionRunning && (
                 (examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
                 (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow))) {
                 // If yes, we don't download the .seb file
@@ -2841,7 +2853,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Start URL was set to the default value, show init assistant
             [self openInitAssistant];
         } else {
-            _examRunning = true;
+            _sessionRunning = true;
             
             // Load all open web pages from the persistent store and re-create webview(s) for them
             // or if no persisted web pages are available, load the start URL
@@ -3264,7 +3276,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == false) {
 
         // Is the exam already running?
-        if (_examRunning) {
+        if (_sessionRunning) {
             
             // Dismiss the Activate SAM alert in case it still was visible
             if (_alertController) {
@@ -3792,7 +3804,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (@available(iOS 11.0, *)) {
         if (UIScreen.mainScreen.isCaptured &&
             _secureMode &&
-            _examRunning &&
+            _sessionRunning &&
             !_clientConfigSecureModePaused &&
             ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"]) {
             DDLogError(@"Screen is being captured while in secure mode!");
@@ -3815,7 +3827,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (BOOL) conditionallyOpenSleepModeLockdownWindows
 {
     if (_secureMode &&
-        _examRunning &&
+        _sessionRunning &&
         !_clientConfigSecureModePaused &&
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
         [self openLockdownWindows];
