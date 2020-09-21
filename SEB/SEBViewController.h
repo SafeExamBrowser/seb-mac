@@ -207,7 +207,7 @@
 @property(readwrite) BOOL viewDidLayoutSubviewsAlreadyCalled;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL aboutSEBViewDisplayed;
-@property(readwrite) BOOL examRunning;
+@property(readwrite) BOOL sessionRunning;
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL settingsDidClose;
