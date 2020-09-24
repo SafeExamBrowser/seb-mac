@@ -2791,6 +2791,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self conditionallyStartKioskMode];
             }];
         } else {
+            _establishingSEBServerConnection = false;
             [self showReconfiguringAlertWithError:error];
         }
     }
