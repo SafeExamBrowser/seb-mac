@@ -2242,7 +2242,7 @@ void run_on_ui_thread(dispatch_block_t block)
     self.browserController = nil;
     
     [self.jitsiViewController closeJitsiMeetWithSender:self];
-    self.proctoringImageAnalyzer = nil;
+        self.proctoringImageAnalyzer = nil;
     
     self.appDelegate.sebUIController = nil;
 
@@ -3035,9 +3035,11 @@ quittingClientConfig:(BOOL)quittingClientConfig
     
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     
-    if (_sebServerConnectionEstablished) {
-        _sebServerConnectionEstablished = false;
-        [self.serverController quitSession];
+    if (quitting) {
+        if (_sebServerConnectionEstablished) {
+            _sebServerConnectionEstablished = false;
+            [self.serverController quitSession];
+        }
     }
     if (_startingExamFromSEBServer) {
         _establishingSEBServerConnection = false;
@@ -3998,8 +4000,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
     if ([serviceType isEqualToString:@"JITSI_MEET"]) {
-        NSURL *jitsiMeetServerURL = [NSURL URLWithString:attributes[@"jitsiMeetServerURL"]];
+        NSString *jitsiMeetServerURLString = attributes[@"jitsiMeetServerURL"];
+        NSURL *jitsiMeetServerURL = [NSURL URLWithString:jitsiMeetServerURLString];
         NSString *jitsiMeetRoom = attributes[@"jitsiMeetRoom"];
+        // ToDo: Remove workaround for SEB Server bug where the room is included in the Jitsi server URL
+        if ([jitsiMeetServerURL.path containsString:jitsiMeetRoom]) {
+            NSRange rangeOfRoomString = [jitsiMeetServerURLString rangeOfString:jitsiMeetRoom options:NSLiteralSearch];
+            jitsiMeetServerURLString = [jitsiMeetServerURLString substringToIndex:rangeOfRoomString.location-1];
+            jitsiMeetServerURL = [NSURL URLWithString:jitsiMeetServerURLString];
+        }
         NSString *jitsiMeetToken = attributes[@"jitsiMeetToken"];
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (jitsiMeetServerURL && jitsiMeetRoom && jitsiMeetToken && instructionConfirm) {
