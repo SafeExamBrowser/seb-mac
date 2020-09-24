@@ -141,7 +141,7 @@
  * @brief       Indicates if the exam is running.
  * @details
  */
-@property(readwrite) BOOL examRunning;
+@property(readwrite) BOOL sessionRunning;
 
 /**
  * @brief       Indicates if SEB is locked
