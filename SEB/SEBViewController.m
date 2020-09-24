@@ -2242,7 +2242,9 @@ void run_on_ui_thread(dispatch_block_t block)
     self.browserController = nil;
     
     [self.jitsiViewController closeJitsiMeetWithSender:self];
+    if (@available(iOS 11, *)) {
         self.proctoringImageAnalyzer = nil;
+    }
     
     self.appDelegate.sebUIController = nil;
 
@@ -2250,7 +2252,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
     run_on_ui_thread(^{
         [self.browserTabViewController closeAllTabs];
-        self.examRunning = false;
+        self.sessionRunning = false;
         
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
@@ -3242,7 +3244,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     NSURL *examURL = [NSURL URLWithString:url];
     [_browserTabViewController openNewTabWithURL:examURL];
     self.browserController.sebServerExamStartURL = examURL;
-    _examRunning = true;
+    _sessionRunning = true;
 }
 
 
