@@ -1457,6 +1457,12 @@ static NSMutableSet *browserWindowControllers;
         }
     }
     
+    // Settings
+    if (_startingExamFromSEBServer) {
+        _startingExamFromSEBServer = false;
+//        [self.serverController loginToExamAborted];
+    }
+
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
     _settingsDidClose = YES;

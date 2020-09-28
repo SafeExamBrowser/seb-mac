@@ -288,10 +288,15 @@
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
 #pragma mark - Connecting to SEB Server
+// Waiting for user to select exam from SEB Server and to successfully log in
 @property(readwrite) BOOL establishingSEBServerConnection;
+// Exam URL is opened in a webview (tab), waiting for user to log in
 @property(readwrite) BOOL startingExamFromSEBServer;
+// User logged in to LMS, monitoring the client started
 @property(readwrite) BOOL sebServerConnectionEstablished;
+// The SEB Server exam list view is displayed
 @property(readwrite) BOOL sebServerViewDisplayed;
+
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
 - (void) closeServerView:(id)sender;
 - (void) loginToExam:(NSString *)url;
