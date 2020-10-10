@@ -1020,7 +1020,7 @@ bool insideMatrix(void);
     
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
+                                                    withObject:NULL waitUntilDone:YES];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
@@ -1055,7 +1055,9 @@ bool insideMatrix(void);
     
     // Run watchdog event for windows and events which need to be observed
     // on the main (UI!) thread once, to initialize
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self windowWatcher];
+    });
     
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
