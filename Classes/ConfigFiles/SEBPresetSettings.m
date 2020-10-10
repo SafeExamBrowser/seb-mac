@@ -9,6 +9,7 @@
 
 @implementation SEBPresetSettings
 
+/// Provides default values for settings used by the extension
 + (NSDictionary *)defaultSettings
 {
     return
@@ -146,6 +147,21 @@
           }, // rootSettings end
       
     }; // defaultSettings end
+}
+
+
+/// Provides default values for exam settings used by the extension
++ (NSDictionary *)defaultExamSettings
+{
+    return
+    @{@"rootSettings" :
+          @{
+    
+              @"allowPreferencesWindow" : @NO
+              
+          }, // rootSettings end
+      
+    }; // defaultExamSettings end
 }
 
 

@@ -53,6 +53,15 @@
  */
 + (NSDictionary *)defaultSettings;
 
+@optional
+/**
+ * @brief       Provides default values for exam settings used by the extension.
+ *              The key name identifies a settings dictionary, at least "rootSettings"
+ *              must be provided.
+ */
++ (NSDictionary *)defaultExamSettings;
+
+
 @end
 
 
@@ -61,6 +70,7 @@
 + (SEBSettings *)sharedSEBSettings;
 
 @property (strong, nonatomic) NSDictionary *defaultSettings;
+@property (strong, nonatomic) NSDictionary *defaultExamSettings;
 
 - (NSDictionary *)defaultSEBSettings;
 
