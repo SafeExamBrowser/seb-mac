@@ -577,15 +577,22 @@ bool insideMatrix(void);
 //
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-    DDLogDebug(@"%s", __FUNCTION__);
+    NSURL *fileURL;
+    if (@available(macOS 10.13, *)) {
+        fileURL = [NSURL URLWithString:filename];
+    } else {
+        fileURL = [NSURL fileURLWithPath:filename isDirectory:NO];
+    }
+    
+    DDLogDebug(@"%s file URL: %@", __FUNCTION__, fileURL);
 
     if (!_openingSettings) {
         _openingSettings = true;
         if (_startingUp) {
             DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
-            _openingSettingsFileURL = [NSURL URLWithString:filename];
+            _openingSettingsFileURL = fileURL;
         } else {
-            [self openFile:[NSURL URLWithString:filename]];
+            [self openFile:fileURL];
         }
     }
     return YES;
@@ -1048,7 +1055,7 @@ bool insideMatrix(void);
     
     // Run watchdog event for windows and events which need to be observed
     // on the main (UI!) thread once, to initialize
-    [self windowWatcher];
+        [self windowWatcher];
     
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
@@ -3457,7 +3464,7 @@ bool insideMatrix(){
             appURL = [self getBundleOrExecutableURL:application];
             [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
         } else {
-            appURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID]];
+            appURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
         }
         [processDetails setValue:appURL forKey:@"URL"];
     }
@@ -4544,7 +4551,7 @@ bool insideMatrix(){
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences]];
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences isDirectory:NO]];
             default:
             {
             }
