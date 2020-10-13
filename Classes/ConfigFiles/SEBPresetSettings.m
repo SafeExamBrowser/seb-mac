@@ -137,6 +137,10 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Discord",
+                          @"identifier" : @"com.hnc.Discord*",
+                      },
+                      @{
                           @"description" : @"Firefox: This stops video conferencing and screen sharing, without having to quit the browser. Users have to restore their open tabs afterwards though.",
                           @"executable" : @"plugin-container",
                           @"identifier" : @"org.mozilla.plugincontainer",
