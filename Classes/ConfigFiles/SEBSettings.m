@@ -57,60 +57,91 @@ static SEBSettings *sharedSEBSettings = nil;
 
 - (NSDictionary *)defaultSettings
 {
-    if (!_defaultSettings) {
-        NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:[self defaultSEBSettings]];
-        
-        NSArray *sebExtensions = [MyGlobals SEBExtensions];
-        for (NSString *sebExtensionString in sebExtensions) {
-            Class SEBExtensionClass = NSClassFromString(sebExtensionString);
-            
-            if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(@"defaultSettings")]) {
-                NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:[SEBExtensionClass defaultSettings]];
-                
-                NSArray *extensionDictionaryKeys = [defaultExtensionSettings allKeys];
-                for (NSString *extensionDictKey in extensionDictionaryKeys) {
-                    // First check if extension settings dictionary contains arrays of subdictionaries with missing default keys
-                    NSMutableDictionary *extensionSubDict = [[defaultExtensionSettings objectForKey:extensionDictKey] mutableCopy];
-                    NSArray *extensionSubDictionaryKeys = [extensionSubDict allKeys];
-                    for (NSString *extensionSubDictKey in extensionSubDictionaryKeys) {
-                        id extensionSubElement = [extensionSubDict objectForKey:extensionSubDictKey];
-                        if ([extensionSubElement isKindOfClass:[NSArray class]]) {
-                            NSMutableArray *extensionSubArray = NSMutableArray.new;
-                            for (NSDictionary* extensionSubDict in extensionSubElement) {
-                                NSMutableDictionary *completedExtensionSubDict = [[completeDefaultSettings objectForKey:extensionSubDictKey] mutableCopy];
-                                [completedExtensionSubDict addEntriesFromDictionary:extensionSubDict];
-                                [extensionSubArray addObject:completedExtensionSubDict];
-                            }
-                            if (extensionSubArray) {
-                                [extensionSubDict setObject:extensionSubArray.copy forKey:extensionSubDictKey];
-                            }
-                        }
-                    }
-                    [defaultExtensionSettings setObject:extensionSubDict.copy forKey:extensionDictKey];
-                }
-                
-                NSArray *subDictionaries = [completeDefaultSettings allKeys];
-                for (NSString *subDictKey in subDictionaries) {
-                    NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
-                    if (subExtensionDict.count > 0) {
-                        NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
-                        if (subDict) {
-                            [subDict addEntriesFromDictionary:subExtensionDict];
-                            [completeDefaultSettings setObject:subDict forKey:subDictKey];
-                            [defaultExtensionSettings removeObjectForKey:subDictKey];
-                        } else {
-                            [completeDefaultSettings setObject:subExtensionDict forKey:subDictKey];
-                        }
-                    }
-                }
-                [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
-            }
-        }
-        _defaultSettings = completeDefaultSettings.copy;
+    if ([NSUserDefaults userDefaultsPrivate]) {
+        return [self defaultExamSettings];
+
+    } else {
+        return [self defaultClientSettings];
     }
+}
+
+
+- (NSDictionary *)defaultClientSettings
+{
+    if (!_defaultSettings) {
+        _defaultSettings = [self extendDefaultSettings:[self defaultSEBSettings] withSettingsIdentifier:@"defaultSettings"];
+        }
     return _defaultSettings;
 }
 
+
+- (NSDictionary *)defaultExamSettings
+{
+    if (!_defaultExamSettings) {
+        _defaultExamSettings = [self extendDefaultSettings:[self defaultClientSettings] withSettingsIdentifier:@"defaultExamSettings"];
+        }
+    return _defaultExamSettings;
+}
+
+
+- (NSDictionary *)extendDefaultSettings:(NSDictionary *)defaultSettings withSettingsIdentifier:(NSString *)settingsIdentifier
+{
+    NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
+
+    NSArray *sebExtensions = [MyGlobals SEBExtensions];
+    for (NSString *sebExtensionString in sebExtensions) {
+        Class SEBExtensionClass = NSClassFromString(sebExtensionString);
+        
+        if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(settingsIdentifier)]) {
+            SEL selector = NSSelectorFromString(settingsIdentifier);
+            IMP imp = [SEBExtensionClass methodForSelector:selector];
+            NSDictionary *(*func)(id, SEL) = (void *)imp;
+            NSDictionary *extensionSettings = func(SEBExtensionClass, selector);
+
+            NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:extensionSettings];
+            
+            NSArray *extensionDictionaryKeys = [defaultExtensionSettings allKeys];
+            for (NSString *extensionDictKey in extensionDictionaryKeys) {
+                // First check if extension settings dictionary contains arrays of subdictionaries with missing default keys
+                NSMutableDictionary *extensionSubDict = [[defaultExtensionSettings objectForKey:extensionDictKey] mutableCopy];
+                NSArray *extensionSubDictionaryKeys = [extensionSubDict allKeys];
+                for (NSString *extensionSubDictKey in extensionSubDictionaryKeys) {
+                    id extensionSubElement = [extensionSubDict objectForKey:extensionSubDictKey];
+                    if ([extensionSubElement isKindOfClass:[NSArray class]]) {
+                        NSMutableArray *extensionSubArray = NSMutableArray.new;
+                        for (NSDictionary* extensionSubDict in extensionSubElement) {
+                            NSMutableDictionary *completedExtensionSubDict = [[completeDefaultSettings objectForKey:extensionSubDictKey] mutableCopy];
+                            [completedExtensionSubDict addEntriesFromDictionary:extensionSubDict];
+                            [extensionSubArray addObject:completedExtensionSubDict];
+                        }
+                        if (extensionSubArray) {
+                            [extensionSubDict setObject:extensionSubArray.copy forKey:extensionSubDictKey];
+                        }
+                    }
+                }
+                [defaultExtensionSettings setObject:extensionSubDict.copy forKey:extensionDictKey];
+            }
+            
+            NSArray *subDictionaries = [completeDefaultSettings allKeys];
+            for (NSString *subDictKey in subDictionaries) {
+                NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
+                if (subExtensionDict.count > 0) {
+                    NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
+                    if (subDict) {
+                        [subDict addEntriesFromDictionary:subExtensionDict];
+                        [completeDefaultSettings setObject:subDict forKey:subDictKey];
+                        [defaultExtensionSettings removeObjectForKey:subDictKey];
+                    } else {
+                        [completeDefaultSettings setObject:subExtensionDict forKey:subDictKey];
+                    }
+                }
+            }
+            [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
+        }
+    }
+    return completeDefaultSettings.copy;
+}
+    
 
 - (NSDictionary *)defaultSEBSettings
 {
@@ -851,6 +882,4 @@ static SEBSettings *sharedSEBSettings = nil;
               };
 }
 
-
 @end
-
