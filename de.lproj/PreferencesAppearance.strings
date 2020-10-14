@@ -1,204 +1,180 @@
-/* Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "2KI-tS-neq"; */
-"2KI-tS-neq.ibShadowedToolTip" = "'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen";
+/* Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "0g5-nW-upZ"; */
+"0g5-nW-upZ.title" = "Touch-optimiert (Win)";
 
-/* Class = "NSTextFieldCell"; title = "Dock height"; ObjectID = "3KI-5c-L1K"; */
-"3KI-5c-L1K.title" = "Dock-Höhe";
+/* Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "01r-Av-2fG"; */
+"01r-Av-2fG.title" = "Zoom zulassen (Mac/Win)";
 
-/* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF"; */
-"3wD-Cd-yYF.title" = "Neuladen-Taste anzeigen";
+/* Class = "NSTextFieldCell"; title = "Status Bar with FaceID (iOS)"; ObjectID = "3Dw-Kd-w6C"; */
+"3Dw-Kd-w6C.title" = "Statusleiste mit FaceID (iOS)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "6AG-ln-h1N"; */
-"6AG-ln-h1N.ibShadowedToolTip" = "Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft";
+/* Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "4om-Lh-WpE"; */
+"4om-Lh-WpE.title" = "Text-Zoom zulassen";
 
-/* Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV"; */
-"6CP-QX-2NV.title" = "Uhrzeit anzeigen";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices without FaceID"; ObjectID = "5FQ-cv-4vv"; */
+"5FQ-cv-4vv.ibShadowedToolTip" = "Darstellung der Statusleiste auf Geräten ohne FaceID";
 
-/* Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "8IN-wN-3ta"; */
-"8IN-wN-3ta.ibShadowedToolTip" = "SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden";
+/* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "5q3-9k-8so"; */
+"5q3-9k-8so.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows the Back to Start button, if this feature in configured in the Exam pane"; ObjectID = "8ow-FN-6wL"; */
-"8ow-FN-6wL.ibShadowedToolTip" = "Die 'Zurück zum Start'-Taste wird angezeigt, falls diese Funktion in den Prüfungs-Einstellungen aktiviert ist";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "5vc-3w-9mP"; */
+"5vc-3w-9mP.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen";
 
-/* Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "9oR-jn-THC"; */
-"9oR-jn-THC.title" = "Rechtschreibprüfung zulassen";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu."; ObjectID = "8gT-1Z-xTw"; */
+"8gT-1Z-xTw.ibShadowedToolTip" = "Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt";
 
-/* Class = "NSButtonCell"; title = "Enable touch exit (Win)"; ObjectID = "09Z-lD-USh"; */
-"09Z-lD-USh.title" = "Beenden per Touch zulassen (Win)";
+/* Class = "NSTextFieldCell"; title = "Height"; ObjectID = "8p0-c4-gAw"; */
+"8p0-c4-gAw.title" = "Höhe";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "13"; */
-"13.ibShadowedToolTip" = "macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN";
+/* Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "9eK-6x-D8A"; */
+"9eK-6x-D8A.ibShadowedToolTip" = "Fensterbreite in Punkten oder Prozent der Bildschirmbreite";
 
-/* Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "14"; */
-"14.title" = "Menüleiste anzeigen";
+/* Class = "NSTextFieldCell"; title = "Dock height"; ObjectID = "afV-ai-ahl"; */
+"afV-ai-ahl.title" = "Dock-Höhe";
 
-/* Class = "NSButtonCell"; title = "Show navigation buttons (iOS)"; ObjectID = "17x-ml-HFC"; */
-"17x-ml-HFC.title" = "Navigations-Knöpfe anzeigen (iOS)";
+/* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "AYo-yw-GhI"; */
+"AYo-yw-GhI.ibShadowedToolTip" = "Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls"; ObjectID = "76"; */
-"76.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
+/* Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "b3g-sT-qMg"; */
+"b3g-sT-qMg.title" = "Begriffe Nachschlagen erlauben";
 
-/* Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "77"; */
-"77.title" = "SEB-Dock/Taskleiste anzeigen";
+/* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "cKh-Sd-JBS"; */
+"cKh-Sd-JBS.title" = "Horizontale Positionierung";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "371"; */
-"371.ibShadowedToolTip" = "Symbolleiste anzeigen";
+/* Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "cTg-Hs-L1B"; */
+"cTg-Hs-L1B.title" = "SEB-Dock/Taskleiste anzeigen";
 
-/* Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372"; */
-"372.title" = "Symbolleiste anzeigen";
+/* Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "dLs-bX-Goa"; */
+"dLs-bX-Goa.title" = "Darstellung Statusleiste (iOS)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "383"; */
-"383.ibShadowedToolTip" = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.";
+/* Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "eEA-et-CSR"; */
+"eEA-et-CSR.title" = "Rechtschreibprüfung zulassen";
 
-/* Class = "NSButtonCell"; title = "Hide toolbar as default"; ObjectID = "384"; */
-"384.title" = "Symbolleiste standardmässig ausblenden";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows the Back to Start button, if this feature in configured in the Exam pane"; ObjectID = "end-3L-Lzd"; */
+"end-3L-Lzd.ibShadowedToolTip" = "Die 'Zurück zum Start'-Taste wird angezeigt, falls diese Funktion in den Prüfungs-Einstellungen aktiviert ist";
 
-/* Class = "NSBox"; title = "Main browser window size and position"; ObjectID = "540"; */
-"540.title" = "Grösse und Position Haupt-Browserfenster";
+/* Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "fbK-yl-e2o"; */
+"fbK-yl-e2o.ibShadowedToolTip" = "Lädt die aktuelle Webseite neu. Zeigt eine Warnung an, wenn diese in den Browser-Einstellungen aktiviert ist";
 
-/* Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "594"; */
-"594.ibShadowedToolTip" = "Fensterbreite in Punkten oder Prozent der Bildschirmbreite";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "Fjl-cW-pil"; */
+"Fjl-cW-pil.ibShadowedToolTip" = "Darstellung der Statusleiste auf Geräten mit FaceID";
 
-/* Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "596"; */
-"596.ibShadowedToolTip" = "Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "geu-O8-rL1"; */
+"geu-O8-rL1.ibShadowedToolTip" = "Browserfenster links, rechts oder zentriert positionieren";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "599"; */
-"599.ibShadowedToolTip" = "Browserfenster links, rechts oder zentriert positionieren";
+/* Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "HEJ-HA-6o4"; */
+"HEJ-HA-6o4.title" = "Auswahl Tastaturbelegung anzeigen (Win)";
 
-/* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "605"; */
-"605.title" = "Horizontale Positionierung";
+/* Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "ID6-7c-aOO"; */
+"ID6-7c-aOO.title" = "Vollbildmodus benutzen";
 
-/* Class = "NSTextFieldCell"; title = "Height"; ObjectID = "606"; */
-"606.title" = "Höhe";
+/* Class = "NSBox"; title = "Browser view mode"; ObjectID = "J5d-BA-D2w"; */
+"J5d-BA-D2w.title" = "Browser-Darstellungsmodus";
 
-/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[0] = "100%"; ObjectID = "607"; */
-"607.ibShadowedObjectValues[0]" = "100%";
+/* Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "JtS-CO-tOW"; */
+"JtS-CO-tOW.title" = "SEB Dock/Taskleiste";
 
-/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[1] = "80%"; ObjectID = "607"; */
-"607.ibShadowedObjectValues[1]" = "80%";
+/* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "kbg-Kp-tbc"; */
+"kbg-Kp-tbc.title" = "Breite";
 
-/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[2] = "600"; ObjectID = "607"; */
-"607.ibShadowedObjectValues[2]" = "600";
+/* Class = "NSBox"; title = "Main browser window size and position"; ObjectID = "kyV-Ns-eIu"; */
+"kyV-Ns-eIu.title" = "Grösse und Position Haupt-Browserfenster";
 
-/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[3] = "800"; ObjectID = "607"; */
-"607.ibShadowedObjectValues[3]" = "800";
+/* Class = "NSButtonCell"; title = "Show Wi-Fi control (Win)"; ObjectID = "lc5-eA-GRt"; */
+"lc5-eA-GRt.title" = "WLAN-Auswahl anzeigen (Win)";
 
-/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[0] = "50%"; ObjectID = "611"; */
-"611.ibShadowedObjectValues[0]" = "50%";
+/* Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "LNX-ve-0Pd"; */
+"LNX-ve-0Pd.title" = "Symbolleiste anzeigen";
 
-/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[1] = "100%"; ObjectID = "611"; */
-"611.ibShadowedObjectValues[1]" = "100%";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "ndk-5a-0Nv"; */
+"ndk-5a-0Nv.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
 
-/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[2] = "800"; ObjectID = "611"; */
-"611.ibShadowedObjectValues[2]" = "800";
+/* Class = "NSBox"; title = "Spell Checker"; ObjectID = "nO5-ha-zqD"; */
+"nO5-ha-zqD.title" = "Rechtschreibprüfung";
 
-/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[3] = "1000"; ObjectID = "611"; */
-"611.ibShadowedObjectValues[3]" = "1000";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "O41-bz-cfY"; */
+"O41-bz-cfY.ibShadowedToolTip" = "'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen";
 
-/* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "724"; */
-"724.title" = "Breite";
+/* Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "oH6-kG-mSm"; */
+"oH6-kG-mSm.title" = "Seiten-Zoom zulassen";
 
-/* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "743"; */
-"743.ibShadowedToolTip" = "Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden";
+/* Class = "NSButtonCell"; title = "Enable touch exit (Win)"; ObjectID = "oYY-YL-Kal"; */
+"oYY-YL-Kal.title" = "Beenden per Touch zulassen (Win)";
 
-/* Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "745"; */
-"745.title" = "Browserfenster verwenden";
+/* Class = "NSTextField"; ibShadowedToolTip = "SEB dock height in points (pixel height*2 on Retina displays)"; ObjectID = "oZJ-Jp-rma"; */
+"oZJ-Jp-rma.ibShadowedToolTip" = "SEB-Dockhöhe in Punkten";
 
-/* Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "746"; */
-"746.title" = "Vollbildmodus benutzen";
+/* Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "P8m-ga-H0m"; */
+"P8m-ga-H0m.ibShadowedToolTip" = "Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices without FaceID"; ObjectID = "a8D-Ip-MvZ"; */
-"a8D-Ip-MvZ.ibShadowedToolTip" = "Darstellung der Statusleiste auf Geräten ohne FaceID";
+/* Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "Qdn-Cu-Oym"; */
+"Qdn-Cu-Oym.title" = "Symbolleiste/Menüleiste/Statusleiste";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "aoE-hs-Q9u"; */
-"aoE-hs-Q9u.ibShadowedToolTip" = "Zeigt die 'SEB Beenden'-Taste im Dock an";
+/* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "qfl-QX-6zS"; */
+"qfl-QX-6zS.ibShadowedToolTip" = "Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
-"baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
+/* Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "QSj-QF-dad"; */
+"QSj-QF-dad.ibShadowedToolTip" = "Symbolleiste in Browserfenstern anzeigen";
 
-/* Class = "NSTextFieldCell"; title = "Status Bar with FaceID (iOS)"; ObjectID = "bxK-Sl-3HN"; */
-"bxK-Sl-3HN.title" = "Statusleiste mit FaceID (iOS)";
+/* Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7"; */
+"rQZ-65-nx7.title" = "Taste Beenden anzeigen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "cvI-1t-MPD"; */
-"cvI-1t-MPD.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
+/* Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "SGO-KD-Mam"; */
+"SGO-KD-Mam.title" = "Zoom-Modus Win (Ctrl-Maustaste)";
 
-/* Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "d5d-zh-qxU"; */
-"d5d-zh-qxU.title" = "Symbolleiste/Menüleiste/Statusleiste";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "Soq-V2-Zan"; */
+"Soq-V2-Zan.ibShadowedToolTip" = "Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "SEB dock height in points (pixel height*2 on Retina displays)"; ObjectID = "DiJ-eI-WGU"; */
-"DiJ-eI-WGU.ibShadowedToolTip" = "SEB-Dockhöhe in Punkten";
+/* Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi"; */
+"TNk-06-tQi.title" = "Uhrzeit anzeigen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed "; ObjectID = "dvK-KY-6zd"; */
-"dvK-KY-6zd.ibShadowedToolTip" = "Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt";
+/* Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "TOC-TB-yVI"; */
+"TOC-TB-yVI.title" = "Seiten-Zoom verwenden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "E2T-SZ-Z6U"; */
-"E2T-SZ-Z6U.ibShadowedToolTip" = "Lädt die aktuelle Webseite neu. Zeigt eine Warnung an, wenn diese in den Browser-Einstellungen aktiviert ist";
+/* Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK"; */
+"tSt-QD-jfK.ibShadowedToolTip" = "Zeigt die 'SEB Beenden'-Taste im Dock an";
 
-/* Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN"; */
-"eGR-0O-pYN.title" = "Zoom-Modus Win (Ctrl-Maustaste)";
+/* Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "tX1-my-lCf"; */
+"tX1-my-lCf.ibShadowedToolTip" = "SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden";
 
-/* Class = "NSButtonCell"; title = "Show scan QR code button (iOS)"; ObjectID = "Fnv-Ww-s4h"; */
-"Fnv-Ww-s4h.title" = "Taste QR-Code scannen anzeigen (iOS)";
+/* Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Ub7-Fc-noP"; */
+"Ub7-Fc-noP.title" = "Text-Zoom verwenden";
 
-/* Class = "NSButtonCell"; title = "Show Back to Start button"; ObjectID = "g9Q-Ee-TEh"; */
-"g9Q-Ee-TEh.title" = "'Zurück zum Start'-Taste anzeigen";
+/* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "vmu-au-292"; */
+"vmu-au-292.ibShadowedToolTip" = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.";
 
-/* Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Hgy-sG-HYK"; */
-"Hgy-sG-HYK.title" = "Text-Zoom verwenden";
+/* Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "Vv2-Sf-65e"; */
+"Vv2-Sf-65e.title" = "Menüleiste anzeigen";
 
-/* Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "HOe-Aa-XdY"; */
-"HOe-Aa-XdY.title" = "Taste Beenden anzeigen";
+/* Class = "NSButtonCell"; title = "Show navigation buttons (iOS)"; ObjectID = "vVA-cT-h1p"; */
+"vVA-cT-h1p.title" = "Navigations-Knöpfe anzeigen (iOS)";
 
-/* Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "iqK-dQ-5mz"; */
-"iqK-dQ-5mz.title" = "Seiten-Zoom verwenden";
+/* Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "W1X-bf-zFD"; */
+"W1X-bf-zFD.title" = "Browserfenster verwenden";
 
-/* Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "iYV-Zg-Pat"; */
-"iYV-Zg-Pat.title" = "Begriffe Nachschlagen erlauben";
+/* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "whL-zd-OWS"; */
+"whL-zd-OWS.title" = "Neuladen-Taste anzeigen";
 
-/* Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "LVc-Qj-ZrZ"; */
-"LVc-Qj-ZrZ.title" = "Darstellung Statusleiste (iOS)";
+/* Class = "NSButton"; ibShadowedToolTip = "Show current time"; ObjectID = "wZf-F1-YN6"; */
+"wZf-F1-YN6.ibShadowedToolTip" = "Aktuelle Uhrzeit anzeigen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "mbj-mD-F32"; */
-"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen";
+/* Class = "NSMatrix"; ibShadowedToolTip = "Zoom whole web pages or just text using Ctrl-Mousewheel (Win)"; ObjectID = "xIF-nh-kEl"; */
+"xIF-nh-kEl.ibShadowedToolTip" = "Ganze Webseiten oder nur Text mittels Ctrl-Mausrad skalieren (Win)";
 
-/* Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "NVt-Gb-hG5"; */
-"NVt-Gb-hG5.title" = "Auswahl Tastaturbelegung anzeigen (Win)";
+/* Class = "NSButtonCell"; title = "Show scan QR code button (iOS)"; ObjectID = "XpZ-o2-ZKZ"; */
+"XpZ-o2-ZKZ.title" = "Taste QR-Code scannen anzeigen (iOS)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "NYh-TA-SfI"; */
-"NYh-TA-SfI.ibShadowedToolTip" = "Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen";
+/* Class = "NSButtonCell"; title = "Show Back to Start button"; ObjectID = "Xu3-qq-gP1"; */
+"Xu3-qq-gP1.title" = "'Zurück zum Start'-Taste anzeigen";
 
-/* Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "Q3v-Xi-ylG"; */
-"Q3v-Xi-ylG.title" = "SEB Dock/Taskleiste";
+/* Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "XV8-Xi-8DI"; */
+"XV8-Xi-8DI.ibShadowedToolTip" = "Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe";
 
-/* Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "qpg-Rd-u54"; */
-"qpg-Rd-u54.title" = "Touch-optimiert (Win)";
+/* Class = "NSButtonCell"; title = "Hide toolbar as default"; ObjectID = "Z2G-Dw-4mT"; */
+"Z2G-Dw-4mT.title" = "Symbolleiste standardmässig ausblenden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L"; */
-"S0v-zb-D4L.ibShadowedToolTip" = "Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
+/* Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls"; ObjectID = "Zfa-sc-BEA"; */
+"Zfa-sc-BEA.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
 
-/* Class = "NSButtonCell"; title = "Show Wi-Fi control (Win)"; ObjectID = "vAt-Tk-BEf"; */
-"vAt-Tk-BEf.title" = "WLAN-Auswahl anzeigen (Win)";
-
-/* Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "VBE-Ah-xWx"; */
-"VBE-Ah-xWx.title" = "Zoom zulassen (Mac/Win)";
-
-/* Class = "NSBox"; title = "Spell Checker"; ObjectID = "vMQ-fj-dzo"; */
-"vMQ-fj-dzo.title" = "Rechtschreibprüfung";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Show current time"; ObjectID = "VqV-Zw-hin"; */
-"VqV-Zw-hin.ibShadowedToolTip" = "Aktuelle Uhrzeit anzeigen";
-
-/* Class = "NSBox"; title = "Browser view mode"; ObjectID = "Xr6-D9-xmk"; */
-"Xr6-D9-xmk.title" = "Browser-Darstellungsmodus";
-
-/* Class = "NSMatrix"; ibShadowedToolTip = "Zoom whole web pages or just text using Ctrl-Mousewheel (Win)"; ObjectID = "yCR-0v-z7a"; */
-"yCR-0v-z7a.ibShadowedToolTip" = "Ganze Webseiten oder nur Text mittels Ctrl-Mausrad skalieren (Win)";
-
-/* Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "YEg-Qr-xf0"; */
-"YEg-Qr-xf0.title" = "Seiten-Zoom zulassen";
-
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "YvJ-jy-ANl"; */
-"YvJ-jy-ANl.ibShadowedToolTip" = "Darstellung der Statusleiste auf Geräten mit FaceID";
-
-/* Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "zfV-ml-478"; */
-"zfV-ml-478.title" = "Text-Zoom zulassen";
+/* Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "zrE-tv-pfV"; */
+"zrE-tv-pfV.ibShadowedToolTip" = "macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN";
 
