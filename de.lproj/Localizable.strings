@@ -161,6 +161,9 @@
 "Correct password entered" = "Korrektes Passwort eingegeben";
 
 /* No comment provided by engineer. */
+"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+
+/* No comment provided by engineer. */
 "Current SEB settings require at least %@, but your system is older. SEB will quit!" = "Die SEB-Einstellungen verlangen mindestens %@, aber dieses Betriebssystem ist älter. SEB wird beendet!";
 
 /* No comment provided by engineer. */

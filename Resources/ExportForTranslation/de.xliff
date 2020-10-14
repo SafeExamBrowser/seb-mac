@@ -1,354 +1,346 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
-      <trans-unit id="2KI-tS-neq.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow using check spelling/grammar and 'correct spelling automatically'</source>
-        <target>'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "2KI-tS-neq";</note>
-      </trans-unit>
-      <trans-unit id="3KI-5c-L1K.title" xml:space="preserve">
-        <source>Dock height</source>
-        <target>Dock-Höhe</target>
-        <note>Class = "NSTextFieldCell"; title = "Dock height"; ObjectID = "3KI-5c-L1K";</note>
-      </trans-unit>
-      <trans-unit id="3wD-Cd-yYF.title" xml:space="preserve">
-        <source>Show reload button</source>
-        <target>Neuladen-Taste anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF";</note>
-      </trans-unit>
-      <trans-unit id="6AG-ln-h1N.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</source>
-        <target>Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "6AG-ln-h1N";</note>
-      </trans-unit>
-      <trans-unit id="6CP-QX-2NV.title" xml:space="preserve">
-        <source>Show time</source>
-        <target>Uhrzeit anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV";</note>
-      </trans-unit>
-      <trans-unit id="8IN-wN-3ta.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB can be quit with a swipe down from the upper display edge</source>
-        <target>SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "8IN-wN-3ta";</note>
-      </trans-unit>
-      <trans-unit id="8ow-FN-6wL.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows the Back to Start button, if this feature in configured in the Exam pane</source>
-        <target>Die 'Zurück zum Start'-Taste wird angezeigt, falls diese Funktion in den Prüfungs-Einstellungen aktiviert ist</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Back to Start button, if this feature in configured in the Exam pane"; ObjectID = "8ow-FN-6wL";</note>
-      </trans-unit>
-      <trans-unit id="09Z-lD-USh.title" xml:space="preserve">
-        <source>Enable touch exit (Win)</source>
-        <target>Beenden per Touch zulassen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Enable touch exit (Win)"; ObjectID = "09Z-lD-USh";</note>
-      </trans-unit>
-      <trans-unit id="9oR-jn-THC.title" xml:space="preserve">
-        <source>Allow spell checking</source>
-        <target>Rechtschreibprüfung zulassen</target>
-        <note>Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "9oR-jn-THC";</note>
-      </trans-unit>
-      <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
-        <source>Show the macOS menu bar to allow accessing settings like Wi-Fi</source>
-        <target>macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "13";</note>
-      </trans-unit>
-      <trans-unit id="14.title" xml:space="preserve">
-        <source>Show menu bar</source>
-        <target>Menüleiste anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "14";</note>
-      </trans-unit>
-      <trans-unit id="17x-ml-HFC.title" xml:space="preserve">
-        <source>Show navigation buttons (iOS)</source>
-        <target>Navigations-Knöpfe anzeigen (iOS)</target>
-        <note>Class = "NSButtonCell"; title = "Show navigation buttons (iOS)"; ObjectID = "17x-ml-HFC";</note>
-      </trans-unit>
-      <trans-unit id="76.ibShadowedToolTip" xml:space="preserve">
-        <source>The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</source>
-        <target>Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls"; ObjectID = "76";</note>
-      </trans-unit>
-      <trans-unit id="77.title" xml:space="preserve">
-        <source>Show SEB dock</source>
-        <target>SEB-Dock/Taskleiste anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "77";</note>
-      </trans-unit>
-      <trans-unit id="371.ibShadowedToolTip" xml:space="preserve">
-        <source>Displays a toolbar on top of the browser window which can also be hidden by the user</source>
-        <target>Symbolleiste anzeigen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "371";</note>
-      </trans-unit>
-      <trans-unit id="372.title" xml:space="preserve">
-        <source>Enable browser window toolbar</source>
-        <target>Symbolleiste anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372";</note>
-      </trans-unit>
-      <trans-unit id="383.ibShadowedToolTip" xml:space="preserve">
-        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T</source>
-        <target>Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "383";</note>
-      </trans-unit>
-      <trans-unit id="384.title" xml:space="preserve">
-        <source>Hide toolbar as default</source>
-        <target>Symbolleiste standardmässig ausblenden</target>
-        <note>Class = "NSButtonCell"; title = "Hide toolbar as default"; ObjectID = "384";</note>
-      </trans-unit>
-      <trans-unit id="540.title" xml:space="preserve">
-        <source>Main browser window size and position</source>
-        <target>Grösse und Position Haupt-Browserfenster</target>
-        <note>Class = "NSBox"; title = "Main browser window size and position"; ObjectID = "540";</note>
-      </trans-unit>
-      <trans-unit id="594.ibShadowedToolTip" xml:space="preserve">
-        <source>Window width in pixel or percentage of total screen width</source>
-        <target>Fensterbreite in Punkten oder Prozent der Bildschirmbreite</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "594";</note>
-      </trans-unit>
-      <trans-unit id="596.ibShadowedToolTip" xml:space="preserve">
-        <source>Window height in pixel or percentage of total screen height</source>
-        <target>Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe</target>
-        <note>Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "596";</note>
-      </trans-unit>
-      <trans-unit id="599.ibShadowedToolTip" xml:space="preserve">
-        <source>Position browser window on the left, right or centered</source>
-        <target>Browserfenster links, rechts oder zentriert positionieren</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "599";</note>
-      </trans-unit>
-      <trans-unit id="605.title" xml:space="preserve">
-        <source>Horizontal positioning</source>
-        <target>Horizontale Positionierung</target>
-        <note>Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "605";</note>
-      </trans-unit>
-      <trans-unit id="606.title" xml:space="preserve">
-        <source>Height</source>
-        <target>Höhe</target>
-        <note>Class = "NSTextFieldCell"; title = "Height"; ObjectID = "606";</note>
-      </trans-unit>
-      <trans-unit id="607.ibShadowedObjectValues[0]" xml:space="preserve">
-        <source>100%</source>
-        <target>100%</target>
-        <note>Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[0] = "100%"; ObjectID = "607";</note>
-      </trans-unit>
-      <trans-unit id="607.ibShadowedObjectValues[1]" xml:space="preserve">
-        <source>80%</source>
-        <target>80%</target>
-        <note>Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[1] = "80%"; ObjectID = "607";</note>
-      </trans-unit>
-      <trans-unit id="607.ibShadowedObjectValues[2]" xml:space="preserve">
-        <source>600</source>
-        <target>600</target>
-        <note>Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[2] = "600"; ObjectID = "607";</note>
-      </trans-unit>
-      <trans-unit id="607.ibShadowedObjectValues[3]" xml:space="preserve">
-        <source>800</source>
-        <target>800</target>
-        <note>Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[3] = "800"; ObjectID = "607";</note>
-      </trans-unit>
-      <trans-unit id="611.ibShadowedObjectValues[0]" xml:space="preserve">
-        <source>50%</source>
-        <target>50%</target>
-        <note>Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[0] = "50%"; ObjectID = "611";</note>
-      </trans-unit>
-      <trans-unit id="611.ibShadowedObjectValues[1]" xml:space="preserve">
-        <source>100%</source>
-        <target>100%</target>
-        <note>Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[1] = "100%"; ObjectID = "611";</note>
-      </trans-unit>
-      <trans-unit id="611.ibShadowedObjectValues[2]" xml:space="preserve">
-        <source>800</source>
-        <target>800</target>
-        <note>Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[2] = "800"; ObjectID = "611";</note>
-      </trans-unit>
-      <trans-unit id="611.ibShadowedObjectValues[3]" xml:space="preserve">
-        <source>1000</source>
-        <target>1000</target>
-        <note>Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[3] = "1000"; ObjectID = "611";</note>
-      </trans-unit>
-      <trans-unit id="724.title" xml:space="preserve">
-        <source>Width</source>
-        <target>Breite</target>
-        <note>Class = "NSTextFieldCell"; title = "Width"; ObjectID = "724";</note>
-      </trans-unit>
-      <trans-unit id="743.ibShadowedToolTip" xml:space="preserve">
-        <source>Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)</source>
-        <target>Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden</target>
-        <note>Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "743";</note>
-      </trans-unit>
-      <trans-unit id="745.title" xml:space="preserve">
-        <source>Use browser window</source>
-        <target>Browserfenster verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "745";</note>
-      </trans-unit>
-      <trans-unit id="746.title" xml:space="preserve">
-        <source>Use full screen mode</source>
-        <target>Vollbildmodus benutzen</target>
-        <note>Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "746";</note>
-      </trans-unit>
-      <trans-unit id="DiJ-eI-WGU.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB dock height in points (pixel height*2 on Retina displays)</source>
-        <target>SEB-Dockhöhe in Punkten</target>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "SEB dock height in points (pixel height*2 on Retina displays)"; ObjectID = "DiJ-eI-WGU";</note>
-      </trans-unit>
-      <trans-unit id="E2T-SZ-Z6U.ibShadowedToolTip" xml:space="preserve">
-        <source>Reloads current web page. Shows warning if enabled in Browser settings pane</source>
-        <target>Lädt die aktuelle Webseite neu. Zeigt eine Warnung an, wenn diese in den Browser-Einstellungen aktiviert ist</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "E2T-SZ-Z6U";</note>
-      </trans-unit>
-      <trans-unit id="Fnv-Ww-s4h.title" xml:space="preserve">
-        <source>Show scan QR code button (iOS)</source>
-        <target>Taste QR-Code scannen anzeigen (iOS)</target>
-        <note>Class = "NSButtonCell"; title = "Show scan QR code button (iOS)"; ObjectID = "Fnv-Ww-s4h";</note>
-      </trans-unit>
-      <trans-unit id="HOe-Aa-XdY.title" xml:space="preserve">
-        <source>Show quit button</source>
-        <target>Taste Beenden anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "HOe-Aa-XdY";</note>
-      </trans-unit>
-      <trans-unit id="Hgy-sG-HYK.title" xml:space="preserve">
-        <source>Use text zoom</source>
-        <target>Text-Zoom verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Hgy-sG-HYK";</note>
-      </trans-unit>
-      <trans-unit id="LVc-Qj-ZrZ.title" xml:space="preserve">
-        <source>Status Bar Appearance (iOS)</source>
-        <target>Darstellung Statusleiste (iOS)</target>
-        <note>Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "LVc-Qj-ZrZ";</note>
-      </trans-unit>
-      <trans-unit id="NVt-Gb-hG5.title" xml:space="preserve">
-        <source>Show keyboard layout (Win)</source>
-        <target>Auswahl Tastaturbelegung anzeigen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "NVt-Gb-hG5";</note>
-      </trans-unit>
-      <trans-unit id="NYh-TA-SfI.ibShadowedToolTip" xml:space="preserve">
-        <source>Allows to reconnect to WiFi networks which have previously been connected to</source>
-        <target>Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "NYh-TA-SfI";</note>
-      </trans-unit>
-      <trans-unit id="Q3v-Xi-ylG.title" xml:space="preserve">
-        <source>SEB dock/taskbar</source>
-        <target>SEB Dock/Taskleiste</target>
-        <note>Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "Q3v-Xi-ylG";</note>
-      </trans-unit>
-      <trans-unit id="S0v-zb-D4L.ibShadowedToolTip" xml:space="preserve">
-        <source>Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar</source>
-        <target>Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L";</note>
-      </trans-unit>
-      <trans-unit id="VBE-Ah-xWx.title" xml:space="preserve">
-        <source>Enable zoom (Mac/Win)</source>
-        <target>Zoom zulassen (Mac/Win)</target>
-        <note>Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "VBE-Ah-xWx";</note>
-      </trans-unit>
-      <trans-unit id="VqV-Zw-hin.ibShadowedToolTip" xml:space="preserve">
-        <source>Show current time</source>
-        <target>Aktuelle Uhrzeit anzeigen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Show current time"; ObjectID = "VqV-Zw-hin";</note>
-      </trans-unit>
-      <trans-unit id="Xr6-D9-xmk.title" xml:space="preserve">
-        <source>Browser view mode</source>
-        <target>Browser-Darstellungsmodus</target>
-        <note>Class = "NSBox"; title = "Browser view mode"; ObjectID = "Xr6-D9-xmk";</note>
-      </trans-unit>
-      <trans-unit id="YEg-Qr-xf0.title" xml:space="preserve">
-        <source>Enable page zoom</source>
-        <target>Seiten-Zoom zulassen</target>
-        <note>Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "YEg-Qr-xf0";</note>
-      </trans-unit>
-      <trans-unit id="YvJ-jy-ANl.ibShadowedToolTip" xml:space="preserve">
-        <source>Status Bar appearance on devices with FaceID</source>
-        <target>Darstellung der Statusleiste auf Geräten mit FaceID</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "YvJ-jy-ANl";</note>
-      </trans-unit>
-      <trans-unit id="a8D-Ip-MvZ.ibShadowedToolTip" xml:space="preserve">
-        <source>Status Bar appearance on devices without FaceID</source>
-        <target>Darstellung der Statusleiste auf Geräten ohne FaceID</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices without FaceID"; ObjectID = "a8D-Ip-MvZ";</note>
-      </trans-unit>
-      <trans-unit id="aoE-hs-Q9u.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows the Quit SEB/Session (iOS) Dock button</source>
-        <target>Zeigt die 'SEB Beenden'-Taste im Dock an</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "aoE-hs-Q9u";</note>
-      </trans-unit>
-      <trans-unit id="baa-Wm-1db.ibShadowedToolTip" xml:space="preserve">
-        <source>Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar</source>
-        <target>Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db";</note>
-      </trans-unit>
-      <trans-unit id="bxK-Sl-3HN.title" xml:space="preserve">
-        <source>Status Bar with FaceID (iOS)</source>
-        <target>Statusleiste mit FaceID (iOS)</target>
-        <note>Class = "NSTextFieldCell"; title = "Status Bar with FaceID (iOS)"; ObjectID = "bxK-Sl-3HN";</note>
-      </trans-unit>
-      <trans-unit id="cvI-1t-MPD.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows current keyboard layout and allows to change it</source>
-        <target>Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "cvI-1t-MPD";</note>
-      </trans-unit>
-      <trans-unit id="d5d-zh-qxU.title" xml:space="preserve">
-        <source>Toolbar/Menu Bar/Status Bar</source>
-        <target>Symbolleiste/Menüleiste/Statusleiste</target>
-        <note>Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "d5d-zh-qxU";</note>
-      </trans-unit>
-      <trans-unit id="dvK-KY-6zd.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed </source>
-        <target>Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed "; ObjectID = "dvK-KY-6zd";</note>
-      </trans-unit>
-      <trans-unit id="eGR-0O-pYN.title" xml:space="preserve">
-        <source>Zoom mode Win (Ctrl-Mousewheel)</source>
-        <target>Zoom-Modus Win (Ctrl-Maustaste)</target>
-        <note>Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN";</note>
-      </trans-unit>
-      <trans-unit id="g9Q-Ee-TEh.title" xml:space="preserve">
-        <source>Show Back to Start button</source>
-        <target>'Zurück zum Start'-Taste anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show Back to Start button"; ObjectID = "g9Q-Ee-TEh";</note>
-      </trans-unit>
-      <trans-unit id="iYV-Zg-Pat.title" xml:space="preserve">
-        <source>Allow dictionary look up</source>
-        <target>Begriffe Nachschlagen erlauben</target>
-        <note>Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "iYV-Zg-Pat";</note>
-      </trans-unit>
-      <trans-unit id="iqK-dQ-5mz.title" xml:space="preserve">
-        <source>Use page zoom</source>
-        <target>Seiten-Zoom verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "iqK-dQ-5mz";</note>
-      </trans-unit>
-      <trans-unit id="mbj-mD-F32.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad</source>
-        <target>Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "mbj-mD-F32";</note>
-      </trans-unit>
-      <trans-unit id="qpg-Rd-u54.title" xml:space="preserve">
+      <trans-unit id="0g5-nW-upZ.title" xml:space="preserve">
         <source>Touch optimized (Win)</source>
         <target>Touch-optimiert (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "qpg-Rd-u54";</note>
+        <note>Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "0g5-nW-upZ";</note>
       </trans-unit>
-      <trans-unit id="vAt-Tk-BEf.title" xml:space="preserve">
-        <source>Show Wi-Fi control (Win)</source>
-        <target>WLAN-Auswahl anzeigen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Show Wi-Fi control (Win)"; ObjectID = "vAt-Tk-BEf";</note>
+      <trans-unit id="01r-Av-2fG.title" xml:space="preserve">
+        <source>Enable zoom (Mac/Win)</source>
+        <target>Zoom zulassen (Mac/Win)</target>
+        <note>Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "01r-Av-2fG";</note>
       </trans-unit>
-      <trans-unit id="vMQ-fj-dzo.title" xml:space="preserve">
-        <source>Spell Checker</source>
-        <target>Rechtschreibprüfung</target>
-        <note>Class = "NSBox"; title = "Spell Checker"; ObjectID = "vMQ-fj-dzo";</note>
+      <trans-unit id="3Dw-Kd-w6C.title" xml:space="preserve">
+        <source>Status Bar with FaceID (iOS)</source>
+        <target>Statusleiste mit FaceID (iOS)</target>
+        <note>Class = "NSTextFieldCell"; title = "Status Bar with FaceID (iOS)"; ObjectID = "3Dw-Kd-w6C";</note>
       </trans-unit>
-      <trans-unit id="yCR-0v-z7a.ibShadowedToolTip" xml:space="preserve">
-        <source>Zoom whole web pages or just text using Ctrl-Mousewheel (Win)</source>
-        <target>Ganze Webseiten oder nur Text mittels Ctrl-Mausrad skalieren (Win)</target>
-        <note>Class = "NSMatrix"; ibShadowedToolTip = "Zoom whole web pages or just text using Ctrl-Mousewheel (Win)"; ObjectID = "yCR-0v-z7a";</note>
-      </trans-unit>
-      <trans-unit id="zfV-ml-478.title" xml:space="preserve">
+      <trans-unit id="4om-Lh-WpE.title" xml:space="preserve">
         <source>Enable text zoom</source>
         <target>Text-Zoom zulassen</target>
-        <note>Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "zfV-ml-478";</note>
+        <note>Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "4om-Lh-WpE";</note>
+      </trans-unit>
+      <trans-unit id="5FQ-cv-4vv.ibShadowedToolTip" xml:space="preserve">
+        <source>Status Bar appearance on devices without FaceID</source>
+        <target>Darstellung der Statusleiste auf Geräten ohne FaceID</target>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices without FaceID"; ObjectID = "5FQ-cv-4vv";</note>
+      </trans-unit>
+      <trans-unit id="5q3-9k-8so.ibShadowedToolTip" xml:space="preserve">
+        <source>Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar</source>
+        <target>Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "5q3-9k-8so";</note>
+      </trans-unit>
+      <trans-unit id="5vc-3w-9mP.ibShadowedToolTip" xml:space="preserve">
+        <source>Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad</source>
+        <target>Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "5vc-3w-9mP";</note>
+      </trans-unit>
+      <trans-unit id="8gT-1Z-xTw.ibShadowedToolTip" xml:space="preserve">
+        <source>Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu.</source>
+        <target>Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu."; ObjectID = "8gT-1Z-xTw";</note>
+      </trans-unit>
+      <trans-unit id="8p0-c4-gAw.title" xml:space="preserve">
+        <source>Height</source>
+        <target>Höhe</target>
+        <note>Class = "NSTextFieldCell"; title = "Height"; ObjectID = "8p0-c4-gAw";</note>
+      </trans-unit>
+      <trans-unit id="9eK-6x-D8A.ibShadowedToolTip" xml:space="preserve">
+        <source>Window width in pixel or percentage of total screen width</source>
+        <target>Fensterbreite in Punkten oder Prozent der Bildschirmbreite</target>
+        <note>Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "9eK-6x-D8A";</note>
+      </trans-unit>
+      <trans-unit id="AYo-yw-GhI.ibShadowedToolTip" xml:space="preserve">
+        <source>Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar</source>
+        <target>Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "AYo-yw-GhI";</note>
+      </trans-unit>
+      <trans-unit id="Fjl-cW-pil.ibShadowedToolTip" xml:space="preserve">
+        <source>Status Bar appearance on devices with FaceID</source>
+        <target>Darstellung der Statusleiste auf Geräten mit FaceID</target>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "Fjl-cW-pil";</note>
+      </trans-unit>
+      <trans-unit id="HEJ-HA-6o4.title" xml:space="preserve">
+        <source>Show keyboard layout (Win)</source>
+        <target>Auswahl Tastaturbelegung anzeigen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "HEJ-HA-6o4";</note>
+      </trans-unit>
+      <trans-unit id="ID6-7c-aOO.title" xml:space="preserve">
+        <source>Use full screen mode</source>
+        <target>Vollbildmodus benutzen</target>
+        <note>Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "ID6-7c-aOO";</note>
+      </trans-unit>
+      <trans-unit id="J5d-BA-D2w.title" xml:space="preserve">
+        <source>Browser view mode</source>
+        <target>Browser-Darstellungsmodus</target>
+        <note>Class = "NSBox"; title = "Browser view mode"; ObjectID = "J5d-BA-D2w";</note>
+      </trans-unit>
+      <trans-unit id="JtS-CO-tOW.title" xml:space="preserve">
+        <source>SEB dock/taskbar</source>
+        <target>SEB Dock/Taskleiste</target>
+        <note>Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "JtS-CO-tOW";</note>
+      </trans-unit>
+      <trans-unit id="LNX-ve-0Pd.title" xml:space="preserve">
+        <source>Enable browser window toolbar</source>
+        <target>Symbolleiste anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "LNX-ve-0Pd";</note>
+      </trans-unit>
+      <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[0]" xml:space="preserve">
+        <source>50%</source>
+        <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[0] = "50%"; ObjectID = "O0B-MY-YwV";</note>
+      </trans-unit>
+      <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[1]" xml:space="preserve">
+        <source>100%</source>
+        <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[1] = "100%"; ObjectID = "O0B-MY-YwV";</note>
+      </trans-unit>
+      <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[2]" xml:space="preserve">
+        <source>800</source>
+        <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[2] = "800"; ObjectID = "O0B-MY-YwV";</note>
+      </trans-unit>
+      <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[3]" xml:space="preserve">
+        <source>1000</source>
+        <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[3] = "1000"; ObjectID = "O0B-MY-YwV";</note>
+      </trans-unit>
+      <trans-unit id="O41-bz-cfY.ibShadowedToolTip" xml:space="preserve">
+        <source>Allow using check spelling/grammar and 'correct spelling automatically'</source>
+        <target>'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "O41-bz-cfY";</note>
+      </trans-unit>
+      <trans-unit id="P8m-ga-H0m.ibShadowedToolTip" xml:space="preserve">
+        <source>Allows to reconnect to WiFi networks which have previously been connected to</source>
+        <target>Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "P8m-ga-H0m";</note>
+      </trans-unit>
+      <trans-unit id="QSj-QF-dad.ibShadowedToolTip" xml:space="preserve">
+        <source>Displays a toolbar on top of the browser window which can also be hidden by the user</source>
+        <target>Symbolleiste in Browserfenstern anzeigen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "QSj-QF-dad";</note>
+      </trans-unit>
+      <trans-unit id="Qdn-Cu-Oym.title" xml:space="preserve">
+        <source>Toolbar/Menu Bar/Status Bar</source>
+        <target>Symbolleiste/Menüleiste/Statusleiste</target>
+        <note>Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "Qdn-Cu-Oym";</note>
+      </trans-unit>
+      <trans-unit id="SGO-KD-Mam.title" xml:space="preserve">
+        <source>Zoom mode Win (Ctrl-Mousewheel)</source>
+        <target>Zoom-Modus Win (Ctrl-Maustaste)</target>
+        <note>Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "SGO-KD-Mam";</note>
+      </trans-unit>
+      <trans-unit id="Soq-V2-Zan.ibShadowedToolTip" xml:space="preserve">
+        <source>Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</source>
+        <target>Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "Soq-V2-Zan";</note>
+      </trans-unit>
+      <trans-unit id="TNk-06-tQi.title" xml:space="preserve">
+        <source>Show time</source>
+        <target>Uhrzeit anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi";</note>
+      </trans-unit>
+      <trans-unit id="TOC-TB-yVI.title" xml:space="preserve">
+        <source>Use page zoom</source>
+        <target>Seiten-Zoom verwenden</target>
+        <note>Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "TOC-TB-yVI";</note>
+      </trans-unit>
+      <trans-unit id="Ub7-Fc-noP.title" xml:space="preserve">
+        <source>Use text zoom</source>
+        <target>Text-Zoom verwenden</target>
+        <note>Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Ub7-Fc-noP";</note>
+      </trans-unit>
+      <trans-unit id="Vv2-Sf-65e.title" xml:space="preserve">
+        <source>Show menu bar</source>
+        <target>Menüleiste anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "Vv2-Sf-65e";</note>
+      </trans-unit>
+      <trans-unit id="W1X-bf-zFD.title" xml:space="preserve">
+        <source>Use browser window</source>
+        <target>Browserfenster verwenden</target>
+        <note>Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "W1X-bf-zFD";</note>
+      </trans-unit>
+      <trans-unit id="XV8-Xi-8DI.ibShadowedToolTip" xml:space="preserve">
+        <source>Window height in pixel or percentage of total screen height</source>
+        <target>Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe</target>
+        <note>Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "XV8-Xi-8DI";</note>
+      </trans-unit>
+      <trans-unit id="XpZ-o2-ZKZ.title" xml:space="preserve">
+        <source>Show scan QR code button (iOS)</source>
+        <target>Taste QR-Code scannen anzeigen (iOS)</target>
+        <note>Class = "NSButtonCell"; title = "Show scan QR code button (iOS)"; ObjectID = "XpZ-o2-ZKZ";</note>
+      </trans-unit>
+      <trans-unit id="Xu3-qq-gP1.title" xml:space="preserve">
+        <source>Show Back to Start button</source>
+        <target>'Zurück zum Start'-Taste anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Show Back to Start button"; ObjectID = "Xu3-qq-gP1";</note>
+      </trans-unit>
+      <trans-unit id="Z2G-Dw-4mT.title" xml:space="preserve">
+        <source>Hide toolbar as default</source>
+        <target>Symbolleiste standardmässig ausblenden</target>
+        <note>Class = "NSButtonCell"; title = "Hide toolbar as default"; ObjectID = "Z2G-Dw-4mT";</note>
+      </trans-unit>
+      <trans-unit id="Zfa-sc-BEA.ibShadowedToolTip" xml:space="preserve">
+        <source>The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</source>
+        <target>Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls"; ObjectID = "Zfa-sc-BEA";</note>
+      </trans-unit>
+      <trans-unit id="afV-ai-ahl.title" xml:space="preserve">
+        <source>Dock height</source>
+        <target>Dock-Höhe</target>
+        <note>Class = "NSTextFieldCell"; title = "Dock height"; ObjectID = "afV-ai-ahl";</note>
+      </trans-unit>
+      <trans-unit id="b3g-sT-qMg.title" xml:space="preserve">
+        <source>Allow dictionary look up</source>
+        <target>Begriffe Nachschlagen erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "b3g-sT-qMg";</note>
+      </trans-unit>
+      <trans-unit id="cKh-Sd-JBS.title" xml:space="preserve">
+        <source>Horizontal positioning</source>
+        <target>Horizontale Positionierung</target>
+        <note>Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "cKh-Sd-JBS";</note>
+      </trans-unit>
+      <trans-unit id="cTg-Hs-L1B.title" xml:space="preserve">
+        <source>Show SEB dock</source>
+        <target>SEB-Dock/Taskleiste anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "cTg-Hs-L1B";</note>
+      </trans-unit>
+      <trans-unit id="dLs-bX-Goa.title" xml:space="preserve">
+        <source>Status Bar Appearance (iOS)</source>
+        <target>Darstellung Statusleiste (iOS)</target>
+        <note>Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "dLs-bX-Goa";</note>
+      </trans-unit>
+      <trans-unit id="eEA-et-CSR.title" xml:space="preserve">
+        <source>Allow spell checking</source>
+        <target>Rechtschreibprüfung zulassen</target>
+        <note>Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "eEA-et-CSR";</note>
+      </trans-unit>
+      <trans-unit id="end-3L-Lzd.ibShadowedToolTip" xml:space="preserve">
+        <source>Shows the Back to Start button, if this feature in configured in the Exam pane</source>
+        <target>Die 'Zurück zum Start'-Taste wird angezeigt, falls diese Funktion in den Prüfungs-Einstellungen aktiviert ist</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Back to Start button, if this feature in configured in the Exam pane"; ObjectID = "end-3L-Lzd";</note>
+      </trans-unit>
+      <trans-unit id="fbK-yl-e2o.ibShadowedToolTip" xml:space="preserve">
+        <source>Reloads current web page. Shows warning if enabled in Browser settings pane</source>
+        <target>Lädt die aktuelle Webseite neu. Zeigt eine Warnung an, wenn diese in den Browser-Einstellungen aktiviert ist</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "fbK-yl-e2o";</note>
+      </trans-unit>
+      <trans-unit id="geu-O8-rL1.ibShadowedToolTip" xml:space="preserve">
+        <source>Position browser window on the left, right or centered</source>
+        <target>Browserfenster links, rechts oder zentriert positionieren</target>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "geu-O8-rL1";</note>
+      </trans-unit>
+      <trans-unit id="kbg-Kp-tbc.title" xml:space="preserve">
+        <source>Width</source>
+        <target>Breite</target>
+        <note>Class = "NSTextFieldCell"; title = "Width"; ObjectID = "kbg-Kp-tbc";</note>
+      </trans-unit>
+      <trans-unit id="kyV-Ns-eIu.title" xml:space="preserve">
+        <source>Main browser window size and position</source>
+        <target>Grösse und Position Haupt-Browserfenster</target>
+        <note>Class = "NSBox"; title = "Main browser window size and position"; ObjectID = "kyV-Ns-eIu";</note>
+      </trans-unit>
+      <trans-unit id="lc5-eA-GRt.title" xml:space="preserve">
+        <source>Show Wi-Fi control (Win)</source>
+        <target>WLAN-Auswahl anzeigen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Show Wi-Fi control (Win)"; ObjectID = "lc5-eA-GRt";</note>
+      </trans-unit>
+      <trans-unit id="nO5-ha-zqD.title" xml:space="preserve">
+        <source>Spell Checker</source>
+        <target>Rechtschreibprüfung</target>
+        <note>Class = "NSBox"; title = "Spell Checker"; ObjectID = "nO5-ha-zqD";</note>
+      </trans-unit>
+      <trans-unit id="ndk-5a-0Nv.ibShadowedToolTip" xml:space="preserve">
+        <source>Shows current keyboard layout and allows to change it</source>
+        <target>Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "ndk-5a-0Nv";</note>
+      </trans-unit>
+      <trans-unit id="oH6-kG-mSm.title" xml:space="preserve">
+        <source>Enable page zoom</source>
+        <target>Seiten-Zoom zulassen</target>
+        <note>Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "oH6-kG-mSm";</note>
+      </trans-unit>
+      <trans-unit id="oYY-YL-Kal.title" xml:space="preserve">
+        <source>Enable touch exit (Win)</source>
+        <target>Beenden per Touch zulassen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Enable touch exit (Win)"; ObjectID = "oYY-YL-Kal";</note>
+      </trans-unit>
+      <trans-unit id="oZJ-Jp-rma.ibShadowedToolTip" xml:space="preserve">
+        <source>SEB dock height in points (pixel height*2 on Retina displays)</source>
+        <target>SEB-Dockhöhe in Punkten</target>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "SEB dock height in points (pixel height*2 on Retina displays)"; ObjectID = "oZJ-Jp-rma";</note>
+      </trans-unit>
+      <trans-unit id="qfl-QX-6zS.ibShadowedToolTip" xml:space="preserve">
+        <source>Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)</source>
+        <target>Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden</target>
+        <note>Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "qfl-QX-6zS";</note>
+      </trans-unit>
+      <trans-unit id="rQZ-65-nx7.title" xml:space="preserve">
+        <source>Show quit button</source>
+        <target>Taste Beenden anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7";</note>
+      </trans-unit>
+      <trans-unit id="tSt-QD-jfK.ibShadowedToolTip" xml:space="preserve">
+        <source>Shows the Quit SEB/Session (iOS) Dock button</source>
+        <target>Zeigt die 'SEB Beenden'-Taste im Dock an</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK";</note>
+      </trans-unit>
+      <trans-unit id="tX1-my-lCf.ibShadowedToolTip" xml:space="preserve">
+        <source>SEB can be quit with a swipe down from the upper display edge</source>
+        <target>SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "tX1-my-lCf";</note>
+      </trans-unit>
+      <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[0]" xml:space="preserve">
+        <source>100%</source>
+        <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[0] = "100%"; ObjectID = "vDg-gs-M0S";</note>
+      </trans-unit>
+      <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[1]" xml:space="preserve">
+        <source>80%</source>
+        <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[1] = "80%"; ObjectID = "vDg-gs-M0S";</note>
+      </trans-unit>
+      <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[2]" xml:space="preserve">
+        <source>600</source>
+        <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[2] = "600"; ObjectID = "vDg-gs-M0S";</note>
+      </trans-unit>
+      <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[3]" xml:space="preserve">
+        <source>800</source>
+        <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[3] = "800"; ObjectID = "vDg-gs-M0S";</note>
+      </trans-unit>
+      <trans-unit id="vVA-cT-h1p.title" xml:space="preserve">
+        <source>Show navigation buttons (iOS)</source>
+        <target>Navigations-Knöpfe anzeigen (iOS)</target>
+        <note>Class = "NSButtonCell"; title = "Show navigation buttons (iOS)"; ObjectID = "vVA-cT-h1p";</note>
+      </trans-unit>
+      <trans-unit id="vmu-au-292.ibShadowedToolTip" xml:space="preserve">
+        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T</source>
+        <target>Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "vmu-au-292";</note>
+      </trans-unit>
+      <trans-unit id="wZf-F1-YN6.ibShadowedToolTip" xml:space="preserve">
+        <source>Show current time</source>
+        <target>Aktuelle Uhrzeit anzeigen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Show current time"; ObjectID = "wZf-F1-YN6";</note>
+      </trans-unit>
+      <trans-unit id="whL-zd-OWS.title" xml:space="preserve">
+        <source>Show reload button</source>
+        <target>Neuladen-Taste anzeigen</target>
+        <note>Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "whL-zd-OWS";</note>
+      </trans-unit>
+      <trans-unit id="xIF-nh-kEl.ibShadowedToolTip" xml:space="preserve">
+        <source>Zoom whole web pages or just text using Ctrl-Mousewheel (Win)</source>
+        <target>Ganze Webseiten oder nur Text mittels Ctrl-Mausrad skalieren (Win)</target>
+        <note>Class = "NSMatrix"; ibShadowedToolTip = "Zoom whole web pages or just text using Ctrl-Mousewheel (Win)"; ObjectID = "xIF-nh-kEl";</note>
+      </trans-unit>
+      <trans-unit id="zrE-tv-pfV.ibShadowedToolTip" xml:space="preserve">
+        <source>Show the macOS menu bar to allow accessing settings like Wi-Fi</source>
+        <target>macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "zrE-tv-pfV";</note>
       </trans-unit>
     </body>
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -760,7 +752,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -1257,7 +1249,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -1469,7 +1461,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
@@ -1561,7 +1553,7 @@
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -1585,9 +1577,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
       </trans-unit>
       <trans-unit id="4aU-eM-mgd.title" xml:space="preserve">
-        <source>Query String Parameter</source>
+        <source>Query String Parameter (iOS)</source>
         <target>Query-Parameter</target>
-        <note>Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd";</note>
+        <note>Class = "NSBox"; title = "Query String Parameter (iOS)"; ObjectID = "4aU-eM-mgd";</note>
       </trans-unit>
       <trans-unit id="5SR-dU-gy3.title" xml:space="preserve">
         <source>Protect Back to Start Button with the quit/unlock password</source>
@@ -1630,9 +1622,9 @@
         <note>Class = "NSBox"; title = "Browser &amp; Config Keys"; ObjectID = "57Q-JV-oaf";</note>
       </trans-unit>
       <trans-unit id="443.title" xml:space="preserve">
-        <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</source>
+        <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit or restart SEB without having to enter the quit password.</source>
         <target>Beenden-Link auf der 'Feedback'-Seite platzieren, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
-        <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "443";</note>
+        <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit or restart SEB without having to enter the quit password."; ObjectID = "443";</note>
       </trans-unit>
       <trans-unit id="688.ibShadowedToolTip" xml:space="preserve">
         <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
@@ -1695,9 +1687,9 @@
         <note>Class = "NSBox"; title = "Session Cookies"; ObjectID = "Uuj-be-mvj";</note>
       </trans-unit>
       <trans-unit id="Vfv-tN-rLa.title" xml:space="preserve">
-        <source>Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</source>
+        <source>Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL).</source>
         <target>Deep-Linking erlaubt das Öffnen von diversen Prüfungen mit einer einzigen Konfigurationsdatei, welche irgendwo in der Pfadhierarchie eines sebs:// oder Universal Links abgelegt wurde (die Links müssen mit der Start URL aus der Konfigurationsdatei beginnen)</target>
-        <note>Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string)."; ObjectID = "Vfv-tN-rLa";</note>
+        <note>Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL)."; ObjectID = "Vfv-tN-rLa";</note>
       </trans-unit>
       <trans-unit id="Vu0-G2-uN8.title" xml:space="preserve">
         <source>Exam Deep Linking (iOS)</source>
@@ -1715,9 +1707,9 @@
         <note>Class = "NSTextFieldCell"; title = "Reconfiguring URL"; ObjectID = "Xhp-ON-YK2";</note>
       </trans-unit>
       <trans-unit id="ZFB-Me-HJd.ibShadowedToolTip" xml:space="preserve">
-        <source>The match URL  has to match the URL of the seb(s) link which invokes reconfiguring.</source>
+        <source>The URL of the seb(s) link which invokes reconfiguring a secure session has to be matched by this string</source>
         <target>Die zu vergleichende URL muss mit der URL des seb(s)-Links zur Rekonfiguration übereinstimmen. </target>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "The match URL  has to match the URL of the seb(s) link which invokes reconfiguring."; ObjectID = "ZFB-Me-HJd";</note>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "The URL of the seb(s) link which invokes reconfiguring a secure session has to be matched by this string"; ObjectID = "ZFB-Me-HJd";</note>
       </trans-unit>
       <trans-unit id="bGJ-Qs-OiP.title" xml:space="preserve">
         <source>Enter custom URL or select "Use Start URL" to display the Back to Start Button in the SEB dock/taskbar.</source>
@@ -1735,9 +1727,9 @@
         <note>Class = "NSBox"; title = "Back to Start Button"; ObjectID = "czI-08-Q8k";</note>
       </trans-unit>
       <trans-unit id="dN3-5O-Rpi.title" xml:space="preserve">
-        <source>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</source>
+        <source>Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</source>
         <target>Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration (während die Client-Konfiguration benutzt wird oder während einer Prüfungssession). Falls die laufende Session ein Beenden-Passwort gesetzt hat, muss die erlaubte URL für die neue Prüfungskonfigurationsdatei im Feld 'Rekonfigurations-URL' angegeben werden (Wildcard-Zeichen '*' kann benutzt werden).</target>
-        <note>Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi";</note>
+        <note>Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi";</note>
       </trans-unit>
       <trans-unit id="gk0-kD-QIq.title" xml:space="preserve">
         <source>Use Browser &amp; Config Keys (send in HTTP header)</source>
@@ -1750,9 +1742,9 @@
         <note>Class = "NSTextFieldCell"; title = "Browser Exam Key"; ObjectID = "iVS-rH-hVZ";</note>
       </trans-unit>
       <trans-unit id="lNW-hv-6s5.title" xml:space="preserve">
-        <source>Allow Reconfiguring</source>
+        <source>Allow reconfiguring secure/exam session</source>
         <target>Umkonfigurieren erlauben</target>
-        <note>Class = "NSButtonCell"; title = "Allow Reconfiguring"; ObjectID = "lNW-hv-6s5";</note>
+        <note>Class = "NSButtonCell"; title = "Allow reconfiguring secure/exam session"; ObjectID = "lNW-hv-6s5";</note>
       </trans-unit>
       <trans-unit id="mWl-BQ-Udt.ibShadowedToolTip" xml:space="preserve">
         <source>If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm</source>
@@ -1765,9 +1757,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/unlock password when the Back to Start button is pressed"; ObjectID = "oJT-BY-ezv";</note>
       </trans-unit>
       <trans-unit id="olf-PG-s0j.title" xml:space="preserve">
-        <source>Reconfiguring Exam Session</source>
+        <source>Reconfiguring Secure/Exam Session</source>
         <target>Prüfungssession umkonfigurieren</target>
-        <note>Class = "NSBox"; title = "Reconfiguring Exam Session"; ObjectID = "olf-PG-s0j";</note>
+        <note>Class = "NSBox"; title = "Reconfiguring Secure/Exam Session"; ObjectID = "olf-PG-s0j";</note>
       </trans-unit>
       <trans-unit id="pdT-tX-Sdp.title" xml:space="preserve">
         <source>Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)</source>
@@ -1805,15 +1797,15 @@
         <note>Class = "NSButtonCell"; title = "Allow Query Parameter"; ObjectID = "y9P-96-cCz";</note>
       </trans-unit>
       <trans-unit id="zfq-ok-40e.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow reconfiguring while using the client config or during an exam session by loading an SEB exam config file</source>
+        <source>Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file</source>
         <target>Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow reconfiguring while using the client config or during an exam session by loading an SEB exam config file"; ObjectID = "zfq-ok-40e";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file"; ObjectID = "zfq-ok-40e";</note>
       </trans-unit>
     </body>
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="78.ibShadowedToolTip" xml:space="preserve">
@@ -1950,7 +1942,7 @@
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -2437,7 +2429,7 @@
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -2534,7 +2526,7 @@
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -2646,6 +2638,11 @@
         <source>Create new desktop</source>
         <target>Neuen Desktop erstellen</target>
         <note>Class = "NSButtonCell"; title = "Create new desktop"; ObjectID = "AwA-eq-zFC";</note>
+      </trans-unit>
+      <trans-unit id="BKE-3M-dWN.ibShadowedToolTip" xml:space="preserve">
+        <source>Maximum allowed number of connected displays (including built-in)</source>
+        <target>Anzahl maximal erlaubte Bildschirme (inklusive eingebautes)</target>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Maximum allowed number of connected displays (including built-in)"; ObjectID = "BKE-3M-dWN";</note>
       </trans-unit>
       <trans-unit id="Bud-jP-Qbp.title" xml:space="preserve">
         <source>Allow running on iOS beta</source>
@@ -2888,9 +2885,9 @@
         <note>Class = "NSButtonCell"; title = "Lock screen after sleep mode"; ObjectID = "brP-Q3-eve";</note>
       </trans-unit>
       <trans-unit id="btE-nf-WWC.ibShadowedToolTip" xml:space="preserve">
-        <source>Use the built-in display (if available) when only one display is allowed or when switching off display mirroring</source>
+        <source>Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off</source>
         <target>Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when switching off display mirroring"; ObjectID = "btE-nf-WWC";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off"; ObjectID = "btE-nf-WWC";</note>
       </trans-unit>
       <trans-unit id="cYs-RO-IZD.title" xml:space="preserve">
         <source>Enable network connection selector</source>
@@ -3037,9 +3034,9 @@
         <note>Class = "NSTabViewItem"; label = "iOS"; ObjectID = "qR0-7R-jPL";</note>
       </trans-unit>
       <trans-unit id="qqs-ZA-6ds.ibShadowedToolTip" xml:space="preserve">
-        <source>If enabled, overrides the old setting 'Use private clipboard" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows</source>
+        <source>If enabled, overrides the old setting 'Use private clipboard" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows</source>
         <target>Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enables the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds";</note>
       </trans-unit>
       <trans-unit id="rd9-dL-Qhi.title" xml:space="preserve">
         <source>Enable F2</source>
@@ -3100,7 +3097,7 @@
   </file>
   <file original="en.lproj/InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -3125,7 +3122,7 @@
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.6" build-num="11E708"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
     </header>
     <body>
       <trans-unit id="  SEB session was inactive for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
@@ -3365,6 +3362,11 @@
       <trans-unit id="Correct password entered" xml:space="preserve">
         <source>Correct password entered</source>
         <target>Korrektes Passwort eingegeben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
+        <source>Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.</source>
+        <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current SEB settings require at least %@, but your system is older. SEB will quit!" xml:space="preserve">
