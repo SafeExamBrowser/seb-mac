@@ -89,7 +89,7 @@
  */
 @interface MBPreferencesController : NSWindowController <NSToolbarDelegate> {
 	NSArray *_modules;
-	id<MBPreferencesModule> _currentModule;
+    id<MBPreferencesModule> _currentModule;
     
     NSView *progressIndicatorHolder;
 }
@@ -123,6 +123,7 @@
 @property(strong, nonatomic) NSArray *modules;
 @property(strong, nonatomic) NSURL *settingsFileURL;
 @property(strong, nonatomic) NSMenu *settingsMenu;
+@property(readonly, nonatomic) NSSize newWindowSize;
 
 /**
  * @brief       The preference module that corresponds to the given identifier.
