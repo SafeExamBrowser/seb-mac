@@ -67,6 +67,7 @@
     SEBEncapsulatedSettings *settingsBeforeEditing;
     BOOL restartSEB;
     NSURL *currentSEBFileURL;
+    NSSize *currentWindowSize;
 }
 
 @property BOOL currentConfigPasswordIsHash;
