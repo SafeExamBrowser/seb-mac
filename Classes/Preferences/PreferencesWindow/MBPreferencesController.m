@@ -316,6 +316,8 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	NSRect newWindowFrame = [self.window frameRectForContentRect:[newView frame]];
 	newWindowFrame.origin = [self.window frame].origin;
 	newWindowFrame.origin.y -= newWindowFrame.size.height - [self.window frame].size.height;
+    _newWindowSize = newWindowFrame.size;
+    
 	[self.window setFrame:newWindowFrame display:YES animate:YES];
 	
 	[[self.window toolbar] setSelectedItemIdentifier:[module identifier]];
