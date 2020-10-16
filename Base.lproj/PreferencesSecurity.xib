@@ -722,11 +722,11 @@
                         </tabViewItem>
                         <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
                             <view key="view" verticalHuggingPriority="500" id="uoJ-Ks-O1o">
-                                <rect key="frame" x="10" y="33" width="604" height="356"/>
+                                <rect key="frame" x="10" y="33" width="604" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" borderType="line" title="Kiosk Mode (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
-                                        <rect key="frame" x="13" y="253" width="283" height="100"/>
+                                        <rect key="frame" x="13" y="250" width="283" height="100"/>
                                         <view key="contentView" id="LMS-AX-0a5">
                                             <rect key="frame" x="3" y="3" width="277" height="82"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -784,11 +784,11 @@
                         </tabViewItem>
                         <tabViewItem label="Registry" identifier="2" id="ifL-Zz-OJp">
                             <view key="view" verticalHuggingPriority="500" id="lui-jD-ROw">
-                                <rect key="frame" x="10" y="33" width="604" height="356"/>
+                                <rect key="frame" x="10" y="33" width="604" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
-                                        <rect key="frame" x="15" y="338" width="338" height="15"/>
+                                        <rect key="frame" x="15" y="335" width="338" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>
                                         </constraints>
@@ -799,7 +799,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="While running SEB" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
-                                        <rect key="frame" x="13" y="63" width="283" height="267"/>
+                                        <rect key="frame" x="13" y="60" width="283" height="267"/>
                                         <view key="contentView" id="nih-s0-yee">
                                             <rect key="frame" x="3" y="3" width="277" height="249"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1426,7 +1426,7 @@
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Sbg-bM-tcZ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
-                <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
+                <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="YBR-Jg-vBr"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
                 <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="fzP-sx-Pjd" secondAttribute="bottom" constant="15" id="hI5-0Z-NaR"/>
                 <constraint firstAttribute="trailing" secondItem="99" secondAttribute="trailing" constant="20" symbolic="YES" id="iU5-oJ-zbC"/>
