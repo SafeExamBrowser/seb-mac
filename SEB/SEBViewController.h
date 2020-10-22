@@ -197,8 +197,10 @@
 @property(readwrite) BOOL jitsiMeetReceiveVideo;
 @property(readwrite) BOOL jitsiMeetSendAudio;
 @property(readwrite) BOOL jitsiMeetSendVideo;
+@property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
 
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
 - (BOOL) rtcAudioInputEnabled;
 - (BOOL) rtcAudioReceivingEnabled;

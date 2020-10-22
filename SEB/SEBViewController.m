@@ -3951,6 +3951,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         _jitsiMeetReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveVideo"];
         _jitsiMeetSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendAudio"];
         _jitsiMeetSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendVideo"];
+        _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
         _allRTCTracks = [NSMutableArray new];
         _localRTCTracks = [NSMutableArray new];
         
@@ -4032,12 +4033,50 @@ quittingClientConfig:(BOOL)quittingClientConfig
     }
 }
 
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSNumber *receiveAudio = [attributes objectForKey:@"jitsiMeetReceiveAudio"];
+    NSNumber *receiveVideo = [attributes objectForKey:@"jitsiMeetReceiveAudio"];
+    NSNumber *featureFlagChat = [attributes objectForKey:@"jitsiMeetFeatureFlagChat"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (receiveAudio != nil || receiveVideo != nil || featureFlagChat != nil) {
+        BOOL receiveAudioFlag = receiveAudio.boolValue;
+        if (receiveAudio != nil) {
+            _jitsiMeetReceiveAudio = receiveAudioFlag;
+        } else {
+            _jitsiMeetReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveAudio"];
+        }
+        BOOL receiveVideoFlag = receiveVideo.boolValue;
+        if (receiveVideo != nil) {
+            _jitsiMeetReceiveVideo = receiveVideoFlag;
+        } else {
+            _jitsiMeetReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveVideo"];
+        }
+        BOOL useChatFlag = featureFlagChat.boolValue;
+        if (receiveVideoFlag || useChatFlag) {
+            _remoteProctoringViewShowPolicy = remoteProctoringViewShowAlways;
+        } else {
+            _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+        }
+        [self.jitsiViewController openJitsiMeetWithReceiveAudioOverride:receiveAudioFlag
+                                                   receiveVideoOverride:receiveVideoFlag
+                                                        useChatOverride:useChatFlag];
+    } else {
+        _jitsiMeetReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveAudio"];
+        _jitsiMeetReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetReceiveVideo"];
+        _jitsiMeetSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendAudio"];
+        _jitsiMeetSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendVideo"];
+        _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+    }
+    NSString *instructionConfirm = attributes[@"instruction-confirm"];
+    self.serverController.sebServerController.pingInstruction = instructionConfirm;
+}
+
 - (void) toggleProctoringViewVisibility
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSUInteger remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
-    BOOL allowToggleProctoringView = (remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
-                                      remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
+    BOOL allowToggleProctoringView = (_remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+                                      _remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
     if (allowToggleProctoringView) {
         [self.jitsiViewController toggleJitsiViewVisibilityWithSender:self];
     } else {

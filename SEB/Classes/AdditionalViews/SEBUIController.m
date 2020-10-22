@@ -517,8 +517,8 @@
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
 {
-    // Don't change the button state if AI proctoring is active
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_proctoringAIEnable"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_proctoringAIEnable"] == NO) {
+        // If AI proctoring is inactive, then the button is either green (proctoring active) or grey (proctoring inactive)
         [self setProctoringViewButtonState:remoteProctoringButtonState userFeedback:YES];
     }
 }
