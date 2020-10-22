@@ -23,6 +23,10 @@ class JitsiViewController: UIViewController {
     @objc public weak var proctoringUIDelegate: ProctoringUIDelegate?
     @objc public var viewIsVisible = false
     
+    private var serverURL: URL?
+    private var room: String?
+    private var token: String?
+
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
     fileprivate var jitsiMeetView: JitsiMeetView?
     fileprivate var jitsiMeetActive = false
@@ -67,6 +71,15 @@ class JitsiViewController: UIViewController {
     }
     
     @objc public func openJitsiMeet(serverURL: URL, room: String?, token: String?) {
+        self.serverURL = serverURL
+        self.room = room
+        self.token = token
+        openJitsiMeet(receiveAudioOverride: false, receiveVideoOverride: false, useChatOverride: false)
+    }
+    
+    @objc public func openJitsiMeet(receiveAudioOverride: Bool,
+                                    receiveVideoOverride: Bool,
+                                    useChatOverride: Bool) {
         if jitsiMeetActive == true {
             closeJitsiMeet(sender: self)
         }
@@ -81,13 +94,13 @@ class JitsiViewController: UIViewController {
         
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.welcomePageEnabled = false
-            builder.serverURL = serverURL
-            builder.room = room
-            builder.token = token
+            builder.serverURL = self.serverURL
+            builder.room = self.room
+            builder.token = self.token
             builder.subject = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetSubject")
-            builder.audioMuted = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
-            builder.videoMuted = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
-            builder.audioOnly = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
+            builder.audioMuted = !receiveAudioOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
+            builder.videoMuted = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
+            builder.audioOnly = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
             builder.userInfo = userInfo
             
             builder.setFeatureFlag("add-people.enabled",
@@ -99,7 +112,7 @@ class JitsiViewController: UIViewController {
             builder.setFeatureFlag("close-captions.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagCloseCaptions"))
             builder.setFeatureFlag("chat.enabled",
-                                   withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagChat"))
+                                   withBoolean: useChatOverride || UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagChat"))
             builder.setFeatureFlag("invite.enabled",
                                    withBoolean: false)
             builder.setFeatureFlag("ios.recording.enabled",
@@ -132,11 +145,14 @@ class JitsiViewController: UIViewController {
         // animate in
         jitsiMeetView.alpha = 1
         pipViewCoordinator?.dragBoundInsets = safeAreaLayoutGuideInsets
-        pipViewCoordinator?.enterPictureInPicture()
+        if !useChatOverride {
+            pipViewCoordinator?.enterPictureInPicture()
+        }
         
         let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
         if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
-            remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways {
+            remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
+            receiveVideoOverride || useChatOverride {
             viewIsVisible = true
             pipViewCoordinator?.show()
         } else {
@@ -156,10 +172,14 @@ class JitsiViewController: UIViewController {
         if viewIsVisible {
             viewIsVisible = false
             pipViewCoordinator?.hide()
+            // Set the proctoring button to the current AI proctoring state (color and symbol) or
+            // if AI proctoring is inactive and the proctoring view hidden, then the proctoring button is green
             proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateAIInactive)
         } else {
             viewIsVisible = true
             pipViewCoordinator?.show()
+            // Set the proctoring button to the current AI proctoring state (color and symbol) or
+            // if AI proctoring is inactive and the proctoring view displayed, then the proctoring button is grey
             proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateDefault)
         }
     }
