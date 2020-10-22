@@ -16,8 +16,7 @@ platform :ios, '11'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '2.10.0'
-
+pod 'JitsiMeetSDK'# , '2.10.1'
 
 end
 
@@ -27,7 +26,14 @@ platform :ios, '11'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '2.10.0'
+pod 'JitsiMeetSDK'#, '2.10.1'
 
 end
 
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+    end
+  end
+end
