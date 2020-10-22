@@ -124,6 +124,11 @@
             NSDictionary *attributes = sebInstruction.attributes;
             [_sebViewController startProctoringWithAttributes:(NSDictionary *)attributes];
         }
+        
+        if ([instruction isEqualToString:@"SEB_RECONFIGURE_SETTINGS"]) {
+            NSDictionary *attributes = sebInstruction.attributes;
+            [_sebViewController reconfigureWithAttributes:(NSDictionary *)attributes];
+        }
     }
 }
 
