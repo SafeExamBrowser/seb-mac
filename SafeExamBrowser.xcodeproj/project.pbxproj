@@ -313,6 +313,15 @@
 		69C228961C767BA500F78634 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C228951C767B0A00F78634 /* libmbedtls.a */; };
 		69C228991C7B64DF00F78634 /* SEBCertServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C228971C7B64DF00F78634 /* SEBCertServices.h */; };
 		69C2289A1C7B64DF00F78634 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C228981C7B64DF00F78634 /* SEBCertServices.m */; };
+		69C2DB25254A29C6004914DB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C2DB21254A29C5004914DB /* WebKit.framework */; };
+		69C2DB26254A29C6004914DB /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C2DB22254A29C6004914DB /* JavaScriptCore.framework */; };
+		69C2DB27254A2A4E004914DB /* WebKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69C2DB21254A29C5004914DB /* WebKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69C2DB29254A2A61004914DB /* JavaScriptCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69C2DB22254A29C6004914DB /* JavaScriptCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69C2DB2A254A2A61004914DB /* WebCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69C2DB1F254A29C5004914DB /* WebCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69C2DB2B254A329E004914DB /* WebKitLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C2DB20254A29C5004914DB /* WebKitLegacy.framework */; };
+		69C2DB2C254A329E004914DB /* WebKitLegacy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69C2DB20254A29C5004914DB /* WebKitLegacy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69C2DB30254B7108004914DB /* SEBWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C2DB2E254B7108004914DB /* SEBWKWebView.m */; };
+		69C2DB31254B7108004914DB /* SEBWKWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2DB2F254B7108004914DB /* SEBWKWebView.h */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
@@ -420,6 +429,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				69C2DB29254A2A61004914DB /* JavaScriptCore.framework in CopyFiles */,
+				69C2DB2C254A329E004914DB /* WebKitLegacy.framework in CopyFiles */,
+				69C2DB2A254A2A61004914DB /* WebCore.framework in CopyFiles */,
+				69C2DB27254A2A4E004914DB /* WebKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +791,12 @@
 		69C228091C767B0900F78634 /* README.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.TXT; sourceTree = "<group>"; };
 		69C228971C7B64DF00F78634 /* SEBCertServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCertServices.h; sourceTree = "<group>"; };
 		69C228981C7B64DF00F78634 /* SEBCertServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCertServices.m; sourceTree = "<group>"; };
+		69C2DB1F254A29C5004914DB /* WebCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebCore.framework; sourceTree = "<group>"; };
+		69C2DB20254A29C5004914DB /* WebKitLegacy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebKitLegacy.framework; sourceTree = "<group>"; };
+		69C2DB21254A29C5004914DB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebKit.framework; sourceTree = "<group>"; };
+		69C2DB22254A29C6004914DB /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JavaScriptCore.framework; sourceTree = "<group>"; };
+		69C2DB2E254B7108004914DB /* SEBWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWKWebView.m; sourceTree = "<group>"; };
+		69C2DB2F254B7108004914DB /* SEBWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWKWebView.h; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
@@ -877,8 +896,11 @@
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
+				69C2DB26254A29C6004914DB /* JavaScriptCore.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
+				69C2DB25254A29C6004914DB /* WebKit.framework in Frameworks */,
+				69C2DB2B254A329E004914DB /* WebKitLegacy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -980,6 +1002,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69C2DB22254A29C6004914DB /* JavaScriptCore.framework */,
+				69C2DB1F254A29C5004914DB /* WebCore.framework */,
+				69C2DB21254A29C5004914DB /* WebKit.framework */,
+				69C2DB20254A29C5004914DB /* WebKitLegacy.framework */,
 				691B14F31D9ECC4100C471B1 /* libmbedtls.a */,
 				6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */,
 				6940A7661853B62000D9D00D /* libz.dylib */,
@@ -1137,6 +1163,7 @@
 				69263A9D1A2E0765006F1E31 /* SEBWebView.m */,
 				69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */,
 				69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */,
+				69C2DB2D254B7108004914DB /* SEBWKBrowser */,
 				6949A47E1D0EF5890040ABF1 /* SEBURLProtocol */,
 			);
 			name = "Browser Components";
@@ -1554,6 +1581,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		69C2DB2D254B7108004914DB /* SEBWKBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				69C2DB2F254B7108004914DB /* SEBWKWebView.h */,
+				69C2DB2E254B7108004914DB /* SEBWKWebView.m */,
+			);
+			name = SEBWKBrowser;
+			path = "../SEB-iOS/SEB/Classes/SEBWKBrowser";
+			sourceTree = "<group>";
+		};
 		69CBEB531834C4D400FB0460 /* SystemManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1690,6 +1727,7 @@
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				69C228271C767B0900F78634 /* havege.h in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
+				69C2DB31254B7108004914DB /* SEBWKWebView.h in Headers */,
 				69C228101C767B0900F78634 /* bignum.h in Headers */,
 				69C228441C767B0900F78634 /* threading.h in Headers */,
 				69C228341C767B0900F78634 /* pk_internal.h in Headers */,
@@ -2027,6 +2065,7 @@
 				69C228861C767B0900F78634 /* threading.c in Sources */,
 				694A8A5824D20B5300F7DA31 /* ProcessListViewController.m in Sources */,
 				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
+				69C2DB30254B7108004914DB /* SEBWKWebView.m in Sources */,
 				6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */,
 				69B45A4023DB9509006E085E /* SEBOSXConfigFileController.m in Sources */,
 				69C228551C767B0900F78634 /* ccm.c in Sources */,
@@ -2297,11 +2336,12 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/..\"",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2310,6 +2350,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2343,12 +2384,13 @@
 				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/..\"",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
@@ -2356,6 +2398,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
