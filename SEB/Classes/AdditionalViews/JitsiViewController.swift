@@ -134,28 +134,28 @@ class JitsiViewController: UIViewController {
             builder.setFeatureFlag("tile-view.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView"))
         }
-        jitsiMeetView.join(options)
-        
-        // Enable jitsimeet view to be a view that can be displayed
-        // on top of all the things, and let the coordinator to manage
-        // the view state and interactions
+            jitsiMeetView.join(options)
+            
+            // Enable jitsimeet view to be a view that can be displayed
+            // on top of all the things, and let the coordinator to manage
+            // the view state and interactions
         pipViewCoordinator = PiPViewCoordinator(withView: jitsiMeetView)
         pipViewCoordinator?.configureAsStickyView(withParentView: parent?.view)
-        
-        // animate in
-        jitsiMeetView.alpha = 1
+            
+            // animate in
+            jitsiMeetView.alpha = 1
         pipViewCoordinator?.dragBoundInsets = safeAreaLayoutGuideInsets
-        if !useChatOverride {
+            if !useChatOverride {
             pipViewCoordinator?.enterPictureInPicture()
-        }
-        
-        let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
-        if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
-            remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
-            receiveVideoOverride || useChatOverride {
+            }
+            
+            let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
+            if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+                remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
+                receiveVideoOverride || useChatOverride {
             viewIsVisible = true
             pipViewCoordinator?.show()
-        } else {
+            } else {
             viewIsVisible = false
             pipViewCoordinator?.hide()
         }
@@ -172,16 +172,16 @@ class JitsiViewController: UIViewController {
         if viewIsVisible {
             viewIsVisible = false
             pipViewCoordinator?.hide()
-            // Set the proctoring button to the current AI proctoring state (color and symbol) or
-            // if AI proctoring is inactive and the proctoring view hidden, then the proctoring button is green
-            proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateAIInactive)
         } else {
             viewIsVisible = true
             pipViewCoordinator?.show()
-            // Set the proctoring button to the current AI proctoring state (color and symbol) or
-            // if AI proctoring is inactive and the proctoring view displayed, then the proctoring button is grey
-            proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateDefault)
         }
+    }
+    
+    @objc public func updateProctoringViewButtonState() {
+        // Set the proctoring button to the current AI proctoring state (color and symbol) or
+        // if AI proctoring is inactive, then the proctoring button is green
+        proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateAIInactive)
     }
 
     @IBAction func closeJitsiMeet(sender: Any?) {
