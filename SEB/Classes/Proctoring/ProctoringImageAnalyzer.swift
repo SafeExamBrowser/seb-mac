@@ -49,6 +49,7 @@ public class ProctoringImageAnalyzer: NSObject {
         proctoringDetectFaceYaw = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceYaw")
         proctoringDetectFaceAngleDisplay = preferences.secureBool(forKey: "org_safeexambrowser_SEB_proctoringDetectFaceAngleDisplay")
         proctoringState = remoteProctoringButtonStateDefault
+        self.detectingFace = false
 
         super.init()
     }

@@ -4027,6 +4027,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                             room:jitsiMeetRoom
                                                            token:jitsiMeetToken];
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
+            [self.jitsiViewController updateProctoringViewButtonState];
         } else {
             DDLogError(@"%s: Cannot start proctoring, missing parameters in attributes %@!", __FUNCTION__, attributes);
         }
@@ -4037,7 +4038,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSNumber *receiveAudio = [attributes objectForKey:@"jitsiMeetReceiveAudio"];
-    NSNumber *receiveVideo = [attributes objectForKey:@"jitsiMeetReceiveAudio"];
+    NSNumber *receiveVideo = [attributes objectForKey:@"jitsiMeetReceiveVideo"];
     NSNumber *featureFlagChat = [attributes objectForKey:@"jitsiMeetFeatureFlagChat"];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (receiveAudio != nil || receiveVideo != nil || featureFlagChat != nil) {
@@ -4069,6 +4070,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         _jitsiMeetSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetSendVideo"];
         _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
     }
+    [self.jitsiViewController updateProctoringViewButtonState];
     NSString *instructionConfirm = attributes[@"instruction-confirm"];
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
 }
