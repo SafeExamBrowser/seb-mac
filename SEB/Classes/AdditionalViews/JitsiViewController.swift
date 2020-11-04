@@ -152,7 +152,8 @@ class JitsiViewController: UIViewController {
             let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
             if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
                 remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
-                receiveVideoOverride || useChatOverride {
+                receiveVideoOverride == true ||
+                useChatOverride == true {
             viewIsVisible = true
             pipViewCoordinator?.show()
             } else {
