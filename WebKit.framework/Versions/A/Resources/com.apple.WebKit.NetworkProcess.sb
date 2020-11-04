@@ -1,0 +1,475 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(version 1)
+(deny default (with partial-symbolication))
+(allow system-audit file-read-metadata)
+
+
+
+
+
+
+
+(allow mach-register (local-name-prefix ""))
+
+(allow mach-lookup (xpc-service-name-prefix ""))
+
+(allow system-automount
+       (process-attribute is-platform-binary))
+
+(allow file-map-executable
+       (subpath "/Library/Apple/System/Library/Frameworks")
+       (subpath "/Library/Apple/System/Library/PrivateFrameworks")
+       (subpath "/System/Library/Frameworks")
+       (subpath "/System/Library/PrivateFrameworks")
+       (subpath "/usr/lib")
+       (subpath "/usr/local/lib/sanitizers")
+
+       (subpath "/usr/appleinternal/lib/sanitizers"))
+
+(allow file-read-metadata
+       (literal "/etc")
+       (literal "/tmp")
+       (literal "/var")
+       (literal "/private/etc/localtime"))
+
+(allow file-read-metadata (path-ancestors "/System/Volumes/Data/private"))
+
+(allow file-read* (literal "/"))
+
+(allow file-read*
+       (subpath "/Library/Apple/System")
+       (subpath "/Library/Filesystems/NetFSPlugins")
+       (subpath "/Library/Preferences/Logging")
+
+       (subpath "/System")
+       (subpath "/private/var/db/dyld")
+       (subpath "/private/var/db/timezone")
+       (subpath "/usr/lib")
+       (subpath "/usr/share"))
+
+(allow file-read*
+       (literal "/dev/autofs_nowait")
+       (literal "/dev/random")
+       (literal "/dev/urandom")
+       (literal "/private/etc/master.passwd")
+       (literal "/private/etc/passwd")
+       (literal "/private/etc/protocols")
+       (literal "/private/etc/services"))
+
+(allow file-read*
+       file-write-data
+       (literal "/dev/null")
+       (literal "/dev/zero"))
+
+(allow file-read*
+       file-write-data
+       file-ioctl
+       (literal "/dev/dtracehelper"))
+
+(allow file-read*
+       (subpath "/usr/local/lib/sanitizers")
+
+       (subpath "/usr/appleinternal/lib/sanitizers"))
+
+(allow file-write-create
+       (require-all (prefix "/cores/")
+                    (vnode-type REGULAR-FILE)))
+
+(allow file-read*
+       (require-all (subpath "/AppleInternal/Library/Preferences/Logging")
+                    (system-attribute apple-internal)))
+
+(allow file-read* file-map-executable
+       (require-all (subpath "/usr/local/lib/log")
+                    (system-attribute apple-internal)))
+
+(allow network-outbound
+       (literal "/private/var/run/syslog"))
+
+(allow ipc-posix-shm-read*
+       (ipc-posix-name "apple.shm.notification_center")
+       (ipc-posix-name-prefix "apple.cfprefs."))
+
+(allow mach-lookup (with report) (with telemetry)
+       (global-name "com.apple.analyticsd.messagetracer")
+       (global-name "com.apple.appsleep")
+       (global-name "com.apple.bsd.dirhelper")
+       (global-name "com.apple.cfprefsd.agent")
+       (global-name "com.apple.cfprefsd.daemon")
+       (global-name "com.apple.espd")
+       (global-name "com.apple.secinitd")
+       (global-name "com.apple.system.DirectoryService.libinfo_v1")
+       (global-name "com.apple.system.logger")
+       (global-name "com.apple.system.opendirectoryd.libinfo")
+       (global-name "com.apple.system.opendirectoryd.membership")
+       (global-name "com.apple.trustd")
+       (global-name "com.apple.trustd.agent")
+       (global-name "com.apple.xpc.activity.unmanaged")
+       (local-name "com.apple.cfprefsd.agent"))
+
+(with-filter (system-attribute apple-internal)
+    (allow mach-lookup (global-name "com.apple.internal.objc_trace")))
+
+(define (system-network)
+    (allow file-read*
+         (literal "/Library/Preferences/com.apple.networkd.plist")
+         (literal "/private/var/db/nsurlstoraged/dafsaData.bin"))
+    (allow mach-lookup
+         (global-name "com.apple.SystemConfiguration.PPPController")
+         (global-name "com.apple.SystemConfiguration.SCNetworkReachability")
+         (global-name "com.apple.dnssd.service")
+         (global-name "com.apple.nehelper")
+         (global-name "com.apple.nesessionmanager")
+         (global-name "com.apple.networkd")
+         (global-name "com.apple.nsurlstorage-cache")
+         (global-name "com.apple.symptomsd")
+         (global-name "com.apple.usymptomsd"))
+    (allow network-outbound
+         (control-name "com.apple.netsrc")
+         (control-name "com.apple.network.statistics"))
+    (allow system-socket
+         (require-all (socket-domain AF_SYSTEM)
+                      (socket-protocol 2))
+
+         (socket-domain AF_ROUTE))
+    (allow mach-lookup
+         (global-name "com.apple.AppSSO.service-xpc"))
+    (allow ipc-posix-shm-read-data
+         (ipc-posix-name "/com.apple.AppSSO.version")))
+(deny process-info*)
+(allow process-info-pidinfo)
+(allow process-info-setcontrol (target self))
+
+(deny sysctl*)
+(allow sysctl-read
+    (sysctl-name
+        "hw.availcpu"
+        "hw.ncpu"
+        "hw.model"
+
+        "kern.hostname"
+        "kern.maxfilesperproc"
+        "kern.memorystatus_level"
+        "kern.osproductversion"
+
+        "kern.osversion"
+
+        "kern.tcsm_available"
+
+        "kern.ostype"
+        "kern.version"
+        "sysctl.name2oid"
+        "vm.footprint_suspend")
+    (sysctl-name-prefix "kern.proc.pid.")
+    (sysctl-name-regex #"^net.routetable")
+    (sysctl-name-prefix "sysctl.oidfmt.")
+
+)
+
+(deny iokit-get-properties)
+
+(deny mach-lookup (xpc-service-name-prefix ""))
+
+
+(define (home-regex home-relative-regex)
+  (regex (string-append "^" (regex-quote (param "HOME_DIR")) home-relative-regex)))
+
+(define (home-subpath home-relative-subpath)
+    (subpath (string-append (param "HOME_DIR") home-relative-subpath)))
+
+(define (home-literal home-relative-literal)
+    (literal (string-append (param "HOME_DIR") home-relative-literal)))
+
+
+(allow file-read-data (path "/private/var/db/nsurlstoraged/dafsaData.bin"))
+
+
+(define (HEX-pattern-match-generator pattern-descriptor)
+    (letrec ((pattern-string ""))
+        (for-each (lambda (repeat-count)
+            (if (zero? repeat-count)
+                (set! pattern-string (string-append pattern-string "-"))
+                (let appender ((count repeat-count))
+                    (if (> count 0)
+                        (begin
+                            (set! pattern-string (string-append pattern-string "[0-9A-F]"))
+                            (appender (- count 1)))))))
+            pattern-descriptor)
+        pattern-string))
+
+
+(define (uuid-HEX-pattern-match-string)
+    (HEX-pattern-match-generator '(8 0 4 0 4 0 4 0 12)))
+
+
+(define *uuid-pattern* "")
+
+(define (uuid-regex-string)
+    (if (zero? (string-length *uuid-pattern*))
+        (set! *uuid-pattern* (uuid-HEX-pattern-match-string)))
+    *uuid-pattern*)
+
+
+(allow user-preference-read
+    (preference-domain
+        "kCFPreferencesAnyApplication"
+        "com.apple.DownloadAssessment"
+        "com.apple.WebFoundation"
+        "com.apple.ist.ds.appleconnect2.uat"
+
+        "com.apple.networkConnect"))
+
+(allow file-read*
+
+
+    (subpath "/Library/Frameworks")
+    (subpath "/Library/Managed Preferences")
+
+    (literal "/Library/Application Support/CrashReporter/SubmitDiagInfo.domains")
+
+
+
+    (regex #"^/Library/Managed Preferences/[^/]+/com\.apple\.networkConnect\.plist$")
+
+
+
+
+
+    (subpath (param "WEBKIT2_FRAMEWORK_DIR")))
+(allow system-fsctl (fsctl-command (_IO "h" 47)))
+
+(allow file-read-data
+    (literal "/usr/local/lib/log")
+
+)
+
+
+(define (apply-read-and-issue-extension op path-filter)
+    (op file-read* path-filter)
+    (op file-issue-extension (require-all (extension-class "com.apple.app-sandbox.read") path-filter)))
+(define (apply-write-and-issue-extension op path-filter)
+    (op file-write* path-filter)
+    (op file-issue-extension (require-all (extension-class "com.apple.app-sandbox.read-write") path-filter)))
+(define (read-only-and-issue-extensions path-filter)
+    (apply-read-and-issue-extension allow path-filter))
+(define (read-write-and-issue-extensions path-filter)
+    (apply-read-and-issue-extension allow path-filter)
+    (apply-write-and-issue-extension allow path-filter))
+(read-only-and-issue-extensions (extension "com.apple.app-sandbox.read"))
+(read-write-and-issue-extensions (extension "com.apple.app-sandbox.read-write"))
+
+(allow file-read* file-write* (subpath (param "DARWIN_USER_CACHE_DIR")))
+
+(allow file-read* file-write* (subpath (param "DARWIN_USER_TEMP_DIR")))
+
+
+(allow iokit-open
+    (iokit-user-client-class "RootDomainUserClient")
+
+)
+
+
+
+(allow ipc-posix-shm-read-data
+    (ipc-posix-name "FNetwork.defaultStorageSession")
+    (ipc-posix-name-regex #"\.PrivateBrowsing-")
+    (ipc-posix-name-regex #"^WebKit Test-")
+    (ipc-posix-name "/com.apple.AppSSO.version")
+)
+
+
+(allow mach-lookup
+    (global-name "com.apple.FileCoordination")
+    (global-name "com.apple.PowerManagement.control")
+    (global-name "com.apple.SystemConfiguration.configd")
+    (global-name "com.apple.aggregated")
+    (global-name "com.apple.analyticsd")
+    (global-name "com.apple.cookied")
+    (global-name "com.apple.cfnetwork.AuthBrokerAgent")
+    (global-name "com.apple.cfnetwork.cfnetworkagent")
+    (global-name "com.apple.diagnosticd")
+    (global-name "com.apple.ist.ds.appleconnect2.service.kdctunnelcontroller")
+    (global-name "com.apple.logd")
+    (global-name "com.apple.logd.events")
+    (global-name "com.apple.lsd.mapdb")
+    (global-name "com.apple.nesessionmanager.flow-divert-token")
+    (global-name "com.apple.nesessionmanager.content-filter")
+
+    (global-name "com.apple.system.notification_center")
+    (global-name "com.apple.AppSSO.service-xpc")
+)
+
+
+(allow mach-lookup
+       (global-name "com.apple.ctkd.token-client")
+       (global-name "com.apple.securityd.xpc")
+       (global-name "com.apple.CoreAuthentication.agent.libxpc")
+       (global-name "com.apple.ocspd")
+       (global-name "com.apple.SecurityServer"))
+
+
+
+(allow file-read-data file-read-metadata file-write*
+    (subpath "/Library/Keychains")
+    (home-subpath "/Library/Keychains"))
+
+
+(deny file-read* file-write*
+    (regex (string-append "/Library/Keychains/" (uuid-regex-string) "(/|$)"))
+    (home-regex (string-append "/Library/Keychains/" (uuid-regex-string) "(/|$)")))
+
+(allow file-read* file-write* (subpath "/private/var/db/mds/system"))
+
+
+(allow user-preference-read
+    (preference-domain
+        "com.apple.crypto"
+        "com.apple.security"
+        "com.apple.security.common"
+        "com.apple.security.revocation"))
+
+(allow file-read*
+       (subpath "/private/var/db/mds")
+       (literal "/private/var/db/DetachedSignatures")
+
+
+
+       (literal "/Library/Preferences/com.apple.security.plist")
+       (literal "/Library/Preferences/com.apple.security.common.plist")
+       (literal "/Library/Preferences/com.apple.security.revocation.plist")
+       (home-literal "/Library/Application Support/SyncServices/Local/ClientsWithChanges/com.apple.Keychain")
+       (home-literal "/Library/Preferences/com.apple.security.plist")
+       (home-literal "/Library/Preferences/com.apple.security.revocation.plist")
+
+
+
+       (literal "/Library/Preferences/com.apple.ist.ds.appleconnect2.plist")
+       (literal "/Library/Preferences/com.apple.ist.ds.appleconnect2.production.plist")
+       (home-literal "/Library/Preferences/com.apple.ist.ds.appleconnect2.plist")
+       (home-literal "/Library/Preferences/com.apple.ist.ds.appleconnect2.production.plist")
+       (home-regex (string-append "/Library/Preferences/ByHost/com\.apple\.ist\.ds\.appleconnect2\." (uuid-regex-string) "\.plist$"))
+       (home-regex (string-append "/Library/Preferences/ByHost/com\.apple\.ist\.ds\.appleconnect2\.production\." (uuid-regex-string) "\.plist$"))
+)
+
+(allow ipc-posix-shm-read* ipc-posix-shm-write-create ipc-posix-shm-write-data
+       (ipc-posix-name "com.apple.AppleDatabaseChanged"))
+
+(system-network)
+(allow network-outbound
+
+
+    (literal "/private/var/run/mDNSResponder")
+    (remote tcp))
+
+
+(allow mach-lookup
+    (global-name "org.h5l.kcm")
+    (global-name "com.apple.GSSCred")
+    (global-name "com.apple.ist.ds.appleconnect.service.kdctunnel")
+
+    (global-name "com.apple.system.logger"))
+(allow network-outbound
+    (remote udp))
+(allow user-preference-read
+    (preference-domain
+        "com.apple.GSS"
+        "com.apple.Kerberos"
+        "edu.mit.Kerberos"))
+(allow file-read*
+    (literal "/private/etc/krb5.conf")
+    (literal "/private/etc/services")
+    (literal "/private/etc/hosts")
+    (subpath "/Library/KerberosPlugins/GSSAPI")
+    (subpath "/Library/KerberosPlugins/KerberosFrameworkPlugins"))
+
+(if (defined? 'vnode-type)
+    (deny file-write-create (vnode-type SYMLINK)))
+
+
+(deny file-read-xattr file-write-xattr (xattr-regex #"^com\.apple\.security\.private\."))
+
+(deny file-read* file-write* (with no-log)
+
+
+    (home-literal "/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2")
+    (home-literal "/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2-journal"))
+
+(macro (with-filter form)
+   (let* ((ps (cdr form))
+          (extra-filter (car ps))
+          (rules (cdr ps)))
+    `(letrec
+        ((collect
+             (lambda (l filters non-filters)
+                 (if (null? l)
+                     (list filters non-filters)
+                     (let*
+                         ((x (car l))
+                          (rest (cdr l)))
+                         (if (sbpl-filter? x)
+                             (collect rest (cons x filters) non-filters)
+                             (collect rest filters (cons x non-filters)))))))
+         (inject-filter
+             (lambda args
+                 (let* ((collected (collect args '() '()))
+                        (filters (car collected))
+                        (non-filters (cadr collected)))
+                 (if (null? filters)
+                     (cons ,extra-filter non-filters)
+                     (cons (require-all (apply require-any filters) ,extra-filter) non-filters)))))
+         (orig-allow allow)
+         (orig-deny deny)
+         (wrapper
+             (lambda (action)
+                 (lambda args (apply action (apply inject-filter args))))))
+        (set! allow (wrapper orig-allow))
+        (set! deny (wrapper orig-deny))
+        ,@rules
+        (set! deny orig-deny)
+        (set! allow orig-allow))))
+
+
+(allow network*
+    (local udp)
+    (remote udp)
+    (local tcp)
+    (remote tcp))
+
+
+(allow mach-lookup
+    (global-name "com.apple.ProgressReporting"))
+
+
+(allow mach-lookup
+    (global-name "com.apple.tccd"))
+
+(allow file-read* file-write*
+    (home-subpath "/Library/HTTPStorages"))

@@ -41,13 +41,21 @@ int main(int argc, char *argv[])
 {
     @autoreleasepool {
 
-//        NSBundle *webKit = [NSBundle bundleWithIdentifier:@"com.apple.WebKit"];
-//        if (webKit.loaded) {
-//            [webKit unload];
-//        }
-//        if (!webKit.loaded) {
-//            [webKit load];
-//        }
+        NSBundle *webKit = [NSBundle bundleWithIdentifier:@"com.apple.WebKit"];
+        if (webKit.loaded) {
+            [webKit unload];
+        }
+        if (!webKit.loaded) {
+            [webKit load];
+        }
+
+        webKit = [NSBundle bundleWithIdentifier:@"com.apple.WebKitLegacy"];
+        if (webKit.loaded) {
+            [webKit unload];
+        }
+        if (!webKit.loaded) {
+            [webKit load];
+        }
 
     // Swizzle NSWindow setLevel: Method
     [NSWindow setupChangingWindowLevels];
