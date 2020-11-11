@@ -39,11 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
                           message:(NSString *)message;
 - (void) quitSession;
 
-- (void) loginToServer;
 - (void) loginToExamAborted;
-- (void) queryCredentialsPresetUsername:(NSString *)username;
-- (void) loginCanceled;
-
 
 @end
 
