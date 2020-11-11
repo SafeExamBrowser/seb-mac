@@ -8,6 +8,7 @@
 import Foundation
 
 @objc public protocol ServerControllerDelegate: class {
+    func didSelectExam(_ examId: String, url: String)
     func loginToExam(_ url: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
     func didEstablishSEBServerConnection()
@@ -24,8 +25,6 @@ import Foundation
     fileprivate var pendingRequests: [AnyObject]? = []
     fileprivate var serverAPI: SEB_Endpoints?
     fileprivate var accessToken: String?
-    fileprivate var username: String
-    fileprivate var password: String
     fileprivate var connectionToken: String?
     fileprivate var exams: [Exam]?
     fileprivate var selectedExamId = ""
@@ -35,16 +34,20 @@ import Foundation
     @objc weak public var delegate: ServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
 
-    let baseURL: URL
-    @objc public var institution: String
-    @objc public var discoveryEndpoint: String
+    private let baseURL: URL
+    private let institution: String
+    private let exam: String?
+    private let username: String
+    private let password: String
+    private let discoveryEndpoint: String
     @objc public var examList: [ExamObject]?
     @objc public var pingTimer: Timer?
     @objc public var pingInstruction: String?
 
-    @objc public init(baseURL: URL, institution:  String, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
+    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
         self.baseURL = baseURL
         self.institution = institution
+        self.exam = exam
         self.username = username
         self.password = password
         self.discoveryEndpoint = discoveryEndpoint
@@ -117,7 +120,7 @@ public extension SEBServerController {
     
     func getExamList() {
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        handshakeResource.body = keys.institutionId + "=" + institution
+        handshakeResource.body = keys.institutionId + "=" + institution + (exam == nil ? "" : ("&" + keys.examId + "=" + exam!))
         
         let handshakeRequest = ApiRequest(resource: handshakeResource)
         pendingRequests?.append(handshakeRequest)
@@ -142,6 +145,9 @@ public extension SEBServerController {
                 }
             }
             self.serverControllerUIDelegate?.updateExamList()
+            if self.exam != nil {
+                self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
+            }
         })
     }
     
