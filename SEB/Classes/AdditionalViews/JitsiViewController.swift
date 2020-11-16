@@ -163,6 +163,7 @@ class JitsiViewController: UIViewController {
             viewIsVisible = false
             pipViewCoordinator?.hide()
         }
+        updateProctoringViewButtonState()
     }
     
     fileprivate func cleanUp() {
@@ -183,8 +184,7 @@ class JitsiViewController: UIViewController {
     }
     
     @objc public func updateProctoringViewButtonState() {
-        // Set the proctoring button to the current AI proctoring state (color and symbol) or
-        // if AI proctoring is inactive, then the proctoring button is green
+        // Set the proctoring button to green (proctoring active)
         proctoringUIDelegate?.setProctoringViewButtonState(remoteProctoringButtonStateAIInactive)
     }
 
