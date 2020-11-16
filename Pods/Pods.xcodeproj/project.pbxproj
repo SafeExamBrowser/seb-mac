@@ -19,205 +19,205 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		00701D65F00D7D3CBB57B30F0131044B /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E991FA5FA6394FE58C83B3426F5BA99 /* IASKSwitch.m */; };
-		0071700F0C2FF31EE16B7F61F2D2296E /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A02F1A5F10B53D450ED7A8BB598115CB /* ja.lproj */; };
+		033896A13051FA6D547D2D6B8B341370 /* pt-PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 529F8FAE502B48116CF2CB41C4765D93 /* pt-PT.lproj */; };
 		04B78CE8EF87B85204B347555F8ADD23 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 41FB4E7343290BE0DDFBDBCD034B7D9B /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		053EA69A0794DF239EF8C429F3336242 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 732FEAB49F11DAAC9B7CF60221B732FC /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		06C2CF594007BD72AC7A5C0D53C16646 /* Pods-SEB Dev-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A975F68B90F372BF2E3CC82AF168A9 /* Pods-SEB Dev-dummy.m */; };
+		082BABFBA5819C1C3F60645ABEF00DF1 /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7603BD5AB2BDF01DE5BDA48E133142BD /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		08F0B9ACA6636761527B1481E685E4F1 /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 37C0D6DC98DAD8D98E5DDEDCBA98080A /* el.lproj */; };
+		099E82C523564B45E6F0A9DD690DB7B4 /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 716EBA883FC2EBBF316A02FD8DADEE6D /* IASKMultipleValueSelection.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0BF618D25CAE444125B2F476F40ADF9A /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB08E1A321CBE7BE65DC55B9F5D3BAD /* QRToggleTorchButton.m */; };
 		0ECDD8F8D23486AD8BBBE7D065C6525A /* QRCodeReaderViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 029E98DA07DC2625C93FFE591A892F5A /* QRCodeReaderViewController-dummy.m */; };
-		1A39FE1E1F49752D249FAABE92B3AB13 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 804847857DEC989422A8FDD023FD7F37 /* pt.lproj */; };
-		1ACF63B5D186F82C20B5E777AAF8C7BD /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 66A55C314F1B3A32040D64762AFF6DEE /* nl.lproj */; };
-		1CC9D238E9C2A3C1C99B4EF35A45D24D /* es-MX.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4C8D70A6FFDE372EEC2C1829CFA22EDB /* es-MX.lproj */; };
+		13E744C3F2321DA9E4647B33A5C0A510 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 804847857DEC989422A8FDD023FD7F37 /* pt.lproj */; };
+		1B3ABF8031CFF1A5210C33DE02AE2B39 /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4D845AD7A7FD6E7E290D27DDF8A1FBE5 /* th.lproj */; };
 		1CFBA9C153EF1587A1EF89FC4D863F13 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E13753A159747D704222BEEAE076191 /* DDASLLogger.m */; };
-		1D938B1A0FB61BB87AB2F532AD0CC044 /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F944E038FC298964916CD88366AC9E /* IASKSettingsStoreUserDefaults.m */; };
-		1FEC7C2F5C110280B568B95B4A9D61E8 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 476C2815E8123B860959EFBC9BCAA14A /* IASKSettingsStore.m */; };
+		1E6BCFA5D1E21D1B94AD47935D408C38 /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F522D5F1E77AC5811D1E5ED89465FC13 /* fr.lproj */; };
+		1EF1FF6BA1147B03D900CBAEFF395A3B /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F6A3B766039C79005BFE0E07B9EECF4 /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		202CE3D2F9D8A7C6CD274664C2779F84 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CA368754AF5981290335E6B6DC30BF96 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		20D10EFCBBE558A9D3FEB2A638413B28 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 325D664597C0D2916029348B47A48BE7 /* IASKAppSettingsViewController.m */; };
 		21501876C63A2C3AE8897EA0325DD02E /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2368235151A3395396B8D79A402FFE9A /* DDContextFilterLogFormatter.m */; };
 		22203A9A8A087DE8D0B54CFEDE76A3F9 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BC79DFDFB47E1BAE799466E3D21250 /* QRCameraSwitchButton.m */; };
-		227EAF0B685EA8C0E0EC4FE0CCC7504E /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BAFB422D442B5E27CC09AA441C41B4 /* IASKPSTextFieldSpecifierViewCell.m */; };
 		23C8BE1701446E8DD95D80F668254A5D /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6582212DF8BDF5F3A7C589DDB63B641E /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		24C39C0F5DEA949AC28C7808F81DA5A3 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E18582C9E4DB960B9EBFCB67E45F08F /* IASKSettingsStoreFile.m */; };
 		25B8AC252E5F3F4C897234F7C0E4A416 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 41FB4E7343290BE0DDFBDBCD034B7D9B /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		25C8B7F033D6D4694E66C05D7DD864AF /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A14A8E68135EAEA14E128EDA9FA2E0 /* IASKSlider.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		27D1D427EF3834D7ED99424F8EA0C795 /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B72546BD427D90FC18702DD495DBDD /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		26901A929C46A984CC67413487D48D84 /* IASKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = A07AB9140C5D4C401EE1D91AFB42E14D /* IASKColor.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		290BC8D5F3A0EB6216B7A8E183B167C3 /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 61FBAA852D62487FA52467C195FFA28A /* QRCodeReaderView.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		29FB13EA4AD374B0D5AF540C65CA4938 /* IASKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3945335B8D8B55F52279B909B8C79CCE /* IASKColor.m */; };
-		2A7BE0385813981A706F7EE76B11675E /* Pods-SEB Dev-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A975F68B90F372BF2E3CC82AF168A9 /* Pods-SEB Dev-dummy.m */; };
+		2C1EA0421567993134B2AA6B176D3805 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE5D6A225FD2570ADDA5ACD80243D89 /* IASKPSSliderSpecifierViewCell.m */; };
 		2C67BED712617FF51DB000F3FF2726ED /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AF167CC9A4532FC19F49581BF1AB46FA /* DDOSLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2C8D4DDF6B418FDE4ACCC39CDCF3E456 /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E55064B5CC961D3C67B0819B99B28D /* DDOSLogger.m */; };
-		2D75C87B23FEE9043237F0D15207044C /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3AE26A16066548304188E4FD9ACEB2AD /* es.lproj */; };
-		2E9A209B4A5F337543C762F84C2C1F64 /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1865230AC8FBC303DE504089555F6DE4 /* zh-Hant.lproj */; };
-		318B9BB477DC23B1DACAEE0DE815FE44 /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7603BD5AB2BDF01DE5BDA48E133142BD /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		323D15D2EB028E461DB041F978F7F742 /* hr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DA1F34F1D5089698DCA30720A7BA7 /* hr.lproj */; };
 		362F8C2353A8BD0591F800B24C373425 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2299B33BD2A87DDE91130E426D6C9413 /* DDASLLogCapture.m */; };
-		3B7D322455DEBB8C3025F5B8B4A3F32F /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E78D23A567E53BA9AB40AA8EEEC1D69A /* IASKSettingsReader.m */; };
-		3F70D242A8D820566472736C8B3E941E /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 716EBA883FC2EBBF316A02FD8DADEE6D /* IASKMultipleValueSelection.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		4196C343C9CDCED24CADBDE6C2D5F0D5 /* InAppSettingsKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C44A8EFDAB13F9D1D5F44B2D4562C /* InAppSettingsKit-dummy.m */; };
-		438472A8DBE5C6A13DA17B16363D766B /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDB1B11B49609C827AFE1A23F58E030 /* Pods-Safe Exam Browser-dummy.m */; };
-		458C864A8B672B0BE39B9EB74E27F8C1 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 325D664597C0D2916029348B47A48BE7 /* IASKAppSettingsViewController.m */; };
+		3908582BB1A4C8F599811FC130FED059 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41EB2ED826677304763915A54ABD1309 /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		39389FC7FFB273A928518F01D1FCC71A /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BED2523C0191D6BFF38C4B38A0E65E9 /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3CC01F7AC217848DCA5D091047A0E55B /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC35BD93D15520370949B94B0798AA2 /* IASKTextField.m */; };
+		451CEC600334BD7CD99AF07C4189947A /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42793C6CB469232CF93F0E41E83F765E /* IASKViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		45B6B21C7702FF4CBDA8ED31DA151F2F /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CDDD335AB95B776736B42929B4BBA0 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		465DD9B98AE1436CAA404CDA841A9F7A /* IASKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = A07AB9140C5D4C401EE1D91AFB42E14D /* IASKColor.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4ACCE683BA1505CC4FB826BBDE49A253 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA287AF73910B027C26E75EDC90E5762 /* DDMultiFormatter.m */; };
 		4B4396028493D03E416C743FC9AA8685 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9F8792BCC1A62DC3D30B28F34439B7 /* DDDispatchQueueLogFormatter.m */; };
-		4C49B0229405B700F3EA7CF76F43335A /* pt-PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 529F8FAE502B48116CF2CB41C4765D93 /* pt-PT.lproj */; };
+		4DE17FC97A6A27087937732A1684C944 /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A14A8E68135EAEA14E128EDA9FA2E0 /* IASKSlider.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4E9D06C1119FAF895575B531B3BE5840 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B8CAF1CE13F145BA146DEE72E68AC507 /* DDLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4F155D8626CB68AE8EB8A0FC30FB5F6E /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA287AF73910B027C26E75EDC90E5762 /* DDMultiFormatter.m */; };
-		509FE9AF304765EE4E20DDED28A42EBC /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F6A3B766039C79005BFE0E07B9EECF4 /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		51E343F8F37B9139C64178B364AF1FCC /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B3303B3DFF89D8385E156F6296BA4470 /* IASKSpecifier.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5148F5981F6EE05C179916C811F5A61D /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A2580560682ADB134B79D520B7895D /* IASKSpecifier.m */; };
+		54F8D6B78BF1B55F2F03890F720C1265 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3AE26A16066548304188E4FD9ACEB2AD /* es.lproj */; };
+		574C727A3AAA3782CF1A740826EF6E15 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5341653B6117C3FFE23487F4CECA3061 /* ru.lproj */; };
 		5F25318D2978D31CE1EF5B5C50A3C9E2 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 8409BDA0EE064677139C5D71A576A881 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		60A6720B43AA303868C9C006F974FBEB /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6E6FA1956A958026ABB5ACEA69234B72 /* ca.lproj */; };
 		6722334B6788FAE1F9B9C38C4E8AC566 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B8CAF1CE13F145BA146DEE72E68AC507 /* DDLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6758A2630CC6930817506731DDFAA834 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E8B4C7EDE7C2FEAF3189940A172AE0AD /* Base.lproj */; };
 		69D70943936F96416B309DE649D23981 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 44B4D48137F3500B8C73D101F0A2AA93 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		6B2BD124C4D1D7051182A21624FA53E5 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0B508D4655D1E15CCBDF2C98AF2965 /* IASKTextView.m */; };
-		6D20F935D32C054701105807F417986E /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C0A31C5B7311F738BD1A908BF306BE /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6C2426D2C140347E18FB193C5A316428 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FF077276B61FC94F2DBEAEC38D4A98AE /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		731B04444D8EC98C84C792E285FC16CF /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2299B33BD2A87DDE91130E426D6C9413 /* DDASLLogCapture.m */; };
 		7369300F33D866EA9DE6EAEC45FFF55B /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D7E6A4B97B111702DB6538E2DB8C6E /* DDTTYLogger.m */; };
-		751FE46D6DC2B1A8A09EEB75BD738773 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC35BD93D15520370949B94B0798AA2 /* IASKTextField.m */; };
-		7B12E360CE251C20CFEE3303D8CA1F1E /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D0A24E2C7349ECDAD5DF57373D052E4F /* nb.lproj */; };
+		7381E2E70069FD21FDED26CB9321E4FC /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E33DE8C7BFDD4BEAC934B99DA6F4D945 /* de.lproj */; };
+		75270F655AF2CC0FEAA51D7B4D1F5E91 /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B72546BD427D90FC18702DD495DBDD /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		76B2A2972501B15D7E2F3814EA4D38F7 /* nb.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D0A24E2C7349ECDAD5DF57373D052E4F /* nb.lproj */; };
 		7C53341C750E70384B237198C315BADE /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 8409BDA0EE064677139C5D71A576A881 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7D113FADA6BC78A71BAC4541B069EBB6 /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E25001C942606A46BBA90A1A42FA4AD1 /* Pods-SEB-dummy.m */; };
-		7D8730A584554AA4A41998A8A9617AC0 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ED98B324860CF03BE47E003E01A99 /* IASKTextViewCell.m */; };
+		7F2F3CB9987C4857DB7FE622892B0C23 /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA8A5E8A252F435B797D708AA5EDADE /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		80972E0C021479792E969B031A7E8ADB /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD7DF9C0C21C92851DDCA0C2C8B0967 /* DDLog.m */; };
 		8180607F63FA5FC855D0168E36E62DB7 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56C0672FC8706B90DA8ECEE827CB9E64 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		81C26ECA4C5DF31093009B2FCC004065 /* uk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A8565F71AD1E57C99E51169F72F8E2B8 /* uk.lproj */; };
 		81DA2F7A076C5975BDF7AD6BB1561C9F /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6582212DF8BDF5F3A7C589DDB63B641E /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		85930975A3C77DC05F936712E2D670C7 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A222BE791B60848291C23A2972EDFAE /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8AC68CC971EE95596EC1ADD1C93AC933 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE5D6A225FD2570ADDA5ACD80243D89 /* IASKPSSliderSpecifierViewCell.m */; };
+		8631F9257B6274B3CD465A3EDAE8394C /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 89BAE69EB81A24FE006964C187C499E5 /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		875C757392BF7CDD09CA15F5C8DEADB8 /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 958FB269DC7332A7672732CDBF5B9153 /* hu.lproj */; };
+		8DE8524D8FF1FD5C485B52F41B703D9A /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 74B11664CE01B9D4AC9B7E8712DA56EC /* IASKSwitch.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		91AB2288EB75483CE9F2AEEC5D394376 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CF300B314312685A6A38E8ACBA6F8979 /* QRCodeReader.m */; };
 		932D6D74E0F73386B089606EB7296819 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = BD91C1BF37A044E6CBA079836B639B88 /* DDFileLogger.m */; };
-		93BFF8D5402487056909D72DC41E1F69 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3D2039C031131AEECC40E6CAB0C4431F /* en.lproj */; };
-		94E9E24E7DD05EB92D8FB9DD706790E3 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F40E3892DEC717FF32F456A67BCD8BF2 /* tr.lproj */; };
-		954275E501187EE4FD23344AF966A984 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B8E5CAA0B7E1F52D7317A656463F5B16 /* it.lproj */; };
-		97195FE9E29C5F23C3B9855D97ADDDCC /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 958FB269DC7332A7672732CDBF5B9153 /* hu.lproj */; };
-		9B4FF34782E18DC86C790383D8A3FC05 /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 74B11664CE01B9D4AC9B7E8712DA56EC /* IASKSwitch.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9B73AA2720527274CF5CBCC8B84E034F /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DB4CAC8FBDCA27D6615414C6471C66FA /* zh-Hans.lproj */; };
+		9373636CA88DDA4708C1281DAA86AE7D /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7C0BA10CEBE88CB719C64FDD1B708FD4 /* sv.lproj */; };
+		9720434D9A52FE94F37471624DF5C9E4 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A02F1A5F10B53D450ED7A8BB598115CB /* ja.lproj */; };
 		9DA68332F49D2D6B2D5A9A8192B4B79D /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2368235151A3395396B8D79A402FFE9A /* DDContextFilterLogFormatter.m */; };
+		9E96A670A3E98929766C6F65DF7595AD /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ED98B324860CF03BE47E003E01A99 /* IASKTextViewCell.m */; };
 		A0BBA4834F7B81EA04C03032A9078A23 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 44B4D48137F3500B8C73D101F0A2AA93 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A2C395071E1ACBF689671ED883CDE147 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BE79096ED0DB3063C5124DF22DE38B2 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A4D019A3133EC56AFEB5DFB605D791FF /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F522D5F1E77AC5811D1E5ED89465FC13 /* fr.lproj */; };
-		A5EB5650BD81549D9E05C6DFF689245B /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E18582C9E4DB960B9EBFCB67E45F08F /* IASKSettingsStoreFile.m */; };
-		A7FCA87000454589EAB195A3422BDF07 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE2CE11253350DD14685EE7260F50AF /* IASKTextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A8B140D8E7AC581E1AA26DDD381DC92E /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 97C0A31C5B7311F738BD1A908BF306BE /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A8EEB9BC88DA44F92F3B744F0FF2F03A /* hr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DA1F34F1D5089698DCA30720A7BA7 /* hr.lproj */; };
+		AA58065405273342A80D7AACB448A77B /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B3303B3DFF89D8385E156F6296BA4470 /* IASKSpecifier.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AB79F387357E662852214FA4EC7D1E27 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D2CDDD335AB95B776736B42929B4BBA0 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		ACFEA50E7A7DFDC0385798E9F9E7AD64 /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BF8A61E65A0F885E1FAC6C9BAFE67FC /* QRCodeReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AD1A5D27D1D1BFF5C9388B2FE0AE6BBC /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E6937BBA9C49F77BFDC6A1AF8554377C /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		AD3EFF59E7595D86CBA58024BA9444D7 /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA8A5E8A252F435B797D708AA5EDADE /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		AD1CA3D1DAAA099FAE9A5A6F00102FF7 /* IASKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3945335B8D8B55F52279B909B8C79CCE /* IASKColor.m */; };
+		AD7C883035176C81943D75BC924222C8 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9891B49F50C01E2C19E6BB8E31F5E8 /* IASKSpecifierValuesViewController.m */; };
 		ADFA314FC1B7AD266CFE581108F28E08 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CA368754AF5981290335E6B6DC30BF96 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B0040D358330B81B97F7ACAE94DA7862 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9891B49F50C01E2C19E6BB8E31F5E8 /* IASKSpecifierValuesViewController.m */; };
 		B59815E4FD70BBBBF70A90DD76A795A3 /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AF167CC9A4532FC19F49581BF1AB46FA /* DDOSLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B82F9568A55C94884C5649474C629366 /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 461A1A3C46B5F70757597A5C236CAF58 /* pl.lproj */; };
+		B69AA681F5B3B71ECEB86780E7A5DEFE /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = DB4CAC8FBDCA27D6615414C6471C66FA /* zh-Hans.lproj */; };
+		B6A444DE652F7A80E0FD4BC7FFA63018 /* InAppSettingsKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5C44A8EFDAB13F9D1D5F44B2D4562C /* InAppSettingsKit-dummy.m */; };
 		B8DE4177B98F06E806AB78E85D43BA99 /* QRToggleTorchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 3851F908C8602734E4E6E1454E9FF8AF /* QRToggleTorchButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BBC8D24F1331AF9366F6C5CB566CC87B /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F1D7E6A4B97B111702DB6538E2DB8C6E /* DDTTYLogger.m */; };
-		BBFACFC2B9ACA663976B8A542D93AD9A /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD39399E6C742DDA9F297B18EC2CA25 /* IASKTextView.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		BC3115AA39769D20F8F0D185F34383CE /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1865230AC8FBC303DE504089555F6DE4 /* zh-Hant.lproj */; };
 		BC65D2E454000752E60D4A10B4C9CEE3 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BE79096ED0DB3063C5124DF22DE38B2 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BD009B08E37162986D66D30E90164C4C /* sv.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 7C0BA10CEBE88CB719C64FDD1B708FD4 /* sv.lproj */; };
-		BD4C33F1004F6E754E9F9817A1DD08E8 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955A55A9A57B8F46C66CFE547750728 /* IASKSlider.m */; };
 		BE00EA6EC5212DD39C94068574EB694A /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DC8A6CA80722F9C8BCAC26C78ADEF9 /* QRCodeReaderViewController.m */; };
 		BE7A7C7BDD79AEA2210044B0E463076B /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D74CF9882C376435068C6E3A4EBFA /* DDAbstractDatabaseLogger.m */; };
-		C1FB83D6FD79780522E763A3CE7E8754 /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 89BAE69EB81A24FE006964C187C499E5 /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		BEB2C4426E3657CE521B0992B4607CB9 /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B8E5CAA0B7E1F52D7317A656463F5B16 /* it.lproj */; };
+		BEBBB3D659384AD312ABFEAFDD2CF993 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E991FA5FA6394FE58C83B3426F5BA99 /* IASKSwitch.m */; };
+		C0B420E5A6E95F1F4B018D7ED80067BF /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 66A55C314F1B3A32040D64762AFF6DEE /* nl.lproj */; };
+		C31ECD957966979E178DBD0E53B18971 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0B508D4655D1E15CCBDF2C98AF2965 /* IASKTextView.m */; };
+		C3BB39F55BFB6BE0E252B3F32F8C6F2B /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB0AB2794134EA8939EE5BB43CDFCA4 /* IASKAppSettingsWebViewController.m */; };
 		C40582770BBCAE16A94555EEED516DD8 /* CocoaLumberjack-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7407AD956B4755C6C695FB1974B1D /* CocoaLumberjack-iOS-dummy.m */; };
 		C577A7C974DA0FE5DB8F8A4D29D34133 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D74CF9882C376435068C6E3A4EBFA /* DDAbstractDatabaseLogger.m */; };
-		C833B5BA147C6B64D3672B54785A2BD8 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 41EB2ED826677304763915A54ABD1309 /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C68E007127A081F06FCC98B73394B123 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6E6FA1956A958026ABB5ACEA69234B72 /* ca.lproj */; };
+		C8863E686265B77C87672C9CB18E5452 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 476C2815E8123B860959EFBC9BCAA14A /* IASKSettingsStore.m */; };
 		C96FD3A036B1DDD2DDBC8A4CF02572CC /* CocoaLumberjack-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8761D05D91B1D834F31F8E396C8B22 /* CocoaLumberjack-macOS-dummy.m */; };
 		CA4F3864F567DFFEC38C3092739112F2 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9F8792BCC1A62DC3D30B28F34439B7 /* DDDispatchQueueLogFormatter.m */; };
-		CCB1C276DA2D422619131AA8734ED8ED /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4D845AD7A7FD6E7E290D27DDF8A1FBE5 /* th.lproj */; };
+		CAD926369FF50A44C9F0E6D3CE9EB690 /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E25001C942606A46BBA90A1A42FA4AD1 /* Pods-SEB-dummy.m */; };
+		CD6A0143B1996BBAFC7EC8BEC56D92CE /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955A55A9A57B8F46C66CFE547750728 /* IASKSlider.m */; };
+		CF2F9C1197C2E3DFD071F43E17EAD2C3 /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD39399E6C742DDA9F297B18EC2CA25 /* IASKTextView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D0B5988BD4A0D54AA12199D61A594B5A /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E7D1C787B151446A4D8B04A574A04FCF /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D429EF82B3287227BED738741176199F /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56C0672FC8706B90DA8ECEE827CB9E64 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D56856BC40CE2A688FA5DC5FDEE93D86 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 318823016E6ABDA59FDE60DF52E8FD04 /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D9109ECE0EF558FC89D756FF1B3081BB /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 42793C6CB469232CF93F0E41E83F765E /* IASKViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D691237C1F384D971B2A3AD0B0DAEFF6 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E78D23A567E53BA9AB40AA8EEEC1D69A /* IASKSettingsReader.m */; };
+		D69CC713E989C9078D787E14CE546032 /* pl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 461A1A3C46B5F70757597A5C236CAF58 /* pl.lproj */; };
+		D9C53DFAC8B936721481E5BE8A89BE73 /* es-MX.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4C8D70A6FFDE372EEC2C1829CFA22EDB /* es-MX.lproj */; };
+		DB103831D53C626A705F88E46472E633 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FB39EBCBD8CC938C7332B671F05745 /* IASKMultipleValueSelection.m */; };
+		DCD69328B197FCF47533848C0A1AB6E0 /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDB1B11B49609C827AFE1A23F58E030 /* Pods-Safe Exam Browser-dummy.m */; };
+		DD027996D292A5AAC08694F552C70759 /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC7B98A99F274BCD05ED995E801FB2 /* IASKSettingsStoreUserDefaults.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		DE103FE43435AAF30E096326D0164B96 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E7D1C787B151446A4D8B04A574A04FCF /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DF4145396769FC5EE51830CBF7314C05 /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC7B98A99F274BCD05ED995E801FB2 /* IASKSettingsStoreUserDefaults.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DFCF63DDF8CC0C224F51D034F1D82C37 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A2580560682ADB134B79D520B7895D /* IASKSpecifier.m */; };
 		E252C364853CD5016372EC175D60A536 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 38A5D8ABB67FC3950D6D528C47D1FDD1 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E3F63155670A67F14B84C6DEE755D917 /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1554A2598E9FEA7F1540E5C339CA0A /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E4265B486A4DF12CE69DE07884CCE2C5 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 732FEAB49F11DAAC9B7CF60221B732FC /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E48F5810CFD1EE94FA0161EB4E91CE31 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7B0055DFB6D8EB20A6A60248A1B7E /* QRCodeReaderView.m */; };
-		E87ADB448E7451D0DB164C6AC123BDA5 /* el.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 37C0D6DC98DAD8D98E5DDEDCBA98080A /* el.lproj */; };
-		EC7DAE102F79053070A9B3A5B00ABD39 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 5341653B6117C3FFE23487F4CECA3061 /* ru.lproj */; };
-		ECA42CD0EB6A77FB209D908423CB26FC /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB0AB2794134EA8939EE5BB43CDFCA4 /* IASKAppSettingsWebViewController.m */; };
+		E6F3A6295925080724D3CA6ED66D3FE4 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE2CE11253350DD14685EE7260F50AF /* IASKTextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		ED5CF446609281D54F9E4B62F193418C /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3D2039C031131AEECC40E6CAB0C4431F /* en.lproj */; };
+		ED6E78C7607CD262A75028163A70D337 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BAFB422D442B5E27CC09AA441C41B4 /* IASKPSTextFieldSpecifierViewCell.m */; };
+		F387EFB21F8EA6152EB3842650790E4D /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F944E038FC298964916CD88366AC9E /* IASKSettingsStoreUserDefaults.m */; };
 		F3984E04930B16BAD04F7AFD48D1CDAD /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A222BE791B60848291C23A2972EDFAE /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F40BC910E47797E90D2B763A70EA91F6 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FB39EBCBD8CC938C7332B671F05745 /* IASKMultipleValueSelection.m */; };
 		F40CBADF7CA0224EB113E397B986F696 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 38A5D8ABB67FC3950D6D528C47D1FDD1 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F5201CCFD1844DF5C86FB385729430B7 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FF077276B61FC94F2DBEAEC38D4A98AE /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F568EAA8BEBEC22004D9382D3711B549 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = BD91C1BF37A044E6CBA079836B639B88 /* DDFileLogger.m */; };
 		F6C4722A2C1A45B15A12671ADDF70C5B /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E6937BBA9C49F77BFDC6A1AF8554377C /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F9582A573FF2A722FB9980A2A444026B /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E13753A159747D704222BEEAE076191 /* DDASLLogger.m */; };
-		FA3E03CB2489831C0947A6A3D17488D2 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E8B4C7EDE7C2FEAF3189940A172AE0AD /* Base.lproj */; };
 		FA6ECB0D9B170E88F1E00B5BECE10C0A /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E55064B5CC961D3C67B0819B99B28D /* DDOSLogger.m */; };
-		FA72BE22966325E0A5FF657F05017D56 /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BED2523C0191D6BFF38C4B38A0E65E9 /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FC0FEE642895D21CD936B68717BAB745 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E33DE8C7BFDD4BEAC934B99DA6F4D945 /* de.lproj */; };
+		FB553317F37B11EAF8A90C1E2153B307 /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F40E3892DEC717FF32F456A67BCD8BF2 /* tr.lproj */; };
 		FDBC7C61E2A4CAD762E72FE7BAFEB70C /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD7DF9C0C21C92851DDCA0C2C8B0967 /* DDLog.m */; };
+		FE932AEAAFB376AFC09D68165A0FE7F7 /* uk.lproj in Resources */ = {isa = PBXBuildFile; fileRef = A8565F71AD1E57C99E51169F72F8E2B8 /* uk.lproj */; };
 		FEDB305AB16ABE8056963F4AFF151D67 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C92C4BEE02DE3CC5429B781AFDC53F30 /* QRCodeReaderDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2645A1922122C66D8359C2BB472AB1F7 /* PBXContainerItemProxy */ = {
+		0E7D5FD94366EB5A41337A193039695F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5B4848122435F4C22D574A5DA6D2EFB3;
-			remoteInfo = InAppSettingsKit;
+			remoteGlobalIDString = 8D1165BCE944BB911E03BF62CB52B947;
+			remoteInfo = "CocoaLumberjack-iOS";
 		};
-		3E418A3162213E69970A9006BD5FFEA1 /* PBXContainerItemProxy */ = {
+		18DA607CCDEB8095CE01B374F1DEE506 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5B40FBDAD0AB75D17C4760F4054BFF71;
 			remoteInfo = JitsiMeetSDK;
 		};
-		5CF1C246044A76313CB1979F6703DC8D /* PBXContainerItemProxy */ = {
+		28A4A937524774F29B26E476B52AC119 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B4848122435F4C22D574A5DA6D2EFB3;
+			remoteInfo = InAppSettingsKit;
+		};
+		364DB2182E8304BBC04087B9B0F083BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C8FC4FD750AC24CAD841A7FB89CA76C6;
+			remoteInfo = QRCodeReaderViewController;
+		};
+		52E2D5F603F41B8A15A617A86C1416C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B40FBDAD0AB75D17C4760F4054BFF71;
+			remoteInfo = JitsiMeetSDK;
+		};
+		53A6528437BC292E83937E8073B824C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C8FC4FD750AC24CAD841A7FB89CA76C6;
+			remoteInfo = QRCodeReaderViewController;
+		};
+		54001D2B395E9763154336DA634A9406 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 0D4D088FF185F9C7CB6A3A1E004F8978;
 			remoteInfo = "CocoaLumberjack-macOS";
 		};
-		6225CBC3A0C64332A0691B6443328213 /* PBXContainerItemProxy */ = {
+		558A6AC49D424103AF4B91EBD60D9E3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1165BCE944BB911E03BF62CB52B947;
+			remoteInfo = "CocoaLumberjack-iOS";
+		};
+		79F88FD75BC7ED5E0B05AD61E4AA3185 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8A996938DFC560C0A3EF0DD6CA6B032A;
 			remoteInfo = "InAppSettingsKit-InAppSettingsKit";
 		};
-		9569257767F622CE3112C4DD7C1A2881 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5B40FBDAD0AB75D17C4760F4054BFF71;
-			remoteInfo = JitsiMeetSDK;
-		};
-		B6127A1F98648AEA09AED040F664FB40 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1165BCE944BB911E03BF62CB52B947;
-			remoteInfo = "CocoaLumberjack-iOS";
-		};
-		C76E4C8E824C085E2118DF46A1A553B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1165BCE944BB911E03BF62CB52B947;
-			remoteInfo = "CocoaLumberjack-iOS";
-		};
-		D83F45A8C996ACFF4DB2FB4DC809FC41 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C8FC4FD750AC24CAD841A7FB89CA76C6;
-			remoteInfo = QRCodeReaderViewController;
-		};
-		D9841F0E6B44B6AF9BC2A7972BC83C07 /* PBXContainerItemProxy */ = {
+		F76885959738C09ABEA8D40DBD904B10 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5B4848122435F4C22D574A5DA6D2EFB3;
 			remoteInfo = InAppSettingsKit;
-		};
-		FCE6183ACBE77B6046A124DF00386BE2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C8FC4FD750AC24CAD841A7FB89CA76C6;
-			remoteInfo = QRCodeReaderViewController;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -369,7 +369,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1D393ED9191DB42A6A3A39CB80579B5C /* Frameworks */ = {
+		151EEF417FF10B5ADD28C5BEBFE40846 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15C274A0619892967C259FEB1478C75F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -383,7 +390,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6628399FD913908C2B2ADC970D0B4BA8 /* Frameworks */ = {
+		454DF1A29C18B8253B4427881887899F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,7 +404,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83AF44CA968C7A006A428B1841144DC0 /* Frameworks */ = {
+		9B6909421619B9396D1B55DBE0F812DF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -411,14 +418,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C8B3FA204A80CF09083DAF8477A242C6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EC4007CB1F21785074005555CBEEE8E5 /* Frameworks */ = {
+		D943A2E816DA077AF6D1013254074173 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -744,7 +744,7 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4C5BBD3549E73E94CCCE2D145C979945 /* Headers */ = {
+		2AD645F791EEB20C4BD547FCE498EB8C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -773,28 +773,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94751C0C2EE1B917847821FB2EB2F094 /* Headers */ = {
+		7C048130BD2386CF1085552178163AEB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D1D427EF3834D7ED99424F8EA0C795 /* IASKAppSettingsViewController.h in Headers */,
-				F5201CCFD1844DF5C86FB385729430B7 /* IASKAppSettingsWebViewController.h in Headers */,
-				465DD9B98AE1436CAA404CDA841A9F7A /* IASKColor.h in Headers */,
-				3F70D242A8D820566472736C8B3E941E /* IASKMultipleValueSelection.h in Headers */,
-				C833B5BA147C6B64D3672B54785A2BD8 /* IASKPSSliderSpecifierViewCell.h in Headers */,
-				FA72BE22966325E0A5FF657F05017D56 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
-				509FE9AF304765EE4E20DDED28A42EBC /* IASKSettingsReader.h in Headers */,
-				6D20F935D32C054701105807F417986E /* IASKSettingsStore.h in Headers */,
-				C1FB83D6FD79780522E763A3CE7E8754 /* IASKSettingsStoreFile.h in Headers */,
-				DF4145396769FC5EE51830CBF7314C05 /* IASKSettingsStoreUserDefaults.h in Headers */,
-				25C8B7F033D6D4694E66C05D7DD864AF /* IASKSlider.h in Headers */,
-				51E343F8F37B9139C64178B364AF1FCC /* IASKSpecifier.h in Headers */,
-				AD3EFF59E7595D86CBA58024BA9444D7 /* IASKSpecifierValuesViewController.h in Headers */,
-				9B4FF34782E18DC86C790383D8A3FC05 /* IASKSwitch.h in Headers */,
-				A7FCA87000454589EAB195A3422BDF07 /* IASKTextField.h in Headers */,
-				BBFACFC2B9ACA663976B8A542D93AD9A /* IASKTextView.h in Headers */,
-				318B9BB477DC23B1DACAEE0DE815FE44 /* IASKTextViewCell.h in Headers */,
-				D9109ECE0EF558FC89D756FF1B3081BB /* IASKViewController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD5508C0FE3A4849BF06B0CF74919C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75270F655AF2CC0FEAA51D7B4D1F5E91 /* IASKAppSettingsViewController.h in Headers */,
+				6C2426D2C140347E18FB193C5A316428 /* IASKAppSettingsWebViewController.h in Headers */,
+				26901A929C46A984CC67413487D48D84 /* IASKColor.h in Headers */,
+				099E82C523564B45E6F0A9DD690DB7B4 /* IASKMultipleValueSelection.h in Headers */,
+				3908582BB1A4C8F599811FC130FED059 /* IASKPSSliderSpecifierViewCell.h in Headers */,
+				39389FC7FFB273A928518F01D1FCC71A /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
+				1EF1FF6BA1147B03D900CBAEFF395A3B /* IASKSettingsReader.h in Headers */,
+				A8B140D8E7AC581E1AA26DDD381DC92E /* IASKSettingsStore.h in Headers */,
+				8631F9257B6274B3CD465A3EDAE8394C /* IASKSettingsStoreFile.h in Headers */,
+				DD027996D292A5AAC08694F552C70759 /* IASKSettingsStoreUserDefaults.h in Headers */,
+				4DE17FC97A6A27087937732A1684C944 /* IASKSlider.h in Headers */,
+				AA58065405273342A80D7AACB448A77B /* IASKSpecifier.h in Headers */,
+				7F2F3CB9987C4857DB7FE622892B0C23 /* IASKSpecifierValuesViewController.h in Headers */,
+				8DE8524D8FF1FD5C485B52F41B703D9A /* IASKSwitch.h in Headers */,
+				E6F3A6295925080724D3CA6ED66D3FE4 /* IASKTextField.h in Headers */,
+				CF2F9C1197C2E3DFD071F43E17EAD2C3 /* IASKTextView.h in Headers */,
+				082BABFBA5819C1C3F60645ABEF00DF1 /* IASKTextViewCell.h in Headers */,
+				451CEC600334BD7CD99AF07C4189947A /* IASKViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,13 +827,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B7A6A41757ED478DE4D9B977C6A79241 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C4F3DB931E3BFC9B1CF8A696518E3D74 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -840,7 +840,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C514E226B7603E50AE4685425012C63A /* Headers */ = {
+		C54DA780D0297809633FC6B6CC66E7F2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -869,16 +869,16 @@
 		};
 		1B33EF0F9DA1EB16E4EF5FDEC1031280 /* Pods-Safe Exam Browser */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EEC54FB4FB2027C7D25D681C62B5DB70 /* Build configuration list for PBXNativeTarget "Pods-Safe Exam Browser" */;
+			buildConfigurationList = DC38F1F4607CD49EA5E7C4A914345D33 /* Build configuration list for PBXNativeTarget "Pods-Safe Exam Browser" */;
 			buildPhases = (
-				B7A6A41757ED478DE4D9B977C6A79241 /* Headers */,
-				11A30E15B2E1A00096278B7FEAB0ABE2 /* Sources */,
-				6628399FD913908C2B2ADC970D0B4BA8 /* Frameworks */,
+				2AD645F791EEB20C4BD547FCE498EB8C /* Headers */,
+				C5EE730209168338444F954117EAEAFA /* Sources */,
+				15C274A0619892967C259FEB1478C75F /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				ACAD8429E2A4D0639FF1F91D7A1C3389 /* PBXTargetDependency */,
+				4636B312676409DBBB9CF5B731CF70B4 /* PBXTargetDependency */,
 			);
 			name = "Pods-Safe Exam Browser";
 			productName = "Pods-Safe Exam Browser";
@@ -887,16 +887,16 @@
 		};
 		5B4848122435F4C22D574A5DA6D2EFB3 /* InAppSettingsKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9565F9AA6384FDAFADF9215C735205AC /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */;
+			buildConfigurationList = E94C76A20A94405E9B35D625FEAA7883 /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */;
 			buildPhases = (
-				94751C0C2EE1B917847821FB2EB2F094 /* Headers */,
-				C6CBB0126CE56C49DD1283918F0758C2 /* Sources */,
-				1D393ED9191DB42A6A3A39CB80579B5C /* Frameworks */,
+				7DD5508C0FE3A4849BF06B0CF74919C3 /* Headers */,
+				F72741102A37C9DEDBECA193506B08F2 /* Sources */,
+				D943A2E816DA077AF6D1013254074173 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2C39CC3A41D38571651C4523D9D7E573 /* PBXTargetDependency */,
+				5DE10DE0F500393B1B5624B1EF11F511 /* PBXTargetDependency */,
 			);
 			name = InAppSettingsKit;
 			productName = InAppSettingsKit;
@@ -905,11 +905,11 @@
 		};
 		8A996938DFC560C0A3EF0DD6CA6B032A /* InAppSettingsKit-InAppSettingsKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2951FA3FF1F92660D4FF19F88F7B5798 /* Build configuration list for PBXNativeTarget "InAppSettingsKit-InAppSettingsKit" */;
+			buildConfigurationList = 674CC4F7840945308E1F5123EAED9417 /* Build configuration list for PBXNativeTarget "InAppSettingsKit-InAppSettingsKit" */;
 			buildPhases = (
-				6D223FDB2703CA24B3301F3263559298 /* Sources */,
-				EC4007CB1F21785074005555CBEEE8E5 /* Frameworks */,
-				A3313E88054FDEEFBE9FEA9F578668A6 /* Resources */,
+				9982D901FE8246226A36CC042AFB5C74 /* Sources */,
+				151EEF417FF10B5ADD28C5BEBFE40846 /* Frameworks */,
+				F8EBEC3DBF4C0AC14A1671321B65AD20 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -939,19 +939,19 @@
 		};
 		B0FC5EAC42F1D72DDBB22E76E76F2064 /* Pods-SEB */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E55DE47B436AD05C7C05E6AF71C294F1 /* Build configuration list for PBXNativeTarget "Pods-SEB" */;
+			buildConfigurationList = 0E059B34AC88BEB115916ECA388EC4F9 /* Build configuration list for PBXNativeTarget "Pods-SEB" */;
 			buildPhases = (
-				4C5BBD3549E73E94CCCE2D145C979945 /* Headers */,
-				8E29FD7EA4CC766A2C91BCC09200ED42 /* Sources */,
-				83AF44CA968C7A006A428B1841144DC0 /* Frameworks */,
+				7C048130BD2386CF1085552178163AEB /* Headers */,
+				45CB4A728899E1EF8570656A4479B4C7 /* Sources */,
+				9B6909421619B9396D1B55DBE0F812DF /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8EA589C2941D790D05D203E49C12AB78 /* PBXTargetDependency */,
-				5EE998BEE1CA22BB6D0F118F67CD1563 /* PBXTargetDependency */,
-				524894A4C64632B92E56C0BACBA41779 /* PBXTargetDependency */,
-				782AAB14AB2A4DF29111966843FEBEEF /* PBXTargetDependency */,
+				DCF94716B6613EC4CB50AC1DC02180CD /* PBXTargetDependency */,
+				BEC27A82AE61A557FC49FD2AD765E0AD /* PBXTargetDependency */,
+				3D1BCE1D010FDEBC9C0D085B697B8D64 /* PBXTargetDependency */,
+				63951498A367A32679A67C084F7C896B /* PBXTargetDependency */,
 			);
 			name = "Pods-SEB";
 			productName = "Pods-SEB";
@@ -977,19 +977,19 @@
 		};
 		E850C8F60585326648DA84C8B596B216 /* Pods-SEB Dev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B523CBA8EB38DCE003C31855188D6774 /* Build configuration list for PBXNativeTarget "Pods-SEB Dev" */;
+			buildConfigurationList = 2D4DA982CEAAB52E9CA64671FE40C399 /* Build configuration list for PBXNativeTarget "Pods-SEB Dev" */;
 			buildPhases = (
-				C514E226B7603E50AE4685425012C63A /* Headers */,
-				A05D2F42F05D2BB79DF36AA3578CE4F7 /* Sources */,
-				C8B3FA204A80CF09083DAF8477A242C6 /* Frameworks */,
+				C54DA780D0297809633FC6B6CC66E7F2 /* Headers */,
+				6501DBDA0AAB230D33AAEB88A9D97092 /* Sources */,
+				454DF1A29C18B8253B4427881887899F /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				BF6A1120123A86619F0ED10E58C43E5D /* PBXTargetDependency */,
-				89E28C8DD516DFEE5C46C254BAD96E0E /* PBXTargetDependency */,
-				89DF7C810C1BF106101C07EFF6C20D82 /* PBXTargetDependency */,
-				10DDB5E924863F3AD094E14FBB0D2A5D /* PBXTargetDependency */,
+				3BEF34A8E81C7CEF4AECD68FDFD5EF56 /* PBXTargetDependency */,
+				32FF9A00510F3FBCF5AA875354A9ED2A /* PBXTargetDependency */,
+				5114FEC684F67B40F7369189A6D5A3A3 /* PBXTargetDependency */,
+				DE0124DCD08CE953687D48042C4A7BFA /* PBXTargetDependency */,
 			);
 			name = "Pods-SEB Dev";
 			productName = "Pods-SEB Dev";
@@ -1032,48 +1032,40 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A3313E88054FDEEFBE9FEA9F578668A6 /* Resources */ = {
+		F8EBEC3DBF4C0AC14A1671321B65AD20 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA3E03CB2489831C0947A6A3D17488D2 /* Base.lproj in Resources */,
-				60A6720B43AA303868C9C006F974FBEB /* ca.lproj in Resources */,
-				FC0FEE642895D21CD936B68717BAB745 /* de.lproj in Resources */,
-				E87ADB448E7451D0DB164C6AC123BDA5 /* el.lproj in Resources */,
-				93BFF8D5402487056909D72DC41E1F69 /* en.lproj in Resources */,
-				1CC9D238E9C2A3C1C99B4EF35A45D24D /* es-MX.lproj in Resources */,
-				2D75C87B23FEE9043237F0D15207044C /* es.lproj in Resources */,
-				A4D019A3133EC56AFEB5DFB605D791FF /* fr.lproj in Resources */,
-				323D15D2EB028E461DB041F978F7F742 /* hr.lproj in Resources */,
-				97195FE9E29C5F23C3B9855D97ADDDCC /* hu.lproj in Resources */,
-				954275E501187EE4FD23344AF966A984 /* it.lproj in Resources */,
-				0071700F0C2FF31EE16B7F61F2D2296E /* ja.lproj in Resources */,
-				7B12E360CE251C20CFEE3303D8CA1F1E /* nb.lproj in Resources */,
-				1ACF63B5D186F82C20B5E777AAF8C7BD /* nl.lproj in Resources */,
-				B82F9568A55C94884C5649474C629366 /* pl.lproj in Resources */,
-				4C49B0229405B700F3EA7CF76F43335A /* pt-PT.lproj in Resources */,
-				1A39FE1E1F49752D249FAABE92B3AB13 /* pt.lproj in Resources */,
-				EC7DAE102F79053070A9B3A5B00ABD39 /* ru.lproj in Resources */,
-				BD009B08E37162986D66D30E90164C4C /* sv.lproj in Resources */,
-				CCB1C276DA2D422619131AA8734ED8ED /* th.lproj in Resources */,
-				94E9E24E7DD05EB92D8FB9DD706790E3 /* tr.lproj in Resources */,
-				81C26ECA4C5DF31093009B2FCC004065 /* uk.lproj in Resources */,
-				9B73AA2720527274CF5CBCC8B84E034F /* zh-Hans.lproj in Resources */,
-				2E9A209B4A5F337543C762F84C2C1F64 /* zh-Hant.lproj in Resources */,
+				6758A2630CC6930817506731DDFAA834 /* Base.lproj in Resources */,
+				C68E007127A081F06FCC98B73394B123 /* ca.lproj in Resources */,
+				7381E2E70069FD21FDED26CB9321E4FC /* de.lproj in Resources */,
+				08F0B9ACA6636761527B1481E685E4F1 /* el.lproj in Resources */,
+				ED5CF446609281D54F9E4B62F193418C /* en.lproj in Resources */,
+				D9C53DFAC8B936721481E5BE8A89BE73 /* es-MX.lproj in Resources */,
+				54F8D6B78BF1B55F2F03890F720C1265 /* es.lproj in Resources */,
+				1E6BCFA5D1E21D1B94AD47935D408C38 /* fr.lproj in Resources */,
+				A8EEB9BC88DA44F92F3B744F0FF2F03A /* hr.lproj in Resources */,
+				875C757392BF7CDD09CA15F5C8DEADB8 /* hu.lproj in Resources */,
+				BEB2C4426E3657CE521B0992B4607CB9 /* it.lproj in Resources */,
+				9720434D9A52FE94F37471624DF5C9E4 /* ja.lproj in Resources */,
+				76B2A2972501B15D7E2F3814EA4D38F7 /* nb.lproj in Resources */,
+				C0B420E5A6E95F1F4B018D7ED80067BF /* nl.lproj in Resources */,
+				D69CC713E989C9078D787E14CE546032 /* pl.lproj in Resources */,
+				033896A13051FA6D547D2D6B8B341370 /* pt-PT.lproj in Resources */,
+				13E744C3F2321DA9E4647B33A5C0A510 /* pt.lproj in Resources */,
+				574C727A3AAA3782CF1A740826EF6E15 /* ru.lproj in Resources */,
+				9373636CA88DDA4708C1281DAA86AE7D /* sv.lproj in Resources */,
+				1B3ABF8031CFF1A5210C33DE02AE2B39 /* th.lproj in Resources */,
+				FB553317F37B11EAF8A90C1E2153B307 /* tr.lproj in Resources */,
+				FE932AEAAFB376AFC09D68165A0FE7F7 /* uk.lproj in Resources */,
+				B69AA681F5B3B71ECEB86780E7A5DEFE /* zh-Hans.lproj in Resources */,
+				BC3115AA39769D20F8F0D185F34383CE /* zh-Hant.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		11A30E15B2E1A00096278B7FEAB0ABE2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				438472A8DBE5C6A13DA17B16363D766B /* Pods-Safe Exam Browser-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		22C051A9E6967A9B6443DAEA741D5218 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1087,10 +1079,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6D223FDB2703CA24B3301F3263559298 /* Sources */ = {
+		45CB4A728899E1EF8570656A4479B4C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAD926369FF50A44C9F0E6D3CE9EB690 /* Pods-SEB-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6501DBDA0AAB230D33AAEB88A9D97092 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06C2CF594007BD72AC7A5C0D53C16646 /* Pods-SEB Dev-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,44 +1113,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8E29FD7EA4CC766A2C91BCC09200ED42 /* Sources */ = {
+		9982D901FE8246226A36CC042AFB5C74 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D113FADA6BC78A71BAC4541B069EBB6 /* Pods-SEB-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A05D2F42F05D2BB79DF36AA3578CE4F7 /* Sources */ = {
+		C5EE730209168338444F954117EAEAFA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A7BE0385813981A706F7EE76B11675E /* Pods-SEB Dev-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C6CBB0126CE56C49DD1283918F0758C2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				458C864A8B672B0BE39B9EB74E27F8C1 /* IASKAppSettingsViewController.m in Sources */,
-				ECA42CD0EB6A77FB209D908423CB26FC /* IASKAppSettingsWebViewController.m in Sources */,
-				29FB13EA4AD374B0D5AF540C65CA4938 /* IASKColor.m in Sources */,
-				F40BC910E47797E90D2B763A70EA91F6 /* IASKMultipleValueSelection.m in Sources */,
-				8AC68CC971EE95596EC1ADD1C93AC933 /* IASKPSSliderSpecifierViewCell.m in Sources */,
-				227EAF0B685EA8C0E0EC4FE0CCC7504E /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
-				3B7D322455DEBB8C3025F5B8B4A3F32F /* IASKSettingsReader.m in Sources */,
-				1FEC7C2F5C110280B568B95B4A9D61E8 /* IASKSettingsStore.m in Sources */,
-				A5EB5650BD81549D9E05C6DFF689245B /* IASKSettingsStoreFile.m in Sources */,
-				1D938B1A0FB61BB87AB2F532AD0CC044 /* IASKSettingsStoreUserDefaults.m in Sources */,
-				BD4C33F1004F6E754E9F9817A1DD08E8 /* IASKSlider.m in Sources */,
-				DFCF63DDF8CC0C224F51D034F1D82C37 /* IASKSpecifier.m in Sources */,
-				B0040D358330B81B97F7ACAE94DA7862 /* IASKSpecifierValuesViewController.m in Sources */,
-				00701D65F00D7D3CBB57B30F0131044B /* IASKSwitch.m in Sources */,
-				751FE46D6DC2B1A8A09EEB75BD738773 /* IASKTextField.m in Sources */,
-				6B2BD124C4D1D7051182A21624FA53E5 /* IASKTextView.m in Sources */,
-				7D8730A584554AA4A41998A8A9617AC0 /* IASKTextViewCell.m in Sources */,
-				4196C343C9CDCED24CADBDE6C2D5F0D5 /* InAppSettingsKit-dummy.m in Sources */,
+				DCD69328B197FCF47533848C0A1AB6E0 /* Pods-Safe Exam Browser-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,76 +1146,359 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F72741102A37C9DEDBECA193506B08F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20D10EFCBBE558A9D3FEB2A638413B28 /* IASKAppSettingsViewController.m in Sources */,
+				C3BB39F55BFB6BE0E252B3F32F8C6F2B /* IASKAppSettingsWebViewController.m in Sources */,
+				AD1CA3D1DAAA099FAE9A5A6F00102FF7 /* IASKColor.m in Sources */,
+				DB103831D53C626A705F88E46472E633 /* IASKMultipleValueSelection.m in Sources */,
+				2C1EA0421567993134B2AA6B176D3805 /* IASKPSSliderSpecifierViewCell.m in Sources */,
+				ED6E78C7607CD262A75028163A70D337 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
+				D691237C1F384D971B2A3AD0B0DAEFF6 /* IASKSettingsReader.m in Sources */,
+				C8863E686265B77C87672C9CB18E5452 /* IASKSettingsStore.m in Sources */,
+				24C39C0F5DEA949AC28C7808F81DA5A3 /* IASKSettingsStoreFile.m in Sources */,
+				F387EFB21F8EA6152EB3842650790E4D /* IASKSettingsStoreUserDefaults.m in Sources */,
+				CD6A0143B1996BBAFC7EC8BEC56D92CE /* IASKSlider.m in Sources */,
+				5148F5981F6EE05C179916C811F5A61D /* IASKSpecifier.m in Sources */,
+				AD7C883035176C81943D75BC924222C8 /* IASKSpecifierValuesViewController.m in Sources */,
+				BEBBB3D659384AD312ABFEAFDD2CF993 /* IASKSwitch.m in Sources */,
+				3CC01F7AC217848DCA5D091047A0E55B /* IASKTextField.m in Sources */,
+				C31ECD957966979E178DBD0E53B18971 /* IASKTextView.m in Sources */,
+				9E96A670A3E98929766C6F65DF7595AD /* IASKTextViewCell.m in Sources */,
+				B6A444DE652F7A80E0FD4BC7FFA63018 /* InAppSettingsKit-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		10DDB5E924863F3AD094E14FBB0D2A5D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = QRCodeReaderViewController;
-			target = C8FC4FD750AC24CAD841A7FB89CA76C6 /* QRCodeReaderViewController */;
-			targetProxy = D83F45A8C996ACFF4DB2FB4DC809FC41 /* PBXContainerItemProxy */;
-		};
-		2C39CC3A41D38571651C4523D9D7E573 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "InAppSettingsKit-InAppSettingsKit";
-			target = 8A996938DFC560C0A3EF0DD6CA6B032A /* InAppSettingsKit-InAppSettingsKit */;
-			targetProxy = 6225CBC3A0C64332A0691B6443328213 /* PBXContainerItemProxy */;
-		};
-		524894A4C64632B92E56C0BACBA41779 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = JitsiMeetSDK;
-			target = 5B40FBDAD0AB75D17C4760F4054BFF71 /* JitsiMeetSDK */;
-			targetProxy = 3E418A3162213E69970A9006BD5FFEA1 /* PBXContainerItemProxy */;
-		};
-		5EE998BEE1CA22BB6D0F118F67CD1563 /* PBXTargetDependency */ = {
+		32FF9A00510F3FBCF5AA875354A9ED2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = InAppSettingsKit;
 			target = 5B4848122435F4C22D574A5DA6D2EFB3 /* InAppSettingsKit */;
-			targetProxy = 2645A1922122C66D8359C2BB472AB1F7 /* PBXContainerItemProxy */;
+			targetProxy = F76885959738C09ABEA8D40DBD904B10 /* PBXContainerItemProxy */;
 		};
-		782AAB14AB2A4DF29111966843FEBEEF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = QRCodeReaderViewController;
-			target = C8FC4FD750AC24CAD841A7FB89CA76C6 /* QRCodeReaderViewController */;
-			targetProxy = FCE6183ACBE77B6046A124DF00386BE2 /* PBXContainerItemProxy */;
-		};
-		89DF7C810C1BF106101C07EFF6C20D82 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = JitsiMeetSDK;
-			target = 5B40FBDAD0AB75D17C4760F4054BFF71 /* JitsiMeetSDK */;
-			targetProxy = 9569257767F622CE3112C4DD7C1A2881 /* PBXContainerItemProxy */;
-		};
-		89E28C8DD516DFEE5C46C254BAD96E0E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = InAppSettingsKit;
-			target = 5B4848122435F4C22D574A5DA6D2EFB3 /* InAppSettingsKit */;
-			targetProxy = D9841F0E6B44B6AF9BC2A7972BC83C07 /* PBXContainerItemProxy */;
-		};
-		8EA589C2941D790D05D203E49C12AB78 /* PBXTargetDependency */ = {
+		3BEF34A8E81C7CEF4AECD68FDFD5EF56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CocoaLumberjack-iOS";
 			target = 8D1165BCE944BB911E03BF62CB52B947 /* CocoaLumberjack-iOS */;
-			targetProxy = B6127A1F98648AEA09AED040F664FB40 /* PBXContainerItemProxy */;
+			targetProxy = 0E7D5FD94366EB5A41337A193039695F /* PBXContainerItemProxy */;
 		};
-		ACAD8429E2A4D0639FF1F91D7A1C3389 /* PBXTargetDependency */ = {
+		3D1BCE1D010FDEBC9C0D085B697B8D64 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JitsiMeetSDK;
+			target = 5B40FBDAD0AB75D17C4760F4054BFF71 /* JitsiMeetSDK */;
+			targetProxy = 18DA607CCDEB8095CE01B374F1DEE506 /* PBXContainerItemProxy */;
+		};
+		4636B312676409DBBB9CF5B731CF70B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CocoaLumberjack-macOS";
 			target = 0D4D088FF185F9C7CB6A3A1E004F8978 /* CocoaLumberjack-macOS */;
-			targetProxy = 5CF1C246044A76313CB1979F6703DC8D /* PBXContainerItemProxy */;
+			targetProxy = 54001D2B395E9763154336DA634A9406 /* PBXContainerItemProxy */;
 		};
-		BF6A1120123A86619F0ED10E58C43E5D /* PBXTargetDependency */ = {
+		5114FEC684F67B40F7369189A6D5A3A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JitsiMeetSDK;
+			target = 5B40FBDAD0AB75D17C4760F4054BFF71 /* JitsiMeetSDK */;
+			targetProxy = 52E2D5F603F41B8A15A617A86C1416C2 /* PBXContainerItemProxy */;
+		};
+		5DE10DE0F500393B1B5624B1EF11F511 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "InAppSettingsKit-InAppSettingsKit";
+			target = 8A996938DFC560C0A3EF0DD6CA6B032A /* InAppSettingsKit-InAppSettingsKit */;
+			targetProxy = 79F88FD75BC7ED5E0B05AD61E4AA3185 /* PBXContainerItemProxy */;
+		};
+		63951498A367A32679A67C084F7C896B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QRCodeReaderViewController;
+			target = C8FC4FD750AC24CAD841A7FB89CA76C6 /* QRCodeReaderViewController */;
+			targetProxy = 53A6528437BC292E83937E8073B824C0 /* PBXContainerItemProxy */;
+		};
+		BEC27A82AE61A557FC49FD2AD765E0AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InAppSettingsKit;
+			target = 5B4848122435F4C22D574A5DA6D2EFB3 /* InAppSettingsKit */;
+			targetProxy = 28A4A937524774F29B26E476B52AC119 /* PBXContainerItemProxy */;
+		};
+		DCF94716B6613EC4CB50AC1DC02180CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CocoaLumberjack-iOS";
 			target = 8D1165BCE944BB911E03BF62CB52B947 /* CocoaLumberjack-iOS */;
-			targetProxy = C76E4C8E824C085E2118DF46A1A553B3 /* PBXContainerItemProxy */;
+			targetProxy = 558A6AC49D424103AF4B91EBD60D9E3A /* PBXContainerItemProxy */;
+		};
+		DE0124DCD08CE953687D48042C4A7BFA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QRCodeReaderViewController;
+			target = C8FC4FD750AC24CAD841A7FB89CA76C6 /* QRCodeReaderViewController */;
+			targetProxy = 364DB2182E8304BBC04087B9B0F083BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1988784C621DCFAAD489A563E5C626B5 /* Debug */ = {
+		0564CC57958461BB2BD11396056468BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF7AF9444D73661F1B03325D3D15CA9E /* Pods-SEB Dev.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1A58284A85C7B7A18C3BD86D4F244A1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C925C20D0E20CB7A4D6D7D5DBBBF49C5 /* InAppSettingsKit.release.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
+				ENABLE_BITCODE = NO;
+				IBSC_MODULE = InAppSettingsKit;
+				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = InAppSettingsKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1B54BB901B3310BB1079841B208F151B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE667CD1D753C18C3CB1266C145EE214 /* Pods-Safe Exam Browser.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		313E4759A539A2E599D878A7B0F7C786 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 373D37455673660A8A394C1E492575CD /* InAppSettingsKit.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/InAppSettingsKit/InAppSettingsKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = InAppSettingsKit;
+				PRODUCT_NAME = InAppSettingsKit;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		35CC1315731121FE2EBA4E24AA0C0C66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92B2D6EAA0A224802D99AD9090641387 /* Pods-Safe Exam Browser.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4C7116DCD6C0046D5621FC36045D9D57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C525962E67BB3619F613D845C25B124F /* CocoaLumberjack-macOS.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = CocoaLumberjack;
+				PRODUCT_NAME = "CocoaLumberjack-macOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		631C25765EB8B17C395A0B16E3560DFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8055A3F33C984689A105E69D33E6BB8 /* CocoaLumberjack-iOS.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-iOS/CocoaLumberjack-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = CocoaLumberjack;
+				PRODUCT_NAME = "CocoaLumberjack-iOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6AC4FC94B0AEF6246896B7918E5C59AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A718577E6C89A210BAD8080767616339 /* Pods-SEB.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6F45A910D3EFAE474D8FB86781C7BD08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B71E662830132AD5DC7B5854D56EB054 /* Pods-SEB.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		737DEA995CF4BF1295F7DA8541A8017B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 962620482AE482B98C0ACEA45BCD3D44 /* CocoaLumberjack-macOS.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = CocoaLumberjack;
+				PRODUCT_NAME = "CocoaLumberjack-macOS";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8BE8A5868C452F551BD2DD455E85821B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 804A1CA604C3420C7B7CB882F3DA38C6 /* QRCodeReaderViewController.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = QRCodeReaderViewController;
+				PRODUCT_NAME = QRCodeReaderViewController;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B087794DE2EDB45FF85BA62E78409246 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1263,6 +1521,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1302,23 +1561,22 @@
 			};
 			name = Debug;
 		};
-		1B1D678AE27E4B8C54784C1ECBC6BCBA /* Release */ = {
+		BD3A5FC01F23A14A56064C7183076EB9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8055A3F33C984689A105E69D33E6BB8 /* CocoaLumberjack-iOS.release.xcconfig */;
+			baseConfigurationReference = C925C20D0E20CB7A4D6D7D5DBBBF49C5 /* InAppSettingsKit.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-iOS/CocoaLumberjack-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "Target Support Files/InAppSettingsKit/InAppSettingsKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CocoaLumberjack;
-				PRODUCT_NAME = "CocoaLumberjack-iOS";
+				PRODUCT_MODULE_NAME = InAppSettingsKit;
+				PRODUCT_NAME = InAppSettingsKit;
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1329,169 +1587,11 @@
 			};
 			name = Release;
 		};
-		265E03F238EC2B73DA58DA78A4462B6E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B71E662830132AD5DC7B5854D56EB054 /* Pods-SEB.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		2B4C9EB573A42A499758EED9D1BC81EC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9F71F20519BF5D5D9AD76FD41CDF1D2 /* JitsiMeetSDK.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		2BEA518756A80EC5D89FF60123E9D9B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCAA7523608B2DDEC9EA744CBB14394E /* Pods-SEB Dev.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		394138A712445C3E972D4389AF5CC825 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C525962E67BB3619F613D845C25B124F /* CocoaLumberjack-macOS.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CocoaLumberjack;
-				PRODUCT_NAME = "CocoaLumberjack-macOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		43985A883D59BB3F8D0B7E866AFD9C7E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A718577E6C89A210BAD8080767616339 /* Pods-SEB.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4D878ED8351061289FD16BA3F75FD6FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E322349F4F8C4D15311204AA4077519 /* JitsiMeetSDK.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		78FA56AAE14663CB6AF8A8660C15C715 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF7AF9444D73661F1B03325D3D15CA9E /* Pods-SEB Dev.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		794A11BF68919EC8880C42E53C44CAD0 /* Debug */ = {
+		CBB4F11E3A15421BE16C73861A07D144 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67675E0384F7FF5D77EB826018069F7B /* CocoaLumberjack-iOS.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1512,10 +1612,11 @@
 			};
 			name = Debug;
 		};
-		83BCC6EFE19020D404E109A261841753 /* Release */ = {
+		CCEFBFD873EF707EF8F6EE2E06FD4F5D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1538,6 +1639,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1573,110 +1675,51 @@
 			};
 			name = Release;
 		};
-		92A1B0C6B194CF22DE29C385EDD97844 /* Release */ = {
+		D679DA3653EA9F2D9C4564889CB0C9AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C925C20D0E20CB7A4D6D7D5DBBBF49C5 /* InAppSettingsKit.release.xcconfig */;
+			baseConfigurationReference = 7E322349F4F8C4D15311204AA4077519 /* JitsiMeetSDK.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/InAppSettingsKit/InAppSettingsKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = InAppSettingsKit;
-				PRODUCT_NAME = InAppSettingsKit;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		95030E63FDF5127F442CEA0BD2AF4683 /* Release */ = {
+		D85B2964772CA3143D8D0C225494D966 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92B2D6EAA0A224802D99AD9090641387 /* Pods-Safe Exam Browser.release.xcconfig */;
+			baseConfigurationReference = FCAA7523608B2DDEC9EA744CBB14394E /* Pods-SEB Dev.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "-";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		9BBB9E103B190ED0527E7F06963C8EF5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 804A1CA604C3420C7B7CB882F3DA38C6 /* QRCodeReaderViewController.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = QRCodeReaderViewController;
-				PRODUCT_NAME = QRCodeReaderViewController;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		A48702A8E01BD8738D57188EAEFAA40B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE667CD1D753C18C3CB1266C145EE214 /* Pods-Safe Exam Browser.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		B9A1160D81D00047534A521C6872CECA /* Debug */ = {
+		ED0083F4CAC113B4BAB4C1C2E6EEE84C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 373D37455673660A8A394C1E492575CD /* InAppSettingsKit.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
 				ENABLE_BITCODE = NO;
 				IBSC_MODULE = InAppSettingsKit;
@@ -1690,30 +1733,27 @@
 			};
 			name = Debug;
 		};
-		BAA9DEE77695203C1FAED82D1A87B7B1 /* Release */ = {
+		FED4091850B98DEE852E1FFC263B0AA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C925C20D0E20CB7A4D6D7D5DBBBF49C5 /* InAppSettingsKit.release.xcconfig */;
+			baseConfigurationReference = E9F71F20519BF5D5D9AD76FD41CDF1D2 /* JitsiMeetSDK.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				ENABLE_BITCODE = NO;
-				IBSC_MODULE = InAppSettingsKit;
-				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = InAppSettingsKit;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
-			name = Release;
+			name = Debug;
 		};
-		DCF5ABA2BF73CF3F0E68CE493766F431 /* Release */ = {
+		FEFA0E69A9AC8E64B60E1B3731181E9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1AC3683EF63D2DB5BA5BB9B076F793CB /* QRCodeReaderViewController.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1735,66 +1775,23 @@
 			};
 			name = Release;
 		};
-		F256CAF786535DBAE94E0CDCCEFBBFAA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 373D37455673660A8A394C1E492575CD /* InAppSettingsKit.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/InAppSettingsKit/InAppSettingsKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = InAppSettingsKit;
-				PRODUCT_NAME = InAppSettingsKit;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		FCCF2FBC8BD3751BE6F0FC5270EAFD84 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 962620482AE482B98C0ACEA45BCD3D44 /* CocoaLumberjack-macOS.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CocoaLumberjack;
-				PRODUCT_NAME = "CocoaLumberjack-macOS";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2951FA3FF1F92660D4FF19F88F7B5798 /* Build configuration list for PBXNativeTarget "InAppSettingsKit-InAppSettingsKit" */ = {
+		0E059B34AC88BEB115916ECA388EC4F9 /* Build configuration list for PBXNativeTarget "Pods-SEB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B9A1160D81D00047534A521C6872CECA /* Debug */,
-				BAA9DEE77695203C1FAED82D1A87B7B1 /* Release */,
+				6AC4FC94B0AEF6246896B7918E5C59AA /* Debug */,
+				6F45A910D3EFAE474D8FB86781C7BD08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D4DA982CEAAB52E9CA64671FE40C399 /* Build configuration list for PBXNativeTarget "Pods-SEB Dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0564CC57958461BB2BD11396056468BC /* Debug */,
+				D85B2964772CA3143D8D0C225494D966 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1802,8 +1799,17 @@
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1988784C621DCFAAD489A563E5C626B5 /* Debug */,
-				83BCC6EFE19020D404E109A261841753 /* Release */,
+				B087794DE2EDB45FF85BA62E78409246 /* Debug */,
+				CCEFBFD873EF707EF8F6EE2E06FD4F5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		674CC4F7840945308E1F5123EAED9417 /* Build configuration list for PBXNativeTarget "InAppSettingsKit-InAppSettingsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED0083F4CAC113B4BAB4C1C2E6EEE84C /* Debug */,
+				1A58284A85C7B7A18C3BD86D4F244A1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1811,26 +1817,8 @@
 		6BB15ABCD4CB49CB96BAE848E1070D5A /* Build configuration list for PBXNativeTarget "CocoaLumberjack-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				794A11BF68919EC8880C42E53C44CAD0 /* Debug */,
-				1B1D678AE27E4B8C54784C1ECBC6BCBA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9565F9AA6384FDAFADF9215C735205AC /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F256CAF786535DBAE94E0CDCCEFBBFAA /* Debug */,
-				92A1B0C6B194CF22DE29C385EDD97844 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B523CBA8EB38DCE003C31855188D6774 /* Build configuration list for PBXNativeTarget "Pods-SEB Dev" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				78FA56AAE14663CB6AF8A8660C15C715 /* Debug */,
-				2BEA518756A80EC5D89FF60123E9D9B5 /* Release */,
+				CBB4F11E3A15421BE16C73861A07D144 /* Debug */,
+				631C25765EB8B17C395A0B16E3560DFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1838,8 +1826,17 @@
 		DBD8F7A3D5C2AFF197F97FC697DD4EBD /* Build configuration list for PBXNativeTarget "QRCodeReaderViewController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9BBB9E103B190ED0527E7F06963C8EF5 /* Debug */,
-				DCF5ABA2BF73CF3F0E68CE493766F431 /* Release */,
+				8BE8A5868C452F551BD2DD455E85821B /* Debug */,
+				FEFA0E69A9AC8E64B60E1B3731181E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC38F1F4607CD49EA5E7C4A914345D33 /* Build configuration list for PBXNativeTarget "Pods-Safe Exam Browser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B54BB901B3310BB1079841B208F151B /* Debug */,
+				35CC1315731121FE2EBA4E24AA0C0C66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1847,26 +1844,17 @@
 		E512C76A0C050FD9019D94F4A6921A5A /* Build configuration list for PBXNativeTarget "CocoaLumberjack-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FCCF2FBC8BD3751BE6F0FC5270EAFD84 /* Debug */,
-				394138A712445C3E972D4389AF5CC825 /* Release */,
+				737DEA995CF4BF1295F7DA8541A8017B /* Debug */,
+				4C7116DCD6C0046D5621FC36045D9D57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E55DE47B436AD05C7C05E6AF71C294F1 /* Build configuration list for PBXNativeTarget "Pods-SEB" */ = {
+		E94C76A20A94405E9B35D625FEAA7883 /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				43985A883D59BB3F8D0B7E866AFD9C7E /* Debug */,
-				265E03F238EC2B73DA58DA78A4462B6E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EEC54FB4FB2027C7D25D681C62B5DB70 /* Build configuration list for PBXNativeTarget "Pods-Safe Exam Browser" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A48702A8E01BD8738D57188EAEFAA40B /* Debug */,
-				95030E63FDF5127F442CEA0BD2AF4683 /* Release */,
+				313E4759A539A2E599D878A7B0F7C786 /* Debug */,
+				BD3A5FC01F23A14A56064C7183076EB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1874,8 +1862,8 @@
 		F617CE4545CE4E4DED6DEC4F2D3F8F38 /* Build configuration list for PBXAggregateTarget "JitsiMeetSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B4C9EB573A42A499758EED9D1BC81EC /* Debug */,
-				4D878ED8351061289FD16BA3F75FD6FD /* Release */,
+				FED4091850B98DEE852E1FFC263B0AA5 /* Debug */,
+				D679DA3653EA9F2D9C4564889CB0C9AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
