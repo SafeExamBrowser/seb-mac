@@ -4019,12 +4019,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
             jitsiMeetServerURLString = [jitsiMeetServerURLString substringToIndex:rangeOfRoomString.location-1];
             jitsiMeetServerURL = [NSURL URLWithString:jitsiMeetServerURLString];
         }
+        NSString *jitsiMeetSubject = attributes[@"jitsiMeetSubject"];
         NSString *jitsiMeetToken = attributes[@"jitsiMeetToken"];
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (jitsiMeetServerURL && jitsiMeetRoom && jitsiMeetToken && instructionConfirm) {
 //            DDLogInfo(@"%s: Starting Jitsi Meet proctoring.", __FUNCTION__);
             [self.jitsiViewController openJitsiMeetWithServerURL:jitsiMeetServerURL
                                                             room:jitsiMeetRoom
+                                                         subject:jitsiMeetSubject
                                                            token:jitsiMeetToken];
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
             [self.jitsiViewController updateProctoringViewButtonState];
