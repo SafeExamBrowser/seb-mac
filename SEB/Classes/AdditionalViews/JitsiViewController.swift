@@ -25,6 +25,7 @@ class JitsiViewController: UIViewController {
     
     private var serverURL: URL?
     private var room: String?
+    private var subject: String?
     private var token: String?
 
     fileprivate var pipViewCoordinator: PiPViewCoordinator?
@@ -66,13 +67,15 @@ class JitsiViewController: UIViewController {
             return
         }
         let room = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetRoom")
+        let subject = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetSubject")
         let token = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetToken")
-        openJitsiMeet(serverURL: serverURL, room: room, token: token)
+        openJitsiMeet(serverURL: serverURL, room: room, subject: subject, token: token)
     }
     
-    @objc public func openJitsiMeet(serverURL: URL, room: String?, token: String?) {
+    @objc public func openJitsiMeet(serverURL: URL, room: String?, subject: String?, token: String?) {
         self.serverURL = serverURL
         self.room = room
+        self.subject = subject
         self.token = token
         openJitsiMeet(receiveAudioOverride: false, receiveVideoOverride: false, useChatOverride: false)
     }
@@ -97,7 +100,7 @@ class JitsiViewController: UIViewController {
             builder.serverURL = self.serverURL
             builder.room = self.room
             builder.token = self.token
-            builder.subject = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_jitsiMeetSubject")
+            builder.subject = self.subject
             builder.audioMuted = !receiveAudioOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
             builder.videoMuted = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
             builder.audioOnly = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
@@ -134,29 +137,29 @@ class JitsiViewController: UIViewController {
             builder.setFeatureFlag("tile-view.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView"))
         }
-            jitsiMeetView.join(options)
-            
-            // Enable jitsimeet view to be a view that can be displayed
-            // on top of all the things, and let the coordinator to manage
-            // the view state and interactions
+        jitsiMeetView.join(options)
+        
+        // Enable jitsimeet view to be a view that can be displayed
+        // on top of all the things, and let the coordinator to manage
+        // the view state and interactions
         pipViewCoordinator = PiPViewCoordinator(withView: jitsiMeetView)
         pipViewCoordinator?.configureAsStickyView(withParentView: parent?.view)
-            
-            // animate in
-            jitsiMeetView.alpha = 1
+        
+        // animate in
+        jitsiMeetView.alpha = 1
         pipViewCoordinator?.dragBoundInsets = safeAreaLayoutGuideInsets
-            if !useChatOverride {
+        if !useChatOverride {
             pipViewCoordinator?.enterPictureInPicture()
-            }
-            
-            let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
-            if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
-                remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
-                receiveVideoOverride == true ||
-                useChatOverride == true {
+        }
+        
+        let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
+        if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+            remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
+            receiveVideoOverride == true ||
+            useChatOverride == true {
             viewIsVisible = true
             pipViewCoordinator?.show()
-            } else {
+        } else {
             viewIsVisible = false
             pipViewCoordinator?.hide()
         }
