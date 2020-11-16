@@ -12,15 +12,23 @@ PODS:
 DEPENDENCIES:
   - CocoaLumberjack
   - InAppSettingsKit (~> 2.15)
-  - JitsiMeetSDK
+  - JitsiMeetSDK (from `https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git`)
   - QRCodeReaderViewController (~> 4.0.2)
 
 SPEC REPOS:
   trunk:
     - CocoaLumberjack
     - InAppSettingsKit
-    - JitsiMeetSDK
     - QRCodeReaderViewController
+
+EXTERNAL SOURCES:
+  JitsiMeetSDK:
+    :git: https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git
+
+CHECKOUT OPTIONS:
+  JitsiMeetSDK:
+    :commit: 94fa783a8334db30e51a392d50738dcc3df97c93
+    :git: https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git
 
 SPEC CHECKSUMS:
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
@@ -28,6 +36,6 @@ SPEC CHECKSUMS:
   JitsiMeetSDK: d7612d73befd3f7f51f989458a816bbd05d0bc8e
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: eb360e54027625df7c350be1fa649879a9bac4dd
+PODFILE CHECKSUM: 31e620232bcfe4fadd24dee2882d4d589c7ac209
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
