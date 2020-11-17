@@ -2843,13 +2843,26 @@ void run_on_ui_thread(dispatch_block_t block)
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
+            _establishingSEBServerConnection = true;
+            [self showSEBServerView];
             if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
                 // All necessary information for connecting to SEB Server was available in settings:
                 // try to connect to SEB Server and wait for delegate method to be called with success/failure
-                _establishingSEBServerConnection = true;
-                [self showSEBServerView];
-                
                 return;
+            } else {
+                // Cannot connect as some SEB Server settings/API endpoints are missing
+                // Abort if fallback isn't enabled
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerFallback"] == NO) {
+                    [self alertWithTitle:NSLocalizedString(@"Cannot Connect to SEB Server", nil)
+                                 message:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)
+                            action1Title:NSLocalizedString(@"OK", nil)
+                          action1Handler:^(void){
+                        [self closeServerView:self];
+                    }
+                            action2Title:nil
+                          action2Handler:nil];
+                    return;
+                }
             }
         }
         NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
