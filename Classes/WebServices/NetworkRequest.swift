@@ -30,7 +30,7 @@ extension NetworkRequest {
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion completion: @escaping ((Model?), [AnyHashable: Any]?) -> Void) {
+    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion completion: @escaping ((Model?), Int?, [AnyHashable: Any]?) -> Void) {
         let configuration = URLSessionConfiguration.ephemeral
         
         let request = NSMutableURLRequest(url: url)
@@ -50,13 +50,14 @@ extension NetworkRequest {
             }
             print(response as Any)
             let httpResponse = response as? HTTPURLResponse
+            let statusCode = httpResponse?.statusCode
             let responseHeaders = httpResponse?.allHeaderFields
             print(error as Any)
             guard let receivedData = data else {
-                completion(nil, [:])
+                completion(nil, statusCode, [:])
                 return
             }
-            completion(self?.decode(receivedData), responseHeaders)
+            completion(self?.decode(receivedData), statusCode, responseHeaders)
         })
         task.resume()
     }
@@ -79,7 +80,7 @@ extension ApiRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
 
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Resource.Model?), [AnyHashable: Any]?) -> Void) {
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Resource.Model?), Int?, [AnyHashable: Any]?) -> Void) {
         load(resource.url, httpMethod: httpMethod, body: body, headers: headers, withCompletion: completion)
     }
 }
@@ -101,7 +102,7 @@ extension DataRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
     
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Data?), [AnyHashable: Any]?) -> Void) {
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Data?), Int?, [AnyHashable: Any]?) -> Void) {
         load(resource.url, httpMethod: httpMethod, body: body, headers: headers, withCompletion: completion)
     }
 }

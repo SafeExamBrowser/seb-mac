@@ -103,7 +103,7 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
         
-        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, headers: requestHeaders, completion: { (accessTokenResponse, responseHeaders) in
+        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, headers: requestHeaders, completion: { (accessTokenResponse, statusCode, responseHeaders) in
             guard let accessToken = accessTokenResponse else {
                 return
             }
@@ -128,7 +128,7 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
-        handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, responseHeaders) in
+        handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, statusCode, responseHeaders) in
             guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == keys.sebConnectionToken }))?.value else {
                 return
             }
@@ -167,7 +167,7 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
-        examConfigRequest.load(httpMethod: examConfigResource.httpMethod, body:examConfigResource.body, headers: requestHeaders, completion: { (examConfigResponse, responseHeaders) in
+        examConfigRequest.load(httpMethod: examConfigResource.httpMethod, body:examConfigResource.body, headers: requestHeaders, completion: { (examConfigResponse, statusCode, responseHeaders) in
             guard let config = examConfigResponse else {
                 return
             }
@@ -196,7 +196,7 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
-        handshakeCloseRequest.load(httpMethod: handshakeCloseResource.httpMethod, body:handshakeCloseResource.body, headers: requestHeaders, completion: { (handshakeCloseResponse, responseHeaders) in
+        handshakeCloseRequest.load(httpMethod: handshakeCloseResource.httpMethod, body:handshakeCloseResource.body, headers: requestHeaders, completion: { (handshakeCloseResponse, statusCode, responseHeaders) in
             if handshakeCloseResponse != nil  {
                 let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
                 print(responseBody as Any)
@@ -221,7 +221,7 @@ public extension SEBServerController {
             let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
-            pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, responseHeaders) in
+            pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, statusCode, responseHeaders) in
                 guard let ping = pingResponse else {
                     return
                 }
@@ -261,7 +261,7 @@ public extension SEBServerController {
             let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
-            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, responseHeaders) in
+            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, responseHeaders) in
                 if logResponse != nil  {
                     let responseBody = String(data: logResponse!, encoding: .utf8)
                     print(responseBody as Any)
@@ -280,7 +280,7 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
-        quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, responseHeaders) in
+        quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, statusCode, responseHeaders) in
             self.pingTimer?.invalidate()
             self.connectionToken = nil
             if quitSessionResponse != nil  {
