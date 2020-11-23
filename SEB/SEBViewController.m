@@ -1906,7 +1906,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         run_on_ui_thread(startRemoteProctoringOK);
                     } else {
                         [self alertWithTitle:NSLocalizedString(@"Starting Remote Proctoring", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]
                                 action1Title:NSLocalizedString(@"OK", nil)
                               action1Handler:^ {
                             run_on_ui_thread(startRemoteProctoringOK);
@@ -1949,7 +1949,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
                     }
                     
-                    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
+                    self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
                                                                                 message:message
                                                                          preferredStyle:UIAlertControllerStyleAlert];
                     
