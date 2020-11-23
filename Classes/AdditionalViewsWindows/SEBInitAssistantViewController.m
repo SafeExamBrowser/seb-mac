@@ -92,7 +92,7 @@
         return nil;
     }
     NSString *fullHost = [self getHostFromIPAddress:ipAddress];
-    NSString *hostDomain = nil;
+    NSString *hostDomain = @"";
     if (fullHost.length > 0) {
         NSMutableArray *hostSegments = [fullHost componentsSeparatedByString:@"."].mutableCopy;
         if (hostSegments.count > 1) {
