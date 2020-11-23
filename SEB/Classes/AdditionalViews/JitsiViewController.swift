@@ -94,15 +94,20 @@ class JitsiViewController: UIViewController {
         jitsiMeetView.isUserInteractionEnabled = true
         let userInfo = JitsiMeetUserInfo()
         userInfo.displayName = UIDevice().name
-        
+        let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
+
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
             builder.welcomePageEnabled = false
             builder.serverURL = self.serverURL
             builder.room = self.room
             builder.token = self.token
             builder.subject = self.subject
-            builder.audioMuted = !receiveAudioOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
-            builder.videoMuted = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
+            builder.audioMuted = !receiveAudioOverride &&
+                remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+                UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
+            builder.videoMuted = !receiveVideoOverride &&
+                remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+                UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
             builder.audioOnly = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
             builder.userInfo = userInfo
             
@@ -152,7 +157,6 @@ class JitsiViewController: UIViewController {
             pipViewCoordinator?.enterPictureInPicture()
         }
         
-        let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
         if remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
             remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
             receiveVideoOverride == true ||
