@@ -339,6 +339,8 @@
 		69DFAF3719C468E700CBE69F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
+		69E8EC5825533EB70047F06E /* SEBAbstractWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */; };
+		69E8EC5925533EB70047F06E /* SEBAbstractWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */; };
 		69E9EA321DB1A2D500C949FE /* NSRunningApplication+SEB.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */; };
 		69E9EA331DB1A2D500C949FE /* NSRunningApplication+SEB.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
@@ -820,6 +822,8 @@
 		69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor OS X-Prefix.pch"; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
+		69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBAbstractWebView.h; path = Classes/BrowserComponents/SEBAbstractWebView.h; sourceTree = "<group>"; };
+		69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBAbstractWebView.m; path = Classes/BrowserComponents/SEBAbstractWebView.m; sourceTree = "<group>"; };
 		69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunningApplication+SEB.h"; sourceTree = "<group>"; };
 		69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunningApplication+SEB.m"; sourceTree = "<group>"; };
 		69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewInternal.h; sourceTree = "<group>"; };
@@ -1138,6 +1142,8 @@
 				69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */,
 				69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */,
 				6949A47E1D0EF5890040ABF1 /* SEBURLProtocol */,
+				69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */,
+				69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
@@ -1650,6 +1656,7 @@
 				69C228141C767B0900F78634 /* ccm.h in Headers */,
 				69C228281C767B0900F78634 /* hmac_drbg.h in Headers */,
 				695E02FA1F4B15A4004C7611 /* SEBSettings.h in Headers */,
+				69E8EC5825533EB70047F06E /* SEBAbstractWebView.h in Headers */,
 				69C2281A1C767B0900F78634 /* config.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
@@ -2091,6 +2098,7 @@
 				69F5BDA21CFB4098006FBF81 /* SEBWebViewController.m in Sources */,
 				69C2287E1C767B0900F78634 /* sha512.c in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
+				69E8EC5925533EB70047F06E /* SEBAbstractWebView.m in Sources */,
 				69C2286C1C767B0900F78634 /* md_wrap.c in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69C2285C1C767B0900F78634 /* dhm.c in Sources */,
