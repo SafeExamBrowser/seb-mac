@@ -153,9 +153,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)newRemoveVideoTrack:(RTCVideoTrack *)videoTrack
 {
-    DDLogDebug(@"Removing RTCVideoTrack: %@", videoTrack);
-    [[[MyGlobals sharedMyGlobals] sebViewController].localRTCTracks removeObject:videoTrack];
-    [self newRemoveVideoTrack:videoTrack];
+//    DDLogDebug(@"Removing RTCVideoTrack: %@", videoTrack);
+//    [[[MyGlobals sharedMyGlobals] sebViewController].localRTCTracks removeObject:videoTrack];
+//    [self newRemoveVideoTrack:videoTrack];
 }
 
 @end
