@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public protocol ServerControllerDelegate: class {
+@objc public protocol SEBServerControllerDelegate: class {
     func didSelectExam(_ examId: String, url: String)
     func loginToExam(_ url: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
@@ -31,7 +31,7 @@ import Foundation
     fileprivate var selectedExamURL = ""
     fileprivate var pingNumber: Int64 = 0
 
-    @objc weak public var delegate: ServerControllerDelegate?
+    @objc weak public var delegate: SEBServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
 
     private let baseURL: URL
@@ -44,7 +44,7 @@ import Foundation
     @objc public var pingTimer: Timer?
     @objc public var pingInstruction: String?
 
-    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, delegate: ServerControllerDelegate) {
+    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
         self.institution = institution
         self.exam = exam

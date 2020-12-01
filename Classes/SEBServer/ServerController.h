@@ -7,22 +7,32 @@
 
 #import <Foundation/Foundation.h>
 #import "SafeExamBrowser-Swift.h"
-#import "SEBViewController.h"
 
 @class SEBServerController;
-@class SEBViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ServerController : NSObject <ServerControllerDelegate>
+@protocol ServerControllerDelegate <NSObject>
+
+- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
+- (void) storeNewSEBSettings:(NSData *)configData;
+- (void) loginToExam:(NSString *)url;
+- (void) didEstablishSEBServerConnection;
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) serverSessionQuitRestart:(BOOL)restart;
+
+@end
+
+
+@interface ServerController : NSObject <SEBServerControllerDelegate>
 {
     @private
     NSString *lmsLoginLastUsername;
     NSString *lmsLoginBaseURL;
 }
 
-@property (weak) id delegate;
-@property (weak) SEBViewController *sebViewController;
+@property (weak) id<ServerControllerDelegate> delegate;
 
 @property (strong) NSDictionary *sebServer;
 @property (strong, nonatomic) SEBServerController *sebServerController;
