@@ -33,7 +33,7 @@
 
 #import "UIWebView+SEBWebView.h"
 
-@implementation UIWebView (SEBWebView)
+@implementation UIWebView (SEBUIWebView)
 
 
 - (NSString*)title
