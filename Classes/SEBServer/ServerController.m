@@ -35,7 +35,7 @@
 
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
-    [_sebViewController storeNewSEBSettings:configData];
+    [self.delegate storeNewSEBSettings:configData];
 }
 
 
@@ -47,7 +47,7 @@
 
 - (void) loginToExam:(NSString * _Nonnull)url
 {
-    [_sebViewController loginToExam:url];
+    [self.delegate loginToExam:url];
 }
 
 
@@ -59,7 +59,7 @@
 
 - (void) didSelectExam:(NSString *)examId url:(NSString *)url
 {
-    [_sebViewController didSelectExamWithExamId:examId url:url];
+    [self.delegate didSelectExamWithExamId:examId url:url];
 }
 
 
@@ -106,7 +106,7 @@
 
 
 - (void)didEstablishSEBServerConnection {
-    [_sebViewController didEstablishSEBServerConnection];
+    [self.delegate didEstablishSEBServerConnection];
 }
 
 
@@ -125,17 +125,17 @@
         NSString *instruction = sebInstruction.instruction;
         
         if ([instruction isEqualToString:@"SEB_QUIT"]) {
-            [_sebViewController sessionQuitRestart:NO];
+            [self.delegate serverSessionQuitRestart:NO];
         }
         
         if ([instruction isEqualToString:@"SEB_PROCTORING"]) {
             NSDictionary *attributes = sebInstruction.attributes;
-            [_sebViewController startProctoringWithAttributes:(NSDictionary *)attributes];
+            [self.delegate startProctoringWithAttributes:(NSDictionary *)attributes];
         }
         
         if ([instruction isEqualToString:@"SEB_RECONFIGURE_SETTINGS"]) {
             NSDictionary *attributes = sebInstruction.attributes;
-            [_sebViewController reconfigureWithAttributes:(NSDictionary *)attributes];
+            [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
         }
     }
 }

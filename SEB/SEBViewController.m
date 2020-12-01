@@ -110,7 +110,7 @@ static NSMutableSet *browserWindowControllers;
 {
     if (!_serverController) {
         _serverController = [[ServerController alloc] init];
-        _serverController.sebViewController = self;
+        _serverController.delegate = self;
     }
     return _serverController;
 }
@@ -3289,6 +3289,44 @@ quittingClientConfig:(BOOL)quittingClientConfig
     _establishingSEBServerConnection = false;
     _startingExamFromSEBServer = false;
     _sebServerConnectionEstablished = true;
+}
+
+
+- (void) serverSessionQuitRestart:(BOOL)restart
+{
+    if (_sebServerViewDisplayed) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.sebServerViewDisplayed = false;
+            self.establishingSEBServerConnection = false;
+            [self serverSessionQuitRestart:restart];
+        }];
+        return;
+    } else if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self serverSessionQuitRestart:restart];
+        }];
+        return;
+    }
+    // Check if settings are currently open
+    if (_settingsOpen) {
+        // Close settings, but check if settings presented the share dialog first
+        DDLogInfo(@"SEB settings should be reset, but the Settings view was open, it will be closed first");
+        if (self.appSettingsViewController.presentedViewController) {
+            [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                [self serverSessionQuitRestart:restart];
+            }];
+            return;
+        } else if (self.appSettingsViewController) {
+            [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
+                self.appSettingsViewController = nil;
+                self.settingsOpen = false;
+                [self serverSessionQuitRestart:restart];
+            }];
+            return;
+        }
+    }
+    [self sessionQuitRestart:restart];
 }
 
 
