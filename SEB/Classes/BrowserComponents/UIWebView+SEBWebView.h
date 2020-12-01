@@ -33,7 +33,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIWebView (SEBWebView)
+@interface UIWebView (SEBUIWebView)
 
 - (NSString*)title;
 - (NSURL*)url;
