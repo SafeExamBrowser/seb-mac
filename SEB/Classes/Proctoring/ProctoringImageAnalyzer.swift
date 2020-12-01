@@ -137,7 +137,7 @@ public class ProctoringImageAnalyzer: NSObject {
     func detectedFace(request: VNRequest, error: Error?) {
         if let results = request.results as? [VNFaceObservation], results.count > 0 {
             if proctoringDetectFaceCount && results.count != 1 {
-                self.updateProctoringStateTriggered(RemoteProctoringEventTypeError, message: "Number of detected faces: \(results.count)", userFeedback: proctoringDetectFaceCountDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeError, message: "<proctoring_face_multiple> Number of detected faces: \(results.count)", userFeedback: proctoringDetectFaceCountDisplay)
                 self.detectingFace = false
                 return
             } else {
@@ -159,10 +159,10 @@ public class ProctoringImageAnalyzer: NSObject {
                             //                        print(innerLipsUpper)
                             
                             if innerLipsUpper >= 0.39 {
-                                faceAngleMessage = "Face turned upwards"
+                                faceAngleMessage = "<proctoring_face_pitch> Face turned upwards"
                             }
                             if innerLipsUpper < 0.31 {
-                                faceAngleMessage = "Face turned downwards"
+                                faceAngleMessage = "<proctoring_face_pitch> Face turned downwards"
                             }
                             if faceAngleMessage != nil {
                                 self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: faceAngleMessage!, userFeedback: proctoringDetectFaceAngleDisplay)
@@ -183,7 +183,7 @@ public class ProctoringImageAnalyzer: NSObject {
                                     
 //                                    print("Calculated face yaw: \(faceYaw)")
                                     if abs(faceYaw) > 0.05 {
-                                        self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYaw > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
+                                        self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "<proctoring_face_yaw> Face turned to the " + (faceYaw > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
                                         self.detectingFace = false
                                         return
                                     }
@@ -200,7 +200,7 @@ public class ProctoringImageAnalyzer: NSObject {
                             let faceYawDegrees = self.degrees(radians: faceYaw as! Double)
                             if abs(faceYawDegrees) > 20 {
 //                                print("Face turned to the \(faceYawDegrees > 0 ? "right" : "left")")
-                                self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "Face turned to the " + (faceYawDegrees > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
+                                self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "<proctoring_face_yaw> Face turned to the " + (faceYawDegrees > 0 ? "right" : "left"), userFeedback: proctoringDetectFaceAngleDisplay)
                                 self.detectingFace = false
                                 return
                             }
@@ -209,13 +209,13 @@ public class ProctoringImageAnalyzer: NSObject {
                 }
             }
             if proctoringDetectFaceCount {
-                self.updateProctoringStateTriggered(RemoteProctoringEventTypeNormal, message: "One properly front facing face detected", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeNormal, message: "<proctoring_face_normal> One properly front facing face detected", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
             } else {
                 self.updateProctoringStateTriggered(RemoteProctoringEventTypeNormal, message: "", userFeedback: proctoringDetectFaceCountDisplay || proctoringDetectFaceAngleDisplay)
             }
         } else {
             if proctoringDetectFaceCount {
-                self.updateProctoringStateTriggered(RemoteProctoringEventTypeError, message: "No candidate face detected!", userFeedback: proctoringDetectFaceCountDisplay)
+                self.updateProctoringStateTriggered(RemoteProctoringEventTypeError, message: "<proctoring_face_none> No candidate face detected!", userFeedback: proctoringDetectFaceCountDisplay)
             }
         }
         self.detectingFace = false
