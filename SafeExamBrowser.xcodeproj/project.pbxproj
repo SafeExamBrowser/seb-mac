@@ -1125,6 +1125,8 @@
 		69428C93172E5E7300C87C58 /* Browser Components */ = {
 			isa = PBXGroup;
 			children = (
+				69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */,
+				69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */,
 				699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */,
 				699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */,
 				690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */,
@@ -1142,8 +1144,6 @@
 				69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */,
 				69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */,
 				6949A47E1D0EF5890040ABF1 /* SEBURLProtocol */,
-				69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */,
-				69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
