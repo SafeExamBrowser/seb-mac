@@ -42,9 +42,7 @@
         successSelector = selector;
         [self.assessmentSession end];
     } else {
-        IMP imp = [callback methodForSelector:selector];
-        void (*func)(id, SEL) = (void *)imp;
-        func(callback, selector);
+        [self.delegate assessmentSessionDidEndWithCallback:callback selector:selector];
     }
 }
 

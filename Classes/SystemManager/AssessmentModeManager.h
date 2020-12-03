@@ -33,6 +33,9 @@ API_AVAILABLE(macos(10.15.4))
 
 - (instancetype)initWithCallback:(id)callback
                         selector:(SEL)selector;
+- (void) beginAssessmentMode;
+- (void) endAssessmentModeWithCallback:(id)callback
+                              selector:(SEL)selector;
 
 @property (weak) id <AssessmentModeDelegate> delegate;
 @property(strong, nonatomic, nullable) AEAssessmentSession *assessmentSession API_AVAILABLE(macosx(10.15.4));
