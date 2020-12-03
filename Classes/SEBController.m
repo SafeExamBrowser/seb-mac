@@ -1020,9 +1020,15 @@ bool insideMatrix(void);
     
     /// When running on macOS 10.15.4 or newer, use AAC
     if (@available(macOS 10.15.4, *)) {
+        BOOL wasAACEnabled = _isAACEnabled;
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-        if (_isAACEnabled == YES) {
+        if (_isAACEnabled == YES && wasAACEnabled == NO) {
             self.assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+            self.assessmentModeManager.delegate = self;
+            [self.assessmentModeManager beginAssessmentMode];
+            return;
+        } else if (_isAACEnabled == NO && wasAACEnabled == YES) {
+            [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
             return;
         }
     } else {
@@ -1039,6 +1045,13 @@ bool insideMatrix(void);
 {
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
+
+- (void) assessmentSessionDidEndWithCallback:(id)callback
+                                    selector:(SEL)selector
+{
+    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+}
+
 
 - (void) initSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
