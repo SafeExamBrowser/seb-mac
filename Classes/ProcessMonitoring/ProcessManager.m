@@ -97,11 +97,11 @@ static ProcessManager *sharedProcessManager = nil;
     NSDictionary *prohibitedProcess;
     
     BOOL isAACActive;
-//    if (@available(macOS 10.15.4, *)) {
-//        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-//    } else {
+    if (@available(macOS 10.15.4, *)) {
+        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    } else {
         isAACActive = NO;
-//    }
+    }
     
     for (prohibitedProcess in _prohibitedProcesses) {
         
