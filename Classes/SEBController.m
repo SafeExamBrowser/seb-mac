@@ -238,7 +238,7 @@ bool insideMatrix(void);
         
         // Cache current settings for Siri and dictation
         [_systemManager cacheCurrentSystemSettings];
-        
+
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -1014,6 +1014,33 @@ bool insideMatrix(void);
 
 
 - (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
+                                                 selector:(SEL)selector
+{
+    /// Early kiosk mode setup (as these actions might take some time)
+    
+    /// When running on macOS 10.15.4 or newer, use AAC
+    if (@available(macOS 10.15.4, *)) {
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        if (_isAACEnabled == YES) {
+            self.assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+            return;
+        }
+    } else {
+        _isAACEnabled = NO;
+    }
+    
+    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+}
+    
+
+// Assessement mode continue after switcheing ta
+- (void) assessmentSessionDidBeginWithCallback:(id)callback
+                                      selector:(SEL)selector
+{
+    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+}
+
+- (void) initSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
     /// Early kiosk mode setup (as these actions might take some time)
