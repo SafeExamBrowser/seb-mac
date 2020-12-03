@@ -60,6 +60,7 @@
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
 #import "ProcessListViewController.h"
+#import "AssessmentModeManager.h"
 
 #import "CocoaLumberjack.h"
 
@@ -72,7 +73,7 @@
 @class SEBOSXLockedViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate> {
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate> {
 	
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -137,6 +138,7 @@
     CGEventRef keyboardEventReturnKey;
 }
 
+@property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
 @property(strong, nonatomic) IBOutlet id preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
@@ -149,6 +151,7 @@
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
 
+@property(readwrite) BOOL isAACEnabled;
 @property(readwrite) BOOL allowSwitchToApplications;
 
 @property(readwrite) BOOL reOpenedExamDetected;
