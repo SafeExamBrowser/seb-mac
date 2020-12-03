@@ -5,15 +5,37 @@
 //  Created by Daniel R. Schneider on 02.12.20.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <AutomaticAssessmentConfiguration/AutomaticAssessmentConfiguration.h>
+@import Foundation;
+@import AutomaticAssessmentConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AssessmentModeManager: NSObject <AEAssessmentSessionDelegate>
+@protocol AssessmentModeDelegate <NSObject>
 
-@property(strong, nonatomic) AEAssessmentSession *assessmentSession API_AVAILABLE(macosx(10.15.4));
+- (void) assessmentSessionDidBeginWithCallback:(id)callback
+                                      selector:(SEL)selector;
+- (void) assessmentSessionFailedToBeginWithError:(NSError *)error
+                                        callback:(id)callback
+                                        selector:(SEL)selector;
+- (void) assessmentSessionDidEndWithCallback:(id)callback
+                                    selector:(SEL)selector;
+- (void) assessmentSessionWasInterruptedWithError:(NSError *)error;
+
+@end
+
+
+API_AVAILABLE(macos(10.15.4))
+@interface AssessmentModeManager: NSObject <AEAssessmentSessionDelegate> {
+    @private
+    id successCallback;
+    SEL successSelector;
+}
+
+- (instancetype)initWithCallback:(id)callback
+                        selector:(SEL)selector;
+
+@property (weak) id <AssessmentModeDelegate> delegate;
+@property(strong, nonatomic, nullable) AEAssessmentSession *assessmentSession API_AVAILABLE(macosx(10.15.4));
 
 @end
 
