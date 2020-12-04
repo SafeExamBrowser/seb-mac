@@ -28,14 +28,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Security Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="725"/>
+            <rect key="frame" x="0.0" y="0.0" width="653" height="725"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fzP-sx-Pjd">
-                    <rect key="frame" x="20" y="576" width="610" height="74"/>
+                    <rect key="frame" x="20" y="576" width="613" height="74"/>
                     <subviews>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="4Z8-1t-DB7">
-                            <rect key="frame" x="0.0" y="0.0" width="295" height="74"/>
+                            <rect key="frame" x="0.0" y="0.0" width="297" height="74"/>
                             <subviews>
                                 <button toolTip="Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
                                     <rect key="frame" x="-2" y="58" width="230" height="18"/>
@@ -111,7 +111,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LBV-sq-zoK">
-                            <rect key="frame" x="315" y="1" width="295" height="73"/>
+                            <rect key="frame" x="317" y="1" width="296" height="73"/>
                             <subviews>
                                 <button toolTip="Allows macOS screen sharing to be used (VNC based)" translatesAutoresizingMaskIntoConstraints="NO" id="k8Y-ym-LrR">
                                     <rect key="frame" x="-2" y="57" width="200" height="18"/>
@@ -188,7 +188,7 @@
                     </customSpacing>
                 </stackView>
                 <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="662" width="615" height="25"/>
+                    <rect key="frame" x="18" y="662" width="618" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -212,7 +212,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                    <rect key="frame" x="18" y="689" width="614" height="16"/>
+                    <rect key="frame" x="18" y="689" width="617" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SEB Service policy (Win)" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -220,20 +220,20 @@
                     </textFieldCell>
                 </textField>
                 <tabView toolTip="Detail settings for locking down the system and specific system features" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="SZK-Aw-k1e">
-                    <rect key="frame" x="13" y="0.0" width="624" height="399"/>
+                    <rect key="frame" x="13" y="0.0" width="627" height="399"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="macOS" identifier="" id="Dcg-5G-FDH">
                             <view key="view" id="ot5-GZ-LBL">
-                                <rect key="frame" x="10" y="33" width="604" height="353"/>
+                                <rect key="frame" x="10" y="33" width="607" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
-                                        <rect key="frame" x="17" y="90" width="567" height="222"/>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
+                                        <rect key="frame" x="20" y="115" width="567" height="222"/>
                                         <subviews>
                                             <button toolTip="The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4" translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
                                                 <rect key="frame" x="-2" y="206" width="268" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use Assessment Mode if available (AAC)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
+                                                <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -467,6 +467,11 @@
                                         </customSpacing>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Tg1-rh-7rJ" firstAttribute="top" secondItem="ot5-GZ-LBL" secondAttribute="top" constant="16" id="MwB-PO-eC6"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tg1-rh-7rJ" secondAttribute="trailing" constant="20" id="Rup-9n-jjO"/>
+                                    <constraint firstItem="Tg1-rh-7rJ" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="20" id="sKg-51-OPf"/>
+                                </constraints>
                             </view>
                         </tabViewItem>
                         <tabViewItem label="iOS" identifier="" id="qR0-7R-jPL">
@@ -483,7 +488,7 @@
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="mCE-kG-rgQ">
                                                         <rect key="frame" x="-2" y="38" width="308" height="18"/>
                                                         <string key="toolTip">Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)</string>
-                                                        <buttonCell key="cell" type="check" title="Use Assessment Mode if available (AAC/ASAM)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iCr-0C-5NT">
+                                                        <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC/ASAM) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iCr-0C-5NT">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -1314,9 +1319,9 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" borderType="line" title="Logging" translatesAutoresizingMaskIntoConstraints="NO" id="M5z-0E-3yB">
-                    <rect key="frame" x="17" y="422" width="616" height="139"/>
+                    <rect key="frame" x="17" y="422" width="619" height="139"/>
                     <view key="contentView" id="zcb-WA-Wne">
-                        <rect key="frame" x="3" y="3" width="610" height="121"/>
+                        <rect key="frame" x="3" y="3" width="613" height="121"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button toolTip="The log can help debugging SEB (send it to the developers) and to find out about possible manipulations" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
@@ -1335,7 +1340,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                                <rect key="frame" x="224" y="93" width="62" height="16"/>
+                                <rect key="frame" x="227" y="93" width="62" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" usesSingleLineMode="YES" id="23">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1343,7 +1348,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                <rect key="frame" x="290" y="59" width="307" height="24"/>
+                                <rect key="frame" x="293" y="59" width="307" height="24"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -1365,7 +1370,7 @@
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
-                                <rect key="frame" x="189" y="65" width="97" height="16"/>
+                                <rect key="frame" x="192" y="65" width="97" height="16"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" usesSingleLineMode="YES" id="nui-Ct-A6q">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1373,7 +1378,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sAF-ok-Vxz" userLabel="Log Level Popup Button">
-                                <rect key="frame" x="290" y="87" width="307" height="25"/>
+                                <rect key="frame" x="293" y="87" width="307" height="25"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="9eI-c3-Dbw" userLabel="Log Level Pop Up Button Cell">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -1400,7 +1405,7 @@
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
-                                <rect key="frame" x="292" y="11" width="302" height="21"/>
+                                <rect key="frame" x="295" y="11" width="302" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="auD-JV-04z">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1417,7 +1422,7 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-cV-UEx">
-                                <rect key="frame" x="289" y="39" width="143" height="18"/>
+                                <rect key="frame" x="292" y="39" width="143" height="18"/>
                                 <buttonCell key="cell" type="check" title="Use standard directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4vb-oP-Qf1">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="message" size="11"/>
@@ -1428,7 +1433,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
-                                <rect key="frame" x="117" y="14" width="169" height="16"/>
+                                <rect key="frame" x="120" y="14" width="169" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log file directory Windows:" usesSingleLineMode="YES" id="dbm-W0-7Yt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
