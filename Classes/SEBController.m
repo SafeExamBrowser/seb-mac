@@ -2760,38 +2760,40 @@ bool insideMatrix(){
 // Called when changes of the screen configuration occur
 // (new display is contected or removed or display mirroring activated)
 
-- (void) adjustScreenLocking: (id)sender {
+- (void) adjustScreenLocking: (id)sender
+{
     // This should only be done when the preferences window isn't open
     DDLogDebug(@"NSApplicationDidChangeScreenParametersNotification");
     
-    if (![self.preferencesController preferencesAreOpen] || _isAACEnabled) {
-
-            // Close inactive screen covering windows if some are open
-            for (CapWindow *coverWindowToClose in _inactiveScreenWindows) {
-                [coverWindowToClose close];
-            }
-
+    if (!_isTerminating && ![self.preferencesController preferencesAreOpen]) {
+        
+        // Close inactive screen covering windows if some are open
+        for (CapWindow *coverWindowToClose in _inactiveScreenWindows) {
+            [coverWindowToClose close];
+        }
+        
+        if (_isAACEnabled == NO) {
             // Switch off display mirroring if it isn't allowed
             [self conditionallyTerminateDisplayMirroring];
-            
-            DDLogDebug(@"Adjusting screen locking");
-
-            // Check if lockdown windows are open and adjust those too
-            if (self.lockdownWindows.count > 0) {
-                DDLogDebug(@"Adjusting lockdown windows");
-                NSDate *originalDidLockSEBTime = self.didLockSEBTime;
-                [self closeLockdownWindows];
-                [self openLockdownWindows];
-                self.didLockSEBTime = originalDidLockSEBTime;
-                DDLogDebug(@"Adjusting screen locking: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
-            }
-            
-            // Close the covering windows
-            // (which most likely are no longer there where they should be)
-            [self closeCapWindows];
-
+        }
+        DDLogDebug(@"Adjusting screen locking");
+        
+        // Check if lockdown windows are open and adjust those too
+        if (self.lockdownWindows.count > 0) {
+            DDLogDebug(@"Adjusting lockdown windows");
+            NSDate *originalDidLockSEBTime = self.didLockSEBTime;
+            [self closeLockdownWindows];
+            [self openLockdownWindows];
+            self.didLockSEBTime = originalDidLockSEBTime;
+            DDLogDebug(@"Adjusting screen locking: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
+        }
+        
+        // Close the covering windows
+        // (which most likely are no longer there where they should be)
+        [self closeCapWindows];
+        
         if (_isAACEnabled == NO) {
-
+            
             // Open new covering background windows on all currently available screens
             [self coverScreens];
         }
@@ -2806,7 +2808,8 @@ bool insideMatrix(){
 
 
 // Called when main browser window changed screen
-- (void) changeMainScreen: (id)sender {
+- (void) changeMainScreen: (id)sender
+{
     [self.dockController moveDockToScreen:self.browserController.mainBrowserWindow.screen];
 }
 
@@ -4456,6 +4459,7 @@ bool insideMatrix(){
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
 	if (quittingMyself) {
+        _isTerminating = YES;
         if (_isAACEnabled) {
             if (@available(macOS 10.15.4, *)) {
                 [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(terminateSEB)];
