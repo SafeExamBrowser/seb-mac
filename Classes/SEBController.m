@@ -773,6 +773,10 @@ bool insideMatrix(void);
         // If successfull start/restart with new settings
         _openingSettings = false;
         
+        // Cache AAC kiosk mode setting from previous and new settings
+        _wasAACEnabled = _isAACEnabled;
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        
         if (!_startingUp) {
             // SEB is being reconfigured by opening a config file
             [self requestedRestart:nil];
@@ -823,7 +827,7 @@ bool insideMatrix(void);
         // Initialize SEB according to client settings
         [self conditionallyInitSEBWithCallback:self
                                       selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
-    } else {
+    } else if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"]) {
         // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
         [self coverScreens];
     }
@@ -1021,18 +1025,17 @@ bool insideMatrix(void);
     
     /// When running on macOS 10.15.4 or newer, use AAC
     if (@available(macOS 10.15.4, *)) {
-        BOOL wasAACEnabled = _isAACEnabled;
-        if (wasAACEnabled) {
+        if (_wasAACEnabled) {
             [self closeCapWindows];
         }
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-        if (_isAACEnabled == YES && wasAACEnabled == NO) {
+        if (_isAACEnabled == YES && _wasAACEnabled == NO) {
             AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
             self.assessmentModeManager = assessmentModeManager;
             self.assessmentModeManager.delegate = self;
             [self.assessmentModeManager beginAssessmentMode];
             return;
-        } else if (_isAACEnabled == NO && wasAACEnabled == YES) {
+        } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
             [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
             return;
         }
@@ -1048,6 +1051,9 @@ bool insideMatrix(void);
 - (void) assessmentSessionDidBeginWithCallback:(id)callback
                                       selector:(SEL)selector
 {
+    _isAACEnabled = YES;
+    _wasAACEnabled = _isAACEnabled;
+    [NSMenu setMenuBarVisible:NO];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
@@ -1057,6 +1063,7 @@ bool insideMatrix(void);
 {
     DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
     _isAACEnabled = NO;  //use SEB kiosk mode
+    _wasAACEnabled = _isAACEnabled;
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
@@ -1064,6 +1071,9 @@ bool insideMatrix(void);
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector
 {
+    _isAACEnabled = NO;  //use SEB kiosk mode
+    _wasAACEnabled = _isAACEnabled;
+    [NSMenu setMenuBarVisible:YES];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
@@ -3100,14 +3110,14 @@ bool insideMatrix(){
                 // Calculate time difference between session resigning active and becoming active again
                 NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
                 NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
-                                                           fromDate:timeProcessCheckBeforeSIGSTOP
+                                                           fromDate:self->timeProcessCheckBeforeSIGSTOP
                                                              toDate:self.didBecomeActiveTime
                                                             options:NSCalendarWrapComponents];
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
                 
                 if (!self.lockdownWindows) {
                     [self openLockdownWindows];
-                    self.didLockSEBTime = timeProcessCheckBeforeSIGSTOP;
+                    self.didLockSEBTime = self->timeProcessCheckBeforeSIGSTOP;
                 }
         #endif
             }
@@ -3583,7 +3593,7 @@ bool insideMatrix(){
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    if (_allowSwitchToApplications || _isAACEnabled) {
+    if (_allowSwitchToApplications || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"]) {
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -4142,11 +4152,15 @@ bool insideMatrix(){
                     return;
                 }
             }
-            // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
-            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-            [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
-            // Close the black background covering windows
-            [self closeCapWindows];
+            if (_isAACEnabled == NO) {
+                // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
+                [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+                [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
+                // Close the black background covering windows
+                [self closeCapWindows];
+                // Show the Config menu (in menu bar)
+                [configMenu setHidden:NO];
+            }
 
             // Check if the running prohibited processes window is open and close it if yes
             if (_processListViewController) {
@@ -4156,8 +4170,6 @@ bool insideMatrix(){
             // Show preferences window
             [self.preferencesController openPreferencesWindow];
             
-            // Show the Config menu (in menu bar)
-            [configMenu setHidden:NO];
         } else {
             // Show preferences window
             DDLogDebug(@"openPreferences: Preferences already open, just show Window");
@@ -4169,7 +4181,31 @@ bool insideMatrix(){
 
 - (void)preferencesClosed:(NSNotification *)notification
 {
+    DDLogInfo(@"Preferences window closed, no reconfiguration necessary");
+
     [self performAfterPreferencesClosedActions];
+
+    // Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+
+    // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
+    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+}
+
+
+- (void)preferencesClosedRestartSEB:(NSNotification *)notification
+{
+    DDLogInfo(@"Preferences window closed, reconfiguring to new settings");
+
+    [self performAfterPreferencesClosedActions];
+    
+    // Switch the kiosk mode on again
+    [self setElevateWindowLevels];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
 
     // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
     [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
@@ -4181,41 +4217,28 @@ bool insideMatrix(){
     // Hide the Config menu (in menu bar)
     [configMenu setHidden:YES];
     
-    if (_isAACEnabled == NO) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
-        DDLogInfo(@"Preferences window closed, reopening cap windows.");
-        
-        // Open new covering background windows on all currently available screens
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    DDLogInfo(@"Preferences window closed, reopening cap windows.");
+    
+    // Open new covering background windows on all currently available screens
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    BOOL currentlyAACEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    
+    if (currentlyAACEnabled == NO) {
         [self coverScreens];
+    }
         
         // Change window level of all open browser windows
         [self.browserController allBrowserWindowsChangeLevel:YES];
-
+        
         // Switch the kiosk mode on again
         [self setElevateWindowLevels];
-        
+
+    if (currentlyAACEnabled == NO) {
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
         [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
     }
-
-    // Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];    
-    // Update URL filter ignore rules
-    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
-}
-
-
-- (void)preferencesClosedRestartSEB:(NSNotification *)notification
-{
-    [self performAfterPreferencesClosedActions];
-    
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
-
-    // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
 }
 
 
@@ -4433,10 +4456,23 @@ bool insideMatrix(){
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
 	if (quittingMyself) {
+        if (_isAACEnabled) {
+            if (@available(macOS 10.15.4, *)) {
+                [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(terminateSEB)];
+                return NSTerminateCancel;
+            }
+        }
 		return NSTerminateNow; //SEB wants to quit, ok, so it should happen
 	} else { //SEB should be terminated externally(!)
 		return NSTerminateCancel; //this we can't allow, sorry...
 	}
+}
+
+
+- (void) terminateSEB
+{
+    DDLogInfo(@"Terminating SEB after ending Assessment Mode");
+    [NSApp terminate: nil];
 }
 
 
@@ -4514,8 +4550,11 @@ bool insideMatrix(){
         CFRelease(keyboardEventReturnKey);
     }
     
-    BOOL touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
+    BOOL touchBarRestoreSuccess;
+    if (_isAACEnabled == NO) {
+        touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         [self killTouchBarAgent];
+    }
     
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
