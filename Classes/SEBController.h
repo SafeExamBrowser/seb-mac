@@ -152,6 +152,7 @@
 @property(strong) NSDate *didResumeExamTime;
 
 @property(readwrite) BOOL isAACEnabled;
+@property(readwrite) BOOL wasAACEnabled;
 @property(readwrite) BOOL allowSwitchToApplications;
 
 @property(readwrite) BOOL reOpenedExamDetected;
