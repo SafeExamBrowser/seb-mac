@@ -4551,7 +4551,7 @@ bool insideMatrix(){
     }
     
     BOOL touchBarRestoreSuccess;
-    if (_isAACEnabled == NO) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"] == NO) {
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         [self killTouchBarAgent];
     }
