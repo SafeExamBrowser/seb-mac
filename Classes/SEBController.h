@@ -172,6 +172,7 @@
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL quittingMyself;
+@property(readwrite) BOOL isTerminating;
 @property(strong) NSURL *openingSettingsFileURL;
 
 @property(weak) SEBWebView *webView;
