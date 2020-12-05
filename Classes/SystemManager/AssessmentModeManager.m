@@ -68,8 +68,12 @@
 {
     DDLogDebug(@"%s: Will call delegate assessmentSessionDidEndWithCallback: %@ selector: %@", __FUNCTION__, successCallback, NSStringFromSelector(successSelector));
     self.assessmentSession = nil;
-    [self.delegate assessmentSessionDidEndWithCallback:successCallback selector:successSelector];
-
+    if (successCallback) {
+        id callback = successCallback;
+        successCallback = nil;
+        DDLogDebug(@"%s: Reset callback for delegate assessmentSessionDidEndWithCallback:selector: to %@", __FUNCTION__, successCallback);
+        [self.delegate assessmentSessionDidEndWithCallback:callback selector:successSelector];
+    }
 }
 
 - (void) assessmentSession:(AEAssessmentSession *)session wasInterruptedWithError:(NSError *)error
