@@ -4466,9 +4466,9 @@ bool insideMatrix(){
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
 	if (quittingMyself) {
-        _isTerminating = YES;
-        if (_isAACEnabled) {
+        if (_isAACEnabled && !_isTerminating) {
             if (@available(macOS 10.15.4, *)) {
+                _isTerminating = YES;
                 [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(terminateSEB)];
                 return NSTerminateCancel;
             }
