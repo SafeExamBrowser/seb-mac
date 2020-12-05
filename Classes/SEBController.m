@@ -380,11 +380,6 @@ bool insideMatrix(void);
                                              selector:@selector(requestedRestart:)
                                                  name:@"requestRestartNotification" object:nil];
     
-    // Add an observer for the request to reinforce the kiosk mode
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(performAfterStartActions:)
-                                                 name:@"requestPerformAfterStartActions" object:nil];
-    
     // Add an observer for the request to start the kiosk mode
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(startKioskMode)
@@ -886,6 +881,8 @@ bool insideMatrix(void);
 - (void) conditionallyInitSEBWithCallback:(id)callback
                                  selector:(SEL)selector;
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     /// Kiosk mode checks
     
     // Check if running on minimal macOS version
@@ -1021,21 +1018,28 @@ bool insideMatrix(void);
 - (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     /// Early kiosk mode setup (as these actions might take some time)
     
     /// When running on macOS 10.15.4 or newer, use AAC
     if (@available(macOS 10.15.4, *)) {
+        DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
         if (_wasAACEnabled) {
+            DDLogDebug(@"_wasAACEnabled == true, close cap (background covering) windows");
             [self closeCapWindows];
         }
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
         if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+            DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
             AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
             self.assessmentModeManager = assessmentModeManager;
             self.assessmentModeManager.delegate = self;
             [self.assessmentModeManager beginAssessmentMode];
             return;
         } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
+            DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
             [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
             return;
         }
@@ -1052,7 +1056,6 @@ bool insideMatrix(void);
                                       selector:(SEL)selector
 {
     _isAACEnabled = YES;
-    _wasAACEnabled = _isAACEnabled;
     [NSMenu setMenuBarVisible:NO];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
@@ -1071,10 +1074,10 @@ bool insideMatrix(void);
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector
 {
-    _isAACEnabled = NO;  //use SEB kiosk mode
-    _wasAACEnabled = _isAACEnabled;
-    [NSMenu setMenuBarVisible:YES];
-    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
 }
 
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error
@@ -1087,10 +1090,14 @@ bool insideMatrix(void);
 - (void) initSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
+    DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+
     /// Early kiosk mode setup (as these actions might take some time)
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (_isAACEnabled == NO) {
+        DDLogDebug(@"%s: isAACEnabled = false, using SEB kiosk mode", __FUNCTION__);
+
         // Hide all other applications
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                         withObject:NULL waitUntilDone:YES];
@@ -4741,6 +4748,7 @@ bool insideMatrix(){
 
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     [_runningProcessesListWindowController close];
     _processListViewController = nil;
     // Continue to initializing SEB and then starting the exam session
