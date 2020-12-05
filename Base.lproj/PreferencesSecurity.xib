@@ -476,11 +476,11 @@
                         </tabViewItem>
                         <tabViewItem label="iOS" identifier="" id="qR0-7R-jPL">
                             <view key="view" id="ygF-kY-Ym5">
-                                <rect key="frame" x="10" y="33" width="604" height="353"/>
+                                <rect key="frame" x="10" y="33" width="607" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-xT-OWu">
-                                        <rect key="frame" x="20" y="59" width="564" height="279"/>
+                                        <rect key="frame" x="20" y="59" width="567" height="279"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="h1A-i1-vyN">
                                                 <rect key="frame" x="0.0" y="225" width="304" height="54"/>
@@ -565,13 +565,13 @@
                                                 </customSpacing>
                                             </stackView>
                                             <box borderType="line" title="Allow running from iOS version" translatesAutoresizingMaskIntoConstraints="NO" id="oIi-XG-JWG">
-                                                <rect key="frame" x="-3" y="35" width="570" height="116"/>
+                                                <rect key="frame" x="-3" y="35" width="573" height="116"/>
                                                 <view key="contentView" id="Tn1-Pd-ckg">
-                                                    <rect key="frame" x="3" y="3" width="564" height="98"/>
+                                                    <rect key="frame" x="3" y="3" width="567" height="98"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5gm-pV-kID">
-                                                            <rect key="frame" x="11" y="15" width="542" height="73"/>
+                                                            <rect key="frame" x="11" y="15" width="545" height="73"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="vke-9s-XWR">
                                                                     <rect key="frame" x="0.0" y="54" width="197" height="19"/>
