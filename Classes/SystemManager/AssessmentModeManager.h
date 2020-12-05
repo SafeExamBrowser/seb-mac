@@ -12,11 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol AssessmentModeDelegate <NSObject>
 
+- (void) assessmentSessionWillBegin;
+
 - (void) assessmentSessionDidBeginWithCallback:(id)callback
                                       selector:(SEL)selector;
 - (void) assessmentSessionFailedToBeginWithError:(NSError *)error
                                         callback:(id)callback
                                         selector:(SEL)selector;
+- (void) assessmentSessionWillEnd;
+
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector;
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error;
