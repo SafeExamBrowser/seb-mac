@@ -61,6 +61,7 @@
 #import "SEBSystemManager.h"
 #import "ProcessListViewController.h"
 #import "AssessmentModeManager.h"
+#import "HUDController.h"
 
 #import "CocoaLumberjack.h"
 
@@ -71,6 +72,7 @@
 @class SEBDockController;
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
+@class HUDController;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate> {
@@ -181,6 +183,7 @@
 @property(strong) NSMutableArray *inactiveScreenWindows;
 @property(strong) NSScreen *mainScreen;
 @property(strong, atomic) NSMutableArray *modalAlertWindows;
+@property(strong, nonatomic) HUDController *hudController ;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
