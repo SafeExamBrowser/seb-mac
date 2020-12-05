@@ -157,6 +157,15 @@ bool insideMatrix(void);
 }
 
 
+- (HUDController *) hudController
+{
+    if (!_hudController) {
+        _hudController = [[HUDController alloc] init];
+    }
+    return _hudController;
+}
+
+
 #pragma mark - Class and Instance Initialization
 
 + (void) initialize
@@ -1051,12 +1060,26 @@ bool insideMatrix(void);
 }
     
 
-// Assessement mode continue after switcheing ta
+/// Assessment Mode Delegate Methods
+
+- (void) assessmentSessionWillBegin
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    [self.hudController showHUDProgressIndicator];
+}
+
+- (void) assessmentSessionWillEnd
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    [self.hudController showHUDProgressIndicator];
+}
+
 - (void) assessmentSessionDidBeginWithCallback:(id)callback
                                       selector:(SEL)selector
 {
     _isAACEnabled = YES;
     [NSMenu setMenuBarVisible:NO];
+    [self.hudController hideHUDProgressIndicator];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
@@ -1064,6 +1087,7 @@ bool insideMatrix(void);
                                         callback:(id)callback
                                         selector:(SEL)selector
 {
+    [self.hudController hideHUDProgressIndicator];
     DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
     _isAACEnabled = NO;  //use SEB kiosk mode
     _wasAACEnabled = _isAACEnabled;
@@ -1074,6 +1098,7 @@ bool insideMatrix(void);
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector
 {
+    [self.hudController hideHUDProgressIndicator];
     DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
@@ -1082,6 +1107,7 @@ bool insideMatrix(void);
 
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error
 {
+    [self.hudController hideHUDProgressIndicator];
     DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
     quittingMyself = true; //quit SEB without asking for confirmation or password
     [NSApp terminate: nil]; //quit SEB

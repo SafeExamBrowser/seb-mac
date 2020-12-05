@@ -31,7 +31,8 @@
         AEAssessmentSession *session = [[AEAssessmentSession alloc] initWithConfiguration:config];
         session.delegate = self;
         self.assessmentSession = session;
-        
+        [self.delegate assessmentSessionWillBegin];
+
         [session begin];
     }
 }
@@ -45,11 +46,14 @@
         successCallback = callback;
         successSelector = selector;
         DDLogDebug(@"%s: Ending assessment session, set callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+        [self.delegate assessmentSessionWillEnd];
+
         [self.assessmentSession end];
     } else {
         [self.delegate assessmentSessionDidEndWithCallback:callback selector:selector];
     }
 }
+
 
 - (void) assessmentSessionDidBegin:(AEAssessmentSession *)session
 {
