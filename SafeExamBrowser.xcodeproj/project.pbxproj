@@ -113,6 +113,8 @@
 		695572E61D91EC46003C048A /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */; };
 		6956D3512089232C00298E65 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6956D34F2089232B00298E65 /* SEBLockedViewController.m */; };
 		6956D3522089232C00298E65 /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6956D3502089232C00298E65 /* SEBLockedViewController.h */; };
+		6959D96B257C28B200E3F140 /* HUDController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6959D969257C28B200E3F140 /* HUDController.h */; };
+		6959D96C257C28B200E3F140 /* HUDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6959D96A257C28B200E3F140 /* HUDController.m */; };
 		695BC4EC24C237F7005C2350 /* ProcessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BC4EA24C237F7005C2350 /* ProcessManager.h */; };
 		695BC4ED24C237F7005C2350 /* ProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BC4EB24C237F7005C2350 /* ProcessManager.m */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
@@ -568,6 +570,8 @@
 		695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
 		6956D34F2089232B00298E65 /* SEBLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBLockedViewController.m; sourceTree = "<group>"; };
 		6956D3502089232C00298E65 /* SEBLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBLockedViewController.h; sourceTree = "<group>"; };
+		6959D969257C28B200E3F140 /* HUDController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUDController.h; sourceTree = "<group>"; };
+		6959D96A257C28B200E3F140 /* HUDController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDController.m; sourceTree = "<group>"; };
 		695AE31319FE634300F8C6A5 /* de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = de.xliff; sourceTree = "<group>"; };
 		695AE31419FE634300F8C6A5 /* fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fr.xliff; sourceTree = "<group>"; };
 		695BC4EA24C237F7005C2350 /* ProcessManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessManager.h; sourceTree = "<group>"; };
@@ -1251,6 +1255,8 @@
 				6956D34F2089232B00298E65 /* SEBLockedViewController.m */,
 				6950F4711D89F9AB00CCB42A /* HUDPanel.h */,
 				6950F4721D89F9AB00CCB42A /* HUDPanel.m */,
+				6959D969257C28B200E3F140 /* HUDController.h */,
+				6959D96A257C28B200E3F140 /* HUDController.m */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -1646,6 +1652,7 @@
 				69C228991C7B64DF00F78634 /* SEBCertServices.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				69C228431C767B0900F78634 /* ssl_ticket.h in Headers */,
+				6959D96B257C28B200E3F140 /* HUDController.h in Headers */,
 				6956D3522089232C00298E65 /* SEBLockedViewController.h in Headers */,
 				69C228361C767B0900F78634 /* pkcs12.h in Headers */,
 				6941A6621BDB8DED0050BF1E /* SEBDockItemTime.h in Headers */,
@@ -2128,6 +2135,7 @@
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				69C228611C767B0900F78634 /* ecp_curves.c in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
+				6959D96C257C28B200E3F140 /* HUDController.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,
 				695147AF20B5CC70000BDFBF /* SEBTextViewNonEditing.m in Sources */,
 				69C2284D1C767B0900F78634 /* aesni.c in Sources */,
