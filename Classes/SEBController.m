@@ -772,8 +772,9 @@ bool insideMatrix(void);
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
+    DDLogDebug(@"%s, error: %@", __FUNCTION__, error);
+    
     if (!error) {
-        
         // If successfull start/restart with new settings
         _openingSettings = false;
         
@@ -806,6 +807,7 @@ bool insideMatrix(void);
 
 - (void)didOpenSettings
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     _openingSettings = false;
     
     if (_startingUp) {
@@ -1045,7 +1047,9 @@ bool insideMatrix(void);
             AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
             self.assessmentModeManager = assessmentModeManager;
             self.assessmentModeManager.delegate = self;
-            [self.assessmentModeManager beginAssessmentMode];
+            if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                [self assessmentSessionDidEndWithCallback:callback selector:selector];
+            }
             return;
         } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
             DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
@@ -1078,6 +1082,7 @@ bool insideMatrix(void);
                                       selector:(SEL)selector
 {
     _isAACEnabled = YES;
+    _wasAACEnabled = YES;
     [NSMenu setMenuBarVisible:NO];
     [self.hudController hideHUDProgressIndicator];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
@@ -1090,7 +1095,7 @@ bool insideMatrix(void);
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
     _isAACEnabled = NO;  //use SEB kiosk mode
-    _wasAACEnabled = _isAACEnabled;
+    _wasAACEnabled = NO;
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
@@ -1098,6 +1103,7 @@ bool insideMatrix(void);
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector
 {
+    _wasAACEnabled = NO;
     [self.hudController hideHUDProgressIndicator];
     DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     IMP imp = [callback methodForSelector:selector];
@@ -1117,30 +1123,34 @@ bool insideMatrix(void);
                                                  selector:(SEL)selector
 {
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-
+    
     /// Early kiosk mode setup (as these actions might take some time)
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (_isAACEnabled == NO) {
         DDLogDebug(@"%s: isAACEnabled = false, using SEB kiosk mode", __FUNCTION__);
-
+        
         // Hide all other applications
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                         withObject:NULL waitUntilDone:YES];
         
         allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
-        
-        // Switch off display mirroring and find main active screen according to settings
-        [self conditionallyTerminateDisplayMirroring];
+    }
+    // Switch off display mirroring and find main active screen according to settings
+    [self conditionallyTerminateDisplayMirroring];
+    
+    if (_isAACEnabled == NO) {
         
         // Switch off Siri and dictation if not allowed in settings
         [self conditionallyDisableSpeechInput];
         
         // Switch off TouchBar features
         [self disableTouchBarFeatures];
-        
-        // Switch to kiosk mode by setting the proper presentation options
-        [self startKioskMode];
+    }
+    // Switch to kiosk mode by setting the proper presentation options
+    [self startKioskMode];
+    
+    if (_isAACEnabled == NO) {
         
         // Clear pasteboard and save current string for pasting start URL in Preferences Window
         [self clearPasteboardSavingCurrentString];
@@ -1279,9 +1289,7 @@ bool insideMatrix(void);
         }
     }
     [self startProcessWatcher];
-    if (_isAACEnabled == NO) {
-        [self startWindowWatcher];
-    }
+    [self startWindowWatcher];
 }
 
 
@@ -2805,10 +2813,9 @@ bool insideMatrix(){
             [coverWindowToClose close];
         }
         
-        if (_isAACEnabled == NO) {
-            // Switch off display mirroring if it isn't allowed
-            [self conditionallyTerminateDisplayMirroring];
-        }
+        // Switch off display mirroring if it isn't allowed
+        [self conditionallyTerminateDisplayMirroring];
+
         DDLogDebug(@"Adjusting screen locking");
         
         // Check if lockdown windows are open and adjust those too
@@ -3702,28 +3709,33 @@ bool insideMatrix(){
 //    BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions presentationOptions;
     
-    if (allowSwitchToThirdPartyApps) {
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    if (_isAACEnabled) {
+        presentationOptions = NSApplicationPresentationDisableForceQuit;
+        
     } else {
-        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    }
-    
-    if (!allowSwitchToThirdPartyApps) {
-        // if switching to third party apps not allowed
-        presentationOptions =
-        NSApplicationPresentationDisableAppleMenu +
-        NSApplicationPresentationHideDock +
-        (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
-        NSApplicationPresentationDisableProcessSwitching +
-        NSApplicationPresentationDisableForceQuit +
-        NSApplicationPresentationDisableSessionTermination;
-    } else {
-        presentationOptions =
-        (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
-        NSApplicationPresentationHideDock +
-        NSApplicationPresentationDisableAppleMenu +
-        NSApplicationPresentationDisableForceQuit +
-        NSApplicationPresentationDisableSessionTermination;
+        if (allowSwitchToThirdPartyApps) {
+            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        } else {
+            [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        }
+        
+        if (!allowSwitchToThirdPartyApps) {
+            // if switching to third party apps not allowed
+            presentationOptions =
+            NSApplicationPresentationDisableAppleMenu +
+            NSApplicationPresentationHideDock +
+            (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
+            NSApplicationPresentationDisableProcessSwitching +
+            NSApplicationPresentationDisableForceQuit +
+            NSApplicationPresentationDisableSessionTermination;
+        } else {
+            presentationOptions =
+            (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
+            NSApplicationPresentationHideDock +
+            NSApplicationPresentationDisableAppleMenu +
+            NSApplicationPresentationDisableForceQuit +
+            NSApplicationPresentationDisableSessionTermination;
+        }
     }
     
     @try {
@@ -3738,16 +3750,18 @@ bool insideMatrix(){
         DDLogError(@"Error.  Make sure you have a valid combination of presentation options.");
     }
     
-    // Change window level of a modal window (like an alert) if one is displayed
-    [self adjustModalAlertWindowLevels:allowSwitchToThirdPartyApps];
-    
-    // Change window level of the about window if it is displayed
-    if (aboutWindow.isVisible) {
-        DDLogWarn(@"About window displayed");
-        if (allowSwitchToThirdPartyApps) {
-            [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
-        } else {
-            [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
+    if (_isAACEnabled == NO) {
+        // Change window level of a modal window (like an alert) if one is displayed
+        [self adjustModalAlertWindowLevels:allowSwitchToThirdPartyApps];
+        
+        // Change window level of the about window if it is displayed
+        if (aboutWindow.isVisible) {
+            DDLogWarn(@"About window displayed");
+            if (allowSwitchToThirdPartyApps) {
+                [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
+            } else {
+                [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
+            }
         }
     }
 }
@@ -4191,7 +4205,11 @@ bool insideMatrix(){
             if (_isAACEnabled == NO) {
                 // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
                 [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-                [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
+            }
+            
+            [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
+            
+            if (_isAACEnabled == NO) {
                 // Close the black background covering windows
                 [self closeCapWindows];
                 // Show the Config menu (in menu bar)
@@ -4264,17 +4282,15 @@ bool insideMatrix(){
     if (currentlyAACEnabled == NO) {
         [self coverScreens];
     }
-        
-        // Change window level of all open browser windows
-        [self.browserController allBrowserWindowsChangeLevel:YES];
-        
-        // Switch the kiosk mode on again
-        [self setElevateWindowLevels];
-
-    if (currentlyAACEnabled == NO) {
-        BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
-    }
+    
+    // Change window level of all open browser windows
+    [self.browserController allBrowserWindowsChangeLevel:YES];
+    
+    // Switch the kiosk mode on again
+    [self setElevateWindowLevels];
+    
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 }
 
 
@@ -4495,6 +4511,11 @@ bool insideMatrix(){
         if (_isAACEnabled && !_isTerminating) {
             if (@available(macOS 10.15.4, *)) {
                 _isTerminating = YES;
+
+                if (self.browserController) {
+                    [self.browserController closeAllBrowserWindows];
+                }
+
                 [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(terminateSEB)];
                 return NSTerminateCancel;
             }

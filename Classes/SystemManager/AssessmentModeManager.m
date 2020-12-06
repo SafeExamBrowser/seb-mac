@@ -22,35 +22,42 @@
     return self;
 }
 
-- (void) beginAssessmentMode
+- (BOOL) beginAssessmentMode
 {
     DDLogDebug(@"%s", __FUNCTION__);
-
-    if (@available(macOS 10.15.4, *)) {
-        AEAssessmentConfiguration *config = [AEAssessmentConfiguration new];
-        AEAssessmentSession *session = [[AEAssessmentSession alloc] initWithConfiguration:config];
-        session.delegate = self;
-        self.assessmentSession = session;
-        [self.delegate assessmentSessionWillBegin];
-
-        [session begin];
+    
+    if (self.assessmentSession && self.assessmentSession.active) {
+        DDLogWarn(@"Assessment session is already active!");
+        return NO;
     }
+    AEAssessmentConfiguration *config = [AEAssessmentConfiguration new];
+    AEAssessmentSession *session = [[AEAssessmentSession alloc] initWithConfiguration:config];
+    session.delegate = self;
+    self.assessmentSession = session;
+    [self.delegate assessmentSessionWillBegin];
+    
+    [session begin];
+    return YES;
 }
 
-- (void) endAssessmentModeWithCallback:(id)callback
+- (BOOL) endAssessmentModeWithCallback:(id)callback
                               selector:(SEL)selector
 {
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
 
-    if (self.assessmentSession) {
+    if (self.assessmentSession && self.assessmentSession.active) {
         successCallback = callback;
         successSelector = selector;
         DDLogDebug(@"%s: Ending assessment session, set callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
         [self.delegate assessmentSessionWillEnd];
 
         [self.assessmentSession end];
+        return YES;
     } else {
+        DDLogWarn(@"Assessment session is not active!");
+        [self.delegate assessmentSessionWillEnd];
         [self.delegate assessmentSessionDidEndWithCallback:callback selector:selector];
+        return NO;
     }
 }
 
