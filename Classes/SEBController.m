@@ -263,6 +263,10 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+//    NSApplicationPresentationOptions presentationOptions = (NSApplicationPresentationDisableForceQuit + NSApplicationPresentationHideDock);
+//    DDLogDebug(@"NSApp setPresentationOptions: %lo", presentationOptions);
+//    [NSApp setPresentationOptions:presentationOptions];
+
     // Flag initializing
     quittingMyself = false; //flag to know if quit application was called externally
     
@@ -1146,11 +1150,9 @@ bool insideMatrix(void);
         
         // Switch off TouchBar features
         [self disableTouchBarFeatures];
-    }
-    // Switch to kiosk mode by setting the proper presentation options
-    [self startKioskMode];
-    
-    if (_isAACEnabled == NO) {
+        
+        // Switch to kiosk mode by setting the proper presentation options
+        [self startKioskMode];
         
         // Clear pasteboard and save current string for pasting start URL in Preferences Window
         [self clearPasteboardSavingCurrentString];
@@ -2813,9 +2815,10 @@ bool insideMatrix(){
             [coverWindowToClose close];
         }
         
-        // Switch off display mirroring if it isn't allowed
-        [self conditionallyTerminateDisplayMirroring];
-
+        if (_isAACEnabled == NO) {
+            // Switch off display mirroring if it isn't allowed
+            [self conditionallyTerminateDisplayMirroring];
+        }
         DDLogDebug(@"Adjusting screen locking");
         
         // Check if lockdown windows are open and adjust those too
@@ -3709,10 +3712,6 @@ bool insideMatrix(){
 //    BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions presentationOptions;
     
-    if (_isAACEnabled) {
-        presentationOptions = NSApplicationPresentationDisableForceQuit;
-        
-    } else {
         if (allowSwitchToThirdPartyApps) {
             [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
         } else {
@@ -3736,7 +3735,6 @@ bool insideMatrix(){
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         }
-    }
     
     @try {
         [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:YES];
@@ -3750,7 +3748,6 @@ bool insideMatrix(){
         DDLogError(@"Error.  Make sure you have a valid combination of presentation options.");
     }
     
-    if (_isAACEnabled == NO) {
         // Change window level of a modal window (like an alert) if one is displayed
         [self adjustModalAlertWindowLevels:allowSwitchToThirdPartyApps];
         
@@ -3764,7 +3761,6 @@ bool insideMatrix(){
             }
         }
     }
-}
 
 
 // Change window level of a modal window (like an alert) if one is displayed
@@ -4205,22 +4201,18 @@ bool insideMatrix(){
             if (_isAACEnabled == NO) {
                 // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
                 [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-            }
-            
-            [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
-            
-            if (_isAACEnabled == NO) {
+                [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
                 // Close the black background covering windows
                 [self closeCapWindows];
                 // Show the Config menu (in menu bar)
                 [configMenu setHidden:NO];
             }
-
+            
             // Check if the running prohibited processes window is open and close it if yes
             if (_processListViewController) {
                 [self closeProcessListWindow];
             }
-
+            
             // Show preferences window
             [self.preferencesController openPreferencesWindow];
             
@@ -4289,8 +4281,10 @@ bool insideMatrix(){
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
     
-    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+    if (currentlyAACEnabled == NO) {
+        BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+    }
 }
 
 
