@@ -1842,89 +1842,91 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     checkingForWindows = true;
     
-    CGWindowListOption options;
-    BOOL firstScan = false;
-    BOOL fishyWindowWasOpened = false;
-    if (!_systemProcessPIDs) {
-        // When this method is called the first time, we scan all windows
-        firstScan = true;
-        _systemProcessPIDs = [NSMutableArray new];
-        options = kCGWindowListOptionAll;
-        // Get SEB's PID
-        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
-        sebPID = [sebRunningApp processIdentifier];
-        fishyWindowWasOpened = true;
+    if (_isAACEnabled == NO) {
+        CGWindowListOption options;
+        BOOL firstScan = false;
+        BOOL fishyWindowWasOpened = false;
+        if (!_systemProcessPIDs) {
+            // When this method is called the first time, we scan all windows
+            firstScan = true;
+            _systemProcessPIDs = [NSMutableArray new];
+            options = kCGWindowListOptionAll;
+            // Get SEB's PID
+            NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
+            sebPID = [sebRunningApp processIdentifier];
+            fishyWindowWasOpened = true;
 
-    } else {
-        // otherwise only those which are visible (on screen)
-        options = kCGWindowListOptionOnScreenOnly; // | kCGWindowListExcludeDesktopElements
-    }
-    
-    NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
-    for (NSDictionary *window in windowList) {
-        NSString *windowName = [window objectForKey:@"kCGWindowName" ];
-        NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
-#ifdef DEBUG
-        NSString *windowNumber = [window objectForKey:@"kCGWindowNumber" ];
-#endif
-
-        // Close the Notification Center panel in case switching to applications is allowed
-        if (_allowSwitchToApplications &&
-            [windowName isEqualToString:@"NotificationTableWindow"] &&
-            ![_preferencesController preferencesAreOpen]) {
-            // If switching to applications is allowed and the Notification Center was opened
-            DDLogWarn(@"Notification Center panel was opened (owning process name: %@", windowOwner);
-            
-            NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
-            [notificationCenter forceTerminate];
-            continue;
+        } else {
+            // otherwise only those which are visible (on screen)
+            options = kCGWindowListOptionOnScreenOnly; // | kCGWindowListExcludeDesktopElements
         }
         
-        NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
-        NSInteger windowLevel = windowLevelString.integerValue;
-        if (windowLevel >= NSMainMenuWindowLevel+2) {
-            NSString *windowOwnerPIDString = [window objectForKey:@"kCGWindowOwnerPID"];
-            pid_t windowOwnerPID = windowOwnerPIDString.intValue;
-            // If this isn't a SEB window
-            if (windowOwnerPID != sebPID) {
-                if (![_systemProcessPIDs containsObject:windowOwnerPIDString]) {
-                    // If this process isn't in the list of previously scanned and verified
-                    // running legit Apple executables
-                    NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
-                    NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
-                    DDLogWarn(@"Application %@ with bundle ID %@ has opened a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
-#ifdef DEBUG
-                    CGSConnection connection = _CGSDefaultConnection();
-                    int workspace;
-                    int windowID = windowNumber.intValue;
-                    CGSGetWindowWorkspace(connection, windowID, &workspace);
-                    DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
-#endif
-                    if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
-                        if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
-                            // Application hasn't a com.apple. bundle ID prefix
-                            // The app which opened the window or panel is no system process
-                            if (firstScan) {
-                                //[appWithPanel terminate];
-                            } else {
-                                DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
-                                [self killApplication:appWithPanel];
-                                fishyWindowWasOpened = true;
-                            }
-                        } else {
-                            // There is either no bundle ID or the prefix is com.apple.
-                            // Check if application with Bundle ID com.apple. is a legit Apple system executable
-                            if ([self signedSystemExecutable:windowOwnerPID]) {
-                                // Cache this executable PID
-                                [_systemProcessPIDs addObject:windowOwnerPIDString];
-                            } else {
+        NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
+        for (NSDictionary *window in windowList) {
+            NSString *windowName = [window objectForKey:@"kCGWindowName" ];
+            NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
+    #ifdef DEBUG
+            NSString *windowNumber = [window objectForKey:@"kCGWindowNumber" ];
+    #endif
+
+            // Close the Notification Center panel in case switching to applications is allowed
+            if (_allowSwitchToApplications &&
+                [windowName isEqualToString:@"NotificationTableWindow"] &&
+                ![_preferencesController preferencesAreOpen]) {
+                // If switching to applications is allowed and the Notification Center was opened
+                DDLogWarn(@"Notification Center panel was opened (owning process name: %@", windowOwner);
+                
+                NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
+                [notificationCenter forceTerminate];
+                continue;
+            }
+            
+            NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
+            NSInteger windowLevel = windowLevelString.integerValue;
+            if (windowLevel >= NSMainMenuWindowLevel+2) {
+                NSString *windowOwnerPIDString = [window objectForKey:@"kCGWindowOwnerPID"];
+                pid_t windowOwnerPID = windowOwnerPIDString.intValue;
+                // If this isn't a SEB window
+                if (windowOwnerPID != sebPID) {
+                    if (![_systemProcessPIDs containsObject:windowOwnerPIDString]) {
+                        // If this process isn't in the list of previously scanned and verified
+                        // running legit Apple executables
+                        NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
+                        NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
+                        DDLogWarn(@"Application %@ with bundle ID %@ has opened a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+    #ifdef DEBUG
+                        CGSConnection connection = _CGSDefaultConnection();
+                        int workspace;
+                        int windowID = windowNumber.intValue;
+                        CGSGetWindowWorkspace(connection, windowID, &workspace);
+                        DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
+    #endif
+                        if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
+                            if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                                // Application hasn't a com.apple. bundle ID prefix
                                 // The app which opened the window or panel is no system process
                                 if (firstScan) {
                                     //[appWithPanel terminate];
                                 } else {
-                                    DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
-                                    [self killProcessWithPID:windowOwnerPID];
+                                    DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
+                                    [self killApplication:appWithPanel];
                                     fishyWindowWasOpened = true;
+                                }
+                            } else {
+                                // There is either no bundle ID or the prefix is com.apple.
+                                // Check if application with Bundle ID com.apple. is a legit Apple system executable
+                                if ([self signedSystemExecutable:windowOwnerPID]) {
+                                    // Cache this executable PID
+                                    [_systemProcessPIDs addObject:windowOwnerPIDString];
+                                } else {
+                                    // The app which opened the window or panel is no system process
+                                    if (firstScan) {
+                                        //[appWithPanel terminate];
+                                    } else {
+                                        DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
+                                        [self killProcessWithPID:windowOwnerPID];
+                                        fishyWindowWasOpened = true;
+                                    }
                                 }
                             }
                         }
@@ -1932,9 +1934,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 }
             }
         }
-    }
-    if (fishyWindowWasOpened) {
-        DDLogVerbose(@"Window list: %@", windowList);
+        if (fishyWindowWasOpened) {
+            DDLogVerbose(@"Window list: %@", windowList);
+        }
     }
     
     // Check if not allowed/prohibited processes was activated
@@ -1942,7 +1944,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *allRunningProcesses = [self.runningProcesses copy];
     
     // Check for activated screen sharing if settings demand it
-    if (!allowScreenSharing && !_screenSharingCheckOverride &&
+    if (!_isAACEnabled && !allowScreenSharing && !_screenSharingCheckOverride &&
         ([allRunningProcesses containsProcessObject:screenSharingAgent] ||
          [allRunningProcesses containsProcessObject:AppleVNCAgent])) {
             [[NSNotificationCenter defaultCenter]
@@ -1951,7 +1953,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (!_startingUp && !allowSiri && !_siriCheckOverride &&
+    if (!_isAACEnabled && !_startingUp && !allowSiri && !_siriCheckOverride &&
         [allRunningProcesses containsProcessObject:SiriService] &&
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
             [[NSNotificationCenter defaultCenter]
@@ -1959,7 +1961,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     
     // Check for activated dictation if settings demand it
-    if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
+    if (!_isAACEnabled && !_startingUp && !allowDictation && !_dictationCheckOverride &&
         [allRunningProcesses containsProcessObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
          [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
