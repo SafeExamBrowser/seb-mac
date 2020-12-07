@@ -829,6 +829,9 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
+
     _runningProhibitedProcesses = [NSMutableArray new];
     _terminatedProcessesExecutableURLs = [NSMutableArray new];
 
@@ -837,7 +840,7 @@ bool insideMatrix(void);
         // Initialize SEB according to client settings
         [self conditionallyInitSEBWithCallback:self
                                       selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
-    } else if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"]) {
+    } else if (_isAACEnabled == NO) {
         // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
         [self coverScreens];
     }
@@ -905,7 +908,7 @@ bool insideMatrix(void);
     
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
-    
+
     
     // Check if any prohibited processes are running and terminate them
     
@@ -2614,6 +2617,7 @@ bool insideMatrix(){
 
 // Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
 - (void) coverScreens {
+    DDLogDebug(@"%s Open background windows on all available screens", __FUNCTION__);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     NSUInteger windowLevel;
@@ -4715,7 +4719,7 @@ bool insideMatrix(){
     DDLogDebug(@"Value for key path %@ changed: %@", keyPath, change);
     
     // If the startKioskMode method changed presentation options, then we don't do nothing here
-    if ([keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
+    if (!_isAACEnabled && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
@@ -4755,7 +4759,7 @@ bool insideMatrix(){
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
-    } else if ([keyPath isEqualToString:@"isActive"]) {
+    } else if (!_isAACEnabled && [keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
     } else if ([keyPath isEqualToString:@"runningApplications"]) {
