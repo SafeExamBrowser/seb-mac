@@ -121,17 +121,17 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction)setEnableEnableAAC:(NSButton *)sender
 {
-    BOOL AACEnabled = !sender.state;
+    BOOL AACDisabled = !sender.state;
     
-    allowScreenCaptureButton.enabled = AACEnabled;
-    allowWindowCaptureButton.enabled = AACEnabled;
-    blockScreenShotsButton.enabled = AACEnabled;
-    allowScreenSharingButton.enabled =AACEnabled;
-    screenSharingMacEnforceButton.enabled = AACEnabled;
-    enableAppSwitcherButton.enabled = AACEnabled;
-    allowSiriButton.enabled = AACEnabled;
-    allowDictationButton.enabled = AACEnabled;
-    allowDisplayMirroringButton.enabled = AACEnabled;
+    allowScreenCaptureButton.enabled = AACDisabled;
+    allowWindowCaptureButton.enabled = AACDisabled && allowScreenCaptureButton.enabled;
+    blockScreenShotsButton.enabled = AACDisabled && allowScreenCaptureButton.enabled && allowWindowCaptureButton.enabled;
+    allowScreenSharingButton.enabled =AACDisabled;
+    screenSharingMacEnforceButton.enabled = AACDisabled;
+    enableAppSwitcherButton.enabled = AACDisabled;
+    allowSiriButton.enabled = AACDisabled;
+    allowDictationButton.enabled = AACDisabled;
+    allowDisplayMirroringButton.enabled = AACDisabled;
 }
 
 
