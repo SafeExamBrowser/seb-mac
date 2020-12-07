@@ -782,8 +782,6 @@ bool insideMatrix(void);
         // If successfull start/restart with new settings
         _openingSettings = false;
         
-        // Cache AAC kiosk mode setting from previous and new settings
-        _wasAACEnabled = _isAACEnabled;
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
         
         if (!_startingUp) {
@@ -1043,11 +1041,11 @@ bool insideMatrix(void);
     /// When running on macOS 10.15.4 or newer, use AAC
     if (@available(macOS 10.15.4, *)) {
         DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
-        if (_wasAACEnabled == NO) {
-            DDLogDebug(@"_wasAACEnabled == false, attempting to close cap (background covering) windows.");
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        if (_isAACEnabled) {
+            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
             [self closeCapWindows];
         }
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
         if (_isAACEnabled == YES && _wasAACEnabled == NO) {
             DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
@@ -1842,7 +1840,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     checkingForWindows = true;
     
-    if (_isAACEnabled == NO) {
+    if (_isAACEnabled == NO && _wasAACEnabled == NO) {
         CGWindowListOption options;
         BOOL firstScan = false;
         BOOL fishyWindowWasOpened = false;
@@ -1944,7 +1942,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *allRunningProcesses = [self.runningProcesses copy];
     
     // Check for activated screen sharing if settings demand it
-    if (!_isAACEnabled && !allowScreenSharing && !_screenSharingCheckOverride &&
+    if (!_isAACEnabled && _wasAACEnabled == NO && !allowScreenSharing && !_screenSharingCheckOverride &&
         ([allRunningProcesses containsProcessObject:screenSharingAgent] ||
          [allRunningProcesses containsProcessObject:AppleVNCAgent])) {
             [[NSNotificationCenter defaultCenter]
@@ -1953,7 +1951,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (!_isAACEnabled && !_startingUp && !allowSiri && !_siriCheckOverride &&
+    if (!_isAACEnabled && _wasAACEnabled == NO && !_startingUp && !allowSiri && !_siriCheckOverride &&
         [allRunningProcesses containsProcessObject:SiriService] &&
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
             [[NSNotificationCenter defaultCenter]
@@ -1961,7 +1959,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     
     // Check for activated dictation if settings demand it
-    if (!_isAACEnabled && !_startingUp && !allowDictation && !_dictationCheckOverride &&
+    if (!_isAACEnabled && _wasAACEnabled == NO && !_startingUp && !allowDictation && !_dictationCheckOverride &&
         [allRunningProcesses containsProcessObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
          [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
@@ -2821,7 +2819,7 @@ bool insideMatrix(){
             [coverWindowToClose close];
         }
         
-        if (_isAACEnabled == NO) {
+        if (_isAACEnabled == NO && _wasAACEnabled == NO) {
             // Switch off display mirroring if it isn't allowed
             [self conditionallyTerminateDisplayMirroring];
         }
@@ -3428,7 +3426,7 @@ bool insideMatrix(){
 #endif
     }
     
-    if (_isAACEnabled == NO) {
+    if (_isAACEnabled == NO && _wasAACEnabled == NO) {
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -3475,7 +3473,7 @@ bool insideMatrix(){
         DDLogInfo(@"App which switched Space localized name: %@, executable URL: %@", [workspaceSwitchingApp localizedName], [workspaceSwitchingApp executableURL]);
     }
     // If an app was started since SEB was running
-    if (!_isAACEnabled && launchedApplication && ![launchedApplication isEqual:[NSRunningApplication currentApplication]]) {
+    if (!_isAACEnabled && _wasAACEnabled == NO && launchedApplication && ![launchedApplication isEqual:[NSRunningApplication currentApplication]]) {
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         
@@ -3796,7 +3794,7 @@ bool insideMatrix(){
     if (![self.preferencesController preferencesAreOpen]) {
         DDLogDebug(@"Reinforcing the kiosk mode was requested");
         
-        if (_isAACEnabled == NO) {
+        if (_isAACEnabled == NO && _wasAACEnabled == NO) {
             // Switch the strict kiosk mode temporary off
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -4508,6 +4506,7 @@ bool insideMatrix(){
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
 	if (quittingMyself) {
+        DDLogDebug(@"%s: quttingMyself = true", __FUNCTION__);
         if (_isAACEnabled && !_isTerminating) {
             if (@available(macOS 10.15.4, *)) {
                 _isTerminating = YES;
@@ -4721,7 +4720,7 @@ bool insideMatrix(){
     DDLogDebug(@"Value for key path %@ changed: %@", keyPath, change);
     
     // If the startKioskMode method changed presentation options, then we don't do nothing here
-    if (!_isAACEnabled && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
+    if (!_isAACEnabled && _wasAACEnabled == NO && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
@@ -4761,7 +4760,7 @@ bool insideMatrix(){
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
-    } else if (!_isAACEnabled && [keyPath isEqualToString:@"isActive"]) {
+    } else if (!_isAACEnabled && _wasAACEnabled == NO && [keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
     } else if ([keyPath isEqualToString:@"runningApplications"]) {
