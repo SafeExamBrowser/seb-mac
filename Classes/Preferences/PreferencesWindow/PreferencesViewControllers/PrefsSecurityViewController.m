@@ -119,6 +119,24 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
+- (IBAction)setEnableEnableAAC:(NSButton *)sender
+{
+    BOOL AACEnabled = !sender.state;
+    
+    allowScreenCaptureButton.enabled = AACEnabled;
+    allowWindowCaptureButton.enabled = AACEnabled;
+    blockScreenShotsButton.enabled = AACEnabled;
+    allowScreenSharingButton.enabled =AACEnabled;
+    screenSharingMacEnforceButton.enabled = AACEnabled;
+    enableAppSwitcherButton.enabled = AACEnabled;
+    allowSiriButton.enabled = AACEnabled;
+    allowDictationButton.enabled = AACEnabled;
+    allowDisplayMirroringButton.enabled = AACEnabled;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) setEnableAllowUserAppFolderInstall:(NSButton *)sender
 {
     allowUserAppFolderInstallButton.enabled = sender.state;
