@@ -8,19 +8,25 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
+                <outlet property="allowDictationButton" destination="vh3-YR-Pun" id="UvJ-DP-dXu"/>
+                <outlet property="allowDisplayMirroringButton" destination="oq3-9u-BrJ" id="DB5-ZR-VWB"/>
                 <outlet property="allowScreenCaptureButton" destination="PH3-Cb-12g" id="5RA-zw-afm"/>
+                <outlet property="allowScreenSharingButton" destination="k8Y-ym-LrR" id="eBL-Z9-giI"/>
+                <outlet property="allowSiriButton" destination="FJP-p9-xw7" id="5li-uW-noc"/>
                 <outlet property="allowUserAppFolderInstallButton" destination="KKV-0r-AMe" id="SAx-VW-RgK"/>
                 <outlet property="allowWindowCaptureButton" destination="g34-gq-Owk" id="bka-Sl-cHS"/>
                 <outlet property="allowediOSBetaVersion" destination="cqk-oB-iLU" id="Fea-sk-Twq"/>
                 <outlet property="blockScreenShotsButton" destination="LEn-zs-oJl" id="R72-nA-g6z"/>
                 <outlet property="chooseLogDirectoryControl" destination="32" id="PAj-RI-Adi"/>
                 <outlet property="chooseLogLevelControl" destination="sAF-ok-Vxz" id="gv7-Mj-Yj2"/>
+                <outlet property="enableAppSwitcherButton" destination="a9Y-jJ-E1h" id="Z4b-sc-oO0"/>
                 <outlet property="kioskMode" destination="kBz-Xz-wNK" id="9SP-SX-zJf"/>
                 <outlet property="logDirectory" destination="35" id="344"/>
                 <outlet property="maxNumberDisplays" destination="ZZ6-sG-BWw" id="BZF-NP-P5E"/>
                 <outlet property="miniOSVersionMajor" destination="m5k-oe-ViX" id="G4s-0k-qeH"/>
                 <outlet property="miniOSVersionMinor" destination="Lid-g0-Fjz" id="3QM-hc-Ovh"/>
                 <outlet property="miniOSVersionPatch" destination="dGB-Ao-RnH" id="sLP-33-Joq"/>
+                <outlet property="screenSharingMacEnforceButton" destination="pn0-dK-cZw" id="Dwt-bW-mjY"/>
                 <outlet property="selectStandardDirectoryButton" destination="eiE-cV-UEx" id="04p-z9-Sbk"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
@@ -55,6 +61,11 @@
                                     </buttonCell>
                                     <connections>
                                         <action selector="setEnableScreenCapture:" target="-2" id="eRG-tm-tIo"/>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="orL-p7-znw">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="fI3-J0-1AS"/>
                                     </connections>
                                 </button>
@@ -66,6 +77,14 @@
                                     </buttonCell>
                                     <connections>
                                         <action selector="setEnableWindowCapture:" target="-2" id="TjD-fs-fAl"/>
+                                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="CHP-kt-Jhr" id="6VD-Up-iic">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                            </dictionary>
+                                        </binding>
                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="CHP-kt-Jhr"/>
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
                                     </connections>
@@ -78,6 +97,14 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
+                                        <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="vg0-9n-uJh" id="q4x-60-PeI">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                            </dictionary>
+                                        </binding>
                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="ezh-c8-Zhz"/>
                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" previousBinding="ezh-c8-Zhz" id="vg0-9n-uJh">
                                             <dictionary key="options">
@@ -120,6 +147,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="xqH-Kq-4yU"/>
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="obs-kk-Tc9"/>
                                     </connections>
                                 </button>
@@ -130,6 +158,7 @@
                                         <font key="font" metaFont="message" size="11"/>
                                     </buttonCell>
                                     <connections>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="sEA-4B-u5m"/>
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_screenSharingMacEnforceBlocked" id="EVh-BB-EGO"/>
                                     </connections>
                                 </button>
@@ -231,13 +260,15 @@
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
                                         <rect key="frame" x="20" y="115" width="567" height="222"/>
                                         <subviews>
-                                            <button toolTip="The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4" translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
                                                 <rect key="frame" x="-2" y="206" width="268" height="18"/>
+                                                <string key="toolTip">The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) </string>
                                                 <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <action selector="setEnableEnableAAC:" target="-2" id="9Q9-wD-gAV"/>
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="hR8-Xa-8Se"/>
                                                 </connections>
                                             </button>
@@ -249,6 +280,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="s7j-as-PKg"/>
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAppSwitcherCheck" id="iS6-fQ-xk6"/>
                                                 </connections>
                                             </button>
@@ -310,6 +342,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="Mk3-tk-HgZ"/>
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSiri" id="1Bf-Q1-F6V"/>
                                                 </connections>
                                             </button>
@@ -320,6 +353,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="IgG-ZI-Y07"/>
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictation" id="iWH-k2-MmC"/>
                                                 </connections>
                                             </button>
@@ -427,6 +461,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="dZX-1G-D4u"/>
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDisplayMirroring" id="tab-6i-tiz"/>
                                                 </connections>
                                             </button>
