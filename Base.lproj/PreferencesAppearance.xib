@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -870,6 +870,7 @@
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                     <connections>
+                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="Mte-XC-wYQ"/>
                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="Ts6-tq-M5b"/>
                                                                     </connections>
                                                                 </button>
@@ -880,6 +881,7 @@
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                     <connections>
+                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="odk-xZ-hHY"/>
                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictionaryLookup" id="gYl-bW-cwe"/>
                                                                     </connections>
                                                                 </button>
