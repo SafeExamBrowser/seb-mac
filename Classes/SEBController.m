@@ -1043,8 +1043,8 @@ bool insideMatrix(void);
     /// When running on macOS 10.15.4 or newer, use AAC
     if (@available(macOS 10.15.4, *)) {
         DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
-        if (_wasAACEnabled) {
-            DDLogDebug(@"_wasAACEnabled == true, close cap (background covering) windows");
+        if (_wasAACEnabled == NO) {
+            DDLogDebug(@"_wasAACEnabled == false, attempting to close cap (background covering) windows.");
             [self closeCapWindows];
         }
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
