@@ -870,7 +870,6 @@
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                     <connections>
-                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="Mte-XC-wYQ"/>
                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="Ts6-tq-M5b"/>
                                                                     </connections>
                                                                 </button>
@@ -881,7 +880,11 @@
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                     <connections>
-                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="odk-xZ-hHY"/>
+                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="BN2-ye-kPl">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                            </dictionary>
+                                                                        </binding>
                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictionaryLookup" id="gYl-bW-cwe"/>
                                                                     </connections>
                                                                 </button>
