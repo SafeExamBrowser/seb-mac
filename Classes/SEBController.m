@@ -692,10 +692,10 @@ bool insideMatrix(void);
         DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
         [self openFile:_openingSettingsFileURL];
         _openingSettingsFileURL = nil;
-    }
-    
+    } else {
         [self didFinishLaunchingWithSettings];
     }
+}
 
 
 #pragma mark - Open configuration file
@@ -788,6 +788,8 @@ bool insideMatrix(void);
         if (!_startingUp) {
             // SEB is being reconfigured by opening a config file
             [self requestedRestart:nil];
+        } else {
+            [self didFinishLaunchingWithSettings];
         }
         
     } else {
@@ -812,6 +814,7 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     _openingSettings = false;
+    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
 
     if (_startingUp) {
         // If SEB was just started (by opening a config file)
