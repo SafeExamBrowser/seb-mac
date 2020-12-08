@@ -65,7 +65,6 @@
 - (void) assessmentSessionDidBegin:(AEAssessmentSession *)session
 {
     DDLogDebug(@"%s", __FUNCTION__);
-//    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
     [self.delegate assessmentSessionDidBeginWithCallback:successCallback selector:successSelector];
 }
 

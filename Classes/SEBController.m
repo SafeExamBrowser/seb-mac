@@ -694,8 +694,8 @@ bool insideMatrix(void);
         _openingSettingsFileURL = nil;
     }
     
-    [self didFinishLaunchingWithSettings];
-}
+        [self didFinishLaunchingWithSettings];
+    }
 
 
 #pragma mark - Open configuration file
@@ -812,7 +812,7 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     _openingSettings = false;
-    
+
     if (_startingUp) {
         // If SEB was just started (by opening a config file)
         [self didFinishLaunchingWithSettings];
@@ -1110,10 +1110,14 @@ bool insideMatrix(void);
 {
     _wasAACEnabled = NO;
     [self.hudController hideHUDProgressIndicator];
-    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-    IMP imp = [callback methodForSelector:selector];
-    void (*func)(id, SEL) = (void *)imp;
-    func(callback, selector);
+    if (_isTerminating) {
+        DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+        IMP imp = [callback methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(callback, selector);
+    } else {
+        [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+    }
 }
 
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error
