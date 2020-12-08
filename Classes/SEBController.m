@@ -870,7 +870,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
     
     [self.browserController openMainBrowserWindow];
-    
+
     // Persist start URL of a "secure" exam
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
@@ -1043,10 +1043,8 @@ bool insideMatrix(void);
     if (@available(macOS 10.15.4, *)) {
         DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-        if (_isAACEnabled) {
-            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
-            [self closeCapWindows];
-        }
+        DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
+        [self closeCapWindows];
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
         if (_isAACEnabled == YES && _wasAACEnabled == NO) {
             NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
@@ -1313,7 +1311,7 @@ bool insideMatrix(void);
         // Reinforce the kiosk mode
         [self requestedReinforceKioskMode:nil];
     }
-    
+
     if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
         DDLogError(@"Presenting alert for 'Local SEB settings have been reset' (which was triggered before)");
         [self presentPreferencesCorruptedError];
@@ -2841,7 +2839,7 @@ bool insideMatrix(){
         // (which most likely are no longer there where they should be)
         [self closeCapWindows];
         
-        if (_isAACEnabled == NO) {
+        if (_isAACEnabled == NO && _wasAACEnabled == NO) {
             
             // Open new covering background windows on all currently available screens
             [self coverScreens];
