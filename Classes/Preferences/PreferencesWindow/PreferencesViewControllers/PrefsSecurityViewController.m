@@ -125,8 +125,8 @@
     BOOL AACDisabled = !sender.state;
     
     allowScreenCaptureButton.enabled = AACDisabled;
-    allowWindowCaptureButton.enabled = AACDisabled && allowScreenCaptureButton.enabled;
-    blockScreenShotsButton.enabled = AACDisabled && allowScreenCaptureButton.enabled && allowWindowCaptureButton.enabled;
+    allowWindowCaptureButton.enabled = AACDisabled && allowScreenCaptureButton.state;
+    blockScreenShotsButton.enabled = AACDisabled && allowScreenCaptureButton.state && allowWindowCaptureButton.state;
     allowScreenSharingButton.enabled =AACDisabled;
     screenSharingMacEnforceButton.enabled = AACDisabled;
     enableAppSwitcherButton.enabled = AACDisabled;
