@@ -1236,6 +1236,7 @@ bool insideMatrix(void);
 {
     if (self.quitSession) {
         [NSUserDefaults setUserDefaultsPrivate:NO];
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
         [self requestedRestart:nil];
     } else {
         quittingMyself = true; //quit SEB without asking for confirmation or password
