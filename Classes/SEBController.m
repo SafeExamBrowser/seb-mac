@@ -658,6 +658,7 @@ bool insideMatrix(void);
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     DDLogDebug(@"%s", __FUNCTION__);
+    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 
     // Check if the font download alert was triggered from a web page
     // and SEB didn't had Accessibility permissions
@@ -1048,6 +1049,7 @@ bool insideMatrix(void);
         }
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
         if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+            NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
             DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
             AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
             self.assessmentModeManager = assessmentModeManager;

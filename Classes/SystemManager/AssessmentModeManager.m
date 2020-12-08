@@ -65,7 +65,7 @@
 - (void) assessmentSessionDidBegin:(AEAssessmentSession *)session
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
+//    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
     [self.delegate assessmentSessionDidBeginWithCallback:successCallback selector:successSelector];
 }
 
@@ -79,7 +79,6 @@
 - (void) assessmentSessionDidEnd:(AEAssessmentSession *)session
 {
     DDLogDebug(@"%s: Will call delegate assessmentSessionDidEndWithCallback: %@ selector: %@", __FUNCTION__, successCallback, NSStringFromSelector(successSelector));
-    NSApp.presentationOptions &= ~(NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
     self.assessmentSession = nil;
     if (successCallback) {
         id callback = successCallback;
