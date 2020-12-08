@@ -89,9 +89,9 @@
 - (IBAction) setEnableScreenCapture:(NSButton *)sender
 {
     BOOL screenCaptureEnabled = sender.state;
-    
-    allowWindowCaptureButton.enabled = screenCaptureEnabled;
-    blockScreenShotsButton.enabled = screenCaptureEnabled && allowWindowCaptureButton.state;
+    BOOL AACDisabled = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    allowWindowCaptureButton.enabled = AACDisabled && screenCaptureEnabled;
+    blockScreenShotsButton.enabled = AACDisabled && screenCaptureEnabled && allowWindowCaptureButton.state;
 }
 
 
@@ -100,8 +100,9 @@
 - (IBAction) setEnableWindowCapture:(NSButton *)sender
 {
     BOOL windowCaptureEnabled = sender.state;
-    
-    blockScreenShotsButton.enabled = windowCaptureEnabled;
+    BOOL AACDisabled = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+
+    blockScreenShotsButton.enabled = AACDisabled && windowCaptureEnabled;
 }
 
 
