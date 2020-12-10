@@ -837,8 +837,7 @@ bool insideMatrix(void);
     _runningProhibitedProcesses = [NSMutableArray new];
     _terminatedProcessesExecutableURLs = [NSMutableArray new];
 
-    if (!_openingSettings)
-    {
+    if (!_openingSettings) {
         // Initialize SEB according to client settings
         [self conditionallyInitSEBWithCallback:self
                                       selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
@@ -1008,9 +1007,9 @@ bool insideMatrix(void);
                 [self.runningProcessesListWindowController showWindow:nil];
                 return;
             }
+        } else {
+            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
         }
-        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-
     });
 }
 
@@ -1039,15 +1038,15 @@ bool insideMatrix(void);
                                                  selector:(SEL)selector
 {
     DDLogDebug(@"%s", __FUNCTION__);
-
+    
     /// Early kiosk mode setup (as these actions might take some time)
     
     /// When running on macOS 10.15.4 or newer, use AAC
     if (@available(macOS 10.15.4, *)) {
         DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-        DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
-        [self closeCapWindows];
+            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
+            [self closeCapWindows];
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
         if (_isAACEnabled == YES && _wasAACEnabled == NO) {
             NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
@@ -1119,6 +1118,7 @@ bool insideMatrix(void);
         void (*func)(id, SEL) = (void *)imp;
         func(callback, selector);
     } else {
+        DDLogDebug(@"%s, continue with [self initSEBProcessesCheckedWithCallback:%@ selector: %@]", __FUNCTION__, callback, NSStringFromSelector(selector));
         [self initSEBProcessesCheckedWithCallback:callback selector:selector];
     }
 }
@@ -1234,6 +1234,7 @@ bool insideMatrix(void);
 
 - (void) quitSEBOrSession
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     if (self.quitSession) {
         [NSUserDefaults setUserDefaultsPrivate:NO];
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
@@ -2818,7 +2819,11 @@ bool insideMatrix(){
 - (void) adjustScreenLocking: (id)sender
 {
     // This should only be done when the preferences window isn't open
-    DDLogDebug(@"NSApplicationDidChangeScreenParametersNotification");
+    if (sender) {
+        DDLogDebug(@"%s NSApplicationDidChangeScreenParametersNotification sender: %@", __FUNCTION__, sender);
+    } else {
+        DDLogDebug(@"%s", __FUNCTION__);
+    }
     
     if (!_isTerminating && ![self.preferencesController preferencesAreOpen]) {
         
@@ -3319,6 +3324,8 @@ bool insideMatrix(){
 
 - (void) closeCoveringWindows:(NSMutableArray *)windows
 {
+    DDLogDebug(@"%s: %@", __FUNCTION__, windows);
+
     // Close the covering windows
 	NSUInteger windowIndex;
 	NSUInteger windowCount = [windows count];
@@ -3481,7 +3488,7 @@ bool insideMatrix(){
         DDLogInfo(@"App which switched Space localized name: %@, executable URL: %@", [workspaceSwitchingApp localizedName], [workspaceSwitchingApp executableURL]);
     }
     // If an app was started since SEB was running
-    if (!_isAACEnabled && _wasAACEnabled == NO && launchedApplication && ![launchedApplication isEqual:[NSRunningApplication currentApplication]]) {
+    if (_isAACEnabled == NO && _wasAACEnabled == NO && launchedApplication && ![launchedApplication isEqual:[NSRunningApplication currentApplication]]) {
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         
@@ -3651,7 +3658,7 @@ bool insideMatrix(){
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    if (_allowSwitchToApplications || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"]) {
+    if (_allowSwitchToApplications || _isAACEnabled) {
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -3660,6 +3667,7 @@ bool insideMatrix(){
 
 
 - (void) startKioskMode {
+    DDLogDebug(@"%s", __FUNCTION__);
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
 //    [self startKioskModeThirdPartyAppsAllowed:YES];
@@ -3671,7 +3679,9 @@ bool insideMatrix(){
 }
 
 
-- (void) switchKioskModeAppsAllowed:(BOOL)allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
+- (void) switchKioskModeAppsAllowed:(BOOL)allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar
+{
+    DDLogDebug(@"%s allowApps: %hhd overrideShowMenuBar: %hhd", __FUNCTION__, allowApps, overrideShowMenuBar);
 	// Switch the kiosk mode to either only browser windows or also third party apps allowed:
     // Change presentation options and windows levels without closing/reopening cap background and browser foreground windows
     [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
@@ -3682,6 +3692,8 @@ bool insideMatrix(){
 // Change window levels without closing/reopening cap background and browser foreground windows
 - (void) changeWindowLevels:(BOOL)allowApps
 {
+    DDLogDebug(@"%s allowApps: %hhd", __FUNCTION__, allowApps);
+    
     // Change window level of cap windows
     CapWindow *capWindow;
     BOOL allowAppsUserDefaultsSetting = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
@@ -3715,7 +3727,9 @@ bool insideMatrix(){
 }
 
 
-- (void) startKioskModeThirdPartyAppsAllowed:(BOOL)allowSwitchToThirdPartyApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
+- (void) startKioskModeThirdPartyAppsAllowed:(BOOL)allowSwitchToThirdPartyApps overrideShowMenuBar:(BOOL)overrideShowMenuBar
+{
+    DDLogDebug(@"%s", __FUNCTION__);
     // Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -3778,6 +3792,8 @@ bool insideMatrix(){
 // Change window level of a modal window (like an alert) if one is displayed
 - (void)adjustModalAlertWindowLevels:(BOOL)allowSwitchToThirdPartyApps
 {
+    DDLogDebug(@"%s allowSwitchToThirdPartyApps: %hhd", __FUNCTION__, allowSwitchToThirdPartyApps);
+
     if (_modalAlertWindows.count) {
         DDLogWarn(@"Modal window(s) displayed");
         for (NSWindow *alertWindow in _modalAlertWindows)
@@ -4259,9 +4275,6 @@ bool insideMatrix(){
 
     [self performAfterPreferencesClosedActions];
     
-    // Switch the kiosk mode on again
-    [self setElevateWindowLevels];
-    
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestRestartNotification" object:self];
 
@@ -4277,23 +4290,22 @@ bool insideMatrix(){
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    DDLogInfo(@"Preferences window closed, reopening cap windows.");
-    
-    // Open new covering background windows on all currently available screens
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    BOOL currentlyAACEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    _isAACEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
     
-    if (currentlyAACEnabled == NO) {
+    if (_isAACEnabled == NO) {
+        // Open new covering background windows on all currently available screens
+        DDLogInfo(@"Preferences window closed, reopening cap windows.");
         [self coverScreens];
     }
     
     // Change window level of all open browser windows
     [self.browserController allBrowserWindowsChangeLevel:YES];
     
-    // Switch the kiosk mode on again
-    [self setElevateWindowLevels];
-    
-    if (currentlyAACEnabled == NO) {
+    if (_isAACEnabled == NO) {
+        // Switch the kiosk mode on again
+        [self setElevateWindowLevels];
+        
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
         [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
     }
@@ -4356,6 +4368,8 @@ bool insideMatrix(){
     // Reset SEB Browser
     [self.browserController resetBrowser];
 
+//    NSApp.presentationOptions = NSApplicationPresentationDisableForceQuit + NSApplicationPresentationHideDock;
+
     // Clear private pasteboard
     self.browserController.privatePasteboardItems = [NSArray array];
     
@@ -4367,6 +4381,8 @@ bool insideMatrix(){
 
 - (void)requestedRestartProcessesChecked
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     // Check for command key being held down
     while ([self commandKeyPressed]) {
         DDLogError(@"Command key was pressed and forbidden, retest");
@@ -4392,7 +4408,7 @@ bool insideMatrix(){
     }
 
     // Adjust screen locking
-    [self adjustScreenLocking:self];
+    [self adjustScreenLocking:nil];
     
     // ToDo: Opening of additional resources (but not only here, also when starting SEB)
     //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -4728,7 +4744,7 @@ bool insideMatrix(){
     DDLogDebug(@"Value for key path %@ changed: %@", keyPath, change);
     
     // If the startKioskMode method changed presentation options, then we don't do nothing here
-    if (!_isAACEnabled && _wasAACEnabled == NO && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
+    if (_isAACEnabled == NO && _wasAACEnabled == NO && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
@@ -4768,7 +4784,7 @@ bool insideMatrix(){
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
-    } else if (!_isAACEnabled && _wasAACEnabled == NO && [keyPath isEqualToString:@"isActive"]) {
+    } else if (_isAACEnabled == NO && _wasAACEnabled == NO && [keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
         [self regainActiveStatus:nil];
     } else if ([keyPath isEqualToString:@"runningApplications"]) {
