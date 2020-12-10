@@ -107,6 +107,8 @@ void DisposeWindow (
     [self.backForwardButtons setHidden:!allowNavigation];
     BOOL allowReload = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowReload];
     [self.toolbarReloadButton setHidden:!allowReload];
+    
+    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
 
 
