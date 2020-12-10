@@ -931,6 +931,8 @@ static NSString * const authenticationPassword = @"password";
 // Were correct SEB settings downloaded and sucessfully stored?
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
+    DDLogDebug(@"%s error: %@", __FUNCTION__, error);
+    
     if (error) {
         // Downloaded data was either no correct SEB config file
         // or this couldn't be stored (wrong passwords entered etc)

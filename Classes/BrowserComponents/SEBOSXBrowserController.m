@@ -460,6 +460,7 @@
 // Change window level of all open browser windows
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps
 {
+    DDLogDebug(@"%s allowApps: %hd", __FUNCTION__, allowApps);
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
@@ -480,6 +481,7 @@
 
 - (void) setLevelForBrowserWindow:(NSWindow *)browserWindow elevateLevels:(BOOL)elevateLevels
 {
+    DDLogDebug(@"%s browserWindow: %@ elevateLevels: %hd", __FUNCTION__, browserWindow, elevateLevels);
     int levelOffset = (int)((SEBBrowserWindow *)browserWindow).isPanel;
     if (elevateLevels) {
         if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
