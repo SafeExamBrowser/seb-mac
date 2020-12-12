@@ -230,6 +230,8 @@
 // Executed to decide if window should close
 - (BOOL)windowShouldClose:(id)sender
 {
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
     BOOL shouldClose = true;
     // If Preferences are being closed and we're not just refreshing the preferences window
     if (!self.refreshingPreferences) {
