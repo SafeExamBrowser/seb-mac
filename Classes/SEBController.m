@@ -541,6 +541,19 @@ bool insideMatrix(void);
 }
 
 
+- (void)removeKeyPathObservers
+{
+    [NSApp removeObserver:self
+            forKeyPath:@"currentSystemPresentationOptions"];
+    [NSApp removeObserver:self
+            forKeyPath:@"runningApplications"];
+    [NSApp removeObserver:self
+            forKeyPath:@"isTerminated"];
+    [NSApp removeObserver:self
+            forKeyPath:@"isActive"];
+}
+
+
 #pragma mark - Application Delegate Methods
 // (in order they are called)
 
@@ -2167,6 +2180,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
     NSScreen *mainScreen = nil;
     NSMutableArray *screens = [NSScreen screens].mutableCopy;	// get all available screens
+    DDLogDebug(@"All available screens: %@", screens);
     
     // Check if the the built-in display should be the main display according to settings
     if (useBuiltin) {
@@ -2852,7 +2866,7 @@ bool insideMatrix(){
         // (which most likely are no longer there where they should be)
         [self closeCapWindows];
         
-        if (_isAACEnabled == NO && _wasAACEnabled == NO) {
+        if (_isAACEnabled == NO && _wasAACEnabled == NO && !_startingUp) {
             
             // Open new covering background windows on all currently available screens
             [self coverScreens];
@@ -3426,9 +3440,10 @@ bool insideMatrix(){
 }
 
 
-- (void) regainActiveStatus: (id)sender {
-    // hide all other applications if not in debug build setting
-    // Check if the app is listed in prohibited processes
+// hide all other applications if not in debug build setting
+// Check if the app is listed in prohibited processes
+- (void) regainActiveStatus: (id)sender
+{
 #ifdef DEBUG
     DDLogInfo(@"Notification:  %@", [sender name]);
 #endif
@@ -3441,18 +3456,18 @@ bool insideMatrix(){
 #endif
     }
     
-    if (_isAACEnabled == NO && _wasAACEnabled == NO) {
-        // Load preferences from the system's user defaults database
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
-            // if switching to ThirdPartyApps not allowed
-            DDLogDebug(@"Regain active status after %@", [sender name]);
+    // Load preferences from the system's user defaults database
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
+        // if switching to ThirdPartyApps not allowed
+        DDLogDebug(@"Regain active status after %@", [sender name]);
 #ifndef DEBUG
-            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        if (_isAACEnabled == NO && _wasAACEnabled == NO) {
             [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
-#endif
         }
+#endif
     }
 }
 
@@ -3517,8 +3532,6 @@ bool insideMatrix(){
         
         // Switch the proper kiosk mode on again
         [self setElevateWindowLevels];
-        
-        //            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         
         BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
         [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
@@ -3840,8 +3853,6 @@ bool insideMatrix(){
             
             // Switch the proper kiosk mode on again
             [self setElevateWindowLevels];
-            
-            //            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
             [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
@@ -4560,6 +4571,8 @@ bool insideMatrix(){
 // Called just before SEB will be terminated
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
     if (self.browserController) {
         [self.browserController closeAllBrowserWindows];
     }
