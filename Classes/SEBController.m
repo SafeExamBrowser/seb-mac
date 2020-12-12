@@ -996,6 +996,8 @@ bool insideMatrix(void);
             self.processListViewController.callback = callback;
             self.processListViewController.selector = selector;
             
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
             NSWindow *runningProcessesListWindow;
             if (@available(macOS 10.10, *)) {
                 runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
