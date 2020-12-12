@@ -1935,6 +1935,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     fishyWindowWasOpened = true;
                                 }
                             } else {
+#ifdef DEBUG
+                                if ([appWithPanelBundleID isEqualToString:@"com.apple.dt.Xcode"]) {
+                                    [_systemProcessPIDs addObject:windowOwnerPIDString];
+                                    continue;
+                                }
+#endif
+
                                 // There is either no bundle ID or the prefix is com.apple.
                                 // Check if application with Bundle ID com.apple. is a legit Apple system executable
                                 if ([self signedSystemExecutable:windowOwnerPID]) {
