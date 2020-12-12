@@ -198,7 +198,9 @@
 @property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
 
 
-@property(strong) SEBDockItemButton *dockButtonReload;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery
+;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing
