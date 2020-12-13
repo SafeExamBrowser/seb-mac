@@ -4497,7 +4497,8 @@ bool insideMatrix(){
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
         // if quitting SEB is allowed
-        
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
         if (![hashedQuitPassword isEqualToString:@""]) {
             // if quit password is set, then restrict quitting
             if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
@@ -4523,23 +4524,23 @@ bool insideMatrix(){
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
             [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             [modalAlert setAlertStyle:NSWarningAlertStyle];
             NSInteger answer = [modalAlert runModal];
             [self removeAlertWindow:modalAlert.window];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
-                    return; //Cancel: don't quit
-                default:
-                {
                     if ([self.preferencesController preferencesAreOpen]) {
                         [self.preferencesController quitSEB:self];
                     } else {
                         quittingMyself = true; //quit SEB without asking for confirmation or password
                         [NSApp terminate: nil]; //quit SEB
                     }
+                default:
+                {
+                    return; //Cancel: don't quit
                 }
             }
         }
