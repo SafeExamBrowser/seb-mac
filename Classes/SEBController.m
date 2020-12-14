@@ -3879,12 +3879,17 @@ bool insideMatrix(){
 - (void) openSEBDock
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (self.dockController) {
+        [self.dockController hideDock];
+        self.dockController = nil;
+    }
 
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         
         DDLogDebug(@"SEBController openSEBDock: dock enabled");
         // Initialize the Dock
-        self.dockController = [[SEBDockController alloc] init];
+        SEBDockController *newDockController = [[SEBDockController alloc] init];
+        self.dockController = newDockController;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
@@ -3966,10 +3971,6 @@ bool insideMatrix(){
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");
-        if (self.dockController) {
-            [self.dockController hideDock];
-            self.dockController = nil;
-        }
     }
 }
 
