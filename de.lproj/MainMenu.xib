@@ -598,11 +598,11 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="rLU-be-IrT" userLabel="Password Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="108"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
             <value key="minSize" type="size" width="412" height="108"/>
-            <view key="contentView" misplaced="YES" id="vWC-gd-xPh">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+            <view key="contentView" id="vWC-gd-xPh">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
@@ -904,10 +904,10 @@ Gw
         <window title="SEB-Lockdown-Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="HUDPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="274" width="500" height="45"/>
+            <rect key="contentRect" x="196" y="274" width="500" height="44"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
-            <view key="contentView" misplaced="YES" id="94S-Ha-RmY">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
+            <view key="contentView" id="94S-Ha-RmY">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="j4C-Za-nAA" customClass="SEBTextField">
@@ -930,12 +930,12 @@ Gw
         </window>
         <customView horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" id="Ctb-pO-hkq" userLabel="Time Dock Item View">
             <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="nSQ-YT-olP" userLabel="Time View">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
                     <subviews>
-                        <textField verticalHuggingPriority="1000" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
+                        <textField preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
                             <rect key="frame" x="2" y="8" width="46" height="18"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="center" placeholderString="09:41" id="ITD-IF-Cv9">
                                 <dateFormatter key="formatter" formatterBehavior="custom10_4" dateFormat="HH:mm" id="kfS-SN-RBm"/>
@@ -948,9 +948,8 @@ Gw
                     <constraints>
                         <constraint firstItem="cfx-jb-hJX" firstAttribute="centerX" secondItem="nSQ-YT-olP" secondAttribute="centerX" id="6rV-aQ-60w"/>
                         <constraint firstItem="cfx-jb-hJX" firstAttribute="centerY" secondItem="nSQ-YT-olP" secondAttribute="centerY" constant="-1" id="B3k-ab-gKD"/>
-                        <constraint firstItem="cfx-jb-hJX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nSQ-YT-olP" secondAttribute="leading" constant="4" id="HcL-Vw-hVG"/>
+                        <constraint firstItem="cfx-jb-hJX" firstAttribute="leading" secondItem="nSQ-YT-olP" secondAttribute="leading" constant="4" id="HcL-Vw-hVG"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cfx-jb-hJX" secondAttribute="trailing" constant="4" id="KPF-OW-1xO"/>
-                        <constraint firstAttribute="height" constant="32" id="NZZ-0Y-uLy"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -965,11 +964,11 @@ Gw
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="QWW-Sk-cMP" userLabel="Authentication Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="158"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="156"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
             <value key="minSize" type="size" width="412" height="108"/>
-            <view key="contentView" misplaced="YES" id="cFG-Qx-89n">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>
+            <view key="contentView" id="cFG-Qx-89n">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="fJz-lc-Sef">
