@@ -120,7 +120,7 @@
  *              opening them if they are not yet running/open. All items placed in the 
  *              SEB Dock have to be rectangular and scalable, with a minimum size of
  *              32 points (32 or 64 pixels @2x resolution). The SEB Dock bar has a min. 
- *              height of 40 points and is pinned to the botton of a screen.
+ *              height of SEBDefaultDockHeight (40 points) and is pinned to the botton of a screen.
  *              The SEB Dock is divided into three sections left, center and right. 
  *              The item(s) in the left section are pinned to the left edge of the dock 
  *              (and screen), the right section items to the right edge of the dock and

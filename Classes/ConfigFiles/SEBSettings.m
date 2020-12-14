@@ -742,7 +742,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"startURLAppendQueryParameter",
                    
-                   [NSNumber numberWithLong:40],
+                   [NSNumber numberWithLong:SEBDefaultDockHeight],
                    @"taskBarHeight",
                    
                    @NO,
