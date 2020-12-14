@@ -51,7 +51,7 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         // Enforce minimum SEB Dock height
-        if (dockHeight < 40) dockHeight = 40;
+        if (dockHeight < SEBDefaultDockHeight) dockHeight = SEBDefaultDockHeight;
 
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
