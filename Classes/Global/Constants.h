@@ -64,6 +64,10 @@
 
 #define kCustomButtonHeight     30.0
 
+#define SEBDefaultDockHeight 40.0
+#define SEBDefaultDockTimeItemFontSize 15.0
+#define SEBDefaultDockTimeItemPreferredWidth 42.0
+
 #define SEBErrorNoValidConfigData 10
 #define SEBErrorNoValidPrefixNoValidUnencryptedHeader 11
 #define SEBErrorDecryptingSettingsCanceled 101
