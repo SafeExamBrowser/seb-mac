@@ -56,6 +56,7 @@
 #import "SEBDockController.h"
 #import "SEBDockItem.h"
 #import "SEBDockItemTime.h"
+#import "SEBDockItemBattery.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -104,7 +105,8 @@
     SEL senderDidEndSelector;
     
     IBOutlet SEBDockItemTime *sebDockItemTime;
-    	
+    IBOutlet SEBDockItemBattery *sebDockItemBattery;
+
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
     
