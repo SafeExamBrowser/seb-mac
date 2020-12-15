@@ -28,7 +28,7 @@
     _windowOpen = YES;
     NSArray *allProcessListElements = [self allProcessListElements];
     if (allProcessListElements.count == 0) {
-        _callback = nil;
+        DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
         [self.delegate closeProcessListWindowWithCallback:_callback selector:_selector];
         return;
     } else {
@@ -85,7 +85,7 @@
         [self closeModalAlert];
         dispatch_async(dispatch_get_main_queue(), ^{
             id callbackMethod = self.callback;
-            self.callback = nil;
+            DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
             [self.delegate closeProcessListWindowWithCallback:callbackMethod selector:self.selector];
         });
         _windowOpen = NO;
@@ -218,6 +218,7 @@
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (self.runningApplications.count + self.runningProcesses.count == 0) {
+                DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
                 [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
             } else {
                 self.modalAlert = [self.delegate newAlert];
