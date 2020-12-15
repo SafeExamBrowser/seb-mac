@@ -3680,9 +3680,11 @@ bool insideMatrix(){
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    if (_allowSwitchToApplications || _isAACEnabled) {
+    if (_allowSwitchToApplications || _isAACEnabled || _wasAACEnabled) {
+        DDLogDebug(@"%s: false", __FUNCTION__);
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
+        DDLogDebug(@"%s: true", __FUNCTION__);
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
     }
 }
