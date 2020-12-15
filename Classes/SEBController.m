@@ -4844,7 +4844,7 @@ bool insideMatrix(){
 
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
 {
-    DDLogDebug(@"%s", __FUNCTION__);
+    DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     [_runningProcessesListWindowController close];
     _processListViewController = nil;
     // Continue to initializing SEB and then starting the exam session
