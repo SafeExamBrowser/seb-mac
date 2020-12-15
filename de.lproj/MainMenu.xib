@@ -530,7 +530,13 @@
         <customObject id="Kgy-pG-IBC" userLabel="Dock Item Battery" customClass="SEBDockItemBattery">
             <connections>
                 <outlet property="backgroundView" destination="LjQ-67-Kkd" id="NId-n3-Urh"/>
+                <outlet property="batteryIconButton" destination="a2c-8b-YGd" id="fmf-3X-LAa"/>
+                <outlet property="batteryIconHeightConstraint" destination="Oh6-bu-JxV" id="W4A-d7-TkJ"/>
+                <outlet property="batteryIconWidthConstraint" destination="RyG-IH-pYq" id="ywR-c2-RXM"/>
+                <outlet property="batteryLevelBottom" destination="l9K-YH-eca" id="PF6-ag-L0O"/>
                 <outlet property="batteryLevelConstraint" destination="woa-ml-IU3" id="o9V-lC-huc"/>
+                <outlet property="batteryLevelLeading" destination="TmL-DB-bsJ" id="FMw-wB-p6Q"/>
+                <outlet property="batteryLevelTop" destination="NzU-dA-yps" id="8Sz-Qk-pek"/>
                 <outlet property="view" destination="1Lf-Pv-lzj" id="WGv-y2-BlL"/>
             </connections>
         </customObject>

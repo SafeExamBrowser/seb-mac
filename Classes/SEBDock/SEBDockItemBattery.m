@@ -7,6 +7,9 @@
 
 #import "SEBDockItemBattery.h"
 
+@import Foundation;
+@import IOKit.ps;
+
 @implementation SEBDockItemBattery
 
 - (void) startDisplayingBattery
@@ -63,7 +66,7 @@
 
 - (void)timerFireMethod:(NSTimer *)timer
 {
-    DDLogVerbose(@"Dock time display timer fired");
+    DDLogVerbose(@"Dock battery display timer fired");
 
     NSTimeInterval timestamp = [[timer fireDate] timeIntervalSinceReferenceDate];
     NSTimeInterval currentFullMinute = timestamp - fmod(timestamp, 60);
@@ -84,6 +87,47 @@
 // To do: This is not being called and timer not released
 - (void) dealloc {
     [batteryTimer invalidate];
+}
+
+
+- (double) batteryLevel
+{
+  CFTypeRef blob = IOPSCopyPowerSourcesInfo();
+  CFArrayRef sources = IOPSCopyPowerSourcesList(blob);
+  
+  CFDictionaryRef pSource = NULL;
+  const void *psValue;
+  
+  long numOfSources = CFArrayGetCount(sources);
+  if (numOfSources == 0) {
+    NSLog(@"Error in CFArrayGetCount");
+    return -1.0f;
+  }
+  
+  for (int i = 0 ; i < numOfSources ; i++)
+  {
+    pSource = IOPSGetPowerSourceDescription(blob, CFArrayGetValueAtIndex(sources, i));
+    if (!pSource) {
+      NSLog(@"Error in IOPSGetPowerSourceDescription");
+        continue;;
+    }
+    psValue = (CFStringRef)CFDictionaryGetValue(pSource, CFSTR(kIOPSNameKey));
+    
+    int curCapacity = 0;
+    int maxCapacity = 0;
+    double percent;
+    
+    psValue = CFDictionaryGetValue(pSource, CFSTR(kIOPSCurrentCapacityKey));
+    CFNumberGetValue((CFNumberRef)psValue, kCFNumberSInt32Type, &curCapacity);
+    
+    psValue = CFDictionaryGetValue(pSource, CFSTR(kIOPSMaxCapacityKey));
+    CFNumberGetValue((CFNumberRef)psValue, kCFNumberSInt32Type, &maxCapacity);
+    
+    percent = ((double)curCapacity/(double)maxCapacity * 100.0f);
+    
+    return percent;
+  }
+  return -1.0f;
 }
 
 
