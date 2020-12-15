@@ -347,6 +347,9 @@
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
 		69E8EC5825533EB70047F06E /* SEBAbstractWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */; };
 		69E8EC5925533EB70047F06E /* SEBAbstractWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */; };
+		69E988FC258800AA00AD81F3 /* SEBController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D5881F1189EB8F005AE3F1 /* SEBController.h */; };
+		69E988FF258818E000AD81F3 /* SEBDockItemBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E988FD258818E000AD81F3 /* SEBDockItemBattery.h */; };
+		69E98900258818E000AD81F3 /* SEBDockItemBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E988FE258818E000AD81F3 /* SEBDockItemBattery.m */; };
 		69E9EA321DB1A2D500C949FE /* NSRunningApplication+SEB.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */; };
 		69E9EA331DB1A2D500C949FE /* NSRunningApplication+SEB.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
@@ -836,6 +839,8 @@
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
 		69E8EC5625533EB70047F06E /* SEBAbstractWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBAbstractWebView.h; path = Classes/BrowserComponents/SEBAbstractWebView.h; sourceTree = "<group>"; };
 		69E8EC5725533EB70047F06E /* SEBAbstractWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBAbstractWebView.m; path = Classes/BrowserComponents/SEBAbstractWebView.m; sourceTree = "<group>"; };
+		69E988FD258818E000AD81F3 /* SEBDockItemBattery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBDockItemBattery.h; path = Classes/SEBDock/SEBDockItemBattery.h; sourceTree = "<group>"; };
+		69E988FE258818E000AD81F3 /* SEBDockItemBattery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemBattery.m; path = Classes/SEBDock/SEBDockItemBattery.m; sourceTree = "<group>"; };
 		69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunningApplication+SEB.h"; sourceTree = "<group>"; };
 		69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunningApplication+SEB.m"; sourceTree = "<group>"; };
 		69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewInternal.h; sourceTree = "<group>"; };
@@ -1071,6 +1076,8 @@
 				695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */,
 				6941A6601BDB8DED0050BF1E /* SEBDockItemTime.h */,
 				6941A6611BDB8DED0050BF1E /* SEBDockItemTime.m */,
+				69E988FD258818E000AD81F3 /* SEBDockItemBattery.h */,
+				69E988FE258818E000AD81F3 /* SEBDockItemBattery.m */,
 			);
 			name = "SEB Dock";
 			sourceTree = "<group>";
@@ -1648,6 +1655,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69E988FF258818E000AD81F3 /* SEBDockItemBattery.h in Headers */,
 				69C2284B1C767B0900F78634 /* xtea.h in Headers */,
 				69C2282C1C767B0900F78634 /* md5.h in Headers */,
 				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
@@ -1747,6 +1755,7 @@
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				69C228291C767B0900F78634 /* md.h in Headers */,
 				69C228171C767B0900F78634 /* cipher.h in Headers */,
+				69E988FC258800AA00AD81F3 /* SEBController.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				69C228421C767B0900F78634 /* ssl_internal.h in Headers */,
 				6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */,
@@ -2055,6 +2064,7 @@
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				69C228861C767B0900F78634 /* threading.c in Sources */,
+				69E98900258818E000AD81F3 /* SEBDockItemBattery.m in Sources */,
 				694A8A5824D20B5300F7DA31 /* ProcessListViewController.m in Sources */,
 				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
 				6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */,
