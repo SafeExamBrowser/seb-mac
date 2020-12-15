@@ -3917,6 +3917,12 @@ bool insideMatrix(){
             [rightDockItems addObject:dockItemShutDown];
         }
         
+        SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
+        [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
+        [dockItemBattery startDisplayingBattery];
+        
+        [rightDockItems addObject:dockItemBattery];
+
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showBackToStartButton"] &&
             ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
@@ -4061,6 +4067,12 @@ bool insideMatrix(){
 - (void) reloadButtonEnabled:(BOOL)enabled
 {
     _dockButtonReload.enabled = enabled;
+}
+
+
+- (void) batteryButtonPressed
+{
+    
 }
 
 
