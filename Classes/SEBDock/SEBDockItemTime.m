@@ -26,7 +26,10 @@
     NSFont *itemFont = timeTextField.font;
     CGFloat dockHeight = [[NSUserDefaults standardUserDefaults] secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
     CGFloat dockScale = dockHeight / SEBDefaultDockHeight;
-    timeTextField.preferredMaxLayoutWidth = SEBDefaultDockTimeItemPreferredWidth * dockScale;
+    if (preferredMaxLayoutWidth == 0) {
+        preferredMaxLayoutWidth = timeTextField.preferredMaxLayoutWidth;
+    }
+    timeTextField.preferredMaxLayoutWidth = preferredMaxLayoutWidth * dockScale;
     CGFloat fontSize = dockScale * SEBDefaultDockTimeItemFontSize;
     
     NSFont *newFont = [NSFont fontWithName:itemFont.fontName size:fontSize];
