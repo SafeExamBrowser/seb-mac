@@ -3721,7 +3721,7 @@ bool insideMatrix(){
     BOOL allowAppsUserDefaultsSetting = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     
     for (capWindow in self.capWindows) {
-        if (allowApps) {
+        if (allowApps || _isAACEnabled) {
             [capWindow newSetLevel:NSNormalWindowLevel];
             if (allowAppsUserDefaultsSetting) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
@@ -3740,7 +3740,7 @@ bool insideMatrix(){
     // Change window level of the about window if it is displayed
     if (aboutWindow.isVisible) {
         DDLogWarn(@"About window displayed");
-        if (allowApps) {
+        if (allowApps  || _isAACEnabled) {
             [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
         } else {
             [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
@@ -3802,7 +3802,7 @@ bool insideMatrix(){
         // Change window level of the about window if it is displayed
         if (aboutWindow.isVisible) {
             DDLogWarn(@"About window displayed");
-            if (allowSwitchToThirdPartyApps) {
+            if (allowSwitchToThirdPartyApps || _isAACEnabled) {
                 [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
             } else {
                 [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
@@ -3820,7 +3820,7 @@ bool insideMatrix(){
         DDLogWarn(@"Modal window(s) displayed");
         for (NSWindow *alertWindow in _modalAlertWindows)
         {
-            if (allowSwitchToThirdPartyApps) {
+            if (allowSwitchToThirdPartyApps || _isAACEnabled) {
                 [alertWindow newSetLevel:NSModalPanelWindowLevel];
             } else {
                 [alertWindow newSetLevel:NSMainMenuWindowLevel+6];
@@ -4499,6 +4499,7 @@ bool insideMatrix(){
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
         // if quitting SEB is allowed
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        DDLogDebug(@"%s Displaying quit password alert", __FUNCTION__);
 
         if (![hashedQuitPassword isEqualToString:@""]) {
             // if quit password is set, then restrict quitting
@@ -4522,6 +4523,7 @@ bool insideMatrix(){
             }
         } else {
             // if no quit password is required, then confirm quitting
+            DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
             [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];

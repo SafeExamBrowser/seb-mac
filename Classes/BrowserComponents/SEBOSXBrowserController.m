@@ -370,7 +370,7 @@
         [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     [self.mainBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"] && _sebController.isAACEnabled == NO) {
         [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -484,7 +484,7 @@
     DDLogDebug(@"%s browserWindow: %@ elevateLevels: %hd", __FUNCTION__, browserWindow, elevateLevels);
     int levelOffset = (int)((SEBBrowserWindow *)browserWindow).isPanel;
     if (elevateLevels) {
-        if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
+        if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow && _sebController.isAACEnabled == NO) {
             // If the main browser window is displayed fullscreen, then all auxillary windows
             // get a higher level, to float on top
             [browserWindow newSetLevel:NSMainMenuWindowLevel+4+levelOffset];
