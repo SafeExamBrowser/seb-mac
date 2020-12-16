@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
     __weak IBOutlet NSView *backgroundView;
     CGFloat dockScale;
     CGFloat itemSize;
+    CGFloat batteryLevelWidth;
+    CGFloat batteryLevelTrailingConstant;
     __weak IBOutlet NSLayoutConstraint *batteryLevelConstraint;
     CGFloat batteryLevelConstant;
     __weak IBOutlet NSLayoutConstraint *batteryLevelLeading;
@@ -26,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
     __weak IBOutlet NSLayoutConstraint *batteryIconHeightConstraint;
 
     NSTimer *batteryTimer;
+    CFRunLoopSourceRef powerSourceMonitoringLoop;
 }
 
 @property (strong, nonatomic) IBOutlet NSView *view;
@@ -33,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) startDisplayingBattery;
 
 - (void) setToolTip:(NSString *)toolTip;
+
+- (double) batteryLevel;
 
 @end
 

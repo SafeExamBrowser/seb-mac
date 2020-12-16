@@ -26,7 +26,8 @@
     if (batteryLevelConstant == 0) {
         batteryLevelConstant = batteryLevelConstraint.constant;
     }
-    batteryLevelConstraint.constant = batteryLevelConstant * dockScale;
+    batteryLevelTrailingConstant = batteryLevelConstant * dockScale;
+    batteryLevelConstraint.constant = batteryLevelTrailingConstant;
     
     if (batteryLevelLeadingConstant == 0) {
         batteryLevelLeadingConstant = batteryLevelLeading.constant;
@@ -42,6 +43,8 @@
         batteryLevelBottomConstant = batteryLevelBottom.constant;
     }
     batteryLevelBottom.constant = batteryLevelBottomConstant * dockScale;
+    
+    batteryLevelWidth = batteryIconWidthConstraint.constant - batteryLevelLeading.constant - batteryLevelConstraint.constant;
     
     [backgroundView setWantsLayer:YES];
     [backgroundView.layer setBackgroundColor:[[NSColor systemGreenColor] CGColor]];
@@ -61,6 +64,14 @@
     
     NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
     [currentRunLoop addTimer:batteryTimer forMode: NSDefaultRunLoopMode];
+    
+    powerSourceMonitoringCallbackMethod((__bridge void *)(self));
+    [self displayBatteryPercentage];
+
+    powerSourceMonitoringLoop = IOPSNotificationCreateRunLoopSource(powerSourceMonitoringCallbackMethod, (__bridge void *)(self));
+    if (powerSourceMonitoringLoop) {
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), powerSourceMonitoringLoop, kCFRunLoopDefaultMode);
+    }
 }
 
 
@@ -68,15 +79,70 @@
 {
     DDLogVerbose(@"Dock battery display timer fired");
 
-    NSTimeInterval timestamp = [[timer fireDate] timeIntervalSinceReferenceDate];
-    NSTimeInterval currentFullMinute = timestamp - fmod(timestamp, 60);
-    NSTimeInterval nextFullMinute = currentFullMinute + 60;
-    
-    [timer setFireDate: [NSDate dateWithTimeIntervalSinceReferenceDate:nextFullMinute]];
-
-//    [timeTextField setObjectValue:[NSDate date]];
+    [self displayBatteryPercentage];
 }
 
+
+void powerSourceMonitoringCallbackMethod(void *context)
+{
+    IOPSLowBatteryWarningLevel batteryWarningLevel = IOPSGetBatteryWarningLevel();
+    CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
+    if (remainingTime == kIOPSTimeRemainingUnlimited) {
+        [(__bridge SEBDockItemBattery *)context setPowerConnectedIcon:batteryWarningLevel];
+    } else {
+        [(__bridge SEBDockItemBattery *)context setPowerNotConnectedIcon:batteryWarningLevel];
+    }
+}
+
+
+- (void) displayBatteryPercentage
+{
+    double batteryLevel = [self batteryLevel];
+    CGFloat currentLevelConstraint = batteryLevelWidth - (batteryLevelWidth / 100 * batteryLevel) + batteryLevelTrailingConstant;
+    batteryLevelConstraint.constant = currentLevelConstraint;
+    CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
+    int hoursRemaining = remainingTime/3600;
+    int minutesRemaining = (remainingTime - hoursRemaining*3600)/60;
+    [self setToolTip:[NSString stringWithFormat:@"Battery Level %.f%%%@", batteryLevel,
+                      (remainingTime == kIOPSTimeRemainingUnlimited ?
+                       @" (Connected to Power Source)" :
+                       ((remainingTime == kIOPSTimeRemainingUnknown ?
+                         @"" :
+                         [NSString stringWithFormat:@" (%d:%d Remaining)", hoursRemaining, minutesRemaining])))]];
+}
+
+
+- (void) setPowerNotConnectedIcon:(IOPSLowBatteryWarningLevel) batteryWarningLevel
+{
+    batteryIconButton.image = [NSImage imageNamed:@"SEBBatteryIcon"];
+    [self setBatteryColorWarningLevel:batteryWarningLevel];
+}
+
+- (void) setPowerConnectedIcon:(IOPSLowBatteryWarningLevel) batteryWarningLevel
+{
+    batteryIconButton.image = [NSImage imageNamed:@"SEBBatteryIcon_charging"];
+    [self setBatteryColorWarningLevel:batteryWarningLevel];
+}
+
+- (void) setBatteryColorWarningLevel:(IOPSLowBatteryWarningLevel) batteryWarningLevel
+{
+    CGColorRef warningLevelColor;
+    
+    switch (batteryWarningLevel) {
+        case kIOPSLowBatteryWarningEarly:
+            warningLevelColor = [[NSColor systemOrangeColor] CGColor];
+            break;
+            
+        case kIOPSLowBatteryWarningFinal:
+            warningLevelColor = [[NSColor systemRedColor] CGColor];
+            break;
+            
+        default:
+            warningLevelColor = [[NSColor systemGreenColor] CGColor];
+            break;
+    }
+    [backgroundView.layer setBackgroundColor:warningLevelColor];
+}
 
 - (void) setToolTip:(NSString *)toolTip
 {
@@ -84,9 +150,16 @@
 }
 
 
-// To do: This is not being called and timer not released
-- (void) dealloc {
+// To do: Is this being called?
+- (void) dealloc
+{
+    DDLogVerbose(@"%s", __FUNCTION__);
+    
     [batteryTimer invalidate];
+    if (powerSourceMonitoringLoop) {
+        CFRunLoopSourceInvalidate(powerSourceMonitoringLoop);
+        CFRelease(powerSourceMonitoringLoop);
+    }
 }
 
 

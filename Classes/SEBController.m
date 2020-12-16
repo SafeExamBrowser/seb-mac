@@ -3934,11 +3934,14 @@ bool insideMatrix(){
             [rightDockItems addObject:dockItemShutDown];
         }
         
-        SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
-        [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
-        [dockItemBattery startDisplayingBattery];
-        
-        [rightDockItems addObject:dockItemBattery];
+        if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
+            SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
+            if ([dockItemBattery batteryLevel] != -1.0) {
+                [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
+                [dockItemBattery startDisplayingBattery];
+                [rightDockItems addObject:dockItemBattery];
+            }
+        }
 
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showBackToStartButton"] &&
