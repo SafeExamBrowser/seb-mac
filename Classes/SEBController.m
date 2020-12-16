@@ -844,19 +844,25 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
-    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-    DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
+    if ([self alternateKeyCheck]) {
+        DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
+        [self openPreferences:self];
 
-    _runningProhibitedProcesses = [NSMutableArray new];
-    _terminatedProcessesExecutableURLs = [NSMutableArray new];
+    } else {
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
 
-    if (!_openingSettings) {
-        // Initialize SEB according to client settings
-        [self conditionallyInitSEBWithCallback:self
-                                      selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
-    } else if (_isAACEnabled == NO) {
-        // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-        [self coverScreens];
+        _runningProhibitedProcesses = [NSMutableArray new];
+        _terminatedProcessesExecutableURLs = [NSMutableArray new];
+
+        if (!_openingSettings) {
+            // Initialize SEB according to client settings
+            [self conditionallyInitSEBWithCallback:self
+                                          selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
+        } else if (_isAACEnabled == NO) {
+            // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+            [self coverScreens];
+        }
     }
 }
 
@@ -2474,6 +2480,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         if ([path hasPrefix:appDir]) return YES;
     }
     return NO;
+}
+
+
+// Check for command key being held down
+- (BOOL)alternateKeyCheck
+{
+    NSEventModifierFlags modifierFlags = [NSEvent modifierFlags];
+    BOOL altKeyDown = (0 != (modifierFlags & NSAlternateKeyMask));
+    return (altKeyDown && [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]);
 }
 
 
@@ -4292,29 +4307,39 @@ bool insideMatrix(){
 {
     DDLogInfo(@"Preferences window closed, no reconfiguration necessary");
 
-    [self performAfterPreferencesClosedActions];
+    if (_startingUp) {
+        DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
+        [self didFinishLaunchingWithSettings];
+    } else {
+        [self performAfterPreferencesClosedActions];
 
-    // Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-    // Update URL filter ignore rules
-    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+        // Update URL filter flags and rules
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        // Update URL filter ignore rules
+        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
 
-    // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+        // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
+        [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+    }
 }
 
 
 - (void)preferencesClosedRestartSEB:(NSNotification *)notification
 {
-    DDLogInfo(@"Preferences window closed, reconfiguring to new settings");
+    if (_startingUp) {
+        DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
+        [self didFinishLaunchingWithSettings];
+    } else {
+        DDLogInfo(@"Preferences window closed, reconfiguring to new settings");
 
-    [self performAfterPreferencesClosedActions];
-    
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
+        [self performAfterPreferencesClosedActions];
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestRestartNotification" object:self];
 
-    // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+        // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
+        [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+    }
 }
 
 
