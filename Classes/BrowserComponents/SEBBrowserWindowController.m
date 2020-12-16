@@ -63,6 +63,9 @@ void DisposeWindow (
     if (self) {
         // Initialization code here.
         [self setShouldCascadeWindows:NO];
+        if (@available(macOS 11, *)) {
+            self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
+        }
     }
     
     return self;

@@ -60,6 +60,9 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
         PreferencesWindow *prefsWindow = [[PreferencesWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
         [prefsWindow setReleasedWhenClosed:YES];
         [prefsWindow setShowsToolbarButton:NO];
+        if (@available(macOS 11, *)) {
+            prefsWindow.toolbarStyle = NSWindowToolbarStylePreference;
+        }
         //[prefsWindow setLevel:NSModalPanelWindowLevel];
         //[prefsWindow setLevel:NSNormalWindowLevel];
         self.window = prefsWindow;
