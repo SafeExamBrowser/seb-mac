@@ -4541,9 +4541,9 @@ bool insideMatrix(){
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
         // if quitting SEB is allowed
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        DDLogDebug(@"%s Displaying quit password alert", __FUNCTION__);
 
         if (![hashedQuitPassword isEqualToString:@""]) {
+            DDLogDebug(@"%s Displaying quit password alert", __FUNCTION__);
             // if quit password is set, then restrict quitting
             if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
