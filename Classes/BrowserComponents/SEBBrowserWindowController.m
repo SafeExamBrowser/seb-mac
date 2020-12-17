@@ -319,6 +319,7 @@ void DisposeWindow (
 
 - (void)adjustWindowForScreen:(NSScreen *)newScreen moveBack:(BOOL)movingWindowBack
 {
+    DDLogDebug(@"%s newScreen: %@ moveBack: %hhd (current screen: %@)", __FUNCTION__, newScreen, movingWindowBack, self.window.screen);
     NSUInteger pressedButtons = [NSEvent pressedMouseButtons];
     if (((pressedButtons & (1 << 0)) != (1 << 0))) {
         
