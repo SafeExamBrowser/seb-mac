@@ -74,12 +74,7 @@
 
 - (void) showAlertCannotRemoveProcess
 {
-    NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Cannot Remove Preset Prohibited Process", nil)];
-    [newAlert setInformativeText:NSLocalizedString(@"This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties.", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert runModal];
+    [self.prefsApplicationViewController showAlertCannotRemoveProcess];
 }
 
 

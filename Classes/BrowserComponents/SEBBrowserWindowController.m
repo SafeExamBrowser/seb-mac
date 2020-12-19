@@ -63,9 +63,6 @@ void DisposeWindow (
     if (self) {
         // Initialization code here.
         [self setShouldCascadeWindows:NO];
-        if (@available(macOS 11, *)) {
-            self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
-        }
     }
     
     return self;
@@ -80,6 +77,11 @@ void DisposeWindow (
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
+    
+    if (@available(macOS 11, *)) {
+        self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
+    }
+
     
     // Set the reference to the browser controller in the browser window instance
     browserWindow.browserController = _browserController;
@@ -330,6 +332,9 @@ void DisposeWindow (
         // Check if Window is too heigh for the new screen
         // Get frame of the usable screen (considering if menu bar or SEB dock is enabled)
         NSRect newFrame = [_browserController visibleFrameForScreen:newScreen];
+        DDLogDebug(@"Usable screen frame (considering menu bar & SEB dock): %@",
+                   (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(newFrame)));
+
         
         if (movingWindowBack) {
             NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
@@ -362,10 +367,13 @@ void DisposeWindow (
         // If this is the main browser window, check if it's still on the same screen as when the dock was opened
         if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
             // Post a notification that the main screen changed
+            DDLogDebug(@"Sending notification that main screen changed");
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"mainScreenChanged" object:self];
         }
         
+    } else {
+        DDLogDebug(@"%s: No mouse buttons pressed, don't adjust window", __FUNCTION__);
     }
 }
 

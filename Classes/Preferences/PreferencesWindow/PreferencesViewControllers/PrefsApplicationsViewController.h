@@ -47,6 +47,7 @@
 - (NSImage *)image;
 
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender;
+- (void) showAlertCannotRemoveProcess;
 
 
 @end
