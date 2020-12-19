@@ -523,7 +523,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
+            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
         }
     }
 }

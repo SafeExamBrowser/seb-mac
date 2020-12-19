@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
                                   selector:(SEL)selector;
 - (NSAlert *) newAlert;
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
+- (void) runModalAlert:(NSAlert *)alert
+conditionallyForWindow:(NSWindow *)window
+     completionHandler:(void (^)(NSModalResponse returnCode))handler;
 - (void) quitSEBOrSession;
 
 @property (readwrite) BOOL quittingMyself;

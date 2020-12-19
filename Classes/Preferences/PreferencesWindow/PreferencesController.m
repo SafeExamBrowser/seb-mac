@@ -457,7 +457,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
+            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
             return;
         }
         // Decrypt and store the .seb config file
@@ -541,7 +541,7 @@
     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSInformationalAlertStyle];
-    [newAlert runModal];
+    [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
 }
 
 

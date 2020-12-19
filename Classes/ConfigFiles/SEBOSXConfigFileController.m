@@ -33,6 +33,7 @@
 //
 
 #import "SEBOSXConfigFileController.h"
+#import "MBPreferencesController.h"
 
 @implementation SEBOSXConfigFileController
 
@@ -135,24 +136,33 @@
             [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            long answer = [newAlert runModal];
-            switch(answer)
-            {
-                case NSAlertFirstButtonReturn:
-                    
-                    break; //Continue running SEB
-                    
-                case NSAlertSecondButtonReturn:
-                    
-                    self.sebController.quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
-            }
+            void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                switch(answer)
+                {
+                    case NSAlertFirstButtonReturn:
+                        
+                        //Continue running SEB
+                        [self didReconfigurePermanentlyWithSEBFileCredentials:sebFileCrentials];
+                        
+                    case NSAlertSecondButtonReturn:
+                        
+                        self.sebController.quittingMyself = true; //quit SEB without asking for confirmation or password
+                        [NSApp terminate: nil]; //quit SEB
+                }
+            };
+            [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            return;
+
         } else {
             // Set the flag to eventually display the dialog later
             [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
         }
     }
+    [self didReconfigurePermanentlyWithSEBFileCredentials:sebFileCrentials];
+}
 
+- (void) didReconfigurePermanentlyWithSEBFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+{
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     PreferencesController *prefsController = self.sebController.preferencesController;
 
@@ -187,7 +197,7 @@
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert runModal];
+    [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))nil];
 }
 
 
@@ -196,26 +206,34 @@
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
     [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
-    long answer = [newAlert runModal];
-    
-    switch(answer)
-    {
-        case NSAlertFirstButtonReturn:
-            // Post a notification to switch to the Config File prefs pane
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"switchToConfigFilePane" object:self];
-            // don't save the config data
-            return false;
-            
-        case NSAlertSecondButtonReturn:
-            // save .seb config data unencrypted
+    BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                // Post a notification to switch to the Config File prefs pane
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"switchToConfigFilePane" object:self];
+                // don't save the config data
+                return false;
+                
+            case NSAlertSecondButtonReturn:
+                // save .seb config data unencrypted
+                return true;
+                
+            default:
+                return false;
+        }
+    };
+    if (@available(macOS 11.0, *)) {
+        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
             return true;
-            
-        default:
-            return false;
+        }
     }
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
+    NSModalResponse answer = [newAlert runModal];
+    return unencryptedSaveAlertAnswerHandler(answer);
 }
 
 

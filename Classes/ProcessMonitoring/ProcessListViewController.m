@@ -163,72 +163,85 @@
         [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
         [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        NSInteger answer = [self.modalAlert runModal];
-        [self.delegate removeAlertWindow:self.modalAlert.window];
-        switch(answer)
-        {
-            case NSAlertFirstButtonReturn:
+        void (^forceQuitAllProcessesAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self.delegate removeAlertWindow:self.modalAlert.window];
+            switch(answer)
             {
-                break;
+                case NSAlertFirstButtonReturn:
+                {
+                    break;
+                }
+                    
+                case NSAlertSecondButtonReturn:
+                {
+                    // Cancel force quit
+                    return;
+                }
+                    
+                case NSModalResponseAbort:
+                {
+                    return;
+                }
+                    
+                default:
+                {
+                    return;
+                }
             }
-                
-            case NSAlertSecondButtonReturn:
-            {
-                // Cancel force quit
-                return;
-            }
-                
-            case NSModalResponseAbort:
-            {
-                return;
-            }
-                
-            default:
-            {
-                return;
-            }
-        }
+        };
+        [self.delegate runModalAlert:self.modalAlert conditionallyForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesAnswer];
         
-        NSUInteger i=0;
-        while (i < _runningApplications.count) {
-            NSRunningApplication *runningApplication = _runningApplications[i];
-            NSString *runningApplicationName = runningApplication.localizedName;
-            NSString *runningApplicationIdentifier = runningApplication.bundleIdentifier;
-            if ([runningApplication kill] == ERR_SUCCESS) {
-                DDLogDebug(@"Running application %@ (%@) successfully force terminated", runningApplicationName, runningApplicationIdentifier);
-                [_runningApplications removeObjectAtIndex:i];
-            } else {
-                DDLogError(@"Force terminating running application %@ (%@) failed!", runningApplicationName, runningApplicationIdentifier);
-                i++;
-            }
+    } else {
+        for (NSRunningApplication* runningApplication in _runningApplications) {
+            [runningApplication terminate];
         }
-        i=0;
-        while (i < _runningProcesses.count) {
-            NSDictionary *runningProcess = _runningProcesses[i];
-            NSNumber *PID = runningProcess[@"PID"];
-            pid_t processPID = PID.intValue;
-            if (kill(processPID, 9) == ERR_SUCCESS) {
-                DDLogDebug(@"Running process %@ successfully force terminated", runningProcess[@"name"]);
-                // ToDo: Restart terminated BSD processes when quitting
-                [_runningProcesses removeObjectAtIndex:i];
-            } else {
-                DDLogError(@"Force terminating running process %@ failed!", runningProcess[@"name"]);
-                i++;
-            }
+        autoQuitApplications = YES;
+        [self updateUIStrings];
+    }
+}
+
+- (void)forceQuitAllProcessesProceed
+{
+    NSUInteger i=0;
+    while (i < _runningApplications.count) {
+        NSRunningApplication *runningApplication = _runningApplications[i];
+        NSString *runningApplicationName = runningApplication.localizedName;
+        NSString *runningApplicationIdentifier = runningApplication.bundleIdentifier;
+        if ([runningApplication kill] == ERR_SUCCESS) {
+            DDLogDebug(@"Running application %@ (%@) successfully force terminated", runningApplicationName, runningApplicationIdentifier);
+            [_runningApplications removeObjectAtIndex:i];
+        } else {
+            DDLogError(@"Force terminating running application %@ (%@) failed!", runningApplicationName, runningApplicationIdentifier);
+            i++;
         }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (self.runningApplications.count + self.runningProcesses.count == 0) {
-                DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
-                [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
-            } else {
-                self.modalAlert = [self.delegate newAlert];
-                DDLogError(@"Force quitting processes failed!");
-                [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
-                [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
-                [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
-                NSInteger answer = [self.modalAlert runModal];
+    }
+    i=0;
+    while (i < _runningProcesses.count) {
+        NSDictionary *runningProcess = _runningProcesses[i];
+        NSNumber *PID = runningProcess[@"PID"];
+        pid_t processPID = PID.intValue;
+        if (kill(processPID, 9) == ERR_SUCCESS) {
+            DDLogDebug(@"Running process %@ successfully force terminated", runningProcess[@"name"]);
+            // ToDo: Restart terminated BSD processes when quitting
+            [_runningProcesses removeObjectAtIndex:i];
+        } else {
+            DDLogError(@"Force terminating running process %@ failed!", runningProcess[@"name"]);
+            i++;
+        }
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.runningApplications.count + self.runningProcesses.count == 0) {
+            DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
+            [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
+        } else {
+            self.modalAlert = [self.delegate newAlert];
+            DDLogError(@"Force quitting processes failed!");
+            [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
+            [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
+            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
+            void (^forceQuitAllProcessesFailedAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self.delegate removeAlertWindow:self.modalAlert.window];
                 switch(answer)
                 {
@@ -254,15 +267,10 @@
                         return;
                     }
                 }
-            }
-        });
-    } else {
-        for (NSRunningApplication* runningApplication in _runningApplications) {
-            [runningApplication terminate];
+            };
+            [self.delegate runModalAlert:self.modalAlert conditionallyForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesFailedAnswer];
         }
-        autoQuitApplications = YES;
-        [self updateUIStrings];
-    }
+    });
 }
 
 
