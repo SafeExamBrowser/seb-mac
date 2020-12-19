@@ -214,6 +214,10 @@ forceConfiguringClient:(BOOL)forceConfiguringClient
 
 - (NSAlert *) newAlert;
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
+- (void) runModalAlert:(NSAlert *)alert
+conditionallyForWindow:(NSWindow *)window
+     completionHandler:(void (^)(NSModalResponse returnCode))handler;
+
 - (void) closeAboutWindow;
 - (void) closeDocument:(id)sender;
 - (void) coverScreens;

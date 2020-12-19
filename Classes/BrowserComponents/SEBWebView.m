@@ -58,54 +58,55 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
          (self.window == self.browserController.mainBrowserWindow ?
           @"org_safeexambrowser_SEB_browserWindowAllowReload" : @"org_safeexambrowser_SEB_newBrowserWindowAllowReload")]) {
-             if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
-                  (self.window == self.browserController.mainBrowserWindow ?
-                   @"org_safeexambrowser_SEB_showReloadWarning" : @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning")]) {
-                      // Display warning and ask if to reload page
-                      NSAlert *newAlert = [[NSAlert alloc] init];
-                      [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
-                      [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
-                      [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
-                      [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                      [newAlert setAlertStyle:NSWarningAlertStyle];
-                      
-                      void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
-                          switch(answer) {
-                              case NSAlertFirstButtonReturn:
-                                  // Reset the list of dismissed URLs and the dismissAll flag
-                                  // (for the Teach allowed/blocked URLs mode)
-                                  [self.notAllowedURLs removeAllObjects];
-                                  self.dismissAll = NO;
-                                  
-                                  // Reload page
-                                  DDLogInfo(@"Reloading current webpage");
-                                  [super reload:sender];
-                                  
-                                  break;
-                                  
-                              default:
-                                  // Return without reloading page
-                                  return;
-                          }
-                      };
-                      
-                      if (self.window.styleMask == NSBorderlessWindowMask || floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
-                          [self.browserController.sebController.modalAlertWindows addObject:newAlert.window];
-                          NSModalResponse answer = [newAlert runModal];
-                          [self.browserController.sebController removeAlertWindow:newAlert.window];
-                          conditionalReload(answer);
-
-                      } else {
-                          [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
-                      }
-                      
-                  } else {
-                      
-                      // Reload page without displaying warning
-                      DDLogInfo(@"Reloading current webpage");
-                      [super reload:sender];
-                  }
-         }
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
+             (self.window == self.browserController.mainBrowserWindow ?
+              @"org_safeexambrowser_SEB_showReloadWarning" : @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning")]) {
+            // Display warning and ask if to reload page
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSWarningAlertStyle];
+            
+            void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
+                switch(answer) {
+                    case NSAlertFirstButtonReturn:
+                        // Reset the list of dismissed URLs and the dismissAll flag
+                        // (for the Teach allowed/blocked URLs mode)
+                        [self.notAllowedURLs removeAllObjects];
+                        self.dismissAll = NO;
+                        
+                        // Reload page
+                        DDLogInfo(@"Reloading current webpage");
+                        [super reload:sender];
+                        
+                        break;
+                        
+                    default:
+                        // Return without reloading page
+                        return;
+                }
+            };
+            
+            if ((self.window.styleMask == NSBorderlessWindowMask ||
+                 floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) &&
+                floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_15) {
+                [self.browserController.sebController.modalAlertWindows addObject:newAlert.window];
+                NSModalResponse answer = [newAlert runModal];
+                [self.browserController.sebController removeAlertWindow:newAlert.window];
+                conditionalReload(answer);
+                
+            } else {
+                [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
+            }
+            
+        } else {
+            // Reload page without displaying warning
+            DDLogInfo(@"Reloading current webpage");
+            [super reload:sender];
+        }
+    }
 }
 
 

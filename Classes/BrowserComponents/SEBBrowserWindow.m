@@ -892,8 +892,10 @@
                     [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                     [modalAlert setAlertStyle:NSInformationalAlertStyle];
-                    [modalAlert runModal];
-                    [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                    };
+                    [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
                     return;
                 }
             }
@@ -909,8 +911,10 @@
                 [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [modalAlert runModal];
-                [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                };
+                [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
                 return;
             }
         }
@@ -987,8 +991,10 @@ initiatedByFrame:(WebFrame *)frame {
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
-    [modalAlert runModal];
-    [self.browserController.sebController removeAlertWindow:modalAlert.window];
+    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.browserController.sebController removeAlertWindow:modalAlert.window];
+    };
+    [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
 }
 
 
@@ -1140,22 +1146,24 @@ willPerformClientRedirectToURL:(NSURL *)URL
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                NSInteger answer = [modalAlert runModal];
-                [self.browserController.sebController removeAlertWindow:modalAlert.window];
-                
-                switch(answer) {
-                    case NSAlertFirstButtonReturn:
-                        //Retry: try reloading
-                        //self.browserController.currentMainHost = nil;
-                        DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
-                        
-                        [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
-                        return;
-                    default:
-                        // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                        [_browserController openingConfigURLFailed];
-                        return;
-                }
+                void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                    switch(answer) {
+                        case NSAlertFirstButtonReturn:
+                            //Retry: try reloading
+                            //self.browserController.currentMainHost = nil;
+                            DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
+                            
+                            [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
+                            return;
+                        default:
+                            // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                            [self.browserController openingConfigURLFailed];
+                            return;
+                    }
+                };
+                [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+
             }
         }
     }
@@ -1192,21 +1200,23 @@ willPerformClientRedirectToURL:(NSURL *)URL
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            NSInteger answer = [modalAlert runModal];
-            [self.browserController.sebController removeAlertWindow:modalAlert.window];
-            switch(answer) {
-                case NSAlertFirstButtonReturn:
-                    //Retry: try reloading
-                    //self.browserController.currentMainHost = setCurrentMainHost:nil;
-                    DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
-                    
-                    [[sender mainFrame] loadRequest:[[frame dataSource] request]];
-                    return;
-                default:
-                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                    [_browserController openingConfigURLFailed];
-                    return;
-            }
+            void (^alertAnswerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                switch(answer) {
+                    case NSAlertFirstButtonReturn:
+                        //Retry: try reloading
+                        //self.browserController.currentMainHost = setCurrentMainHost:nil;
+                        DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
+                        
+                        [[sender mainFrame] loadRequest:[[frame dataSource] request]];
+                        return;
+                    default:
+                        // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                        [self.browserController openingConfigURLFailed];
+                        return;
+                }
+            };
+            [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertAnswerHandler];
         }
     }
 }
@@ -1941,8 +1951,10 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [modalAlert setAlertStyle:NSInformationalAlertStyle];
-        [modalAlert runModal];
-        [self.browserController.sebController removeAlertWindow:modalAlert.window];
+        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self.browserController.sebController removeAlertWindow:modalAlert.window];
+        };
+        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
     }
 }
 
