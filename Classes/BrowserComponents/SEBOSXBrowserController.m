@@ -793,9 +793,11 @@
         [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
-        [modalAlert runModal];
-        [_sebController removeAlertWindow:modalAlert.window];
-        _sebController.openingSettings = false;
+        void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self.sebController removeAlertWindow:modalAlert.window];
+        };
+        [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))reconfiguringNotAllowedOK];
+        self.sebController.openingSettings = false;
         return NO;
     } else {
         return YES;
