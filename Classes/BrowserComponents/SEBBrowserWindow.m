@@ -1005,6 +1005,13 @@ initiatedByFrame:(WebFrame *)frame {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
 
+    NSModalResponse alertResultButton;
+    if (@available(macOS 11.0, *)) {
+        if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
+            alertResultButton = [self showCustomModalAlert:[NSString stringWithFormat:@"%@\n\n%@", pageTitle, message]];
+            return alertResultButton == NSAlertFirstButtonReturn;
+        }
+    }
     NSAlert *modalAlert = [self.browserController.sebController newAlert];
     DDLogInfo(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
@@ -1012,9 +1019,36 @@ initiatedByFrame:(WebFrame *)frame {
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
-    NSModalResponse alertResultButton = [modalAlert runModal];
+    alertResultButton = [modalAlert runModal];
+    
     [self.browserController.sebController removeAlertWindow:modalAlert.window];
     return alertResultButton == NSAlertFirstButtonReturn;
+}
+
+
+- (IBAction) customAlertOKButton: (id)sender {
+    [NSApp stopModalWithCode:NSAlertFirstButtonReturn];
+}
+
+
+- (IBAction) customAlertCancelButton: (id)sender {
+    [NSApp stopModalWithCode:NSAlertSecondButtonReturn];
+}
+
+
+- (NSModalResponse) showCustomModalAlert:(NSString *)text
+{
+    self.customAlertText.stringValue = text;
+    [NSApp beginSheet: self.customAlert
+       modalForWindow: self
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    NSModalResponse answer = [NSApp runModalForWindow: self];
+    [NSApp endSheet: self.customAlert];
+    [NSApp abortModal];
+    [self.customAlert orderOut: self];
+    return answer;
 }
 
 

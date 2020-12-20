@@ -371,7 +371,7 @@
 
 - (void) moveDockToScreen:(NSScreen *)screen
 {
-    DDLogDebug(@"[SEBDockController moveDockToScreen]");
+    DDLogDebug(@"[SEBDockController moveDockToScreen: %@]", screen);
     [self.dockWindow setCalculatedFrame:screen];
 }
 
