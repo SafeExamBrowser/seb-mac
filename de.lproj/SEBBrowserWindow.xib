@@ -112,10 +112,8 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Neu laden" paletteLabel="" image="SEBReloadIcon" id="192">
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Neu laden" paletteLabel="" image="SEBReloadIcon" sizingBehavior="auto" id="192">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="25" height="25"/>
-                        <size key="maxSize" width="25" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -140,6 +138,8 @@
             <connections>
                 <outlet property="URLFilterAlert" destination="5ay-Fd-lF5" id="d3h-Ce-1Bw"/>
                 <outlet property="URLFilterAlertText" destination="KaS-Nf-iUK" id="H6q-P9-Ge6"/>
+                <outlet property="customAlert" destination="guK-Jq-Twh" id="lTQ-2Q-r61"/>
+                <outlet property="customAlertText" destination="0gh-1Z-NC9" id="Bu8-AN-tHZ"/>
                 <outlet property="delegate" destination="-2" id="8"/>
                 <outlet property="directoryPatternButton" destination="KUW-Xw-ucJ" id="9XV-Mr-hWm"/>
                 <outlet property="domainPatternButton" destination="jnc-il-FuZ" id="Q18-Vr-mh7"/>
@@ -354,7 +354,7 @@ Gw
                         <string key="toolTip">Zeigt zu Beginn die vollständige URL, kann editiert werden, um einen benutzerdefinierten URL-Filterausdruck zu erstellen. Das Wildcard-Zeichen * kann verwendet werden. Obenstehende Links können angeklickt werden, um die den Schemen entsprechenden URL-Teile in dieses Feld zu kopieren</string>
                         <clipView key="contentView" drawsBackground="NO" id="c8z-5s-Dgt">
                             <rect key="frame" x="1" y="1" width="537" height="119"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
                                     <rect key="frame" x="0.0" y="0.0" width="537" height="119"/>
@@ -422,6 +422,84 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="218.5" y="798"/>
+        </window>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="guK-Jq-Twh" userLabel="CustomAlert">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="156"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <value key="minSize" type="size" width="412" height="108"/>
+            <view key="contentView" id="7HC-r6-IoM">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="pqV-Kb-LlE">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="94"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PHh-U7-PFJ">
+                                <rect key="frame" x="291" y="5" width="107" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="1l7-kd-9x0"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bbD-Aa-mxH">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="customAlertOKButton:" target="3" id="sZj-Xo-mVg"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pZQ-Nk-qr0">
+                                <rect key="frame" x="184" y="5" width="107" height="32"/>
+                                <buttonCell key="cell" type="push" title="Abbrechen" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5n5-dp-cDk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="customAlertCancelButton:" target="3" id="Qzj-b6-lnN"/>
+                                </connections>
+                            </button>
+                            <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="0gh-1Z-NC9" customClass="SEBTextField">
+                                <rect key="frame" x="18" y="44" width="376" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="36" id="EjI-7Y-6Of"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="kaZ-1c-22L">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="0gh-1Z-NC9" firstAttribute="leading" secondItem="pqV-Kb-LlE" secondAttribute="leading" constant="20" id="2iw-Wx-IQ8"/>
+                            <constraint firstItem="PHh-U7-PFJ" firstAttribute="leading" secondItem="pZQ-Nk-qr0" secondAttribute="trailing" constant="12" symbolic="YES" id="5BT-l9-8Bl"/>
+                            <constraint firstAttribute="bottom" secondItem="pZQ-Nk-qr0" secondAttribute="bottom" constant="12" id="AlX-cS-soS"/>
+                            <constraint firstItem="0gh-1Z-NC9" firstAttribute="top" secondItem="pqV-Kb-LlE" secondAttribute="top" constant="14" id="CRi-eD-hzW"/>
+                            <constraint firstAttribute="height" priority="550" id="Ekt-Cs-thh"/>
+                            <constraint firstItem="pZQ-Nk-qr0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pqV-Kb-LlE" secondAttribute="leading" constant="20" id="WfP-vn-Mp9"/>
+                            <constraint firstAttribute="trailing" secondItem="0gh-1Z-NC9" secondAttribute="trailing" constant="20" id="av6-4y-5sr"/>
+                            <constraint firstItem="pZQ-Nk-qr0" firstAttribute="top" secondItem="0gh-1Z-NC9" secondAttribute="bottom" constant="11" id="juV-DC-dRF"/>
+                            <constraint firstItem="PHh-U7-PFJ" firstAttribute="width" secondItem="pZQ-Nk-qr0" secondAttribute="width" id="nrV-Hr-IZZ"/>
+                            <constraint firstItem="PHh-U7-PFJ" firstAttribute="baseline" secondItem="pZQ-Nk-qr0" secondAttribute="baseline" id="oCH-Et-6mR"/>
+                            <constraint firstAttribute="trailing" secondItem="PHh-U7-PFJ" secondAttribute="trailing" constant="20" id="tm6-n6-jHn"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="pqV-Kb-LlE" secondAttribute="bottom" id="R1y-Dt-CsM"/>
+                    <constraint firstAttribute="trailing" secondItem="pqV-Kb-LlE" secondAttribute="trailing" id="cce-9C-DuG"/>
+                    <constraint firstItem="pqV-Kb-LlE" firstAttribute="top" secondItem="7HC-r6-IoM" secondAttribute="top" id="gAh-v7-jZN"/>
+                    <constraint firstItem="pqV-Kb-LlE" firstAttribute="leading" secondItem="7HC-r6-IoM" secondAttribute="leading" id="uKe-H2-VHl"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="-356" y="716"/>
         </window>
     </objects>
     <resources>

@@ -118,10 +118,8 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" id="192">
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" sizingBehavior="auto" id="192">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="25" height="25"/>
-                        <size key="maxSize" width="25" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -146,6 +144,8 @@
             <connections>
                 <outlet property="URLFilterAlert" destination="5ay-Fd-lF5" id="d3h-Ce-1Bw"/>
                 <outlet property="URLFilterAlertText" destination="KaS-Nf-iUK" id="H6q-P9-Ge6"/>
+                <outlet property="customAlert" destination="UJx-rf-uMf" id="eOU-wb-WEj"/>
+                <outlet property="customAlertText" destination="Eyf-Ab-qmq" id="PM1-1i-Jdc"/>
                 <outlet property="delegate" destination="-2" id="8"/>
                 <outlet property="directoryPatternButton" destination="KUW-Xw-ucJ" id="9XV-Mr-hWm"/>
                 <outlet property="domainPatternButton" destination="jnc-il-FuZ" id="Q18-Vr-mh7"/>
@@ -352,7 +352,7 @@ Gw
                         <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                         <clipView key="contentView" drawsBackground="NO" id="c8z-5s-Dgt">
                             <rect key="frame" x="1" y="1" width="528" height="119"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
                                     <rect key="frame" x="0.0" y="0.0" width="528" height="119"/>
@@ -420,6 +420,84 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="219" y="802"/>
+        </window>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="UJx-rf-uMf" userLabel="CustomAlert">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="156"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <value key="minSize" type="size" width="412" height="108"/>
+            <view key="contentView" id="4Pp-ao-nkH">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="CYr-hS-7wQ">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="94"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WiL-H3-vRZ">
+                                <rect key="frame" x="302" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="57k-vh-pgb"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jEa-eM-FvN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="customAlertOKButton:" target="3" id="hlk-PK-2mE"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jpt-5i-R5p">
+                                <rect key="frame" x="206" y="5" width="96" height="32"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Mz-lY-Ld6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="customAlertCancelButton:" target="3" id="r6Q-6C-OHy"/>
+                                </connections>
+                            </button>
+                            <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="Eyf-Ab-qmq" customClass="SEBTextField">
+                                <rect key="frame" x="18" y="44" width="376" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="36" id="RKI-Es-SUe"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="KmV-U6-juh">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="jpt-5i-R5p" secondAttribute="bottom" constant="12" id="50l-d7-szb"/>
+                            <constraint firstAttribute="trailing" secondItem="Eyf-Ab-qmq" secondAttribute="trailing" constant="20" id="G2V-yl-NAW"/>
+                            <constraint firstItem="Eyf-Ab-qmq" firstAttribute="top" secondItem="CYr-hS-7wQ" secondAttribute="top" constant="14" id="Ocn-Md-Hda"/>
+                            <constraint firstItem="Eyf-Ab-qmq" firstAttribute="leading" secondItem="CYr-hS-7wQ" secondAttribute="leading" constant="20" id="V8T-lE-iuo"/>
+                            <constraint firstItem="jpt-5i-R5p" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CYr-hS-7wQ" secondAttribute="leading" constant="20" id="Xu6-ak-6uR"/>
+                            <constraint firstItem="WiL-H3-vRZ" firstAttribute="baseline" secondItem="jpt-5i-R5p" secondAttribute="baseline" id="Yaq-q8-lha"/>
+                            <constraint firstAttribute="height" priority="550" id="clj-et-iAf"/>
+                            <constraint firstItem="jpt-5i-R5p" firstAttribute="top" secondItem="Eyf-Ab-qmq" secondAttribute="bottom" constant="11" id="ltU-0r-Abk"/>
+                            <constraint firstItem="WiL-H3-vRZ" firstAttribute="leading" secondItem="jpt-5i-R5p" secondAttribute="trailing" constant="12" symbolic="YES" id="s36-oX-4OO"/>
+                            <constraint firstAttribute="trailing" secondItem="WiL-H3-vRZ" secondAttribute="trailing" constant="20" id="yXY-cu-pdD"/>
+                            <constraint firstItem="WiL-H3-vRZ" firstAttribute="width" secondItem="jpt-5i-R5p" secondAttribute="width" id="zCR-GU-fDC"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="CYr-hS-7wQ" firstAttribute="top" secondItem="4Pp-ao-nkH" secondAttribute="top" id="JxH-MD-JMR"/>
+                    <constraint firstAttribute="bottom" secondItem="CYr-hS-7wQ" secondAttribute="bottom" id="WlV-Oe-qM0"/>
+                    <constraint firstItem="CYr-hS-7wQ" firstAttribute="leading" secondItem="4Pp-ao-nkH" secondAttribute="leading" id="o1u-3N-A9U"/>
+                    <constraint firstAttribute="trailing" secondItem="CYr-hS-7wQ" secondAttribute="trailing" id="udd-OV-aEd"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="-356" y="716"/>
         </window>
     </objects>
     <resources>

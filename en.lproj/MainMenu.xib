@@ -520,6 +520,7 @@
         <customView id="862" customClass="AboutView">
             <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="492" y="252"/>
         </customView>
         <customObject id="mpZ-3o-PlN" customClass="SEBDockItemTime">
             <connections>
@@ -907,7 +908,7 @@ Gw
                     <rect key="frame" x="20" y="88" width="460" height="292"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="poc-GF-ali">
                         <rect key="frame" x="1" y="1" width="458" height="290"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="Yge-oE-zei">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="290"/>
