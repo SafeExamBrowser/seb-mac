@@ -193,9 +193,12 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Clear", nil)];
     [newAlert setAlertStyle:NSInformationalAlertStyle];
-    if ([newAlert runModal] == NSAlertSecondButtonReturn) {
-        [[SEBURLFilter sharedSEBURLFilter] clearIgnoreRuleList];
-    }
+    void (^alertAnswerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        if (answer == NSAlertSecondButtonReturn) {
+            [[SEBURLFilter sharedSEBURLFilter] clearIgnoreRuleList];
+        }
+    };
+    [self.preferencesController.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))alertAnswerHandler];
 }
 
 
@@ -403,7 +406,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
+            [self.preferencesController.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
         }
         [chooseIdentity selectItemAtIndex:0];
         [chooseIdentity synchronizeTitleAndSelectedItem];
