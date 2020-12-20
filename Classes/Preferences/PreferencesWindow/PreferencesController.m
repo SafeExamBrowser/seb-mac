@@ -547,6 +547,11 @@
 
 - (SEBDisabledPreferencesAnswer) alertForDisabledPreferences
 {
+    if (@available(macOS 11.0, *)) {
+        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+            return SEBDisabledPreferencesAnswerApply;
+        }
+    }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", nil)
     : NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.", nil);
@@ -582,6 +587,11 @@
 
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlertWithText:(NSString *)informativeText
 {
+    if (@available(macOS 11.0, *)) {
+        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+            return SEBUnsavedSettingsAnswerDontSave;
+        }
+    }
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", nil)];
     [newAlert setInformativeText:informativeText];
@@ -604,6 +614,11 @@
 // Ask if edited settings should be applied or previously active settings restored
 - (SEBApplySettingsAnswers) askToApplySettingsAlert
 {
+    if (@available(macOS 11.0, *)) {
+        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+            return SEBApplySettingsAnswerApply;
+        }
+    }
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"Apply Edited Settings?", nil)];
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -957,8 +972,8 @@
                 [newAlert setInformativeText:[error localizedDescription]];
                 [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                 [newAlert setAlertStyle:NSCriticalAlertStyle];
-                [newAlert runModal];
-
+                [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
+                
                 [oldSettings restoreSettings];
                 return NO;
             } else {
@@ -995,7 +1010,7 @@
                     [newAlert setInformativeText:[error localizedDescription]];
                     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                     [newAlert setAlertStyle:NSCriticalAlertStyle];
-                    [newAlert runModal];
+                    [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
 
                     [oldSettings restoreSettings];
                     return NO;
@@ -1019,7 +1034,7 @@
                         [settingsSavedAlert setMessageText:settingsSavedTitle];
                         [settingsSavedAlert setInformativeText:settingsSavedMessage];
                         [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                        [settingsSavedAlert runModal];
+                        [self.sebController runModalAlert:settingsSavedAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
                     }
                 }
             } else {
@@ -1032,6 +1047,12 @@
 
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
+            if (@available(macOS 11.0, *)) {
+                if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                    return YES;
+                }
+            }
+
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Edit Saved Settings?", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", nil)];
