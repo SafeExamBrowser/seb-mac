@@ -321,9 +321,6 @@
                                             [NSNumber numberWithInteger:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
                                             [certificateData base64Encoding], @"certificateDataBase64",
-                                            // We also save the certificate data into the deprecated subkey certificateDataWin
-                                            // (for downwards compatibility to < SEB 2.2)
-                                            [certificateData base64Encoding], @"certificateDataWin",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
         [self conditionallyShowOSCertWarning:nil];
@@ -363,9 +360,6 @@
                                                     certType, @"type",
                                                     [sender titleOfSelectedItem], @"name",
                                                     [certificateData base64Encoding], @"certificateDataBase64",
-                                                    // We also save the certificate data into the deprecated subkey certificateDataWin
-                                                    // (for downwards compatibility to < SEB 2.2)
-                                                    [certificateData base64Encoding], @"certificateDataWin",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
                 [self conditionallyShowOSCertWarning:nil];
@@ -490,23 +484,11 @@
         NSData *certificateData = [keychainManager getDataForCertificate:certificateRef];
         if (certificateData) {
             NSMutableDictionary *certificateToEmbed;
-            if (embeddCertificateType != certificateTypeSSLDebug) {
-                // For a SSL/TLS and CA cert we also save its data into the deprecated subkey certificateDataWin
-                // (for downwards compatibility to < SEB 2.2)
-                // ToDo: Remove in SEB 2.3
-                certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                    [NSNumber numberWithInteger:embeddCertificateType], @"type",
-                                                    certificateName, @"name",
-                                                    [certificateData base64Encoding], @"certificateDataBase64",
-                                                    [certificateData base64Encoding], @"certificateDataWin",
-                                                    nil];
-            } else {
-                certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                    [NSNumber numberWithInteger:embeddCertificateType], @"type",
-                                                    certificateName, @"name",
-                                                    [certificateData base64Encoding], @"certificateDataBase64",
-                                                    nil];
-            }
+            certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                [NSNumber numberWithInteger:embeddCertificateType], @"type",
+                                                certificateName, @"name",
+                                                [certificateData base64Encoding], @"certificateDataBase64",
+                                                nil];
 
             [certificatesArrayController addObject:certificateToEmbed];
             [self conditionallyShowOSCertWarning:nil];

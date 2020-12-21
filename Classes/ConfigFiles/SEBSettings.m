@@ -835,6 +835,7 @@ static SEBSettings *sharedSEBSettings = nil;
               
               @"embeddedCertificates" : @{
                       @"certificateData" : [NSData data],
+                      @"certificateDataBase64" : @"",
                       @"name" : @"",
                       @"type" : [NSNumber numberWithLong:certificateTypeSSL],
                       },
