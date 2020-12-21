@@ -180,7 +180,10 @@
 @end
 
 
-@interface SEBLockedViewController : NSObject
+@interface SEBLockedViewController : NSObject {
+    @private
+    NSString *challenge;
+}
 
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
 @property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
@@ -195,6 +198,7 @@
 - (BOOL) isStartingLockedExam;
 
 /// Lockview business logic
+- (NSString *) appendChallengeToMessage:(NSString *)alertMessage;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 - (void) passwordEntered;
 - (void) closeLockdownWindows;

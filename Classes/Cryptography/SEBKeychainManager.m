@@ -35,6 +35,7 @@
 
 #import "SEBKeychainManager.h"
 #import "RNCryptor.h"
+#include <stdlib.h>
 
 #if TARGET_OS_IPHONE
 #import "SEBiOSKeychainManager.h"
@@ -210,6 +211,30 @@
         [hashedString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedString;
+}
+
+
+- (NSString *) generateChallenge
+{
+    int randomNumber = arc4random_uniform(999999);
+    return [NSString stringWithFormat:@"%d", randomNumber];
+}
+
+
+- (NSString *) generateResponseForChallenge:(NSString *)challenge secret:(NSString *)secret
+{
+    unsigned char hashedChars[32];
+    NSString *inputString = [challenge stringByAppendingString:secret];
+    const char *inputStringChars = [inputString UTF8String];
+    CC_SHA256(inputStringChars,
+              (uint)strlen(inputStringChars),
+              hashedChars);
+    
+    NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [hashedString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedString.copy;
 }
 
 

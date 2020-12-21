@@ -2980,7 +2980,7 @@ conditionallyForWindow:(NSWindow *)window
             
             // Set alert title and message strings
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
-                                                        Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
+                                                        Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
             
             DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
             [self openLockdownWindows];
@@ -3022,7 +3022,7 @@ conditionallyForWindow:(NSWindow *)window
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                         Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
+                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil),
                                                                  NSLocalizedString(@"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running.", nil)
                                                                  ]];
             
@@ -3045,7 +3045,7 @@ conditionallyForWindow:(NSWindow *)window
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
                                                             Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                                     NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
+                                                                     NSLocalizedString(@"Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil),
                                                                      NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
                                                                      ]];
                 
@@ -3084,7 +3084,7 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
-                                                            Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                            Message:NSLocalizedString(@"Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
                 
                 // Report Siri is still active every 3rd second
                 self->siriLogCounter = logReportCounter;
@@ -3121,7 +3121,7 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
-                                                            Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                            Message:NSLocalizedString(@"Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
                 
                 // Report dictation is still active every 3rd second
                 self->dictationLogCounter = logReportCounter;
@@ -3160,7 +3160,7 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
-                                                            Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                            Message:NSLocalizedString(@"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
                 
                 // Report processes are still active every 3rd second
                 self->prohibitedProcessesLogCounter = logReportCounter;
@@ -3195,7 +3195,7 @@ conditionallyForWindow:(NSWindow *)window
 #ifndef DEBUG
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
-                                                        Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                        Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
             // Add log string for trying to re-open a locked exam
             // Calculate time difference between session resigning active and becoming active again
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];

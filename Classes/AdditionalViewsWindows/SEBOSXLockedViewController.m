@@ -118,6 +118,7 @@
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
 {
+    newAlertMessage = [self.lockedViewController appendChallengeToMessage:newAlertMessage];
     alertTitle.stringValue = newAlertTitle;
     alertMessage.stringValue = newAlertMessage;
 }
