@@ -3439,9 +3439,9 @@
         <target>SEB gesperrt wegen verbotener Diktat-Funktion!</target>
         <note>Lockdown alert title text for Siri</note>
       </trans-unit>
-      <trans-unit id="Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Diktat-Funktion wurde unerlaubterweise aktiviert. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Dictation is still active" xml:space="preserve">
@@ -4107,12 +4107,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
         <source>SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+        <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
       <trans-unit id="SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
@@ -4195,9 +4195,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>SEB gesperrt wegen Bildschirmfreigabe!</target>
         <note>Lockdown alert title text for screen sharing</note>
       </trans-unit>
-      <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Screen sharing is still active" xml:space="preserve">
@@ -4275,9 +4275,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>SEB gesperrt wegen Siri!</target>
         <note>Lockdown alert title text for Siri</note>
       </trans-unit>
-      <trans-unit id="Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Siri wurde unerlaubterweise aktiviert. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Siri is still active" xml:space="preserve">
@@ -4325,9 +4325,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Wechsel zurück nach Benutzerwechsel / Anmeldefenster</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." xml:space="preserve">
@@ -4385,9 +4385,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." xml:space="preserve">
