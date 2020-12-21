@@ -112,6 +112,11 @@
 
 /// Lockview business logic
 
+- (NSString *) appendChallengeToMessage:(NSString *)alertMessage
+{
+    return alertMessage;
+}
+
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -197,16 +202,14 @@
 - (void) passwordEntered {
     // Check if the exam is protected with the quit/unlock password (and one is set)
     if (!closingLockdownWindowsInProgress) {
+        if (!self.keychainManager) {
+            self.keychainManager = [[SEBKeychainManager alloc] init];
+        }
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         
         NSString *password = [self.UIDelegate lockedAlertPassword];
-#ifdef DEBUG
-        DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
-#endif
-        if (!self.keychainManager) {
-            self.keychainManager = [[SEBKeychainManager alloc] init];
-        }
+
         if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             // Correct password entered
             closingLockdownWindowsInProgress = true;

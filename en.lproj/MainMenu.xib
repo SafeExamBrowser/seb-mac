@@ -1033,17 +1033,23 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
-                    <rect key="frame" x="118" y="167" width="264" height="16"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password to unlock SEB:" id="toT-ZU-d4i">
+                <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
+                    <rect key="frame" x="65" y="167" width="370" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="GTM-ss-tIj"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password/response to unlock SEB:" id="toT-ZU-d4i">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
-                    <rect key="frame" x="152" y="122" width="197" height="16"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password!" id="2XV-dZ-8rd">
+                <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
+                    <rect key="frame" x="65" y="122" width="370" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="Wuc-eM-bc0"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password/response!" usesSingleLineMode="YES" id="2XV-dZ-8rd">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1056,7 +1062,7 @@ DQ
                     </constraints>
                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                         <font key="font" metaFont="system"/>
-                        <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.</string>
+                        <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</string>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -1065,7 +1071,7 @@ DQ
                     <rect key="frame" x="20" y="191" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
