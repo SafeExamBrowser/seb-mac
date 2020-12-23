@@ -456,7 +456,7 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedSIGSTOP" object:nil];
-    
+
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
     {
@@ -2231,6 +2231,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 mainScreen = iterScreen;
                 mainScreen.inactive = false;
                 [screens removeObjectAtIndex:i];
+                break;
             }
         }
     }
@@ -2854,8 +2855,8 @@ bool insideMatrix(){
         }
         
         if (_isAACEnabled == NO && _wasAACEnabled == NO) {
-            // Switch off display mirroring if it isn't allowed
-            [self conditionallyTerminateDisplayMirroring];
+        // Switch off display mirroring if it isn't allowed
+        [self conditionallyTerminateDisplayMirroring];
         }
         DDLogDebug(@"Adjusting screen locking");
         
