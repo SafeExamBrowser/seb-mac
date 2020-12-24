@@ -959,6 +959,7 @@
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
+    startURLQueryParameter = [self.browserController startURLQueryParameter:&url];
     
     // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
     // basic/digest/NTLM authentication without having to open a temporary webview
@@ -1212,6 +1213,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         // Reset the direct download flag for the case this was a successful direct download
         _directConfigDownloadAttempted = false;
         
+        [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
+
         // Reset BrowserController to force re-reading parameters like Browser Exam and Config Key
         // from changed settings even if SEB was started opening a new config
         _browserController = [SEBBrowserController new];

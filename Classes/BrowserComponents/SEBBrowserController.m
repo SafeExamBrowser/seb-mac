@@ -104,10 +104,33 @@ static NSString * const authenticationPassword = @"password";
 }
 
 
-- (NSURL *) checkfForQueryParameter:(NSURL*)url
+- (NSString *) startURLQueryParameter:(NSURL**)url
 {
-    return url;
+    // Check URL for additional query string
+    NSString *startURLQueryParameter = nil;
+    NSString *queryString = (*url).query;
+    if (queryString.length > 0) {
+        NSArray *additionalQueryStrings = [queryString componentsSeparatedByString:@"?"];
+        // There is an additional query string if the full query URL component itself containts
+        // a query separator character "?"
+        if (additionalQueryStrings.count == 2) {
+            // Cache the additional query string for later use
+            startURLQueryParameter = additionalQueryStrings.lastObject;
+            // Replace the full query string in the download URL with the first query component
+            // (which is the actual query of the SEB config download URL)
+            queryString = additionalQueryStrings.firstObject;
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:*url resolvingAgainstBaseURL:NO];
+            if (queryString.length == 0) {
+                queryString = nil;
+            }
+            urlComponents.query = queryString;
+            *url = urlComponents.URL;
+        }
+    }
+
+    return startURLQueryParameter;
 }
+
 
 - (NSString *) backToStartURLString
 {
