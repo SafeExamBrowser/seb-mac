@@ -188,9 +188,12 @@
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
 @property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
 
-@property (strong) SEBKeychainManager *keychainManager;
+@property (nonatomic, strong) SEBKeychainManager *keychainManager;
 
-@property (strong) NSDictionary *boldFontAttributes;
+
+@property (nonatomic, strong) NSString *currentAlertTitle;
+@property (nonatomic, strong) NSString *currentAlertMessage;
+@property (nonatomic, strong) NSDictionary *boldFontAttributes;
 
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;

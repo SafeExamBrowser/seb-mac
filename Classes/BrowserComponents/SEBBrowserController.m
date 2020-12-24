@@ -104,6 +104,11 @@ static NSString * const authenticationPassword = @"password";
 }
 
 
+- (NSURL *) checkfForQueryParameter:(NSURL*)url
+{
+    return url;
+}
+
 - (NSString *) backToStartURLString
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

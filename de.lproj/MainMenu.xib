@@ -445,7 +445,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -613,7 +613,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="108"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
@@ -703,10 +703,10 @@ Gw
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
         <customView verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="694"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="712"/>
             <subviews>
                 <secureTextField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
-                    <rect key="frame" x="65" y="146" width="370" height="21"/>
+                    <rect key="frame" x="65" y="164" width="370" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="QBc-XF-qdA"/>
                     </constraints>
@@ -723,7 +723,7 @@ Gw
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="658" width="464" height="24"/>
+                    <rect key="frame" x="18" y="676" width="464" height="24"/>
                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="SEB ist gesperrt!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -731,7 +731,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="rDJ-35-BLL" customClass="SEBTextField">
-                    <rect key="frame" x="65" y="175" width="370" height="16"/>
+                    <rect key="frame" x="65" y="193" width="370" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="RDV-WV-Mxl"/>
                     </constraints>
@@ -742,7 +742,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="cZ9-xX-IzI">
-                    <rect key="frame" x="65" y="122" width="370" height="16"/>
+                    <rect key="frame" x="65" y="140" width="370" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="r7Z-WN-4pO"/>
                     </constraints>
@@ -753,7 +753,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="594" width="464" height="56"/>
+                    <rect key="frame" x="18" y="612" width="464" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="dAk-vN-xZy"/>
                     </constraints>
@@ -765,7 +765,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <scrollView verifyAmbiguity="off" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7g-WL-v0B">
-                    <rect key="frame" x="20" y="199" width="460" height="380"/>
+                    <rect key="frame" x="20" y="217" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -803,7 +803,7 @@ Gw
                     </scroller>
                 </scrollView>
                 <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="saq-WU-u0D">
-                    <rect key="frame" x="443" y="147" width="18" height="20"/>
+                    <rect key="frame" x="443" y="165" width="18" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="7My-ZY-uZS"/>
                         <constraint firstAttribute="width" constant="18" id="k7i-7N-vWO"/>
@@ -817,8 +817,15 @@ Gw
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="K9k-Bw-WrB">
-                    <rect key="frame" x="62" y="81" width="243" height="18"/>
+                    <rect key="frame" x="62" y="99" width="243" height="18"/>
                     <buttonCell key="cell" type="check" title="Check für Bildschirmfreigabe deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="K35-KX-kQR">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="menu" size="11"/>
+                    </buttonCell>
+                </button>
+                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="f9a-ds-h7z">
+                    <rect key="frame" x="62" y="81" width="249" height="18"/>
+                    <buttonCell key="cell" type="check" title="Internen Bildschirm erzwingen deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="nCE-J9-nn7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
@@ -852,7 +859,7 @@ Gw
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="lWR-2e-5z1">
-                    <rect key="frame" x="62" y="99" width="283" height="18"/>
+                    <rect key="frame" x="62" y="117" width="283" height="18"/>
                     <buttonCell key="cell" type="check" title="SEB/Prüfungssession beenden anstatt entsperren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="fVU-lF-Tri">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="menu" size="11"/>
@@ -862,21 +869,24 @@ Gw
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="i1K-9z-xtU" secondAttribute="trailing" constant="20" id="0Rc-5r-2V5"/>
                 <constraint firstItem="S2F-q7-GY3" firstAttribute="leading" secondItem="K9k-Bw-WrB" secondAttribute="leading" id="0SK-sT-DKb"/>
+                <constraint firstItem="f9a-ds-h7z" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="leading" id="1Q1-WS-8ZT"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="39Q-nd-LvR"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="3AB-uT-8r3"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="top" secondItem="h7g-WL-v0B" secondAttribute="bottom" constant="8" id="4BD-ug-fme"/>
                 <constraint firstItem="N8L-96-Ced" firstAttribute="leading" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="5tR-so-ZAv"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="f9a-ds-h7z" secondAttribute="trailing" constant="20" id="7Ya-vu-8Bv"/>
                 <constraint firstItem="h7g-WL-v0B" firstAttribute="top" secondItem="N8L-96-Ced" secondAttribute="bottom" constant="15" id="CDh-3C-zZ2"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9Fg-Sy-fGW" secondAttribute="trailing" constant="20" id="CwC-on-Vt7"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="EgM-Ju-crd"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="EtL-nQ-EHo"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K9k-Bw-WrB" secondAttribute="trailing" constant="20" id="G3Y-Qa-j27"/>
-                <constraint firstItem="S2F-q7-GY3" firstAttribute="top" secondItem="K9k-Bw-WrB" secondAttribute="bottom" constant="6" id="JA2-pk-Y9k"/>
+                <constraint firstItem="f9a-ds-h7z" firstAttribute="top" secondItem="K9k-Bw-WrB" secondAttribute="bottom" constant="6" id="JA2-pk-Y9k"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S2F-q7-GY3" secondAttribute="trailing" constant="20" id="KXc-3e-D0W"/>
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="top" secondItem="E6M-vB-bca" secondAttribute="bottom" constant="8" symbolic="YES" id="LPn-rd-8ty"/>
                 <constraint firstAttribute="trailing" secondItem="N8L-96-Ced" secondAttribute="trailing" constant="20" id="Meg-I5-PQs"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="saq-WU-u0D" secondAttribute="trailing" constant="20" symbolic="YES" id="OpY-Jm-E0S"/>
                 <constraint firstItem="i1K-9z-xtU" firstAttribute="top" secondItem="Re1-C5-57e" secondAttribute="top" constant="12" id="Oz4-js-tTF"/>
+                <constraint firstItem="S2F-q7-GY3" firstAttribute="top" secondItem="f9a-ds-h7z" secondAttribute="bottom" constant="6" id="QLj-fh-ds3"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1dF-z8-Vg9" secondAttribute="trailing" constant="20" id="R0f-F6-q2h"/>
                 <constraint firstItem="K9k-Bw-WrB" firstAttribute="top" secondItem="lWR-2e-5z1" secondAttribute="bottom" constant="6" id="RXN-Hm-AKv"/>
                 <constraint firstItem="i1K-9z-xtU" firstAttribute="leading" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="YQu-jV-jMe"/>
@@ -916,6 +926,7 @@ Gw
                 <outlet property="overrideCheckForScreenSharing" destination="K9k-Bw-WrB" id="FN7-xr-r3V"/>
                 <outlet property="overrideCheckForSiri" destination="S2F-q7-GY3" id="ABz-B2-fgs"/>
                 <outlet property="overrideCheckForSpecifcProcesses" destination="9Fg-Sy-fGW" id="Avv-nH-gof"/>
+                <outlet property="overrideEnforcingBuiltinScreen" destination="f9a-ds-h7z" id="Qm8-vh-i4K"/>
                 <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="2Xz-pn-weo"/>
                 <outlet property="quitInsteadUnlockingButton" destination="lWR-2e-5z1" id="ezf-ou-71z"/>
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
@@ -925,7 +936,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -985,7 +996,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="cFG-Qx-89n">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
