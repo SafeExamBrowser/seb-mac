@@ -2958,7 +2958,9 @@ conditionallyForWindow:(NSWindow *)window
         }
     }
     NSModalResponse answer = [alert runModal];
-    handler(answer);
+    if (handler) {
+        handler(answer);
+    }
 }
 
 
