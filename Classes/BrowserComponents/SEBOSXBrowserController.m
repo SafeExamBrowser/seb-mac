@@ -340,6 +340,14 @@
     // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
+    // Handle Start URL Query String Parameter
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
+        NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
+        if (queryString.length > 0) {
+            urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
+        }
+    }
+
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:self.mainWebView];
     
@@ -950,6 +958,7 @@
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
     
     // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
     // basic/digest/NTLM authentication without having to open a temporary webview
