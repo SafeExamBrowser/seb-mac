@@ -456,6 +456,10 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedSIGSTOP" object:nil];
+    // Add an observer for the notification that a there is no required built-in display available
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"detectedRequiredBuiltinDisplayMissing" object:nil];
 
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
@@ -2126,6 +2130,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     CGDirectDisplayID builtinDisplay = kCGNullDirectDisplay;
     CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
     BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
+    BOOL useBuiltinEnforced = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltinEnforce"];
     NSUInteger maxAllowedDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
     DDLogInfo(@"Current Settings: Maximum allowed displays: %lu, %suse built-in display.", maxAllowedDisplays, useBuiltin ? "" : "don't ");
 
@@ -2155,7 +2160,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                   isAlwaysMirrored ? "" : "not ",
                   isCaptured ? "" : "not ");
         
-        if (!allowDisplayMirroring && (isMirrored || isHWMirrored)) {
+        if (!_isAACEnabled && !_wasAACEnabled && !allowDisplayMirroring && (isMirrored || isHWMirrored)) {
             CGDisplayConfigRef displayConfigRef;
             
             error = CGBeginDisplayConfiguration(&displayConfigRef);
@@ -2204,6 +2209,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     DDLogDebug(@"All available screens: %@", screens);
     
     // Check if the the built-in display should be the main display according to settings
+    self.noRequiredBuiltInScreenAvailable = NO;
     if (useBuiltin) {
         DDLogInfo(@"Use built-in option set, using display with ID %u", builtinDisplay);
         // we find the matching main screen
@@ -2217,6 +2223,17 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 mainScreen.inactive = false;
                 [screens removeObjectAtIndex:i];
             }
+        }
+        if (!mainScreen && useBuiltinEnforced) {
+            // A built-in display is required, but not available!
+            // We still have to find a main display in case of a manual override
+            // of the allowedDisplayBuiltinEnforce = true setting
+            self.noRequiredBuiltInScreenAvailable = YES;
+        } else if (mainScreen && self.builtinDisplayNotAvailableDetected) {
+            // Now there is again a built-in display available
+            // lockscreen might be closed (if no other lock reason active)
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"detectedRequiredBuiltinDisplayMissing" object:self];
         }
     }
     
@@ -2262,6 +2279,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Move all browser windows to the previous main screen (if they aren't on it already)
     DDLogInfo(@"Move all browser windows to new main screen %@.", mainScreen);
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
+    
+    if (self.noRequiredBuiltInScreenAvailable) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"detectedRequiredBuiltinDisplayMissing" object:self];
+    }
 }
 
 
@@ -2854,10 +2876,8 @@ bool insideMatrix(){
             [coverWindowToClose close];
         }
         
-        if (_isAACEnabled == NO && _wasAACEnabled == NO) {
         // Switch off display mirroring if it isn't allowed
         [self conditionallyTerminateDisplayMirroring];
-        }
         DDLogDebug(@"Adjusting screen locking");
         
         // Check if lockdown windows are open and adjust those too
@@ -2965,14 +2985,14 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Lockdown Windows
 
-/// Handler called when SEB needs to be locked
+// Handler called when SEB needs to be locked
 - (void) lockSEB:(NSNotification*) notification
 {
     self.didBecomeActiveTime = [NSDate date];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        /// Handler called when SEB resigns active state (by user switch / switch to login window)
+        // Handler called when SEB resigns active state (by user switch / switch to login window)
         
         if ([[notification name] isEqualToString:
              NSWorkspaceSessionDidResignActiveNotification])
@@ -2991,7 +3011,7 @@ conditionallyForWindow:(NSWindow *)window
             
         }
         
-        /// Handler called when SEB becomes active again (after user switch / switch to login window)
+        // Handler called when SEB becomes active again (after user switch / switch to login window)
         
         else if ([[notification name] isEqualToString:
                   NSWorkspaceSessionDidBecomeActiveNotification])
@@ -3014,7 +3034,7 @@ conditionallyForWindow:(NSWindow *)window
             [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockedTimeInfo] withTime:nil];
         }
         
-        /// Handler called when attempting to re-open an exam which was interrupted before
+        // Handler called when attempting to re-open an exam which was interrupted before
         
         else if ([[notification name] isEqualToString:
                   @"detectedReOpeningExam"])
@@ -3033,7 +3053,7 @@ conditionallyForWindow:(NSWindow *)window
             [self openLockdownWindows];
         }
         
-        /// Handler called when screen sharing was detected
+        // Handler called when screen sharing was detected
         
         else if ([[notification name] isEqualToString:
                   @"detectedScreenSharing"])
@@ -3073,7 +3093,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         
-        /// Handler called when Siri was detected
+        // Handler called when Siri was detected
         
         else if ([[notification name] isEqualToString:
                   @"detectedSiri"])
@@ -3110,7 +3130,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         
-        /// Handler called when dictation was detected
+        // Handler called when dictation was detected
         
         else if ([[notification name] isEqualToString:
                   @"detectedDictation"])
@@ -3147,7 +3167,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         
-        /// Handler called when a prohibited process was detected
+        // Handler called when a prohibited process was detected
         
         else if ([[notification name] isEqualToString:
                   @"detectedProhibitedProcess"])
@@ -3188,7 +3208,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         
-        /// Handler called when a SIGSTOP was detected
+        // Handler called when a SIGSTOP was detected
         
         else if ([[notification name] isEqualToString:
                   @"detectedSIGSTOP"])
@@ -3211,6 +3231,50 @@ conditionallyForWindow:(NSWindow *)window
                 self.didLockSEBTime = self->timeProcessCheckBeforeSIGSTOP;
             }
 #endif
+        }
+        
+        // Handler called when there is no required built-in display available
+        
+        else if ([[notification name] isEqualToString:
+                  @"detectedRequiredBuiltinDisplayMissing"])
+        {
+            if (!self.builtinDisplayNotAvailableDetected) {
+                if (self.startingUp || self.restarting) {
+                    // SEB is starting, we give the option to quit
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", nil)];
+                    [modalAlert setInformativeText:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self removeAlertWindow:modalAlert.window];
+                        [self quitSEBOrSession];
+                    };
+                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
+                    return;
+                }
+                self.builtinDisplayNotAvailableDetected = true;
+                if (self.builtinDisplayEnforceOverride == false) {
+                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
+                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
+                    [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
+                                                                Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                }
+                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime];
+                
+                if (self.builtinDisplayEnforceOverride == false) {
+                    [self openLockdownWindows];
+                }
+            } else {
+                if (self.noRequiredBuiltInScreenAvailable == false) {
+                    // Previously there was no built-in display detected and SEB locked, now there is one available
+                    // this can happen on a MacBook when the display lid was closed and now opened again
+                    // if there was no previous lock message, we can close the lockdown screen
+                    self.builtinDisplayNotAvailableDetected = false;
+                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
+                    [self conditionallyCloseLockdownWindows];
+                }
+            }
         }
         
     });
@@ -3287,6 +3351,18 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (void) conditionallyCloseLockdownWindows
+{
+    if (_sebLockedViewController.overrideCheckForScreenSharing.hidden &&
+        _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden &&
+        _sebLockedViewController.overrideCheckForSiri.hidden &&
+        _sebLockedViewController.overrideCheckForDictation.hidden &&
+        _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
+        _sebLockedViewController.overrideCheckForAllProcesses.hidden) {
+        [self closeLockdownWindows];
+    }
+}
+
 - (void) closeLockdownWindows
 {
     DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
@@ -3297,6 +3373,13 @@ conditionallyForWindow:(NSWindow *)window
         _screenSharingCheckOverride = true;
         _sebLockedViewController.overrideCheckForScreenSharing.state = false;
         _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
+    }
+
+    if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
+        _builtinDisplayEnforceOverride = true;
+        _builtinDisplayNotAvailableDetected = false;
+        _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
+        _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
     }
 
     if (_sebLockedViewController.overrideCheckForSiri.state == true) {
@@ -3338,6 +3421,7 @@ conditionallyForWindow:(NSWindow *)window
     }
     lastTimeProcessCheck = [NSDate date];
     _SIGSTOPDetected = false;
+    
     
     if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
         _sebLockedViewController.quitInsteadUnlockingButton.state = false;
@@ -4409,6 +4493,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void)requestedRestart:(NSNotification *)notification
 {
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
+    _restarting = YES;
 
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
@@ -4504,6 +4589,7 @@ conditionallyForWindow:(NSWindow *)window
     //            }
     //        }
     //    }
+    _restarting = NO;
 }
 
 

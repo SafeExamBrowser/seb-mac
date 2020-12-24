@@ -170,10 +170,14 @@
 @property(readwrite) BOOL dictationCheckOverride;
 @property(readwrite) BOOL dictationDetected;
 @property(readwrite) BOOL SIGSTOPDetected;
+@property(readwrite) BOOL noRequiredBuiltInScreenAvailable;
+@property(readwrite) BOOL builtinDisplayNotAvailableDetected;
+@property(readwrite) BOOL builtinDisplayEnforceOverride;
 @property(readwrite) BOOL touchBarDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL startingUp;
+@property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL quittingMyself;
 @property(readwrite) BOOL isTerminating;
