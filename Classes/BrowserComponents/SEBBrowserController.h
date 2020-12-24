@@ -151,6 +151,7 @@
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
+- (NSString *) startURLQueryParameter:(NSURL**)url;
 - (NSString *) backToStartURLString;
 
 - (void) conditionallyInitCustomHTTPProtocol;
