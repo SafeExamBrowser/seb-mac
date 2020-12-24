@@ -1259,7 +1259,7 @@ DQ
                         <constraint firstAttribute="height" constant="32" id="IFT-6g-BiA"/>
                         <constraint firstAttribute="width" constant="32" id="ewC-F3-Gu6"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SEBBatteryIcon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="LdV-Br-Bsc">
+                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SEBBatteryIcon" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyDown" inset="2" id="LdV-Br-Bsc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
