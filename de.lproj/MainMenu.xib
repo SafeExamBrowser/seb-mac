@@ -768,7 +768,7 @@ Gw
                     <rect key="frame" x="20" y="217" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="FId-0c-znr" customClass="SEBTextViewNonEditing">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
@@ -1141,20 +1141,20 @@ Gw
             <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="LjQ-67-Kkd" userLabel="Battery Background View">
+                    <rect key="frame" x="3" y="11" width="24" height="10"/>
+                </customView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a2c-8b-YGd" userLabel="Battery Icon">
                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="Oh6-bu-JxV"/>
                         <constraint firstAttribute="width" constant="32" id="RyG-IH-pYq"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SEBBatteryIcon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="JEJ-9l-FXv">
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SEBBatteryIcon" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyDown" inset="2" id="JEJ-9l-FXv">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="LjQ-67-Kkd" userLabel="Battery Background View">
-                    <rect key="frame" x="3" y="11" width="24" height="10"/>
-                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="a2c-8b-YGd" firstAttribute="top" secondItem="1Lf-Pv-lzj" secondAttribute="top" id="4AN-Gr-ktW"/>
