@@ -75,22 +75,22 @@
 
 // Manage locking SEB if it is attempted to resume an unfinished exam
 
-- (void) addLockedExam:(NSString *)examURLString
+- (void)addLockedExam:(NSString *)examURLString
 {
     [self.lockedViewController addLockedExam:examURLString];
 }
 
-- (void) removeLockedExam:(NSString *)examURLString;
+- (void)removeLockedExam:(NSString *)examURLString;
 {
     [self.lockedViewController removeLockedExam:examURLString];
 }
 
 
-- (BOOL) isStartingLockedExam {
+- (BOOL)isStartingLockedExam {
     return [self.lockedViewController isStartingLockedExam];
 }
 
-- (void) shouldCloseLockdownWindows {
+- (void)shouldCloseLockdownWindows {
 #ifdef DEBUG
     DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
 #endif
@@ -119,6 +119,8 @@
                       Message:(NSString *)newAlertMessage
 {
     newAlertMessage = [self.lockedViewController appendChallengeToMessage:newAlertMessage];
+    self.lockedViewController.currentAlertTitle = newAlertTitle;
+    self.lockedViewController.currentAlertMessage = newAlertMessage;
     alertTitle.stringValue = newAlertTitle;
     alertMessage.stringValue = newAlertMessage;
 }

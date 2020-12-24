@@ -50,6 +50,7 @@
 
 @property (weak) IBOutlet NSButton *quitInsteadUnlockingButton;
 @property (weak) IBOutlet NSButton *overrideCheckForScreenSharing;
+@property (weak) IBOutlet NSButton *overrideEnforcingBuiltinScreen;
 @property (weak) IBOutlet NSButton *overrideCheckForSiri;
 @property (weak) IBOutlet NSButton *overrideCheckForDictation;
 @property (weak) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
