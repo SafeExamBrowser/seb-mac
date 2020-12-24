@@ -32,12 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (strong, nonatomic) IBOutlet NSView *view;
+@property (readonly) double batteryLevel;
 
 - (void) startDisplayingBattery;
 
 - (void) setToolTip:(NSString *)toolTip;
-
-- (double) batteryLevel;
 
 @end
 
