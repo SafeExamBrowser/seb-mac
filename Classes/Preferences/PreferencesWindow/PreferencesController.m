@@ -457,7 +457,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
+            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
             return;
         }
         // Decrypt and store the .seb config file
@@ -541,7 +541,7 @@
     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSInformationalAlertStyle];
-    [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
+    [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 }
 
 
@@ -972,7 +972,7 @@
                 [newAlert setInformativeText:[error localizedDescription]];
                 [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                 [newAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
+                [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
                 
                 [oldSettings restoreSettings];
                 return NO;
@@ -1010,7 +1010,7 @@
                     [newAlert setInformativeText:[error localizedDescription]];
                     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                     [newAlert setAlertStyle:NSCriticalAlertStyle];
-                    [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
+                    [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 
                     [oldSettings restoreSettings];
                     return NO;
@@ -1034,7 +1034,7 @@
                         [settingsSavedAlert setMessageText:settingsSavedTitle];
                         [settingsSavedAlert setInformativeText:settingsSavedMessage];
                         [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                        [self.sebController runModalAlert:settingsSavedAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))nil];
+                        [self.sebController runModalAlert:settingsSavedAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
                     }
                 }
             } else {
