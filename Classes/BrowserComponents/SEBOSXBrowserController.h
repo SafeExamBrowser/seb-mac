@@ -57,6 +57,8 @@
     BOOL examSessionCookiesAlreadyCleared;
     NSURL *downloadedSEBConfigDataURL;
     NSURL *currentConfigPath;
+    NSString *startURLQueryParameter;
+
 }
 
 @property (weak) SEBController *sebController;
