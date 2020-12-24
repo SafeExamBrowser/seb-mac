@@ -97,8 +97,8 @@ void powerSourceMonitoringCallbackMethod(void *context)
 
 - (void) displayBatteryPercentage
 {
-    double batteryLevel = [self batteryLevel];
-    CGFloat currentLevelConstraint = batteryLevelWidth - (batteryLevelWidth / 100 * batteryLevel) + batteryLevelTrailingConstant;
+    double batteryLevel = self.batteryLevel;
+    CGFloat currentLevelConstraint = batteryLevelWidth - (batteryLevelWidth / 110 * (batteryLevel+10)) + batteryLevelTrailingConstant;
     batteryLevelConstraint.constant = currentLevelConstraint;
     CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
     int hoursRemaining = remainingTime/3600;
@@ -138,7 +138,11 @@ void powerSourceMonitoringCallbackMethod(void *context)
             break;
             
         default:
-            warningLevelColor = [[NSColor systemGreenColor] CGColor];
+            if (self.batteryLevel < 10.0) {
+                warningLevelColor = [[NSColor systemOrangeColor] CGColor];
+            } else {
+                warningLevelColor = [[NSColor systemGreenColor] CGColor];
+            }
             break;
     }
     [backgroundView.layer setBackgroundColor:warningLevelColor];
