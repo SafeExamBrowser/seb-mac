@@ -98,17 +98,22 @@
 
 - (void) resetBrowser
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket.
-        // OS X 10.9 and newer
-        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                DDLogInfo(@"Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = false)");
-            }];
-        } else {
-            DDLogError(@"Cannot reset cookies, caches and credential stores (when starting new browser session) because of running on OS X 10.7 or 10.8.");
+    if (examSessionCookiesAlreadyCleared == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
+            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+            // downloads to disk, and ensures that future requests occur on a new socket.
+            // OS X 10.9 and newer
+            if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+                [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                    DDLogInfo(@"Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = false)");
+                }];
+            } else {
+                DDLogError(@"Cannot reset cookies, caches and credential stores (when starting new browser session) because of running on OS X 10.7 or 10.8.");
+            }
         }
+    } else {
+        // reset the flag when it was true before
+        examSessionCookiesAlreadyCleared = NO;
     }
 
     _activeBrowserWindow = nil;
@@ -845,7 +850,6 @@
                     // downloads to disk, and ensures that future requests occur on a new socket.
                     // OS X 10.9 and newer
                     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-                        examSessionCookiesAlreadyCleared = YES;
                         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
                             DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
                         }];
@@ -853,6 +857,10 @@
                         DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
                     }
                 }
+                // Set the flag for cookies cleared (either they actually were or they would have
+                // been settings prevented it)
+                examSessionCookiesAlreadyCleared = YES;
+
             } else if (!_currentMainHost) {
                 // When currentMainHost isn't set yet, SEB was started with a config link, possibly
                 // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
@@ -1165,21 +1173,22 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
         configFileController.sebController = self.sebController;
         
-        if (examSessionCookiesAlreadyCleared == NO &&
-            [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
-            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-            // downloads to disk, and ensures that future requests occur on a new socket.
-            // OS X 10.9 and newer
-            if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-                [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                    DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
-                }];
-            } else {
-                DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
+        if (examSessionCookiesAlreadyCleared == NO) {
+            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
+                // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+                // downloads to disk, and ensures that future requests occur on a new socket.
+                // OS X 10.9 and newer
+                if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+                    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                        DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
+                    }];
+                } else {
+                    DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
+                }
             }
-        } else {
-            // reset the flag in case it was YES before
-            examSessionCookiesAlreadyCleared = NO;
+            // Set the flag for cookies cleared (either they actually were or they would have
+            // been settings prevented it)
+            examSessionCookiesAlreadyCleared = YES;
         }
         // Get current config path
         currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
