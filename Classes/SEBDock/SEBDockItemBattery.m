@@ -17,6 +17,10 @@
     CGFloat dockHeight = [[NSUserDefaults standardUserDefaults] secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
     dockScale = dockHeight / SEBDefaultDockHeight;
     
+    if (@available(macOS 10.14.0, *)) {
+    } else {
+        backgroundView.alphaValue = 0.5;
+    }
     if (itemSize == 0) {
         itemSize = self.view.frame.size.width;
     }
@@ -48,7 +52,7 @@
     
     [backgroundView setWantsLayer:YES];
     [backgroundView.layer setBackgroundColor:[[NSColor systemGreenColor] CGColor]];
-
+    
     NSDate *dateNow = [NSDate date];
     NSTimeInterval timestamp = [dateNow timeIntervalSinceReferenceDate];
     NSTimeInterval currentFullMinute = timestamp - fmod(timestamp, 60);
