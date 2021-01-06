@@ -56,7 +56,8 @@
     __weak IBOutlet NSComboBox *maxNumberDisplays;
     __weak IBOutlet NSButton *allowDisplayMirroringButton;
     __weak IBOutlet NSButton *allowedDisplayBuiltinEnforceButton;
-
+    __weak IBOutlet NSButton *allowedDisplayBuiltinExceptDesktopButton;
+    
     __weak IBOutlet NSComboBox *miniOSVersionMajor;
     __weak IBOutlet NSComboBox *miniOSVersionMinor;
     __weak IBOutlet NSComboBox *miniOSVersionPatch;
