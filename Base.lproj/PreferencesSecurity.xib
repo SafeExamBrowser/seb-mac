@@ -16,6 +16,7 @@
                 <outlet property="allowUserAppFolderInstallButton" destination="KKV-0r-AMe" id="SAx-VW-RgK"/>
                 <outlet property="allowWindowCaptureButton" destination="g34-gq-Owk" id="bka-Sl-cHS"/>
                 <outlet property="allowedDisplayBuiltinEnforceButton" destination="aae-zS-9MN" id="Sv2-9J-PIp"/>
+                <outlet property="allowedDisplayBuiltinExceptDesktopButton" destination="Q9f-s0-F1Q" id="pfP-yK-s6B"/>
                 <outlet property="allowediOSBetaVersion" destination="cqk-oB-iLU" id="Fea-sk-Twq"/>
                 <outlet property="blockScreenShotsButton" destination="LEn-zs-oJl" id="R72-nA-g6z"/>
                 <outlet property="chooseLogDirectoryControl" destination="32" id="PAj-RI-Adi"/>
@@ -269,10 +270,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
-                                        <rect key="frame" x="20" y="115" width="567" height="222"/>
+                                        <rect key="frame" x="20" y="95" width="567" height="242"/>
                                         <subviews>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
-                                                <rect key="frame" x="-2" y="206" width="268" height="18"/>
+                                                <rect key="frame" x="-2" y="226" width="268" height="18"/>
                                                 <string key="toolTip">The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) </string>
                                                 <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -284,7 +285,7 @@
                                                 </connections>
                                             </button>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                                                <rect key="frame" x="-2" y="184" width="235" height="18"/>
+                                                <rect key="frame" x="-2" y="204" width="235" height="18"/>
                                                 <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
                                                 <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -300,7 +301,7 @@
                                                 </connections>
                                             </button>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byW-Yd-sjZ">
-                                                <rect key="frame" x="0.0" y="164" width="567" height="14"/>
+                                                <rect key="frame" x="0.0" y="184" width="567" height="14"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iql-Mg-ZPK">
                                                         <rect key="frame" x="0.0" y="0.0" width="567" height="14"/>
@@ -350,7 +351,7 @@
                                                 </customSpacing>
                                             </stackView>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="FJP-p9-xw7">
-                                                <rect key="frame" x="-2" y="140" width="119" height="18"/>
+                                                <rect key="frame" x="-2" y="160" width="119" height="18"/>
                                                 <string key="toolTip">If enabled, Siri can be used by tapping the menu bar icon, Touch Bar icon or shortcut set in System Preferences/Siri (default: hold command space). The Siri window won't be displayed though</string>
                                                 <buttonCell key="cell" type="check" title="Allow to use Siri" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3JA-FW-lAf">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -366,7 +367,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
-                                                <rect key="frame" x="-2" y="118" width="152" height="18"/>
+                                                <rect key="frame" x="-2" y="138" width="152" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Allow to use dictation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4R-7z-oLy">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -381,7 +382,7 @@
                                                 </connections>
                                             </button>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="FHY-jc-rXS">
-                                                <rect key="frame" x="-2" y="96" width="259" height="18"/>
+                                                <rect key="frame" x="-2" y="116" width="259" height="18"/>
                                                 <string key="toolTip">SEB displays a lock screen (requiring to enter the quit/unlock password) if it detects that its process was stopped, which can indicate manipulation</string>
                                                 <buttonCell key="cell" type="check" title="Detect when SEB process was stopped" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WA3-Fp-0nb">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -392,7 +393,7 @@
                                                 </connections>
                                             </button>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-rc-duP">
-                                                <rect key="frame" x="0.0" y="69" width="245" height="21"/>
+                                                <rect key="frame" x="0.0" y="89" width="245" height="21"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
                                                         <rect key="frame" x="-2" y="5" width="208" height="16"/>
@@ -439,7 +440,7 @@
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3x4-Pf-QCV">
-                                                <rect key="frame" x="0.0" y="42" width="360" height="19"/>
+                                                <rect key="frame" x="0.0" y="62" width="360" height="19"/>
                                                 <subviews>
                                                     <textField toolTip="Maximum allowed number of connected displays (including built-in)" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
                                                         <rect key="frame" x="-2" y="2" width="299" height="16"/>
@@ -478,7 +479,7 @@
                                                 </customSpacing>
                                             </stackView>
                                             <button toolTip="If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                                <rect key="frame" x="-2" y="18" width="336" height="18"/>
+                                                <rect key="frame" x="-2" y="38" width="336" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Allow display mirroring (affects also AirPlay Display)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="hwg-eH-cMm">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -493,10 +494,10 @@
                                                 </connections>
                                             </button>
                                             <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9j-2e-YhA">
-                                                <rect key="frame" x="0.0" y="0.0" width="567" height="12"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="567" height="32"/>
                                                 <subviews>
                                                     <button toolTip="Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
-                                                        <rect key="frame" x="-3" y="-3" width="285" height="18"/>
+                                                        <rect key="frame" x="-3" y="17" width="285" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Use built-in display" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gma-Qm-KEF">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="message" size="11"/>
@@ -506,17 +507,59 @@
                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltin" id="IIZ-BN-xhg"/>
                                                         </connections>
                                                     </button>
-                                                    <button toolTip="Enforces using the built-in display: If none is available (for example on a Mac Mini or Pro), refuse to run" translatesAutoresizingMaskIntoConstraints="NO" id="aae-zS-9MN">
-                                                        <rect key="frame" x="285" y="-3" width="284" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Enforce built-in display" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="BsP-9L-abh">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="message" size="11"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltin" id="S0k-j6-YjI"/>
-                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltinEnforce" id="sz0-42-wiY"/>
-                                                        </connections>
-                                                    </button>
+                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-tq-jEa">
+                                                        <rect key="frame" x="288" y="0.0" width="279" height="32"/>
+                                                        <subviews>
+                                                            <button toolTip="Enforces using the built-in display: If none is available, refuses to run" translatesAutoresizingMaskIntoConstraints="NO" id="aae-zS-9MN">
+                                                                <rect key="frame" x="-3" y="17" width="143" height="18"/>
+                                                                <buttonCell key="cell" type="check" title="Enforce built-in display" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="BsP-9L-abh">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="message" size="11"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="setEnableAllowedDisplayBuiltinEnforced:" target="-2" id="k3t-z4-Ohf"/>
+                                                                    <binding destination="110" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltin" id="TWL-vu-sCe">
+                                                                        <dictionary key="options">
+                                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                        </dictionary>
+                                                                    </binding>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltinEnforce" id="sz0-42-wiY"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button toolTip="Allows to use Macs, which don't have a built-in display (like a Mac Mini or Mac Pro), even if enforcing it is enabled" translatesAutoresizingMaskIntoConstraints="NO" id="Q9f-s0-F1Q">
+                                                                <rect key="frame" x="-3" y="-3" width="127" height="18"/>
+                                                                <buttonCell key="cell" type="check" title="Allow desktop Macs" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="AAQ-sm-YAt">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="message" size="11"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <binding destination="110" name="hidden2" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltin" previousBinding="d9h-aq-hFU" id="o60-MV-bLn">
+                                                                        <dictionary key="options">
+                                                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                        </dictionary>
+                                                                    </binding>
+                                                                    <binding destination="110" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltinEnforce" id="d9h-aq-hFU">
+                                                                        <dictionary key="options">
+                                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                        </dictionary>
+                                                                    </binding>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltinExceptDesktop" id="BL6-ln-uJR"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                 </subviews>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
