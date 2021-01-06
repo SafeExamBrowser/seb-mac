@@ -171,6 +171,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"allowedDisplayBuiltinEnforce",
+                   
+                   @YES,
+                   @"allowedDisplayBuiltinExceptDesktop",
 
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",

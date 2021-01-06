@@ -39,9 +39,27 @@
 #import "NSRunningApplication+SEB.h"
 #include <SystemConfiguration/SystemConfiguration.h>
 
+
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 @implementation SEBSystemManager
+
+
+- (VarSystemInfo *)systemInfo
+{
+    if (!_systemInfo) {
+        _systemInfo = [VarSystemInfo new];
+    }
+    return _systemInfo;
+}
+
+
+- (BOOL) hasBuiltinDisplay
+{
+    NSString *sysModelID = self.systemInfo.sysModelID;
+    DDLogInfo(@"System model ID: %@", sysModelID);
+    return [sysModelID containsString:@"Book"] || [sysModelID containsString:@"iMac"];
+}
 
 
 // Cache current settings for Siri and dictation
@@ -347,7 +365,6 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     return true;
 }
 
-
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
 // Returns the current HTTPS proxy settings as a C string
 // (in the buffer specified by host and hostSize) and
@@ -485,10 +502,142 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
 //    int main(int argc, char** argv) {
 //        UInt16 port;
 //        char host[100];
-//        
+//
 //        GetHTTPSProxySetting(host,sizeof(host),&port);
 //        printf("HTTPS proxy host = %s\n",host);
 //        printf("HTTPS proxy host = %d\n",port);
 //    }
+
+@end
+
+#pragma mark - Implementation:
+#pragma mark -
+
+@implementation VarSystemInfo
+
+@synthesize sysName, sysUserName, sysFullUserName;
+@synthesize sysOSName, sysOSVersion;
+@synthesize sysPhysicalMemory;
+@synthesize sysSerialNumber, sysUUID;
+@synthesize sysModelID, sysModelName;
+@synthesize sysProcessorName, sysProcessorSpeed, sysProcessorCount;
+
+#pragma mark - Helper Methods:
+
+- (NSString *) _strIORegistryEntry:(NSString *)registryKey {
+
+    NSString *retString;
+
+    io_service_t service =
+    IOServiceGetMatchingService( kIOMasterPortDefault,
+                                 IOServiceMatching([kVarSysInfoPlatformExpert UTF8String]) );
+    if ( service ) {
+
+        CFTypeRef cfRefString =
+        IORegistryEntryCreateCFProperty( service,
+                                         (__bridge CFStringRef)registryKey,
+                                         kCFAllocatorDefault, kNilOptions );
+        if ( cfRefString ) {
+
+            retString = [NSString stringWithString:(__bridge NSString *)cfRefString];
+            CFRelease(cfRefString);
+
+        } IOObjectRelease( service );
+
+    } return retString;
+}
+
+- (NSString *) _strControlEntry:(NSString *)ctlKey {
+
+    size_t size = 0;
+    if ( sysctlbyname([ctlKey UTF8String], NULL, &size, NULL, 0) == -1 ) return nil;
+
+    char *machine = calloc( 1, size );
+
+    sysctlbyname([ctlKey UTF8String], machine, &size, NULL, 0);
+    NSString *ctlValue = [NSString stringWithCString:machine encoding:[NSString defaultCStringEncoding]];
+
+    free(machine); return ctlValue;
+}
+
+- (NSNumber *) _numControlEntry:(NSString *)ctlKey {
+
+    size_t size = sizeof( uint64_t ); uint64_t ctlValue = 0;
+    if ( sysctlbyname([ctlKey UTF8String], &ctlValue, &size, NULL, 0) == -1 ) return nil;
+    return [NSNumber numberWithUnsignedLongLong:ctlValue];
+}
+
+- (NSString *) _parseBrandName:(NSString *)brandName {
+
+    if ( !brandName ) return nil;
+
+    NSMutableArray *newWords = [NSMutableArray array];
+    NSString *strCopyRight = @"r", *strTradeMark = @"tm", *strCPU = @"CPU";
+
+    NSArray *words = [brandName componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+
+    for ( NSString *word in words ) {
+
+        if ( [word isEqualToString:strCPU] )       break;
+        if ( [word isEqualToString:@""] )          continue;
+        if ( [word.lowercaseString isEqualToString:strCopyRight] ) continue;
+        if ( [word.lowercaseString isEqualToString:strTradeMark] ) continue;
+
+        if ( [word length] > 0 ) {
+
+            NSString *firstChar = [word substringToIndex:1];
+            if ( NSNotFound != [firstChar rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location ) continue;
+
+            [newWords addObject:word];
+
+    } } return [newWords componentsJoinedByString:@" "];
+}
+
+- (NSString *) getOSVersionInfo {
+
+    NSString *darwinVer = [self _strControlEntry:kVarSysInfoKeyOSVersion];
+    NSString *buildNo = [self _strControlEntry:kVarSysInfoKeyOSBuild];
+    if ( !darwinVer || !buildNo ) return nil;
+
+    NSString *majorVer = @"10", *minorVer = @"x", *bugFix = @"x";
+    NSArray *darwinChunks = [darwinVer componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
+
+    if ( [darwinChunks count] > 0 ) {
+
+        NSInteger firstChunk = [(NSString *)[darwinChunks objectAtIndex:0] integerValue];
+        minorVer = [NSString stringWithFormat:@"%ld", (firstChunk - 4)];
+        bugFix = [darwinChunks objectAtIndex:1];
+        return [NSString stringWithFormat:kVarSysInfoVersionFormat, majorVer, minorVer, bugFix, buildNo];
+
+    } return nil;
+}
+
+#pragma mark - Initalization:
+
+- (void) setupSystemInformation {
+
+    NSProcessInfo *pi = [NSProcessInfo processInfo];
+
+    self.sysName = [[NSHost currentHost] localizedName];
+    self.sysUserName = NSUserName();
+    self.sysFullUserName = NSFullUserName();
+    self.sysOSVersion = self.getOSVersionInfo;
+    self.sysPhysicalMemory = [NSNumber numberWithUnsignedLongLong:pi.physicalMemory];
+    self.sysSerialNumber = [self _strIORegistryEntry:(__bridge NSString *)CFSTR(kIOPlatformSerialNumberKey)];
+    self.sysUUID = [self _strIORegistryEntry:(__bridge NSString *)CFSTR(kIOPlatformUUIDKey)];
+    self.sysModelID = [self _strControlEntry:kVarSysInfoKeyModel];
+    self.sysProcessorName = [self _parseBrandName:[self _strControlEntry:kVarSysInfoKeyCPUBrand]];
+    self.sysProcessorSpeed = [self _numControlEntry:kVarSysInfoKeyCPUFreq];
+    self.sysProcessorCount = [self _numControlEntry:kVarSysInfoKeyCPUCount];
+}
+
+- (id) init {
+
+    if ( (self = [super init]) ) {
+
+        [self setupSystemInformation];
+
+    } return self;
+}
 
 @end
