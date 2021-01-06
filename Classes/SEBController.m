@@ -2131,6 +2131,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
     BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
     BOOL useBuiltinEnforced = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltinEnforce"];
+    BOOL useBuiltinEnforcedExceptDesktop = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltinExceptDesktop"];
+    BOOL hasBuiltinDisplay = [self.systemManager hasBuiltinDisplay];
     NSUInteger maxAllowedDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
     DDLogInfo(@"Current Settings: Maximum allowed displays: %lu, %suse built-in display.", maxAllowedDisplays, useBuiltin ? "" : "don't ");
 
@@ -2224,7 +2226,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 [screens removeObjectAtIndex:i];
             }
         }
-        if (!mainScreen && useBuiltinEnforced) {
+        if (!mainScreen && ((useBuiltinEnforced && hasBuiltinDisplay) ||
+                            (useBuiltinEnforced && !hasBuiltinDisplay && !useBuiltinEnforcedExceptDesktop))) {
             // A built-in display is required, but not available!
             // We still have to find a main display in case of a manual override
             // of the allowedDisplayBuiltinEnforce = true setting
@@ -4818,7 +4821,7 @@ conditionallyForWindow:(NSWindow *)window
     [self stopWindowWatcher];
     [self stopProcessWatcher];
 
-    if (keyboardEventReturnKey) {
+    if (keyboardEventReturnKey != NULL) {
         DDLogDebug(@"%s CFRelease(keyboardEventReturnKey)", __FUNCTION__);
         CFRelease(keyboardEventReturnKey);
     }

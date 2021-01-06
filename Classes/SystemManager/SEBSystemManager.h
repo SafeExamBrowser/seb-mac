@@ -35,10 +35,19 @@
 
 #import <Foundation/Foundation.h>
 
+#import <IOKit/IOKitLib.h>
+#import <sys/sysctl.h>
+
+@class VarSystemInfo;
+
 @interface SEBSystemManager : NSObject {
     NSString *scLocation;
     NSString *scTempPath;
 }
+
+@property (strong, nonatomic) VarSystemInfo *systemInfo;
+
+- (BOOL) hasBuiltinDisplay;
 
 // Cache current settings for Siri and dictation
 - (void) cacheCurrentSystemSettings;
@@ -54,3 +63,42 @@
 - (BOOL) checkHTTPSProxySetting;
 
 @end
+
+@interface VarSystemInfo: NSObject
+@property (readwrite, strong, nonatomic) NSString *sysName;
+@property (readwrite, strong, nonatomic) NSString *sysUserName;
+@property (readwrite, strong, nonatomic) NSString *sysFullUserName;
+@property (readwrite, strong, nonatomic) NSString *sysOSName;
+@property (readwrite, strong, nonatomic) NSString *sysOSVersion;
+@property (readwrite, strong, nonatomic) NSNumber *sysPhysicalMemory;
+@property (readwrite, strong, nonatomic) NSString *sysSerialNumber;
+@property (readwrite, strong, nonatomic) NSString *sysUUID;
+@property (readwrite, strong, nonatomic) NSString *sysModelID;
+@property (readwrite, strong, nonatomic) NSString *sysModelName;
+@property (readwrite, strong, nonatomic) NSString *sysProcessorName;
+@property (readwrite, strong, nonatomic) NSNumber *sysProcessorSpeed;
+@property (readwrite, strong, nonatomic) NSNumber *sysProcessorCount;
+@property (readonly,  strong, nonatomic) NSString *getOSVersionInfo;
+
+- (NSString *) _strIORegistryEntry:(NSString *)registryKey;
+- (NSString *) _strControlEntry:(NSString *)ctlKey;
+- (NSNumber *) _numControlEntry:(NSString *)ctlKey;
+- (NSString *) _parseBrandName:(NSString *)brandName;
+@end
+
+static NSString* const kVarSysInfoVersionFormat  = @"%@.%@.%@ (%@)";
+static NSString* const kVarSysInfoPlatformExpert = @"IOPlatformExpertDevice";
+
+static NSString* const kVarSysInfoKeyOSVersion = @"kern.osrelease";
+static NSString* const kVarSysInfoKeyOSBuild   = @"kern.osversion";
+static NSString* const kVarSysInfoKeyModel     = @"hw.model";
+static NSString* const kVarSysInfoKeyCPUCount  = @"hw.physicalcpu";
+static NSString* const kVarSysInfoKeyCPUFreq   = @"hw.cpufrequency";
+static NSString* const kVarSysInfoKeyCPUBrand  = @"machdep.cpu.brand_string";
+
+static NSString* const kVarSysInfoMachineiMac        = @"iMac";
+static NSString* const kVarSysInfoMachineMacmini     = @"Mac mini";
+static NSString* const kVarSysInfoMachineMacBookAir  = @"MacBook Air";
+static NSString* const kVarSysInfoMachineMacBookPro  = @"MacBook Pro";
+static NSString* const kVarSysInfoMachineMacPro      = @"Mac Pro";
+
