@@ -56,6 +56,7 @@
     __weak IBOutlet NSButtonCell *usePageZoomRadioButton;
     __weak IBOutlet NSButtonCell *useTextZoomRadioButton;
     __weak IBOutlet NSMatrix *zoomModeMatrix;
+    __weak IBOutlet NSButton *allowDictionaryLookupButton;
 }
 
 @property(weak, nonatomic) IBOutlet NSScrollView *scrollView;

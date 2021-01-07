@@ -55,6 +55,14 @@
 }
 
 
+- (void)willBeDisplayed
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowSwitchToApplicationsButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];;
+}
+
+
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender {
