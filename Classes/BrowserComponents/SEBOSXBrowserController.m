@@ -829,7 +829,7 @@
     // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
         // Check if SEB is in exam mode = private UserDefauls are switched on
-        if ([self isReconfiguringAllowedFromURL:url]) {
+        if (_sebController.startingUp || [self isReconfiguringAllowedFromURL:url]) {
             // SEB isn't in exam mode: reconfiguring is allowed
             NSURL *sebURL = url;
             // Figure the download URL out, depending on if http or https should be used
@@ -1168,7 +1168,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
     
-    if ([self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
+    if (_sebController.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
         _sebController.openingSettings = true;
         SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
         configFileController.sebController = self.sebController;
