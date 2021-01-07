@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
             <connections>
                 <outlet property="allowFlashFullscreen" destination="134" id="9WV-mR-ZXO"/>
+                <outlet property="allowSwitchToApplicationsButton" destination="5" id="bT3-1e-SYi"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
         </customObject>
@@ -39,12 +40,12 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="allowSwitchToApplicationsButton:" target="-2" id="Fg8-dm-NeA"/>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="55B-o7-Y8Y">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
@@ -58,6 +59,15 @@
                                             <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
+                                            <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="IaI-5x-tWV" id="NDc-VL-a1W">
+                                                <dictionary key="options">
+                                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                         </connections>
