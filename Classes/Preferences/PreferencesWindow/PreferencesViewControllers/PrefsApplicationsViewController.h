@@ -40,7 +40,8 @@
 
 @interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule> {
 
-    IBOutlet NSButton *allowFlashFullscreen;
+    __weak IBOutlet NSButton *allowSwitchToApplicationsButton;
+    __weak IBOutlet NSButton *allowFlashFullscreen;
 }
 
 - (NSString *)identifier;
