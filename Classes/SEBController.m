@@ -736,8 +736,10 @@ bool insideMatrix(void);
     
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
+    _alternateKeyPressed = [self alternateKeyCheck];
+    
     // Check if preferences window is open
-    if ([self.preferencesController preferencesAreOpen]) {
+	    if ([self.preferencesController preferencesAreOpen]) {
         
         /// Open settings file in preferences window for editing
         
@@ -773,11 +775,17 @@ bool insideMatrix(void);
             return;
         }
         
+        if (_alternateKeyPressed) {
+            DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
+            [self openPreferences:self];
+            if ([self.preferencesController preferencesAreOpen]) {
+                [self.preferencesController openSEBPrefsAtURL:sebFileURL];
+                return;
+            }
+        }
         NSError *error = nil;
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
         
-        // Get current config path
-//        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
         // Save the path to the file for possible editing in the preferences window
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
         
@@ -862,7 +870,9 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
-    if ([self alternateKeyCheck]) {
+    _alternateKeyPressed = [self alternateKeyCheck];
+
+    if (_alternateKeyPressed) {
         DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
         [self openPreferences:self];
 
@@ -4191,7 +4201,8 @@ conditionallyForWindow:(NSWindow *)window
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
 
     // If the (main) browser window is full screen, we don't show the dialog as sheet
-    if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
+    if (window == self.browserController.mainBrowserWindow && self.browserController.mainBrowserWindow.isFullScreen) {
+        DDLogDebug(@"%s Not showing the dialog on a full screen browser window", __FUNCTION__);
         window = nil;
     }
     
@@ -4392,18 +4403,17 @@ conditionallyForWindow:(NSWindow *)window
 - (void)preferencesClosed:(NSNotification *)notification
 {
     DDLogInfo(@"Preferences window closed, no reconfiguration necessary");
-
+    
     if (_startingUp) {
-        DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
-        [self didFinishLaunchingWithSettings];
+        [self preferencesOpenedWhileStartingUpNowClosing];
     } else {
         [self performAfterPreferencesClosedActions];
-
+        
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
         // Update URL filter ignore rules
         [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
-
+        
         // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
         [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
     }
@@ -4413,8 +4423,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void)preferencesClosedRestartSEB:(NSNotification *)notification
 {
     if (_startingUp) {
-        DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
-        [self didFinishLaunchingWithSettings];
+        [self preferencesOpenedWhileStartingUpNowClosing];
     } else {
         DDLogInfo(@"Preferences window closed, reconfiguring to new settings");
 
@@ -4425,6 +4434,19 @@ conditionallyForWindow:(NSWindow *)window
 
         // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
         [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+    }
+}
+
+
+- (void)preferencesOpenedWhileStartingUpNowClosing
+{
+    if (!quittingMyself) {
+        DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
+        // We need to reset this flag, as settings to be opened are already active
+        _openingSettings = NO;
+        [self didFinishLaunchingWithSettings];
+    } else {
+        DDLogInfo(@"Preferences window was opened while starting up SEB, and quit was selected while the Preferences window was still open.");
     }
 }
 
@@ -4644,27 +4666,36 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Action and Application Delegates for Quitting SEB
 
-- (IBAction) exitSEB:(id)sender {
+- (IBAction) exitSEB:(id)sender
+{
+    DDLogDebug(@"%s", __FUNCTION__);
     // Load quitting preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
+        NSWindow *currentMainWindow = self.browserController.mainBrowserWindow;
+        if ([self.preferencesController preferencesAreOpen] ) {
+            currentMainWindow = self.preferencesController.preferencesWindow;
+            DDLogDebug(@"Preferences are open, displaying according alerts as sheet on window %@", currentMainWindow);
+        }
         // if quitting SEB is allowed
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
         if (![hashedQuitPassword isEqualToString:@""]) {
-            DDLogDebug(@"%s Displaying quit password alert", __FUNCTION__);
+            DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
             // if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
             
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                 // if the correct quit password was entered
+                DDLogInfo(@"Correct quit password entered");
                 quittingMyself = true; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 // Wrong quit password was entered
+                DDLogInfo(@"Wrong quit password entered");
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", nil)];
                 [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
@@ -4673,7 +4704,7 @@ conditionallyForWindow:(NSWindow *)window
                 void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                 };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+                [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
             }
         } else {
             // if no quit password is required, then confirm quitting
@@ -4690,8 +4721,10 @@ conditionallyForWindow:(NSWindow *)window
                 {
                     case NSAlertFirstButtonReturn:
                         if ([self.preferencesController preferencesAreOpen]) {
+                            DDLogInfo(@"Confirmed to quit, preferences window is open");
                             [self.preferencesController quitSEB:self];
                         } else {
+                            DDLogInfo(@"Confirmed to quit, terminate now");
                             self->quittingMyself = true; //quit SEB without asking for confirmation or password
                             [NSApp terminate: nil]; //quit SEB
                         }
@@ -4701,7 +4734,7 @@ conditionallyForWindow:(NSWindow *)window
                     }
                 }
             };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))quitSEBAnswer];
+            [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))quitSEBAnswer];
         }
     }
 }
@@ -4740,6 +4773,8 @@ conditionallyForWindow:(NSWindow *)window
 // Called just before SEB will be terminated
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
     if (self.browserController) {
@@ -4815,6 +4850,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) applicationWillTerminateProceed
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     BOOL success = [self.systemManager restoreScreenCapture];
     DDLogDebug(@"Success of restoring SC: %hhd", success);
     

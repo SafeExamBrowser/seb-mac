@@ -73,6 +73,7 @@
 @property BOOL refreshingPreferences;
 @property BOOL certOSWarningDisplayed;
 @property (weak, nonatomic) IBOutlet SEBController *sebController;
+@property (weak, nonatomic) NSWindow *preferencesWindow;
 @property (strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property (weak, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
