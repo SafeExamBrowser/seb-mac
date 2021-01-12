@@ -236,6 +236,11 @@
 }
 
 
+- (IBAction) setAllowiOSScreenCapture:(NSButton *)sender {
+    enablePrintScreenButton.state = sender.state;
+}
+
+
 - (IBAction) changedKioskMode:(NSMatrix *)sender
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -257,6 +262,11 @@
             [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_killExplorerShell"];
             break;
     }
+}
+
+
+- (IBAction)setEnablePrintScreen:(NSButton *)sender {
+    allowiOSScreenCaptureButton.state = sender.state;
 }
 
 
