@@ -63,10 +63,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
         if (@available(macOS 11, *)) {
             prefsWindow.toolbarStyle = NSWindowToolbarStylePreference;
         }
-        //[prefsWindow setLevel:NSModalPanelWindowLevel];
-        //[prefsWindow setLevel:NSNormalWindowLevel];
         self.window = prefsWindow;
-        [self.window setLevel:NSModalPanelWindowLevel];
         
         [self _setupToolbar];
     }
@@ -156,10 +153,8 @@ static MBPreferencesController *sharedPreferencesController = nil;
     topLeftPoint.y = self.window.screen.frame.size.height - 44;
     
     [self.window setFrameTopLeftPoint:topLeftPoint];
-    [self.window setLevel:NSModalPanelWindowLevel];
 
 	[super showWindow:sender];
-//    [[NSApplication sharedApplication] runModalForWindow:self.window];
 }
 
 
