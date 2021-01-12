@@ -18,10 +18,12 @@
                 <outlet property="allowedDisplayBuiltinEnforceButton" destination="aae-zS-9MN" id="Sv2-9J-PIp"/>
                 <outlet property="allowedDisplayBuiltinExceptDesktopButton" destination="Q9f-s0-F1Q" id="pfP-yK-s6B"/>
                 <outlet property="allowediOSBetaVersion" destination="cqk-oB-iLU" id="Fea-sk-Twq"/>
+                <outlet property="allowiOSScreenCaptureButton" destination="c2c-ER-MY0" id="TdR-lY-MBV"/>
                 <outlet property="blockScreenShotsButton" destination="LEn-zs-oJl" id="R72-nA-g6z"/>
                 <outlet property="chooseLogDirectoryControl" destination="32" id="PAj-RI-Adi"/>
                 <outlet property="chooseLogLevelControl" destination="sAF-ok-Vxz" id="gv7-Mj-Yj2"/>
                 <outlet property="enableAppSwitcherButton" destination="a9Y-jJ-E1h" id="Z4b-sc-oO0"/>
+                <outlet property="enablePrintScreenButton" destination="wUs-SE-6xn" id="WLq-kl-aLi"/>
                 <outlet property="kioskMode" destination="kBz-Xz-wNK" id="9SP-SX-zJf"/>
                 <outlet property="logDirectory" destination="35" id="344"/>
                 <outlet property="maxNumberDisplays" destination="ZZ6-sG-BWw" id="BZF-NP-P5E"/>
@@ -40,10 +42,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fzP-sx-Pjd">
-                    <rect key="frame" x="20" y="631" width="610" height="74"/>
+                    <rect key="frame" x="20" y="576" width="610" height="129"/>
                     <subviews>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="4Z8-1t-DB7">
-                            <rect key="frame" x="0.0" y="0.0" width="295" height="74"/>
+                            <rect key="frame" x="0.0" y="55" width="295" height="74"/>
                             <subviews>
                                 <button toolTip="Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
                                     <rect key="frame" x="-2" y="58" width="230" height="18"/>
@@ -142,7 +144,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LBV-sq-zoK">
-                            <rect key="frame" x="315" y="1" width="295" height="73"/>
+                            <rect key="frame" x="315" y="56" width="295" height="73"/>
                             <subviews>
                                 <button toolTip="Allows macOS screen sharing to be used (VNC based) and Windows remote session (RDP)" translatesAutoresizingMaskIntoConstraints="NO" id="k8Y-ym-LrR">
                                     <rect key="frame" x="-2" y="57" width="200" height="18"/>
@@ -229,7 +231,7 @@
                     </customSpacing>
                 </stackView>
                 <tabView toolTip="Detail settings for locking down the system and specific system features" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="SZK-Aw-k1e">
-                    <rect key="frame" x="13" y="0.0" width="624" height="454"/>
+                    <rect key="frame" x="13" y="0.0" width="624" height="399"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="macOS" identifier="" id="Dcg-5G-FDH">
@@ -636,12 +638,13 @@
                                                 <rect key="frame" x="0.0" y="171" width="198" height="54"/>
                                                 <subviews>
                                                     <button toolTip="Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win" translatesAutoresizingMaskIntoConstraints="NO" id="c2c-ER-MY0">
-                                                        <rect key="frame" x="-2" y="38" width="153" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Allow Screen Capture" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="p3h-Gz-2AS">
+                                                        <rect key="frame" x="-2" y="38" width="174" height="18"/>
+                                                        <buttonCell key="cell" type="check" title="Allow iOS screen capture" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="p3h-Gz-2AS">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
+                                                            <action selector="setAllowiOSScreenCapture:" target="-2" id="F9x-E1-hs8"/>
                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="Ekf-qQ-gxP"/>
                                                         </connections>
                                                     </button>
@@ -1356,6 +1359,7 @@
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
+                                                        <action selector="setEnablePrintScreen:" target="-2" id="Eb7-z2-3T4"/>
                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="uwd-0c-09b"/>
                                                     </connections>
                                                 </button>
@@ -1588,7 +1592,7 @@
                     </tabViewItems>
                 </tabView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
-                    <rect key="frame" x="26" y="452" width="115" height="14"/>
+                    <rect key="frame" x="26" y="397" width="115" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS Specific Settings " id="ADm-4H-Zh3">
                         <font key="font" metaFont="message" size="11"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1596,7 +1600,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" borderType="line" title="Logging" translatesAutoresizingMaskIntoConstraints="NO" id="M5z-0E-3yB">
-                    <rect key="frame" x="17" y="477" width="616" height="139"/>
+                    <rect key="frame" x="17" y="422" width="616" height="139"/>
                     <view key="contentView" id="zcb-WA-Wne">
                         <rect key="frame" x="3" y="3" width="610" height="121"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
