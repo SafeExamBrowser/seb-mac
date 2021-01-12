@@ -25,10 +25,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Kpu-hv-Qpn">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="720"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser view mode" translatesAutoresizingMaskIntoConstraints="NO" id="J5d-BA-D2w">
-                                        <rect key="frame" x="17" y="589" width="616" height="96"/>
+                                        <rect key="frame" x="17" y="609" width="616" height="96"/>
                                         <view key="contentView" id="gyQ-3a-4mB">
                                             <rect key="frame" x="3" y="3" width="610" height="78"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="249" borderType="line" title="Main browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-Ns-eIu">
-                                        <rect key="frame" x="17" y="502" width="616" height="81"/>
+                                        <rect key="frame" x="17" y="522" width="616" height="81"/>
                                         <view key="contentView" id="BDS-2M-DdF">
                                             <rect key="frame" x="3" y="3" width="610" height="63"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -301,7 +301,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Toolbar/Menu Bar/Status Bar" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Cu-Oym">
-                                        <rect key="frame" x="17" y="375" width="616" height="121"/>
+                                        <rect key="frame" x="17" y="395" width="616" height="121"/>
                                         <view key="contentView" id="n8u-Q3-lEh">
                                             <rect key="frame" x="3" y="3" width="610" height="103"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -504,19 +504,19 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="SEB dock/taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="JtS-CO-tOW">
-                                        <rect key="frame" x="17" y="155" width="616" height="214"/>
+                                        <rect key="frame" x="17" y="155" width="616" height="234"/>
                                         <view key="contentView" id="3Iq-aP-5ha">
-                                            <rect key="frame" x="3" y="3" width="610" height="196"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="216"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3dZ-i2-vT2">
-                                                    <rect key="frame" x="11" y="14" width="588" height="174"/>
+                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3dZ-i2-vT2">
+                                                    <rect key="frame" x="11" y="14" width="588" height="194"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="haG-9a-u2M">
-                                                            <rect key="frame" x="0.0" y="0.0" width="237" height="174"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="289" height="194"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Zfa-sc-BEA">
-                                                                    <rect key="frame" x="-2" y="158" width="117" height="18"/>
+                                                                    <rect key="frame" x="-2" y="178" width="117" height="18"/>
                                                                     <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</string>
                                                                     <buttonCell key="cell" type="check" title="Show SEB dock" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="cTg-Hs-L1B">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -532,20 +532,20 @@
                                                                     </connections>
                                                                 </button>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="ajV-yH-tXL">
-                                                                    <rect key="frame" x="20" y="0.0" width="217" height="154"/>
+                                                                    <rect key="frame" x="20" y="0.0" width="217" height="174"/>
                                                                     <subviews>
-                                                                        <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="P8m-ga-H0m">
-                                                                            <rect key="frame" x="-2" y="138" width="174" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="lc5-eA-GRt">
+                                                                        <button toolTip="Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)" translatesAutoresizingMaskIntoConstraints="NO" id="lWE-3I-sTM">
+                                                                            <rect key="frame" x="-2" y="158" width="198" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Show scroll lock button (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="IjF-ym-hYg">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWlan" id="2hG-AJ-XXd"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showScrollLockButton" id="4DC-N0-EzQ"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Shows the Back to Start button, if this feature in configured in the Exam pane" translatesAutoresizingMaskIntoConstraints="NO" id="end-3L-Lzd">
-                                                                            <rect key="frame" x="-2" y="118" width="182" height="18"/>
+                                                                            <rect key="frame" x="-2" y="138" width="182" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Show Back to Start button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Xu3-qq-gP1">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -555,7 +555,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="8gT-1Z-xTw">
-                                                                            <rect key="frame" x="-2" y="98" width="206" height="18"/>
+                                                                            <rect key="frame" x="-2" y="118" width="206" height="18"/>
                                                                             <string key="toolTip">Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu.</string>
                                                                             <buttonCell key="cell" type="check" title="Show navigation buttons (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vVA-cT-h1p">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -566,7 +566,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Reloads current web page. Shows warning if enabled in Browser settings pane" translatesAutoresizingMaskIntoConstraints="NO" id="fbK-yl-e2o">
-                                                                            <rect key="frame" x="-2" y="78" width="140" height="18"/>
+                                                                            <rect key="frame" x="-2" y="98" width="140" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Show reload button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="whL-zd-OWS">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -576,7 +576,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Soq-V2-Zan">
-                                                                            <rect key="frame" x="-2" y="58" width="221" height="18"/>
+                                                                            <rect key="frame" x="-2" y="78" width="221" height="18"/>
                                                                             <string key="toolTip">Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</string>
                                                                             <buttonCell key="cell" type="check" title="Show scan QR code button (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XpZ-o2-ZKZ">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -587,7 +587,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Show current time" translatesAutoresizingMaskIntoConstraints="NO" id="wZf-F1-YN6">
-                                                                            <rect key="frame" x="-2" y="38" width="86" height="18"/>
+                                                                            <rect key="frame" x="-2" y="58" width="86" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="TNk-06-tQi">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -597,7 +597,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="ndk-5a-0Nv">
-                                                                            <rect key="frame" x="-2" y="18" width="192" height="18"/>
+                                                                            <rect key="frame" x="-2" y="38" width="192" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="HEJ-HA-6o4">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -607,13 +607,23 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Shows the Quit SEB/Session (iOS) Dock button" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-QD-jfK">
-                                                                            <rect key="frame" x="-2" y="-2" width="126" height="18"/>
+                                                                            <rect key="frame" x="-2" y="18" width="126" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Show quit button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rQZ-65-nx7">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showQuitButton" id="G9U-fO-6tx"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="P8m-ga-H0m">
+                                                                            <rect key="frame" x="-2" y="-2" width="174" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="lc5-eA-GRt">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWlan" id="2hG-AJ-XXd"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -626,8 +636,10 @@
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
+                                                                        <integer value="1000"/>
                                                                     </visibilityPriorities>
                                                                     <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
@@ -651,44 +663,68 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-5e-so6">
-                                                            <rect key="frame" x="467" y="153" width="121" height="21"/>
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68I-OY-w2B">
+                                                            <rect key="frame" x="299" y="153" width="289" height="41"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYT-Pi-uR0">
-                                                                    <rect key="frame" x="-2" y="3" width="77" height="18"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="18" id="ylv-3C-Je0"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dock height" usesSingleLineMode="YES" id="afV-ai-ahl">
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-5e-so6">
+                                                                    <rect key="frame" x="0.0" y="20" width="121" height="21"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYT-Pi-uR0">
+                                                                            <rect key="frame" x="-2" y="0.0" width="77" height="18"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="18" id="ylv-3C-Je0"/>
+                                                                            </constraints>
+                                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dock height" usesSingleLineMode="YES" id="afV-ai-ahl">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-Jp-rma">
+                                                                            <rect key="frame" x="81" y="0.0" width="40" height="21"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="40" id="rjs-lC-BA7"/>
+                                                                            </constraints>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="FmI-NQ-6Xi">
+                                                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="MPM-rp-0mU">
+                                                                                    <real key="minimum" value="40"/>
+                                                                                    <real key="maximum" value="256"/>
+                                                                                </numberFormatter>
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="qzw-jc-PCS"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="3h8-dl-Izv">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="bdb-Ye-f5Q">
+                                                                    <rect key="frame" x="-2" y="-2" width="163" height="18"/>
+                                                                    <string key="toolTip">With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)</string>
+                                                                    <buttonCell key="cell" type="check" title="Enable scroll lock (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4jn-9i-JSP">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-Jp-rma">
-                                                                    <rect key="frame" x="81" y="0.0" width="40" height="21"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="40" id="rjs-lC-BA7"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="FmI-NQ-6Xi">
-                                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="MPM-rp-0mU">
-                                                                            <real key="minimum" value="40"/>
-                                                                            <real key="maximum" value="256"/>
-                                                                        </numberFormatter>
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
+                                                                    </buttonCell>
                                                                     <connections>
-                                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="qzw-jc-PCS"/>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="3h8-dl-Izv">
-                                                                            <dictionary key="options">
-                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                                <bool key="NSValidatesImmediately" value="YES"/>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableScrollLock" id="JXm-oD-eTU"/>
                                                                     </connections>
-                                                                </textField>
+                                                                </button>
                                                             </subviews>
                                                             <visibilityPriorities>
                                                                 <integer value="1000"/>
@@ -717,7 +753,7 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="210" id="FLM-Nm-Cwk"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="230" id="FLM-Nm-Cwk"/>
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="ayC-nf-hkG">
@@ -965,7 +1001,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.73076923076923084" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.48611111111111116" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
