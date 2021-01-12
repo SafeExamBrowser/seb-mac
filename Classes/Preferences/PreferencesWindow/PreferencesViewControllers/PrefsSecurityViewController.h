@@ -58,10 +58,13 @@
     __weak IBOutlet NSButton *allowedDisplayBuiltinEnforceButton;
     __weak IBOutlet NSButton *allowedDisplayBuiltinExceptDesktopButton;
     
+    __weak IBOutlet NSButton *allowiOSScreenCaptureButton;
     __weak IBOutlet NSComboBox *miniOSVersionMajor;
     __weak IBOutlet NSComboBox *miniOSVersionMinor;
     __weak IBOutlet NSComboBox *miniOSVersionPatch;
     __weak IBOutlet NSComboBox *allowediOSBetaVersion;
+    
+    __weak IBOutlet NSButton *enablePrintScreenButton;
 }
 
 - (NSString *)identifier;
