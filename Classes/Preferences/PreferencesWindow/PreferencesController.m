@@ -62,7 +62,13 @@
 
 
 - (BOOL)preferencesAreOpen {
-    return [[MBPreferencesController sharedController].window isVisible];
+    return [self.preferencesWindow isVisible];
+}
+
+
+- (NSWindow *)preferencesWindow
+{
+    return [MBPreferencesController sharedController].window;
 }
 
 
@@ -156,9 +162,9 @@
                                                             nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
-    if (![[MBPreferencesController sharedController].window delegate]) {
+    if (![self.preferencesWindow delegate]) {
         // Set delegate only if it's not yet set!
-        [[MBPreferencesController sharedController].window setDelegate:self];
+        [self.preferencesWindow setDelegate:self];
     }
 }
 
@@ -181,7 +187,8 @@
 // Method called to programmatically close the preferences window
 - (void) closePreferencesWindow
 {
-//    [[MBPreferencesController sharedController].window orderOut:self];
+    DDLogInfo(@"%s", __FUNCTION__);
+
     self.generalVC = nil;
     self.configFileVC = nil;
     self.examVC = nil;
@@ -194,6 +201,7 @@
 // Releases preferences window so after reopening bindings get synchronized properly with new loaded values
 - (void)releasePreferencesWindow
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     self.refreshingPreferences = YES;
     [[MBPreferencesController sharedController] unloadNibs];
 }
@@ -760,8 +768,9 @@
 
 
 // Save preferences and quit SEB
-- (IBAction) quitSEB:(id)sender {
-
+- (IBAction) quitSEB:(id)sender
+{
+    DDLogInfo(@"%s Quitting SEB while Preferences window is open", __FUNCTION__);
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -776,7 +785,7 @@
     /// If private settings are active, check if those current settings have unsaved changes
 
     if (NSUserDefaults.userDefaultsPrivate && browserExamKeyChanged) {
-        // There are unsaved changes
+        DDLogInfo(@"Private user defaults (exam settings) active: There are unsaved changes");
         SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlert];
         switch(answer)
         {
@@ -804,9 +813,10 @@
     } else if (!NSUserDefaults.userDefaultsPrivate) {
         
         /// Local client settings are active
-        
+        DDLogInfo(@"Client settings are active");
         // If settings changed:
         if ([self settingsChanged]) {
+            DDLogInfo(@"Client settings have been changed, ask if they should be applied.");
             // Ask if edited settings should be applied or previously active settings restored
             SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
             switch(answer)
@@ -814,6 +824,7 @@
                 case SEBApplySettingsAnswerCancel:
                 {
                     // Cancel: Don't quit
+                    DDLogInfo(@"User selected to cancel applying changed client settings, also abort quitting SEB.");
                     return;
                 }
             }
@@ -840,6 +851,7 @@
             }
         }
     }
+    _sebController.quittingMyself = YES;
     [self closePreferencesWindow];
 
 	[[NSNotificationCenter defaultCenter]
@@ -884,7 +896,7 @@
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
     [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
-    [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
+    [panel beginSheetModalForWindow:self.preferencesWindow
                   completionHandler:^(NSInteger result){
                       if (result == NSFileHandlingPanelOKButton)
                       {

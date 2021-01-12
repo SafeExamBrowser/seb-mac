@@ -143,7 +143,7 @@
 }
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
-@property(strong, nonatomic) IBOutlet id preferencesController;
+@property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
 @property(strong, nonatomic) SEBDockController *dockController;
@@ -176,6 +176,7 @@
 @property(readwrite) BOOL touchBarDetected;
 
 @property(readwrite) BOOL f3Pressed;
+@property(readwrite) BOOL alternateKeyPressed;
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
