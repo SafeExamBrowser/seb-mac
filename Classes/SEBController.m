@@ -777,6 +777,9 @@ bool insideMatrix(void);
         
         if (_alternateKeyPressed) {
             DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
+            if (aboutWindow.isVisible) {
+                [self closeAboutWindow];
+            }
             [self openPreferences:self];
             if ([self.preferencesController preferencesAreOpen]) {
                 [self.preferencesController openSEBPrefsAtURL:sebFileURL];
@@ -874,6 +877,9 @@ bool insideMatrix(void);
 
     if (_alternateKeyPressed) {
         DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
+        if (aboutWindow.isVisible) {
+            [self closeAboutWindow];
+        }
         [self openPreferences:self];
 
     } else {
