@@ -488,6 +488,9 @@
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
     
     [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
+
+    // Re-initialize and open preferences window
+    [self initPreferencesWindow];
     [self reopenPreferencesWindow];
 }
 
@@ -1236,32 +1239,50 @@
         }
     }
 
-    // Release preferences window so buttons get enabled properly for the local client settings mode
-    [self releasePreferencesWindow];
-    
-    //switch to system's UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:NO];
-    
-    // Get key/values from local shared client UserDefaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
-    
-    // Reset the config file password
-    _currentConfigPassword = nil;
-    _currentConfigPasswordIsHash = NO;
-    // Reset the config file encrypting identity (key) reference
-    _currentConfigFileKeyHash = nil;
-    
-    // Write values from local to private preferences
-    [self.configFileController storeIntoUserDefaults:localClientPreferences];
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-    
-    // Re-initialize and open preferences window
-    [self initPreferencesWindow];
-	[self reopenPreferencesWindow];
+
+    void (^revertToClientSettings)(BOOL) = ^void (BOOL correctPasswordEntered) {
+        if (correctPasswordEntered) {
+            // Release preferences window so buttons get enabled properly for the local client settings mode
+            [self releasePreferencesWindow];
+
+            // Get key/values from local shared client UserDefaults
+            NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
+            
+            // Reset the config file password
+            self.currentConfigPassword = nil;
+            self.currentConfigPasswordIsHash = NO;
+            // Reset the config file encrypting identity (key) reference
+            self.currentConfigFileKeyHash = nil;
+            
+            // Update local preferences and recalculate Config Key (also its contained keys)
+            [self.configFileController storeIntoUserDefaults:localClientPreferences];
+            
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+            
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+
+            // Re-initialize and open preferences window
+            [self initPreferencesWindow];
+            [self reopenPreferencesWindow];
+
+        } else {
+            [NSUserDefaults setUserDefaultsPrivate:YES];
+        }
+    };
+
+    NSString *privateDefaultsHashedAdminPassword = [self.configFileController getHashedAdminPassword];
+
+    // Switch to system's UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    NSString *hashedAdminPassword = [self.configFileController getHashedAdminPassword];
+    // Check if the admin password from the current private defaults is the same as the one in client setting
+    if ([privateDefaultsHashedAdminPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+        // If admin passwords differ, ask the user to enter the admin pw from client settings
+        [self.configFileController promptPasswordForHashedPassword:hashedAdminPassword messageText:[NSString stringWithFormat:NSLocalizedString(@"Enter the %@ administrator password used in client settings:",nil), SEBShortAppName] title:NSLocalizedString(@"Revert to Client Settings",nil) completionHandler:revertToClientSettings];
+    } else {
+        revertToClientSettings(YES);
+    }
 }
 
 
@@ -1315,6 +1336,9 @@
             // Error when reading configuration data
             [NSApp presentError:error];
         } else {
+            // Release preferences window so buttons get enabled properly for the local client settings mode
+            [self releasePreferencesWindow];
+
             // Pass saved credentials from the last loaded file to the Config File Manager
             self.configFileController.currentConfigPassword = _currentConfigPassword;
             self.configFileController.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
@@ -1322,14 +1346,20 @@
             
             // Decrypt and store the .seb config file
             [self.configFileController storeNewSEBSettings:sebData
-                                             forEditing:YES
-                                               callback:self
+                                                forEditing:YES
+                                                  callback:self
                                                   selector:@selector(openingSEBPrefsSucessfull:)];
         }
     } else {
         // If using local client settings
+        // Release preferences window so buttons get enabled properly for the local client settings mode
+        [self releasePreferencesWindow];
         DDLogInfo(@"Reverting local client settings to settings before editing");
         [settingsBeforeEditing restoreSettings];
+        
+        // Re-initialize and open preferences window
+        [self initPreferencesWindow];
+        [self reopenPreferencesWindow];
     }
 }
 
@@ -1469,26 +1499,43 @@
             }
         }
     }
+    
+    void (^configureClient)(BOOL) = ^void (BOOL correctPasswordEntered) {
+        if (correctPasswordEntered) {
+            // Get key/values from private UserDefaults
+            NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
+            
+            // Release preferences window so buttons get enabled properly for the local client settings mode
+            [self releasePreferencesWindow];
+            
+            // Write values from .seb config file to the local preferences (shared UserDefaults)
+            [self.configFileController storeIntoUserDefaults:privatePreferences];
+            
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+            
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+            
+            // Re-initialize and open preferences window
+            [self initPreferencesWindow];
+            [self reopenPreferencesWindow];
 
-    // Get key/values from private UserDefaults
-    NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
-    
-    // Release preferences window so buttons get enabled properly for the local client settings mode
-    [self releasePreferencesWindow];
-    
-    //switch to system's UserDefaults
+        } else {
+            [NSUserDefaults setUserDefaultsPrivate:YES];
+        }
+    };
+
+    NSString *privateDefaultsHashedAdminPassword = [self.configFileController getHashedAdminPassword];
+
+    // Switch to system's UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
-    
-    // Write values from .seb config file to the local preferences (shared UserDefaults)
-    [self.configFileController storeIntoUserDefaults:privatePreferences];
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-    
-    // Re-initialize and open preferences window
-    [self initPreferencesWindow];
-	[self reopenPreferencesWindow];
+    NSString *hashedAdminPassword = [self.configFileController getHashedAdminPassword];
+    // Check if the admin password from the current private defaults is the same as the one in client setting
+    if ([privateDefaultsHashedAdminPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+        // If admin passwords differ, ask the user to enter the admin pw from client settings
+        [self.configFileController promptPasswordForHashedPassword:hashedAdminPassword messageText:[NSString stringWithFormat:NSLocalizedString(@"Enter the %@ administrator password used in client settings:",nil), SEBShortAppName] title:NSLocalizedString(@"Configure Client",nil) completionHandler:configureClient];
+    } else {
+        configureClient(YES);
+    }
 }
 
 
