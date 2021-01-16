@@ -262,6 +262,24 @@
 }
 
 
+- (void) promptPasswordForHashedPassword:(NSString *)passwordHash
+                             messageText:(NSString *)messageText
+                                   title:(NSString *)title
+                                attempts:(NSInteger)attempts
+                                callback:(id)callback
+                                selector:(SEL)selector
+                       completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler
+{
+    NSString *password = nil;
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+        password = [self.sebController.enterPassword stringValue];
+    }
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, NSString*, NSString*, NSString*, NSString*, NSInteger, void (^)(BOOL)) = (void *)imp;
+    func(callback, selector, password, passwordHash, messageText, title, attempts, enteredPasswordHandler);
+}
+
+
 - (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText
                                             title:(NSString *)title
 {

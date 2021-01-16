@@ -780,11 +780,9 @@ bool insideMatrix(void);
             if (aboutWindow.isVisible) {
                 [self closeAboutWindow];
             }
+            [self.preferencesController openSEBPrefsAtURL:sebFileURL];
             [self openPreferences:self];
-            if ([self.preferencesController preferencesAreOpen]) {
-                [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-                return;
-            }
+            return;
         }
         NSError *error = nil;
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
