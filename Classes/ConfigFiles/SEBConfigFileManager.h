@@ -71,6 +71,21 @@
                               selector:(SEL)aSelector;
 
 /**
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text asynchronously, calling the callback
+ *              method with the entered password when one was entered
+ *              and executing the completion block with the final result
+ *              (true = correct password entered)
+ */
+- (void) promptPasswordForHashedPassword:(NSString *)passwordHash
+                             messageText:(NSString *)messageText
+                                   title:(NSString *)title
+                                attempts:(NSInteger)attempts
+                                callback:(id)callback
+                                selector:(SEL)aSelector
+                       completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler;
+
+/**
  * @brief       Delegate method to display an alert when wrong password was entered
  */
 - (void) showAlertWrongPassword;
@@ -187,7 +202,12 @@
 
 
 // Helper methods
+- (NSString *) getHashedAdminPassword;
 - (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error;
+- (void) promptPasswordForHashedPassword:(NSString *)passwordHash
+                             messageText:(NSString *)messageText
+                                   title:(NSString *)title
+                       completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler;
 
 // Load a SebClientSettings.seb file saved in the preferences directory
 // and if it existed and was loaded, use it to re-configure SEB
