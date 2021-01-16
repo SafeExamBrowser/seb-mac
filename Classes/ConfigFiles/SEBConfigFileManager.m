@@ -393,6 +393,33 @@
 }
 
 
+// Get admin password hash from current settings
+static NSString *getHashedAdminPassword()
+{
+    NSString *hashedAdminPassword = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    if (!hashedAdminPassword) {
+        // If there was no hashed admin password saved, we set it to an empty string
+        // as this is the standard password used to encrypt settings for configuring client
+        hashedAdminPassword = @"";
+    }
+    return hashedAdminPassword;
+}
+
+
+// Get admin password hash from current settings
+static NSString *getUppercaseAdminPasswordHash()
+{
+    NSString *hashedAdminPassword = getHashedAdminPassword();
+    return [hashedAdminPassword uppercaseString];
+}
+
+
+- (NSString *) getHashedAdminPassword
+{
+    return getHashedAdminPassword();
+}
+
+
 // Helper method which decrypts the data using an empty password,
 // or the administrator password currently set in SEB
 // or asks for the password used for encrypting this SEB file
@@ -403,15 +430,9 @@
     // We set the passwordIsHash flag to false here as indicator that another as the current admin password was used
     // to decrypt settings (when the hashed admin password can be used to decryt, then it is set to true below)
     sebFileCredentials.passwordIsHash = false;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // First try to decrypt with the current admin password
     // get admin password hash
-    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        // If there was no hashed admin password saved, we set it to an empty string
-        // as this is the standard password used to encrypt settings for configuring client
-        hashedAdminPassword = @"";
-    }
+    NSString * hashedAdminPassword = getHashedAdminPassword();
     NSError *error = nil;
     NSData *sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedAdminPassword error:&error];
     if (error || !sebDataDecrypted) {
@@ -501,6 +522,7 @@
     }
 }
 
+
 // Decrypting the settings for configuring client was successful:
 // We have to find out if we're allowed to use it
 - (void) decryptForConfiguringClientSuccessful
@@ -522,14 +544,7 @@
     if (!sebFileHashedAdminPassword) {
         sebFileHashedAdminPassword = @"";
     }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    // Get admin password hash from current client settings
-    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    }
+    NSString * hashedAdminPassword = getUppercaseAdminPasswordHash();
     
     // Has the SEB config file the same admin password inside as the current one?
     // If yes, then we can directly use those setting to configure the client
@@ -583,13 +598,7 @@
     }
 
     // Get admin password hash from current client settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    }
+    NSString *hashedAdminPassword = getUppercaseAdminPasswordHash();
 
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSString *hashedPassword;
@@ -631,6 +640,68 @@
     } else {
         // The correct admin password was entered: continue processing the parsed SEB settings it
         [self checkParsedSettingForConfiguringAndStore:parsedSEBPreferencesDict];
+    }
+}
+
+
+- (void) promptPasswordForHashedPassword:(NSString *)passwordHash
+                             messageText:(NSString *)messageText
+                                   title:(NSString *)title
+                       completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler
+{
+    // Allow up to 5 attempts for entering the password
+    NSInteger attempts = 5;
+    [self.delegate promptPasswordForHashedPassword:passwordHash messageText:messageText title:title attempts:attempts callback:self selector:@selector(checkEnteredPassword:hashedPassword:messageText:title:attempts:completionHandler:) completionHandler:enteredPasswordHandler];
+}
+
+
+- (void) checkEnteredPassword:(NSString *)password
+               hashedPassword:(NSString *)passwordHash
+                  messageText:(NSString *)messageText
+                        title:(NSString *)title
+                     attempts:(NSInteger)attempts
+            completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler
+{
+    if (password == nil) {
+        if (enteredPasswordHandler) {
+            enteredPasswordHandler(NO);
+        }
+        return;
+    }
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword;
+    if (password.length == 0) {
+        // An empty password has to be an empty hashed password string
+        hashedPassword = @"";
+    } else {
+        hashedPassword = [keychainManager generateSHAHashString:password];
+        hashedPassword = [hashedPassword uppercaseString];
+    }
+    
+    attempts--;
+    
+    if ([hashedPassword caseInsensitiveCompare:passwordHash] != NSOrderedSame) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.delegate promptPasswordForHashedPassword:passwordHash messageText:messageText title:title attempts:attempts callback:self selector:@selector(checkEnteredPassword:hashedPassword:messageText:title:attempts:completionHandler:) completionHandler:enteredPasswordHandler];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts
+            // Inform completion handler that entering the correct password failed
+            if (enteredPasswordHandler) {
+                enteredPasswordHandler(NO);
+            }
+            return;
+        }
+        
+    } else {
+        // Inform completion handler that entering the correct password correct admin password succeeded
+        if (enteredPasswordHandler) {
+            enteredPasswordHandler(YES);
+        }
     }
 }
 
@@ -821,11 +892,7 @@
         // If there was no or an empty admin password set in these settings, the user can access them anyways
         if (sebFileHashedAdminPassword.length > 0) {
             // Get the current hashed admin password
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-            if (!hashedAdminPassword) {
-                hashedAdminPassword = @"";
-            }
+            NSString *hashedAdminPassword = getHashedAdminPassword();
             // If the current hashed admin password is same as the hashed admin password from the settings file
             // then the user is allowed to access the settings
             if ([hashedAdminPassword caseInsensitiveCompare:sebFileHashedAdminPassword] != NSOrderedSame) {
