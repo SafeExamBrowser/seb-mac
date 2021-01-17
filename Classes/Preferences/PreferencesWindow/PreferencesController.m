@@ -77,6 +77,16 @@
 }
 
 
+- (SEBOSXConfigFileController *) configFileController
+{
+    if (!_configFileController) {
+        _configFileController = [[SEBOSXConfigFileController alloc] init];
+        _configFileController.sebController = self.sebController;
+    }
+    return _configFileController;
+}
+
+
 - (SEBBrowserController *)browserController {
     if (!_browserController) {
         _browserController = _sebController.browserController.browserController;
@@ -111,10 +121,6 @@
         // Don't init
         return;
     }
-    
-    _configFileController = [[SEBOSXConfigFileController alloc] init];
-    _configFileController.sebController = self.sebController;
-
     
     // Save current settings
     self.refreshingPreferences = NO;
@@ -1508,6 +1514,9 @@
             // Release preferences window so buttons get enabled properly for the local client settings mode
             [self releasePreferencesWindow];
             
+            // Switch to system's UserDefaults
+            [NSUserDefaults setUserDefaultsPrivate:NO];
+
             // Write values from .seb config file to the local preferences (shared UserDefaults)
             [self.configFileController storeIntoUserDefaults:privatePreferences];
             
@@ -1529,6 +1538,8 @@
     // Switch to system's UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
     NSString *hashedAdminPassword = [self.configFileController getHashedAdminPassword];
+    //switch to private UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:YES];
     // Check if the admin password from the current private defaults is the same as the one in client setting
     if ([privateDefaultsHashedAdminPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
         // If admin passwords differ, ask the user to enter the admin pw from client settings
