@@ -541,7 +541,10 @@ bool insideMatrix(void);
     f3Pressed = FALSE; //Initialize flag for first hotkey
 
     // Show the About SEB Window
-    [aboutWindow showAboutWindowForSeconds:2];
+    _alternateKeyPressed = [self alternateKeyCheck];
+    if (_alternateKeyPressed == NO) {
+        [aboutWindow showAboutWindowForSeconds:2];
+    }
 }
 
 
@@ -676,7 +679,7 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
-
+    
     // Check if the font download alert was triggered from a web page
     // and SEB didn't had Accessibility permissions
     // and therefore was terminated to prevent a modal lock
@@ -700,9 +703,9 @@ bool insideMatrix(void);
                 modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", nil)];
                 [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.", nil), [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", nil),
-                 [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey],
-                 [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
-                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                                                                                                                                                                                                                                                                                                                                                                      [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey],
+                                                                                                                                                                                                                                                                                                                                                                      [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
                   completionHandler:(void (^)(NSModalResponse answer))accessibilityPermissionsAlertOK];
@@ -781,7 +784,6 @@ bool insideMatrix(void);
                 [self closeAboutWindow];
             }
             [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-            [self openPreferences:self];
             return;
         }
         NSError *error = nil;
@@ -4631,11 +4633,13 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction)showAbout:(id)sender
 {
-    [aboutWindow setStyleMask:NSBorderlessWindowMask];
-	[aboutWindow center];
-	//[aboutWindow orderFront:self];
-    //[aboutWindow setLevel:NSMainMenuWindowLevel];
-    [[NSApplication sharedApplication] runModalForWindow:aboutWindow];
+    if (_alternateKeyPressed == NO) {
+        [aboutWindow setStyleMask:NSBorderlessWindowMask];
+        [aboutWindow center];
+        //[aboutWindow orderFront:self];
+        //[aboutWindow setLevel:NSMainMenuWindowLevel];
+        [[NSApplication sharedApplication] runModalForWindow:aboutWindow];
+    }
 }
 
 
