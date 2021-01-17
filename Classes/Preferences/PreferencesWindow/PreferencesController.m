@@ -474,6 +474,9 @@
             [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
             return;
         }
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self releasePreferencesWindow];
+
         // Decrypt and store the .seb config file
         currentSEBFileURL = sebFileURL;
         [self.configFileController storeNewSEBSettings:sebData
