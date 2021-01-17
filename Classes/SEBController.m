@@ -616,7 +616,7 @@ bool insideMatrix(void);
 
     if (!_openingSettings) {
         _openingSettings = true;
-        if (_startingUp) {
+        if (_startingUp && !_alternateKeyPressed) {
             DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
             _openingSettingsFileURL = fileURL;
         } else {
