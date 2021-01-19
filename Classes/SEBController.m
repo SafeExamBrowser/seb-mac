@@ -157,6 +157,15 @@ bool insideMatrix(void);
 }
 
 
+- (AboutWindowController *) aboutWindowController
+{
+    if (!_aboutWindowController) {
+        _aboutWindowController = [[AboutWindowController alloc] initWithWindow:_aboutWindow];
+    }
+    return _aboutWindowController;
+}
+
+
 - (HUDController *) hudController
 {
     if (!_hudController) {
@@ -409,7 +418,7 @@ bool insideMatrix(void);
                                                  name:@"requestShowAboutNotification" object:nil];
     
     // Add an observer for the request to close about panel
-    [[NSNotificationCenter defaultCenter] addObserver:aboutWindow
+    [[NSNotificationCenter defaultCenter] addObserver:self.aboutWindow
                                              selector:@selector(closeAboutWindow:)
                                                  name:@"requestCloseAboutWindowNotification" object:nil];
     
@@ -539,12 +548,6 @@ bool insideMatrix(void);
     
     // Handling of Hotkeys for Preferences-Window
     f3Pressed = FALSE; //Initialize flag for first hotkey
-
-    // Show the About SEB Window
-    _alternateKeyPressed = [self alternateKeyCheck];
-    if (_alternateKeyPressed == NO) {
-        [aboutWindow showAboutWindowForSeconds:2];
-    }
 }
 
 
@@ -714,6 +717,13 @@ bool insideMatrix(void);
             }
         }
     }
+    
+    // Show the About SEB Window
+    _alternateKeyPressed = [self alternateKeyCheck];
+    if (_alternateKeyPressed == NO) {
+        [self.aboutWindowController showAboutWindowForSeconds:2];
+    }
+
     [self applicationDidFinishLaunchingProceed];
 }
 
@@ -780,7 +790,8 @@ bool insideMatrix(void);
         
         if (_alternateKeyPressed) {
             DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
-            if (aboutWindow.isVisible) {
+            if (self.aboutWindow.isVisible) {
+                DDLogDebug(@"%s About SEB window is visible, attempting to close it.", __FUNCTION__);
                 [self closeAboutWindow];
             }
             [self.preferencesController openSEBPrefsAtURL:sebFileURL];
@@ -877,7 +888,8 @@ bool insideMatrix(void);
 
     if (_alternateKeyPressed) {
         DDLogInfo(@"Option/alt key being held while SEB is started, will open Preferences window.");
-        if (aboutWindow.isVisible) {
+        if (self.aboutWindow.isVisible) {
+            DDLogDebug(@"%s About SEB window is visible, attempting to close it.", __FUNCTION__);
             [self closeAboutWindow];
         }
         [self openPreferences:self];
@@ -2682,8 +2694,8 @@ bool insideMatrix(){
 
 // Close the About Window
 - (void) closeAboutWindow {
-    DDLogInfo(@"Attempting to close about window %@", aboutWindow);
-    [aboutWindow orderOut:self];
+    DDLogInfo(@"Attempting to close About SEB window %@", self.aboutWindow);
+    [self.aboutWindow orderOut:self];
 }
 
 
@@ -2948,7 +2960,8 @@ bool insideMatrix(){
     NSAlert *newAlert = [[NSAlert alloc] init];
     DDLogDebug(@"Adding modal alert window %@", newAlert.window);
     [_modalAlertWindows addObject:newAlert.window];
-    if (aboutWindow.isVisible) {
+    if (self.aboutWindow.isVisible) {
+        DDLogDebug(@"%s About SEB window is visible, attempting to close it.", __FUNCTION__);
         [self closeAboutWindow];
     }
     return newAlert;
@@ -3850,12 +3863,12 @@ conditionallyForWindow:(NSWindow *)window
     [self adjustModalAlertWindowLevels:allowAppsUserDefaultsSetting];
     
     // Change window level of the about window if it is displayed
-    if (aboutWindow.isVisible) {
+    if (self.aboutWindow.isVisible) {
         DDLogWarn(@"About window displayed");
         if (allowApps  || _isAACEnabled) {
-            [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
+            [self.aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
         } else {
-            [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
+            [self.aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
         }
     }
 }
@@ -3912,12 +3925,12 @@ conditionallyForWindow:(NSWindow *)window
         [self adjustModalAlertWindowLevels:allowSwitchToThirdPartyApps];
         
         // Change window level of the about window if it is displayed
-        if (aboutWindow.isVisible) {
+        if (self.aboutWindow.isVisible) {
             DDLogWarn(@"About window displayed");
             if (allowSwitchToThirdPartyApps || _isAACEnabled) {
-                [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
+                [self.aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
             } else {
-                [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
+                [self.aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
             }
         }
     }
@@ -4634,11 +4647,11 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction)showAbout:(id)sender
 {
     if (_alternateKeyPressed == NO) {
-        [aboutWindow setStyleMask:NSBorderlessWindowMask];
-        [aboutWindow center];
-        //[aboutWindow orderFront:self];
-        //[aboutWindow setLevel:NSMainMenuWindowLevel];
-        [[NSApplication sharedApplication] runModalForWindow:aboutWindow];
+        [self.aboutWindow setStyleMask:NSBorderlessWindowMask];
+        [self.aboutWindow center];
+        //[self.aboutWindow orderFront:self];
+        //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
+        [[NSApplication sharedApplication] runModalForWindow:self.aboutWindow];
     }
 }
 
