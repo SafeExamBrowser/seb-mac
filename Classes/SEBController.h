@@ -48,6 +48,7 @@
 #import "SEBOSXLockedViewController.h"
 
 #import "AboutWindow.h"
+#import "AboutWindowController.h"
 #import "SEBOSXBrowserController.h"
 
 #import "SEBBrowserWindow.h"
@@ -84,7 +85,6 @@
 	BOOL firstStart;
     BOOL quittingMyself;
 
-	IBOutlet AboutWindow *aboutWindow;
     NSAlert *_modalAlert;
     IBOutlet NSWindow *cmdKeyAlertWindow;
     IBOutlet NSMenuItem *configMenu;
@@ -149,6 +149,8 @@
 @property(strong, nonatomic) SEBDockController *dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
+@property(weak, nonatomic) IBOutlet AboutWindow *aboutWindow;
+@property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;

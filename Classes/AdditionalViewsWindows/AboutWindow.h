@@ -37,14 +37,13 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface AboutWindow : NSWindow <NSWindowDelegate> {
-
-  	IBOutlet NSTextField *version;
-	IBOutlet NSTextView *copyright;
-  
+@interface AboutWindow : NSWindow {
+    
+    IBOutlet NSTextField *version;
+    IBOutlet NSTextView *copyright;
+    
 }
 
-- (void) showAboutWindowForSeconds:(NSInteger)minutes;
-- (void) closeAboutWindow:(NSNotification *)notification;
+@property (readwrite) BOOL isDisplayed;
 
 @end

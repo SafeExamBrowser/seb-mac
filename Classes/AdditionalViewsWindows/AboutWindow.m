@@ -37,8 +37,6 @@
 
 @implementation AboutWindow
 
-
-
 - (void) awakeFromNib
 {
 	// Write application version and localized copyright into text label fields 
@@ -59,9 +57,10 @@
 }	
 
 
-// Overriding this method to return NO prevents that the Preferences Window 
+// Overriding this method to return NO prevents that the Preferences Window
 // looses key state when the About Window is opened
-- (BOOL)canBecomeKeyWindow {
+- (BOOL)canBecomeKeyWindow
+{
     return NO;
 }
 
@@ -70,32 +69,6 @@
 - (void)mouseDown:(NSEvent *)theEvent {
 	[self orderOut:self];
     [[NSApplication sharedApplication] stopModal];
-}
-
-
-- (void)showAboutWindowForSeconds:(NSInteger)seconds {
-    // Show the About SEB Window
-    [self setDelegate:self];
-    [self setStyleMask:NSBorderlessWindowMask];
-    [self center];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [self setLevel:NSMainMenuWindowLevel+5];
-    } else {
-        [self setLevel:NSModalPanelWindowLevel-1];
-    }
-    DDLogDebug(@"orderFront About Window");
-	[self orderFront:self];
-    
-    // Close the About SEB Window after a delay
-    [self performSelector:@selector(closeAboutWindow:) withObject: nil afterDelay: seconds];
-
-}
-
-
-// Close the About Window
-- (void) closeAboutWindow:(NSNotification *)notification {
-    DDLogDebug(@"Attempting to close About Window %@", self);
-    [self orderOut:self];
 }
 
 
