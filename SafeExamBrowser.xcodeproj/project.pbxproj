@@ -69,6 +69,8 @@
 		693647FB17122A0300EE41BC /* DropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 693647F917122A0300EE41BC /* DropDownButton.m */; };
 		693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		6940394225B71A7B0094F5BC /* AboutWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940394025B71A7B0094F5BC /* AboutWindowController.h */; };
+		6940394325B71A7B0094F5BC /* AboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940394125B71A7B0094F5BC /* AboutWindowController.m */; };
 		6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
 		6940A7671853B62000D9D00D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
@@ -526,6 +528,8 @@
 		693F09941BEE18DB00DFCD8B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6940394025B71A7B0094F5BC /* AboutWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutWindowController.h; sourceTree = "<group>"; };
+		6940394125B71A7B0094F5BC /* AboutWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutWindowController.m; sourceTree = "<group>"; };
 		6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSDataZIPExtension.h"; sourceTree = "<group>"; };
 		6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSDataZIPExtension.m"; sourceTree = "<group>"; };
 		6940A7641853B4BC00D9D00D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
@@ -1256,6 +1260,8 @@
 				69E13AEF127C812900CB81E1 /* AboutView.m */,
 				6969B1D1127C7AB60027FF8D /* AboutWindow.h */,
 				6969B1D2127C7AB60027FF8D /* AboutWindow.m */,
+				6940394025B71A7B0094F5BC /* AboutWindowController.h */,
+				6940394125B71A7B0094F5BC /* AboutWindowController.m */,
 				69DD2FCF1201C416009B1005 /* CapView.h */,
 				69DD2FD01201C416009B1005 /* CapView.m */,
 				699731C218C8D6ED0069FE35 /* CapWindow.h */,
@@ -1669,6 +1675,7 @@
 				6959D96B257C28B200E3F140 /* HUDController.h in Headers */,
 				6956D3522089232C00298E65 /* SEBLockedViewController.h in Headers */,
 				69C228361C767B0900F78634 /* pkcs12.h in Headers */,
+				6940394225B71A7B0094F5BC /* AboutWindowController.h in Headers */,
 				6941A6621BDB8DED0050BF1E /* SEBDockItemTime.h in Headers */,
 				69C228251C767B0900F78634 /* error.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
@@ -2152,6 +2159,7 @@
 				69C228521C767B0900F78634 /* bignum.c in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				69C228611C767B0900F78634 /* ecp_curves.c in Sources */,
+				6940394325B71A7B0094F5BC /* AboutWindowController.m in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
 				6959D96C257C28B200E3F140 /* HUDController.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,

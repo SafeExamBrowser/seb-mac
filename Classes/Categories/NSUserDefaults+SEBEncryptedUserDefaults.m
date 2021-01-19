@@ -196,7 +196,7 @@ static NSNumber *_logLevel;
                                         @NO,
                                         @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                         
-                                        @YES,
+                                        @NO,
                                         @"org_safeexambrowser_elevateWindowLevels",
 
 #if TARGET_OS_IPHONE
