@@ -7,6 +7,9 @@
 /* Class = "NSTextFieldCell"; title = "Status Bar with FaceID (iOS)"; ObjectID = "3Dw-Kd-w6C"; */
 "3Dw-Kd-w6C.title" = "Statusleiste mit FaceID (iOS)";
 
+/* Class = "NSButtonCell"; title = "Enable scroll lock (iOS)"; ObjectID = "4jn-9i-JSP"; */
+"4jn-9i-JSP.title" = "Scroll Lock zulassen (iOS)";
+
 /* Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "4om-Lh-WpE"; */
 "4om-Lh-WpE.title" = "Text-Zoom zulassen";
 
@@ -36,6 +39,9 @@
 
 /* Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "b3g-sT-qMg"; */
 "b3g-sT-qMg.title" = "Begriffe Nachschlagen erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)"; ObjectID = "bdb-Ye-f5Q"; */
+"bdb-Ye-f5Q.ibShadowedToolTip" = "Mit der Scroll-Lock-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern (nur iOS)";
 
 /* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "cKh-Sd-JBS"; */
 "cKh-Sd-JBS.title" = "Horizontale Positionierung";
@@ -67,6 +73,9 @@
 /* Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "ID6-7c-aOO"; */
 "ID6-7c-aOO.title" = "Vollbildmodus benutzen";
 
+/* Class = "NSButtonCell"; title = "Show scroll lock button (iOS)"; ObjectID = "IjF-ym-hYg"; */
+"IjF-ym-hYg.title" = "Scroll Lock Taste anzeigen (iOS)";
+
 /* Class = "NSBox"; title = "Browser view mode"; ObjectID = "J5d-BA-D2w"; */
 "J5d-BA-D2w.title" = "Browser-Darstellungsmodus";
 
@@ -84,6 +93,9 @@
 
 /* Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "LNX-ve-0Pd"; */
 "LNX-ve-0Pd.title" = "Symbolleiste anzeigen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)"; ObjectID = "lWE-3I-sTM"; */
+"lWE-3I-sTM.ibShadowedToolTip" = "Scroll Lock Taste im Dock anzeigen, wenn die Scroll Lock Funktion zugelassen ist (nur iOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "ndk-5a-0Nv"; */
 "ndk-5a-0Nv.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
