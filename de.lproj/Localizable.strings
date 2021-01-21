@@ -11,6 +11,12 @@
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
 
 /* No comment provided by engineer. */
+"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
+
+/* No comment provided by engineer. */
+"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, enter the quit/unlock password or response, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, geben Sie das Beenden/Entsperren-Passwort/Response ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* No comment provided by engineer. */
 "Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
 
 /* No comment provided by engineer. */
@@ -69,6 +75,9 @@
 
 /* No comment provided by engineer. */
 "Back to Start" = "Zurück zum Start";
+
+/* No comment provided by engineer. */
+"Battery Status" = "Batteriestatus";
 
 /* No comment provided by engineer. */
 "Before receiving title" = "Bevor Titel empfangen wird";
@@ -147,6 +156,9 @@
 
 /* Title of 'Config File' preference pane */
 "Config File" = "Konfiguration";
+
+/* No comment provided by engineer. */
+"Configure Client" = "Client konfigurieren";
 
 /* No comment provided by engineer. */
 "Configuring Client" = "Client konfigurieren";
@@ -266,6 +278,9 @@
 "Enter quit/unlock password:" = "Beenden/Entsperren-Passwort eingeben:";
 
 /* No comment provided by engineer. */
+"Enter the %@ administrator password used in client settings:" = "Geben Sie das %@ Administrator Passwort aus den Client-Einstellungen ein:";
+
+/* No comment provided by engineer. */
 "Enter the %@ administrator password used in these settings:" = "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -359,6 +374,9 @@
 "Info" = "Info";
 
 /* No comment provided by engineer. */
+"iOS User agent" = "iOS User Agent";
+
+/* No comment provided by engineer. */
 "It's not allowed to open this URL! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese URL zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
@@ -435,6 +453,12 @@
 
 /* No comment provided by engineer. */
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten";
+
+/* No comment provided by engineer. */
+"No built-in display available, although required in settings!" = "Kein eingebautes Display verfügbar, obwohl dies in den Einstellungen verlangt wird!";
+
+/* Lockdown alert title text for no required built-in display available */
+"No Built-In Display Available!" = "Kein eingebautes Display verfügbar!";
 
 /* No comment provided by engineer. */
 "No encryption credentials chosen" = "Keine Verschlüsselung gewählt";
@@ -581,6 +605,9 @@
 "Retry" = "Wiederholen";
 
 /* No comment provided by engineer. */
+"Revert to Client Settings" = "Zurücksetzen auf Client-Einstellungen";
+
+/* No comment provided by engineer. */
 "Right" = "Rechts";
 
 /* No comment provided by engineer. */
@@ -638,7 +665,7 @@
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
 /* No comment provided by engineer. */
-"SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
