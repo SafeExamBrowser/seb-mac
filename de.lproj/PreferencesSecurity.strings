@@ -1,6 +1,12 @@
 /* Class = "NSButtonCell"; title = "Force installation in /Applications folder"; ObjectID = "0Ey-3L-Lb6"; */
 "0Ey-3L-Lb6.title" = "SEB im Programmverzeichnis erzwingen";
 
+/* Class = "NSButtonCell"; title = "Use Assessment Mode (AAC) if available"; ObjectID = "0in-TF-gTG"; */
+"0in-TF-gTG.title" = "Assessment-Modus (AAC) verwenden, wenn verfügbar";
+
+/* Class = "NSButtonCell"; title = "Ignore SEB Service"; ObjectID = "0Nd-GJ-9QM"; */
+"0Nd-GJ-9QM.title" = "SEB Service ignorieren";
+
 /* Class = "NSButtonCell"; title = "Enable F11"; ObjectID = "0ob-OM-tPV"; */
 "0ob-OM-tPV.title" = "F11 erlauben";
 
@@ -43,7 +49,7 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "Richtlinie, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist (wird nur unter Windows verwendet)";
 
-/* Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100"; */
+/* Class = "NSTextFieldCell"; title = "SEB Service policy"; ObjectID = "100"; */
 "100.title" = "SEB-Service Richtlinie (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "292"; */
@@ -54,6 +60,12 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h"; */
 "a9Y-jJ-E1h.ibShadowedToolTip" = "SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Enforces using the built-in display: If none is available, refuses to run"; ObjectID = "aae-zS-9MN"; */
+"aae-zS-9MN.ibShadowedToolTip" = "Erzwingt die Nutzung des eingebauten Displays: Betrieb wird verweigert, wenn keines verfügbar ist";
+
+/* Class = "NSButtonCell"; title = "Allow desktop Macs"; ObjectID = "AAQ-sm-YAt"; */
+"AAQ-sm-YAt.title" = "Desktop-Macs zulassen";
 
 /* Class = "NSTextFieldCell"; title = "OS Specific Settings "; ObjectID = "ADm-4H-Zh3"; */
 "ADm-4H-Zh3.title" = "Betriebssystemabhängige Einstellungen";
@@ -73,6 +85,9 @@
 /* Class = "NSButtonCell"; title = "Lock screen after sleep mode"; ObjectID = "brP-Q3-eve"; */
 "brP-Q3-eve.title" = "Bildschirm nach Ruhezustand sperren";
 
+/* Class = "NSButtonCell"; title = "Enforce built-in display"; ObjectID = "BsP-9L-abh"; */
+"BsP-9L-abh.title" = "Eingebautes Display erzwingen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off"; ObjectID = "btE-nf-WWC"; */
 "btE-nf-WWC.ibShadowedToolTip" = "Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird";
 
@@ -84,6 +99,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Minor version number"; ObjectID = "bWG-hR-Cd7"; */
 "bWG-hR-Cd7.title" = "Minor-Versionsnummer";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win"; ObjectID = "c2c-ER-MY0"; */
+"c2c-ER-MY0.ibShadowedToolTip" = "Steuert die Aufzeichnung oder Wiedergabe des Bildschirminhalts eines iOS-Gerätes über AirPlay oder ein Lightning/USC-C Kabel. Entspricht 'PrintScreen erlauben' auf Win";
 
 /* Class = "NSButtonCell"; title = "Enforce private clipboard on Mac"; ObjectID = "cfE-bh-Syt"; */
 "cfE-bh-Syt.title" = "Private Zwischenablage auf Mac erzwingen";
@@ -100,7 +118,7 @@
 /* Class = "NSButtonCell"; title = "Enable network connection selector"; ObjectID = "cYs-RO-IZD"; */
 "cYs-RO-IZD.title" = "Netzwerkauswahl erlauben";
 
-/* Class = "NSTextFieldCell"; title = "Log file directory Windows:"; ObjectID = "dbm-W0-7Yt"; */
+/* Class = "NSTextFieldCell"; title = "Log file directory (Win 2.x):"; ObjectID = "dbm-W0-7Yt"; */
 "dbm-W0-7Yt.title" = "Log-Dateiverzeichnis Windows:";
 
 /* Class = "NSBox"; title = "Special Keys (Win)"; ObjectID = "Dce-pG-aKy"; */
@@ -108,6 +126,9 @@
 
 /* Class = "NSTabViewItem"; label = "macOS"; ObjectID = "Dcg-5G-FDH"; */
 "Dcg-5G-FDH.label" = "macOS";
+
+/* Class = "NSButtonCell"; title = "Allow Windows Update to run while SEB is running"; ObjectID = "DLb-CL-wTh"; */
+"DLb-CL-wTh.title" = "Windows Update zulassen, während SEB läuft";
 
 /* Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi"; */
 "dpL-te-8hi.title" = "Windows Explorer deaktivieren";
@@ -157,7 +178,7 @@
 /* Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo"; */
 "i04-6r-xmo.title" = "Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster";
 
-/* Class = "NSButtonCell"; title = "Use AAC/ASAM if available"; ObjectID = "iCr-0C-5NT"; */
+/* Class = "NSButtonCell"; title = "Use Assessment Mode (AAC/ASAM) if available"; ObjectID = "iCr-0C-5NT"; */
 "iCr-0C-5NT.title" = "AAC/ASAM verwenden";
 
 /* Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp"; */
@@ -175,7 +196,7 @@
 /* Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3"; */
 "JRL-fG-lI3.title" = "Programmumschalter während Start verbieten";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used (VNC based)"; ObjectID = "k8Y-ym-LrR"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used (VNC based) and Windows remote session (RDP)"; ObjectID = "k8Y-ym-LrR"; */
 "k8Y-ym-LrR.ibShadowedToolTip" = "Erlaubt Benutzung der macOS-Bildschirmfreigabe (VNC basiert)";
 
 /* Class = "NSButtonCell"; title = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk"; */
@@ -184,8 +205,14 @@
 /* Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK"; */
 "kBz-Xz-wNK.ibShadowedToolTip" = "Der Kiosk-Modus bestimmt, wie SEB den Computer abgesichert";
 
+/* Class = "NSButton"; ibShadowedToolTip = "The SEB Service changes aspects of the system configuration, e.g. removes options from the Win Security Screen (ctrl-alt-del). Some anti-malware software might falsly identify its operations as malicious."; ObjectID = "kFz-c0-Xi1"; */
+"kFz-c0-Xi1.ibShadowedToolTip" = "Der SEB-Service ändert temporär die Systemkonfiguration, die Optionen im Windows Sicherheitsbildschirm (Ctrl-Alt-Del) werden entfernt. Manche Anti-Schadsoftware-Programme könnten dies als fälschlicherweise als Virus-Aktivität interpretieren und SEB blockieren.";
+
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can also be installed in the Applications folder of the current user (~/Applications)"; ObjectID = "KKV-0r-AMe"; */
 "KKV-0r-AMe.ibShadowedToolTip" = "SEB darf auch im Verzeichnis Programme des aktuellen Benutzers installiert sein (~/Programme)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) "; ObjectID = "krs-I7-LT9"; */
+"krs-I7-LT9.ibShadowedToolTip" = "Der Automatic Assessment Configuration (AAC) Modus ist ab macOS Catalina 10.15.4 verfügbar. Er blockiert verschiedene macOS-Funktionen (diese können nicht optional erlaubt werden, beispielsweise Bildschirmaufzeichnung, Siri und Diktieren)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win)."; ObjectID = "LEn-zs-oJl"; */
 "LEn-zs-oJl.ibShadowedToolTip" = "Blockiert macOS Bildschirmfotos (cmd-shift-3/-4/-5) mittels einer älteren Methode (kompatibel mit einigen Remote Proctoring Tools). Für Bildschirmfotos diese Einstellung deaktivieren und 'Bildschirmaufnahme erlauben' und 'Fenster auf Bildschirmfotos darstellen' aktivieren. Für Windows die Option 'Print Screen erlauben' (Sicherheit / 'Hooked Keys' Einstellungen) verwenden.";
@@ -238,8 +265,14 @@
 /* Class = "NSButtonCell"; title = "Allow network screen sharing"; ObjectID = "oX1-uW-Zow"; */
 "oX1-uW-Zow.title" = "Netzwerk-Bildschirmfreigabe erlauben";
 
+/* Class = "NSButtonCell"; title = "Allow iOS screen capture"; ObjectID = "p3h-Gz-2AS"; */
+"p3h-Gz-2AS.title" = "iOS Bildschirmaufzeichnung erlauben";
+
 /* Class = "NSButtonCell"; title = "Prevent auto-lock"; ObjectID = "P6d-Sx-lww"; */
 "P6d-Sx-lww.title" = "Auto-Sperrzustand verhindern";
+
+/* Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "p7z-jo-UF3"; */
+"p7z-jo-UF3.title" = "VMware Client Shade erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR"; */
 "P88-5S-xeR.ibShadowedToolTip" = "Entspricht 'Seiten-Navigation in Prüfung' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
@@ -259,11 +292,17 @@
 /* Class = "NSButtonCell"; title = "Enable F5"; ObjectID = "q9c-zv-s6c"; */
 "q9c-zv-s6c.title" = "F5 erlauben";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Allows to use Macs, which don't have a built-in display (like a Mac Mini or Mac Pro), even if enforcing it is enabled"; ObjectID = "Q9f-s0-F1Q"; */
+"Q9f-s0-F1Q.ibShadowedToolTip" = "Nutzung von Macs erlauben, welche kein eingebautes Display besitzen (Mac Mini/Mac Pro), selbst wenn dieses erzwungen wird";
+
 /* Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds"; */
 "qqs-ZA-6ds.ibShadowedToolTip" = "Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können";
 
 /* Class = "NSButtonCell"; title = "Enable F2"; ObjectID = "rd9-dL-Qhi"; */
 "rd9-dL-Qhi.title" = "F2 erlauben";
+
+/* Class = "NSButtonCell"; title = "Allow notifications from Chrome browsers"; ObjectID = "Rfz-L4-35Q"; */
+"Rfz-L4-35Q.title" = "Benachrichtigungen von Chrome Browsern erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Change a password"; ObjectID = "Rgp-1k-Eaw"; */
 "Rgp-1k-Eaw.title" = "Kennwort ändern erlauben";
@@ -319,11 +358,14 @@
 /* Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb"; */
 "WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses deaktivieren";
 
+/* Class = "NSBox"; title = "SEB Service (Win)"; ObjectID = "wI5-Zh-Qfa"; */
+"wI5-Zh-Qfa.title" = "";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen"; ObjectID = "wUs-SE-6xn"; */
 "wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)";
 
-/* Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "Y3K-X1-40d"; */
-"Y3K-X1-40d.title" = "VMware Client Shade erlauben";
+/* Class = "NSButtonCell"; title = "Set VMware configuration"; ObjectID = "Y3K-X1-40d"; */
+"Y3K-X1-40d.title" = "VMware-Konfiguration setzen";
 
 /* Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1"; */
 "yCu-0c-Hf1.title" = "F4 erlauben";
