@@ -10,7 +10,7 @@
 /* Class = "NSButtonCell"; title = "Clear on session start"; ObjectID = "3Wv-pu-d1v"; */
 "3Wv-pu-d1v.title" = "Zu Beginn der Session löschen";
 
-/* Class = "NSBox"; title = "Query String Parameter (iOS)"; ObjectID = "4aU-eM-mgd"; */
+/* Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd"; */
 "4aU-eM-mgd.title" = "Query-Parameter";
 
 /* Class = "NSButtonCell"; title = "Protect Back to Start Button with the quit/unlock password"; ObjectID = "5SR-dU-gy3"; */

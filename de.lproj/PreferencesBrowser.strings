@@ -197,7 +197,7 @@
 "fzm-2I-vcw.title" = "Desktop Standard:";
 
 /* Class = "NSButtonCell"; title = "Allow audio capture (microphone, Win)"; ObjectID = "gw2-ot-VdZ"; */
-"gw2-ot-VdZ.title" = "Audioaufnahme zulassen (Mikrofon, Win)";
+"gw2-ot-VdZ.title" = "Audioaufnahme erlauben (Mikrofon, Win)";
 
 /* Class = "NSBox"; title = "Restrictions in Exam Window"; ObjectID = "IEP-y6-APQ"; */
 "IEP-y6-APQ.title" = "Einschränkungen im Prüfungsfenster";
@@ -236,7 +236,7 @@
 "qVa-6O-Lcc.title" = "Benutzerdefiniert";
 
 /* Class = "NSButtonCell"; title = "Allow video capture (webcam, Win)"; ObjectID = "RdC-g0-HsE"; */
-"RdC-g0-HsE.title" = "Videoaufnahme zulassen (Webcam, Win)";
+"RdC-g0-HsE.title" = "Videoaufnahme erlauben (Webcam, Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "rf6-Kj-obV"; */
 "rf6-Kj-obV.ibShadowedToolTip" = "Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen";
