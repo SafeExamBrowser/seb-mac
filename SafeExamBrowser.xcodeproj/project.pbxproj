@@ -1857,7 +1857,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1220;
 				TargetAttributes = {
 					69F7B5FA14F411FB00FD0761 = {
 						DevelopmentTeam = 6F38DNSC7X;
@@ -2367,7 +2367,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MARKETING_VERSION = 2.3pre1;
+				MARKETING_VERSION = 2.3RC;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
@@ -2414,7 +2414,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MARKETING_VERSION = 2.3pre1;
+				MARKETING_VERSION = 2.3RC;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
