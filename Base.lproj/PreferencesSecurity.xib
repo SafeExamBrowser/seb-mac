@@ -239,7 +239,7 @@
                                 <rect key="frame" x="10" y="33" width="607" height="408"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
                                         <rect key="frame" x="20" y="150" width="567" height="242"/>
                                         <subviews>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
@@ -270,10 +270,10 @@
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAppSwitcherCheck" id="iS6-fQ-xk6"/>
                                                 </connections>
                                             </button>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byW-Yd-sjZ">
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="byW-Yd-sjZ">
                                                 <rect key="frame" x="0.0" y="184" width="567" height="14"/>
                                                 <subviews>
-                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iql-Mg-ZPK">
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="iql-Mg-ZPK">
                                                         <rect key="frame" x="0.0" y="0.0" width="567" height="14"/>
                                                         <subviews>
                                                             <button toolTip="SEB enforces to be installed in the Applications folder (/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
@@ -362,7 +362,7 @@
                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_detectStoppedProcess" id="bpw-F9-JPy"/>
                                                 </connections>
                                             </button>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-rc-duP">
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-rc-duP">
                                                 <rect key="frame" x="0.0" y="89" width="245" height="21"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
@@ -409,7 +409,7 @@
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
                                             </stackView>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3x4-Pf-QCV">
+                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3x4-Pf-QCV">
                                                 <rect key="frame" x="0.0" y="62" width="360" height="19"/>
                                                 <subviews>
                                                     <textField toolTip="Maximum allowed number of connected displays (including built-in)" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
@@ -463,7 +463,7 @@
                                                     </binding>
                                                 </connections>
                                             </button>
-                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9j-2e-YhA">
+                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="r9j-2e-YhA">
                                                 <rect key="frame" x="0.0" y="0.0" width="567" height="32"/>
                                                 <subviews>
                                                     <button toolTip="Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
@@ -477,7 +477,7 @@
                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltin" id="IIZ-BN-xhg"/>
                                                         </connections>
                                                     </button>
-                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-tq-jEa">
+                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-tq-jEa">
                                                         <rect key="frame" x="288" y="0.0" width="279" height="32"/>
                                                         <subviews>
                                                             <button toolTip="Enforces using the built-in display: If none is available, refuses to run" translatesAutoresizingMaskIntoConstraints="NO" id="aae-zS-9MN">
@@ -580,11 +580,11 @@
                         </tabViewItem>
                         <tabViewItem label="iOS" identifier="" id="qR0-7R-jPL">
                             <view key="view" id="ygF-kY-Ym5">
-                                <rect key="frame" x="10" y="33" width="604" height="408"/>
+                                <rect key="frame" x="10" y="33" width="607" height="408"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-xT-OWu">
-                                        <rect key="frame" x="20" y="94" width="564" height="299"/>
+                                        <rect key="frame" x="20" y="94" width="567" height="299"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="h1A-i1-vyN">
                                                 <rect key="frame" x="0.0" y="245" width="304" height="54"/>
@@ -682,13 +682,13 @@
                                                 </customSpacing>
                                             </stackView>
                                             <box borderType="line" title="Allow running from iOS version" translatesAutoresizingMaskIntoConstraints="NO" id="oIi-XG-JWG">
-                                                <rect key="frame" x="-3" y="35" width="570" height="116"/>
+                                                <rect key="frame" x="-3" y="35" width="573" height="116"/>
                                                 <view key="contentView" id="Tn1-Pd-ckg">
-                                                    <rect key="frame" x="3" y="3" width="564" height="98"/>
+                                                    <rect key="frame" x="3" y="3" width="567" height="98"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5gm-pV-kID">
-                                                            <rect key="frame" x="11" y="15" width="542" height="73"/>
+                                                            <rect key="frame" x="11" y="15" width="545" height="73"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="vke-9s-XWR">
                                                                     <rect key="frame" x="0.0" y="54" width="197" height="19"/>
@@ -900,7 +900,7 @@
                                 <rect key="frame" x="10" y="33" width="607" height="408"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-A1-Ubb">
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-A1-Ubb">
                                         <rect key="frame" x="16" y="151" width="575" height="254"/>
                                         <subviews>
                                             <box title="SEB Service (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="wI5-Zh-Qfa" userLabel="SEB Service (Win)">
@@ -909,7 +909,7 @@
                                                     <rect key="frame" x="3" y="3" width="575" height="134"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g5b-aI-HW0">
+                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="g5b-aI-HW0">
                                                             <rect key="frame" x="11" y="14" width="553" height="112"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kFz-c0-Xi1">
@@ -923,7 +923,7 @@
                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_sebServiceIgnore" id="86v-bT-qco"/>
                                                                     </connections>
                                                                 </button>
-                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u5p-5T-HAi">
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="u5p-5T-HAi">
                                                                     <rect key="frame" x="0.0" y="46" width="553" height="40"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
@@ -972,7 +972,7 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
-                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hnd-cm-qGg">
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="hnd-cm-qGg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="322" height="34"/>
                                                                     <subviews>
                                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5nZ-A2-CHs">
@@ -1123,7 +1123,7 @@
                                             <rect key="frame" x="3" y="3" width="277" height="266"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SxN-7J-yL2">
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="SxN-7J-yL2">
                                                     <rect key="frame" x="11" y="10" width="255" height="248"/>
                                                     <subviews>
                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">

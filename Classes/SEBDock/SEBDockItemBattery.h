@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
     __weak IBOutlet NSButton *batteryIconButton;
     __weak IBOutlet NSLayoutConstraint *batteryIconWidthConstraint;
     __weak IBOutlet NSLayoutConstraint *batteryIconHeightConstraint;
+    CGColorRef systemGreenCGColor;
+    CGColorRef systemOrangeCGColor;
+    CGColorRef systemRedCGColor;
 
     NSTimer *batteryTimer;
     CFRunLoopSourceRef powerSourceMonitoringLoop;
