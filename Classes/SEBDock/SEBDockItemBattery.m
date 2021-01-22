@@ -50,8 +50,19 @@
     
     batteryLevelWidth = batteryIconWidthConstraint.constant - batteryLevelLeading.constant - batteryLevelConstraint.constant;
     
+    if (@available(macOS 10.10, *)) {
+        systemGreenCGColor = [[NSColor systemGreenColor] CGColor];
+        systemOrangeCGColor = [[NSColor systemOrangeColor] CGColor];
+        systemRedCGColor = [[NSColor systemRedColor] CGColor];
+    } else {
+        systemGreenCGColor =  CGColorCreateGenericRGB(0.204, 0.780, 0.349, 1.0);
+        systemOrangeCGColor = CGColorCreateGenericRGB(1.000, 0.584, 0.000, 1.0);
+        systemRedCGColor = CGColorCreateGenericRGB(1.000, 0.231, 0.188, 1.0);
+    }
+    
     [backgroundView setWantsLayer:YES];
-    [backgroundView.layer setBackgroundColor:[[NSColor systemGreenColor] CGColor]];
+    
+    [backgroundView.layer setBackgroundColor:systemGreenCGColor];
     
     NSDate *dateNow = [NSDate date];
     NSTimeInterval timestamp = [dateNow timeIntervalSinceReferenceDate];
@@ -134,18 +145,18 @@ void powerSourceMonitoringCallbackMethod(void *context)
     
     switch (batteryWarningLevel) {
         case kIOPSLowBatteryWarningEarly:
-            warningLevelColor = [[NSColor systemOrangeColor] CGColor];
+            warningLevelColor = systemOrangeCGColor;
             break;
             
         case kIOPSLowBatteryWarningFinal:
-            warningLevelColor = [[NSColor systemRedColor] CGColor];
+            warningLevelColor = systemRedCGColor;
             break;
             
         default:
             if (self.batteryLevel < 10.0) {
-                warningLevelColor = [[NSColor systemOrangeColor] CGColor];
+                warningLevelColor = systemOrangeCGColor;
             } else {
-                warningLevelColor = [[NSColor systemGreenColor] CGColor];
+                warningLevelColor = systemGreenCGColor;
             }
             break;
     }
@@ -167,6 +178,15 @@ void powerSourceMonitoringCallbackMethod(void *context)
     if (powerSourceMonitoringLoop) {
         CFRunLoopSourceInvalidate(powerSourceMonitoringLoop);
         CFRelease(powerSourceMonitoringLoop);
+    }
+    if (systemGreenCGColor) {
+        CFRelease(systemGreenCGColor);
+    }
+    if (systemOrangeCGColor) {
+        CFRelease(systemOrangeCGColor);
+    }
+    if (systemRedCGColor) {
+        CFRelease(systemRedCGColor);
     }
 }
 
