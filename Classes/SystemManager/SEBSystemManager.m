@@ -58,7 +58,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     NSString *sysModelID = self.systemInfo.sysModelID;
     DDLogInfo(@"System model ID: %@", sysModelID);
-    return [sysModelID containsString:@"Book"] || [sysModelID containsString:@"iMac"];
+    return [sysModelID rangeOfString:@"Book"].location != NSNotFound || [sysModelID rangeOfString:@"iMac"].location != NSNotFound;
 }
 
 
