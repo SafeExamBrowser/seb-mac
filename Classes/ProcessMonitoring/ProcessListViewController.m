@@ -22,6 +22,19 @@
 
 @implementation ProcessListViewController
 
+
+- (void)loadView
+{
+    DDLogDebug(@"%s: calling [super loadView]", __FUNCTION__);
+    [super loadView];
+    
+    if (@available(macOS 10.10, *)) {
+    } else {
+        [self viewDidLoad];
+    }
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
