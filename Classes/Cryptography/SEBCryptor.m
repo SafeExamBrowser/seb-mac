@@ -135,8 +135,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
 
-    NSString *password = [HMACData base64EncodedStringWithOptions:0];
-    
+    NSString *password;
+    if (@available(macOS 10.9, *)) {
+        password = [HMACData base64EncodedStringWithOptions:0];
+    } else {
+        password = [HMACData base64Encoding];
+    }
+
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
                                             password:password
@@ -159,7 +164,12 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
     
-    NSString *password = [HMACData base64EncodedStringWithOptions:0];
+    NSString *password;
+    if (@available(macOS 10.9, *)) {
+        password = [HMACData base64EncodedStringWithOptions:0];
+    } else {
+        password = [HMACData base64Encoding];
+    }
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
@@ -380,11 +390,18 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     Class objectClass = [object superclass];
     NSString *jsonString;
 
+    NSString *objectBase64;
+    if (@available(macOS 10.9, *)) {
+        objectBase64 = [object base64EncodedStringWithOptions:0];
+    } else {
+        objectBase64 = [object base64Encoding];
+    }
+
     if (objectClass == [NSData class] || objectClass == [NSMutableData class]) {
         if ([object isEqualToData:[NSData data]]) {
             jsonString = @"\"\"";
         } else {
-            jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64EncodedStringWithOptions:0]];
+            jsonString = [NSString stringWithFormat:@"\"%@\"", objectBase64];
         }
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
