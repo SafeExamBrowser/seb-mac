@@ -119,12 +119,27 @@ static NSString * const authenticationPassword = @"password";
             // Replace the full query string in the download URL with the first query component
             // (which is the actual query of the SEB config download URL)
             queryString = additionalQueryStrings.firstObject;
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:*url resolvingAgainstBaseURL:NO];
-            if (queryString.length == 0) {
-                queryString = nil;
+            if (@available(macOS 10.9, *)) {
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:*url resolvingAgainstBaseURL:NO];
+                if (queryString.length == 0) {
+                    queryString = nil;
+                }
+                urlComponents.query = queryString;
+                *url = urlComponents.URL;
+            } else {
+                NSString *urlString = (*url).absoluteString;
+                NSRange queryRange = [urlString rangeOfString:@"?"];
+                NSString *fragment = (*url).fragment;
+                if (queryRange.location != NSNotFound) {
+                    // URL contains a query: replace it with the new one
+                    if (fragment.length) {
+                        // If the original URL contains a fragment, we have to append it to the query of the modified URL
+                        queryString = [NSString stringWithFormat:@"%@#%@", queryString, fragment];
+                    }
+                    urlString = [NSString stringWithFormat:@"%@?%@", [urlString substringToIndex:queryRange.location], queryString];
+                }
+                *url = [NSURL URLWithString:urlString];
             }
-            urlComponents.query = queryString;
-            *url = urlComponents.URL;
         }
     }
 
