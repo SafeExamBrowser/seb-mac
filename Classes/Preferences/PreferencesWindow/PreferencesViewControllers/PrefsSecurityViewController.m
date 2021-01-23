@@ -200,6 +200,8 @@
     
     // Display the dialog.  If the OK button was pressed,
     // process the files.
+    // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+    // which also is the minimum macOS version the Preferences window is available from
     [openFilePanel beginSheetModalForWindow:[MBPreferencesController sharedController].window
                       completionHandler:^(NSInteger result) {
                           if (result == NSFileHandlingPanelOKButton) {

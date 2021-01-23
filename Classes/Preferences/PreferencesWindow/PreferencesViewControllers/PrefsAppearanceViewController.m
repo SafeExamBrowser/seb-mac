@@ -95,6 +95,8 @@
         [newAlert setInformativeText:NSLocalizedString(@"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
+        // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+        // which also is the minimum macOS version the Preferences window is available from
         [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
     }
 }
