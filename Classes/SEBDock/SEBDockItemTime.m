@@ -27,9 +27,17 @@
     CGFloat dockHeight = [[NSUserDefaults standardUserDefaults] secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
     CGFloat dockScale = dockHeight / SEBDefaultDockHeight;
     if (preferredMaxLayoutWidth == 0) {
-        preferredMaxLayoutWidth = timeTextField.preferredMaxLayoutWidth;
+        if (@available(macOS 10.8, *)) {
+            preferredMaxLayoutWidth = timeTextField.preferredMaxLayoutWidth;
+            timeTextField.preferredMaxLayoutWidth = preferredMaxLayoutWidth * dockScale;
+        } else {
+            preferredMaxLayoutWidth = timeTextField.frame.size.width * dockScale;
+            timeTextField.frame = NSMakeRect(timeTextField.frame.origin.x,
+                                             timeTextField.frame.origin.y,
+                                             preferredMaxLayoutWidth,
+                                             timeTextField.frame.size.height * dockScale);
+        }
     }
-    timeTextField.preferredMaxLayoutWidth = preferredMaxLayoutWidth * dockScale;
     CGFloat fontSize = dockScale * SEBDefaultDockTimeItemFontSize;
     
     NSFont *newFont = [NSFont fontWithName:itemFont.fontName size:fontSize];
