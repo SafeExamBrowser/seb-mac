@@ -471,6 +471,8 @@
             [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
+            // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+            // which also is the minimum macOS version the Preferences window is available from
             [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
             return;
         }
@@ -561,6 +563,8 @@
     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSInformationalAlertStyle];
+    // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+    // which also is the minimum macOS version the Preferences window is available from
     [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 }
 
@@ -908,6 +912,8 @@
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
     [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+    // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+    // which also is the minimum macOS version the Preferences window is available from
     [panel beginSheetModalForWindow:self.preferencesWindow
                   completionHandler:^(NSInteger result){
                       if (result == NSFileHandlingPanelOKButton)
