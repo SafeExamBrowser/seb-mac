@@ -390,17 +390,16 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     Class objectClass = [object superclass];
     NSString *jsonString;
 
-    NSString *objectBase64;
-    if (@available(macOS 10.9, *)) {
-        objectBase64 = [object base64EncodedStringWithOptions:0];
-    } else {
-        objectBase64 = [object base64Encoding];
-    }
-
     if (objectClass == [NSData class] || objectClass == [NSMutableData class]) {
         if ([object isEqualToData:[NSData data]]) {
             jsonString = @"\"\"";
         } else {
+            NSString *objectBase64;
+            if (@available(macOS 10.9, *)) {
+                objectBase64 = [object base64EncodedStringWithOptions:0];
+            } else {
+                objectBase64 = [object base64Encoding];
+            }
             jsonString = [NSString stringWithFormat:@"\"%@\"", objectBase64];
         }
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
