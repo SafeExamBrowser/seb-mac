@@ -1820,7 +1820,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *filteredProcesses;
     
     // Check for font download process
-    if (!_allowSwitchToApplications && !_isAACEnabled) {
+    if (!_allowSwitchToApplications || _isAACEnabled) {
         processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", fontRegistryUIAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
