@@ -14,7 +14,7 @@
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
 
 /* No comment provided by engineer. */
-"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, enter the quit/unlock password or response, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, geben Sie das Beenden/Entsperren-Passwort/Response ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort/Response ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
@@ -524,6 +524,9 @@
 "Override" = "Ignorieren";
 
 /* No comment provided by engineer. */
+"Overriding required built-in display was enabled!" = "Internen Bildschirm erzwingen wurde deaktiviert!";
+
+/* No comment provided by engineer. */
 "Parsing Settings Failed" = "Auslesen der Konfiguration ist fehlgeschlagen";
 
 /* No comment provided by engineer. */
@@ -594,6 +597,9 @@
 
 /* No comment provided by engineer. */
 "Reload Current Page" = "Aktuelle Seite neu laden";
+
+/* No comment provided by engineer. */
+"Required built-in display is still not available!" = "Verlangtes eingebautes Display immer noch nicht verfügbar!";
 
 /* No comment provided by engineer. */
 "Reset" = "Zurücksetzen";
