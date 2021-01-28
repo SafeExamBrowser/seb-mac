@@ -2915,8 +2915,8 @@ bool insideMatrix(){
         if (self.lockdownWindows.count > 0) {
             DDLogDebug(@"Adjusting lockdown windows");
             NSDate *originalDidLockSEBTime = self.didLockSEBTime;
-            [self closeLockdownWindows];
-            [self openLockdownWindows];
+            [self closeCoveringWindows:self.lockdownWindows];
+            [self openCoveringWindows];
             self.didLockSEBTime = originalDidLockSEBTime;
             DDLogDebug(@"Adjusting screen locking: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
         }
@@ -3292,7 +3292,7 @@ conditionallyForWindow:(NSWindow *)window
                     self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
                     self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
                     [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
-                                                                Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                                                                Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
                 }
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime];
                 
@@ -3306,6 +3306,9 @@ conditionallyForWindow:(NSWindow *)window
                     // if there was no previous lock message, we can close the lockdown screen
                     self.builtinDisplayNotAvailableDetected = false;
                     self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
+                    DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, self.sebLockedViewController, (long)self.sebLockedViewController.quitInsteadUnlockingButton.state);
+                    self.sebLockedViewController.quitInsteadUnlockingButton.state = false;
+                    DDLogDebug(@"%s: _sebLockedViewController.quitInsteadUnlockingButton.state: %ld", __FUNCTION__, (long)self.sebLockedViewController.quitInsteadUnlockingButton.state);
                     [self conditionallyCloseLockdownWindows];
                 }
             }
@@ -3337,40 +3340,9 @@ conditionallyForWindow:(NSWindow *)window
         DDLogDebug(@"openLockdownWindows: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
 
         DDLogError(@"Locking SEB with red frontmost covering windows");
-
-        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert
-                                                        windowLevel:NSScreenSaverWindowLevel
-                                                     excludeMenuBar:false];
-        NSWindow *coveringWindow = self.lockdownWindows[0];
-        NSView *coveringView = coveringWindow.contentView;
-        [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+        [self openCoveringWindows];
         
-        _sebLockedViewController.sebController = self;
-        
-        [coveringView addSubview:_sebLockedViewController.view];
-        
-        DDLogVerbose(@"Frame of superview: %f, %f", _sebLockedViewController.view.superview.frame.size.width, _sebLockedViewController.view.superview.frame.size.height);
-        NSMutableArray *constraints = [NSMutableArray new];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:_sebLockedViewController.view
-                                                            attribute:NSLayoutAttributeCenterX
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:_sebLockedViewController.view.superview
-                                                            attribute:NSLayoutAttributeCenterX
-                                                           multiplier:1.0
-                                                             constant:0.0]];
-        
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:_sebLockedViewController.view
-                                                            attribute:NSLayoutAttributeCenterY
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:_sebLockedViewController.view.superview
-                                                            attribute:NSLayoutAttributeCenterY
-                                                           multiplier:1.0
-                                                             constant:0.0]];
-        
-        [_sebLockedViewController.view.superview addConstraints:constraints];
-        
-        lockdownModalSession = [NSApp beginModalSessionForWindow:coveringWindow];
+        lockdownModalSession = [NSApp beginModalSessionForWindow:self.lockdownWindows[0]];
         [NSApp runModalSession:lockdownModalSession];
     }
 }
@@ -3393,6 +3365,7 @@ conditionallyForWindow:(NSWindow *)window
         _sebLockedViewController.overrideCheckForDictation.hidden &&
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
         _sebLockedViewController.overrideCheckForAllProcesses.hidden) {
+        DDLogDebug(@"%s: close lockdown windows", __FUNCTION__);
         [self closeLockdownWindows];
     }
 }
@@ -3402,7 +3375,7 @@ conditionallyForWindow:(NSWindow *)window
     DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
 
     [NSApp endModalSession:lockdownModalSession];
-    
+
     if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
         _screenSharingCheckOverride = true;
         _sebLockedViewController.overrideCheckForScreenSharing.state = false;
@@ -3456,7 +3429,7 @@ conditionallyForWindow:(NSWindow *)window
     lastTimeProcessCheck = [NSDate date];
     _SIGSTOPDetected = false;
     
-    
+    DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
     if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
         _sebLockedViewController.quitInsteadUnlockingButton.state = false;
         [self quitSEBOrSession];
@@ -3465,6 +3438,44 @@ conditionallyForWindow:(NSWindow *)window
     [_sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
     self.lockdownWindows = nil;
+}
+
+
+- (void) openCoveringWindows
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+
+    self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert
+                                                    windowLevel:NSScreenSaverWindowLevel
+                                                 excludeMenuBar:false];
+    NSWindow *coveringWindow = self.lockdownWindows[0];
+    NSView *coveringView = coveringWindow.contentView;
+    [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+    
+    _sebLockedViewController.sebController = self;
+    
+    [coveringView addSubview:_sebLockedViewController.view];
+    
+    DDLogVerbose(@"Frame of superview: %f, %f", _sebLockedViewController.view.superview.frame.size.width, _sebLockedViewController.view.superview.frame.size.height);
+    NSMutableArray *constraints = [NSMutableArray new];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:_sebLockedViewController.view
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:_sebLockedViewController.view.superview
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:_sebLockedViewController.view
+                                                        attribute:NSLayoutAttributeCenterY
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:_sebLockedViewController.view.superview
+                                                        attribute:NSLayoutAttributeCenterY
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+
+    [_sebLockedViewController.view.superview addConstraints:constraints];
 }
 
 

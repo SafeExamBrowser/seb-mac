@@ -205,5 +205,6 @@
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 - (void) passwordEntered;
 - (void) closeLockdownWindows;
+- (void) abortClosingLockdownWindows;
 
 @end
