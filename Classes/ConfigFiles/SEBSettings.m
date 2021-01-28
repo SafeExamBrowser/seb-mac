@@ -568,6 +568,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobileEnableASAM",
                    
+                   @YES,
+                   @"mobileSleepModeLockScreen",
+                   
                    @NO,
                    @"mobileShowSettings",
                    
@@ -829,6 +832,7 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"executable" : @"",
                       @"iconInTaskbar" : @YES,
                       @"identifier" : @"",
+                      @"originalName" : @"",
                       @"os" : @0,
                       @"path" : @"",
                       @"runInBackground" : @NO,
@@ -845,6 +849,7 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"executable" : @"",
                       @"identifier" : @"",
                       @"ignoreInAAC" : @YES,
+                      @"originalName" : @"",
                       @"os" : @0,
                       @"strongKill" : @NO,
                       @"user" : @""
