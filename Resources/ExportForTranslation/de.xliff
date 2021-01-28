@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="0g5-nW-upZ.title" xml:space="preserve">
@@ -18,6 +18,11 @@
         <source>Status Bar with FaceID (iOS)</source>
         <target>Statusleiste mit FaceID (iOS)</target>
         <note>Class = "NSTextFieldCell"; title = "Status Bar with FaceID (iOS)"; ObjectID = "3Dw-Kd-w6C";</note>
+      </trans-unit>
+      <trans-unit id="4jn-9i-JSP.title" xml:space="preserve">
+        <source>Enable scroll lock (iOS)</source>
+        <target>Scroll Lock zulassen (iOS)</target>
+        <note>Class = "NSButtonCell"; title = "Enable scroll lock (iOS)"; ObjectID = "4jn-9i-JSP";</note>
       </trans-unit>
       <trans-unit id="4om-Lh-WpE.title" xml:space="preserve">
         <source>Enable text zoom</source>
@@ -73,6 +78,11 @@
         <source>Use full screen mode</source>
         <target>Vollbildmodus benutzen</target>
         <note>Class = "NSButtonCell"; title = "Use full screen mode"; ObjectID = "ID6-7c-aOO";</note>
+      </trans-unit>
+      <trans-unit id="IjF-ym-hYg.title" xml:space="preserve">
+        <source>Show scroll lock button (iOS)</source>
+        <target>Scroll Lock Taste anzeigen (iOS)</target>
+        <note>Class = "NSButtonCell"; title = "Show scroll lock button (iOS)"; ObjectID = "IjF-ym-hYg";</note>
       </trans-unit>
       <trans-unit id="J5d-BA-D2w.title" xml:space="preserve">
         <source>Browser view mode</source>
@@ -195,6 +205,11 @@
         <target>Begriffe Nachschlagen erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "b3g-sT-qMg";</note>
       </trans-unit>
+      <trans-unit id="bdb-Ye-f5Q.ibShadowedToolTip" xml:space="preserve">
+        <source>With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)</source>
+        <target>Mit der Scroll-Lock-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern (nur iOS)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)"; ObjectID = "bdb-Ye-f5Q";</note>
+      </trans-unit>
       <trans-unit id="cKh-Sd-JBS.title" xml:space="preserve">
         <source>Horizontal positioning</source>
         <target>Horizontale Positionierung</target>
@@ -239,6 +254,11 @@
         <source>Main browser window size and position</source>
         <target>Grösse und Position Haupt-Browserfenster</target>
         <note>Class = "NSBox"; title = "Main browser window size and position"; ObjectID = "kyV-Ns-eIu";</note>
+      </trans-unit>
+      <trans-unit id="lWE-3I-sTM.ibShadowedToolTip" xml:space="preserve">
+        <source>Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)</source>
+        <target>Scroll Lock Taste im Dock anzeigen, wenn die Scroll Lock Funktion zugelassen ist (nur iOS)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)"; ObjectID = "lWE-3I-sTM";</note>
       </trans-unit>
       <trans-unit id="lc5-eA-GRt.title" xml:space="preserve">
         <source>Show Wi-Fi control (Win)</source>
@@ -340,7 +360,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -644,9 +664,9 @@
         <note>Class = "NSTextField"; ibShadowedToolTip = "Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "1895";</note>
       </trans-unit>
       <trans-unit id="1896.ibShadowedToolTip" xml:space="preserve">
-        <source>User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used. Currently not supported</source>
+        <source>Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</source>
         <target>Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben</target>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used. Currently not supported"; ObjectID = "1896";</note>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string"; ObjectID = "1896";</note>
       </trans-unit>
       <trans-unit id="1898.ibShadowedToolTip" xml:space="preserve">
         <source>This prohibited process item is active</source>
@@ -684,9 +704,9 @@
         <note>Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "1917";</note>
       </trans-unit>
       <trans-unit id="1918.title" xml:space="preserve">
-        <source>User</source>
+        <source>Original Name</source>
         <target>Benutzer</target>
-        <note>Class = "NSTextFieldCell"; title = "User"; ObjectID = "1918";</note>
+        <note>Class = "NSTextFieldCell"; title = "Original Name"; ObjectID = "1918";</note>
       </trans-unit>
       <trans-unit id="1920.title" xml:space="preserve">
         <source>Current user</source>
@@ -714,14 +734,14 @@
         <note>Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "1931";</note>
       </trans-unit>
       <trans-unit id="2202.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java apps)</source>
+        <source>Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</source>
         <target>SEB Windows: Komma-separierte Liste von Prozessen, die das Applikationsfenster in bestimmten erlaubten Applikationen verwalten (u.a. bei Java Apps)</target>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java apps)"; ObjectID = "2202";</note>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string"; ObjectID = "2202";</note>
       </trans-unit>
       <trans-unit id="2204.title" xml:space="preserve">
-        <source>Window Handling Process</source>
+        <source>Original Name</source>
         <target>Fenster verwaltende Prozesse</target>
-        <note>Class = "NSTextFieldCell"; title = "Window Handling Process"; ObjectID = "2204";</note>
+        <note>Class = "NSTextFieldCell"; title = "Original Name"; ObjectID = "2204";</note>
       </trans-unit>
       <trans-unit id="2244.ibShadowedToolTip" xml:space="preserve">
         <source>Force terminate process, which may cause data loss if the application had unsaved data</source>
@@ -752,7 +772,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -1072,7 +1092,7 @@
       </trans-unit>
       <trans-unit id="RdC-g0-HsE.title" xml:space="preserve">
         <source>Allow video capture (webcam, Win)</source>
-        <target>Videoaufnahme zulassen (Webcam, Win)</target>
+        <target>Videoaufnahme erlauben (Webcam, Win)</target>
         <note>Class = "NSButtonCell"; title = "Allow video capture (webcam, Win)"; ObjectID = "RdC-g0-HsE";</note>
       </trans-unit>
       <trans-unit id="T01-cf-vMr.title" xml:space="preserve">
@@ -1177,7 +1197,7 @@
       </trans-unit>
       <trans-unit id="gw2-ot-VdZ.title" xml:space="preserve">
         <source>Allow audio capture (microphone, Win)</source>
-        <target>Audioaufnahme zulassen (Mikrofon, Win)</target>
+        <target>Audioaufnahme erlauben (Mikrofon, Win)</target>
         <note>Class = "NSButtonCell"; title = "Allow audio capture (microphone, Win)"; ObjectID = "gw2-ot-VdZ";</note>
       </trans-unit>
       <trans-unit id="jZa-47-k8N.title" xml:space="preserve">
@@ -1249,7 +1269,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -1461,7 +1481,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
@@ -1553,7 +1573,7 @@
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -1577,9 +1597,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
       </trans-unit>
       <trans-unit id="4aU-eM-mgd.title" xml:space="preserve">
-        <source>Query String Parameter (iOS)</source>
+        <source>Query String Parameter</source>
         <target>Query-Parameter</target>
-        <note>Class = "NSBox"; title = "Query String Parameter (iOS)"; ObjectID = "4aU-eM-mgd";</note>
+        <note>Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd";</note>
       </trans-unit>
       <trans-unit id="5SR-dU-gy3.title" xml:space="preserve">
         <source>Protect Back to Start Button with the quit/unlock password</source>
@@ -1805,7 +1825,7 @@
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="78.ibShadowedToolTip" xml:space="preserve">
@@ -1942,7 +1962,7 @@
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -2429,7 +2449,7 @@
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -2526,13 +2546,23 @@
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
         <source>Force installation in /Applications folder</source>
         <target>SEB im Programmverzeichnis erzwingen</target>
         <note>Class = "NSButtonCell"; title = "Force installation in /Applications folder"; ObjectID = "0Ey-3L-Lb6";</note>
+      </trans-unit>
+      <trans-unit id="0Nd-GJ-9QM.title" xml:space="preserve">
+        <source>Ignore SEB Service</source>
+        <target>SEB Service ignorieren</target>
+        <note>Class = "NSButtonCell"; title = "Ignore SEB Service"; ObjectID = "0Nd-GJ-9QM";</note>
+      </trans-unit>
+      <trans-unit id="0in-TF-gTG.title" xml:space="preserve">
+        <source>Use Assessment Mode (AAC) if available</source>
+        <target>Assessment-Modus (AAC) verwenden, wenn verfügbar</target>
+        <note>Class = "NSButtonCell"; title = "Use Assessment Mode (AAC) if available"; ObjectID = "0in-TF-gTG";</note>
       </trans-unit>
       <trans-unit id="0ob-OM-tPV.title" xml:space="preserve">
         <source>Enable F11</source>
@@ -2605,9 +2635,9 @@
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93";</note>
       </trans-unit>
       <trans-unit id="100.title" xml:space="preserve">
-        <source>SEB Service policy (Win)</source>
+        <source>SEB Service policy</source>
         <target>SEB-Service Richtlinie (Win)</target>
-        <note>Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100";</note>
+        <note>Class = "NSTextFieldCell"; title = "SEB Service policy"; ObjectID = "100";</note>
       </trans-unit>
       <trans-unit id="292.ibShadowedToolTip" xml:space="preserve">
         <source>Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)</source>
@@ -2618,6 +2648,11 @@
         <source>Use private clipboard</source>
         <target>Private Zwischenablage verwenden</target>
         <note>Class = "NSButtonCell"; title = "Use private clipboard"; ObjectID = "293";</note>
+      </trans-unit>
+      <trans-unit id="AAQ-sm-YAt.title" xml:space="preserve">
+        <source>Allow desktop Macs</source>
+        <target>Desktop-Macs zulassen</target>
+        <note>Class = "NSButtonCell"; title = "Allow desktop Macs"; ObjectID = "AAQ-sm-YAt";</note>
       </trans-unit>
       <trans-unit id="ADm-4H-Zh3.title" xml:space="preserve">
         <source>OS Specific Settings </source>
@@ -2644,6 +2679,11 @@
         <target>Anzahl maximal erlaubte Bildschirme (inklusive eingebautes)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Maximum allowed number of connected displays (including built-in)"; ObjectID = "BKE-3M-dWN";</note>
       </trans-unit>
+      <trans-unit id="BsP-9L-abh.title" xml:space="preserve">
+        <source>Enforce built-in display</source>
+        <target>Eingebautes Display erzwingen</target>
+        <note>Class = "NSButtonCell"; title = "Enforce built-in display"; ObjectID = "BsP-9L-abh";</note>
+      </trans-unit>
       <trans-unit id="Bud-jP-Qbp.title" xml:space="preserve">
         <source>Allow running on iOS beta</source>
         <target>Benutzung mit iOS-Beta erlauben</target>
@@ -2658,6 +2698,11 @@
         <source>Allow Single App Mode</source>
         <target>Einzel-App-Modus erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow Single App Mode"; ObjectID = "Ctf-z6-c6e";</note>
+      </trans-unit>
+      <trans-unit id="DLb-CL-wTh.title" xml:space="preserve">
+        <source>Allow Windows Update to run while SEB is running</source>
+        <target>Windows Update zulassen, während SEB läuft</target>
+        <note>Class = "NSButtonCell"; title = "Allow Windows Update to run while SEB is running"; ObjectID = "DLb-CL-wTh";</note>
       </trans-unit>
       <trans-unit id="Dce-pG-aKy.title" xml:space="preserve">
         <source>Special Keys (Win)</source>
@@ -2799,6 +2844,16 @@
         <target>Rechte Maustaste erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Right Mouse (also Mac*)"; ObjectID = "PWk-fT-HdC";</note>
       </trans-unit>
+      <trans-unit id="Q9f-s0-F1Q.ibShadowedToolTip" xml:space="preserve">
+        <source>Allows to use Macs, which don't have a built-in display (like a Mac Mini or Mac Pro), even if enforcing it is enabled</source>
+        <target>Nutzung von Macs erlauben, welche kein eingebautes Display besitzen (Mac Mini/Mac Pro), selbst wenn dieses erzwungen wird</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows to use Macs, which don't have a built-in display (like a Mac Mini or Mac Pro), even if enforcing it is enabled"; ObjectID = "Q9f-s0-F1Q";</note>
+      </trans-unit>
+      <trans-unit id="Rfz-L4-35Q.title" xml:space="preserve">
+        <source>Allow notifications from Chrome browsers</source>
+        <target>Benachrichtigungen von Chrome Browsern erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Allow notifications from Chrome browsers"; ObjectID = "Rfz-L4-35Q";</note>
+      </trans-unit>
       <trans-unit id="Rgp-1k-Eaw.title" xml:space="preserve">
         <source>Enable Change a password</source>
         <target>Kennwort ändern erlauben</target>
@@ -2855,9 +2910,9 @@
         <note>Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb";</note>
       </trans-unit>
       <trans-unit id="Y3K-X1-40d.title" xml:space="preserve">
-        <source>Enable VMware Client Shade</source>
-        <target>VMware Client Shade erlauben</target>
-        <note>Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "Y3K-X1-40d";</note>
+        <source>Set VMware configuration</source>
+        <target>VMware-Konfiguration setzen</target>
+        <note>Class = "NSButtonCell"; title = "Set VMware configuration"; ObjectID = "Y3K-X1-40d";</note>
       </trans-unit>
       <trans-unit id="ZZ6-sG-BWw.ibShadowedToolTip" xml:space="preserve">
         <source>If more displays are connected, these are blanked with an orange full screen window</source>
@@ -2868,6 +2923,11 @@
         <source>SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</source>
         <target>SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h";</note>
+      </trans-unit>
+      <trans-unit id="aae-zS-9MN.ibShadowedToolTip" xml:space="preserve">
+        <source>Enforces using the built-in display: If none is available, refuses to run</source>
+        <target>Erzwingt die Nutzung des eingebauten Displays: Betrieb wird verweigert, wenn keines verfügbar ist</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enforces using the built-in display: If none is available, refuses to run"; ObjectID = "aae-zS-9MN";</note>
       </trans-unit>
       <trans-unit id="bTO-u1-Mao.title" xml:space="preserve">
         <source>Enable Alt-Esc</source>
@@ -2888,6 +2948,11 @@
         <source>Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off</source>
         <target>Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off"; ObjectID = "btE-nf-WWC";</note>
+      </trans-unit>
+      <trans-unit id="c2c-ER-MY0.ibShadowedToolTip" xml:space="preserve">
+        <source>Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win</source>
+        <target>Steuert die Aufzeichnung oder Wiedergabe des Bildschirminhalts eines iOS-Gerätes über AirPlay oder ein Lightning/USC-C Kabel. Entspricht 'PrintScreen erlauben' auf Win</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win"; ObjectID = "c2c-ER-MY0";</note>
       </trans-unit>
       <trans-unit id="cYs-RO-IZD.title" xml:space="preserve">
         <source>Enable network connection selector</source>
@@ -2910,9 +2975,9 @@
         <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
       </trans-unit>
       <trans-unit id="dbm-W0-7Yt.title" xml:space="preserve">
-        <source>Log file directory Windows:</source>
+        <source>Log file directory (Win 2.x):</source>
         <target>Log-Dateiverzeichnis Windows:</target>
-        <note>Class = "NSTextFieldCell"; title = "Log file directory Windows:"; ObjectID = "dbm-W0-7Yt";</note>
+        <note>Class = "NSTextFieldCell"; title = "Log file directory (Win 2.x):"; ObjectID = "dbm-W0-7Yt";</note>
       </trans-unit>
       <trans-unit id="dpL-te-8hi.title" xml:space="preserve">
         <source>Disable Explorer Shell</source>
@@ -2950,9 +3015,9 @@
         <note>Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo";</note>
       </trans-unit>
       <trans-unit id="iCr-0C-5NT.title" xml:space="preserve">
-        <source>Use AAC/ASAM if available</source>
+        <source>Use Assessment Mode (AAC/ASAM) if available</source>
         <target>AAC/ASAM verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use AAC/ASAM if available"; ObjectID = "iCr-0C-5NT";</note>
+        <note>Class = "NSButtonCell"; title = "Use Assessment Mode (AAC/ASAM) if available"; ObjectID = "iCr-0C-5NT";</note>
       </trans-unit>
       <trans-unit id="ifL-Zz-OJp.label" xml:space="preserve">
         <source>Registry</source>
@@ -2960,14 +3025,24 @@
         <note>Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp";</note>
       </trans-unit>
       <trans-unit id="k8Y-ym-LrR.ibShadowedToolTip" xml:space="preserve">
-        <source>Allows macOS screen sharing to be used (VNC based)</source>
+        <source>Allows macOS screen sharing to be used (VNC based) and Windows remote session (RDP)</source>
         <target>Erlaubt Benutzung der macOS-Bildschirmfreigabe (VNC basiert)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used (VNC based)"; ObjectID = "k8Y-ym-LrR";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used (VNC based) and Windows remote session (RDP)"; ObjectID = "k8Y-ym-LrR";</note>
       </trans-unit>
       <trans-unit id="kBz-Xz-wNK.ibShadowedToolTip" xml:space="preserve">
         <source>The kiosk mode setting reflects how the computer is locked down into SEB.</source>
         <target>Der Kiosk-Modus bestimmt, wie SEB den Computer abgesichert</target>
         <note>Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK";</note>
+      </trans-unit>
+      <trans-unit id="kFz-c0-Xi1.ibShadowedToolTip" xml:space="preserve">
+        <source>The SEB Service changes aspects of the system configuration, e.g. removes options from the Win Security Screen (ctrl-alt-del). Some anti-malware software might falsly identify its operations as malicious.</source>
+        <target>Der SEB-Service ändert temporär die Systemkonfiguration, die Optionen im Windows Sicherheitsbildschirm (Ctrl-Alt-Del) werden entfernt. Manche Anti-Schadsoftware-Programme könnten dies als fälschlicherweise als Virus-Aktivität interpretieren und SEB blockieren.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "The SEB Service changes aspects of the system configuration, e.g. removes options from the Win Security Screen (ctrl-alt-del). Some anti-malware software might falsly identify its operations as malicious."; ObjectID = "kFz-c0-Xi1";</note>
+      </trans-unit>
+      <trans-unit id="krs-I7-LT9.ibShadowedToolTip" xml:space="preserve">
+        <source>The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) </source>
+        <target>Der Automatic Assessment Configuration (AAC) Modus ist ab macOS Catalina 10.15.4 verfügbar. Er blockiert verschiedene macOS-Funktionen (diese können nicht optional erlaubt werden, beispielsweise Bildschirmaufzeichnung, Siri und Diktieren)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) "; ObjectID = "krs-I7-LT9";</note>
       </trans-unit>
       <trans-unit id="lyl-Qv-iTq.title" xml:space="preserve">
         <source>Allow window capture (screen shots)</source>
@@ -3013,6 +3088,16 @@
         <source>If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)</source>
         <target>SEB verhindert, dass der Hauptbildschirm auf einen anderen gespiegelt wird (beispielsweise auf einen AirPlay-Monitor)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)"; ObjectID = "oq3-9u-BrJ";</note>
+      </trans-unit>
+      <trans-unit id="p3h-Gz-2AS.title" xml:space="preserve">
+        <source>Allow iOS screen capture</source>
+        <target>iOS Bildschirmaufzeichnung erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Allow iOS screen capture"; ObjectID = "p3h-Gz-2AS";</note>
+      </trans-unit>
+      <trans-unit id="p7z-jo-UF3.title" xml:space="preserve">
+        <source>Enable VMware Client Shade</source>
+        <target>VMware Client Shade erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "p7z-jo-UF3";</note>
       </trans-unit>
       <trans-unit id="pn0-dK-cZw.ibShadowedToolTip" xml:space="preserve">
         <source>Overrides the original screen sharing setting (on Mac clients)</source>
@@ -3078,6 +3163,11 @@
         <target>Diktieren kann mittels der in den Systemeinstellungen/Tastatur/Diktat definierten Tastenkombination (Standard: fn zweimal drücken) aktiviert werden</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)"; ObjectID = "vh3-YR-Pun";</note>
       </trans-unit>
+      <trans-unit id="wI5-Zh-Qfa.title" xml:space="preserve">
+        <source>SEB Service (Win)</source>
+        <target></target>
+        <note>Class = "NSBox"; title = "SEB Service (Win)"; ObjectID = "wI5-Zh-Qfa";</note>
+      </trans-unit>
       <trans-unit id="wUs-SE-6xn.ibShadowedToolTip" xml:space="preserve">
         <source>Controls Print Screen</source>
         <target>'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)</target>
@@ -3097,7 +3187,7 @@
   </file>
   <file original="en.lproj/InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -3122,7 +3212,7 @@
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.0.1" build-num="12A7300"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.2" build-num="12B45b"/>
     </header>
     <body>
       <trans-unit id="  SEB session was inactive for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
@@ -3147,6 +3237,16 @@
       <trans-unit id="(This function doesn't log you out if you are logged in on a website)" xml:space="preserve">
         <source>(This function doesn't log you out if you are logged in on a website)</source>
         <target>(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." xml:space="preserve">
+        <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.</source>
+        <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort/Response ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Accessibility Permissions Needed" xml:space="preserve">
@@ -3227,6 +3327,11 @@
       <trans-unit id="Back to Start" xml:space="preserve">
         <source>Back to Start</source>
         <target>Zurück zum Start</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Battery Status" xml:space="preserve">
+        <source>Battery Status</source>
+        <target>Batteriestatus</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Before receiving title" xml:space="preserve">
@@ -3343,6 +3448,11 @@
         <source>Config File</source>
         <target>Konfiguration</target>
         <note>Title of 'Config File' preference pane</note>
+      </trans-unit>
+      <trans-unit id="Configure Client" xml:space="preserve">
+        <source>Configure Client</source>
+        <target>Client konfigurieren</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Configuring Client" xml:space="preserve">
         <source>Configuring Client</source>
@@ -3537,6 +3647,11 @@
       <trans-unit id="Enter quit/unlock password:" xml:space="preserve">
         <source>Enter quit/unlock password:</source>
         <target>Beenden/Entsperren-Passwort eingeben:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Enter the %@ administrator password used in client settings:" xml:space="preserve">
+        <source>Enter the %@ administrator password used in client settings:</source>
+        <target>Geben Sie das %@ Administrator Passwort aus den Client-Einstellungen ein:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter the %@ administrator password used in these settings:" xml:space="preserve">
@@ -3815,9 +3930,19 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="No Built-In Display Available!" xml:space="preserve">
+        <source>No Built-In Display Available!</source>
+        <target>Kein eingebautes Display verfügbar!</target>
+        <note>Lockdown alert title text for no required built-in display available</note>
+      </trans-unit>
       <trans-unit id="No Encryption Credentials Chosen" xml:space="preserve">
         <source>No Encryption Credentials Chosen</source>
         <target>Keine Verschlüsselung gewählt</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No built-in display available, although required in settings!" xml:space="preserve">
+        <source>No built-in display available, although required in settings!</source>
+        <target>Kein eingebautes Display verfügbar, obwohl dies in den Einstellungen verlangt wird!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No encryption credentials chosen" xml:space="preserve">
@@ -3928,6 +4053,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       <trans-unit id="Override" xml:space="preserve">
         <source>Override</source>
         <target>Ignorieren</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Overriding required built-in display was enabled!" xml:space="preserve">
+        <source>Overriding required built-in display was enabled!</source>
+        <target>Internen Bildschirm erzwingen wurde deaktiviert!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Parsing Settings Failed" xml:space="preserve">
@@ -4045,6 +4175,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Aktuelle Seite neu laden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Required built-in display is still not available!" xml:space="preserve">
+        <source>Required built-in display is still not available!</source>
+        <target>Verlangtes eingebautes Display immer noch nicht verfügbar!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
         <target>Zurücksetzen</target>
@@ -4058,6 +4193,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       <trans-unit id="Retry" xml:space="preserve">
         <source>Retry</source>
         <target>Wiederholen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Revert to Client Settings" xml:space="preserve">
+        <source>Revert to Client Settings</source>
+        <target>Zurücksetzen auf Client-Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Right" xml:space="preserve">
@@ -4105,8 +4245,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because a process, which isn't allowed to run, cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.</source>
+      <trans-unit id="SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
         <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -4691,6 +4831,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
         <source>iOS User agent</source>
+        <target>iOS User Agent</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="macOS" xml:space="preserve">

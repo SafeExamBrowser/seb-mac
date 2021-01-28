@@ -178,7 +178,7 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "1895"; */
 "1895.ibShadowedToolTip" = "Optionale Beschreibung um was für einen Prozess es sich handelt, wenn dies nicht aus der Executable ersichtlich ist";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used. Currently not supported"; ObjectID = "1896"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string"; ObjectID = "1896"; */
 "1896.ibShadowedToolTip" = "Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "This prohibited process item is active"; ObjectID = "1898"; */
@@ -202,7 +202,7 @@
 /* Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "1917"; */
 "1917.title" = "Identifier";
 
-/* Class = "NSTextFieldCell"; title = "User"; ObjectID = "1918"; */
+/* Class = "NSTextFieldCell"; title = "Original Name"; ObjectID = "1918"; */
 "1918.title" = "Benutzer";
 
 /* Class = "NSButtonCell"; title = "Current user"; ObjectID = "1920"; */
@@ -220,10 +220,10 @@
 /* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "1931"; */
 "1931.headerCell.title" = "Beschreibung";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java apps)"; ObjectID = "2202"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string"; ObjectID = "2202"; */
 "2202.ibShadowedToolTip" = "SEB Windows: Komma-separierte Liste von Prozessen, die das Applikationsfenster in bestimmten erlaubten Applikationen verwalten (u.a. bei Java Apps)";
 
-/* Class = "NSTextFieldCell"; title = "Window Handling Process"; ObjectID = "2204"; */
+/* Class = "NSTextFieldCell"; title = "Original Name"; ObjectID = "2204"; */
 "2204.title" = "Fenster verwaltende Prozesse";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Force terminate process, which may cause data loss if the application had unsaved data"; ObjectID = "2244"; */

@@ -59,6 +59,8 @@
                                             <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                             <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="IaI-5x-tWV" id="NDc-VL-a1W">
                                                 <dictionary key="options">
                                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -68,8 +70,6 @@
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
-                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345">
@@ -335,15 +335,16 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java apps)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
                                                     <rect key="frame" x="257" y="230" width="297" height="21"/>
+                                                    <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.windowHandlingProcess" id="Lhi-Ra-PE1">
+                                                        <binding destination="610" name="value" keyPath="selection.originalName" id="Lxj-Ye-QvE">
                                                             <dictionary key="options">
                                                                 <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                 <bool key="NSConditionallySetsHidden" value="YES"/>
@@ -609,8 +610,8 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
-                                                    <rect key="frame" x="89" y="233" width="162" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window Handling Process" id="2204">
+                                                    <rect key="frame" x="161" y="233" width="90" height="16"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="2204">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -675,6 +676,7 @@
                                             <constraint firstItem="2202" firstAttribute="leading" secondItem="674" secondAttribute="leading" id="buR-cl-4XY"/>
                                             <constraint firstItem="645" firstAttribute="top" secondItem="405" secondAttribute="top" constant="24" id="cTV-y9-lvA"/>
                                             <constraint firstItem="948" firstAttribute="top" secondItem="3ET-Le-SL5" secondAttribute="bottom" constant="6" id="cVP-fA-6Fc"/>
+                                            <constraint firstAttribute="height" constant="360" id="dAs-2H-KHi"/>
                                             <constraint firstItem="866" firstAttribute="leading" secondItem="865" secondAttribute="trailing" constant="-1" id="dpC-ri-gMq"/>
                                             <constraint firstItem="654" firstAttribute="top" secondItem="645" secondAttribute="bottom" constant="8" id="eOi-W2-WgB"/>
                                             <constraint firstAttribute="trailing" secondItem="2202" secondAttribute="trailing" constant="16" id="fZR-5Q-Fx1"/>
@@ -786,7 +788,7 @@
                                         <rect key="frame" x="17" y="226" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                             <rect key="frame" x="1" y="0.0" width="568" height="359"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="336"/>
@@ -969,8 +971,8 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
-                                                    <rect key="frame" x="219" y="52" width="33" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User" id="1918">
+                                                    <rect key="frame" x="162" y="52" width="90" height="16"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="1918">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -985,14 +987,14 @@
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
                                                     <rect key="frame" x="258" y="49" width="297" height="21"/>
-                                                    <string key="toolTip">User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used. Currently not supported</string>
+                                                    <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="1726" name="value" keyPath="selection.user" id="1953">
+                                                        <binding destination="1726" name="value" keyPath="selection.originalName" id="6Lg-p3-2IQ">
                                                             <dictionary key="options">
                                                                 <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                 <bool key="NSConditionallySetsHidden" value="YES"/>
@@ -1031,7 +1033,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="1856">
+                                                <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1856">
                                                     <rect key="frame" x="14" y="50" width="99" height="20"/>
                                                     <string key="toolTip">The prohibited process has to run under the currently logged in user. Use it instead of indicating the user. Currently not supported</string>
                                                     <buttonCell key="cell" type="check" title="Current user" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1920">
@@ -1156,6 +1158,7 @@
                                             <constraint firstItem="1858" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1900" secondAttribute="trailing" constant="8" symbolic="YES" id="IxB-2G-jeW"/>
                                             <constraint firstItem="1859" firstAttribute="leading" secondItem="1893" secondAttribute="leading" id="JmK-Nr-O76"/>
                                             <constraint firstAttribute="trailing" secondItem="1859" secondAttribute="trailing" constant="16" id="LfB-Z4-fdf"/>
+                                            <constraint firstAttribute="height" constant="180" id="Mgk-5v-TQv"/>
                                             <constraint firstItem="1858" firstAttribute="baseline" secondItem="1900" secondAttribute="baseline" id="NvS-ld-4Qg"/>
                                             <constraint firstItem="1896" firstAttribute="leading" secondItem="1859" secondAttribute="leading" id="Tca-ro-ZeB"/>
                                             <constraint firstItem="1856" firstAttribute="leading" secondItem="1840" secondAttribute="leading" constant="16" id="Vls-eF-ta0"/>
