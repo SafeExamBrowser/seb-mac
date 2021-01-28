@@ -274,4 +274,10 @@
 }
 
 
+- (void) abortClosingLockdownWindows
+{
+    closingLockdownWindowsInProgress = false;
+}
+
+
 @end

@@ -94,6 +94,12 @@
 #ifdef DEBUG
     DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
 #endif
+    if (!self.quitInsteadUnlockingButton && _sebController.noRequiredBuiltInScreenAvailable && self.overrideEnforcingBuiltinScreen.state == false) {
+        DDLogInfo(@"Quit/Unlock password or response entered in lockscreen, but a required built-in screen is not available and the override button was not selected: Don't close lockscreen.");
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Required built-in display is still not available!", nil)] withTime:nil];
+        [self.lockedViewController abortClosingLockdownWindows];
+        return;
+    }
     [self.lockedViewController closeLockdownWindows];
 }
 
@@ -179,8 +185,8 @@
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", nil)] withTime:nil];
     }
     
-    if (self.overrideCheckForAllProcesses.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
+    if (self.overrideEnforcingBuiltinScreen.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding required built-in display was enabled!", nil)] withTime:nil];
     }
 }
 
