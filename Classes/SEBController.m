@@ -3273,31 +3273,33 @@ conditionallyForWindow:(NSWindow *)window
                   @"detectedRequiredBuiltinDisplayMissing"])
         {
             if (!self.builtinDisplayNotAvailableDetected) {
-                if (self.startingUp || self.restarting) {
-                    // SEB is starting, we give the option to quit
-                    NSAlert *modalAlert = [self newAlert];
-                    [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", nil)];
-                    [modalAlert setInformativeText:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.", nil)];
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                    void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                        [self removeAlertWindow:modalAlert.window];
-                        [self quitSEBOrSession];
-                    };
-                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
-                    return;
-                }
-                self.builtinDisplayNotAvailableDetected = true;
-                if (self.builtinDisplayEnforceOverride == false) {
-                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
-                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
-                    [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
-                                                                Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
-                }
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime];
-                
-                if (self.builtinDisplayEnforceOverride == false) {
-                    [self openLockdownWindows];
+                if (![self.preferencesController preferencesAreOpen]) {
+                    if ((self.startingUp || self.restarting)) {
+                        // SEB is starting, we give the option to quit
+                        NSAlert *modalAlert = [self newAlert];
+                        [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", nil)];
+                        [modalAlert setInformativeText:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.", nil)];
+                        [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                        void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                            [self removeAlertWindow:modalAlert.window];
+                            [self quitSEBOrSession];
+                        };
+                        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
+                        return;
+                    }
+                    self.builtinDisplayNotAvailableDetected = true;
+                    if (self.builtinDisplayEnforceOverride == false && ![self.preferencesController preferencesAreOpen]) {
+                        self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
+                        self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
+                        [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
+                                                                    Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                    }
+                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime];
+                    
+                    if (self.builtinDisplayEnforceOverride == false) {
+                        [self openLockdownWindows];
+                    }
                 }
             } else {
                 if (self.noRequiredBuiltInScreenAvailable == false) {
