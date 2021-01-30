@@ -548,6 +548,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
+    } else if (![configKeysAlphabetically isEqualToArray:containedKeys]) {
+        NSArray *newArray = [configKeysAlphabetically arrayByAddingObjectsFromArray:containedKeys];
+        containedKeys = (NSArray *)[[NSSet setWithArray:newArray] allObjects];
+        containedKeys = [containedKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor
+                                                                                                       sortDescriptorWithKey:@"description"
+                                                                                                       ascending:YES
+                                                                                                       selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
+        [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
     }
     
     [*jsonStringPtr appendString:@"{"];
@@ -572,7 +580,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             [self presentPreferencesCorruptedError];
             [self resetSEBUserDefaults];
             // Return value: No settings
-            return nil;
+            return @{};
         }
         
         // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
@@ -627,7 +635,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             if (defaultValue && ![value isEqual:defaultValue]) {
                 // if this isn't the case, we have to reset the Config Key and abort
                 [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
-                return nil;
+                return @{};
             }
         } else if (value) {
             // If the key is contained in the array of keys in current settings,
