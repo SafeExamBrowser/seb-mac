@@ -3274,7 +3274,7 @@ conditionallyForWindow:(NSWindow *)window
         {
             if (!self.builtinDisplayNotAvailableDetected) {
                 if (![self.preferencesController preferencesAreOpen]) {
-                    if ((self.startingUp || self.restarting)) {
+                    if ((self.startingUp || self.restarting) && !self.openingSettings) {
                         // SEB is starting, we give the option to quit
                         NSAlert *modalAlert = [self newAlert];
                         [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", nil)];
