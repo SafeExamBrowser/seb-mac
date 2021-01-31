@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -53,7 +53,7 @@
                                                 <rect key="frame" x="-2" y="18" width="595" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
+                                                    <font key="font" metaFont="menu"/>
                                                     <menu key="menu" id="87">
                                                         <items>
                                                             <menuItem id="90"/>
@@ -175,7 +175,7 @@
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="592">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="594">
                                                             <items>
                                                                 <menuItem id="597"/>
@@ -228,7 +228,7 @@
                                                 <rect key="frame" x="307" y="-3" width="306" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
+                                                    <font key="font" metaFont="menu"/>
                                                     <menu key="menu" id="96">
                                                         <items>
                                                             <menuItem id="98"/>
@@ -418,6 +418,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="pHJ-3Q-4Y4" secondAttribute="trailing" constant="11" id="39p-ZC-DHp"/>
                                                 <constraint firstItem="pHJ-3Q-4Y4" firstAttribute="leading" secondItem="guQ-Yx-amA" secondAttribute="leading" constant="11" id="9GW-3R-rK2"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pHJ-3Q-4Y4" secondAttribute="bottom" constant="8" id="BMb-db-m9P"/>
                                                 <constraint firstItem="pHJ-3Q-4Y4" firstAttribute="top" secondItem="guQ-Yx-amA" secondAttribute="top" constant="8" id="JsG-8Y-FDn"/>
                                             </constraints>
                                         </view>
@@ -483,7 +484,7 @@
                                                                             <rect key="frame" x="79" y="-3" width="38" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="47Q-9G-OO8">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
+                                                                                <font key="font" metaFont="menu"/>
                                                                                 <menu key="menu" id="6q7-Gf-fa9">
                                                                                     <items>
                                                                                         <menuItem id="UdR-9e-fcf"/>
@@ -588,7 +589,7 @@
                                                                             <rect key="frame" x="75" y="-3" width="38" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="gLQ-HQ-mev">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
+                                                                                <font key="font" metaFont="menu"/>
                                                                                 <menu key="menu" id="tHw-qH-1Eq">
                                                                                     <items>
                                                                                         <menuItem id="JoM-dA-SQS"/>
@@ -766,7 +767,7 @@
                                                     <rect key="frame" x="9" y="121" width="593" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="QQL-bQ-Umm">
                                                             <items>
                                                                 <menuItem id="iaF-sM-Iau"/>
@@ -1332,7 +1333,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.88666666666666671" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.98666666666666669" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
