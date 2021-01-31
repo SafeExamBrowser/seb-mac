@@ -20,11 +20,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Config File Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="652" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="652" height="435"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LlI-AX-322">
-                    <rect key="frame" x="20" y="20" width="612" height="390"/>
+                    <rect key="frame" x="20" y="25" width="612" height="390"/>
                     <subviews>
                         <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
                             <rect key="frame" x="0.0" y="350" width="612" height="40"/>
@@ -82,7 +82,7 @@
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
                             <rect key="frame" x="0.0" y="300" width="282" height="34"/>
                             <subviews>
-                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
                                     <rect key="frame" x="-2" y="18" width="286" height="18"/>
                                     <buttonCell key="cell" type="check" title="Allow to open Preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -92,7 +92,7 @@
                                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
+                                <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
                                     <rect key="frame" x="-2" y="-2" width="183" height="18"/>
                                     <string key="toolTip">Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</string>
                                     <buttonCell key="cell" type="check" title="Show settings in app (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b4O-Hy-kCT">
@@ -296,6 +296,9 @@
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bjh-ZV-2zp">
                             <rect key="frame" x="-2" y="115" width="187" height="18"/>
                             <string key="toolTip">Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action</string>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="14" id="s9Z-Gc-JTb"/>
+                            </constraints>
                             <buttonCell key="cell" type="check" title="Allow QR code config (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="53p-kc-87m">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -563,7 +566,7 @@
                 <constraint firstItem="LlI-AX-322" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="3VZ-WH-9s4"/>
                 <constraint firstAttribute="trailing" secondItem="LlI-AX-322" secondAttribute="trailing" constant="20" id="4PN-JG-vhk"/>
                 <constraint firstItem="LlI-AX-322" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="NZj-va-W5j"/>
-                <constraint firstAttribute="bottom" secondItem="LlI-AX-322" secondAttribute="bottom" constant="20" id="lrC-6w-IqA"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LlI-AX-322" secondAttribute="bottom" constant="20" id="lrC-6w-IqA"/>
             </constraints>
             <point key="canvasLocation" x="673" y="453"/>
         </customView>
