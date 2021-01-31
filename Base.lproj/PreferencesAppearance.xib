@@ -25,10 +25,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Kpu-hv-Qpn">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="720"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="722"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser view mode" translatesAutoresizingMaskIntoConstraints="NO" id="J5d-BA-D2w">
-                                        <rect key="frame" x="17" y="609" width="616" height="96"/>
+                                        <rect key="frame" x="17" y="611" width="616" height="96"/>
                                         <view key="contentView" id="gyQ-3a-4mB">
                                             <rect key="frame" x="3" y="3" width="610" height="78"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="249" borderType="line" title="Main browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-Ns-eIu">
-                                        <rect key="frame" x="17" y="522" width="616" height="81"/>
+                                        <rect key="frame" x="17" y="524" width="616" height="81"/>
                                         <view key="contentView" id="BDS-2M-DdF">
                                             <rect key="frame" x="3" y="3" width="610" height="63"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -301,13 +301,13 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Toolbar/Menu Bar/Status Bar" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Cu-Oym">
-                                        <rect key="frame" x="17" y="395" width="616" height="121"/>
+                                        <rect key="frame" x="17" y="395" width="616" height="123"/>
                                         <view key="contentView" id="n8u-Q3-lEh">
-                                            <rect key="frame" x="3" y="3" width="610" height="103"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="105"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1CE-c3-DmE">
-                                                    <rect key="frame" x="11" y="9" width="588" height="86"/>
+                                                    <rect key="frame" x="11" y="11" width="588" height="86"/>
                                                     <subviews>
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ze5-JU-deW">
                                                             <rect key="frame" x="0.0" y="52" width="588" height="34"/>
@@ -494,13 +494,14 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1CE-c3-DmE" secondAttribute="bottom" constant="8" id="LdE-cq-wTQ"/>
                                                 <constraint firstItem="1CE-c3-DmE" firstAttribute="top" secondItem="n8u-Q3-lEh" secondAttribute="top" constant="8" id="VqJ-rZ-wXD"/>
                                                 <constraint firstAttribute="trailing" secondItem="1CE-c3-DmE" secondAttribute="trailing" constant="11" id="fSh-SU-rF8"/>
                                                 <constraint firstItem="1CE-c3-DmE" firstAttribute="leading" secondItem="n8u-Q3-lEh" secondAttribute="leading" constant="11" id="ggW-QJ-gm2"/>
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="117" id="vgd-oa-waT"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="119" id="vgd-oa-waT"/>
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="SEB dock/taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="JtS-CO-tOW">
@@ -510,10 +511,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3dZ-i2-vT2">
-                                                    <rect key="frame" x="11" y="14" width="588" height="194"/>
+                                                    <rect key="frame" x="11" y="8" width="588" height="200"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="haG-9a-u2M">
-                                                            <rect key="frame" x="0.0" y="0.0" width="289" height="194"/>
+                                                            <rect key="frame" x="0.0" y="6" width="289" height="194"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Zfa-sc-BEA">
                                                                     <rect key="frame" x="-2" y="178" width="117" height="18"/>
@@ -664,7 +665,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="68I-OY-w2B">
-                                                            <rect key="frame" x="299" y="153" width="289" height="41"/>
+                                                            <rect key="frame" x="299" y="159" width="289" height="41"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-5e-so6">
                                                                     <rect key="frame" x="0.0" y="20" width="121" height="21"/>
@@ -736,6 +737,9 @@
                                                             </customSpacing>
                                                         </stackView>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="pCg-7g-PZb"/>
+                                                    </constraints>
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
@@ -749,6 +753,7 @@
                                             <constraints>
                                                 <constraint firstItem="3dZ-i2-vT2" firstAttribute="leading" secondItem="3Iq-aP-5ha" secondAttribute="leading" constant="11" id="Tyw-iV-45J"/>
                                                 <constraint firstAttribute="trailing" secondItem="3dZ-i2-vT2" secondAttribute="trailing" constant="11" id="sUC-Ab-hho"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3dZ-i2-vT2" secondAttribute="bottom" constant="8" id="t4X-PC-iYf"/>
                                                 <constraint firstItem="3dZ-i2-vT2" firstAttribute="top" secondItem="3Iq-aP-5ha" secondAttribute="top" constant="8" id="vXC-zR-xF6"/>
                                             </constraints>
                                         </view>
@@ -1001,7 +1006,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.52777777777777779" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.79729729729729726" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
