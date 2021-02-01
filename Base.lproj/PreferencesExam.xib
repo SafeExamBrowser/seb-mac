@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,10 +39,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
-                                                    <rect key="frame" x="11" y="16" width="588" height="191"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="189"/>
                                                     <subviews>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                                            <rect key="frame" x="-2" y="174" width="332" height="18"/>
+                                                            <rect key="frame" x="-2" y="173" width="328" height="18"/>
                                                             <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                                             <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -60,7 +60,7 @@
                                                                     <rect key="frame" x="0.0" y="56" width="588" height="16"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
-                                                                            <rect key="frame" x="-2" y="0.0" width="271" height="16"/>
+                                                                            <rect key="frame" x="-2" y="0.0" width="274" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -68,7 +68,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                                                            <rect key="frame" x="275" y="-1" width="313" height="16"/>
+                                                                            <rect key="frame" x="276" y="-2" width="314" height="18"/>
                                                                             <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                                                                             <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -200,6 +200,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="q3M-yD-lYv" secondAttribute="trailing" constant="11" id="Ugj-8i-ki0"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="q3M-yD-lYv" secondAttribute="bottom" constant="10" id="VbO-gu-arW"/>
                                                 <constraint firstItem="q3M-yD-lYv" firstAttribute="top" secondItem="25R-Li-36g" secondAttribute="top" constant="8" id="VnP-Ho-XLj"/>
                                                 <constraint firstItem="q3M-yD-lYv" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="11" id="chc-kH-xre"/>
                                             </constraints>
@@ -215,10 +216,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xgw-4b-nVf">
-                                                    <rect key="frame" x="11" y="16" width="588" height="77"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="75"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="BME-1F-4b7">
-                                                            <rect key="frame" x="0.0" y="25" width="588" height="52"/>
+                                                            <rect key="frame" x="0.0" y="23" width="588" height="52"/>
                                                             <subviews>
                                                                 <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
                                                                     <rect key="frame" x="0.0" y="31" width="588" height="21"/>
@@ -264,10 +265,10 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="ZRp-nu-0tq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="16"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="588" height="14"/>
                                                             <subviews>
                                                                 <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
-                                                                    <rect key="frame" x="-2" y="-1" width="292" height="18"/>
+                                                                    <rect key="frame" x="-2" y="-2" width="294" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ji2-gQ-cOh">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -278,7 +279,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB" translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Qt-FY9">
-                                                                    <rect key="frame" x="297" y="-1" width="291" height="18"/>
+                                                                    <rect key="frame" x="297" y="-2" width="293" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Restart instead of quitting (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="u5B-hW-58P">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -320,6 +321,7 @@
                                                 <constraint firstItem="xgw-4b-nVf" firstAttribute="top" secondItem="Bon-Cy-DW3" secondAttribute="top" constant="8" id="RQ9-q2-Aao"/>
                                                 <constraint firstAttribute="trailing" secondItem="xgw-4b-nVf" secondAttribute="trailing" constant="11" id="ern-Ag-KRP"/>
                                                 <constraint firstItem="xgw-4b-nVf" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="11" id="yag-Ir-icb"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xgw-4b-nVf" secondAttribute="bottom" constant="10" id="zMa-mR-LPn"/>
                                             </constraints>
                                         </view>
                                         <constraints>
@@ -333,10 +335,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-Sl-eSE">
-                                                    <rect key="frame" x="11" y="17" width="588" height="135"/>
+                                                    <rect key="frame" x="11" y="21" width="588" height="131"/>
                                                     <subviews>
                                                         <button toolTip="The Back to Start Button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
-                                                            <rect key="frame" x="-2" y="118" width="231" height="18"/>
+                                                            <rect key="frame" x="-2" y="115" width="227" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -347,7 +349,7 @@
                                                             </connections>
                                                         </button>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
-                                                            <rect key="frame" x="0.0" y="72" width="588" height="38"/>
+                                                            <rect key="frame" x="0.0" y="70" width="588" height="38"/>
                                                             <subviews>
                                                                 <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
                                                                     <rect key="frame" x="0.0" y="17" width="588" height="21"/>
@@ -397,7 +399,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
-                                                            <rect key="frame" x="0.0" y="25" width="588" height="38"/>
+                                                            <rect key="frame" x="0.0" y="23" width="588" height="38"/>
                                                             <subviews>
                                                                 <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                                                     <rect key="frame" x="0.0" y="17" width="588" height="21"/>
@@ -442,7 +444,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                                            <rect key="frame" x="-2" y="-1" width="382" height="18"/>
+                                                            <rect key="frame" x="-2" y="-2" width="378" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -474,6 +476,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Iw2-Sl-eSE" secondAttribute="bottom" constant="10" id="Egh-p0-iYO"/>
                                                 <constraint firstItem="Iw2-Sl-eSE" firstAttribute="leading" secondItem="LLt-mf-jhD" secondAttribute="leading" constant="11" id="MUT-9t-NsG"/>
                                                 <constraint firstItem="Iw2-Sl-eSE" firstAttribute="top" secondItem="LLt-mf-jhD" secondAttribute="top" constant="8" id="hue-EV-IT2"/>
                                                 <constraint firstAttribute="trailing" secondItem="Iw2-Sl-eSE" secondAttribute="trailing" constant="11" id="vZu-Pj-CqX"/>
@@ -490,10 +493,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LfX-Xg-yil">
-                                                    <rect key="frame" x="11" y="16" width="588" height="91"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="89"/>
                                                     <subviews>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
-                                                            <rect key="frame" x="-2" y="74" width="273" height="18"/>
+                                                            <rect key="frame" x="-2" y="73" width="269" height="18"/>
                                                             <string key="toolTip">Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file</string>
                                                             <buttonCell key="cell" type="check" title="Allow reconfiguring secure/exam session" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lNW-hv-6s5">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -591,6 +594,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LfX-Xg-yil" secondAttribute="bottom" constant="10" id="AwL-AX-x8q"/>
                                                 <constraint firstItem="LfX-Xg-yil" firstAttribute="top" secondItem="XgF-VQ-a5h" secondAttribute="top" constant="8" id="Ph8-4D-JZV"/>
                                                 <constraint firstItem="LfX-Xg-yil" firstAttribute="leading" secondItem="XgF-VQ-a5h" secondAttribute="leading" constant="11" id="fKp-8E-5a4"/>
                                                 <constraint firstAttribute="trailing" secondItem="LfX-Xg-yil" secondAttribute="trailing" constant="11" id="ol6-n0-iTx"/>
@@ -607,13 +611,13 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Ie9-ZQ-spU">
-                                                    <rect key="frame" x="11" y="15" width="588" height="49"/>
+                                                    <rect key="frame" x="11" y="17" width="588" height="47"/>
                                                     <subviews>
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="bottom" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="nJS-Hc-HWX">
-                                                            <rect key="frame" x="0.0" y="33" width="588" height="16"/>
+                                                            <rect key="frame" x="0.0" y="33" width="588" height="14"/>
                                                             <subviews>
                                                                 <button toolTip="Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="Suk-hp-L3I">
-                                                                    <rect key="frame" x="-2" y="-1" width="292" height="18"/>
+                                                                    <rect key="frame" x="-2" y="-2" width="294" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Clear on session start" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Wv-pu-d1v">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -624,7 +628,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)" translatesAutoresizingMaskIntoConstraints="NO" id="6Uo-fx-mC8">
-                                                                    <rect key="frame" x="297" y="-1" width="291" height="18"/>
+                                                                    <rect key="frame" x="297" y="-2" width="293" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Clear on session end" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wYr-ul-Cng">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -673,6 +677,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Ie9-ZQ-spU" secondAttribute="trailing" constant="11" id="Nmp-Gc-trc"/>
                                                 <constraint firstItem="Ie9-ZQ-spU" firstAttribute="top" secondItem="n6h-gS-HDc" secondAttribute="top" constant="8" id="Qin-aF-Sqx"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ie9-ZQ-spU" secondAttribute="bottom" constant="10" id="gZX-nU-fPq"/>
                                                 <constraint firstItem="Ie9-ZQ-spU" firstAttribute="leading" secondItem="n6h-gS-HDc" secondAttribute="leading" constant="11" id="kKP-s9-cqM"/>
                                             </constraints>
                                         </view>
@@ -687,10 +692,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="kYx-uc-ezO">
-                                                    <rect key="frame" x="11" y="15" width="588" height="49"/>
+                                                    <rect key="frame" x="11" y="17" width="588" height="47"/>
                                                     <subviews>
                                                         <button toolTip="If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="EZa-c9-03S">
-                                                            <rect key="frame" x="-2" y="32" width="165" height="18"/>
+                                                            <rect key="frame" x="-2" y="31" width="161" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Allow Query Parameter" bezelStyle="regularSquare" imagePosition="left" inset="2" id="y9P-96-cCz">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -726,6 +731,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="kYx-uc-ezO" secondAttribute="trailing" constant="11" id="b5L-A8-fYW"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kYx-uc-ezO" secondAttribute="bottom" constant="10" id="eFv-NQ-YYT"/>
                                                 <constraint firstItem="kYx-uc-ezO" firstAttribute="top" secondItem="Ab6-5s-cBF" secondAttribute="top" constant="8" id="tz8-fZ-DrF"/>
                                                 <constraint firstItem="kYx-uc-ezO" firstAttribute="leading" secondItem="Ab6-5s-cBF" secondAttribute="leading" constant="11" id="yzK-FF-iiO"/>
                                             </constraints>
@@ -741,10 +747,10 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="aJX-Dd-gws">
-                                                    <rect key="frame" x="11" y="15" width="588" height="49"/>
+                                                    <rect key="frame" x="11" y="17" width="588" height="47"/>
                                                     <subviews>
                                                         <button toolTip="If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting" translatesAutoresizingMaskIntoConstraints="NO" id="5sV-hT-oqR">
-                                                            <rect key="frame" x="-2" y="32" width="205" height="18"/>
+                                                            <rect key="frame" x="-2" y="31" width="201" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Allow Deep Linking for Exams" bezelStyle="regularSquare" imagePosition="left" inset="2" id="sOA-63-en9">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -779,6 +785,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aJX-Dd-gws" secondAttribute="bottom" constant="10" id="JY5-zl-LxL"/>
                                                 <constraint firstAttribute="trailing" secondItem="aJX-Dd-gws" secondAttribute="trailing" constant="11" id="hgt-8w-Y8B"/>
                                                 <constraint firstItem="aJX-Dd-gws" firstAttribute="top" secondItem="Oob-Qk-EkQ" secondAttribute="top" constant="8" id="tyA-s5-I4T"/>
                                                 <constraint firstItem="aJX-Dd-gws" firstAttribute="leading" secondItem="Oob-Qk-EkQ" secondAttribute="leading" constant="11" id="vHg-W0-IfQ"/>
