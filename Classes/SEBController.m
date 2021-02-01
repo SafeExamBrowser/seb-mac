@@ -4260,6 +4260,12 @@ conditionallyForWindow:(NSWindow *)window
 
     [enterPasswordDialog setAttributedStringValue:text];
     
+    if (@available(macOS 11.0, *)) {
+        if (!window && (_isAACEnabled || _wasAACEnabled)) {
+            window = self.browserController.mainBrowserWindow;
+        }
+    }
+
     [NSApp beginSheet: enterPasswordDialogWindow
        modalForWindow: window
         modalDelegate: nil
@@ -4323,6 +4329,12 @@ conditionallyForWindow:(NSWindow *)window
         [_modalAlertWindows addObject:enterPasswordDialogWindow];
     }
     
+    if (@available(macOS 11.0, *)) {
+        if (!window && (_isAACEnabled || _wasAACEnabled)) {
+            window = self.browserController.mainBrowserWindow;
+        }
+    }
+
     [NSApp beginSheet: enterUsernamePasswordDialogWindow
        modalForWindow: window
         modalDelegate: self
