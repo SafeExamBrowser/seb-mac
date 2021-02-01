@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -55,7 +55,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded" translatesAutoresizingMaskIntoConstraints="NO" id="454">
-                                        <rect key="frame" x="15" y="619" width="150" height="18"/>
+                                        <rect key="frame" x="15" y="618" width="154" height="18"/>
                                         <buttonCell key="cell" type="check" title="Activate URL filtering" bezelStyle="regularSquare" imagePosition="left" inset="2" id="455">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -98,9 +98,9 @@
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at3-bk-Nje">
-                                        <rect key="frame" x="17" y="271" width="570" height="323"/>
+                                        <rect key="frame" x="17" y="271" width="570" height="324"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
-                                            <rect key="frame" x="1" y="0.0" width="568" height="322"/>
+                                            <rect key="frame" x="1" y="1" width="568" height="322"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
@@ -153,7 +153,7 @@
                                                                 <binding destination="Hmk-IV-hfb" name="value" keyPath="arrangedObjects.expression" id="jRF-Ry-bNb"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="88" minWidth="10" maxWidth="3.4028234663852886e+38" id="6U6-cT-k15">
+                                                        <tableColumn width="59" minWidth="10" maxWidth="3.4028234663852886e+38" id="6U6-cT-k15">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Action">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -207,13 +207,13 @@
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <tableHeaderView key="headerView" id="TDX-aF-oMF">
+                                        <tableHeaderView key="headerView" wantsLayer="YES" id="TDX-aF-oMF">
                                             <rect key="frame" x="0.0" y="0.0" width="568" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
                                     <button toolTip="Not only web page URLs are filtered using the URL filter rules, but also all embedded resources" translatesAutoresizingMaskIntoConstraints="NO" id="648">
-                                        <rect key="frame" x="292" y="619" width="200" height="18"/>
+                                        <rect key="frame" x="292" y="618" width="204" height="18"/>
                                         <buttonCell key="cell" type="check" title="Filter also embedded content" bezelStyle="regularSquare" imagePosition="left" inset="2" id="649">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -235,7 +235,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button toolTip="URL filter action item is active" translatesAutoresizingMaskIntoConstraints="NO" id="jId-HY-bdq">
-                                                    <rect key="frame" x="9" y="152" width="60" height="22"/>
+                                                    <rect key="frame" x="9" y="153" width="64" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="yVm-BW-ed0"/>
                                                     </constraints>
@@ -253,7 +253,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Selected action is a regular expression" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-Ub-GkE">
-                                                    <rect key="frame" x="89" y="152" width="60" height="22"/>
+                                                    <rect key="frame" x="95" y="153" width="64" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="xfM-bO-IsX"/>
                                                     </constraints>
@@ -272,7 +272,7 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QmW-O8-p1C">
-                                                    <rect key="frame" x="410" y="155" width="43" height="16"/>
+                                                    <rect key="frame" x="410" y="156" width="43" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Action" id="cCY-tB-p0Y">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -347,7 +347,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Action when the filter rule expression matches (allow or block resource)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9du-EF-v3O">
-                                                    <rect key="frame" x="457" y="148" width="105" height="25"/>
+                                                    <rect key="frame" x="456" y="149" width="107" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="JEh-9U-yXY"/>
                                                     </constraints>
@@ -390,7 +390,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
-                                                    <rect key="frame" x="9" y="129" width="389" height="17"/>
+                                                    <rect key="frame" x="9" y="129" width="388" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="iuH-05-SfK"/>
                                                     </constraints>
@@ -716,7 +716,7 @@
                                         </constraints>
                                     </box>
                                     <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
-                                        <rect key="frame" x="33" y="599" width="554" height="18"/>
+                                        <rect key="frame" x="33" y="600" width="554" height="15"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         <size key="cellSize" width="140" height="18"/>
                                         <size key="intercellSpacing" width="4" height="2"/>
@@ -744,7 +744,7 @@
                                         </connections>
                                     </matrix>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etc-6i-KPi">
-                                        <rect key="frame" x="443" y="232" width="150" height="32"/>
+                                        <rect key="frame" x="450" y="233" width="144" height="32"/>
                                         <string key="toolTip">Clear the list containing ignore filter expressions. This list has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter</string>
                                         <buttonCell key="cell" type="push" title="Clear Ignore List…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyL-Fn-jZ6">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -755,7 +755,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked" translatesAutoresizingMaskIntoConstraints="NO" id="PJT-Mq-ijG">
-                                        <rect key="frame" x="210" y="240" width="224" height="18"/>
+                                        <rect key="frame" x="213" y="241" width="227" height="18"/>
                                         <buttonCell key="cell" type="check" title="Teach SEB allowed/blocked URLs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="DSd-mL-qnG">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -850,11 +850,11 @@
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1831">
                                         <rect key="frame" x="17" y="39" width="570" height="423"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
-                                            <rect key="frame" x="1" y="0.0" width="568" height="422"/>
+                                            <rect key="frame" x="1" y="1" width="568" height="421"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="399"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="398"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -886,7 +886,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="437" minWidth="40" maxWidth="1000" id="1837">
+                                                        <tableColumn width="408" minWidth="40" maxWidth="1000" id="1837">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -1056,7 +1056,7 @@
                                                             </buttonCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn editable="NO" width="212.5" minWidth="40" maxWidth="1000" id="811">
+                                                        <tableColumn editable="NO" width="183.5" minWidth="40" maxWidth="1000" id="811">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -2045,16 +2045,16 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Li-5Z-iho">
-                        <rect key="frame" x="20" y="105" width="570" height="424"/>
+                        <rect key="frame" x="20" y="104" width="570" height="425"/>
                         <clipView key="contentView" id="ilD-CP-EQ7">
-                            <rect key="frame" x="1" y="0.0" width="568" height="423"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <rect key="frame" x="1" y="1" width="568" height="423"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="l7P-hn-H1h" id="zFX-aq-BQc">
                                     <rect key="frame" x="0.0" y="0.0" width="568" height="400"/>
@@ -2063,7 +2063,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn editable="NO" width="440" minWidth="100" maxWidth="1000" id="WtC-9s-fhR">
+                                        <tableColumn editable="NO" width="431" minWidth="100" maxWidth="1000" id="WtC-9s-fhR">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -2139,7 +2139,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ac7-hJ-JcF">
-                        <rect key="frame" x="506" y="13" width="90" height="32"/>
+                        <rect key="frame" x="513" y="13" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="Embedd" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lRh-cS-3k7">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -2149,7 +2149,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8mC-CJ-dvp">
-                        <rect key="frame" x="424" y="13" width="82" height="32"/>
+                        <rect key="frame" x="439" y="13" width="76" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DPz-Hy-kg6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -2162,7 +2162,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-fd-qaY">
-                        <rect key="frame" x="18" y="81" width="153" height="16"/>
+                        <rect key="frame" x="18" y="80" width="153" height="16"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Embedd as" usesSingleLineMode="YES" id="eXh-u4-x04">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2170,7 +2170,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="An4-xf-7ZG">
-                        <rect key="frame" x="174" y="76" width="419" height="22"/>
+                        <rect key="frame" x="173" y="74" width="421" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="RVm-Uv-7WU"/>
                         </constraints>
@@ -2189,7 +2189,7 @@ Gw
                         </connections>
                     </popUpButton>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="poG-uc-dNo">
-                        <rect key="frame" x="177" y="49" width="413" height="22"/>
+                        <rect key="frame" x="177" y="48" width="413" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="DGV-4s-mgW"/>
                         </constraints>
@@ -2207,7 +2207,7 @@ Gw
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDb-Fc-OTn">
-                        <rect key="frame" x="18" y="52" width="153" height="16"/>
+                        <rect key="frame" x="18" y="51" width="153" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Override common name:" usesSingleLineMode="YES" id="Apy-z9-F3c">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2262,7 +2262,7 @@ Gw
         </arrayController>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
     </resources>
 </document>

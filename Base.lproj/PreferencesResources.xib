@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2282">
-                    <rect key="frame" x="18" y="505" width="360" height="14"/>
+                    <rect key="frame" x="18" y="505" width="359" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="External or embedded resources which can be used during an exam" id="2301">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -26,21 +26,20 @@
                     </textFieldCell>
                 </textField>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2434">
-                    <rect key="frame" x="20" y="213" width="610" height="284"/>
+                    <rect key="frame" x="20" y="212" width="610" height="285"/>
                     <clipView key="contentView" id="77c-4M-PEO">
-                        <rect key="frame" x="1" y="0.0" width="608" height="283"/>
+                        <rect key="frame" x="1" y="1" width="608" height="283"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="2521" id="2519">
                                 <rect key="frame" x="0.0" y="0.0" width="608" height="260"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn width="40" minWidth="18" maxWidth="1000" id="2523">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Active">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -55,7 +54,6 @@
                                     </tableColumn>
                                     <tableColumn width="40" minWidth="10" maxWidth="3.4028234663852886e+38" id="2525">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Open">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -70,7 +68,6 @@
                                     </tableColumn>
                                     <tableColumn width="256" minWidth="40" maxWidth="1000" id="2524">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -84,9 +81,8 @@
                                             <binding destination="1726" name="value" keyPath="arrangedObjects.title" id="2601"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="260" minWidth="10" maxWidth="3.4028234663852886e+38" id="2526">
+                                    <tableColumn width="251" minWidth="10" maxWidth="3.4028234663852886e+38" id="2526">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="URL or File Name">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -112,7 +108,7 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="2521">
+                    <tableHeaderView key="headerView" wantsLayer="YES" id="2521">
                         <rect key="frame" x="0.0" y="0.0" width="608" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
@@ -120,11 +116,11 @@
                 <box autoresizesSubviews="NO" borderType="line" title="Selected Resource" translatesAutoresizingMaskIntoConstraints="NO" id="2435">
                     <rect key="frame" x="17" y="16" width="616" height="160"/>
                     <view key="contentView" id="zcz-8m-hbA">
-                        <rect key="frame" x="1" y="1" width="614" height="144"/>
+                        <rect key="frame" x="3" y="3" width="610" height="142"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button toolTip="This resource item is active" translatesAutoresizingMaskIntoConstraints="NO" id="2493">
-                                <rect key="frame" x="16" y="111" width="60" height="22"/>
+                                <rect key="frame" x="14" y="110" width="64" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="2503"/>
                                 </constraints>
@@ -142,7 +138,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Open this resource when SEB starts" translatesAutoresizingMaskIntoConstraints="NO" id="2632">
-                                <rect key="frame" x="300" y="111" width="158" height="22"/>
+                                <rect key="frame" x="298" y="110" width="162" height="20"/>
                                 <buttonCell key="cell" type="check" title="Open when SEB starts" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2634">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -157,7 +153,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2489">
-                                <rect key="frame" x="16" y="86" width="32" height="17"/>
+                                <rect key="frame" x="14" y="85" width="32" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="2508">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -172,7 +168,7 @@
                                 </connections>
                             </textField>
                             <textField toolTip="Title of the resource which is displayed in the SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2490">
-                                <rect key="frame" x="54" y="83" width="538" height="22"/>
+                                <rect key="frame" x="52" y="82" width="538" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="538" id="2695"/>
                                 </constraints>
@@ -190,7 +186,7 @@
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2611">
-                                <rect key="frame" x="16" y="56" width="32" height="17"/>
+                                <rect key="frame" x="14" y="56" width="32" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="URL" id="2614">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -205,7 +201,7 @@
                                 </connections>
                             </textField>
                             <textField toolTip="Full URL of the resource (if external) or file name including file type extension" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2612">
-                                <rect key="frame" x="54" y="53" width="538" height="22"/>
+                                <rect key="frame" x="52" y="53" width="538" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2613">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -244,7 +240,7 @@
                     </constraints>
                 </box>
                 <button toolTip="Add a resource" translatesAutoresizingMaskIntoConstraints="NO" id="2437">
-                    <rect key="frame" x="20" y="184" width="20" height="21"/>
+                    <rect key="frame" x="20" y="184" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="2445"/>
                     </constraints>
@@ -257,7 +253,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2438">
-                    <rect key="frame" x="67" y="177" width="123" height="32"/>
+                    <rect key="frame" x="66" y="177" width="117" height="32"/>
                     <string key="toolTip">Displays a file requester for choosing the process executable file (or application) which will be added to the list of prohibited processes.</string>
                     <buttonCell key="cell" type="push" title="Choose File..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2442">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -265,7 +261,7 @@
                     </buttonCell>
                 </button>
                 <button toolTip="Remove a resource" translatesAutoresizingMaskIntoConstraints="NO" id="2439">
-                    <rect key="frame" x="39" y="184" width="22" height="21"/>
+                    <rect key="frame" x="39" y="184" width="22" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="22" id="2441"/>
                     </constraints>
@@ -299,6 +295,7 @@
                 <constraint firstItem="2435" firstAttribute="top" secondItem="2439" secondAttribute="bottom" constant="8" symbolic="YES" id="2766"/>
                 <constraint firstAttribute="bottom" secondItem="2435" secondAttribute="bottom" constant="20" symbolic="YES" id="2768"/>
             </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>
@@ -340,7 +337,7 @@
         </arrayController>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
     </resources>
 </document>
