@@ -588,6 +588,12 @@
                             window = nil;
                         }
                         
+                        if (@available(macOS 11.0, *)) {
+                            if (!window && (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled)) {
+                                window = self.browserController.mainBrowserWindow;
+                            }
+                        }
+                        
                         [NSApp beginSheet: self.URLFilterAlert
                            modalForWindow: window
                             modalDelegate: nil
