@@ -4426,6 +4426,13 @@ conditionallyForWindow:(NSWindow *)window
         } else {
             // Show preferences window
             DDLogDebug(@"openPreferences: Preferences already open, just show Window");
+            if (@available(macOS 11.0, *)) {
+                // Release preferences window so buttons get enabled properly for the local client settings mode
+                [self.preferencesController releasePreferencesWindow];
+                // Re-initialize and open preferences window
+                [self.preferencesController initPreferencesWindow];
+                [self.preferencesController reopenPreferencesWindow];
+            }
             [self.preferencesController showPreferencesWindow:nil];
         }
     }
