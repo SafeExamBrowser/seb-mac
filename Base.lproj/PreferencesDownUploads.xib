@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,11 +20,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Down/Uploads Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="300"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="308"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="Usually to be used with permitted third party applications for which you want to provide files to be downloaded." translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="18" y="264" width="614" height="18"/>
+                    <rect key="frame" x="18" y="276" width="612" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow downloading and uploading files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="165" y="237" width="159" height="16"/>
+                    <rect key="frame" x="165" y="248" width="159" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save downloaded files to:" usesSingleLineMode="YES" id="23">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -43,13 +43,13 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="Choose download directory" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="328" y="231" width="305" height="24"/>
+                    <rect key="frame" x="327" y="241" width="307" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="248"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" id="34">
                             <items>
                                 <menuItem title="Directory" id="35"/>
@@ -68,7 +68,7 @@
                     </connections>
                 </popUpButton>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
-                    <rect key="frame" x="328" y="213" width="304" height="18"/>
+                    <rect key="frame" x="330" y="226" width="300" height="14"/>
                     <string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type</string>
                     <buttonCell key="cell" type="check" title="Open files after downloading" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="39">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -80,7 +80,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="38" y="69" width="594" height="18"/>
+                    <rect key="frame" x="38" y="79" width="592" height="18"/>
                     <string key="toolTip">PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</string>
                     <buttonCell key="cell" type="check" title="Download and open PDF files instead of displaying them inline" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -93,14 +93,14 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="38" y="112" width="595" height="26"/>
+                    <rect key="frame" x="37" y="122" width="597" height="27"/>
                     <string key="toolTip">SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="Us4-sh-elN"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" id="95">
                             <items>
                                 <menuItem id="97"/>
@@ -118,7 +118,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                    <rect key="frame" x="38" y="141" width="594" height="17"/>
+                    <rect key="frame" x="38" y="152" width="594" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="qTI-zI-4Ji"/>
                     </constraints>
@@ -129,7 +129,7 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="Download and open .seb config files regardless if downloading and opening other file types is allowed" translatesAutoresizingMaskIntoConstraints="NO" id="265">
-                    <rect key="frame" x="18" y="18" width="614" height="18"/>
+                    <rect key="frame" x="18" y="24" width="612" height="18"/>
                     <buttonCell key="cell" type="check" title="Download and open SEB config files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="266">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -139,7 +139,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
-                    <rect key="frame" x="330" y="182" width="300" height="22"/>
+                    <rect key="frame" x="330" y="193" width="300" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="zmv-ZO-ixQ"/>
                     </constraints>
@@ -159,7 +159,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
-                    <rect key="frame" x="139" y="185" width="185" height="17"/>
+                    <rect key="frame" x="139" y="196" width="185" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="sGD-sR-zvr"/>
                     </constraints>
@@ -170,7 +170,7 @@
                     </textFieldCell>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
-                    <rect key="frame" x="38" y="49" width="594" height="18"/>
+                    <rect key="frame" x="38" y="57" width="592" height="18"/>
                     <string key="toolTip">The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services</string>
                     <buttonCell key="cell" type="check" title="Allow using Acrobat Reader PDF plugin (insecure)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zhK-R4-XtF">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -194,7 +194,7 @@
                 <constraint firstItem="22" firstAttribute="baseline" secondItem="32" secondAttribute="baseline" id="223"/>
                 <constraint firstAttribute="trailing" secondItem="13" secondAttribute="trailing" constant="20" symbolic="YES" id="224"/>
                 <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="20" symbolic="YES" id="225"/>
-                <constraint firstItem="13" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="234"/>
+                <constraint firstItem="13" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="234"/>
                 <constraint firstItem="38" firstAttribute="leading" secondItem="32" secondAttribute="leading" constant="1" id="236"/>
                 <constraint firstItem="32" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="12" id="238"/>
                 <constraint firstItem="38" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="6" id="242"/>
@@ -207,7 +207,7 @@
                 <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" symbolic="YES" id="262"/>
                 <constraint firstAttribute="trailing" secondItem="265" secondAttribute="trailing" constant="20" symbolic="YES" id="272"/>
                 <constraint firstItem="265" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="273"/>
-                <constraint firstAttribute="bottom" secondItem="265" secondAttribute="bottom" constant="20" symbolic="YES" id="283"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="265" secondAttribute="bottom" constant="20" symbolic="YES" id="283"/>
                 <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="9FT-jl-8js"/>
                 <constraint firstItem="AAd-LS-TUP" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" id="E5D-Xc-mwg"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="fKA-Ye-zQz" secondAttribute="bottom" constant="24" id="F7R-pv-oeW"/>
