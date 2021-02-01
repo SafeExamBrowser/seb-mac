@@ -97,6 +97,7 @@
 - (BOOL) editingSettingsFile;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
+- (void) reopenPreferencesWindow;
 
 - (void) storeCurrentSettings;
 - (void) restoreStoredSettings;
