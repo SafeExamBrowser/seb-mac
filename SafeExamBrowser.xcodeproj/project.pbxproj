@@ -2376,7 +2376,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -2423,7 +2422,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -2474,7 +2472,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -2521,7 +2518,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
