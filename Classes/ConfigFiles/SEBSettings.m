@@ -267,6 +267,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableBrowserWindowToolbar",
                    
                    @NO,
+                   @"enableChromeNotifications",
+                   
+                   @NO,
                    @"enableDrawingEditor",
                    
                    @NO,
@@ -285,10 +288,16 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enablePrivateClipboard",
                    
                    @YES,
+                   @"enableScrollLock",
+
+                   @YES,
                    @"enableSebBrowser",
                    
                    @NO,
                    @"enableTouchExit",
+                   
+                   @NO,
+                   @"enableWindowsUpdate",
                    
                    [NSData data],
                    @"examKeySalt",
@@ -349,9 +358,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableRightMouse",
-                   
-                   @YES,
-                   @"enableScrollLock",
                    
                    @NO,
                    @"enableStartMenu",
@@ -713,11 +719,17 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"",
                    @"sebServerURL",
                    
+                   @YES,
+                   @"sebServiceIgnore",
+                   
                    [NSNumber numberWithLong:forceSebService],
                    @"sebServicePolicy",
                    
                    @YES,
                    @"sendBrowserExamKey",
+                   
+                   @NO,
+                   @"setVmwareConfiguration",
                    
                    @YES,
                    @"showBackToStartButton",
