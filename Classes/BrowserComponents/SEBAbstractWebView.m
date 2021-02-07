@@ -45,6 +45,12 @@
 }
 
 
+- (id)nativeWebView
+{
+    return self.delegate.nativeWebView;
+}
+
+
 - (void)goBack
 {
     [self.delegate goBack];
