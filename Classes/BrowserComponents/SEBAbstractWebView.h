@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SEBAbstractWebViewDelegate <NSObject>
 
 @required
+- (id)nativeWebView;
 - (void)goBack;
 - (void)goForward;
 - (void)reload;
@@ -66,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SEBAbstractWebView : NSObject
 
 @property (weak, nonatomic) id<SEBAbstractWebViewDelegate> delegate;
+
+- (id)nativeWebView;
 
 - (void)toggleScrollLock;
 - (void)goBack;
