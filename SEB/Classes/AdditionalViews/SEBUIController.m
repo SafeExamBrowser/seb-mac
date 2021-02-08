@@ -67,11 +67,18 @@
     // like iPhone X
     _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
     _statusBarAppearanceExtended = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended"];
+    // Check if a quit password is set = run SEB in secure mode
+    BOOL secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
 
     // In iOS 9 we have to disable the status bar when SEB was started up by another
     // app, as the "back to" this app link in the status bar isn't blocked in AAC
-    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 && _appDelegate.openedURL) {
+    if (secureMode && (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 || NSProcessInfo.processInfo.operatingSystemVersion.majorVersion >= 14)) {
         _statusBarAppearance = mobileStatusBarAppearanceNone;
+        if (_statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedLight || _statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedNoneLight) {
+            _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneLight;
+        } else {
+            _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneDark;
+        }
     }
     
     /// Add left items
