@@ -3046,7 +3046,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     _isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
-    if (!self.sideMenuController.isLeftViewHidden) {
+    if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
             [self restartExam:quitting
          quittingClientConfig:quittingClientConfig
