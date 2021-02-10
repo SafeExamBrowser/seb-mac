@@ -233,12 +233,27 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
     if (_sebViewController && !_sebViewController.mailViewController) {
-        // If the main SEB view controller was already instantiated
+        // If the main SEB view controller was already instantiated, the mail composer isn't displayed
         if ([preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
-            [_sebViewController conditionallyShowSettingsModal];
+            if (!_sebViewController.ASAMActive) {
+                // If AAC isn't being started
+                [_sebViewController conditionallyShowSettingsModal];
+            }
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
-            [_sebViewController conditionallyResetSettings];
+            if (!_sebViewController.ASAMActive) {
+                // If AAC isn't being started
+                [_sebViewController conditionallyResetSettings];
+            } else {
+                // Reset the setting for initiating the reset
+                [preferences setBool:NO forKey:@"initiateResetConfig"];
+            }
+        } else if ([preferences boolForKey:@"sendLogs"]) {
+            [preferences setBool:NO forKey:@"sendLogs"];
+            if (!_sebViewController.ASAMActive) {
+                // If AAC isn't being started
+                [_sebViewController conditionallyShowSettingsModal];
+            }
         } else {
             // Check if we received a new configuration from an MDM server (by MDM managed configuration)
             NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
