@@ -756,6 +756,7 @@
         if ([self.delegate respondsToSelector:@selector(didReconfigurePermanentlyForceConfiguringClient:sebFileCredentials:showReconfiguredAlert:)]) {
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
+            return;
         }
         // Inform callback that storing new settings was successful
         [self storeNewSEBSettingsSuccessful:nil];
