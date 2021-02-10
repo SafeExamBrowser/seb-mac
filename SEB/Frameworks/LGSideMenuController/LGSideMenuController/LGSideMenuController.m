@@ -2326,6 +2326,9 @@ rightViewBackgroundImageFinalScale = _rightViewBackgroundImageFinalScale;
         self.isLeftViewGoingToShow ||
         self.isLeftViewGoingToHide ||
         (self.isRightViewAlwaysVisibleForCurrentOrientation && self.leftViewPresentationStyle != LGSideMenuPresentationStyleSlideAbove)) {
+        if (completionHandler) {
+            completionHandler();
+        }
         return;
     }
 
@@ -2341,6 +2344,10 @@ rightViewBackgroundImageFinalScale = _rightViewBackgroundImageFinalScale;
         self.isLeftViewGoingToShow ||
         self.isLeftViewGoingToHide ||
         (self.isRightViewAlwaysVisibleForCurrentOrientation && self.leftViewPresentationStyle != LGSideMenuPresentationStyleSlideAbove)) {
+        if (completionHandler) {
+            self.leftViewShowing = NO;
+            completionHandler();
+        }
         return;
     }
 
@@ -2664,6 +2671,9 @@ rightViewBackgroundImageFinalScale = _rightViewBackgroundImageFinalScale;
         self.isRightViewGoingToShow ||
         self.isRightViewGoingToHide ||
         (self.isLeftViewAlwaysVisibleForCurrentOrientation && self.rightViewPresentationStyle != LGSideMenuPresentationStyleSlideAbove)) {
+        if (completionHandler) {
+            completionHandler();
+        }
         return;
     }
 
@@ -2679,6 +2689,10 @@ rightViewBackgroundImageFinalScale = _rightViewBackgroundImageFinalScale;
         self.isRightViewGoingToShow ||
         self.isRightViewGoingToHide ||
         (self.isLeftViewAlwaysVisibleForCurrentOrientation && self.rightViewPresentationStyle != LGSideMenuPresentationStyleSlideAbove)) {
+        if (completionHandler) {
+            self.rightViewShowing = NO;
+            completionHandler();
+        }
         return;
     }
 
