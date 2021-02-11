@@ -413,9 +413,13 @@ static NSMutableSet *browserWindowControllers;
         // Check if settings aren't initialized and initial config assistant should be started
         if (!_initAssistantOpen && [preferences boolForKey:@"allowEditingConfig"]) {
             [preferences setBool:NO forKey:@"allowEditingConfig"];
-            [self conditionallyShowSettingsModal];
+            if (!_ASAMActive) {
+                [self conditionallyShowSettingsModal];
+            }
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
-            [self conditionallyResetSettings];
+            if (!_ASAMActive) {
+                [self conditionallyResetSettings];
+            }
         } else if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
@@ -634,6 +638,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallyResetSettings
 {
+    _resettingSettings = YES;
     if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
             self.sebServerViewDisplayed = false;
@@ -697,7 +702,7 @@ static NSMutableSet *browserWindowControllers;
 {
     // Check if the cancel button was pressed
     if (!password) {
-        
+        _resettingSettings = NO;
         if (!_finishedStartingUp) {
             // Continue starting up SEB without resetting settings
             [self conditionallyStartKioskMode];
@@ -726,7 +731,8 @@ static NSMutableSet *browserWindowControllers;
             NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Reset %@ Settings", nil), SEBExtraShortAppName];
             NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
             [self.configFileController showAlertWithTitle:title andText:informativeText];
-            
+            _resettingSettings = NO;
+
             if (!_finishedStartingUp) {
                 // Continue starting up SEB without resetting settings
                 [self conditionallyStartKioskMode];
@@ -756,6 +762,7 @@ static NSMutableSet *browserWindowControllers;
     [self initializeLogger];
     
     [self resetSEB];
+    _resettingSettings = NO;
     [self initSEBWithCompletionBlock:^{
         [self openInitAssistant];
     }];
@@ -908,6 +915,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallyShowSettingsModal
 {
+    _openingSettings = YES;
     // Check if the initialize settings assistant is open
     if (_initAssistantOpen) {
         [self dismissViewControllerAnimated:YES completion:^{
@@ -951,6 +959,7 @@ static NSMutableSet *browserWindowControllers;
                 return;
             }
         }
+        _openingSettings = NO;
     }
 }
 
@@ -959,6 +968,7 @@ static NSMutableSet *browserWindowControllers;
 {
     // Check if the cancel button was pressed
     if (!password) {
+        _openingSettings = NO;
         // Continue SEB without displaying settings
         [self.sideMenuController hideLeftViewAnimated];
         if (!_finishedStartingUp) {
@@ -990,6 +1000,7 @@ static NSMutableSet *browserWindowControllers;
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Continue SEB without displaying settings
+            _openingSettings = NO;
             [self.sideMenuController hideLeftViewAnimated];
             if (!_finishedStartingUp) {
                 [self conditionallyStartKioskMode];
@@ -1093,6 +1104,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)showSettingsModal
 {
+    _settingsOpen = true;
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Get hashed passwords and put empty or placeholder strings into the password fields in InAppSettings
@@ -1146,15 +1159,15 @@ static NSMutableSet *browserWindowControllers;
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     
-    _settingsOpen = true;
-    
     if (NSUserDefaults.userDefaultsPrivate) {
         [self.appSettingsViewController setHiddenKeys:[NSSet setWithObjects:@"autoIdentity",
                                                        @"org_safeexambrowser_SEB_configFileCreateIdentity",
                                                        @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity", nil]];
     }
     
-    [self.topMostController presentViewController:navigationController animated:YES completion:nil];
+    [self.topMostController presentViewController:navigationController animated:YES completion:^{
+        self.openingSettings = NO;
+    }];
 }
 
 
@@ -2274,10 +2287,10 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
-    [self closeSettingsBeforeOpeningSEBConfig:url
-                            callback:self
-                            selector:@selector(downloadSEBConfigFromURL:)];
-}
+        [self closeSettingsBeforeOpeningSEBConfig:url
+                                callback:self
+                                selector:@selector(downloadSEBConfigFromURL:)];
+    }
 
 
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData
@@ -2734,35 +2747,39 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
-        receivedServerConfig = nil;
-        _isReconfiguringToMDMConfig = NO;
-        _scannedQRCode = NO;
-        [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
+        self->receivedServerConfig = nil;
+        self.isReconfiguringToMDMConfig = NO;
+        self.scannedQRCode = NO;
+        [[NSUserDefaults standardUserDefaults] setSecureString:self->startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
         NSString *newSettingsFilename = [[MyGlobals sharedMyGlobals] currentConfigURL].lastPathComponent.stringByDeletingPathExtension;
         if (newSettingsFilename.length > 0) {
             [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
         }
-        _isReconfiguringToMDMConfig = NO;
-        _didReceiveMDMConfig = NO;
-        [self restartExam:false];
+        self.isReconfiguringToMDMConfig = NO;
+        self.didReceiveMDMConfig = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self restartExam:false];
+        });
         
     } else {
         
         // If decrypting new settings wasn't successfull, we have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:self->currentConfigPath];
         
         // When reconfiguring from MDM config fails, the SEB session needs to be restarted
-        if (_isReconfiguringToMDMConfig) {
+        if (self.isReconfiguringToMDMConfig) {
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
-            _isReconfiguringToMDMConfig = NO;
-            _didReceiveMDMConfig = NO;
-            [self restartExam:NO];
+            self.isReconfiguringToMDMConfig = NO;
+            self.didReceiveMDMConfig = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self restartExam:NO];
+            });
             
-        } else if (_scannedQRCode) {
+        } else if (self.scannedQRCode) {
             DDLogError(@"%s: Reconfiguring from QR code config failed!", __FUNCTION__);
-            _scannedQRCode = false;
+            self.scannedQRCode = false;
             if (error.code == SEBErrorNoValidConfigData) {
                 error = [NSError errorWithDomain:sebErrorDomain
                                             code:SEBErrorNoValidConfigData
@@ -2770,35 +2787,42 @@ void run_on_ui_thread(dispatch_block_t block)
                                                    NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No valid %@ config found.", nil), SEBShortAppName],
                                                    NSUnderlyingErrorKey : error}];
             }
-            if (_alertController) {
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-            }
-            NSString *alertMessage = error.localizedRecoverySuggestion;
-            alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason];
-            _alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
-                                                                       message:alertMessage
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         self->_alertController = nil;
-                                                                         if (!self->_finishedStartingUp) {
-                                                                             // Continue starting up SEB without resetting settings
-                                                                             [self conditionallyStartKioskMode];
-                                                                         }
-                                                                     }]];
-            
-            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.alertController) {
+                    [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                }
+                NSString *alertMessage = error.localizedRecoverySuggestion;
+                alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason];
+                self.alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                           message:alertMessage
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                             self->_alertController = nil;
+                                                                             if (!self->_finishedStartingUp) {
+                                                                                 // Continue starting up SEB without resetting settings
+                                                                                 [self conditionallyStartKioskMode];
+                                                                             }
+                                                                         }]];
+                
+                [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+            });
 
-        } else if (!_finishedStartingUp || _pausedSAMAlertDisplayed) {
-            _pausedSAMAlertDisplayed = false;
+        } else if (!self.finishedStartingUp || self.pausedSAMAlertDisplayed) {
+            self.pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
-            [self initSEBWithCompletionBlock:^{
-                [self conditionallyStartKioskMode];
-            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self initSEBWithCompletionBlock:^{
+                    [self conditionallyStartKioskMode];
+                }];
+            });
+
         } else {
-            _establishingSEBServerConnection = false;
-            [self showReconfiguringAlertWithError:error];
+            self.establishingSEBServerConnection = false;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showReconfiguringAlertWithError:error];
+            });
         }
     }
 }
@@ -3426,116 +3450,31 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) conditionallyStartKioskMode
 {
-    // Check if running on iOS 11.x earlier than 11.2.5
-    if (![self allowediOSVersion]) {
-        return;
-    }
-    
-    // Check if running on beta iOS
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSUInteger allowBetaiOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
-    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
-    if (currentOSMajorVersion > currentStableMajoriOSVersion && //first check if we're running on a beta at all
-        (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
-         allowBetaiOSVersion != currentOSMajorVersion))
-    { //if allowed, version has to match current iOS
-        
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
+    BOOL allowEditingConfig = [preferences boolForKey:@"allowEditingConfig"];
+    BOOL initiateResetConfig = [preferences boolForKey:@"initiateResetConfig"];
+    DDLogDebug(@"%s: allowEditingConfig: %d, initiateResetConfig: %d", __FUNCTION__, allowEditingConfig, initiateResetConfig);
+    if (!_openingSettings && !_resettingSettings && !_settingsOpen) {
+        // Check if running on iOS 11.x earlier than 11.2.5
+        if (![self allowediOSVersion]) {
+            return;
         }
         
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", nil), SEBShortAppName]
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        if (NSUserDefaults.userDefaultsPrivate) {
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                self->_alertController = nil;
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestQuit" object:self];
-            }]];
-        }
-        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-        return;
-    }
-    
-    // Check if running on older iOS version than the one allowed in settings
-    NSUInteger allowiOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMajor"];
-    NSUInteger allowiOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMinor"];
-    NSUInteger allowiOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
-    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
-    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
-    if (currentOSMajorVersion < allowiOSVersionMajor ||
-        (currentOSMajorVersion == allowiOSVersionMajor &&
-         currentOSMinorVersion < allowiOSVersionMinor) ||
-        (currentOSMajorVersion == allowiOSVersionMajor &&
-         currentOSMinorVersion == allowiOSVersionMinor &&
-         currentOSPatchVersion < allowiOSVersionPatch) ||
-        (currentOSMajorVersion == 11 &&
-         currentOSMinorVersion < 2) ||
-        (currentOSMajorVersion == 11 &&
-         currentOSMinorVersion == 2 &&
-         currentOSPatchVersion < 5)
-        )
-    {
-        NSString *allowediOSVersionMinorString = @"";
-        NSString *allowediOSVersionPatchString = @"";
-        // Test special case: iOS 11 - 11.2.2 is never allowed
-        if (allowiOSVersionMajor == 11 && allowiOSVersionMinor <= 2 && allowiOSVersionPatch < 5) {
-            allowediOSVersionMinorString = @".2";
-            allowediOSVersionPatchString = @".5";
-        } else {
-            if (allowiOSVersionPatch > 0 || allowiOSVersionMinor > 0) {
-                allowediOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionMinor];
-            }
-            if (allowiOSVersionPatch > 0) {
-                allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
-            }
-        }
-        NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
-                                            SEBShortAppName,
-                                            NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
-                                            (unsigned long)allowiOSVersionMajor,
-                                            allowediOSVersionMinorString,
-                                            allowediOSVersionPatchString];
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
-        }
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
-                                                                message:alertMessageiOSVersion
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        if (NSUserDefaults.userDefaultsPrivate) {
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                self->_alertController = nil;
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestQuit" object:self];
-            }]];
-        }
-        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-        return;
-    }
-    
-    // Update kiosk flags according to current settings
-    [self updateKioskSettingFlags];
-    
-    if (@available(iOS 11.0, *)) {
-        if (_secureMode &&
-            UIScreen.mainScreen.isCaptured &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
-            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+        // Check if running on beta iOS
+        NSUInteger allowBetaiOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
+        NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+        if (currentOSMajorVersion > currentStableMajoriOSVersion && //first check if we're running on a beta at all
+            (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
+             allowBetaiOSVersion != currentOSMajorVersion))
+        { //if allowed, version has to match current iOS
+            
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
-                                                                    message:alertMessageiOSVersion
-                                                             preferredStyle:UIAlertControllerStyleAlert];
             
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                self->_alertController = nil;
-                [self conditionallyStartKioskMode];
-            }]];
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
+                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", nil), SEBShortAppName]
+                                                             preferredStyle:UIAlertControllerStyleAlert];
             if (NSUserDefaults.userDefaultsPrivate) {
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -3547,49 +3486,139 @@ quittingClientConfig:(BOOL)quittingClientConfig
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
             return;
         }
-    }
-    
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
-        AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-        AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-              videoAuthorization == AVAuthorizationStatusAuthorized)) {
-            NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
-            NSString *camera = @"";
-            if (videoAuthorization != AVAuthorizationStatusAuthorized) {
-                camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+        
+        // Check if running on older iOS version than the one allowed in settings
+        NSUInteger allowiOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMajor"];
+        NSUInteger allowiOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMinor"];
+        NSUInteger allowiOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
+        NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+        NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+        if (currentOSMajorVersion < allowiOSVersionMajor ||
+            (currentOSMajorVersion == allowiOSVersionMajor &&
+             currentOSMinorVersion < allowiOSVersionMinor) ||
+            (currentOSMajorVersion == allowiOSVersionMajor &&
+             currentOSMinorVersion == allowiOSVersionMinor &&
+             currentOSPatchVersion < allowiOSVersionPatch) ||
+            (currentOSMajorVersion == 11 &&
+             currentOSMinorVersion < 2) ||
+            (currentOSMajorVersion == 11 &&
+             currentOSMinorVersion == 2 &&
+             currentOSPatchVersion < 5)
+            )
+        {
+            NSString *allowediOSVersionMinorString = @"";
+            NSString *allowediOSVersionPatchString = @"";
+            // Test special case: iOS 11 - 11.2.2 is never allowed
+            if (allowiOSVersionMajor == 11 && allowiOSVersionMinor <= 2 && allowiOSVersionPatch < 5) {
+                allowediOSVersionMinorString = @".2";
+                allowediOSVersionPatchString = @".5";
+            } else {
+                if (allowiOSVersionPatch > 0 || allowiOSVersionMinor > 0) {
+                    allowediOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionMinor];
+                }
+                if (allowiOSVersionPatch > 0) {
+                    allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
+                }
             }
-            DDLogError(@"Enabled remote proctoring require %@%@ permissions, which are not granted currently. Aborting starting this session.", camera, microphone);
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuit" object:self];
+            NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
+                                                SEBShortAppName,
+                                                NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
+                                                (unsigned long)allowiOSVersionMajor,
+                                                allowediOSVersionMinorString,
+                                                allowediOSVersionPatchString];
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
+                                                                    message:alertMessageiOSVersion
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            if (NSUserDefaults.userDefaultsPrivate) {
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self->_alertController = nil;
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                }]];
+            }
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
         }
-    }
-    _finishedStartingUp = true;
-    
-    if (_secureMode) {
-        // Clear Pasteboard
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.items = @[];
-    }
-    
-    // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
-    // already active and deny starting a secured exam until Guided Access is switched off
-    if (_enableASAM && !_allowSAM) {
-        // Get time of app launch
-        dispatch_time_t dispatchTimeAppLaunched = _appDelegate.dispatchTimeAppLaunched;
-        if (dispatchTimeAppLaunched != 0) {
-            // Wait at least 2 seconds after app launch
-            dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self->_appDelegate.dispatchTimeAppLaunched = 0;
-                // Is SAM/Guided Access (or ASAM because of previous crash) active?
+        
+        // Update kiosk flags according to current settings
+        [self updateKioskSettingFlags];
+        
+        if (@available(iOS 11.0, *)) {
+            if (_secureMode &&
+                UIScreen.mainScreen.isCaptured &&
+                ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+                NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+                if (_alertController) {
+                    [_alertController dismissViewControllerAnimated:NO completion:nil];
+                }
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
+                                                                        message:alertMessageiOSVersion
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self->_alertController = nil;
+                    [self conditionallyStartKioskMode];
+                }]];
+                if (NSUserDefaults.userDefaultsPrivate) {
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        self->_alertController = nil;
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestQuit" object:self];
+                    }]];
+                }
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+                return;
+            }
+        }
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
+            AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+            AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                NSString *camera = @"";
+                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                }
+                DDLogError(@"Enabled remote proctoring require %@%@ permissions, which are not granted currently. Aborting starting this session.", camera, microphone);
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"requestQuit" object:self];
+            }
+        }
+        _finishedStartingUp = true;
+        
+        if (_secureMode) {
+            // Clear Pasteboard
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.items = @[];
+        }
+        
+        // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
+        // already active and deny starting a secured exam until Guided Access is switched off
+        if (_enableASAM && !_allowSAM) {
+            // Get time of app launch
+            dispatch_time_t dispatchTimeAppLaunched = _appDelegate.dispatchTimeAppLaunched;
+            if (dispatchTimeAppLaunched != 0) {
+                // Wait at least 2 seconds after app launch
+                dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self->_appDelegate.dispatchTimeAppLaunched = 0;
+                    // Is SAM/Guided Access (or ASAM because of previous crash) active?
+                    [self assureSAMNotActive];
+                });
+            } else {
                 [self assureSAMNotActive];
-            });
+            }
         } else {
-            [self assureSAMNotActive];
+            _appDelegate.dispatchTimeAppLaunched = 0;
+            [self conditionallyStartASAM];
         }
-    } else {
-        _appDelegate.dispatchTimeAppLaunched = 0;
-        [self conditionallyStartASAM];
     }
 }
 
