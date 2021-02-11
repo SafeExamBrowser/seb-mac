@@ -4781,6 +4781,7 @@ conditionallyForWindow:(NSWindow *)window
                             self->quittingMyself = true; //quit SEB without asking for confirmation or password
                             [NSApp terminate: nil]; //quit SEB
                         }
+                        return;
                     default:
                     {
                         return; //Cancel: don't quit
@@ -5009,6 +5010,7 @@ conditionallyForWindow:(NSWindow *)window
                 case NSAlertFirstButtonReturn:
                     [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences isDirectory:NO]];
                     DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
+                    return;
                 default:
                 {
                 }
