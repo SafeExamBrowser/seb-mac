@@ -57,7 +57,7 @@
     NSUInteger statusBarAppearance = [self statusBarAppearance];
     _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceLight ||
                                    statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
-    
+    _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
     _sebWebView.scalesPageToFit = YES;
     if (@available(iOS 11.0, *)) {
         _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
