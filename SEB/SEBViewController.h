@@ -255,6 +255,8 @@
 @property(readwrite) BOOL aboutSEBViewDisplayed;
 @property(readwrite) BOOL sessionRunning;
 @property(readwrite) BOOL initAssistantOpen;
+@property(readwrite) BOOL openingSettings;
+@property(readwrite) BOOL resettingSettings;
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL settingsDidClose;
 @property(readwrite) BOOL scannedQRCode;
