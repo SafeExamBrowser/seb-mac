@@ -619,7 +619,7 @@ bool insideMatrix(void);
 
     if (!_openingSettings) {
         _openingSettings = true;
-        if (_startingUp && !_alternateKeyPressed) {
+        if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
             DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
             _openingSettingsFileURL = fileURL;
         } else {
