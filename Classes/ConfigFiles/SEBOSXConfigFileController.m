@@ -122,7 +122,9 @@
     }
     // Update Browser Exam Key
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    [prefsController initPreferencesWindow];
+    if (!([prefsController preferencesAreOpen] || self.sebController.alternateKeyPressed)) {
+        [prefsController initPreferencesWindow];
+    }
 }
 
 
@@ -143,11 +145,13 @@
                         
                         //Continue running SEB
                         [self didReconfigurePermanentlyWithSEBFileCredentials:sebFileCrentials];
+                        return;
                         
                     case NSAlertSecondButtonReturn:
                         
                         self.sebController.quittingMyself = true; //quit SEB without asking for confirmation or password
                         [NSApp terminate: nil]; //quit SEB
+                        return;
                 }
             };
             [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
