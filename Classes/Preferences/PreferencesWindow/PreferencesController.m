@@ -209,7 +209,7 @@
 {
     DDLogDebug(@"%s", __FUNCTION__);
     self.refreshingPreferences = YES;
-    [[MBPreferencesController sharedController] unloadNibs];
+    [self closePreferencesWindow];
 }
 
 
