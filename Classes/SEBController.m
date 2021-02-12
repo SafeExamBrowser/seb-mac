@@ -1227,6 +1227,7 @@ bool insideMatrix(void);
         [self disableTouchBarFeatures];
         
         // Switch to kiosk mode by setting the proper presentation options
+        [self setElevateWindowLevels];
         [self startKioskMode];
         
         // Clear pasteboard and save current string for pasting start URL in Preferences Window
@@ -3870,7 +3871,7 @@ conditionallyForWindow:(NSWindow *)window
     }
     
     // Change window level of all open browser windows
-    [self.browserController allBrowserWindowsChangeLevel:allowApps];
+    [self.browserController browserWindowsChangeLevelAllowApps:allowApps];
     
     // Change window level of a modal window (like an alert) if one is displayed
     [self adjustModalAlertWindowLevels:allowAppsUserDefaultsSetting];
@@ -4455,6 +4456,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     DDLogInfo(@"Preferences window closed, no reconfiguration necessary");
     
+    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
     if (_startingUp) {
         [self preferencesOpenedWhileStartingUpNowClosing];
     } else {
@@ -4473,6 +4475,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)preferencesClosedRestartSEB:(NSNotification *)notification
 {
+    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
     if (_startingUp) {
         [self preferencesOpenedWhileStartingUpNowClosing];
     } else {
@@ -4510,7 +4513,6 @@ conditionallyForWindow:(NSWindow *)window
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    _isAACEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
     
     if (_isAACEnabled == NO) {
         // Open new covering background windows on all currently available screens
@@ -4518,8 +4520,9 @@ conditionallyForWindow:(NSWindow *)window
         [self coverScreens];
     }
     
-    // Change window level of all open browser windows
-    [self.browserController allBrowserWindowsChangeLevel:YES];
+    // Change window level of all open browser windows to normal levels
+    // this helps to get rid of full screen apps on separate spaces (on other displays)
+    [self.browserController browserWindowsChangeLevelAllowApps:YES];
     
     if (_isAACEnabled == NO) {
         // Switch the kiosk mode on again
