@@ -110,7 +110,7 @@
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 - (void) adjustMainBrowserWindow;
 - (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen;
-- (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
+- (void) browserWindowsChangeLevelAllowApps:(BOOL)allowApps;
 - (void) closeAllBrowserWindows;
 - (void) closeAllAdditionalBrowserWindows;
 
