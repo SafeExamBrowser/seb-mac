@@ -471,7 +471,7 @@
 
 
 // Change window level of all open browser windows
-- (void) allBrowserWindowsChangeLevel:(BOOL)allowApps
+- (void) browserWindowsChangeLevelAllowApps:(BOOL)allowApps
 {
     DDLogDebug(@"%s allowApps: %hd", __FUNCTION__, allowApps);
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
