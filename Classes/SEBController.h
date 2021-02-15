@@ -182,6 +182,7 @@
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
+@property(readwrite) BOOL conditionalInitAfterProcessesChecked;
 @property(readwrite) BOOL quittingMyself;
 @property(readwrite) BOOL isTerminating;
 @property(strong) NSURL *openingSettingsFileURL;
