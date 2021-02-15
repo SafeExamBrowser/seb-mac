@@ -3276,6 +3276,7 @@ conditionallyForWindow:(NSWindow *)window
         {
             if (!self.builtinDisplayNotAvailableDetected) {
                 if (![self.preferencesController preferencesAreOpen] && !self.openingSettings) {
+                    // Don't display the alert or lock screen while opening new settings
                     if ((self.startingUp || self.restarting)) {
                         // SEB is starting, we give the option to quit
                         NSAlert *modalAlert = [self newAlert];
