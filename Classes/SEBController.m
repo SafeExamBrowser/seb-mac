@@ -1106,35 +1106,38 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
-    /// Early kiosk mode setup (as these actions might take some time)
-    
-    /// When running on macOS 10.15.4 or newer, use AAC
-    if (@available(macOS 10.15.4, *)) {
-        DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
-            [self closeCapWindows];
-        DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
-        if (_isAACEnabled == YES && _wasAACEnabled == NO) {
-            NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
-            DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
-            AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
-            self.assessmentModeManager = assessmentModeManager;
-            self.assessmentModeManager.delegate = self;
-            if ([self.assessmentModeManager beginAssessmentMode] == NO) {
-                [self assessmentSessionDidEndWithCallback:callback selector:selector];
+    if (!_conditionalInitAfterProcessesChecked) {
+        _conditionalInitAfterProcessesChecked = YES;
+        /// Early kiosk mode setup (as these actions might take some time)
+        
+        /// When running on macOS 10.15.4 or newer, use AAC
+        if (@available(macOS 10.15.4, *)) {
+            DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
+            _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+                DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
+                [self closeCapWindows];
+            DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
+            if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+                NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
+                DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
+                AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+                self.assessmentModeManager = assessmentModeManager;
+                self.assessmentModeManager.delegate = self;
+                if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                    [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                }
+                return;
+            } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
+                DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
+                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
+                return;
             }
-            return;
-        } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
-            DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
-            [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
-            return;
+        } else {
+            _isAACEnabled = NO;
         }
-    } else {
-        _isAACEnabled = NO;
+        
+        [self initSEBProcessesCheckedWithCallback:callback selector:selector];
     }
-    
-    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
     
 
@@ -4582,6 +4585,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
+    _conditionalInitAfterProcessesChecked = NO;
 
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
