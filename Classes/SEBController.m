@@ -1827,9 +1827,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         if (filteredProcesses.count > 0) {
             if (!fontRegistryUIAgentDisplayed) {
                 fontRegistryUIAgentDisplayed = YES;
-                fontRegistryUIAgentSkipDownloadCounter = 3;
+                fontRegistryUIAgentSkipDownloadCounter = 10;
             }
-            if (fontRegistryUIAgentSkipDownloadCounter == 0) {
+            if (fontRegistryUIAgentSkipDownloadCounter > 0) {
                 
                 DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
 
@@ -1861,13 +1861,14 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                     CGEventPost(kCGSessionEventTap, keyboardEventReturnKey);
                 }
                 
+            } else {
+                exit(0); //quit SEB
             }
             fontRegistryUIAgentSkipDownloadCounter--;
         } else {
             if (fontRegistryUIAgentDisplayed) {
                 fontRegistryUIAgentDisplayed = NO;
                 DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
-                
             }
         }
     }
@@ -3274,8 +3275,8 @@ conditionallyForWindow:(NSWindow *)window
                   @"detectedRequiredBuiltinDisplayMissing"])
         {
             if (!self.builtinDisplayNotAvailableDetected) {
-                if (![self.preferencesController preferencesAreOpen]) {
-                    if ((self.startingUp || self.restarting) && !self.openingSettings) {
+                if (![self.preferencesController preferencesAreOpen] && !self.openingSettings) {
+                    if ((self.startingUp || self.restarting)) {
                         // SEB is starting, we give the option to quit
                         NSAlert *modalAlert = [self newAlert];
                         [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", nil)];
@@ -3605,7 +3606,7 @@ conditionallyForWindow:(NSWindow *)window
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
+    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !fontRegistryUIAgentDisplayed) {
         // if switching to ThirdPartyApps not allowed
         DDLogDebug(@"Regain active status after %@", [sender name]);
 #ifndef DEBUG
@@ -4536,27 +4537,31 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {
+    DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
     [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
     [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSWarningAlertStyle];
     void (^quitSEBAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
-                return; //Cancel: don't quit
-            default:
-            {
                 if ([self.preferencesController preferencesAreOpen]) {
+                    DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
+                    DDLogInfo(@"Confirmed to quit, terminate now");
                     self->quittingMyself = true; //quit SEB without asking for confirmation or password
                     [NSApp terminate: nil]; //quit SEB
                 }
+                return;
+            default:
+            {
+                return; //Cancel: don't quit
             }
         }
     };
@@ -4764,34 +4769,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         } else {
             // if no quit password is required, then confirm quitting
-            DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-            [modalAlert setAlertStyle:NSAlertStyleWarning];
-            void (^quitSEBAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self removeAlertWindow:modalAlert.window];
-                switch(answer)
-                {
-                    case NSAlertFirstButtonReturn:
-                        if ([self.preferencesController preferencesAreOpen]) {
-                            DDLogInfo(@"Confirmed to quit, preferences window is open");
-                            [self.preferencesController quitSEB:self];
-                        } else {
-                            DDLogInfo(@"Confirmed to quit, terminate now");
-                            self->quittingMyself = true; //quit SEB without asking for confirmation or password
-                            [NSApp terminate: nil]; //quit SEB
-                        }
-                        return;
-                    default:
-                    {
-                        return; //Cancel: don't quit
-                    }
-                }
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))quitSEBAnswer];
+            [self requestedQuitWPwd:nil];
         }
     }
 }
@@ -5069,7 +5047,7 @@ conditionallyForWindow:(NSWindow *)window
         //[self startKioskMode];
         //We don't reset the browser window size and position anymore
         //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
-        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication) {
+        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentDisplayed) {
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
