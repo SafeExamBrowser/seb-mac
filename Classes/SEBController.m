@@ -4147,7 +4147,8 @@ conditionallyForWindow:(NSWindow *)window
     // Check if restarting is protected with the quit/unlock password (and one is set)
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""])
+    {
         // if quit/unlock password is set, then restrict quitting
         NSMutableParagraphStyle *textParagraph = [[NSMutableParagraphStyle alloc] init];
         textParagraph.lineSpacing = 5.0;
@@ -4167,7 +4168,6 @@ conditionallyForWindow:(NSWindow *)window
         if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             // if the correct quit/unlock password was entered, restart the exam
             [self.browserController backToStartCommand];
-            return;
         } else {
             // Wrong quit password was entered
             NSAlert *modalAlert = [self newAlert];
@@ -4179,32 +4179,32 @@ conditionallyForWindow:(NSWindow *)window
                 [self removeAlertWindow:modalAlert.window];
             };
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))backToStartButtonOK];
-        }
-    }
-    
-    // If no quit password is required, then confirm quitting
-    NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:restartExamText];
-    [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
-                                    NSLocalizedString(@"Are you sure?", nil),
-                                    NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
-                                    ]];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert setAlertStyle:NSWarningAlertStyle];
-    void (^backToStartConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
-        [self removeAlertWindow:modalAlert.window];
-        switch(answer)
-        {
-            case NSAlertFirstButtonReturn:
-                return; //Cancel: don't restart exam
-            default:
+        };
+    } else {
+        // If no quit password is required, then confirm quitting
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:restartExamText];
+        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
+                                        NSLocalizedString(@"Are you sure?", nil),
+                                        NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
+                                        ]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        void (^backToStartConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            switch(answer)
             {
-                [self.browserController backToStartCommand];
+                case NSAlertFirstButtonReturn:
+                    return; //Cancel: don't restart exam
+                default:
+                {
+                    [self.browserController backToStartCommand];
+                }
             }
-        }
-    };
-    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))backToStartConfirmed];
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))backToStartConfirmed];
+    }
 }
 
 
