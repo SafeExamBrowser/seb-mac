@@ -4536,6 +4536,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+// Confirm quitting, with default option "Quit"
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
@@ -4769,7 +4770,7 @@ conditionallyForWindow:(NSWindow *)window
                 [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
             }
         } else {
-            // if no quit password is required, then confirm quitting
+            // If no quit password is required, then confirm quitting, with default option "Quit"
             [self requestedQuitWPwd:nil];
         }
     }
