@@ -836,7 +836,7 @@ bool insideMatrix(void);
         // If successfull start/restart with new settings
         _openingSettings = false;
         
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        [self updateAACAvailablility];
         
         if (!_startingUp) {
             // SEB is being reconfigured by opening a config file
@@ -867,7 +867,7 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     _openingSettings = false;
-    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    [self updateAACAvailablility];
 
     if (_startingUp) {
         // If SEB was just started (by opening a config file)
@@ -895,7 +895,7 @@ bool insideMatrix(void);
         [self openPreferences:self];
 
     } else {
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        [self updateAACAvailablility];
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
 
         _runningProhibitedProcesses = [NSMutableArray new];
@@ -1113,7 +1113,7 @@ bool insideMatrix(void);
         /// When running on macOS 10.15.4 or newer, use AAC
         if (@available(macOS 10.15.4, *)) {
             DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
-            _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+            [self updateAACAvailablility];
                 DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
                 [self closeCapWindows];
             DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
@@ -1171,7 +1171,9 @@ bool insideMatrix(void);
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
-    _isAACEnabled = NO;  //use SEB kiosk mode
+    // Use SEB kiosk mode
+    _overrideAAC = YES;
+    _isAACEnabled = NO;
     _wasAACEnabled = NO;
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
@@ -1310,7 +1312,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s", __FUNCTION__);
     if (self.quitSession) {
         [NSUserDefaults setUserDefaultsPrivate:NO];
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        [self updateAACAvailablility];
         [self requestedRestart:nil];
     } else {
         quittingMyself = true; //quit SEB without asking for confirmation or password
@@ -1874,8 +1876,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         } else {
             if (fontRegistryUIAgentRunning) {
                 fontRegistryUIAgentRunning = NO;
-                fontRegistryUIAgentDialogClosed = NO;
-                fontRegistryUIAgentPreDialogCounter = 0;
                 DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
             }
         }
@@ -3839,6 +3839,18 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Kiosk Mode
 
+- (void) updateAACAvailablility
+{
+    if (@available(macOS 10.15.4, *)) {
+        DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"] && !_overrideAAC;
+    } else {
+        _isAACEnabled = NO;
+    }
+    DDLogDebug(@"Updated _isAACEnabled to %d (_overrideAAC = %d)", _isAACEnabled, _overrideAAC);
+}
+
+
 // Method which sets the setting flag for elevating window levels according to the
 // setting key allowSwitchToApplications
 - (void) setElevateWindowLevels
@@ -4484,7 +4496,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     DDLogInfo(@"Preferences window closed, no reconfiguration necessary");
     
-    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    [self updateAACAvailablility];
     if (_startingUp) {
         [self preferencesOpenedWhileStartingUpNowClosing];
     } else {
@@ -4503,7 +4515,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)preferencesClosedRestartSEB:(NSNotification *)notification
 {
-    _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    [self updateAACAvailablility];
     if (_startingUp) {
         [self preferencesOpenedWhileStartingUpNowClosing];
     } else {
