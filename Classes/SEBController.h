@@ -160,6 +160,7 @@
 @property(strong) NSDate *didResumeExamTime;
 
 @property(readwrite) BOOL isAACEnabled;
+@property(readwrite) BOOL overrideAAC;
 @property(readwrite) BOOL wasAACEnabled;
 @property(readwrite) BOOL allowSwitchToApplications;
 
