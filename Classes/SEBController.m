@@ -1913,21 +1913,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (void)windowWatcher
 {
     // Check if the font download dialog (if displayed) was successfully closed
-    if (fontRegistryUIAgentRunning && fontRegistryUIAgentPreDialogCounter == 0) {
-        // The font registry UI agent was started, but download dialog isn't displayed yet
-        DDLogWarn(@"%@ was started, but the dialog to ask user if a font used on the current webpage should be downloaded or skipped isn't displayed yet.", fontRegistryUIAgent);
-        fontRegistryUIAgentPreDialogCounter = fontRegistryUIAgentSkipDownloadCounter;
-        
-    } else if (fontRegistryUIAgentRunning && (fontRegistryUIAgentPreDialogCounter - fontRegistryUIAgentSkipDownloadCounter) > 1) {
+    if (fontRegistryUIAgentRunning && !fontRegistryUIAgentDialogClosed) {
         // The dialog was probably displayed and the main thread (and this timer) blocked a while
-        // Stop the process watcher from trying to close the dialog by sending
-        // a return/enter key tap
+        // But now the dialog was successfully closed and the main thread is running again
+        // stop the process watcher from trying to close the dialog by sending
+        // a return key tap
         fontRegistryUIAgentDialogClosed = YES;
         DDLogWarn(@"%@ is still running, but the displayed dialog to ask user if a font used on the current webpage should be downloaded or skipped was most likely closed by SEB.", fontRegistryUIAgent);
-        
-    } else if (fontRegistryUIAgentRunning) {
-        fontRegistryUIAgentPreDialogCounter = fontRegistryUIAgentSkipDownloadCounter;
-        DDLogWarn(@"%@ is still running, and the displayed dialog to ask user if a font used on the current webpage should be downloaded or skipped is most likely not yet displayed.", fontRegistryUIAgent);
     }
 
     if (checkingForWindows) {
