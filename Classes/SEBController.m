@@ -1828,11 +1828,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", fontRegistryUIAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
-            if (!fontRegistryUIAgentDisplayed) {
-                fontRegistryUIAgentDisplayed = YES;
-                fontRegistryUIAgentSkipDownloadCounter = 10;
+            if (!fontRegistryUIAgentRunning) {
+                fontRegistryUIAgentRunning = YES;
+                fontRegistryUIAgentDialogClosed = NO;
+                fontRegistryUIAgentSkipDownloadCounter = 20;
             }
-            if (fontRegistryUIAgentSkipDownloadCounter > 0) {
+            if (fontRegistryUIAgentSkipDownloadCounter > 0 && !fontRegistryUIAgentDialogClosed) {
                 
                 DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
 
@@ -1847,6 +1848,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         // Now you can use the accessibility APIs
                         DDLogDebug(@"Sending an Event Tap for the key Return (Carriage Return) to close the font donwload dialog (invoking default button Skip)");
                         CGEventPost(kCGSessionEventTap, keyboardEventReturnKey);
+                        fontRegistryUIAgentSkipDownloadCounter--;
 
                     } else {
                         DDLogError(@"SEB is not trusted in Privacy / Accessibility, terminating SEB");
@@ -1864,13 +1866,16 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                     CGEventPost(kCGSessionEventTap, keyboardEventReturnKey);
                 }
                 
-            } else {
+            } else if (!fontRegistryUIAgentDialogClosed) {
+                DDLogError(@"%@ is still running, and the dialog to ask user if a font used on the current webpage should be downloaded or skipped couldn't be closed by SEB. SEB is being force terminated to avoid locking/freezing the Mac completely!", fontRegistryUIAgent);
+
                 exit(0); //quit SEB
             }
-            fontRegistryUIAgentSkipDownloadCounter--;
         } else {
-            if (fontRegistryUIAgentDisplayed) {
-                fontRegistryUIAgentDisplayed = NO;
+            if (fontRegistryUIAgentRunning) {
+                fontRegistryUIAgentRunning = NO;
+                fontRegistryUIAgentDialogClosed = NO;
+                fontRegistryUIAgentPreDialogCounter = 0;
                 DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
             }
         }
@@ -1907,6 +1912,24 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 - (void)windowWatcher
 {
+    // Check if the font download dialog (if displayed) was successfully closed
+    if (fontRegistryUIAgentRunning && fontRegistryUIAgentPreDialogCounter == 0) {
+        // The font registry UI agent was started, but download dialog isn't displayed yet
+        DDLogWarn(@"%@ was started, but the dialog to ask user if a font used on the current webpage should be downloaded or skipped isn't displayed yet.", fontRegistryUIAgent);
+        fontRegistryUIAgentPreDialogCounter = fontRegistryUIAgentSkipDownloadCounter;
+        
+    } else if (fontRegistryUIAgentRunning && (fontRegistryUIAgentPreDialogCounter - fontRegistryUIAgentSkipDownloadCounter) > 1) {
+        // The dialog was probably displayed and the main thread (and this timer) blocked a while
+        // Stop the process watcher from trying to close the dialog by sending
+        // a return/enter key tap
+        fontRegistryUIAgentDialogClosed = YES;
+        DDLogWarn(@"%@ is still running, but the displayed dialog to ask user if a font used on the current webpage should be downloaded or skipped was most likely closed by SEB.", fontRegistryUIAgent);
+        
+    } else if (fontRegistryUIAgentRunning) {
+        fontRegistryUIAgentPreDialogCounter = fontRegistryUIAgentSkipDownloadCounter;
+        DDLogWarn(@"%@ is still running, and the displayed dialog to ask user if a font used on the current webpage should be downloaded or skipped is most likely not yet displayed.", fontRegistryUIAgent);
+    }
+
     if (checkingForWindows) {
         DDLogDebug(@"Check for prohibited windows still ongoing, returning");
         return;
@@ -3610,7 +3633,7 @@ conditionallyForWindow:(NSWindow *)window
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !fontRegistryUIAgentDisplayed) {
+    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !fontRegistryUIAgentRunning) {
         // if switching to ThirdPartyApps not allowed
         DDLogDebug(@"Regain active status after %@", [sender name]);
 #ifndef DEBUG
@@ -5053,7 +5076,7 @@ conditionallyForWindow:(NSWindow *)window
         //[self startKioskMode];
         //We don't reset the browser window size and position anymore
         //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
-        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentDisplayed) {
+        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentRunning) {
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
