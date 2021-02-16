@@ -125,8 +125,10 @@
     BOOL allowDictation;
     BOOL detectSIGSTOP;
     NSString *currentExamStartURL;
-    BOOL fontRegistryUIAgentDisplayed;
+    BOOL fontRegistryUIAgentRunning;
+    BOOL fontRegistryUIAgentDialogClosed;
     NSUInteger fontRegistryUIAgentSkipDownloadCounter;
+    NSUInteger fontRegistryUIAgentPreDialogCounter;
     #define logReportCounter 11
     NSUInteger screenSharingLogCounter;
     NSUInteger siriLogCounter;
