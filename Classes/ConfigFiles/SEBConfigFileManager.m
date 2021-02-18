@@ -335,6 +335,7 @@
 
 // Inform the callback method if decrypting, parsing and storing new settings was successful or not
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error {
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, storeSettingsCallback, NSStringFromSelector(storeSettingsSelector));
     IMP imp = [storeSettingsCallback methodForSelector:storeSettingsSelector];
     void (*func)(id, SEL, NSError*) = (void *)imp;
     func(storeSettingsCallback, storeSettingsSelector, error);
@@ -825,10 +826,12 @@ static NSString *getUppercaseAdminPasswordHash()
         if ([self.delegate respondsToSelector:@selector(didReconfigurePermanentlyForceConfiguringClient:sebFileCredentials:showReconfiguredAlert:)]) {
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
+            return;
+
+        } else {
+            // Inform callback that storing new settings was successful
+            [self storeNewSEBSettingsSuccessful:nil];
         }
-        // Inform callback that storing new settings was successful
-        [self storeNewSEBSettingsSuccessful:nil];
-        return;
     }
 }
 

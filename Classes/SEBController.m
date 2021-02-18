@@ -4912,8 +4912,9 @@ conditionallyForWindow:(NSWindow *)window
             [self applicationWillTerminateProceed];
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+    } else {
+        [self applicationWillTerminateProceed];
     }
-    [self applicationWillTerminateProceed];
 }
 
 - (void) applicationWillTerminateProceed
