@@ -154,7 +154,7 @@
                         return;
                 }
             };
-            [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            [newAlert beginSheetModalForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
             return;
 
         } else {
@@ -180,6 +180,9 @@
     // Update Browser Exam Key
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     [prefsController initPreferencesWindow];
+
+    // Inform callback that storing new settings was successful
+    [self storeNewSEBSettingsSuccessful:nil];
 }
 
 
