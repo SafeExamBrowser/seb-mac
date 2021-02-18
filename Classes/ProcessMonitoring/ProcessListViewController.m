@@ -182,7 +182,8 @@
             {
                 case NSAlertFirstButtonReturn:
                 {
-                    break;
+                    [self forceQuitAllProcessesProceed];
+                    return;
                 }
                     
                 case NSAlertSecondButtonReturn:
