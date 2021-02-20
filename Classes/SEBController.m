@@ -4271,6 +4271,12 @@ conditionallyForWindow:(NSWindow *)window
         window = nil;
     }
     
+    if (@available(macOS 11.0, *)) {
+        if (!window && (_isAACEnabled || _wasAACEnabled)) {
+            window = self.browserController.mainBrowserWindow;
+        }
+    }
+
     // If the dialog needs to be shown application modal
     if (!window) {
         // block opening other modal alerts while the password dialog is open
@@ -4293,12 +4299,6 @@ conditionallyForWindow:(NSWindow *)window
 
     [enterPasswordDialog setAttributedStringValue:text];
     
-    if (@available(macOS 11.0, *)) {
-        if (!window && (_isAACEnabled || _wasAACEnabled)) {
-            window = self.browserController.mainBrowserWindow;
-        }
-    }
-
     [NSApp beginSheet: enterPasswordDialogWindow
        modalForWindow: window
         modalDelegate: nil
