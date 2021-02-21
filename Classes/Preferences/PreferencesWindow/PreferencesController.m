@@ -459,7 +459,7 @@
     
     if (error || !sebData) {
         // Error when reading configuration data
-        [NSApp presentError:error];
+        [MBPreferencesController.sharedController.window presentError:error modalForWindow:MBPreferencesController.sharedController.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
         DDLogError(@"%s: Reading a settings file with path %@ didn't work, error: %@", __FUNCTION__, sebFileURL.absoluteString, error.description);
 
     } else {
@@ -493,7 +493,7 @@
 {
     if (error) {
         // Error when reading configuration data
-        [NSApp presentError:error];
+        [MBPreferencesController.sharedController.window presentError:error modalForWindow:MBPreferencesController.sharedController.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
     }
     // if successfull save the path to the file for possible editing in the preferences window
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
@@ -1349,7 +1349,7 @@
                                                   error:&error];
         if (error) {
             // Error when reading configuration data
-            [NSApp presentError:error];
+            [MBPreferencesController.sharedController.window presentError:error modalForWindow:MBPreferencesController.sharedController.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
         } else {
             // Release preferences window so buttons get enabled properly for the local client settings mode
             [self releasePreferencesWindow];

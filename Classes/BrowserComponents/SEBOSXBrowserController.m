@@ -1255,6 +1255,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             _directConfigDownloadAttempted = false;
             
             // Opening downloaded SEB config data definitely failed:
+            [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+            
             // we might need to quit (if SEB was just started)
             // or reset the opening settings flag which prevents opening URLs concurrently
             [self openingConfigURLRoleBack];
