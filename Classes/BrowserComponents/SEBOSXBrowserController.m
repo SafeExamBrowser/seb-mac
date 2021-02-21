@@ -291,6 +291,7 @@
 
 - (void) checkForClosingTemporaryWebView:(SEBWebView *) webViewToClose
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     if (webViewToClose == _temporaryWebView) {
         [self openingConfigURLRoleBack];
     }
@@ -1249,20 +1250,33 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             return;
         } else {
             // The download failed definitely or was canceled by the user:
-            DDLogError(@"Decrypting downloaded SEB config data failed!");
+            DDLogError(@"Decrypting downloaded SEB config data failed definitely, present error and role back opening URL!");
             
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;
             
             // Opening downloaded SEB config data definitely failed:
-            [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-            
+            if (self.mainBrowserWindow) {
+                [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
+                return;
+            } else if (!(_sebController.isAACEnabled && _sebController.wasAACEnabled)) {
+                [NSApp presentError:error];
+            }
             // we might need to quit (if SEB was just started)
             // or reset the opening settings flag which prevents opening URLs concurrently
             [self openingConfigURLRoleBack];
         }
     }
 }
+
+- (void)didPresentErrorWithRecovery:(BOOL)didRecover
+   contextInfo:(void *)contextInfo
+{
+    // we might need to quit (if SEB was just started)
+    // or reset the opening settings flag which prevents opening URLs concurrently
+    [self openingConfigURLRoleBack];
+}
+
 
 - (void)closeOpeningConfigFileDialog {
     //TODO: not yet used on macOS
