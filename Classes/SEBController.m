@@ -963,6 +963,10 @@ bool insideMatrix(void);
 - (void) conditionallyInitSEBWithCallback:(id)callback
                                  selector:(SEL)selector;
 {
+    if (_openingSettings) {
+        DDLogDebug(@"OpeningSettings = true, abort %s", __FUNCTION__);
+        return;
+    }
     DDLogDebug(@"%s", __FUNCTION__);
 
     /// Kiosk mode checks
@@ -1102,6 +1106,10 @@ bool insideMatrix(void);
 - (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
+    if (_openingSettings) {
+        DDLogDebug(@"OpeningSettings = true, abort %s", __FUNCTION__);
+        return;
+    }
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (!_conditionalInitAfterProcessesChecked) {
@@ -1204,6 +1212,10 @@ bool insideMatrix(void);
 - (void) initSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
+    if (_openingSettings) {
+        DDLogDebug(@"OpeningSettings = true, abort %s", __FUNCTION__);
+        return;
+    }
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     
     /// Early kiosk mode setup (as these actions might take some time)
@@ -4820,7 +4832,8 @@ conditionallyForWindow:(NSWindow *)window
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
 	if (quittingMyself) {
         DDLogDebug(@"%s: quttingMyself = true", __FUNCTION__);
-        if (_isAACEnabled && !_isTerminating) {
+        if (_isAACEnabled && _wasAACEnabled && !_isTerminating) {
+            // Don't try to switch AAC off if it didn't switch on yet
             if (@available(macOS 10.15.4, *)) {
                 _isTerminating = YES;
 
