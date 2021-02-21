@@ -1203,7 +1203,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
                     }
                 };
                 [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
-
             }
         }
     }
