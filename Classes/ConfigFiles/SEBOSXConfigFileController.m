@@ -299,11 +299,11 @@
 
 
 - (void)showAlertWithError:(NSError *)error { 
-    [NSApp presentError:error];
+    [self presentErrorAlert:error];
 }
 
 - (void)presentErrorAlert:(NSError *)error {
-    [NSApp presentError:error];
+    [self.sebController.browserController.mainBrowserWindow presentError:error modalForWindow:self.sebController.browserController.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
 }
 
 
