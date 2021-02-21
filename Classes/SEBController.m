@@ -4440,7 +4440,9 @@ conditionallyForWindow:(NSWindow *)window
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) {
+                    return;
+                }
                 NSString *password = [self.enterPassword stringValue];
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
@@ -4455,6 +4457,7 @@ conditionallyForWindow:(NSWindow *)window
                         [self removeAlertWindow:modalAlert.window];
                     };
                     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+                    return;
                 }
             }
             if (_isAACEnabled == NO) {
