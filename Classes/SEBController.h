@@ -241,6 +241,10 @@ conditionallyForWindow:(NSWindow *)window
 - (NSInteger) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *)window
                           windowTitle:(NSString *)title;
+- (NSInteger) showEnterPasswordDialogAttributedText:(NSAttributedString *)text
+                                     modalForWindow:(NSWindow *)window
+                                        windowTitle:(NSString *)title;
+
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 
