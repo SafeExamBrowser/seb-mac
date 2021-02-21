@@ -4184,7 +4184,7 @@ conditionallyForWindow:(NSWindow *)window
         NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil) attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}];
         [dialogText appendAttributedString:information];
         
-        if ([self showEnterPasswordDialog:dialogText.copy
+        if ([self showEnterPasswordDialogAttributedText:dialogText.copy
                            modalForWindow:self.browserController.mainBrowserWindow
                               windowTitle:restartExamText] == SEBEnterPasswordCancel) {
             return;
@@ -4261,8 +4261,15 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (NSInteger) showEnterPasswordDialog:(NSAttributedString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
+- (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+{
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
+    return [self showEnterPasswordDialogAttributedText:attributedText modalForWindow:window windowTitle:title];
+}
     
+    
+- (NSInteger) showEnterPasswordDialogAttributedText:(NSAttributedString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+{
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
 
     // If the (main) browser window is full screen, we don't show the dialog as sheet
