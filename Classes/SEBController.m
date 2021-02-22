@@ -3410,12 +3410,14 @@ conditionallyForWindow:(NSWindow *)window
     [NSApp endModalSession:lockdownModalSession];
 
     if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
+        DDLogInfo(@"%s: overrideCheckForScreenSharing selected", __FUNCTION__);
         _screenSharingCheckOverride = true;
         _sebLockedViewController.overrideCheckForScreenSharing.state = false;
         _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
     }
 
     if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
+        DDLogInfo(@"%s: overrideEnforcingBuiltinScreen selected", __FUNCTION__);
         _builtinDisplayEnforceOverride = true;
         _builtinDisplayNotAvailableDetected = false;
         _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
@@ -3423,18 +3425,21 @@ conditionallyForWindow:(NSWindow *)window
     }
 
     if (_sebLockedViewController.overrideCheckForSiri.state == true) {
+        DDLogInfo(@"%s: overrideCheckForSiri selected", __FUNCTION__);
         _siriCheckOverride = true;
         _sebLockedViewController.overrideCheckForSiri.state = false;
         _sebLockedViewController.overrideCheckForSiri.hidden = true;
     }
     
     if (_sebLockedViewController.overrideCheckForDictation.state == true) {
+        DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
         _dictationCheckOverride = true;
         _sebLockedViewController.overrideCheckForDictation.state = false;
         _sebLockedViewController.overrideCheckForDictation.hidden = true;
     }
     
     if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
+        DDLogInfo(@"%s: overrideCheckForSpecifcProcesses selected", __FUNCTION__);
         _processCheckSpecificOverride = true;
         if (_runningProhibitedProcesses.count > 0) {
             if (!_overriddenProhibitedProcesses) {
@@ -3445,12 +3450,14 @@ conditionallyForWindow:(NSWindow *)window
             // Check if overridden processes are prohibited BSD processes from settings
             // and remove them from list the periodically called process watcher checks
             [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
+            DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, _overriddenProhibitedProcesses);
         }
         _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
     }
     
     if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
+        DDLogInfo(@"%s: overrideCheckForAllProcesses selected", __FUNCTION__);
         _processCheckAllOverride = true;
         _sebLockedViewController.overrideCheckForAllProcesses.state = false;
         _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
@@ -3464,6 +3471,7 @@ conditionallyForWindow:(NSWindow *)window
     
     DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
     if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+        DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
         _sebLockedViewController.quitInsteadUnlockingButton.state = false;
         [self quitSEBOrSession];
     }
