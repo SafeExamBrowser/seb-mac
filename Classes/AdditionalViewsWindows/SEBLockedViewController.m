@@ -145,13 +145,15 @@
         logString = [[NSMutableAttributedString alloc] initWithString:@""];
     }
     
+    NSString *theTime = @"";
     if (errorTime) {
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
         [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss  "];
-        NSString *theTime = [timeFormat stringFromDate:errorTime];
+        theTime = [timeFormat stringFromDate:errorTime];
         NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
         [logString appendAttributedString:attributedTimeString];
     }
+    DDLogError(@"%s: %@ %@", __FUNCTION__, errorString, theTime);
     NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
     
     [attributedErrorString setAttributes:self.boldFontAttributes range:NSMakeRange(0, attributedErrorString.length)];
