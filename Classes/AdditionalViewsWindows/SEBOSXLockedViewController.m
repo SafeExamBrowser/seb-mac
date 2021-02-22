@@ -129,6 +129,7 @@
     self.lockedViewController.currentAlertMessage = newAlertMessage;
     alertTitle.stringValue = newAlertTitle;
     alertMessage.stringValue = newAlertMessage;
+    DDLogError(@"%s: %@: %@", __FUNCTION__, newAlertTitle, newAlertMessage);
 }
 
 
