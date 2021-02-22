@@ -418,7 +418,7 @@ bool insideMatrix(void);
                                                  name:@"requestShowAboutNotification" object:nil];
     
     // Add an observer for the request to close about panel
-    [[NSNotificationCenter defaultCenter] addObserver:self.aboutWindow
+    [[NSNotificationCenter defaultCenter] addObserver:self.aboutWindowController
                                              selector:@selector(closeAboutWindow:)
                                                  name:@"requestCloseAboutWindowNotification" object:nil];
     
