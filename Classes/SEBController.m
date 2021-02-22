@@ -2119,7 +2119,18 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     SecRequirementRef req = NULL;
     NSString * reqStr;
     
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+    if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
+        // Public SHA1 fingerprint of the CA certificate
+        // for macOS system software signed by Apple this is the
+        // "Software Signing" certificate (use Max Inspect from App Store or similar)
+        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                  @"certificate",
+                  @"leaf",
+                  @"H\"EFDBC9139DD98D",
+                  @"BAE5A9C7165A09",
+                  @"6511B15EAEF9\""
+                  ];
+    } else if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
         // Public SHA1 fingerprint of the CA cert match string
         reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                   @"certificate",
