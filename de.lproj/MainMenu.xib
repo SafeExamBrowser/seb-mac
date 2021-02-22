@@ -619,10 +619,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
+                    <customView verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
                         <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
                         <subviews>
-                            <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
                                 <rect key="frame" x="18" y="76" width="376" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="eit-hR-UwU"/>
@@ -695,7 +695,7 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="w4A-0q-NaR" secondAttribute="trailing" id="0fE-5r-2Ry"/>
                     <constraint firstItem="w4A-0q-NaR" firstAttribute="leading" secondItem="vWC-gd-xPh" secondAttribute="leading" id="Ie8-FF-4Zs"/>
                     <constraint firstAttribute="bottom" secondItem="w4A-0q-NaR" secondAttribute="bottom" id="UfA-5T-Ram"/>
-                    <constraint firstItem="w4A-0q-NaR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vWC-gd-xPh" secondAttribute="top" id="aam-jB-cCA"/>
+                    <constraint firstItem="w4A-0q-NaR" firstAttribute="top" secondItem="vWC-gd-xPh" secondAttribute="top" id="aam-jB-cCA"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="201" y="264.5"/>
