@@ -2002,6 +2002,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 // Application hasn't a com.apple. bundle ID prefix
                                 // The app which opened the window or panel is no system process
                                 if (firstScan) {
+                                    DDLogVerbose(@"First scan, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                                     //[appWithPanel terminate];
                                 } else {
                                     DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
@@ -2011,19 +2012,22 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                             } else {
 #ifdef DEBUG
                                 if ([appWithPanelBundleID isEqualToString:@"com.apple.dt.Xcode"]) {
+                                    DDLogVerbose(@"Don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                                     [_systemProcessPIDs addObject:windowOwnerPIDString];
                                     continue;
                                 }
 #endif
-
                                 // There is either no bundle ID or the prefix is com.apple.
                                 // Check if application with Bundle ID com.apple. is a legit Apple system executable
+                                DDLogDebug(@"Check if application %@ (%@) is a signed system executable", windowOwner, appWithPanelBundleID);
                                 if ([self signedSystemExecutable:windowOwnerPID]) {
                                     // Cache this executable PID
+                                    DDLogDebug(@"Yes, application %@ (%@) is a signed system executable", windowOwner, appWithPanelBundleID);
                                     [_systemProcessPIDs addObject:windowOwnerPIDString];
                                 } else {
                                     // The app which opened the window or panel is no system process
                                     if (firstScan) {
+                                        DDLogVerbose(@"First scan, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                                         //[appWithPanel terminate];
                                     } else {
                                         DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
@@ -2032,6 +2036,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     }
                                 }
                             }
+                        } else {
+                            DDLogDebug(@"Preferences are open, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                         }
                     }
                 }
