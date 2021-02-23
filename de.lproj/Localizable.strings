@@ -482,7 +482,7 @@
 "OK" = "OK";
 
 /* No comment provided by engineer. */
-"On macOS 10.7 and 10.8 SEB can only be used as an exam client. Run SEB on macOS 10.9 or higher to create a .seb configuration file to configure this SEB client as well." = "Unter macOS 10.7 und 10.8 kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.9 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.";
+"On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well." = "Auf früheren macOS-Versionen kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.11 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.";
 
 /* No comment provided by engineer. */
 "Only on load error" = "Nur bei Verbindungsfehlern";
@@ -542,7 +542,7 @@
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
-"Preferences Window Not Available on macOS 10.7/10.8" = "Einstellungen-Fenster nicht verfügbar unter macOS 10.7/10.8";
+"Preferences Window Available From macOS 10.11" = "Einstellungen-Fenster erst ab macOS 10.11 verfügbar";
 
 /* No comment provided by engineer. */
 "Previously interrupted exam was re-opened!" = "Zuvor unterbrochene Prüfungssession wurde erneut gestartet!";
