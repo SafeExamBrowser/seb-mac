@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 29.04.10.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -4459,10 +4459,10 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
+        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_11) {
             NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on macOS 10.7/10.8", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"On macOS 10.7 and 10.8 SEB can only be used as an exam client. Run SEB on macOS 10.9 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
+            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Available From macOS 10.11", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert runModal];
