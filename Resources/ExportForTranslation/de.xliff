@@ -3199,8 +3199,8 @@
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2020 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2021 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
@@ -4000,9 +4000,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <source>OS X 10.11 El Capitan</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="On macOS 10.7 and 10.8 SEB can only be used as an exam client. Run SEB on macOS 10.9 or higher to create a .seb configuration file to configure this SEB client as well." xml:space="preserve">
-        <source>On macOS 10.7 and 10.8 SEB can only be used as an exam client. Run SEB on macOS 10.9 or higher to create a .seb configuration file to configure this SEB client as well.</source>
-        <target>Unter macOS 10.7 und 10.8 kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.9 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.</target>
+      <trans-unit id="On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well." xml:space="preserve">
+        <source>On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well.</source>
+        <target>Auf früheren macOS-Versionen kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.11 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Only on load error" xml:space="preserve">
@@ -4085,9 +4085,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Bitte gleiches Passwort erneut eingeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Preferences Window Not Available on macOS 10.7/10.8" xml:space="preserve">
-        <source>Preferences Window Not Available on macOS 10.7/10.8</source>
-        <target>Einstellungen-Fenster nicht verfügbar unter macOS 10.7/10.8</target>
+      <trans-unit id="Preferences Window Available From macOS 10.11" xml:space="preserve">
+        <source>Preferences Window Available From macOS 10.11</source>
+        <target>Einstellungen-Fenster erst ab macOS 10.11 verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Previously interrupted exam was re-opened!" xml:space="preserve">
