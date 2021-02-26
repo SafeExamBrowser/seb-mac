@@ -2859,6 +2859,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) startExam
 {
+    DDLogInfo(@"%s", __FUNCTION__);
     if (_establishingSEBServerConnection == true) {
         _startingExamFromSEBServer = true;
         [self.serverController startExamFromServer];
@@ -3457,6 +3458,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (!_openingSettings && !_resettingSettings && !_settingsOpen) {
         // Check if running on iOS 11.x earlier than 11.2.5
         if (![self allowediOSVersion]) {
+            DDLogError(@"%s Running on not allowed iOS 11.x version earlier than 11.2.5, don't start kiosk mode", __FUNCTION__);
             return;
         }
         
@@ -3467,7 +3469,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
             (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
              allowBetaiOSVersion != currentOSMajorVersion))
         { //if allowed, version has to match current iOS
-            
+            DDLogError(@"%s Show alert 'Running on New iOS Version Not Allowed'", __FUNCTION__);
+
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
@@ -3479,6 +3482,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self->_alertController = nil;
+                    DDLogInfo(@"%s: Quitting session", __FUNCTION__);
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"requestQuit" object:self];
                 }]];
@@ -3526,6 +3530,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                 (unsigned long)allowiOSVersionMajor,
                                                 allowediOSVersionMinorString,
                                                 allowediOSVersionPatchString];
+            DDLogError(@"%s %@", __FUNCTION__, alertMessageiOSVersion);
+
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
@@ -3536,6 +3542,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self->_alertController = nil;
+                    DDLogInfo(@"%s: Quitting session", __FUNCTION__);
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"requestQuit" object:self];
                 }]];
@@ -3568,6 +3575,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                         self->_alertController = nil;
+                        DDLogInfo(@"%s: Quitting session", __FUNCTION__);
                         [[NSNotificationCenter defaultCenter]
                          postNotificationName:@"requestQuit" object:self];
                     }]];
@@ -3600,19 +3608,22 @@ quittingClientConfig:(BOOL)quittingClientConfig
             pasteboard.items = @[];
         }
         
-        // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
+        // If AAC/ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
         // already active and deny starting a secured exam until Guided Access is switched off
         if (_enableASAM && !_allowSAM) {
+            DDLogInfo(@"%s _enableASAM && !_allowSAM: If AAC/ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is already active and deny starting a secured exam until Guided Access is switched off.", __FUNCTION__);
             // Get time of app launch
             dispatch_time_t dispatchTimeAppLaunched = _appDelegate.dispatchTimeAppLaunched;
             if (dispatchTimeAppLaunched != 0) {
                 // Wait at least 2 seconds after app launch
+                DDLogInfo(@"%s Wait at least 2 seconds after app launch", __FUNCTION__);
                 dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     self->_appDelegate.dispatchTimeAppLaunched = 0;
                     // Is SAM/Guided Access (or ASAM because of previous crash) active?
                     [self assureSAMNotActive];
                 });
             } else {
+                DDLogInfo(@"%s App is already running at least 2 seconds", __FUNCTION__);
                 [self assureSAMNotActive];
             }
         } else {
@@ -3636,6 +3647,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     // Is using classic Single App Mode (SAM) allowed in current settings?
     _allowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
 
+    DDLogInfo(@"%s: secureMode = %d, enableASAM = %d, allowSAM: %d", __FUNCTION__, _secureMode, _enableASAM, _allowSAM);
 }
 
 // Is SAM/Guided Access (or ASAM because of previous crash) active?
@@ -3644,9 +3656,10 @@ quittingClientConfig:(BOOL)quittingClientConfig
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     DDLogWarn(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     if (_SAMActive) {
-        // SAM or Guided Access (or ASAM because of previous crash) is already active:
+        DDLogInfo(@"SAM or Guided Access (or AAC/ASAM because of previous crash) is already active: refuse starting a secured exam until SAM/Guided Access is switched off");
+        // SAM or Guided Access (or AAC/ASAM because of previous crash) is already active:
         // refuse starting a secured exam until SAM/Guided Access is switched off
-        ASAMActiveChecked = false;
+        ASAMActiveChecked = NO;
         [self requestDisablingSAM];
     } else {
         [self conditionallyStartASAM];
@@ -3658,13 +3671,21 @@ quittingClientConfig:(BOOL)quittingClientConfig
 // refuse starting a secured exam until SAM/Guided Access is switched off
 - (void) requestDisablingSAM
 {
+    DDLogInfo(@"%s SAM/Guided Access (or AAC/ASAM because of previous crash) is still active, in needs to be (manually) disabled", __FUNCTION__);
+
     // Is SAM/Guided Access (or ASAM because of previous crash) still active?
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     if (_SAMActive) {
+        DDLogDebug(@"%s _SAMActive", __FUNCTION__);
+
         if (!ASAMActiveChecked) {
+            DDLogDebug(@"%s !ASAMActiveChecked", __FUNCTION__);
+
             // First try to switch off ASAM in case it was active because of a previously happend crash
-            UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
-                self->ASAMActiveChecked = true;
+            UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
+                DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
+
+                self->ASAMActiveChecked = YES;
                 if (didSucceed) {
                     DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
                     [self requestDisablingSAM];
@@ -3676,9 +3697,12 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 }
             });
         } else {
+            DDLogInfo(@"%s If ASAM is enabled and SAM not allowed, we have to deny starting a secured exam until Guided Access/SAM is switched off", __FUNCTION__);
             // If ASAM is enabled and SAM not allowed, we have to deny starting a secured exam
             // until Guided Access/SAM is switched off
             if (_enableASAM && !_allowSAM) {
+                DDLogDebug(@"%s _enableASAM && !_allowSAM", __FUNCTION__);
+
                 // Warn user that SAM/Guided Access must first be switched off
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -3704,6 +3728,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             }
         }
     } else {
+        DDLogInfo(@"%s SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM", __FUNCTION__);
         // SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM
         [self conditionallyStartASAM];
     }
@@ -3712,47 +3737,49 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) conditionallyStartASAM
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     // First check if a quit password is set = run SEB in secure mode
     if (!_secureMode) {
+        DDLogInfo(@"%s Secure mode isn't required in settings (no quit pw), proceed to open start URL", __FUNCTION__);
         // If secure mode isn't required, we can proceed to opening start URL
         [self startExam];
     } else if (!_ASAMActive) {
         // Secure mode required, find out which kiosk mode to use
         // Is ASAM enabled in settings?
         if (_enableASAM) {
-            DDLogInfo(@"Requesting Autonomous Single App Mode");
+            DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
             _ASAMActive = true;
-            UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
+            UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
+                DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
                 if (didSucceed) {
-                    if (@available(iOS 13.0, *)) {
-                        // Should not be necessary for iOS 13
-                    } else {
-                        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-                            // This is an issue happening on older iOS versions:
-                            // the device needs to be restarted
-                            if (self.alertController) {
-                                [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                            }
-                            self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", nil)
-                                                                                        message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", nil)
-                                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                            
-                            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                self->_alertController = nil;
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestQuit" object:self];
-                            }]];
-                            
-                            [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
-                            return;
+                    if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
+                        DDLogError(@"%s: Switching AAC/Autonomous Single App Mode on returned didSucceed, even though AAC isn't actually active! Inform user that the device needs to be restarted", __FUNCTION__);
+                        // This is an issue happening on older iOS versions:
+                        // the device needs to be restarted
+                        if (self.alertController) {
+                            [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
+                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", nil)
+                                                                                    message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", nil)
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                            self->_alertController = nil;
+                            DDLogInfo(@"%s User confirmed OK, quit current session.", __FUNCTION__);
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuit" object:self];
+                        }]];
+                        
+                        [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                        return;
                     }
-                    DDLogInfo(@"%s: Entered Autonomous Single App Mode", __FUNCTION__);
+                    DDLogInfo(@"%s: Entered AAC/Autonomous Single App Mode, proceed to open start URL", __FUNCTION__);
                     [self startExam];
                 } else {
-                    DDLogError(@"%s: Failed to enter Autonomous Single App Mode", __FUNCTION__);
-                    self->_ASAMActive = false;
+                    DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
+                    self->_ASAMActive = NO;
                     [self showNoKioskModeAvailable];
                 }
             });
@@ -3765,14 +3792,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) stopAutonomousSingleAppMode
 {
-    DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-    UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+    DDLogInfo(@"%s: Requesting to exit AAC/Autonomous Single App Mode", __FUNCTION__);
+    UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
         if (didSucceed) {
-            DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
+            DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
             self->_ASAMActive = false;
         }
         else {
-            DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
+            DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
         }
     });
 }
@@ -3780,6 +3807,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) showStartSingleAppMode
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (_allowSAM) {
         // SAM is allowed
         _singleAppModeActivated = true;
@@ -3803,6 +3832,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 // No kiosk mode available: SEB refuses to start the exam
 - (void) showNoKioskModeAvailable
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
@@ -3813,55 +3844,66 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if ([[self.topMostController.presentedViewController superclass] isKindOfClass:[UIAlertController superclass]]) {
         [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     }
-    _noSAMAlertDisplayed = true;
+    _noSAMAlertDisplayed = YES;
+    DDLogError(@"%s Showing alert 'No Kiosk Mode Available – Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.'", __FUNCTION__);
     _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
                                                             message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             self->_alertController = nil;
-                                                             self->_noSAMAlertDisplayed = false;
-                                                             [self conditionallyStartKioskMode];
-                                                         }]];
+        DDLogDebug(@"%s: User selected Retry", __FUNCTION__);
+        self->_alertController = nil;
+        self->_noSAMAlertDisplayed = false;
+        [self conditionallyStartKioskMode];
+    }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                             self->_alertController = nil;
-                                                             self->_noSAMAlertDisplayed = false;
-                                                             if (self.establishingSEBServerConnection) {
-                                                                 self.establishingSEBServerConnection = false;
-                                                             }
-                                                             // We didn't actually succeed to switch a kiosk mode on
-                                                             // self->_secureMode = false;
-                                                             // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
-                                                             [[NSNotificationCenter defaultCenter]
-                                                              postNotificationName:@"requestQuit" object:self];
-                                                         }]];
+        DDLogDebug(@"%s: User selected Cancel", __FUNCTION__);
+        self->_alertController = nil;
+        self->_noSAMAlertDisplayed = false;
+        if (self.establishingSEBServerConnection) {
+            self.establishingSEBServerConnection = false;
+        }
+        // We didn't actually succeed to switch a kiosk mode on
+        // self->_secureMode = false;
+        // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
+        DDLogInfo(@"%s: Quitting session", __FUNCTION__);
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuit" object:self];
+    }]];
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
 - (void) showRestartSingleAppMode {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if (hashedQuitPassword.length > 0) {
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+        DDLogInfo(@"%s: A quit password is set in current settings: Ask user to restart Guided Access. If Guided Access isn't already on, show alert to switch it on again", __FUNCTION__);
+        if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
+            DDLogInfo(@"%s: SAM/Guided Access is not on, showing alert 'Waiting for Single App Mode – Single App Mode needs to be reactivated before %@ can continue.'", __FUNCTION__, SEBShortAppName);
+
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:[NSString stringWithFormat:NSLocalizedString(@"Single App Mode needs to be reactivated before %@ can continue.", nil), SEBShortAppName]
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _singleAppModeActivated = true;
-            _startSAMWAlertDisplayed = true;
+            _singleAppModeActivated = YES;
+            _startSAMWAlertDisplayed = YES;
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     } else {
         // If no quit password is defined, then we can initialize SEB with new settings
         // quit and restart the exam / reload the start page directly
+        DDLogInfo(@"%s: No quit password is defined, then we can initialize SEB with new settings, quit and restart the exam / reload the start page directly", __FUNCTION__);
+        DDLogDebug(@"%s: [self initSEBWithCompletionBlock:^{[self startExam]; }];", __FUNCTION__);
         [self initSEBWithCompletionBlock:^{
             [self startExam];
         }];
@@ -3873,6 +3915,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) conditionallyOpenStartExamLockdownWindows
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if ([self.sebLockedViewController isStartingLockedExam]) {
         if (_secureMode) {
             DDLogError(@"Re-opening an exam which was locked before");
@@ -3892,6 +3936,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) conditionallyOpenScreenCaptureLockdownWindows
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (@available(iOS 11.0, *)) {
         if (UIScreen.mainScreen.isCaptured &&
             _secureMode &&
@@ -3917,6 +3963,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (BOOL) conditionallyOpenSleepModeLockdownWindows
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (_secureMode &&
         _sessionRunning &&
         !_clientConfigSecureModePaused &&
@@ -3941,6 +3989,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) lockSEB:(NSNotification *)notification
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     NSString *lockReason;
     NSDictionary *userInfo = notification.userInfo;
     if (userInfo) {
@@ -3955,6 +4005,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) openLockdownWindows
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (!self.sebLockedViewController.resignActiveLogString) {
         self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
     }
@@ -4007,6 +4059,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) correctPasswordEntered
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     // If (new) setting don't require a kiosk mode or
     // kiosk mode is already switched on, close lockdown window
     if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
@@ -4022,6 +4076,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) openJitsiView
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (@available(iOS 11.0, *)) {
         self.previousSessionJitsiMeetEnabled = YES;
         
@@ -4087,6 +4143,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
     if ([serviceType isEqualToString:@"JITSI_MEET"]) {
@@ -4159,6 +4217,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) toggleProctoringViewVisibility
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     BOOL allowToggleProctoringView = (_remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
                                       _remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
     if (allowToggleProctoringView) {
