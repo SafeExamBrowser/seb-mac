@@ -1124,6 +1124,10 @@ bool insideMatrix(void);
                 [self closeCapWindows];
             DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
             if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+                // Save current string from pasteboard for pasting start URL in Preferences Window
+                // and clear pasteboard (which acutally isn't necessary for AAC)
+                [self clearPasteboardSavingCurrentString];
+                
                 NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
                 DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
                 AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
