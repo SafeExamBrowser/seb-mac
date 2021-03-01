@@ -135,7 +135,7 @@
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;
     CGFloat navigationBarItemsOffset;
-    
+    BOOL assureSAMNotActiveWaiting;
 }
 
 @property (weak, nonatomic) AppDelegate *appDelegate;
