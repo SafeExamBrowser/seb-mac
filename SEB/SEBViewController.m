@@ -3615,13 +3615,19 @@ quittingClientConfig:(BOOL)quittingClientConfig
             // Get time of app launch
             dispatch_time_t dispatchTimeAppLaunched = _appDelegate.dispatchTimeAppLaunched;
             if (dispatchTimeAppLaunched != 0) {
-                // Wait at least 2 seconds after app launch
-                DDLogInfo(@"%s Wait at least 2 seconds after app launch", __FUNCTION__);
-                dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    self->_appDelegate.dispatchTimeAppLaunched = 0;
-                    // Is SAM/Guided Access (or ASAM because of previous crash) active?
-                    [self assureSAMNotActive];
-                });
+                DDLogInfo(@"%s Already waiting 2 seconds since app start before checking if SAM or Guided Access is already active.", __FUNCTION__);
+                // If not yet waiting for at least 2 seconds after app launch
+                if (!assureSAMNotActiveWaiting) {
+                    assureSAMNotActiveWaiting = YES;
+                    // Wait at least 2 seconds after app launch
+                    DDLogInfo(@"%s Wait at least 2 seconds after app launch", __FUNCTION__);
+                    dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        self->_appDelegate.dispatchTimeAppLaunched = 0;
+                        // Is SAM/Guided Access (or ASAM because of previous crash) active?
+                        [self assureSAMNotActive];
+                        self->assureSAMNotActiveWaiting = NO;
+                    });
+                }
             } else {
                 DDLogInfo(@"%s App is already running at least 2 seconds", __FUNCTION__);
                 [self assureSAMNotActive];
