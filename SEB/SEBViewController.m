@@ -884,7 +884,7 @@ static NSMutableSet *browserWindowControllers;
             if (URLFromString) {
                 [self conditionallyDownloadAndOpenSEBConfigFromURL:URLFromString];
             } else {
-                NSError *error = [self.configFileController errorCorruptedSettingsForUnderlyingError:nil];
+                NSError *error = [self.configFileController errorCorruptedSettingsForUnderlyingError:[NSError new]];
                 [self storeNewSEBSettingsSuccessful:error];
             }
         }];
