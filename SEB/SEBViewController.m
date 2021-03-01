@@ -769,6 +769,57 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Handle requests to send logs
+
+- (void)conditionallySendLogs
+{
+    // Check if the initialize settings assistant is open
+    if (_initAssistantOpen) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.initAssistantOpen = false;
+            [self conditionallySendLogs];
+        }];
+        return;
+    } else if (_sebServerViewDisplayed) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.sebServerViewDisplayed = false;
+            self.establishingSEBServerConnection = false;
+            [self conditionallySendLogs];
+        }];
+        return;
+    } else if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self conditionallySendLogs];
+        }];
+        return;
+    } else {
+        // Check if settings are currently open
+        if (_settingsOpen) {
+            // Close settings, but check if settings presented the share dialog first
+            DDLogInfo(@"SEB logs should be send, but the Settings view was open, it will be closed first");
+            if (self.appSettingsViewController.presentedViewController) {
+                [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
+                    [self conditionallySendLogs];
+                }];
+                return;
+            } else if (self.appSettingsViewController) {
+                [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
+                    self.appSettingsViewController = nil;
+                    self.settingsOpen = false;
+                    [self conditionallySendLogs];
+                }];
+                return;
+            }
+        }
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBView"];
+        _aboutSEBViewController.sebViewController = self;
+        [_aboutSEBViewController sendLogsByEmail];
+    }
+}
+
+
 #pragma mark - Inititial Configuration Assistant
 
 - (void)openInitAssistant
