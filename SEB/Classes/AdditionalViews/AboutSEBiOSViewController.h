@@ -61,5 +61,7 @@
 
 @property (nonatomic, strong) SEBViewController *sebViewController;
 
+- (IBAction)sendLogsByEmail;
+
 
 @end
