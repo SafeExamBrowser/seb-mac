@@ -916,7 +916,6 @@
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
-		84CB3A42F2BDD128121ABF8C /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -949,9 +948,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
@@ -1493,7 +1490,6 @@
 		71B3BB56996BA771D79A9304 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		8DB958B404773247A2C3CA2F /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
-		EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1546,7 +1542,6 @@
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				84CB3A42F2BDD128121ABF8C /* libPods-Safe Exam Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1608,7 +1603,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* SEB */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -1672,7 +1667,6 @@
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
 				8DB958B404773247A2C3CA2F /* libPods-SEB.a */,
 				5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */,
-				13584A68A823AB2B1A1C7D1D /* libPods-Safe Exam Browser.a */,
 				322DFD04102A75AAA75D6887 /* libPods-SEB Dev.a */,
 			);
 			name = Frameworks;
@@ -2577,8 +2571,6 @@
 			children = (
 				C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */,
 				15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */,
-				0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */,
-				EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */,
 				71B3BB56996BA771D79A9304 /* Pods-SEB.debug.xcconfig */,
 				65C2C05A6D88BA732D4FD938 /* Pods-SEB.release.xcconfig */,
 				3B113AC8639454E07B7842C7 /* Pods-SEB Dev.debug.xcconfig */,
@@ -2956,7 +2948,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
 			buildPhases = (
-				549393D7FD6E063624A6295D /* [CP] Check Pods Manifest.lock */,
 				69A79DA117176584005B06CD /* Run Script */,
 				69F7B5FB14F411FB00FD0761 /* Resources */,
 				69F7B60814F411FB00FD0761 /* Sources */,
@@ -3032,7 +3023,7 @@
 				de,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3435,24 +3426,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		549393D7FD6E063624A6295D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Safe Exam Browser-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		58B02D7CFF8900A071128EDF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4089,7 +4062,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4169,7 +4142,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ETH Zurich (9Z623UDZ5L)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4426,7 +4399,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_BITCODE = NO;
@@ -4506,7 +4479,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4564,7 +4537,6 @@
 		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A21C3F8F0DC2ECFF2397639 /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -4573,7 +4545,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4609,7 +4581,6 @@
 		};
 		69F7B62414F411FB00FD0761 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF203F9FEA7C275D31F59090 /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -4617,7 +4588,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4678,7 +4649,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4743,7 +4714,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 12753;
+				CURRENT_PROJECT_VERSION = 12755;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
