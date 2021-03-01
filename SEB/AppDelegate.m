@@ -252,7 +252,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
             [preferences setBool:NO forKey:@"sendLogs"];
             if (!_sebViewController.ASAMActive) {
                 // If AAC isn't being started
-                [_sebViewController conditionallyShowSettingsModal];
+                [_sebViewController conditionallySendLogs];
             }
         } else {
             // Check if we received a new configuration from an MDM server (by MDM managed configuration)
