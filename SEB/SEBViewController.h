@@ -279,6 +279,7 @@
 #pragma mark - Init, reconfigure and reset SEB
 - (void) conditionallyShowSettingsModal;
 - (void) conditionallyResetSettings;
+- (void) conditionallySendLogs;
 - (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
 
 - (void) showReconfiguringAlertWithError:(NSError *)error;
