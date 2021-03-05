@@ -141,6 +141,7 @@ static NSString * const authenticationPassword = @"password";
     SEBCertServices *sharedCertService = [SEBCertServices sharedInstance];
     authorizedHosts = [NSMutableArray new];
     previousAuthentications = [NSMutableArray new];
+    pinEmbeddedCertificates = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"];
 
     // Flush cached embedded certificates (as they might have changed with new settings)
     [sharedCertService flushCachedCertificates];
@@ -148,12 +149,12 @@ static NSString * const authenticationPassword = @"password";
     // Check if the custom URL protocol needs to be activated
 #if TARGET_OS_IPHONE
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]
-        || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
+        || pinEmbeddedCertificates
         || [sharedCertService caCerts].count > 0
         || [sharedCertService tlsCerts].count > 0
         || [sharedCertService debugCerts].count > 0)
 #else
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
+        if (pinEmbeddedCertificates
             || [sharedCertService caCerts].count > 0
             || [sharedCertService tlsCerts].count > 0
             || [sharedCertService debugCerts].count > 0)
@@ -242,8 +243,6 @@ static NSString * const authenticationPassword = @"password";
  */
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
     // Check if we deal with a username/password or a server trust authentication challenge
     NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
     if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
@@ -315,12 +314,10 @@ static NSString * const authenticationPassword = @"password";
         {
             SEBCertServices *sc = [SEBCertServices sharedInstance];
             
-            BOOL pinned = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"];
-            
             NSArray *trustStore = nil;
             NSMutableArray *embeddedCertificates = [NSMutableArray arrayWithArray:[sc caCerts]];
             
-            if (!pinned)
+            if (!pinEmbeddedCertificates)
             {
                 // Embedded SSL/TLS certs extend system trust store if
                 // not pinned (these would typically be self-signed)
@@ -333,7 +330,7 @@ static NSString * const authenticationPassword = @"password";
                 [embeddedCertificates addObjectsFromArray:[sc debugCerts]];
             }
             
-            if (pinned || [embeddedCertificates count])
+            if (pinEmbeddedCertificates || [embeddedCertificates count])
             {
                 trustStore = embeddedCertificates;
             }
@@ -341,7 +338,7 @@ static NSString * const authenticationPassword = @"password";
             // If pinned, only embedded CA certs will be in trust store
             // If !pinned, system trust store is extended by embedded CA and SSL/TLS (including debug) certs
             SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)trustStore); // If trustStore == nil, use system default
-            SecTrustSetAnchorCertificatesOnly(serverTrust, pinned);
+            SecTrustSetAnchorCertificatesOnly(serverTrust, pinEmbeddedCertificates);
             
             SecTrustResultType result;
             OSStatus status = SecTrustEvaluate(serverTrust, &result);
