@@ -128,6 +128,7 @@
     NSURL *cachedUniversalLink;
     NSString *quitURLTrimmed;
     BOOL sendHashKeys;
+    BOOL pinEmbeddedCertificates;
 }
 
 @property (weak) id delegate;
