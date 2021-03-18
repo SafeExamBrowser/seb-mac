@@ -773,45 +773,14 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallySendLogs
 {
-    // Check if the initialize settings assistant is open
-    if (_initAssistantOpen) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            self.initAssistantOpen = false;
-            [self conditionallySendLogs];
-        }];
-        return;
-    } else if (_sebServerViewDisplayed) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            self.sebServerViewDisplayed = false;
-            self.establishingSEBServerConnection = false;
-            [self conditionallySendLogs];
-        }];
-        return;
-    } else if (_alertController) {
+    // Check if an alert is open and dismiss it
+    if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
             [self conditionallySendLogs];
         }];
         return;
     } else {
-        // Check if settings are currently open
-        if (_settingsOpen) {
-            // Close settings, but check if settings presented the share dialog first
-            DDLogInfo(@"SEB logs should be send, but the Settings view was open, it will be closed first");
-            if (self.appSettingsViewController.presentedViewController) {
-                [self.appSettingsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-                    [self conditionallySendLogs];
-                }];
-                return;
-            } else if (self.appSettingsViewController) {
-                [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
-                    self.appSettingsViewController = nil;
-                    self.settingsOpen = false;
-                    [self conditionallySendLogs];
-                }];
-                return;
-            }
-        }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         _aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBView"];
         _aboutSEBViewController.sebViewController = self;
@@ -3666,7 +3635,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
             // Get time of app launch
             dispatch_time_t dispatchTimeAppLaunched = _appDelegate.dispatchTimeAppLaunched;
             if (dispatchTimeAppLaunched != 0) {
-                DDLogInfo(@"%s Already waiting 2 seconds since app start before checking if SAM or Guided Access is already active.", __FUNCTION__);
                 // If not yet waiting for at least 2 seconds after app launch
                 if (!assureSAMNotActiveWaiting) {
                     assureSAMNotActiveWaiting = YES;
@@ -3678,6 +3646,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
                         [self assureSAMNotActive];
                         self->assureSAMNotActiveWaiting = NO;
                     });
+                } else {
+                    DDLogInfo(@"%s Already waiting 2 seconds since app start before checking if SAM or Guided Access is already active.", __FUNCTION__);
                 }
             } else {
                 DDLogInfo(@"%s App is already running at least 2 seconds", __FUNCTION__);
