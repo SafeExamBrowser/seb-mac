@@ -39,53 +39,88 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SEBAbstractWebView;
 
-@protocol SEBAbstractWebViewDelegate <NSObject>
+@protocol SEBAbstractBrowserControllerDelegate <NSObject>
 
 @required
 - (id)nativeWebView;
+- (NSURL*)url;
+- (NSString*)title;
+- (BOOL)canGoBack;
+- (BOOL)canGoForward;
+
 - (void)goBack;
 - (void)goForward;
 - (void)reload;
-- (void)stopLoading;
 - (void)loadURL:(NSURL *)url;
+- (void)stopLoading;
 
 @optional
-- (void)toggleScrollLock;
+- (void)loadView;
+- (void)didMoveToParentViewController;
+- (void)viewDidLayoutSubviews;
+- (void)viewWillTransitionToSize;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 
-- (void)SEBWebViewDidStartLoad:(SEBAbstractWebView *)sebWebView;
-- (void)SEBWebViewDidFinishLoad:(SEBAbstractWebView *)sebWebView;
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error;
-- (BOOL)SEBWebView:(SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
-      navigationAction:(WKNavigationAction *)navigationAction;
+- (void) toggleScrollLock;
+- (BOOL) isScrollLockActive;
 
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didUpdateTitle:(nullable NSString *)title;
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress;
+
+- (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
+- (void) openCloseSliderForNewTab;
+- (void) switchToTab:(nullable id)sender;
+- (void) switchToNextTab;
+- (void) switchToPreviousTab;
+- (void) closeTab;
+
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
+
+- (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
 
 @end
 
 
-@interface SEBAbstractWebView : NSObject
+@protocol SEBAbstractWebViewNavigationDelegate <NSObject>
 
-@property (weak, nonatomic) id<SEBAbstractWebViewDelegate> delegate;
+@required
+- (void) setLoading:(BOOL)loading;
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
-- (id)nativeWebView;
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 
-- (void)toggleScrollLock;
-- (void)goBack;
-- (void)goForward;
-- (void)reload;
-- (void)stopLoading;
-- (void)loadURL:(NSURL *)url;
 
-/// SEB WebView Delegate Methods
-- (void)SEBWebViewDidStartLoad:(SEBAbstractWebView *)sebWebView;
-- (void)SEBWebViewDidFinishLoad:(SEBAbstractWebView *)sebWebView;
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error;
-- (BOOL)SEBWebView:(SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
+@optional
+- (void)SEBWebViewDidStartLoad:(nullable SEBAbstractWebView *)sebWebView;
+- (void)SEBWebViewDidFinishLoad:(nullable SEBAbstractWebView *)sebWebView;
+- (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error;
+- (BOOL)SEBWebView:(nullable SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
       navigationAction:(WKNavigationAction *)navigationAction;
 
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didUpdateTitle:(nullable NSString *)title;
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress;
+- (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateTitle:(nullable NSString *)title;
+- (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress;
+
+- (void) setTitle:(NSString *)title;
+@property (strong, nonatomic) id __nullable uiAlertController;
+
+@end
+
+
+@interface SEBAbstractWebView : NSObject <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
+
+@property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
+@property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
+
+@end
+
+
+@interface SEBWKNavigationAction : WKNavigationAction
+
+@property (readwrite, nonatomic) WKNavigationType writableNavigationType;
 
 @end
 
