@@ -378,7 +378,7 @@
 {
     if (tabIndex < _openWebpages.count) {
         OpenWebpages *webpageToSwitch = _openWebpages[tabIndex];
-        SEBWebViewController *webViewControllerToSwitch = webpageToSwitch.webViewController;
+        SEBWebViewController<SEBAbstractBrowserControllerDelegate> *webViewControllerToSwitch = webpageToSwitch.webViewController;
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
@@ -539,7 +539,7 @@
 
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
-    [self.visibleWebViewController.sebWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];
+    [self.visibleWebViewController.sebWebView loadURL:[NSURL URLWithString:webSearchString]];
     
 }
 
@@ -598,7 +598,7 @@
             
         }
         OpenWebpages *newOpenWebpage = (_openWebpages.lastObject);
-        SEBWebViewController *newVisibleWebViewController = newOpenWebpage.webViewController;
+        SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newVisibleWebViewController = newOpenWebpage.webViewController;
 
         // Exchange the old against the new webview
         [_visibleWebViewController removeFromParentViewController];
@@ -685,9 +685,9 @@
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBWebViewController *) createNewWebViewController {
-    SEBWebViewController *newSEBWebViewController = [SEBWebViewController new];
-    newSEBWebViewController.browserTabViewController = self;
+- (SEBWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewController {
+    SEBWebViewController<SEBAbstractBrowserControllerDelegate>  *newSEBWebViewController = [SEBWebViewController<SEBAbstractBrowserControllerDelegate> new];
+    newSEBWebViewController.navigationDelegate = self;
     return newSEBWebViewController;
 }
 
@@ -746,7 +746,7 @@
         NSURL *webpageCurrentRequestURL = webViewController.currentRequest.URL;
         if ([webpageCurrentRequestURL isEqual:requestURL]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [webViewController webViewDidFinishLoad:webViewController.sebWebView];
+                [webViewController SEBWebViewDidFinishLoad:webViewController.sebWebView];
             });
         }
     }
