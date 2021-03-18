@@ -39,6 +39,18 @@
 
 @implementation SEBWebViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        SEBAbstractWebView *sebAbstractWebView = [SEBAbstractWebView new];
+        sebAbstractWebView.navigationDelegate = self;
+        _sebWebView = sebAbstractWebView;
+    }
+    return self;
+}
+
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
@@ -48,63 +60,8 @@
 
 - (void)loadView
 {
-    // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] bounds];
-    if (!_sebWebView) {
-        _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
-    }
-    
-    NSUInteger statusBarAppearance = [self statusBarAppearance];
-    _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                   statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
-    _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
-    _sebWebView.scalesPageToFit = YES;
-    if (@available(iOS 11.0, *)) {
-        _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
-    }
-    _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    _sebWebView.scrollView.scrollEnabled = YES;
-    [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-    
-    // Set media playback properties on new webview
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _sebWebView.mediaPlaybackRequiresUserAction = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"];
-    
-    UIUserInterfaceIdiom currentDevice = UIDevice.currentDevice.userInterfaceIdiom;
-    if (currentDevice == UIUserInterfaceIdiomPad) {
-        _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
-    } else {
-        _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
-    }
-    _sebWebView.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];;
-    _sebWebView.mediaPlaybackAllowsAirPlay = NO;
-
-    _sebWebView.delegate = self;
-    self.view = _sebWebView;
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-        if (UIApplication.sharedApplication.keyWindow == self.view.window) {
-            DDLogDebug(@"UIWindowDidBecomeKeyNotification with UIApplication.sharedApplication.keyWindow == self.view.window.");
-            // ToDo: The possible fix below first has to be tested
-            //[self reload];
-        }
-    }];
-    
-
-}
-
-
-// Adjust scroll position so top of webpage is below the navigation bar (if enabled)
-// and bottom is above the tool bar (if SEB dock is enabled)
-- (void)adjustScrollPosition
-{
-    if (@available(iOS 11.0, *)) {
-        // Not necessary for iOS 11 thanks to Safe Area
-    } else {
-        [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        [_sebWebView.scrollView setZoomScale:0 animated:YES];
-    }
+    [_sebWebView loadView];
+    self.view = _sebWebView.nativeWebView;
 }
 
 
@@ -117,7 +74,7 @@
         //viewFrame.origin.y += kNavbarHeight;
         //viewFrame.size.height -= kNavbarHeight;
         [self.view setFrame:viewFrame];
-        [self adjustScrollPosition];
+        [_sebWebView didMoveToParentViewController];
         openCloseSlider = YES;
     } else {
         [self.view removeFromSuperview];
@@ -125,12 +82,16 @@
 }
 
 
-- (void)viewDidLayoutSubviews {
+- (void)viewDidLayoutSubviews
+{
     [super viewDidLayoutSubviews];
-    _sebWebView.frame = self.view.bounds;
+    ((UIView *)_sebWebView.nativeWebView).frame = self.view.bounds;
+    [_sebWebView viewDidLayoutSubviews];
     if (openCloseSlider) {
         openCloseSlider = NO;
-        [self.browserTabViewController openCloseSliderForNewTab];
+        if ([self.navigationDelegate respondsToSelector:@selector(openCloseSliderForNewTab)]) {
+            [self.navigationDelegate openCloseSliderForNewTab];
+        }
     }
 }
 
@@ -139,16 +100,7 @@
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    if (@available(iOS 11.0, *)) {
-        // Not necessary for iOS 11 thanks to Safe Area
-    } else {
-        // Allow the animation to complete
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
-            // and bottom is above the tool bar (if SEB dock is enabled)
-            [self adjustScrollPosition];
-        });
-    }
+    [_sebWebView viewWillTransitionToSize];
 }
 
 
@@ -156,15 +108,7 @@
 {
     [super viewWillAppear:animated];
 
-    _sebWebView.delegate = self;	// setup the delegate as the web view is shown
-    
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
-    quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
-    enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
-    _urlFilter = [SEBURLFilter sharedSEBURLFilter];
-    
+    [_sebWebView viewWillAppear:animated];
 }
 
 
@@ -173,7 +117,8 @@
     [super viewDidAppear:animated];
     
     [self becomeFirstResponder];
-    
+
+    [_sebWebView viewDidAppear:animated];
 }
 
 
@@ -181,41 +126,47 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.sebWebView stopLoading];	// in case the web view is still loading its content
-    self.sebWebView.delegate = nil;	// disconnect the delegate as the webview is hidden
+    [self stopLoading];    // in case the web view is still loading its content
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [_browserTabViewController setLoading:NO];
+    [self setLoading:NO];
+    [_sebWebView viewWillDisappear:animated];
 }
 
 
 #pragma mark -
 #pragma mark Controller interface
 
+//- (id)nativeWebView {
+//    return _sebWebView.nativeWebView;
+//}
+//
+//- (NSURL*)url {
+//    return _sebWebView.url;
+//}
+//
+//
+//- (NSString*)title {
+//    return _sebWebView.title;
+//}
+//
+//
 - (void)toggleScrollLock {
-    _isScrollLockActive = !_isScrollLockActive;
-    _sebWebView.scrollView.scrollEnabled = !_isScrollLockActive;
-    _sebWebView.scrollView.bounces = !_isScrollLockActive;
-    if (_isScrollLockActive) {
-        // Disable text/content selection
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='none';"];
-        // Disable selection context popup (copy/paste etc.)
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='none';"];
-        // Disable magnifier glass
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='none';"];
-    } else {
-        // Enable text/content selection
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='text';"];
-        // Enable selection context popup (copy/paste etc.)
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='default';"];
-        // Enable magnifier glass
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='default';"];
+    [_sebWebView toggleScrollLock];
+}
+
+- (BOOL) isScrollLockActive
+{
+    if ([_sebWebView respondsToSelector:@selector(isScrollLockActive)]) {
+        return [_sebWebView isScrollLockActive];
     }
+    return NO;
 }
 
-- (void)backToStart {
-    [_sebWebView goBack];
-}
 
+//- (void)backToStart {
+//    [_sebWebView goBack];
+//}
+//
 - (void)goBack {
     [_sebWebView goBack];
 }
@@ -235,9 +186,26 @@
 
 - (void)loadURL:(NSURL *)url
 {
-    [self.sebWebView loadRequest:[NSURLRequest requestWithURL:url]];
+    [_sebWebView loadURL:url];
 }
 
+
+/// SEBAbstractBrowserControllerProtocol methods
+
+- (void) setLoading:(BOOL)loading
+{
+    [self.navigationDelegate setLoading:loading];
+}
+
+- (void) setTitle:(NSString *)title
+{
+    [self.navigationDelegate setTitle:title];
+}
+
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
+{
+    [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
+}
 
 
 #pragma mark -
@@ -323,7 +291,8 @@
     }
     
     // Show the message
-    [self.sebWebView insertSubview:_filterMessageHolder aboveSubview:self.sebWebView];
+    UIView *nativeWebView = (UIView *)[_sebWebView nativeWebView];
+    [nativeWebView insertSubview:_filterMessageHolder aboveSubview:nativeWebView];
     
     // Remove the URL filter message after a delay
     [self performSelector:@selector(hideURLFilterMessage) withObject: nil afterDelay: 1];
@@ -338,35 +307,17 @@
 
 
 #pragma mark -
-#pragma mark UIWebViewDelegate
+#pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
+- (void)SEBWebViewDidStartLoad:(SEBAbstractWebView *)sebWebView
 {
     // starting the load, show the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 //    [self.searchBarController setLoading:YES];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+- (void)SEBWebViewDidFinishLoad:(SEBAbstractWebView *)sebWebView
 {
-    _currentRequest = nil;
-
-    // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
-    jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-
-    [_sebWebView stringByEvaluatingJavaScriptFromString:jsCode];
-    
-    [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
-    [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
-    
-    [_sebWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"SEB_AllowSpellCheck(%@)", allowSpellCheck ? @"true" : @"false"]];
-    
-    //[webView stringByEvaluatingJavaScriptFromString:@"SEB_increaseMaxZoomFactor()"];
-    
-    //[self highlightAllOccurencesOfString:@"SEB" inWebView:webView];
-    //[self speakWebView:webView];
-    
     NSString *webPageTitle;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
@@ -382,22 +333,16 @@
                 webPageTitle = [_sebWebView title];
             }
     }
-    [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
+    [self.navigationDelegate setTitle:webPageTitle forWebViewController:self];
 
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [_browserTabViewController setLoading:NO];
+    [self.navigationDelegate setLoading:NO];
     [self setBackForwardAvailabilty];
-    
-    // Look for a user cookie if logging in to an exam system/LMS supporting SEB Server
-    // ToDo: Only search for cookie when logging in to Open edX
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray<NSHTTPCookie *> *cookies = cookieJar.cookies;
-    [_browserTabViewController examineCookies:cookies];
 }
 
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error
 {
     _currentRequest = nil;
     
@@ -408,7 +353,7 @@
     
     // Hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [_browserTabViewController setLoading:NO];
+    [self.navigationDelegate setLoading:NO];
     [self setBackForwardAvailabilty];
     
     // Don't display the error 102 "Frame load interrupted", this can be caused by
@@ -441,58 +386,59 @@
         NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
         NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
         
-        if (self.browserTabViewController.sebViewController.alertController) {
-            [self.browserTabViewController.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+        if (self.navigationDelegate.uiAlertController) {
+            [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
         }
 
-        self.browserTabViewController.sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+        self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
                                                                                   message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [self.browserTabViewController.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+        [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                 NSURL *failingURL = [NSURL URLWithString:failingURLString];
                                                                 if (failingURL) {
                                                                     [self loadURL:failingURL];
                                                                 }
-                                                                self.browserTabViewController.sebViewController.alertController = nil;
+            self.navigationDelegate.uiAlertController = nil;
                                                             }]];
         
-        [self.browserTabViewController.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+        [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                self.browserTabViewController.sebViewController.alertController = nil;
+            self.navigationDelegate.uiAlertController = nil;
                                                             }]];
         
-        [self.browserTabViewController.sebViewController.topMostController presentViewController:self.browserTabViewController.sebViewController.alertController animated:NO completion:nil];
+        [self.navigationDelegate presentViewController:self.navigationDelegate.uiAlertController animated:NO completion:nil];
     }
 }
 
 
 /// Request handling
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType)navigationType
+- (BOOL)SEBWebView:(SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
+  navigationAction:(WKNavigationAction *)navigationAction
 {
     NSURL *url = [request URL];
+    WKNavigationType navigationType = navigationAction.navigationType;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
+    NSURL *originalURL = url;
+    
+    // This is currently used for SEB Server handshake after logging in to Moodle
+    if (navigationType == WKNavigationTypeFormSubmitted) {
+        [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
+    }
+    
+    if ([url.scheme isEqualToString:@"newtab"]) {
+        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
+        originalURL = [NSURL URLWithString:urlString relativeToURL:[sebWebView url]];
+    }
+
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
+    if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
         return NO;
     }
     
-    NSURL *originalURL = url;
-    
-    // This is currently used for SEB Server handshake after logging in to Moodle
-    if (navigationType == UIWebViewNavigationTypeFormSubmitted) {
-        [_browserTabViewController shouldStartLoadFormSubmittedURL:url];
-    }
-    
-    if ([url.scheme isEqualToString:@"newtab"]) {
-        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        originalURL = [NSURL URLWithString:urlString relativeToURL:[webView url]];
-    }
-
     if (_urlFilter.enableURLFilter) {
         URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:originalURL];
         if (filterActionResponse != URLFilterActionAllow) {
@@ -501,23 +447,13 @@
             /// User didn't allow the content, don't load it
             
             // We show the URL blocked overlay message only if a link was actively tapped by the user
-            if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+            if (navigationType == WKNavigationTypeLinkActivated) {
                 [self showURLFilterMessage];
             }
             
             DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
             return NO;
             // }
-        }
-    }
-
-    if (UIAccessibilityIsGuidedAccessEnabled()) {
-        if (navigationType == UIWebViewNavigationTypeLinkClicked &&
-            mobileEnableGuidedAccessLinkTransform) {
-            navigationType = UIWebViewNavigationTypeOther;
-            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther (%ld)", __FUNCTION__, (long)navigationType);
-            [webView loadRequest:request];
-            return NO;
         }
     }
 
@@ -532,20 +468,20 @@
                 [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
                 if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                     // Open in new tab
-                    [_browserTabViewController openNewTabWithURL:originalURL];
+                    [self.navigationDelegate openNewTabWithURL:originalURL];
                     return NO;
                 }
                 if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
                     // Load URL request in existing tab
                     request = [NSURLRequest requestWithURL:originalURL];
-                    [webView loadRequest:request];
+                    [sebWebView loadURL:request.URL];
                     return NO;
                 }
             }
         }
         // Opening links in new windows is not allowed by current policies
         // We show the URL blocked overlay message only if a link was actively tapped by the user
-        if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        if (navigationType == WKNavigationTypeLinkActivated) {
             [self showURLFilterMessage];
         }
         return NO;
@@ -571,7 +507,7 @@
                 } else {
                     sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 }
-                [_browserTabViewController conditionallyOpenSEBConfigFromData:sebConfigData];
+                [self.navigationDelegate conditionallyOpenSEBConfigFromData:sebConfigData];
             } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"]) {
                 NSString *fileDataString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                 NSData *fileData;
@@ -583,7 +519,7 @@
                 NSString *filename = [self saveData:fileData];
                 if (filename) {
                     DDLogInfo(@"Successfully saved website generated data: %@", url);
-                    [self.browserTabViewController.sebViewController alertWithTitle:NSLocalizedString(@"Download Finished", nil)
+                    [self.navigationDelegate.sebViewController alertWithTitle:NSLocalizedString(@"Download Finished", nil)
                                                                             message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), filename]
                                                                        action1Title:NSLocalizedString(@"OK", nil)
                                                                      action1Handler:^{}
@@ -604,12 +540,12 @@
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
-        [_browserTabViewController conditionallyDownloadAndOpenSEBConfigFromURL:url];
+        [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
         return NO;
     }
 
     // Downloading image files for the freehand drawing functionality
-    if(navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeOther) {
+    if(navigationType == WKNavigationTypeLinkActivated || navigationType == WKNavigationTypeOther) {
         if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
             if (enableDrawingEditor) {
                 // Get the filename of the loaded ressource form the UIWebView's request URL
@@ -649,7 +585,7 @@
                         urlComponents.scheme = @"drawing";
                         drawingURL = urlComponents.URL;
                         //                    NSURL *drawingURL = [NSURL URLWithString:[NSString stringWithFormat:@"drawing://%@", pathToDownloadTo]];
-                        [_browserTabViewController openNewTabWithURL:drawingURL image:processedImage];
+                        [self.navigationDelegate openNewTabWithURL:drawingURL image:processedImage];
                         //                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                         //                    [filenameAlert show];
                         return NO;
@@ -697,7 +633,22 @@
     
 - (void)setBackForwardAvailabilty
 {
-    [_browserTabViewController setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];
+    [self.navigationDelegate setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];
+}
+
+- (BOOL)canGoBack {
+    return [_sebWebView canGoBack];
+}
+
+
+- (BOOL)canGoForward {
+    return [_sebWebView canGoForward];
+}
+
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    [self.navigationDelegate examineCookies:cookies];
 }
 
 
@@ -745,26 +696,18 @@
     [webView stringByEvaluatingJavaScriptFromString:@"MyApp_RemoveAllHighlights()"];
 }
 
-    
+
 - (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
     [self loadURL:[NSURL URLWithString:webSearchString]];
-
+    
 }
 
 
 // Create a UIWebView to hold new webpages
-- (UIWebView *)createNewWebView {
-    // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] bounds];
-    UIWebView *newWebView = [[UIWebView alloc] initWithFrame:webFrame];
-    
-    newWebView.backgroundColor = [UIColor lightGrayColor];
-    newWebView.scalesPageToFit = YES;
-    newWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    newWebView.scrollView.scrollEnabled = YES;
-    [newWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-    newWebView.delegate = self;
+- (SEBAbstractWebView *)createNewWebView {
+    SEBAbstractWebView *newWebView = [SEBAbstractWebView new];
+    newWebView.navigationDelegate = self;
     return newWebView;
 }
 

@@ -36,21 +36,23 @@
 
 #import "SEBViewController.h"
 
+#import "SEBAbstractWebView.h"
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
 @class SEBViewController;
+@class SEBAbstractWebView;
 @class SEBWebViewController;
 @class SEBSearchBarViewController;
 
 
-@interface SEBBrowserTabViewController : UIViewController <UIWebViewDelegate, NSFetchedResultsControllerDelegate>
+@interface SEBBrowserTabViewController : UIViewController <SEBAbstractWebViewNavigationDelegate, NSFetchedResultsControllerDelegate>
 {
     IBOutlet UIBarButtonItem *MainWebView;
 }
 
 @property (weak) SEBViewController *sebViewController;
-@property (nonatomic, weak) SEBWebViewController *visibleWebViewController;
+@property (nonatomic, weak) SEBWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *openWebpages;
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
