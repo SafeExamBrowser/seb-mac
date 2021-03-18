@@ -34,13 +34,15 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+#import "SEBAbstractWebView.h"
 #import "SEBBrowserTabViewController.h"
 #import "SEBURLFilter.h"
 
+@class SEBAbstractWebView;
 @class SEBBrowserTabViewController;
 @class SEBURLFilter;
 
-@interface SEBWebViewController : UIViewController <UIWebViewDelegate>
+@interface SEBWebViewController : UIViewController <SEBAbstractWebViewNavigationDelegate>
 {
     IBOutlet UIBarButtonItem *MainWebView;
     
@@ -55,14 +57,13 @@
 }
 
 
-@property (weak) SEBBrowserTabViewController *browserTabViewController;
-@property (nonatomic, strong) UIWebView *sebWebView;
-@property (strong) SEBURLFilter *urlFilter;
-@property (strong) UIView *filterMessageHolder;
-@property (strong) NSString *currentURL;
-@property (strong) NSString *currentMainHost;
-@property (strong) NSURLRequest *currentRequest;
-@property (readonly) BOOL isScrollLockActive;
+@property (weak, nonatomic) SEBBrowserTabViewController *navigationDelegate;
+@property (strong, nonatomic) SEBAbstractWebView *sebWebView;
+@property (strong, nonatomic) SEBURLFilter *urlFilter;
+@property (strong, nonatomic) UIView *filterMessageHolder;
+@property (strong, nonatomic) NSString *currentURL;
+@property (strong, nonatomic) NSString *currentMainHost;
+@property (strong, nonatomic) NSURLRequest *currentRequest;
 
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
@@ -72,7 +73,7 @@
 - (NSString *)tempDirectoryPath;
 
 - (void)toggleScrollLock;
-- (void)backToStart;
+//- (void)backToStart;
 - (void)goBack;
 - (void)goForward;
 - (void)reload;

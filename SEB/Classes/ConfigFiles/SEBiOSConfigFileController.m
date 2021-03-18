@@ -295,5 +295,11 @@
 //    [NSApp presentError:error];
 }
 
+- (void)promptPasswordForHashedPassword:(NSString *)passwordHash messageText:(NSString *)messageText title:(NSString *)title attempts:(NSInteger)attempts callback:(id)callback selector:(SEL)aSelector completionHandler:(void (^)(BOOL))enteredPasswordHandler {
+
+//    
+}
+
+
 
 @end
