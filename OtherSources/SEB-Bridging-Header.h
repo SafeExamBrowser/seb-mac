@@ -4,3 +4,4 @@
 
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "Constants.h"
+#import "SEBAbstractWebView.h"

@@ -34,6 +34,7 @@
 
 #import "SEBAbstractWebView.h"
 #import "SEBAbstractClassicWebView.h"
+#import "SafeExamBrowser-Swift.h"
 
 
 @implementation SEBAbstractWebView
@@ -42,9 +43,18 @@
 {
     self = [super init];
     if (self) {
-        SEBAbstractClassicWebView *sebAbstractClassicWebView = [SEBAbstractClassicWebView new];
-        sebAbstractClassicWebView.navigationDelegate = self;
-        self.browserControllerDelegate = sebAbstractClassicWebView;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
+            // Cancel if navigation is disabled in exam
+            SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
+            sebAbstractModernWebView.navigationDelegate = self;
+            self.browserControllerDelegate = sebAbstractModernWebView;
+        } else {
+            SEBAbstractClassicWebView *sebAbstractClassicWebView = [SEBAbstractClassicWebView new];
+            sebAbstractClassicWebView.navigationDelegate = self;
+            self.browserControllerDelegate = sebAbstractClassicWebView;
+        }
     }
     return self;
 }
@@ -94,9 +104,9 @@
     return [self.browserControllerDelegate url];
 }
 
-- (NSString*)title
+- (NSString*)pageTitle
 {
-    return [self.browserControllerDelegate title];
+    return [self.browserControllerDelegate pageTitle];
 }
 
 - (BOOL)canGoBack
@@ -198,6 +208,12 @@
 {
     [self.navigationDelegate setTitle:title];
 }
+
+- (NSUInteger) statusBarAppearance
+{
+    return [self.navigationDelegate statusBarAppearance];
+}
+
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
