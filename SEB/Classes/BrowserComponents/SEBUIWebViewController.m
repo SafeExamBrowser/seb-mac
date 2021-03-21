@@ -419,12 +419,12 @@
 }
 
 
-- (nonnull NSURL *)url {
+- (NSURL *)url {
     return [_sebWebView url];
 }
 
 
-- (NSString*)title
+- (NSString*)pageTitle
 {
     return [_sebWebView title];
 }

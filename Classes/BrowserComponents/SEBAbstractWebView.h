@@ -43,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 - (id)nativeWebView;
-- (NSURL*)url;
-- (NSString*)title;
+- (nullable NSURL*)url;
+- (nullable NSString*)pageTitle;
 - (BOOL)canGoBack;
 - (BOOL)canGoForward;
 
@@ -105,6 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress;
 
 - (void) setTitle:(NSString *)title;
+- (NSUInteger) statusBarAppearance;
 @property (strong, nonatomic) id __nullable uiAlertController;
 
 @end

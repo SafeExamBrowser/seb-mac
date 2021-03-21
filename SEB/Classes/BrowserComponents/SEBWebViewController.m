@@ -324,13 +324,13 @@
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
             webPageTitle = [_sebWebView url].absoluteString;
         } else {
-            webPageTitle = [_sebWebView title];
+            webPageTitle = [_sebWebView pageTitle];
         }
     } else {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways) {
                 webPageTitle = [_sebWebView url].absoluteString;
             } else {
-                webPageTitle = [_sebWebView title];
+                webPageTitle = [_sebWebView pageTitle];
             }
     }
     [self.navigationDelegate setTitle:webPageTitle forWebViewController:self];
