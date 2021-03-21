@@ -74,9 +74,9 @@
     return [self.browserControllerDelegate url];
 }
 
-- (NSString*)title
+- (NSString*)pageTitle
 {
-    return [self.browserControllerDelegate title];
+    return [self.browserControllerDelegate pageTitle];
 }
 
 - (BOOL)canGoBack

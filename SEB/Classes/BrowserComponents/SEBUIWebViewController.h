@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL openCloseSlider;
 }
 
-@property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate, SEBAbstractBrowserControllerDelegate> navigationDelegate;
+@property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
 //@property (weak) SEBBrowserTabViewController *browserTabViewController;
 @property (nonatomic, strong) UIWebView *sebWebView;
