@@ -65,12 +65,12 @@
                                     </buttonCell>
                                     <connections>
                                         <action selector="setEnableScreenCapture:" target="-2" id="eRG-tm-tIo"/>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="fI3-J0-1AS"/>
-                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="orL-p7-znw">
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="f6t-gb-pDc">
                                             <dictionary key="options">
                                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                                             </dictionary>
                                         </binding>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="fI3-J0-1AS"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
@@ -81,9 +81,7 @@
                                     </buttonCell>
                                     <connections>
                                         <action selector="setEnableWindowCapture:" target="-2" id="TjD-fs-fAl"/>
-                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="CHP-kt-Jhr"/>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
-                                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="CHP-kt-Jhr" id="iYb-c4-UOq">
+                                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="CHP-kt-Jhr" id="eZR-9x-BbY">
                                             <dictionary key="options">
                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                 <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -92,6 +90,8 @@
                                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                                             </dictionary>
                                         </binding>
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="CHP-kt-Jhr"/>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
                                     </connections>
                                 </button>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="LEn-zs-oJl">
@@ -102,6 +102,15 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
+                                        <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="vg0-9n-uJh" id="hpj-9G-YjJ">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="ezh-c8-Zhz"/>
                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" previousBinding="ezh-c8-Zhz" id="vg0-9n-uJh">
                                             <dictionary key="options">
@@ -112,15 +121,6 @@
                                             </dictionary>
                                         </binding>
                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_blockScreenShotsLegacy" id="9kj-yX-N2C"/>
-                                        <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="vg0-9n-uJh" id="PEX-nL-Q3a">
-                                            <dictionary key="options">
-                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                <integer key="NSNullPlaceholder" value="-1"/>
-                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                            </dictionary>
-                                        </binding>
                                     </connections>
                                 </button>
                             </subviews>
@@ -153,12 +153,12 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="obs-kk-Tc9"/>
-                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="rNV-Lb-oyh">
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="HY3-0s-ect">
                                             <dictionary key="options">
                                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                                             </dictionary>
                                         </binding>
+                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="obs-kk-Tc9"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Overrides the original screen sharing setting (on Mac clients)" translatesAutoresizingMaskIntoConstraints="NO" id="pn0-dK-cZw">
@@ -168,7 +168,7 @@
                                         <font key="font" metaFont="message" size="11"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="vl9-2T-sAa">
+                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="JnB-is-KK5">
                                             <dictionary key="options">
                                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                                             </dictionary>
@@ -254,7 +254,7 @@
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="setEnableEnableAAC:" target="-2" id="9Q9-wD-gAV"/>
-                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="hR8-Xa-8Se"/>
+                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="W98-SB-no7"/>
                                                 </connections>
                                             </button>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
@@ -265,7 +265,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="9Hh-hB-q5F">
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="ea4-lg-3FY">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                         </dictionary>
@@ -331,12 +331,12 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSiri" id="1Bf-Q1-F6V"/>
-                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="Og6-13-B2L">
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="4WI-Rs-8Id">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                         </dictionary>
                                                     </binding>
+                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSiri" id="1Bf-Q1-F6V"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
@@ -346,12 +346,12 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictation" id="iWH-k2-MmC"/>
-                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="aUT-bI-doZ">
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="PZf-Bc-zqO">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                         </dictionary>
                                                     </binding>
+                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictation" id="iWH-k2-MmC"/>
                                                 </connections>
                                             </button>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="FHY-jc-rXS">
@@ -458,12 +458,12 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDisplayMirroring" id="tab-6i-tiz"/>
-                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="umO-DN-zCU">
+                                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="z08-to-sAD">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                         </dictionary>
                                                     </binding>
+                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDisplayMirroring" id="tab-6i-tiz"/>
                                                 </connections>
                                             </button>
                                             <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="r9j-2e-YhA">
