@@ -169,48 +169,50 @@
 
 - (IBAction)forceQuitAllProcesses:(id)sender
 {
-    if (autoQuitApplications) {
-        self.modalAlert = [self.delegate newAlert];
-        [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
-        [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
-        [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        void (^forceQuitAllProcessesAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
-            [self.delegate removeAlertWindow:self.modalAlert.window];
-            switch(answer)
-            {
-                case NSAlertFirstButtonReturn:
+    if (_runningApplications.count > 0 && _runningProcesses.count > 0) {
+        if (autoQuitApplications) {
+            self.modalAlert = [self.delegate newAlert];
+            [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
+            [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
+            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            void (^forceQuitAllProcessesAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.delegate removeAlertWindow:self.modalAlert.window];
+                switch(answer)
                 {
-                    [self forceQuitAllProcessesProceed];
-                    return;
+                    case NSAlertFirstButtonReturn:
+                    {
+                        [self forceQuitAllProcessesProceed];
+                        return;
+                    }
+                        
+                    case NSAlertSecondButtonReturn:
+                    {
+                        // Cancel force quit
+                        return;
+                    }
+                        
+                    case NSModalResponseAbort:
+                    {
+                        return;
+                    }
+                        
+                    default:
+                    {
+                        return;
+                    }
                 }
-                    
-                case NSAlertSecondButtonReturn:
-                {
-                    // Cancel force quit
-                    return;
-                }
-                    
-                case NSModalResponseAbort:
-                {
-                    return;
-                }
-                    
-                default:
-                {
-                    return;
-                }
+            };
+            [self.modalAlert beginSheetModalForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesAnswer];
+            
+        } else {
+            for (NSRunningApplication* runningApplication in _runningApplications) {
+                [runningApplication terminate];
             }
-        };
-        [self.modalAlert beginSheetModalForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesAnswer];
-        
-    } else {
-        for (NSRunningApplication* runningApplication in _runningApplications) {
-            [runningApplication terminate];
+            autoQuitApplications = YES;
+            [self updateUIStrings];
         }
-        autoQuitApplications = YES;
-        [self updateUIStrings];
     }
 }
 
