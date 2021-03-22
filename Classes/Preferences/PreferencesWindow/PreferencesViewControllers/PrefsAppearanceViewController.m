@@ -68,7 +68,7 @@
     }
     [self browserViewModeMatrix:browserViewModeMatrix];
     
-    allowDictionaryLookupButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+    allowDictionaryLookupButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
 }
 
 

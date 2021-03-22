@@ -58,8 +58,8 @@
 - (void)willBeDisplayed
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowSwitchToApplicationsButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
-    allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];;
+    allowSwitchToApplicationsButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];;
 }
 
 

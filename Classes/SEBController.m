@@ -3874,7 +3874,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     if (@available(macOS 10.15.4, *)) {
         DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"] && !_overrideAAC;
+        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] && !_overrideAAC;
     } else {
         _isAACEnabled = NO;
     }
@@ -4983,7 +4983,7 @@ conditionallyForWindow:(NSWindow *)window
     }
     
     BOOL touchBarRestoreSuccess;
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"] == NO) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] == NO) {
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         [self killTouchBarAgent];
     }
