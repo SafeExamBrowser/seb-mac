@@ -29,7 +29,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                        <rect key="frame" x="15" y="599" width="279" height="16"/>
+                                        <rect key="frame" x="15" y="598" width="275" height="18"/>
                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="n1G-IX-Eg8"/>
@@ -40,16 +40,16 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="allowSwitchToApplicationsButton:" target="-2" id="Fg8-dm-NeA"/>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
-                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableAAC" id="55B-o7-Y8Y">
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="EHG-vh-bWt">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
-                                        <rect key="frame" x="35" y="579" width="235" height="14"/>
+                                        <rect key="frame" x="33" y="577" width="236" height="18"/>
                                         <string key="toolTip">Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="pXh-9j-eb0"/>
@@ -59,9 +59,7 @@
                                             <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
-                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
-                                            <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableAAC" previousBinding="IaI-5x-tWV" id="NDc-VL-a1W">
+                                            <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="IaI-5x-tWV" id="kmL-hs-GOr">
                                                 <dictionary key="options">
                                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                     <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -70,16 +68,18 @@
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345">
                                         <rect key="frame" x="17" y="416" width="570" height="151"/>
                                         <clipView key="contentView" id="X70-IM-m39">
-                                            <rect key="frame" x="1" y="1" width="568" height="149"/>
+                                            <rect key="frame" x="1" y="0.0" width="568" height="150"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="348" id="346">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="126"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="127"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -178,7 +178,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
-                                                    <rect key="frame" x="14" y="325" width="64" height="20"/>
+                                                    <rect key="frame" x="14" y="324" width="60" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="908"/>
                                                     </constraints>
@@ -490,7 +490,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="982">
-                                                    <rect key="frame" x="14" y="41" width="282" height="18"/>
+                                                    <rect key="frame" x="14" y="47" width="278" height="18"/>
                                                     <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted</string>
                                                     <buttonCell key="cell" type="check" title="Allow user to select location of application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="983">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -506,7 +506,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
-                                                    <rect key="frame" x="14" y="85" width="83" height="18"/>
+                                                    <rect key="frame" x="14" y="87" width="79" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -521,7 +521,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                    <rect key="frame" x="14" y="107" width="115" height="16"/>
+                                                    <rect key="frame" x="14" y="107" width="111" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="aLJ-BZ-5BG"/>
                                                     </constraints>
@@ -539,7 +539,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="956">
-                                                    <rect key="frame" x="14" y="63" width="198" height="18"/>
+                                                    <rect key="frame" x="14" y="67" width="194" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -569,7 +569,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
-                                                    <rect key="frame" x="40" y="265" width="82" height="25"/>
+                                                    <rect key="frame" x="41" y="265" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="yd6-Ea-gPd"/>
                                                     </constraints>
@@ -595,7 +595,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
-                                                    <rect key="frame" x="14" y="19" width="196" height="18"/>
+                                                    <rect key="frame" x="14" y="27" width="192" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2246">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -625,7 +625,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
-                                                    <rect key="frame" x="415" y="13" width="146" height="32"/>
+                                                    <rect key="frame" x="408" y="22" width="152" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -737,14 +737,14 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
-                                        <rect key="frame" x="65" y="381" width="163" height="32"/>
+                                        <rect key="frame" x="66" y="380" width="169" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button hidden="YES" toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
-                                        <rect key="frame" x="226" y="381" width="144" height="32"/>
+                                        <rect key="frame" x="235" y="380" width="150" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -788,11 +788,11 @@
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1839">
                                         <rect key="frame" x="17" y="226" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
-                                            <rect key="frame" x="1" y="1" width="568" height="358"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <rect key="frame" x="1" y="0.0" width="568" height="359"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="335"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="336"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1256,10 +1256,10 @@
                     </tabViewItems>
                 </tabView>
                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
-                    <rect key="frame" x="20" y="674" width="610" height="16"/>
+                    <rect key="frame" x="20" y="676" width="610" height="14"/>
                     <subviews>
                         <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
-                            <rect key="frame" x="-2" y="-1" width="612" height="18"/>
+                            <rect key="frame" x="-2" y="-2" width="614" height="18"/>
                             <buttonCell key="cell" type="check" title="Attempt to quit prohibited applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="MVu-c3-I1R">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -1273,7 +1273,7 @@
                             </connections>
                         </button>
                         <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="299" userLabel="Require to quit all applications">
-                            <rect key="frame" x="313" y="-2" width="209" height="18"/>
+                            <rect key="frame" x="313" y="-2" width="205" height="18"/>
                             <string key="toolTip">SEB will attempt to quit applications/processes which are not permitted to run during an exam and require to terminate those which are prohibited</string>
                             <buttonCell key="cell" type="check" title="Require to quit all applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1350,7 +1350,7 @@
         </arrayController>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRemoveTemplate" width="14" height="4"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
 </document>

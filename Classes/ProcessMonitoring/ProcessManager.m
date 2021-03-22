@@ -98,7 +98,7 @@ static ProcessManager *sharedProcessManager = nil;
     
     BOOL isAACActive;
     if (@available(macOS 10.15.4, *)) {
-        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableAAC"];
+        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
     } else {
         isAACActive = NO;
     }
