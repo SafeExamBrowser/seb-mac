@@ -27,7 +27,7 @@ conditionallyForWindow:(NSWindow *)window
 
 @end
 
-@interface ProcessListViewController : NSViewController
+@interface ProcessListViewController : NSViewController <NSWindowDelegate>
 
 @property (weak) id <ProcessListViewControllerDelegate> delegate;
 
