@@ -1895,7 +1895,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     }
     // Check for running screen capture process
-    if (!allowScreenCapture && !_isAACEnabled) {
+    if (!allowScreenCapture || _isAACEnabled) {
         processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", screenCaptureAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         
