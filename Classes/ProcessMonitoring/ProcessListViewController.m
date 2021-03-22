@@ -169,7 +169,7 @@
 
 - (IBAction)forceQuitAllProcesses:(id)sender
 {
-    if (_runningApplications.count > 0 && _runningProcesses.count > 0) {
+    if ([self allProcessListElements].count > 0) {
         if (autoQuitApplications) {
             self.modalAlert = [self.delegate newAlert];
             [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
@@ -296,6 +296,19 @@
     // As we are quitting SEB or the session, the callback method should not be called
     [self.delegate closeProcessListWindow];
     [self.delegate quitSEBOrSession];
+}
+
+
+/// NSWindowDelegate methods
+
+- (BOOL)windowShouldClose:(NSWindow *)sender
+{
+    if ([self allProcessListElements].count == 0) {
+        return YES;
+    } else {
+        [self quitSEBSession:self];
+    }
+    return YES;
 }
 
 @end
