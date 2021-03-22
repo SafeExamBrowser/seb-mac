@@ -968,7 +968,7 @@ bool insideMatrix(void);
         return;
     }
     DDLogDebug(@"%s", __FUNCTION__);
-
+    
     /// Kiosk mode checks
     
     // Check if running on minimal macOS version
@@ -976,7 +976,7 @@ bool insideMatrix(void);
     
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
-
+    
     
     // Check if any prohibited processes are running and terminate them
     
@@ -988,11 +988,11 @@ bool insideMatrix(void);
     
     NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
-
+    
     NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
     NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
-
+    
     // Check if any prohibited processes are running
     for (NSDictionary *process in allRunningProcesses) {
         NSNumber *PID = process[@"PID"];
@@ -1051,7 +1051,7 @@ bool insideMatrix(void);
             self.processListViewController.selector = selector;
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
+            
             NSWindow *runningProcessesListWindow;
             if (@available(macOS 10.10, *)) {
                 runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
@@ -1059,8 +1059,8 @@ bool insideMatrix(void);
                 runningProcessesListWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
                 NSRect newWindowFrame = self.processListViewController.view.frame;
                 runningProcessesListWindow.contentView = self.processListViewController.view;
-            [runningProcessesListWindow setFrame:newWindowFrame display:YES animate:NO];
-            [runningProcessesListWindow center];
+                [runningProcessesListWindow setFrame:newWindowFrame display:YES animate:NO];
+                [runningProcessesListWindow center];
             }
             [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
             runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
@@ -1073,6 +1073,7 @@ bool insideMatrix(void);
             if (self->_processListViewController &&
                 self->_processListViewController.runningApplications.count +
                 self->_processListViewController.runningProcesses.count > 0) {
+                runningProcessesListWindow.delegate = self.processListViewController;
                 [self.runningProcessesListWindowController showWindow:nil];
                 return;
             }
@@ -5167,6 +5168,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)closeProcessListWindow
 {
+    _runningProcessesListWindowController.window.delegate = nil;
     [_runningProcessesListWindowController close];
     _processListViewController = nil;
 }
@@ -5174,8 +5176,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
 {
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-    [_runningProcessesListWindowController close];
-    _processListViewController = nil;
+    [self closeProcessListWindow];
     // Continue to initializing SEB and then starting the exam session
     if (callback) {
         [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
