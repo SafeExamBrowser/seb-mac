@@ -133,6 +133,32 @@
 
 /// SEBAbstractWebViewNavigationDelegate Methods
 
+- (void) setLoading:(BOOL)loading
+{
+    [self.navigationDelegate setLoading:loading];
+}
+
+- (void) setTitle:(NSString *)title
+{
+    [self.navigationDelegate setTitle:title];
+}
+
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
+{
+    [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
+}
+
+- (void) openNewTabWithURL:(NSURL *)url
+{
+    [self.navigationDelegate openNewTabWithURL:url];
+}
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    [self.navigationDelegate examineCookies:cookies];
+}
+
+
 - (void)SEBWebViewDidStartLoad:(SEBAbstractWebView *)sebWebView
 {
     [self.navigationDelegate SEBWebViewDidStartLoad:sebWebView];
@@ -168,25 +194,9 @@
     }
 }
 
-
-- (void) setLoading:(BOOL)loading
+- (SEBBackgroundTintStyle) backgroundTintStyle
 {
-    [self.navigationDelegate setLoading:loading];
-}
-
-- (void) setTitle:(NSString *)title
-{
-    [self.navigationDelegate setTitle:title];
-}
-
-- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
-{
-    [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
-}
-
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
-{
-    [self.navigationDelegate examineCookies:cookies];
+    return [self.navigationDelegate backgroundTintStyle];
 }
 
 @end

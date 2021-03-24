@@ -5,3 +5,4 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "Constants.h"
 #import "SEBAbstractWebView.h"
+#import "SEBURLFilter.h"

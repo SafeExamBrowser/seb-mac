@@ -153,10 +153,7 @@
         self.statusBarHeight.constant = statusBarHeight;
         self.backgroundViewbottomDistance.constant = -statusBarHeight;
 
-        NSUInteger statusBarAppearance = [self statusBarAppearance];
-        if (statusBarAppearance == mobileStatusBarAppearanceNone ||
-            statusBarAppearance == mobileStatusBarAppearanceLight ||
-            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
+        if (_appDelegate.sebUIController.backgroundTintStyle == SEBBackgroundTintStyleDark) {
             _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
             self.view.backgroundColor = [UIColor blackColor];
         } else {

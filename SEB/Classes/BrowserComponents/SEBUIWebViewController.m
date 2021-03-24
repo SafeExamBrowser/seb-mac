@@ -16,13 +16,6 @@
 
 @implementation SEBUIWebViewController
 
-// Get statusbar appearance depending on device type (traditional or iPhone X like)
-- (NSUInteger)statusBarAppearance {
-    SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
-    return [sebUIController statusBarAppearanceForDevice];
-}
-
-
 - (void)loadView
 {
     // Create a webview to fit underneath the navigation view (=fill the whole screen).
@@ -31,9 +24,9 @@
         _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
     }
     
-    NSUInteger statusBarAppearance = [self statusBarAppearance];
-    _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                   statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
+    // Get statusbar appearance depending on device type (traditional or iPhone X like)
+    SEBBackgroundTintStyle backgroundTintStyle = [self.navigationDelegate backgroundTintStyle];
+    _sebWebView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
     _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
     _sebWebView.scalesPageToFit = YES;
     if (@available(iOS 11.0, *)) {
@@ -174,16 +167,14 @@
     [_sebWebView reload];
 }
 
-- (void)stopLoading {
-    [_sebWebView stopLoading];
-}
-
-
 - (void)loadURL:(NSURL *)url
 {
     [self.sebWebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
+- (void)stopLoading {
+    [_sebWebView stopLoading];
+}
 
 
 #pragma mark -
@@ -369,6 +360,46 @@
         default:
             break;
     }
+    
+    NSURL *url = [request URL];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSURL *originalURL = url;
+    
+
+    if ([url.scheme isEqualToString:@"newtab"]) {
+        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
+        originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
+    }
+
+    if ([url.scheme isEqualToString:@"newtab"]) {
+        
+        // First check if links requesting to be opened in a new windows are generally blocked
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
+            // load link only if it's on the same host like the one of the current page
+            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
+                [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
+                    // Open in new tab
+                    [self.navigationDelegate openNewTabWithURL:originalURL];
+                    return NO;
+                }
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
+                    // Load URL request in existing tab
+                    request = [NSURLRequest requestWithURL:originalURL];
+                    [self loadURL:request.URL];
+                    return NO;
+                }
+            }
+        }
+        // Opening links in new windows is not allowed by current policies
+        // We show the URL blocked overlay message only if a link was actively tapped by the user
+        if (navigationType == WKNavigationTypeLinkActivated) {
+            [self showURLFilterMessage];
+        }
+        return NO;
+    }
+    
+
     
     return [self.navigationDelegate SEBWebView:nil shouldStartLoadWithRequest:request navigationAction:navigationAction];
 }
