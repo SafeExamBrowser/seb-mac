@@ -158,28 +158,28 @@ import Foundation
         navigationDelegate?.examine(cookies)
     }
     
-    public func sebWebViewDidStartLoad(_ sebWebView: SEBAbstractWebView?) {
-        navigationDelegate?.sebWebViewDidStartLoad?(sebWebView)
+    public func sebWebViewDidStartLoad() {
+        navigationDelegate?.sebWebViewDidStartLoad?()
     }
     
-    public func sebWebViewDidFinishLoad(_ sebWebView: SEBAbstractWebView?) {
-        navigationDelegate?.sebWebViewDidFinishLoad?(sebWebView)
+    public func sebWebViewDidFinishLoad() {
+        navigationDelegate?.sebWebViewDidFinishLoad?()
     }
     
-    public func sebWebView(_ sebWebView: SEBAbstractWebView?, didFailLoadWithError error: Error) {
-        navigationDelegate?.sebWebView?(sebWebView, didFailLoadWithError: error)
+    public func sebWebViewDidFailLoadWithError(_ error: Error) {
+        navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     
-    public func sebWebView(_ sebWebView: SEBAbstractWebView?, shouldStartLoadWith request: URLRequest, navigationAction: WKNavigationAction) -> Bool {
-        return navigationDelegate?.sebWebView?(sebWebView, shouldStartLoadWith: request, navigationAction: navigationAction) ?? false
+    public func sebWebViewShouldStartLoad(with request: URLRequest, navigationAction: WKNavigationAction, newTab: Bool) -> Bool {
+        return (navigationDelegate?.sebWebViewShouldStartLoad?(with: request, navigationAction: navigationAction, newTab: newTab) ?? false)
     }
     
-    public func sebWebView(_ sebWebView: SEBAbstractWebView?, didUpdateTitle title: String?) {
-        navigationDelegate?.sebWebView?(sebWebView, didUpdateTitle: title)
+    public func sebWebViewDidUpdateTitle(_ title: String?) {
+        navigationDelegate?.sebWebViewDidUpdateTitle?(title)
     }
     
-    public func sebWebView(_ sebWebView: SEBAbstractWebView?, didUpdateProgress progress: Double) {
-        navigationDelegate?.sebWebView?(sebWebView, didUpdateProgress: progress)
+    public func sebWebViewDidUpdateProgress(_ progress: Double) {
+        navigationDelegate?.sebWebViewDidUpdateProgress?(progress)
     }
     
     public func setTitle(_ title: String) {

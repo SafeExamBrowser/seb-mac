@@ -746,7 +746,7 @@
         NSURL *webpageCurrentRequestURL = webViewController.currentRequest.URL;
         if ([webpageCurrentRequestURL isEqual:requestURL]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [webViewController SEBWebViewDidFinishLoad:webViewController.sebWebView];
+                [webViewController sebWebViewDidFinishLoad];
             });
         }
     }
