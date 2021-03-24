@@ -89,8 +89,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 - (void) setLoading:(BOOL)loading;
+- (void) setTitle:(NSString *)title;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
-
+- (void) openNewTabWithURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 
 
@@ -104,8 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateTitle:(nullable NSString *)title;
 - (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress;
 
-- (void) setTitle:(NSString *)title;
-- (NSUInteger) statusBarAppearance;
+- (SEBBackgroundTintStyle) backgroundTintStyle;
 @property (strong, nonatomic) id __nullable uiAlertController;
 
 @end
