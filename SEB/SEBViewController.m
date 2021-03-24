@@ -1852,8 +1852,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.view addConstraints:constraints_H];
                     [self.view addConstraints:constraints_V];
                     
-                    SEBBackgroundTintStyle backgroundTintStyle = (self->statusBarAppearance == mobileStatusBarAppearanceNone | self->statusBarAppearance == mobileStatusBarAppearanceLight |
-                                                                  self->statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+                    SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
                     
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                         [self addBlurEffectStyle:UIBlurEffectStyleRegular
@@ -2099,8 +2098,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          multiplier:1.0
                                                            constant:0]];
     
-    SEBBackgroundTintStyle backgroundTintStyle = (statusBarAppearance == mobileStatusBarAppearanceNone | statusBarAppearance == mobileStatusBarAppearanceLight |
-                                                  statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+    SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
+
     CGFloat bottomPadding = 0;
     
     if (@available(iOS 11.0, *)) {
@@ -2222,7 +2221,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.view addConstraints:constraints_V];
     
     if (UIAccessibilityIsReduceTransparencyEnabled()) {
-        _statusBarView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+        _statusBarView.backgroundColor = (backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor]);
     } else {
         if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
             [self addBlurEffectStyle:UIBlurEffectStyleDark
