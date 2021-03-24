@@ -52,9 +52,9 @@
 
 
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
-- (NSUInteger)statusBarAppearance {
+- (SEBBackgroundTintStyle)backgroundTintStyle {
     SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
-    return [sebUIController statusBarAppearanceForDevice];
+    return [sebUIController backgroundTintStyle];
 }
 
 
@@ -309,14 +309,14 @@
 #pragma mark -
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
-- (void)SEBWebViewDidStartLoad:(SEBAbstractWebView *)sebWebView
+- (void)sebWebViewDidStartLoad
 {
     // starting the load, show the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 //    [self.searchBarController setLoading:YES];
 }
 
-- (void)SEBWebViewDidFinishLoad:(SEBAbstractWebView *)sebWebView
+- (void)sebWebViewDidFinishLoad
 {
     NSString *webPageTitle;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -342,7 +342,7 @@
 }
 
 
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error
+- (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
     _currentRequest = nil;
     
@@ -413,8 +413,9 @@
 
 
 /// Request handling
-- (BOOL)SEBWebView:(SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
-  navigationAction:(WKNavigationAction *)navigationAction
+- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
+                            navigationAction:(WKNavigationAction *)navigationAction
+                                      newTab:(BOOL)newTab
 {
     NSURL *url = [request URL];
     WKNavigationType navigationType = navigationAction.navigationType;
@@ -427,9 +428,9 @@
         [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
     }
     
-    if ([url.scheme isEqualToString:@"newtab"]) {
+    if (newTab) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        originalURL = [NSURL URLWithString:urlString relativeToURL:[sebWebView url]];
+        originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
     }
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
@@ -459,7 +460,7 @@
 
     NSString *fileExtension = [url pathExtension];
 
-    if ([url.scheme isEqualToString:@"newtab"]) {
+    if (newTab) {
         
         // First check if links requesting to be opened in a new windows are generally blocked
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
@@ -468,13 +469,13 @@
                 [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
                 if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                     // Open in new tab
-                    [self.navigationDelegate openNewTabWithURL:originalURL];
+                    [self.navigationDelegate openNewTabWithURL:url];
                     return NO;
                 }
                 if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
                     // Load URL request in existing tab
-                    request = [NSURLRequest requestWithURL:originalURL];
-                    [sebWebView loadURL:request.URL];
+                    request = [NSURLRequest requestWithURL:url];
+                    [_sebWebView loadURL:request.URL];
                     return NO;
                 }
             }
@@ -486,7 +487,7 @@
         }
         return NO;
     }
-    
+
     if ([url.scheme isEqualToString:@"about"]) {
         return NO;
     }

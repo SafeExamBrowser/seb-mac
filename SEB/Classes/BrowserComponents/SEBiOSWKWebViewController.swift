@@ -91,21 +91,25 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
  
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        navigationDelegate?.sebWebViewDidStartLoad?(nil)
+        navigationDelegate?.sebWebViewDidStartLoad?()
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        navigationDelegate?.sebWebViewDidFinishLoad?(nil)
+        navigationDelegate?.sebWebViewDidFinishLoad?()
         
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        navigationDelegate?.sebWebView?(nil, didFailLoadWithError: error)
+        navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
         
     }
     
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let shouldStartLoad = (navigationDelegate?.sebWebView?(nil, shouldStartLoadWith: navigationAction.request, navigationAction: navigationAction))!
+        var newTab = false
+        if navigationAction.targetFrame == nil {
+            newTab = true;
+        }
+        let shouldStartLoad = (navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab: newTab))!
         if shouldStartLoad {
             decisionHandler(.allow)
         } else {
@@ -115,7 +119,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
-//            navigationDelegate?.sebWebView?(nil, shouldStartLoadWith: navigationAction.request, navigationAction: navigationAction)
+            navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab:true)
         }
         return nil
     }

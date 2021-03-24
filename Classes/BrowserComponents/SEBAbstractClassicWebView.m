@@ -159,38 +159,39 @@
 }
 
 
-- (void)SEBWebViewDidStartLoad:(SEBAbstractWebView *)sebWebView
+- (void)sebWebViewDidStartLoad
 {
-    [self.navigationDelegate SEBWebViewDidStartLoad:sebWebView];
+    [self.navigationDelegate sebWebViewDidStartLoad];
 }
 
-- (void)SEBWebViewDidFinishLoad:(SEBAbstractWebView *)sebWebView
+- (void)sebWebViewDidFinishLoad
 {
-    [self.navigationDelegate SEBWebViewDidFinishLoad:sebWebView];
+    [self.navigationDelegate sebWebViewDidFinishLoad];
 }
 
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error
+- (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
-    [self.navigationDelegate SEBWebView:sebWebView didFailLoadWithError:error];
+    [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
 
-- (BOOL)SEBWebView:(SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
+- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
       navigationAction:(WKNavigationAction *)navigationAction
+                                      newTab:(BOOL)newTab
 {
-    return [self.navigationDelegate SEBWebView:sebWebView shouldStartLoadWithRequest:request navigationAction:navigationAction];
+    return [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTab];
 }
 
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didUpdateTitle:(nullable NSString *)title
+- (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
 {
-    if ([self.navigationDelegate respondsToSelector:@selector(SEBWebView:didUpdateTitle:)]) {
-        [self.navigationDelegate SEBWebView:sebWebView didUpdateTitle:title];
+    if ([self.navigationDelegate respondsToSelector:@selector(sebWebViewDidUpdateTitle:)]) {
+        [self.navigationDelegate sebWebViewDidUpdateTitle:title];
     }
 }
 
-- (void)SEBWebView:(SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress
+- (void)sebWebViewDidUpdateProgress:(double)progress
 {
-    if ([self.navigationDelegate respondsToSelector:@selector(SEBWebView:didUpdateProgress:)]) {
-        [self.navigationDelegate SEBWebView:sebWebView didUpdateProgress:progress];
+    if ([self.navigationDelegate respondsToSelector:@selector(sebWebViewDidUpdateProgress:)]) {
+        [self.navigationDelegate sebWebViewDidUpdateProgress:progress];
     }
 }
 

@@ -279,7 +279,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [self.navigationDelegate SEBWebViewDidStartLoad:nil];
+    [self.navigationDelegate sebWebViewDidStartLoad];
 
 }
 
@@ -301,7 +301,7 @@
     //[self highlightAllOccurencesOfString:@"SEB" inWebView:webView];
     //[self speakWebView:webView];
     
-    [self.navigationDelegate SEBWebViewDidFinishLoad:nil];
+    [self.navigationDelegate sebWebViewDidFinishLoad];
 
     // Look for a user cookie if logging in to an exam system/LMS supporting SEB Server
     // ToDo: Only search for cookie when logging in to Open edX
@@ -313,14 +313,14 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    [self.navigationDelegate SEBWebView:nil didFailLoadWithError:error];
+    [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 
 }
 
 
 /// Request handling
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType)navigationType
+ navigationType:(UIWebViewNavigationType)navigationType newTab:(BOOL)newTab
 {
     if (UIAccessibilityIsGuidedAccessEnabled()) {
         if (navigationType == UIWebViewNavigationTypeLinkClicked &&
@@ -331,6 +331,7 @@
             return NO;
         }
     }
+    BOOL newTabRequested = NO;
     SEBWKNavigationAction *navigationAction = [SEBWKNavigationAction new];
     switch (navigationType) {
         case UIWebViewNavigationTypeFormSubmitted:
@@ -362,46 +363,14 @@
     }
     
     NSURL *url = [request URL];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSURL *originalURL = url;
-    
 
     if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
-    }
-
-    if ([url.scheme isEqualToString:@"newtab"]) {
-        
-        // First check if links requesting to be opened in a new windows are generally blocked
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
-            // load link only if it's on the same host like the one of the current page
-            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
-                [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
-                    // Open in new tab
-                    [self.navigationDelegate openNewTabWithURL:originalURL];
-                    return NO;
-                }
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
-                    // Load URL request in existing tab
-                    request = [NSURLRequest requestWithURL:originalURL];
-                    [self loadURL:request.URL];
-                    return NO;
-                }
-            }
-        }
-        // Opening links in new windows is not allowed by current policies
-        // We show the URL blocked overlay message only if a link was actively tapped by the user
-        if (navigationType == WKNavigationTypeLinkActivated) {
-            [self showURLFilterMessage];
-        }
-        return NO;
+        NSURL *originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
+        request = [NSURLRequest requestWithURL:originalURL];
     }
     
-
-    
-    return [self.navigationDelegate SEBWebView:nil shouldStartLoadWithRequest:request navigationAction:navigationAction];
+    return [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTabRequested];
 }
 
 
