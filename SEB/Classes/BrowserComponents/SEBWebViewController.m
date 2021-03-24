@@ -365,7 +365,7 @@
     } else if (error.code == 204) {
         DDLogDebug(@"%s: Reported Error 204: %@", __FUNCTION__, error.description);
 
-    } else {
+    } else {	
         
         DDLogError(@"%s: Load Error: %@", __FUNCTION__, error.description);
         
@@ -643,6 +643,12 @@
 
 - (BOOL)canGoForward {
     return [_sebWebView canGoForward];
+}
+
+
+- (void) openNewTabWithURL:(NSURL *)url
+{
+    [self.navigationDelegate openNewTabWithURL:url];
 }
 
 
