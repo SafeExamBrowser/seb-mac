@@ -80,7 +80,10 @@
             _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneDark;
         }
     }
-    
+    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
+                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
+                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+
     /// Add left items
     
     // Add SEB app icon to the left side of the dock

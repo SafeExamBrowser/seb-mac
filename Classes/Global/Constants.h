@@ -238,7 +238,7 @@ enum {
     SEBBackgroundTintStyleLight                 = 1,
     SEBBackgroundTintStyleDark                  = 2
 };
-typedef NSUInteger SEBBackgroundTintStyle;
+typedef NSInteger SEBBackgroundTintStyle;
 
 
 enum {
