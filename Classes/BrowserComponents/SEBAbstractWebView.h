@@ -96,14 +96,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @optional
-- (void)SEBWebViewDidStartLoad:(nullable SEBAbstractWebView *)sebWebView;
-- (void)SEBWebViewDidFinishLoad:(nullable SEBAbstractWebView *)sebWebView;
-- (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didFailLoadWithError:(NSError *)error;
-- (BOOL)SEBWebView:(nullable SEBAbstractWebView *)sebWebView shouldStartLoadWithRequest:(NSURLRequest *)request
-      navigationAction:(WKNavigationAction *)navigationAction;
-
-- (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateTitle:(nullable NSString *)title;
-- (void)SEBWebView:(nullable SEBAbstractWebView *)sebWebView didUpdateProgress:(double)progress;
+- (void)sebWebViewDidStartLoad;
+- (void)sebWebViewDidFinishLoad;
+- (void)sebWebViewDidFailLoadWithError:(NSError *)error;
+- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
+      navigationAction:(WKNavigationAction *)navigationAction
+                                      newTab:(BOOL)newTab;
+- (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
+- (void)sebWebViewDidUpdateProgress:(double)progress;
 
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 @property (strong, nonatomic) id __nullable uiAlertController;
