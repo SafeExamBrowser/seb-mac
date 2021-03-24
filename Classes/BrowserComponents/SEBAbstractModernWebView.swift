@@ -150,6 +150,10 @@ import Foundation
         navigationDelegate?.setCanGoBack(canGoBack, canGoForward: canGoForward)
     }
     
+    public func openNewTab(with url: URL) {
+        navigationDelegate?.openNewTab(with: url)
+    }
+    
     public func examine(_ cookies: [HTTPCookie]) {
         navigationDelegate?.examine(cookies)
     }
@@ -179,11 +183,11 @@ import Foundation
     }
     
     public func setTitle(_ title: String) {
-        navigationDelegate?.setTitle?(title)
+        navigationDelegate?.setTitle(title)
     }
     
-    public func statusBarAppearance() -> UInt {
-        return navigationDelegate?.statusBarAppearance?() ?? 0
+    public func backgroundTintStyle () -> SEBBackgroundTintStyle {
+        return navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
     }
     
     public var uiAlertController: Any?
