@@ -46,6 +46,7 @@
         SEBAbstractWebView *sebAbstractWebView = [SEBAbstractWebView new];
         sebAbstractWebView.navigationDelegate = self;
         _sebWebView = sebAbstractWebView;
+        _urlFilter = [SEBURLFilter sharedSEBURLFilter];
     }
     return self;
 }
@@ -428,11 +429,6 @@
         [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
     }
     
-    if (newTab) {
-        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
-    }
-
     // Check if quit URL has been clicked (regardless of current URL Filter)
     if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
