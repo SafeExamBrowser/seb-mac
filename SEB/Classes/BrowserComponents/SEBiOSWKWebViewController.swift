@@ -30,6 +30,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.scrollView.isScrollEnabled = true
         sebWebView?.translatesAutoresizingMaskIntoConstraints = true
         sebWebView?.uiDelegate = self
+        sebWebView?.navigationDelegate = self
         
         let preferences = UserDefaults.standard
         
