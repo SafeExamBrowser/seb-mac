@@ -111,7 +111,6 @@
     quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
     enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
-    _urlFilter = [SEBURLFilter sharedSEBURLFilter];
     
 }
 
@@ -178,103 +177,6 @@
 
 
 #pragma mark -
-#pragma mark Overlay Display
-
-- (void) showURLFilterMessage
-{
-    if (!_filterMessageHolder) {
-        
-        CGRect frameRect = CGRectMake(0,0,155,21); // This will change based on the size you need
-        UILabel *message = [[UILabel alloc] initWithFrame:frameRect];
-        
-        // Set message for URL blocked according to settings
-        switch ([SEBURLFilter sharedSEBURLFilter].urlFilterMessage) {
-                
-            case URLFilterMessageText:
-                message.text = NSLocalizedString(@"URL Blocked!", nil);
-                [message setFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
-                [message setTextColor:[UIColor redColor]];
-                
-                break;
-                
-            case URLFilterMessageX:
-                message.text = @"✕";
-                [message setFont:[UIFont systemFontOfSize:20]];
-                [message setTextColor:[UIColor darkGrayColor]];
-                break;
-        }
-        
-        [message sizeToFit];
-        
-        CGSize messageLabelSize = message.frame.size;
-        CGFloat messageLabelWidth = messageLabelSize.width + messageLabelSize.height;
-        CGFloat messageLabelHeight = messageLabelSize.height * 1.5;
-        CGRect messageLabelFrame = CGRectMake(0, 0, messageLabelWidth, messageLabelHeight);
-        
-        _filterMessageHolder = [[UIView alloc] initWithFrame:messageLabelFrame];
-        message.center = _filterMessageHolder.center;
-        
-        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-            _filterMessageHolder.backgroundColor = [UIColor clearColor];
-            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-            UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-            blurEffectView.frame = _filterMessageHolder.bounds;
-            blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            [_filterMessageHolder addSubview:blurEffectView];
-            
-            UIView *backgroundTintView = [UIView new];
-            backgroundTintView.frame = _filterMessageHolder.bounds;
-            backgroundTintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            backgroundTintView.backgroundColor = [UIColor lightGrayColor];
-            backgroundTintView.alpha = 0.5;
-            [_filterMessageHolder addSubview:backgroundTintView];
-            
-        } else {
-            _filterMessageHolder.backgroundColor = UIColor.lightGrayColor;
-        }
-        [_filterMessageHolder addSubview:message];
-        _filterMessageHolder.layer.cornerRadius = messageLabelHeight / 2;
-        _filterMessageHolder.clipsToBounds = YES;
-    }
-    
-    CGFloat superviewWidth = self.view.bounds.size.width;
-    CGFloat messageWidth = _filterMessageHolder.frame.size.width;
-    CGFloat messageHeight = _filterMessageHolder.frame.size.height;
-    
-    if (@available(iOS 11.0, *)) {
-        [_filterMessageHolder setFrame:CGRectMake(
-                                                  superviewWidth - self.view.safeAreaInsets.right - messageWidth - 10,
-                                                  self.view.safeAreaInsets.top + 10,
-                                                  messageWidth,
-                                                  messageHeight
-                                                  )];
-    } else {
-        // Fallback on earlier versions
-        CGFloat topLayoutGuide = self.topLayoutGuide.length;
-        [_filterMessageHolder setFrame:CGRectMake(
-                                                  superviewWidth - messageWidth - 10,
-                                                  topLayoutGuide + 10,
-                                                  messageWidth,
-                                                  messageHeight
-                                                  )];
-    }
-    
-    // Show the message
-    [self.sebWebView insertSubview:_filterMessageHolder aboveSubview:self.sebWebView];
-    
-    // Remove the URL filter message after a delay
-    [self performSelector:@selector(hideURLFilterMessage) withObject: nil afterDelay: 1];
-    
-}
-
-
-- (void) hideURLFilterMessage
-{
-    [_filterMessageHolder removeFromSuperview];
-}
-
-
-#pragma mark -
 #pragma mark UIWebViewDelegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -320,7 +222,7 @@
 
 /// Request handling
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType)navigationType newTab:(BOOL)newTab
+ navigationType:(UIWebViewNavigationType)navigationType
 {
     if (UIAccessibilityIsGuidedAccessEnabled()) {
         if (navigationType == UIWebViewNavigationTypeLinkClicked &&
@@ -368,6 +270,7 @@
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         NSURL *originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
         request = [NSURLRequest requestWithURL:originalURL];
+        newTabRequested = YES;
     }
     
     return [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTabRequested];
