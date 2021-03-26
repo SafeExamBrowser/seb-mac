@@ -14,6 +14,8 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     public var scrollLockActive = false
     
     public var sebWebView : WKWebView?
+    
+    private var zoomScale : CGFloat?
 
     private var quitURLTrimmed : String?
     private var allowSpellCheck : Bool?
@@ -31,6 +33,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         sebWebView?.scrollView.isScrollEnabled = true
         sebWebView?.translatesAutoresizingMaskIntoConstraints = true
+        zoomScale = sebWebView?.scrollView.zoomScale
         sebWebView?.uiDelegate = self
         sebWebView?.navigationDelegate = self
         
@@ -41,12 +44,13 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         urlFilter = SEBURLFilter.shared()
     }
     
-    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        sebWebView?.scrollView .setZoomScale(0, animated: true)
+    public func viewWillTransitionToSize() {
+        zoomScale = sebWebView?.scrollView.zoomScale
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         sebWebView?.uiDelegate = self
+        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -147,7 +151,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
-            navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab:true)
+            _ = navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab:true)
         }
         return nil
     }

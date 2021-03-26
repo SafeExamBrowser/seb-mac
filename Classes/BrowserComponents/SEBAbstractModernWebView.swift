@@ -48,6 +48,10 @@ import Foundation
         browserControllerDelegate?.viewWillDisappear?(animated)
     }
     
+    public  func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        browserControllerDelegate?.viewWillTransitionToSize?()
+    }
+    
     public func nativeWebView() -> Any {
         return browserControllerDelegate?.nativeWebView() as Any
     }
