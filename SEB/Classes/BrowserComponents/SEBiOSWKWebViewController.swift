@@ -11,6 +11,8 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
     
+    public var scrollLockActive = false
+    
     public var sebWebView : WKWebView?
 
     private var quitURLTrimmed : String?
@@ -61,6 +63,31 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func pageTitle() -> String? {
         return sebWebView?.title
+    }
+    
+    public func toggleScrollLock() {
+        scrollLockActive = !scrollLockActive
+        sebWebView?.scrollView.isScrollEnabled = !scrollLockActive
+        sebWebView?.scrollView.bounces = !scrollLockActive
+        if scrollLockActive {
+            // Disable text/content selection
+            sebWebView?.evaluateJavaScript("document.documentElement.style.webkitUserSelect='none';")
+            // Disable selection context popup (copy/paste etc.)
+            sebWebView?.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='none';")
+            // Disable magnifier glass
+                sebWebView?.evaluateJavaScript("document.body.style.webkitUserSelect='none';")
+        } else {
+            // Enable text/content selection
+                sebWebView?.evaluateJavaScript("document.documentElement.style.webkitUserSelect='text';")
+            // Enable selection context popup (copy/paste etc.)
+                sebWebView?.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='default';")
+            // Enable magnifier glass
+                sebWebView?.evaluateJavaScript("document.body.style.webkitUserSelect='default';")
+        }
+    }
+    
+    public func isScrollLockActive() -> Bool {
+        return scrollLockActive
     }
     
     public func canGoBack() -> Bool {
