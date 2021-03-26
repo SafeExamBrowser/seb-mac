@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;
 
-
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
 
