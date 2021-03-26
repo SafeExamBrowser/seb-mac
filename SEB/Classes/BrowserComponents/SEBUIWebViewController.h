@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
     
 @private
     BOOL allowSpellCheck;
-    NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
     BOOL openCloseSlider;
