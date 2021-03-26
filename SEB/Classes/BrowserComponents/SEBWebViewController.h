@@ -64,7 +64,7 @@
 @property (strong, nonatomic) NSString *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (strong, nonatomic) NSURLRequest *currentRequest;
-
+@property (readonly) BOOL isScrollLockActive;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
