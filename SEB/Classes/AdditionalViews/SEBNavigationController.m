@@ -71,9 +71,9 @@
 {
     NSUInteger statusBarAppearance = [self statusBarAppearance];
     // On a modern device with extended display, always display statusbar when browser toolbar is enabled
-    BOOL hidden = (!(self.sebUIController.extendedDisplay & self.sebUIController.browserToolbarEnabled) &
-                   (statusBarAppearance == mobileStatusBarAppearanceNone |
-                    statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark |
+    BOOL hidden = (!(self.sebUIController.extendedDisplay & self.sebUIController.browserToolbarEnabled) &&
+                   (statusBarAppearance == mobileStatusBarAppearanceNone ||
+                    statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark ||
                     statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight));
     return hidden;
 }
