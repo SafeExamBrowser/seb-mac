@@ -47,6 +47,8 @@
         sebAbstractWebView.navigationDelegate = self;
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     }
     return self;
 }
