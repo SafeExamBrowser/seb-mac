@@ -80,6 +80,8 @@
             _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneDark;
         }
     }
+    _statusBarAppearance = [self statusBarAppearanceForDevice];
+    
     _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
                             _statusBarAppearance == mobileStatusBarAppearanceLight ||
                             _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
