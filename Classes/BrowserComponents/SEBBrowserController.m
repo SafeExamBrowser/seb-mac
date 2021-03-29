@@ -166,10 +166,10 @@ static NSString * const authenticationPassword = @"password";
             DDLogError(@"When running on OS X 10.7 or 10.8, embedded TLS/SSL/CA certificates and certificate pinning are not supported!");
             return;
         }
-        _usingCustomURLProtocol = true;
-        // Become delegate of and register custom SEB NSURL protocol class
-        [CustomHTTPProtocol setDelegate:self];
-        [CustomHTTPProtocol start];
+//        _usingCustomURLProtocol = true;
+//        // Become delegate of and register custom SEB NSURL protocol class
+//        [CustomHTTPProtocol setDelegate:self];
+//        [CustomHTTPProtocol start];
     } else {
         _usingCustomURLProtocol = false;
         // Deactivate the protocol
@@ -653,7 +653,7 @@ static NSString * const authenticationPassword = @"password";
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [hashedString appendFormat: @"%02x", hashedChars[i]];
         }
-        [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
+        [modifiedRequest setValue:hashedString forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
         
         // Config Key
         
@@ -679,7 +679,7 @@ static NSString * const authenticationPassword = @"password";
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
         }
-        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
+        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:SEBConfigKeyHeaderKey];
         
         headerFields = [modifiedRequest allHTTPHeaderFields];
         DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
