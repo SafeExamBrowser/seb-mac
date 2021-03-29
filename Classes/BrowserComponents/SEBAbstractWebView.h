@@ -105,6 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 
+- (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
+
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 @property (strong, nonatomic) id __nullable uiAlertController;
 

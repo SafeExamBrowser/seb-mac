@@ -157,6 +157,8 @@
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 - (NSString *) backToStartURLString;
 
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
+
 - (void) conditionallyInitCustomHTTPProtocol;
 
 /**
