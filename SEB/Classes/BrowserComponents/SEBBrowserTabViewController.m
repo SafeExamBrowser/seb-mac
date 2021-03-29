@@ -729,6 +729,12 @@
 }
 
 
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    return [_sebViewController.browserController modifyRequest:request];
+}
+
+
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
     [_sebViewController shouldStartLoadFormSubmittedURL:url];
