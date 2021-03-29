@@ -186,6 +186,9 @@ import Foundation
         navigationDelegate?.sebWebViewDidUpdateProgress?(progress)
     }
     
+    public func modifyRequest(_ request: URLRequest) -> URLRequest {
+        return (navigationDelegate?.modifyRequest?(request)) ?? request
+    }
     public func setTitle(_ title: String) {
         navigationDelegate?.setTitle(title)
     }

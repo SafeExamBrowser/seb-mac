@@ -657,6 +657,12 @@
 }
 
 
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    return [self.navigationDelegate modifyRequest:request];
+}
+
+
 #pragma mark - Search in WebView
 
 - (UIImage *)invertImage:(UIImage *)originalImage
