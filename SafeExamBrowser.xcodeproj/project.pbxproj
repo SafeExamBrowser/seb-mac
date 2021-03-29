@@ -2367,7 +2367,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 2.3.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
@@ -2413,7 +2413,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 2.3.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
