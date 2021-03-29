@@ -2130,18 +2130,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     SecRequirementRef req = NULL;
     NSString * reqStr;
     
-    if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
-        // Public SHA1 fingerprint of the CA certificate
-        // for macOS system software signed by Apple this is the
-        // "Software Signing" certificate (use Max Inspect from App Store or similar)
-        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                  @"certificate",
-                  @"leaf",
-                  @"H\"EFDBC9139DD98D",
-                  @"BAE5A9C7165A09",
-                  @"6511B15EAEF9\""
-                  ];
-    } else if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
         // Public SHA1 fingerprint of the CA cert match string
         reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                   @"certificate",
@@ -2167,18 +2156,41 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
     }
     
+    if (status != noErr) {
+        if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
+            // Public SHA1 fingerprint of the CA certificate
+            // for macOS system software signed by Apple this is the
+            // "Software Signing" certificate (use Max Inspect from App Store or similar)
+            reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                      @"certificate",
+                      @"leaf",
+                      @"H\"EFDBC9139DD98D",
+                      @"BAE5A9C7165A09",
+                      @"6511B15EAEF9\""
+                      ];
+            // create the requirement to check against
+            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+            
+            if (status == noErr && req != NULL) {
+                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+            }
+        }
+    }
+    
     if (ref) {
         CFRelease(ref);
     }
     if (req) {
         CFRelease(req);
     }
-    
-    if (status != noErr) return false;
-    
+        
+    if (status != noErr) {
+        return NO;
+    }
+
     DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
     
-    return true;
+    return YES;
 }
 
 
