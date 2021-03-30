@@ -19,7 +19,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
 
     private var quitURLTrimmed : String?
     private var allowSpellCheck : Bool?
-    private var sendBrowserExamKey : Bool?
     private var urlFilter : SEBURLFilter?
     
     public override func loadView() {
@@ -41,7 +40,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         let preferences = UserDefaults.standard
         
         allowSpellCheck = preferences.secureBool(forKey: "org_safeexambrowser_SEB_allowSpellCheck")
-        sendBrowserExamKey = preferences.secureBool(forKey: "org_safeexambrowser_SEB_sendBrowserExamKey")
         quitURLTrimmed = preferences.secureString(forKey: "org_safeexambrowser_SEB_quitURL")?.trimmingCharacters(in: CharacterSet.init(charactersIn: "/"))
         urlFilter = SEBURLFilter.shared()
     }
@@ -117,15 +115,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func load(_ url: URL) {
-        if sendBrowserExamKey! {
-            guard let customRequest = navigationDelegate?.modifyRequest?(URLRequest(url: url)) else {
-                return
-            }
-            sebWebView?.load(customRequest)
-
-        } else {
-            sebWebView?.load(URLRequest.init(url: url))
-        }
+        sebWebView?.load(URLRequest.init(url: url))
     }
     
     public func stopLoading() {
@@ -153,17 +143,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         }
         let shouldStartLoad = (navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab: newTab))!
         if shouldStartLoad {
-            if sendBrowserExamKey! {
-                if navigationAction.request.httpMethod != "GET" || navigationAction.request.value(forHTTPHeaderField: SEBConfigKeyHeaderKey) != nil {
-                    // not a GET or already a custom request - continue
-                    decisionHandler(.allow)
-                    return
-                }
-                decisionHandler(.cancel)
-                load(navigationAction.request.url!)
-            } else {
-                decisionHandler(.allow)
-            }
+            decisionHandler(.allow)
         } else {
             decisionHandler(.cancel)
         }
