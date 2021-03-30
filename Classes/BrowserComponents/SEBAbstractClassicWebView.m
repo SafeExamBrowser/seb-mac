@@ -133,6 +133,13 @@
 
 /// SEBAbstractWebViewNavigationDelegate Methods
 
+@synthesize wkWebViewConfiguration;
+
+- (WKWebViewConfiguration *)wkWebViewConfiguration
+{
+    return self.navigationDelegate.wkWebViewConfiguration;
+}
+
 - (void) setLoading:(BOOL)loading
 {
     [self.navigationDelegate setLoading:loading];

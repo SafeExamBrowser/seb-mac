@@ -207,7 +207,15 @@
 }
 
 
-#pragma mark - Callbacks for UI state changes
+/// SEBAbstractWebViewNavigationDelegate Methods
+
+@synthesize wkWebViewConfiguration;
+
+- (WKWebViewConfiguration *)wkWebViewConfiguration
+{
+    return [_sebViewController.browserController wkWebViewConfiguration];
+}
+
 
 - (void) setLoading:(BOOL)loading
 {
