@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SEBAbstractWebViewNavigationDelegate <NSObject>
 
 @required
+@property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (void) setLoading:(BOOL)loading;
 - (void) setTitle:(NSString *)title;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
