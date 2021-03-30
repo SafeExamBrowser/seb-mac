@@ -9,6 +9,11 @@ import Foundation
 
 @objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate {
     
+    public var wkWebViewConfiguration: WKWebViewConfiguration {
+        return navigationDelegate!.wkWebViewConfiguration
+    }
+    
+    
     @objc public var browserControllerDelegate: SEBAbstractBrowserControllerDelegate?
     @objc weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
 

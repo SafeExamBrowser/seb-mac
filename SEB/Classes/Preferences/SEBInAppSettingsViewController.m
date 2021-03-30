@@ -380,6 +380,7 @@
         // Otherwise only temporary SEB settings (prefix "org_safeexambrowser_") changed,
         // then we don't alter the Browser Exam and Config Keys
 
+    
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
@@ -415,6 +416,14 @@
         }
     }
     
+    
+    /// Browser Features
+
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_browserMediaAutoplay"]) {
+        [self setDependentKeysForBrowserMediaAutoplay];
+    }
+    
+    
     /// Exam Session
     
     // Check if "Use Browser and Config Keys" was selected
@@ -426,6 +435,7 @@
         [changedKeys containsObject:@"org_safeexambrowser_configFileShareConfigKey"]) {
         [self setDependentKeysForShareKeys];
     }
+    
     
     /// Network / Certificates
     
@@ -559,6 +569,7 @@
 - (void)setAllDependentKeys
 {
     [self setDependentKeysForSEBConfigPurpose];
+    [self setDependentKeysForBrowserMediaAutoplay];
     [self setDependentKeysForSendBrowserExamKey];
     [self setDependentKeysForShareKeys];
     
@@ -591,6 +602,25 @@
                                                  @"org_safeexambrowser_SEB_configFileCreateIdentity",
                                                  @"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]];
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForBrowserMediaAutoplay
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_browserMediaAutoplayVideo",
+                                                 @"org_safeexambrowser_SEB_browserMediaAutoplayAudio"]];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"] == NO)
     {
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];

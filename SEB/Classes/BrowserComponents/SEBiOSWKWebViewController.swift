@@ -24,9 +24,9 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     public override func loadView() {
         let webFrame = UIScreen.main.bounds
         if sebWebView == nil {
-            let webConfiguration = WKWebViewConfiguration()
-            webConfiguration.dataDetectorTypes = []
-            sebWebView = WKWebView.init(frame: webFrame, configuration: webConfiguration)
+            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
+//            sebWebView?.customUserAgent = 
         }
         let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
         sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
