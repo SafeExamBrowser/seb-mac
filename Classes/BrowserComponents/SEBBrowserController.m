@@ -166,10 +166,10 @@ static NSString * const authenticationPassword = @"password";
             DDLogError(@"When running on OS X 10.7 or 10.8, embedded TLS/SSL/CA certificates and certificate pinning are not supported!");
             return;
         }
-//        _usingCustomURLProtocol = true;
-//        // Become delegate of and register custom SEB NSURL protocol class
-//        [CustomHTTPProtocol setDelegate:self];
-//        [CustomHTTPProtocol start];
+        _usingCustomURLProtocol = true;
+        // Become delegate of and register custom SEB NSURL protocol class
+        [CustomHTTPProtocol setDelegate:self];
+        [CustomHTTPProtocol start];
     } else {
         _usingCustomURLProtocol = false;
         // Deactivate the protocol
