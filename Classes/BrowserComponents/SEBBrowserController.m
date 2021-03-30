@@ -60,9 +60,6 @@ static NSString * const authenticationPassword = @"password";
 {
     self = [super init];
     if (self) {
-//        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
-//        [self conditionallyInitCustomHTTPProtocol];
-        
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
@@ -105,6 +102,42 @@ static NSString * const authenticationPassword = @"password";
     defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
     [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
 }
+
+
+@synthesize wkWebViewConfiguration;
+
+- (WKWebViewConfiguration *)wkWebViewConfiguration
+{
+    WKWebViewConfiguration *newSharedWebViewConfiguration = [WKWebViewConfiguration new];
+    
+    // Set media playback properties on new webview
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (@available(macOS 10.12, *)) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"] == NO) {
+            newSharedWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
+        } else {
+            newSharedWebViewConfiguration.mediaTypesRequiringUserActionForPlayback =
+            (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplayAudio"] ? WKAudiovisualMediaTypeAudio : 0) |
+            (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplayVideo"] ? WKAudiovisualMediaTypeVideo : 0);
+        }
+    }
+    
+    UIUserInterfaceIdiom currentDevice = UIDevice.currentDevice.userInterfaceIdiom;
+    if (currentDevice == UIUserInterfaceIdiomPad) {
+        newSharedWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
+    } else {
+        newSharedWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
+    }
+    newSharedWebViewConfiguration.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];
+    
+    if (@available(macOS 10.11, *)) {
+        newSharedWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
+    }
+    newSharedWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
+    
+    return newSharedWebViewConfiguration;
+}
+
 
 
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url

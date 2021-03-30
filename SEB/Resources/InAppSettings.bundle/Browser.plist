@@ -160,6 +160,22 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Video Autoplay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaAutoplayVideo</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audio Autoplay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaAutoplayAudio</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Allow Inline Playback on iPad</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback</string>
