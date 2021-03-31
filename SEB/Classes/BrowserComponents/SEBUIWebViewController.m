@@ -37,16 +37,13 @@
     [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
     
     // Set media playback properties on new webview
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _sebWebView.mediaPlaybackRequiresUserAction = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"];
+
+    WKWebViewConfiguration *webViewConfiguration = self.navigationDelegate.wkWebViewConfiguration;
     
-    UIUserInterfaceIdiom currentDevice = UIDevice.currentDevice.userInterfaceIdiom;
-    if (currentDevice == UIUserInterfaceIdiomPad) {
-        _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
-    } else {
-        _sebWebView.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
-    }
-    _sebWebView.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];;
+    _sebWebView.mediaPlaybackRequiresUserAction = webViewConfiguration.mediaTypesRequiringUserActionForPlayback != WKAudiovisualMediaTypeNone;
+    
+    _sebWebView.allowsInlineMediaPlayback = webViewConfiguration.allowsInlineMediaPlayback;
+    _sebWebView.allowsPictureInPictureMediaPlayback = webViewConfiguration.allowsPictureInPictureMediaPlayback;
     _sebWebView.mediaPlaybackAllowsAirPlay = NO;
 
     _sebWebView.delegate = self;
