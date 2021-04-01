@@ -108,6 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
 
+@property (readonly, nonatomic) NSString *customSEBUserAgent;
+
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 @property (strong, nonatomic) id __nullable uiAlertController;
 

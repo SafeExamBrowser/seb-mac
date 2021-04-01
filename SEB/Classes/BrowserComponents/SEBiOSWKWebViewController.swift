@@ -38,7 +38,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.navigationDelegate = self
         
         let preferences = UserDefaults.standard
-        
+        sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
         allowSpellCheck = preferences.secureBool(forKey: "org_safeexambrowser_SEB_allowSpellCheck")
         quitURLTrimmed = preferences.secureString(forKey: "org_safeexambrowser_SEB_quitURL")?.trimmingCharacters(in: CharacterSet.init(charactersIn: "/"))
         urlFilter = SEBURLFilter.shared()

@@ -217,6 +217,15 @@
 }
 
 
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return [_sebViewController.browserController customSEBUserAgent];
+    
+}
+
+
 - (void) setLoading:(BOOL)loading
 {
 //    if (self.searchBar.text.length > 0) {

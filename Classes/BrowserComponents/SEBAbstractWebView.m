@@ -165,10 +165,20 @@
 
 @synthesize wkWebViewConfiguration;
 
-- (WKWebViewConfiguration *)wkWebViewConfiguration
+- (WKWebViewConfiguration *) wkWebViewConfiguration
 {
     return self.navigationDelegate.wkWebViewConfiguration;
 }
+
+
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return self.navigationDelegate.customSEBUserAgent;
+    
+}
+
 
 - (void) setLoading:(BOOL)loading
 {
