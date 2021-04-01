@@ -13,7 +13,11 @@ import Foundation
         return navigationDelegate!.wkWebViewConfiguration
     }
     
+    public var customSEBUserAgent: String {
+        return navigationDelegate!.customSEBUserAgent!
+    }
     
+
     @objc public var browserControllerDelegate: SEBAbstractBrowserControllerDelegate?
     @objc weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
 

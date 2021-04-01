@@ -154,6 +154,8 @@
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
+@property (strong, nonatomic) NSString* customSEBUserAgent;
+
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
 - (NSString *) backToStartURLString;
