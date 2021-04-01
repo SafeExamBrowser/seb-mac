@@ -1669,23 +1669,8 @@ void run_on_ui_thread(dispatch_block_t block)
         [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
         
         // Create browser user agent according to settings
-        NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        NSString *overrideUserAgent;
-        NSString *browserUserAgentSuffix = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgent"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        if (browserUserAgentSuffix.length != 0) {
-            browserUserAgentSuffix = [NSString stringWithFormat:@" %@", browserUserAgentSuffix];
-        }
-        
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentiOS"] == browserUserAgentModeiOSDefault) {
-            overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
-        } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentiOS"] == browserUserAgentModeiOSMacDesktop) {
-            overrideUserAgent = SEBiOSUserAgentDesktopMac;
-        } else {
-            overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentiOSCustom"];
-        }
-        // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@%@", SEBUserAgentDefaultSuffix, versionString, browserUserAgentSuffix]];
-        
+        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
+        // Register browser user agent for UIWebView
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
         

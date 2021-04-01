@@ -112,9 +112,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
     // Get default WebKit browser User Agent and create
     // default SEB User Agent
-    NSString *defaultUserAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
-    
+    _temporaryWebView = [WKWebView new];
+    [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
+        [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+        self.temporaryWebView = nil;
+    }];
+    DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+
     [_window makeKeyAndVisible];
     
     // The registration domain is volatile.  It does not persist across launches.
