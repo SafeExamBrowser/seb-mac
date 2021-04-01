@@ -202,6 +202,16 @@
     return self.navigationDelegate.wkWebViewConfiguration;
 }
 
+
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return self.navigationDelegate.customSEBUserAgent;
+    
+}
+
+
 - (void) setLoading:(BOOL)loading
 {
     [self.navigationDelegate setLoading:loading];

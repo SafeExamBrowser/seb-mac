@@ -64,6 +64,8 @@
 
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 
+@property (strong, nonatomic) WKWebView *temporaryWebView;
+
 @property (readwrite) NSUInteger statusBarAppearance;
 @property (readwrite) BOOL showSettingsInApp;
 @property (nonatomic, strong) NSArray *leftSliderCommands;
