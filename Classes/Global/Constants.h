@@ -77,6 +77,16 @@
 
 #define currentStableMajoriOSVersion 14
 
+
+enum {
+    webViewSelectAutomatic                      = 0,
+    webViewSelectForceClassic                   = 1,
+    webViewSelectPreferModernInForeignNewTabs   = 2,
+    webViewSelectPreferModern                   = 3
+};
+typedef NSUInteger webViewSelectPolicies;
+
+
 enum {
     browserUserAgentModeiOSDefault              = 0,
     browserUserAgentModeiOSMacDesktop           = 1,
