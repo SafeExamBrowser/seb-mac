@@ -233,6 +233,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
                    
+                   [NSNumber numberWithLong:webViewSelectAutomatic],
+                   @"browserWindowWebView",
+                   
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
                    

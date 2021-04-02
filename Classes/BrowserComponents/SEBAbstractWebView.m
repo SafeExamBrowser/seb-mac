@@ -45,6 +45,7 @@
     if (self) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"] &&
             ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
             // Cancel if navigation is disabled in exam
             SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
@@ -212,6 +213,10 @@
 
 - (void)sebWebViewDidStartLoad
 {
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray<NSHTTPCookie *> *cookies = cookieJar.cookies;
+    [self.navigationDelegate examineCookies:cookies];
+
     [self.navigationDelegate sebWebViewDidStartLoad];
 }
 
