@@ -39,11 +39,11 @@
 
 @implementation SEBWebViewController
 
-- (instancetype)init
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab
 {
     self = [super init];
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [SEBAbstractWebView new];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab];
         sebAbstractWebView.navigationDelegate = self;
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -733,8 +733,8 @@
 
 
 // Create a UIWebView to hold new webpages
-- (SEBAbstractWebView *)createNewWebView {
-    SEBAbstractWebView *newWebView = [SEBAbstractWebView new];
+- (SEBAbstractWebView *)createNewWebViewCommonHost:(BOOL)commonHost {
+    SEBAbstractWebView *newWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHost];
     newWebView.navigationDelegate = self;
     return newWebView;
 }

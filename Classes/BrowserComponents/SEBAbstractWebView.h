@@ -121,6 +121,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab;
+
 @end
 
 
