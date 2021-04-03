@@ -35,12 +35,14 @@
 #import <CoreData/CoreData.h>
 
 #import "SEBViewController.h"
+#import "OpenWebpages.h"
 
 #import "SEBAbstractWebView.h"
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
 @class SEBViewController;
+@class OpenWebpages;
 @class SEBAbstractWebView;
 @class SEBWebViewController;
 @class SEBSearchBarViewController;
@@ -54,7 +56,7 @@
 @property (weak) SEBViewController *sebViewController;
 @property (nonatomic, weak) SEBWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSMutableArray *openWebpages;
+@property (nonatomic, strong) NSMutableArray<OpenWebpages*> *openWebpages;
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 @property (readwrite) NSUInteger maxIndex;
 

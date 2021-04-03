@@ -39,23 +39,32 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)init
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab
 {
     self = [super init];
     if (self) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"] &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
-            // Cancel if navigation is disabled in exam
-            SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
-            sebAbstractModernWebView.navigationDelegate = self;
-            self.browserControllerDelegate = sebAbstractModernWebView;
-        } else {
-            SEBAbstractClassicWebView *sebAbstractClassicWebView = [SEBAbstractClassicWebView new];
-            sebAbstractClassicWebView.navigationDelegate = self;
-            self.browserControllerDelegate = sebAbstractClassicWebView;
+        webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
+        if (webViewSelectPolicy != webViewSelectForceClassic) {
+            BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+            
+            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] &&
+                ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]) {
+                
+                if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
+                    (webViewSelectPolicy == webViewSelectPreferModern) ||
+                    (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab))) {
+                    
+                    SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
+                    sebAbstractModernWebView.navigationDelegate = self;
+                    self.browserControllerDelegate = sebAbstractModernWebView;
+                    return self;
+                }
+            }
         }
+        SEBAbstractClassicWebView *sebAbstractClassicWebView = [SEBAbstractClassicWebView new];
+        sebAbstractClassicWebView.navigationDelegate = self;
+        self.browserControllerDelegate = sebAbstractClassicWebView;
     }
     return self;
 }

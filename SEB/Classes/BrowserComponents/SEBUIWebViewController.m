@@ -381,22 +381,6 @@
 }
 
 
-// Create a UIWebView to hold new webpages
-- (UIWebView *)createNewWebView {
-    // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] bounds];
-    UIWebView *newWebView = [[UIWebView alloc] initWithFrame:webFrame];
-    
-    newWebView.backgroundColor = [UIColor lightGrayColor];
-    newWebView.scalesPageToFit = YES;
-    newWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    newWebView.scrollView.scrollEnabled = YES;
-    [newWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-    newWebView.delegate = self;
-    return newWebView;
-}
-
-
 // Read Info.plist values from bundle
 - (id) infoValueForKey:(NSString*)key
 {
