@@ -301,8 +301,8 @@
 
 // Open new tab and load URL or template image (in the case of a freehand drawing)
 - (void) openNewTabWithURL:(NSURL *)url
-                    index:(NSUInteger)index
-                    image:(UIImage *)templateImage
+                     index:(NSUInteger)index
+                     image:(UIImage *)templateImage
 {
 
     // Save new tab data persistently
@@ -331,7 +331,7 @@
     
     id newViewController;
 
-    newViewController = [self createNewWebViewController];
+    newViewController = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:url]];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
@@ -375,6 +375,15 @@
 //    self.searchBarController.url = url.absoluteString;
 }
 
+- (BOOL) examTabHasCommonHostWithURL:(NSURL *)url
+{
+    BOOL commonHost = YES;
+    if (_openWebpages.count > 0) {
+        commonHost = [_openWebpages[0].webViewController.sebWebView.url.host isEqualToString:url.host];
+    }
+    return commonHost;
+}
+
 
 - (void) openCloseSliderForNewTab
 {
@@ -399,7 +408,7 @@
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
-            webViewControllerToSwitch = [self createNewWebViewController];
+            webViewControllerToSwitch = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url]];
         }
         
         // Exchange the old against the new webview
@@ -569,7 +578,7 @@
     
     [_sebViewController conditionallyOpenStartExamLockdownWindows];
     
-    NSArray *persistedOpenWebPages;
+    NSArray<Webpages*> *persistedOpenWebPages;
     
     NSManagedObjectContext *context = self.managedObjectContext;
     
@@ -592,11 +601,13 @@
     // If no error occured and there have been some persisted pages
     if (persistedOpenWebPages && persistedOpenWebPages.count > 0) {
         _maxIndex = 0;
+        NSString *examPageHost = [NSURL URLWithString:persistedOpenWebPages[0].url].host;
         // Open all persisted pages
         for (Webpages *webpage in persistedOpenWebPages) {
             // Open URL in a new webview
-            // Create a new UIWebView
-            SEBWebViewController *newWebViewController = [self createNewWebViewController];
+            // Create a new WebView
+            NSURL *webpageURL = [NSURL URLWithString:webpage.url];
+            SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host]];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
@@ -611,7 +622,7 @@
             // Add this to the Array of all open webpages
             [_openWebpages addObject:newOpenWebpage];
             
-            [newWebViewController loadURL:[NSURL URLWithString:webpage.url]];
+            [newWebViewController loadURL:webpageURL];
             
         }
         OpenWebpages *newOpenWebpage = (_openWebpages.lastObject);
@@ -702,8 +713,8 @@
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewController {
-    SEBWebViewController<SEBAbstractBrowserControllerDelegate>  *newSEBWebViewController = [SEBWebViewController<SEBAbstractBrowserControllerDelegate> new];
+- (SEBWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab {
+    SEBWebViewController<SEBAbstractBrowserControllerDelegate>  *newSEBWebViewController = [[SEBWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab];
     newSEBWebViewController.navigationDelegate = self;
     return newSEBWebViewController;
 }

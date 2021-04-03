@@ -233,7 +233,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
                    
-                   [NSNumber numberWithLong:webViewSelectAutomatic],
+                   [NSNumber numberWithLong:webViewSelectPreferModernInForeignNewTabs],
                    @"browserWindowWebView",
                    
                    [NSNumber numberWithLong:manuallyWithFileRequester],
