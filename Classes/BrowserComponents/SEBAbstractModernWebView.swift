@@ -10,7 +10,17 @@ import Foundation
 @objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate {
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
-        return navigationDelegate!.wkWebViewConfiguration
+        let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
+        let userContentController = WKUserContentController()
+        let jsCode = """
+var SafeExamBrowser = function() {}; \
+SafeExamBrowser.configKey = {}; \
+var SafeExamBrowser = new SafeExamBrowser();
+"""
+        let userScript = WKUserScript(source: jsCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
+        userContentController.addUserScript(userScript)
+        webViewConfiguration.userContentController = userContentController
+        return webViewConfiguration
     }
     
     public var customSEBUserAgent: String {
@@ -198,6 +208,11 @@ import Foundation
     public func modifyRequest(_ request: URLRequest) -> URLRequest {
         return (navigationDelegate?.modifyRequest?(request)) ?? request
     }
+    
+    public func configKey(for url: URL) -> String {
+        return (navigationDelegate?.configKey?(for: url) ?? "")
+    }
+    
     public func setTitle(_ title: String) {
         navigationDelegate?.setTitle(title)
     }

@@ -654,21 +654,11 @@ static NSString * const authenticationPassword = @"password";
 }
 
 
-- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+static NSString *urlStrippedFragment(NSURL* url)
 {
-    NSString *absoluteRequestURL = [[request URL] absoluteString];
+    NSString *absoluteRequestURL = url.absoluteString;
     
-    //// Check if quit URL has been clicked (regardless of current URL Filter)
-    
-    // Trim a possible trailing slash "/"
-    NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    
-    if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"quitLinkDetected" object:self];
-    }
-    
-    NSString *fragment = [[request URL] fragment];
+    NSString *fragment = url.fragment;
     NSString *requestURLStrippedFragment;
     if (fragment.length) {
         // if there is a fragment
@@ -676,7 +666,27 @@ static NSString * const authenticationPassword = @"password";
     } else requestURLStrippedFragment = absoluteRequestURL;
     DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
     DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+    return requestURLStrippedFragment;
+}
+
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    NSURL *url = request.URL;
     
+    //// Check if quit URL has been clicked (regardless of current URL Filter)
+    
+    // Trim a possible trailing slash "/"
+    NSString * requestURLStrippedFragment = urlStrippedFragment(url);
+    
+    NSString *absoluteRequestURLTrimmed = [url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+
+    if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"quitLinkDetected" object:self];
+    }
+    
+
     NSDictionary *headerFields;
     headerFields = [request allHTTPHeaderFields];
     DDLogVerbose(@"All HTTP header fields: %@", headerFields);
@@ -717,29 +727,7 @@ static NSString * const authenticationPassword = @"password";
         
         // Config Key
         
-        [self.configKey getBytes:hashedChars length:32];
-        
-#ifdef DEBUG
-        DDLogVerbose(@"Current Config Key: %@", self.configKey);
-#endif
-        
-        NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [configKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-#ifdef DEBUG
-        DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
-#endif
-        urlString = [configKeyString UTF8String];
-        CC_SHA256(urlString,
-                  (uint)strlen(urlString),
-                  hashedChars);
-        
-        NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:SEBConfigKeyHeaderKey];
+        [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
         
         headerFields = [modifiedRequest allHTTPHeaderFields];
         DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
@@ -750,6 +738,36 @@ static NSString * const authenticationPassword = @"password";
 
         return request;
     }
+}
+
+
+- (NSString *) configKeyForURL:(NSURL *)url
+{
+    unsigned char hashedChars[32];
+
+    [self.configKey getBytes:hashedChars length:32];
+    
+#ifdef DEBUG
+    DDLogVerbose(@"Current Config Key: %@", self.configKey);
+#endif
+    
+    NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [configKeyString appendFormat: @"%02x", hashedChars[i]];
+    }
+#ifdef DEBUG
+    DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
+#endif
+    const char *urlString = [configKeyString UTF8String];
+    CC_SHA256(urlString,
+              (uint)strlen(urlString),
+              hashedChars);
+    
+    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedConfigKeyString;
 }
 
 
