@@ -161,6 +161,7 @@
 - (NSString *) backToStartURLString;
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
+- (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
 
 - (void) conditionallyInitCustomHTTPProtocol;

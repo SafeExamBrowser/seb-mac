@@ -680,6 +680,11 @@
 }
 
 
+- (NSString *) browserExamKeyForURL:(NSURL *)url
+{
+    return [self.navigationDelegate browserExamKeyForURL:url];
+}
+
 - (NSString *) configKeyForURL:(NSURL *)url
 {
     return [self.navigationDelegate configKeyForURL:url];
