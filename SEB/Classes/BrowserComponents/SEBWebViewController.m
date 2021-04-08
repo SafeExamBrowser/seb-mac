@@ -680,6 +680,12 @@
 }
 
 
+- (NSString *) configKeyForURL:(NSURL *)url
+{
+    return [self.navigationDelegate configKeyForURL:url];
+}
+
+
 #pragma mark - Search in WebView
 
 - (UIImage *)invertImage:(UIImage *)originalImage
