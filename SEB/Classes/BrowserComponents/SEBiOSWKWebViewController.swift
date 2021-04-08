@@ -127,14 +127,13 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let browserExamKey = navigationDelegate?.browserExamKey?(for: webView.url!)
         let configKey = navigationDelegate?.configKey?(for: webView.url!)
-        
-        sebWebView?.evaluateJavaScript("SafeExamBrowser.configKey = '\(configKey ?? "")'") { (response, error) in
+
+        sebWebView?.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")'") { (response, error) in
             if let _ = error {
                 print(error as Any)
-            } else {
-                print("All is good!")
-            }   
+            }
         }
         navigationDelegate?.sebWebViewDidFinishLoad?()
         

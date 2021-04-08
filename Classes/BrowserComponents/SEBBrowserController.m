@@ -676,9 +676,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     
     //// Check if quit URL has been clicked (regardless of current URL Filter)
     
-    // Trim a possible trailing slash "/"
-    NSString * requestURLStrippedFragment = urlStrippedFragment(url);
-    
+    // Trim a possible trailing slash "/"    
     NSString *absoluteRequestURLTrimmed = [url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
 
     if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
@@ -701,13 +699,34 @@ static NSString *urlStrippedFragment(NSURL* url)
 
         // Browser Exam Key
         
-#ifdef DEBUG
-        DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
-#endif
+        [modifiedRequest setValue:[self browserExamKeyForURL:url] forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
+        
+        // Config Key
+        
+        [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
+        
+        headerFields = [modifiedRequest allHTTPHeaderFields];
+        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+        
+        return [modifiedRequest copy];
+
+    } else {
+
+        return request;
+    }
+}
+
+
+- (NSString *) browserExamKeyForURL:(NSURL *)url
+{
         unsigned char hashedChars[32];
         [self.browserExamKey getBytes:hashedChars length:32];
         
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
+#ifdef DEBUG
+        DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
+#endif
+
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
@@ -723,21 +742,7 @@ static NSString *urlStrippedFragment(NSURL* url)
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [hashedString appendFormat: @"%02x", hashedChars[i]];
         }
-        [modifiedRequest setValue:hashedString forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
-        
-        // Config Key
-        
-        [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
-        
-        headerFields = [modifiedRequest allHTTPHeaderFields];
-        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
-        
-        return [modifiedRequest copy];
-
-    } else {
-
-        return request;
-    }
+    return hashedString;
 }
 
 
