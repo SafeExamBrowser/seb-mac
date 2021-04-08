@@ -773,6 +773,11 @@
     return [_sebViewController.browserController configKeyForURL:url];
 }
 
+- (NSString *) appVersion
+{
+    return [_sebViewController appVersion];
+}
+
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
