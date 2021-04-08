@@ -20,6 +20,7 @@ var SafeExamBrowser = new SafeExamBrowser(); \
 SafeExamBrowser.security = newSecurity; \
 SafeExamBrowser.security.browserExamKey = {};
 SafeExamBrowser.security.configKey = {};
+SafeExamBrowser.security.appVersion = {};
 """
         let userScript = WKUserScript(source: jsCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(userScript)
@@ -219,6 +220,10 @@ SafeExamBrowser.security.configKey = {};
     
     public func configKey(for url: URL) -> String {
         return (navigationDelegate?.configKey?(for: url) ?? "")
+    }
+    
+    public func appVersion() -> String {
+        return (navigationDelegate?.appVersion?() ?? "")
     }
     
     public func setTitle(_ title: String) {

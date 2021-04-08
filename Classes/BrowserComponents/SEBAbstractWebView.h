@@ -109,6 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
 - (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
+- (NSString *) appVersion;
 
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 
