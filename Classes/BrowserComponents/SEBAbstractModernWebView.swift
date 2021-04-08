@@ -14,8 +14,12 @@ import Foundation
         let userContentController = WKUserContentController()
         let jsCode = """
 var SafeExamBrowser = function() {}; \
-SafeExamBrowser.configKey = {}; \
-var SafeExamBrowser = new SafeExamBrowser();
+SafeExamBrowser.security = function() {}; \
+var newSecurity = new SafeExamBrowser.security(); \
+var SafeExamBrowser = new SafeExamBrowser(); \
+SafeExamBrowser.security = newSecurity; \
+SafeExamBrowser.security.browserExamKey = {};
+SafeExamBrowser.security.configKey = {};
 """
         let userScript = WKUserScript(source: jsCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(userScript)
@@ -207,6 +211,10 @@ var SafeExamBrowser = new SafeExamBrowser();
     
     public func modifyRequest(_ request: URLRequest) -> URLRequest {
         return (navigationDelegate?.modifyRequest?(request)) ?? request
+    }
+    
+    public func browserExamKey(for url: URL) -> String {
+        return (navigationDelegate?.browserExamKey?(for: url) ?? "")
     }
     
     public func configKey(for url: URL) -> String {

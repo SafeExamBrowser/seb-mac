@@ -763,6 +763,11 @@
 }
 
 
+- (NSString *) browserExamKeyForURL:(NSURL *)url
+{
+    return [_sebViewController.browserController browserExamKeyForURL:url];
+}
+
 - (NSString *) configKeyForURL:(NSURL *)url
 {
     return [_sebViewController.browserController configKeyForURL:url];
