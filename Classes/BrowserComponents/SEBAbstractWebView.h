@@ -107,6 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
+- (NSString *) configKeyForURL:(NSURL *)url;
 
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 
