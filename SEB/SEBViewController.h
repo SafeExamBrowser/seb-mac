@@ -268,6 +268,7 @@
                      numericValue:(double)numericValue
                           message:(NSString *)message;
 
+- (NSString *) appVersion;
 - (BOOL) allowediOSVersion;
 - (void) newWebViewTabDidMoveToParentViewController;
 

@@ -262,6 +262,17 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (NSString *) appVersion
+{
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *appVersion = [NSString stringWithFormat:@"%@_iOS_%@_%@_%@", displayName, versionString, buildNumber, bundleID];
+    return appVersion;
+}
+
+
 #pragma mark - View management delegate methods
 
 - (void)viewDidLoad
