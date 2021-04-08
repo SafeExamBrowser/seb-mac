@@ -763,6 +763,12 @@
 }
 
 
+- (NSString *) configKeyForURL:(NSURL *)url
+{
+    return [_sebViewController.browserController configKeyForURL:url];
+}
+
+
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
     [_sebViewController shouldStartLoadFormSubmittedURL:url];
