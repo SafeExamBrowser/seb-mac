@@ -230,6 +230,12 @@
     return [self.navigationDelegate configKeyForURL:url];
 }
 
+- (NSString *) appVersion
+{
+    return [self.navigationDelegate appVersion];
+}
+
+
 - (void)sebWebViewDidStartLoad
 {
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];

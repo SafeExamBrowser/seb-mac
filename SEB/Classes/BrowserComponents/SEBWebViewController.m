@@ -690,6 +690,11 @@
     return [self.navigationDelegate configKeyForURL:url];
 }
 
+- (NSString *) appVersion
+{
+    return [self.navigationDelegate appVersion];
+}
+
 
 #pragma mark - Search in WebView
 
