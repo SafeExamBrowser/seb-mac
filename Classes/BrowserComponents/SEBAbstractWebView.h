@@ -80,8 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
-- (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
-
 @end
 
 
@@ -106,6 +104,30 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 
+- (void)webView:(WKWebView *)webView
+didFinishNavigation:(WKNavigation *)navigation;
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptAlertPanelWithMessage:(NSString *)message
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(void))completionHandler;
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptConfirmPanelWithMessage:(NSString *)message
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(BOOL result))completionHandler;
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler;
+
+- (void)webView:(WKWebView *)webView
+runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
+
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
 - (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
@@ -114,7 +136,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 
 - (SEBBackgroundTintStyle) backgroundTintStyle;
+
 @property (strong, nonatomic) id __nullable uiAlertController;
+- (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
 
 @end
 
