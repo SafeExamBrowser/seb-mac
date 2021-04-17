@@ -785,6 +785,23 @@
 }
 
 
+- (id) uiAlertController
+{
+    return _sebViewController.alertController;
+}
+
+- (void) setUiAlertController:(id)uiAlertController
+{
+    _sebViewController.alertController = uiAlertController;
+}
+
+
+- (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion
+{
+    [_sebViewController presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
+
 // Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
 // or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
 // for example to scan the newly received HTML data

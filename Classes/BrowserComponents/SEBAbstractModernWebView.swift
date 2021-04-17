@@ -164,10 +164,6 @@ SafeExamBrowser.security.appVersion = {};
         browserControllerDelegate?.sessionTaskDidCompleteSuccessfully?(task)
     }
     
-    public func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        browserControllerDelegate?.present?(viewControllerToPresent, animated: flag, completion: completion)
-    }
-    
     /// SEBAbstractWebViewNavigationDelegate Methods
 
     public func setLoading(_ loading: Bool) {
@@ -210,6 +206,18 @@ SafeExamBrowser.security.appVersion = {};
         navigationDelegate?.sebWebViewDidUpdateProgress?(progress)
     }
     
+    public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        navigationDelegate?.webView?(webView, runJavaScriptAlertPanelWithMessage: message, initiatedByFrame: frame, completionHandler: completionHandler)
+    }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        navigationDelegate?.webView?(webView, runJavaScriptConfirmPanelWithMessage: message, initiatedByFrame: frame, completionHandler: completionHandler)
+    }
+    
+    private func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        navigationDelegate?.webView?(webView, runJavaScriptTextInputPanelWithPrompt: prompt, defaultText: defaultText, initiatedByFrame: frame, completionHandler: completionHandler)
+    }
+
     public func modifyRequest(_ request: URLRequest) -> URLRequest {
         return (navigationDelegate?.modifyRequest?(request)) ?? request
     }
