@@ -190,6 +190,19 @@ SafeExamBrowser.security.appVersion = {};
         navigationDelegate?.sebWebViewDidFinishLoad?()
     }
     
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
+        let browserExamKey = navigationDelegate?.browserExamKey?(for: webView.url!)
+        let configKey = navigationDelegate?.configKey?(for: webView.url!)
+        let appVersion = navigationDelegate?.appVersion?()
+
+        webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';SafeExamBrowser.security.appVersion = '\(appVersion ?? "")'") { (response, error) in
+            if let _ = error {
+                print(error as Any)
+            }
+        }
+        navigationDelegate?.sebWebViewDidFinishLoad?()
+    }
+    
     public func sebWebViewDidFailLoadWithError(_ error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
