@@ -674,6 +674,75 @@
 }
 
 
+- (void)webView:(WKWebView *)webView
+runJavaScriptAlertPanelWithMessage:(NSString *)message
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(void))completionHandler
+{
+    if (self.navigationDelegate.uiAlertController) {
+        [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    
+    self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:_sebWebView.pageTitle
+                                                                                     message:message
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.navigationDelegate.uiAlertController = nil;
+        completionHandler();
+    }]];
+    
+    [self.navigationDelegate presentViewController:self.navigationDelegate.uiAlertController animated:NO completion:nil];
+}
+
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptConfirmPanelWithMessage:(NSString *)message
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(BOOL result))completionHandler
+{
+    if (self.navigationDelegate.uiAlertController) {
+        [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    
+    self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:_sebWebView.pageTitle
+                                                                                     message:message
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.navigationDelegate.uiAlertController = nil;
+        completionHandler(YES);
+    }]];
+    
+    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        self.navigationDelegate.uiAlertController = nil;
+        completionHandler(NO);
+    }]];
+    
+    [self.navigationDelegate presentViewController:self.navigationDelegate.uiAlertController animated:NO completion:nil];
+}
+
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler
+{
+//    [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+
+- (void)webView:(WKWebView *)webView
+runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
+{
+//    [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
     return [self.navigationDelegate modifyRequest:request];
