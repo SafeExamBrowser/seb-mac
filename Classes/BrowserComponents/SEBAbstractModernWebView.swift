@@ -7,35 +7,70 @@
 
 import Foundation
 
-@objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate {
+@objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
         let userContentController = WKUserContentController()
+        let appVersion = navigationDelegate?.appVersion?()
         let jsCode = """
-var SafeExamBrowser = function() {}; \
-SafeExamBrowser.security = function() {}; \
-var newSecurity = new SafeExamBrowser.security(); \
-var SafeExamBrowser = new SafeExamBrowser(); \
-SafeExamBrowser.security = newSecurity; \
-SafeExamBrowser.security.browserExamKey = {};
-SafeExamBrowser.security.configKey = {};
-SafeExamBrowser.security.appVersion = {};
+        window.SafeExamBrowser = { \
+          version: '\(appVersion ?? "")', \
+          security: { \
+            browserExamKey: '', \
+            configKey: '', \
+            appVersion: '\(appVersion ?? "")', \
+            updateKeys: function (callback) { \
+              window.webkit.messageHandlers.updateKeys.postMessage(callback.name); \
+            } \
+          } \
+        }
 """
+
         let userScript = WKUserScript(source: jsCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(userScript)
+        userContentController.add(self, name: "updateKeys")
         webViewConfiguration.userContentController = userContentController
         return webViewConfiguration
+    }
+    
+    
+    public func userContentController(_ userContentController: WKUserContentController,
+                                      didReceive message: WKScriptMessage) {
+        if message.name == "updateKeys" {
+            guard let webView = (browserControllerDelegate?.nativeWebView()) as? WKWebView else {
+                return
+            }
+            print(message.body as Any)
+            let parameter = message.body as? String
+            let browserExamKey = navigationDelegate?.browserExamKey?(for: webView.url!)
+            let configKey = navigationDelegate?.configKey?(for: webView.url!)
+            webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { (response, error) in
+                if let _ = error {
+                    print(error as Any)
+                } else {
+                    guard let callback = parameter else {
+                        return
+                    }
+                    webView.evaluateJavaScript(callback + "();") { (response, error) in
+                        if let _ = error {
+                            print(error as Any)
+                        }
+                    }
+
+                }
+            }
+        }
     }
     
     public var customSEBUserAgent: String {
         return navigationDelegate!.customSEBUserAgent!
     }
     
-
     @objc public var browserControllerDelegate: SEBAbstractBrowserControllerDelegate?
     @objc weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
 
+    private var firstLoad = true
 
     @objc public override init() {
         super.init()
@@ -190,16 +225,15 @@ SafeExamBrowser.security.appVersion = {};
         navigationDelegate?.sebWebViewDidFinishLoad?()
     }
     
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        navigationDelegate?.sebWebViewDidStartLoad?()
+    }
+    
+    public func webView(_ webView: WKWebView,
+                        didCommit navigation: WKNavigation) {
+    }
+    
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
-        let browserExamKey = navigationDelegate?.browserExamKey?(for: webView.url!)
-        let configKey = navigationDelegate?.configKey?(for: webView.url!)
-        let appVersion = navigationDelegate?.appVersion?()
-
-        webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';SafeExamBrowser.security.appVersion = '\(appVersion ?? "")'") { (response, error) in
-            if let _ = error {
-                print(error as Any)
-            }
-        }
         navigationDelegate?.sebWebViewDidFinishLoad?()
     }
     

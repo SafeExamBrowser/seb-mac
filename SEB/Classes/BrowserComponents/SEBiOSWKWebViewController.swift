@@ -123,7 +123,23 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
  
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        navigationDelegate?.sebWebViewDidStartLoad?()
+        navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
+    }
+    
+    public func webView(_ webView: WKWebView,
+                         didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        
+    }
+    
+//    public func webView(_ webView: WKWebView,
+//                        didReceive challenge: URLAuthenticationChallenge,
+//                        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+//
+//    }
+    
+    public func webView(_ webView: WKWebView,
+                          didCommit navigation: WKNavigation!) {
+        navigationDelegate?.webView?(webView, didCommit: navigation)
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
