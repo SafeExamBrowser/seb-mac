@@ -105,6 +105,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 
 - (void)webView:(WKWebView *)webView
+didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
+
+- (void)webView:(WKWebView *)webView
+didCommitNavigation:(WKNavigation *)navigation;
+
+- (void)webView:(WKWebView *)webView
 didFinishNavigation:(WKNavigation *)navigation;
 
 - (void)webView:(WKWebView *)webView
