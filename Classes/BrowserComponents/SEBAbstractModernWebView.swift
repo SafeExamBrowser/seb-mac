@@ -26,14 +26,12 @@ import Foundation
           } \
         }
 """
-
         let userScript = WKUserScript(source: jsCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(userScript)
         userContentController.add(self, name: "updateKeys")
         webViewConfiguration.userContentController = userContentController
         return webViewConfiguration
     }
-    
     
     public func userContentController(_ userContentController: WKUserContentController,
                                       didReceive message: WKScriptMessage) {
