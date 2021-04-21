@@ -122,6 +122,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.stopLoading()
     }
  
+    public func webView(_ webView: WKWebView,  shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
+        return false
+    }
+
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
     }
