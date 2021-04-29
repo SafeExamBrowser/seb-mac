@@ -42,40 +42,31 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SEBAbstractBrowserControllerDelegate <NSObject>
 
 @required
-- (id)nativeWebView;
-- (nullable NSURL*)url;
-- (nullable NSString*)pageTitle;
-- (BOOL)canGoBack;
-- (BOOL)canGoForward;
+- (id) nativeWebView;
+- (nullable NSURL*) url;
+- (nullable NSString*) pageTitle;
+- (BOOL) canGoBack;
+- (BOOL) canGoForward;
 
-- (void)goBack;
-- (void)goForward;
-- (void)reload;
-- (void)loadURL:(NSURL *)url;
-- (void)stopLoading;
+- (void) goBack;
+- (void) goForward;
+- (void) reload;
+- (void) loadURL:(NSURL *)url;
+- (void) stopLoading;
+- (void) disableSpellCheck;
 
 @optional
-- (void)loadView;
-- (void)didMoveToParentViewController;
-- (void)viewDidLayoutSubviews;
-- (void)viewWillTransitionToSize;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewDidAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
+- (void) loadView;
+- (void) didMoveToParentViewController;
+- (void) viewDidLayoutSubviews;
+- (void) viewWillTransitionToSize;
+- (void) viewWillAppear:(BOOL)animated;
+- (void) viewDidAppear:(BOOL)animated;
+- (void) viewWillDisappear:(BOOL)animated;
 
 - (void) toggleScrollLock;
 - (BOOL) isScrollLockActive;
 
-
-- (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
-- (void) openCloseSliderForNewTab;
-- (void) switchToTab:(nullable id)sender;
-- (void) switchToNextTab;
-- (void) switchToPreviousTab;
-- (void) closeTab;
-
-- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
-- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
@@ -90,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setLoading:(BOOL)loading;
 - (void) setTitle:(NSString *)title;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
-- (void) openNewTabWithURL:(NSURL *)url;
+- (nullable SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 
 
@@ -103,6 +94,17 @@ NS_ASSUME_NONNULL_BEGIN
                                       newTab:(BOOL)newTab;
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
+- (BOOL)sebWebViewDecidePolicyForMIMEType:(nullable NSString*)mimeType
+                                      url:(nullable NSURL *)url
+                          canShowMIMEType:(BOOL)canShowMIMEType
+                           isForMainFrame:(BOOL)isForMainFrame
+                        suggestedFilename:(nullable NSString *)suggestedFilename;
+- (BOOL)sebWebView:(SEBAbstractWebView*)webView
+decidePolicyForMIMEType:(nullable NSString*)mimeType
+               url:(nullable NSURL *)url
+   canShowMIMEType:(BOOL)canShowMIMEType
+    isForMainFrame:(BOOL)isForMainFrame
+ suggestedFilename:(nullable NSString *)suggestedFilename;
 
 - (void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
@@ -112,6 +114,14 @@ didCommitNavigation:(WKNavigation *)navigation;
 
 - (void)webView:(WKWebView *)webView
 didFinishNavigation:(WKNavigation *)navigation;
+
+- (void)webView:(WKWebView *)webView
+decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;
+
+- (void)webView:(WKWebView *)webView
+decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
+decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler;
 
 - (void)webView:(WKWebView *)webView
 runJavaScriptAlertPanelWithMessage:(NSString *)message
@@ -146,6 +156,18 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (strong, nonatomic) id __nullable uiAlertController;
 - (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
 
+- (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
+- (void) openCloseSliderForNewTab;
+- (void) switchToTab:(nullable id)sender;
+- (void) switchToNextTab;
+- (void) switchToPreviousTab;
+- (void) closeTab;
+- (void) closeTabWithIndex:(NSUInteger)tabIndex;
+
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+- (BOOL) downloadingInTemporaryWebView;
+
 @end
 
 
@@ -153,6 +175,8 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
+
+@property (strong, nonatomic) NSURL *originalURL;
 
 - (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab;
 

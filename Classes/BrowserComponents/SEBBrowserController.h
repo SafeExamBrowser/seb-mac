@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 22/01/16.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,6 +33,8 @@
 //
 
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
+#import <Foundation/Foundation.h>
 
 @class SEBURLFilter;
 
@@ -69,6 +71,19 @@
  */
 - (NSString *) showURLplaceholderTitleForWebpage;
 
+
+/**
+ * @brief       Open a new, temporary webView for downloading the linked config file
+ *              This allows the user to authenticate if the link target is stored on a secured server
+ */
+- (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url;
+- (void) closeWebView:(SEBAbstractWebView *) webViewToClose;
+- (void) downloadingSEBConfigFailed:(NSError *)error;
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
+
+- (void) openingConfigURLRoleBack;
+
+
 /**
  * @brief       Delegate method which should display a dialog when a config file
  *              is being downloaded, providing a cancel button. When tapped, then
@@ -104,7 +119,7 @@
  *              error is nil, otherwise it contains an NSError object
  *              with the failure reason
  */
-- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
+- (void) storeNewSEBSettingsSuccessfulProceed:(NSError *)error;
 
 /**
  * @brief       Delegate method called when a regular HTTP request or a XMLHttpRequest (XHR)
@@ -113,33 +128,42 @@
  */
 - (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
+@property (readwrite) BOOL startingUp;
+@property (readwrite) BOOL openingSettings;
+
 @end
 
-
-#import <Foundation/Foundation.h>
 
 @interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate> {
     
     @private
     
+    BOOL examSessionCookiesAlreadyCleared;
+    NSURL *downloadedSEBConfigDataURL;
     NSString *cachedConfigFileName;
     NSURL *cachedDownloadURL;
     NSURL *cachedHostURL;
     NSURL *cachedUniversalLink;
     NSString *quitURLTrimmed;
+    NSString *startURLQueryParameter;
     BOOL sendHashKeys;
     BOOL pinEmbeddedCertificates;
+    BOOL downloadPDFFiles;
 }
 
-@property (weak) id delegate;
+@property (weak) id<SEBBrowserControllerDelegate> delegate;
 
 @property (strong, nonatomic) NSURL *sebServerExamStartURL;
+
+@property (readwrite) BOOL directConfigDownloadAttempted;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
 
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
+@property (strong) NSURLCredential *enteredCredential;
 @property (strong) id URLSession;
+@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
 @property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong) SEBURLFilter *urlFilter;
@@ -158,6 +182,7 @@
 
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
+- (NSString *) startURLQueryParameter:(NSURL**)url;
 - (NSString *) backToStartURLString;
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
@@ -165,6 +190,19 @@
 - (NSString *) configKeyForURL:(NSURL *)url;
 
 - (void) conditionallyInitCustomHTTPProtocol;
+
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
+- (BOOL)sebWebView:(SEBAbstractWebView*)webView
+decidePolicyForMIMEType:(NSString*)mimeType
+               url:(NSURL *)url
+   canShowMIMEType:(BOOL)canShowMIMEType
+    isForMainFrame:(BOOL)isForMainFrame
+ suggestedFilename:(NSString *)suggestedFilename;
+- (void) openConfigFromSEBURL:(NSURL *)url;
+
+
+@property (strong) NSString *currentMainHost;
+@property (weak) SEBAbstractWebView *temporaryWebView;
 
 /**
  * @brief       Checks if a URL is in an associated domain and therefore might have

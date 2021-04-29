@@ -556,8 +556,10 @@
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
-        [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
-        return NO;
+        if (![self.navigationDelegate downloadingInTemporaryWebView]) {
+            [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
+            return NO;
+        }
     }
 
     // Downloading image files for the freehand drawing functionality
@@ -646,6 +648,16 @@
     }
 }
 
+
+- (BOOL)sebWebViewDecidePolicyForMIMEType:(NSString*)mimeType
+                                      url:(NSURL *)url
+                          canShowMIMEType:(BOOL)canShowMIMEType
+                           isForMainFrame:(BOOL)isForMainFrame
+                        suggestedFilename:(NSString *)suggestedFilename
+{
+    return [self.navigationDelegate sebWebView:_sebWebView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename];
+}
+
     
 - (void)setBackForwardAvailabilty
 {
@@ -662,9 +674,9 @@
 }
 
 
-- (void) openNewTabWithURL:(NSURL *)url
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
-    [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url];
 }
 
 

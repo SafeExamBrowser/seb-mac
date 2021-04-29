@@ -67,9 +67,9 @@
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
-- (void) openNewTabWithURL:(NSURL *)url;
-- (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
-- (void) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage;
 - (void) loadPersistedOpenWebPages;
 
 - (void) closeAllTabs;
