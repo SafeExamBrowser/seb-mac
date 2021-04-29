@@ -185,38 +185,14 @@
 
 - (void) showAlertWithError:(NSError *)error
 {
-    if (_sebViewController.alertController) {
-        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    NSString *alertMessage = error.localizedRecoverySuggestion;
-    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
-    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
-                                                                              message:alertMessage
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               self->_sebViewController.alertController = nil;
-                                                                           }]];
-    
-    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+    [_sebViewController showAlertWithError:error];
 }
 
 
 - (void) showAlertWithTitle:(NSString *)title
                     andText:(NSString *)informativeText
 {
-    if (_sebViewController.alertController) {
-        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:title
-                                                                              message:informativeText
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               self->_sebViewController.alertController = nil;
-                                                                           }]];
-    
-    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+    [_sebViewController showAlertWithTitle:title andText:informativeText];
 }
 
 
@@ -292,7 +268,7 @@
 
 
 - (void) presentErrorAlert:(NSError *)error {
-//    [NSApp presentError:error];
+    [self showAlertWithError:error];
 }
 
 - (void)promptPasswordForHashedPassword:(NSString *)passwordHash messageText:(NSString *)messageText title:(NSString *)title attempts:(NSInteger)attempts callback:(id)callback selector:(SEL)aSelector completionHandler:(void (^)(BOOL))enteredPasswordHandler {

@@ -96,11 +96,11 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (SEBBrowserController *)browserController
+- (SEBiOSBrowserController *)browserController
 {
     if (!_browserController) {
-        _browserController = [[SEBBrowserController alloc] init];
-        _browserController.delegate = self;
+        _browserController = [[SEBiOSBrowserController alloc] init];
+        _browserController.sebViewController = self;
     }
     return _browserController;
 }
@@ -198,6 +198,12 @@ static NSMutableSet *browserWindowControllers;
     }
     
     return configuration;
+}
+
+
+- (BOOL)isStartingUp
+{
+    return !_finishedStartingUp;
 }
 
 
@@ -493,7 +499,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange: previousTraitCollection];
-
+    
     [self adjustBars];
 }
 
@@ -524,11 +530,11 @@ static NSMutableSet *browserWindowControllers;
         BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 ||
                                                                 calculatedNavigationBarHeight == 42 ||
                                                                 calculatedNavigationBarHeight == -24);
-
+        
         _bottomBackgroundView.hidden = sideSafeAreaInsets;
         
         BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
-                        self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
+                                 self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
         
         if (_navigationBarHeightConstraint) {
             CGFloat navigationBarHeight;
@@ -540,7 +546,7 @@ static NSMutableSet *browserWindowControllers;
                 navigationBarOffset = 24;
                 navigationBarItemsOffset = -4;
                 self.additionalSafeAreaInsets = UIEdgeInsetsMake(-8, 0, 0, 0);
-
+                
             } else {
                 navigationBarHeight = (sideSafeAreaInsets && iPhoneXLandscape) ? 32 : 46;
                 navigationBarOffset = (sideSafeAreaInsets || !_finishedStartingUp) ? 0 : 12;
@@ -743,7 +749,7 @@ static NSMutableSet *browserWindowControllers;
             NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             _resettingSettings = NO;
-
+            
             if (!_finishedStartingUp) {
                 // Continue starting up SEB without resetting settings
                 [self conditionallyStartKioskMode];
@@ -812,7 +818,7 @@ static NSMutableSet *browserWindowControllers;
             }];
             return;
         }
-
+        
         if (!_assistantViewController) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
@@ -827,7 +833,7 @@ static NSMutableSet *browserWindowControllers;
         
         // Add scan QR code Home screen quick action
         [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
-
+        
         self.initAssistantOpen = true;
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
         }];
@@ -868,7 +874,7 @@ static NSMutableSet *browserWindowControllers;
     BOOL handled = false;
     
     NSString *scanQRCodeConfigItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
-
+    
     if ([shortcutItem.type isEqualToString:scanQRCodeConfigItemType]) {
         handled = true;
         [self scanQRCode];
@@ -904,7 +910,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
     [self becomeFirstResponder];
-
+    
     if (!_scannedQRCode) {
         _scannedQRCode = true;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
@@ -925,7 +931,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
     [self becomeFirstResponder];
-
+    
     [self.sideMenuController hideLeftView];
     [self adjustBars];
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
@@ -1138,13 +1144,13 @@ static NSMutableSet *browserWindowControllers;
     _settingsOpen = true;
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+    
     // Get hashed passwords and put empty or placeholder strings into the password fields in InAppSettings
     NSString *hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     NSString *placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"adminPassword"];
     adminPasswordPlaceholder = true;
-
+    
     hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"quitPassword"];
@@ -1156,14 +1162,14 @@ static NSMutableSet *browserWindowControllers;
             self.alertController = nil;
         }];
     }
-
+    
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-
+    
     self.appSettingsViewController.showDoneButton = YES;
     if (@available(iOS 13.0, *)) {
         self.appSettingsViewController.modalInPopover = YES;
     }
-
+    
     if (!settingsShareButton) {
         settingsShareButton = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -1171,16 +1177,16 @@ static NSMutableSet *browserWindowControllers;
                                action:@selector(shareSettingsAction:)];
         settingsShareButton.accessibilityLabel = NSLocalizedString(@"Share", nil);
         settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", nil);
-
+        
     }
     if (!settingsActionButton) {
         settingsActionButton = [[UIBarButtonItem alloc]
-                               initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                               target:self
+                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                target:self
                                 action:@selector(moreSettingsActions:)];
         settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", nil);
         settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", nil);
-
+        
     }
     self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
     
@@ -1205,9 +1211,9 @@ static NSMutableSet *browserWindowControllers;
 - (void)inAppSettingsChanged:(NSNotification *)notification
 {
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
     NSArray *changedKeys = [notification.userInfo allKeys];
-
+    
     if ([changedKeys containsObject:@"adminPassword"]) {
         adminPasswordPlaceholder = false;
     }
@@ -1364,87 +1370,87 @@ static NSMutableSet *browserWindowControllers;
     if (!NSUserDefaults.userDefaultsPrivate) {
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Exam Settings", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 self.alertController = nil;
-
-                                                                 DDLogInfo(@"Create Exam Settings");
-                                                                 
-                                                                 // Update entered passwords and save their hashes to SEB settings
-                                                                 // as long as the passwords were really entered and don't contain the hash placeholders
-                                                                 [self updateEnteredPasswords];
-                                                                 
-                                                                 // Get key/values from local shared client UserDefaults
-                                                                 NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                                                                 NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
-                                                                 
-                                                                 // Cache the option "Auto-Select Identity"
-                                                                 BOOL configFileEncryptUsingIdentity = ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]);
-                                                                 
-                                                                 // Reset config file hash, so the auto-select option can do its job
-                                                                 self.configFileKeyHash = nil;
-
-                                                                 // Switch to private UserDefaults (saved non-persistently in memory)
-                                                                 NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
-                                                                 [NSUserDefaults setUserDefaultsPrivate:YES];
-                                                                 
-                                                                 [self.configFileController storeIntoUserDefaults:localClientPreferences];
-                                                                 
-                                                                 DDLogVerbose(@"Private preferences set: %@", privatePreferences);
-
-                                                                 // Switch config purpose to "starting exam"
-                                                                 [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
-
-                                                                 // Check if the option "Auto-Select Identity" was enabled in client config
-                                                                 if (configFileEncryptUsingIdentity &&
-                                                                     [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
-                                                                     self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
-                                                                     // Select the last identity certificate from the list
-                                                                     [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
-                                                                 }
-//                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
-
-                                                                 // Close then reopen settings view controller (so new settings are displayed)
-                                                                 [self closeThenReopenSettings];
-                                                             }]];
+            self.alertController = nil;
+            
+            DDLogInfo(@"Create Exam Settings");
+            
+            // Update entered passwords and save their hashes to SEB settings
+            // as long as the passwords were really entered and don't contain the hash placeholders
+            [self updateEnteredPasswords];
+            
+            // Get key/values from local shared client UserDefaults
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
+            
+            // Cache the option "Auto-Select Identity"
+            BOOL configFileEncryptUsingIdentity = ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]);
+            
+            // Reset config file hash, so the auto-select option can do its job
+            self.configFileKeyHash = nil;
+            
+            // Switch to private UserDefaults (saved non-persistently in memory)
+            NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+            [NSUserDefaults setUserDefaultsPrivate:YES];
+            
+            [self.configFileController storeIntoUserDefaults:localClientPreferences];
+            
+            DDLogVerbose(@"Private preferences set: %@", privatePreferences);
+            
+            // Switch config purpose to "starting exam"
+            [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+            
+            // Check if the option "Auto-Select Identity" was enabled in client config
+            if (configFileEncryptUsingIdentity &&
+                [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
+                self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
+                // Select the last identity certificate from the list
+                [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
+            }
+            //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+            
+            // Close then reopen settings view controller (so new settings are displayed)
+            [self closeThenReopenSettings];
+        }]];
     } else {
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", nil)
                                                              style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-                                                                 self.alertController = nil;
-                                                                 
-                                                                 // Switch to system's UserDefaults (persisted)
-                                                                 [NSUserDefaults setUserDefaultsPrivate:NO];
-//                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-                                                                 
-                                                                 // Reset config file hash (client config isn't encrypted using an identity)
-                                                                 self.configFileKeyHash = nil;
-
-                                                                 // Close then reopen settings view controller (so new settings are displayed)
-                                                                 [self closeThenReopenSettings];
-                                                             }]];
+            self.alertController = nil;
+            
+            // Switch to system's UserDefaults (persisted)
+            [NSUserDefaults setUserDefaultsPrivate:NO];
+            //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+            
+            // Reset config file hash (client config isn't encrypted using an identity)
+            self.configFileKeyHash = nil;
+            
+            // Close then reopen settings view controller (so new settings are displayed)
+            [self closeThenReopenSettings];
+        }]];
     }
     
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset to Default Settings", nil)
                                                          style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-                                                             self.alertController = nil;
-                                                             
-                                                             // Write just default SEB settings to UserDefaults
-                                                             NSDictionary *emptySettings = [NSDictionary dictionary];
-                                                             [self.configFileController storeIntoUserDefaults:emptySettings];
-                                                             
-//                                                             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
-                                                             // Close then reopen settings view controller (so new settings are displayed)
-                                                             [self closeThenReopenSettings];
-                                                         }]];
-   
+        self.alertController = nil;
+        
+        // Write just default SEB settings to UserDefaults
+        NSDictionary *emptySettings = [NSDictionary dictionary];
+        [self.configFileController storeIntoUserDefaults:emptySettings];
+        
+        //                                                             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+        // Close then reopen settings view controller (so new settings are displayed)
+        [self closeThenReopenSettings];
+    }]];
+    
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                             self.alertController = nil;
-                                                             
-                                                         }]];
+        self.alertController = nil;
+        
+    }]];
     
     _alertController.popoverPresentationController.barButtonItem = sender;
     _alertController.popoverPresentationController.sourceView = self.view;
-
+    
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
@@ -1461,7 +1467,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {    
     [self becomeFirstResponder];
-
+    
     // Update entered passwords and save their hashes to SEB settings
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
@@ -1504,9 +1510,9 @@ static NSMutableSet *browserWindowControllers;
     // Settings
     if (_startingExamFromSEBServer) {
         _startingExamFromSEBServer = false;
-//        [self.serverController loginToExamAborted];
+        //        [self.serverController loginToExamAborted];
     }
-
+    
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
     _settingsDidClose = YES;
@@ -1538,7 +1544,7 @@ static NSMutableSet *browserWindowControllers;
                 clientConfigActive &&
                 (!currentURL ||
                  (self.browserTabViewController.openWebpages.count == 1 &&
-                [currentURL isEqualToString:currentStartURLTrimmed]) ||
+                  [currentURL isEqualToString:currentStartURLTrimmed]) ||
                  _clientConfigSecureModePaused))
             {
                 DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
@@ -1574,7 +1580,7 @@ static NSMutableSet *browserWindowControllers;
             [self conditionallyOpenSEBConfig:serverConfig
                                     callback:self
                                     selector:@selector(handleMDMServerConfig:)];
-
+            
         } else {
             DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             _isReconfiguringToMDMConfig = NO;
@@ -1978,8 +1984,8 @@ void run_on_ui_thread(dispatch_block_t block)
                     }
                     
                     self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
-                                                                                message:message
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                                                                               message:message
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
                     
                     NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
                                                   audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
@@ -2095,7 +2101,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                            constant:0]];
     
     SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
-
+    
     CGFloat bottomPadding = 0;
     
     if (@available(iOS 11.0, *)) {
@@ -2104,7 +2110,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // running on a device like iPhone X
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
         bottomPadding = window.safeAreaInsets.bottom;
-
+        
         if (bottomPadding != 0 && self.sebUIController.browserToolbarEnabled) {
             
             [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -2186,12 +2192,12 @@ void run_on_ui_thread(dispatch_block_t block)
                 [constraints_V addObject:_statusBarBottomConstraint];
             } else {
                 _statusBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:_containerView.safeAreaLayoutGuide
-                                                                      attribute:NSLayoutAttributeTop
-                                                                     multiplier:1.0
-                                                                       constant:statusBarBottomOffset];
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeTop
+                                                                         multiplier:1.0
+                                                                           constant:statusBarBottomOffset];
                 [constraints_V addObject:_statusBarBottomConstraint];
             }
         }
@@ -2204,7 +2210,7 @@ void run_on_ui_thread(dispatch_block_t block)
         CGFloat topInset = self.view.superview.safeAreaInsets.top;
         DDLogDebug(@"%f, %f, %f, ", topPadding, topMargin, topInset);
 #endif
-
+        
     } else {
         [constraints_V addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[statusBarView(==20)]"
                                                                                    options: 0
@@ -2229,14 +2235,14 @@ void run_on_ui_thread(dispatch_block_t block)
                  backgroundTintStyle:SEBBackgroundTintStyleNone];
         }
     }
-
+    
     [self setNeedsStatusBarAppearanceUpdate];
-
+    
 }
 
 - (void) addBlurEffectStyle: (UIBlurEffectStyle)style
                   toBarView: (UIView *)barView
-             backgroundTintStyle: (SEBBackgroundTintStyle)backgroundTintStyle
+        backgroundTintStyle: (SEBBackgroundTintStyle)backgroundTintStyle
 {
     barView.backgroundColor = [UIColor clearColor];
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:style];
@@ -2269,10 +2275,10 @@ void run_on_ui_thread(dispatch_block_t block)
         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
         }];
     }
-
+    
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
-
+    
     self.browserController = nil;
     
     [self.jitsiViewController closeJitsiMeetWithSender:self];
@@ -2281,9 +2287,9 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     
     self.appDelegate.sebUIController = nil;
-
+    
     self.viewDidLayoutSubviewsAlreadyCalled = NO;
-
+    
     run_on_ui_thread(^{
         [self.browserTabViewController closeAllTabs];
         self.sessionRunning = false;
@@ -2302,25 +2308,25 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
-        [self closeSettingsBeforeOpeningSEBConfig:url
-                                callback:self
-                                selector:@selector(downloadSEBConfigFromURL:)];
-    }
+    [self closeSettingsBeforeOpeningSEBConfig:url
+                                     callback:self
+                                     selector:@selector(downloadSEBConfigFromURL:)];
+}
 
 
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData
 {
     [self closeSettingsBeforeOpeningSEBConfig:sebConfigData
-                            callback:self
-                            selector:@selector(storeNewSEBSettings:)];
+                                     callback:self
+                                     selector:@selector(storeNewSEBSettings:)];
 }
 
 
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL
 {
     [self closeSettingsBeforeOpeningSEBConfig:universalURL
-                            callback:self.browserController
-                            selector:@selector(handleUniversalLink:)];
+                                     callback:self.browserController
+                                     selector:@selector(handleUniversalLink:)];
 }
 
 
@@ -2330,7 +2336,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!NSUserDefaults.userDefaultsPrivate  && [self isReceivedServerConfigNew:serverConfig]) {
         _didReceiveMDMConfig = YES;
         [self resetReceivedServerConfig];
-
+        
         if (_settingsOpen) {
             if (!_alertController && !self.appSettingsViewController.presentedViewController) {
                 _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
@@ -2472,23 +2478,15 @@ void run_on_ui_thread(dispatch_block_t block)
             // If a quit password is set (= running in exam session),
             // then check if the reconfigure config file URL matches the setting
             // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
-            BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-            BOOL examSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-            BOOL examSessionReconfigureURLMatch = NO;
-            if (examSession && examSessionReconfigureAllow) {
-                if ([sebConfig isKindOfClass:[NSURL class]]) {
-                    NSString *sebConfigURLString = [(NSURL *)sebConfig absoluteString];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
-                    examSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
-                }
+            NSURL *sebConfigURL = nil;
+            if ([sebConfig isKindOfClass:[NSURL class]]) {
+                sebConfigURL = (NSURL *)sebConfig;
             }
             // Check if SEB is in exam mode (= quit password is set) and exam is running,
             // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
             // or SEB isn't in exam mode, but is running with settings for starting an exam and the
             // reconfigure allow setting isn't set
-            if (_sessionRunning && (
-                (examSession && !(examSessionReconfigureAllow && examSessionReconfigureURLMatch)) ||
-                (!examSession && NSUserDefaults.userDefaultsPrivate && !examSessionReconfigureAllow))) {
+            if (_sessionRunning && ![self.browserController isReconfiguringAllowedFromURL:sebConfigURL]) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
                 if (_alertController) {
@@ -2499,8 +2497,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         self->_alertController = nil;
-                                                                     }]];
+                    self->_alertController = nil;
+                }]];
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
                 return;
             }
@@ -2519,26 +2517,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) downloadSEBConfigFromURL:(NSURL *)url
 {
     // Check URL for additional query string
-    startURLQueryParameter = nil;
-    NSString *queryString = url.query;
-    if (queryString.length > 0) {
-        NSArray *additionalQueryStrings = [queryString componentsSeparatedByString:@"?"];
-        // There is an additional query string if the full query URL component itself containts
-        // a query separator character "?"
-        if (additionalQueryStrings.count == 2) {
-            // Cache the additional query string for later use
-            startURLQueryParameter = additionalQueryStrings.lastObject;
-            // Replace the full query string in the download URL with the first query component
-            // (which is the actual query of the SEB config download URL)
-            queryString = additionalQueryStrings.firstObject;
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-            if (queryString.length == 0) {
-                queryString = nil;
-            }
-            urlComponents.query = queryString;
-            url = urlComponents.URL;
-        }
-    }
+    startURLQueryParameter = [self.browserController startURLQueryParameter:&url];
     
     if (url.isFileURL) {
         run_on_ui_thread(^{
@@ -2566,16 +2545,18 @@ void run_on_ui_thread(dispatch_block_t block)
                     DDLogError(@"Coordinating reading the file URL %@ contents failed with error %@", url, error);
                 }
             }];
-
+            
         });
         return;
     }
-    
+    [self.browserController openConfigFromSEBURL:url];
+    return;
+    /*
     if (!self.browserController.URLSession) {
         NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
     }
-
+    
     // Download the .seb file directly into memory (not onto disc like other files)
     if ([url.scheme isEqualToString:SEBProtocolScheme]) {
         // If it's a seb:// URL, we try to download it by http
@@ -2587,33 +2568,33 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.browserController.downloadTask cancel];
         }
         self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpURL
-                                   completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                         {
-                             if (error) {
-                                 // If that didn't work, we try to download it by https
-                                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                                 urlComponents.scheme = @"https";
-                                 NSURL *httpsURL = urlComponents.URL;
-                                 self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
-                                                            completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                                  {
-                                                      self.browserController.downloadTask = nil;
-                                                      // Still couldn't download the .seb file: present an error and abort
-                                                      if (error) {
-                                                          error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-                                                          [self storeNewSEBSettingsSuccessful:error];
-                                                      } else {
-                                                          [self storeDownloadedData:sebFileData fromURL:url];
-                                                      }
-                                                  }];
-                                 [self.browserController.downloadTask resume];
-                             } else {
-                                 [self storeDownloadedData:sebFileData fromURL:url];
-                             }
-                         }];
+                                                                               completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                               {
+            if (error) {
+                // If that didn't work, we try to download it by https
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                urlComponents.scheme = @"https";
+                NSURL *httpsURL = urlComponents.URL;
+                self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
+                                                                                       completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                                       {
+                    self.browserController.downloadTask = nil;
+                    // Still couldn't download the .seb file: present an error and abort
+                    if (error) {
+                        error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+                        [self storeNewSEBSettingsSuccessful:error];
+                    } else {
+                        [self storeDownloadedData:sebFileData fromURL:url];
+                    }
+                }];
+                [self.browserController.downloadTask resume];
+            } else {
+                [self storeDownloadedData:sebFileData fromURL:url];
+            }
+        }];
         [self.browserController.downloadTask resume];
         return;
-
+        
     } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
         // If it's a sebs:// URL, we try to download it by https
         NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
@@ -2623,45 +2604,45 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.browserController.downloadTask cancel];
         }
         self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
-                                           completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                             {
-                                 self.browserController.downloadTask = nil;
-                                 // Still couldn't download the .seb file: present an error and abort
-                                 if (error || !sebFileData) {
-                                     // Couldn't download the .seb file: for the case it is a deep link, treat the link
-                                     // same as a Universal Link
-                                     [self.browserController handleUniversalLink:httpsURL];
-                                 } else {
-                                     [self storeDownloadedData:sebFileData fromURL:url];
-                                 }
-                             }];
+                                                                               completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                               {
+            self.browserController.downloadTask = nil;
+            // Still couldn't download the .seb file: present an error and abort
+            if (error || !sebFileData) {
+                // Couldn't download the .seb file: for the case it is a deep link, treat the link
+                // same as a Universal Link
+                [self.browserController handleUniversalLink:httpsURL];
+            } else {
+                [self storeDownloadedData:sebFileData fromURL:url];
+            }
+        }];
         [self.browserController.downloadTask resume];
-
+        
     } else {
         // We got passed a http(s) URL: Try to download the seb data directly
         if (self.browserController.downloadTask) {
             [self.browserController.downloadTask cancel];
         }
         self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:url
-                                           completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                             {
-                                 self.browserController.downloadTask = nil;
-                                 if (error || !sebFileData) {
-                                     // Check if the URL is in an associated domain
-                                     [self storeSEBSettingsDownloadedDirectlySuccessful:error];
-                                 } else {
-                                     // Directly downloading config file worked:
-                                     
-                                     // Cache current config URL, as it has to be restored if current URL fails in the end
-                                     self->currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-                                     
-                                     // Store the filename from the URL as current config file name
-                                     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
-                                     [self storeDownloadedData:sebFileData fromURL:url];
-                                 }
-                             }];
+                                                                               completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                               {
+            self.browserController.downloadTask = nil;
+            if (error || !sebFileData) {
+                // Check if the URL is in an associated domain
+                [self storeSEBSettingsDownloadedDirectlySuccessful:error];
+            } else {
+                // Directly downloading config file worked:
+                
+                // Cache current config URL, as it has to be restored if current URL fails in the end
+                self->currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+                
+                // Store the filename from the URL as current config file name
+                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
+                [self storeDownloadedData:sebFileData fromURL:url];
+            }
+        }];
         [self.browserController.downloadTask resume];
-    }
+    }*/
 }
 
 
@@ -2682,7 +2663,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (error) {
         // Check if config couldn't be decrypted because of an unavailable identity certificate
         if (!(error.code == SEBErrorNoValidConfigData ||
-            error.code == SEBErrorNoValidPrefixNoValidUnencryptedHeader)) {
+              error.code == SEBErrorNoValidPrefixNoValidUnencryptedHeader)) {
             [self storeNewSEBSettingsSuccessful:error];
             return;
         }
@@ -2813,16 +2794,16 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                     preferredStyle:UIAlertControllerStyleAlert];
                 [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                             self->_alertController = nil;
-                                                                             if (!self->_finishedStartingUp) {
-                                                                                 // Continue starting up SEB without resetting settings
-                                                                                 [self conditionallyStartKioskMode];
-                                                                             }
-                                                                         }]];
+                    self->_alertController = nil;
+                    if (!self->_finishedStartingUp) {
+                        // Continue starting up SEB without resetting settings
+                        [self conditionallyStartKioskMode];
+                    }
+                }]];
                 
                 [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
             });
-
+            
         } else if (!self.finishedStartingUp || self.pausedSAMAlertDisplayed) {
             self.pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
@@ -2832,7 +2813,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self conditionallyStartKioskMode];
                 }];
             });
-
+            
         } else {
             self.establishingSEBServerConnection = false;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -2840,6 +2821,24 @@ void run_on_ui_thread(dispatch_block_t block)
             });
         }
     }
+}
+
+
+- (void) showAlertWithTitle:(NSString *)title
+                    andText:(NSString *)informativeText
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _alertController = [UIAlertController  alertControllerWithTitle:title
+                                                                              message:informativeText
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               self.alertController = nil;
+                                                                           }]];
+    
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
@@ -2867,6 +2866,25 @@ void run_on_ui_thread(dispatch_block_t block)
     }]];
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+- (void) showAlertWithError:(NSError *)error
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    NSString *alertMessage = error.localizedRecoverySuggestion;
+    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
+    _alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
+                                                                              message:alertMessage
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               self.alertController = nil;
+                                                                           }]];
+    
+    [_topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
@@ -2998,15 +3016,15 @@ void run_on_ui_thread(dispatch_block_t block)
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             self->_alertController = nil;
-                                                             [self sessionQuitRestart:restart];
-                                                         }]];
+        self->_alertController = nil;
+        [self sessionQuitRestart:restart];
+    }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                             self->_alertController = nil;
-                                                             [self.sideMenuController hideLeftViewAnimated];
-                                                         }]];
+        self->_alertController = nil;
+        [self.sideMenuController hideLeftViewAnimated];
+    }]];
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
@@ -3115,21 +3133,21 @@ quittingClientConfig:(BOOL)quittingClientConfig
     [self resetSEB];
     
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-
+    
     // We only might need to switch off kiosk mode if it was active in previous settings
     if (_secureMode) {
-
+        
         // Remove this exam from the list of running exams,
         // otherwise it would be locked next time it is started again
         [self.sebLockedViewController removeLockedExam:currentStartURL];
-
+        
         // Clear Pasteboard if we don't have to copy the hash keys into it
         if (pasteboardString) {
             pasteboard.string = pasteboardString;
         } else {
             pasteboard.items = @[];
         }
-
+        
         // Get new setting for running SEB in secure mode
         BOOL oldSecureMode = _secureMode;
         
@@ -3141,7 +3159,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         }
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
-
+        
         // If there are one or more difference(s) in active kiosk mode
         // compared to the new kiosk mode settings, also considering:
         // when we're running in SAM mode, it's not relevant if settings for ASAM differ
@@ -3160,7 +3178,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                 }
-
+                
                 _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
                                                                         message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
@@ -3270,7 +3288,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     if (@available(iOS 13.0, *)) {
         _sebServerViewController.modalInPopover = YES;
     }
-
+    
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
         self.sebServerViewDisplayed = true;
         self.sebServerViewController.sebServerController = self.serverController.sebServerController;
@@ -3376,7 +3394,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (void) singleAppModeStatusChanged
 {
     if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == false) {
-
+        
         // Is the exam already running?
         if (_sessionRunning) {
             
@@ -3399,15 +3417,15 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 
                 // Save current time for information about when Guided Access was switched off
                 _didResignActiveTime = [NSDate date];
-
+                
                 DDLogError(@"Single App Mode switched off!");
-
+                
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime];
-
+                
             } else {
                 
                 /// SAM is on again
@@ -3416,7 +3434,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 _didBecomeActiveTime = [NSDate date];
                 
                 DDLogDebug(@"Single App Mode was switched on again.");
-
+                
                 [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
                 // Close lock windows only if the correct quit/restart password was entered already
@@ -3442,7 +3460,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 [self startExam];
                 
             } else {
-
+                
                 // Dismiss the Waiting for SAM to end alert
                 if (_endSAMWAlertDisplayed) {
                     [_alertController dismissViewControllerAnimated:NO completion:^{
@@ -3485,7 +3503,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
              allowBetaiOSVersion != currentOSMajorVersion))
         { //if allowed, version has to match current iOS
             DDLogError(@"%s Show alert 'Running on New iOS Version Not Allowed'", __FUNCTION__);
-
+            
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
@@ -3546,7 +3564,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                 allowediOSVersionMinorString,
                                                 allowediOSVersionPatchString];
             DDLogError(@"%s %@", __FUNCTION__, alertMessageiOSVersion);
-
+            
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
@@ -3668,7 +3686,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     
     // Is using classic Single App Mode (SAM) allowed in current settings?
     _allowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
-
+    
     DDLogInfo(@"%s: secureMode = %d, enableASAM = %d, allowSAM: %d", __FUNCTION__, _secureMode, _enableASAM, _allowSAM);
 }
 
@@ -3694,19 +3712,19 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (void) requestDisablingSAM
 {
     DDLogInfo(@"%s SAM/Guided Access (or AAC/ASAM because of previous crash) is still active, in needs to be (manually) disabled", __FUNCTION__);
-
+    
     // Is SAM/Guided Access (or ASAM because of previous crash) still active?
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     if (_SAMActive) {
         DDLogDebug(@"%s _SAMActive", __FUNCTION__);
-
+        
         if (!ASAMActiveChecked) {
             DDLogDebug(@"%s !ASAMActiveChecked", __FUNCTION__);
-
+            
             // First try to switch off ASAM in case it was active because of a previously happend crash
             UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
                 DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
-
+                
                 self->ASAMActiveChecked = YES;
                 if (didSucceed) {
                     DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
@@ -3724,7 +3742,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             // until Guided Access/SAM is switched off
             if (_enableASAM && !_allowSAM) {
                 DDLogDebug(@"%s _enableASAM && !_allowSAM", __FUNCTION__);
-
+                
                 // Warn user that SAM/Guided Access must first be switched off
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -3734,17 +3752,17 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         self->_alertController = nil;
-                                                                         // Check again if a single app mode is still active
-                                                                         [self requestDisablingSAM];
-                                                                     }]];
+                    self->_alertController = nil;
+                    // Check again if a single app mode is still active
+                    [self requestDisablingSAM];
+                }]];
                 
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                         self->_alertController = nil;
-                                                                         [[NSNotificationCenter defaultCenter]
-                                                                          postNotificationName:@"requestQuit" object:self];
-                                                                     }]];
+                    self->_alertController = nil;
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                }]];
                 
                 [self.topMostController presentViewController:_alertController animated:NO completion:nil];
             }
@@ -3913,7 +3931,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             DDLogInfo(@"%s: SAM/Guided Access is not on, showing alert 'Waiting for Single App Mode – Single App Mode needs to be reactivated before %@ can continue.'", __FUNCTION__, SEBShortAppName);
-
+            
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:[NSString stringWithFormat:NSLocalizedString(@"Single App Mode needs to be reactivated before %@ can continue.", nil), SEBShortAppName]
                                                              preferredStyle:UIAlertControllerStyleAlert];
@@ -4034,7 +4052,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     }
     // Save current time for information about when lock windows were opened
     self.didLockSEBTime = [NSDate date];
-
+    
     if (!_sebLocked) {
         // This sets us as the SEBLockedViewControllerDelegate
         _sebLockedViewController.sebViewController = self;
@@ -4073,7 +4091,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                              multiplier:1.0
                                                                constant:0]];
         [_rootViewController.view addConstraints:constraints];
-
+        
         _sebLocked = true;
     }
 }
@@ -4183,7 +4201,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         NSString *jitsiMeetToken = attributes[@"jitsiMeetToken"];
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (jitsiMeetServerURL && jitsiMeetRoom && jitsiMeetToken && instructionConfirm) {
-//            DDLogInfo(@"%s: Starting Jitsi Meet proctoring.", __FUNCTION__);
+            //            DDLogInfo(@"%s: Starting Jitsi Meet proctoring.", __FUNCTION__);
             [self.jitsiViewController openJitsiMeetWithServerURL:jitsiMeetServerURL
                                                             room:jitsiMeetRoom
                                                          subject:jitsiMeetSubject
@@ -4254,8 +4272,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 self->_alertController = nil;
-                                                             }]];
+            self->_alertController = nil;
+        }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     }
     [self.sideMenuController hideLeftViewAnimated];
@@ -4326,7 +4344,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             CVPixelBufferRef pixelBuffer = rtcPixelBuffer.pixelBuffer;
             
             CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
-
+            
             CIImage *cameraImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer];
             CGRect cameraExtend = cameraImage.extent;
             CGFloat badgeX = (cameraExtend.size.width - cameraExtend.size.height)/2 + cameraExtend.size.height - 100;
@@ -4360,31 +4378,31 @@ quittingClientConfig:(BOOL)quittingClientConfig
             }
             int orientation;
             switch (rotation) {
-              case RTCVideoRotation_0:
-                orientation = kCGImagePropertyOrientationUp;
-                break;
+                case RTCVideoRotation_0:
+                    orientation = kCGImagePropertyOrientationUp;
+                    break;
                 case RTCVideoRotation_90:
-                orientation = kCGImagePropertyOrientationLeft;
-                break;
-              case RTCVideoRotation_180:
-                orientation = kCGImagePropertyOrientationDown;
-                break;
-              case RTCVideoRotation_270:
-                orientation = kCGImagePropertyOrientationRight;
-                break;
+                    orientation = kCGImagePropertyOrientationLeft;
+                    break;
+                case RTCVideoRotation_180:
+                    orientation = kCGImagePropertyOrientationDown;
+                    break;
+                case RTCVideoRotation_270:
+                    orientation = kCGImagePropertyOrientationRight;
+                    break;
             }
             CIImage *rotatedBadge = [self.proctoringStateIcon imageByApplyingOrientation:orientation];
             CGAffineTransform transform = CGAffineTransformMakeTranslation(badgeX,30);
             CIImage *transformedOverlayImage = [rotatedBadge imageByApplyingTransform:transform];
-
+            
             cameraImage = [transformedOverlayImage imageByCompositingOverImage:cameraImage];
             [self.ciContext render:cameraImage toCVPixelBuffer:pixelBuffer bounds:cameraExtend colorSpace:cSpace];
-
+            
             CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
             CGColorSpaceRelease(cSpace);
         }
-
-    return frame;
+        
+        return frame;
     }
 }
 
@@ -4438,7 +4456,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     BOOL show = (navigationEnabled &&
                  !(self.sebUIController.dockEnabled &&
                    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]));
-
+    
     if (show) {
         // Add back/forward buttons to navigation bar
         toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateBackIcon"]
@@ -4448,7 +4466,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
         toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
         toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
-
+        
         toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
@@ -4456,7 +4474,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
         toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
         toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
-
+        
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
         
     } else {
@@ -4529,13 +4547,13 @@ quittingClientConfig:(BOOL)quittingClientConfig
                  message:NSLocalizedString(@"Are you sure?", nil)
             action1Title:NSLocalizedString(@"OK", nil)
           action1Handler:^{
-              [self->_browserTabViewController backToStart];
-              [self.sideMenuController hideLeftViewAnimated];
-          }
+        [self->_browserTabViewController backToStart];
+        [self.sideMenuController hideLeftViewAnimated];
+    }
             action2Title:NSLocalizedString(@"Cancel", nil)
           action2Handler:^{
-              [self.sideMenuController hideLeftViewAnimated];
-          }];
+        [self.sideMenuController hideLeftViewAnimated];
+    }];
 }
 
 
@@ -4572,21 +4590,21 @@ quittingClientConfig:(BOOL)quittingClientConfig
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _alertController = [UIAlertController alertControllerWithTitle:title
-                                                            message:message
-                                                     preferredStyle:controllerStyle];
+                                                           message:message
+                                                    preferredStyle:controllerStyle];
     [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
                                                          style:action1Style
                                                        handler:^(UIAlertAction *action) {
-                                                             self->_alertController = nil;
-                                                             action1Handler();
-                                                         }]];
+        self->_alertController = nil;
+        action1Handler();
+    }]];
     if (action2Title) {
         [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
                                                              style:action2Style
                                                            handler:^(UIAlertAction *action) {
-                                                                 self->_alertController = nil;
-                                                                 action2Handler();
-                                                             }]];
+            self->_alertController = nil;
+            action2Handler();
+        }]];
     }
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
@@ -4671,7 +4689,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         [self->_browserTabViewController reload];
         [self.sideMenuController hideLeftViewAnimated];
     };
-
+    
     BOOL showReloadWarning = false;
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -4692,7 +4710,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         }
         showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning"];
     }
-
+    
     if (showReloadWarning) {
         [self alertWithTitle:NSLocalizedString(@"Reload Page", nil)
                      message:NSLocalizedString(@"Do you really want to reload the web page?", nil)
@@ -4700,8 +4718,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
               action1Handler:action1Handler
                 action2Title:NSLocalizedString(@"Cancel", nil)
               action2Handler:^{
-                  [self.sideMenuController hideLeftViewAnimated];
-              }];
+            [self.sideMenuController hideLeftViewAnimated];
+        }];
     } else {
         action1Handler();
     }
@@ -4712,7 +4730,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     toolbarBackButton.enabled = canGoBack;
     toolbarForwardButton.enabled = canGoForward;
-
+    
     [self.sebUIController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
@@ -4741,7 +4759,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     // Activate/Deactivate reload buttons in dock and slider
     [self.sebUIController activateReloadButtons:reloadEnabled];
-
+    
     if (reloadEnabled)  {
         if (self.sebUIController.browserToolbarEnabled &&
             !self.sebUIController.dockReloadButton) {
@@ -4754,7 +4772,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
             toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
             toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
-
+            
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
             return;
         }
@@ -4842,41 +4860,24 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (NSString *) showURLplaceholderTitleForWebpage
-{
-    NSString *placeholderString = nil;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
-            placeholderString = NSLocalizedString(@"the exam page", nil);
-        }
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
-            placeholderString = NSLocalizedString(@"the webpage", nil);
-        }
-    }
-    return placeholderString;
-}
-
-
 // Delegate method which displays a dialog when a config file
 // is being downloaded, providing a cancel button. When tapped, then
 // the callback method is invoked
 - (void) showOpeningConfigFileDialog:(NSString *)text
-                                     title:(NSString *)title
-                            cancelCallback:(id)callback
-                                  selector:(SEL)selector
+                               title:(NSString *)title
+                      cancelCallback:(id)callback
+                            selector:(SEL)selector
 {
-//    [self alertWithTitle:title
-//                 message:text
-//            action1Title:NSLocalizedString(@"Cancel", nil)
-//          action1Handler:^{
-//              IMP imp = [callback methodForSelector:selector];
-//              void (*func)(id, SEL) = (void *)imp;
-//              func(callback, selector);
-//          }
-//            action2Title:nil
-//          action2Handler:nil];
+    //    [self alertWithTitle:title
+    //                 message:text
+    //            action1Title:NSLocalizedString(@"Cancel", nil)
+    //          action1Handler:^{
+    //              IMP imp = [callback methodForSelector:selector];
+    //              void (*func)(id, SEL) = (void *)imp;
+    //              func(callback, selector);
+    //          }
+    //            action2Title:nil
+    //          action2Handler:nil];
 }
 
 
@@ -4884,10 +4885,10 @@ quittingClientConfig:(BOOL)quittingClientConfig
 // is being downloaded,
 - (void) closeOpeningConfigFileDialog;
 {
-//    if (_alertController) {
-//        [_alertController dismissViewControllerAnimated:NO completion:nil];
-//        _alertController = nil;
-//    }
+    //    if (_alertController) {
+    //        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    //        _alertController = nil;
+    //    }
 }
 
 
@@ -4898,7 +4899,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     [self.browserTabViewController sessionTaskDidCompleteSuccessfully:task];
 }
-
 
 #pragma mark - Search
 

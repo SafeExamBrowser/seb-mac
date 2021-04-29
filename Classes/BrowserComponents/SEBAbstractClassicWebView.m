@@ -114,6 +114,10 @@
     [self.browserControllerDelegate stopLoading];
 }
 
+- (void) disableSpellCheck {
+    [self.browserControllerDelegate disableSpellCheck];
+}
+
 
 - (void)toggleScrollLock
 {
@@ -155,9 +159,9 @@
     [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
-- (void) openNewTabWithURL:(NSURL *)url
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
-    [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url];
 }
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
@@ -200,6 +204,15 @@
     if ([self.navigationDelegate respondsToSelector:@selector(sebWebViewDidUpdateProgress:)]) {
         [self.navigationDelegate sebWebViewDidUpdateProgress:progress];
     }
+}
+
+- (BOOL)sebWebViewDecidePolicyForMIMEType:(NSString*)mimeType
+                                      url:(NSURL *)url
+                          canShowMIMEType:(BOOL)canShowMIMEType
+                           isForMainFrame:(BOOL)isForMainFrame
+                        suggestedFilename:(NSString *)suggestedFilename
+{
+    return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename];
 }
 
 - (SEBBackgroundTintStyle) backgroundTintStyle
