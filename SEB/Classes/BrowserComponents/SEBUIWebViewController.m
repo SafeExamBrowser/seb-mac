@@ -169,6 +169,10 @@
     [_sebWebView stopLoading];
 }
 
+- (void) disableSpellCheck {
+    allowSpellCheck = NO;
+}
+
 
 #pragma mark -
 #pragma mark UIWebViewDelegate

@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.11.14.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -81,5 +81,17 @@
     return [NSURL URLWithString:newURLString];
 }
 
+- (NSURL *) URLByReplacingScheme:(NSString *)scheme
+{
+    NSString *URLString = self.absoluteString;
+
+    NSRange scanResult = [URLString rangeOfString:@"://"];
+    if (scanResult.location != NSNotFound) {
+        // URL contains a scheme: replace it with the new one
+        URLString = [NSString stringWithFormat:@"%@%@", scheme, [URLString substringFromIndex:scanResult.location]];
+    }
+
+    return [NSURL URLWithString:URLString];
+}
 
 @end

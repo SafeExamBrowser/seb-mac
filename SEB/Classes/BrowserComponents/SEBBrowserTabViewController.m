@@ -272,39 +272,48 @@
 }
 
 
+- (BOOL)sebWebView:(SEBAbstractWebView*)webView
+decidePolicyForMIMEType:(NSString*)mimeType
+               url:(NSURL *)url
+   canShowMIMEType:(BOOL)canShowMIMEType
+    isForMainFrame:(BOOL)isForMainFrame
+ suggestedFilename:(NSString *)suggestedFilename
+{
+    return [_sebViewController.browserController sebWebView:webView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename];
+}
+
+
 #pragma mark - Opening and closing tabs
 
 // Open new tab and load URL
-- (void) openNewTabWithURL:(NSURL *)url
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
     _maxIndex++;
     NSUInteger index = _maxIndex;
-    [self openNewTabWithURL:url index:index];
+    return [self openNewTabWithURL:url index:index];
 }
 
 
 // Open new tab and load URL or image (in the case of a freehand drawing)
-- (void) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage
 {
     _maxIndex++;
     NSUInteger index = _maxIndex;
-    [self openNewTabWithURL:url index:index image:templateImage];
+    return [self openNewTabWithURL:url index:index image:templateImage];
 }
 
 
 // Open new tab and load URL, use passed index
-- (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
 {
-    [self openNewTabWithURL:url index:index image:nil];
+    return [self openNewTabWithURL:url index:index image:nil];
 }
 
 
-// Open new tab and load URL or template image (in the case of a freehand drawing)
-- (void) openNewTabWithURL:(NSURL *)url
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
                      index:(NSUInteger)index
                      image:(UIImage *)templateImage
 {
-
     // Save new tab data persistently
     NSManagedObjectContext *context = [self managedObjectContext];
     NSManagedObject *newWebpage = [NSEntityDescription
@@ -373,6 +382,7 @@
     [_visibleWebViewController loadURL:url];
     
 //    self.searchBarController.url = url.absoluteString;
+    return newOpenWebpage.webViewController.sebWebView;;
 }
 
 - (BOOL) examTabHasCommonHostWithURL:(NSURL *)url
@@ -471,6 +481,26 @@
 }
 
 
+- (void) closeTabWithWebView:(SEBAbstractWebView *)webView
+{
+    NSUInteger tabIndex = [self tabIndexForWebView:webView];
+    [self closeTabWithIndex:tabIndex];
+}
+
+
+- (NSUInteger) tabIndexForWebView:(SEBAbstractWebView *)webView
+{
+    NSUInteger tabIndex = 0;
+    for (OpenWebpages *openWebpage in _openWebpages) {
+        SEBWebViewController *webViewController = openWebpage.webViewController;
+        if ([webViewController isEqual:webView]) {
+            return tabIndex;
+        }
+    }
+    return _openWebpages.count-1;
+}
+
+
 // Close tab requested
 - (void) closeTabRequested:(id)sender
 {
@@ -485,11 +515,15 @@
 }
 
 
-// Close tab
 - (void) closeTab
 {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-    
+    [self closeTabWithIndex:tabIndex];
+}
+
+
+- (void) closeTabWithIndex:(NSUInteger)tabIndex
+{
     // Delete the row from the data source
     NSManagedObjectContext *context = self.managedObjectContext;
     
@@ -748,6 +782,12 @@
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 {
     [_sebViewController conditionallyOpenSEBConfigFromData:sebConfigData];
+}
+
+
+- (BOOL) downloadingInTemporaryWebView
+{
+    return (_sebViewController.browserController.temporaryWebView != nil);
 }
 
 

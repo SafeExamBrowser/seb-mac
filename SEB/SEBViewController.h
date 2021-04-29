@@ -79,7 +79,7 @@
 #import "QRCodeReaderViewController.h"
 #import "AboutSEBiOSViewController.h"
 
-#import "SEBBrowserController.h"
+#import "SEBiOSBrowserController.h"
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
 
@@ -93,7 +93,7 @@
 
 @class AppDelegate;
 @class SEBUIController;
-@class SEBBrowserController;
+@class SEBiOSBrowserController;
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
@@ -144,7 +144,7 @@
 @property (copy) NSURLRequest *request;
 
 @property (strong, nonatomic) UIViewController *topMostController;
-@property (strong, nonatomic) SEBBrowserController *browserController;
+@property (strong, nonatomic) SEBiOSBrowserController *browserController;
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
@@ -247,6 +247,7 @@
 @property(readwrite) BOOL examSessionClearCookiesOnEnd;
 
 @property(readwrite) BOOL finishedStartingUp;
+@property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL didReceiveMDMConfig;
 @property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openCloseSlider;
@@ -283,7 +284,10 @@
 - (void) conditionallySendLogs;
 - (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
 
+- (void) showAlertWithTitle:(NSString *)title
+                    andText:(NSString *)informativeText;
 - (void) showReconfiguringAlertWithError:(NSError *)error;
+- (void) showAlertWithError:(NSError *)error;
 
 - (void) showStartSingleAppMode;
 

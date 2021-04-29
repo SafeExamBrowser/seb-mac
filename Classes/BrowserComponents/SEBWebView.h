@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 02.12.14.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -34,14 +34,21 @@
 
 #import <WebKit/WebKit.h>
 #include "WebViewInternal.h"
+#import "SEBOSXBrowserController.h"
 
 @class WebBasePluginPackage;
+@class SEBOSXBrowserController;
 
-@interface SEBWebView : WebView
+@interface SEBWebView : WebView <NSTouchBarProvider>
+
+@property(strong, readonly) NSTouchBar *touchBar;
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
+@property (weak, nonatomic) SEBOSXBrowserController *browserController;
+@property (strong, nonatomic) NSURL *originalURL;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
+
 
 - (NSArray *)plugins;
 
