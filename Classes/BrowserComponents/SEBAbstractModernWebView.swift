@@ -149,44 +149,16 @@ import Foundation
         browserControllerDelegate?.stopLoading()
     }
 
+    public func disableSpellCheck () {
+        browserControllerDelegate?.disableSpellCheck()
+    }
+
     public func toggleScrollLock() {
         browserControllerDelegate?.toggleScrollLock?()
     }
     
     public func isScrollLockActive() -> Bool {
         return browserControllerDelegate?.isScrollLockActive?() ?? false
-    }
-    
-    public func loadWebPageOrSearchResult(with webSearchString: String) {
-        browserControllerDelegate?.loadWebPageOrSearchResult?(with: webSearchString)
-    }
-    
-    public func openCloseSliderForNewTab() {
-        browserControllerDelegate?.openCloseSliderForNewTab?()
-    }
-    
-    public func switchToTab(_ sender: Any?) {
-        browserControllerDelegate?.switchToTab?(sender)
-    }
-    
-    public func switchToNextTab() {
-        browserControllerDelegate?.switchToNextTab?()
-    }
-    
-    public func switchToPreviousTab() {
-        browserControllerDelegate?.switchToPreviousTab?()
-    }
-    
-    public func closeTab() {
-        browserControllerDelegate?.closeTab?()
-    }
-    
-    public func conditionallyDownloadAndOpenSEBConfig(from url: URL) {
-        browserControllerDelegate?.conditionallyDownloadAndOpenSEBConfig?(from: url)
-    }
-    
-    public func conditionallyOpenSEBConfig(from sebConfigData: Data) {
-        browserControllerDelegate?.conditionallyOpenSEBConfig?(from: sebConfigData)
     }
     
     public func shouldStartLoadFormSubmittedURL(_ url: URL) {
@@ -207,10 +179,10 @@ import Foundation
         navigationDelegate?.setCanGoBack(canGoBack, canGoForward: canGoForward)
     }
     
-    public func openNewTab(with url: URL) {
-        navigationDelegate?.openNewTab(with: url)
+    public func openNewTab(with url: URL) -> SEBAbstractWebView? {
+        return navigationDelegate?.openNewTab(with: url) ?? nil
     }
-    
+
     public func examine(_ cookies: [HTTPCookie]) {
         navigationDelegate?.examine(cookies)
     }
@@ -233,6 +205,44 @@ import Foundation
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         navigationDelegate?.sebWebViewDidFinishLoad?()
+    }
+    
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        var newTab = false
+        if navigationAction.targetFrame == nil {
+            newTab = true;
+        }
+        let shouldStartLoad = (navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab: newTab))!
+        if shouldStartLoad {
+            decisionHandler(.allow)
+        } else {
+            decisionHandler(.cancel)
+        }
+    }
+    
+    public func webView(_ webView: WKWebView,
+                        decidePolicyFor navigationResponse: WKNavigationResponse,
+                        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
+        httpCookieStore.getAllCookies{ cookies in
+            let sharedHTTPCookieStore = HTTPCookieStorage.shared
+            for cookie in cookies {
+                print(cookie as Any)
+                sharedHTTPCookieStore.setCookie(cookie)
+            }
+        }
+
+        let canShowMIMEType = navigationResponse.canShowMIMEType
+        let isForMainFrame = navigationResponse.isForMainFrame
+        let mimeType = navigationResponse.response.mimeType
+        let url = navigationResponse.response.url
+        let suggestedFilename = navigationResponse.response.suggestedFilename
+        let policy = navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename) ?? true
+        if policy {
+            decisionHandler(.allow)
+        } else {
+            decisionHandler(.cancel)
+        }
     }
     
     public func sebWebViewDidFailLoadWithError(_ error: Error) {
@@ -289,5 +299,37 @@ import Foundation
     
     public var uiAlertController: Any?
     
+    public func loadWebPageOrSearchResult(with webSearchString: String) {
+        navigationDelegate?.loadWebPageOrSearchResult?(with: webSearchString)
+    }
     
+    public func openCloseSliderForNewTab() {
+        navigationDelegate?.openCloseSliderForNewTab?()
+    }
+    
+    public func switchToTab(_ sender: Any?) {
+        navigationDelegate?.switchToTab?(sender)
+    }
+    
+    public func switchToNextTab() {
+        navigationDelegate?.switchToNextTab?()
+    }
+    
+    public func switchToPreviousTab() {
+        navigationDelegate?.switchToPreviousTab?()
+    }
+    
+    public func closeTab() {
+        navigationDelegate?.closeTab?()
+    }
+    
+    public func conditionallyDownloadAndOpenSEBConfig(from url: URL) {
+        navigationDelegate?.conditionallyDownloadAndOpenSEBConfig?(from: url)
+    }
+    
+    public func conditionallyOpenSEBConfig(from sebConfigData: Data) {
+        navigationDelegate?.conditionallyOpenSEBConfig?(from: sebConfigData)
+    }
+    
+
 }
