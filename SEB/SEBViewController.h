@@ -108,7 +108,7 @@
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, SEBBrowserControllerDelegate, NSURLSessionDelegate, ServerControllerDelegate, ProctoringImageAnayzerDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, ServerControllerDelegate, ProctoringImageAnayzerDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -284,6 +284,12 @@
 - (void) conditionallySendLogs;
 - (void) settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender;
 
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+      showReconfiguredAlert:(BOOL)showReconfiguredAlert
+                   callback:(id)callback
+                   selector:(SEL)selector;
 - (void) showAlertWithTitle:(NSString *)title
                     andText:(NSString *)informativeText;
 - (void) showReconfiguringAlertWithError:(NSError *)error;
@@ -381,6 +387,11 @@
                           didEndSelector:(SEL)didEndSelector;
 // Delegate method to hide the previously displayed enter password dialog
 - (void) hideEnterUsernamePasswordDialog;
+- (void) showOpeningConfigFileDialog:(NSString *)text
+                               title:(NSString *)title
+                      cancelCallback:(id)callback
+                            selector:(SEL)selector;
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 - (UIViewController *) topMostController;
 
 @end

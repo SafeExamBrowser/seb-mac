@@ -98,13 +98,15 @@ NS_ASSUME_NONNULL_BEGIN
                                       url:(nullable NSURL *)url
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
-                        suggestedFilename:(nullable NSString *)suggestedFilename;
+                        suggestedFilename:(nullable NSString *)suggestedFilename
+                                  cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (BOOL)sebWebView:(SEBAbstractWebView*)webView
 decidePolicyForMIMEType:(nullable NSString*)mimeType
                url:(nullable NSURL *)url
    canShowMIMEType:(BOOL)canShowMIMEType
     isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(nullable NSString *)suggestedFilename;
+ suggestedFilename:(nullable NSString *)suggestedFilename
+           cookies:(NSArray <NSHTTPCookie *>*)cookies;
 
 - (void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;

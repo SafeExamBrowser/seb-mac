@@ -654,8 +654,9 @@
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(NSString *)suggestedFilename
+                                  cookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
 {
-    return [self.navigationDelegate sebWebView:_sebWebView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename];
+    return [self.navigationDelegate sebWebView:_sebWebView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }
 
     

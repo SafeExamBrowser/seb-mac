@@ -20,6 +20,19 @@
     }
     return self;
 }
+
+
+- (NSString *)currentMainHost
+{
+    return _sebViewController.browserTabViewController.currentMainHost;
+}
+
+- (void)setCurrentMainHost:(NSString *)currentMainHost
+{
+    _sebViewController.browserTabViewController.currentMainHost = currentMainHost;
+}
+
+
 - (void)closeWebView:(SEBAbstractWebView *)webViewToClose {
     [_sebViewController.browserTabViewController closeTab];
 }

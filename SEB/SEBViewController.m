@@ -1465,7 +1465,7 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
-{    
+{
     [self becomeFirstResponder];
     
     // Update entered passwords and save their hashes to SEB settings
@@ -1699,17 +1699,14 @@ void run_on_ui_thread(dispatch_block_t block)
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket
         // if the default value (enabled) for the setting examSessionClearCookiesOnStart is set
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
-            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            }];
-        }
+//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
+//            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+//            }];
+//        }
         // Cache the setting examSessionClearCookiesOnEnd of the current config,
         // which will be used for conditionally resetting the browser
-        self.examSessionClearCookiesOnEnd = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"];
-        
-        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
-        [self.browserController conditionallyInitCustomHTTPProtocol];
-        
+//        self.examSessionClearCookiesOnEnd = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"];
+                
         // UI
         
         [self addBrowserToolBarWithOffset:0];
@@ -2264,23 +2261,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSEB
 {
-    [_browserTabViewController closeAllTabs];
-    _sessionRunning = false;
-    
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket
-    // if the setting examSessionClearCookiesOnEnd was true in a previous config
-    if (_examSessionClearCookiesOnEnd) {
-        [NSURLCache.sharedURLCache removeAllCachedResponses];
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        }];
-    }
-    
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
-    
-    self.browserController = nil;
-    
+        
     [self.jitsiViewController closeJitsiMeetWithSender:self];
     if (@available(iOS 11, *)) {
         self.proctoringImageAnalyzer = nil;
@@ -2293,15 +2276,7 @@ void run_on_ui_thread(dispatch_block_t block)
     run_on_ui_thread(^{
         [self.browserTabViewController closeAllTabs];
         self.sessionRunning = false;
-        
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket
-        // if the setting examSessionClearCookiesOnEnd was true in a previous config
-        if (self.examSessionClearCookiesOnEnd) {
-            [NSURLCache.sharedURLCache removeAllCachedResponses];
-            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            }];
-        }
+        [self.browserController resetBrowser];
     });
 }
 
@@ -2552,97 +2527,97 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.browserController openConfigFromSEBURL:url];
     return;
     /*
-    if (!self.browserController.URLSession) {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-    }
-    
-    // Download the .seb file directly into memory (not onto disc like other files)
-    if ([url.scheme isEqualToString:SEBProtocolScheme]) {
-        // If it's a seb:// URL, we try to download it by http
-        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        urlComponents.scheme = @"http";
-        NSURL *httpURL = urlComponents.URL;
-        
-        if (self.browserController.downloadTask) {
-            [self.browserController.downloadTask cancel];
-        }
-        self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpURL
-                                                                               completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                               {
-            if (error) {
-                // If that didn't work, we try to download it by https
-                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                urlComponents.scheme = @"https";
-                NSURL *httpsURL = urlComponents.URL;
-                self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
-                                                                                       completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                                       {
-                    self.browserController.downloadTask = nil;
-                    // Still couldn't download the .seb file: present an error and abort
-                    if (error) {
-                        error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-                        [self storeNewSEBSettingsSuccessful:error];
-                    } else {
-                        [self storeDownloadedData:sebFileData fromURL:url];
-                    }
-                }];
-                [self.browserController.downloadTask resume];
-            } else {
-                [self storeDownloadedData:sebFileData fromURL:url];
-            }
-        }];
-        [self.browserController.downloadTask resume];
-        return;
-        
-    } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
-        // If it's a sebs:// URL, we try to download it by https
-        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        urlComponents.scheme = @"https";
-        NSURL *httpsURL = urlComponents.URL;
-        if (self.browserController.downloadTask) {
-            [self.browserController.downloadTask cancel];
-        }
-        self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
-                                                                               completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                               {
-            self.browserController.downloadTask = nil;
-            // Still couldn't download the .seb file: present an error and abort
-            if (error || !sebFileData) {
-                // Couldn't download the .seb file: for the case it is a deep link, treat the link
-                // same as a Universal Link
-                [self.browserController handleUniversalLink:httpsURL];
-            } else {
-                [self storeDownloadedData:sebFileData fromURL:url];
-            }
-        }];
-        [self.browserController.downloadTask resume];
-        
-    } else {
-        // We got passed a http(s) URL: Try to download the seb data directly
-        if (self.browserController.downloadTask) {
-            [self.browserController.downloadTask cancel];
-        }
-        self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:url
-                                                                               completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                               {
-            self.browserController.downloadTask = nil;
-            if (error || !sebFileData) {
-                // Check if the URL is in an associated domain
-                [self storeSEBSettingsDownloadedDirectlySuccessful:error];
-            } else {
-                // Directly downloading config file worked:
-                
-                // Cache current config URL, as it has to be restored if current URL fails in the end
-                self->currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-                
-                // Store the filename from the URL as current config file name
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
-                [self storeDownloadedData:sebFileData fromURL:url];
-            }
-        }];
-        [self.browserController.downloadTask resume];
-    }*/
+     if (!self.browserController.URLSession) {
+     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+     self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+     }
+     
+     // Download the .seb file directly into memory (not onto disc like other files)
+     if ([url.scheme isEqualToString:SEBProtocolScheme]) {
+     // If it's a seb:// URL, we try to download it by http
+     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+     urlComponents.scheme = @"http";
+     NSURL *httpURL = urlComponents.URL;
+     
+     if (self.browserController.downloadTask) {
+     [self.browserController.downloadTask cancel];
+     }
+     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpURL
+     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+     {
+     if (error) {
+     // If that didn't work, we try to download it by https
+     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+     urlComponents.scheme = @"https";
+     NSURL *httpsURL = urlComponents.URL;
+     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
+     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+     {
+     self.browserController.downloadTask = nil;
+     // Still couldn't download the .seb file: present an error and abort
+     if (error) {
+     error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+     [self storeNewSEBSettingsSuccessful:error];
+     } else {
+     [self storeDownloadedData:sebFileData fromURL:url];
+     }
+     }];
+     [self.browserController.downloadTask resume];
+     } else {
+     [self storeDownloadedData:sebFileData fromURL:url];
+     }
+     }];
+     [self.browserController.downloadTask resume];
+     return;
+     
+     } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+     // If it's a sebs:// URL, we try to download it by https
+     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+     urlComponents.scheme = @"https";
+     NSURL *httpsURL = urlComponents.URL;
+     if (self.browserController.downloadTask) {
+     [self.browserController.downloadTask cancel];
+     }
+     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
+     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+     {
+     self.browserController.downloadTask = nil;
+     // Still couldn't download the .seb file: present an error and abort
+     if (error || !sebFileData) {
+     // Couldn't download the .seb file: for the case it is a deep link, treat the link
+     // same as a Universal Link
+     [self.browserController handleUniversalLink:httpsURL];
+     } else {
+     [self storeDownloadedData:sebFileData fromURL:url];
+     }
+     }];
+     [self.browserController.downloadTask resume];
+     
+     } else {
+     // We got passed a http(s) URL: Try to download the seb data directly
+     if (self.browserController.downloadTask) {
+     [self.browserController.downloadTask cancel];
+     }
+     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:url
+     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+     {
+     self.browserController.downloadTask = nil;
+     if (error || !sebFileData) {
+     // Check if the URL is in an associated domain
+     [self storeSEBSettingsDownloadedDirectlySuccessful:error];
+     } else {
+     // Directly downloading config file worked:
+     
+     // Cache current config URL, as it has to be restored if current URL fails in the end
+     self->currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+     
+     // Store the filename from the URL as current config file name
+     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
+     [self storeDownloadedData:sebFileData fromURL:url];
+     }
+     }];
+     [self.browserController.downloadTask resume];
+     }*/
 }
 
 
@@ -2831,12 +2806,12 @@ void run_on_ui_thread(dispatch_block_t block)
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _alertController = [UIAlertController  alertControllerWithTitle:title
-                                                                              message:informativeText
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                                            message:informativeText
+                                                     preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               self.alertController = nil;
-                                                                           }]];
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+    }]];
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
@@ -2877,12 +2852,12 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *alertMessage = error.localizedRecoverySuggestion;
     alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
     _alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
-                                                                              message:alertMessage
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                                            message:alertMessage
+                                                     preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               self.alertController = nil;
-                                                                           }]];
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+    }]];
     
     [_topMostController presentViewController:_alertController animated:NO completion:nil];
 }
@@ -3083,6 +3058,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     run_on_ui_thread(^{
         self->receivedServerConfig = nil;
+        [self.browserController quitSession];
         [self sessionQuitRestart:NO];
     });
 }
