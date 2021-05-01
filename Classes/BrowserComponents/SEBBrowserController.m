@@ -60,6 +60,14 @@ static NSString * const authenticationPassword = @"password";
 {
     self = [super init];
     if (self) {
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+            DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores were reset");
+        }];
+        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
+        [self conditionallyInitCustomHTTPProtocol];
+
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
@@ -87,8 +95,40 @@ static NSString * const authenticationPassword = @"password";
     return _configKey;
 }
 
+- (void) quitSession
+{
+    examSessionCookiesAlreadyCleared = NO;
+}
+
+- (void) resetBrowser
+{
+    if (examSessionCookiesAlreadyCleared == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
+            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+            // downloads to disk, and ensures that future requests occur on a new socket.
+            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = true)");
+            }];
+        }
+    } else {
+        // reset the flag when it was true before
+        examSessionCookiesAlreadyCleared = NO;
+    }
+    
+    // Clear browser back/forward list (page cache)
+//    [self clearBackForwardList];
+    
+    _temporaryWebView = nil;
+    
+    self.browserExamKey = nil;
+    self.configKey = nil;
+    
+    [self conditionallyInitCustomHTTPProtocol];
+}
+
+
 /// Save the default user agent of the installed WebKit version
-- (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
++ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
 {
     // Get WebKit version number string to use it as Safari version
     NSRange webKitSubstring = [defaultUserAgent rangeOfString:@"AppleWebKit/"];
@@ -132,19 +172,19 @@ static NSString * const authenticationPassword = @"password";
 }
 
 
-@synthesize wkWebViewConfiguration;
-
 - (WKWebViewConfiguration *)wkWebViewConfiguration
 {
-    WKWebViewConfiguration *newSharedWebViewConfiguration = [WKWebViewConfiguration new];
-    
+    if (!_wkWebViewConfiguration) {
+        WKWebViewConfiguration *newSharedWebViewConfiguration = [WKWebViewConfiguration new];
+        _wkWebViewConfiguration = newSharedWebViewConfiguration;
+    }
     // Set media playback properties on new webview
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (@available(macOS 10.12, *)) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"] == NO) {
-            newSharedWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
+            _wkWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
         } else {
-            newSharedWebViewConfiguration.mediaTypesRequiringUserActionForPlayback =
+            _wkWebViewConfiguration.mediaTypesRequiringUserActionForPlayback =
             (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplayAudio"] ? WKAudiovisualMediaTypeAudio : 0) |
             (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplayVideo"] ? WKAudiovisualMediaTypeVideo : 0);
         }
@@ -152,18 +192,18 @@ static NSString * const authenticationPassword = @"password";
     
     UIUserInterfaceIdiom currentDevice = UIDevice.currentDevice.userInterfaceIdiom;
     if (currentDevice == UIUserInterfaceIdiomPad) {
-        newSharedWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
+        _wkWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
     } else {
-        newSharedWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
+        _wkWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
     }
-    newSharedWebViewConfiguration.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];
+    _wkWebViewConfiguration.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];
     
     if (@available(macOS 10.11, *)) {
-        newSharedWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
+        _wkWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
     }
-    newSharedWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
-    
-    return newSharedWebViewConfiguration;
+    _wkWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
+
+    return _wkWebViewConfiguration;
 }
 
 
@@ -859,7 +899,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 // usually with a link using the seb(s):// protocols
 - (void) openConfigFromSEBURL:(NSURL *)url
 {
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    DDLogDebug(@"[SEBBrowserController openConfigFromSEBURL: %@]", url);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
@@ -879,19 +919,19 @@ static NSString *urlStrippedFragment(NSURL* url)
             // When the URL of the SEB config file to load is on another host than the current page
             // then we might need to clear session cookies before attempting to download the config file
             // when the setting examSessionClearCookiesOnEnd is true
-            if (_currentMainHost && ![url.host isEqualToString:_currentMainHost]) {
+            if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
                 if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
                     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                     // downloads to disk, and ensures that future requests occur on a new socket.
                     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                        DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
+                        DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
                     }];
                 }
                 // Set the flag for cookies cleared (either they actually were or they would have
                 // been settings prevented it)
                 examSessionCookiesAlreadyCleared = YES;
 
-            } else if (!_currentMainHost) {
+            } else if (!_delegate.currentMainHost) {
                 // When currentMainHost isn't set yet, SEB was started with a config link, possibly
                 // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
                 // as they were anyways cleared when SEB was started
@@ -902,7 +942,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             // But we only try it when it didn't fail in a first attempt
             if (_directConfigDownloadAttempted == NO && [url.pathExtension isEqualToString:@"seb"]) {
                 _directConfigDownloadAttempted = YES;
-                [self downloadSEBConfigFileFromURL:url originalURL:sebURL];
+                [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
             } else {
                 _directConfigDownloadAttempted = NO;
                 _temporaryWebView = [_delegate openTempWebViewForDownloadingConfigFromURL:url];
@@ -944,12 +984,13 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
-- (BOOL)sebWebView:(SEBAbstractWebView*)webView
-decidePolicyForMIMEType:(NSString*)mimeType
-               url:(NSURL *)url
-   canShowMIMEType:(BOOL)canShowMIMEType
-    isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(NSString *)suggestedFilename
+    - (BOOL)sebWebView:(SEBAbstractWebView*)webView
+    decidePolicyForMIMEType:(NSString*)mimeType
+                   url:(NSURL *)url
+       canShowMIMEType:(BOOL)canShowMIMEType
+        isForMainFrame:(BOOL)isForMainFrame
+     suggestedFilename:(NSString *)suggestedFilename
+               cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
     
@@ -1004,7 +1045,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
         ([url.pathExtension isEqualToString:@"seb"])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = webView.originalURL;
-        [self downloadSEBConfigFileFromURL:url originalURL:originalURL];
+        [self downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
         return NO;
     }
 
@@ -1026,7 +1067,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 /// Performing the Download
 
 // This method is called by the browser webview delegate if the file to download has a .seb extension
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
@@ -1034,16 +1075,20 @@ decidePolicyForMIMEType:(NSString*)mimeType
     
     // Use modern NSURLSession for downloading .seb files which also allows handling
     // basic/digest/NTLM authentication without having to open a temporary webview
-    if (!_URLSession) {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-    }
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    sessionConfig.HTTPCookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+//    for (NSHTTPCookie *cookie in cookies) {
+//        [sharedCookieStore setCookie:cookie];
+//    }
+    _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
     NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
                                                     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                           {
                                               [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL];
                                           }];
-    
+    [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
+    NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
+    NSLog(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
     [downloadTask resume];
     
 }
@@ -1076,7 +1121,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
             // If it was a seb:// URL, and http failed, we try to download it by https
             NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
             if (_directConfigDownloadAttempted) {
-                [self downloadSEBConfigFileFromURL:downloadURL originalURL:originalURL];
+                [self downloadSEBConfigFileFromURL:downloadURL originalURL:originalURL cookies:nil];
             } else {
                 [self tryToDownloadConfigByOpeningURL:downloadURL];
             }
@@ -1159,6 +1204,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     } else {
         DDLogInfo(@"URLSession didReceive other challenge (default handling)");
         completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
+//        completionHandler(NSURLSessionAuthChallengeUseCredential, NULL);
     }
 }
 
@@ -1195,7 +1241,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                 // downloads to disk, and ensures that future requests occur on a new socket.
                 [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                    DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
+                    DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
                 }];
             }
             // Set the flag for cookies cleared (either they actually were or they would have

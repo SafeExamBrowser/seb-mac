@@ -211,8 +211,9 @@
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(NSString *)suggestedFilename
+                                  cookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
 {
-    return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename];
+    return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }
 
 - (SEBBackgroundTintStyle) backgroundTintStyle
