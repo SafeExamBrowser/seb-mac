@@ -130,6 +130,7 @@
 
 @property (readwrite) BOOL startingUp;
 @property (readwrite) BOOL openingSettings;
+@property (readonly) NSString *currentMainHost;
 
 @end
 
@@ -177,10 +178,12 @@
 @property (readwrite) BOOL didReconfigureWithUniversalLink;
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 
-- (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
+- (void) quitSession;
+- (void) resetBrowser;
++ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 @property (strong, nonatomic) NSString* customSEBUserAgent;
 
-@property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
+@property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
 - (NSString *) startURLQueryParameter:(NSURL**)url;
 - (NSString *) backToStartURLString;
@@ -197,11 +200,11 @@ decidePolicyForMIMEType:(NSString*)mimeType
                url:(NSURL *)url
    canShowMIMEType:(BOOL)canShowMIMEType
     isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(NSString *)suggestedFilename;
+ suggestedFilename:(NSString *)suggestedFilename
+           cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 
 
-@property (strong) NSString *currentMainHost;
 @property (weak) SEBAbstractWebView *temporaryWebView;
 
 /**
