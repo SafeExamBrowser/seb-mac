@@ -225,23 +225,22 @@ import Foundation
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
         httpCookieStore.getAllCookies{ cookies in
-            let sharedHTTPCookieStore = HTTPCookieStorage.shared
-            for cookie in cookies {
-                print(cookie as Any)
-                sharedHTTPCookieStore.setCookie(cookie)
+//            let sharedHTTPCookieStore = HTTPCookieStorage.shared
+//            for cookie in cookies {
+//                print(cookie as Any)
+//                sharedHTTPCookieStore.setCookie(cookie)
+//            }
+            let canShowMIMEType = navigationResponse.canShowMIMEType
+            let isForMainFrame = navigationResponse.isForMainFrame
+            let mimeType = navigationResponse.response.mimeType
+            let url = navigationResponse.response.url
+            let suggestedFilename = navigationResponse.response.suggestedFilename
+            let policy = self.navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) ?? true
+            if policy {
+                decisionHandler(.allow)
+            } else {
+                decisionHandler(.cancel)
             }
-        }
-
-        let canShowMIMEType = navigationResponse.canShowMIMEType
-        let isForMainFrame = navigationResponse.isForMainFrame
-        let mimeType = navigationResponse.response.mimeType
-        let url = navigationResponse.response.url
-        let suggestedFilename = navigationResponse.response.suggestedFilename
-        let policy = navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename) ?? true
-        if policy {
-            decisionHandler(.allow)
-        } else {
-            decisionHandler(.cancel)
         }
     }
     

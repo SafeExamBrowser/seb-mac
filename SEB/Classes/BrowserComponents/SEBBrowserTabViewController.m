@@ -127,6 +127,10 @@
     return _visibleWebViewController.currentMainHost;
 }
 
+- (void) setCurrentMainHost:(NSString *)currentMainHost
+{
+    self.currentMainHost = currentMainHost;
+}
 
 - (void) toggleScrollLock
 {
@@ -278,8 +282,9 @@ decidePolicyForMIMEType:(NSString*)mimeType
    canShowMIMEType:(BOOL)canShowMIMEType
     isForMainFrame:(BOOL)isForMainFrame
  suggestedFilename:(NSString *)suggestedFilename
+           cookies:(NSArray<NSHTTPCookie *> *)cookies
 {
-    return [_sebViewController.browserController sebWebView:webView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename];
+    return [_sebViewController.browserController sebWebView:webView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }
 
 

@@ -114,7 +114,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // default SEB User Agent
     _temporaryWebView = [WKWebView new];
     [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
-        [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+        [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
         self.temporaryWebView = nil;
     }];
     DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
@@ -159,10 +159,10 @@ void run_block_on_ui_thread(dispatch_block_t block)
                                                                             diskPath:path];
     [NSURLCache setSharedURLCache:cache];
 
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket
-    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-    }];
+//    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+//    // downloads to disk, and ensures that future requests occur on a new socket
+//    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+//    }];
 
     // If SEB was launched by invoking a shortcut, display its information and take the appropriate action
     NSDictionary *userActivity = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];

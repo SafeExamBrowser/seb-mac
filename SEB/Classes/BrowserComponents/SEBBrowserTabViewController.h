@@ -63,7 +63,7 @@
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
 - (NSString *) currentURL;
-- (NSString *) currentMainHost;
+@property (nonatomic, strong) NSString *currentMainHost;
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
