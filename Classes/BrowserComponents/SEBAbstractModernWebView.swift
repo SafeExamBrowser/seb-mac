@@ -13,7 +13,7 @@ import Foundation
         let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
         let userContentController = WKUserContentController()
         let appVersion = navigationDelegate?.appVersion?()
-        let jsCode = """
+        let jsApiCode = """
         window.SafeExamBrowser = { \
           version: '\(appVersion ?? "")', \
           security: { \
@@ -26,8 +26,17 @@ import Foundation
           } \
         }
 """
-        let userScript = WKUserScript(source: jsCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
-        userContentController.addUserScript(userScript)
+        let jsApiUserScript = WKUserScript(source: jsApiCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
+        userContentController.addUserScript(jsApiUserScript)
+        if let pageJavaScriptCode = navigationDelegate?.pageJavaScript {
+            let pageModifyUserScript = WKUserScript(source: pageJavaScriptCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
+            userContentController.addUserScript(pageModifyUserScript)
+            let preferences = UserDefaults.standard
+            let allowSpellCheck = !(navigationDelegate?.overrideAllowSpellCheck ?? false) && preferences.secureBool(forKey: "org_safeexambrowser_SEB_allowSpellCheck")
+            let controlSpellCheckCode = "SEB_AllowSpellCheck(\(allowSpellCheck ? "true" : "false"))"
+            let controlSpellCheckUserScript = WKUserScript(source: controlSpellCheckCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
+            userContentController.addUserScript(controlSpellCheckUserScript)
+        }
         userContentController.add(self, name: "updateKeys")
         webViewConfiguration.userContentController = userContentController
         return webViewConfiguration
@@ -55,7 +64,6 @@ import Foundation
                             print(error as Any)
                         }
                     }
-
                 }
             }
         }
@@ -69,6 +77,7 @@ import Foundation
     @objc weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
 
     private var firstLoad = true
+    private var allowSpellCheck : Bool?
 
     @objc public override init() {
         super.init()
@@ -149,10 +158,6 @@ import Foundation
         browserControllerDelegate?.stopLoading()
     }
 
-    public func disableSpellCheck () {
-        browserControllerDelegate?.disableSpellCheck()
-    }
-
     public func toggleScrollLock() {
         browserControllerDelegate?.toggleScrollLock?()
     }
@@ -225,11 +230,6 @@ import Foundation
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
         httpCookieStore.getAllCookies{ cookies in
-//            let sharedHTTPCookieStore = HTTPCookieStorage.shared
-//            for cookie in cookies {
-//                print(cookie as Any)
-//                sharedHTTPCookieStore.setCookie(cookie)
-//            }
             let canShowMIMEType = navigationResponse.canShowMIMEType
             let isForMainFrame = navigationResponse.isForMainFrame
             let mimeType = navigationResponse.response.mimeType

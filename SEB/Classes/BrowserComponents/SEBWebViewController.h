@@ -60,6 +60,7 @@
 @property (weak, nonatomic) SEBBrowserTabViewController *navigationDelegate;
 @property (strong, nonatomic) SEBAbstractWebView *sebWebView;
 @property (strong, nonatomic) SEBURLFilter *urlFilter;
+@property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (strong, nonatomic) UIView *filterMessageHolder;
 @property (strong, nonatomic) NSString *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
