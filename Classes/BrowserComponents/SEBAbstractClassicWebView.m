@@ -114,10 +114,6 @@
     [self.browserControllerDelegate stopLoading];
 }
 
-- (void) disableSpellCheck {
-    [self.browserControllerDelegate disableSpellCheck];
-}
-
 
 - (void)toggleScrollLock
 {
@@ -167,6 +163,16 @@
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
 {
     [self.navigationDelegate examineCookies:cookies];
+}
+
+- (NSString *) pageJavaScript
+{
+    return self.navigationDelegate.pageJavaScript;
+}
+
+- (BOOL) overrideAllowSpellCheck
+{
+    return self.navigationDelegate.overrideAllowSpellCheck;
 }
 
 

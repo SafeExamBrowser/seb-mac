@@ -18,7 +18,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     private var zoomScale : CGFloat?
 
     private var quitURLTrimmed : String?
-    private var allowSpellCheck : Bool?
     private var urlFilter : SEBURLFilter?
     
     public override func loadView() {
@@ -26,7 +25,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         if sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
             sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
-//            sebWebView?.customUserAgent = 
         }
         let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
         sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
@@ -39,7 +37,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         
         let preferences = UserDefaults.standard
         sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
-        allowSpellCheck = preferences.secureBool(forKey: "org_safeexambrowser_SEB_allowSpellCheck")
         quitURLTrimmed = preferences.secureString(forKey: "org_safeexambrowser_SEB_quitURL")?.trimmingCharacters(in: CharacterSet.init(charactersIn: "/"))
         urlFilter = SEBURLFilter.shared()
     }
@@ -122,10 +119,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.stopLoading()
     }
  
-    public func disableSpellCheck() {
-        allowSpellCheck = false
-    }
-    
     
     public func webView(_ webView: WKWebView,  shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
         return false
