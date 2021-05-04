@@ -69,7 +69,7 @@
 
 - (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url {
     SEBAbstractWebView *tempWebView = [_sebViewController.browserTabViewController openNewTabWithURL:url];
-    [tempWebView disableSpellCheck];
+    tempWebView.overrideAllowSpellCheck = YES;
     
     return tempWebView;
 }

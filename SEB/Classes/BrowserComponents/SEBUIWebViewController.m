@@ -102,10 +102,9 @@
     _sebWebView.delegate = self;    // setup the delegate as the web view is shown
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+    allowSpellCheck = !self.navigationDelegate.overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
     mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
     enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
-    
 }
 
 
@@ -169,10 +168,6 @@
     [_sebWebView stopLoading];
 }
 
-- (void) disableSpellCheck {
-    allowSpellCheck = NO;
-}
-
 
 #pragma mark -
 #pragma mark UIWebViewDelegate
@@ -185,11 +180,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
-    jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-    [_sebWebView stringByEvaluatingJavaScriptFromString:jsCode];
+    [_sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
     
     [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
     [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
