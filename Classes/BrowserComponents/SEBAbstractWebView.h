@@ -53,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) reload;
 - (void) loadURL:(NSURL *)url;
 - (void) stopLoading;
-- (void) disableSpellCheck;
 
 @optional
 - (void) loadView;
@@ -83,7 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (nullable SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
-
 
 @optional
 - (void)sebWebViewDidStartLoad;
@@ -146,6 +144,8 @@ runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
+@property (readonly, nonatomic) NSString *pageJavaScript;
+@property (readonly) BOOL overrideAllowSpellCheck;
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
 - (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
@@ -179,6 +179,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
 @property (strong, nonatomic) NSURL *originalURL;
+@property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
 
 - (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab;
 

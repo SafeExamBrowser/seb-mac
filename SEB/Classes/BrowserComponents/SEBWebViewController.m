@@ -49,6 +49,10 @@
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
+        _javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        
     }
     return self;
 }
@@ -756,11 +760,15 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (NSString *) pageJavaScript
+{
+    return _javaScriptFunctions;
+}
+
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
     return [self.navigationDelegate modifyRequest:request];
 }
-
 
 - (NSString *) browserExamKeyForURL:(NSURL *)url
 {
