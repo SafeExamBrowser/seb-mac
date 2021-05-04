@@ -63,6 +63,7 @@ static NSString * const authenticationPassword = @"password";
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket.
         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+            self.wkWebViewConfiguration = nil;
             DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores were reset");
         }];
         // Activate the custom URL protocol if necessary (embedded certs or pinning available)
@@ -107,6 +108,7 @@ static NSString * const authenticationPassword = @"password";
             // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
             // downloads to disk, and ensures that future requests occur on a new socket.
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                self.wkWebViewConfiguration = nil;
                 DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = true)");
             }];
         }
@@ -924,6 +926,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                     // downloads to disk, and ensures that future requests occur on a new socket.
                     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                        self.wkWebViewConfiguration = nil;
                         DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
                     }];
                 }
@@ -1241,6 +1244,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                 // downloads to disk, and ensures that future requests occur on a new socket.
                 [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                    self.wkWebViewConfiguration = nil;
                     DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
                 }];
             }

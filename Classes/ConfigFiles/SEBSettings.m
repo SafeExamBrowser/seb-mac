@@ -734,7 +734,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:forceSebService],
                    @"sebServicePolicy",
                    
-                   @YES,
+                   @NO,
                    @"sendBrowserExamKey",
                    
                    @NO,
