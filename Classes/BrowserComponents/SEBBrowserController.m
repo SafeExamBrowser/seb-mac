@@ -66,19 +66,25 @@ static NSString * const authenticationPassword = @"password";
             self.wkWebViewConfiguration = nil;
             DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores were reset");
         }];
-        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
-        [self conditionallyInitCustomHTTPProtocol];
-
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-        downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
-        self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-        self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
-        self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+        [self initSessionSettings];
     }
     return self;
 }
+
+- (void)initSessionSettings
+{
+    // Activate the custom URL protocol if necessary (embedded certs or pinning available)
+    [self conditionallyInitCustomHTTPProtocol];
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+    downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
+    self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+}
+
 
 - (NSData *)browserExamKey
 {
@@ -125,7 +131,7 @@ static NSString * const authenticationPassword = @"password";
     self.browserExamKey = nil;
     self.configKey = nil;
     
-    [self conditionallyInitCustomHTTPProtocol];
+    [self initSessionSettings];
 }
 
 
