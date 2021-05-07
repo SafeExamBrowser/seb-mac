@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 21.08.17.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -57,36 +57,89 @@ static SEBSettings *sharedSEBSettings = nil;
 
 - (NSDictionary *)defaultSettings
 {
+    if ([NSUserDefaults userDefaultsPrivate]) {
+        return [self defaultExamSettings];
+
+    } else {
+        return [self defaultClientSettings];
+    }
+}
+
+
+- (NSDictionary *)defaultClientSettings
+{
     if (!_defaultSettings) {
-        NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:[self defaultSEBSettings]];
+        _defaultSettings = [self extendDefaultSettings:[self defaultSEBSettings] withSettingsIdentifier:@"defaultSettings"];
+        }
+    return _defaultSettings;
+}
+
+
+- (NSDictionary *)defaultExamSettings
+{
+    if (!_defaultExamSettings) {
+        _defaultExamSettings = [self extendDefaultSettings:[self defaultClientSettings] withSettingsIdentifier:@"defaultExamSettings"];
+        }
+    return _defaultExamSettings;
+}
+
+
+- (NSDictionary *)extendDefaultSettings:(NSDictionary *)defaultSettings withSettingsIdentifier:(NSString *)settingsIdentifier
+{
+    NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
         
         NSArray *sebExtensions = [MyGlobals SEBExtensions];
         for (NSString *sebExtensionString in sebExtensions) {
             Class SEBExtensionClass = NSClassFromString(sebExtensionString);
             
-            if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(@"defaultSettings")]) {
-                NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:[SEBExtensionClass defaultSettings]];
+        if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(settingsIdentifier)]) {
+            SEL selector = NSSelectorFromString(settingsIdentifier);
+            IMP imp = [SEBExtensionClass methodForSelector:selector];
+            NSDictionary *(*func)(id, SEL) = (void *)imp;
+            NSDictionary *extensionSettings = func(SEBExtensionClass, selector);
+
+            NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:extensionSettings];
+            
+            NSArray *extensionDictionaryKeys = [defaultExtensionSettings allKeys];
+            for (NSString *extensionDictKey in extensionDictionaryKeys) {
+                // First check if extension settings dictionary contains arrays of subdictionaries with missing default keys
+                NSMutableDictionary *extensionSubDict = [[defaultExtensionSettings objectForKey:extensionDictKey] mutableCopy];
+                NSArray *extensionSubDictionaryKeys = [extensionSubDict allKeys];
+                for (NSString *extensionSubDictKey in extensionSubDictionaryKeys) {
+                    id extensionSubElement = [extensionSubDict objectForKey:extensionSubDictKey];
+                    if ([extensionSubElement isKindOfClass:[NSArray class]]) {
+                        NSMutableArray *extensionSubArray = NSMutableArray.new;
+                        for (NSDictionary* extensionSubDict in extensionSubElement) {
+                            NSMutableDictionary *completedExtensionSubDict = [[completeDefaultSettings objectForKey:extensionSubDictKey] mutableCopy];
+                            [completedExtensionSubDict addEntriesFromDictionary:extensionSubDict];
+                            [extensionSubArray addObject:completedExtensionSubDict];
+                        }
+                        if (extensionSubArray) {
+                            [extensionSubDict setObject:extensionSubArray.copy forKey:extensionSubDictKey];
+                        }
+                    }
+                }
+                [defaultExtensionSettings setObject:extensionSubDict.copy forKey:extensionDictKey];
+            }
                 
                 NSArray *subDictionaries = [completeDefaultSettings allKeys];
                 for (NSString *subDictKey in subDictionaries) {
-                    NSDictionary *subCABDict = [defaultExtensionSettings objectForKey:subDictKey];
-                    if (subCABDict.count > 0) {
+                NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
+                if (subExtensionDict.count > 0) {
                         NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
                         if (subDict) {
-                            [subDict addEntriesFromDictionary:subCABDict];
+                        [subDict addEntriesFromDictionary:subExtensionDict];
                             [completeDefaultSettings setObject:subDict forKey:subDictKey];
                             [defaultExtensionSettings removeObjectForKey:subDictKey];
                         } else {
-                            [completeDefaultSettings setObject:subCABDict forKey:subDictKey];
+                        [completeDefaultSettings setObject:subExtensionDict forKey:subDictKey];
                         }
                     }
                 }
                 [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
             }
         }
-        _defaultSettings = completeDefaultSettings.copy;
-    }
-    return _defaultSettings;
+    return completeDefaultSettings.copy;
 }
 
 
@@ -102,6 +155,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowBrowsingBackForward",
                    
                    @NO,
+                   @"allowDeveloperConsole",
+                   
+                   @NO,
                    @"allowDictation",
                    
                    @NO,
@@ -112,6 +168,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"allowedDisplayBuiltin",
+                   
+                   @YES,
+                   @"allowedDisplayBuiltinEnforce",
+                   
+                   @YES,
+                   @"allowedDisplayBuiltinExceptDesktop",
                    
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",
@@ -144,6 +206,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowQuit",
                    
                    @NO,
+                   @"allowScreenCapture",
+                   
+                   @NO,
                    @"allowScreenSharing",
                    
                    @NO,
@@ -168,19 +233,22 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowVirtualMachine",
                    
                    @NO,
+                   @"allowWindowCapture",
+                   
+                   @NO,
                    @"allowWlan",
+                   
+                   @YES,
+                   @"autoQuitApplications",
                    
                    @NO,
                    @"blockPopUpWindows",
                    
                    @NO,
+                   @"blockScreenShotsLegacy",
+                   
+                   @NO,
                    @"browserMediaAutoplay",
-                   
-                   @YES,
-                   @"browserMediaAutoplayAudio",
-                   
-                   @YES,
-                   @"browserMediaAutoplayVideo",
                    
                    [NSNumber numberWithLong:120000],
                    @"browserMessagingPingTime",
@@ -297,6 +365,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enablePrivateClipboard",
                    
                    @YES,
+                   @"enablePrivateClipboardMacEnforce",
+                                  
+                   @YES,
                    @"enableScrollLock",
 
                    @YES,
@@ -343,6 +414,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"hookKeys",
+                   
+                   @YES,
+                   @"enableAAC",
                    
                    @YES,
                    @"enableEsc",
@@ -418,6 +492,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"ignoreExitKeys",
+                   
+                   @NO,
+                   @"ignoreQuitPassword",
                    
                    @NO,
                    @"insideSebEnableChangeAPassword",
@@ -533,7 +610,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"100%",
                    @"mainBrowserWindowWidth",
                    
-                   [NSNumber numberWithLong:SEBMinOSX10_7],
+                   [NSNumber numberWithLong:SEBMinOSX10_11],
                    @"minMacOSVersion",
                    
                    @YES,
@@ -559,6 +636,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"mobileSleepModeLockScreen",
+                   
+                   @NO,
+                   @"mobileShowSettings",
                    
                    [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                    @"mobileStatusBarAppearance",
@@ -713,6 +793,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"restartExamUseStartURL",
                    
+                   @NO,
+                   @"screenSharingMacEnforceBlocked",
+                   
                    [NSNumber numberWithLong:sebConfigPurposeConfiguringClient],
                    @"sebConfigPurpose",
                    
@@ -771,7 +854,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"showScrollLockButton",
                    
                    @NO,
-                   @"showSettingsInApp",
+                   @"showReloadWarning",
                    
                    @YES,
                    @"showTaskBar",
@@ -788,8 +871,11 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"startURLAppendQueryParameter",
                    
-                   [NSNumber numberWithLong:40],
+                   [NSNumber numberWithLong:SEBDefaultDockHeight],
                    @"taskBarHeight",
+                   
+                   @NO,
+                   @"terminateProcesses",
                    
                    @NO,
                    @"touchOptimized",
@@ -848,6 +934,7 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"executable" : @"",
                       @"iconInTaskbar" : @YES,
                       @"identifier" : @"",
+                      @"originalName" : @"",
                       @"os" : @0,
                       @"path" : @"",
                       @"runInBackground" : @NO,
@@ -863,6 +950,8 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"description" : @"",
                       @"executable" : @"",
                       @"identifier" : @"",
+                      @"ignoreInAAC" : @YES,
+                      @"originalName" : @"",
                       @"os" : @0,
                       @"strongKill" : @NO,
                       @"user" : @""
@@ -877,6 +966,7 @@ static SEBSettings *sharedSEBSettings = nil;
               
               @"embeddedCertificates" : @{
                       @"certificateData" : [NSData data],
+                      @"certificateDataBase64" : @"",
                       @"name" : @"",
                       @"type" : [NSNumber numberWithLong:certificateTypeSSL],
                       },
