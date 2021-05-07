@@ -358,6 +358,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableLogging",
                    
+                   @NO,
+                   @"enableMacOSAAC",
+                   
                    @YES,
                    @"enablePlugIns",
                    
@@ -378,45 +381,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"enableWindowsUpdate",
-                   
-                   [NSData data],
-                   @"examKeySalt",
-                   
-                   @YES,
-                   @"examSessionClearCookiesOnEnd",
-                   
-                   @YES,
-                   @"examSessionClearCookiesOnStart",
-                   
-                   @NO,
-                   @"examSessionReconfigureAllow",
-                   
-                   @"",
-                   @"examSessionReconfigureConfigURL",
-                   
-                   [NSNumber numberWithLong:2],
-                   @"exitKey1",
-                   
-                   [NSNumber numberWithLong:10],
-                   @"exitKey2",
-                   
-                   [NSNumber numberWithLong:5],
-                   @"exitKey3",
-                   
-                   @"",
-                   @"hashedAdminPassword",
-                   
-                   @"",
-                   @"hashedQuitPassword",
-                   
-                   @NO,
-                   @"hideBrowserWindowToolbar",
-                   
-                   @YES,
-                   @"hookKeys",
-                   
-                   @YES,
-                   @"enableAAC",
                    
                    @YES,
                    @"enableEsc",
@@ -486,6 +450,42 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableZoomText",
+                   
+                   [NSData data],
+                   @"examKeySalt",
+                   
+                   @YES,
+                   @"examSessionClearCookiesOnEnd",
+                   
+                   @YES,
+                   @"examSessionClearCookiesOnStart",
+                   
+                   @NO,
+                   @"examSessionReconfigureAllow",
+                   
+                   @"",
+                   @"examSessionReconfigureConfigURL",
+                   
+                   [NSNumber numberWithLong:2],
+                   @"exitKey1",
+                   
+                   [NSNumber numberWithLong:10],
+                   @"exitKey2",
+                   
+                   [NSNumber numberWithLong:5],
+                   @"exitKey3",
+                   
+                   @"",
+                   @"hashedAdminPassword",
+                   
+                   @"",
+                   @"hashedQuitPassword",
+                   
+                   @NO,
+                   @"hideBrowserWindowToolbar",
+                   
+                   @YES,
+                   @"hookKeys",
                    
                    @YES,
                    @"forceAppFolderInstall",
