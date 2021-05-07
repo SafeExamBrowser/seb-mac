@@ -368,6 +368,7 @@
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
+    NSURL *failedURL = _currentRequest.URL;
     _currentRequest = nil;
     
     if (error.code == -999) {
@@ -384,6 +385,9 @@
     // the URL filter canceling loading a blocked URL
     if (error.code == 102) {
         DDLogDebug(@"%s: Reported Error 102: %@", __FUNCTION__, error.description);
+        if ([self.navigationDelegate downloadingInTemporaryWebView]) {
+            [self.navigationDelegate downloadingConfigFailedFromURL:failedURL];
+        }
         
     // Don't display the error 204 "Plug-in handled load"
     } else if (error.code == 204) {
@@ -443,6 +447,12 @@
 {
     NSURL *url = [request URL];
     WKNavigationType navigationType = navigationAction.navigationType;
+    NSString *httpMethod = request.HTTPMethod;
+    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
+    DDLogDebug(@"Navigation type for URL %@: %ld", url, (long)navigationType);
+    DDLogDebug(@"HTTP method for URL %@: %@", url, httpMethod);
+    DDLogDebug(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     NSURL *originalURL = url;
@@ -757,6 +767,12 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
 //    [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+
+- (BOOL) downloadingInTemporaryWebView
+{
+    return [self.navigationDelegate downloadingInTemporaryWebView];
 }
 
 

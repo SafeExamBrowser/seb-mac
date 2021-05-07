@@ -254,6 +254,10 @@
     }
     
     NSURL *url = [request URL];
+    NSString *httpMethod = request.HTTPMethod;
+    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
+    DDLogDebug(@"HTTP method for URL %@: %@", url, httpMethod);
+    DDLogDebug(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
 
     if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
@@ -262,6 +266,29 @@
         newTabRequested = YES;
     }
     
+    NSString *fileExtension = [url pathExtension];
+
+    // Check if this is a seb:// or sebs:// link or a .seb file link
+    if ([fileExtension isEqualToString:SEBFileExtension] &&
+        [self.navigationDelegate downloadingInTemporaryWebView]) {
+        if (!waitingForConfigDownload) {
+            waitingForConfigDownload = YES;
+            if (![self.navigationDelegate originalURLIsEqualToURL:url]) {
+                // If the scheme is seb(s):// or the file extension .seb,
+                // we (conditionally) download and open the linked .seb file
+                [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[]];
+                return NO;
+
+            }
+        } else if ([self.navigationDelegate originalURLIsEqualToURL:url]){
+            waitingForConfigDownload = NO;
+            // If the scheme is seb(s):// or the file extension .seb,
+            // we (conditionally) download and open the linked .seb file
+            [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[]];
+            return NO;
+        }
+    }
+
     return [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTabRequested];
 }
 

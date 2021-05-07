@@ -796,6 +796,12 @@ decidePolicyForMIMEType:(NSString*)mimeType
 }
 
 
+- (void) downloadingConfigFailedFromURL:(NSURL *)url
+{
+    [_sebViewController.browserController downloadingConfigFailedFromURL:(NSURL *)url];
+}
+
+
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
 {
     [_sebViewController examineCookies:cookies];

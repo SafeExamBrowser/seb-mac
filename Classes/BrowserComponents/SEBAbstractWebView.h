@@ -169,6 +169,8 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (BOOL) downloadingInTemporaryWebView;
+- (BOOL) originalURLIsEqualToURL:(NSURL *)url;
+- (void) downloadingConfigFailedFromURL:(NSURL *)url;
 
 @end
 
