@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 28.04.13.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -337,6 +337,7 @@
 
 // Inform the callback method if decrypting, parsing and storing new settings was successful or not
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error {
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, storeSettingsCallback, NSStringFromSelector(storeSettingsSelector));
     IMP imp = [storeSettingsCallback methodForSelector:storeSettingsSelector];
     void (*func)(id, SEL, NSError*) = (void *)imp;
     func(storeSettingsCallback, storeSettingsSelector, error);
@@ -828,10 +829,11 @@ static NSString *getUppercaseAdminPasswordHash()
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
             return;
+            
+        } else {
+            // Inform callback that storing new settings was successful
+            [self storeNewSEBSettingsSuccessful:nil];
         }
-        // Inform callback that storing new settings was successful
-        [self storeNewSEBSettingsSuccessful:nil];
-        return;
     }
 }
 
