@@ -222,6 +222,17 @@
     return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }
 
+- (BOOL) downloadingInTemporaryWebView
+{
+    return [self.navigationDelegate downloadingInTemporaryWebView];
+}
+
+- (BOOL) originalURLIsEqualToURL:(NSURL *)url
+{
+    return [self.navigationDelegate originalURLIsEqualToURL:url];
+}
+
+
 - (SEBBackgroundTintStyle) backgroundTintStyle
 {
     return [self.navigationDelegate backgroundTintStyle];

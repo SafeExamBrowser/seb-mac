@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
     BOOL openCloseSlider;
+    BOOL waitingForConfigDownload;
 }
 
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
