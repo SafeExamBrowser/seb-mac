@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07.11.12.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -68,6 +68,7 @@
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 
 @optional
+- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
 
 @property (nonatomic, retain) SEBKeychainManager *keychainManager;
 
@@ -80,6 +81,7 @@
 
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
+- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
 - (NSData*)getPublicKeyHashFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
 - (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
