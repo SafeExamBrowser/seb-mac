@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07.11.12.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -84,6 +84,12 @@
 - (NSArray*)getCertificatesAndNames:(NSArray **)names
 {
     return [self.delegate getCertificatesAndNames:names];
+}
+
+
+- (NSArray*)getCertificatesOfType:(certificateTypes)certificateType
+{
+    return [self.delegate getCertificatesOfType:certificateType];
 }
 
 
@@ -273,6 +279,30 @@
         [hashedString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedString;
+}
+
+
+- (NSString *) generateChallenge
+{
+    int randomNumber = arc4random_uniform(999999);
+    return [NSString stringWithFormat:@"%d", randomNumber];
+}
+
+
+- (NSString *) generateResponseForChallenge:(NSString *)challenge secret:(NSString *)secret
+{
+    unsigned char hashedChars[32];
+    NSString *inputString = [challenge stringByAppendingString:secret];
+    const char *inputStringChars = [inputString UTF8String];
+    CC_SHA256(inputStringChars,
+              (uint)strlen(inputStringChars),
+              hashedChars);
+    
+    NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [hashedString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedString.copy;
 }
 
 
