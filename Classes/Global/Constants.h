@@ -3,8 +3,8 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2020 Daniel R. Schneider, ETH Zurich, 
-//  Educational Development and Technology (LET), 
+//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -25,8 +25,8 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
-//  and Technology (LET), based on the original idea of Safe Exam Browser 
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
 //  Contributor(s): ______________________________________.
@@ -63,6 +63,10 @@
 #define kStatusbarHeight 20
 
 #define kCustomButtonHeight     30.0
+
+#define SEBDefaultDockHeight 40.0
+#define SEBDefaultDockTimeItemFontSize 15.0
+#define SEBDefaultDockTimeItemPreferredWidth 42.0
 
 #define SEBErrorNoValidConfigData 10
 #define SEBErrorNoValidPrefixNoValidUnencryptedHeader 11
@@ -112,7 +116,7 @@ typedef NSUInteger browserUserAgentModeWinDesktop;
 
 enum {
     browserUserAgentModeWinTouchDefault         = 0,
-    browserUserAgentModeWinTouchiPad            = 1,
+    browserUserAgentModeWinTouchIPad            = 1,
     browserUserAgentModeWinTouchCustom          = 2
 };
 typedef NSUInteger browserUserAgentModeWinTouch;
@@ -192,7 +196,8 @@ enum {
     iOSVersion10                                = 10,
     iOSVersion11                                = 11,
     iOSVersion12                                = 12,
-    iOSVersion13                                = 13
+    iOSVersion13                                = 13,
+    iOSVersion14                                = 14
 };
 typedef NSUInteger iOSVersion;
 
