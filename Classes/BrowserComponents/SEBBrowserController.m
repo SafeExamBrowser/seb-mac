@@ -968,6 +968,18 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
+- (void) downloadingConfigFailedFromURL:(NSURL *)url
+{
+    if (_temporaryWebView) {
+        NSURL *originalURL = _temporaryWebView.originalURL;
+        [_delegate closeWebView:_temporaryWebView];
+        _temporaryWebView = nil;
+        _directConfigDownloadAttempted = YES;
+        [self downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:nil];
+    }
+}
+
+
 // Called by the browser webview delegate if loading the config URL failed
 - (void) openingConfigURLFailed {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -997,13 +1009,13 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
     
-    // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-//    if (self.downloadFilename) {
-//        DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
+    //Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
+    if (suggestedFilename) {
+        DDLogInfo(@"Resource %@ had a suggested filename (or the 'download' attribute?), force download it.", url.absoluteString);
 //        [listener download];
 //        [self startDownloadingURL:request.URL];
 //        return;
-//    }
+    }
 
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     

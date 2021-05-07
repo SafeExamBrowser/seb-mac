@@ -195,13 +195,14 @@
 - (void) conditionallyInitCustomHTTPProtocol;
 
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
-- (BOOL)sebWebView:(SEBAbstractWebView*)webView
+- (BOOL) sebWebView:(SEBAbstractWebView*)webView
 decidePolicyForMIMEType:(NSString*)mimeType
                url:(NSURL *)url
    canShowMIMEType:(BOOL)canShowMIMEType
     isForMainFrame:(BOOL)isForMainFrame
  suggestedFilename:(NSString *)suggestedFilename
            cookies:(NSArray <NSHTTPCookie *>*)cookies;
+- (void) downloadingConfigFailedFromURL:(NSURL *)url;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 
 
