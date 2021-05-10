@@ -280,6 +280,23 @@ static NSString * const authenticationPassword = @"password";
 }
 
 
+#pragma mark - Server authentication
+
+//- (void) URLSession:(NSURLSession *)session
+//didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+// completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+//{
+//    NSURLProtectionSpace *protectionSpace = challenge.protectionSpace;
+//    NSString *host = protectionSpace.host;
+//    NSString *authenticationMethod = protectionSpace.authenticationMethod;
+//    NSString *realm = protectionSpace.realm;
+//    SecTrustRef serverTrust = protectionSpace.serverTrust;
+//    DDLogInfo(@"URLSession: %@ didReceiveChallenge for host %@ with authenticationMethod: %@, realm: %@, serverTrust: %@", session, host, authenticationMethod, realm, serverTrust);
+//    
+//    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
+//}
+
+
 -(void) conditionallyInitCustomHTTPProtocol
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -965,7 +982,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             // Check if we should try to download the config file from the seb(s) URL directly
             // This is the case when the URL has a .seb filename extension
             // But we only try it when it didn't fail in a first attempt
-            if (_directConfigDownloadAttempted == NO && [url.pathExtension isEqualToString:@"seb"]) {
+            if (_directConfigDownloadAttempted == NO) {
                 _directConfigDownloadAttempted = YES;
                 [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
             } else {
@@ -992,13 +1009,13 @@ static NSString *urlStrippedFragment(NSURL* url)
 
 - (void) downloadingConfigFailedFromURL:(NSURL *)url
 {
-    if (_temporaryWebView) {
-        NSURL *originalURL = _temporaryWebView.originalURL;
-        [_delegate closeWebView:_temporaryWebView];
-        _temporaryWebView = nil;
-        _directConfigDownloadAttempted = YES;
-        [self downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:nil];
-    }
+//    if (_temporaryWebView) {
+//        NSURL *originalURL = _temporaryWebView.originalURL;
+//        [_delegate closeWebView:_temporaryWebView];
+//        _temporaryWebView = nil;
+//        _directConfigDownloadAttempted = YES;
+//        [self downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:nil];
+//    }
 }
 
 
@@ -1137,7 +1154,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                            URL:(NSURL *)url
                    originalURL:(NSURL *)originalURL
 {
-    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
+    DDLogDebug(@"-[SEBBrowserController didDownloadConfigData:response:error:URL:originalURL:] URL: %@, error: %@", url, error);
     
     if (error) {
         if (error.code == NSURLErrorCancelled) {
@@ -1178,6 +1195,10 @@ static NSString *urlStrippedFragment(NSURL* url)
             }
         }
     } else {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = httpResponse.statusCode;
+        DDLogDebug(@"NSHTTPURLResponse statusCode: %ld", (long)statusCode);
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self processDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
         });
