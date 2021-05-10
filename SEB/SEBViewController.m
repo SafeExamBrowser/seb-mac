@@ -2822,10 +2822,14 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     NSString *alertTitle = error.localizedDescription;
     NSString *alertMessage = error.localizedFailureReason;
+    NSString *recoverySuggestion = error.localizedRecoverySuggestion;
     NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
     NSString *underlyingErrorMessage = underlyingError.localizedFailureReason;
+    if (recoverySuggestion) {
+        alertMessage = recoverySuggestion;
+    }
     if (underlyingErrorMessage) {
-        alertMessage = [NSString stringWithFormat:@"%@: %@", alertMessage, underlyingErrorMessage];
+        alertMessage = [NSString stringWithFormat:@"%@ (%@)", alertMessage, underlyingErrorMessage];
     }
     
     _alertController = [UIAlertController alertControllerWithTitle:alertTitle
