@@ -109,10 +109,12 @@ static NSString * const authenticationPassword = @"password";
 
 - (void) resetBrowser
 {
+    BOOL cookiesActuallyCleared = NO;
     if (examSessionCookiesAlreadyCleared == NO) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
             // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
             // downloads to disk, and ensures that future requests occur on a new socket.
+            cookiesActuallyCleared = YES;
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
                 self.wkWebViewConfiguration = nil;
                 DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = true)");
@@ -121,6 +123,12 @@ static NSString * const authenticationPassword = @"password";
     } else {
         // reset the flag when it was true before
         examSessionCookiesAlreadyCleared = NO;
+    }
+    if (!cookiesActuallyCleared) {
+        NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+        for (NSHTTPCookie *cookie in cookies) {
+            [self.wkWebViewConfiguration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
+        }
     }
     
     // Clear browser back/forward list (page cache)
@@ -927,10 +935,12 @@ static NSString *urlStrippedFragment(NSURL* url)
             // When the URL of the SEB config file to load is on another host than the current page
             // then we might need to clear session cookies before attempting to download the config file
             // when the setting examSessionClearCookiesOnEnd is true
+            BOOL cookiesActuallyCleared = NO;
             if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
                 if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
                     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                     // downloads to disk, and ensures that future requests occur on a new socket.
+                    cookiesActuallyCleared = YES;
                     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
                         self.wkWebViewConfiguration = nil;
                         DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
@@ -945,6 +955,12 @@ static NSString *urlStrippedFragment(NSURL* url)
                 // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
                 // as they were anyways cleared when SEB was started
                 examSessionCookiesAlreadyCleared = YES;
+            }
+            if (!cookiesActuallyCleared) {
+                NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+                for (NSHTTPCookie *cookie in cookies) {
+                    [_wkWebViewConfiguration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
+                }
             }
             // Check if we should try to download the config file from the seb(s) URL directly
             // This is the case when the URL has a .seb filename extension
@@ -1257,10 +1273,12 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
         _delegate.openingSettings = true;
         
+        BOOL cookiesActuallyCleared = NO;
         if (examSessionCookiesAlreadyCleared == NO) {
             if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
                 // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                 // downloads to disk, and ensures that future requests occur on a new socket.
+                cookiesActuallyCleared = YES;
                 [[NSURLSession sharedSession] resetWithCompletionHandler:^{
                     self.wkWebViewConfiguration = nil;
                     DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
@@ -1269,6 +1287,12 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             // Set the flag for cookies cleared (either they actually were or they would have
             // been settings prevented it)
             examSessionCookiesAlreadyCleared = YES;
+        }
+        if (!cookiesActuallyCleared) {
+            NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+            for (NSHTTPCookie *cookie in cookies) {
+                [self.wkWebViewConfiguration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
+            }
         }
         downloadedSEBConfigDataURL = url;
         [_delegate openDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
