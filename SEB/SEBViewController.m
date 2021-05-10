@@ -2273,11 +2273,9 @@ void run_on_ui_thread(dispatch_block_t block)
     
     self.viewDidLayoutSubviewsAlreadyCalled = NO;
     
-    run_on_ui_thread(^{
-        [self.browserTabViewController closeAllTabs];
-        self.sessionRunning = false;
-        [self.browserController resetBrowser];
-    });
+    [self.browserTabViewController closeAllTabs];
+    self.sessionRunning = false;
+    [self.browserController resetBrowser];
 }
 
 
@@ -2830,7 +2828,7 @@ void run_on_ui_thread(dispatch_block_t block)
         alertMessage = [NSString stringWithFormat:@"%@: %@", alertMessage, underlyingErrorMessage];
     }
     
-    _alertController = [UIAlertController  alertControllerWithTitle:alertTitle
+    _alertController = [UIAlertController alertControllerWithTitle:alertTitle
                                                             message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
@@ -3088,121 +3086,122 @@ quittingClientConfig:(BOOL)quittingClientConfig
         }];
         return;
     }
-    
-    DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
-    
-    if (quitting) {
-        if (_sebServerConnectionEstablished) {
-            _sebServerConnectionEstablished = false;
-            [self.serverController quitSession];
+    run_on_ui_thread(^{
+        DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
+        
+        if (quitting) {
+            if (self.sebServerConnectionEstablished) {
+                self.sebServerConnectionEstablished = false;
+                [self.serverController quitSession];
+            }
         }
-    }
-    if (_startingExamFromSEBServer) {
-        _establishingSEBServerConnection = false;
-        _startingExamFromSEBServer = false;
-        [self.serverController loginToExamAborted];
-    }
-    
-    [self initializeLogger];
-    
-    // Close browser tabs and reset browser session
-    [self resetSEB];
-    
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    
-    // We only might need to switch off kiosk mode if it was active in previous settings
-    if (_secureMode) {
-        
-        // Remove this exam from the list of running exams,
-        // otherwise it would be locked next time it is started again
-        [self.sebLockedViewController removeLockedExam:currentStartURL];
-        
-        // Clear Pasteboard if we don't have to copy the hash keys into it
-        if (pasteboardString) {
-            pasteboard.string = pasteboardString;
-        } else {
-            pasteboard.items = @[];
+        if (self.startingExamFromSEBServer) {
+            self.establishingSEBServerConnection = false;
+            self.startingExamFromSEBServer = false;
+            [self.serverController loginToExamAborted];
         }
         
-        // Get new setting for running SEB in secure mode
-        BOOL oldSecureMode = _secureMode;
+        [self initializeLogger];
         
-        // Get new setting for ASAM/AAC enabled
-        BOOL oldEnableASAM = _enableASAM;
+        // Close browser tabs and reset browser session
+        [self resetSEB];
         
-        if (quittingClientConfig) {
-            self.previousSessionJitsiMeetEnabled = NO;
-        }
-        // Update kiosk flags according to current settings
-        [self updateKioskSettingFlags];
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         
-        // If there are one or more difference(s) in active kiosk mode
-        // compared to the new kiosk mode settings, also considering:
-        // when we're running in SAM mode, it's not relevant if settings for ASAM differ
-        // when we're running in ASAM mode, it's not relevant if settings for SAM differ
-        // we deactivate the current kiosk mode
-        if ((quittingClientConfig && oldSecureMode) ||
-            oldSecureMode != _secureMode ||
-            (!_singleAppModeActivated && (_ASAMActive != _enableASAM)) ||
-            (!_ASAMActive && (_singleAppModeActivated != _allowSAM))) {
+        // We only might need to switch off kiosk mode if it was active in previous settings
+        if (self.secureMode) {
             
-            // If SAM is active, we display the alert for waiting for it to be switched off
-            if (_singleAppModeActivated) {
-                if (self.sebLockedViewController) {
-                    self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-                }
-                if (_alertController) {
-                    [_alertController dismissViewControllerAnimated:NO completion:nil];
+            // Remove this exam from the list of running exams,
+            // otherwise it would be locked next time it is started again
+            [self.sebLockedViewController removeLockedExam:self->currentStartURL];
+            
+            // Clear Pasteboard if we don't have to copy the hash keys into it
+            if (pasteboardString) {
+                pasteboard.string = pasteboardString;
+            } else {
+                pasteboard.items = @[];
+            }
+            
+            // Get new setting for running SEB in secure mode
+            BOOL oldSecureMode = self.secureMode;
+            
+            // Get new setting for ASAM/AAC enabled
+            BOOL oldEnableASAM = self.enableASAM;
+            
+            if (quittingClientConfig) {
+                self.previousSessionJitsiMeetEnabled = NO;
+            }
+            // Update kiosk flags according to current settings
+            [self updateKioskSettingFlags];
+            
+            // If there are one or more difference(s) in active kiosk mode
+            // compared to the new kiosk mode settings, also considering:
+            // when we're running in SAM mode, it's not relevant if settings for ASAM differ
+            // when we're running in ASAM mode, it's not relevant if settings for SAM differ
+            // we deactivate the current kiosk mode
+            if ((quittingClientConfig && oldSecureMode) ||
+                oldSecureMode != self.secureMode ||
+                (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
+                (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM))) {
+                
+                // If SAM is active, we display the alert for waiting for it to be switched off
+                if (self.singleAppModeActivated) {
+                    if (self.sebLockedViewController) {
+                        self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+                    }
+                    if (self.alertController) {
+                        [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                    }
+                    
+                    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
+                                                                            message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                    self.endSAMWAlertDisplayed = true;
+                    [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                    return;
                 }
                 
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
-                                                                        message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                _endSAMWAlertDisplayed = true;
-                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                return;
-            }
-            
-            // If ASAM is active, we stop it now and display the alert for restarting session
-            if (oldEnableASAM) {
-                if (_ASAMActive) {
-                    DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                    UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
-                        if (didSucceed) {
-                            DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                            self->_ASAMActive = false;
-                        }
-                        else {
-                            DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
-                        }
-                        [self restartExamASAM:quitting && self->_secureMode];
-                    });
+                // If ASAM is active, we stop it now and display the alert for restarting session
+                if (oldEnableASAM) {
+                    if (self.ASAMActive) {
+                        DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
+                        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                            if (didSucceed) {
+                                DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
+                                self.ASAMActive = false;
+                            }
+                            else {
+                                DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
+                            }
+                            [self restartExamASAM:quitting && self.secureMode];
+                        });
+                    } else {
+                        [self restartExamASAM:quitting && self.secureMode];
+                    }
                 } else {
-                    [self restartExamASAM:quitting && _secureMode];
+                    // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
+                    [self initSEBWithCompletionBlock:^{
+                        [self conditionallyStartKioskMode];
+                    }];
                 }
             } else {
-                // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
+                // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
                 [self initSEBWithCompletionBlock:^{
-                    [self conditionallyStartKioskMode];
+                    [self startExam];
                 }];
             }
+            
         } else {
-            // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
+            // When no kiosk mode was active, then we can just restart SEB
+            // and switch kiosk mode on conditionally according to new settings
+            if (pasteboardString) {
+                pasteboard.string = pasteboardString;
+            }
             [self initSEBWithCompletionBlock:^{
-                [self startExam];
+                [self conditionallyStartKioskMode];
             }];
         }
-        
-    } else {
-        // When no kiosk mode was active, then we can just restart SEB
-        // and switch kiosk mode on conditionally according to new settings
-        if (pasteboardString) {
-            pasteboard.string = pasteboardString;
-        }
-        [self initSEBWithCompletionBlock:^{
-            [self conditionallyStartKioskMode];
-        }];
-    }
+    });
 }
 
 
