@@ -195,6 +195,11 @@
 - (void) conditionallyInitCustomHTTPProtocol;
 
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
+
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
+
 - (BOOL) sebWebView:(SEBAbstractWebView*)webView
 decidePolicyForMIMEType:(NSString*)mimeType
                url:(NSURL *)url
