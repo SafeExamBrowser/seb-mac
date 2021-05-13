@@ -110,6 +110,10 @@ decidePolicyForMIMEType:(nullable NSString*)mimeType
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
 
 - (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *__nullable credential))completionHandler;
+
+- (void)webView:(WKWebView *)webView
 didCommitNavigation:(WKNavigation *)navigation;
 
 - (void)webView:(WKWebView *)webView

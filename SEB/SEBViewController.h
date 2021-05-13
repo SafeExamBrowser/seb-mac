@@ -297,6 +297,8 @@
 
 - (void) showStartSingleAppMode;
 
+- (void) resetSEB;
+
 #pragma mark - Start and quit exam session
 - (void) startExam;
 - (void) quitExamConditionally;

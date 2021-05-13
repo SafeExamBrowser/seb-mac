@@ -276,6 +276,14 @@
 }
 
 
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    [_sebViewController.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+}
+
+
 - (BOOL)sebWebView:(SEBAbstractWebView*)webView
 decidePolicyForMIMEType:(NSString*)mimeType
                url:(NSURL *)url
