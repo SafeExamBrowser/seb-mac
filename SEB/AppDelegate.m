@@ -283,6 +283,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground
     DDLogError(@"%s", __FUNCTION__);
 
+    [_sebViewController resetSEB];
+    
     [NSURLCache.sharedURLCache removeAllCachedResponses];
 
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
