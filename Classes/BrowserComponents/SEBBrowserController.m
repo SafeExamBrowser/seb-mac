@@ -695,44 +695,42 @@ static NSString * const authenticationPassword = @"password";
 {
     DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
     
-    if (_authenticatingProtocol) {
-        if (returnCode == SEBEnterPasswordOK) {
-            _lastUsername = username;
-            NSURLCredential *newCredential;
-            newCredential = [NSURLCredential credentialWithUser:username
-                                                       password:password
-                                                    persistence:NSURLCredentialPersistenceForSession];
-            NSString *host = _pendingChallenge.protectionSpace.host;
-            NSDictionary *newAuthentication = @{ authenticationHost : host, authenticationUsername : username, authenticationPassword : password};
-            BOOL found = NO;
-            for (NSUInteger i=0; i < previousAuthentications.count; i++) {
-                NSDictionary *previousAuthentication = previousAuthentications[i];
-                if ([[previousAuthentication objectForKey:authenticationHost] isEqualToString:host]) {
-                    previousAuthentications[i] = newAuthentication;
-                    found = YES;
-                    break;
-                }
+    if (returnCode == SEBEnterPasswordOK) {
+        _lastUsername = username;
+        NSURLCredential *newCredential;
+        newCredential = [NSURLCredential credentialWithUser:username
+                                                   password:password
+                                                persistence:NSURLCredentialPersistenceForSession];
+        NSString *host = _pendingChallenge.protectionSpace.host;
+        NSDictionary *newAuthentication = @{ authenticationHost : host, authenticationUsername : username, authenticationPassword : password};
+        BOOL found = NO;
+        for (NSUInteger i=0; i < previousAuthentications.count; i++) {
+            NSDictionary *previousAuthentication = previousAuthentications[i];
+            if ([[previousAuthentication objectForKey:authenticationHost] isEqualToString:host]) {
+                previousAuthentications[i] = newAuthentication;
+                found = YES;
+                break;
             }
-            if (!found) {
-                [previousAuthentications addObject:newAuthentication];
-            }
-            [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
-            _authenticatingProtocol = nil;
-        } else if (returnCode == SEBEnterPasswordCancel) {
-            //            [_authenticatingProtocol performSelectorOnMainThread:@selector(stopLoading)
-            //                                                            withObject:NULL waitUntilDone:YES];
-            if (_pendingChallenge == _authenticatingProtocol.pendingChallenge) {
-                DDLogDebug(@"_pendingChallenge is same as _authenticatingProtocol.pendingChallenge");
-            } else {
-                DDLogDebug(@"_pendingChallenge is not same as _authenticatingProtocol.pendingChallenge");
-            }
-            [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
-            
-            _authenticatingProtocol = nil;
-        } else {
-            // Any other case as when the server aborted the authentication challenge
-            _authenticatingProtocol = nil;
         }
+        if (!found) {
+            [previousAuthentications addObject:newAuthentication];
+        }
+        [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
+        _authenticatingProtocol = nil;
+    } else if (returnCode == SEBEnterPasswordCancel) {
+        //            [_authenticatingProtocol performSelectorOnMainThread:@selector(stopLoading)
+        //                                                            withObject:NULL waitUntilDone:YES];
+        if (_pendingChallenge == _authenticatingProtocol.pendingChallenge) {
+            DDLogDebug(@"_pendingChallenge is same as _authenticatingProtocol.pendingChallenge");
+        } else {
+            DDLogDebug(@"_pendingChallenge is not same as _authenticatingProtocol.pendingChallenge");
+        }
+        [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
+        
+        _authenticatingProtocol = nil;
+    } else {
+        // Any other case as when the server aborted the authentication challenge
+        _authenticatingProtocol = nil;
     }
 }
 
@@ -924,7 +922,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
-#pragma mark Downloading SEB Config Files
+#pragma mark - Downloading SEB Config Files
 
 /// Initiating Opening the Config File Link
 
@@ -1038,13 +1036,13 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
-    - (BOOL)sebWebView:(SEBAbstractWebView*)webView
-    decidePolicyForMIMEType:(NSString*)mimeType
-                   url:(NSURL *)url
-       canShowMIMEType:(BOOL)canShowMIMEType
-        isForMainFrame:(BOOL)isForMainFrame
-     suggestedFilename:(NSString *)suggestedFilename
-               cookies:(NSArray <NSHTTPCookie *>*)cookies
+- (BOOL)sebWebView:(SEBAbstractWebView*)webView
+decidePolicyForMIMEType:(NSString*)mimeType
+               url:(NSURL *)url
+   canShowMIMEType:(BOOL)canShowMIMEType
+    isForMainFrame:(BOOL)isForMainFrame
+ suggestedFilename:(NSString *)suggestedFilename
+           cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
     
@@ -1206,22 +1204,36 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    DDLogInfo(@"WKWebView: %@ didReceiveAuthenticationChallenge: %@", webView, challenge);
+    [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+}
+
 // NSURLSession download basic/digest/NTLM authentication challenge delegate
-// Only called when downloading .seb files
+// Only called when downloading (.seb) files
 - (void)URLSession:(NSURLSession *)session
               task:(NSURLSessionTask *)task
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
     DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
-    
+    [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+}
+
+- (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
     // We accept any username/password authentication challenges.
     NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
     
     if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
         [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
         [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
-        DDLogInfo(@"URLSession didReceive HTTPBasic/HTTPDigest/NTLM challenge");
+        DDLogInfo(@"DidReceive HTTPBasic/HTTPDigest/NTLM challenge");
+
         // If we have credentials from a previous login to the server we're on, try these first
         // but not when the credentials are from a failed username/password attempt
         if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
@@ -1248,7 +1260,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                                                              title:NSLocalizedString(@"Authentication Required", nil)
                                                           username:self.lastUsername
                                                      modalDelegate:self
-                                                    didEndSelector:@selector(enteredUsername:password:returnCode:)];
+                                                    didEndSelector:@selector(enteredURLSessionUsername:password:returnCode:)];
                 });
                 
             } else {
@@ -1260,9 +1272,38 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             }
         }
     } else {
-        DDLogInfo(@"URLSession didReceive other challenge (default handling)");
+        DDLogInfo(@"DidReceive other challenge (default handling)");
         completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
-//        completionHandler(NSURLSessionAuthChallengeUseCredential, NULL);
+    }
+}
+
+// Managing entered credentials for .seb file download
+- (void)enteredURLSessionUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
+{
+    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
+    
+    if (_pendingChallengeCompletionHandler) {
+        if (returnCode == SEBEnterPasswordOK) {
+            _lastUsername = username;
+            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
+                                                                        password:password
+                                                                     persistence:NSURLCredentialPersistenceForSession];
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+            
+            _enteredCredential = newCredential;
+            return;
+            
+            // Authentication wasn't successful
+        } else if (returnCode == SEBEnterPasswordCancel) {
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+            _enteredCredential = nil;
+            _pendingChallengeCompletionHandler = nil;
+        } else {
+            // Any other case as when the server aborted the authentication challenge
+            _enteredCredential = nil;
+            _pendingChallengeCompletionHandler = nil;
+        }
+        [_delegate openingConfigURLRoleBack];
     }
 }
 
@@ -1290,6 +1331,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         [_delegate closeWebView:_temporaryWebView];
         _temporaryWebView = nil;
     }
+    
+    // Reset the pending challenge in case it was an authenticated load
+    _pendingChallengeCompletionHandler = nil;
     
     if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
         _delegate.openingSettings = true;
