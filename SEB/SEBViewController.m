@@ -2966,6 +2966,8 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) sessionQuitRestart:(BOOL)restart
 {
     BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+    _openingSettings = NO;
+    _resettingSettings = NO;
     
     // Are exam settings active and we aren't restarting the exam?
     if (!quittingClientConfig && !restart) {
