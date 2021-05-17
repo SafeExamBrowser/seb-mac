@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public protocol SEBServerControllerDelegate: class {
+@objc public protocol SEBServerControllerDelegate: AnyObject {
     func didSelectExam(_ examId: String, url: String)
     func loginToExam(_ url: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
@@ -15,7 +15,7 @@ import Foundation
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
 }
 
-@objc public protocol ServerControllerUIDelegate: class {
+@objc public protocol ServerControllerUIDelegate: AnyObject {
     
     func updateExamList()
 }

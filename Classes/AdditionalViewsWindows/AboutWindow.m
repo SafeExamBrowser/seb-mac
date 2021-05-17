@@ -33,7 +33,6 @@
 //
 
 #import "AboutWindow.h"
-#import "MyGlobals.h"
 
 @implementation AboutWindow
 
