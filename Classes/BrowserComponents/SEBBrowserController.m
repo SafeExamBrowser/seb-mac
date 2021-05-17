@@ -421,7 +421,7 @@ static NSString * const authenticationPassword = @"password";
         
         NSString *host = challenge.protectionSpace.host;
         NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
-        if (previousAuthentication) {
+        if (previousAuthentication && challenge.previousFailureCount == 0) {
             NSURLCredential *newCredential;
             newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
                                                        password:[previousAuthentication objectForKey:authenticationPassword]
