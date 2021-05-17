@@ -39,7 +39,6 @@
 #import "SEBOSXConfigFileController.h"
 #import "RNEncryptor.h"
 #import "SEBCryptor.h"
-#import "MyGlobals.h"
 
 @interface PrefsConfigFileViewController ()
 
