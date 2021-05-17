@@ -39,7 +39,6 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "NSData+NSDataZIPExtension.h"
-#import "MyGlobals.h"
 
 
 @implementation SEBConfigFileManager

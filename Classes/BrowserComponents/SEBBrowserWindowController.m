@@ -33,7 +33,6 @@
 //
 
 #import "SEBBrowserWindowController.h"
-#import "MyGlobals.h"
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 

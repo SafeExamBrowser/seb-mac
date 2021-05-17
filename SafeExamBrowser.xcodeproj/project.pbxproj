@@ -137,7 +137,6 @@
 		6940B96A1BA0F2FB008C8CFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
 		6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */; };
 		6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */; };
-		6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
 		6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9771BA0F2FB008C8CFC /* Assets.xcassets */; };
 		6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */; };
 		6940B9861BA0F2FB008C8CFC /* SEBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9851BA0F2FB008C8CFC /* SEBTests.m */; };
@@ -666,6 +665,7 @@
 		699B325F2154639800EEA3E5 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699B325E2154639800EEA3E5 /* libmbedtls.a */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69A0FDB02652DD6500DF1AD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
 		69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */; };
 		69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
@@ -3087,6 +3087,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A0FDB02652DD6500DF1AD6 /* Main.storyboard in Resources */,
 				69B226E51D4108BA0065B831 /* Icon-320x320.png in Resources */,
 				69B253DA1E4E2200000B4A6D /* SEBSliderClosePage@3x.png in Resources */,
 				699AB092246DFFFE001BF70C /* SEBSliderProctoringViewIcon.png in Resources */,
@@ -3184,7 +3185,6 @@
 				693A395F1E60AC6C005030B0 /* SEBNavigateBackIcon@3x.png in Resources */,
 				69B253D61E4E2200000B4A6D /* SEBSliderClosePage.png in Resources */,
 				69B253D81E4E2200000B4A6D /* SEBSliderClosePage@2x.png in Resources */,
-				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
 				69B581771ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */,
 				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
 				69944806248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
@@ -3478,12 +3478,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SEB Dev/Pods-SEB Dev-frameworks.sh",
-				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeet.framework",
-				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework/JitsiMeetSDK",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC/WebRTC.framework/WebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeetSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3588,12 +3588,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh",
-				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeet.framework",
-				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework/JitsiMeetSDK",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC/WebRTC.framework/WebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeetSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4122,7 +4122,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4152,7 +4152,7 @@
 					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
-					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework/Headers\"",
+					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -4202,7 +4202,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ETH Zurich (9Z623UDZ5L)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4234,7 +4234,7 @@
 					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
-					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework/Headers\"",
+					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -4459,7 +4459,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_BITCODE = NO;
@@ -4539,7 +4539,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4605,7 +4605,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4648,7 +4648,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4709,7 +4709,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4736,7 +4736,7 @@
 				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = SEB/Frameworks/OpenSSL/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4774,7 +4774,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 13128;
+				CURRENT_PROJECT_VERSION = 13129;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4797,7 +4797,7 @@
 				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = SEB/Frameworks/OpenSSL/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "-lcrypto";

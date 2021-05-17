@@ -33,7 +33,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Constants.h"
 #import "SEBViewController.h"
 
 @interface MyGlobals : NSObject

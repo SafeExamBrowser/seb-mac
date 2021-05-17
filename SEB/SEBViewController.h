@@ -87,9 +87,7 @@
 #import "SEBServerViewController.h"
 #import "ServerLogger.h"
 
-#import "RTCVideoTrack.h"
-#import "RTCVideoFrame.h"
-#import "RTCCVPixelBuffer.h"
+#import <WebRTC.h>
 
 @class AppDelegate;
 @class SEBUIController;

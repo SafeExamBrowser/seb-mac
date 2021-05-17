@@ -6,13 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RTCCameraVideoCapturer.h"
-#import "RTCVideoSource.h"
-#import "RTCAudioSession.h"
-#import "RTCMediaStreamTrack.h"
-#import "RTCMediaStream.h"
-#import "RTCAudioTrack.h"
-#import "RTCVideoTrack.h"
+#import <WebRTC.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

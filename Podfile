@@ -16,7 +16,7 @@ platform :ios, '11'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '~> 2.10.2'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
+pod 'JitsiMeetSDK'#, '~> 2.10.2'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
 
 end
 
@@ -26,7 +26,7 @@ platform :ios, '11'
 pod 'CocoaLumberjack'
 pod 'InAppSettingsKit', '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '~> 2.10.2'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
+pod 'JitsiMeetSDK'#, '~> 2.10.2'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
 
 end
 
