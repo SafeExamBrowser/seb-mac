@@ -35,7 +35,6 @@
 
 #import "CapWindowController.h"
 #import "CapWindow.h"
-#import "MyGlobals.h"
 
 
 @implementation CapWindowController

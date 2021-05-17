@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import JitsiMeet
+import JitsiMeetSDK
 
 @objc protocol ProctoringUIDelegate {
     func setProctoringViewButtonState(_ remoteProctoringButtonState: remoteProctoringButtonStates)
