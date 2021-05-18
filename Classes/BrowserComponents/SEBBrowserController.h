@@ -148,6 +148,7 @@
     NSString *quitURLTrimmed;
     NSString *startURLQueryParameter;
     BOOL sendHashKeys;
+    BOOL usingEmbeddedCertificates;
     BOOL pinEmbeddedCertificates;
     BOOL downloadPDFFiles;
 }

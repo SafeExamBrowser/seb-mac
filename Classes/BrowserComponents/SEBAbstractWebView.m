@@ -48,8 +48,7 @@
         if (webViewSelectPolicy != webViewSelectForceClassic) {
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
             
-            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] &&
-                ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]) {
+            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"]) {
                 
                 if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
                     (webViewSelectPolicy == webViewSelectPreferModern) ||
