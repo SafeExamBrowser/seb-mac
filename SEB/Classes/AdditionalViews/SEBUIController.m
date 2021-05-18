@@ -67,12 +67,19 @@
     // like iPhone X
     _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
     _statusBarAppearanceExtended = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended"];
+    _statusBarAppearance = [self statusBarAppearanceForDevice];
+    
+    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
+                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
+                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+
+
     // Check if a quit password is set = run SEB in secure mode
     BOOL secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
 
     // In iOS 9 we have to disable the status bar when SEB was started up by another
     // app, as the "back to" this app link in the status bar isn't blocked in AAC
-    if (secureMode && (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 || NSProcessInfo.processInfo.operatingSystemVersion.majorVersion >= 14)) {
+    if (secureMode && (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 || (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 14 && NSProcessInfo.processInfo.operatingSystemVersion.minorVersion < 5))) {
         _statusBarAppearance = mobileStatusBarAppearanceNone;
         if (_statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedLight || _statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedNoneLight) {
             _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneLight;
@@ -80,12 +87,6 @@
             _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneDark;
         }
     }
-    _statusBarAppearance = [self statusBarAppearanceForDevice];
-    
-    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
-                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
-                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
-
     /// Add left items
     
     // Add SEB app icon to the left side of the dock
