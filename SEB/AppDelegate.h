@@ -44,15 +44,12 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
     NSMutableArray *_persistentWebpages;
-    
-    @private
-    
-    DDFileLogger *_myLogger;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SEBViewController *sebViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
+@property (strong, nonatomic) DDFileLogger *myLogger;
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
 @property (strong, nonatomic, readonly) NSURL *universalURL;
 @property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
