@@ -437,6 +437,12 @@ static NSMutableSet *browserWindowControllers;
             if (!_ASAMActive) {
                 [self conditionallyResetSettings];
             }
+        } else if ([preferences boolForKey:@"sendLogs"]) {
+            [preferences setBool:NO forKey:@"sendLogs"];
+            if (!_ASAMActive) {
+                // If AAC isn't being started
+                [self conditionallySendLogs];
+            }
         } else if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
