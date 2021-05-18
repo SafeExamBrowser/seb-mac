@@ -218,7 +218,7 @@
 				<string>Prefer Modern</string>
 			</array>
 			<key>FooterText</key>
-			<string>The modern WKWebView currently doesn&apos;t support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content), embedded server certificates and certificate pinning (Network &gt; Certificates &gt; Pin Certificates) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &apos;Use Browser &amp; Config Keys&apos; option in new tabs on a different server or generally.</string>
+			<string>The modern WKWebView browser engine currently doesn&apos;t support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &apos;Use Browser &amp; Config Keys&apos; option in new tabs on a different server or generally.</string>
 		</dict>
 		<dict>
 			<key>Title</key>
