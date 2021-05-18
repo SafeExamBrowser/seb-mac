@@ -795,13 +795,13 @@ decidePolicyForMIMEType:(NSString*)mimeType
 {
     DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
     
-    //Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-    if (suggestedFilename) {
-        DDLogInfo(@"Resource %@ had a suggested filename (or the 'download' attribute?), force download it.", url.absoluteString);
+//    //Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
+//    if (suggestedFilename) {
+//        DDLogInfo(@"Resource %@ had a suggested filename (or the 'download' attribute?), force download it.", url.absoluteString);
 //        [listener download];
 //        [self startDownloadingURL:request.URL];
 //        return;
-    }
+//    }
 
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
