@@ -456,9 +456,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
-    DDLogDebug(@"Navigation type for URL %@: %ld", url, (long)navigationType);
-    DDLogDebug(@"HTTP method for URL %@: %@", url, httpMethod);
-    DDLogDebug(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
+    DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
+    DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
+    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
