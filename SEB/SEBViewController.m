@@ -238,22 +238,30 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) initializeLogger
 {
+    if (_appDelegate.myLogger) {
+        [DDLog removeLogger:_appDelegate.myLogger];
+    }
     // Initialize file logger if logging enabled
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
         [DDLog removeLogger:_myLogger];
+        _myLogger = nil;
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             [DDLog removeLogger:ServerLogger.sharedInstance];
         }
     } else {
-        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] init];
-        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
-        [DDLog addLogger:_myLogger];
+        if (!_myLogger) {
+            DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] init];
+            _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+            _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+            _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+            [DDLog addLogger:_myLogger];
+        }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
-            [DDLog addLogger:ServerLogger.sharedInstance];
-            ServerLogger.sharedInstance.sebViewController = self;
+            if (![DDLog.allLoggers containsObject:ServerLogger.sharedInstance]) {
+                [DDLog addLogger:ServerLogger.sharedInstance];
+                ServerLogger.sharedInstance.sebViewController = self;
+            }
         }
     }
 }
