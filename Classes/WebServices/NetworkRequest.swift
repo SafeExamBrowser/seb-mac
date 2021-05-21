@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-protocol NetworkRequest: class {
+protocol NetworkRequest: AnyObject {
 	associatedtype Model
 	func load(withCompletion completion: @escaping (Model?) -> Void)
 	func decode(_ data: Data) -> Model?
