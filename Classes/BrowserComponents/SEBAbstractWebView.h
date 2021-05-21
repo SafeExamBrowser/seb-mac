@@ -187,7 +187,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (strong, nonatomic) NSURL *originalURL;
 @property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab;
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck;
 
 @end
 
