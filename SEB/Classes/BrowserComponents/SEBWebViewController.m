@@ -39,11 +39,11 @@
 
 @implementation SEBWebViewController
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck
 {
     self = [super init];
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck];
         sebAbstractWebView.navigationDelegate = self;
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -788,6 +788,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
     return _javaScriptFunctions;
 }
 
+- (BOOL) overrideAllowSpellCheck
+{
+    return self.navigationDelegate.overrideAllowSpellCheck;
+}
+
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
     return [self.navigationDelegate modifyRequest:request];
@@ -858,14 +863,6 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     [self loadURL:[NSURL URLWithString:webSearchString]];
     
-}
-
-
-// Create a UIWebView to hold new webpages
-- (SEBAbstractWebView *)createNewWebViewCommonHost:(BOOL)commonHost {
-    SEBAbstractWebView *newWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHost];
-    newWebView.navigationDelegate = self;
-    return newWebView;
 }
 
 

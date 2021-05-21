@@ -39,10 +39,11 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck
 {
     self = [super init];
     if (self) {
+        _overrideAllowSpellCheck = overrideSpellCheck;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         if (webViewSelectPolicy != webViewSelectForceClassic) {
