@@ -17,7 +17,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     private var zoomScale : CGFloat?
 
-    private var quitURLTrimmed : String?
     private var urlFilter : SEBURLFilter?
     
     public override func loadView() {
@@ -35,9 +34,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.uiDelegate = self
         sebWebView?.navigationDelegate = self
         
-        let preferences = UserDefaults.standard
         sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
-        quitURLTrimmed = preferences.secureString(forKey: "org_safeexambrowser_SEB_quitURL")?.trimmingCharacters(in: CharacterSet.init(charactersIn: "/"))
         urlFilter = SEBURLFilter.shared()
     }
     
