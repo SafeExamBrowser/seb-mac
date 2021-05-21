@@ -76,7 +76,7 @@
  * @brief       Open a new, temporary webView for downloading the linked config file
  *              This allows the user to authenticate if the link target is stored on a secured server
  */
-- (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url;
+- (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 - (void) closeWebView:(SEBAbstractWebView *) webViewToClose;
 - (void) downloadingSEBConfigFailed:(NSError *)error;
 - (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;

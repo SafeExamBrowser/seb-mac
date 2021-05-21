@@ -301,9 +301,15 @@ decidePolicyForMIMEType:(NSString*)mimeType
 // Open new tab and load URL
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
+    return [self openNewTabWithURL:url overrideSpellCheck:NO];
+}
+
+
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck
+{
     _maxIndex++;
     NSUInteger index = _maxIndex;
-    return [self openNewTabWithURL:url index:index];
+    return [self openNewTabWithURL:url index:index overrideSpellCheck:overrideSpellCheck];
 }
 
 
@@ -312,20 +318,21 @@ decidePolicyForMIMEType:(NSString*)mimeType
 {
     _maxIndex++;
     NSUInteger index = _maxIndex;
-    return [self openNewTabWithURL:url index:index image:templateImage];
+    return [self openNewTabWithURL:url index:index image:templateImage overrideSpellCheck:NO];
 }
 
 
 // Open new tab and load URL, use passed index
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck
 {
-    return [self openNewTabWithURL:url index:index image:nil];
+    return [self openNewTabWithURL:url index:index image:nil overrideSpellCheck:NO];
 }
 
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
-                     index:(NSUInteger)index
-                     image:(UIImage *)templateImage
+                                     index:(NSUInteger)index
+                                     image:(UIImage *)templateImage
+                        overrideSpellCheck:(BOOL)overrideSpellCheck
 {
     // Save new tab data persistently
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -353,7 +360,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
     
     id newViewController;
 
-    newViewController = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:url]];
+    newViewController = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
@@ -431,7 +438,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
-            webViewControllerToSwitch = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url]];
+            webViewControllerToSwitch = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] overrideSpellCheck:NO];
         }
         
         // Exchange the old against the new webview
@@ -654,7 +661,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
             // Open URL in a new webview
             // Create a new WebView
             NSURL *webpageURL = [NSURL URLWithString:webpage.url];
-            SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host]];
+            SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
@@ -711,7 +718,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
         // This should prevent that a race condition with
         // receiving MDM server config already added an empty webpage
         [_openWebpages removeAllObjects];
-        [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
+        [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0 overrideSpellCheck:NO];
     }
 }
 
@@ -760,8 +767,8 @@ decidePolicyForMIMEType:(NSString*)mimeType
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab {
-    SEBWebViewController<SEBAbstractBrowserControllerDelegate>  *newSEBWebViewController = [[SEBWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab];
+- (SEBWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
+    SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
     newSEBWebViewController.navigationDelegate = self;
     return newSEBWebViewController;
 }
@@ -814,7 +821,6 @@ decidePolicyForMIMEType:(NSString*)mimeType
 {
     [_sebViewController examineCookies:cookies];
 }
-
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {

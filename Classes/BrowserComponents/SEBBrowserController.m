@@ -734,8 +734,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
             } else {
                 _directConfigDownloadAttempted = NO;
-                _temporaryWebView = [_delegate openTempWebViewForDownloadingConfigFromURL:url];
-                _temporaryWebView.originalURL = sebURL;
+                _temporaryWebView = [_delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:sebURL];
             }
         }
     } else {
@@ -932,7 +931,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
                 // by opening the URL in a temporary webview
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // which needs to be done on the main thread!
-                    self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url];
+                    self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:originalURL];
                     self.temporaryWebView.originalURL = originalURL;
                 });
             } else {

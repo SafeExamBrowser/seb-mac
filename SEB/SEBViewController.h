@@ -336,6 +336,7 @@
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
 - (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig;
 - (void) resetReceivedServerConfig;
+- (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
 - (void) storeNewSEBSettings:(NSData *)sebData;

@@ -67,7 +67,7 @@
 @property (strong, nonatomic) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab;
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
