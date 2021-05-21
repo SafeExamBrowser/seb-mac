@@ -163,7 +163,7 @@ static NSMutableSet *browserWindowControllers;
                                                                      self->_alertController = nil;
                                                                      NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                                                                      if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                                                                         [[UIApplication sharedApplication] openURL:url];
+                                                                         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
                                                                      }
                                                                  }]];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -395,8 +395,8 @@ static NSMutableSet *browserWindowControllers;
             // Close settings
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
                 self.appSettingsViewController = nil;
-                self->_settingsOpen = false;
-                [self conditionallyDownloadAndOpenSEBConfigFromURL:self->_appDelegate.sebFileURL];
+                self.settingsOpen = false;
+                [self conditionallyDownloadAndOpenSEBConfigFromURL:self.appDelegate.sebFileURL];
                 
                 // Set flag that SEB is initialized to prevent applying the client config
                 // Start URL to be loaded
@@ -455,7 +455,7 @@ static NSMutableSet *browserWindowControllers;
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
             // Initialize UI using client UI/browser settings
-            [self initSEBWithCompletionBlock:^{
+            [self initSEBUIWithCompletionBlock:^{
                 [self conditionallyStartKioskMode];
             }];
         }
@@ -794,7 +794,7 @@ static NSMutableSet *browserWindowControllers;
     
     [self resetSEB];
     _resettingSettings = NO;
-    [self initSEBWithCompletionBlock:^{
+    [self initSEBUIWithCompletionBlock:^{
         [self openInitAssistant];
     }];
 }
@@ -954,7 +954,7 @@ static NSMutableSet *browserWindowControllers;
             self->_pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
-            [self initSEBWithCompletionBlock:^{
+            [self initSEBUIWithCompletionBlock:^{
                 [self conditionallyStartKioskMode];
             }];
         }
@@ -1684,256 +1684,252 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) initSEBWithCompletionBlock:(dispatch_block_t)completionBlock
+- (void) initSEBUIWithCompletionBlock:(dispatch_block_t)completionBlock
+{
+    run_on_ui_thread(^{
+        [self initSEBUIWithCompletionBlock:completionBlock temporary:NO];
+    });
+}
+
+- (void) initSEBUIWithCompletionBlock:(dispatch_block_t)completionBlock temporary:(BOOL)temporary
 {
     if (sebUIInitialized) {
         _appDelegate.sebUIController = nil;
     } else {
         sebUIInitialized = true;
     }
-    run_on_ui_thread(^{
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Set up system
+    
+    // Set preventing Auto-Lock according to settings
+    [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
+    
+    // Create browser user agent according to settings
+    NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
+    // Register browser user agent for UIWebView
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
+    // Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+    
+    // UI
+    
+    [self addBrowserToolBarWithOffset:0];
+    
+    //// Initialize SEB Dock, commands section in the slider view and
+    //// 3D Touch Home screen quick actions
+    
+    // Reset dynamic Home screen quick actions
+    [UIApplication sharedApplication].shortcutItems = nil;
+    
+    // Reset settings view controller (so new settings are displayed)
+    self.appSettingsViewController = nil;
+    
+    // If running with persisted (client) settings
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        // Set the local flag for showing settings in-app, so this is also enabled
+        // when opening temporary exam settings later
+        self->_appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
+    }
+    
+    // Add scan QR code command/Home screen quick action/dock button
+    // if SEB isn't running in exam mode (= no quit pw)
+    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
+        ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
+         (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
+         (examSession && allowReconfiguring))) {
         
-        // Set up system
-        
-        // Set preventing Auto-Lock according to settings
-        [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
-        
-        // Create browser user agent according to settings
-        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
-        // Register browser user agent for UIWebView
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
-        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-        
-        // Update URL filter flags and rules
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-        // Update URL filter ignore rules
-        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
-        
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket
-        // if the default value (enabled) for the setting examSessionClearCookiesOnStart is set
-//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
-//            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-//            }];
-//        }
-        // Cache the setting examSessionClearCookiesOnEnd of the current config,
-        // which will be used for conditionally resetting the browser
-//        self.examSessionClearCookiesOnEnd = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"];
-                
-        // UI
-        
-        [self addBrowserToolBarWithOffset:0];
-        
-        //// Initialize SEB Dock, commands section in the slider view and
-        //// 3D Touch Home screen quick actions
-        
-        // Reset dynamic Home screen quick actions
+        // Add scan QR code Home screen quick action
+        NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
+        [shortcutItems addObject:[self scanQRCodeShortcutItem]];
+        [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
+    } else {
         [UIApplication sharedApplication].shortcutItems = nil;
+    }
+    
+    /// If dock is enabled, register items to the toolbar
+    
+    if (self.sebUIController.dockEnabled) {
+        [self.navigationController setToolbarHidden:NO];
         
-        // Reset settings view controller (so new settings are displayed)
-        self.appSettingsViewController = nil;
-        
-        // If running with persisted (client) settings
-        if (!NSUserDefaults.userDefaultsPrivate) {
-            // Set the local flag for showing settings in-app, so this is also enabled
-            // when opening temporary exam settings later
-            self->_appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
-        }
-        
-        // Add scan QR code command/Home screen quick action/dock button
-        // if SEB isn't running in exam mode (= no quit pw)
-        BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-        BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
-            ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
-             (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
-             (examSession && allowReconfiguring))) {
-            
-            // Add scan QR code Home screen quick action
-            NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
-            [shortcutItems addObject:[self scanQRCodeShortcutItem]];
-            [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
-        } else {
-            [UIApplication sharedApplication].shortcutItems = nil;
-        }
-        
-        /// If dock is enabled, register items to the toolbar
-        
-        if (self.sebUIController.dockEnabled) {
-            [self.navigationController setToolbarHidden:NO];
-            
-            // Check if we need to customize the toolbar, because running on a device
-            // like iPhone X
-            if (@available(iOS 11.0, *)) {
-                UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                if (bottomPadding != 0) {
-                    
-                    [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-                    [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
-                    self.navigationController.toolbar.translucent = YES;
-                    
-                    if (self->_bottomBackgroundView) {
-                        [self->_bottomBackgroundView removeFromSuperview];
-                    }
-                    self->_bottomBackgroundView = [UIView new];
-                    [self->_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                    [self.view addSubview:self->_bottomBackgroundView];
-                    
-                    if (self->_toolBarView) {
-                        [self->_toolBarView removeFromSuperview];
-                    }
-                    self->_toolBarView = [UIView new];
-                    [self->_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                    [self.view addSubview:self->_toolBarView];
-                    
-                    
-                    NSDictionary *viewsDictionary = @{@"toolBarView" : self->_toolBarView,
-                                                      @"bottomBackgroundView" : self->_bottomBackgroundView,
-                                                      @"containerView" : self->_containerView};
-                    
-                    NSMutableArray *constraints_H = [NSMutableArray new];
-                    
-                    // dock/toolbar leading constraint to safe area guide of superview
-                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                          attribute:NSLayoutAttributeLeading
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView.safeAreaLayoutGuide
-                                                                          attribute:NSLayoutAttributeLeading
-                                                                         multiplier:1.0
-                                                                           constant:0]];
-                    
-                    // dock/toolbar trailling constraint to safe area guide of superview
-                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                          attribute:NSLayoutAttributeTrailing
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView.safeAreaLayoutGuide
-                                                                          attribute:NSLayoutAttributeTrailing
-                                                                         multiplier:1.0
-                                                                           constant:0]];
-                    
-                    NSMutableArray *constraints_V = [NSMutableArray new];
-                    
-                    // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
-                    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-                        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
-                        self.additionalSafeAreaInsets = newSafeArea;
-                    } else {
-                        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
-                        self.additionalSafeAreaInsets = newSafeArea;
-                    }
-                    CGFloat toolBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
-                                             self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 36 : 46;
-                    
-                    self->_toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                                  attribute:NSLayoutAttributeHeight
-                                                                                  relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:nil
-                                                                                  attribute:NSLayoutAttributeNotAnAttribute
-                                                                                 multiplier:1.0
-                                                                                   constant:toolBarHeight];
-                    [constraints_V addObject: self->_toolBarHeightConstraint];
-                    
-                    // dock/toolbar top constraint to safe area guide bottom of superview
-                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                          attribute:NSLayoutAttributeTop
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView.safeAreaLayoutGuide
-                                                                          attribute:NSLayoutAttributeBottom
-                                                                         multiplier:1.0
-                                                                           constant:0]];
-                    
-                    // dock/toolbar bottom constraint to background view top
-                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                          attribute:NSLayoutAttributeBottom
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_bottomBackgroundView
-                                                                          attribute:NSLayoutAttributeTop
-                                                                         multiplier:1.0
-                                                                           constant:0]];
-                    
-                    // background view bottom constraint to superview bottom
-                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_bottomBackgroundView
-                                                                          attribute:NSLayoutAttributeBottom
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView
-                                                                          attribute:NSLayoutAttributeBottom
-                                                                         multiplier:1.0
-                                                                           constant:0]];
-                    
-                    [self.view addConstraints:constraints_H];
-                    [self.view addConstraints:constraints_V];
-                    
-                    SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
-                    
-                    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                        [self addBlurEffectStyle:UIBlurEffectStyleRegular
-                                       toBarView:self->_toolBarView
-                             backgroundTintStyle:backgroundTintStyle];
-                        
-                    } else {
-                        self->_toolBarView.backgroundColor = [UIColor lightGrayColor];
-                    }
-                    self->_toolBarView.hidden = false;
-                    
-                    NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
-                                                                                                         options: 0
-                                                                                                         metrics: nil
-                                                                                                           views: viewsDictionary];
-                    
-                    [self.view addConstraints:bottomBackgroundViewConstraints_H];
-                    
-                    if (UIAccessibilityIsReduceTransparencyEnabled()) {
-                        self->_bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
-                    } else {
-                        if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
-                            [self addBlurEffectStyle:UIBlurEffectStyleDark
-                                           toBarView:self->_bottomBackgroundView
-                                 backgroundTintStyle:SEBBackgroundTintStyleNone];
-                        } else {
-                            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
-                                           toBarView:self->_bottomBackgroundView
-                                 backgroundTintStyle:SEBBackgroundTintStyleNone];
-                        }
-                    }
-                    BOOL sideSafeAreaInsets = false;
-                    
-                    UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                    CGFloat leftPadding = window.safeAreaInsets.left;
-                    sideSafeAreaInsets = leftPadding != 0;
-                    
-                    self->_bottomBackgroundView.hidden = sideSafeAreaInsets;
-#ifdef DEBUG
-                    CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                    CGFloat bottomMargin = window.layoutMargins.bottom;
-                    CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
-                    DDLogDebug(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
-#endif
+        // Check if we need to customize the toolbar, because running on a device
+        // like iPhone X
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = UIApplication.sharedApplication.keyWindow;
+            CGFloat bottomPadding = window.safeAreaInsets.bottom;
+            if (bottomPadding != 0) {
+                
+                [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+                [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
+                self.navigationController.toolbar.translucent = YES;
+                
+                if (self->_bottomBackgroundView) {
+                    [self->_bottomBackgroundView removeFromSuperview];
                 }
-            }
-            
-            [self setToolbarItems:self.sebUIController.dockItems];
-        } else {
-            [self.navigationController setToolbarHidden:YES];
-            
-            if (self->_bottomBackgroundView) {
-                [self->_bottomBackgroundView removeFromSuperview];
-            }
-            if (self->_toolBarView) {
-                [self->_toolBarView removeFromSuperview];
+                self->_bottomBackgroundView = [UIView new];
+                [self->_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                [self.view addSubview:self->_bottomBackgroundView];
+                
+                if (self->_toolBarView) {
+                    [self->_toolBarView removeFromSuperview];
+                }
+                self->_toolBarView = [UIView new];
+                [self->_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                [self.view addSubview:self->_toolBarView];
+                
+                
+                NSDictionary *viewsDictionary = @{@"toolBarView" : self->_toolBarView,
+                                                  @"bottomBackgroundView" : self->_bottomBackgroundView,
+                                                  @"containerView" : self->_containerView};
+                
+                NSMutableArray *constraints_H = [NSMutableArray new];
+                
+                // dock/toolbar leading constraint to safe area guide of superview
+                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self->_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                // dock/toolbar trailling constraint to safe area guide of superview
+                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self->_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                NSMutableArray *constraints_V = [NSMutableArray new];
+                
+                // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
+                if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+                    UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
+                    self.additionalSafeAreaInsets = newSafeArea;
+                } else {
+                    UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
+                    self.additionalSafeAreaInsets = newSafeArea;
+                }
+                CGFloat toolBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+                                         self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 36 : 46;
+                
+                self->_toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                              attribute:NSLayoutAttributeHeight
+                                                                              relatedBy:NSLayoutRelationEqual
+                                                                                 toItem:nil
+                                                                              attribute:NSLayoutAttributeNotAnAttribute
+                                                                             multiplier:1.0
+                                                                               constant:toolBarHeight];
+                [constraints_V addObject: self->_toolBarHeightConstraint];
+                
+                // dock/toolbar top constraint to safe area guide bottom of superview
+                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                      attribute:NSLayoutAttributeTop
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self->_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                // dock/toolbar bottom constraint to background view top
+                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self->_bottomBackgroundView
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                // background view bottom constraint to superview bottom
+                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_bottomBackgroundView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self->_containerView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                [self.view addConstraints:constraints_H];
+                [self.view addConstraints:constraints_V];
+                
+                SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
+                
+                if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+                    [self addBlurEffectStyle:UIBlurEffectStyleRegular
+                                   toBarView:self->_toolBarView
+                         backgroundTintStyle:backgroundTintStyle];
+                    
+                } else {
+                    self->_toolBarView.backgroundColor = [UIColor lightGrayColor];
+                }
+                self->_toolBarView.hidden = false;
+                
+                NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
+                                                                                                     options: 0
+                                                                                                     metrics: nil
+                                                                                                       views: viewsDictionary];
+                
+                [self.view addConstraints:bottomBackgroundViewConstraints_H];
+                
+                if (UIAccessibilityIsReduceTransparencyEnabled()) {
+                    self->_bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+                } else {
+                    if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
+                        [self addBlurEffectStyle:UIBlurEffectStyleDark
+                                       toBarView:self->_bottomBackgroundView
+                             backgroundTintStyle:SEBBackgroundTintStyleNone];
+                    } else {
+                        [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
+                                       toBarView:self->_bottomBackgroundView
+                             backgroundTintStyle:SEBBackgroundTintStyleNone];
+                    }
+                }
+                BOOL sideSafeAreaInsets = false;
+                
+                UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                CGFloat leftPadding = window.safeAreaInsets.left;
+                sideSafeAreaInsets = leftPadding != 0;
+                
+                self->_bottomBackgroundView.hidden = sideSafeAreaInsets;
+#ifdef DEBUG
+                CGFloat bottomPadding = window.safeAreaInsets.bottom;
+                CGFloat bottomMargin = window.layoutMargins.bottom;
+                CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
+                DDLogDebug(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
+#endif
             }
         }
         
-        // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
-        if (self.sebUIController.browserToolbarEnabled) {
-            [self.navigationController setNavigationBarHidden:NO];
-        } else {
-            [self.navigationController setNavigationBarHidden:YES];
+        [self setToolbarItems:self.sebUIController.dockItems];
+    } else {
+        [self.navigationController setToolbarHidden:YES];
+        
+        if (self->_bottomBackgroundView) {
+            [self->_bottomBackgroundView removeFromSuperview];
         }
-        
-        [self adjustBars];
-        
+        if (self->_toolBarView) {
+            [self->_toolBarView removeFromSuperview];
+        }
+    }
+    
+    // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
+    if (self.sebUIController.browserToolbarEnabled) {
+        [self.navigationController setNavigationBarHidden:NO];
+    } else {
+        [self.navigationController setNavigationBarHidden:YES];
+    }
+    
+    [self adjustBars];
+    
+    if (!temporary) {
         if (@available(iOS 11.0, *)) {
             BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
             if (jitsiMeetEnable) {
@@ -2057,7 +2053,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         }
         run_on_ui_thread(completionBlock);
-    });
+    }
 }
 
 
@@ -2501,6 +2497,17 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
+{
+    if (!sebUIInitialized) {
+        [self initSEBUIWithCompletionBlock:nil temporary:YES];
+    }
+    SEBAbstractWebView *tempWebView = [self.browserTabViewController openNewTabWithURL:url overrideSpellCheck:YES];
+    
+    return tempWebView;
+}
+
+
 - (void) downloadSEBConfigFromURL:(NSURL *)url
 {
     // Check URL for additional query string
@@ -2796,7 +2803,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self initSEBWithCompletionBlock:^{
+                [self initSEBUIWithCompletionBlock:^{
                     [self conditionallyStartKioskMode];
                 }];
             });
@@ -3200,13 +3207,13 @@ quittingClientConfig:(BOOL)quittingClientConfig
                     }
                 } else {
                     // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
-                    [self initSEBWithCompletionBlock:^{
+                    [self initSEBUIWithCompletionBlock:^{
                         [self conditionallyStartKioskMode];
                     }];
                 }
             } else {
                 // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
-                [self initSEBWithCompletionBlock:^{
+                [self initSEBUIWithCompletionBlock:^{
                     [self startExam];
                 }];
             }
@@ -3217,7 +3224,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             if (pasteboardString) {
                 pasteboard.string = pasteboardString;
             }
-            [self initSEBWithCompletionBlock:^{
+            [self initSEBUIWithCompletionBlock:^{
                 [self conditionallyStartKioskMode];
             }];
         }
@@ -3238,14 +3245,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self->_alertController = nil;
-            [self initSEBWithCompletionBlock:^{
+            [self initSEBUIWithCompletionBlock:^{
                 [self conditionallyStartKioskMode];
                 self.clientConfigSecureModePaused = NO;
             }];
         }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     } else {
-        [self initSEBWithCompletionBlock:^{
+        [self initSEBUIWithCompletionBlock:^{
             [self conditionallyStartKioskMode];
         }];
     }
@@ -3939,7 +3946,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
         // quit and restart the exam / reload the start page directly
         DDLogInfo(@"%s: No quit password is defined, then we can initialize SEB with new settings, quit and restart the exam / reload the start page directly", __FUNCTION__);
         DDLogDebug(@"%s: [self initSEBWithCompletionBlock:^{[self startExam]; }];", __FUNCTION__);
-        [self initSEBWithCompletionBlock:^{
+        [self initSEBUIWithCompletionBlock:^{
             [self startExam];
         }];
     }

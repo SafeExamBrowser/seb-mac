@@ -68,7 +68,8 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck;
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage;
 - (void) loadPersistedOpenWebPages;
 
