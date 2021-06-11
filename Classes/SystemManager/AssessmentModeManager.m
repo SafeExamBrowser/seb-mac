@@ -30,7 +30,26 @@
         DDLogWarn(@"Assessment session is already active!");
         return NO;
     }
+    
     AEAssessmentConfiguration *config = [AEAssessmentConfiguration new];
+
+    if (@available(macOS 12, *)) {
+        AEAssessmentApplication *calculator = [[AEAssessmentApplication alloc] initWithBundleIdentifier:@"com.apple.calculator"];
+        AEAssessmentParticipantConfiguration *calculatorConfig = [AEAssessmentParticipantConfiguration new];
+        calculatorConfig.allowsNetworkAccess = NO;
+        [config setConfiguration:calculatorConfig forApplication:calculator];
+
+        AEAssessmentApplication *excel = [[AEAssessmentApplication alloc] initWithBundleIdentifier:@"com.microsoft.Excel" teamIdentifier:@"UBF8T346G9"];
+        AEAssessmentParticipantConfiguration *excelConfig = [AEAssessmentParticipantConfiguration new];
+        excelConfig.allowsNetworkAccess = NO;
+        [config setConfiguration:excelConfig forApplication:excel];
+
+        AEAssessmentApplication *pages = [[AEAssessmentApplication alloc] initWithBundleIdentifier:@"com.apple.iWork.Pages" teamIdentifier:@"K36BKF7T3D"];
+        AEAssessmentParticipantConfiguration *pagesConfig = [AEAssessmentParticipantConfiguration new];
+        pagesConfig.allowsNetworkAccess = NO;
+        [config setConfiguration:pagesConfig forApplication:pages];
+    }
+    
     AEAssessmentSession *session = [[AEAssessmentSession alloc] initWithConfiguration:config];
     session.delegate = self;
     self.assessmentSession = session;
