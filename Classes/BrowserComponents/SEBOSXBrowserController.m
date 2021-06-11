@@ -71,7 +71,7 @@
         // OS X 10.9 and newer
         if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
             [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                DDLogInfo(@"Cookies, caches and credential stores were reset");
+                DDLogInfo(@"-[SEBOSXBrowserController init] Cookies, caches and credential stores were reset");
             }];
         } else {
             DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
@@ -105,7 +105,7 @@
             // OS X 10.9 and newer
             if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
                 [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                    DDLogInfo(@"Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = false)");
+                    DDLogInfo(@"-[SEBOSXBrowserController resetBrowser] Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = false)");
                 }];
             } else {
                 DDLogError(@"Cannot reset cookies, caches and credential stores (when starting new browser session) because of running on OS X 10.7 or 10.8.");
@@ -852,7 +852,7 @@
                     // OS X 10.9 and newer
                     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
                         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                            DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
+                            DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
                         }];
                     } else {
                         DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");

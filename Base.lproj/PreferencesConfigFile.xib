@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,6 +36,9 @@
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <accessibilityConnection property="link" destination="249" id="8yU-TG-B4a"/>
+                                    </connections>
                                 </textField>
                                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
                                     <rect key="frame" x="131" y="0.0" width="481" height="40"/>
@@ -329,6 +332,7 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="openSEBPrefs:" target="-2" id="1313"/>
+                                                <outlet property="nextKeyView" destination="3" id="vHG-9L-Y95"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Save settings file with same name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
@@ -352,6 +356,7 @@
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="1106" id="aPd-iP-cS7"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Choose file name and destination to save settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
@@ -367,6 +372,7 @@
                                                         <string key="NSValueTransformerName">NSIsNil</string>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="1119" id="ZOv-zM-GxI"/>
                                             </connections>
                                         </button>
                                     </subviews>

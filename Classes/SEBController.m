@@ -301,6 +301,26 @@ bool insideMatrix(void);
         }
     }
     
+    NSError *error;
+    NSURL *executableURL = [NSURL fileURLWithPath:@"/System/Applications/Calculator.app"];
+    DDLogInfo(@"Trying to start process with bundle URL %@", executableURL.path);
+    [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
+    if (error) {
+        DDLogError(@"Error %@", error);
+    }
+    executableURL = [NSURL fileURLWithPath:@"/Volumes/Macintosh HD/Applications/Microsoft Excel.app"];
+    DDLogInfo(@"Trying to start process with bundle URL %@", executableURL.path);
+    [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
+    if (error) {
+        DDLogError(@"Error %@", error);
+    }
+    executableURL = [NSURL fileURLWithPath:@"/Applications/Pages.app"];
+    DDLogInfo(@"Trying to start process with bundle URL %@", executableURL.path);
+    [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
+    if (error) {
+        DDLogError(@"Error %@", error);
+    }
+
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     /// Setup Notifications
