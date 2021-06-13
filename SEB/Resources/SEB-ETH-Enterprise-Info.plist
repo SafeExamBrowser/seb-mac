@@ -65,7 +65,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Camera is needed to scan QR codes</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<string>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
