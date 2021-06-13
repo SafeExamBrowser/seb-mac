@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -498,7 +498,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" misplaced="YES" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -511,7 +511,7 @@
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">Â© 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
+                            <string key="title">Â© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
 
 Parts of this project have been carried out as part of the program 'AAA/SWITCH â€“ e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network, and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</string>
                             <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
@@ -627,17 +627,17 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH â
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" misplaced="YES" id="vWC-gd-xPh">
-                <rect key="frame" x="0.0" y="1" width="412" height="108"/>
+                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
-                        <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
                         <subviews>
                             <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
-                                <rect key="frame" x="18" y="76" width="376" height="18"/>
+                                <rect key="frame" x="18" y="75" width="376" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="eit-hR-UwU"/>
                                 </constraints>
@@ -648,7 +648,7 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH â
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5C8-Dy-pUH">
-                                <rect key="frame" x="301" y="5" width="96" height="32"/>
+                                <rect key="frame" x="300" y="5" width="98" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="OMm-AP-8xl"/>
                                 </constraints>
@@ -664,7 +664,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bGb-Fd-rpF">
-                                <rect key="frame" x="205" y="5" width="96" height="32"/>
+                                <rect key="frame" x="204" y="5" width="98" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="HqM-8Y-m9g"/>
                                 </constraints>
@@ -680,7 +680,7 @@ Gw
                                 </connections>
                             </button>
                             <secureTextField verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="8aH-DI-gaF">
-                                <rect key="frame" x="20" y="43" width="371" height="21"/>
+                                <rect key="frame" x="20" y="42" width="371" height="21"/>
                                 <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="WHV-Hz-eSu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -719,7 +719,7 @@ Gw
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
             <subviews>
-                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
+                <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
                     <rect key="frame" x="65" y="39" width="370" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="QBc-XF-qdA"/>
@@ -753,9 +753,9 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField hidden="YES" verticalHuggingPriority="750" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="cZ9-xX-IzI">
-                    <rect key="frame" x="148" y="15" width="205" height="16"/>
+                    <rect key="frame" x="152" y="15" width="197" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password!" id="aOo-kP-rSF">
-                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
+                        <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -766,7 +766,7 @@ Gw
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="Dmc-IC-FW6"/>
                     </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="LsF-1w-rA0">
-                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
+                        <font key="font" metaFont="system"/>
                         <string key="title">SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -810,7 +810,7 @@ Gw
                     </scroller>
                 </scrollView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="saq-WU-u0D">
-                    <rect key="frame" x="443" y="40" width="20" height="20"/>
+                    <rect key="frame" x="443" y="38" width="20" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="7My-ZY-uZS"/>
                         <constraint firstAttribute="width" constant="20" id="k7i-7N-vWO"/>
@@ -865,9 +865,9 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" misplaced="YES" id="94S-Ha-RmY">
-                <rect key="frame" x="0.0" y="1" width="500" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="j4C-Za-nAA" customClass="SEBTextField">
@@ -924,6 +924,6 @@ Gw
         </customView>
     </objects>
     <resources>
-        <image name="NSGoRightTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="10" height="14"/>
     </resources>
 </document>
