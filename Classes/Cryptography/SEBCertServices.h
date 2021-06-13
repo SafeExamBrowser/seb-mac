@@ -20,7 +20,7 @@
 //  (c) 2015-2016 Janison
 //
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2020 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
