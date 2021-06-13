@@ -136,6 +136,12 @@ static NSString * const authenticationPassword = @"password";
 
 - (void) resetBrowser
 {
+    self.temporaryWebView = nil;
+
+    self.browserExamKey = nil;
+    self.configKey = nil;
+    [self initSessionSettings];
+
     BOOL cookiesActuallyCleared = NO;
     if (examSessionCookiesAlreadyCleared == NO) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
@@ -154,12 +160,6 @@ static NSString * const authenticationPassword = @"password";
         // Clear browser back/forward list (page cache)
     //    [self clearBackForwardList];
         
-        self.temporaryWebView = nil;
-        
-        self.browserExamKey = nil;
-        self.configKey = nil;
-        
-        [self initSessionSettings];
     };
 
     if (!cookiesActuallyCleared) {
