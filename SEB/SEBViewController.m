@@ -1946,7 +1946,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     if (self.previousSessionJitsiMeetEnabled) {
                         run_on_ui_thread(startRemoteProctoringOK);
                     } else {
-                        [self alertWithTitle:NSLocalizedString(@"Starting Remote Proctoring", nil)
+                        [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", nil)
                                      message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]
                                 action1Title:NSLocalizedString(@"OK", nil)
                               action1Handler:^ {
