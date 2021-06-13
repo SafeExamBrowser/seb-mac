@@ -158,6 +158,7 @@
 @property (strong, nonatomic) NSURL *sebServerExamStartURL;
 
 @property (readwrite) BOOL directConfigDownloadAttempted;
+@property (strong, nonatomic) NSURL *originalURL;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
 
@@ -178,6 +179,8 @@
 
 @property (readwrite) BOOL didReconfigureWithUniversalLink;
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
+
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 
 - (void) quitSession;
 - (void) resetBrowser;
@@ -208,6 +211,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
     isForMainFrame:(BOOL)isForMainFrame
  suggestedFilename:(NSString *)suggestedFilename
            cookies:(NSArray <NSHTTPCookie *>*)cookies;
+- (BOOL) downloadingInTemporaryWebView;
 - (void) downloadingConfigFailedFromURL:(NSURL *)url;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 
