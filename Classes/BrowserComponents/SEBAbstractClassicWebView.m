@@ -217,7 +217,7 @@
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(NSString *)suggestedFilename
-                                  cookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
+                                  cookies:(NSArray<NSHTTPCookie *> *)cookies
 {
     return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }

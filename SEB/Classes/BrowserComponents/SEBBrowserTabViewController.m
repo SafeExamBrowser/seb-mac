@@ -325,7 +325,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 // Open new tab and load URL, use passed index
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck
 {
-    return [self openNewTabWithURL:url index:index image:nil overrideSpellCheck:NO];
+    return [self openNewTabWithURL:url index:index image:nil overrideSpellCheck:overrideSpellCheck];
 }
 
 
@@ -807,13 +807,19 @@ decidePolicyForMIMEType:(NSString*)mimeType
 
 - (BOOL) downloadingInTemporaryWebView
 {
-    return (_sebViewController.browserController.temporaryWebView != nil);
+    return [_sebViewController.browserController downloadingInTemporaryWebView];
 }
 
 
 - (void) downloadingConfigFailedFromURL:(NSURL *)url
 {
     [_sebViewController.browserController downloadingConfigFailedFromURL:(NSURL *)url];
+}
+
+
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
+{
+    [_sebViewController.browserController transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
 }
 
 

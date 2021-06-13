@@ -290,6 +290,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
     // downloads to disk, and ensures that future requests occur on a new socket
     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        DDLogInfo(@"-[AppDelegate applicationWillTerminate:] Cookies, caches and credential stores were reset when terminating application.");
     }];
 
     // Saves changes in the application's managed object context before the application terminates.

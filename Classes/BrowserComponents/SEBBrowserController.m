@@ -55,17 +55,26 @@ static NSString * const authenticationPassword = @"password";
 
 @implementation SEBBrowserController
 
+
+// Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+// downloads to disk, and ensures that future requests occur on a new socket.
+- (void)resetAllCookies
+{
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObject:WKWebsiteDataTypeCookies] modifiedSince:NSDate.distantPast completionHandler:^{
+            DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches and credential stores were reset");
+        }];
+    }];
+}
+
+
 // Initialize and register as delegate for custom URL protocol
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket.
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            self.wkWebViewConfiguration = nil;
-            DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores were reset");
-        }];
+        [self resetAllCookies];
+        DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores are being reset");
         [self initSessionSettings];
     }
     return self;
@@ -102,6 +111,24 @@ static NSString * const authenticationPassword = @"password";
     return _configKey;
 }
 
+
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
+{
+    NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+    dispatch_group_t waitGroup = dispatch_group_create();
+    WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
+    for (NSHTTPCookie *cookie in cookies) {
+        dispatch_group_enter(waitGroup);
+        [cookieStore setCookie:cookie completionHandler:^{
+            dispatch_group_leave(waitGroup);
+        }];
+    }
+    dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
+        completionHandler();
+    });
+};
+
+
 - (void) quitSession
 {
     examSessionCookiesAlreadyCleared = NO;
@@ -115,31 +142,31 @@ static NSString * const authenticationPassword = @"password";
             // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
             // downloads to disk, and ensures that future requests occur on a new socket.
             cookiesActuallyCleared = YES;
-            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                self.wkWebViewConfiguration = nil;
-                DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = true)");
-            }];
+            DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)");
+            [self resetAllCookies];
         }
     } else {
         // reset the flag when it was true before
         examSessionCookiesAlreadyCleared = NO;
     }
+    
+    void (^completionHandler)(void) = ^void() {
+        // Clear browser back/forward list (page cache)
+    //    [self clearBackForwardList];
+        
+        self.temporaryWebView = nil;
+        
+        self.browserExamKey = nil;
+        self.configKey = nil;
+        
+        [self initSessionSettings];
+    };
+
     if (!cookiesActuallyCleared) {
-        NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
-        for (NSHTTPCookie *cookie in cookies) {
-            [self.wkWebViewConfiguration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
-        }
+        [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+    } else {
+        completionHandler();
     }
-    
-    // Clear browser back/forward list (page cache)
-//    [self clearBackForwardList];
-    
-    _temporaryWebView = nil;
-    
-    self.browserExamKey = nil;
-    self.configKey = nil;
-    
-    [self initSessionSettings];
 }
 
 
@@ -194,6 +221,10 @@ static NSString * const authenticationPassword = @"password";
         WKWebViewConfiguration *newSharedWebViewConfiguration = [WKWebViewConfiguration new];
         _wkWebViewConfiguration = newSharedWebViewConfiguration;
     }
+    
+//    WKWebsiteDataStore *nonPersistentDataStore = [WKWebsiteDataStore nonPersistentDataStore];
+//    _wkWebViewConfiguration.websiteDataStore = nonPersistentDataStore;
+    
     // Set media playback properties on new webview
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (@available(macOS 10.12, *)) {
@@ -705,10 +736,8 @@ static NSString *urlStrippedFragment(NSURL* url)
                     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                     // downloads to disk, and ensures that future requests occur on a new socket.
                     cookiesActuallyCleared = YES;
-                    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                        self.wkWebViewConfiguration = nil;
-                        DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
-                    }];
+                    DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
+                    [self resetAllCookies];
                 }
                 // Set the flag for cookies cleared (either they actually were or they would have
                 // been settings prevented it)
@@ -720,21 +749,26 @@ static NSString *urlStrippedFragment(NSURL* url)
                 // as they were anyways cleared when SEB was started
                 examSessionCookiesAlreadyCleared = YES;
             }
-            if (!cookiesActuallyCleared) {
-                NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
-                for (NSHTTPCookie *cookie in cookies) {
-                    [_wkWebViewConfiguration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
+            
+            void (^conditionallyDownloadConfig)(void) = ^void() {
+                // Check if we should try to download the config file from the seb(s) URL directly
+                // This is the case when the URL has a .seb filename extension
+                // But we only try it when it didn't fail in a first attempt
+                if (self.directConfigDownloadAttempted == NO) {
+                    self.directConfigDownloadAttempted = YES;
+                    self.originalURL = sebURL;
+                    [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
+                } else {
+                    self.directConfigDownloadAttempted = NO;
+                    
+                    self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:self.originalURL];
                 }
-            }
-            // Check if we should try to download the config file from the seb(s) URL directly
-            // This is the case when the URL has a .seb filename extension
-            // But we only try it when it didn't fail in a first attempt
-            if (_directConfigDownloadAttempted == NO) {
-                _directConfigDownloadAttempted = YES;
-                [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
+            };
+
+            if (!cookiesActuallyCleared) {
+                [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
             } else {
-                _directConfigDownloadAttempted = NO;
-                _temporaryWebView = [_delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:sebURL];
+                conditionallyDownloadConfig();
             }
         }
     } else {
@@ -750,6 +784,12 @@ static NSString *urlStrippedFragment(NSURL* url)
     DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
     [_temporaryWebView loadURL:url];
     
+}
+
+
+- (BOOL) downloadingInTemporaryWebView
+{
+    return _temporaryWebView != nil;
 }
 
 
@@ -876,10 +916,6 @@ decidePolicyForMIMEType:(NSString*)mimeType
     // Use modern NSURLSession for downloading .seb files which also allows handling
     // basic/digest/NTLM authentication without having to open a temporary webview
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    sessionConfig.HTTPCookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
-//    for (NSHTTPCookie *cookie in cookies) {
-//        [sharedCookieStore setCookie:cookie];
-//    }
     _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
     NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
                                                     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
@@ -888,9 +924,8 @@ decidePolicyForMIMEType:(NSString*)mimeType
                                           }];
     [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
     NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
-    NSLog(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
     [downloadTask resume];
-    
 }
 
 
@@ -1329,23 +1364,23 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
                 // downloads to disk, and ensures that future requests occur on a new socket.
                 cookiesActuallyCleared = YES;
-                [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                    self.wkWebViewConfiguration = nil;
-                    DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = true)");
-                }];
+                DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
+                [self resetAllCookies];
             }
             // Set the flag for cookies cleared (either they actually were or they would have
             // been settings prevented it)
             examSessionCookiesAlreadyCleared = YES;
         }
+        void (^completionHandler)(void) = ^void() {
+            self->downloadedSEBConfigDataURL = url;
+            [self.delegate openDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
+        };
+        
         if (!cookiesActuallyCleared) {
-            NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
-            for (NSHTTPCookie *cookie in cookies) {
-                [self.wkWebViewConfiguration.websiteDataStore.httpCookieStore setCookie:cookie completionHandler:nil];
-            }
+            [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+        } else {
+            completionHandler();
         }
-        downloadedSEBConfigDataURL = url;
-        [_delegate openDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
         
     } else {
         // Opening downloaded SEB config data definitely failed:

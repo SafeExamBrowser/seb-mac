@@ -375,7 +375,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
-    NSURL *failedURL = _currentRequest.URL;
     _currentRequest = nil;
     
     if (error.code == -999) {
@@ -392,9 +391,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // the URL filter canceling loading a blocked URL
     if (error.code == 102) {
         DDLogDebug(@"%s: Reported Error 102: %@", __FUNCTION__, error.description);
-        if ([self.navigationDelegate downloadingInTemporaryWebView]) {
-            [self.navigationDelegate downloadingConfigFailedFromURL:failedURL];
-        }
         
     // Don't display the error 204 "Plug-in handled load"
     } else if (error.code == 204) {
@@ -675,7 +671,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(NSString *)suggestedFilename
-                                  cookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
+                                  cookies:(NSArray<NSHTTPCookie *> *)cookies
 {
     return [self.navigationDelegate sebWebView:_sebWebView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }
@@ -780,6 +776,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (BOOL) downloadingInTemporaryWebView
 {
     return [self.navigationDelegate downloadingInTemporaryWebView];
+}
+
+
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
+{
+    [self.navigationDelegate transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
 }
 
 

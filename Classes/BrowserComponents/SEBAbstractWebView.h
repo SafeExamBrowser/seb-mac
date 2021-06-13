@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(nullable NSString *)suggestedFilename
-                                  cookies:(NSArray <NSHTTPCookie *>*)cookies;
+                                  cookies:(nullable NSArray <NSHTTPCookie *>*)cookies;
 - (BOOL)sebWebView:(SEBAbstractWebView*)webView
 decidePolicyForMIMEType:(nullable NSString*)mimeType
                url:(nullable NSURL *)url
@@ -148,6 +148,7 @@ runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL overrideAllowSpellCheck;
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
