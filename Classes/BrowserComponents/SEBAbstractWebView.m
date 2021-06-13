@@ -46,14 +46,17 @@
         _overrideAllowSpellCheck = overrideSpellCheck;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
-        if (webViewSelectPolicy != webViewSelectForceClassic) {
+        BOOL downloadingInTemporaryWebView = overrideSpellCheck;
+
+        if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
             
-            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"]) {
+            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
                 
                 if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
                     (webViewSelectPolicy == webViewSelectPreferModern) ||
-                    (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab))) {
+                    (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                    downloadingInTemporaryWebView) {
                     
                     SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
                     sebAbstractModernWebView.navigationDelegate = self;
@@ -298,7 +301,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(NSString *)suggestedFilename
-                                  cookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
+                                  cookies:(NSArray<NSHTTPCookie *> *)cookies
 {
     return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }

@@ -276,7 +276,7 @@
             if (![self.navigationDelegate originalURLIsEqualToURL:url]) {
                 // If the scheme is seb(s):// or the file extension .seb,
                 // we (conditionally) download and open the linked .seb file
-                [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[]];
+                [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:nil];
                 return NO;
 
             }
@@ -284,7 +284,7 @@
             waitingForConfigDownload = NO;
             // If the scheme is seb(s):// or the file extension .seb,
             // we (conditionally) download and open the linked .seb file
-            [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[]];
+            [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:nil];
             return NO;
         }
     }

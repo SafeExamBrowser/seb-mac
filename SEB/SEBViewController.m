@@ -2503,6 +2503,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [self initSEBUIWithCompletionBlock:nil temporary:YES];
     }
     SEBAbstractWebView *tempWebView = [self.browserTabViewController openNewTabWithURL:url overrideSpellCheck:YES];
+    tempWebView.originalURL = originalURL;
     
     return tempWebView;
 }
