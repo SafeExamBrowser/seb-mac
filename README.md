@@ -1,5 +1,5 @@
 # seb-mac
-Safe Exam Browser for macOS
+Safe Exam Browser for macOS and iOS
 
 Open SafeExamBrowser.xcodeproj in a recent version of Xcode (currently 12.5). For building you have to switch off code signing or add your own code signing identities. SEB uses the com.apple.developer.edu-assessment-mode entitlement, which needs to be requested from Apple for your developer team.
 
