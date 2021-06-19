@@ -35,6 +35,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SEBController.h"
 #import "SEBLockedViewController.h"
+#import "SEBTextField.h"
 
 @class SEBController;
 @class SEBLockedViewController;

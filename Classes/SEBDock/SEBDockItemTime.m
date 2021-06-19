@@ -90,7 +90,7 @@
 
 - (void)timerFireMethod:(NSTimer *)timer
 {
-    DDLogVerbose(@"Dock time display timer fired");
+//    DDLogVerbose(@"Dock time display timer fired");
 
     NSTimeInterval timestamp = [[timer fireDate] timeIntervalSinceReferenceDate];
     NSTimeInterval currentFullMinute = timestamp - fmod(timestamp, 60);
