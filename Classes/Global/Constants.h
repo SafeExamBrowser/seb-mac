@@ -32,7 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "DDLog.h"
+#import <CocoaLumberjack.h>
 #import "SEBConstants.h"
 
 #ifndef SafeExamBrowser_Constants_h

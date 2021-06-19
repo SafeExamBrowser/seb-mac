@@ -32,7 +32,7 @@
 //
 
 import Foundation
-import UIKit
+//import UIKit
 
 protocol NetworkRequest: AnyObject {
 	associatedtype Model

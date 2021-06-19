@@ -3,12 +3,12 @@
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
-#target 'Safe Exam Browser' do
-#
-#platform :osx, '10.8'
-#pod 'CocoaLumberjack'
-#
-#end
+target 'Safe Exam Browser' do
+
+platform :osx, '10.11'
+pod 'CocoaLumberjack'
+
+end
 
 target 'SEB' do
 

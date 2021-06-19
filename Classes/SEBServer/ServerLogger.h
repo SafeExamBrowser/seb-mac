@@ -33,14 +33,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DDLog.h"
-#import "SEBViewController.h"
+#import <CocoaLumberjack.h>
+//#import "SEBViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ServerLogger : DDAbstractLogger <DDLogger>
 
-@property (weak) SEBViewController *sebViewController;
+//@property (weak) SEBViewController *sebViewController;
 
 + (ServerLogger *) sharedInstance;
 
