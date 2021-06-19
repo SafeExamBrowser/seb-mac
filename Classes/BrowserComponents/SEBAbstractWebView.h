@@ -161,8 +161,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 
 @property (strong, nonatomic) id __nullable uiAlertController;
+#if TARGET_OS_IPHONE
 - (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
-
+#endif
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 - (void) openCloseSliderForNewTab;
 - (void) switchToTab:(nullable id)sender;

@@ -45,6 +45,6 @@
 
 #import <CoreData/CoreData.h>
 
-static DDLogLevel ddLogLevel = DDLogLevelDebug;
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 #endif
