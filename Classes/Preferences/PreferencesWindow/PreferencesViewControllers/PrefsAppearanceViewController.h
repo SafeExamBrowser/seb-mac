@@ -37,8 +37,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "PreferencesViewController.h"
 
-@interface PrefsAppearanceViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsAppearanceViewController : PreferencesViewController <MBPreferencesModule> {
 
     IBOutlet NSComboBox *mainBrowserWindowWidth;
     IBOutlet NSComboBox *mainBrowserWindowHeight;
@@ -55,8 +56,10 @@
     __weak IBOutlet NSButtonCell *usePageZoomRadioButton;
     __weak IBOutlet NSButtonCell *useTextZoomRadioButton;
     __weak IBOutlet NSMatrix *zoomModeMatrix;
+    __weak IBOutlet NSButton *allowDictionaryLookupButton;
 }
 
+@property(weak, nonatomic) IBOutlet NSScrollView *scrollView;
 @property(readwrite) BOOL touchOptimizedWarning;
 
 - (NSString *)identifier;

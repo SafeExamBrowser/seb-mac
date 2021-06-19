@@ -1,0 +1,294 @@
+/* Class = "NSTextField"; ibShadowedToolTip = "Mac Safari (desktop browser) user agent string"; ObjectID = "0DR-0l-x3s"; */
+"0DR-0l-x3s.ibShadowedToolTip" = "Mac Safari (Desktop) User Agent";
+
+/* Class = "NSTextFieldCell"; title = "Desktop mode default user agent"; ObjectID = "0dZ-Z1-Pzs"; */
+"0dZ-Z1-Pzs.title" = "User Agent für Desktop-Modus";
+
+/* Class = "NSTextFieldCell"; title = "User agent suffix:"; ObjectID = "0xK-SO-5d2"; */
+"0xK-SO-5d2.title" = "User Agent Suffix:";
+
+/* Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "1TN-dk-xIy"; */
+"1TN-dk-xIy.title" = "Neuladen in Prüfung";
+
+/* Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "6r7-Lm-bnI"; */
+"6r7-Lm-bnI.title" = "Neuladen in neuen Fenstern";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "7c3-3L-Itj"; */
+"7c3-3L-Itj.ibShadowedToolTip" = "In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden";
+
+/* Class = "NSBox"; title = "Browser Features"; ObjectID = "7nL-Z2-JAg"; */
+"7nL-Z2-JAg.title" = "Browser-Sicherheit";
+
+/* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "8TJ-ch-PAj"; */
+"8TJ-ch-PAj.title" = "Neuladen-Warnung in neuen Fenstern";
+
+/* Class = "NSTextFieldCell"; title = "Show URLs "; ObjectID = "9F7-Qa-r8S"; */
+"9F7-Qa-r8S.title" = "Zeige URL";
+
+/* Class = "NSButtonCell"; title = "Allow navigation"; ObjectID = "9tX-IU-bN7"; */
+"9tX-IU-bN7.title" = "Navigation in neuen Fenstern";
+
+/* Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC"; */
+"9wd-E4-JwC.title" = "Standard-Zeichenketten hängen von der installierten SEB-Version ab. ";
+
+/* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "16K-h7-SCc"; */
+"16K-h7-SCc.title" = "Neuladen-Warnung in Prüfung";
+
+/* Class = "NSButtonCell"; title = "Enable Web Inspector (developer tools)"; ObjectID = "29c-3t-HLf"; */
+"29c-3t-HLf.title" = "Web Inspector erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Links requesting to be opened in a new browser window ..."; ObjectID = "91"; */
+"91.title" = "Links, die in einem neuen Browserfenster geöffnet werden sollen …";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "94"; */
+"94.ibShadowedToolTip" = "ACHTUNG: Wenn 'Öffnen im selben Fenster' ausgewählt ist, dann funktionieren einige JavaScript/HTML5 Funktionen (wie File API) nicht";
+
+/* Class = "NSTextFieldCell"; title = "Links in JavaScript/plug-ins ..."; ObjectID = "100"; */
+"100.title" = "Links in JavaScript/Plug-Ins ...";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Hyperlinks which direct to a different host than the one of the current main page will be ignored"; ObjectID = "101"; */
+"101.ibShadowedToolTip" = "Hyperlinks werden ignoriert, wenn sie auf einen anderen Server als den der aktuellen Webseite führen";
+
+/* Class = "NSButtonCell"; title = "block when directing to a different server"; ObjectID = "102"; */
+"102.title" = "blockieren, wenn Ziel auf anderem Server";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used."; ObjectID = "107"; */
+"107.ibShadowedToolTip" = "Erlaubt Web-Plug-Ins wie Flash. Aus Sicherheitsgründen wird empfohlen, diese Option auszuschalten, wenn keine Plug-In-Inhalte benötigt werden";
+
+/* Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108"; */
+"108.title" = "Plug-Ins aktivieren";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Enables Java applets"; ObjectID = "168"; */
+"168.ibShadowedToolTip" = "Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8";
+
+/* Class = "NSButtonCell"; title = "Enable Java"; ObjectID = "169"; */
+"169.title" = "Java aktivieren";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Enables JavaScript. Please note that most modern websites need JavaScript for full functionality."; ObjectID = "171"; */
+"171.ibShadowedToolTip" = "JavaScript aktivieren. Bitte beachten: Die meisten modernen Websites benötigen JavaScript für volle Funktionalität";
+
+/* Class = "NSButtonCell"; title = "Enable JavaScript"; ObjectID = "172"; */
+"172.title" = "JavaScript aktivieren";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click"; ObjectID = "176"; */
+"176.ibShadowedToolTip" = "Blockiert Pop-Up-Fenster (häufig Werbung), die per JavaScript ohne eine Benutzeraktion wie einen Klick auf eine Schaltfläche geöffnet werden";
+
+/* Class = "NSButtonCell"; title = "Block pop-up windows"; ObjectID = "177"; */
+"177.title" = "Pop-Ups unterdrücken";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages (back/forward buttons in browser toolbar or cmd + cursor left/right) may increase security, because browsing back might allow to leave an exam"; ObjectID = "180"; */
+"180.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren (per Befehlstaste - Cursor links) verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
+
+/* Class = "NSButtonCell"; title = "Allow navigation"; ObjectID = "181"; */
+"181.title" = "Seiten-Navigation in Prüfung";
+
+/* Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed."; ObjectID = "413"; */
+"413.ibShadowedToolTip" = "Wenn der SEB-Browser deaktiviert ist, wird kein Browserfenster geöffnet. Diese Option kann verwendet werden, wenn Drittapplikationen zugelassen sind.";
+
+/* Class = "NSButtonCell"; title = "Use SEB without browser window (Win)"; ObjectID = "415"; */
+"415.title" = "SEB ohne Browserfenster benutzen (Win)";
+
+/* Class = "NSTextFieldCell"; title = "to start another application in kiosk mode (for example a virtual desktop infrastructure client)"; ObjectID = "449"; */
+"449.title" = "um eine Drittapplikation im Kiosk-Modus zu starten (z.B. Client für virtuelle Desktop-Infrastruktur)";
+
+/* Class = "NSBox"; title = "New browser window size and position"; ObjectID = "567"; */
+"567.title" = "Grösse und Position von neuen Browserfenstern";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Position new browser windows on the left, right or centered"; ObjectID = "569"; */
+"569.ibShadowedToolTip" = "Neue Browserfenster links, rechts oder zentriert positionieren";
+
+/* Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "570"; */
+"570.ibShadowedToolTip" = "Fensterhöhe in Pixeln oder Prozent der Bildschirmhöhe";
+
+/* Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "585"; */
+"585.ibShadowedToolTip" = "Fensterbreite in Pixeln oder Prozent der Bildschirmbreite";
+
+/* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "587"; */
+"587.title" = "Breite";
+
+/* Class = "NSComboBoxCell"; 589.ibShadowedObjectValues[0] = "50%"; ObjectID = "589"; */
+"589.ibShadowedObjectValues[0]" = "50%";
+
+/* Class = "NSComboBoxCell"; 589.ibShadowedObjectValues[1] = "100%"; ObjectID = "589"; */
+"589.ibShadowedObjectValues[1]" = "100%";
+
+/* Class = "NSComboBoxCell"; 589.ibShadowedObjectValues[2] = "800"; ObjectID = "589"; */
+"589.ibShadowedObjectValues[2]" = "800";
+
+/* Class = "NSComboBoxCell"; 589.ibShadowedObjectValues[3] = "1000"; ObjectID = "589"; */
+"589.ibShadowedObjectValues[3]" = "1000";
+
+/* Class = "NSTextFieldCell"; title = "Height"; ObjectID = "590"; */
+"590.title" = "Höhe";
+
+/* Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[0] = "100%"; ObjectID = "591"; */
+"591.ibShadowedObjectValues[0]" = "100%";
+
+/* Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[1] = "80%"; ObjectID = "591"; */
+"591.ibShadowedObjectValues[1]" = "80%";
+
+/* Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[2] = "600"; ObjectID = "591"; */
+"591.ibShadowedObjectValues[2]" = "600";
+
+/* Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[3] = "800"; ObjectID = "591"; */
+"591.ibShadowedObjectValues[3]" = "800";
+
+/* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "598"; */
+"598.title" = "Horizontale Positionierung";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB"; ObjectID = "661"; */
+"661.ibShadowedToolTip" = "XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)";
+
+/* Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663"; */
+"663.title" = "Profil löschen (Win)";
+
+/* Class = "NSButtonCell"; title = "Media autoplay"; ObjectID = "Afc-A3-r3P"; */
+"Afc-A3-r3P.title" = "Medien automatisch abspielen";
+
+/* Class = "NSButtonCell"; title = "Touch default:"; ObjectID = "al8-58-HPQ"; */
+"al8-58-HPQ.title" = "Touch-Standard:";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow web applications to access microphone (using HMTL 5 APIs)"; ObjectID = "aND-Ot-lHG"; */
+"aND-Ot-lHG.ibShadowedToolTip" = "Webapplikationen dürfen auf das Mikrofon zugreifen (mittels HTML5 APIs)";
+
+/* Class = "NSBox"; title = "Restrictions in Additional Windows"; ObjectID = "bgd-GA-QC3"; */
+"bgd-GA-QC3.title" = "Einschränkungen in zusätzlichen Fenstern";
+
+/* Class = "NSTextFieldCell"; title = "iOS Mac desktop user agent"; ObjectID = "Bmg-9t-VQK"; */
+"Bmg-9t-VQK.title" = "iOS Mac Desktop User Agent";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "Bth-dN-6f1"; */
+"Bth-dN-6f1.title" = "Benutzerdefiniert";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "cg4-A3-rqm"; */
+"cg4-A3-rqm.ibShadowedToolTip" = "Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen";
+
+/* Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj"; */
+"ckm-lX-Woj.title" = "User Agent";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "dP1-5V-zqF"; */
+"dP1-5V-zqF.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSTextFieldCell"; title = "Default touch mode user agent"; ObjectID = "dqB-SD-Yjy"; */
+"dqB-SD-Yjy.title" = "Standard User Agent für Touch-Modus";
+
+/* Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading the main browser window containing the exam by cmd-R or the reload button"; ObjectID = "Du9-dQ-GIJ"; */
+"Du9-dQ-GIJ.ibShadowedToolTip" = "Das erneute Laden einer Webseite per cmd-R (Befehlstaste-R) oder Neuladen-Taste muss bestätigt werden";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow web applications to access camera (using HMTL 5 APIs)"; ObjectID = "e54-Gu-GIx"; */
+"e54-Gu-GIx.ibShadowedToolTip" = "Webapplikationen dürfen auf die Kamera zugreifen (mittels HTML5 APIs)";
+
+/* Class = "NSTextFieldCell"; title = "Default user agent Mac"; ObjectID = "EZ4-9b-Idz"; */
+"EZ4-9b-Idz.title" = "Standard Mac User Agent";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS"; */
+"F1k-Qz-pMS.ibShadowedToolTip" = "Standard-Zeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L"; */
+"FfE-2h-C1L.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab.";
+
+/* Class = "NSButtonCell"; title = "Allow inline playback on iPad"; ObjectID = "fRI-Y9-Qs5"; */
+"fRI-Y9-Qs5.title" = "Inline-Wiedergabe auf iPad";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Reload can be disabled completely for the exam with this setting, because it might break some offline caching functionalities"; ObjectID = "FwJ-dG-wCg"; */
+"FwJ-dG-wCg.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb der Prüfung zurückkehrt";
+
+/* Class = "NSButtonCell"; title = "Desktop default:"; ObjectID = "fzm-2I-vcw"; */
+"fzm-2I-vcw.title" = "Desktop Standard:";
+
+/* Class = "NSButtonCell"; title = "Allow audio capture (microphone, Win)"; ObjectID = "gw2-ot-VdZ"; */
+"gw2-ot-VdZ.title" = "Audioaufnahme erlauben (Mikrofon, Win)";
+
+/* Class = "NSBox"; title = "Restrictions in Exam Window"; ObjectID = "IEP-y6-APQ"; */
+"IEP-y6-APQ.title" = "Einschränkungen im Prüfungsfenster";
+
+/* Class = "NSButton"; ibShadowedToolTip = "On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps"; ObjectID = "IqX-2Y-Ffc"; */
+"IqX-2Y-Ffc.ibShadowedToolTip" = "Auf Geräten, welche Bild-in-Bild-Darstellung erlauben, wird das Video in einem verschiebbaren und skalierbaren, im Vordergrund schwebenden Fenster angezeigt";
+
+/* Class = "NSTextFieldCell"; title = "Default iOS user agent"; ObjectID = "jZa-47-k8N"; */
+"jZa-47-k8N.title" = "Standard User Agent iOS";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "kJa-eD-szz"; */
+"kJa-eD-szz.title" = "Benutzerdefiniert";
+
+/* Class = "NSButtonCell"; title = "Allow inline playback on iPhone"; ObjectID = "LQ1-WH-kpW"; */
+"LQ1-WH-kpW.title" = "Inline-Wiedergabe auf iPhone";
+
+/* Class = "NSButtonCell"; title = "Default:"; ObjectID = "Lq8-Fi-SDM"; */
+"Lq8-Fi-SDM.title" = "Standard:";
+
+/* Class = "NSButtonCell"; title = "iPad"; ObjectID = "mRw-O9-H0n"; */
+"mRw-O9-H0n.title" = "iPad";
+
+/* Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading pages in additional browser windows"; ObjectID = "NhI-j9-FNc"; */
+"NhI-j9-FNc.ibShadowedToolTip" = "Benutzer muss das Neuladen in zusätzlichen Browserfenstern bestätigen";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "Nqe-fJ-MeT"; */
+"Nqe-fJ-MeT.ibShadowedToolTip" = "In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Some video/audio content will start playing without user interaction. Some other content might not be playable without enabling this setting (but will not auto play)"; ObjectID = "OdB-3j-b2T"; */
+"OdB-3j-b2T.ibShadowedToolTip" = "Manche Video-/Audio-Inhalte werden ohne Benutzerinteraktion abgespielt. Andere Inhalte könnten ohne diese Einstellung gar nicht abspielbar sein (aber starten nicht automatisch)";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu"; */
+"p3T-fI-3bu.ibShadowedToolTip" = "Standard-String auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "qVa-6O-Lcc"; */
+"qVa-6O-Lcc.title" = "Benutzerdefiniert";
+
+/* Class = "NSButtonCell"; title = "Allow video capture (webcam, Win)"; ObjectID = "RdC-g0-HsE"; */
+"RdC-g0-HsE.title" = "Videoaufnahme erlauben (Webcam, Win)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback"; ObjectID = "rf6-Kj-obV"; */
+"rf6-Kj-obV.ibShadowedToolTip" = "Videoinhalte können entweder inline auf einer Webseite dargestellt werden oder nur in Vollbildanzeige. Wenn diese Option deaktiviert wird, werden HTML5-Videoplayer gezwungen, das iOS-Benutzerinterface zu benutzen";
+
+/* Class = "NSButtonCell"; title = "Mac Desktop:"; ObjectID = "T01-cf-vMr"; */
+"T01-cf-vMr.title" = "Mac Desktop:";
+
+/* Class = "NSButtonCell"; title = "Default:"; ObjectID = "t6p-Cb-xTk"; */
+"t6p-Cb-xTk.title" = "Standard:";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "twb-Ov-Zlx"; */
+"twb-Ov-Zlx.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSBox"; title = "Media Playback (iOS)"; ObjectID = "u8M-48-HFC"; */
+"u8M-48-HFC.title" = "Medienwiedergabe (iOS)";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Each SEB version/device type has separate user agent settings"; ObjectID = "UsO-tg-591"; */
+"UsO-tg-591.ibShadowedToolTip" = "VORSICHT: Wenn '' angewählt ist, können einige JavaScript-/HTML5-Funktionen (wie etwa File API) nicht verwendet werden";
+
+/* Class = "NSButton"; ibShadowedToolTip = "For content opening in additional browser windows reload can be enabled/disabled separately with this setting"; ObjectID = "VER-Ja-0d8"; */
+"VER-Ja-0d8.ibShadowedToolTip" = "Für Inhalte, welche in zusätzlichen Browserfenstern geöffnet werden, kann das Neuladen separat freigegeben werden";
+
+/* Class = "NSTextFieldCell"; title = "Suffix to be added to any user agent"; ObjectID = "VJ9-fx-YV7"; */
+"VJ9-fx-YV7.title" = "Suffix, welcher an alle User Agents angehängt wird";
+
+/* Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK"; */
+"wFa-eR-NzK.ibShadowedToolTip" = "Wenn erlaubt und der Rechtsklick nicht deaktiviert ist (siehe Sicherheit/Abgefangene Tasten/Rechte Maustaste erlauben), dann kann mittels Rechtsklick/ctrl-Linksklick auf ein Element einer Webseite der Web Inspector mittels 'Inspect Element' angezeigt werden. Win: Entwicklertools in Browserfenster-Symbolleiste anzeigen";
+
+/* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients."; ObjectID = "X0g-7e-XAl"; */
+"X0g-7e-XAl.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten Safari-/WebKit-Version ab.";
+
+/* Class = "NSTextFieldCell"; title = "iPad user agent"; ObjectID = "XDW-SF-gll"; */
+"XDW-SF-gll.title" = "iPad User Agent";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "XSw-aj-V6a"; */
+"XSw-aj-V6a.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "YE5-tr-HaY"; */
+"YE5-tr-HaY.title" = "Benutzerdefiniert";
+
+/* Class = "NSTextFieldCell"; title = "Show URLs"; ObjectID = "YP6-xU-uXJ"; */
+"YP6-xU-uXJ.title" = "Zeige URL";
+
+/* Class = "NSTextFieldCell"; title = "Default strings depend on installed iOS version and therefore can differ on exam clients."; ObjectID = "yW3-rB-jbe"; */
+"yW3-rB-jbe.title" = "Standard-Strings hängen von der iOS-Version ab und können deswegen je nach Gerät unterschiedlich sein";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages might not be desired for content opening in additional browser windows, therefore this separate setting"; ObjectID = "z2i-c3-hed"; */
+"z2i-c3-hed.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren, mag für neu geöffnete Fenster nicht gewünscht sein, deswegen gibt es diese separate Einstellung";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "Z3B-Za-z4X"; */
+"Z3B-Za-z4X.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSButtonCell"; title = "Allow picture in picture video"; ObjectID = "zZ5-9g-Lhz"; */
+"zZ5-9g-Lhz.title" = "Bild-in-Bild-Wiedergabe erlauben";
+

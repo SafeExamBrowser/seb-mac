@@ -48,6 +48,8 @@
 @synthesize identitiesNames;
 @synthesize identities;
 
+@synthesize keychainManager;
+
 
 - (NSString *)title
 {
@@ -69,7 +71,15 @@
 
 - (void) awakeFromNib
 {
-    self.keychainManager = [[SEBKeychainManager alloc] init];
+}
+
+
+- (SEBKeychainManager *) keychainManager
+{
+    if (!keychainManager) {
+        keychainManager = [[SEBKeychainManager alloc] init];
+    }
+    return keychainManager;
 }
 
 
@@ -90,7 +100,7 @@
     return nil;
 }
 
-- (SecKeyRef)currentConfigFileKeyRef {
+- (NSData *)currentConfigFileKeyHash {
     [NSException raise:NSInternalInconsistencyException
                 format:@"property is write-only"];
     return nil;
@@ -145,7 +155,7 @@
 // Reset the settings password and confirm password fields and the identity popup menu
 - (void) resetSettingsIdentity
 {
-    _currentConfigFileKeyRef = nil;
+    _currentConfigFileKeyHash = nil;
     [chooseIdentity selectItemAtIndex:0];
 }
 
@@ -164,9 +174,8 @@
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     if (!self.identitiesNames) { //no identities available yet, get them from keychain
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSArray *names;
-        NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
+        NSArray *identitiesInKeychain = [self.keychainManager getIdentitiesAndNames:&names];
         self.identities = identitiesInKeychain;
         self.identitiesNames = [names copy];
         [chooseIdentity removeAllItems];
@@ -196,9 +205,9 @@
     }
     
     // If there is a identity reference from the currently open config file
-    if (_currentConfigFileKeyRef) {
-        [self selectSettingsIdentity:_currentConfigFileKeyRef];
-        _currentConfigFileKeyRef = nil;
+    if (_currentConfigFileKeyHash) {
+        [self selectSettingsIdentity:_currentConfigFileKeyHash];
+        _currentConfigFileKeyHash = nil;
     }
 }
 
@@ -209,7 +218,7 @@
     // If settings password is confirmed
     if (![self compareSettingsPasswords]) {
         _currentConfigFilePassword = settingsPassword;
-        _currentConfigFileKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:[self getSelectedIdentity]];;
+        _currentConfigFileKeyHash = [self.keychainManager getPublicKeyHashFromIdentity:[self getSelectedIdentity]];;
     } else {
         // if it's not confirmed properly, then clear the settings password textFields
         [self resetSettingsPasswordFields];
@@ -232,18 +241,20 @@
 
 
 // Select identity for passed identity reference
-- (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef
+- (void) selectSettingsIdentity:(NSData *)settingsPublicKeyHash
 {
     [chooseIdentity selectItemAtIndex:0];
-    int i, count = [self.identities count];
-    for (i=0; i<count; i++) {
-        SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
-        SecKeyRef privateKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:identityFromKeychain];
-        if (settingsPrivateKeyRef == privateKeyRef) {
-            [chooseIdentity selectItemAtIndex:i+1];
-            break;
+    
+    if (settingsPublicKeyHash) {
+        NSUInteger i, count = [self.identities count];
+        for (i=0; i<count; i++) {
+            SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
+            NSData *publicKeyHash = [self.keychainManager getPublicKeyHashFromIdentity:identityFromKeychain];
+            if ([settingsPublicKeyHash isEqualToData:publicKeyHash]) {
+                [chooseIdentity selectItemAtIndex:i+1];
+                break;
+            }
         }
-        if (privateKeyRef) CFRelease(privateKeyRef);
     }
 }
 
@@ -264,16 +275,15 @@
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
 - (NSData *) encryptSEBSettingsWithSelectedCredentials
 {
-    SEBOSXConfigFileController *configFileManager = [[SEBOSXConfigFileController alloc] init];
-
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
 
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     // Is there one saved from the currently open config file?
-    if (_currentConfigFileKeyRef) {
-        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
+    // ToDo: This is broken, needs refactoring
+    if (_currentConfigFileKeyHash) {
+        identityRef = [self.keychainManager getIdentityRefFromPublicKeyHash:_currentConfigFileKeyHash];
     } else {
         identityRef = [self getSelectedIdentity];
     }
@@ -288,7 +298,10 @@
     }
     
     // Encrypt current settings with current credentials
-    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
+    NSData *encryptedSebData = [self.preferencesController.configFileController encryptSEBSettingsWithPassword:encryptingPassword
+                                                                  passwordIsHash:self.configPasswordIsHash
+                                                                    withIdentity:identityRef
+                                                                      forPurpose:configPurpose];
     return encryptedSebData;
 }
 

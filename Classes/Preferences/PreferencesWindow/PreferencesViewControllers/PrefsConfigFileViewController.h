@@ -56,7 +56,7 @@
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
-@property (strong, nonatomic) SEBKeychainManager *keychainManager;
+@property (retain, nonatomic) SEBKeychainManager *keychainManager;
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
@@ -67,11 +67,11 @@
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigFilePassword;
-@property (nonatomic) SecKeyRef currentConfigFileKeyRef;
+@property (nonatomic) NSData *currentConfigFileKeyHash;
 
 
 // To make the getter unavailable
-- (SecKeyRef)currentConfigFileKeyRef UNAVAILABLE_ATTRIBUTE;
+- (NSData *)currentConfigFileKeyHash UNAVAILABLE_ATTRIBUTE;
 
 - (BOOL) usingPrivateDefaults;
 - (BOOL) editingSettingsFile;
@@ -83,7 +83,7 @@
 - (void) resetSettingsPasswordFields;
 - (void) resetSettingsIdentity;
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;
-- (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef;
+- (void) selectSettingsIdentity:(NSData *)settingsPublicKeyHash;
 - (SecIdentityRef) getSelectedIdentity;
 - (sebConfigPurposes) getSelectedConfigPurpose;
 - (NSData *) encryptSEBSettingsWithSelectedCredentials;

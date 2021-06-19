@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Project concept: Thomas Piendl, Daniel R. Schneider,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -38,11 +38,15 @@
 
 @implementation PreferencesWindow
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
+- (instancetype)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
 {
-     self = [super initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation];
+    self = [super initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation];
     if (self) {
-        [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+        if (@available(macOS 10.13, *)) {
+            [self registerForDraggedTypes:[NSArray arrayWithObject:NSPasteboardTypeURL]];
+        } else {
+            [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+        }
     }
     return self;
 }
@@ -59,12 +63,24 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
     NSPasteboard *pboard = [sender draggingPasteboard];
-    NSArray *filenames = [pboard propertyListForType:NSFilenamesPboardType];
+    NSString *filename;
+    if (@available(macOS 10.13, *)) {
+//        NSDictionary *filteringOptions = @
+        NSArray<NSURL*> *fileURLs = [pboard readObjectsForClasses:@[NSURL.class] options:@{}];
+        if (fileURLs.count == 1) {
+            NSURL *fileURL = fileURLs.lastObject.filePathURL;
+            filename = fileURL.absoluteString;
+        }
+    } else {
+        NSArray *filenames = [pboard propertyListForType:NSFilenamesPboardType];
+        if (filenames.count == 1) {
+            filename = [filenames lastObject];
+        }
+    }
     
-    if (filenames.count == 1) {
+    if (filename) {
         if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
-            NSString *filename = [filenames lastObject];
-            if ([filename.pathExtension isEqualToString:SEBFileExtension]) {
+            if ([filename.pathExtension isEqualToString:@"seb"]) {
                 return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
             }
         }

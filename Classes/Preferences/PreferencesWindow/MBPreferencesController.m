@@ -48,7 +48,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 
 - (id)init
 {
-	if (self == [super init]) {
+	if (self = [super init]) {
         [self openWindow];
 	}
 	return self;
@@ -57,13 +57,13 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 - (void)openWindow
 {
     if (!self.window) {
-        PreferencesWindow *prefsWindow = [[PreferencesWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask) backing:NSBackingStoreBuffered defer:YES];
+        PreferencesWindow *prefsWindow = [[PreferencesWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
         [prefsWindow setReleasedWhenClosed:YES];
         [prefsWindow setShowsToolbarButton:NO];
-        //[prefsWindow setLevel:NSModalPanelWindowLevel];
-        //[prefsWindow setLevel:NSNormalWindowLevel];
+        if (@available(macOS 11, *)) {
+            prefsWindow.toolbarStyle = NSWindowToolbarStylePreference;
+        }
         self.window = prefsWindow;
-        [self.window setLevel:NSModalPanelWindowLevel];
         
         [self _setupToolbar];
     }
@@ -89,7 +89,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 {
 	@synchronized(self) {
 		if (sharedPreferencesController == nil) {
-			id __unused unusedSPC = [[self alloc] init]; // assignment not done here, supress "unused" warning
+			id __unused unusedSPC = [[self alloc] init]; // assignment not done here, suppress "unused" warning
 		}
 	}
 	return sharedPreferencesController;
@@ -153,10 +153,8 @@ static MBPreferencesController *sharedPreferencesController = nil;
     topLeftPoint.y = self.window.screen.frame.size.height - 44;
     
     [self.window setFrameTopLeftPoint:topLeftPoint];
-    [self.window setLevel:NSModalPanelWindowLevel];
 
 	[super showWindow:sender];
-//    [[NSApplication sharedApplication] runModalForWindow:self.window];
 }
 
 
@@ -187,7 +185,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 {
 	// We start off with no items. 
 	// Add them when we set the modules
-	return nil;
+	return [NSArray array];
 }
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
@@ -223,6 +221,13 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	}
 	return nil;
 }
+
+
+- (id<MBPreferencesModule>)currentModule
+{
+    return _currentModule;
+}
+
 
 - (void)setModules:(NSArray *)newModules
 {
@@ -309,6 +314,8 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	NSRect newWindowFrame = [self.window frameRectForContentRect:[newView frame]];
 	newWindowFrame.origin = [self.window frame].origin;
 	newWindowFrame.origin.y -= newWindowFrame.size.height - [self.window frame].size.height;
+    _newWindowSize = newWindowFrame.size;
+    
 	[self.window setFrame:newWindowFrame display:YES animate:YES];
 	
 	[[self.window toolbar] setSelectedItemIdentifier:[module identifier]];
@@ -376,11 +383,10 @@ static MBPreferencesController *sharedPreferencesController = nil;
     }
 }
 
-// -------------------------------------------------------------------------------
+
 //	dropDownAction:sender
 //
 //	User clicked the DropDownButton.
-// -------------------------------------------------------------------------------
 - (IBAction)dropDownAction:(id)sender
 {
 	// Drop down button clicked

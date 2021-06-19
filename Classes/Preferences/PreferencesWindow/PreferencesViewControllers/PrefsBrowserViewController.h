@@ -37,19 +37,24 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "PreferencesViewController.h"
 
 
-@interface PrefsBrowserViewController : NSViewController <MBPreferencesModule> {
-	IBOutlet NSButton *enablePlugIns;
+@interface PrefsBrowserViewController : PreferencesViewController <MBPreferencesModule> {
+    IBOutlet NSButton *enablePlugIns;
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
     IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
     __weak IBOutlet NSTextField *defaultUserAgentMac;
     __weak IBOutlet NSTextField *userAgentWinDesktopDefault;
     __weak IBOutlet NSTextField *userAgentWinTouchDefault;
     __weak IBOutlet NSTextField *userAgentWinTouchiPad;
+    __weak IBOutlet NSTextField *userAgentiOSDefault;
+    __weak IBOutlet NSTextField *userAgentiOSMacDesktop;
     __weak IBOutlet NSTabView *userAgentEnvironmentTabView;
 
 }
+
+@property(weak, nonatomic) IBOutlet NSScrollView *scrollView;
 
 - (NSString *)identifier;
 - (NSImage *)image;

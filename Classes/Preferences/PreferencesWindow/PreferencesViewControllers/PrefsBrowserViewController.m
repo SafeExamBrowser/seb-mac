@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -40,11 +40,14 @@
 @implementation PrefsBrowserViewController
 
 - (void) awakeFromNib {
+    [self scrollToTop:_scrollView];
 #ifdef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [enablePlugIns setEnabled:NO]; // disable the checkbox for plug-ins
 #endif
-    [userAgentWinDesktopDefault setStringValue:SEBWinUserAgentDesktopDefault];
-    [userAgentWinTouchDefault setStringValue:SEBWinUserAgentTouchDefault];
+    userAgentWinDesktopDefault.stringValue = SEBWinUserAgentDesktopDefault;
+    userAgentWinTouchDefault.stringValue = SEBWinUserAgentTouchDefault;
+    userAgentWinTouchiPad.stringValue = SEBWinUserAgentTouchiPad;
+    userAgentiOSDefault.stringValue = SEBiOSUserAgentiPadDefault;
 }
 
 
@@ -72,7 +75,8 @@
     if (defaultUserAgent.length == 0) {
         defaultUserAgent = @"";
     }
-    [defaultUserAgentMac setStringValue:defaultUserAgent];
+    defaultUserAgentMac.stringValue = defaultUserAgent;
+    userAgentiOSMacDesktop.stringValue = defaultUserAgent;
 }
 
 
@@ -80,6 +84,7 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) newBrowserWindowByLinkPolicyChanged:(NSPopUpButton *)sender
 {
+    
     newBrowserWindowByLinkBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
 }
 

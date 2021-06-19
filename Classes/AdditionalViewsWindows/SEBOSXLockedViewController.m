@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -62,25 +62,31 @@
 
 // Manage locking SEB if it is attempted to resume an unfinished exam
 
-- (void) addLockedExam:(NSString *)examURLString
+- (void)addLockedExam:(NSString *)examURLString
 {
     [self.lockedViewController addLockedExam:examURLString];
 }
 
-- (void) removeLockedExam:(NSString *)examURLString;
+- (void)removeLockedExam:(NSString *)examURLString;
 {
     [self.lockedViewController removeLockedExam:examURLString];
 }
 
 
-- (BOOL) isStartingLockedExam {
+- (BOOL)isStartingLockedExam {
     return [self.lockedViewController isStartingLockedExam];
 }
 
-- (void) shouldCloseLockdownWindows {
+- (void)shouldCloseLockdownWindows {
 #ifdef DEBUG
     DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
 #endif
+    if (self.quitInsteadUnlockingButton.state == false && _sebController.noRequiredBuiltInScreenAvailable && self.overrideEnforcingBuiltinScreen.state == false) {
+        DDLogInfo(@"Quit/Unlock password or response entered in lockscreen, but a required built-in screen is not available and the override button was not selected: Don't close lockscreen.");
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Required built-in display is still not available!", nil)] withTime:nil];
+        [self.lockedViewController abortClosingLockdownWindows];
+        return;
+    }
     [self.lockedViewController closeLockdownWindows];
 }
 
@@ -105,8 +111,12 @@
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
 {
+    newAlertMessage = [self.lockedViewController appendChallengeToMessage:newAlertMessage];
+    self.lockedViewController.currentAlertTitle = newAlertTitle;
+    self.lockedViewController.currentAlertMessage = newAlertMessage;
     alertTitle.stringValue = newAlertTitle;
     alertMessage.stringValue = newAlertMessage;
+    DDLogError(@"%s: %@: %@", __FUNCTION__, newAlertTitle, newAlertMessage);
 }
 
 
@@ -165,6 +175,10 @@
     
     if (self.overrideCheckForAllProcesses.state == true) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideEnforcingBuiltinScreen.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding required built-in display was enabled!", nil)] withTime:nil];
     }
 }
 

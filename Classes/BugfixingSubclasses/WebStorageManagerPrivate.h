@@ -34,7 +34,7 @@ extern NSString * const WebStorageDidModifyOriginNotification;
 
 
 // Added to be able to retrieve the directory location of the WebKit local storage tracker database
-static NSString* _storageDirectoryPath();
+static NSString* __unused _storageDirectoryPath(void);
 + (NSString *)_storageDirectoryPath;
 
 

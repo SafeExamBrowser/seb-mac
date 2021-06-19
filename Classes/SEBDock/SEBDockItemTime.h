@@ -37,6 +37,7 @@
 @interface SEBDockItemTime : SEBDockItem {
     
     IBOutlet NSTextField *timeTextField;
+    CGFloat preferredMaxLayoutWidth;
     NSTimer *clockTimer;
 }
 

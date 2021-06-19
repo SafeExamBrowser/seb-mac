@@ -45,5 +45,9 @@
 // Load a SebClientSettings.seb file saved in the preferences directory
 // and if it existed and was loaded, use it to re-configure SEB
 - (BOOL) reconfigureClientWithSebClientSettings;
+- (NSData *) getSEBClientSettings;
+
+// Re-configure SEB using the config data from a SEBClientSettings.seb file from the preferences directory
+- (void) reconfigureClientWithSebClientSettingsCallback;
 
 @end

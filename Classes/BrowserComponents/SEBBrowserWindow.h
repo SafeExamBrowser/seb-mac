@@ -45,34 +45,47 @@
 
 @class SEBOSXBrowserController;
 
+
 @interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate>
 
 {
     SEBWebView *requestingWebView;
     NSString *downloadPath;
-    NSView *progressIndicatorHolder;
+    NSURL *downloadURL;
+    NSString *lastUsername;
+    NSString *quitURLTrimmed;
     
 }
 
 @property (weak) SEBOSXBrowserController *browserController;
-@property (weak) IBOutlet SEBWebView *webView;
+@property (strong) IBOutlet SEBWebView *webView;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
+@property (strong) IBOutlet NSWindow *customAlert;
+@property (weak) IBOutlet SEBTextField *customAlertText;
 @property (weak) IBOutlet SEBTextField *URLFilterAlertText;
 @property (strong) IBOutlet NSURL *URLFilterAlertURL;
 @property (strong) NSString *filterExpression;
 @property (weak) IBOutlet NSMatrix *filterPatternMatrix;
 @property (strong) IBOutlet NSTextView *filterExpressionField;
 @property BOOL isFullScreen;
+@property BOOL isPanel;
+@property BOOL allowDownloads;
+@property BOOL allowDeveloperConsole;
 @property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
 @property (weak) IBOutlet NSButton *directoryPatternButton;
+@property (strong) NSView *progressIndicatorHolder;
 @property (strong) NSView *filterMessageHolder;
+@property (strong) NSPanel *filterMessageHUD;
 
+@property (strong) id URLSession;
+@property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 @property (copy) NSString *downloadFilename;
 @property (copy) NSString *downloadFileExtension;
 
 - (void) setCalculatedFrame;
+- (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
