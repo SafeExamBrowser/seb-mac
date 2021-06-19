@@ -631,6 +631,18 @@
 		698DFD2A267E9F2B00B8F1D6 /* ProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */; };
 		698DFD2D267E9F3E00B8F1D6 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 698DFD2B267E9F3E00B8F1D6 /* en.lproj */; };
 		698DFD2E267E9F3E00B8F1D6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 698DFD2C267E9F3E00B8F1D6 /* de.lproj */; };
+		698DFD2F267EA0E700B8F1D6 /* SEBController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D5881F1189EB8F005AE3F1 /* SEBController.h */; };
+		698DFD33267EA11A00B8F1D6 /* AssessmentModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */; };
+		698DFD38267EA2CA00B8F1D6 /* HUDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD34267EA2C900B8F1D6 /* HUDController.m */; };
+		698DFD39267EA2CA00B8F1D6 /* AssessmentModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */; };
+		698DFD3A267EA2CA00B8F1D6 /* HUDController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD36267EA2C900B8F1D6 /* HUDController.h */; };
+		698DFD3E267EA31C00B8F1D6 /* HUDPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD3C267EA31B00B8F1D6 /* HUDPanel.h */; };
+		698DFD3F267EA31C00B8F1D6 /* HUDPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD3D267EA31C00B8F1D6 /* HUDPanel.m */; };
+		698DFD41267EA38400B8F1D6 /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD40267EA38400B8F1D6 /* CGSPrivate.h */; };
+		698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD42267EA3D800B8F1D6 /* NSScreen+SEBScreen.m */; };
+		698DFD45267EA3D900B8F1D6 /* NSScreen+SEBScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD43267EA3D800B8F1D6 /* NSScreen+SEBScreen.h */; };
+		698DFD48267EA43500B8F1D6 /* PreferencesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD46267EA43400B8F1D6 /* PreferencesViewController.h */; };
+		698DFD49267EA43500B8F1D6 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */; };
 		698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
 		698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
 		698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
@@ -1326,6 +1338,17 @@
 		698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessManager.m; sourceTree = "<group>"; };
 		698DFD2B267E9F3E00B8F1D6 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
 		698DFD2C267E9F3E00B8F1D6 /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = de.lproj; sourceTree = "<group>"; };
+		698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssessmentModeManager.h; sourceTree = "<group>"; };
+		698DFD34267EA2C900B8F1D6 /* HUDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDController.m; sourceTree = "<group>"; };
+		698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssessmentModeManager.m; path = Classes/SystemManager/AssessmentModeManager.m; sourceTree = SOURCE_ROOT; };
+		698DFD36267EA2C900B8F1D6 /* HUDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDController.h; sourceTree = "<group>"; };
+		698DFD3C267EA31B00B8F1D6 /* HUDPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDPanel.h; sourceTree = "<group>"; };
+		698DFD3D267EA31C00B8F1D6 /* HUDPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDPanel.m; sourceTree = "<group>"; };
+		698DFD40267EA38400B8F1D6 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
+		698DFD42267EA3D800B8F1D6 /* NSScreen+SEBScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScreen+SEBScreen.m"; sourceTree = "<group>"; };
+		698DFD43267EA3D800B8F1D6 /* NSScreen+SEBScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScreen+SEBScreen.h"; sourceTree = "<group>"; };
+		698DFD46267EA43400B8F1D6 /* PreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
+		698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
 		698F3F061D17F4F9003DABBC /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Settings@2x.png"; path = "Resources/Icons/Settings@2x.png"; sourceTree = "<group>"; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = Classes/Global/SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyGlobals.h; path = Classes/Global/MyGlobals.h; sourceTree = "<group>"; };
@@ -2148,6 +2171,10 @@
 				699731C318C8D6ED0069FE35 /* CapWindow.m */,
 				699282E119D0430A00270E86 /* CapWindowController.h */,
 				699282E219D0430A00270E86 /* CapWindowController.m */,
+				698DFD36267EA2C900B8F1D6 /* HUDController.h */,
+				698DFD34267EA2C900B8F1D6 /* HUDController.m */,
+				698DFD3C267EA31B00B8F1D6 /* HUDPanel.h */,
+				698DFD3D267EA31C00B8F1D6 /* HUDPanel.m */,
 				69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */,
 				69EDAC1D1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m */,
 				69331F081C10AF1D0038BD31 /* SEBLockedViewController.h */,
@@ -2271,6 +2298,8 @@
 				698DFD0D267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m */,
 				698DFD0E267E9B1900B8F1D6 /* NSRunningApplication+SEB.h */,
 				698DFD0B267E9B1900B8F1D6 /* NSRunningApplication+SEB.m */,
+				698DFD43267EA3D800B8F1D6 /* NSScreen+SEBScreen.h */,
+				698DFD42267EA3D800B8F1D6 /* NSScreen+SEBScreen.m */,
 				69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */,
 				69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */,
 				6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */,
@@ -2550,6 +2579,8 @@
 		69CBEB531834C4D400FB0460 /* SystemManager */ = {
 			isa = PBXGroup;
 			children = (
+				698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */,
+				698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */,
 				69CBEB541834C55C00FB0460 /* SEBSystemManager.h */,
 				69CBEB551834C55C00FB0460 /* SEBSystemManager.m */,
 			);
@@ -2560,6 +2591,8 @@
 		69CE9C5A173269E80011609B /* Preferences View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				698DFD46267EA43400B8F1D6 /* PreferencesViewController.h */,
+				698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */,
 				69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */,
 				69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */,
 				6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */,
@@ -2594,6 +2627,7 @@
 		69CE9C6017378B360011609B /* Bugfixing Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				698DFD40267EA38400B8F1D6 /* CGSPrivate.h */,
 				69CE9C6117378B9A0011609B /* SEBTextField.h */,
 				69CE9C6217378B9A0011609B /* SEBTextField.m */,
 				69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */,
@@ -2913,6 +2947,7 @@
 				69B1D474230D7586005656B8 /* ServerController.h in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
 				69819EF82200BEFB0047809D /* MscPKCS12.h in Headers */,
+				698DFD41267EA38400B8F1D6 /* CGSPrivate.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				698DFD17267E9DC000B8F1D6 /* AboutWindowController.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
@@ -2929,6 +2964,7 @@
 				69A3FCD41C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
 				69F522C42146720C009F3999 /* SEBCertServices.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
+				698DFD45267EA3D900B8F1D6 /* NSScreen+SEBScreen.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				69819F252200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */,
 				698DFD14267E9B1900B8F1D6 /* NSRunningApplication+SEB.h in Headers */,
@@ -2939,8 +2975,12 @@
 				698DFD12267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h in Headers */,
 				698DFD29267E9F2B00B8F1D6 /* ProcessListViewController.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
+				698DFD2F267EA0E700B8F1D6 /* SEBController.h in Headers */,
+				698DFD3A267EA2CA00B8F1D6 /* HUDController.h in Headers */,
 				69B581841ED8214700CE70F3 /* SEBAboutController.h in Headers */,
+				698DFD33267EA11A00B8F1D6 /* AssessmentModeManager.h in Headers */,
 				69819EFD2200BEFB0047809D /* MscX509CommonLocalException.h in Headers */,
+				698DFD48267EA43500B8F1D6 /* PreferencesViewController.h in Headers */,
 				69819EAD2200BEFB0047809D /* MscCertificateRevocationList.h in Headers */,
 				69819ECB2200BEFB0047809D /* MscIssuerAndSerial.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
@@ -2952,6 +2992,7 @@
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69819EE92200BEFB0047809D /* MscIssuerAndSubject.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
+				698DFD3E267EA31C00B8F1D6 /* HUDPanel.h in Headers */,
 				69F522A421467188009F3999 /* CacheStoragePolicy.h in Headers */,
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
 				698DFD26267E9F2B00B8F1D6 /* ProcessListElement.h in Headers */,
@@ -3922,6 +3963,7 @@
 				69F7B60914F411FB00FD0761 /* PrefsGeneralViewController.m in Sources */,
 				6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
+				698DFD49267EA43500B8F1D6 /* PreferencesViewController.m in Sources */,
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
 				69819F112200BEFB0047809D /* MscCertificateSigningRequest.m in Sources */,
@@ -3958,6 +4000,7 @@
 				69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
+				698DFD38267EA2CA00B8F1D6 /* HUDController.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				69F5229A21467188009F3999 /* CacheStoragePolicy.m in Sources */,
@@ -3969,6 +4012,7 @@
 				69819F202200BEFB0047809D /* MscIssuerAndSerial.m in Sources */,
 				69F522BD21467188009F3999 /* CanonicalRequest.m in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
+				698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
@@ -3978,6 +4022,7 @@
 				698DFD13267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m in Sources */,
 				698DFD11267E9B1900B8F1D6 /* NSRunningApplication+SEB.m in Sources */,
 				69B1D479230D7586005656B8 /* ServerController.m in Sources */,
+				698DFD3F267EA31C00B8F1D6 /* HUDPanel.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
 				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
@@ -3996,6 +4041,7 @@
 				69F522AE21467188009F3999 /* QNSURLSessionDemux.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				69819ED52200BEFB0047809D /* MscPKCS7.m in Sources */,
+				698DFD39267EA2CA00B8F1D6 /* AssessmentModeManager.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F5229F21467188009F3999 /* CustomHTTPProtocol.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,

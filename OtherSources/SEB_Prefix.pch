@@ -33,15 +33,16 @@
 //
 
 #ifdef __OBJC__
+
     #import <Cocoa/Cocoa.h>
 
-//    #define LOG_LEVEL_DEF ddLogLevel
+    #define LOG_LEVEL_DEF ddLogLevel
     #import <CocoaLumberjack/CocoaLumberjack.h>
 
     #import "Constants.h"
     #import "MyGlobals.h"
     #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
-#endif
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
-//static DDLogLevel ddLogLevel = DDLogLevelDebug;
+#endif
