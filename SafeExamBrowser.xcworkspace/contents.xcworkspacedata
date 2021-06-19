@@ -10,4 +10,7 @@
    <FileRef
       location = "group:ios-mbedtls/mbedtls.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:osx-mbedtls/mbedtls/mbedtls.xcodeproj">
+   </FileRef>
 </Workspace>

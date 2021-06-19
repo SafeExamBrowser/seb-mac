@@ -621,6 +621,7 @@
 		698AB41A2638630A00E84161 /* SEBiOSBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698AB4162638630A00E84161 /* SEBiOSBrowserController.m */; };
 		698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		698AB42C2638C2B900E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
+		698DFD00267E752100B8F1D6 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E0B31A21467A1C007ACF03 /* libmbedtls.a */; };
 		698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
 		698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
 		698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
@@ -1201,6 +1202,8 @@
 		69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderQRCodeIcon.png; path = Resources/Icons/Slider/SEBSliderQRCodeIcon.png; sourceTree = "<group>"; };
 		69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderQRCodeIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderQRCodeIcon@3x.png"; path = "Resources/Icons/Slider/SEBSliderQRCodeIcon@3x.png"; sourceTree = "<group>"; };
+		69637420267E6DD400058E7C /* libmbedtls.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmbedtls.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		69637422267E6F6A00058E7C /* Safe Exam Browser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Safe Exam Browser.entitlements"; path = "Safe Exam Browser/Safe Exam Browser.entitlements"; sourceTree = "<group>"; };
 		6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderShutDownIcon.png; path = Resources/Icons/Slider/SEBSliderShutDownIcon.png; sourceTree = "<group>"; };
 		6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderShutDownIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderShutDownIcon@2x.png"; sourceTree = "<group>"; };
 		6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderReloadIcon.png; path = Resources/Icons/Slider/SEBSliderReloadIcon.png; sourceTree = "<group>"; };
@@ -1568,6 +1571,7 @@
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
+				698DFD00267E752100B8F1D6 /* libmbedtls.a in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
 			);
@@ -1634,6 +1638,7 @@
 		29B97314FDCFA39411CA2CEA /* SEB */ = {
 			isa = PBXGroup;
 			children = (
+				69637422267E6F6A00058E7C /* Safe Exam Browser.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				6940B98F1BA0F2FB008C8CFC /* SEBUITests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1677,6 +1682,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69637420267E6DD400058E7C /* libmbedtls.a */,
 				6988A0DA25228D4700F15236 /* libSEBSupport.a */,
 				699B325E2154639800EEA3E5 /* libmbedtls.a */,
 				69E0B31A21467A1C007ACF03 /* libmbedtls.a */,
@@ -3050,7 +3056,7 @@
 						};
 					};
 					69F7B5FA14F411FB00FD0761 = {
-						DevelopmentTeam = 62DXYN3744;
+						DevelopmentTeam = 6F38DNSC7X;
 						LastSwiftMigration = 1030;
 						ProvisioningStyle = Manual;
 					};
@@ -3500,7 +3506,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%u\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"\n";
+			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%X\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"\n";
 		};
 		86A2CA18DBD66E34F75100CE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4596,15 +4602,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_ENTITLEMENTS = "Safe Exam Browser/Safe Exam Browser.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 13227;
-				DEVELOPMENT_TEAM = 62DXYN3744;
+				CURRENT_PROJECT_VERSION = 3142;
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4617,25 +4625,26 @@
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 3.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/Safe Exam Browser-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = ../build;
-				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -4643,15 +4652,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_ENTITLEMENTS = "Safe Exam Browser/Safe Exam Browser.entitlements";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13227;
+				CURRENT_PROJECT_VERSION = 3142;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 62DXYN3744;
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4667,24 +4678,25 @@
 				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/Safe Exam Browser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = ../build;
-				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -4739,9 +4751,9 @@
 				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = SEB/Frameworks/OpenSSL/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = "Safe Exam Browser";
@@ -4800,9 +4812,9 @@
 				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = SEB/Frameworks/OpenSSL/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
