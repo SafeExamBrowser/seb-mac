@@ -126,10 +126,6 @@
             DDLogDebug(@"Dock Item Label Popover content size: %f, %f", popover.contentSize.width, popover.contentSize.height);
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
-            if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
-                // We use NSPopoverAppearanceHUD only for OS X <= 10.9, not on OS X 10.10 upwards
-                [popover setAppearance:NSPopoverAppearanceHUD];
-            }
             [popover setAnimates:NO];
             self.labelPopover = popover;
         }
