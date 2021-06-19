@@ -51,13 +51,13 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         // Enforce minimum SEB Dock height
-        if (dockHeight < 40) dockHeight = 40;
+        if (dockHeight < SEBDefaultDockHeight) dockHeight = SEBDefaultDockHeight;
 
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         self.dockWindow.releasedWhenClosed = YES;
         self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
             [self.dockWindow setSharingType:NSWindowSharingNone];
         }
         self.dockWindow.height = dockHeight;
@@ -90,13 +90,14 @@
 
 
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
-- (void) setLeftItems:(NSArray *)newLeftDockItems
+- (NSArray *) setLeftItems:(NSArray *)newLeftDockItems
 {
     DDLogDebug(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
     if (_leftDockItems) {
         _leftDockItems = nil;
     }
     
+    NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newLeftDockItems) {
         NSView *superview = [self.dockWindow contentView];
         _leftDockItems = newLeftDockItems;
@@ -119,6 +120,7 @@
                 [newDockItemButton setToolTip:dockItem.toolTip];
 
                 dockItemView = newDockItemButton;
+                [dockItemButtons addObject:newDockItemButton];
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
                     dockItemView = dockItem.view;
@@ -167,17 +169,19 @@
         // Save the last (= right most) left item
         self.rightMostLeftItemView = dockItemView;
     }
+    return [dockItemButtons copy];
 }
 
 
 // Add dock items passed in array pinned to the right edge of the left items dock area
-- (void) setCenterItems:(NSArray *)newCenterDockItems
+- (NSArray *) setCenterItems:(NSArray *)newCenterDockItems
 {
     DDLogDebug(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
     if (_centerDockItems) {
         _centerDockItems = nil;
     }
     
+    NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newCenterDockItems) {
         NSView *superview = [self.dockWindow contentView];
         _centerDockItems = newCenterDockItems;
@@ -199,6 +203,7 @@
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
+                [dockItemButtons addObject:newDockItemButton];
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
                     dockItemView = dockItem.view;
@@ -255,17 +260,19 @@
             }
         }
     }
+    return [dockItemButtons copy];
 }
 
 
 // Add dock items passed in array pinned to the right edge of the dock (from right to left)
-- (void) setRightItems:(NSArray *)newRightDockItems
+- (NSArray *) setRightItems:(NSArray *)newRightDockItems
 {
     DDLogDebug(@"[SEBDockController setRightItems: %@]", newRightDockItems);
     if (_rightDockItems) {
         _rightDockItems = nil;
     }
     
+    NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newRightDockItems) {
         NSView *superview = [self.dockWindow contentView];
         _rightDockItems = newRightDockItems;
@@ -284,13 +291,11 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
-//                    [newDockItemButton setHighlighted:true];
                     [newDockItemButton setButtonType:NSMomentaryLightButton];
-//                    NSButtonCell *newDockItemButtonCell = newDockItemButton.cell;
-//                    newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
+                [dockItemButtons addObject:newDockItemButton];
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
                     dockItemView = dockItem.view;
@@ -337,13 +342,14 @@
             }
         }
     }
+    return [dockItemButtons copy];
 }
 
 
-- (void) showDock
+- (void) showDockOnScreen:(NSScreen *)screen
 {
     DDLogDebug(@"[SEBDockController showDock]");
-    [self.dockWindow setCalculatedFrame:self.window.screen];
+    [self.dockWindow setCalculatedFrame:screen];
     [self showWindow:self];
 }
 
@@ -365,7 +371,7 @@
 
 - (void) moveDockToScreen:(NSScreen *)screen
 {
-    DDLogDebug(@"[SEBDockController moveDockToScreen]");
+    DDLogDebug(@"[SEBDockController moveDockToScreen: %@]", screen);
     [self.dockWindow setCalculatedFrame:screen];
 }
 

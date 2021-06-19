@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -108,7 +108,7 @@
  */
 @protocol SEBLockedViewControllerDelegate <NSObject>
 /**
- * @name        Item Attributes
+ * @name		Item Attributes
  */
 @required
 /**
@@ -142,6 +142,7 @@
  * @details
  */
 @property(readwrite) BOOL sessionRunning;
+@property(readwrite) BOOL examRunning;
 
 /**
  * @brief       Indicates if SEB is locked
@@ -179,14 +180,20 @@
 @end
 
 
-@interface SEBLockedViewController : NSObject
+@interface SEBLockedViewController : NSObject {
+    @private
+    NSString *challenge;
+}
 
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
 @property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
 
-@property (strong) SEBKeychainManager *keychainManager;
+@property (nonatomic, strong) SEBKeychainManager *keychainManager;
 
-@property (strong) NSDictionary *boldFontAttributes;
+
+@property (nonatomic, strong) NSString *currentAlertTitle;
+@property (nonatomic, strong) NSString *currentAlertMessage;
+@property (nonatomic, strong) NSDictionary *boldFontAttributes;
 
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
@@ -194,8 +201,10 @@
 - (BOOL) isStartingLockedExam;
 
 /// Lockview business logic
+- (NSString *) appendChallengeToMessage:(NSString *)alertMessage;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 - (void) passwordEntered;
 - (void) closeLockdownWindows;
+- (void) abortClosingLockdownWindows;
 
 @end

@@ -69,6 +69,8 @@
 
 - (NSArray *) org_safeexambrowser_SEB_logLevels;
 
+- (NSArray *) org_safeexambrowser_SEB_minMacOSVersions;
+
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems;
 
 @end

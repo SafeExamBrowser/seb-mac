@@ -36,21 +36,119 @@
 #import "SEBSystemManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
+#import "NSRunningApplication+SEB.h"
 #include <SystemConfiguration/SystemConfiguration.h>
+
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 @implementation SEBSystemManager
 
 
-- (NSString *) preventSC
+- (VarSystemInfo *)systemInfo
+{
+    if (!_systemInfo) {
+        _systemInfo = [VarSystemInfo new];
+    }
+    return _systemInfo;
+}
+
+
+- (BOOL) hasBuiltinDisplay
+{
+    NSString *sysModelID = self.systemInfo.sysModelID;
+    DDLogInfo(@"System model ID: %@", sysModelID);
+    return [sysModelID rangeOfString:@"Book"].location != NSNotFound || [sysModelID rangeOfString:@"iMac"].location != NSNotFound;
+}
+
+
+// Cache current settings for Siri and dictation
+- (void) cacheCurrentSystemSettings
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Cache current system preferences setting for Siri
+    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain
+                                                        key:SiriDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:siriEnabled forKey:cachedSiriSettingKey];
+    
+    // Cache current system preferences setting for dictation
+    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain
+                                                             key:DictationDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
+    
+    // Cache current system preferences setting for remote (server based) dictation
+    BOOL remoteDictationEnabled = [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain
+                                                                   key:RemoteDictationDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:remoteDictationEnabled forKey:cachedRemoteDictationSettingKey];
+    
+    // Cache current system preferences setting for TouchBar
+    NSString *touchBarGlobalDefaultsValue = (NSString *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
+                                                                             key:TouchBarGlobalDefaultsKey];
+    [preferences setPersistedSecureObject:touchBarGlobalDefaultsValue forKey:cachedTouchBarGlobalSettingsKey];
+    
+    NSDictionary *touchBarFnDictionaryDefaultsValue = (NSDictionary *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
+                                                                             key:TouchBarFnDictionaryDefaultsKey];
+    [preferences setPersistedSecureObject:touchBarFnDictionaryDefaultsValue forKey:cachedTouchBarFnDictionarySettingsKey];
+}
+
+
+// Restore cached settings for Siri, dictation and TouchBar
+// Returns false if TouchBar mode "AppControl" was active before
+// as this mode cannot be restored automatically by SEB
+- (BOOL) restoreSystemSettings
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Restore setting for Siri before SEB was running to system preferences
+    BOOL siriEnabled = [preferences persistedSecureBoolForKey:cachedSiriSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:siriEnabled]
+                   forKey:SiriDefaultsKey
+        forDefaultsDomain:SiriDefaultsDomain];
+    
+    // Restore setting for dictation before SEB was running to system preferences
+    BOOL dictationEnabled = [preferences persistedSecureBoolForKey:cachedDictationSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:dictationEnabled]
+                   forKey:DictationDefaultsKey
+        forDefaultsDomain:DictationDefaultsDomain];
+    
+    // Restore setting for remote (server based) dictation before SEB was running to system preferences
+    BOOL remoteDictationEnabled = [preferences persistedSecureBoolForKey:cachedRemoteDictationSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:remoteDictationEnabled]
+                   forKey:RemoteDictationDefaultsKey
+        forDefaultsDomain:RemoteDictationDefaultsDomain];
+    
+    // Restore setting for TouchBar before SEB was running to system preferences
+    NSString *touchBarGlobalDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarGlobalSettingsKey];
+    [preferences setValue:touchBarGlobalDefaultsValue
+                   forKey:TouchBarGlobalDefaultsKey
+        forDefaultsDomain:TouchBarDefaultsDomain];
+    
+    NSDictionary *touchBarFnDictionaryDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarFnDictionarySettingsKey];
+    [preferences setValue:touchBarFnDictionaryDefaultsValue
+                   forKey:TouchBarFnDictionaryDefaultsKey
+        forDefaultsDomain:TouchBarDefaultsDomain];
+    
+    return touchBarGlobalDefaultsValue != nil;
+}
+
+
+- (void) preventScreenCapture
+{
+    // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
+    // as NSWindowSharingType = NSWindowSharingNone works correctly
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL blockScreenShots = NO;
+    if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10) {
+        blockScreenShots = YES;
+    } else {
+        blockScreenShots = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"];
+    }
 
     /// Check if there is a redirected sc location persistently stored
     /// What only happends when it couldn't be reset last time SEB has run
     
-    scTempPath = [self getStoredNewSCLocation];
+    scTempPath = [self getStoredNewScreenCaptureLocation];
     if (scTempPath.length > 0) {
         
         /// There is a redirected location saved
@@ -67,19 +165,25 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         if (scLocation.length == 0) {
             // in case it wasn't saved properly, we reset to the OS X default sc location
             scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
-            DDLogWarn(@"The persistently saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
+            DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the macOS default location %@", scLocation);
         }
+        // If in the current settings the legacy screen shot blocking isn't required,
+        if (blockScreenShots == NO) {
+            // Restore original SC path and verify the new location
+            [self changeAndVerifyScreenCaptureLocation:scLocation];
+        }
+
     } else {
         
         /// No redirected location was persistently saved
         
         // Get current screencapture location
-        scLocation = [self getCurrentSCLocation];
+        scLocation = [self getCurrentScreenCaptureLocation];
         DDLogDebug(@"Current screencapture location: %@", scLocation);
     }
-    
+
     // Check if screenshots should be blocked in current settings
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+    if (blockScreenShots) {
         
         /// Block screenshots
         
@@ -108,23 +212,8 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             }
         }
         
-        // Execute the redirect script
-        if ([self executeSCAppleScript:scFullPath]) {
-            DDLogDebug(@"sc redirect script didn't report an error");
-        }
-        
-        // Get and verify the new location
-        NSString *location = [self getCurrentSCLocation];
-        if ([scFullPath isEqualToString:location]) {
-            DDLogDebug(@"Changed sc location successfully to: %@", location);
-        } else {
-            DDLogDebug(@"Failed changing sc location, location is: %@", location);
-            // If the sc location wasn't changed, we save an empty string to indicate this
-            scTempPath = @"";
-        }
-        // Store scTempPath persistently
-        [preferences setSecureString:scTempPath forKey:@"newDestination"];
-        return location;
+        // Restore original SC path and verify the new location
+        [self changeAndVerifyScreenCaptureLocation:scFullPath];
         
     } else {
         
@@ -132,55 +221,47 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         scLocation = nil;
         
-        return scLocation;
+        return;
     }
 }
 
 
-- (BOOL) restoreSC
+- (BOOL) restoreScreenCapture
 {
-    // Check if screenshots were blocked in the previously active settings
-    if (scLocation.length > 0) {
+        // Check if screenshots were blocked in the previously active settings
+        if (scLocation.length > 0) {
+            
+            /// Unblock screenshots
+            
+            // Check if the saved path really exists
+            BOOL isDir;
+            NSFileManager *fileManager= [NSFileManager defaultManager];
+            if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
+                // No, the directory for storing screenshots doesn't exist
+                // probably something went wrong sometimes ago (SEB crashed in a bad moment)
+                // so restore the screen capture path to the OS X standard (user's desktop)
+                scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
+            }
+            
+            // Restore original SC path and verify the new location
+            [self changeAndVerifyScreenCaptureLocation:scLocation];
 
-        /// Unblock screenshots
-        
-        // Check if the saved path really exists
-        BOOL isDir;
-        NSFileManager *fileManager= [NSFileManager defaultManager];
-        if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
-            // No, the directory for storing screenshots doesn't exist
-            // probably something went wrong sometimes ago (SEB crashed in a bad moment)
-            // so restore the screen capture path to the OS X standard (user's desktop)
-            scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
+            // Remove temporary directory
+            if ([self removeTempDirectory:scTempPath]) {
+                NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                [preferences setSecureString:@"" forKey:@"newDestination"];
+                DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
+                return YES;
+            } else {
+                DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
+                return NO;
+            }
         }
-        
-        // Restore original SC path
-        if ([self executeSCAppleScript:scLocation]) {
-            DDLogDebug(@"sc restore original value (%@) script didn't report an error", scLocation);
-        }
-        // Get and verify the new location
-        NSString *location = [self getCurrentSCLocation];
-        if ([scLocation isEqualToString:location]) {
-            DDLogDebug(@"Restored sc location successfully to: %@", location);
-        } else {
-            DDLogDebug(@"Failed restoring sc location! Location is: %@", location);
-        }
-        // Remove temporary directory
-        if ([self removeTempDirectory:scTempPath]) {
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            [preferences setSecureString:@"" forKey:@"newDestination"];
-            DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
-            return YES;
-        } else {
-            DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
-            return NO;
-        }
-    }
-    return YES;
+        return YES;
 }
 
 
-- (void) adjustSC
+- (void) adjustScreenCapture
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -191,10 +272,10 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         /// Yes, screenshots were blocked
         
         // Check if screenshots are allowed in current settings
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == YES) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShots"] == NO) {
             // Yes, screenshots are no longer blocked: restore SC and switch to non-blocking
-            [self restoreSC];
-            [self preventSC];
+            [self restoreScreenCapture];
+            [self preventScreenCapture];
         } // otherwise leave blocking active and don't do nothing
 
     } else {
@@ -202,27 +283,24 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         /// No, screenshots were not blocked
         
         // Check if screenshots are allowed in current settings
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShots"] == YES) {
             // No, screenshots are blocked in new settings: activate blocking
-            [self preventSC];
+            [self preventScreenCapture];
         } // otherwise leave blocking inactive and don't do nothing
     }
 }
 
 
 // Get current screencapture location
-- (NSString *) getCurrentSCLocation
+- (NSString *) getCurrentScreenCaptureLocation
 {
     // Get current screencapture location
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"com.apple.screencapture"];
-    NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
-    return [prefsDict valueForKey:@"location"];
+    return (NSString *)[[NSUserDefaults standardUserDefaults] valueForDefaultsDomain:@"com.apple.screencapture" key:@"location"];
 }
 
 
 // Get stored redirected screencapture location
-- (NSString *) getStoredNewSCLocation
+- (NSString *) getStoredNewScreenCaptureLocation
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *storedSCPath = [preferences secureStringForKey:@"newDestination"];
@@ -252,17 +330,40 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
-- (BOOL) executeSCAppleScript:(NSString *)location
+- (void) changeAndVerifyScreenCaptureLocation:(NSString *)scFullPath
 {
-    NSString *appleScriptSource = [NSString stringWithFormat:@"do shell script \"defaults write com.apple.screencapture location %@ && killall SystemUIServer\"", location];
-    NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:appleScriptSource];
+    // Execute the redirect script
+    if ([self changeScreenCaptureLocation:scFullPath]) {
+        DDLogDebug(@"sc redirect script didn't report an error");
+    }
     
-    NSDictionary* errorDict;
-    NSAppleEventDescriptor* returnDescriptor = NULL;
-    returnDescriptor = [appleScript executeAndReturnError: &errorDict];
-    return errorDict == nil;
+    // Get and verify the new location
+    NSString *location = [self getCurrentScreenCaptureLocation];
+    if ([scFullPath isEqualToString:location]) {
+        DDLogDebug(@"Changed sc location successfully to: %@", location);
+    } else {
+        DDLogDebug(@"Failed changing sc location, location is: %@", location);
+        // If the sc location wasn't changed, we save an empty string to indicate this
+        scTempPath = @"";
+    }
+    // Store scTempPath persistantly
+    [[NSUserDefaults standardUserDefaults] setSecureString:scTempPath forKey:@"newDestination"];
 }
 
+
+- (BOOL) changeScreenCaptureLocation:(NSString *)location
+{
+    [[NSUserDefaults standardUserDefaults] setValue:location forKey:@"location" forDefaultsDomain:@"com.apple.screencapture"];
+    
+    NSArray *runningSystemDaemonInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.systemuiserver"];
+    if (runningSystemDaemonInstances.count != 0) {
+        for (NSRunningApplication *runningSystemDaemon in runningSystemDaemonInstances) {
+            DDLogWarn(@"Terminating SystemUIServer %@", runningSystemDaemon);
+            [runningSystemDaemon kill];
+        }
+    }
+    return true;
+}
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
 // Returns the current HTTPS proxy settings as a C string
@@ -370,7 +471,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
         if(SCDynamicStoreSetValue(proxyStore,kSCPropNetProxiesHTTPSProxy,proxyDictSet))
         {
             printf("store updated successfully...\n");
-        }else {
+        } else {
             printf("store NOT updated successfully...\n");
             printf("Error is %s\n",SCErrorString(SCError()));
         }
@@ -401,10 +502,142 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
 //    int main(int argc, char** argv) {
 //        UInt16 port;
 //        char host[100];
-//        
+//
 //        GetHTTPSProxySetting(host,sizeof(host),&port);
 //        printf("HTTPS proxy host = %s\n",host);
 //        printf("HTTPS proxy host = %d\n",port);
 //    }
+
+@end
+
+#pragma mark - Implementation:
+#pragma mark -
+
+@implementation VarSystemInfo
+
+@synthesize sysName, sysUserName, sysFullUserName;
+@synthesize sysOSName, sysOSVersion;
+@synthesize sysPhysicalMemory;
+@synthesize sysSerialNumber, sysUUID;
+@synthesize sysModelID, sysModelName;
+@synthesize sysProcessorName, sysProcessorSpeed, sysProcessorCount;
+
+#pragma mark - Helper Methods:
+
+- (NSString *) _strIORegistryEntry:(NSString *)registryKey {
+
+    NSString *retString;
+
+    io_service_t service =
+    IOServiceGetMatchingService( kIOMasterPortDefault,
+                                 IOServiceMatching([kVarSysInfoPlatformExpert UTF8String]) );
+    if ( service ) {
+
+        CFTypeRef cfRefString =
+        IORegistryEntryCreateCFProperty( service,
+                                         (__bridge CFStringRef)registryKey,
+                                         kCFAllocatorDefault, kNilOptions );
+        if ( cfRefString ) {
+
+            retString = [NSString stringWithString:(__bridge NSString *)cfRefString];
+            CFRelease(cfRefString);
+
+        } IOObjectRelease( service );
+
+    } return retString;
+}
+
+- (NSString *) _strControlEntry:(NSString *)ctlKey {
+
+    size_t size = 0;
+    if ( sysctlbyname([ctlKey UTF8String], NULL, &size, NULL, 0) == -1 ) return nil;
+
+    char *machine = calloc( 1, size );
+
+    sysctlbyname([ctlKey UTF8String], machine, &size, NULL, 0);
+    NSString *ctlValue = [NSString stringWithCString:machine encoding:[NSString defaultCStringEncoding]];
+
+    free(machine); return ctlValue;
+}
+
+- (NSNumber *) _numControlEntry:(NSString *)ctlKey {
+
+    size_t size = sizeof( uint64_t ); uint64_t ctlValue = 0;
+    if ( sysctlbyname([ctlKey UTF8String], &ctlValue, &size, NULL, 0) == -1 ) return nil;
+    return [NSNumber numberWithUnsignedLongLong:ctlValue];
+}
+
+- (NSString *) _parseBrandName:(NSString *)brandName {
+
+    if ( !brandName ) return nil;
+
+    NSMutableArray *newWords = [NSMutableArray array];
+    NSString *strCopyRight = @"r", *strTradeMark = @"tm", *strCPU = @"CPU";
+
+    NSArray *words = [brandName componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+
+    for ( NSString *word in words ) {
+
+        if ( [word isEqualToString:strCPU] )       break;
+        if ( [word isEqualToString:@""] )          continue;
+        if ( [word.lowercaseString isEqualToString:strCopyRight] ) continue;
+        if ( [word.lowercaseString isEqualToString:strTradeMark] ) continue;
+
+        if ( [word length] > 0 ) {
+
+            NSString *firstChar = [word substringToIndex:1];
+            if ( NSNotFound != [firstChar rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location ) continue;
+
+            [newWords addObject:word];
+
+    } } return [newWords componentsJoinedByString:@" "];
+}
+
+- (NSString *) getOSVersionInfo {
+
+    NSString *darwinVer = [self _strControlEntry:kVarSysInfoKeyOSVersion];
+    NSString *buildNo = [self _strControlEntry:kVarSysInfoKeyOSBuild];
+    if ( !darwinVer || !buildNo ) return nil;
+
+    NSString *majorVer = @"10", *minorVer = @"x", *bugFix = @"x";
+    NSArray *darwinChunks = [darwinVer componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
+
+    if ( [darwinChunks count] > 0 ) {
+
+        NSInteger firstChunk = [(NSString *)[darwinChunks objectAtIndex:0] integerValue];
+        minorVer = [NSString stringWithFormat:@"%ld", (firstChunk - 4)];
+        bugFix = [darwinChunks objectAtIndex:1];
+        return [NSString stringWithFormat:kVarSysInfoVersionFormat, majorVer, minorVer, bugFix, buildNo];
+
+    } return nil;
+}
+
+#pragma mark - Initalization:
+
+- (void) setupSystemInformation {
+
+    NSProcessInfo *pi = [NSProcessInfo processInfo];
+
+    self.sysName = [[NSHost currentHost] localizedName];
+    self.sysUserName = NSUserName();
+    self.sysFullUserName = NSFullUserName();
+    self.sysOSVersion = self.getOSVersionInfo;
+    self.sysPhysicalMemory = [NSNumber numberWithUnsignedLongLong:pi.physicalMemory];
+    self.sysSerialNumber = [self _strIORegistryEntry:(__bridge NSString *)CFSTR(kIOPlatformSerialNumberKey)];
+    self.sysUUID = [self _strIORegistryEntry:(__bridge NSString *)CFSTR(kIOPlatformUUIDKey)];
+    self.sysModelID = [self _strControlEntry:kVarSysInfoKeyModel];
+    self.sysProcessorName = [self _parseBrandName:[self _strControlEntry:kVarSysInfoKeyCPUBrand]];
+    self.sysProcessorSpeed = [self _numControlEntry:kVarSysInfoKeyCPUFreq];
+    self.sysProcessorCount = [self _numControlEntry:kVarSysInfoKeyCPUCount];
+}
+
+- (id) init {
+
+    if ( (self = [super init]) ) {
+
+        [self setupSystemInformation];
+
+    } return self;
+}
 
 @end

@@ -862,10 +862,10 @@ static NSString *getUppercaseAdminPasswordHash()
             // If yes, then cancel reading .seb file
             DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
 
-                *error = [NSError errorWithDomain:sebErrorDomain
-                                             code:SEBErrorParsingSettingsFailedValueClassMissmatch
-                                         userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
-                                                    NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
+            *error = [NSError errorWithDomain:sebErrorDomain
+                                         code:SEBErrorParsingSettingsFailedValueClassMissmatch
+                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
+                                                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
             
             return NO; //we abort reading the new settings here
         }
@@ -1103,7 +1103,7 @@ static NSString *getUppercaseAdminPasswordHash()
                                  forPurpose:(sebConfigPurposes)configPurpose {
 
     // Copy preferences to a dictionary
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *filteredPrefsDict;
     filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEB]];
     

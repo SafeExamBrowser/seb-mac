@@ -36,24 +36,34 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import "MBPreferencesController.h"
+#import "PreferencesController.h"
+#import "SEBBrowserController.h"
 
-@interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
-    IBOutlet NSTextField *examKey;
-	IBOutlet NSTextField *quitURL;
+@class PreferencesController;
+@class SEBBrowserController;
+
+@interface PrefsExamViewController : PreferencesViewController <MBPreferencesModule, NSTextFieldDelegate> {
+    IBOutlet NSTextField *examKeyTextField;
+    IBOutlet NSTextField *configKeyTextField;
+    __weak IBOutlet NSButton *copyBEKToClipboard;
+    IBOutlet NSTextField *quitURL;
     __weak IBOutlet NSTextField *restartExamURLTextField;
 
     IBOutlet NSObjectController *controller;
     
     @private
-    NSString *_quitLinkBeforeEditing;
 }
 
-@property (strong, nonatomic) IBOutlet NSTextField *examKey;
+@property(weak, nonatomic) IBOutlet NSScrollView *scrollView;
+
+@property (weak, nonatomic) PreferencesController *preferencesController;
+@property (weak, nonatomic) SEBBrowserController *browserController;
+
+@property (strong, nonatomic) IBOutlet NSTextField *examKeyTextField;
 
 - (BOOL) usingPrivateDefaults;
-- (IBAction) generateBrowserExamKey:(id)sender;
+- (void) displayUpdatedKeys;
+- (IBAction) generateKeys:(id)sender;
 - (IBAction) restartExamUseStartURL:(NSButton *)sender;
-- (IBAction) restartExamPasswordProtected:(id)sender;
-- (void) displayBrowserExamKey;
 
 @end

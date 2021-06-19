@@ -1,0 +1,54 @@
+/* Class = "NSTextFieldCell"; title = "External or embedded resources which can be used during an exam"; ObjectID = "2301"; */
+"2301.title" = "Externe oder eingebettete Ressourcen, welche während einer Prüfung benutzt werden können";
+
+/* Class = "NSBox"; title = "Selected Resource"; ObjectID = "2435"; */
+"2435.title" = "Ausgewählte Ressource";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a resource"; ObjectID = "2437"; */
+"2437.ibShadowedToolTip" = "Ressource hinzufügen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Displays a file requester for choosing the process executable file (or application) which will be added to the list of prohibited processes."; ObjectID = "2438"; */
+"2438.ibShadowedToolTip" = "Auswählen der Ressource, welche in die Konfigurationsdatei eingefügt wird";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove a resource"; ObjectID = "2439"; */
+"2439.ibShadowedToolTip" = "Ressource entfernen";
+
+/* Class = "NSButtonCell"; title = "Choose File..."; ObjectID = "2442"; */
+"2442.title" = "Datei auswählen …";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/taskbar"; ObjectID = "2490"; */
+"2490.ibShadowedToolTip" = "Titel der Ressource, die im SEB-Dock angezeigt wird";
+
+/* Class = "NSButton"; ibShadowedToolTip = "This resource item is active"; ObjectID = "2493"; */
+"2493.ibShadowedToolTip" = "Diese Ressource ist aktiv";
+
+/* Class = "NSButtonCell"; title = "Active"; ObjectID = "2502"; */
+"2502.title" = "Aktiv";
+
+/* Class = "NSTextFieldCell"; title = "Title"; ObjectID = "2508"; */
+"2508.title" = "Titel";
+
+/* Class = "NSTableColumn"; headerCell.title = "Active"; ObjectID = "2523"; */
+"2523.headerCell.title" = "Aktiv";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "2524"; */
+"2524.headerCell.title" = "Titel";
+
+/* Class = "NSTableColumn"; headerCell.title = "Open"; ObjectID = "2525"; */
+"2525.headerCell.title" = "Öffnen";
+
+/* Class = "NSTableColumn"; headerCell.title = "URL or File Name"; ObjectID = "2526"; */
+"2526.headerCell.title" = "URL oder Dateiname";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Full URL of the resource (if external) or file name including file type extension"; ObjectID = "2612"; */
+"2612.ibShadowedToolTip" = "Vollständige URL der Ressource (wenn extern) oder der Dateiname inklusive Dateierweiterung";
+
+/* Class = "NSTextFieldCell"; title = "URL"; ObjectID = "2614"; */
+"2614.title" = "URL";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Open this resource when SEB starts"; ObjectID = "2632"; */
+"2632.ibShadowedToolTip" = "Diese Resource beim Aufstarten von SEB öffnen. Ansonsten kann sie mit dem Icon/Popup-Menü im SEB-Dock geöffnet werden";
+
+/* Class = "NSButtonCell"; title = "Open when SEB starts"; ObjectID = "2634"; */
+"2634.title" = "Beim SEB-Start öffnen";
+

@@ -45,7 +45,7 @@
 @end
 
 @implementation PrefsExamViewController
-@synthesize examKey;
+@synthesize examKeyTextField;
 
 
 - (NSString *)title
@@ -71,19 +71,14 @@
 }
 
 
+- (void)awakeFromNib {
+    [self scrollToTop:_scrollView];
+}
+
+
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
-    // Save value of the quit link text field
-    _quitLinkBeforeEditing = quitURL.stringValue;
-    // Check if current settings have unsaved changes
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate
-                                                        updateSalt:NO] && NSUserDefaults.userDefaultsPrivate) {
-        // There are unsaved changes and private UserDefaults are active
-        [self browserExamKeyChanged];
-    } else {
-        // There are no unsaved changes or local client settings are active
-        [self displayBrowserExamKey];
-    }
+    [self displayMessageOrReGenerateKey];
 }
 
 - (void)willBeHidden {
@@ -91,32 +86,31 @@
 }
 
 
+- (SEBBrowserController *)browserController {
+    if (!_browserController) {
+        _browserController = _preferencesController.browserController;
+    }
+    return _browserController;
+}
+
+
+#pragma mark -
+#pragma mark Action methods to recalculate and display new keys/message for key changed when
+#pragma mark one of the settings in the Exam Pane is changed and private user defaults are active
+
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
-- (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender
+- (IBAction)useBrowserExamKey:(NSButton *)sender
 {
-    restartExamURLTextField.enabled = [sender state];
+    examKeyTextField.enabled = [sender state];
+    configKeyTextField.enabled = [sender state];
+    copyBEKToClipboard.enabled = [sender state];
+    [self displayMessageOrReGenerateKey];
 }
 
 
-- (IBAction) generateBrowserExamKey:(id)sender {
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    [self displayBrowserExamKey];
-}
-
-
-- (void)displayBrowserExamKey
-{
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    unsigned char hashedChars[32];
-    [browserExamKey getBytes:hashedChars length:32];
-    
-    NSMutableString* hashedString = [[NSMutableString alloc] init];
-    for (int i = 0 ; i < 32 ; ++i) {
-        [hashedString appendFormat: @"%02x", hashedChars[i]];
-    }
-    [examKey setStringValue:hashedString];
+- (IBAction)generateKeys:(id)sender {
+    [self displayMessageOrReGenerateKey];
 }
 
 
@@ -126,46 +120,88 @@
 }
 
 
-- (void)browserExamKeyChanged
+#pragma mark -
+#pragma mark Methods to recalculate and display new keys/message for key changed
+
+
+- (void) displayUpdatedKeys
 {
-    // Check if settings/
-    // There are unsaved changes: Display message instead of Browser Exam Key
-    [examKey setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
-}
-
-
-- (IBAction) restartExamPasswordProtected:(id)sender {
     [self displayMessageOrReGenerateKey];
-}
-
-
-- (void)controlTextDidEndEditing:(NSNotification *)notification {
-    // If the text in the quit URL field actually changed
-    if (![quitURL.stringValue isEqualToString:_quitLinkBeforeEditing]) {
-        // It changed: Display a message or re-generated key
-        [self displayMessageOrReGenerateKey];
-        
-        // Save new value of the quit link text field
-        _quitLinkBeforeEditing = quitURL.stringValue;
-    }
 }
 
 
 - (void)displayMessageOrReGenerateKey
 {
+    BOOL settingsChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO];
+    DDLogDebug(@"%s settings changed: %hhd", __FUNCTION__, settingsChanged);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (NSUserDefaults.userDefaultsPrivate) {
         // Private UserDefaults are active: Check if there are unsaved changes
-        if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        if (settingsChanged) {
+            self.browserController.browserExamKey = nil;
+            self.browserController.configKey = nil;
+            // Force recalculating Config Key
+            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
             // Yes: Display message instead of Browser Exam Key
-            [self browserExamKeyChanged];
+            [self displayMessageKeyChanged];
         } else {
-            // No, there are no unsaved changes: Display the key again
+            // No, there are no unsaved changes: Display current keys
             [self displayBrowserExamKey];
+            [self displayConfigKey];
         }
     } else {
-        // Local client settings are active: Re-generate key
-        [self generateBrowserExamKey:self];
+        // Local client settings are active: If settings changed, re-generate keys
+        if (settingsChanged) {
+            // Also reset (it will be re-generated) the dictionary containing all keys which
+            // were used to calculate the Config Key. When a config is changed, all keys of
+            // the current SEB version should be used to re-calculate the Config Key
+            [preferences setSecureObject:[NSDictionary dictionary]
+                                  forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+            self.browserController.browserExamKey = nil;
+            self.browserController.configKey = nil;
+            // Force recalculating Config Key
+            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        }
+        // Display updated or current keys
+        [self displayBrowserExamKey];
+        [self displayConfigKey];
     }
+}
+
+
+- (void)displayBrowserExamKey
+{
+    NSData *browserExamKey = self.browserController.browserExamKey;
+    [self displayKeyHash:browserExamKey keyTextField:examKeyTextField];
+}
+
+
+- (void)displayConfigKey
+{
+    NSData *configKey = self.browserController.configKey;
+    [self displayKeyHash:configKey keyTextField:configKeyTextField];
+}
+
+
+- (void)displayKeyHash:(NSData *)keyData keyTextField:(NSTextField *)keyTextField {
+    unsigned char hashedChars[32];
+    [keyData getBytes:hashedChars length:32];
+    
+    NSMutableString* hashedString = [[NSMutableString alloc] init];
+    for (int i = 0 ; i < 32 ; ++i) {
+        [hashedString appendFormat: @"%02x", hashedChars[i]];
+    }
+    [keyTextField setStringValue:hashedString];
+}
+
+
+- (void)displayMessageKeyChanged
+{
+    // There are unsaved changes in private user defaults: Display message instead of Keys
+    [examKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
+    [configKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Config Key", nil)];
 }
 
 

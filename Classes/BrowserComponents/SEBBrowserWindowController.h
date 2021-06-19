@@ -44,12 +44,18 @@
 {
 @private
     NSRect frameForNonFullScreenMode;
+    BOOL dragStarted;
+    NSPoint dragCursorStartPosition;
 }
 
 @property (assign) NSRect frameForNonFullScreenMode;
+@property (weak) IBOutlet NSView *rootView;
 @property (weak) IBOutlet SEBWebView *webView;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
-@property(weak) SEBOSXBrowserController *browserController;
+@property (weak) IBOutlet NSButton *toolbarReloadButton;
+@property (weak) SEBOSXBrowserController *browserController;
+@property (strong) NSScreen *previousScreen;
+@property (strong) NSTimer *windowWatchTimer;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;

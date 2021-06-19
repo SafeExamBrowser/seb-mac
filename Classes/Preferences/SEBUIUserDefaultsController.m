@@ -69,7 +69,8 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"Standard user agent", nil),
             NSLocalizedString(@"Win: User agent for desktop mode", nil),
-            NSLocalizedString(@"Win: User agent for touch/tablet mode", nil), nil];
+            NSLocalizedString(@"Win: User agent for touch/tablet mode", nil),
+            NSLocalizedString(@"iOS User agent", nil), nil];
 }
 
 
@@ -107,6 +108,16 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             NSLocalizedString(@"Left", nil),
             NSLocalizedString(@"Center", nil),
             NSLocalizedString(@"Right", nil),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_browserWindowShowURLPolicies {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Never", nil),
+            NSLocalizedString(@"Only on load error", nil),
+            NSLocalizedString(@"Before receiving title", nil),
+            NSLocalizedString(@"Always", nil),
             nil];
 }
 
@@ -187,11 +198,54 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_minMacOSVersions {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"OS X 10.7 Lion", nil),
+            NSLocalizedString(@"OS X 10.8 Mountain Lion", nil),
+            NSLocalizedString(@"OS X 10.9 Mavericks", nil),
+            NSLocalizedString(@"OS X 10.10 Yosemite", nil),
+            NSLocalizedString(@"OS X 10.11 El Capitan", nil),
+            NSLocalizedString(@"macOS 10.12 Sierra", nil),
+            NSLocalizedString(@"macOS 10.13 High Sierra", nil),
+            NSLocalizedString(@"macOS 10.14 Mojave", nil),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"macOS", nil),
             NSLocalizedString(@"Win", nil),
             nil];
 }
+
+
+- (NSArray *) org_safeexambrowser_SEB_allowiOSBetaVersions {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"None", nil),
+            NSLocalizedString(@"iOS 14", nil),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_mobileStatusBarAppearances {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"None", nil),
+            NSLocalizedString(@"White on Black", nil),
+            NSLocalizedString(@"Black on White", nil),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_mobileStatusBarAppearancesExtended {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"None", nil),
+            NSLocalizedString(@"White on Black", nil),
+            NSLocalizedString(@"Black on White", nil),
+            NSLocalizedString(@"None - Black", nil),
+            NSLocalizedString(@"None - White", nil),
+            nil];
+}
+
 
 @end

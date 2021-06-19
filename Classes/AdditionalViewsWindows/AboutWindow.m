@@ -36,25 +36,30 @@
 
 @implementation AboutWindow
 
-
-
 - (void) awakeFromNib
 {
 	// Write application version and localized copyright into text label fields 
 	NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-	versionString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Version",nil), versionString];
+    NSString* buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+	versionString = [NSString stringWithFormat:@"%@ %@\n%@", NSLocalizedString(@"Version",nil), versionString, buildNumber];
 	[version setStringValue: versionString];
 	
 	NSString* copyrightString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"NSHumanReadableCopyright"];
-	copyrightString = [NSString stringWithFormat:@"%@\n\n%@", copyrightString, NSLocalizedString(@"Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.",nil)];
+	copyrightString = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@\n\n%@",
+                       copyrightString,
+                       NSLocalizedString(@"This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.", nil),
+                       NSLocalizedString(@"Contributors: (see below)", nil),
+                       NSLocalizedString(@"Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.", nil),
+                       NSLocalizedString(@"Code contributions © 2015 - 2016 Janison", nil)];
 
-	[copyright setStringValue: copyrightString];
+	[copyright setString: copyrightString];
 }	
 
 
-// Overriding this method to return NO prevents that the Preferences Window 
-// looses key state when the About Window is openend
-- (BOOL)canBecomeKeyWindow {
+// Overriding this method to return NO prevents that the Preferences Window
+// looses key state when the About Window is opened
+- (BOOL)canBecomeKeyWindow
+{
     return NO;
 }
 
@@ -63,31 +68,6 @@
 - (void)mouseDown:(NSEvent *)theEvent {
 	[self orderOut:self];
     [[NSApplication sharedApplication] stopModal];
-}
-
-
-- (void)showAboutWindowForSeconds:(NSInteger)seconds {
-    // Show the About SEB Window
-    [self setDelegate:self];
-    [self setStyleMask:NSBorderlessWindowMask];
-    [self center];
-    [self setLevel:NSFloatingWindowLevel];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [self setLevel:NSMainMenuWindowLevel+5];
-    }
-    DDLogDebug(@"orderFront About Window");
-	[self orderFront:self];
-    
-    // Close the About SEB Window after a delay
-    [self performSelector:@selector(closeAboutWindow:) withObject: nil afterDelay: seconds];
-
-}
-
-
-// Close the About Window
-- (void) closeAboutWindow:(NSNotification *)notification {
-    DDLogDebug(@"Attempting to close About Window %@", self);
-    [self orderOut:self];
 }
 
 

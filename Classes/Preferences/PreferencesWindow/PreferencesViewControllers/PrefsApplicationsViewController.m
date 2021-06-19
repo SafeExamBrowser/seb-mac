@@ -55,6 +55,14 @@
 }
 
 
+- (void)willBeDisplayed
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowSwitchToApplicationsButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];;
+}
+
+
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender {
@@ -65,8 +73,24 @@
         [newAlert setInformativeText:NSLocalizedString(@"This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
-        [newAlert runModal];
+        // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+        // which also is the minimum macOS version the Preferences window is available from
+        [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
     }
 }
+
+
+- (void) showAlertCannotRemoveProcess
+{
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Cannot Remove Preset Prohibited Process", nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties.", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+    // which also is the minimum macOS version the Preferences window is available from
+    [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+}
+
 
 @end

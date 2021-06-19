@@ -54,6 +54,18 @@
 }
 
 
+- (void) awakeFromNib
+{
+    // Add default values (NSNumbers!) to the max displays combo box
+    [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
+
+    [miniOSVersionMajor addItemsWithObjectValues:@[@9, @10, @11, @12, @13]];
+    [miniOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
+    [miniOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
+    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, @14]];
+}
+
+
 // Before displaying pane set the download directory
 - (void)willBeDisplayed
 {
@@ -74,6 +86,28 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
+- (IBAction) setEnableScreenCapture:(NSButton *)sender
+{
+    BOOL screenCaptureEnabled = sender.state;
+    BOOL AACDisabled = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    allowWindowCaptureButton.enabled = AACDisabled && screenCaptureEnabled;
+    blockScreenShotsButton.enabled = AACDisabled && screenCaptureEnabled && allowWindowCaptureButton.state;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) setEnableWindowCapture:(NSButton *)sender
+{
+    BOOL windowCaptureEnabled = sender.state;
+    BOOL AACDisabled = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+
+    blockScreenShotsButton.enabled = AACDisabled && windowCaptureEnabled;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) setEnableLogging:(NSButton *)sender
 {
     BOOL loggingEnabled = sender.state;
@@ -81,6 +115,48 @@
     chooseLogLevelControl.enabled = loggingEnabled;
     chooseLogDirectoryControl.enabled = loggingEnabled;
     selectStandardDirectoryButton.enabled = loggingEnabled;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction)setEnableEnableAAC:(NSButton *)sender
+{
+    BOOL AACDisabled = !sender.state;
+    
+    allowScreenCaptureButton.enabled = AACDisabled;
+    allowWindowCaptureButton.enabled = AACDisabled && allowScreenCaptureButton.state;
+    blockScreenShotsButton.enabled = AACDisabled && allowScreenCaptureButton.state && allowWindowCaptureButton.state;
+    allowScreenSharingButton.enabled =AACDisabled;
+    screenSharingMacEnforceButton.enabled = AACDisabled;
+    enableAppSwitcherButton.enabled = AACDisabled;
+    allowSiriButton.enabled = AACDisabled;
+    allowDictationButton.enabled = AACDisabled;
+    allowDisplayMirroringButton.enabled = AACDisabled;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) setEnableAllowUserAppFolderInstall:(NSButton *)sender
+{
+    allowUserAppFolderInstallButton.enabled = sender.state;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) setEnableAllowedDisplayBuiltin:(NSButton *)sender
+{
+    allowedDisplayBuiltinEnforceButton.hidden = !sender.state;
+    allowedDisplayBuiltinExceptDesktopButton.hidden = !sender.state || !allowedDisplayBuiltinEnforceButton.state;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction)setEnableAllowedDisplayBuiltinEnforced:(NSButton *)sender {
+    allowedDisplayBuiltinExceptDesktopButton.hidden = !sender.state;
 }
 
 
@@ -124,6 +200,8 @@
     
     // Display the dialog.  If the OK button was pressed,
     // process the files.
+    // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+    // which also is the minimum macOS version the Preferences window is available from
     [openFilePanel beginSheetModalForWindow:[MBPreferencesController sharedController].window
                       completionHandler:^(NSInteger result) {
                           if (result == NSFileHandlingPanelOKButton) {
@@ -135,8 +213,8 @@
                               [preferences setSecureObject:[fileName stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
                               [self setLogDirectory];
                           } else {
-                              [chooseLogDirectoryControl selectItemAtIndex:0];
-                              [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
+                              [self->chooseLogDirectoryControl selectItemAtIndex:0];
+                              [self->chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
                           }
                       }];
 }
@@ -157,6 +235,11 @@
         chooseLogDirectoryControl.enabled = YES;
         //[self setLogDirectory];
     }
+}
+
+
+- (IBAction) setAllowiOSScreenCapture:(NSButton *)sender {
+    enablePrintScreenButton.state = sender.state;
 }
 
 
@@ -181,6 +264,11 @@
             [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_killExplorerShell"];
             break;
     }
+}
+
+
+- (IBAction)setEnablePrintScreen:(NSButton *)sender {
+    allowiOSScreenCaptureButton.state = sender.state;
 }
 
 
