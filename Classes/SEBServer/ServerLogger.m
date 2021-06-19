@@ -54,10 +54,10 @@
     NSString *logMessageString = logMessage.message;
     
     if (logMessageString) {
-        [_sebViewController sendLogEventWithLogLevel:logMessage.flag
-                                           timestamp:[NSString stringWithFormat:@"%.0f", logMessage.timestamp.timeIntervalSince1970 * 1000]
-                                        numericValue:(double)logMessage.context
-                                             message:logMessageString];
+//        [_sebViewController sendLogEventWithLogLevel:logMessage.flag
+//                                           timestamp:[NSString stringWithFormat:@"%.0f", logMessage.timestamp.timeIntervalSince1970 * 1000]
+//                                        numericValue:(double)logMessage.context
+//                                             message:logMessageString];
     }
 }
 

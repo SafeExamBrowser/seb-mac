@@ -108,9 +108,11 @@ import Foundation
 
     @objc public override init() {
         super.init()
+        #if os(iOS)
         let sebWKWebViewController = SEBiOSWKWebViewController()
         sebWKWebViewController.navigationDelegate = self
         self.browserControllerDelegate = sebWKWebViewController
+        #endif
     }
     
     public func loadView() {
@@ -139,10 +141,6 @@ import Foundation
     
     public func viewWillDisappear(_ animated: Bool) {
         browserControllerDelegate?.viewWillDisappear?(animated)
-    }
-    
-    public  func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        browserControllerDelegate?.viewWillTransitionToSize?()
     }
     
     public func nativeWebView() -> Any {
@@ -261,19 +259,23 @@ import Foundation
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
-        httpCookieStore.getAllCookies{ cookies in
-            let canShowMIMEType = navigationResponse.canShowMIMEType
-            let isForMainFrame = navigationResponse.isForMainFrame
-            let mimeType = navigationResponse.response.mimeType
-            let url = navigationResponse.response.url
-            let suggestedFilename = navigationResponse.response.suggestedFilename
-            let policy = self.navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) ?? true
-            if policy {
-                decisionHandler(.allow)
-            } else {
-                decisionHandler(.cancel)
+        if #available(macOS 10.13, *) {
+            let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
+            httpCookieStore.getAllCookies{ cookies in
+                let canShowMIMEType = navigationResponse.canShowMIMEType
+                let isForMainFrame = navigationResponse.isForMainFrame
+                let mimeType = navigationResponse.response.mimeType
+                let url = navigationResponse.response.url
+                let suggestedFilename = navigationResponse.response.suggestedFilename
+                let policy = self.navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) ?? true
+                if policy {
+                    decisionHandler(.allow)
+                } else {
+                    decisionHandler(.cancel)
+                }
             }
+        } else {
+            // Fallback on earlier versions
         }
     }
     

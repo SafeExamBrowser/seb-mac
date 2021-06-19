@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220911B5225DCAF60BCD96DD /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5CF6AAEF79B99A23C9D8D9F /* libPods-Safe Exam Browser.a */; };
 		37DEC47D08D00A308438D849 /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB958B404773247A2C3CA2F /* libPods-SEB.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		60B35E8D8617D1E8AD25FF6F /* libPods-SEB Dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 322DFD04102A75AAA75D6887 /* libPods-SEB Dev.a */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
@@ -98,7 +99,6 @@
 		69358DDB1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */; };
 		69358DE01E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */; };
 		69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */; };
-		69358DE71E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
 		69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
 		69358DEA1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
 		69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
@@ -377,33 +377,20 @@
 		694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
-		695370952033921B00C638A8 /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
 		695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
-		695370982033921B00C638A8 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
 		695370992033921B00C638A8 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
-		6953709B2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
 		6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
-		6953709E2033921C00C638A8 /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
 		6953709F2033921C00C638A8 /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
-		695370A12033921C00C638A8 /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
 		695370A22033921C00C638A8 /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
-		695370A42033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
 		695370A52033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
 		695370A72033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
 		695370A82033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
-		695370AA2033921C00C638A8 /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
 		695370AB2033921C00C638A8 /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
-		695370AD2033921C00C638A8 /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
 		695370AE2033921C00C638A8 /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
-		695370B02033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
 		695370B12033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
-		695370B32033921C00C638A8 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
 		695370B42033921C00C638A8 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
-		695370B62033921C00C638A8 /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
 		695370B72033921C00C638A8 /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
-		695370B92033921C00C638A8 /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
 		695370BA2033921C00C638A8 /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
-		695370BC2033921C00C638A8 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
 		695370BD2033921C00C638A8 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
@@ -622,6 +609,28 @@
 		698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		698AB42C2638C2B900E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		698DFD00267E752100B8F1D6 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E0B31A21467A1C007ACF03 /* libmbedtls.a */; };
+		698DFD03267E978E00B8F1D6 /* SEBViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */; };
+		698DFD04267E978F00B8F1D6 /* SEBViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */; };
+		698DFD05267E97AD00B8F1D6 /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */; };
+		698DFD06267E97AE00B8F1D6 /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */; };
+		698DFD0F267E9B1900B8F1D6 /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD09267E9B1900B8F1D6 /* NSDictionary+Extensions.h */; };
+		698DFD10267E9B1900B8F1D6 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD0A267E9B1900B8F1D6 /* NSDictionary+Extensions.m */; };
+		698DFD11267E9B1900B8F1D6 /* NSRunningApplication+SEB.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD0B267E9B1900B8F1D6 /* NSRunningApplication+SEB.m */; };
+		698DFD12267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD0C267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h */; };
+		698DFD13267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD0D267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m */; };
+		698DFD14267E9B1900B8F1D6 /* NSRunningApplication+SEB.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD0E267E9B1900B8F1D6 /* NSRunningApplication+SEB.h */; };
+		698DFD17267E9DC000B8F1D6 /* AboutWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD15267E9DC000B8F1D6 /* AboutWindowController.h */; };
+		698DFD18267E9DC000B8F1D6 /* AboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD16267E9DC000B8F1D6 /* AboutWindowController.m */; };
+		698DFD1B267E9DE800B8F1D6 /* SEBDockItemBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD19267E9DE800B8F1D6 /* SEBDockItemBattery.h */; };
+		698DFD1C267E9DE800B8F1D6 /* SEBDockItemBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD1A267E9DE800B8F1D6 /* SEBDockItemBattery.m */; };
+		698DFD25267E9F2B00B8F1D6 /* ProcessListElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD1F267E9F2B00B8F1D6 /* ProcessListElement.m */; };
+		698DFD26267E9F2B00B8F1D6 /* ProcessListElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD20267E9F2B00B8F1D6 /* ProcessListElement.h */; };
+		698DFD27267E9F2B00B8F1D6 /* ProcessListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD21267E9F2B00B8F1D6 /* ProcessListViewController.m */; };
+		698DFD28267E9F2B00B8F1D6 /* ProcessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */; };
+		698DFD29267E9F2B00B8F1D6 /* ProcessListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */; };
+		698DFD2A267E9F2B00B8F1D6 /* ProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */; };
+		698DFD2D267E9F3E00B8F1D6 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 698DFD2B267E9F3E00B8F1D6 /* en.lproj */; };
+		698DFD2E267E9F3E00B8F1D6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 698DFD2C267E9F3E00B8F1D6 /* de.lproj */; };
 		698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
 		698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
 		698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
@@ -896,7 +905,6 @@
 		69F522C92146720C009F3999 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F522C32146720C009F3999 /* SEBCertServices.m */; };
 		69F522CA2146720C009F3999 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F522C32146720C009F3999 /* SEBCertServices.m */; };
 		69F522CB2146720C009F3999 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F522C32146720C009F3999 /* SEBCertServices.m */; };
-		69F558B5260563FF00D503EB /* SEBiOSWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F558B4260563FF00D503EB /* SEBiOSWKWebViewController.swift */; };
 		69F558B6260563FF00D503EB /* SEBiOSWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F558B4260563FF00D503EB /* SEBiOSWKWebViewController.swift */; };
 		69F558B7260563FF00D503EB /* SEBiOSWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F558B4260563FF00D503EB /* SEBiOSWKWebViewController.swift */; };
 		69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
@@ -971,9 +979,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01CFD5B57DD48FCD9B1C8EB8 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		15029A16A2300EFB9835A810 /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
+		1779158EBF46391DEB0BF8AA /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
 		268DE21895E14178599C6E03 /* Pods-SEB Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Dev/Pods-SEB Dev.release.xcconfig"; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -996,7 +1006,6 @@
 		6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KKDomain.h"; sourceTree = "<group>"; };
 		6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KKDomain.m"; sourceTree = "<group>"; };
 		6906F3CC1A3FA7300011CF93 /* etld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = etld.plist; path = Resources/etld.plist; sourceTree = "<group>"; };
-		690B0A0E1A45ED4800CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		690B5B6019DBEAA400704F36 /* SEBDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItem.h; path = Classes/SEBDock/SEBDockItem.h; sourceTree = "<group>"; };
 		690B5B6119DBEAA400704F36 /* SEBDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItem.m; path = Classes/SEBDock/SEBDockItem.m; sourceTree = "<group>"; };
 		690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockController.h; path = Classes/SEBDock/SEBDockController.h; sourceTree = "<group>"; };
@@ -1297,6 +1306,26 @@
 		6988A0DB25228D6700F15236 /* libSEBSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEBSupport.a; path = Frameworks/libSEBSupport.a; sourceTree = "<group>"; };
 		698AB4152638630A00E84161 /* SEBiOSBrowserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBiOSBrowserController.h; path = Classes/BrowserComponents/SEBiOSBrowserController.h; sourceTree = "<group>"; };
 		698AB4162638630A00E84161 /* SEBiOSBrowserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBiOSBrowserController.m; path = Classes/BrowserComponents/SEBiOSBrowserController.m; sourceTree = "<group>"; };
+		698DFD01267E90E800B8F1D6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesResources.strings; sourceTree = "<group>"; };
+		698DFD02267E90FF00B8F1D6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesGeneral.strings; sourceTree = "<group>"; };
+		698DFD09267E9B1900B8F1D6 /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
+		698DFD0A267E9B1900B8F1D6 /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
+		698DFD0B267E9B1900B8F1D6 /* NSRunningApplication+SEB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunningApplication+SEB.m"; sourceTree = "<group>"; };
+		698DFD0C267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
+		698DFD0D267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
+		698DFD0E267E9B1900B8F1D6 /* NSRunningApplication+SEB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunningApplication+SEB.h"; sourceTree = "<group>"; };
+		698DFD15267E9DC000B8F1D6 /* AboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindowController.h; sourceTree = "<group>"; };
+		698DFD16267E9DC000B8F1D6 /* AboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutWindowController.m; sourceTree = "<group>"; };
+		698DFD19267E9DE800B8F1D6 /* SEBDockItemBattery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemBattery.h; path = Classes/SEBDock/SEBDockItemBattery.h; sourceTree = "<group>"; };
+		698DFD1A267E9DE800B8F1D6 /* SEBDockItemBattery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemBattery.m; path = Classes/SEBDock/SEBDockItemBattery.m; sourceTree = "<group>"; };
+		698DFD1F267E9F2B00B8F1D6 /* ProcessListElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessListElement.m; sourceTree = "<group>"; };
+		698DFD20267E9F2B00B8F1D6 /* ProcessListElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessListElement.h; sourceTree = "<group>"; };
+		698DFD21267E9F2B00B8F1D6 /* ProcessListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessListViewController.m; sourceTree = "<group>"; };
+		698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessManager.h; sourceTree = "<group>"; };
+		698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessListViewController.h; sourceTree = "<group>"; };
+		698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessManager.m; sourceTree = "<group>"; };
+		698DFD2B267E9F3E00B8F1D6 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
+		698DFD2C267E9F3E00B8F1D6 /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = de.lproj; sourceTree = "<group>"; };
 		698F3F061D17F4F9003DABBC /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Settings@2x.png"; path = "Resources/Icons/Settings@2x.png"; sourceTree = "<group>"; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = Classes/Global/SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyGlobals.h; path = Classes/Global/MyGlobals.h; sourceTree = "<group>"; };
@@ -1331,7 +1360,6 @@
 		69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBConfigFileCredentials.m; sourceTree = "<group>"; };
 		69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBReloadIcon.iconset; path = Resources/Icons/SEBReloadIcon.iconset; sourceTree = "<group>"; };
 		69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIcon.iconset; path = Resources/Icons/SEBRestartIcon.iconset; sourceTree = "<group>"; };
-		69A68DA11A46143E00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
 		69A727D6249D6DD70087B193 /* SEBSliderScrollLockIcon_locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderScrollLockIcon_locked.png; path = Resources/Icons/Slider/SEBSliderScrollLockIcon_locked.png; sourceTree = "<group>"; };
 		69A727D7249D6DD70087B193 /* SEBSliderScrollLockIcon_locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderScrollLockIcon_locked@2x.png"; path = "Resources/Icons/Slider/SEBSliderScrollLockIcon_locked@2x.png"; sourceTree = "<group>"; };
 		69A727D8249D6DD70087B193 /* SEBSliderScrollLockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderScrollLockIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderScrollLockIcon@2x.png"; sourceTree = "<group>"; };
@@ -1520,6 +1548,7 @@
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
 		71B3BB56996BA771D79A9304 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		8DB958B404773247A2C3CA2F /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5CF6AAEF79B99A23C9D8D9F /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C875E0D5BC593E3658FB4910 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB Enterprise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB Enterprise/Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1574,6 +1603,7 @@
 				698DFD00267E752100B8F1D6 /* libmbedtls.a in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
+				220911B5225DCAF60BCD96DD /* libPods-Safe Exam Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1586,6 +1616,7 @@
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
 				69CBEB531834C4D400FB0460 /* SystemManager */,
+				698DFD1E267E9E8A00B8F1D6 /* ProcessMonitoring */,
 				69428C97172E600000C87C58 /* Global */,
 				69428C93172E5E7300C87C58 /* Browser Components */,
 				691774471A2776850039CC39 /* SEBURLFilter */,
@@ -1702,6 +1733,7 @@
 				8DB958B404773247A2C3CA2F /* libPods-SEB.a */,
 				5BE259922201A1FEFB768EBE /* libPods-SEB Enterprise.a */,
 				322DFD04102A75AAA75D6887 /* libPods-SEB Dev.a */,
+				B5CF6AAEF79B99A23C9D8D9F /* libPods-Safe Exam Browser.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1719,6 +1751,8 @@
 				690BBEB519D30DF800F7C9C6 /* SEBDockView.m */,
 				690B5B6019DBEAA400704F36 /* SEBDockItem.h */,
 				690B5B6119DBEAA400704F36 /* SEBDockItem.m */,
+				698DFD19267E9DE800B8F1D6 /* SEBDockItemBattery.h */,
+				698DFD1A267E9DE800B8F1D6 /* SEBDockItemBattery.m */,
 				69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */,
 				69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */,
 				695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */,
@@ -2106,6 +2140,8 @@
 				69E13AEF127C812900CB81E1 /* AboutView.m */,
 				6969B1D1127C7AB60027FF8D /* AboutWindow.h */,
 				6969B1D2127C7AB60027FF8D /* AboutWindow.m */,
+				698DFD15267E9DC000B8F1D6 /* AboutWindowController.h */,
+				698DFD16267E9DC000B8F1D6 /* AboutWindowController.m */,
 				69DD2FCF1201C416009B1005 /* CapView.h */,
 				69DD2FD01201C416009B1005 /* CapView.m */,
 				699731C218C8D6ED0069FE35 /* CapWindow.h */,
@@ -2229,6 +2265,12 @@
 				69D5983714C823AE005FE98C /* MethodSwizzling.m */,
 				6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */,
 				6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */,
+				698DFD09267E9B1900B8F1D6 /* NSDictionary+Extensions.h */,
+				698DFD0A267E9B1900B8F1D6 /* NSDictionary+Extensions.m */,
+				698DFD0C267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h */,
+				698DFD0D267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m */,
+				698DFD0E267E9B1900B8F1D6 /* NSRunningApplication+SEB.h */,
+				698DFD0B267E9B1900B8F1D6 /* NSRunningApplication+SEB.m */,
 				69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */,
 				69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */,
 				6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */,
@@ -2406,6 +2448,22 @@
 				69819E952200BEFB0047809D /* MscCertificateUtils.m */,
 			);
 			path = MscX509Common;
+			sourceTree = "<group>";
+		};
+		698DFD1E267E9E8A00B8F1D6 /* ProcessMonitoring */ = {
+			isa = PBXGroup;
+			children = (
+				698DFD2C267E9F3E00B8F1D6 /* de.lproj */,
+				698DFD2B267E9F3E00B8F1D6 /* en.lproj */,
+				698DFD20267E9F2B00B8F1D6 /* ProcessListElement.h */,
+				698DFD1F267E9F2B00B8F1D6 /* ProcessListElement.m */,
+				698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */,
+				698DFD21267E9F2B00B8F1D6 /* ProcessListViewController.m */,
+				698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */,
+				698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */,
+			);
+			name = ProcessMonitoring;
+			path = Classes/ProcessMonitoring;
 			sourceTree = "<group>";
 		};
 		699447F2248D4B840074A655 /* ProctoringBadges */ = {
@@ -2615,6 +2673,8 @@
 				65C2C05A6D88BA732D4FD938 /* Pods-SEB.release.xcconfig */,
 				3B113AC8639454E07B7842C7 /* Pods-SEB Dev.debug.xcconfig */,
 				268DE21895E14178599C6E03 /* Pods-SEB Dev.release.xcconfig */,
+				01CFD5B57DD48FCD9B1C8EB8 /* Pods-Safe Exam Browser.debug.xcconfig */,
+				1779158EBF46391DEB0BF8AA /* Pods-Safe Exam Browser.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2655,6 +2715,7 @@
 				6942165E214544AB002EB416 /* SEBBrowserController.h in Headers */,
 				6942165F214544AB002EB416 /* SynthesizeSingleton.h in Headers */,
 				69421660214544AB002EB416 /* LGSideMenuController.h in Headers */,
+				698DFD06267E97AE00B8F1D6 /* AppDelegate.h in Headers */,
 				69819EFA2200BEFB0047809D /* MscPKCS12.h in Headers */,
 				69B5E2AB25756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
 				69421661214544AB002EB416 /* Webpages.h in Headers */,
@@ -2684,6 +2745,7 @@
 				69819F272200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69B1D476230D7586005656B8 /* ServerController.h in Headers */,
 				6942166C214544AB002EB416 /* OpenWebpages.h in Headers */,
+				698DFD04267E978F00B8F1D6 /* SEBViewController.h in Headers */,
 				6942166D214544AB002EB416 /* LGSideMenuHelper.h in Headers */,
 				69F522BA21467188009F3999 /* CustomHTTPProtocol.h in Headers */,
 				69E977FF25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */,
@@ -2747,6 +2809,7 @@
 				69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */,
 				6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */,
 				6953709F2033921C00C638A8 /* LGSideMenuController.h in Headers */,
+				698DFD05267E97AD00B8F1D6 /* AppDelegate.h in Headers */,
 				69819EF92200BEFB0047809D /* MscPKCS12.h in Headers */,
 				69B5E2AA25756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
 				696DAD511C3C7C9A00397E18 /* Webpages.h in Headers */,
@@ -2776,6 +2839,7 @@
 				69819F262200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69B1D475230D7586005656B8 /* ServerController.h in Headers */,
 				696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */,
+				698DFD03267E978E00B8F1D6 /* SEBViewController.h in Headers */,
 				695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				69F522B921467188009F3999 /* CustomHTTPProtocol.h in Headers */,
 				69E977FE25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */,
@@ -2811,12 +2875,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
-				6953709E2033921C00C638A8 /* LGSideMenuController.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
-				695370A12033921C00C638A8 /* LGSideMenuBorderView.h in Headers */,
 				69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */,
 				69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */,
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
@@ -2829,7 +2891,6 @@
 				69819F392200BEFB0047809D /* MscPKCS7.h in Headers */,
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
-				695370AD2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				69819EDF2200BEFB0047809D /* MscCertificateUtils.h in Headers */,
 				69819F022200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
@@ -2839,7 +2900,6 @@
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
 				69B6759B2038849000FA58F5 /* SEBUIController.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
-				695370B02033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				69819F3E2200BEFB0047809D /* MscX509CommonError.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
@@ -2851,10 +2911,10 @@
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
 				69B1D474230D7586005656B8 /* ServerController.h in Headers */,
-				695370952033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
 				69819EF82200BEFB0047809D /* MscPKCS12.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
+				698DFD17267E9DC000B8F1D6 /* AboutWindowController.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
 				69819EE42200BEFB0047809D /* MscRSAKey.h in Headers */,
 				69E977D525F040F400634D74 /* SEBAbstractClassicWebView.h in Headers */,
@@ -2871,12 +2931,14 @@
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				69819F252200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */,
+				698DFD14267E9B1900B8F1D6 /* NSRunningApplication+SEB.h in Headers */,
 				6930D22C1C2086010087F79E /* SEBOSXKeychainManager.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
+				698DFD12267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h in Headers */,
+				698DFD29267E9F2B00B8F1D6 /* ProcessListViewController.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
-				69358DE71E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69B581841ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				69819EFD2200BEFB0047809D /* MscX509CommonLocalException.h in Headers */,
 				69819EAD2200BEFB0047809D /* MscCertificateRevocationList.h in Headers */,
@@ -2884,14 +2946,15 @@
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				69819F342200BEFB0047809D /* MscCertificate.h in Headers */,
 				69F522B321467188009F3999 /* QNSURLSessionDemux.h in Headers */,
+				698DFD0F267E9B1900B8F1D6 /* NSDictionary+Extensions.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				69819EBC2200BEFB0047809D /* MscCertificateSigningRequest.h in Headers */,
-				695370B92033921C00C638A8 /* LGSideMenuView.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69819EE92200BEFB0047809D /* MscIssuerAndSubject.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
 				69F522A421467188009F3999 /* CacheStoragePolicy.h in Headers */,
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
+				698DFD26267E9F2B00B8F1D6 /* ProcessListElement.h in Headers */,
 				69B5E2A925756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
 				6930D2281C205F4C0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				69819EA32200BEFB0047809D /* MscOpenSSLExtension.h in Headers */,
@@ -2899,9 +2962,11 @@
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
 				69819F072200BEFB0047809D /* MscX509Name.h in Headers */,
 				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
+				698DFD1B267E9DE800B8F1D6 /* SEBDockItemBattery.h in Headers */,
 				69819EA82200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
 				69819F162200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
 				69819EC62200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
+				698DFD28267E9F2B00B8F1D6 /* ProcessManager.h in Headers */,
 				69EDAC1E1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				6932ABC421DE29BE00DEF77D /* SEBConstants.h in Headers */,
@@ -2995,6 +3060,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
 			buildPhases = (
+				0B0715D74986753581D53ACB /* [CP] Check Pods Manifest.lock */,
 				69A79DA117176584005B06CD /* Run Script */,
 				69F7B5FB14F411FB00FD0761 /* Resources */,
 				69F7B60814F411FB00FD0761 /* Sources */,
@@ -3428,6 +3494,7 @@
 				695A8EF01E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69E87E3E202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
 				69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */,
+				698DFD2E267E9F3E00B8F1D6 /* de.lproj in Resources */,
 				695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */,
 				699447F8248D4B840074A655 /* SEBBadgeError@2x.png in Resources */,
 				695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */,
@@ -3455,6 +3522,7 @@
 				69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */,
 				69428CEC172F2B5700C87C58 /* sebConfigIcon.png in Resources */,
 				695A8EED1E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png in Resources */,
+				698DFD2D267E9F3E00B8F1D6 /* en.lproj in Resources */,
 				699447F5248D4B840074A655 /* SEBBadgeError.png in Resources */,
 				69428CEE172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */,
 				69E87E53202927330055988F /* SEBDockIconLandscape@2x.png in Resources */,
@@ -3474,6 +3542,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B0715D74986753581D53ACB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Safe Exam Browser-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		58B02D7CFF8900A071128EDF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3825,6 +3915,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				698DFD18267E9DC000B8F1D6 /* AboutWindowController.m in Sources */,
 				69DFAF3719C468E700CBE69F /* RNCryptorEngine.m in Sources */,
 				69B1D486230D8B8F005656B8 /* SEBServer.swift in Sources */,
 				69D1EBE71BFEAD73001838DC /* SEBDockItemTime.m in Sources */,
@@ -3852,6 +3943,7 @@
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
+				698DFD27267E9F2B00B8F1D6 /* ProcessListViewController.m in Sources */,
 				69B1D480230D75ED005656B8 /* NetworkRequest.swift in Sources */,
 				69E977D825F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
@@ -3866,7 +3958,6 @@
 				69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
-				6953709B2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				69F5229A21467188009F3999 /* CacheStoragePolicy.m in Sources */,
@@ -3881,8 +3972,11 @@
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
+				698DFD1C267E9DE800B8F1D6 /* SEBDockItemBattery.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				697852B72177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
+				698DFD13267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.m in Sources */,
+				698DFD11267E9B1900B8F1D6 /* NSRunningApplication+SEB.m in Sources */,
 				69B1D479230D7586005656B8 /* ServerController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
@@ -3890,24 +3984,22 @@
 				69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */,
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
 				69819F2F2200BEFB0047809D /* MscCertificateUtils.m in Sources */,
-				695370982033921B00C638A8 /* LGSideMenuView.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
-				695370A42033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F522C92146720C009F3999 /* SEBCertServices.m in Sources */,
+				698DFD2A267E9F2B00B8F1D6 /* ProcessManager.m in Sources */,
 				69819EF32200BEFB0047809D /* MscOpenSSLExtension.c in Sources */,
+				698DFD10267E9B1900B8F1D6 /* NSDictionary+Extensions.m in Sources */,
 				69819EB72200BEFB0047809D /* NSString+MscASCIIExtension.m in Sources */,
 				69F522AE21467188009F3999 /* QNSURLSessionDemux.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				69819ED52200BEFB0047809D /* MscPKCS7.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F5229F21467188009F3999 /* CustomHTTPProtocol.m in Sources */,
-				69F558B5260563FF00D503EB /* SEBiOSWKWebViewController.swift in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
-				695370B62033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
@@ -3918,8 +4010,6 @@
 				69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */,
 				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				693FB268231D22010062E36E /* SEBServerController.swift in Sources */,
-				695370B32033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
-				695370BC2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69819EB22200BEFB0047809D /* MscIssuerAndSubject.m in Sources */,
 				69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
@@ -3929,12 +4019,12 @@
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				69B6759E2038849000FA58F5 /* SEBUIController.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
+				698DFD25267E9F2B00B8F1D6 /* ProcessListElement.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
-				695370AA2033921C00C638A8 /* LGSideMenuHelper.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4028,8 +4118,8 @@
 		696A3AF719F6FC3F00274214 /* PreferencesResources.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69A68DA11A46143E00ACA34E /* de */,
 				69F0A3331AD3FFDA008A3553 /* Base */,
+				698DFD01267E90E800B8F1D6 /* de */,
 			);
 			name = PreferencesResources.xib;
 			sourceTree = "<group>";
@@ -4082,8 +4172,8 @@
 		69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				690B0A0E1A45ED4800CD5FEF /* de */,
 				69F0A32C1AD3FFDA008A3553 /* Base */,
+				698DFD02267E90FF00B8F1D6 /* de */,
 			);
 			name = PreferencesGeneral.xib;
 			sourceTree = "<group>";
@@ -4600,6 +4690,7 @@
 		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01CFD5B57DD48FCD9B1C8EB8 /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4641,7 +4732,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/Safe Exam Browser-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = ../build;
@@ -4650,6 +4741,7 @@
 		};
 		69F7B62414F411FB00FD0761 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1779158EBF46391DEB0BF8AA /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4694,7 +4786,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "WebServices/Safe Exam Browser-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = ../build;
 			};
