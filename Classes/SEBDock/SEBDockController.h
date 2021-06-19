@@ -120,7 +120,7 @@
  *              opening them if they are not yet running/open. All items placed in the 
  *              SEB Dock have to be scalable (preferably rectangular), with a minimum size of
  *              32 points (32 or 64 pixels @2x resolution). The SEB Dock bar has a min. 
- *              height of 40 points and is pinned to the botton of a screen.
+ *              height of SEBDefaultDockHeight (40 points) and is pinned to the botton of a screen.
  *              The SEB Dock is divided into three sections left, center and right. 
  *              The item(s) in the left section are pinned to the left edge of the dock 
  *              (and screen), the right section items to the right edge of the dock and
@@ -150,11 +150,11 @@
 @property (weak) NSArray *rightDockItems;
 @property (weak) NSView *rightMostLeftItemView;
 
-- (void) setLeftItems:(NSArray *)newLeftDockItems;
-- (void) setCenterItems:(NSArray *)newCenterDockItems;
-- (void) setRightItems:(NSArray *)newRightDockItems;
+- (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
+- (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
+- (NSArray *) setRightItems:(NSArray *)newRightDockItems;
 
-- (void) showDock;
+- (void) showDockOnScreen:(NSScreen *)screen;
 - (void) hideDock;
 - (void) adjustDock;
 - (void) moveDockToScreen:(NSScreen *)screen;

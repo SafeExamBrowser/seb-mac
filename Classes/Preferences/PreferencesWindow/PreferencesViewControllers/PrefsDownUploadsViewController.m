@@ -90,7 +90,7 @@
     NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     if (!downloadPath) {
         //if there's no path saved in preferences, set standard path
-        downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
+        downloadPath = @"~/Downloads";
         [preferences setSecureObject:[downloadPath stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     }    
     // display the download directory path in the menu
@@ -118,6 +118,8 @@
     
     // Display the dialog.  If the OK button was pressed,
     // process the files.
+    // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+    // which also is the minimum macOS version the Preferences window is available from
     [openFilePanel beginSheetModalForWindow:[MBPreferencesController sharedController].window
                       completionHandler:^(NSInteger result) {
                           if (result == NSFileHandlingPanelOKButton) {
@@ -129,8 +131,8 @@
                               [preferences setSecureObject:[fileName stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
                               [self setDownloadDirectory];
                           } else {
-                              [chooseDownloadDirectory selectItemAtIndex:0];
-                              [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
+                              [self->chooseDownloadDirectory selectItemAtIndex:0];
+                              [self->chooseDownloadDirectory synchronizeTitleAndSelectedItem];
                           }
                       }];
 }

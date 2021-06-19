@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -55,7 +55,7 @@
     if ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
         examInfo = [NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Secure exam session was started, URL: ", nil), examURLString];
     } else {
-        examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Secure exam session was started", nil)];
+        examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Secure session was started", nil)];
     }
     // Append the new string about the started exam and create/update the persisted exam
     [self appendErrorString:examInfo withTime:[NSDate date]];
@@ -112,6 +112,11 @@
 
 /// Lockview business logic
 
+- (NSString *) appendChallengeToMessage:(NSString *)alertMessage
+{
+    return alertMessage;
+}
+
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -140,13 +145,15 @@
         logString = [[NSMutableAttributedString alloc] initWithString:@""];
     }
     
+    NSString *theTime = @"";
     if (errorTime) {
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
         [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss  "];
-        NSString *theTime = [timeFormat stringFromDate:errorTime];
+        theTime = [timeFormat stringFromDate:errorTime];
         NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
         [logString appendAttributedString:attributedTimeString];
     }
+    DDLogError(@"%s: %@ %@", __FUNCTION__, errorString, theTime);
     NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
     
     [attributedErrorString setAttributes:self.boldFontAttributes range:NSMakeRange(0, attributedErrorString.length)];
@@ -169,7 +176,7 @@
         
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }
-    
+
     [self.UIDelegate setResignActiveLogString:[logString copy]];
     
     [self.UIDelegate scrollToBottom];
@@ -197,16 +204,13 @@
 - (void) passwordEntered {
     // Check if the exam is protected with the quit/unlock password (and one is set)
     if (!closingLockdownWindowsInProgress) {
+        if (!self.keychainManager) {
+            self.keychainManager = [[SEBKeychainManager alloc] init];
+        }
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         
         NSString *password = [self.UIDelegate lockedAlertPassword];
-#ifdef DEBUG
-        DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
-#endif
-        if (!self.keychainManager) {
-            self.keychainManager = [[SEBKeychainManager alloc] init];
-        }
         if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             // Correct password entered
             closingLockdownWindowsInProgress = true;
@@ -248,12 +252,12 @@
                                                 options:NSCalendarWrapComponents];
     
     DDLogError(@"Lockdown alert: Closing lockdown windows");
-    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), SEBShortAppName, components.minute, components.second];
+    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];
     }
-    
+
     DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
     [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
                    withTime:nil];
@@ -267,6 +271,12 @@
     if ([self.controllerDelegate respondsToSelector:@selector(sebLocked)]) {
         self.controllerDelegate.sebLocked = false;
     }
+    closingLockdownWindowsInProgress = false;
+}
+
+
+- (void) abortClosingLockdownWindows
+{
     closingLockdownWindowsInProgress = false;
 }
 

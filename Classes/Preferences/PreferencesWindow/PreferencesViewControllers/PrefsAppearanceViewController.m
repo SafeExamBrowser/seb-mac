@@ -54,6 +54,9 @@
 	return [NSImage imageNamed:@"Appearance.icns"];
 }
 
+- (void)awakeFromNib {
+    [self scrollToTop:_scrollView];
+}
 
 // Before displaying pane set browser view mode correctly even when touch optimized is selected
 - (void)willBeDisplayed
@@ -64,6 +67,8 @@
         [browserViewModeMatrix selectCellAtRow:browserViewModeTouch column:0];
     }
     [self browserViewModeMatrix:browserViewModeMatrix];
+    
+    allowDictionaryLookupButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
 }
 
 
@@ -90,7 +95,9 @@
         [newAlert setInformativeText:NSLocalizedString(@"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
-        [newAlert runModal];
+        // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+        // which also is the minimum macOS version the Preferences window is available from
+        [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
     }
 }
 
