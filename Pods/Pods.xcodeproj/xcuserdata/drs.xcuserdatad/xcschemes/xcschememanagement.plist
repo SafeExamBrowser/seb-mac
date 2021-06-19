@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>CocoaLumberjack.xcscheme</key>
+		<key>CocoaLumberjack-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CocoaLumberjack-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -30,6 +35,11 @@
 			<false/>
 		</dict>
 		<key>Pods-SEB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Safe Exam Browser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
