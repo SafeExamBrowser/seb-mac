@@ -35,6 +35,7 @@
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
 #import <Foundation/Foundation.h>
+#import "SEBAbstractWebView.h"
 
 @class SEBURLFilter;
 
