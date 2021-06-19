@@ -88,16 +88,16 @@ static SEBSettings *sharedSEBSettings = nil;
 {
     NSMutableDictionary *completeDefaultSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
         
-        NSArray *sebExtensions = [MyGlobals SEBExtensions];
-        for (NSString *sebExtensionString in sebExtensions) {
-            Class SEBExtensionClass = NSClassFromString(sebExtensionString);
-            
+    NSArray *sebExtensions = [MyGlobals SEBExtensions];
+    for (NSString *sebExtensionString in sebExtensions) {
+        Class SEBExtensionClass = NSClassFromString(sebExtensionString);
+        
         if ([SEBExtensionClass respondsToSelector: NSSelectorFromString(settingsIdentifier)]) {
             SEL selector = NSSelectorFromString(settingsIdentifier);
             IMP imp = [SEBExtensionClass methodForSelector:selector];
             NSDictionary *(*func)(id, SEL) = (void *)imp;
             NSDictionary *extensionSettings = func(SEBExtensionClass, selector);
-
+            
             NSMutableDictionary *defaultExtensionSettings = [NSMutableDictionary dictionaryWithDictionary:extensionSettings];
             
             NSArray *extensionDictionaryKeys = [defaultExtensionSettings allKeys];
@@ -121,27 +121,27 @@ static SEBSettings *sharedSEBSettings = nil;
                 }
                 [defaultExtensionSettings setObject:extensionSubDict.copy forKey:extensionDictKey];
             }
-                
-                NSArray *subDictionaries = [completeDefaultSettings allKeys];
-                for (NSString *subDictKey in subDictionaries) {
+            
+            NSArray *subDictionaries = [completeDefaultSettings allKeys];
+            for (NSString *subDictKey in subDictionaries) {
                 NSDictionary *subExtensionDict = [defaultExtensionSettings objectForKey:subDictKey];
                 if (subExtensionDict.count > 0) {
-                        NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
-                        if (subDict) {
+                    NSMutableDictionary *subDict = [[completeDefaultSettings objectForKey:subDictKey] mutableCopy];
+                    if (subDict) {
                         [subDict addEntriesFromDictionary:subExtensionDict];
-                            [completeDefaultSettings setObject:subDict forKey:subDictKey];
-                            [defaultExtensionSettings removeObjectForKey:subDictKey];
-                        } else {
+                        [completeDefaultSettings setObject:subDict forKey:subDictKey];
+                        [defaultExtensionSettings removeObjectForKey:subDictKey];
+                    } else {
                         [completeDefaultSettings setObject:subExtensionDict forKey:subDictKey];
-                        }
                     }
                 }
-                [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
             }
+            [completeDefaultSettings addEntriesFromDictionary:defaultExtensionSettings];
         }
+    }
     return completeDefaultSettings.copy;
 }
-
+    
 
 - (NSDictionary *)defaultSEBSettings
 {
@@ -159,7 +159,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowDictation",
-                   
+
                    @NO,
                    @"allowDictionaryLookup",
                    
@@ -174,7 +174,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"allowedDisplayBuiltinExceptDesktop",
-                   
+
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",
                    
@@ -384,7 +384,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableEsc",
-                   
+
                    @NO,
                    @"enableCtrlEsc",
                    
@@ -624,7 +624,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"mobileAllowSingleAppMode",
-                   
+                                      
                    @NO,
                    @"mobileCompactAllowInlineMediaPlayback",
                    
@@ -853,9 +853,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"showScrollLockButton",
                    
-                   @NO,
-                   @"showReloadWarning",
-                   
                    @YES,
                    @"showTaskBar",
                    
@@ -1023,4 +1020,3 @@ static SEBSettings *sharedSEBSettings = nil;
 
 
 @end
-

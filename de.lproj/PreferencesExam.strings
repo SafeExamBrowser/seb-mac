@@ -1,0 +1,147 @@
+/* Class = "NSTextFieldCell"; title = "The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL."; ObjectID = "2GO-IF-iYo"; */
+"2GO-IF-iYo.title" = "Der seb(s):// Link zur Konfigurationsdatei kann eine zusätzliche Query-Zeichenkette beinhalten, mittels '?' oder '??' (wenn die URL selber keine Query enthält) von der Haupt-URL getrennt. SEB wird dann diesen Query-Parameter an die Start URL anhängen.";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed"; ObjectID = "2Rr-y4-nE8"; */
+"2Rr-y4-nE8.ibShadowedToolTip" = "Vollständige URL (beginnend mit http:// oder https://) der Seite, die mittels der Taste 'Zurück zum Start' geöffnet werden soll";
+
+/* Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W"; */
+"3dP-gi-x4W.ibShadowedToolTip" = "Der Browser Exam Key wird an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
+
+/* Class = "NSButtonCell"; title = "Clear on session start"; ObjectID = "3Wv-pu-d1v"; */
+"3Wv-pu-d1v.title" = "Zu Beginn der Session löschen";
+
+/* Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd"; */
+"4aU-eM-mgd.title" = "Query-Parameter";
+
+/* Class = "NSButtonCell"; title = "Protect Back to Start Button with the quit/unlock password"; ObjectID = "5SR-dU-gy3"; */
+"5SR-dU-gy3.title" = "'Zurück zum Start'-Taste mit dem Beenden/Entsperren-Passwort schützen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "If using a Universal Link or an indirect seb(s):// link, SEB will search its path hierarchy for config files with this setting"; ObjectID = "5sV-hT-oqR"; */
+"5sV-hT-oqR.ibShadowedToolTip" = "Wenn ein Universal Link oder ein indirekter seb(s):// Link benutzt wird, sucht SEB in der Pfad-Hierarchie des Links nach Konfigurationsdateien";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when ending the current exam session (when reconfiguring SEB)"; ObjectID = "6Uo-fx-mC8"; */
+"6Uo-fx-mC8.ibShadowedToolTip" = "Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren beendet wird";
+
+/* Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "20"; */
+"20.ibShadowedToolTip" = "SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Browser Exam Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option";
+
+/* Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting SEB"; ObjectID = "21"; */
+"21.title" = "Beim Beenden von SEB Browser Exam Key in Zwischenablage kopieren";
+
+/* Class = "NSBox"; title = "Link to quit SEB after exam"; ObjectID = "26k-Q1-RaL"; */
+"26k-Q1-RaL.title" = "Link zum Beenden von SEB nach Prüfungsabgabe";
+
+/* Class = "NSTextFieldCell"; title = "Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in."; ObjectID = "33"; */
+"33.title" = "Dieser Schlüssel (der von der SEB-Konfiguration und Programmversion abhängt) muss in das entsprechende Feld in den Prüfungseinstellungen eines mit SEB 2.0 kompatiblen Systems kopiert werden.";
+
+/* Class = "NSBox"; title = "Browser & Config Keys"; ObjectID = "57Q-JV-oaf"; */
+"57Q-JV-oaf.title" = "Browser & Config Keys";
+
+/* Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit or restart SEB without having to enter the quit password."; ObjectID = "443"; */
+"443.title" = "Beenden-Link auf der 'Feedback'-Seite platzieren, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "If a Quit Link is entered, it works regardless of other quit settings in the General pane"; ObjectID = "688"; */
+"688.ibShadowedToolTip" = "Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein";
+
+/* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "689"; */
+"689.placeholderString" = "URL beginnend mit http:// oder https://";
+
+/* Class = "NSTextFieldCell"; title = "Enter custom URL or select \"Use Start URL\" to display the Back to Start Button in the SEB dock/taskbar."; ObjectID = "bGJ-Qs-OiP"; */
+"bGJ-Qs-OiP.title" = "URL eingeben oder 'Start-URL benutzen' auswählen, um 'Zurück zum Start'-Taste im SEB-Dock anzuzeigen";
+
+/* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "bTx-tu-6Av"; */
+"bTx-tu-6Av.placeholderString" = "URL beginnend mit http:// oder https://";
+
+/* Class = "NSBox"; title = "Back to Start Button"; ObjectID = "czI-08-Q8k"; */
+"czI-08-Q8k.title" = "Zurück zum Start Taste";
+
+/* Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi"; */
+"dN3-5O-Rpi.title" = "Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration (während die Client-Konfiguration benutzt wird oder während einer Prüfungssession). Falls die laufende Session ein Beenden-Passwort gesetzt hat, muss die erlaubte URL für die neue Prüfungskonfigurationsdatei im Feld 'Rekonfigurations-URL' angegeben werden (Wildcard-Zeichen '*' kann benutzt werden).";
+
+/* Class = "NSTextFieldCell"; title = "Config Key"; ObjectID = "EOJ-6z-4oM"; */
+"EOJ-6z-4oM.title" = "Config Key";
+
+/* Class = "NSButton"; ibShadowedToolTip = "If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL"; ObjectID = "EZa-c9-03S"; */
+"EZa-c9-03S.ibShadowedToolTip" = "Wenn ein seb(s):// Link eine zusätzliche Query-Zeichenkette beinhaltet, hängt SEB diese an die Start URL der Prüfung an";
+
+/* Class = "NSButtonCell"; title = "Use Browser & Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
+"gk0-kD-QIq.title" = "Browser & Config Key benutzen (im HTTP-Header senden)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB"; ObjectID = "HG9-Qt-FY9"; */
+"HG9-Qt-FY9.ibShadowedToolTip" = "Prüfungssession wird neu gestartet anstatt SEB zu beenden, nachdem die Beenden-URL erkannt wurde";
+
+/* Class = "NSTextFieldCell"; title = "Browser Exam Key"; ObjectID = "iVS-rH-hVZ"; */
+"iVS-rH-hVZ.title" = "Browser Exam Key";
+
+/* Class = "NSButtonCell"; title = "Ask user to confirm quitting"; ObjectID = "Ji2-gQ-cOh"; */
+"Ji2-gQ-cOh.title" = "Benutzer muss das Beenden bestätigen";
+
+/* Class = "NSTextFieldCell"; title = "Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation)."; ObjectID = "K70-6q-gBR"; */
+"K70-6q-gBR.title" = "Dieser Schlüssel (der von der SEB-Konfiguration abhängt) muss in das entsprechende Feld in den Prüfungseinstellungen eines mit SEB 2.1.3 für macOS kompatiblen Systems kopiert werden. Der Config Key kann vom Prüfungssystem automatisch generiert werden (siehe dessen Dokumentation).";
+
+/* Class = "NSButtonCell"; title = "Allow reconfiguring secure/exam session"; ObjectID = "lNW-hv-6s5"; */
+"lNW-hv-6s5.title" = "Umkonfigurieren erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm"; ObjectID = "mWl-BQ-Udt"; */
+"mWl-BQ-Udt.ibShadowedToolTip" = "SEB kann beendet werden, sobald ein Beenden-Link erkannt wird, ohne dass Benutzer dies bestätigen müssen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/unlock password when the Back to Start button is pressed"; ObjectID = "oJT-BY-ezv"; */
+"oJT-BY-ezv.ibShadowedToolTip" = "Eingabe des Beenden/Entsperren-Passworts verlangen, wenn die 'Zurück zum Start'-Taste gedrückt wird";
+
+/* Class = "NSBox"; title = "Reconfiguring Secure/Exam Session"; ObjectID = "olf-PG-s0j"; */
+"olf-PG-s0j.title" = "Prüfungssession umkonfigurieren";
+
+/* Class = "NSTextFieldCell"; title = "Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp"; */
+"pdT-tX-Sdp.title" = "Titel des Dialogs/Tooltips für die 'Zurück zum Start'-Taste (leer lassen für lokalisierten Standard-Text)";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button"; ObjectID = "Qei-df-hVI"; */
+"Qei-df-hVI.ibShadowedToolTip" = "Dieser Text wird als Titel des Passwort-/Bestätigungs-Dialogs und als Tooltip für die 'Zurück zum Start'-Taste angezeigt";
+
+/* Class = "NSButtonCell"; title = "Use Start URL (see General pane)"; ObjectID = "Rln-rP-DrR"; */
+"Rln-rP-DrR.title" = "Start-URL verwenden (siehe Allgemein)";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Match URL"; ObjectID = "SdD-R8-hNc"; */
+"SdD-R8-hNc.placeholderString" = "Zu vergleichende URL";
+
+/* Class = "NSButtonCell"; title = "Allow Deep Linking for Exams"; ObjectID = "sOA-63-en9"; */
+"sOA-63-en9.title" = "Deep-Linking für Prüfungen erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)"; ObjectID = "Suk-hp-L3I"; */
+"Suk-hp-L3I.ibShadowedToolTip" = "Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren gestartet wird";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Back to Start"; ObjectID = "sY9-Fu-u2Z"; */
+"sY9-Fu-u2Z.placeholderString" = "Prüfung neu starten";
+
+/* Class = "NSButtonCell"; title = "Restart instead of quitting (iOS)"; ObjectID = "u5B-hW-58P"; */
+"u5B-hW-58P.title" = "Neustarten anstatt Beenden (iOS)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "The Back to Start Button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75"; */
+"ujx-Tz-w75.ibShadowedToolTip" = "Die 'Zurück zum Start'-Taste öffnet erneut die Start-URL der Prüfung";
+
+/* Class = "NSBox"; title = "Session Cookies"; ObjectID = "Uuj-be-mvj"; */
+"Uuj-be-mvj.title" = "Session-Cookies";
+
+/* Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL)."; ObjectID = "Vfv-tN-rLa"; */
+"Vfv-tN-rLa.title" = "Deep-Linking erlaubt das Öffnen von diversen Prüfungen mit einer einzigen Konfigurationsdatei, welche irgendwo in der Pfadhierarchie eines sebs:// oder Universal Links abgelegt wurde (die Links müssen mit der Start URL aus der Konfigurationsdatei beginnen)";
+
+/* Class = "NSBox"; title = "Exam Deep Linking (iOS)"; ObjectID = "Vu0-G2-uN8"; */
+"Vu0-G2-uN8.title" = "Deep-Linking für Prüfungen (iOS)";
+
+/* Class = "NSButtonCell"; title = "Clear on session end"; ObjectID = "wYr-ul-Cng"; */
+"wYr-ul-Cng.title" = "Zu Sessionsende löschen";
+
+/* Class = "NSTextFieldCell"; title = "Reconfiguring URL"; ObjectID = "Xhp-ON-YK2"; */
+"Xhp-ON-YK2.title" = "Rekonfigurations-URL";
+
+/* Class = "NSTextFieldCell"; title = "Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session."; ObjectID = "XHR-6b-cHs"; */
+"XHR-6b-cHs.title" = "Wenn das Löschen der Session-Cookies beim Beenden der ersten Prüfungssession und beim Starten den zweiten deaktiviert wird, bleiben Benutzer eingeloggt.";
+
+/* Class = "NSButtonCell"; title = "Allow Query Parameter"; ObjectID = "y9P-96-cCz"; */
+"y9P-96-cCz.title" = "Query-Parameter erlauben";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "The URL of the seb(s) link which invokes reconfiguring a secure session has to be matched by this string"; ObjectID = "ZFB-Me-HJd"; */
+"ZFB-Me-HJd.ibShadowedToolTip" = "Die zu vergleichende URL muss mit der URL des seb(s)-Links zur Rekonfiguration übereinstimmen. ";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file"; ObjectID = "zfq-ok-40e"; */
+"zfq-ok-40e.ibShadowedToolTip" = "Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession";
+

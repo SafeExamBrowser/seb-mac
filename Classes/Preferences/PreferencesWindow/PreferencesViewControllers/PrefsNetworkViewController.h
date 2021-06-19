@@ -37,6 +37,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "PreferencesController.h"
 
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule, NSTableViewDelegate> {
 
@@ -44,7 +45,7 @@
     IBOutlet NSTabViewItem *urlFilterTab;
     IBOutlet NSMatrix *URLFilterMessageControl;
     
-	IBOutlet NSTableColumn *groupRowTableColumn;
+	__weak IBOutlet NSTableColumn *groupRowTableColumn;
 
     // Filter Section
     IBOutlet NSButton *URLFilterEnableContentFilterButton;
@@ -63,16 +64,33 @@
     // Certificates section
     IBOutlet NSPopUpButton *chooseCertificate;
     IBOutlet NSPopUpButton *chooseIdentity;
+    IBOutlet NSPopUpButton *chooseCA;
     IBOutlet NSArrayController *certificatesArrayController;
-
+    
+    IBOutlet NSWindow *advancedCertificatesSheet;
+    IBOutlet NSArrayController *advancedCertificatesArrayController;
+    __weak IBOutlet NSTableView *advancedCertificatesList;
+    __weak IBOutlet NSPopUpButton *chooseEmbeddCertificateType;
+    __weak IBOutlet NSTextField *overrideCommonName;
+    __weak IBOutlet NSTextField *overrideCommonNameLabel;
 }
 
-@property(strong) NSTableColumn *groupRowTableColumn;
+@property (weak, nonatomic) PreferencesController *preferencesController;
 
-@property (strong, nonatomic) NSMutableArray *certificatesNames;
+@property(weak) NSTableColumn *groupRowTableColumn;
+
+@property (strong, nonatomic) NSMutableArray *SSLCertificatesNames;
+@property (strong, nonatomic) NSArray *SSLCertificates;
+
+@property (strong, nonatomic) NSMutableArray *caCertificatesNames;
+@property (strong, nonatomic) NSArray *caCertificates;
+
 @property (strong, nonatomic) NSArray *certificates;
+
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
+
+@property (readonly) BOOL addingDebugCertificate;
 
 @property (strong) NSString *expressionPort;
 @property (readwrite) BOOL URLFilterLearningMode;
@@ -80,6 +98,8 @@
 
 - (NSString *)identifier;
 - (NSImage *)image;
+
+- (void) removeObservers;
 
 // Filter Section
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender;
@@ -90,6 +110,16 @@
 // Certificates section
 - (IBAction) identitySelected:(id)sender;
 - (IBAction) certificateSelected:(id)sender;
+- (IBAction) CASelected:(id)sender;
+- (IBAction)conditionallyShowOSCertWarning:(NSButton *)sender;
+
+// Advanced Certificates sheet
+- (IBAction) showAdvancedCertificateSheet:(id)sender;
+- (IBAction) cancelAdvancedCertificateSheet:(id)sender;
+- (IBAction) embeddAdvancedCertificate:(id)sender;
+- (BOOL) addingDebugCertificate;
+- (IBAction)embeddCertificateTypeChanged:(id)sender;
+- (IBAction)advancedCertificateSelected:(id)sender;
 
 
 @end

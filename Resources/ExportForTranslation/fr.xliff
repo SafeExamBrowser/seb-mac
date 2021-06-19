@@ -425,8 +425,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls"; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
-        <source>Show SEB dock/task bar</source>
-        <note>Class = "NSButtonCell"; title = "Show SEB dock/task bar"; ObjectID = "77";</note>
+        <source>Show SEB dock/taskbar</source>
+        <note>Class = "NSButtonCell"; title = "Show SEB dock/taskbar"; ObjectID = "77";</note>
       </trans-unit>
       <trans-unit id="371.ibShadowedToolTip">
         <source>Displays a toolbar on top of the browser window which can also be hidden by the user</source>
@@ -437,8 +437,8 @@
         <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372";</note>
       </trans-unit>
       <trans-unit id="383.ibShadowedToolTip">
-        <source>Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T.</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
+        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T.</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
       </trans-unit>
       <trans-unit id="384.title">
         <source>Hide toolbar as default</source>
@@ -608,8 +608,8 @@
         <note>Class = "NSTextFieldCell"; title = "Title"; ObjectID = "642";</note>
       </trans-unit>
       <trans-unit id="645.ibShadowedToolTip">
-        <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "645";</note>
+        <source>Application title which is displayed in the application chooser and SEB dock/taskbar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/taskbar"; ObjectID = "645";</note>
       </trans-unit>
       <trans-unit id="654.ibShadowedToolTip">
         <source>Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name.</source>
@@ -652,8 +652,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Remove an argument"; ObjectID = "866";</note>
       </trans-unit>
       <trans-unit id="887.ibShadowedToolTip">
-        <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "887";</note>
+        <source>Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title"; ObjectID = "887";</note>
       </trans-unit>
       <trans-unit id="897.title">
         <source>Identifier</source>
@@ -752,8 +752,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "The prohibited process has to run under the currently logged in user (not system users). Use it instead of indicating the user."; ObjectID = "1856";</note>
       </trans-unit>
       <trans-unit id="1859.ibShadowedToolTip">
-        <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "1859";</note>
+        <source>Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title"; ObjectID = "1859";</note>
       </trans-unit>
       <trans-unit id="1893.ibShadowedToolTip">
         <source>Process name, usually the file name of the executable</source>
@@ -915,12 +915,12 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam"; ObjectID = "180";</note>
       </trans-unit>
       <trans-unit id="181.title">
-        <source>Allow browsing back/forward</source>
-        <note>Class = "NSButtonCell"; title = "Allow browsing back/forward"; ObjectID = "181";</note>
+        <source>Allow navigating back/forward in exam</source>
+        <note>Class = "NSButtonCell"; title = "Allow navigating back/forward in exam"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="413.ibShadowedToolTip">
-        <source>When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed.</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
+        <source>When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed.</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="415.title">
         <source>Use SEB without browser window</source>
@@ -1046,8 +1046,8 @@
         <note>Class = "NSTextFieldCell"; title = "Settings password"; ObjectID = "118";</note>
       </trans-unit>
       <trans-unit id="173.ibShadowedToolTip">
-        <source>If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient."; ObjectID = "173";</note>
+        <source>If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient."; ObjectID = "173";</note>
       </trans-unit>
       <trans-unit id="174.title">
         <source>Use either a cryptographic identity or a password or both.</source>
@@ -1201,8 +1201,8 @@
         <note>Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39";</note>
       </trans-unit>
       <trans-unit id="76.ibShadowedToolTip">
-        <source>PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
+        <source>PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
         <source>Download and open PDF files instead of displaying them inline</source>
@@ -1307,8 +1307,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Displays information about Safe Exam Browser – SEB"; ObjectID = "94";</note>
       </trans-unit>
       <trans-unit id="95.ibShadowedToolTip">
-        <source>Displays the SEB online manual at www.safeexambrowser.org/macosx</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx"; ObjectID = "95";</note>
+        <source>Displays the SEB online manual at safeexambrowser.org/macosx</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at safeexambrowser.org/macosx"; ObjectID = "95";</note>
       </trans-unit>
       <trans-unit id="97.title">
         <source>About</source>
@@ -1410,8 +1410,8 @@
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O";</note>
       </trans-unit>
       <trans-unit id="9hw-i2-YWH.ibShadowedToolTip">
-        <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "9hw-i2-YWH";</note>
+        <source>Application title which is displayed in the application chooser and SEB dock/taskbar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/taskbar"; ObjectID = "9hw-i2-YWH";</note>
       </trans-unit>
       <trans-unit id="27i-17-3S4.title">
         <source>:</source>
@@ -1745,8 +1745,8 @@
         <note>Class = "NSButtonCell"; title = "Choose File..."; ObjectID = "2442";</note>
       </trans-unit>
       <trans-unit id="2490.ibShadowedToolTip">
-        <source>Title of the resource which is displayed in the SEB dock/task bar</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/task bar"; ObjectID = "2490";</note>
+        <source>Title of the resource which is displayed in the SEB dock/taskbar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/taskbar"; ObjectID = "2490";</note>
       </trans-unit>
       <trans-unit id="2493.ibShadowedToolTip">
         <source>This resource item is active</source>
@@ -1904,8 +1904,8 @@
         <note>Class = "NSButtonCell"; title = "Enable Print Screen"; ObjectID = "GQb-uN-fJO";</note>
       </trans-unit>
       <trans-unit id="Gly-dr-m3X.ibShadowedToolTip">
-        <source>SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)"; ObjectID = "Gly-dr-m3X";</note>
+        <source>SEB enforces to be installed in the Applications folder (/Applications)</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X";</note>
       </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title">
         <source>Enable Alt-Mousewheel</source>
@@ -1936,8 +1936,8 @@
         <note>Class = "NSButtonCell"; title = "Enable Shut down"; ObjectID = "Ouk-wE-FFP";</note>
       </trans-unit>
       <trans-unit id="PH3-Cb-12g.ibShadowedToolTip">
-        <source>Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g";</note>
+        <source>Controls OS X screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g";</note>
       </trans-unit>
       <trans-unit id="PWk-fT-HdC.title">
         <source>Enable Right Mouse</source>
@@ -2481,10 +2481,6 @@
         <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?">
-        <source>Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
         <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
         <note>No comment provided by engineer.</note>
@@ -2597,8 +2593,8 @@
         <source>SEB has to be placed in the %1$@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %2$@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
-        <source>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
+      <trans-unit id="SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
+        <source>SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
@@ -2779,10 +2775,6 @@
       </trans-unit>
       <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible SEB version.">
         <source>You either entered the wrong password or these settings were saved with an incompatible SEB version.</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="administrator">

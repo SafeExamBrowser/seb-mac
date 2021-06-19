@@ -35,6 +35,11 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
 #import "SEBBrowserWindowController.h"
+#import "SEBOSXBrowserController.h"
+
+@class SEBBrowserWindowController;
+@class SEBOSXBrowserController;
+
 
 @interface SEBBrowserWindowDocument : NSDocument {
 @private
@@ -42,6 +47,7 @@
 }
 
 @property (nonatomic, strong) SEBBrowserWindowController *browserWindowController;
+@property (nonatomic, strong) SEBOSXBrowserController *browserController;
 
 - (SEBBrowserWindowController*)mainWindowController;
 //- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo;

@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -36,7 +36,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SEBOSXConfigFileController.h"
-#import "SEBController.h"
+
 #import "PrefsGeneralViewController.h"
 #import "PrefsConfigFileViewController.h"
 #import "PrefsAppearanceViewController.h"
@@ -47,12 +47,16 @@
 #import "PrefsResourcesViewController.h"
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
+#import "SEBEncapsulatedSettings.h"
+#import "SEBBrowserController.h"
 
 @class SEBController;
 @class SEBOSXConfigFileController;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
 @class PrefsExamViewController;
+@class PrefsNetworkViewController;
+@class SEBBrowserController;
 
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
@@ -60,27 +64,29 @@
     IBOutlet NSMenu *settingsMenu;
     
 @private
-    NSDictionary *_settingsBeforeEditing;
-    NSURL *_configURLBeforeEditing;
-    BOOL _userDefaultsPrivateBeforeEditing;
-    NSData *_browserExamKeyBeforeEditing;
+    SEBEncapsulatedSettings *settingsBeforeEditing;
     BOOL restartSEB;
+    NSURL *currentSEBFileURL;
 }
 
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
-@property (strong, nonatomic) IBOutlet SEBController *sebController;
-@property (strong, nonatomic) SEBOSXConfigFileController *configFileManager;
+@property BOOL certOSWarningDisplayed;
+@property (weak, nonatomic) IBOutlet SEBController *sebController;
+@property (weak, nonatomic) NSWindow *preferencesWindow;
+@property (strong, nonatomic) SEBOSXConfigFileController *configFileController;
+@property (weak, nonatomic) SEBBrowserController *browserController;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 @property (strong, nonatomic) PrefsExamViewController *examVC;
+@property (strong, nonatomic) PrefsNetworkViewController *networkVC;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
-@property (nonatomic) NSData *currentConfigKeyHash;
+@property (nonatomic) NSData *currentConfigFileKeyHash;
 // To make the getter unavailable
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
-- (NSData *)currentConfigKeyHash UNAVAILABLE_ATTRIBUTE;
+- (NSData *)currentConfigFileKeyHash UNAVAILABLE_ATTRIBUTE;
 
 - (void) openSEBPrefsAtURL:(NSURL *)sebFileURL;
 
@@ -91,6 +97,7 @@
 - (BOOL) editingSettingsFile;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
+- (void) reopenPreferencesWindow;
 
 - (void) storeCurrentSettings;
 - (void) restoreStoredSettings;
@@ -115,6 +122,6 @@
 
 //- (void) setCurrentConfigPassword:(NSString *)currentConfigPassword;
 //- (void) setCurrentConfigPasswordIsHash:(BOOL)currentConfigPasswordIsHash;
-//- (void) setCurrentConfigKeyRef:(NSData *)currentConfigKeyHash;
+//- (void) setCurrentConfigKeyRef:(SecKeyRef)currentConfigKeyRef;
 
 @end

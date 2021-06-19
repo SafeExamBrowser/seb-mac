@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -55,11 +55,13 @@
 @property (strong, nonatomic) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
-@property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;
-@property (strong) IBOutlet NSButton *overrideCheckForSiri;
-@property (strong) IBOutlet NSButton *overrideCheckForDictation;
-@property (strong) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
-@property (strong) IBOutlet NSButton *overrideCheckForAllProcesses;
+@property (weak) IBOutlet NSButton *quitInsteadUnlockingButton;
+@property (weak) IBOutlet NSButton *overrideCheckForScreenSharing;
+@property (weak) IBOutlet NSButton *overrideEnforcingBuiltinScreen;
+@property (weak) IBOutlet NSButton *overrideCheckForSiri;
+@property (weak) IBOutlet NSButton *overrideCheckForDictation;
+@property (weak) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
+@property (weak) IBOutlet NSButton *overrideCheckForAllProcesses;
 
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage;
