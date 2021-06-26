@@ -42,8 +42,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 + (DDLogLevel)ddLogLevel
 {
-    ddLogLevel = (DDLogLevel)[[self sharedMyGlobals] logLevel];
-    return ddLogLevel;
+    NSUInteger newDDLogLevel = (NSUInteger)[[self sharedMyGlobals] logLevel];
+    return (DDLogLevel)newDDLogLevel;
 }
 
 

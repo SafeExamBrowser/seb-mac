@@ -1,0 +1,6 @@
+framework module Pods_Safe_Exam_Browser {
+  umbrella header "Pods-Safe Exam Browser-umbrella.h"
+
+  export *
+  module * { export * }
+}

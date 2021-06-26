@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -34,6 +34,7 @@
 
 #import "SEBConfigFileManager.h"
 #import "SEBController.h"
+#import "SEBCryptor.h"
 
 @class SEBController;
 
@@ -43,8 +44,6 @@
 
 
 // Load a SebClientSettings.seb file saved in the preferences directory
-// and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings;
 - (NSData *) getSEBClientSettings;
 
 // Re-configure SEB using the config data from a SEBClientSettings.seb file from the preferences directory
