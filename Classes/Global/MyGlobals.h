@@ -34,7 +34,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack.h>
-//#import "SEBViewController.h"
 
 @interface MyGlobals : NSObject
 
