@@ -60,6 +60,7 @@ static NSString __unused *SEBClientSettingsACCSubdomainShort = @"seb";
 static NSString __unused *SEBClientSettingsACCSubdomainLong = @"safeexambrowser";
 static NSString __unused *SEBClientSettingsACCPath = @"safeexambrowser";
 static NSString __unused *SEBClientSettingsFilename = @"SEBClientSettings.seb";
+static NSString __unused *SEBClientSettingsDirectory = @"Preferences";
 static NSString __unused *SEBSettingsFilename = @"SEBSettings.seb";
 static NSString __unused *SEBExamSettingsFilename = @"SEBExamSettings.seb";
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";

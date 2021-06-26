@@ -69,6 +69,7 @@
 
 @optional
 - (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
+- (NSData*)generatePKCS12IdentityWithName:(NSString *)commonName;
 
 @property (nonatomic, retain) SEBKeychainManager *keychainManager;
 

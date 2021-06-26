@@ -1,13 +1,13 @@
 PODS:
-  - CocoaLumberjack (3.7.2):
-    - CocoaLumberjack/Core (= 3.7.2)
   - CocoaLumberjack/Core (3.7.2)
+  - CocoaLumberjack/Swift (3.7.2):
+    - CocoaLumberjack/Core
   - InAppSettingsKit (2.15)
   - JitsiMeetSDK (3.6.0)
   - QRCodeReaderViewController (4.0.2)
 
 DEPENDENCIES:
-  - CocoaLumberjack
+  - CocoaLumberjack/Swift
   - InAppSettingsKit (~> 2.15)
   - JitsiMeetSDK
   - QRCodeReaderViewController (~> 4.0.2)
@@ -25,6 +25,6 @@ SPEC CHECKSUMS:
   JitsiMeetSDK: 476329f72a866f714d2802bafe1729de6d644ccf
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: 142bb7f0c1c08e63762677fff346936c96cfc5ab
+PODFILE CHECKSUM: 803d4790e1106cbe983a20d519426ed3637db844
 
 COCOAPODS: 1.10.1

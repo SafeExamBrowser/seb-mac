@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -33,6 +33,7 @@
 //
 
 #import "SEBOSXConfigFileController.h"
+#import "MBPreferencesController.h"
 
 @implementation SEBOSXConfigFileController
 
@@ -41,48 +42,62 @@
 {
     self = [super init];
     if (self) {
-        self.sebController = (SEBController *)[NSApp delegate];
         
         [super setDelegate:self];
-    }
+}
     return self;
 }
 
 
-// Load a SebClientSettings.seb file saved in the preferences directory
-// and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings
+/// Load a SebClientSettings.seb file saved in the preferences directory
+- (NSData *) getSEBClientSettings
+{
+    NSData *sebData;
+    
+    // Try to read SEB client settings from /Library/Preferences/ directory,
+    // valid for all users on a Mac
+    sebData = [self getSEBClientSettingsFromDomain:NSLocalDomainMask];
+    
+    if (!sebData) {
+        // Try to read SEB client settings from ~Library/Preferences/ directory,
+        // valid for the current user
+        sebData = [self getSEBClientSettingsFromDomain:NSUserDomainMask];
+    }
+    
+    return sebData;
+}
+
+
+- (NSData *) getSEBClientSettingsFromDomain:(NSSearchPathDomainMask)domain
 {
     NSError *error;
-    NSURL *preferencesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
-                                                                         inDomain:NSUserDomainMask
-                                                                appropriateForURL:nil
-                                                                           create:NO
-                                                                            error:&error];
-    if (preferencesDirectory) {
-        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:@"Preferences/SebClientSettings.seb"];
-        NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
-        if (sebData) {
-            DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
-            //            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            
-            // Decrypt and store the .seb config file
-            if ([self storeNewSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
-                // if successfull continue with new settings
-                DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
-                // Delete the SebClientSettings.seb file from the Preferences directory
-                error = nil;
-                [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
-                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error.description);
-                // Restart SEB with new settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
-                
-                return YES;
-            }
+    NSData *sebData;
+    NSURL *libraryDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
+                                                                          inDomain:domain
+                                                                 appropriateForURL:nil
+                                                                            create:NO
+                                                                             error:&error];
+    if (libraryDirectory) {
+        NSURL *sebClientSettingsFileURL = [[libraryDirectory URLByAppendingPathComponent:SEBClientSettingsDirectory] URLByAppendingPathComponent:SEBClientSettingsFilename];
+        sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
+        if (sebData && domain == NSUserDomainMask) {
+            // Delete the SEBClientSettings.seb file from the user's Preferences directory
+            error = nil;
+            [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
+            DDLogInfo(@"Attempted to remove file %@, result: %@", sebClientSettingsFileURL, error.description);
         }
     }
-    return NO;
+    return sebData;
+}
+
+
+/// Called after the client was sucesssfully reconfigured with persisted client settings
+- (void) reconfigureClientWithSebClientSettingsCallback
+{
+    DDLogInfo(@"Reconfiguring with client settings was successful");
+    // Restart SEB with new settings
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
 }
 
 
@@ -103,10 +118,13 @@
         // we store the .seb file password/hash and/or certificate/identity
         [prefsController setCurrentConfigPassword:sebFileCrentials.password];
         [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
-        [prefsController setCurrentConfigKeyRef:sebFileCrentials.keyRef];
+        [prefsController setCurrentConfigFileKeyHash:sebFileCrentials.publicKeyHash];
     }
-    
-    [prefsController initPreferencesWindow];
+    // Update Browser Exam Key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    if (!([prefsController preferencesAreOpen] || self.sebController.alternateKeyPressed)) {
+        [prefsController initPreferencesWindow];
+    }
 }
 
 
@@ -120,24 +138,35 @@
             [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            int answer = [newAlert runModal];
-            switch(answer)
-            {
-                case NSAlertFirstButtonReturn:
-                    
-                    break; //Continue running SEB
-                    
-                case NSAlertSecondButtonReturn:
-                    
-                    self.sebController.quittingMyself = TRUE; //SEB is terminating itself
-                    [NSApp terminate: nil]; //quit SEB
-            }
+            void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                switch(answer)
+                {
+                    case NSAlertFirstButtonReturn:
+                        
+                        //Continue running SEB
+                        [self didReconfigurePermanentlyWithSEBFileCredentials:sebFileCrentials];
+                        return;
+                        
+                    case NSAlertSecondButtonReturn:
+                        
+                        self.sebController.quittingMyself = true; //quit SEB without asking for confirmation or password
+                        [NSApp terminate: nil]; //quit SEB
+                        return;
+                }
+            };
+            [newAlert beginSheetModalForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            return;
+
         } else {
             // Set the flag to eventually display the dialog later
             [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
         }
     }
+    [self didReconfigurePermanentlyWithSEBFileCredentials:sebFileCrentials];
+}
 
+- (void) didReconfigurePermanentlyWithSEBFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+{
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     PreferencesController *prefsController = self.sebController.preferencesController;
 
@@ -146,10 +175,14 @@
         // we store the .seb file password/hash and/or certificate/identity
         [prefsController setCurrentConfigPassword:sebFileCrentials.password];
         [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
-        [prefsController setCurrentConfigKeyRef:sebFileCrentials.keyRef];
+        [prefsController setCurrentConfigFileKeyHash:sebFileCrentials.publicKeyHash];
     }
-    
+    // Update Browser Exam Key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     [prefsController initPreferencesWindow];
+
+    // Inform callback that storing new settings was successful
+    [self storeNewSEBSettingsSuccessful:nil];
 }
 
 
@@ -171,40 +204,106 @@
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert runModal];
+    [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:nil];
 }
 
 
 - (BOOL) saveSettingsUnencrypted {
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
-    [newAlert setInformativeText:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)];
+    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
-    int answer = [newAlert runModal];
-    
-    switch(answer)
-    {
-        case NSAlertFirstButtonReturn:
-            // Post a notification to switch to the Config File prefs pane
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"switchToConfigFilePane" object:self];
-            // don't save the config data
-            return false;
-            
-        case NSAlertSecondButtonReturn:
-            // save .seb config data unencrypted
+    BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                // Post a notification to switch to the Config File prefs pane
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"switchToConfigFilePane" object:self];
+                // don't save the config data
+                return false;
+                
+            case NSAlertSecondButtonReturn:
+                // save .seb config data unencrypted
+                return true;
+                
+            default:
+                return false;
+        }
+    };
+    if (@available(macOS 11.0, *)) {
+        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
             return true;
-            
-        default:
-            return false;
+        }
     }
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
+    NSModalResponse answer = [newAlert runModal];
+    return unencryptedSaveAlertAnswerHandler(answer);
 }
 
 
-- (void) presentErrorAlert:(NSError *)error {
-    [NSApp presentError:error];
+// Ask the user to enter a password for loading settings using the message text and then call the callback selector with the password as parameter
+- (void) promptPasswordWithMessageText:(NSString *)messageText callback:(id)callback selector:(SEL)selector;
+{
+    [self promptPasswordWithMessageText:messageText
+                                  title:NSLocalizedString(@"Loading Settings",nil)
+                               callback:callback
+                               selector:selector];
+}
+
+
+- (void)promptPasswordWithMessageText:(NSString *)messageText
+                                title:(NSString *)title
+                             callback:(id)callback
+                             selector:(SEL)selector
+{
+    NSString *password = nil;
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+        password = [self.sebController.enterPassword stringValue];
+    }
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, NSString*) = (void *)imp;
+    func(callback, selector, password);
+}
+
+
+- (void) promptPasswordForHashedPassword:(NSString *)passwordHash
+                             messageText:(NSString *)messageText
+                                   title:(NSString *)title
+                                attempts:(NSInteger)attempts
+                                callback:(id)callback
+                                selector:(SEL)selector
+                       completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler
+{
+    NSString *password = nil;
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+        password = [self.sebController.enterPassword stringValue];
+    }
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, NSString*, NSString*, NSString*, NSString*, NSInteger, void (^)(BOOL)) = (void *)imp;
+    func(callback, selector, password, passwordHash, messageText, title, attempts, enteredPasswordHandler);
+}
+
+
+- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText
+                                            title:(NSString *)title
+{
+    NSString *password = nil;
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+        password = [self.sebController.enterPassword stringValue];
+    }
+    return password;
+}
+
+
+- (void)showAlertWithError:(NSError *)error {
+    [self presentErrorAlert:error];
+}
+
+- (void)presentErrorAlert:(NSError *)error {
+    [self.sebController.browserController.mainBrowserWindow presentError:error modalForWindow:self.sebController.browserController.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
 }
 
 
