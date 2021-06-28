@@ -139,7 +139,7 @@
 // Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
 {
-    [_browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+    [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
 }
 
 
@@ -1185,42 +1185,28 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
-- (void) storeNewSEBSettingsSuccessful:(NSError *)error
+- (void) storeNewSEBSettingsSuccessfulProceed:(NSError *)error
 {
     if (!error) {
-        DDLogDebug(@"%s: Storing downloaded SEB config data was successful", __FUNCTION__);
-        
-        // Reset BrowserController to force re-reading parameters like Browser Exam and Config Key
-        // from changed settings even if SEB was started opening a new config
-        _browserController = [SEBBrowserController new];
-        _browserController.delegate = self;
-
         [_sebController didOpenSettings];
         
         return;
         
     } else {
-        /// Decrypting new settings wasn't successfull:
-        DDLogDebug(@"%s: Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.", __FUNCTION__);
-        
+        // Decrypting new settings wasn't successfull:
         // We have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
-        } else {
-            // The download failed definitely or was canceled by the user:
-            DDLogDebug(@"%s: Decrypting downloaded SEB config data failed definitely, present error and role back opening URL!", __FUNCTION__);
-            
-            // Opening downloaded SEB config data definitely failed:
-            if (self.mainBrowserWindow) {
-                [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
-                return;
-            } else if (!(_sebController.isAACEnabled && _sebController.wasAACEnabled)) {
-                [NSApp presentError:error];
-            }
-            // we might need to quit (if SEB was just started)
-            // or reset the opening settings flag which prevents opening URLs concurrently
-            [self openingConfigURLRoleBack];
+        // Opening downloaded SEB config data definitely failed:
+        if (self.mainBrowserWindow) {
+            [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
+            return;
+        } else if (!(_sebController.isAACEnabled && _sebController.wasAACEnabled)) {
+            [NSApp presentError:error];
         }
+        // we might need to quit (if SEB was just started)
+        // or reset the opening settings flag which prevents opening URLs concurrently
+        [self openingConfigURLRoleBack];
     }
 }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,9 +23,9 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLj-q4-6Ht">
-                    <rect key="frame" x="0.0" y="41" width="700" height="341"/>
+                    <rect key="frame" x="0.0" y="40" width="700" height="342"/>
                     <clipView key="contentView" id="szO-rz-V7T">
-                        <rect key="frame" x="1" y="0.0" width="698" height="340"/>
+                        <rect key="frame" x="1" y="1" width="698" height="340"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="LvP-0W-CJN" id="EkZ-vB-pPS">
@@ -76,7 +76,7 @@
                                             <binding destination="D8l-HQ-Ieo" name="value" keyPath="arrangedObjects.bundleID" id="erS-Za-ULs"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="290" minWidth="10" maxWidth="3.4028234663852886e+38" id="6ZV-tc-FOU">
+                                    <tableColumn width="261" minWidth="10" maxWidth="3.4028234663852886e+38" id="6ZV-tc-FOU">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Path">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,13 +103,13 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" toolTip="Icon for bundled applications, BSD processes don't have icons" id="LvP-0W-CJN">
+                    <tableHeaderView key="headerView" toolTip="Icon for bundled applications, BSD processes don't have icons" wantsLayer="YES" id="LvP-0W-CJN">
                         <rect key="frame" x="0.0" y="0.0" width="698" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AJo-iy-uCV">
-                    <rect key="frame" x="620" y="3" width="66" height="32"/>
+                    <rect key="frame" x="627" y="3" width="60" height="32"/>
                     <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0H1-qr-5QU">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -119,7 +119,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Te1-5w-Eei">
-                    <rect key="frame" x="14" y="3" width="188" height="32"/>
+                    <rect key="frame" x="13" y="3" width="182" height="32"/>
                     <buttonCell key="cell" type="push" title="Force Quit All Processes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bid-1K-OKv">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>

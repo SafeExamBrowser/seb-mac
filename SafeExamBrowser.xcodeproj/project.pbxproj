@@ -337,6 +337,8 @@
 		6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
 		694316601BFEBB6500F784EE /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 692F53D614AD03F300011C84 /* Constants.h */; };
 		694316651BFF943C00F784EE /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
+		69433AEC268A793F005E59A5 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69637420267E6DD400058E7C /* libmbedtls.a */; };
+		69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69433AF3268A7F37005E59A5 /* ProcessListView.xib */; };
 		6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
 		6945B24B25CC085700B3ABD7 /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6988A0DB25228D6700F15236 /* libSEBSupport.a */; };
 		69478CF32208985D00352CFA /* UIDragInteraction+Restrict.h in Headers */ = {isa = PBXBuildFile; fileRef = 69478CF12208985D00352CFA /* UIDragInteraction+Restrict.h */; };
@@ -494,74 +496,6 @@
 		697852C62177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
 		697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
 		697852C82177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
-		69819E9A2200BEFB0047809D /* MscX509CommonLocalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E772200BEFB0047809D /* MscX509CommonLocalException.m */; };
-		69819E9B2200BEFB0047809D /* MscX509CommonLocalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E772200BEFB0047809D /* MscX509CommonLocalException.m */; };
-		69819E9F2200BEFB0047809D /* MscPKCS12.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E782200BEFB0047809D /* MscPKCS12.m */; };
-		69819EA02200BEFB0047809D /* MscPKCS12.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E782200BEFB0047809D /* MscPKCS12.m */; };
-		69819EA42200BEFB0047809D /* MscOpenSSLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E792200BEFB0047809D /* MscOpenSSLExtension.h */; };
-		69819EA52200BEFB0047809D /* MscOpenSSLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E792200BEFB0047809D /* MscOpenSSLExtension.h */; };
-		69819EA92200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E7A2200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */; };
-		69819EAA2200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E7A2200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */; };
-		69819EAE2200BEFB0047809D /* MscCertificateRevocationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E7B2200BEFB0047809D /* MscCertificateRevocationList.h */; };
-		69819EAF2200BEFB0047809D /* MscCertificateRevocationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E7B2200BEFB0047809D /* MscCertificateRevocationList.h */; };
-		69819EB32200BEFB0047809D /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E7C2200BEFB0047809D /* MscIssuerAndSubject.m */; };
-		69819EB42200BEFB0047809D /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E7C2200BEFB0047809D /* MscIssuerAndSubject.m */; };
-		69819EB82200BEFB0047809D /* NSString+MscASCIIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E7D2200BEFB0047809D /* NSString+MscASCIIExtension.m */; };
-		69819EB92200BEFB0047809D /* NSString+MscASCIIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E7D2200BEFB0047809D /* NSString+MscASCIIExtension.m */; };
-		69819EBD2200BEFB0047809D /* MscCertificateSigningRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E7E2200BEFB0047809D /* MscCertificateSigningRequest.h */; };
-		69819EBE2200BEFB0047809D /* MscCertificateSigningRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E7E2200BEFB0047809D /* MscCertificateSigningRequest.h */; };
-		69819EC22200BEFB0047809D /* MscX509Name.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E7F2200BEFB0047809D /* MscX509Name.m */; };
-		69819EC32200BEFB0047809D /* MscX509Name.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E7F2200BEFB0047809D /* MscX509Name.m */; };
-		69819EC72200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69819E802200BEFB0047809D /* MscX509Common-Prefix.pch */; };
-		69819EC82200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69819E802200BEFB0047809D /* MscX509Common-Prefix.pch */; };
-		69819ECC2200BEFB0047809D /* MscIssuerAndSerial.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E812200BEFB0047809D /* MscIssuerAndSerial.h */; };
-		69819ECD2200BEFB0047809D /* MscIssuerAndSerial.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E812200BEFB0047809D /* MscIssuerAndSerial.h */; };
-		69819ED12200BEFB0047809D /* MscX509CommonError.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E822200BEFB0047809D /* MscX509CommonError.m */; };
-		69819ED22200BEFB0047809D /* MscX509CommonError.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E822200BEFB0047809D /* MscX509CommonError.m */; };
-		69819ED62200BEFB0047809D /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E832200BEFB0047809D /* MscPKCS7.m */; };
-		69819ED72200BEFB0047809D /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E832200BEFB0047809D /* MscPKCS7.m */; };
-		69819EDB2200BEFB0047809D /* MscCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E842200BEFB0047809D /* MscCertificate.m */; };
-		69819EDC2200BEFB0047809D /* MscCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E842200BEFB0047809D /* MscCertificate.m */; };
-		69819EE02200BEFB0047809D /* MscCertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E852200BEFB0047809D /* MscCertificateUtils.h */; };
-		69819EE12200BEFB0047809D /* MscCertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E852200BEFB0047809D /* MscCertificateUtils.h */; };
-		69819EE52200BEFB0047809D /* MscRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E862200BEFB0047809D /* MscRSAKey.h */; };
-		69819EE62200BEFB0047809D /* MscRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E862200BEFB0047809D /* MscRSAKey.h */; };
-		69819EEA2200BEFB0047809D /* MscIssuerAndSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E872200BEFB0047809D /* MscIssuerAndSubject.h */; };
-		69819EEB2200BEFB0047809D /* MscIssuerAndSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E872200BEFB0047809D /* MscIssuerAndSubject.h */; };
-		69819EEF2200BEFB0047809D /* MscCertificateRevocationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E882200BEFB0047809D /* MscCertificateRevocationList.m */; };
-		69819EF02200BEFB0047809D /* MscCertificateRevocationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E882200BEFB0047809D /* MscCertificateRevocationList.m */; };
-		69819EF42200BEFB0047809D /* MscOpenSSLExtension.c in Sources */ = {isa = PBXBuildFile; fileRef = 69819E892200BEFB0047809D /* MscOpenSSLExtension.c */; };
-		69819EF52200BEFB0047809D /* MscOpenSSLExtension.c in Sources */ = {isa = PBXBuildFile; fileRef = 69819E892200BEFB0047809D /* MscOpenSSLExtension.c */; };
-		69819EF92200BEFB0047809D /* MscPKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8A2200BEFB0047809D /* MscPKCS12.h */; };
-		69819EFA2200BEFB0047809D /* MscPKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8A2200BEFB0047809D /* MscPKCS12.h */; };
-		69819EFE2200BEFB0047809D /* MscX509CommonLocalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8B2200BEFB0047809D /* MscX509CommonLocalException.h */; };
-		69819EFF2200BEFB0047809D /* MscX509CommonLocalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8B2200BEFB0047809D /* MscX509CommonLocalException.h */; };
-		69819F032200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8C2200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h */; };
-		69819F042200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8C2200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h */; };
-		69819F082200BEFB0047809D /* MscX509Name.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8D2200BEFB0047809D /* MscX509Name.h */; };
-		69819F092200BEFB0047809D /* MscX509Name.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8D2200BEFB0047809D /* MscX509Name.h */; };
-		69819F0D2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8E2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h */; };
-		69819F0E2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E8E2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h */; };
-		69819F122200BEFB0047809D /* MscCertificateSigningRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E8F2200BEFB0047809D /* MscCertificateSigningRequest.m */; };
-		69819F132200BEFB0047809D /* MscCertificateSigningRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E8F2200BEFB0047809D /* MscCertificateSigningRequest.m */; };
-		69819F172200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E902200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */; };
-		69819F182200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E902200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */; };
-		69819F1C2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E912200BEFB0047809D /* NSString+MscASCIIExtension.h */; };
-		69819F1D2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E912200BEFB0047809D /* NSString+MscASCIIExtension.h */; };
-		69819F212200BEFB0047809D /* MscIssuerAndSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E922200BEFB0047809D /* MscIssuerAndSerial.m */; };
-		69819F222200BEFB0047809D /* MscIssuerAndSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E922200BEFB0047809D /* MscIssuerAndSerial.m */; };
-		69819F262200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E932200BEFB0047809D /* MscCertificate_OpenSSL_X509.h */; };
-		69819F272200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E932200BEFB0047809D /* MscCertificate_OpenSSL_X509.h */; };
-		69819F2B2200BEFB0047809D /* MscRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E942200BEFB0047809D /* MscRSAKey.m */; };
-		69819F2C2200BEFB0047809D /* MscRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E942200BEFB0047809D /* MscRSAKey.m */; };
-		69819F302200BEFB0047809D /* MscCertificateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E952200BEFB0047809D /* MscCertificateUtils.m */; };
-		69819F312200BEFB0047809D /* MscCertificateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 69819E952200BEFB0047809D /* MscCertificateUtils.m */; };
-		69819F352200BEFB0047809D /* MscCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E962200BEFB0047809D /* MscCertificate.h */; };
-		69819F362200BEFB0047809D /* MscCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E962200BEFB0047809D /* MscCertificate.h */; };
-		69819F3A2200BEFB0047809D /* MscPKCS7.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E972200BEFB0047809D /* MscPKCS7.h */; };
-		69819F3B2200BEFB0047809D /* MscPKCS7.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E972200BEFB0047809D /* MscPKCS7.h */; };
-		69819F3F2200BEFB0047809D /* MscX509CommonError.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E982200BEFB0047809D /* MscX509CommonError.h */; };
-		69819F402200BEFB0047809D /* MscX509CommonError.h in Headers */ = {isa = PBXBuildFile; fileRef = 69819E982200BEFB0047809D /* MscX509CommonError.h */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6988A0DD25228D6700F15236 /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6988A0DB25228D6700F15236 /* libSEBSupport.a */; };
@@ -571,7 +505,6 @@
 		698AB41A2638630A00E84161 /* SEBiOSBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698AB4162638630A00E84161 /* SEBiOSBrowserController.m */; };
 		698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		698AB42C2638C2B900E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
-		698DFD00267E752100B8F1D6 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E0B31A21467A1C007ACF03 /* libmbedtls.a */; };
 		698DFD03267E978E00B8F1D6 /* SEBViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */; };
 		698DFD04267E978F00B8F1D6 /* SEBViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */; };
 		698DFD05267E97AD00B8F1D6 /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */; };
@@ -592,8 +525,6 @@
 		698DFD28267E9F2B00B8F1D6 /* ProcessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */; };
 		698DFD29267E9F2B00B8F1D6 /* ProcessListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */; };
 		698DFD2A267E9F2B00B8F1D6 /* ProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */; };
-		698DFD2D267E9F3E00B8F1D6 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 698DFD2B267E9F3E00B8F1D6 /* en.lproj */; };
-		698DFD2E267E9F3E00B8F1D6 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 698DFD2C267E9F3E00B8F1D6 /* de.lproj */; };
 		698DFD2F267EA0E700B8F1D6 /* SEBController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D5881F1189EB8F005AE3F1 /* SEBController.h */; };
 		698DFD33267EA11A00B8F1D6 /* AssessmentModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */; };
 		698DFD38267EA2CA00B8F1D6 /* HUDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD34267EA2C900B8F1D6 /* HUDController.m */; };
@@ -653,6 +584,74 @@
 		699D508126877EA80026D8D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */; };
 		699D508526878F430026D8D9 /* SEBTextViewNonEditing.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */; };
+		69A071F3268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */; };
+		69A071F4268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */; };
+		69A07216268A38AD00A0464B /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */; };
+		69A07217268A38AD00A0464B /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */; };
+		69A07218268A38AD00A0464B /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F6268A38A800A0464B /* MscPKCS7.m */; };
+		69A07219268A38AD00A0464B /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F6268A38A800A0464B /* MscPKCS7.m */; };
+		69A0721A268A38AD00A0464B /* MscIssuerAndSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F7268A38A800A0464B /* MscIssuerAndSubject.h */; };
+		69A0721B268A38AD00A0464B /* MscIssuerAndSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F7268A38A800A0464B /* MscIssuerAndSubject.h */; };
+		69A0721C268A38AD00A0464B /* MscPKCS7.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F8268A38A900A0464B /* MscPKCS7.h */; };
+		69A0721D268A38AD00A0464B /* MscPKCS7.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F8268A38A900A0464B /* MscPKCS7.h */; };
+		69A0721E268A38AD00A0464B /* MscX509Common-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F9268A38A900A0464B /* MscX509Common-Prefix.pch */; };
+		69A0721F268A38AD00A0464B /* MscX509Common-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F9268A38A900A0464B /* MscX509Common-Prefix.pch */; };
+		69A07220268A38AD00A0464B /* MscCertificateRevocationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071FA268A38A900A0464B /* MscCertificateRevocationList.m */; };
+		69A07221268A38AD00A0464B /* MscCertificateRevocationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071FA268A38A900A0464B /* MscCertificateRevocationList.m */; };
+		69A07222268A38AD00A0464B /* MscPKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FB268A38A900A0464B /* MscPKCS12.h */; };
+		69A07223268A38AD00A0464B /* MscPKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FB268A38A900A0464B /* MscPKCS12.h */; };
+		69A07224268A38AD00A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FC268A38A900A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */; };
+		69A07225268A38AD00A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FC268A38A900A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */; };
+		69A07226268A38AD00A0464B /* MscRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071FD268A38A900A0464B /* MscRSAKey.m */; };
+		69A07227268A38AD00A0464B /* MscRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071FD268A38A900A0464B /* MscRSAKey.m */; };
+		69A07228268A38AD00A0464B /* MscCertificateSigningRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FE268A38AA00A0464B /* MscCertificateSigningRequest.h */; };
+		69A07229268A38AD00A0464B /* MscCertificateSigningRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FE268A38AA00A0464B /* MscCertificateSigningRequest.h */; };
+		69A0722A268A38AD00A0464B /* MscX509Name.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FF268A38AA00A0464B /* MscX509Name.h */; };
+		69A0722B268A38AD00A0464B /* MscX509Name.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FF268A38AA00A0464B /* MscX509Name.h */; };
+		69A0722C268A38AD00A0464B /* MscOpenSSLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07200268A38AA00A0464B /* MscOpenSSLExtension.h */; };
+		69A0722D268A38AD00A0464B /* MscOpenSSLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07200268A38AA00A0464B /* MscOpenSSLExtension.h */; };
+		69A0722E268A38AD00A0464B /* MscCertificateRevocationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07201268A38AA00A0464B /* MscCertificateRevocationList.h */; };
+		69A0722F268A38AD00A0464B /* MscCertificateRevocationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07201268A38AA00A0464B /* MscCertificateRevocationList.h */; };
+		69A07230268A38AD00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07202268A38AA00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */; };
+		69A07231268A38AD00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07202268A38AA00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */; };
+		69A07232268A38AD00A0464B /* MscCertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07203268A38AA00A0464B /* MscCertificateUtils.h */; };
+		69A07233268A38AD00A0464B /* MscCertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07203268A38AA00A0464B /* MscCertificateUtils.h */; };
+		69A07234268A38AD00A0464B /* MscOpenSSLExtension.c in Sources */ = {isa = PBXBuildFile; fileRef = 69A07204268A38AA00A0464B /* MscOpenSSLExtension.c */; };
+		69A07235268A38AD00A0464B /* MscOpenSSLExtension.c in Sources */ = {isa = PBXBuildFile; fileRef = 69A07204268A38AA00A0464B /* MscOpenSSLExtension.c */; };
+		69A07236268A38AD00A0464B /* MscPKCS12_OpenSSL_PKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07205268A38AB00A0464B /* MscPKCS12_OpenSSL_PKCS12.h */; };
+		69A07237268A38AD00A0464B /* MscPKCS12_OpenSSL_PKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07205268A38AB00A0464B /* MscPKCS12_OpenSSL_PKCS12.h */; };
+		69A07238268A38AD00A0464B /* MscRSAKey_OpenSSL_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07206268A38AB00A0464B /* MscRSAKey_OpenSSL_RSA.h */; };
+		69A07239268A38AD00A0464B /* MscRSAKey_OpenSSL_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07206268A38AB00A0464B /* MscRSAKey_OpenSSL_RSA.h */; };
+		69A0723A268A38AD00A0464B /* MscX509CommonLocalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07207268A38AB00A0464B /* MscX509CommonLocalException.m */; };
+		69A0723B268A38AD00A0464B /* MscX509CommonLocalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07207268A38AB00A0464B /* MscX509CommonLocalException.m */; };
+		69A0723C268A38AD00A0464B /* NSString+MscASCIIExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07208268A38AB00A0464B /* NSString+MscASCIIExtension.h */; };
+		69A0723D268A38AD00A0464B /* NSString+MscASCIIExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07208268A38AB00A0464B /* NSString+MscASCIIExtension.h */; };
+		69A0723E268A38AD00A0464B /* MscX509CommonLocalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07209268A38AB00A0464B /* MscX509CommonLocalException.h */; };
+		69A0723F268A38AD00A0464B /* MscX509CommonLocalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07209268A38AB00A0464B /* MscX509CommonLocalException.h */; };
+		69A07240268A38AD00A0464B /* MscCertificateSigningRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720A268A38AB00A0464B /* MscCertificateSigningRequest.m */; };
+		69A07241268A38AD00A0464B /* MscCertificateSigningRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720A268A38AB00A0464B /* MscCertificateSigningRequest.m */; };
+		69A07242268A38AD00A0464B /* MscIssuerAndSerial.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A0720B268A38AB00A0464B /* MscIssuerAndSerial.h */; };
+		69A07243268A38AD00A0464B /* MscIssuerAndSerial.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A0720B268A38AB00A0464B /* MscIssuerAndSerial.h */; };
+		69A07244268A38AD00A0464B /* MscPKCS12.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720C268A38AC00A0464B /* MscPKCS12.m */; };
+		69A07245268A38AD00A0464B /* MscPKCS12.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720C268A38AC00A0464B /* MscPKCS12.m */; };
+		69A07246268A38AD00A0464B /* MscRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A0720D268A38AC00A0464B /* MscRSAKey.h */; };
+		69A07247268A38AD00A0464B /* MscRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A0720D268A38AC00A0464B /* MscRSAKey.h */; };
+		69A07248268A38AD00A0464B /* MscX509Name.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720E268A38AC00A0464B /* MscX509Name.m */; };
+		69A07249268A38AD00A0464B /* MscX509Name.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720E268A38AC00A0464B /* MscX509Name.m */; };
+		69A0724A268A38AD00A0464B /* MscCertificateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720F268A38AC00A0464B /* MscCertificateUtils.m */; };
+		69A0724B268A38AD00A0464B /* MscCertificateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720F268A38AC00A0464B /* MscCertificateUtils.m */; };
+		69A0724C268A38AD00A0464B /* MscX509CommonError.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07210268A38AC00A0464B /* MscX509CommonError.h */; };
+		69A0724D268A38AD00A0464B /* MscX509CommonError.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07210268A38AC00A0464B /* MscX509CommonError.h */; };
+		69A0724E268A38AD00A0464B /* MscCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07211268A38AC00A0464B /* MscCertificate.h */; };
+		69A0724F268A38AD00A0464B /* MscCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07211268A38AC00A0464B /* MscCertificate.h */; };
+		69A07250268A38AD00A0464B /* MscCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07212268A38AD00A0464B /* MscCertificate.m */; };
+		69A07251268A38AD00A0464B /* MscCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07212268A38AD00A0464B /* MscCertificate.m */; };
+		69A07252268A38AD00A0464B /* MscIssuerAndSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07213268A38AD00A0464B /* MscIssuerAndSerial.m */; };
+		69A07253268A38AD00A0464B /* MscIssuerAndSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07213268A38AD00A0464B /* MscIssuerAndSerial.m */; };
+		69A07254268A38AD00A0464B /* MscX509CommonError.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07214268A38AD00A0464B /* MscX509CommonError.m */; };
+		69A07255268A38AE00A0464B /* MscX509CommonError.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07214268A38AD00A0464B /* MscX509CommonError.m */; };
+		69A07256268A38AE00A0464B /* NSString+MscASCIIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07215268A38AD00A0464B /* NSString+MscASCIIExtension.m */; };
+		69A07257268A38AE00A0464B /* NSString+MscASCIIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07215268A38AD00A0464B /* NSString+MscASCIIExtension.m */; };
 		69A0FDB02652DD6500DF1AD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
 		69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */; };
 		69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
@@ -1112,6 +1111,8 @@
 		69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomTextIn@2x.png"; path = "Resources/Icons/ZoomTextIn@2x.png"; sourceTree = "<group>"; };
 		69428CF2172F2E2500C87C58 /* ZoomTextOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomTextOut.png; path = Resources/Icons/ZoomTextOut.png; sourceTree = "<group>"; };
 		69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomTextOut@2x.png"; path = "Resources/Icons/ZoomTextOut@2x.png"; sourceTree = "<group>"; };
+		69433AF4268A7F37005E59A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProcessListView.xib; sourceTree = "<group>"; };
+		69433AF6268A7F7A005E59A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/ProcessListView.xib; sourceTree = "<group>"; };
 		6943D0741655054600AB6B1D /* PrefsExamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsExamViewController.h; sourceTree = "<group>"; };
 		6943D0751655054600AB6B1D /* PrefsExamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsExamViewController.m; sourceTree = "<group>"; };
 		6946373E1498FEF000C896D0 /* WebKit+WebKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebKit+WebKitExtensions.h"; sourceTree = "<group>"; };
@@ -1246,40 +1247,6 @@
 		697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBEncapsulatedSettings.h; sourceTree = "<group>"; };
 		697DF7F21BEDE37800F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		697DF7F31BEDE5EA00F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
-		69819E772200BEFB0047809D /* MscX509CommonLocalException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509CommonLocalException.m; sourceTree = "<group>"; };
-		69819E782200BEFB0047809D /* MscPKCS12.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS12.m; sourceTree = "<group>"; };
-		69819E792200BEFB0047809D /* MscOpenSSLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscOpenSSLExtension.h; sourceTree = "<group>"; };
-		69819E7A2200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateSigningRequest_OpenSSL_X509_REQ.h; sourceTree = "<group>"; };
-		69819E7B2200BEFB0047809D /* MscCertificateRevocationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateRevocationList.h; sourceTree = "<group>"; };
-		69819E7C2200BEFB0047809D /* MscIssuerAndSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSubject.m; sourceTree = "<group>"; };
-		69819E7D2200BEFB0047809D /* NSString+MscASCIIExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MscASCIIExtension.m"; sourceTree = "<group>"; };
-		69819E7E2200BEFB0047809D /* MscCertificateSigningRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateSigningRequest.h; sourceTree = "<group>"; };
-		69819E7F2200BEFB0047809D /* MscX509Name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509Name.m; sourceTree = "<group>"; };
-		69819E802200BEFB0047809D /* MscX509Common-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MscX509Common-Prefix.pch"; sourceTree = "<group>"; };
-		69819E812200BEFB0047809D /* MscIssuerAndSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscIssuerAndSerial.h; sourceTree = "<group>"; };
-		69819E822200BEFB0047809D /* MscX509CommonError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509CommonError.m; sourceTree = "<group>"; };
-		69819E832200BEFB0047809D /* MscPKCS7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS7.m; sourceTree = "<group>"; };
-		69819E842200BEFB0047809D /* MscCertificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificate.m; sourceTree = "<group>"; };
-		69819E852200BEFB0047809D /* MscCertificateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateUtils.h; sourceTree = "<group>"; };
-		69819E862200BEFB0047809D /* MscRSAKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscRSAKey.h; sourceTree = "<group>"; };
-		69819E872200BEFB0047809D /* MscIssuerAndSubject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscIssuerAndSubject.h; sourceTree = "<group>"; };
-		69819E882200BEFB0047809D /* MscCertificateRevocationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateRevocationList.m; sourceTree = "<group>"; };
-		69819E892200BEFB0047809D /* MscOpenSSLExtension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MscOpenSSLExtension.c; sourceTree = "<group>"; };
-		69819E8A2200BEFB0047809D /* MscPKCS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS12.h; sourceTree = "<group>"; };
-		69819E8B2200BEFB0047809D /* MscX509CommonLocalException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509CommonLocalException.h; sourceTree = "<group>"; };
-		69819E8C2200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS12_OpenSSL_PKCS12.h; sourceTree = "<group>"; };
-		69819E8D2200BEFB0047809D /* MscX509Name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509Name.h; sourceTree = "<group>"; };
-		69819E8E2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscRSAKey_OpenSSL_RSA.h; sourceTree = "<group>"; };
-		69819E8F2200BEFB0047809D /* MscCertificateSigningRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateSigningRequest.m; sourceTree = "<group>"; };
-		69819E902200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateRevocationList_OpenSSL_X509_CRL.h; sourceTree = "<group>"; };
-		69819E912200BEFB0047809D /* NSString+MscASCIIExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MscASCIIExtension.h"; sourceTree = "<group>"; };
-		69819E922200BEFB0047809D /* MscIssuerAndSerial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSerial.m; sourceTree = "<group>"; };
-		69819E932200BEFB0047809D /* MscCertificate_OpenSSL_X509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate_OpenSSL_X509.h; sourceTree = "<group>"; };
-		69819E942200BEFB0047809D /* MscRSAKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscRSAKey.m; sourceTree = "<group>"; };
-		69819E952200BEFB0047809D /* MscCertificateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateUtils.m; sourceTree = "<group>"; };
-		69819E962200BEFB0047809D /* MscCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate.h; sourceTree = "<group>"; };
-		69819E972200BEFB0047809D /* MscPKCS7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS7.h; sourceTree = "<group>"; };
-		69819E982200BEFB0047809D /* MscX509CommonError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509CommonError.h; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		6988A0DA25228D4700F15236 /* libSEBSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEBSupport.a; path = SEB/Frameworks/libSEBSupport.a; sourceTree = "<group>"; };
@@ -1304,8 +1271,6 @@
 		698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessManager.h; sourceTree = "<group>"; };
 		698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessListViewController.h; sourceTree = "<group>"; };
 		698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessManager.m; sourceTree = "<group>"; };
-		698DFD2B267E9F3E00B8F1D6 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
-		698DFD2C267E9F3E00B8F1D6 /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = de.lproj; sourceTree = "<group>"; };
 		698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssessmentModeManager.h; sourceTree = "<group>"; };
 		698DFD34267EA2C900B8F1D6 /* HUDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDController.m; sourceTree = "<group>"; };
 		698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssessmentModeManager.m; path = Classes/SystemManager/AssessmentModeManager.m; sourceTree = SOURCE_ROOT; };
@@ -1347,6 +1312,40 @@
 		699D508026877EA80026D8D9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Safe Exam Browser/Images.xcassets"; sourceTree = "<group>"; };
 		699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextViewNonEditing.m; sourceTree = "<group>"; };
 		699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextViewNonEditing.h; sourceTree = "<group>"; };
+		69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate_OpenSSL_X509.h; sourceTree = "<group>"; };
+		69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSubject.m; sourceTree = "<group>"; };
+		69A071F6268A38A800A0464B /* MscPKCS7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS7.m; sourceTree = "<group>"; };
+		69A071F7268A38A800A0464B /* MscIssuerAndSubject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscIssuerAndSubject.h; sourceTree = "<group>"; };
+		69A071F8268A38A900A0464B /* MscPKCS7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS7.h; sourceTree = "<group>"; };
+		69A071F9268A38A900A0464B /* MscX509Common-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MscX509Common-Prefix.pch"; sourceTree = "<group>"; };
+		69A071FA268A38A900A0464B /* MscCertificateRevocationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateRevocationList.m; sourceTree = "<group>"; };
+		69A071FB268A38A900A0464B /* MscPKCS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS12.h; sourceTree = "<group>"; };
+		69A071FC268A38A900A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateRevocationList_OpenSSL_X509_CRL.h; sourceTree = "<group>"; };
+		69A071FD268A38A900A0464B /* MscRSAKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscRSAKey.m; sourceTree = "<group>"; };
+		69A071FE268A38AA00A0464B /* MscCertificateSigningRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateSigningRequest.h; sourceTree = "<group>"; };
+		69A071FF268A38AA00A0464B /* MscX509Name.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509Name.h; sourceTree = "<group>"; };
+		69A07200268A38AA00A0464B /* MscOpenSSLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscOpenSSLExtension.h; sourceTree = "<group>"; };
+		69A07201268A38AA00A0464B /* MscCertificateRevocationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateRevocationList.h; sourceTree = "<group>"; };
+		69A07202268A38AA00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateSigningRequest_OpenSSL_X509_REQ.h; sourceTree = "<group>"; };
+		69A07203268A38AA00A0464B /* MscCertificateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificateUtils.h; sourceTree = "<group>"; };
+		69A07204268A38AA00A0464B /* MscOpenSSLExtension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MscOpenSSLExtension.c; sourceTree = "<group>"; };
+		69A07205268A38AB00A0464B /* MscPKCS12_OpenSSL_PKCS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscPKCS12_OpenSSL_PKCS12.h; sourceTree = "<group>"; };
+		69A07206268A38AB00A0464B /* MscRSAKey_OpenSSL_RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscRSAKey_OpenSSL_RSA.h; sourceTree = "<group>"; };
+		69A07207268A38AB00A0464B /* MscX509CommonLocalException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509CommonLocalException.m; sourceTree = "<group>"; };
+		69A07208268A38AB00A0464B /* NSString+MscASCIIExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MscASCIIExtension.h"; sourceTree = "<group>"; };
+		69A07209268A38AB00A0464B /* MscX509CommonLocalException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509CommonLocalException.h; sourceTree = "<group>"; };
+		69A0720A268A38AB00A0464B /* MscCertificateSigningRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateSigningRequest.m; sourceTree = "<group>"; };
+		69A0720B268A38AB00A0464B /* MscIssuerAndSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscIssuerAndSerial.h; sourceTree = "<group>"; };
+		69A0720C268A38AC00A0464B /* MscPKCS12.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS12.m; sourceTree = "<group>"; };
+		69A0720D268A38AC00A0464B /* MscRSAKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscRSAKey.h; sourceTree = "<group>"; };
+		69A0720E268A38AC00A0464B /* MscX509Name.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509Name.m; sourceTree = "<group>"; };
+		69A0720F268A38AC00A0464B /* MscCertificateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificateUtils.m; sourceTree = "<group>"; };
+		69A07210268A38AC00A0464B /* MscX509CommonError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscX509CommonError.h; sourceTree = "<group>"; };
+		69A07211268A38AC00A0464B /* MscCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate.h; sourceTree = "<group>"; };
+		69A07212268A38AD00A0464B /* MscCertificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscCertificate.m; sourceTree = "<group>"; };
+		69A07213268A38AD00A0464B /* MscIssuerAndSerial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSerial.m; sourceTree = "<group>"; };
+		69A07214268A38AD00A0464B /* MscX509CommonError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscX509CommonError.m; sourceTree = "<group>"; };
+		69A07215268A38AD00A0464B /* NSString+MscASCIIExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MscASCIIExtension.m"; sourceTree = "<group>"; };
 		69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSConfigFileController.h; path = Classes/ConfigFiles/SEBiOSConfigFileController.h; sourceTree = "<group>"; };
 		69A223401C20E38600766354 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1588,15 +1587,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69433AEC268A793F005E59A5 /* libmbedtls.a in Frameworks */,
+				8DE31FEF9851E3ED88004761 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 				6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */,
 				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
-				698DFD00267E752100B8F1D6 /* libmbedtls.a in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				8DE31FEF9851E3ED88004761 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2410,58 +2409,16 @@
 			path = Classes/Proctoring;
 			sourceTree = "<group>";
 		};
-		69819E762200BEFB0047809D /* MscX509Common */ = {
-			isa = PBXGroup;
-			children = (
-				69819E772200BEFB0047809D /* MscX509CommonLocalException.m */,
-				69819E792200BEFB0047809D /* MscOpenSSLExtension.h */,
-				69819E7A2200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */,
-				69819E7B2200BEFB0047809D /* MscCertificateRevocationList.h */,
-				69819E882200BEFB0047809D /* MscCertificateRevocationList.m */,
-				69819E902200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */,
-				69819E7D2200BEFB0047809D /* NSString+MscASCIIExtension.m */,
-				69819E7E2200BEFB0047809D /* MscCertificateSigningRequest.h */,
-				69819E8F2200BEFB0047809D /* MscCertificateSigningRequest.m */,
-				69819E8D2200BEFB0047809D /* MscX509Name.h */,
-				69819E7F2200BEFB0047809D /* MscX509Name.m */,
-				69819E802200BEFB0047809D /* MscX509Common-Prefix.pch */,
-				69819E812200BEFB0047809D /* MscIssuerAndSerial.h */,
-				69819E922200BEFB0047809D /* MscIssuerAndSerial.m */,
-				69819E872200BEFB0047809D /* MscIssuerAndSubject.h */,
-				69819E7C2200BEFB0047809D /* MscIssuerAndSubject.m */,
-				69819E982200BEFB0047809D /* MscX509CommonError.h */,
-				69819E822200BEFB0047809D /* MscX509CommonError.m */,
-				69819E972200BEFB0047809D /* MscPKCS7.h */,
-				69819E832200BEFB0047809D /* MscPKCS7.m */,
-				69819E8A2200BEFB0047809D /* MscPKCS12.h */,
-				69819E782200BEFB0047809D /* MscPKCS12.m */,
-				69819E962200BEFB0047809D /* MscCertificate.h */,
-				69819E842200BEFB0047809D /* MscCertificate.m */,
-				69819E892200BEFB0047809D /* MscOpenSSLExtension.c */,
-				69819E8B2200BEFB0047809D /* MscX509CommonLocalException.h */,
-				69819E8C2200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h */,
-				69819E8E2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h */,
-				69819E912200BEFB0047809D /* NSString+MscASCIIExtension.h */,
-				69819E932200BEFB0047809D /* MscCertificate_OpenSSL_X509.h */,
-				69819E862200BEFB0047809D /* MscRSAKey.h */,
-				69819E942200BEFB0047809D /* MscRSAKey.m */,
-				69819E852200BEFB0047809D /* MscCertificateUtils.h */,
-				69819E952200BEFB0047809D /* MscCertificateUtils.m */,
-			);
-			path = MscX509Common;
-			sourceTree = "<group>";
-		};
 		698DFD1E267E9E8A00B8F1D6 /* ProcessMonitoring */ = {
 			isa = PBXGroup;
 			children = (
-				698DFD2C267E9F3E00B8F1D6 /* de.lproj */,
-				698DFD2B267E9F3E00B8F1D6 /* en.lproj */,
 				698DFD20267E9F2B00B8F1D6 /* ProcessListElement.h */,
 				698DFD1F267E9F2B00B8F1D6 /* ProcessListElement.m */,
 				698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */,
 				698DFD21267E9F2B00B8F1D6 /* ProcessListViewController.m */,
 				698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */,
 				698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */,
+				69433AF3268A7F37005E59A5 /* ProcessListView.xib */,
 			);
 			name = ProcessMonitoring;
 			path = Classes/ProcessMonitoring;
@@ -2489,6 +2446,48 @@
 				69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69A071EE268A37E700A0464B /* MscX509Common */ = {
+			isa = PBXGroup;
+			children = (
+				69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */,
+				69A07211268A38AC00A0464B /* MscCertificate.h */,
+				69A07212268A38AD00A0464B /* MscCertificate.m */,
+				69A071FC268A38A900A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */,
+				69A07201268A38AA00A0464B /* MscCertificateRevocationList.h */,
+				69A071FA268A38A900A0464B /* MscCertificateRevocationList.m */,
+				69A07202268A38AA00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */,
+				69A071FE268A38AA00A0464B /* MscCertificateSigningRequest.h */,
+				69A0720A268A38AB00A0464B /* MscCertificateSigningRequest.m */,
+				69A07203268A38AA00A0464B /* MscCertificateUtils.h */,
+				69A0720F268A38AC00A0464B /* MscCertificateUtils.m */,
+				69A0720B268A38AB00A0464B /* MscIssuerAndSerial.h */,
+				69A07213268A38AD00A0464B /* MscIssuerAndSerial.m */,
+				69A071F7268A38A800A0464B /* MscIssuerAndSubject.h */,
+				69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */,
+				69A07204268A38AA00A0464B /* MscOpenSSLExtension.c */,
+				69A07200268A38AA00A0464B /* MscOpenSSLExtension.h */,
+				69A071F8268A38A900A0464B /* MscPKCS7.h */,
+				69A071F6268A38A800A0464B /* MscPKCS7.m */,
+				69A07205268A38AB00A0464B /* MscPKCS12_OpenSSL_PKCS12.h */,
+				69A071FB268A38A900A0464B /* MscPKCS12.h */,
+				69A0720C268A38AC00A0464B /* MscPKCS12.m */,
+				69A07206268A38AB00A0464B /* MscRSAKey_OpenSSL_RSA.h */,
+				69A0720D268A38AC00A0464B /* MscRSAKey.h */,
+				69A071FD268A38A900A0464B /* MscRSAKey.m */,
+				69A071F9268A38A900A0464B /* MscX509Common-Prefix.pch */,
+				69A07210268A38AC00A0464B /* MscX509CommonError.h */,
+				69A07214268A38AD00A0464B /* MscX509CommonError.m */,
+				69A07209268A38AB00A0464B /* MscX509CommonLocalException.h */,
+				69A07207268A38AB00A0464B /* MscX509CommonLocalException.m */,
+				69A071FF268A38AA00A0464B /* MscX509Name.h */,
+				69A0720E268A38AC00A0464B /* MscX509Name.m */,
+				69A07208268A38AB00A0464B /* NSString+MscASCIIExtension.h */,
+				69A07215268A38AD00A0464B /* NSString+MscASCIIExtension.m */,
+			);
+			name = MscX509Common;
+			path = Classes/Cryptography/MscX509Common;
 			sourceTree = "<group>";
 		};
 		69A223391C20C0BE00766354 /* Config Files */ = {
@@ -2638,7 +2637,7 @@
 		69E4EDFA1C208ED800F5E5EB /* Cryptography */ = {
 			isa = PBXGroup;
 			children = (
-				69819E762200BEFB0047809D /* MscX509Common */,
+				69A071EE268A37E700A0464B /* MscX509Common */,
 				69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */,
 				69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */,
 			);
@@ -2693,18 +2692,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69819F1D2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */,
+				69A0721F268A38AD00A0464B /* MscX509Common-Prefix.pch in Headers */,
 				69421653214544AB002EB416 /* AboutSEBiOSViewController.h in Headers */,
+				69A07247268A38AD00A0464B /* MscRSAKey.h in Headers */,
+				69A0722F268A38AD00A0464B /* MscCertificateRevocationList.h in Headers */,
 				69D35D24217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
 				6974C04A2475E354009F0529 /* ProctoringVideoCapturer.h in Headers */,
 				693FB271232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC621DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				697852C82177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69E977D725F040F400634D74 /* SEBAbstractClassicWebView.h in Headers */,
+				69A07239268A38AD00A0464B /* MscRSAKey_OpenSSL_RSA.h in Headers */,
 				69421654214544AB002EB416 /* SEBLockedViewController.h in Headers */,
 				69421655214544AB002EB416 /* SEBNavigationController.h in Headers */,
 				69F522A621467188009F3999 /* CacheStoragePolicy.h in Headers */,
-				69819EA52200BEFB0047809D /* MscOpenSSLExtension.h in Headers */,
+				69A07231268A38AD00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
 				69421656214544AB002EB416 /* SEBiOSLockedViewController.h in Headers */,
 				69421657214544AB002EB416 /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				69421658214544AB002EB416 /* LGSideMenuGesturesHandler.h in Headers */,
@@ -2712,33 +2714,28 @@
 				6942165A214544AB002EB416 /* UIViewController+LGSideMenuController.h in Headers */,
 				6942165B214544AB002EB416 /* SEBiOSKeychainManager.h in Headers */,
 				6942165C214544AB002EB416 /* SEBConfigFileCredentials.h in Headers */,
-				69819F092200BEFB0047809D /* MscX509Name.h in Headers */,
 				69478CF42208985D00352CFA /* UIDragInteraction+Restrict.h in Headers */,
-				69819F0E2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h in Headers */,
-				69819EFF2200BEFB0047809D /* MscX509CommonLocalException.h in Headers */,
 				6942165D214544AB002EB416 /* LGSideMenuView.h in Headers */,
-				69819F362200BEFB0047809D /* MscCertificate.h in Headers */,
-				69819EAF2200BEFB0047809D /* MscCertificateRevocationList.h in Headers */,
 				6942165E214544AB002EB416 /* SEBBrowserController.h in Headers */,
 				6942165F214544AB002EB416 /* SynthesizeSingleton.h in Headers */,
+				69A0721B268A38AD00A0464B /* MscIssuerAndSubject.h in Headers */,
+				69A0722D268A38AD00A0464B /* MscOpenSSLExtension.h in Headers */,
 				69421660214544AB002EB416 /* LGSideMenuController.h in Headers */,
+				69A07229268A38AD00A0464B /* MscCertificateSigningRequest.h in Headers */,
 				698DFD06267E97AE00B8F1D6 /* AppDelegate.h in Headers */,
-				69819EFA2200BEFB0047809D /* MscPKCS12.h in Headers */,
+				69A07237268A38AD00A0464B /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
 				69B5E2AB25756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
 				69421661214544AB002EB416 /* Webpages.h in Headers */,
 				69421662214544AB002EB416 /* NSData+NSDataZIPExtension.h in Headers */,
-				69819F042200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
+				69A07225268A38AD00A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
 				69F522AB21467188009F3999 /* CanonicalRequest.h in Headers */,
 				69421663214544AB002EB416 /* SEBWebViewController.h in Headers */,
 				698AB4182638630A00E84161 /* SEBiOSBrowserController.h in Headers */,
 				69421664214544AB002EB416 /* UIWebView+SEBWebView.h in Headers */,
-				69819ECD2200BEFB0047809D /* MscIssuerAndSerial.h in Headers */,
-				69819EBE2200BEFB0047809D /* MscCertificateSigningRequest.h in Headers */,
 				6914D1252183A156004F4A4B /* SEBInAppSettingsViewController.h in Headers */,
 				69421665214544AB002EB416 /* SEBActionUITableViewCell.h in Headers */,
 				697852C32177AC7300E93AD8 /* SEBSettings.h in Headers */,
 				69D35D28217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */,
-				69819EC82200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				69421666214544AB002EB416 /* SEBTextField.h in Headers */,
 				69421667214544AB002EB416 /* SEBInitAssistantViewController.h in Headers */,
 				69BBAE58232702BD005BC19F /* ServerLogger.h in Headers */,
@@ -2746,30 +2743,33 @@
 				69421668214544AB002EB416 /* SEBiOSConfigFileController.h in Headers */,
 				69421669214544AB002EB416 /* SEB_Prefix.pch in Headers */,
 				6942166A214544AB002EB416 /* Constants.h in Headers */,
+				69A0723F268A38AD00A0464B /* MscX509CommonLocalException.h in Headers */,
+				69A07243268A38AD00A0464B /* MscIssuerAndSerial.h in Headers */,
+				69A0723D268A38AD00A0464B /* NSString+MscASCIIExtension.h in Headers */,
+				69A0724D268A38AD00A0464B /* MscX509CommonError.h in Headers */,
+				69A07233268A38AD00A0464B /* MscCertificateUtils.h in Headers */,
+				69A0724F268A38AD00A0464B /* MscCertificate.h in Headers */,
 				6942166B214544AB002EB416 /* SEBUIController.h in Headers */,
-				69819EE12200BEFB0047809D /* MscCertificateUtils.h in Headers */,
 				69E036C5230D8E1700DCBDA6 /* SEB Dev-Bridging-Header.h in Headers */,
-				69819F272200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69B1D476230D7586005656B8 /* ServerController.h in Headers */,
+				69A0722B268A38AD00A0464B /* MscX509Name.h in Headers */,
 				6942166C214544AB002EB416 /* OpenWebpages.h in Headers */,
 				698DFD04267E978F00B8F1D6 /* SEBViewController.h in Headers */,
 				6942166D214544AB002EB416 /* LGSideMenuHelper.h in Headers */,
 				69F522BA21467188009F3999 /* CustomHTTPProtocol.h in Headers */,
 				69E977FF25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */,
 				69D35D26217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
+				69A0721D268A38AD00A0464B /* MscPKCS7.h in Headers */,
 				6942166E214544AB002EB416 /* SEBIASKSecureSettingsStore.h in Headers */,
 				6942166F214544AB002EB416 /* LGSideMenuSegue.h in Headers */,
 				69F90021232309BB003A5015 /* ExamCell.h in Headers */,
+				69A07223268A38AD00A0464B /* MscPKCS12.h in Headers */,
+				69A071F4268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69421670214544AB002EB416 /* SEBConfigFileManager.h in Headers */,
-				69819EE62200BEFB0047809D /* MscRSAKey.h in Headers */,
 				69421671214544AB002EB416 /* SEBSearchBarViewController.h in Headers */,
-				69819F402200BEFB0047809D /* MscX509CommonError.h in Headers */,
-				69819EEB2200BEFB0047809D /* MscIssuerAndSubject.h in Headers */,
 				69421672214544AB002EB416 /* SEBDetailViewController.h in Headers */,
 				6914D1332183A260004F4A4B /* CustomViewCell.h in Headers */,
-				69819F3B2200BEFB0047809D /* MscPKCS7.h in Headers */,
 				69F522C62146720C009F3999 /* SEBCertServices.h in Headers */,
-				69819F182200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
 				69AEC957218A228300848945 /* SEBFilteredURLCache.h in Headers */,
 				69421673214544AB002EB416 /* SEBiOSInitAssistantViewController.h in Headers */,
 				69421674214544AB002EB416 /* SEBAboutController.h in Headers */,
@@ -2779,7 +2779,6 @@
 				69421677214544AB002EB416 /* SEBMasterViewController.h in Headers */,
 				69421678214544AB002EB416 /* SEBBrowserTabViewController.h in Headers */,
 				69421679214544AB002EB416 /* SEBSliderItem.h in Headers */,
-				69819EAA2200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2787,18 +2786,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69819F1C2200BEFB0047809D /* NSString+MscASCIIExtension.h in Headers */,
+				69A0721E268A38AD00A0464B /* MscX509Common-Prefix.pch in Headers */,
 				69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
+				69A07246268A38AD00A0464B /* MscRSAKey.h in Headers */,
+				69A0722E268A38AD00A0464B /* MscCertificateRevocationList.h in Headers */,
 				69D35D1E217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */,
 				6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */,
 				693FB270232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC521DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69E977D625F040F400634D74 /* SEBAbstractClassicWebView.h in Headers */,
+				69A07238268A38AD00A0464B /* MscRSAKey_OpenSSL_RSA.h in Headers */,
 				69331F0B1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */,
 				6949A47B1D0B8D9E0040ABF1 /* SEBNavigationController.h in Headers */,
 				69F522A521467188009F3999 /* CacheStoragePolicy.h in Headers */,
-				69819EA42200BEFB0047809D /* MscOpenSSLExtension.h in Headers */,
+				69A07230268A38AD00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
 				69331F061C10AD750038BD31 /* SEBiOSLockedViewController.h in Headers */,
 				6930D2271C205F4B0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				695370A82033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
@@ -2806,33 +2808,28 @@
 				695370B12033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */,
 				69A3FCD51C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
-				69819F082200BEFB0047809D /* MscX509Name.h in Headers */,
 				69478CF32208985D00352CFA /* UIDragInteraction+Restrict.h in Headers */,
-				69819F0D2200BEFB0047809D /* MscRSAKey_OpenSSL_RSA.h in Headers */,
-				69819EFE2200BEFB0047809D /* MscX509CommonLocalException.h in Headers */,
 				695370BA2033921C00C638A8 /* LGSideMenuView.h in Headers */,
-				69819F352200BEFB0047809D /* MscCertificate.h in Headers */,
-				69819EAE2200BEFB0047809D /* MscCertificateRevocationList.h in Headers */,
 				69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */,
 				6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */,
+				69A0721A268A38AD00A0464B /* MscIssuerAndSubject.h in Headers */,
+				69A0722C268A38AD00A0464B /* MscOpenSSLExtension.h in Headers */,
 				6953709F2033921C00C638A8 /* LGSideMenuController.h in Headers */,
+				69A07228268A38AD00A0464B /* MscCertificateSigningRequest.h in Headers */,
 				698DFD05267E97AD00B8F1D6 /* AppDelegate.h in Headers */,
-				69819EF92200BEFB0047809D /* MscPKCS12.h in Headers */,
+				69A07236268A38AD00A0464B /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
 				69B5E2AA25756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
 				696DAD511C3C7C9A00397E18 /* Webpages.h in Headers */,
 				69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */,
-				69819F032200BEFB0047809D /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
+				69A07224268A38AD00A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
 				69F522AA21467188009F3999 /* CanonicalRequest.h in Headers */,
 				696DAD431C3C2D0500397E18 /* SEBWebViewController.h in Headers */,
 				698AB4172638630A00E84161 /* SEBiOSBrowserController.h in Headers */,
 				696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */,
-				69819ECC2200BEFB0047809D /* MscIssuerAndSerial.h in Headers */,
-				69819EBD2200BEFB0047809D /* MscCertificateSigningRequest.h in Headers */,
 				6914D1242183A156004F4A4B /* SEBInAppSettingsViewController.h in Headers */,
 				69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */,
 				697852C22177AC7300E93AD8 /* SEBSettings.h in Headers */,
 				69D35D22217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.h in Headers */,
-				69819EC72200BEFB0047809D /* MscX509Common-Prefix.pch in Headers */,
 				696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */,
 				69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */,
@@ -2840,30 +2837,33 @@
 				69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */,
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
 				694316601BFEBB6500F784EE /* Constants.h in Headers */,
+				69A0723E268A38AD00A0464B /* MscX509CommonLocalException.h in Headers */,
+				69A07242268A38AD00A0464B /* MscIssuerAndSerial.h in Headers */,
+				69A0723C268A38AD00A0464B /* NSString+MscASCIIExtension.h in Headers */,
+				69A0724C268A38AD00A0464B /* MscX509CommonError.h in Headers */,
+				69A07232268A38AD00A0464B /* MscCertificateUtils.h in Headers */,
+				69A0724E268A38AD00A0464B /* MscCertificate.h in Headers */,
 				69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */,
 				69E036C6230D8E1D00DCBDA6 /* SEB-Bridging-Header.h in Headers */,
-				69819EE02200BEFB0047809D /* MscCertificateUtils.h in Headers */,
-				69819F262200BEFB0047809D /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69B1D475230D7586005656B8 /* ServerController.h in Headers */,
+				69A0722A268A38AD00A0464B /* MscX509Name.h in Headers */,
 				696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */,
 				698DFD03267E978E00B8F1D6 /* SEBViewController.h in Headers */,
 				695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				69F522B921467188009F3999 /* CustomHTTPProtocol.h in Headers */,
 				69E977FE25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */,
 				69D35D20217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
+				69A0721C268A38AD00A0464B /* MscPKCS7.h in Headers */,
 				694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */,
 				695370AE2033921C00C638A8 /* LGSideMenuSegue.h in Headers */,
 				69F90020232309BB003A5015 /* ExamCell.h in Headers */,
+				69A07222268A38AD00A0464B /* MscPKCS12.h in Headers */,
+				69A071F3268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */,
 				69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */,
-				69819EE52200BEFB0047809D /* MscRSAKey.h in Headers */,
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
-				69819F3F2200BEFB0047809D /* MscX509CommonError.h in Headers */,
-				69819EEA2200BEFB0047809D /* MscIssuerAndSubject.h in Headers */,
 				696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */,
 				6914D1322183A260004F4A4B /* CustomViewCell.h in Headers */,
-				69819F3A2200BEFB0047809D /* MscPKCS7.h in Headers */,
 				69F522C52146720C009F3999 /* SEBCertServices.h in Headers */,
-				69819F172200BEFB0047809D /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
 				69AEC956218A228300848945 /* SEBFilteredURLCache.h in Headers */,
 				69358DE01E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
 				69B581851ED8214700CE70F3 /* SEBAboutController.h in Headers */,
@@ -2873,7 +2873,6 @@
 				696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */,
 				696DAD411C3C2D0500397E18 /* SEBBrowserTabViewController.h in Headers */,
 				698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */,
-				69819EA92200BEFB0047809D /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3477,6 +3476,7 @@
 				696A3AF019F6FBF600274214 /* PreferencesApplications.xib in Resources */,
 				696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
 				695A8EF91E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
+				69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */,
 				69944805248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
 				69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */,
 				696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
@@ -3488,7 +3488,6 @@
 				695A8EF01E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69E87E3E202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
 				69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */,
-				698DFD2E267E9F3E00B8F1D6 /* de.lproj in Resources */,
 				695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */,
 				699447F8248D4B840074A655 /* SEBBadgeError@2x.png in Resources */,
 				695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */,
@@ -3516,7 +3515,6 @@
 				69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */,
 				69428CEC172F2B5700C87C58 /* sebConfigIcon.png in Resources */,
 				695A8EED1E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png in Resources */,
-				698DFD2D267E9F3E00B8F1D6 /* en.lproj in Resources */,
 				699447F5248D4B840074A655 /* SEBBadgeError.png in Resources */,
 				69428CEE172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */,
 				69E87E53202927330055988F /* SEBDockIconLandscape@2x.png in Resources */,
@@ -3689,17 +3687,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A07248268A38AD00A0464B /* MscX509Name.m in Sources */,
 				6974C04B2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */,
 				69B581881ED8214700CE70F3 /* SEBAboutController.m in Sources */,
+				69A07256268A38AE00A0464B /* NSString+MscASCIIExtension.m in Sources */,
+				69A07254268A38AD00A0464B /* MscX509CommonError.m in Sources */,
 				69B1D487230D8B8F005656B8 /* SEBServer.swift in Sources */,
-				69819EEF2200BEFB0047809D /* MscCertificateRevocationList.m in Sources */,
-				69819EF42200BEFB0047809D /* MscOpenSSLExtension.c in Sources */,
 				693FB272232064110062E36E /* SEBServerViewController.m in Sources */,
-				69819E9F2200BEFB0047809D /* MscPKCS12.m in Sources */,
 				695370B72033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
 				698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */,
-				69819EB82200BEFB0047809D /* NSString+MscASCIIExtension.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
 				69D35D21217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
@@ -3707,60 +3704,58 @@
 				698AB4192638630A00E84161 /* SEBiOSBrowserController.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */,
-				69819ED12200BEFB0047809D /* MscX509CommonError.m in Sources */,
 				69F522CA2146720C009F3999 /* SEBCertServices.m in Sources */,
 				6914D12E2183A260004F4A4B /* CustomViewCell.m in Sources */,
+				69A07218268A38AD00A0464B /* MscPKCS7.m in Sources */,
 				6962A3B324772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */,
-				69819F302200BEFB0047809D /* MscCertificateUtils.m in Sources */,
 				69E977F125F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */,
-				69819F212200BEFB0047809D /* MscIssuerAndSerial.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
 				694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */,
 				696DAD501C3C7C9A00397E18 /* OpenWebpages.m in Sources */,
 				695370992033921B00C638A8 /* LGSideMenuView.m in Sources */,
 				696DAD421C3C2D0500397E18 /* SEBBrowserTabViewController.m in Sources */,
+				69A07244268A38AD00A0464B /* MscPKCS12.m in Sources */,
 				69331F071C10AD750038BD31 /* SEBiOSLockedViewController.m in Sources */,
 				69F522BE21467188009F3999 /* CanonicalRequest.m in Sources */,
 				696DAD441C3C2D0500397E18 /* SEBWebViewController.m in Sources */,
 				6930D2211C2011200087F79E /* SEBCryptor.m in Sources */,
+				69A07240268A38AD00A0464B /* MscCertificateSigningRequest.m in Sources */,
 				695370BD2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */,
+				69A07252268A38AD00A0464B /* MscIssuerAndSerial.m in Sources */,
 				69E977D925F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */,
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
 				697852BD2177AC7300E93AD8 /* SEBSettings.m in Sources */,
 				69E64C0C22B7D5F300B593AE /* SEBRootViewController.m in Sources */,
+				69A07216268A38AD00A0464B /* MscIssuerAndSubject.m in Sources */,
 				69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */,
 				695370AB2033921C00C638A8 /* LGSideMenuHelper.m in Sources */,
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
-				69819EC22200BEFB0047809D /* MscX509Name.m in Sources */,
 				69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
 				693FB269231D22010062E36E /* SEBServerController.swift in Sources */,
 				69B1D47A230D7586005656B8 /* ServerController.m in Sources */,
 				69D35D23217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
+				69A07234268A38AD00A0464B /* MscOpenSSLExtension.c in Sources */,
 				694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */,
 				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
 				69F558B6260563FF00D503EB /* SEBiOSWKWebViewController.swift in Sources */,
 				69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */,
-				69819F2B2200BEFB0047809D /* MscRSAKey.m in Sources */,
 				69D35D1F217AB4F400C6CFB9 /* SEBURLFilter.m in Sources */,
 				69AEC95A218A228300848945 /* SEBFilteredURLCache.m in Sources */,
 				6949A47C1D0B8D9E0040ABF1 /* SEBNavigationController.m in Sources */,
 				695370B42033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
+				69A0723A268A38AD00A0464B /* MscX509CommonLocalException.m in Sources */,
 				698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */,
 				69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				696DAD401C3C2D0500397E18 /* SEBTextField.m in Sources */,
 				69B5E2A725756BEF009030C2 /* SEBAbstractWebView.m in Sources */,
 				69F522AF21467188009F3999 /* QNSURLSessionDemux.m in Sources */,
-				69819EDB2200BEFB0047809D /* MscCertificate.m in Sources */,
 				69478CF72208985D00352CFA /* UIDragInteraction+Restrict.m in Sources */,
-				69819ED62200BEFB0047809D /* MscPKCS7.m in Sources */,
-				69819EB32200BEFB0047809D /* MscIssuerAndSubject.m in Sources */,
-				69819E9A2200BEFB0047809D /* MscX509CommonLocalException.m in Sources */,
 				6914D1282183A156004F4A4B /* SEBInAppSettingsViewController.m in Sources */,
 				695370A52033921C00C638A8 /* LGSideMenuGesturesHandler.m in Sources */,
 				69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
@@ -3768,15 +3763,18 @@
 				69F90022232309BB003A5015 /* ExamCell.m in Sources */,
 				69E9780025F2E1BB00634D74 /* SEBUIWebViewController.m in Sources */,
 				697852B82177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
+				69A07226268A38AD00A0464B /* MscRSAKey.m in Sources */,
+				69A07250268A38AD00A0464B /* MscCertificate.m in Sources */,
 				6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */,
 				69CF5829220B2DE8003DD5C8 /* SEBUIUserDefaultsController.m in Sources */,
 				69B581801ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */,
 				69F522A021467188009F3999 /* CustomHTTPProtocol.m in Sources */,
+				69A0724A268A38AD00A0464B /* MscCertificateUtils.m in Sources */,
+				69A07220268A38AD00A0464B /* MscCertificateRevocationList.m in Sources */,
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				69B1D470230D7586005656B8 /* APIResources.swift in Sources */,
 				69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */,
-				69819F122200BEFB0047809D /* MscCertificateSigningRequest.m in Sources */,
 				691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */,
 				691CC4111BA134070020D3EC /* RNCryptor.m in Sources */,
 				69F5229B21467188009F3999 /* CacheStoragePolicy.m in Sources */,
@@ -3804,18 +3802,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A07249268A38AD00A0464B /* MscX509Name.m in Sources */,
 				6974C04C2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */,
 				693FB26D231DB1E20062E36E /* main.m in Sources */,
+				69A07257268A38AE00A0464B /* NSString+MscASCIIExtension.m in Sources */,
+				69A07255268A38AE00A0464B /* MscX509CommonError.m in Sources */,
 				694215B9214544AB002EB416 /* SEBAboutController.m in Sources */,
 				69B1D488230D8B8F005656B8 /* SEBServer.swift in Sources */,
-				69819EF02200BEFB0047809D /* MscCertificateRevocationList.m in Sources */,
 				693FB273232064110062E36E /* SEBServerViewController.m in Sources */,
-				69819EF52200BEFB0047809D /* MscOpenSSLExtension.c in Sources */,
-				69819EA02200BEFB0047809D /* MscPKCS12.m in Sources */,
 				694215BA214544AB002EB416 /* LGSideMenuBorderView.m in Sources */,
 				698AB42C2638C2B900E84161 /* NSURL+SEBURL.m in Sources */,
 				694215BB214544AB002EB416 /* SEBConfigFileManager.m in Sources */,
-				69819EB92200BEFB0047809D /* NSString+MscASCIIExtension.m in Sources */,
 				694215BC214544AB002EB416 /* MyGlobals.m in Sources */,
 				694215BD214544AB002EB416 /* SEB.xcdatamodeld in Sources */,
 				69D35D27217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
@@ -3823,59 +3820,57 @@
 				694215BE214544AB002EB416 /* UIWebView+SEBWebView.m in Sources */,
 				69BBAE5B232702BD005BC19F /* ServerLogger.m in Sources */,
 				694215BF214544AB002EB416 /* RNEncryptor.m in Sources */,
-				69819ED22200BEFB0047809D /* MscX509CommonError.m in Sources */,
 				69F522CB2146720C009F3999 /* SEBCertServices.m in Sources */,
+				69A07219268A38AD00A0464B /* MscPKCS7.m in Sources */,
 				6962A3B424772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */,
 				6914D12F2183A260004F4A4B /* CustomViewCell.m in Sources */,
 				69E977F225F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
-				69819F312200BEFB0047809D /* MscCertificateUtils.m in Sources */,
 				694215C0214544AB002EB416 /* SEBActionUITableViewCell.m in Sources */,
-				69819F222200BEFB0047809D /* MscIssuerAndSerial.m in Sources */,
 				694215C1214544AB002EB416 /* SEBViewController.m in Sources */,
 				694215C2214544AB002EB416 /* SEBiOSConfigFileController.m in Sources */,
 				694215C3214544AB002EB416 /* OpenWebpages.m in Sources */,
 				694215C4214544AB002EB416 /* LGSideMenuView.m in Sources */,
+				69A07245268A38AD00A0464B /* MscPKCS12.m in Sources */,
 				694215C5214544AB002EB416 /* SEBBrowserTabViewController.m in Sources */,
 				694215C6214544AB002EB416 /* SEBiOSLockedViewController.m in Sources */,
 				69F522BF21467188009F3999 /* CanonicalRequest.m in Sources */,
 				694215C7214544AB002EB416 /* SEBWebViewController.m in Sources */,
+				69A07241268A38AD00A0464B /* MscCertificateSigningRequest.m in Sources */,
 				694215C8214544AB002EB416 /* SEBCryptor.m in Sources */,
 				694215C9214544AB002EB416 /* LGSideMenuController.m in Sources */,
+				69A07253268A38AD00A0464B /* MscIssuerAndSerial.m in Sources */,
 				69E977DA25F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */,
 				694215CA214544AB002EB416 /* MethodSwizzling.m in Sources */,
 				694215CB214544AB002EB416 /* SEBiOSKeychainManager.m in Sources */,
 				697852BE2177AC7300E93AD8 /* SEBSettings.m in Sources */,
+				69A07217268A38AD00A0464B /* MscIssuerAndSubject.m in Sources */,
 				69E64C0D22B7D5F300B593AE /* SEBRootViewController.m in Sources */,
 				694215CC214544AB002EB416 /* NSData+NSDataZIPExtension.m in Sources */,
 				694215CD214544AB002EB416 /* LGSideMenuHelper.m in Sources */,
 				694215CE214544AB002EB416 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				694215CF214544AB002EB416 /* SEBInitAssistantViewController.m in Sources */,
-				69819EC32200BEFB0047809D /* MscX509Name.m in Sources */,
 				694215D0214544AB002EB416 /* SEBiOSInitAssistantViewController.m in Sources */,
 				693FB26A231D22010062E36E /* SEBServerController.swift in Sources */,
 				69B1D47B230D7586005656B8 /* ServerController.m in Sources */,
 				69D35D29217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				694215D1214544AB002EB416 /* SEBBrowserController.m in Sources */,
+				69A07235268A38AD00A0464B /* MscOpenSSLExtension.c in Sources */,
 				694215D2214544AB002EB416 /* AppDelegate.m in Sources */,
 				694215D3214544AB002EB416 /* SEBIASKSecureSettingsStore.m in Sources */,
 				69F558B7260563FF00D503EB /* SEBiOSWKWebViewController.swift in Sources */,
 				694215D4214544AB002EB416 /* SEBKeychainManager.m in Sources */,
 				694215D5214544AB002EB416 /* SEBUIController.m in Sources */,
-				69819F2C2200BEFB0047809D /* MscRSAKey.m in Sources */,
 				69D35D25217AB4F400C6CFB9 /* SEBURLFilter.m in Sources */,
 				69AEC95B218A228300848945 /* SEBFilteredURLCache.m in Sources */,
 				694215D6214544AB002EB416 /* SEBNavigationController.m in Sources */,
 				694215D7214544AB002EB416 /* LGSideMenuSegue.m in Sources */,
+				69A0723B268A38AD00A0464B /* MscX509CommonLocalException.m in Sources */,
 				694215D9214544AB002EB416 /* SEBSliderItem.m in Sources */,
 				694215DA214544AB002EB416 /* SEBConfigFileCredentials.m in Sources */,
 				694215DB214544AB002EB416 /* SEBTextField.m in Sources */,
 				69B5E2A825756BEF009030C2 /* SEBAbstractWebView.m in Sources */,
 				69F522B021467188009F3999 /* QNSURLSessionDemux.m in Sources */,
-				69819EDC2200BEFB0047809D /* MscCertificate.m in Sources */,
 				69478CF82208985D00352CFA /* UIDragInteraction+Restrict.m in Sources */,
-				69819ED72200BEFB0047809D /* MscPKCS7.m in Sources */,
-				69819EB42200BEFB0047809D /* MscIssuerAndSubject.m in Sources */,
-				69819E9B2200BEFB0047809D /* MscX509CommonLocalException.m in Sources */,
 				6914D1292183A156004F4A4B /* SEBInAppSettingsViewController.m in Sources */,
 				694215DC214544AB002EB416 /* LGSideMenuGesturesHandler.m in Sources */,
 				694215DD214544AB002EB416 /* SEBLockedViewController.m in Sources */,
@@ -3883,15 +3878,18 @@
 				69F90023232309BB003A5015 /* ExamCell.m in Sources */,
 				69E9780125F2E1BB00634D74 /* SEBUIWebViewController.m in Sources */,
 				697852B92177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
+				69A07227268A38AD00A0464B /* MscRSAKey.m in Sources */,
+				69A07251268A38AD00A0464B /* MscCertificate.m in Sources */,
 				694215DE214544AB002EB416 /* UIViewController+LGSideMenuController.m in Sources */,
 				694215DF214544AB002EB416 /* SEBTableViewController.m in Sources */,
 				69CF582A220B2DE8003DD5C8 /* SEBUIUserDefaultsController.m in Sources */,
 				694215E0214544AB002EB416 /* AboutSEBiOSViewController.m in Sources */,
 				69F522A121467188009F3999 /* CustomHTTPProtocol.m in Sources */,
+				69A0724B268A38AD00A0464B /* MscCertificateUtils.m in Sources */,
+				69A07221268A38AD00A0464B /* MscCertificateRevocationList.m in Sources */,
 				694215E1214544AB002EB416 /* RNCryptorEngine.m in Sources */,
 				69B1D471230D7586005656B8 /* APIResources.swift in Sources */,
 				69AF44A024699A5300F56542 /* JitsiViewController.swift in Sources */,
-				69819F132200BEFB0047809D /* MscCertificateSigningRequest.m in Sources */,
 				694215E2214544AB002EB416 /* RNDecryptor.m in Sources */,
 				694215E3214544AB002EB416 /* RNCryptor.m in Sources */,
 				69F5229C21467188009F3999 /* CacheStoragePolicy.m in Sources */,
@@ -4056,6 +4054,15 @@
 				6940B97A1BA0F2FB008C8CFC /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		69433AF3268A7F37005E59A5 /* ProcessListView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69433AF4268A7F37005E59A5 /* en */,
+				69433AF6268A7F7A005E59A5 /* de */,
+			);
+			name = ProcessListView.xib;
 			sourceTree = "<group>";
 		};
 		696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */ = {
@@ -4226,14 +4233,15 @@
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
 					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
+					SEB/Frameworks/OpenSSL/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/SEB/Frameworks",
 					SEB/Frameworks/OpenSSL/lib,
+					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
 				MARKETING_VERSION = 3.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -4310,12 +4318,14 @@
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
 					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
+					SEB/Frameworks/OpenSSL/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					SEB/Frameworks/OpenSSL/lib,
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
 				MARKETING_VERSION = 3.0;
@@ -4563,6 +4573,7 @@
 					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
+					SEB/Frameworks/OpenSSL/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEBDev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -4570,6 +4581,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
+					SEB/Frameworks/OpenSSL/lib,
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4644,6 +4656,7 @@
 					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
 					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
 					"ios-mbedtls/mbedtls/mbedtls/include",
+					SEB/Frameworks/OpenSSL/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEBDev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -4651,6 +4664,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
+					SEB/Frameworks/OpenSSL/lib,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
@@ -4674,7 +4688,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 01CFD5B57DD48FCD9B1C8EB8 /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4697,6 +4710,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-macOS/CocoaLumberjack.framework/Headers\"",
+					"osx-mbedtls/mbedtls/mbedtls/include",
+				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -4726,7 +4744,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1779158EBF46391DEB0BF8AA /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4751,6 +4768,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-macOS/CocoaLumberjack.framework/Headers\"",
+					"osx-mbedtls/mbedtls/mbedtls/include",
 				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
@@ -4816,15 +4838,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
-					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
-					"ios-mbedtls/mbedtls/mbedtls/include",
-					SEB/Frameworks/OpenSSL/include,
-				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -4877,15 +4890,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/InAppSettingsKit\"",
-					"\"${PODS_ROOT}/Headers/Public/QRCodeReaderViewController\"",
-					"ios-mbedtls/mbedtls/mbedtls/include",
-					SEB/Frameworks/OpenSSL/include,
-				);
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
