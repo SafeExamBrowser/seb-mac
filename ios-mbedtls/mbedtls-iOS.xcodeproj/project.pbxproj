@@ -471,7 +471,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0E85390B1C1D741600F77D75 /* Build configuration list for PBXProject "mbedtls" */;
+			buildConfigurationList = 0E85390B1C1D741600F77D75 /* Build configuration list for PBXProject "mbedtls-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -743,7 +743,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E85390B1C1D741600F77D75 /* Build configuration list for PBXProject "mbedtls" */ = {
+		0E85390B1C1D741600F77D75 /* Build configuration list for PBXProject "mbedtls-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E8539171C1D741600F77D75 /* Debug */,

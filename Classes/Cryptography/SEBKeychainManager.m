@@ -35,14 +35,6 @@
 
 #import "SEBKeychainManager.h"
 #import "RNCryptor.h"
-#import "MscCertificateSigningRequest.h"
-#import "MscCertificate.h"
-#import "MscCertificate_OpenSSL_X509.h"
-#import "MscPKCS7.h"
-#import "MscRSAKey.h"
-#import "MscRSAKey_OpenSSL_RSA.h"
-#import <openssl/rsa.h>
-#import <openssl/pem.h>
 
 #if TARGET_OS_IPHONE
 #import "SEBiOSKeychainManager.h"

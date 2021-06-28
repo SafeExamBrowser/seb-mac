@@ -33,7 +33,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
+#import "SEBViewController.h"
+#else
 #import <CocoaLumberjack.h>
+#endif
 
 @interface MyGlobals : NSObject
 
@@ -62,7 +66,9 @@
 @property(copy, readwrite) NSString *defaultUserAgent;
 @property(copy, readwrite) NSString *currentUserAgent;
 
-//@property(weak, nonatomic) SEBViewController *sebViewController;
+#if TARGET_OS_IPHONE
+@property(weak, nonatomic) SEBViewController *sebViewController;
+#endif
 
 // SEB for iOS
 @property(readwrite) NSInteger currentWebpageIndexPathRow;
