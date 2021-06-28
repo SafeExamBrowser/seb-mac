@@ -35,8 +35,15 @@
 #import "SEBiOSKeychainManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
+#import "MscCertificateSigningRequest.h"
+#import "MscCertificate.h"
+#import "MscCertificate_OpenSSL_X509.h"
 #import "MscPKCS12.h"
+#import "MscPKCS7.h"
+#import "MscRSAKey.h"
 #import "MscRSAKey_OpenSSL_RSA.h"
+#import <openssl/rsa.h>
+#import <openssl/pem.h>
 #import <openssl/rsa.h>
 #import <openssl/pem.h>
 

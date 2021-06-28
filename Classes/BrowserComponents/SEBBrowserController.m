@@ -55,15 +55,24 @@ static NSString * const authenticationPassword = @"password";
 
 @implementation SEBBrowserController
 
+void run_block_on_ui_thread(dispatch_block_t block)
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
 
 // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
 // downloads to disk, and ensures that future requests occur on a new socket.
 - (void)resetAllCookies
 {
     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObject:WKWebsiteDataTypeCookies] modifiedSince:NSDate.distantPast completionHandler:^{
-            DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches and credential stores were reset");
-        }];
+        run_block_on_ui_thread(^{
+            [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObject:WKWebsiteDataTypeCookies] modifiedSince:NSDate.distantPast completionHandler:^{
+                DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches and credential stores were reset");
+            }];
+        });
     }];
 }
 
@@ -115,17 +124,21 @@ static NSString * const authenticationPassword = @"password";
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
 {
     NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
-    dispatch_group_t waitGroup = dispatch_group_create();
-    WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
-    for (NSHTTPCookie *cookie in cookies) {
-        dispatch_group_enter(waitGroup);
-        [cookieStore setCookie:cookie completionHandler:^{
-            dispatch_group_leave(waitGroup);
-        }];
-    }
-    dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
+    if (@available(macOS 10.13, *)) {
+        dispatch_group_t waitGroup = dispatch_group_create();
+        WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
+        for (NSHTTPCookie *cookie in cookies) {
+            dispatch_group_enter(waitGroup);
+            [cookieStore setCookie:cookie completionHandler:^{
+                dispatch_group_leave(waitGroup);
+            }];
+        }
+        dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
+            completionHandler();
+        });
+    } else {
         completionHandler();
-    });
+    }
 };
 
 
@@ -237,6 +250,7 @@ static NSString * const authenticationPassword = @"password";
         }
     }
     
+#if TARGET_OS_IPHONE
     UIUserInterfaceIdiom currentDevice = UIDevice.currentDevice.userInterfaceIdiom;
     if (currentDevice == UIUserInterfaceIdiomPad) {
         _wkWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback"];
@@ -249,6 +263,7 @@ static NSString * const authenticationPassword = @"password";
         _wkWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
     }
     _wkWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
+#endif
 
     return _wkWebViewConfiguration;
 }
