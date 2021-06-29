@@ -40,7 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ServerLogger : DDAbstractLogger <DDLogger>
 
-//@property (weak) SEBViewController *sebViewController;
+#if TARGET_OS_IPHONE
+@property (weak) SEBViewController *sebViewController;
+#endif
 
 + (ServerLogger *) sharedInstance;
 

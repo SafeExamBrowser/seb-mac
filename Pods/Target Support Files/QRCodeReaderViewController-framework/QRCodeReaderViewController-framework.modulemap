@@ -1,0 +1,6 @@
+framework module QRCodeReaderViewController {
+  umbrella header "QRCodeReaderViewController-framework-umbrella.h"
+
+  export *
+  module * { export * }
+}
