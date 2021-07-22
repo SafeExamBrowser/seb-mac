@@ -153,6 +153,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
     self.browserExamKey = nil;
     self.configKey = nil;
+    self.customSEBUserAgent = nil;
     [self initSessionSettings];
 
     BOOL cookiesActuallyCleared = NO;
