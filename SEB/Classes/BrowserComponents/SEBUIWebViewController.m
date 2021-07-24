@@ -129,7 +129,7 @@
     _sebWebView.delegate = self;    // setup the delegate as the web view is shown
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowSpellCheck = !self.navigationDelegate.overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+    allowSpellCheck = self.navigationDelegate.allowSpellCheck;
     mobileEnableGuidedAccessLinkTransform = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform"];
     enableDrawingEditor = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableDrawingEditor"];
 }

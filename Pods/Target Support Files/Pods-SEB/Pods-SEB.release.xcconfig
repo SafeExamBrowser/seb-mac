@@ -1,7 +1,6 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/JitsiMeetSDK/Frameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK" "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/JitsiMeetSDK/Frameworks" "${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeetSDK.xcframework/ios-arm64" "${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeetSDK.xcframework/ios-x86_64-simulator" "${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64" "${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-x86_64-simulator"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/InAppSettingsKit" "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController"
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-library" "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit-library" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReaderViewController-library"
@@ -12,6 +11,5 @@ PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
-PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
 SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-library"
 USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

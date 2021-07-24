@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,7 +16,7 @@
                 <outlet property="window" destination="3" id="10"/>
             </connections>
         </customObject>
-        <viewController id="cQk-C2-1Jn" customClass="SEBWebViewController">
+        <viewController id="cQk-C2-1Jn" customClass="SEBWebViewNSViewController">
             <connections>
                 <outlet property="view" destination="5" id="UgB-CT-YeL"/>
             </connections>
@@ -26,7 +26,7 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1867"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -122,7 +122,7 @@
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="25" height="25"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIcon" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -163,7 +163,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1867"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -180,7 +180,7 @@
                         </textFieldCell>
                     </textField>
                     <button toolTip="Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
-                        <rect key="frame" x="454" y="5" width="102" height="32"/>
+                        <rect key="frame" x="453" y="5" width="104" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="Vye-IJ-fDc"/>
                         </constraints>
@@ -196,7 +196,7 @@ DQ
                         </connections>
                     </button>
                     <button toolTip="Add an allow filter rule for the current URL/resource based on the selected pattern" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
-                        <rect key="frame" x="352" y="5" width="102" height="32"/>
+                        <rect key="frame" x="351" y="5" width="104" height="32"/>
                         <buttonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vVz-K2-Hbd">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -207,7 +207,7 @@ DQ
                         </connections>
                     </button>
                     <button toolTip="Add a block filter rule for the current URL/resource based on the selected pattern" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cja-1x-YEa">
-                        <rect key="frame" x="148" y="5" width="102" height="32"/>
+                        <rect key="frame" x="147" y="5" width="104" height="32"/>
                         <buttonCell key="cell" type="push" title="Block" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AcO-IT-BuS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -258,7 +258,7 @@ DQ
                         </connections>
                     </matrix>
                     <button toolTip="Dismiss all unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
-                        <rect key="frame" x="14" y="5" width="106" height="32"/>
+                        <rect key="frame" x="13" y="5" width="100" height="32"/>
                         <buttonCell key="cell" type="push" title="Dismiss All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -297,7 +297,7 @@ Gw
                         </connections>
                     </button>
                     <button toolTip="Click to copy the host/path part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
-                        <rect key="frame" x="123" y="214" width="109" height="19"/>
+                        <rect key="frame" x="123" y="214" width="108" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="cpa-WY-9B7"/>
                         </constraints>
@@ -336,7 +336,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8py-w9-weT">
-                        <rect key="frame" x="250" y="5" width="102" height="32"/>
+                        <rect key="frame" x="249" y="5" width="104" height="32"/>
                         <string key="toolTip">Add a filter rule for the current URL/resource to the ignore list, based on the selected pattern. Ignored URLs don't show a warning permanently in the URL filter teach mode</string>
                         <buttonCell key="cell" type="push" title="Ignore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Wp-xb-WzU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -348,18 +348,18 @@ Gw
                         </connections>
                     </button>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
-                        <rect key="frame" x="20" y="44" width="530" height="121"/>
+                        <rect key="frame" x="20" y="43" width="530" height="122"/>
                         <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                         <clipView key="contentView" drawsBackground="NO" id="c8z-5s-Dgt">
-                            <rect key="frame" x="1" y="1" width="528" height="119"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <rect key="frame" x="1" y="1" width="528" height="120"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="528" height="119"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="528" height="120"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="528" height="119"/>
+                                    <size key="minSize" width="528" height="120"/>
                                     <size key="maxSize" width="530" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -425,17 +425,17 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1867"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" misplaced="YES" id="4Pp-ao-nkH">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="CYr-hS-7wQ">
-                        <rect key="frame" x="0.0" y="0.0" width="412" height="94"/>
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="93"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WiL-H3-vRZ">
-                                <rect key="frame" x="302" y="5" width="96" height="32"/>
+                                <rect key="frame" x="301" y="5" width="98" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="57k-vh-pgb"/>
                                 </constraints>
@@ -451,7 +451,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jpt-5i-R5p">
-                                <rect key="frame" x="206" y="5" width="96" height="32"/>
+                                <rect key="frame" x="205" y="5" width="98" height="32"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7Mz-lY-Ld6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -464,7 +464,7 @@ Gw
                                 </connections>
                             </button>
                             <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="Eyf-Ab-qmq" customClass="SEBTextField">
-                                <rect key="frame" x="18" y="44" width="376" height="36"/>
+                                <rect key="frame" x="18" y="43" width="376" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="36" id="RKI-Es-SUe"/>
                                 </constraints>
@@ -501,9 +501,9 @@ Gw
         </window>
     </objects>
     <resources>
-        <image name="NSGoLeftTemplate" width="9" height="12"/>
-        <image name="NSGoRightTemplate" width="9" height="12"/>
-        <image name="SEBReloadIcon" width="512" height="512"/>
+        <image name="NSGoLeftTemplate" width="10" height="14"/>
+        <image name="NSGoRightTemplate" width="10" height="14"/>
+        <image name="SEBReloadIcon" width="34" height="34"/>
         <image name="ZoomPageIn" width="20" height="20"/>
         <image name="ZoomPageOut" width="20" height="20"/>
         <image name="ZoomTextIn" width="20" height="20"/>

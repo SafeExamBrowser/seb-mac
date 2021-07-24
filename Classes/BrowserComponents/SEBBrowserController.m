@@ -171,9 +171,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
     
     void (^completionHandler)(void) = ^void() {
-        // Clear browser back/forward list (page cache)
-    //    [self clearBackForwardList];
-        
+        // Additional commands for resetting browser
     };
 
     if (!cookiesActuallyCleared) {
@@ -273,8 +271,27 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url
 {
-    NSString *urlOrPlaceholder = [self.delegate showURLplaceholderTitleForWebpage];
+    NSString *urlOrPlaceholder = [self showURLplaceholderTitleForWebpage];
     return urlOrPlaceholder ? urlOrPlaceholder : url;
+}
+
+
+// Delegate method which returns a placeholder text in case settings
+// don't allow to display its URL
+- (NSString *) showURLplaceholderTitleForWebpage
+{
+    NSString *placeholderString = nil;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([self.delegate isMainBrowserWebViewActive]) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+            placeholderString = NSLocalizedString(@"the exam page", nil);
+        }
+    } else {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+            placeholderString = NSLocalizedString(@"the webpage", nil);
+        }
+    }
+    return placeholderString;
 }
 
 
@@ -809,18 +826,6 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
-- (void) downloadingConfigFailedFromURL:(NSURL *)url
-{
-//    if (_temporaryWebView) {
-//        NSURL *originalURL = _temporaryWebView.originalURL;
-//        [_delegate closeWebView:_temporaryWebView];
-//        _temporaryWebView = nil;
-//        _directConfigDownloadAttempted = YES;
-//        [self downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:nil];
-//    }
-}
-
-
 // Called by the browser webview delegate if loading the config URL failed
 - (void) openingConfigURLFailed {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -1054,7 +1059,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             _pendingChallengeCompletionHandler = completionHandler;
             //            _pendingChallenge = challenge;
             
-            NSString *text = [self.delegate showURLplaceholderTitleForWebpage];
+            NSString *text = [self showURLplaceholderTitleForWebpage];
             if (!text) {
                 text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
             } else {
@@ -1349,11 +1354,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     DDLogError(@"%s error: %@", __FUNCTION__, error);
     _delegate.openingSettings = false;
-    
-    // Only show the download error and close temp browser window if this wasn't a direct download attempt
-    if (!_directConfigDownloadAttempted) {
-        [_delegate downloadingSEBConfigFailed:error];
-    }
+    [_delegate downloadingSEBConfigFailed:error];
 }
 
 

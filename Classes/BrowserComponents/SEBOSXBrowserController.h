@@ -44,54 +44,34 @@
 #import "SEBBrowserWindowDocument.h"
 
 @class SEBController;
-@class SEBBrowserController;
 @class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
 @class SEBWebView;
 
-@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate>
+@interface SEBOSXBrowserController : SEBBrowserController <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 {
-    NSString *lastUsername;
-    
     @private
-    BOOL examSessionCookiesAlreadyCleared;
-    NSURL *downloadedSEBConfigDataURL;
     NSURL *currentConfigPath;
-    NSString *startURLQueryParameter;
 
 }
 
 @property (weak) SEBController *sebController;
-@property (strong) SEBBrowserController *browserController;
-@property (weak) SEBWebView *mainWebView;
-@property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
-@property (weak) SEBWebView *temporaryWebView;
+@property (readwrite) BOOL openingSettings;
+
+@property (weak) SEBAbstractWebView *mainWebView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_8
 @property (weak) SEBBrowserWindow *activeBrowserWindow;
 @property (weak) SEBDockController *dockController;
-#else
- // weak properties not supported on Mac OS X 10.7
-@property (assign) SEBBrowserWindow *activeBrowserWindow;
-@property (assign) SEBDockController *dockController;
-#endif
 @property (strong, nonatomic) NSString *activeBrowserWindowTitle;
 
 @property (strong) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
-@property (readwrite) BOOL directConfigDownloadAttempted;
 @property (readwrite) BOOL allowSpellCheck;
-@property (strong) NSURLCredential *enteredCredential;
-@property (strong) id URLSession;
-@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
 @property (strong) NSArray *privatePasteboardItems;
 @property(strong) NSTimer *panelWatchTimer;
-
-@property (strong, nonatomic) NSData *browserExamKey;
-@property (strong, nonatomic) NSData *configKey;
 
 - (NSScreen *) mainScreen;
 
@@ -99,13 +79,10 @@
 
 // Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-
-- (SEBWebView *) openAndShowWebView;
-- (void) closeWebView:(SEBWebView *) webViewToClose;
-- (void) checkForClosingTemporaryWebView:(SEBWebView *) webViewToClose;
-- (void) webViewShow:(SEBWebView *)sender;
+- (SEBAbstractWebView *) openAndShowWebView;
+- (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose;
+- (void) webViewShow:(SEBAbstractWebView *)sender;
 - (void) openMainBrowserWindow;
-- (void) clearBackForwardList;
 
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 - (void) adjustMainBrowserWindow;
@@ -114,7 +91,7 @@
 - (void) closeAllBrowserWindows;
 - (void) closeAllAdditionalBrowserWindows;
 
-- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
+- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBAbstractWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 
 - (NSString *) placeholderTitleOrURLForActiveWebpage;
@@ -128,8 +105,8 @@
 - (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 - (void) openingConfigURLRoleBack;
 
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
-- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView;
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView;
 - (void) activateNextOpenWindow;
 - (void) activatePreviousOpenWindow;
 
@@ -142,7 +119,6 @@
                                 username:(NSString *)username
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
-- (void) hideEnterUsernamePasswordDialog;
 
 
 /// SEBBrowserControllerDelegate Methods

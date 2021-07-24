@@ -41,14 +41,14 @@
 
 @interface SEBWebView : WebView <NSTouchBarProvider>
 
-@property(strong, readonly) NSTouchBar *touchBar;
+@property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
-@property (weak, nonatomic) SEBOSXBrowserController *browserController;
 @property (strong, nonatomic) NSURL *originalURL;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
 
+@property (strong, readonly) NSTouchBar *touchBar;
 
 - (NSArray *)plugins;
 

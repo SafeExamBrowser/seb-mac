@@ -83,7 +83,8 @@
 }
 
 
-- (void)openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL {
+- (void)openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
+{
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
     _sebViewController.openingSettings = true;
@@ -105,20 +106,13 @@
 - (void)openingConfigURLRoleBack {
     if (self.startingUp) {
         // we quit, as decrypting the config wasn't successful
-        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
-//        _sebController.quittingMyself = true; // quit SEB without asking for confirmation or password
-//        [NSApp terminate: nil]; // Quit SEB
+        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will use client setting", __FUNCTION__);
     }
     // Reset the opening settings flag which prevents opening URLs concurrently
     _sebViewController.openingSettings = false;
 }
 
 - (void)closeOpeningConfigFileDialog {
-    
-}
-
-
-- (void)hideEnterUsernamePasswordDialog {
     
 }
 
@@ -136,8 +130,20 @@
     _sebViewController.startingUp = startingUp;
 }
 
-- (void)showEnterUsernamePasswordDialog:(NSString *)text title:(NSString *)title username:(NSString *)username modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector {
+
+#pragma mark SEBBrowserControllerDelegate Methods
+
+- (void)showEnterUsernamePasswordDialog:(NSString *)text
+                                  title:(NSString *)title
+                               username:(NSString *)username
+                          modalDelegate:(id)modalDelegate
+                         didEndSelector:(SEL)didEndSelector {
     [_sebViewController showEnterUsernamePasswordDialog:text title:title username:username modalDelegate:modalDelegate didEndSelector:didEndSelector];
+}
+
+
+- (void)hideEnterUsernamePasswordDialog {
+    
 }
 
 
@@ -146,20 +152,9 @@
 }
 
 
-- (NSString *) showURLplaceholderTitleForWebpage
+- (BOOL) isMainBrowserWebViewActive
 {
-    NSString *placeholderString = nil;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
-            placeholderString = NSLocalizedString(@"the exam page", nil);
-        }
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
-            placeholderString = NSLocalizedString(@"the webpage", nil);
-        }
-    }
-    return placeholderString;
+    return [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0;
 }
 
 
