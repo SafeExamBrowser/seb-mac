@@ -54,6 +54,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) loadURL:(NSURL *)url;
 - (void) stopLoading;
 
+- (void) zoomPageIn;
+- (void) zoomPageOut;
+- (void) zoomPageReset;
+
+- (void) textSizeIncrease;
+- (void) textSizeDecrease;
+- (void) textSizeReset;
+
 @optional
 - (void) loadView;
 - (void) didMoveToParentViewController;
@@ -80,10 +88,32 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setLoading:(BOOL)loading;
 - (void) setTitle:(NSString *)title;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
-- (nullable SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 
 @optional
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
+- (SEBAbstractWebView *) openNewWebViewWindow;
+
+- (void) makeActiveAndOrderFront;
+- (void) showWebView:(SEBAbstractWebView *)webView;
+
+@property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
+@property (readonly, nonatomic) NSString *pageJavaScript;
+@property (readonly) BOOL overrideAllowSpellCheck;
+@property (readonly) BOOL allowSpellCheck;
+- (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
+- (NSString *) browserExamKeyForURL:(NSURL *)url;
+- (NSString *) configKeyForURL:(NSURL *)url;
+- (NSString *) appVersion;
+
+@property (readonly, nonatomic) NSString *customSEBUserAgent;
+@property (nullable, readwrite, nonatomic) NSArray<NSData *> *privatePasteboardItems;
+
+- (SEBBackgroundTintStyle) backgroundTintStyle;
+
+@property (strong, nonatomic) id __nullable window;
+@property (strong, nonatomic) id __nullable uiAlertController;
+
 - (void)sebWebViewDidStartLoad;
 - (void)sebWebViewDidFinishLoad;
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
@@ -132,10 +162,18 @@ runJavaScriptAlertPanelWithMessage:(NSString *)message
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(void))completionHandler;
 
+- (void)pageTitle:(NSString *)pageTitle
+runJavaScriptAlertPanelWithMessage:(NSString *)message
+initiatedByFrame:(WebFrame *)frame;
+
 - (void)webView:(WKWebView *)webView
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(BOOL result))completionHandler;
+
+- (BOOL)pageTitle:(NSString *)pageTitle
+runJavaScriptConfirmPanelWithMessage:(NSString *)message
+initiatedByFrame:(WebFrame *)frame;
 
 - (void)webView:(WKWebView *)webView
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
@@ -143,28 +181,22 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSString *result))completionHandler;
 
-- (void)webView:(WKWebView *)webView
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+          defaultText:(NSString *)defaultText
+     initiatedByFrame:(WebFrame *)frame;
+
+- (void)webView:(nullable WKWebView *)webView
 runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
-@property (readonly, nonatomic) NSString *pageJavaScript;
-@property (readonly) BOOL overrideAllowSpellCheck;
-- (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
-- (NSString *) browserExamKeyForURL:(NSURL *)url;
-- (NSString *) configKeyForURL:(NSURL *)url;
-- (NSString *) appVersion;
-
-@property (readonly, nonatomic) NSString *customSEBUserAgent;
-
-- (SEBBackgroundTintStyle) backgroundTintStyle;
-
-@property (strong, nonatomic) id __nullable uiAlertController;
 #if TARGET_OS_IPHONE
 - (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
 #endif
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
+
 - (void) openCloseSliderForNewTab;
 - (void) switchToTab:(nullable id)sender;
 - (void) switchToNextTab;
@@ -176,7 +208,6 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (BOOL) downloadingInTemporaryWebView;
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;
-- (void) downloadingConfigFailedFromURL:(NSURL *)url;
 
 @end
 
@@ -187,7 +218,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
 @property (strong, nonatomic) NSURL *originalURL;
+@property (readwrite, nonatomic) BOOL allowSpellCheck;
 @property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
+@property (weak, nonatomic) SEBAbstractWebView *creatingWebView;
+@property (strong, nonatomic) NSMutableArray *notAllowedURLs;
+@property (readwrite) BOOL dismissAll;
+
 
 - (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck;
 

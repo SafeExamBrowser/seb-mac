@@ -38,13 +38,13 @@
 #import "OpenWebpages.h"
 
 #import "SEBAbstractWebView.h"
-#import "SEBWebViewController.h"
+#import "SEBiOSWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
 @class SEBViewController;
 @class OpenWebpages;
 @class SEBAbstractWebView;
-@class SEBWebViewController;
+@class SEBiOSWebViewController;
 @class SEBSearchBarViewController;
 
 
@@ -54,7 +54,7 @@
 }
 
 @property (weak) SEBViewController *sebViewController;
-@property (nonatomic, weak) SEBWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
+@property (nonatomic, weak) SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray<OpenWebpages*> *openWebpages;
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
@@ -89,7 +89,7 @@
 - (void) stopLoading;
 
 - (void) setLoading:(BOOL)loading;
-- (void) setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController;
+- (void) setTitle:(NSString *)title forWebViewController:(SEBiOSWebViewController *)webViewController;
 
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 

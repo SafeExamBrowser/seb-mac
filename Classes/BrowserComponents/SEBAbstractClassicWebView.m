@@ -36,7 +36,7 @@
 #if TARGET_OS_IPHONE
 #import "SEBUIWebViewController.h"
 #else
-//#import "SEBWebViewController.h"
+#import "SEBiOSWebViewController.h"
 #endif
 
 @implementation SEBAbstractClassicWebView
@@ -50,7 +50,9 @@
         sebUIWebViewController.navigationDelegate = self;
         self.browserControllerDelegate = sebUIWebViewController;
 #else
-//        self.delegate = [SEBWebViewController new];
+        SEBWebViewController *sebWebViewController = [SEBWebViewController new];
+        sebWebViewController.navigationDelegate = self;
+        self.browserControllerDelegate = sebWebViewController;
 #endif
     }
     return self;
@@ -142,6 +144,36 @@
 }
 
 
+- (void) zoomPageIn
+{
+    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.5\""];
+}
+
+- (void) zoomPageOut
+{
+    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.5\""];
+}
+
+- (void) zoomPageReset
+{
+    
+}
+
+- (void) textSizeIncrease
+{
+    [self.browserControllerDelegate textSizeIncrease];
+}
+
+- (void) textSizeDecrease
+{
+    [self.browserControllerDelegate textSizeDecrease];
+}
+
+- (void) textSizeReset
+{
+    [self.browserControllerDelegate textSizeReset];
+}
+
 - (void)toggleScrollLock
 {
     if ([self.browserControllerDelegate respondsToSelector:@selector(toggleScrollLock)]) {
@@ -182,14 +214,34 @@
     [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    [self.navigationDelegate examineCookies:cookies];
+}
+
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
     return [self.navigationDelegate openNewTabWithURL:url];
 }
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (SEBAbstractWebView *) openNewWebViewWindow
 {
-    [self.navigationDelegate examineCookies:cookies];
+    return [self.navigationDelegate openNewWebViewWindow];
+}
+
+- (void) makeActiveAndOrderFront
+{
+    [self.navigationDelegate makeActiveAndOrderFront];
+}
+
+- (void) showWebView:(SEBAbstractWebView *)webView
+{
+    [self.navigationDelegate showWebView:webView];
+}
+
+- (SEBAbstractWebView *) abstractWebView
+{
+    return self.navigationDelegate.abstractWebView;
 }
 
 - (NSString *) pageJavaScript
@@ -197,9 +249,35 @@
     return self.navigationDelegate.pageJavaScript;
 }
 
+- (BOOL) allowSpellCheck
+{
+    return self.navigationDelegate.allowSpellCheck;
+}
+
 - (BOOL) overrideAllowSpellCheck
 {
     return self.navigationDelegate.overrideAllowSpellCheck;
+}
+
+
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return self.navigationDelegate.customSEBUserAgent;
+    
+}
+
+
+- (NSArray <NSData *> *) privatePasteboardItems
+{
+    return self.navigationDelegate.privatePasteboardItems;
+    
+}
+
+- (void) setPrivatePasteboardItems:(NSArray<NSData *> *)privatePasteboardItems
+{
+    self.navigationDelegate.privatePasteboardItems = privatePasteboardItems;
 }
 
 
@@ -247,6 +325,61 @@
                                   cookies:(NSArray<NSHTTPCookie *> *)cookies
 {
     return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
+}
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptAlertPanelWithMessage:(NSString *)message
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(void))completionHandler
+{
+    [self.navigationDelegate webView:webView runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+- (void)pageTitle:(NSString *)pageTitle
+runJavaScriptAlertPanelWithMessage:(NSString *)message
+initiatedByFrame:(WebFrame *)frame
+{
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+}
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptConfirmPanelWithMessage:(NSString *)message
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(BOOL result))completionHandler
+{
+    [self.navigationDelegate webView:webView runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+- (BOOL)pageTitle:(NSString *)pageTitle
+runJavaScriptConfirmPanelWithMessage:(NSString *)message
+initiatedByFrame:(WebFrame *)frame
+{
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
+}
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler
+{
+    [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+          defaultText:(NSString *)defaultText
+     initiatedByFrame:(WebFrame *)frame
+{
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
+}
+
+- (void)webView:(WKWebView *)webView
+runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
+{
+    [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
 }
 
 - (BOOL) downloadingInTemporaryWebView

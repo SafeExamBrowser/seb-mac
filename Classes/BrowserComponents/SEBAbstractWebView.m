@@ -47,6 +47,7 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
+        _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
         if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
@@ -184,15 +185,6 @@
 }
 
 
-@synthesize customSEBUserAgent;
-
-- (NSString *) customSEBUserAgent
-{
-    return self.navigationDelegate.customSEBUserAgent;
-    
-}
-
-
 - (void) setLoading:(BOOL)loading
 {
     [self.navigationDelegate setLoading:loading];
@@ -208,15 +200,36 @@
     [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    [self.navigationDelegate examineCookies:cookies];
+}
+
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
     return [self.navigationDelegate openNewTabWithURL:url];
 }
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (SEBAbstractWebView *) openNewWebViewWindow
 {
-    [self.navigationDelegate examineCookies:cookies];
+    return [self.navigationDelegate openNewWebViewWindow];
 }
+
+- (void) makeActiveAndOrderFront
+{
+    [self.navigationDelegate makeActiveAndOrderFront];
+}
+
+- (void) showWebView:(SEBAbstractWebView *)webView
+{
+    [self.navigationDelegate showWebView:webView];
+}
+
+- (SEBAbstractWebView *) abstractWebView
+{
+    return self;
+}
+
 
 - (NSString *) pageJavaScript
 {
@@ -246,6 +259,26 @@
 - (NSString *) appVersion
 {
     return [self.navigationDelegate appVersion];
+}
+
+
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return self.navigationDelegate.customSEBUserAgent;
+    
+}
+
+
+- (NSArray <NSData *> *) privatePasteboardItems
+{
+    return self.navigationDelegate.privatePasteboardItems;
+}
+
+- (void) setPrivatePasteboardItems:(NSArray<NSData *> *)privatePasteboardItems
+{
+    self.navigationDelegate.privatePasteboardItems = privatePasteboardItems;
 }
 
 
@@ -314,12 +347,26 @@ completionHandler:(void (^)(void))completionHandler
     [self.navigationDelegate webView:webView runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
 }
 
+- (void)pageTitle:(NSString *)pageTitle
+runJavaScriptAlertPanelWithMessage:(NSString *)message
+initiatedByFrame:(WebFrame *)frame
+{
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+}
+
 - (void)webView:(WKWebView *)webView
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(BOOL result))completionHandler
 {
     [self.navigationDelegate webView:webView runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+- (BOOL)pageTitle:(NSString *)pageTitle
+runJavaScriptConfirmPanelWithMessage:(NSString *)message
+initiatedByFrame:(WebFrame *)frame
+{
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -329,6 +376,14 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSString *result))completionHandler
 {
     [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+          defaultText:(NSString *)defaultText
+     initiatedByFrame:(WebFrame *)frame
+{
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
 }
 
 - (void)webView:(WKWebView *)webView

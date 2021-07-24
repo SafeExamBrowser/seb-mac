@@ -379,7 +379,6 @@ decidePolicyForMIMEType:(NSString*)mimeType
     _visibleWebViewController = newViewController;
 
     NSString *browserTabTitle;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (index == 0) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
             browserTabTitle = url.absoluteString;
@@ -434,7 +433,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 {
     if (tabIndex < _openWebpages.count) {
         OpenWebpages *webpageToSwitch = _openWebpages[tabIndex];
-        SEBWebViewController<SEBAbstractBrowserControllerDelegate> *webViewControllerToSwitch = webpageToSwitch.webViewController;
+        SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *webViewControllerToSwitch = webpageToSwitch.webViewController;
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
@@ -512,7 +511,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 {
     NSUInteger tabIndex = 0;
     for (OpenWebpages *openWebpage in _openWebpages) {
-        SEBWebViewController *webViewController = openWebpage.webViewController;
+        SEBiOSWebViewController *webViewController = openWebpage.webViewController;
         if ([webViewController isEqual:webView]) {
             return tabIndex;
         }
@@ -554,7 +553,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
         if ([pageToCloseURL hasPrefix:@"drawing"]) {
         } else {
             OpenWebpages *webpage = _openWebpages[tabIndex];
-            SEBWebViewController *webViewController = webpage.webViewController;
+            SEBiOSWebViewController *webViewController = webpage.webViewController;
             // Prevent media player from playing audio after its webview was closed
             // by properly releasing it
             webViewController.sebWebView = nil;
@@ -599,7 +598,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 }
 
 
-- (void) setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController
+- (void) setTitle:(NSString *)title forWebViewController:(SEBiOSWebViewController *)webViewController
 {
     NSUInteger index = [_openWebpages indexOfObjectPassingTest:
      ^(OpenWebpages *openPage, NSUInteger idx, BOOL *stop) {
@@ -661,7 +660,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
             // Open URL in a new webview
             // Create a new WebView
             NSURL *webpageURL = [NSURL URLWithString:webpage.url];
-            SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
+            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
@@ -680,7 +679,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
             
         }
         OpenWebpages *newOpenWebpage = (_openWebpages.lastObject);
-        SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newVisibleWebViewController = newOpenWebpage.webViewController;
+        SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newVisibleWebViewController = newOpenWebpage.webViewController;
 
         // Exchange the old against the new webview
         [_visibleWebViewController removeFromParentViewController];
@@ -731,7 +730,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
     [_visibleWebViewController removeFromParentViewController];
 
     for (OpenWebpages *webpage in _openWebpages) {
-        SEBWebViewController *webViewController = webpage.webViewController;
+        SEBiOSWebViewController *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
         // by properly releasing it
         webViewController.sebWebView = nil;
@@ -767,8 +766,8 @@ decidePolicyForMIMEType:(NSString*)mimeType
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
+- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
+    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
     newSEBWebViewController.navigationDelegate = self;
     return newSEBWebViewController;
 }
@@ -808,12 +807,6 @@ decidePolicyForMIMEType:(NSString*)mimeType
 - (BOOL) downloadingInTemporaryWebView
 {
     return [_sebViewController.browserController downloadingInTemporaryWebView];
-}
-
-
-- (void) downloadingConfigFailedFromURL:(NSURL *)url
-{
-    [_sebViewController.browserController downloadingConfigFailedFromURL:(NSURL *)url];
 }
 
 
@@ -880,7 +873,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 {
     NSURL *requestURL = task.originalRequest.URL;
     for (OpenWebpages *webpage in _openWebpages) {
-        SEBWebViewController *webViewController = webpage.webViewController;
+        SEBiOSWebViewController *webViewController = webpage.webViewController;
         NSURL *webpageCurrentRequestURL = webViewController.currentRequest.URL;
         if ([webpageCurrentRequestURL isEqual:requestURL]) {
             dispatch_async(dispatch_get_main_queue(), ^{
