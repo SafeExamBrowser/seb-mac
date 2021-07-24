@@ -39,7 +39,7 @@
 @interface SEBBrowserOpenWindowWebView : NSMenuItem
 
 @property (nonatomic, retain) SEBBrowserWindow *browserWindow;
-@property (nonatomic, retain) SEBWebView *webView;
+@property (nonatomic, retain) SEBAbstractWebView *webView;
 //@property (nonatomic, retain) NSString *title;
 //@property (nonatomic, retain) NSMenuItem *menuItem;
 

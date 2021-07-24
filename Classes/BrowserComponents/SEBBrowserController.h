@@ -61,17 +61,24 @@
                                 username:(NSString *)username
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
+
 /**
  * @brief       Delegate method to hide the previously displayed enter password dialog
  */
 - (void) hideEnterUsernamePasswordDialog;
 
 /**
+ * @brief       Delegate method which returns if the main web view (browser window or tab)
+ *              is the currently active (selected, displayed) one
+ */
+
+- (BOOL) isMainBrowserWebViewActive;
+
+/**
  * @brief       Delegate method which returns a placeholder text in case settings
  *              don't allow to display its URL
  */
 - (NSString *) showURLplaceholderTitleForWebpage;
-
 
 /**
  * @brief       Open a new, temporary webView for downloading the linked config file
@@ -213,7 +220,6 @@ decidePolicyForMIMEType:(NSString*)mimeType
  suggestedFilename:(NSString *)suggestedFilename
            cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (BOOL) downloadingInTemporaryWebView;
-- (void) downloadingConfigFailedFromURL:(NSURL *)url;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 
 

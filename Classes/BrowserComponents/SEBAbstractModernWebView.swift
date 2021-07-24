@@ -58,8 +58,7 @@ import Foundation
         if let pageJavaScriptCode = navigationDelegate?.pageJavaScript {
             let pageModifyUserScript = WKUserScript(source: pageJavaScriptCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
             userContentController.addUserScript(pageModifyUserScript)
-            let preferences = UserDefaults.standard
-            let allowSpellCheck = !(navigationDelegate?.overrideAllowSpellCheck ?? false) && preferences.secureBool(forKey: "org_safeexambrowser_SEB_allowSpellCheck")
+            let allowSpellCheck = navigationDelegate?.allowSpellCheck ?? false
             let controlSpellCheckCode = "SEB_AllowSpellCheck(\(allowSpellCheck ? "true" : "false"))"
             let controlSpellCheckUserScript = WKUserScript(source: controlSpellCheckCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
             userContentController.addUserScript(controlSpellCheckUserScript)
@@ -104,7 +103,6 @@ import Foundation
     @objc weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
 
     private var firstLoad = true
-    private var allowSpellCheck : Bool?
 
     @objc public override init() {
         super.init()
@@ -209,8 +207,8 @@ import Foundation
         navigationDelegate?.setCanGoBack(canGoBack, canGoForward: canGoForward)
     }
     
-    public func openNewTab(with url: URL) -> SEBAbstractWebView? {
-        return navigationDelegate?.openNewTab(with: url) ?? nil
+    public func openNewTab(with url: URL) -> SEBAbstractWebView {
+        return (navigationDelegate?.openNewTab!(with: url))!
     }
 
     public func examine(_ cookies: [HTTPCookie]) {
