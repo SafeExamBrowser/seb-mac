@@ -427,11 +427,6 @@ bool insideMatrix(void);
                                              selector:@selector(requestedShowHelp:)
                                                  name:@"requestShowHelpNotification" object:nil];
     
-    // Add an observer for the request to switch plugins on
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(switchPluginsOn:)
-                                                 name:@"switchPluginsOn" object:nil];
-    
     // Add an observer for the notification that preferences were closed
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferencesClosed:)
@@ -4799,10 +4794,10 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) showHelp: (id)sender
 {
     // Open new browser window containing WebView and show it
-    SEBWebView *newWebView = [self.browserController openAndShowWebView];
+    SEBAbstractWebView *newWebView = [self.browserController openAndShowWebView];
     // Load manual page URL in new browser window
     NSString *urlText = SEBHelpPage;
-	[[newWebView mainFrame] loadRequest:
+	[[newWebView.nativeWebView mainFrame] loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
 }
 
@@ -4810,13 +4805,6 @@ conditionallyForWindow:(NSWindow *)window
 - (void) closeDocument:(id)document
 {
     [document close];
-}
-
-- (void) switchPluginsOn:(NSNotification *)notification
-{
-#ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-    [[self.webView preferences] setPlugInsEnabled:YES];
-#endif
 }
 
 

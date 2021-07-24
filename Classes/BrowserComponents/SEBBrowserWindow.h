@@ -38,18 +38,19 @@
 #import <WebKit/WebKit.h>
 
 #import "SEBBrowserWindowController.h"
-#import "SEBWebView.h"
+#import "SEBAbstractWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBOSXBrowserController.h"
 #import "SEBTextField.h"
 
+@class SEBAbstractWebView;
 @class SEBOSXBrowserController;
 
 
-@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate>
+@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSTextViewDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 
 {
-    SEBWebView *requestingWebView;
+    SEBAbstractWebView *requestingWebView;
     NSString *downloadPath;
     NSURL *downloadURL;
     NSString *lastUsername;
@@ -57,8 +58,9 @@
     
 }
 
+@property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak) SEBOSXBrowserController *browserController;
-@property (strong) IBOutlet SEBWebView *webView;
+@property (strong, nonatomic) SEBAbstractWebView *webView;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;
 @property (weak) IBOutlet SEBTextField *customAlertText;
@@ -69,8 +71,6 @@
 @property (strong) IBOutlet NSTextView *filterExpressionField;
 @property BOOL isFullScreen;
 @property BOOL isPanel;
-@property BOOL allowDownloads;
-@property BOOL allowDeveloperConsole;
 @property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;

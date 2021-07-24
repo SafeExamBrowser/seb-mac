@@ -187,7 +187,7 @@
 @property(readwrite) BOOL isTerminating;
 @property(strong) NSURL *openingSettingsFileURL;
 
-@property(weak) SEBWebView *webView;
+@property(weak) SEBAbstractWebView *webView;
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;

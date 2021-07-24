@@ -35,10 +35,8 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
 #import "SEBOSXBrowserController.h"
-#import "SEBWebView.h"
 
 @class SEBOSXBrowserController;
-@class SEBWebView;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
 {
@@ -50,7 +48,8 @@
 
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet NSView *rootView;
-@property (weak) IBOutlet SEBWebView *webView;
+@property (readonly, nonatomic) SEBBrowserWindow *browserWindow;
+//@property (weak) IBOutlet SEBAbstractWebView *webView;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
 @property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
