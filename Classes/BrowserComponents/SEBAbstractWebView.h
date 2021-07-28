@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) loadURL:(NSURL *)url;
 - (void) stopLoading;
 
+@optional
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;
@@ -62,7 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) textSizeDecrease;
 - (void) textSizeReset;
 
-@optional
 - (void) loadView;
 - (void) didMoveToParentViewController;
 - (void) viewDidLayoutSubviews;
@@ -96,9 +96,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) makeActiveAndOrderFront;
 - (void) showWebView:(SEBAbstractWebView *)webView;
+- (void) closeWebView;
+- (void) closeWebView:(SEBAbstractWebView *)webView;
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
+@property (strong, nonatomic) NSString *currentMainHost;
+@property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
+@property (readonly) BOOL directConfigDownloadAttempted;
 @property (readonly) BOOL overrideAllowSpellCheck;
 @property (readonly) BOOL allowSpellCheck;
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
@@ -135,6 +140,9 @@ decidePolicyForMIMEType:(nullable NSString*)mimeType
     isForMainFrame:(BOOL)isForMainFrame
  suggestedFilename:(nullable NSString *)suggestedFilename
            cookies:(NSArray <NSHTTPCookie *>*)cookies;
+
+- (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+                        completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
 
 - (void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
@@ -187,14 +195,17 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
      initiatedByFrame:(WebFrame *)frame;
 
 - (void)webView:(nullable WKWebView *)webView
-runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
-initiatedByFrame:(WKFrameInfo *)frame
+runOpenPanelWithParameters:(nullable WKOpenPanelParameters *)parameters
+initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 #if TARGET_OS_IPHONE
 - (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
 #endif
+- (BOOL) showURLFilterAlertForRequest:(NSURLRequest *)request
+                     forContentFilter:(BOOL)contentFilter
+                       filterResponse:(URLFilterRuleActions)filterResponse;
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 
 - (void) openCloseSliderForNewTab;
@@ -206,7 +217,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
-- (BOOL) downloadingInTemporaryWebView;
+@property (readonly) BOOL downloadingInTemporaryWebView;
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;
 
 @end

@@ -34,8 +34,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
+#import "SEBBrowserWindow.h"
 #import "SEBOSXBrowserController.h"
 
+@class SEBBrowserWindow;
 @class SEBOSXBrowserController;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>

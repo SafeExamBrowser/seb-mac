@@ -112,8 +112,9 @@
         _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
         _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
 
-//        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        
+        urlFilter = [SEBURLFilter sharedSEBURLFilter];
+        quitURLTrimmed = self.navigationDelegate.quitURL;
+        sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
         // Display all MIME types the WebView can display as HTML
         NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
         NSUInteger i, count = [MIMETypes count];
@@ -277,6 +278,24 @@
 }
 
 
+- (NSString *)currentMainHost
+{
+    if (_currentWebViewMainHost) {
+        return _currentWebViewMainHost;
+    } else {
+        return self.navigationDelegate.currentMainHost;
+    }
+}
+
+- (void)setCurrentMainHost:(NSString *)currentMainHost
+{
+    _currentWebViewMainHost = currentMainHost;
+    self.navigationDelegate.currentMainHost = currentMainHost;
+}
+
+
+
+
 #pragma mark WebView Delegates
 
 #pragma mark WebUIDelegates
@@ -343,94 +362,11 @@
 - (void)webView:(SEBWebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles;
 // Choose file for upload
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (_allowDownloads == YES) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
-            // If the policy isn't "manually with file requester"
-            // We try to choose the filename and path ourselves, it's the last dowloaded file
-            NSInteger lastDownloadPathIndex = [[MyGlobals sharedMyGlobals] lastDownloadPath];
-            NSMutableArray *downloadPaths = [[MyGlobals sharedMyGlobals] downloadPath];
-            if (downloadPaths && downloadPaths.count) {
-                if (lastDownloadPathIndex == -1) {
-                    //if the index counter of the last downloaded file is -1, we have reached the beginning of the list of downloaded files
-                    lastDownloadPathIndex = [downloadPaths count]-1; //so we jump to the last path in the list
-                }
-                NSString *lastDownloadPath = [downloadPaths objectAtIndex:lastDownloadPathIndex];
-                lastDownloadPathIndex--;
-                [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
-                if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
-                    [resultListener chooseFilename:lastDownloadPath];
-                    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-                    [self.navigationDelegate makeActiveAndOrderFront];
-                    
-                    NSAlert *modalAlert = [self.browserController.sebController newAlert];
-                    DDLogInfo(@"File to upload automatically chosen");
-                    [modalAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
-                    [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                    [modalAlert setAlertStyle:NSInformationalAlertStyle];
-                    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                        [self.browserController.sebController removeAlertWindow:modalAlert.window];
-                    };
-                    [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
-                    return;
-                }
-            }
-            
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore) {
-                // if the policy is "Only allow to upload the same file downloaded before"
-                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-                [self.navigationDelegate makeActiveAndOrderFront];
-
-                NSAlert *modalAlert = [self.browserController.sebController newAlert];
-                DDLogError(@"File to upload (which was downloaded before) not found");
-                [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self.browserController.sebController removeAlertWindow:modalAlert.window];
-                };
-                [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
-                return;
-            }
-        }
-        // Create the File Open Dialog class.
-        NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
-        
-        // Enable the selection of files in the dialog.
-        openFilePanel.canChooseFiles = YES;
-        
-        // Allow the user to open multiple files at a time.
-        openFilePanel.allowsMultipleSelection = allowMultipleFiles;
-        
-        // Disable the selection of directories in the dialog.
-        openFilePanel.canChooseDirectories = NO;
-        
-        // Change text of the open button in file dialog
-        openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
-        
-        // Change default directory in file dialog
-        openFilePanel.directoryURL = [NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"] isDirectory:NO];
-        
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        [self.navigationDelegate makeActiveAndOrderFront];
-
-        // Display the dialog.  If the OK button was pressed,
-        // process the files.
-        [openFilePanel beginSheetModalForWindow:self
-                              completionHandler:^(NSInteger result) {
-                                  if (result == NSFileHandlingPanelOKButton) {
-                                      // Get an array containing the full filenames of all
-                                      // files and directories selected.
-                                      NSArray* files = [openFilePanel URLs];
-                                      NSMutableArray *filenames = [NSMutableArray new];
-                                      for (NSURL *fileURL in files) {
-                                          [filenames addObject:fileURL.path];
-                                      }
-                                      [resultListener chooseFilenames:filenames.copy];
-                                  }
-                              }];
+        void (^completionHandler)(NSArray<NSURL *> *URLs) = ^void (NSArray<NSURL *> *URLs) {
+            [resultListener chooseFilenames:URLs];
+        };
+        [self.navigationDelegate webView:nil runOpenPanelWithParameters:nil initiatedByFrame:nil completionHandler:completionHandler];
     }
 }
 
@@ -483,16 +419,6 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 }
 
 
-- (IBAction) customAlertOKButton: (id)sender {
-    [NSApp stopModalWithCode:NSAlertFirstButtonReturn];
-}
-
-
-- (IBAction) customAlertCancelButton: (id)sender {
-    [NSApp stopModalWithCode:NSAlertSecondButtonReturn];
-}
-
-
 - (void)webView:(WebView *)sender frame:(WebFrame *)frame exceededDatabaseQuotaForSecurityOrigin:(id)origin database:(NSString *)databaseIdentifier
 {
     static const unsigned long long defaultQuota = 5 * 1024 * 1024;
@@ -512,25 +438,29 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 
 // Get the URL of the page being loaded
 // Invoked when a page load is in progress in a given frame
-- (void)webView:(SEBWebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
+- (void)webView:(SEBWebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame
+{
     DDLogInfo(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
-    [self startProgressIndicatorAnimation];
     
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
-        self.browserController.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
+        self.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
         //reset the flag for presentation option changes by flash
         [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:NO];
+        
+        [self.navigationDelegate sebWebViewDidStartLoad];
     }
 }
 
 
 // Invoked when a page load completes
-- (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-
-    [self backForwardButtonsSetEnabled];
-    
-    [self stopProgressIndicatorAnimation];
+- (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+{
+    if (frame == [sender mainFrame]){
+        [self.navigationDelegate setCanGoBack:sender.canGoBack canGoForward:sender.canGoForward];
+        
+        [self.navigationDelegate sebWebViewDidFinishLoad];
+    }
 }
 
 
@@ -553,11 +483,11 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Update the URL of the current page in case of a server redirect
-- (void)webView:(SEBWebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
-    //[self stopProgressIndicatorAnimation];
+- (void)webView:(SEBWebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame
+{
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
-        self.browserController.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
+        self.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
         //reset the flag for presentation option changes by flash
         [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:NO];
     }
@@ -568,7 +498,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
-        [self.browserController setTitle: title forWindow:self withWebView:sender];
         NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@  —  %@",
                                     versionString,
@@ -580,7 +509,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
                                         title];
         }
         DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self, appTitleString);
-        [sender.window setTitle:appTitleString];
+        [self.navigationDelegate sebWebViewDidUpdateTitle:title];
     }
 }
 
@@ -591,55 +520,10 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(SEBWebView *)sender didFailProvisionalLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame
 {
-    // Enable back/forward buttons according to availablility for this webview
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
-    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
-    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
-    
-    [self stopProgressIndicatorAnimation];
-    
-    if ([error code] != -999) {
-        
-        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange && !_browserController.directConfigDownloadAttempted) //this error can be ignored
-        {
-            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
-            
-            // Show alert only if load of the main frame failed
-            if (frame == [sender mainFrame]) {
-                
-                //Close the About Window first, because it would hide the error alert
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
-                
-                NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
-                NSString *messageString = [error localizedDescription];
-                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-                [self makeKeyAndOrderFront:self];
-                
-                NSAlert *modalAlert = [self.browserController.sebController newAlert];
-                [modalAlert setMessageText:titleString];
-                [modalAlert setInformativeText:messageString];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self.browserController.sebController removeAlertWindow:modalAlert.window];
-                    switch(answer) {
-                        case NSAlertFirstButtonReturn:
-                            //Retry: try reloading
-                            //self.browserController.currentMainHost = nil;
-                            DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
-                            
-                            [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
-                            return;
-                        default:
-                            // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                            [self.browserController openingConfigURLFailed];
-                            return;
-                    }
-                };
-                [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
-            }
-        }
+    DDLogError(@"%s: %@ error: %@ forFrame: %@", __FUNCTION__, sender, error, frame);
+    // Process/show error only if load of the main frame failed
+    if (frame == [sender mainFrame]) {
+        [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
     }
 }
 
@@ -647,51 +531,10 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked when an error occurs loading a committed data source
 - (void)webView:(SEBWebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
 {
-    // Enable back/forward buttons according to availablility for this webview
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
-    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
-    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
-    
-    [self stopProgressIndicatorAnimation];
-    
-    DDLogError(@"Error in %s: %lx %@", __FUNCTION__, (long)error.code, error.description);
-    
-    if (error.code != -999) {
-        
-        if (error.code !=  WebKitErrorFrameLoadInterruptedByPolicyChange && error.code != 204 && !_browserController.directConfigDownloadAttempted) //these errors can be ignored (204 = Plug-in handled load)
-        {
-            //Close the About Window first, because it would hide the error alert
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
-            
-            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
-            NSString *messageString = [error localizedDescription];
-            
-            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-            [self makeKeyAndOrderFront:self];
-            NSAlert *modalAlert = [self.browserController.sebController newAlert];
-            [modalAlert setMessageText:titleString];
-            [modalAlert setInformativeText:messageString];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            void (^alertAnswerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self.browserController.sebController removeAlertWindow:modalAlert.window];
-                switch(answer) {
-                    case NSAlertFirstButtonReturn:
-                        //Retry: try reloading
-                        //self.browserController.currentMainHost = setCurrentMainHost:nil;
-                        DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
-                        
-                        [[sender mainFrame] loadRequest:[[frame dataSource] request]];
-                        return;
-                    default:
-                        // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                        [self.browserController openingConfigURLFailed];
-                        return;
-                }
-            };
-            [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertAnswerHandler];
-        }
+    DDLogError(@"%s: %@ error: %@ forFrame: %@", __FUNCTION__, sender, error, frame);
+    // Process/show error only if load of the main frame failed
+    if (frame == [sender mainFrame]) {
+        [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
     }
 }
 
@@ -729,14 +572,13 @@ willPerformClientRedirectToURL:(NSURL *)URL
     }
     
     //// If enabled, filter content
-    SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableURLFilter &&
-        URLFilter.enableContentFilter &&
-        ![self isTemporaryWindowWhileStartingUp]) {
-        URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
+    if (urlFilter.enableURLFilter &&
+        urlFilter.enableContentFilter &&
+        !self.navigationDelegate.downloadingInTemporaryWebView) {
+        URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:request.URL];
         if (filterActionResponse != URLFilterActionAllow) {
             /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
-            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
+            if (![self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
                 /// User didn't allow the content, don't load it
                 DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
                 // Return nil instead of request
@@ -744,82 +586,15 @@ willPerformClientRedirectToURL:(NSURL *)URL
             }
         }
     }
-    NSString *fragment = [[request URL] fragment];
-    NSString *requestURLStrippedFragment;
-    if (fragment.length) {
-        // if there is a fragment
-        requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
-    } else requestURLStrippedFragment = absoluteRequestURL;
-    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
-    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
 
-    NSDictionary *headerFields;
-    headerFields = [request allHTTPHeaderFields];
-    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
-        
+    if (sendBrowserExamKey) {
         NSMutableURLRequest *modifiedRequest = [request mutableCopy];
-        
         // Browser Exam Key
-        
-        NSData *browserExamKey = _browserController.browserExamKey;
-#ifdef DEBUG
-        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
-#endif
-        unsigned char hashedChars[32];
-        [browserExamKey getBytes:hashedChars length:32];
-        
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-#ifdef DEBUG
-        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
-#endif
-        const char *urlString = [browserExamKeyString UTF8String];
-        CC_SHA256(urlString,
-                  (uint)strlen(urlString),
-                  hashedChars);
-
-        NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [hashedString appendFormat: @"%02x", hashedChars[i]];
-        }
-        [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
-
+        [modifiedRequest setValue:[self.navigationDelegate browserExamKeyForURL:request.URL] forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
         // Config Key
-        
-        NSData *configKey = _browserController.configKey;
-        [configKey getBytes:hashedChars length:32];
-        
-#ifdef DEBUG
-        DDLogVerbose(@"Current Config Key: %@", configKey);
-#endif
-        
-        NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [configKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-#ifdef DEBUG
-        DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
-#endif
-        urlString = [configKeyString UTF8String];
-        CC_SHA256(urlString,
-                  (uint)strlen(urlString),
-                  hashedChars);
-        
-        NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
-
-        headerFields = [modifiedRequest allHTTPHeaderFields];
-        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+        [modifiedRequest setValue:[self.navigationDelegate configKeyForURL:request.URL] forHTTPHeaderField:SEBConfigKeyHeaderKey];
         return modifiedRequest;
-        
     } else {
-        
         return request;
     }
 }
@@ -852,63 +627,40 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
 
-    // Allow to enter password 3 times
-    if ([challenge previousFailureCount] < 3) {
-        // Display authentication dialog
-        _pendingChallenge = challenge;
-        
-        NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
-        if ([challenge previousFailureCount] == 0) {
-            text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
-            lastUsername = @"";
-        } else {
-            text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
-        }
-        
-        [_browserController showEnterUsernamePasswordDialog:text
-                                             modalForWindow:self
-                                                windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                                   username:lastUsername
-                                              modalDelegate:self
-                                             didEndSelector:@selector(enteredUsername:password:returnCode:)];
-        
-    } else {
-        [[challenge sender] cancelAuthenticationChallenge:challenge];
-        // inform the user that the user name and password
-        // in the preferences are incorrect
-    }
-    
-}
+    self.pendingChallenge = challenge;
 
-
-- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
-{
-    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
-    
-    if (_pendingChallenge) {
-        if (returnCode == SEBEnterPasswordOK) {
-            lastUsername = username;
-            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
-                                                                        password:password
-                                                                     persistence:NSURLCredentialPersistenceForSession];
-            [[_pendingChallenge sender] useCredential:newCredential
-                           forAuthenticationChallenge:_pendingChallenge];
-            _browserController.enteredCredential = newCredential;
-            _pendingChallenge = nil;
-        } else if (returnCode == SEBEnterPasswordCancel) {
-            [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
-            _browserController.enteredCredential = nil;
-            _pendingChallenge = nil;
-            // If a temporary webview for loading config is open, close it
-            [_browserController openingConfigURLFailed];
-        } else {
-            // Any other case as when the server aborted the authentication challenge
-            _browserController.enteredCredential = nil;
-            _pendingChallenge = nil;
-            // If a temporary webview for loading config is open, close it
-            [_browserController openingConfigURLFailed];
+    void (^completionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential) = ^void(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential) {
+        switch (disposition) {
+            case NSURLSessionAuthChallengeUseCredential:
+                [self.pendingChallenge.sender useCredential:credential forAuthenticationChallenge:self.pendingChallenge];
+                self.pendingChallenge = nil;
+                break;
+                
+            case NSURLSessionAuthChallengeCancelAuthenticationChallenge:
+            {
+                if (self.pendingChallenge == challenge) {
+                    DDLogDebug(@"_pendingChallenge is same as current challenge");
+                } else {
+                    DDLogDebug(@"_pendingChallenge is not same as current challenge");
+                }
+                [challenge.sender cancelAuthenticationChallenge:challenge];
+                self.pendingChallenge = nil;
+                break;
+            }
+                
+            case NSURLSessionAuthChallengePerformDefaultHandling:
+                [self.pendingChallenge.sender useCredential:credential forAuthenticationChallenge:self.pendingChallenge];
+                self.pendingChallenge = nil;
+                break;
+                
+            default:
+                [self.pendingChallenge.sender useCredential:credential forAuthenticationChallenge:self.pendingChallenge];
+                self.pendingChallenge = nil;
+                break;
         }
-    }
+    };
+
+    [self.navigationDelegate didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
 
@@ -919,7 +671,7 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogInfo(@"webView: %@ resource: %@ didCancelAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
-    [_browserController hideEnterUsernamePasswordDialog];
+//    [_browserController hideEnterUsernamePasswordDialog];
 }
 
 
@@ -959,7 +711,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
-    NSString *currentMainHost = self.browserController.currentMainHost;
     //NSString *requestedHost = [[request mainDocumentURL] host];
     
     if (request) {
@@ -1058,7 +809,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         
         // If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter && ![self isTemporaryWindowWhileStartingUp]) {
+        if (URLFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
             URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 
@@ -1066,14 +817,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 
                 // If the learning mode is active, display according sheet and ask user if he wants to allow this URL
                 // but only if we're dealing with a request in the main frame of the web page
-                if (frame != self.webView.mainFrame) {
+                if (frame != sender.mainFrame) {
                     // Don't load the request
                     [listener ignore];
                     return;
                 }
                 // Show alert for URL is not allowed as sheet on the WebView's window
-                if (![self showURLFilterAlertSheetForWindow:self
-                                                 forRequest:request
+                if (![self.navigationDelegate showURLFilterAlertForRequest:request
                                            forContentFilter:NO
                                              filterResponse:filterActionResponse]) {
                     /// User didn't allow the URL
@@ -1081,7 +831,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                     // Check if the link was opened by a script and
                     // if a temporary webview or a new browser window should be closed therefore
                     // If the new page is supposed to open in a new browser window
-                    SEBWebView *creatingWebView = [self.webView creatingWebView];
+                    SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
                     if (creatingWebView) {
                         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
                             // Don't load the request
@@ -1091,11 +841,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                             DDLogDebug(@"Originating browser window %@", sender);
                             // Close document and therefore also window
                             //Workaround: Flash crashes after closing window and then clicking some other link
-                            [[self.webView preferences] setPlugInsEnabled:NO];
-                            DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                            [self.browserController closeWebView:self.webView];
+                            [[sender preferences] setPlugInsEnabled:NO];
+                            DDLogDebug(@"Now closing new document browser window for: %@", self.sebWebView);
+                            [self.navigationDelegate closeWebView];
                         } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                            if (self.webView) {
+                            if (self.sebWebView) {
                                 [sender close]; //close the temporary webview
                             }
                         }
@@ -1112,24 +862,24 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         NSString *scheme = request.URL.scheme;
         if ([scheme isEqualToString:@"seb"] || [scheme isEqualToString:@"sebs"]) {
             // If the scheme is seb(s):// we (conditionally) download and open the linked .seb file
-            [self.browserController openConfigFromSEBURL:request.URL];
+            [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:request.URL];
             [listener ignore];
             return;
         }
     }
 
-    if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
+    if (self.currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
         [listener ignore];
         return;
     }
 
     // Check if the new page is supposed to be opened in the same browser window
-    if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+    if (self.currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
         // Check if the request's sender is different than the current webview (means the sender is the temporary webview)
-        if (self.webView && ![sender isEqual:self.webView]) {
+        if (![sender isEqual:self.sebWebView]) {
             // If the request's sender is the temporary webview, then we have to load the request now in the current webview
             [listener ignore]; // ignore listener
-            [[self.webView mainFrame] loadRequest:request]; //load the new page in the same browser window
+            [self.navigationDelegate.abstractWebView loadURL:request.URL]; //load the new page in the same browser window
             [sender close]; //close the temporary webview
             return; //and return from here
         }
@@ -1150,11 +900,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
         //// If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter && ![self isTemporaryWindowWhileStartingUp]) {
+        if (URLFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
             URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 /// URL is not allowed: Show teach URL alert if activated or just indicate URL is blocked
-                if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
+                if (![self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
                     // User didn't allow the URL: Don't load the request
                     [listener ignore];
                     return;
@@ -1164,12 +914,12 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         
         // load link only if it's on the same host like the one of the current page
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
-            [self.browserController.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
+            [self.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                 // Open new browser window containing WebView and show it
-                SEBWebView *newWebView = [self.browserController openAndShowWebView];
+                SEBAbstractWebView *newWebView = [self.navigationDelegate openNewWebViewWindow];
                 // Load URL request in new WebView
-                [[newWebView mainFrame] loadRequest:request];
+                [newWebView loadURL:request.URL];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
                 // Load URL request in existing WebView
