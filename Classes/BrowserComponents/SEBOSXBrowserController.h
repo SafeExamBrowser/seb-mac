@@ -55,23 +55,23 @@
 
 }
 
-@property (weak) SEBController *sebController;
+@property (weak, nonatomic) SEBController *sebController;
 @property (readwrite) BOOL openingSettings;
 
-@property (weak) SEBAbstractWebView *mainWebView;
-@property (strong) SEBBrowserWindow *mainBrowserWindow;
+@property (weak, nonatomic) SEBAbstractWebView *mainWebView;
+@property (strong, nonatomic) SEBBrowserWindow *mainBrowserWindow;
 
-@property (weak) SEBBrowserWindow *activeBrowserWindow;
-@property (weak) SEBDockController *dockController;
+@property (weak, nonatomic) SEBBrowserWindow *activeBrowserWindow;
+@property (weak, nonatomic) SEBDockController *dockController;
 @property (strong, nonatomic) NSString *activeBrowserWindowTitle;
 
-@property (strong) NSString *currentMainHost;
+@property (strong, nonatomic) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
 @property (readwrite) BOOL allowSpellCheck;
-@property (strong) NSArray *privatePasteboardItems;
-@property(strong) NSTimer *panelWatchTimer;
+@property (strong, nonatomic) NSArray *privatePasteboardItems;
+@property (strong) NSTimer *panelWatchTimer;
 
 - (NSScreen *) mainScreen;
 
