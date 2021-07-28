@@ -48,7 +48,7 @@
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        quitURLTrimmed = self.navigationDelegate.quitURL;
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
         _javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -243,7 +243,7 @@
         UILabel *message = [[UILabel alloc] initWithFrame:frameRect];
         
         // Set message for URL blocked according to settings
-        switch ([SEBURLFilter sharedSEBURLFilter].urlFilterMessage) {
+        switch (_urlFilter.urlFilterMessage) {
                 
             case URLFilterMessageText:
                 message.text = NSLocalizedString(@"URL Blocked!", nil);
@@ -376,45 +376,16 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     _currentRequest = nil;
     
-    if (error.code == -999) {
-        DDLogError(@"%s: Load Error -999: Another request initiated before the previous request was completed (%@)", __FUNCTION__, error.description);
-        return;
-    }
-    
     // Hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [self.navigationDelegate setLoading:NO];
-    [self setBackForwardAvailabilty];
     
-    // Don't display the error 102 "Frame load interrupted", this can be caused by
-    // the URL filter canceling loading a blocked URL
-    if (error.code == 102) {
-        DDLogDebug(@"%s: Reported Error 102: %@", __FUNCTION__, error.description);
-        
-    // Don't display the error 204 "Plug-in handled load"
-    } else if (error.code == 204) {
-        DDLogDebug(@"%s: Reported Error 204: %@", __FUNCTION__, error.description);
-
-    } else {	
-        
-        DDLogError(@"%s: Load Error: %@", __FUNCTION__, error.description);
-        
-        // Decide if of failed load should be displayed in the alert
-        // (according to current ShowURL policy settings for exam/additional tab)
-        BOOL showURL = false;
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
-                showURL = true;
-            }
-        } else {
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
-                showURL = true;
-            }
-        }
-
+    // Don't display the errors 102 "Frame load interrupted", this can be caused by
+    // the URL filter canceling loading a blocked URL,
+    // and 204 "Plug-in handled load"
+    if (error.code != 102 && error.code != 204 && !(self.navigationDelegate.directConfigDownloadAttempted)) {
         NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
-        NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
+        NSString *errorMessage = error.localizedDescription;
+        DDLogError(@"%s: Load error with localized description: %@", __FUNCTION__, errorMessage);
         
         if (self.navigationDelegate.uiAlertController) {
             [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
@@ -572,7 +543,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
-        if (![self.navigationDelegate downloadingInTemporaryWebView]) {
+        if (!self.navigationDelegate.downloadingInTemporaryWebView) {
             [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
             return NO;
         }
@@ -774,7 +745,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 
 - (BOOL) downloadingInTemporaryWebView
 {
-    return [self.navigationDelegate downloadingInTemporaryWebView];
+    return self.navigationDelegate.downloadingInTemporaryWebView;
 }
 
 

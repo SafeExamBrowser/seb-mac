@@ -95,7 +95,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     [self conditionallyInitCustomHTTPProtocol];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    self.quitURL = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
     downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
     self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
@@ -593,7 +593,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     // Trim a possible trailing slash "/"    
     NSString *absoluteRequestURLTrimmed = [url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
 
-    if ([absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
+    if ([absoluteRequestURLTrimmed isEqualToString:_quitURL]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
     }

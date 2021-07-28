@@ -156,7 +156,7 @@
 
 - (void) zoomPageReset
 {
-    
+    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
 }
 
 - (void) textSizeIncrease
@@ -242,6 +242,16 @@
 - (SEBAbstractWebView *) abstractWebView
 {
     return self.navigationDelegate.abstractWebView;
+}
+
+- (NSString *)currentMainHost
+{
+    return self.navigationDelegate.currentMainHost;
+}
+
+- (void)setCurrentMainHost:(NSString *)currentMainHost
+{
+    self.navigationDelegate.currentMainHost = currentMainHost;
 }
 
 - (NSString *) pageJavaScript
@@ -384,7 +394,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 
 - (BOOL) downloadingInTemporaryWebView
 {
-    return [self.navigationDelegate downloadingInTemporaryWebView];
+    return self.navigationDelegate.downloadingInTemporaryWebView;
 }
 
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url

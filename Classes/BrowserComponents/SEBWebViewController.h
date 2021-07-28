@@ -22,15 +22,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SEBWebViewController : NSViewController <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate, NSURLDownloadDelegate>
+@interface SEBWebViewController : NSViewController <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate, NSURLDownloadDelegate> {
+    
+    @private
+    SEBURLFilter *urlFilter;
+    NSString *quitURLTrimmed;
+    BOOL sendBrowserExamKey;
+}
 
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
 //@property (weak) SEBBrowserTabViewController *browserTabViewController;
-@property (nonatomic, strong) SEBWebView *sebWebView;
-@property (strong) NSString *currentURL;
-@property (strong) NSString *currentMainHost;
-@property (strong) NSURLRequest *currentRequest;
+@property (strong, nonatomic) SEBWebView *sebWebView;
+@property (strong, nonatomic) NSString *currentURL;
+@property (strong, nonatomic) NSString *currentWebViewMainHost;
+@property (strong, nonatomic) NSURLRequest *currentRequest;
+@property (strong, nonatomic)  NSURLAuthenticationChallenge * _Nullable pendingChallenge;
+@property (strong, nonatomic) NSString * _Nullable downloadFilename;
+
 @property (readwrite) BOOL allowDownloads;
 @property (readwrite) BOOL allowDeveloperConsole;
 

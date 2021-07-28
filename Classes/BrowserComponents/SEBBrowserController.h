@@ -138,7 +138,7 @@
 
 @property (readwrite) BOOL startingUp;
 @property (readwrite) BOOL openingSettings;
-@property (readonly) NSString *currentMainHost;
+//@property (readonly) NSString *currentMainHost;
 
 @end
 
@@ -153,7 +153,6 @@
     NSURL *cachedDownloadURL;
     NSURL *cachedHostURL;
     NSURL *cachedUniversalLink;
-    NSString *quitURLTrimmed;
     NSString *startURLQueryParameter;
     BOOL sendHashKeys;
     BOOL usingEmbeddedCertificates;
@@ -161,7 +160,7 @@
     BOOL downloadPDFFiles;
 }
 
-@property (weak) id<SEBBrowserControllerDelegate> delegate;
+@property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
 
 @property (strong, nonatomic) NSURL *sebServerExamStartURL;
 
@@ -194,6 +193,7 @@
 - (void) resetBrowser;
 + (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 @property (strong, nonatomic) NSString* customSEBUserAgent;
+@property (strong, nonatomic) NSString* quitURL;
 
 @property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
