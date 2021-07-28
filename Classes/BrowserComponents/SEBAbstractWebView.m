@@ -231,6 +231,16 @@
 }
 
 
+- (NSString *)currentMainHost
+{
+    return self.navigationDelegate.currentMainHost;
+}
+
+- (void)setCurrentMainHost:(NSString *)currentMainHost
+{
+    self.navigationDelegate.currentMainHost = currentMainHost;
+}
+
 - (NSString *) pageJavaScript
 {
     return self.navigationDelegate.pageJavaScript;
@@ -305,6 +315,48 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
+    if (error.code == -999) {
+        DDLogError(@"%s: Load Error -999: Another request initiated before the previous request was completed (%@)", __FUNCTION__, error.description);
+        return;
+    }
+    [self.navigationDelegate setLoading:NO];
+    // Enable back/forward buttons according to availablility for this webview
+    [self.navigationDelegate setCanGoBack:self.canGoBack canGoForward:self.canGoForward];
+
+    // Don't display the error 102 "Frame load interrupted", this can be caused by
+    // the URL filter canceling loading a blocked URL
+    if (error.code == 102) {
+        DDLogDebug(@"%s: Reported Error 102: %@", __FUNCTION__, error.description);
+        
+    // Don't display the error 204 "Plug-in handled load"
+    } else if (error.code == 204) {
+        DDLogDebug(@"%s: Reported Error 204: %@", __FUNCTION__, error.description);
+
+    } else {
+        
+        DDLogError(@"%s: Load Error: %@", __FUNCTION__, error.description);
+        
+        // Decide if of failed load should be displayed in the alert
+        // (according to current ShowURL policy settings for exam/additional tab)
+        BOOL showURL = false;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
+                showURL = true;
+            }
+        } else {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
+                showURL = true;
+            }
+        }
+        NSMutableDictionary<NSErrorUserInfoKey,id> *userInfo = error.userInfo.mutableCopy;
+        NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
+        NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
+        [userInfo setValue:errorMessage forKey:NSLocalizedDescriptionKey];
+        NSError *updatedError = [[NSError alloc] initWithDomain:error.domain code:error.code userInfo:userInfo.copy];
+        error = updatedError;
+    }
+    
     [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
 

@@ -1,5 +1,5 @@
 //
-//  SEBWebpageManager.m
+//  SEBBrowserTabViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
 //  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
@@ -229,6 +229,11 @@
     
 }
 
+- (NSString *) quitURL
+{
+    return _sebViewController.browserController.quitURL;
+}
+
 
 - (void) setLoading:(BOOL)loading
 {
@@ -273,6 +278,12 @@
 
     [_sebViewController showToolbarNavigation:showToolbarNavigation];
     [_sebViewController setCanGoBack:canGoBack canGoForward:canGoForward];
+}
+
+
+- (BOOL) directConfigDownloadAttempted
+{
+    return _sebViewController.browserController.directConfigDownloadAttempted;
 }
 
 
@@ -806,7 +817,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
 
 - (BOOL) downloadingInTemporaryWebView
 {
-    return [_sebViewController.browserController downloadingInTemporaryWebView];
+    return _sebViewController.browserController.downloadingInTemporaryWebView;
 }
 
 

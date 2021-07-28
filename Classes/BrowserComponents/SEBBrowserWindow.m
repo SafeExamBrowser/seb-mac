@@ -348,14 +348,6 @@
 }
 
 
-// Enable back/forward buttons according to availablility for this webview
-- (void)backForwardButtonsSetEnabled {
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
-    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
-    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
-}
-
-
 #pragma mark URL Filter Blocked Message
 
 - (void) showURLFilterMessage {
@@ -773,7 +765,7 @@
 }
 
 
-/// SEBAbstractWebViewNavigationDelegate Methods
+#pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
 @synthesize wkWebViewConfiguration;
 
@@ -785,11 +777,21 @@
 
 - (void) setLoading:(BOOL)loading
 {
+    if (loading) {
+        [self startProgressIndicatorAnimation];
+    } else {
+        [self stopProgressIndicatorAnimation];
+    }
     [self.browserController setLoading:loading];
 }
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
+    // Enable back/forward buttons according to availablility for this webview
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:canGoBack forSegment:0];
+    [backForwardButtons setEnabled:canGoForward forSegment:1];
+
     [self.browserController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
@@ -819,6 +821,78 @@
 }
 
 
+- (NSString *)currentMainHost
+{
+    return self.browserController.currentMainHost;
+}
+
+- (void)setCurrentMainHost:(NSString *)currentMainHost
+{
+    self.browserController.currentMainHost = currentMainHost;
+}
+
+
+- (void)sebWebViewDidStartLoad
+{
+    [self setLoading:YES];
+}
+
+- (void)sebWebViewDidFinishLoad
+{
+    [self setLoading:NO];
+}
+
+- (void)sebWebViewDidFailLoadWithError:(NSError *)error
+{
+    // Don't display the errors 102 "Frame load interrupted", this can be caused by
+    // the URL filter canceling loading a blocked URL,
+    // and 204 "Plug-in handled load"
+    if (error.code != 102 && error.code != 204 && !(self.browserController.directConfigDownloadAttempted)) {
+        NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
+        NSString *errorMessage = error.localizedDescription;
+        DDLogError(@"%s: Load error with localized description: %@", __FUNCTION__, errorMessage);
+        
+        //Close the About Window first, because it would hide the error alert
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
+        
+        NSString *titleString = NSLocalizedString(@"Load Error",nil);
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self makeKeyAndOrderFront:self];
+        
+        NSAlert *modalAlert = [self.browserController.sebController newAlert];
+        [modalAlert setMessageText:titleString];
+        [modalAlert setInformativeText:errorMessage];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self.browserController.sebController removeAlertWindow:modalAlert.window];
+            switch(answer) {
+                case NSAlertFirstButtonReturn:
+                {
+                    //Retry: try reloading
+                    //self.browserController.currentMainHost = nil;
+                    DDLogInfo(@"Trying to reload after %s: %@, localized error: %@", __FUNCTION__, error.description, errorMessage);
+                    NSURL *failingURL = [NSURL URLWithString:failingURLString];
+                    if (failingURL) {
+                        [self.browserControllerDelegate loadURL:failingURL];
+                    }
+                    return;
+                }
+                default:
+                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                    [self.browserController openingConfigURLFailed];
+                    return;
+            }
+        };
+        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+    }
+}
+
+- (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
+{
+    [self setTitle:title];
+}
 
 - (void)webView:(WKWebView *)webView
 runJavaScriptAlertPanelWithMessage:(NSString *)message
@@ -971,7 +1045,95 @@ runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
-//    [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
+            // If the policy isn't "manually with file requester"
+            // We try to choose the filename and path ourselves, it's the last dowloaded file
+            NSInteger lastDownloadPathIndex = [[MyGlobals sharedMyGlobals] lastDownloadPath];
+            NSMutableArray *downloadPaths = [[MyGlobals sharedMyGlobals] downloadPath];
+            if (downloadPaths && downloadPaths.count) {
+                if (lastDownloadPathIndex == -1) {
+                    //if the index counter of the last downloaded file is -1, we have reached the beginning of the list of downloaded files
+                    lastDownloadPathIndex = [downloadPaths count]-1; //so we jump to the last path in the list
+                }
+                NSString *lastDownloadPath = [downloadPaths objectAtIndex:lastDownloadPathIndex];
+                lastDownloadPathIndex--;
+                [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
+                if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
+                    [resultListener chooseFilename:lastDownloadPath];
+                    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                    [self makeKeyAndOrderFront:self];
+                    
+                    NSAlert *modalAlert = [self.browserController.sebController newAlert];
+                    DDLogInfo(@"File to upload automatically chosen");
+                    [modalAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
+                    [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+                    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                    };
+                    [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+                    return;
+                }
+            }
+            
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore) {
+                // if the policy is "Only allow to upload the same file downloaded before"
+                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                [self makeKeyAndOrderFront:self];
+
+                NSAlert *modalAlert = [self.browserController.sebController newAlert];
+                DDLogError(@"File to upload (which was downloaded before) not found");
+                [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self.browserController.sebController removeAlertWindow:modalAlert.window];
+                };
+                [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+                return;
+            }
+        }
+        // Create the File Open Dialog class.
+        NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
+        
+        // Enable the selection of files in the dialog.
+        openFilePanel.canChooseFiles = YES;
+        
+        // Allow the user to open multiple files at a time.
+        openFilePanel.allowsMultipleSelection = allowMultipleFiles;
+        
+        // Disable the selection of directories in the dialog.
+        openFilePanel.canChooseDirectories = NO;
+        
+        // Change text of the open button in file dialog
+        openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
+        
+        // Change default directory in file dialog
+        openFilePanel.directoryURL = [NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"] isDirectory:NO];
+        
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self makeKeyAndOrderFront:self];
+
+        // Display the dialog.  If the OK button was pressed,
+        // process the files.
+        [openFilePanel beginSheetModalForWindow:self
+                              completionHandler:^(NSInteger result) {
+                                  if (result == NSFileHandlingPanelOKButton) {
+                                      // Get an array containing the full filenames of all
+                                      // files and directories selected.
+                                      NSArray* files = [openFilePanel URLs];
+                                      NSMutableArray *filenames = [NSMutableArray new];
+                                      for (NSURL *fileURL in files) {
+                                          [filenames addObject:fileURL.path];
+                                      }
+                                      [resultListener chooseFilenames:filenames.copy];
+                                  }
+                              }];
+    }
 }
 
 

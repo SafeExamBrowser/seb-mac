@@ -297,7 +297,7 @@
 
     // Check if this is a seb:// or sebs:// link or a .seb file link
     if ([fileExtension isEqualToString:SEBFileExtension] &&
-        [self.navigationDelegate downloadingInTemporaryWebView]) {
+        self.navigationDelegate.downloadingInTemporaryWebView) {
         if (!waitingForConfigDownload) {
             waitingForConfigDownload = YES;
             if (![self.navigationDelegate originalURLIsEqualToURL:url]) {
