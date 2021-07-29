@@ -1041,7 +1041,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 
 
 - (void)webView:(WKWebView *)webView
-runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
+runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
@@ -1061,7 +1061,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 lastDownloadPathIndex--;
                 [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
                 if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
-                    [resultListener chooseFilename:lastDownloadPath];
+                    completionHandler(@[[NSURL fileURLWithPathString:lastDownloadPath]]);
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
                     
@@ -1103,11 +1103,19 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         // Enable the selection of files in the dialog.
         openFilePanel.canChooseFiles = YES;
         
-        // Allow the user to open multiple files at a time.
-        openFilePanel.allowsMultipleSelection = allowMultipleFiles;
-        
-        // Disable the selection of directories in the dialog.
-        openFilePanel.canChooseDirectories = NO;
+        if ([[parameters class] isEqual:WKOpenPanelParameters.class]) {
+            // Is selection of multiple files at a time allowed?
+            openFilePanel.allowsMultipleSelection = ((WKOpenPanelParameters *)parameters).allowsMultipleSelection;
+            // Is selection of directories allowed?
+            if (@available(macOS 10.13.4, *)) {
+                openFilePanel.canChooseDirectories = ((WKOpenPanelParameters *)parameters).allowsDirectories;
+            } else {
+                openFilePanel.canChooseDirectories = NO;
+            }
+        } else {
+            openFilePanel.allowsMultipleSelection = ((NSNumber *)parameters).boolValue;
+            openFilePanel.canChooseDirectories = NO;
+        }
         
         // Change text of the open button in file dialog
         openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
@@ -1125,16 +1133,19 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                                   if (result == NSFileHandlingPanelOKButton) {
                                       // Get an array containing the full filenames of all
                                       // files and directories selected.
-                                      NSArray* files = [openFilePanel URLs];
-                                      NSMutableArray *filenames = [NSMutableArray new];
-                                      for (NSURL *fileURL in files) {
-                                          [filenames addObject:fileURL.path];
-                                      }
-                                      [resultListener chooseFilenames:filenames.copy];
+                                      NSArray* fileURLs = [openFilePanel URLs];
+                                      completionHandler(fileURLs);
                                   }
                               }];
     }
 }
 
+
+- (BOOL) showURLFilterAlertForRequest:(NSURLRequest *)request
+                     forContentFilter:(BOOL)contentFilter
+                       filterResponse:(URLFilterRuleActions)filterResponse
+{
+    return [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:contentFilter filterResponse:filterResponse];
+}
 
 @end
