@@ -300,13 +300,13 @@
 
 #pragma mark WebUIDelegates
 
-// Handling of requests to open a link in a new window (including Javascript commands)
+// Handling of requests to open a link in a new window from Javascript (and plugins)
 - (SEBWebView *)webView:(SEBWebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
-    // Single browser window: [[self.webView mainFrame] loadRequest:request];
     // Multiple browser windows
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
+    newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
+    if (newBrowserWindowPolicy != getGenerallyBlocked) {
         NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
         DDLogDebug(@"Current System Presentation Options: %lx",(long)presentationOptions);
         DDLogDebug(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
@@ -315,7 +315,7 @@
             DDLogDebug(@"Cancel opening link from Flash plugin context menu");
             return nil; // cancel opening link
         }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+        if (newBrowserWindowPolicy == openInNewWindow) {
             SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindow];
             newWindowAbstractWebView.creatingWebView = self.navigationDelegate.abstractWebView;
             SEBWebView *newWindowWebView = newWindowAbstractWebView.nativeWebView;
@@ -324,17 +324,6 @@
             //[[sender preferences] setPlugInsEnabled:NO];
             [[newWindowWebView mainFrame] loadRequest:request];
             return newWindowWebView;
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-            SEBAbstractWebView *tempAbstractWebView = [SEBAbstractWebView new];
-            SEBWebView *tempWebView = tempAbstractWebView.nativeWebView;
-            //create a new temporary, invisible WebView
-            [tempWebView setPolicyDelegate:self];
-            [tempWebView setUIDelegate:self];
-            [tempWebView setFrameLoadDelegate:self];
-            [tempWebView setGroupName:@"SEBBrowserDocument"];
-            tempAbstractWebView.creatingWebView = self.navigationDelegate.abstractWebView;
-            return tempWebView;
         }
         return nil;
     } else {
@@ -364,9 +353,13 @@
 {
     if (_allowDownloads == YES) {
         void (^completionHandler)(NSArray<NSURL *> *URLs) = ^void (NSArray<NSURL *> *URLs) {
-            [resultListener chooseFilenames:URLs];
+            NSMutableArray *filenames = [NSMutableArray new];
+            for (NSURL *fileURL in URLs) {
+                [filenames addObject:fileURL.path];
+            }
+            [resultListener chooseFilenames:filenames.copy];
         };
-        [self.navigationDelegate webView:nil runOpenPanelWithParameters:nil initiatedByFrame:nil completionHandler:completionHandler];
+        [self.navigationDelegate webView:nil runOpenPanelWithParameters:[NSNumber numberWithBool:allowMultipleFiles] initiatedByFrame:nil completionHandler:completionHandler];
     }
 }
 
@@ -710,6 +703,7 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
     DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
     //NSString *requestedHost = [[request mainDocumentURL] host];
     
@@ -808,9 +802,8 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         }
         
         // If enabled, filter URL
-        SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
-            URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
+        if (urlFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
+            URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 
                 //// URL is not allowed
@@ -824,8 +817,8 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 }
                 // Show alert for URL is not allowed as sheet on the WebView's window
                 if (![self.navigationDelegate showURLFilterAlertForRequest:request
-                                           forContentFilter:NO
-                                             filterResponse:filterActionResponse]) {
+                                                          forContentFilter:NO
+                                                            filterResponse:filterActionResponse]) {
                     /// User didn't allow the URL
                     
                     // Check if the link was opened by a script and
@@ -833,7 +826,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                     // If the new page is supposed to open in a new browser window
                     SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
                     if (creatingWebView) {
-                        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                        if (newBrowserWindowPolicy == openInNewWindow) {
                             // Don't load the request
                             //                    [listener ignore];
                             // we have to close the new browser window which already has been opened by WebKit
@@ -844,7 +837,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                             [[sender preferences] setPlugInsEnabled:NO];
                             DDLogDebug(@"Now closing new document browser window for: %@", self.sebWebView);
                             [self.navigationDelegate closeWebView];
-                        } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                        } else if (newBrowserWindowPolicy == openInSameWindow) {
                             if (self.sebWebView) {
                                 [sender close]; //close the temporary webview
                             }
@@ -868,23 +861,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         }
     }
 
-    if (self.currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
+    if (self.currentMainHost && newBrowserWindowPolicy == getGenerallyBlocked) {
         [listener ignore];
         return;
     }
 
-    // Check if the new page is supposed to be opened in the same browser window
-    if (self.currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-        // Check if the request's sender is different than the current webview (means the sender is the temporary webview)
-        if (![sender isEqual:self.sebWebView]) {
-            // If the request's sender is the temporary webview, then we have to load the request now in the current webview
-            [listener ignore]; // ignore listener
-            [self.navigationDelegate.abstractWebView loadURL:request.URL]; //load the new page in the same browser window
-            [sender close]; //close the temporary webview
-            return; //and return from here
-        }
-    }
-
+    // We're ignoring the policy openInSameWindow (the script link would be supposed to be opened in the same browser window)
+    // because some browser functionality doesn't work correctly then
     [listener use];
 }
 
@@ -893,15 +876,15 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 - (void)webView:(SEBWebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation
         request:(NSURLRequest *)request
    newFrameName:(NSString *)frameName
-decisionListener:(id <WebPolicyDecisionListener>)listener {
+decisionListener:(id <WebPolicyDecisionListener>)listener
+{
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
     // First check if links requesting to be opened in a new windows are generally blocked
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
-
+    if (newBrowserWindowPolicy != getGenerallyBlocked) {
         //// If enabled, filter URL
-        SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
-            URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
+        if (urlFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
+            URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 /// URL is not allowed: Show teach URL alert if activated or just indicate URL is blocked
                 if (![self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
@@ -911,17 +894,16 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 }
             }
         }
-        
         // load link only if it's on the same host like the one of the current page
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
             [self.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
+            if (newBrowserWindowPolicy == openInNewWindow) {
                 // Open new browser window containing WebView and show it
                 SEBAbstractWebView *newWebView = [self.navigationDelegate openNewWebViewWindow];
                 // Load URL request in new WebView
                 [newWebView loadURL:request.URL];
             }
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
+            if (newBrowserWindowPolicy == openInSameWindow) {
                 // Load URL request in existing WebView
                 [[sender mainFrame] loadRequest:request];
             }
@@ -955,7 +937,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
+    newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
+
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
     if ([request.URL.scheme isEqualToString:@"data"]) {
         CFStringRef mimeType = (__bridge CFStringRef)type;
@@ -969,20 +952,20 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         [self startDownloadingURL:request.URL];
         
         // Close the temporary Window or WebView which has been opend by the data: download link
-        SEBWebView *creatingWebView = [self.webView creatingWebView];
+        SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
         if (creatingWebView) {
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+            if (newBrowserWindowPolicy == openInNewWindow) {
                 // we have to close the new browser window which already has been opened by WebKit
                 // Get the document for my web view
                 DDLogDebug(@"Originating browser window %@", sender);
                 // Close document and therefore also window
                 //Workaround: Flash crashes after closing window and then clicking some other link
-                [[self.webView preferences] setPlugInsEnabled:NO];
-                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                [self.browserController closeWebView:self.webView];
+                [[self.sebWebView preferences] setPlugInsEnabled:NO];
+                DDLogDebug(@"Now closing new document browser window for: %@", self.sebWebView);
+                [self.navigationDelegate closeWebView];
             }
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                if (self.webView) {
+            if (newBrowserWindowPolicy == openInSameWindow) {
+                if (self.sebWebView) {
                     [sender close]; //close the temporary webview
                 }
             }
@@ -1022,282 +1005,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
           frame:(WebFrame *)frame
 {
     DDLogError(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error.description, frame);
-}
-
-
-- (void)startDownloadingURL:(NSURL *)url
-{
-    // Cache the download URL
-    downloadURL = url;
-    // OS X 10.9 and newer: Use modern NSURLSession for downloading files which also allows handling
-    // basic/digest/NTLM authentication
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        [self downloadFileFromURL:url];
-    } else {
-        // OS X 10.7 and 10.8
-        // Create a NSURLDownload object with the request and start loading the data
-        // Create the request
-        NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
-                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                timeoutInterval:60.0];
-        NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
-        if (!theDownload) {
-            DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
-        }
-    }
-}
-
-
-- (BOOL)download:(NSURLDownload *)download canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
-{
-    // We accept any username/password authentication challenges.
-    NSString *authenticationMethod = protectionSpace.authenticationMethod;
-    
-    return [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
-    [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
-    [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM];
-}
-
-
-- (void)download:(NSURLDownload *)download didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-    if (_browserController.enteredCredential) {
-        [challenge.sender useCredential:_browserController.enteredCredential forAuthenticationChallenge:challenge];
-        // We reset the cached previously entered credentials, because subsequent
-        // downloads in this session won't need authentication anymore
-        _browserController.enteredCredential = nil;
-    } else {
-        [self webView:self.webView resource:nil didReceiveAuthenticationChallenge:challenge fromDataSource:nil];
-    }
-}
-
-
-- (void)download:(NSURLDownload *)download didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-    [self webView:self.webView resource:nil didCancelAuthenticationChallenge:challenge fromDataSource:nil];
-}
-
-
-- (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
-{
-    if ([filename.pathExtension isEqualToString:@"seb"]) {
-        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        // Check again if opening SEB config files is allowed in settings and if no other settings are currently being opened
-        // Because this method is also called when a .seb file is downloaded (besides opening a seb(s):// URL)
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-            // Download the .seb config file directly to memory
-            [self.browserController downloadSEBConfigFileFromURL:downloadURL originalURL:nil];
-            // and cancel the download to disc below
-        }
-        // We cancel the download in any case, because .seb config files should be opened directly and not downloaded to disc
-        [download cancel];
-        return;
-    }
-
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (_allowDownloads == YES) {
-        // If downloading is allowed
-        downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-        if (!downloadPath) {
-            //if there's no path saved in preferences, set standard path
-            downloadPath = @"~/Downloads";
-        }
-        downloadPath = [downloadPath stringByExpandingTildeInPath];
-        if (self.downloadFilename) {
-            // If we got the filename from a <a download="... tag, we use that
-            // as WebKit doesn't recognize the filename and suggests "Unknown"
-            filename = self.downloadFilename;
-        } else if (self.downloadFileExtension) {
-            // If we didn't get the file name, at least set the file extension properly
-            filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
-        }
-        NSString *destinationFilename = [downloadPath stringByAppendingPathComponent:filename];
-        [download setDestination:destinationFilename allowOverwrite:NO];
-    } else {
-        // If downloading isn't allowed, then we cancel the initiated download here
-        [download cancel];
-    }
-}
-
-
-- (void) download:(NSURLDownload *)download didFailWithError:(NSError *)error
-{
-    // Inform the user
-    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-
-    DDLogError(@"Download failed! Error - %@ %@",
-               error.description,
-               [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-}
-
-
-- (void) downloadDidFinish:(NSURLDownload *)download
-{
-    DDLogDebug(@"%s: Downloaded file with path: %@", __FUNCTION__, downloadPath);
-    [self fileDownloadedSuccessfully:downloadPath];
-}
-
-
-- (void) download:(NSURLDownload *)download didCreateDestination:(NSString *)path
-{
-    // path now contains the destination path
-    // of the download, taking into account any
-    // unique naming caused by -setDestination:allowOverwrite:
-    [self storeDownloadPath:path];
-}
-
-
-- (void) storeDownloadPath:(NSString *)path
-{
-    downloadPath = path;
-    NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
-    if (!downloadPaths) {
-        downloadPaths = [NSMutableArray arrayWithCapacity:1];
-    }
-    [downloadPaths addObject:downloadPath];
-    [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
-    [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
-}
-
-
-- (void) fileDownloadedSuccessfully:(NSString *)path
-{
-    DDLogInfo(@"Download of File %@ did finish.", downloadPath);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
-        // Open downloaded file
-        [[NSWorkspace sharedWorkspace] openFile:path];
-    } else {
-        NSAlert *modalAlert = [self.browserController.sebController newAlert];
-        // Inform user that download succeeded
-        [modalAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [modalAlert setAlertStyle:NSInformationalAlertStyle];
-        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-            [self.browserController.sebController removeAlertWindow:modalAlert.window];
-        };
-        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
-    }
-}
-
-
-#pragma mark Downloading for macOS 10.9 and higher
-
-- (void) downloadFileFromURL:(NSURL *)url
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-    
-    if (!_URLSession) {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self.browserController delegateQueue:nil];
-    }
-    NSURLSessionDownloadTask *downloadTask = [_URLSession downloadTaskWithURL:url
-                                                            completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error)
-                                              {
-                                                  [self didDownloadFile:fileLocation response:response error:error];
-                                              }];
-    
-    [downloadTask resume];
-}
-
-
-- (void) didDownloadFile:(NSURL *)url
-                response:(NSURLResponse *)response
-                   error:(NSError *)error
-{
-    NSString *suggestedFilename = response.suggestedFilename;
-    NSURL *responseURL = response.URL;
-    NSString *pathExtension = responseURL.pathExtension;
-    DDLogDebug(@"%s from URL: %@ (NSURLResponse URL: %@, suggestedFilename: %@, error: %@", __FUNCTION__, url, responseURL, suggestedFilename, error);
-    
-    if (!error) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
-        NSString *filename = suggestedFilename;
-        if (self.downloadFilename) {
-            // If we got the filename from a <a download="... tag, we use that
-            // as WebKit doesn't recognize the filename and suggests "Unknown"
-            filename = self.downloadFilename;
-            pathExtension = filename.pathExtension;
-        } else if (self.downloadFileExtension) {
-            // If we didn't get the file name, at least set the file extension properly
-            filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
-        }
-
-        if ([pathExtension isEqualToString:@"seb"] || [filename.pathExtension isEqualToString:@"seb"]) {
-            // If file extension indicates a .seb file, we try to open it
-            // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-                // Read the contents of the .seb config file and delete it from disk
-                NSData *sebFileData = [NSData dataWithContentsOfURL:url];
-                NSFileManager *fileManager = [NSFileManager defaultManager];
-                [fileManager removeItemAtURL:url error:&error];
-                if (error) {
-                    DDLogError(@"Failed to remove downloaded SEB config file %@! Error: %@", url, [error userInfo]);
-                }
-                if (sebFileData) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSURL *originalURL = self.webView.originalURL;
-                        [self.browserController openDownloadedSEBConfigData:sebFileData
-                                                                    fromURL:url
-                                                                originalURL:originalURL];
-                    });
-                    return;
-                }
-            }
-        } else if (_allowDownloads == YES) {
-            // If downloading is allowed
-            NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-            if (downloadPath.length == 0) {
-                //if there's no path saved in preferences, set standard path
-                downloadPath = @"~/Downloads";
-            }
-            downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
-            
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            int fileIndex = 1;
-            NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
-            NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
-            NSString* extension = [filename pathExtension];
-
-            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename] error:&error] == NO) {
-                if (error.code == NSFileWriteFileExistsError) {
-                    error = nil;
-                    filename = [NSString stringWithFormat:@"%@-%d.%@", filenameWithoutExtension, fileIndex, extension];
-                    fileIndex++;
-                } else {
-                    break;
-                }
-            }
-            if (!error) {
-                [self storeDownloadPath:destinationURL.absoluteString];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self fileDownloadedSuccessfully:destinationURL.absoluteString];
-                });
-                return;
-            } else {
-                DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                });
-                return;
-            }
-        } else {
-            // Downloading not allowed
-            return;
-        }
-    }
-    
-    // Download failed: Show error message
-    DDLogError(@"Download failed! Error - %@ %@",
-               error.description,
-               [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-    });
 }
 
 

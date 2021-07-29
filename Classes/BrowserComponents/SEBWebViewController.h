@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSURLRequest *currentRequest;
 @property (strong, nonatomic)  NSURLAuthenticationChallenge * _Nullable pendingChallenge;
 @property (strong, nonatomic) NSString * _Nullable downloadFilename;
+@property (strong, nonatomic) NSString * _Nullable downloadFileExtension;
 
 @property (readwrite) BOOL allowDownloads;
 @property (readwrite) BOOL allowDeveloperConsole;

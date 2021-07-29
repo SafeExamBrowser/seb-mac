@@ -1008,6 +1008,160 @@ decidePolicyForMIMEType:(NSString*)mimeType
 }
 
 
+#pragma mark Downloading for macOS 10.9 and higher
+
+- (void) storeDownloadPath:(NSString *)path
+{
+    NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
+    if (!downloadPaths) {
+        downloadPaths = [NSMutableArray arrayWithCapacity:1];
+    }
+    [downloadPaths addObject:path];
+    [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
+    [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
+}
+
+
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    DDLogInfo(@"Download of File %@ did finish.", path);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
+        // Open downloaded file
+        [[NSWorkspace sharedWorkspace] openFile:path];
+    } else {
+//        NSAlert *modalAlert = [self.browserController.sebController newAlert];
+//        // Inform user that download succeeded
+//        [modalAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
+//        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
+//        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+//        [modalAlert setAlertStyle:NSInformationalAlertStyle];
+//        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+//            [self.browserController.sebController removeAlertWindow:modalAlert.window];
+//        };
+//        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+    }
+}
+
+
+- (void) downloadFileFromURL:(NSURL *)url
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    if (!_URLSession) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    }
+    NSURLSessionDownloadTask *downloadTask = [_URLSession downloadTaskWithURL:url
+                                                            completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error)
+                                              {
+                                                  [self didDownloadFile:fileLocation response:response error:error];
+                                              }];
+    
+    [downloadTask resume];
+}
+
+
+- (void) didDownloadFile:(NSURL *)url
+                response:(NSURLResponse *)response
+                   error:(NSError *)error
+{
+    NSString *suggestedFilename = response.suggestedFilename;
+    NSURL *responseURL = response.URL;
+    NSString *pathExtension = responseURL.pathExtension;
+    DDLogDebug(@"%s from URL: %@ (NSURLResponse URL: %@, suggestedFilename: %@, error: %@", __FUNCTION__, url, responseURL, suggestedFilename, error);
+    
+    if (!error) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        NSString *filename = suggestedFilename;
+        if (self.downloadFilename) {
+            // If we got the filename from a <a download="... tag, we use that
+            // as WebKit doesn't recognize the filename and suggests "Unknown"
+            filename = self.downloadFilename;
+            pathExtension = filename.pathExtension;
+        } else if (self.downloadFileExtension) {
+            // If we didn't get the file name, at least set the file extension properly
+            filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
+        }
+
+        if ([pathExtension isEqualToString:@"seb"] || [filename.pathExtension isEqualToString:@"seb"]) {
+            // If file extension indicates a .seb file, we try to open it
+            // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+                // Read the contents of the .seb config file and delete it from disk
+                NSData *sebFileData = [NSData dataWithContentsOfURL:url];
+                NSFileManager *fileManager = [NSFileManager defaultManager];
+                [fileManager removeItemAtURL:url error:&error];
+                if (error) {
+                    DDLogError(@"Failed to remove downloaded SEB config file %@! Error: %@", url, [error userInfo]);
+                }
+                if (sebFileData) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSURL *originalURL = self.webView.originalURL;
+                        [self.browserController openDownloadedSEBConfigData:sebFileData
+                                                                    fromURL:url
+                                                                originalURL:originalURL];
+                    });
+                    return;
+                }
+            }
+        } else if (_allowDownloads == YES) {
+            // If downloading is allowed
+            NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+            if (downloadPath.length == 0) {
+                //if there's no path saved in preferences, set standard path
+                downloadPath = @"~/Downloads";
+            }
+            downloadPath = [downloadPath stringByExpandingTildeInPath];
+            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            int fileIndex = 1;
+            NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
+            NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
+            NSString* extension = [filename pathExtension];
+
+            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename] error:&error] == NO) {
+                if (error.code == NSFileWriteFileExistsError) {
+                    error = nil;
+                    filename = [NSString stringWithFormat:@"%@-%d.%@", filenameWithoutExtension, fileIndex, extension];
+                    fileIndex++;
+                } else {
+                    break;
+                }
+            }
+            if (!error) {
+                [self storeDownloadPath:destinationURL.absoluteString];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self fileDownloadedSuccessfully:destinationURL.absoluteString];
+                });
+                return;
+            } else {
+                DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                });
+                return;
+            }
+        } else {
+            // Downloading not allowed
+            return;
+        }
+    }
+    
+    // Download failed: Show error message
+    DDLogError(@"Download failed! Error - %@ %@",
+               error.description,
+               [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+    });
+}
+
+
+
+
 - (void)webView:(WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler

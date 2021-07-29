@@ -463,18 +463,19 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     NSString *fileExtension = [url pathExtension];
 
     if (newTab) {
-        
+        newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
+
         // First check if links requesting to be opened in a new windows are generally blocked
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
+        if (newBrowserWindowPolicy != getGenerallyBlocked) {
             // load link only if it's on the same host like the one of the current page
             if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
                 [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
+                if (newBrowserWindowPolicy == openInNewWindow) {
                     // Open in new tab
                     [self.navigationDelegate openNewTabWithURL:url];
                     return NO;
                 }
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
+                if (newBrowserWindowPolicy == openInSameWindow) {
                     // Load URL request in existing tab
                     request = [NSURLRequest requestWithURL:url];
                     [_sebWebView loadURL:request.URL];
