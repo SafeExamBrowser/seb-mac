@@ -195,7 +195,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
      initiatedByFrame:(WebFrame *)frame;
 
 - (void)webView:(nullable WKWebView *)webView
-runOpenPanelWithParameters:(nullable WKOpenPanelParameters *)parameters
+runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
