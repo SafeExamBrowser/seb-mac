@@ -40,4 +40,6 @@
 
 - (NSURL *) URLByReplacingScheme:(NSString *)scheme;
 
++ (NSURL *) fileURLWithPathString:(NSString *)pathString;
+
 @end
