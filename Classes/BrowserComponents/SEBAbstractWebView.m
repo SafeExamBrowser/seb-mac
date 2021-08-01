@@ -225,6 +225,16 @@
     [self.navigationDelegate showWebView:webView];
 }
 
+- (void) closeWebView
+{
+    [self.navigationDelegate closeWebView:self];
+}
+
+- (void) closeWebView:(SEBAbstractWebView *)webView
+{
+    [self.navigationDelegate closeWebView:webView];
+}
+
 - (SEBAbstractWebView *) abstractWebView
 {
     return self;
@@ -360,7 +370,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
 
-- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
+- (SEBNavigationActionPolicy)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
       navigationAction:(WKNavigationAction *)navigationAction
                                       newTab:(BOOL)newTab
 {
@@ -381,7 +391,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 }
 
-- (BOOL)sebWebViewDecidePolicyForMIMEType:(NSString*)mimeType
+- (SEBNavigationResponsePolicy)sebWebViewDecidePolicyForMIMEType:(NSString*)mimeType
                                       url:(NSURL *)url
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
