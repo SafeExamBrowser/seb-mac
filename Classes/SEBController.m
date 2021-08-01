@@ -4623,6 +4623,18 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (void)quitLinkDetected:(NSNotification *)notification
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+        [self sessionQuitRestartIgnoringQuitPW:restart];
+    } else {
+        [self sessionQuitRestart:restart];
+    }
+}
+
+
 // Confirm quitting, with default option "Quit"
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {

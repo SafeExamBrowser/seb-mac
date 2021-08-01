@@ -265,6 +265,22 @@ typedef NSUInteger newBrowserWindowPolicies;
 
 
 enum {
+    SEBNavigationActionPolicyCancel             = 0,
+    SEBNavigationActionPolicyAllow              = 1,
+    SEBNavigationActionPolicyDownload           = 2
+};
+typedef NSUInteger SEBNavigationActionPolicy;
+
+
+enum {
+    SEBNavigationResponsePolicyCancel             = 0,
+    SEBNavigationResponsePolicyAllow              = 1,
+    SEBNavigationResponsePolicyDownload           = 2
+};
+typedef NSUInteger SEBNavigationResponsePolicy;
+
+
+enum {
     operatingSystemMacOS                        = 0,
     operatingSystemWin                          = 1,
 };

@@ -239,6 +239,16 @@
     [self.navigationDelegate showWebView:webView];
 }
 
+- (void) closeWebView
+{
+    [self.navigationDelegate closeWebView];
+}
+
+- (void) closeWebView:(SEBAbstractWebView *)webView
+{
+    [self.navigationDelegate closeWebView:webView];
+}
+
 - (SEBAbstractWebView *) abstractWebView
 {
     return self.navigationDelegate.abstractWebView;
