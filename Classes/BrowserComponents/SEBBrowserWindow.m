@@ -812,12 +812,22 @@
 
 - (void) makeActiveAndOrderFront
 {
-    [self.browserController makeActiveAndOrderFront];
+    [self makeKeyAndOrderFront:self];
 }
 
 - (void) showWebView:(SEBAbstractWebView *)webView
 {
     [self.browserController showWebView:webView];
+}
+
+- (void) closeWebView
+{
+    [self.browserController closeWebView:self.abstractWebView];
+}
+
+- (void) closeWebView:(SEBAbstractWebView *)webView
+{
+    [self.browserController closeWebView:webView];
 }
 
 

@@ -502,7 +502,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
             NSString *mediaType = [urlResourceSpecifier substringToIndex:mediaTypeRange.location];
             NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
-            if ([mediaTypeParameters indexOfObject:SEBMIMEType] != NSNotFound &&
+            if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound &&
                 [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
                 NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                 NSData *sebConfigData;
