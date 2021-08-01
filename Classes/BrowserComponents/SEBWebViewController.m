@@ -922,17 +922,12 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     DDLogDebug(@"decidePolicyForMIMEType: %@ requestURL: %@", type, request.URL.absoluteString);
-    /*NSDictionary *headerFields = [request allHTTPHeaderFields];
-#ifdef DEBUG
-    DDLogInfo(@"Request URL: %@", [[request URL] absoluteString]);
-    DDLogInfo(@"All HTTP header fields: %@", headerFields);
-#endif*/
     
     // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
     if (self.downloadFilename) {
         DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
         [listener download];
-        [self startDownloadingURL:request.URL];
+        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename];
         return;
     }
 
@@ -944,12 +939,12 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         CFStringRef mimeType = (__bridge CFStringRef)type;
         CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
         CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
-        self.downloadFileExtension = (__bridge NSString *)(extension);
+        NSString *downloadFileExtension = (__bridge NSString *)(extension);
         if (uti) CFRelease(uti);
         if (extension) CFRelease(extension);
         DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
         [listener download];
-        [self startDownloadingURL:request.URL];
+        [self.navigationDelegate downloadFileFromURL:request.URL filename:[NSString stringWithFormat:@".%@", downloadFileExtension]];
         
         // Close the temporary Window or WebView which has been opend by the data: download link
         SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
@@ -971,8 +966,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             }
         }
         return;
-    } else {
-        self.downloadFileExtension = nil;
     }
 
     if (([type isEqualToString:@"application/seb"]) ||
@@ -980,7 +973,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         ([request.URL.pathExtension isEqualToString:@"seb"])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = self.webView.originalURL;
-        [self.browserController downloadSEBConfigFileFromURL:request.URL originalURL:originalURL];
+        [self.navigationDelegate downloadSEBConfigFileFromURL:request.URL originalURL:originalURL];
         [listener ignore];
         return;
     }
@@ -997,7 +990,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // If MIME type cannot be displayed by the WebView, then we download it
     DDLogInfo(@"MIME type to download is %@", type);
     [listener download];
-    [self startDownloadingURL:request.URL];
+    [self.navigationDelegate downloadFileFromURL:request.URL];
 }
 
 

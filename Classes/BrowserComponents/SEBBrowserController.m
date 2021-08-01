@@ -845,7 +845,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
-- (BOOL)sebWebView:(SEBAbstractWebView*)webView
+- (SEBNavigationResponsePolicy)sebWebView:(SEBAbstractWebView*)webView
 decidePolicyForMIMEType:(NSString*)mimeType
                url:(NSURL *)url
    canShowMIMEType:(BOOL)canShowMIMEType
@@ -901,8 +901,8 @@ decidePolicyForMIMEType:(NSString*)mimeType
 //        self.downloadFileExtension = nil;
 //    }
 
-    if (([mimeType isEqualToString:@"application/seb"]) ||
-        ([mimeType isEqualToString:@"text/xml"]) ||
+    if (([mimeType isEqualToString:SEBConfigMIMEType]) ||
+        ([mimeType isEqualToString:SEBUnencryptedConfigMIMEType]) ||
         ([url.pathExtension isEqualToString:@"seb"])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = webView.originalURL;
@@ -1008,43 +1008,9 @@ decidePolicyForMIMEType:(NSString*)mimeType
 }
 
 
-#pragma mark Downloading for macOS 10.9 and higher
+#pragma mark Downloading Files
 
-- (void) storeDownloadPath:(NSString *)path
-{
-    NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
-    if (!downloadPaths) {
-        downloadPaths = [NSMutableArray arrayWithCapacity:1];
-    }
-    [downloadPaths addObject:path];
-    [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
-    [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
-}
-
-
-- (void) fileDownloadedSuccessfully:(NSString *)path
-{
-    DDLogInfo(@"Download of File %@ did finish.", path);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
-        // Open downloaded file
-        [[NSWorkspace sharedWorkspace] openFile:path];
-    } else {
-//        NSAlert *modalAlert = [self.browserController.sebController newAlert];
-//        // Inform user that download succeeded
-//        [modalAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
-//        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
-//        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-//        [modalAlert setAlertStyle:NSInformationalAlertStyle];
-//        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-//            [self.browserController.sebController removeAlertWindow:modalAlert.window];
-//        };
-//        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
-    }
-}
-
-
-- (void) downloadFileFromURL:(NSURL *)url
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
@@ -1160,6 +1126,38 @@ decidePolicyForMIMEType:(NSString*)mimeType
 }
 
 
+- (void) storeDownloadPath:(NSString *)path
+{
+    NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
+    if (!downloadPaths) {
+        downloadPaths = [NSMutableArray arrayWithCapacity:1];
+    }
+    [downloadPaths addObject:path];
+    [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
+    [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
+}
+
+
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    DDLogInfo(@"Download of File %@ did finish.", path);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
+        // Open downloaded file
+        [[NSWorkspace sharedWorkspace] openFile:path];
+    } else {
+//        NSAlert *modalAlert = [self.browserController.sebController newAlert];
+//        // Inform user that download succeeded
+//        [modalAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
+//        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
+//        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+//        [modalAlert setAlertStyle:NSInformationalAlertStyle];
+//        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+//            [self.browserController.sebController removeAlertWindow:modalAlert.window];
+//        };
+//        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+    }
+}
 
 
 - (void)webView:(WKWebView *)webView

@@ -122,24 +122,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidStartLoad;
 - (void)sebWebViewDidFinishLoad;
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
-- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
+- (SEBNavigationActionPolicy)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
       navigationAction:(WKNavigationAction *)navigationAction
                                       newTab:(BOOL)newTab;
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
-- (BOOL)sebWebViewDecidePolicyForMIMEType:(nullable NSString*)mimeType
+- (SEBNavigationResponsePolicy)sebWebViewDecidePolicyForMIMEType:(nullable NSString*)mimeType
+                                                             url:(nullable NSURL *)url
+                                                 canShowMIMEType:(BOOL)canShowMIMEType
+                                                  isForMainFrame:(BOOL)isForMainFrame
+                                               suggestedFilename:(nullable NSString *)suggestedFilename
+                                                         cookies:(nullable NSArray <NSHTTPCookie *>*)cookies;
+- (SEBNavigationResponsePolicy)sebWebView:(SEBAbstractWebView*)webView
+                  decidePolicyForMIMEType:(nullable NSString*)mimeType
                                       url:(nullable NSURL *)url
                           canShowMIMEType:(BOOL)canShowMIMEType
                            isForMainFrame:(BOOL)isForMainFrame
                         suggestedFilename:(nullable NSString *)suggestedFilename
-                                  cookies:(nullable NSArray <NSHTTPCookie *>*)cookies;
-- (BOOL)sebWebView:(SEBAbstractWebView*)webView
-decidePolicyForMIMEType:(nullable NSString*)mimeType
-               url:(nullable NSURL *)url
-   canShowMIMEType:(BOOL)canShowMIMEType
-    isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(nullable NSString *)suggestedFilename
-           cookies:(NSArray <NSHTTPCookie *>*)cookies;
+                                  cookies:(NSArray <NSHTTPCookie *>*)cookies;
 
 - (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
                         completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
@@ -215,6 +215,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) closeTab;
 - (void) closeTabWithIndex:(NSUInteger)tabIndex;
 
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 @property (readonly) BOOL downloadingInTemporaryWebView;

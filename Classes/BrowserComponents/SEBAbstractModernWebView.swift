@@ -246,34 +246,58 @@ import Foundation
         if navigationAction.targetFrame == nil {
             newTab = true;
         }
-        let shouldStartLoad = (navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab: newTab))!
-        if shouldStartLoad {
-            decisionHandler(.allow)
-        } else {
+        guard let navigationActionPolicy = self.navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab: newTab) else {
             decisionHandler(.cancel)
+            return
+        }
+        if navigationActionPolicy == SEBNavigationActionPolicyAllow {
+            decisionHandler(.allow)
+        } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
+            decisionHandler(.cancel)
+        } else if navigationActionPolicy == SEBNavigationActionPolicyDownload {
+            if #available(macOS 11.3, *) {
+                decisionHandler(.download)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
     
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        
+        let decidePolicyWithCookies:([HTTPCookie]?) -> () = { cookies in
+            let canShowMIMEType = navigationResponse.canShowMIMEType
+            let isForMainFrame = navigationResponse.isForMainFrame
+            let mimeType = navigationResponse.response.mimeType
+            let url = navigationResponse.response.url
+            let suggestedFilename = navigationResponse.response.suggestedFilename
+            guard let navigationResponsePolicy = self.navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) else {
+                decisionHandler(.cancel)
+                return
+            }
+            if navigationResponsePolicy == SEBNavigationResponsePolicyAllow {
+                decisionHandler(.allow)
+            } else if navigationResponsePolicy == SEBNavigationResponsePolicyCancel {
+                decisionHandler(.cancel)
+            } else if navigationResponsePolicy == SEBNavigationResponsePolicyDownload {
+                if #available(macOS 11.3, *) {
+                    decisionHandler(.download)
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+            
+        }
+        
         if #available(macOS 10.13, *) {
             let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
             httpCookieStore.getAllCookies{ cookies in
-                let canShowMIMEType = navigationResponse.canShowMIMEType
-                let isForMainFrame = navigationResponse.isForMainFrame
-                let mimeType = navigationResponse.response.mimeType
-                let url = navigationResponse.response.url
-                let suggestedFilename = navigationResponse.response.suggestedFilename
-                let policy = self.navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) ?? true
-                if policy {
-                    decisionHandler(.allow)
-                } else {
-                    decisionHandler(.cancel)
-                }
+                decidePolicyWithCookies(cookies)
             }
         } else {
-            // Fallback on earlier versions
+            decidePolicyWithCookies(nil)
         }
     }
     
@@ -281,8 +305,8 @@ import Foundation
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     
-    public func sebWebViewShouldStartLoad(with request: URLRequest, navigationAction: WKNavigationAction, newTab: Bool) -> Bool {
-        return (navigationDelegate?.sebWebViewShouldStartLoad?(with: request, navigationAction: navigationAction, newTab: newTab) ?? false)
+    public func sebWebViewShouldStartLoad(with request: URLRequest, navigationAction: WKNavigationAction, newTab: Bool) -> SEBNavigationActionPolicy {
+        return (navigationDelegate?.sebWebViewShouldStartLoad?(with: request, navigationAction: navigationAction, newTab: newTab))!
     }
     
     public func sebWebViewDidUpdateTitle(_ title: String?) {

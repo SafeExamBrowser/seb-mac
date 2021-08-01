@@ -316,7 +316,12 @@
         }
     }
 
-    return [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTabRequested];
+    SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTabRequested];
+    if (navigationActionPolicy = SEBNavigationActionPolicyAllow) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 

@@ -143,7 +143,7 @@
 @end
 
 
-@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate> {
+@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate, SEBAbstractWebViewNavigationDelegate> {
     
     @private
     
@@ -212,13 +212,6 @@
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
 
-- (BOOL) sebWebView:(SEBAbstractWebView*)webView
-decidePolicyForMIMEType:(NSString*)mimeType
-               url:(NSURL *)url
-   canShowMIMEType:(BOOL)canShowMIMEType
-    isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(NSString *)suggestedFilename
-           cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (BOOL) downloadingInTemporaryWebView;
 - (void) openConfigFromSEBURL:(NSURL *)url;
 

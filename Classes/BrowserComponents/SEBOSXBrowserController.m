@@ -68,6 +68,12 @@
 }
 
 
+- (void) closeWebView
+{
+    [self closeWebView:self.abstractWebView];
+}
+
+
 - (void) closeWebView:(SEBAbstractWebView *)webViewToClose
 {
     if (webViewToClose) {
@@ -206,7 +212,7 @@
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
 
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    SEBAbstractWebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+    SEBAbstractWebView *newWindowWebView = newWindow.webView;
     newWindowWebView.creatingWebView = nil;
 
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
@@ -279,7 +285,7 @@
     // because otherwise menu bar and dock are deducted from screen size)
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
     
-    self.mainWebView = browserWindowDocument.mainWindowController.webView;
+    self.mainWebView = ((SEBBrowserWindow *)browserWindowDocument.mainWindowController.window).webView;
     self.mainWebView.creatingWebView = nil;
 
     // Load start URL from the system's user defaults
@@ -470,7 +476,7 @@
         DDLogInfo(@"Open additional browser window with URL: %@", URL);
         
         // Load start URL into browser window
-        [[browserWindowDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
+        [((SEBBrowserWindow *)browserWindowDocument.mainWindowController.window).webView loadURL:[NSURL URLWithString:URL]];
     }
 }
 
@@ -740,7 +746,7 @@
     NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
     SEBBrowserWindowDocument *temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)temporaryBrowserWindowDocument.mainWindowController.window;
-    SEBAbstractWebView *temporaryWebView = temporaryBrowserWindowDocument.mainWindowController.webView;
+    SEBAbstractWebView *temporaryWebView = newWindow.webView;
     if (_sebController.startingUp) {
         temporaryWebView.creatingWebView = temporaryWebView;
     } else {
@@ -776,7 +782,7 @@
 - (void) tryToDownloadConfigByOpeningURL:(NSURL *)url
 {
     DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
-    [[_temporaryWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
+    [self.temporaryWebView loadURL:url];
     
 }
 
@@ -874,8 +880,10 @@
 - (void) reloadCommand
 {
     DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
-    [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
+    [self.activeBrowserWindow.browserControllerDelegate reload];
 }
 
+
+@synthesize startingUp;
 
 @end
