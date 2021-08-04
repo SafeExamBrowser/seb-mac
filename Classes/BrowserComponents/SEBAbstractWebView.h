@@ -34,10 +34,12 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import "SEBURLFilter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class SEBAbstractWebView;
+@class SEBURLFilter;
 
 @protocol SEBAbstractBrowserControllerDelegate <NSObject>
 
@@ -74,8 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) toggleScrollLock;
 - (BOOL) isScrollLockActive;
 
-
-- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
 @end
@@ -100,6 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) closeWebView:(SEBAbstractWebView *)webView;
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
+@property (strong, nonatomic) NSString *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
@@ -122,24 +123,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidStartLoad;
 - (void)sebWebViewDidFinishLoad;
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
-- (SEBNavigationActionPolicy)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
-      navigationAction:(WKNavigationAction *)navigationAction
-                                      newTab:(BOOL)newTab;
+- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                                                      newTab:(BOOL)newTab;
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
-- (SEBNavigationResponsePolicy)sebWebViewDecidePolicyForMIMEType:(nullable NSString*)mimeType
-                                                             url:(nullable NSURL *)url
-                                                 canShowMIMEType:(BOOL)canShowMIMEType
-                                                  isForMainFrame:(BOOL)isForMainFrame
-                                               suggestedFilename:(nullable NSString *)suggestedFilename
-                                                         cookies:(nullable NSArray <NSHTTPCookie *>*)cookies;
-- (SEBNavigationResponsePolicy)sebWebView:(SEBAbstractWebView*)webView
-                  decidePolicyForMIMEType:(nullable NSString*)mimeType
-                                      url:(nullable NSURL *)url
-                          canShowMIMEType:(BOOL)canShowMIMEType
-                           isForMainFrame:(BOOL)isForMainFrame
-                        suggestedFilename:(nullable NSString *)suggestedFilename
-                                  cookies:(NSArray <NSHTTPCookie *>*)cookies;
+- (SEBNavigationResponsePolicy)decidePolicyForMIMEType:(nullable NSString*)mimeType
+                                                   url:(nullable NSURL *)url
+                                       canShowMIMEType:(BOOL)canShowMIMEType
+                                        isForMainFrame:(BOOL)isForMainFrame
+                                     suggestedFilename:(nullable NSString *)suggestedFilename
+                                               cookies:(nullable NSArray <NSHTTPCookie *>*)cookies;
 
 - (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
                         completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
@@ -164,6 +157,13 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
 decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler;
+
+- (nullable WKWebView *)webView:(WKWebView *)webView
+createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
+   forNavigationAction:(WKNavigationAction *)navigationAction
+        windowFeatures:(WKWindowFeatures *)windowFeatures;
+
+- (void)webViewDidClose:(WKWebView *)webView;
 
 - (void)webView:(WKWebView *)webView
 runJavaScriptAlertPanelWithMessage:(NSString *)message
@@ -199,6 +199,7 @@ runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 #if TARGET_OS_IPHONE
 - (void) presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^ __nullable)(void))completion;
@@ -224,7 +225,14 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @end
 
 
-@interface SEBAbstractWebView : NSObject <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
+@interface SEBAbstractWebView : NSObject <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> {
+    
+@private
+    NSString *quitURLTrimmed;
+    SEBURLFilter *urlFilter;
+    BOOL downloadPDFFiles;
+}
+
 
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
@@ -245,6 +253,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @interface SEBWKNavigationAction : WKNavigationAction
 
 @property (readwrite, nonatomic) WKNavigationType writableNavigationType;
+@property (readwrite, nonatomic) NSURLRequest *writableRequest;
 
 @end
 

@@ -189,10 +189,6 @@ import Foundation
         return browserControllerDelegate?.isScrollLockActive?() ?? false
     }
     
-    public func shouldStartLoadFormSubmittedURL(_ url: URL) {
-        browserControllerDelegate?.shouldStartLoadFormSubmittedURL?(url)
-    }
-    
     public func sessionTaskDidCompleteSuccessfully(_ task: URLSessionTask) {
         browserControllerDelegate?.sessionTaskDidCompleteSuccessfully?(task)
     }
@@ -246,7 +242,7 @@ import Foundation
         if navigationAction.targetFrame == nil {
             newTab = true;
         }
-        guard let navigationActionPolicy = self.navigationDelegate?.sebWebViewShouldStartLoad!(with: navigationAction.request, navigationAction: navigationAction, newTab: newTab) else {
+        guard let navigationActionPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab) else {
             decisionHandler(.cancel)
             return
         }
@@ -273,7 +269,7 @@ import Foundation
             let mimeType = navigationResponse.response.mimeType
             let url = navigationResponse.response.url
             let suggestedFilename = navigationResponse.response.suggestedFilename
-            guard let navigationResponsePolicy = self.navigationDelegate?.sebWebViewDecidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) else {
+            guard let navigationResponsePolicy = self.navigationDelegate?.decidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) else {
                 decisionHandler(.cancel)
                 return
             }
@@ -305,8 +301,8 @@ import Foundation
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     
-    public func sebWebViewShouldStartLoad(with request: URLRequest, navigationAction: WKNavigationAction, newTab: Bool) -> SEBNavigationActionPolicy {
-        return (navigationDelegate?.sebWebViewShouldStartLoad?(with: request, navigationAction: navigationAction, newTab: newTab))!
+    public func decidePolicyForNavigationAction(with navigationAction: WKNavigationAction, newTab: Bool) -> SEBNavigationActionPolicy {
+        return (navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab))!
     }
     
     public func sebWebViewDidUpdateTitle(_ title: String?) {
@@ -315,6 +311,17 @@ import Foundation
     
     public func sebWebViewDidUpdateProgress(_ progress: Double) {
         navigationDelegate?.sebWebViewDidUpdateProgress?(progress)
+    }
+    
+    public func webViewDidClose(_ webView: WKWebView) {
+        navigationDelegate?.webViewDidClose?(webView)
+    }
+    
+    public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            _ = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: true)
+        }
+        return nil
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {

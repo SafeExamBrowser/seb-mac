@@ -34,10 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (weak) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBWebView *sebWebView;
-@property (strong, nonatomic) NSString *currentURL;
 @property (strong, nonatomic) NSString *currentWebViewMainHost;
-@property (strong, nonatomic) NSURLRequest *currentRequest;
-@property (strong, nonatomic)  NSURLAuthenticationChallenge * _Nullable pendingChallenge;
+@property (strong, nonatomic) NSURLAuthenticationChallenge * _Nullable pendingChallenge;
 @property (strong, nonatomic) NSString * _Nullable downloadFilename;
 @property (strong, nonatomic) NSString * _Nullable downloadFileExtension;
 

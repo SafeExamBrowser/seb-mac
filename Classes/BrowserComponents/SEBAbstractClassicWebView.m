@@ -337,14 +337,14 @@
     }
 }
 
-- (BOOL)sebWebViewDecidePolicyForMIMEType:(NSString*)mimeType
-                                      url:(NSURL *)url
-                          canShowMIMEType:(BOOL)canShowMIMEType
-                           isForMainFrame:(BOOL)isForMainFrame
-                        suggestedFilename:(NSString *)suggestedFilename
-                                  cookies:(NSArray<NSHTTPCookie *> *)cookies
+- (SEBNavigationResponsePolicy)decidePolicyForMIMEType:(NSString*)mimeType
+                                                   url:(NSURL *)url
+                                       canShowMIMEType:(BOOL)canShowMIMEType
+                                        isForMainFrame:(BOOL)isForMainFrame
+                                     suggestedFilename:(NSString *)suggestedFilename
+                                               cookies:(NSArray<NSHTTPCookie *> *)cookies
 {
-    return [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
+    return [self.navigationDelegate decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
 }
 
 - (void)webView:(WKWebView *)webView

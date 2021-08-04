@@ -279,6 +279,7 @@
         default:
             break;
     }
+    navigationAction.writableRequest = request;
     
     NSURL *url = [request URL];
     NSString *httpMethod = request.HTTPMethod;
@@ -303,7 +304,7 @@
             if (![self.navigationDelegate originalURLIsEqualToURL:url]) {
                 // If the scheme is seb(s):// or the file extension .seb,
                 // we (conditionally) download and open the linked .seb file
-                [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:nil];
+                [self.navigationDelegate decidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:nil];
                 return NO;
 
             }
@@ -311,12 +312,12 @@
             waitingForConfigDownload = NO;
             // If the scheme is seb(s):// or the file extension .seb,
             // we (conditionally) download and open the linked .seb file
-            [self.navigationDelegate sebWebViewDecidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:nil];
+            [self.navigationDelegate decidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:nil];
             return NO;
         }
     }
 
-    SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTabRequested];
+    SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested];
     if (navigationActionPolicy = SEBNavigationActionPolicyAllow) {
         return YES;
     } else {

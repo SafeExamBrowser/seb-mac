@@ -65,7 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) UIView *filterMessageHolder;
 @property (strong) NSString *currentURL;
 @property (strong) NSString *currentMainHost;
-@property (strong) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
