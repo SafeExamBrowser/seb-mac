@@ -56,7 +56,7 @@
         self.openBrowserWindowsWebViewsMenu = dockMenu;
 
         // Create a private pasteboard
-        _privatePasteboardItems = [NSArray array];
+        self.privatePasteboardItems = [NSArray array];
     }
     return self;
 }
@@ -149,6 +149,8 @@
     //TODO: not yet used on macOS
 }
 
+
+@synthesize startingUp;
 
 - (BOOL)isStartingUp {
     return _sebController.startingUp;
@@ -884,6 +886,19 @@
 }
 
 
-@synthesize startingUp;
+#pragma mark SEBAbstractWebViewNavigationDelegate Methods
+
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+{
+    SEBAbstractWebView *newWebView = [self openAndShowWebView];
+    [newWebView loadURL:url];
+    return newWebView;
+}
+
+- (SEBAbstractWebView *) openNewWebViewWindow
+{
+    return [self openAndShowWebView];
+}
+
 
 @end

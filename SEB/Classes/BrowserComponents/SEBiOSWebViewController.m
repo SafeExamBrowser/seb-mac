@@ -374,8 +374,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
-    _currentRequest = nil;
-    
     // Hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
@@ -414,87 +412,15 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 
 /// Request handling
-- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
-                            navigationAction:(WKNavigationAction *)navigationAction
-                                      newTab:(BOOL)newTab
+- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                                                      newTab:(BOOL)newTab
 {
-    NSURL *url = [request URL];
+    NSURLRequest *request = navigationAction.request;
+    NSURL *url = request.URL;
     WKNavigationType navigationType = navigationAction.navigationType;
-    NSString *httpMethod = request.HTTPMethod;
-    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
-    DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
-    DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
-    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    NSURL *originalURL = url;
-    
-    // This is currently used for SEB Server handshake after logging in to Moodle
-    if (navigationType == WKNavigationTypeFormSubmitted) {
-        [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
-    }
-    
-    // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"quitLinkDetected" object:self];
-        return NO;
-    }
-    
-    if (_urlFilter.enableURLFilter) {
-        URLFilterRuleActions filterActionResponse = [_urlFilter testURLAllowed:originalURL];
-        if (filterActionResponse != URLFilterActionAllow) {
-            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
-            //            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
-            /// User didn't allow the content, don't load it
-            
-            // We show the URL blocked overlay message only if a link was actively tapped by the user
-            if (navigationType == WKNavigationTypeLinkActivated) {
-                [self showURLFilterMessage];
-            }
-            
-            DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
-            return NO;
-            // }
-        }
-    }
-
-    NSString *fileExtension = [url pathExtension];
-
-    if (newTab) {
-        newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
-
-        // First check if links requesting to be opened in a new windows are generally blocked
-        if (newBrowserWindowPolicy != getGenerallyBlocked) {
-            // load link only if it's on the same host like the one of the current page
-            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
-                [_currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
-                if (newBrowserWindowPolicy == openInNewWindow) {
-                    // Open in new tab
-                    [self.navigationDelegate openNewTabWithURL:url];
-                    return NO;
-                }
-                if (newBrowserWindowPolicy == openInSameWindow) {
-                    // Load URL request in existing tab
-                    request = [NSURLRequest requestWithURL:url];
-                    [_sebWebView loadURL:request.URL];
-                    return NO;
-                }
-            }
-        }
-        // Opening links in new windows is not allowed by current policies
-        // We show the URL blocked overlay message only if a link was actively tapped by the user
-        if (navigationType == WKNavigationTypeLinkActivated) {
-            [self showURLFilterMessage];
-        }
-        return NO;
-    }
-
-    if ([url.scheme isEqualToString:@"about"]) {
-        return NO;
-    }
-    
     if ([url.scheme isEqualToString:@"data"]) {
         NSString *urlResourceSpecifier = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
@@ -534,22 +460,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 }
             }
         }
-        return NO;
+        return SEBNavigationActionPolicyCancel;
     }
     
-    // Check if this is a seb:// or sebs:// link or a .seb file link
-    if (([url.scheme isEqualToString:SEBProtocolScheme] ||
-        [url.scheme isEqualToString:SEBSSecureProtocolScheme] ||
-        [fileExtension isEqualToString:SEBFileExtension]) &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-        // If the scheme is seb(s):// or the file extension .seb,
-        // we (conditionally) download and open the linked .seb file
-        if (!self.navigationDelegate.downloadingInTemporaryWebView) {
-            [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
-            return NO;
-        }
-    }
-
     // Downloading image files for the freehand drawing functionality
     if(navigationType == WKNavigationTypeLinkActivated || navigationType == WKNavigationTypeOther) {
         if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
@@ -594,7 +507,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                         [self.navigationDelegate openNewTabWithURL:drawingURL image:processedImage];
                         //                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                         //                    [filenameAlert show];
-                        return NO;
+                        return SEBNavigationActionPolicyCancel;
                     }
                 } else {
                     // File could notbe loaded -> handle errors
@@ -605,10 +518,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         }
 
     }
-    _currentRequest = request;
-    _currentURL = url.absoluteString;
-    _currentMainHost = url.host;
-    return YES;
+    return SEBNavigationActionPolicyAllow;
 }
 
 
@@ -637,17 +547,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (BOOL)sebWebViewDecidePolicyForMIMEType:(NSString*)mimeType
-                                      url:(NSURL *)url
-                          canShowMIMEType:(BOOL)canShowMIMEType
-                           isForMainFrame:(BOOL)isForMainFrame
-                        suggestedFilename:(NSString *)suggestedFilename
-                                  cookies:(NSArray<NSHTTPCookie *> *)cookies
-{
-    return [self.navigationDelegate sebWebView:_sebWebView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
-}
-
-    
 - (void)setBackForwardAvailabilty
 {
     [self.navigationDelegate setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];

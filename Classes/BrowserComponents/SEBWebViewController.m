@@ -213,7 +213,7 @@
 
 - (void)loadURL:(nonnull NSURL *)url
 {
-    [self.sebWebView.mainFrame loadRequest:[NSURLRequest requestWithURL:url]];
+    [_sebWebView.mainFrame loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)stopLoading
@@ -695,6 +695,44 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
     return filename;
 }
 
+
+- (SEBWKNavigationAction *) navigationActionForActionInformation:(NSDictionary *)actionInformation
+{
+    WebNavigationType navigationType = [[actionInformation objectForKey:@"WebActionNavigationTypeKey"] intValue];
+
+    SEBWKNavigationAction *navigationAction = [SEBWKNavigationAction new];
+    switch (navigationType) {
+        case WebNavigationTypeFormSubmitted:
+            navigationAction.writableNavigationType = WKNavigationTypeFormSubmitted;
+            break;
+            
+        case WebNavigationTypeLinkClicked:
+            navigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
+            break;
+            
+        case WebNavigationTypeBackForward:
+            navigationAction.writableNavigationType = WKNavigationTypeBackForward;
+            break;
+            
+        case WebNavigationTypeReload:
+            navigationAction.writableNavigationType = WKNavigationTypeReload;
+            break;
+            
+        case WebNavigationTypeFormResubmitted:
+            navigationAction.writableNavigationType = WKNavigationTypeFormResubmitted;
+            break;
+            
+        case WebNavigationTypeOther:
+            navigationAction.writableNavigationType = WKNavigationTypeOther;
+            break;
+            
+        default:
+            break;
+    }
+    return navigationAction;
+}
+
+
 // Opening Links in New Windows //
 // Handling of requests from JavaScript and web plugins to open a link in a new window
 - (void)webView:(SEBWebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation
@@ -707,167 +745,116 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
     //NSString *requestedHost = [[request mainDocumentURL] host];
     
-    if (request) {
-        // When downloading is allowed, check for the "download" attribute on an anchor
+    SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
+    navigationAction.writableRequest = request;
+    
+    // When downloading is allowed, check for the "download" attribute on an anchor
 #ifdef DEBUG
-        DDLogDebug(@"%s: Downloading allowed: %hhd", __FUNCTION__, _allowDownloads);
+    DDLogDebug(@"%s: Downloading allowed: %hhd", __FUNCTION__, _allowDownloads);
 #endif
-        if (_allowDownloads) {
-            // Get the DOMNode from the information about the action that triggered the navigation request
-            self.downloadFilename = nil;
-            NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
-            if (webElementDict) {
+    if (_allowDownloads) {
+        // Get the DOMNode from the information about the action that triggered the navigation request
+        self.downloadFilename = nil;
+        NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
+        if (webElementDict) {
 #ifdef DEBUG
-                DDLogDebug(@"DOMNode *webElementDOMNode = [webElementDict valueForKey:@\"WebElementDOMNode\"];");
+            DDLogDebug(@"DOMNode *webElementDOMNode = [webElementDict valueForKey:@\"WebElementDOMNode\"];");
 #endif
-                DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
+            DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
 #ifdef DEBUG
-                DDLogDebug(@"Successfully got webElementDOMNode");
+            DDLogDebug(@"Successfully got webElementDOMNode");
 #endif
 
-                // Do we have a parentNode?
-                if ([webElementDOMNode respondsToSelector:@selector(parentNode)]) {
-                    
-                    // Is the parent an anchor?
+            // Do we have a parentNode?
+            if ([webElementDOMNode respondsToSelector:@selector(parentNode)]) {
+                
+                // Is the parent an anchor?
 #ifdef DEBUG
-                    DDLogDebug(@"DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;");
+                DDLogDebug(@"DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;");
 #endif
-                    DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
+                DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
 #ifdef DEBUG
-                    DDLogDebug(@"Successfully got webElementDOMNode.parentNode");
+                DDLogDebug(@"Successfully got webElementDOMNode.parentNode");
 #endif
-                    if ([parentNode respondsToSelector:@selector(nodeName)]) {
+                if ([parentNode respondsToSelector:@selector(nodeName)]) {
 #ifdef DEBUG
-                        DDLogDebug(@"if ([parentNode.nodeName isEqualToString:@\"A\"]) {");
+                    DDLogDebug(@"if ([parentNode.nodeName isEqualToString:@\"A\"]) {");
 #endif
-                        if ([parentNode.nodeName isEqualToString:@"A"]) {
+                    if ([parentNode.nodeName isEqualToString:@"A"]) {
 #ifdef DEBUG
-                            DDLogDebug(@"Successfully compared parentNode.nodeName to A");
+                        DDLogDebug(@"Successfully compared parentNode.nodeName to A");
 #endif
-                            self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
-                        }
+                        self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
                     }
-                    
-                    // Check if one of the children of the parent node is an anchor
-                    if ([parentNode respondsToSelector:@selector(children)]) {
-                        // We had to check if we get children, bad formatted HTML and
-                        // older WebKit versions would throw an exception here
+                }
+                
+                // Check if one of the children of the parent node is an anchor
+                if ([parentNode respondsToSelector:@selector(children)]) {
+                    // We had to check if we get children, bad formatted HTML and
+                    // older WebKit versions would throw an exception here
 #ifdef DEBUG
-                        DDLogDebug(@"DOMHTMLCollection *childrenNodes = parentNode.children;");
+                    DDLogDebug(@"DOMHTMLCollection *childrenNodes = parentNode.children;");
 #endif
-                        DOMHTMLCollection *childrenNodes = parentNode.children;
+                    DOMHTMLCollection *childrenNodes = parentNode.children;
 #ifdef DEBUG
-                        DDLogDebug(@"Successfully got childrenNodes = parentNode.children");
+                    DDLogDebug(@"Successfully got childrenNodes = parentNode.children");
 #endif
-                        uint i;
-                        for (i = 0; i < childrenNodes.length; i++) {
+                    uint i;
+                    for (i = 0; i < childrenNodes.length; i++) {
 #ifdef DEBUG
-                            DDLogDebug(@"DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];");
+                        DDLogDebug(@"DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];");
 #endif
-                            DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
+                        DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
 #ifdef DEBUG
-                            DDLogDebug(@"Successfully got childNode");
+                        DDLogDebug(@"Successfully got childNode");
 #endif
-                            if ([childNode respondsToSelector:@selector(nodeName)]) {
+                        if ([childNode respondsToSelector:@selector(nodeName)]) {
 #ifdef DEBUG
-                                DDLogDebug(@"if ([childNode.nodeName isEqualToString:@\"A\"]) {");
+                            DDLogDebug(@"if ([childNode.nodeName isEqualToString:@\"A\"]) {");
 #endif
-                                if ([childNode.nodeName isEqualToString:@"A"]) {
+                            if ([childNode.nodeName isEqualToString:@"A"]) {
 #ifdef DEBUG
-                                    DDLogDebug(@"Successfully got childNode.nodeName");
+                                DDLogDebug(@"Successfully got childNode.nodeName");
 #endif
-                                    self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
-                                    break;
-                                }
+                                self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
+                                break;
                             }
                         }
                     }
                 }
             }
         }
-        
-        // Check if quit URL has been clicked (regardless of current URL Filter)
-        NSString *absoluteRequestURLTrimmed = [request.URL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        
-        if ([absoluteRequestURLTrimmed isEqualTo:quitURLTrimmed]) {
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestQuitWPwdNotification" object:self];
-            } else {
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestQuitNotification" object:self];
-            }
-            [listener ignore];
-            return;
-        }
-        
-        // If enabled, filter URL
+    }
+    
+    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+    if (delegateNavigationActionPolicy != SEBNavigationResponsePolicyAllow) {
+        // If the URL filter is enabled, we might need to close a temporary window
         if (urlFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
-            URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:request.URL];
-            if (filterActionResponse != URLFilterActionAllow) {
-                
-                //// URL is not allowed
-                
-                // If the learning mode is active, display according sheet and ask user if he wants to allow this URL
-                // but only if we're dealing with a request in the main frame of the web page
-                if (frame != sender.mainFrame) {
-                    // Don't load the request
-                    [listener ignore];
-                    return;
-                }
-                // Show alert for URL is not allowed as sheet on the WebView's window
-                if (![self.navigationDelegate showURLFilterAlertForRequest:request
-                                                          forContentFilter:NO
-                                                            filterResponse:filterActionResponse]) {
-                    /// User didn't allow the URL
-                    
-                    // Check if the link was opened by a script and
-                    // if a temporary webview or a new browser window should be closed therefore
-                    // If the new page is supposed to open in a new browser window
-                    SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
-                    if (creatingWebView) {
-                        if (newBrowserWindowPolicy == openInNewWindow) {
-                            // Don't load the request
-                            //                    [listener ignore];
-                            // we have to close the new browser window which already has been opened by WebKit
-                            // Get the document for my web view
-                            DDLogDebug(@"Originating browser window %@", sender);
-                            // Close document and therefore also window
-                            //Workaround: Flash crashes after closing window and then clicking some other link
-                            [[sender preferences] setPlugInsEnabled:NO];
-                            DDLogDebug(@"Now closing new document browser window for: %@", self.sebWebView);
-                            [self.navigationDelegate closeWebView];
-                        } else if (newBrowserWindowPolicy == openInSameWindow) {
-                            if (self.sebWebView) {
-                                [sender close]; //close the temporary webview
-                            }
-                        }
+            // URL filter enabled and the request which was supposed to be opened in a new window was blocked
+            // a temporary webview or a new browser window might have to be closed
+            SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
+            if (creatingWebView) {
+                if (newBrowserWindowPolicy == openInNewWindow) {
+                    // We have to close the new browser window which already has been opened by WebKit
+                    // Get the document for my web view
+                    DDLogDebug(@"Originating browser window %@", sender);
+                    // Close document and therefore also window
+                    //Workaround: Flash crashes after closing window and then clicking some other link
+                    [[sender preferences] setPlugInsEnabled:NO];
+                    DDLogDebug(@"Now closing new document browser window for: %@", self.sebWebView);
+                    [self.navigationDelegate closeWebView];
+                } else if (newBrowserWindowPolicy == openInSameWindow) {
+                    if (self.sebWebView) {
+                        [sender close]; //close the temporary webview
                     }
-                    
-                    // Don't load the request
-                    [listener ignore];
-                    return;
                 }
             }
-        }
-        
-        // Check if this is a seb:// or sebs:// link
-        NSString *scheme = request.URL.scheme;
-        if ([scheme isEqualToString:@"seb"] || [scheme isEqualToString:@"sebs"]) {
-            // If the scheme is seb(s):// we (conditionally) download and open the linked .seb file
-            [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:request.URL];
+            // Don't load the request
             [listener ignore];
             return;
         }
     }
-
-    if (self.currentMainHost && newBrowserWindowPolicy == getGenerallyBlocked) {
-        [listener ignore];
-        return;
-    }
-
-    // We're ignoring the policy openInSameWindow (the script link would be supposed to be opened in the same browser window)
-    // because some browser functionality doesn't work correctly then
+    
     [listener use];
 }
 
@@ -878,37 +865,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
    newFrameName:(NSString *)frameName
 decisionListener:(id <WebPolicyDecisionListener>)listener
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
-    // First check if links requesting to be opened in a new windows are generally blocked
-    if (newBrowserWindowPolicy != getGenerallyBlocked) {
-        //// If enabled, filter URL
-        if (urlFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
-            URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:request.URL];
-            if (filterActionResponse != URLFilterActionAllow) {
-                /// URL is not allowed: Show teach URL alert if activated or just indicate URL is blocked
-                if (![self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
-                    // User didn't allow the URL: Don't load the request
-                    [listener ignore];
-                    return;
-                }
-            }
-        }
-        // load link only if it's on the same host like the one of the current page
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
-            [self.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
-            if (newBrowserWindowPolicy == openInNewWindow) {
-                // Open new browser window containing WebView and show it
-                SEBAbstractWebView *newWebView = [self.navigationDelegate openNewWebViewWindow];
-                // Load URL request in new WebView
-                [newWebView loadURL:request.URL];
-            }
-            if (newBrowserWindowPolicy == openInSameWindow) {
-                // Load URL request in existing WebView
-                [[sender mainFrame] loadRequest:request];
-            }
-        }
-    }
+    SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
+    navigationAction.writableRequest = request;
+
+    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+
     [listener ignore];
 }
 
@@ -967,30 +928,13 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         }
         return;
     }
-
-    if (([type isEqualToString:@"application/seb"]) ||
-        ([type isEqualToString:@"text/xml"]) ||
-        ([request.URL.pathExtension isEqualToString:@"seb"])) {
-        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        NSURL *originalURL = self.webView.originalURL;
-        [self.navigationDelegate downloadSEBConfigFileFromURL:request.URL originalURL:originalURL];
-        [listener ignore];
-        return;
-    }
-
-    // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
-        // MIME type isn't PDF or downloading of PDFs isn't allowed
-        if ([WebView canShowMIMEType:type]) {
-            [listener use];
-            return;
-        }
-    }
     
-    // If MIME type cannot be displayed by the WebView, then we download it
-    DDLogInfo(@"MIME type to download is %@", type);
-    [listener download];
-    [self.navigationDelegate downloadFileFromURL:request.URL];
+    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:nil];
+    if (delegateNavigationActionPolicy == SEBNavigationResponsePolicyAllow) {
+        [listener use];
+    } else {
+        [listener ignore];
+    }
 }
 
 
