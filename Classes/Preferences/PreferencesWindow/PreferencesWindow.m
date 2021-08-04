@@ -80,7 +80,7 @@
     
     if (filename) {
         if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
-            if ([filename.pathExtension isEqualToString:@"seb"]) {
+            if ([filename.pathExtension isEqualToString:SEBFileExtension]) {
                 return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
             }
         }

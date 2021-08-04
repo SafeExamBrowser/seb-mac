@@ -89,7 +89,7 @@
 
 - (SEBBrowserController *)browserController {
     if (!_browserController) {
-        _browserController = _sebController.browserController.browserController;
+        _browserController = _sebController.browserController;
     }
     return _browserController;
 }
@@ -911,7 +911,7 @@
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
-    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
     // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
     // which also is the minimum macOS version the Preferences window is available from
     [panel beginSheetModalForWindow:self.preferencesWindow
@@ -1026,7 +1026,7 @@
             }
             [panel setDirectoryURL:directory];
             [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
-            [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+            [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
             NSInteger result = [panel runModal];
             if (result == NSFileHandlingPanelOKButton) {
                 prefsFileURL = [panel URL];

@@ -138,7 +138,6 @@
 
 @property (readwrite) BOOL startingUp;
 @property (readwrite) BOOL openingSettings;
-//@property (readonly) NSString *currentMainHost;
 
 @end
 
@@ -157,7 +156,6 @@
     BOOL sendHashKeys;
     BOOL usingEmbeddedCertificates;
     BOOL pinEmbeddedCertificates;
-    BOOL downloadPDFFiles;
 }
 
 @property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
@@ -214,7 +212,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (BOOL) downloadingInTemporaryWebView;
 - (void) openConfigFromSEBURL:(NSURL *)url;
-
+- (void) openingConfigURLFailed;
 
 @property (weak) SEBAbstractWebView *temporaryWebView;
 

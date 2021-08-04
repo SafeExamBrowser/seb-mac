@@ -295,18 +295,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (BOOL)sebWebView:(SEBAbstractWebView*)webView
-decidePolicyForMIMEType:(NSString*)mimeType
-               url:(NSURL *)url
-   canShowMIMEType:(BOOL)canShowMIMEType
-    isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(NSString *)suggestedFilename
-           cookies:(NSArray<NSHTTPCookie *> *)cookies
-{
-    return [_sebViewController.browserController sebWebView:webView decidePolicyForMIMEType:mimeType url:url canShowMIMEType:canShowMIMEType isForMainFrame:isForMainFrame suggestedFilename:suggestedFilename cookies:cookies];
-}
-
-
 #pragma mark - Opening and closing tabs
 
 // Open new tab and load URL
@@ -885,7 +873,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
     NSURL *requestURL = task.originalRequest.URL;
     for (OpenWebpages *webpage in _openWebpages) {
         SEBiOSWebViewController *webViewController = webpage.webViewController;
-        NSURL *webpageCurrentRequestURL = webViewController.currentRequest.URL;
+        NSURL *webpageCurrentRequestURL = webViewController.currentURL;
         if ([webpageCurrentRequestURL isEqual:requestURL]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [webViewController sebWebViewDidFinishLoad];
