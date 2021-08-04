@@ -97,7 +97,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.quitURL = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-    downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
     self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
@@ -752,10 +751,10 @@ static NSString *urlStrippedFragment(NSURL* url)
             // SEB isn't in exam mode: reconfiguring is allowed
             NSURL *sebURL = url;
             // Figure the download URL out, depending on if http or https should be used
-            if ([url.scheme isEqualToString:@"seb"]) {
+            if ([url.scheme isEqualToString:SEBProtocolScheme]) {
                 // If it's a seb:// URL, we try to download it by http
                 url = [url URLByReplacingScheme:@"http"];
-            } else if ([url.scheme isEqualToString:@"sebs"]) {
+            } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
                 // If it's a sebs:// URL, we try to download it by https
                 url = [url URLByReplacingScheme:@"https"];
             }
@@ -842,86 +841,6 @@ static NSString *urlStrippedFragment(NSURL* url)
     
     // Also reset the flag for SEB starting up
     _delegate.startingUp = false;
-}
-
-
-- (SEBNavigationResponsePolicy)sebWebView:(SEBAbstractWebView*)webView
-decidePolicyForMIMEType:(NSString*)mimeType
-               url:(NSURL *)url
-   canShowMIMEType:(BOOL)canShowMIMEType
-    isForMainFrame:(BOOL)isForMainFrame
- suggestedFilename:(NSString *)suggestedFilename
-           cookies:(NSArray <NSHTTPCookie *>*)cookies
-{
-    DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
-    
-//    //Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-//    if (suggestedFilename) {
-//        DDLogInfo(@"Resource %@ had a suggested filename (or the 'download' attribute?), force download it.", url.absoluteString);
-//        [listener download];
-//        [self startDownloadingURL:request.URL];
-//        return;
-//    }
-
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
-//    if ([request.URL.scheme isEqualToString:@"data"]) {
-//        CFStringRef mimeType = (__bridge CFStringRef)type;
-//        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
-//        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
-//        self.downloadFileExtension = (__bridge NSString *)(extension);
-//        if (uti) CFRelease(uti);
-//        if (extension) CFRelease(extension);
-//        DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
-//        [listener download];
-//        [self startDownloadingURL:request.URL];
-//
-//        // Close the temporary Window or WebView which has been opend by the data: download link
-//        SEBWebView *creatingWebView = [self.webView creatingWebView];
-//        if (creatingWebView) {
-//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-//                // we have to close the new browser window which already has been opened by WebKit
-//                // Get the document for my web view
-//                DDLogDebug(@"Originating browser window %@", sender);
-//                // Close document and therefore also window
-//                //Workaround: Flash crashes after closing window and then clicking some other link
-//                [[self.webView preferences] setPlugInsEnabled:NO];
-//                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-//                [self.browserController closeWebView:self.webView];
-//            }
-//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-//                if (self.webView) {
-//                    [sender close]; //close the temporary webview
-//                }
-//            }
-//        }
-//        return;
-//    } else {
-//        self.downloadFileExtension = nil;
-//    }
-
-    if (([mimeType isEqualToString:SEBConfigMIMEType]) ||
-        ([mimeType isEqualToString:SEBUnencryptedConfigMIMEType]) ||
-        ([url.pathExtension isEqualToString:@"seb"])) {
-        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        NSURL *originalURL = webView.originalURL;
-        [self downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
-        return NO;
-    }
-
-    // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (![mimeType isEqualToString:@"application/pdf"] || !downloadPDFFiles) {
-        // MIME type isn't PDF or downloading of PDFs isn't allowed
-        if (canShowMIMEType) {
-            return YES;
-        }
-    }
-    
-    // If MIME type cannot be displayed by the WebView, then we download it
-    DDLogInfo(@"MIME type to download is %@", mimeType);
-//    [self startDownloadingURL:request.URL];
-    return NO;
 }
 
 
@@ -1051,7 +970,7 @@ decidePolicyForMIMEType:(NSString*)mimeType
             filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
         }
 
-        if ([pathExtension isEqualToString:@"seb"] || [filename.pathExtension isEqualToString:@"seb"]) {
+        if ([pathExtension isEqualToString:SEBFileExtension] || [filename.pathExtension isEqualToString:SEBFileExtension]) {
             // If file extension indicates a .seb file, we try to open it
             // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {

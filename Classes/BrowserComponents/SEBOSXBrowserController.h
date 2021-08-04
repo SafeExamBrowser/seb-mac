@@ -97,10 +97,7 @@
 - (NSString *) placeholderTitleOrURLForActiveWebpage;
 
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
-- (void) openConfigFromSEBURL:(NSURL *)url;
-- (void) openingConfigURLFailed;
 
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 
 - (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 - (void) openingConfigURLRoleBack;
