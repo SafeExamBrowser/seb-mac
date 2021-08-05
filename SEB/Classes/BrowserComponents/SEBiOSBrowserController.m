@@ -105,7 +105,8 @@
 
 - (void)openingConfigURLRoleBack {
     if (self.startingUp) {
-        // we quit, as decrypting the config wasn't successful
+        // We continue startup with client settings, as decrypting the config
+        // which opened SEB wasn't successful
         DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will use client setting", __FUNCTION__);
     }
     // Reset the opening settings flag which prevents opening URLs concurrently
