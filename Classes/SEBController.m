@@ -122,7 +122,6 @@ bool insideMatrix(void);
 @synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
 @synthesize quitSession;
-@synthesize webView;
 @synthesize capWindows;
 @synthesize lockdownWindows;
 
@@ -394,7 +393,7 @@ bool insideMatrix(void);
     
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuitWPwd:)
+                                             selector:@selector(requestedConditionalQuit)
                                                  name:@"requestQuitWPwdNotification" object:nil];
     
     // Add an observer for the request to reload start URL
@@ -1325,8 +1324,8 @@ bool insideMatrix(void);
         [self updateAACAvailablility];
         [self requestedRestart:nil];
     } else {
-        quittingMyself = true; //quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; //quit SEB
+        [self requestedQuit:nil];
+
     }
 }
 
@@ -4628,22 +4627,43 @@ conditionallyForWindow:(NSWindow *)window
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-        [self sessionQuitRestartIgnoringQuitPW:restart];
+        [self requestedConditionalQuit];
     } else {
         [self sessionQuitRestart:restart];
     }
 }
 
 
-// Confirm quitting, with default option "Quit"
-- (void)requestedQuitWPwd:(NSNotification *)notification
+// Quit or restart session without asking for confirmation
+- (void) sessionQuitRestart:(BOOL)restart
 {
+    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+    _openingSettings = NO;
+    
+    // Are exam settings active and we aren't restarting the exam?
+    if (!quittingClientConfig && !restart) {
+        // Switch to system's (persisted) UserDefaults
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        // Reset settings password and config key hash for settings,
+        // as we're returning from exam to client settings
+    }
+    [self quitSEBOrSession];
+}
+
+
+// Confirm quitting, with default option "Quit"
+- (void)requestedConditionalQuit
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
-    [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (quittingClientConfig ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (quittingClientConfig ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?",nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
+    [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSWarningAlertStyle];
     void (^quitSEBAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -4655,9 +4675,8 @@ conditionallyForWindow:(NSWindow *)window
                     DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
-                    DDLogInfo(@"Confirmed to quit, terminate now");
-                    self->quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
+                    DDLogInfo(@"Confirmed to quit %@", quittingClientConfig ? SEBShortAppName : @"exam session");
+                    [self sessionQuitRestart:restart];
                 }
                 return;
             default:
@@ -4809,8 +4828,7 @@ conditionallyForWindow:(NSWindow *)window
     SEBAbstractWebView *newWebView = [self.browserController openAndShowWebView];
     // Load manual page URL in new browser window
     NSString *urlText = SEBHelpPage;
-	[[newWebView.nativeWebView mainFrame] loadRequest:
-     [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+	[newWebView loadURL:[NSURL URLWithString:urlText]];
 }
 
 
@@ -4864,7 +4882,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         } else {
             // If no quit password is required, then confirm quitting, with default option "Quit"
-            [self requestedQuitWPwd:nil];
+            [self requestedConditionalQuit];
         }
     }
 }
@@ -5117,40 +5135,16 @@ conditionallyForWindow:(NSWindow *)window
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
         }
-        
         // Current Presentation Options changed, so make SEB active and reset them
-        // Load preferences from the system's user defaults database
+        // If plugins are enabled and there is a Flash view in the webview ...
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-        DDLogInfo(@"currentSystemPresentationOptions changed!");
-        // If plugins are enabled and there is a Flash view in the webview ...
-        if ([[self.webView preferences] arePlugInsEnabled]) {
-            NSView* flashView = [self.browserController.mainBrowserWindow findFlashViewInView:webView];
-            if (flashView) {
-                if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
-                    // and either third party Apps or Flash fullscreen is allowed
-                    //... then we switch plugins off and on again to prevent
-                    //the security risk Flash full screen video
-#ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-                    [[self.webView preferences] setPlugInsEnabled:NO];
-                    [[self.webView preferences] setPlugInsEnabled:YES];
-#endif
-                } else {
-                    //or we set the flag that Flash tried to switch presentation options
-                    [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:YES];
-                }
-            }
-        }
-        //[self startKioskMode];
-        //We don't reset the browser window size and position anymore
-        //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentRunning) {
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             [self regainActiveStatus:nil];
-            //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
     } else if (_isAACEnabled == NO && _wasAACEnabled == NO && [keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");

@@ -199,30 +199,6 @@
 }
 
 
-- (NSView*)findFlashViewInView:(NSView*)view
-{
-    NSString* className = [view className];
-    
-    // WebHostedNetscapePluginView showed up in Safari 4.x,
-    // WebNetscapePluginDocumentView is Safari 3.x.
-    if ([className isEqual:@"WebHostedNetscapePluginView"] ||
-        [className isEqual:@"WebNetscapePluginDocumentView"])
-    {
-        // Do any checks to make sure you've got the right player
-        return view;
-    }
-    
-    // Okay, this view isn't a plugin, keep going
-    for (NSView* subview in [view subviews])
-    {
-        NSView* result = [self findFlashViewInView:subview];
-        if (result) return result;
-    }
-    
-    return nil;
-}
-
-
 // Overriding the sendEvent method allows blocking the context menu
 // in the whole WebView, even in plugins
 - (void)sendEvent:(NSEvent *)theEvent
@@ -1157,5 +1133,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     return [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:contentFilter filterResponse:filterResponse];
 }
+
+
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+{
+    [self.browserController downloadFileFromURL:url filename:filename];
+}
+
 
 @end

@@ -42,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL allowDownloads;
 @property (readwrite) BOOL allowDeveloperConsole;
 
-- (NSView*) findFlashViewInView:(NSView*)view;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -36,7 +36,7 @@
 #if TARGET_OS_IPHONE
 #import "SEBUIWebViewController.h"
 #else
-#import "SEBiOSWebViewController.h"
+#import "SEBWebViewController.h"
 #endif
 
 @implementation SEBAbstractClassicWebView
@@ -59,7 +59,7 @@
 }
 
 
-/// SEBAbstractBrowserControllerDelegate Methods
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
 - (void)loadView
 {
@@ -190,7 +190,15 @@
 }
 
 
-/// SEBAbstractWebViewNavigationDelegate Methods
+- (void)disableFlashFullscreen
+{
+#if TARGET_OS_OSX
+    [self.browserControllerDelegate disableFlashFullscreen];
+#endif
+}
+
+
+#pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 @synthesize wkWebViewConfiguration;
 
@@ -316,11 +324,10 @@
     [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
 
-- (BOOL)sebWebViewShouldStartLoadWithRequest:(NSURLRequest *)request
-      navigationAction:(WKNavigationAction *)navigationAction
-                                      newTab:(BOOL)newTab
+- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                                                      newTab:(BOOL)newTab
 {
-    return [self.navigationDelegate sebWebViewShouldStartLoadWithRequest:request navigationAction:navigationAction newTab:newTab];
+    return [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTab];
 }
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
@@ -400,6 +407,11 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+{
+    [self.navigationDelegate downloadFileFromURL:url filename:filename];
 }
 
 - (BOOL) downloadingInTemporaryWebView
