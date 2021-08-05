@@ -237,6 +237,53 @@
 }
 
 
+- (void) disableFlashFullscreen
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    DDLogInfo(@"currentSystemPresentationOptions changed!");
+    // If plugins are enabled and there is a Flash view in the webview ...
+    if ([[self.sebWebView preferences] arePlugInsEnabled]) {
+        NSView* flashView = [self findFlashViewInView:self.sebWebView];
+        if (flashView) {
+            if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
+                // and either third party Apps or Flash fullscreen is allowed
+                //... then we switch plugins off and on again to prevent
+                //the security risk Flash full screen video
+                [[self.sebWebView preferences] setPlugInsEnabled:NO];
+                [[self.sebWebView preferences] setPlugInsEnabled:YES];
+            } else {
+                //or we set the flag that Flash tried to switch presentation options
+                [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:YES];
+            }
+        }
+    }
+}
+
+- (NSView*)findFlashViewInView:(NSView*)view
+{
+    NSString* className = [view className];
+    
+    // WebHostedNetscapePluginView showed up in Safari 4.x,
+    // WebNetscapePluginDocumentView is Safari 3.x.
+    if ([className isEqual:@"WebHostedNetscapePluginView"] ||
+        [className isEqual:@"WebNetscapePluginDocumentView"])
+    {
+        // Do any checks to make sure you've got the right player
+        return view;
+    }
+    
+    // Okay, this view isn't a plugin, keep going
+    for (NSView* subview in [view subviews])
+    {
+        NSView* result = [self findFlashViewInView:subview];
+        if (result) return result;
+    }
+    
+    return nil;
+}
+
+
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
 @synthesize wkWebViewConfiguration;

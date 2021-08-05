@@ -91,7 +91,5 @@
 
 - (void) startDownloadingURL:(NSURL *)url;
 
-- (NSView*) findFlashViewInView:(NSView*)view;
-
 
 @end
