@@ -940,7 +940,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     NSURLSessionDownloadTask *downloadTask = [_URLSession downloadTaskWithURL:url
                                                             completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error)
                                               {
-                                                  [self didDownloadFile:fileLocation response:response error:error];
+                                                  [self didDownloadFile:fileLocation filename:(NSString *)filename response:response error:error];
                                               }];
     
     [downloadTask resume];
@@ -948,26 +948,28 @@ static NSString *urlStrippedFragment(NSURL* url)
 
 
 - (void) didDownloadFile:(NSURL *)url
+                filename:(NSString *)filename
                 response:(NSURLResponse *)response
                    error:(NSError *)error
 {
     NSString *suggestedFilename = response.suggestedFilename;
     NSURL *responseURL = response.URL;
     NSString *pathExtension = responseURL.pathExtension;
-    DDLogDebug(@"%s from URL: %@ (NSURLResponse URL: %@, suggestedFilename: %@, error: %@", __FUNCTION__, url, responseURL, suggestedFilename, error);
+    DDLogDebug(@"%s from URL: %@ (NSURLResponse URL: %@), filename: %@, suggestedFilename: %@, error: %@", __FUNCTION__, url, responseURL, filename, suggestedFilename, error);
     
     if (!error) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        NSString *filename = suggestedFilename;
-        if (self.downloadFilename) {
-            // If we got the filename from a <a download="... tag, we use that
-            // as WebKit doesn't recognize the filename and suggests "Unknown"
-            filename = self.downloadFilename;
-            pathExtension = filename.pathExtension;
-        } else if (self.downloadFileExtension) {
+        // If we got the filename from a <a download="... tag, we use that
+        // as older versions of WebKit don't recognize the filename and suggest "Unknown"
+        if (filename.length > 0) {
+            // If the filename consists only of a file extension
+            if (filename.pathExtension.length == filename.length+1) {
+                filename = [suggestedFilename stringByAppendingPathExtension:filename.pathExtension];
+            }
+        } else {
             // If we didn't get the file name, at least set the file extension properly
-            filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
+            filename = suggestedFilename;
         }
 
         if ([pathExtension isEqualToString:SEBFileExtension] || [filename.pathExtension isEqualToString:SEBFileExtension]) {
@@ -983,15 +985,12 @@ static NSString *urlStrippedFragment(NSURL* url)
                 }
                 if (sebFileData) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        NSURL *originalURL = self.webView.originalURL;
-                        [self.browserController openDownloadedSEBConfigData:sebFileData
-                                                                    fromURL:url
-                                                                originalURL:originalURL];
+                        [self processDownloadedSEBConfigData:sebFileData fromURL:url originalURL:nil];
                     });
                     return;
                 }
             }
-        } else if (_allowDownloads == YES) {
+        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
             // If downloading is allowed
             NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
             if (downloadPath.length == 0) {
@@ -1025,7 +1024,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             } else {
                 DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+//                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
                 });
                 return;
             }
@@ -1040,7 +1039,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                error.description,
                [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+//        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
     });
 }
 

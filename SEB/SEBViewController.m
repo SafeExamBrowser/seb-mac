@@ -3012,10 +3012,10 @@ void run_on_ui_thread(dispatch_block_t block)
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Session", nil)
-                                                            message:NSLocalizedString(@"Are you sure you want to quit this session?", nil)
+    _alertController = [UIAlertController  alertControllerWithTitle:restart ? NSLocalizedString(@"Restart Session", nil) : NSLocalizedString(@"Quit Session", nil)
+                                                            message:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil)
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self->_alertController = nil;
         [self sessionQuitRestart:restart];

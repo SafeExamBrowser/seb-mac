@@ -187,7 +187,6 @@
 @property(readwrite) BOOL isTerminating;
 @property(strong) NSURL *openingSettingsFileURL;
 
-@property(weak) SEBAbstractWebView *webView;
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;
@@ -255,7 +254,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) hideEnterUsernamePasswordDialog;
 
 - (IBAction) exitSEB:(id)sender;
-- (void) requestedQuitWPwd:(id)sender;
+- (void) requestedConditionalQuit;
 
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout:(id)sender;

@@ -77,7 +77,7 @@
 }
 
 
-/// SEBAbstractBrowserControllerDelegate Methods
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
 - (void)loadView
 {
@@ -169,7 +169,7 @@
     }
 }
 
-- (BOOL) isScrollLockActive
+- (BOOL)isScrollLockActive
 {
     if ([self.browserControllerDelegate respondsToSelector:@selector(isScrollLockActive)]) {
         return [self.browserControllerDelegate isScrollLockActive];
@@ -178,7 +178,15 @@
 }
 
 
-/// SEBAbstractWebViewNavigationDelegate Methods
+- (void)disableFlashFullscreen
+{
+#if TARGET_OS_OSX
+    [self.browserControllerDelegate disableFlashFullscreen];
+#endif
+}
+
+
+#pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 @synthesize wkWebViewConfiguration;
 
@@ -581,6 +589,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
     return [self.navigationDelegate backgroundTintStyle];
 }
 
+
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+{
+    [self.navigationDelegate downloadFileFromURL:url filename:filename];
+}
 
 - (BOOL) downloadingInTemporaryWebView
 {

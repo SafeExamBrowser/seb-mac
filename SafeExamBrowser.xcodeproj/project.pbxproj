@@ -1112,8 +1112,6 @@
 		69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomTextIn@2x.png"; path = "Resources/Icons/ZoomTextIn@2x.png"; sourceTree = "<group>"; };
 		69428CF2172F2E2500C87C58 /* ZoomTextOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomTextOut.png; path = Resources/Icons/ZoomTextOut.png; sourceTree = "<group>"; };
 		69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomTextOut@2x.png"; path = "Resources/Icons/ZoomTextOut@2x.png"; sourceTree = "<group>"; };
-		69433AF4268A7F37005E59A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProcessListView.xib; sourceTree = "<group>"; };
-		69433AF6268A7F7A005E59A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/ProcessListView.xib; sourceTree = "<group>"; };
 		6943D0741655054600AB6B1D /* PrefsExamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsExamViewController.h; sourceTree = "<group>"; };
 		6943D0751655054600AB6B1D /* PrefsExamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsExamViewController.m; sourceTree = "<group>"; };
 		6946373E1498FEF000C896D0 /* WebKit+WebKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebKit+WebKitExtensions.h"; sourceTree = "<group>"; };
@@ -1246,6 +1244,8 @@
 		697852B42177AC7200E93AD8 /* SEBSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSettings.m; sourceTree = "<group>"; };
 		697852B52177AC7200E93AD8 /* SEBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSettings.h; sourceTree = "<group>"; };
 		697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBEncapsulatedSettings.h; sourceTree = "<group>"; };
+		697919CE26BC8EDD0002D296 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ProcessListView.strings; sourceTree = "<group>"; };
+		697919CF26BC8EEE0002D296 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProcessListView.xib; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		6988A0DA25228D4700F15236 /* libSEBSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEBSupport.a; path = SEB/Frameworks/libSEBSupport.a; sourceTree = "<group>"; };
@@ -4116,8 +4116,8 @@
 		69433AF3268A7F37005E59A5 /* ProcessListView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69433AF4268A7F37005E59A5 /* en */,
-				69433AF6268A7F7A005E59A5 /* de */,
+				697919CE26BC8EDD0002D296 /* de */,
+				697919CF26BC8EEE0002D296 /* Base */,
 			);
 			name = ProcessListView.xib;
 			sourceTree = "<group>";
