@@ -818,6 +818,17 @@
 }
 
 
+- (NSArray <NSData *> *) privatePasteboardItems
+{
+    return self.browserController.privatePasteboardItems;
+}
+
+- (void) setPrivatePasteboardItems:(NSArray<NSData *> *)privatePasteboardItems
+{
+    self.browserController.privatePasteboardItems = privatePasteboardItems;
+}
+
+
 - (void)sebWebViewDidStartLoad
 {
     [self setLoading:YES];

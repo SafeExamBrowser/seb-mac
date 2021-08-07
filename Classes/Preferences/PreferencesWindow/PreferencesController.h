@@ -54,6 +54,8 @@
 @class SEBOSXConfigFileController;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
+@class PrefsAppearanceViewController;
+@class PrefsBrowserViewController;
 @class PrefsExamViewController;
 @class PrefsNetworkViewController;
 @class SEBBrowserController;

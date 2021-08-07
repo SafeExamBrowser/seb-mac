@@ -39,6 +39,7 @@
 #import "MBPreferencesController.h"
 #import "PreferencesViewController.h"
 
+@class PreferencesController;
 
 @interface PrefsBrowserViewController : PreferencesViewController <MBPreferencesModule> {
     IBOutlet NSButton *enablePlugIns;

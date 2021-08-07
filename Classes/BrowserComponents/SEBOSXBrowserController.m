@@ -886,6 +886,14 @@
 }
 
 
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
+
+- (void) clearPrivatePasteboard
+{
+    self.privatePasteboardItems = [NSArray array];
+}
+
+
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url

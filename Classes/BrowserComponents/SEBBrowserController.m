@@ -103,6 +103,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
+
+
+#pragma mark - SEBAbstractWebViewNavigationDelegate Methods
+
 - (NSData *)browserExamKey
 {
     if (!_browserExamKey) {
