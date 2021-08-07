@@ -65,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) textSizeDecrease;
 - (void) textSizeReset;
 
+- (void) clearPrivatePasteboard;
+
 - (void) loadView;
 - (void) didMoveToParentViewController;
 - (void) viewDidLayoutSubviews;
