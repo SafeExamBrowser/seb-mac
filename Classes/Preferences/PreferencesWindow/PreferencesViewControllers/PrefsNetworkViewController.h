@@ -39,6 +39,8 @@
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
 
+@class PreferencesController;
+
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule, NSTableViewDelegate> {
 
     IBOutlet NSTabView *networkTabView;

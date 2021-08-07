@@ -193,6 +193,8 @@
 @property (strong, nonatomic) NSString* customSEBUserAgent;
 @property (strong, nonatomic) NSString* quitURL;
 
+@property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
+
 @property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
 - (NSString *) startURLQueryParameter:(NSURL**)url;
