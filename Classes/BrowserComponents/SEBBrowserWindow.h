@@ -89,7 +89,5 @@
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
 
-- (void) startDownloadingURL:(NSURL *)url;
-
 
 @end

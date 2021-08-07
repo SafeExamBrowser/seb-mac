@@ -52,6 +52,11 @@
 		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
 		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
 		6918212B268B1C3400F116D1 /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6988A0DA25228D4700F15236 /* libSEBSupport.a */; };
+		691B520F26BE219D0087C09E /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CB8AFD136AFC6E00C08450 /* PreferencesController.h */; };
+		691B521026BE21A30087C09E /* MBPreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A9A22A1368784500840AE1 /* MBPreferencesController.h */; };
+		691B521126BE21AD0087C09E /* PrefsGeneralViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */; };
+		691B521226BE21BC0087C09E /* PrefsExamViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943D0741655054600AB6B1D /* PrefsExamViewController.h */; };
+		691B521326BE21C90087C09E /* PrefsDownUploadsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */; };
 		691CC4111BA134070020D3EC /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
 		691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
 		691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
@@ -496,6 +501,10 @@
 		697852C62177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
 		697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
 		697852C82177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
+		697919D026BD36F10002D296 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */; };
+		697919D126BE1CFA0002D296 /* PreferencesBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69BE8662145872C900E87C22 /* PreferencesBrowser.xib */; };
+		697919D226BE1EA50002D296 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
+		697919D326BE1EB50002D296 /* PrefsBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6988A0DD25228D6700F15236 /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6988A0DB25228D6700F15236 /* libSEBSupport.a */; };
@@ -537,7 +546,6 @@
 		698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD42267EA3D800B8F1D6 /* NSScreen+SEBScreen.m */; };
 		698DFD45267EA3D900B8F1D6 /* NSScreen+SEBScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD43267EA3D800B8F1D6 /* NSScreen+SEBScreen.h */; };
 		698DFD48267EA43500B8F1D6 /* PreferencesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD46267EA43400B8F1D6 /* PreferencesViewController.h */; };
-		698DFD49267EA43500B8F1D6 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */; };
 		698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
 		698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
 		698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
@@ -894,7 +902,6 @@
 		69F7B60014F411FB00FD0761 /* SEBicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6932C9671191B7FE00688EBB /* SEBicon.icns */; };
 		69F7B60514F411FB00FD0761 /* BrowserIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D234A1452000800CCCFF9 /* BrowserIcon.png */; };
 		69F7B60614F411FB00FD0761 /* BrowserIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */; };
-		69F7B60714F411FB00FD0761 /* PreferencesBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69BE8662145872C900E87C22 /* PreferencesBrowser.xib */; };
 		69F7B60914F411FB00FD0761 /* PrefsGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */; };
 		69F7B60A14F411FB00FD0761 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D588201189EB8F005AE3F1 /* SEBController.m */; };
@@ -907,7 +914,6 @@
 		69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */; };
 		69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */; };
 		69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
-		69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
 		69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */; };
 		69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6946373F1498FEF000C896D0 /* WebKit+WebKitExtensions.m */; };
 		69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693D5A1614C59B4300E37C68 /* SEBBrowserWindowController.m */; };
@@ -2905,6 +2911,7 @@
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */,
 				697852C62177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
+				691B521026BE21A30087C09E /* MBPreferencesController.h in Headers */,
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69CEDCF226ACD00C0030787B /* SEBWebViewController.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
@@ -2916,6 +2923,7 @@
 				690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */,
 				69F522B821467188009F3999 /* CustomHTTPProtocol.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
+				697919D326BE1EB50002D296 /* PrefsBrowserViewController.h in Headers */,
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
 				69B1D474230D7586005656B8 /* ServerController.h in Headers */,
@@ -2930,6 +2938,7 @@
 				69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */,
 				69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
+				691B521226BE21BC0087C09E /* PrefsExamViewController.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				69F522A921467188009F3999 /* CanonicalRequest.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
@@ -2952,6 +2961,7 @@
 				69B581841ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				698DFD33267EA11A00B8F1D6 /* AssessmentModeManager.h in Headers */,
 				698DFD48267EA43500B8F1D6 /* PreferencesViewController.h in Headers */,
+				691B521326BE21C90087C09E /* PrefsDownUploadsViewController.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				69F522B321467188009F3999 /* QNSURLSessionDemux.h in Headers */,
 				698DFD0F267E9B1900B8F1D6 /* NSDictionary+Extensions.h in Headers */,
@@ -2963,9 +2973,11 @@
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
 				698DFD26267E9F2B00B8F1D6 /* ProcessListElement.h in Headers */,
 				69B5E2A925756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
+				691B521126BE21AD0087C09E /* PrefsGeneralViewController.h in Headers */,
 				6930D2281C205F4C0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
+				691B520F26BE219D0087C09E /* PreferencesController.h in Headers */,
 				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
 				698DFD1B267E9DE800B8F1D6 /* SEBDockItemBattery.h in Headers */,
 				698DFD28267E9F2B00B8F1D6 /* ProcessManager.h in Headers */,
@@ -3474,7 +3486,6 @@
 				6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */,
 				69F7B60514F411FB00FD0761 /* BrowserIcon.png in Resources */,
 				69F7B60614F411FB00FD0761 /* BrowserIcon@2x.png in Resources */,
-				69F7B60714F411FB00FD0761 /* PreferencesBrowser.xib in Resources */,
 				69358DDA1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
 				69E87E47202926080055988F /* SEBReloadIconLandscape.png in Resources */,
 				69E87E50202927330055988F /* SEBDockIconLandscape.png in Resources */,
@@ -3497,6 +3508,7 @@
 				69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */,
 				69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */,
 				69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
+				697919D126BE1CFA0002D296 /* PreferencesBrowser.xib in Resources */,
 				695A8EF01E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69E87E3E202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
 				69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */,
@@ -3965,7 +3977,6 @@
 				699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */,
 				6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
-				698DFD49267EA43500B8F1D6 /* PreferencesViewController.m in Sources */,
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
@@ -3983,7 +3994,6 @@
 				69358DEA1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
-				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
 				698DFD27267E9F2B00B8F1D6 /* ProcessListViewController.m in Sources */,
 				69B1D480230D75ED005656B8 /* NetworkRequest.swift in Sources */,
 				69E977D825F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */,
@@ -4011,6 +4021,7 @@
 				698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
+				697919D026BD36F10002D296 /* PreferencesViewController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				698DFD1C267E9DE800B8F1D6 /* SEBDockItemBattery.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
@@ -4049,6 +4060,7 @@
 				69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
+				697919D226BE1EA50002D296 /* PrefsBrowserViewController.m in Sources */,
 				69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
