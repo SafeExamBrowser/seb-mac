@@ -43,7 +43,6 @@
 @interface PrefsBrowserViewController : PreferencesViewController <MBPreferencesModule> {
     IBOutlet NSButton *enablePlugIns;
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
-    IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
     __weak IBOutlet NSTextField *defaultUserAgentMac;
     __weak IBOutlet NSTextField *userAgentWinDesktopDefault;
     __weak IBOutlet NSTextField *userAgentWinTouchDefault;

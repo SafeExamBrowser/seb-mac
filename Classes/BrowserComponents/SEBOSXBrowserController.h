@@ -65,12 +65,9 @@
 @property (weak, nonatomic) SEBDockController *dockController;
 @property (strong, nonatomic) NSString *activeBrowserWindowTitle;
 
-@property (strong, nonatomic) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
-@property (readwrite) BOOL allowSpellCheck;
-@property (strong, nonatomic) NSArray *privatePasteboardItems;
 @property (strong) NSTimer *panelWatchTimer;
 
 - (NSScreen *) mainScreen;

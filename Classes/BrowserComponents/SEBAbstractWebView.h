@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
 @property (strong, nonatomic) NSString *currentURL;
-@property (strong, nonatomic) NSString *currentMainHost;
+@property (strong, nonatomic) NSString  *_Nullable currentMainHost;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL directConfigDownloadAttempted;
