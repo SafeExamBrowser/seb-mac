@@ -43,12 +43,14 @@
 #import "SEBBrowserController.h"
 #import "SEBBrowserWindowDocument.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBController;
 @class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
 @class SEBWebView;
 
-@interface SEBOSXBrowserController : SEBBrowserController <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
+@interface SEBOSXBrowserController : SEBBrowserController <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 {
     @private
     NSURL *currentConfigPath;
@@ -123,5 +125,6 @@
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
 
+NS_ASSUME_NONNULL_END
 
 @end

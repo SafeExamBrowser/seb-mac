@@ -4722,7 +4722,7 @@ conditionallyForWindow:(NSWindow *)window
 //    NSApp.presentationOptions = NSApplicationPresentationDisableForceQuit + NSApplicationPresentationHideDock;
 
     // Clear private pasteboard
-    self.browserController.privatePasteboardItems = [NSArray array];
+    [self.browserController clearPrivatePasteboard];
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];

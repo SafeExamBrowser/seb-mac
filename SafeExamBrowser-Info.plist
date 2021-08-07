@@ -87,7 +87,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>31D0</string>
+	<string>31DC</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -103,6 +103,8 @@
 	<string>Camera access is required for remote proctoring.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone access is required for remote proctoring.</string>
 	<key>NSPrincipalClass</key>
