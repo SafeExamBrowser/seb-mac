@@ -254,7 +254,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"browserMediaAutoplayAudio",
                    
                    @YES,
-                   @"rowserMediaAutoplayVideo",
+                   @"browserMediaAutoplayVideo",
                    
                    [NSNumber numberWithLong:120000],
                    @"browserMessagingPingTime",
