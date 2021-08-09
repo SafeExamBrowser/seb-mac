@@ -111,7 +111,6 @@
             [self.toolbar setVisible:YES];
         }
     }
-
 }
 
 
@@ -781,9 +780,9 @@
     return [self.browserController openNewTabWithURL:url];
 }
 
-- (SEBAbstractWebView *) openNewWebViewWindow
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
 {
-    return [self.browserController openNewWebViewWindow];
+    return [self.browserController openNewWebViewWindowWithURL:url];
 }
 
 - (void) makeActiveAndOrderFront

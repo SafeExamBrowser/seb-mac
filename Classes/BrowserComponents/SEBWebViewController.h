@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL allowDownloads;
 @property (readwrite) BOOL allowDeveloperConsole;
 
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck;
+
 @end
 
 NS_ASSUME_NONNULL_END

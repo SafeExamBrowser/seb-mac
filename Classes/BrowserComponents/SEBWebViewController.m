@@ -363,13 +363,11 @@
             return nil; // cancel opening link
         }
         if (newBrowserWindowPolicy == openInNewWindow) {
-            SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindow];
+            SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindowWithURL:request.URL];
             newWindowAbstractWebView.creatingWebView = self.navigationDelegate.abstractWebView;
             SEBWebView *newWindowWebView = newWindowAbstractWebView.nativeWebView;
             DDLogDebug(@"Now opening new document browser window. %@", newWindowWebView);
             DDLogDebug(@"Reqested from %@",sender);
-            //[[sender preferences] setPlugInsEnabled:NO];
-            [[newWindowWebView mainFrame] loadRequest:request];
             return newWindowWebView;
         }
         return nil;

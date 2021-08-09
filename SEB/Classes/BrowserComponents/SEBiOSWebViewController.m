@@ -186,14 +186,13 @@
     [_sebWebView reload];
 }
 
-- (void)stopLoading {
-    [_sebWebView stopLoading];
-}
-
-
 - (void)loadURL:(NSURL *)url
 {
     [_sebWebView loadURL:url];
+}
+
+- (void)stopLoading {
+    [_sebWebView stopLoading];
 }
 
 
