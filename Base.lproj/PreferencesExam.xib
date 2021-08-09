@@ -280,7 +280,7 @@
                                                                 </button>
                                                                 <button toolTip="Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB" translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Qt-FY9">
                                                                     <rect key="frame" x="297" y="-1" width="291" height="18"/>
-                                                                    <buttonCell key="cell" type="check" title="Restart instead of quitting (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="u5B-hW-58P">
+                                                                    <buttonCell key="cell" type="check" title="Restart instead of quitting" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="u5B-hW-58P">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -840,7 +840,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99322033898305084" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.05084745762711862" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
