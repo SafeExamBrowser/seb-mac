@@ -34,7 +34,7 @@
 
 import Foundation
 
-@objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {
+@objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {    
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
@@ -129,16 +129,40 @@ import Foundation
         browserControllerDelegate?.viewWillTransitionToSize?()
     }
     
+    public func viewDidLoad() {
+        browserControllerDelegate?.viewDidLoad?()
+    }
+    
+    public func viewWillAppear() {
+        browserControllerDelegate?.viewWillAppear?()
+    }
+    
     public func viewWillAppear(_ animated: Bool) {
         browserControllerDelegate?.viewWillAppear?(animated)
     }
     
+    public func viewDidAppear() {
+        browserControllerDelegate?.viewDidAppear?()
+    }
+
     public func viewDidAppear(_ animated: Bool) {
         browserControllerDelegate?.viewDidAppear?(animated)
     }
     
+    public func viewWillDisappear() {
+        browserControllerDelegate?.viewWillDisappear?()
+    }
+    
     public func viewWillDisappear(_ animated: Bool) {
         browserControllerDelegate?.viewWillDisappear?(animated)
+    }
+    
+    public func viewDidDisappear() {
+        browserControllerDelegate?.viewDidDisappear?()
+    }
+    
+    public func viewDidDisappear(_ animated: Bool) {
+        browserControllerDelegate?.viewDidDisappear?(animated)
     }
     
     public func nativeWebView() -> Any {

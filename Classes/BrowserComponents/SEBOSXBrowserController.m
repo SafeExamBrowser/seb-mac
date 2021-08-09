@@ -35,6 +35,7 @@
 #import "SEBOSXBrowserController.h"
 #import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
+#import "SEBWebViewController.h"
 #import "SEBOSXConfigFileController.h"
 
 #import "NSURL+SEBURL.h"
@@ -184,7 +185,7 @@
 
 
 // Open a new web browser window document
-- (SEBBrowserWindowDocument *) openBrowserWindowDocument
+- (SEBBrowserWindow *) openBrowserWindow
 {
     NSError *error;
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:NO error:&error];
@@ -201,39 +202,56 @@
         // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
         // and that it would allow to be used in split screen mode
         newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
-        
         //    NSTextView *textView = (NSTextView *)[newWindow firstResponder];
+        return newWindow;
     }
-    return browserWindowDocument;
+    return nil;
 }
 
 
 // Open a new WebView and show its window
-- (SEBAbstractWebView *) openAndShowWebView
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url
 {
-    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
-
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    SEBAbstractWebView *newWindowWebView = newWindow.webView;
-    newWindowWebView.creatingWebView = nil;
-
-    [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
-               withWebView:newWindowWebView
-                 withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
+    SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled") overrideSpellCheck:NO];
+    SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
-        [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+        [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
-    self.activeBrowserWindow = newWindow;
+    [self setLevelForBrowserWindow:newBrowserWindow elevateLevels:elevateWindowLevels];
+    self.activeBrowserWindow = newBrowserWindow;
     self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", nil);
-    [browserWindowDocument.mainWindowController showWindow:self];
-    [newWindow makeKeyAndOrderFront:self];
-    
+    [newBrowserWindow.windowController showWindow:self];
+    [newBrowserWindow makeKeyAndOrderFront:self];
+    [newWindowWebView loadURL:url];
+
     return newWindowWebView;
+}
+
+
+- (SEBBrowserWindow *) openBrowserWindowWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck
+{
+    SEBBrowserWindow *browserWindow = [self openBrowserWindow];
+    SEBAbstractWebView *newWindowWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+    newWindowWebView.navigationDelegate = browserWindow;
+    newWindowWebView.creatingWebView = nil;
+    browserWindow.webView = newWindowWebView;
+
+    [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
+               withWebView:newWindowWebView
+                 withTitle:title];
+    return browserWindow;
+}
+
+
+// Create a NSViewController with a SEBAbstractWebView to hold new webpages
+- (SEBOSXWebViewController *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
+    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
+    newSEBWebViewController.navigationDelegate = self;
+    return newSEBWebViewController;
 }
 
 
@@ -282,26 +300,26 @@
     
     DDLogInfo(@"Open MainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
     
-    // Open and maximize the browser window
-    // (this is done here, after presentation options are set,
-    // because otherwise menu bar and dock are deducted from screen size)
-    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
-    
-    self.mainWebView = ((SEBBrowserWindow *)browserWindowDocument.mainWindowController.window).webView;
-    self.mainWebView.creatingWebView = nil;
-
     // Load start URL from the system's user defaults
-    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSString *urlString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
     // Handle Start URL Query String Parameter
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
         NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
         if (queryString.length > 0) {
-            urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
+            urlString = [NSString stringWithFormat:@"%@?%@", urlString, queryString];
         }
     }
-    
-    self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
+    NSURL *startURL = [NSURL URLWithString:urlString];
+
+    // Open and maximize the browser window
+    // (this is done here, after presentation options are set,
+    // because otherwise menu bar and dock are deducted from screen size)
+    SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO];
+
+    self.mainBrowserWindow = newBrowserWindow;
+    self.mainWebView = newBrowserWindow.webView;
+    self.mainWebView.creatingWebView = nil;
     DDLogDebug(@"Set main browser window: %@", self.mainBrowserWindow);
 
     // Check if the active screen (where the window is opened) changed in between opening dock
@@ -347,9 +365,9 @@
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
     self.activeBrowserWindow = self.mainBrowserWindow;
     
-    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
+    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlString);
     
-    [self openURLString:urlText withSEBUserAgentInWebView:self.mainWebView];
+    [self.mainWebView loadURL:startURL];
 }
 
 
@@ -603,6 +621,18 @@
 }
 
 
+- (BOOL) browserWindowHasCommonHostWithURL:(NSURL *)url
+{
+    for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
+        if ([openWindowWebView.webView.url.host isEqualToString:url.host]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+
 - (void) openWindowSelected:(SEBBrowserOpenWindowWebView *)sender
 {
     DDLogInfo(@"Selected menu item: %@", sender);
@@ -746,9 +776,8 @@
     
     // Create a new WebView
     NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
-    SEBBrowserWindowDocument *temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)temporaryBrowserWindowDocument.mainWindowController.window;
-    SEBAbstractWebView *temporaryWebView = newWindow.webView;
+    SEBBrowserWindow *temporaryBrowserWindow = [self openBrowserWindowWithURL:url title:tempWindowTitle overrideSpellCheck:YES];
+    SEBAbstractWebView *temporaryWebView = temporaryBrowserWindow.webView;
     if (_sebController.startingUp) {
         temporaryWebView.creatingWebView = temporaryWebView;
     } else {
@@ -756,25 +785,21 @@
     }
     temporaryWebView.originalURL = originalURL;
     
-    newWindow.isPanel = true;
-    [newWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
-    [newWindow setTitle:tempWindowTitle];
+    temporaryBrowserWindow.isPanel = true;
+    [temporaryBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
+    [temporaryBrowserWindow setTitle:tempWindowTitle];
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
-        [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+        [temporaryBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels];
+    [self setLevelForBrowserWindow:temporaryBrowserWindow elevateLevels:elevateWindowLevels];
     
-    [self addBrowserWindow:(SEBBrowserWindow *)newWindow
-               withWebView:temporaryWebView
-                 withTitle:tempWindowTitle];
-    
-    self.activeBrowserWindow = newWindow;
-    [temporaryBrowserWindowDocument.mainWindowController showWindow:self];
-    [newWindow makeKeyAndOrderFront:self];
+    self.activeBrowserWindow = temporaryBrowserWindow;
+    [temporaryBrowserWindow.windowController showWindow:self];
+    [temporaryBrowserWindow makeKeyAndOrderFront:self];
     
     return temporaryWebView;
 }
@@ -898,14 +923,12 @@
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {
-    SEBAbstractWebView *newWebView = [self openAndShowWebView];
-    [newWebView loadURL:url];
-    return newWebView;
+    return [self openNewWebViewWindowWithURL:url];
 }
 
-- (SEBAbstractWebView *) openNewWebViewWindow
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
 {
-    return [self openAndShowWebView];
+    return [self openAndShowWebViewWithURL:url];
 }
 
 
