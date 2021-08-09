@@ -93,21 +93,55 @@
 {
     [self.browserControllerDelegate viewDidLayoutSubviews];
 }
+
 - (void)viewWillTransitionToSize
 {
     [self.browserControllerDelegate viewWillTransitionToSize];
 }
+
+- (void) viewDidLoad
+{
+    [self.browserControllerDelegate viewDidLoad];
+}
+
+- (void)viewWillAppear
+{
+    [self.browserControllerDelegate viewWillAppear];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.browserControllerDelegate viewWillAppear:(BOOL)animated];
 }
+
+- (void)viewDidAppear
+{
+    [self.browserControllerDelegate viewDidAppear];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.browserControllerDelegate viewDidAppear:(BOOL)animated];
 }
+
+- (void)viewWillDisappear
+{
+    [self.browserControllerDelegate viewWillDisappear];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.browserControllerDelegate viewWillDisappear:(BOOL)animated];
+}
+
+- (void)viewWDidDisappear
+{
+    [self.browserControllerDelegate viewDidDisappear];
+}
+
+- (void)viewWDidDisappear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewDidDisappear:(BOOL)animated];
 }
 
 
@@ -221,9 +255,9 @@
     return [self.navigationDelegate openNewTabWithURL:url];
 }
 
-- (SEBAbstractWebView *) openNewWebViewWindow
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
 {
-    return [self.navigationDelegate openNewWebViewWindow];
+    return [self.navigationDelegate openNewWebViewWindowWithURL:url];
 }
 
 - (void) makeActiveAndOrderFront

@@ -42,7 +42,7 @@
 @class SEBBrowserTabViewController;
 @class SEBURLFilter;
 
-@interface SEBiOSWebViewController : UIViewController <SEBAbstractWebViewNavigationDelegate>
+@interface SEBiOSWebViewController : UIViewController <SEBAbstractBrowserControllerDelegate,SEBAbstractWebViewNavigationDelegate>
 {
     IBOutlet UIBarButtonItem *MainWebView;
     

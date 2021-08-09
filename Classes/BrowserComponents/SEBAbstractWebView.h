@@ -71,9 +71,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) didMoveToParentViewController;
 - (void) viewDidLayoutSubviews;
 - (void) viewWillTransitionToSize;
+- (void) viewDidLoad;
+- (void) viewWillAppear;
 - (void) viewWillAppear:(BOOL)animated;
+- (void) viewDidAppear;
 - (void) viewDidAppear:(BOOL)animated;
+- (void) viewWillDisappear;
 - (void) viewWillDisappear:(BOOL)animated;
+- (void) viewDidDisappear;
+- (void) viewDidDisappear:(BOOL)animated;
 
 - (void) toggleScrollLock;
 - (BOOL) isScrollLockActive;
@@ -96,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
-- (SEBAbstractWebView *) openNewWebViewWindow;
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url;
 
 - (void) makeActiveAndOrderFront;
 - (void) showWebView:(SEBAbstractWebView *)webView;
