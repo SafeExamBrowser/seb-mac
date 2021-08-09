@@ -4822,13 +4822,13 @@ conditionallyForWindow:(NSWindow *)window
     [self showHelp:self];
 }
 
+
+// Load manual page URL in new browser window
 - (IBAction) showHelp: (id)sender
 {
+    NSString *urlString = SEBHelpPage;
     // Open new browser window containing WebView and show it
-    SEBAbstractWebView *newWebView = [self.browserController openAndShowWebView];
-    // Load manual page URL in new browser window
-    NSString *urlText = SEBHelpPage;
-	[newWebView loadURL:[NSURL URLWithString:urlText]];
+    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString]];
 }
 
 

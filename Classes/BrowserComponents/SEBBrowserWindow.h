@@ -38,11 +38,13 @@
 #import <WebKit/WebKit.h>
 
 #import "SEBBrowserWindowController.h"
+#import "SEBOSXWebViewController.h"
 #import "SEBAbstractWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBOSXBrowserController.h"
 #import "SEBTextField.h"
 
+@class SEBOSXWebViewController;
 @class SEBAbstractWebView;
 @class SEBOSXBrowserController;
 
@@ -60,6 +62,7 @@
 
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak) SEBOSXBrowserController *browserController;
+@property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (strong, nonatomic) SEBAbstractWebView *webView;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;

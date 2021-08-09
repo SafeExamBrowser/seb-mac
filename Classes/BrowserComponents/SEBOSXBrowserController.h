@@ -35,20 +35,20 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "SEBController.h"
+#import "SEBBrowserController.h"
+#import "SEBBrowserWindowDocument.h"
 #import "SEBBrowserWindow.h"
-#import "SEBWebView.h"
+#import "SEBOSXWebViewController.h"
 #import "SEBDockController.h"
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
-#import "SEBBrowserController.h"
-#import "SEBBrowserWindowDocument.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class SEBController;
 @class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
-@class SEBWebView;
+@class SEBOSXWebViewController;
 
 @interface SEBOSXBrowserController : SEBBrowserController <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 {
@@ -60,8 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) SEBController *sebController;
 @property (readwrite) BOOL openingSettings;
 
-@property (weak, nonatomic) SEBAbstractWebView *mainWebView;
-@property (strong, nonatomic) SEBBrowserWindow *mainBrowserWindow;
+@property (weak, nonatomic, nullable) SEBAbstractWebView *mainWebView;
+@property (strong, nonatomic, nullable) SEBBrowserWindow *mainBrowserWindow;
 
 @property (weak, nonatomic) SEBBrowserWindow *activeBrowserWindow;
 @property (weak, nonatomic) SEBDockController *dockController;
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-- (SEBAbstractWebView *) openAndShowWebView;
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url;
 - (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose;
 - (void) webViewShow:(SEBAbstractWebView *)sender;
 - (void) openMainBrowserWindow;
