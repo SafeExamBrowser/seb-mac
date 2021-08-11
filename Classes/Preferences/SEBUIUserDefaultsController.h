@@ -51,6 +51,10 @@
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies;
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies;
 
+- (NSArray *) org_safeexambrowser_SEB_browserWindowWebViewPolicies;
+
+- (NSArray *) org_safeexambrowser_SEB_browserUserAgentEnvironments;
+
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies;
 
 - (NSArray *) org_safeexambrowser_SEB_certificateTypes;

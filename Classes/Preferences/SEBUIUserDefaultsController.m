@@ -65,6 +65,16 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_browserWindowWebViewPolicies {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Automatic", nil),
+            NSLocalizedString(@"Force Classic", nil),
+            NSLocalizedString(@"Prefer Modern in New Tab+Different Host", nil),
+            NSLocalizedString(@"Prefer Modern", nil),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_browserUserAgentEnvironments {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"Standard user agent", nil),

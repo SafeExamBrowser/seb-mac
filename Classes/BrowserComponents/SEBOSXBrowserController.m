@@ -235,11 +235,17 @@
 - (SEBBrowserWindow *) openBrowserWindowWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck
 {
     SEBBrowserWindow *browserWindow = [self openBrowserWindow];
-    SEBAbstractWebView *newWindowWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+    
+    SEBOSXWebViewController *newViewController;
+    newViewController = [self createNewWebViewControllerWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+
+    SEBAbstractWebView *newWindowWebView = newViewController.sebWebView;
     newWindowWebView.navigationDelegate = browserWindow;
     newWindowWebView.creatingWebView = nil;
     browserWindow.webView = newWindowWebView;
 
+    browserWindow.contentViewController = newViewController;
+    
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
                withWebView:newWindowWebView
                  withTitle:title];
@@ -920,6 +926,21 @@
 
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
+
+- (void)examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies {
+
+}
+
+
+- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward {
+    // Would be used if SEB for macOS would support back/forward buttons in the Dock
+}
+
+
+- (void)setLoading:(BOOL)loading {
+    // Would be used if SEB for macOS would support a global "loading" indicator
+}
+
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
 {

@@ -377,7 +377,7 @@ import Foundation
     }
     
     public func setTitle(_ title: String) {
-        navigationDelegate?.setTitle(title)
+        navigationDelegate?.setTitle!(title)
     }
     
     public func backgroundTintStyle () -> SEBBackgroundTintStyle {

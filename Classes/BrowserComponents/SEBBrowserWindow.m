@@ -888,6 +888,7 @@
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
 {
     [self setTitle:title];
+    [self.browserController setTitle: title forWindow:self withWebView:self.webView];
 }
 
 - (void)webView:(WKWebView *)webView

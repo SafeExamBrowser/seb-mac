@@ -142,7 +142,7 @@
 @end
 
 
-@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate, SEBAbstractWebViewNavigationDelegate> {
+@interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate> {
     
     @private
     
