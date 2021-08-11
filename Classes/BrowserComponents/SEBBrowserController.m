@@ -1393,6 +1393,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 }
 
+
 // Managing entered credentials for .seb file download
 - (void)enteredURLSessionUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
 {

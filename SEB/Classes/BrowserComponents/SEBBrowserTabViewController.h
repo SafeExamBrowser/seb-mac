@@ -62,49 +62,21 @@
 
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
-- (NSString *) currentURL;
-@property (nonatomic, strong) NSString *currentMainHost;
-
-- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
-
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck;
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck;
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage;
 - (void) loadPersistedOpenWebPages;
-
-- (void) closeAllTabs;
-
 - (void) removePersistedOpenWebPages;
+- (void) closeAllTabs;
 
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *) documentsDirectoryPath;
 
-- (void) toggleScrollLock;
-@property (readonly) BOOL isScrollLockActive;
 - (void) backToStart;
-- (void) goBack;
-- (void) goForward;
-- (void) reload;
-- (void) stopLoading;
 
-- (void) setLoading:(BOOL)loading;
 - (void) setTitle:(NSString *)title forWebViewController:(SEBiOSWebViewController *)webViewController;
 
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
-
-- (void) openCloseSliderForNewTab;
-- (void) switchToTab:(id)sender;
-- (void) switchToNextTab;
-- (void) switchToPreviousTab;
-- (void) closeTab;
-
-- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
-- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
-
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
-- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
-- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
 @end
 
