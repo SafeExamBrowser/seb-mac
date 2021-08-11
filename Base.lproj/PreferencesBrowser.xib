@@ -20,6 +20,7 @@
                 <outlet property="userAgentWinTouchiPad" destination="twb-Ov-Zlx" id="qzM-XY-apd"/>
                 <outlet property="userAgentiOSDefault" destination="F1k-Qz-pMS" id="eMa-F7-JBr"/>
                 <outlet property="userAgentiOSMacDesktop" destination="0DR-0l-x3s" id="jbU-Nz-YJk"/>
+                <outlet property="view" destination="1" id="bDD-sb-pVA"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -34,10 +35,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q2b-O7-hAO">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="795"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="925"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="715" width="594" height="65"/>
+                                        <rect key="frame" x="20" y="845" width="594" height="65"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
@@ -103,7 +104,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                                        <rect key="frame" x="17" y="619" width="616" height="86"/>
+                                        <rect key="frame" x="17" y="749" width="616" height="86"/>
                                         <view key="contentView" id="sga-L4-DYG">
                                             <rect key="frame" x="3" y="3" width="610" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +217,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser Features" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                                        <rect key="frame" x="17" y="489" width="616" height="124"/>
+                                        <rect key="frame" x="17" y="619" width="616" height="124"/>
                                         <view key="contentView" id="guQ-Yx-amA">
                                             <rect key="frame" x="3" y="3" width="610" height="106"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -384,7 +385,7 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="13B-3r-AKS">
-                                        <rect key="frame" x="20" y="365" width="610" height="118"/>
+                                        <rect key="frame" x="20" y="495" width="610" height="118"/>
                                         <subviews>
                                             <box title="Restrictions in Exam Window" translatesAutoresizingMaskIntoConstraints="NO" id="IEP-y6-APQ">
                                                 <rect key="frame" x="-3" y="-4" width="301" height="122"/>
@@ -614,7 +615,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box title="Media Playback" translatesAutoresizingMaskIntoConstraints="NO" id="u8M-48-HFC">
-                                        <rect key="frame" x="17" y="259" width="616" height="96"/>
+                                        <rect key="frame" x="17" y="389" width="616" height="96"/>
                                         <view key="contentView" id="X79-ym-XJE">
                                             <rect key="frame" x="3" y="3" width="610" height="78"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -743,6 +744,71 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="74" id="V4e-IL-ZhD"/>
+                                        </constraints>
+                                    </box>
+                                    <box title="Select Browser Engine Policy" translatesAutoresizingMaskIntoConstraints="NO" id="QLJ-Tp-en0" userLabel="Select Browser Engine Policy">
+                                        <rect key="frame" x="17" y="259" width="616" height="124"/>
+                                        <view key="contentView" id="B8w-xq-Rtz">
+                                            <rect key="frame" x="3" y="3" width="610" height="106"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-dg-Uhp">
+                                                    <rect key="frame" x="11" y="16" width="588" height="82"/>
+                                                    <subviews>
+                                                        <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VNp-U5-dS4">
+                                                            <rect key="frame" x="-3" y="58" width="595" height="25"/>
+                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="R9J-OH-7kG" id="UJv-6c-eWa">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="menu"/>
+                                                                <menu key="menu" id="ZMK-ZY-sxa">
+                                                                    <items>
+                                                                        <menuItem id="jUE-fy-l4a"/>
+                                                                        <menuItem id="R9J-OH-7kG"/>
+                                                                        <menuItem id="sng-8K-JEJ">
+                                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        </menuItem>
+                                                                    </items>
+                                                                </menu>
+                                                            </popUpButtonCell>
+                                                            <connections>
+                                                                <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="s1c-41-8ik"/>
+                                                                <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowWebViewPolicies" id="goH-Ql-oOy"/>
+                                                                <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserWindowWebView" previousBinding="goH-Ql-oOy" id="xZi-49-wQn"/>
+                                                            </connections>
+                                                        </popUpButton>
+                                                        <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rt-uw-NTz">
+                                                            <rect key="frame" x="-2" y="0.0" width="592" height="56"/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="ADW-iA-ngj">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <string key="title">The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</string>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="VNp-U5-dS4" secondAttribute="trailing" id="ZMk-KX-XDq"/>
+                                                        <constraint firstItem="VNp-U5-dS4" firstAttribute="leading" secondItem="eR7-dg-Uhp" secondAttribute="leading" id="tRp-wp-ohI"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eR7-dg-Uhp" firstAttribute="top" secondItem="B8w-xq-Rtz" secondAttribute="top" constant="8" id="JTE-TR-hBn"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eR7-dg-Uhp" secondAttribute="bottom" constant="10" id="Xm9-0L-ncl"/>
+                                                <constraint firstItem="eR7-dg-Uhp" firstAttribute="leading" secondItem="B8w-xq-Rtz" secondAttribute="leading" constant="11" id="rLG-TT-IaS"/>
+                                                <constraint firstAttribute="trailing" secondItem="eR7-dg-Uhp" secondAttribute="trailing" constant="11" id="s4B-B7-8Um"/>
+                                            </constraints>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="J7a-fI-I6c"/>
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
@@ -1282,6 +1348,7 @@
                                     <constraint firstAttribute="trailing" secondItem="1WX-zZ-3xi" secondAttribute="trailing" constant="16" id="KCf-R5-sDx"/>
                                     <constraint firstItem="1WX-zZ-3xi" firstAttribute="leading" secondItem="q2b-O7-hAO" secondAttribute="leading" constant="20" id="M5w-Wy-gkn"/>
                                     <constraint firstAttribute="trailing" secondItem="13B-3r-AKS" secondAttribute="trailing" id="Yqj-Rb-XTo"/>
+                                    <constraint firstAttribute="trailing" secondItem="QLJ-Tp-en0" secondAttribute="trailing" id="fru-L9-bHO"/>
                                     <constraint firstAttribute="trailing" secondItem="7nL-Z2-JAg" secondAttribute="trailing" id="vBJ-tg-70p"/>
                                 </constraints>
                                 <visibilityPriorities>
@@ -1292,8 +1359,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1316,7 +1385,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.89795918367346939" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.054151624548736454" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

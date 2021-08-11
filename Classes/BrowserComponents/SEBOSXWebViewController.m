@@ -31,11 +31,11 @@
     self.view = _sebWebView.nativeWebView;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    [_sebWebView.nativeWebView viewDidLoad];
-}
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//
+//    [((NSView *)_sebWebView.nativeWebView).viewController viewDidLoad];
+//}
 
 - (id)nativeWebView
 {

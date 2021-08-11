@@ -96,11 +96,12 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (void) setLoading:(BOOL)loading;
-- (void) setTitle:(NSString *)title;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
 
 @optional
+- (void) setTitle:(NSString *)title;
+
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url;
 
