@@ -61,10 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (weak) SEBBrowserTabViewController *browserTabViewController;
 @property (nonatomic, strong) UIWebView *sebWebView;
-@property (strong) SEBURLFilter *urlFilter;
-@property (strong) UIView *filterMessageHolder;
-@property (strong) NSString *currentURL;
-@property (strong) NSString *currentMainHost;
 @property (readonly) BOOL isScrollLockActive;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
@@ -73,15 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *)tempDirectoryPath;
 
-- (void)toggleScrollLock;
 - (void)backToStart;
-- (void)goBack;
-- (void)goForward;
-- (void)reload;
-- (void)stopLoading;
-
-- (void)loadURL:(NSURL *)url;
-
 - (void)setBackForwardAvailabilty;
 
 @end

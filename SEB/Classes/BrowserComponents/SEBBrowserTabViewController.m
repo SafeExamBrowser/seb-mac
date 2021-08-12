@@ -116,7 +116,7 @@
 
 #pragma mark - Controller interface
 
-- (NSString *) currentURL
+- (NSURL *) currentURL
 {
     return _visibleWebViewController.currentURL;
 }
@@ -130,6 +130,11 @@
 - (void) setCurrentMainHost:(NSString *)currentMainHost
 {
     self.currentMainHost = currentMainHost;
+}
+
+- (BOOL) isMainBrowserWebViewActive
+{
+    return self.navigationDelegate.isMainBrowserWebViewActive;
 }
 
 - (void) toggleScrollLock
@@ -168,7 +173,7 @@
 
 - (void) goBack {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+    if (self.navigationDelegate.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam
@@ -186,7 +191,7 @@
 
 - (void) goForward {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+    if (self.navigationDelegate.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam
@@ -258,7 +263,7 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL showToolbarNavigation = true;
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+    if (self.navigationDelegate.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam

@@ -64,6 +64,7 @@
 @property (weak) SEBOSXBrowserController *browserController;
 @property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (strong, nonatomic) SEBAbstractWebView *webView;
+@property (strong, nonatomic) NSURL *currentURL;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;
 @property (weak) IBOutlet SEBTextField *customAlertText;

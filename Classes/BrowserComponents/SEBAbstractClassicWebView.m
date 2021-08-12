@@ -305,6 +305,16 @@
     self.navigationDelegate.currentMainHost = currentMainHost;
 }
 
+- (BOOL) isMainBrowserWebViewActive
+{
+    return self.navigationDelegate.isMainBrowserWebViewActive;
+}
+
+- (NSString *)quitURL
+{
+    return self.navigationDelegate.quitURL;
+}
+
 - (NSString *) pageJavaScript
 {
     return self.navigationDelegate.pageJavaScript;

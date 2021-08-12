@@ -52,9 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) goBack;
 - (void) goForward;
-- (void) reload;
 - (void) loadURL:(NSURL *)url;
 - (void) stopLoading;
+- (void) reload;
 
 @optional
 - (void) zoomPageIn;
@@ -111,8 +111,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) closeWebView:(SEBAbstractWebView *)webView;
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
-@property (strong, nonatomic) NSString *currentURL;
+@property (strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString  *_Nullable currentMainHost;
+@property (readonly) BOOL isMainBrowserWebViewActive;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL directConfigDownloadAttempted;

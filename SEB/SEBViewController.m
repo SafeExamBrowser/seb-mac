@@ -1546,7 +1546,7 @@ static NSMutableSet *browserWindowControllers;
             // Check if we received a new configuration from an MDM server
             _isReconfiguringToMDMConfig = YES;
             BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
-            NSString *currentURL = [[self.browserTabViewController currentURL] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+            NSString *currentURL = [self.browserTabViewController.currentURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
             NSString *currentStartURLTrimmed = [currentStartURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
             DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost == nil OR currentMainHost %@ is equal to currentStartURL %@ OR clientConfigSecureModePaused: %d)",
                          __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't",
@@ -4696,7 +4696,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     BOOL showReloadWarning = false;
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+    if (self.browserController.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"]) {
             // Cancel if navigation is disabled in exam
