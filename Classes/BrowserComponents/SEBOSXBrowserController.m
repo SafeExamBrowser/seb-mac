@@ -239,7 +239,7 @@
     SEBOSXWebViewController *newViewController;
     newViewController = [self createNewWebViewControllerWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
 
-    SEBAbstractWebView *newWindowWebView = newViewController.sebWebView;
+    SEBAbstractWebView *newWindowWebView = newViewController.sebAbstractWebView;
     newWindowWebView.navigationDelegate = browserWindow;
     newWindowWebView.creatingWebView = nil;
     browserWindow.webView = newWindowWebView;
@@ -256,7 +256,7 @@
 // Create a NSViewController with a SEBAbstractWebView to hold new webpages
 - (SEBOSXWebViewController *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
     SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
-    newSEBWebViewController.navigationDelegate = self;
+//    newSEBWebViewController.navigationDelegate = self;
     return newSEBWebViewController;
 }
 
@@ -717,7 +717,7 @@
 
 - (BOOL) isMainBrowserWebViewActive
 {
-    return _activeBrowserWindow == _mainBrowserWindow;
+    return (_mainBrowserWindow == nil || _activeBrowserWindow == _mainBrowserWindow);
 }
 
 

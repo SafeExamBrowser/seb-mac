@@ -285,6 +285,10 @@
     return self;
 }
 
+- (NSURL *)currentURL
+{
+    return self.navigationDelegate.currentURL;
+}
 
 - (NSString *)currentMainHost
 {
@@ -296,12 +300,22 @@
     self.navigationDelegate.currentMainHost = currentMainHost;
 }
 
-- (NSString *) pageJavaScript
+- (BOOL)isMainBrowserWebViewActive
+{
+    return self.navigationDelegate.isMainBrowserWebViewActive;
+}
+
+- (NSString *)quitURL
+{
+    return self.navigationDelegate.quitURL;
+}
+
+- (NSString *)pageJavaScript
 {
     return self.navigationDelegate.pageJavaScript;
 }
 
-- (BOOL) overrideAllowSpellCheck
+- (BOOL)overrideAllowSpellCheck
 {
     return _overrideAllowSpellCheck;
 }
@@ -395,7 +409,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         // (according to current ShowURL policy settings for exam/additional tab)
         BOOL showURL = false;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+        if (self.navigationDelegate.isMainBrowserWebViewActive) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
                 showURL = true;
             }
@@ -492,9 +506,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         return SEBNavigationActionPolicyCancel;
     }
     
-    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
-    if (delegateNavigationActionPolicy != SEBNavigationResponsePolicyAllow) {
-        return delegateNavigationActionPolicy;
+    if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:)]) {
+        SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+        if (delegateNavigationActionPolicy != SEBNavigationResponsePolicyAllow) {
+            return delegateNavigationActionPolicy;
+        }
     }
     
     // Check if this is a seb:// or sebs:// link or a .seb file link
@@ -510,7 +526,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         }
     }
 
-    self.navigationDelegate.currentURL = url.absoluteString;
+    self.navigationDelegate.currentURL = url;
     self.navigationDelegate.currentMainHost = url.host;
     return SEBNavigationResponsePolicyAllow;
 }
@@ -621,6 +637,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (SEBBackgroundTintStyle) backgroundTintStyle
 {
     return [self.navigationDelegate backgroundTintStyle];
+}
+
+
+- (id) window
+{
+    return self.navigationDelegate.window;
 }
 
 
