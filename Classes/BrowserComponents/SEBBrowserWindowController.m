@@ -96,27 +96,19 @@ void DisposeWindow (
     
     NSString *keyAllowNavigation;
     NSString *keyAllowReload;
-//    if (!self.browserController.mainBrowserWindow || browserWindow == self.browserController.mainBrowserWindow) {
-//        [browserWindow.webView bind:@"maintainsBackForwardList"
-//                  toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-//               withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
-//                   options:nil];
-//        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
-//        keyAllowReload = @"org_safeexambrowser_SEB_browserWindowAllowReload";
-//    } else {
-//        [browserWindow.webView bind:@"maintainsBackForwardList"
-//                  toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-//               withKeyPath:@"values.org_safeexambrowser_SEB_newBrowserWindowNavigation"
-//                   options:nil];
-//        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
-//        keyAllowReload = @"org_safeexambrowser_SEB_newBrowserWindowAllowReload";
-//    }
+    if (self.browserController.isMainBrowserWebViewActive) {
+        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
+        keyAllowReload = @"org_safeexambrowser_SEB_browserWindowAllowReload";
+    } else {
+        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
+        keyAllowReload = @"org_safeexambrowser_SEB_newBrowserWindowAllowReload";
+    }
     
     BOOL allowNavigation = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowNavigation];
     [self.backForwardButtons setHidden:!allowNavigation];
     BOOL allowReload = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowReload];
     [self.toolbarReloadButton setHidden:!allowReload];
-    
+
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
 

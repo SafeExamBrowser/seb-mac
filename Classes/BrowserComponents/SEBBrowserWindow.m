@@ -145,7 +145,7 @@
                 windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
                 windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
             }
-        } else if (self.webView == self.browserController.temporaryWebView) {
+        } else if (self.webView && self.webView == self.browserController.temporaryWebView) {
             // This is a temporary browser window used for downloads with authentication
             windowWidth = @"1050";
             windowHeight = @"100%";
@@ -336,7 +336,7 @@
         message.drawsBackground = NO;
         [message.cell setUsesSingleLineMode:YES];
         CGFloat messageLabelYOffset = 0;
-
+        
         NSString *messageString;
         
         // Set message for URL blocked according to settings
@@ -356,7 +356,7 @@
                 messageLabelYOffset = _isFullScreen ? 0 : 4;
                 break;
         }
-
+        
         NSButton *URLBlockedButton = [NSButton new];
         URLBlockedButton.title = messageString;
         [URLBlockedButton setButtonType:NSMomentaryLightButton];
@@ -406,7 +406,7 @@
 - (void) showURLBlockedHUD
 {
     if (!_filterMessageHUD) {
-
+        
         NSRect messageRect = _filterMessageHolder.frame;
         CGFloat horizontalPadding = 8.0;
         CGFloat verticalPadding = 5.0;
@@ -426,7 +426,7 @@
         _filterMessageHUD.backgroundColor = [NSColor clearColor];
         _filterMessageHUD.opaque = false;
         _filterMessageHUD.alphaValue = 0.75;
-
+        
         _filterMessageHUD.contentView = HUDBackground;
     }
     NSRect visibleScreenRect = self.screen.usableFrame;
@@ -440,7 +440,7 @@
     DDLogDebug(@"Opening URL blocked HUD: %@", _filterMessageHUD);
     [_filterMessageHUD makeKeyAndOrderFront:nil];
     [_filterMessageHUD invalidateShadow];
-
+    
     // Hide the HUD filter message after a delay
     [self performSelector:@selector(hideURLBlockedHUD) withObject: nil afterDelay: 1];
 }
@@ -726,7 +726,7 @@
                         defaultFrame:(NSRect)newFrame {
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+    
     // Get frame of the usable screen (considering if menu bar is enabled)
     NSRect screenFrame = self.screen.usableFrame;
     newFrame.size.height = screenFrame.size.height;
@@ -737,6 +737,49 @@
         newFrame.size.height -= dockHeight;
     }
     return newFrame;
+}
+
+
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
+
+- (nonnull id)nativeWebView {
+    return [self.browserControllerDelegate nativeWebView];
+
+}
+
+
+- (nullable NSURL *)url {
+    return [self.browserControllerDelegate url];
+}
+
+
+- (nullable NSString *)pageTitle {
+    return [self.browserControllerDelegate pageTitle];
+}
+
+
+- (BOOL)canGoBack {
+    return [self.browserControllerDelegate canGoBack];
+}
+
+
+- (BOOL)canGoForward {
+    return [self.browserControllerDelegate canGoForward];
+}
+
+
+- (void)loadURL:(nonnull NSURL *)url {
+    [self.browserControllerDelegate loadURL:url];
+}
+
+
+- (void)stopLoading {
+    [self.browserControllerDelegate stopLoading];
+}
+
+
+- (void)reload {
+    [self.browserControllerDelegate reload];
 }
 
 
@@ -766,7 +809,7 @@
     NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
     [backForwardButtons setEnabled:canGoBack forSegment:0];
     [backForwardButtons setEnabled:canGoForward forSegment:1];
-
+    
     [self.browserController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
@@ -814,6 +857,16 @@
 - (void)setCurrentMainHost:(NSString *)currentMainHost
 {
     self.browserController.currentMainHost = currentMainHost;
+}
+
+- (BOOL) isMainBrowserWebViewActive
+{
+    return self.browserController.isMainBrowserWebViewActive;
+}
+
+- (NSString *)quitURL
+{
+    return self.browserController.quitURL;
 }
 
 
@@ -899,7 +952,7 @@ completionHandler:(void (^)(void))completionHandler
     NSString *pageTitle = webView.title;
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
-
+    
     NSAlert *modalAlert = [self.browserController.sebController newAlert];
     DDLogWarn(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
@@ -916,7 +969,7 @@ completionHandler:(void (^)(void))completionHandler
 
 - (void)pageTitle:(NSString *)pageTitle
 runJavaScriptAlertPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
+ initiatedByFrame:(WebFrame *)frame
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
@@ -942,7 +995,7 @@ completionHandler:(void (^)(BOOL result))completionHandler
     NSString *pageTitle = webView.title;
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
-
+    
     NSModalResponse alertResultButton;
     if (@available(macOS 11.0, *)) {
         if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
@@ -966,11 +1019,11 @@ completionHandler:(void (^)(BOOL result))completionHandler
 
 - (BOOL)pageTitle:(NSString *)pageTitle
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
+ initiatedByFrame:(WebFrame *)frame
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
-
+    
     NSModalResponse alertResultButton;
     if (@available(macOS 11.0, *)) {
         if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
@@ -1024,14 +1077,14 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSString *result))completionHandler
 {
-//    [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+    //    [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
 }
 
 
 - (NSString *)pageTitle:(NSString *)pageTitle
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
-          defaultText:(NSString *)defaultText
-     initiatedByFrame:(WebFrame *)frame
+            defaultText:(NSString *)defaultText
+       initiatedByFrame:(WebFrame *)frame
 {
     return @"";
 }
@@ -1080,7 +1133,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 // if the policy is "Only allow to upload the same file downloaded before"
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 [self makeKeyAndOrderFront:self];
-
+                
                 NSAlert *modalAlert = [self.browserController.sebController newAlert];
                 DDLogError(@"File to upload (which was downloaded before) not found");
                 [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
@@ -1122,18 +1175,18 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self makeKeyAndOrderFront:self];
-
+        
         // Display the dialog.  If the OK button was pressed,
         // process the files.
         [openFilePanel beginSheetModalForWindow:self
                               completionHandler:^(NSInteger result) {
-                                  if (result == NSFileHandlingPanelOKButton) {
-                                      // Get an array containing the full filenames of all
-                                      // files and directories selected.
-                                      NSArray* fileURLs = [openFilePanel URLs];
-                                      completionHandler(fileURLs);
-                                  }
-                              }];
+            if (result == NSFileHandlingPanelOKButton) {
+                // Get an array containing the full filenames of all
+                // files and directories selected.
+                NSArray* fileURLs = [openFilePanel URLs];
+                completionHandler(fileURLs);
+            }
+        }];
     }
 }
 
@@ -1143,6 +1196,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                        filterResponse:(URLFilterRuleActions)filterResponse
 {
     return [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:contentFilter filterResponse:filterResponse];
+}
+
+
+- (id) window
+{
+    return self;
 }
 
 

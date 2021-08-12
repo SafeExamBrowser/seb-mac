@@ -349,7 +349,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void)sebWebViewDidFinishLoad
 {
     NSString *webPageTitle;
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+    if (self.navigationDelegate.isMainBrowserWebViewActive) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
             webPageTitle = [_sebWebView url].absoluteString;
         } else {

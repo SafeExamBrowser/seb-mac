@@ -62,7 +62,7 @@
 @property (strong, nonatomic) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (strong, nonatomic) UIView *filterMessageHolder;
-@property (strong, nonatomic) NSString *currentURL;
+@property (strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (strong, nonatomic) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;

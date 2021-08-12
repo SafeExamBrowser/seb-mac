@@ -21,39 +21,6 @@
     if (!_sebWebView) {
         _sebWebView = [[SEBWebView alloc] initWithFrame:webFrame];
         _sebWebView.navigationDelegate = self;
-    }
-}
-
-
-- (void)viewDidAppear {
-    
-    [super viewDidAppear];
-
-    if (@available(macOS 10.10.3, *)) {
-        
-        NSPressureConfiguration* pressureConfiguration;
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
-            pressureConfiguration = [[NSPressureConfiguration alloc]
-                                     initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
-        } else {
-            pressureConfiguration = [[NSPressureConfiguration alloc]
-                                     initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
-        }
-        
-        for (NSView *subview in [self.view subviews]) {
-            if ([subview respondsToSelector:@selector(setPressureConfiguration:)]) {
-                subview.pressureConfiguration = pressureConfiguration;
-            }
-        }
-    }
-}
-
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
         
         // Suppress right-click with own delegate method for context menu
         [_sebWebView setUIDelegate:self];
@@ -73,6 +40,8 @@
         // Close webView when the last document window is closed
         [_sebWebView setShouldCloseWithWindow:YES];
         
+        [_sebWebView setContinuousSpellCheckingEnabled:self.navigationDelegate.allowSpellCheck];
+
         // Set bindings to web preferences
         WebPreferences *webPrefs = [WebPreferences standardPreferences];
     #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
@@ -107,7 +76,19 @@
         
         // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
         [self setCustomWebPreferencesForWebView:_sebWebView];
-
+        
+        if (self.navigationDelegate.isMainBrowserWebViewActive) {
+            [_sebWebView bind:@"maintainsBackForwardList"
+                      toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+                   withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
+                       options:nil];
+        } else {
+            [_sebWebView bind:@"maintainsBackForwardList"
+                      toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+                   withKeyPath:@"values.org_safeexambrowser_SEB_newBrowserWindowNavigation"
+                       options:nil];
+        }
+        
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
         _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
@@ -122,8 +103,31 @@
             DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
         }
     }
-    return self;
 }
+
+
+- (void)viewDidAppear {
+    
+    if (@available(macOS 10.10.3, *)) {
+        
+        NSPressureConfiguration* pressureConfiguration;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+            pressureConfiguration = [[NSPressureConfiguration alloc]
+                                     initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
+        } else {
+            pressureConfiguration = [[NSPressureConfiguration alloc]
+                                     initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
+        }
+        
+        for (NSView *subview in [self.view subviews]) {
+            if ([subview respondsToSelector:@selector(setPressureConfiguration:)]) {
+                subview.pressureConfiguration = pressureConfiguration;
+            }
+        }
+    }
+}
+
 
 // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
