@@ -167,6 +167,7 @@
 
 @property (readwrite) BOOL usingCustomURLProtocol;
 
+@property (strong) NSString *currentMainHost;
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 @property (strong) NSURLCredential *enteredCredential;
