@@ -50,8 +50,7 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = self.navigationDelegate.quitURL;
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
-        _javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        _javaScriptFunctions = self.navigationDelegate.pageJavaScript;
         
     }
     return self;
