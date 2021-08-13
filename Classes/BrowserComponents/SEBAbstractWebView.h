@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 
 // Required by SEB-macOS
-@property (strong, nonatomic) id __nullable window;
+@property (weak, nonatomic) id __nullable window;
 // Required by SEB-iOS
 @property (strong, nonatomic) id __nullable uiAlertController;
 

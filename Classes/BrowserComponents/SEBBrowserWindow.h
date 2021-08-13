@@ -90,6 +90,7 @@
 
 - (void) setCalculatedFrame;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
+- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
