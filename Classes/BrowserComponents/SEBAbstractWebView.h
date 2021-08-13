@@ -125,11 +125,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) appVersion;
 
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
+// Currently required by SEB-macOS
 @property (nullable, readwrite, nonatomic) NSArray<NSData *> *privatePasteboardItems;
 
+// Required by SEB-iOS
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 
+// Required by SEB-macOS
 @property (strong, nonatomic) id __nullable window;
+// Required by SEB-iOS
 @property (strong, nonatomic) id __nullable uiAlertController;
 
 - (void)sebWebViewDidStartLoad;
@@ -146,13 +150,10 @@ NS_ASSUME_NONNULL_BEGIN
                                      suggestedFilename:(nullable NSString *)suggestedFilename
                                                cookies:(nullable NSArray <NSHTTPCookie *>*)cookies;
 
-- (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-                        completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
-
 - (void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
 
-- (void)webView:(WKWebView *)webView
+- (void)webView:(nullable WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *__nullable credential))completionHandler;
 
@@ -221,6 +222,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
                        filterResponse:(URLFilterRuleActions)filterResponse;
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 
+// Currently required by SEB-iOS
 - (void) openCloseSliderForNewTab;
 - (void) switchToTab:(nullable id)sender;
 - (void) switchToNextTab;
@@ -232,6 +234,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 @property (readonly) BOOL downloadingInTemporaryWebView;
+// Required by SEB-iOS (SEBUIWebViewController)
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;
 
 @end

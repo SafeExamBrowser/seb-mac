@@ -85,6 +85,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
         [self resetAllCookies];
         DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores are being reset");
         [self initSessionSettings];
+        // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
+        _javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
     return self;
 }
@@ -348,6 +351,189 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 
+static NSString *urlStrippedFragment(NSURL* url)
+{
+    NSString *absoluteRequestURL = url.absoluteString;
+    
+    NSString *fragment = url.fragment;
+    NSString *requestURLStrippedFragment;
+    if (fragment.length) {
+        // if there is a fragment
+        requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
+    } else requestURLStrippedFragment = absoluteRequestURL;
+    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
+    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+    return requestURLStrippedFragment;
+}
+
+
+- (NSString *) pageJavaScript
+{
+    return _javaScriptFunctions;
+}
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    NSURL *url = request.URL;
+    
+    //// Check if quit URL has been clicked (regardless of current URL Filter)
+    
+    // Trim a possible trailing slash "/"    
+    NSString *absoluteRequestURLTrimmed = [url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+
+    if ([absoluteRequestURLTrimmed isEqualToString:_quitURL]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"quitLinkDetected" object:self];
+    }
+    
+
+    NSDictionary *headerFields;
+    headerFields = [request allHTTPHeaderFields];
+    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
+    
+//    if ([request valueForHTTPHeaderField:@"Origin"].length == 0) {
+//        return request;
+//    }
+    
+    if (sendHashKeys) {
+        
+        NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+
+        // Browser Exam Key
+        
+        [modifiedRequest setValue:[self browserExamKeyForURL:url] forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
+        
+        // Config Key
+        
+        [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
+        
+        headerFields = [modifiedRequest allHTTPHeaderFields];
+        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+        
+        return [modifiedRequest copy];
+
+    } else {
+
+        return request;
+    }
+}
+
+
+- (NSString *) browserExamKeyForURL:(NSURL *)url
+{
+        unsigned char hashedChars[32];
+        [self.browserExamKey getBytes:hashedChars length:32];
+        
+#ifdef DEBUG
+        DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
+#endif
+
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+#ifdef DEBUG
+        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
+#endif
+        const char *urlString = [browserExamKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+        
+        NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [hashedString appendFormat: @"%02x", hashedChars[i]];
+        }
+    return hashedString;
+}
+
+
+- (NSString *) configKeyForURL:(NSURL *)url
+{
+    unsigned char hashedChars[32];
+
+    [self.configKey getBytes:hashedChars length:32];
+    
+#ifdef DEBUG
+    DDLogVerbose(@"Current Config Key: %@", self.configKey);
+#endif
+    
+    NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [configKeyString appendFormat: @"%02x", hashedChars[i]];
+    }
+#ifdef DEBUG
+    DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
+#endif
+    const char *urlString = [configKeyString UTF8String];
+    CC_SHA256(urlString,
+              (uint)strlen(urlString),
+              hashedChars);
+    
+    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+    for (NSUInteger i = 0 ; i < 32 ; ++i) {
+        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedConfigKeyString;
+}
+
+
+- (NSString *) appVersion
+{
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *appVersion = [NSString stringWithFormat:@"%@_macOS_%@_%@_%@", displayName, versionString, buildNumber, bundleID];
+    return appVersion;
+}
+
+
+- (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
+{
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:arguments];
+    DDLogVerbose(@"%@", message);
+}
+
+
+// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
+// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
+// for example to scan the newly received HTML data
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
+{
+    [_delegate sessionTaskDidCompleteSuccessfully:task];
+}
+
+
+// Check if reconfiguring is allowed depending on settings and referrer URL (if one is passed)
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
+{
+    // If a quit password is set (= running in exam session),
+    // then check if the reconfigure config file URL matches the setting
+    // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL secureSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL secureSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+    BOOL secureSessionReconfigureURLMatch = NO;
+    if (url && secureSession && secureSessionReconfigureAllow) {
+        NSString *sebConfigURLString = url.absoluteString;
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
+        secureSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
+    }
+    // Check if SEB is in exam mode (= quit password is set) and exam is running,
+    // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
+    // or SEB isn't in exam mode, but is running with settings for starting an exam and the
+    // reconfigure allow setting isn't set
+    if ((secureSession && !(secureSessionReconfigureAllow && secureSessionReconfigureURLMatch)) ||
+        (!secureSession && NSUserDefaults.userDefaultsPrivate && !secureSessionReconfigureAllow)) {
+        // If yes, we don't download the .seb file
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+
 #pragma mark - Server authentication
 
 //- (void) URLSession:(NSURLSession *)session
@@ -360,7 +546,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 //    NSString *realm = protectionSpace.realm;
 //    SecTrustRef serverTrust = protectionSpace.serverTrust;
 //    DDLogInfo(@"URLSession: %@ didReceiveChallenge for host %@ with authenticationMethod: %@, realm: %@, serverTrust: %@", session, host, authenticationMethod, realm, serverTrust);
-//    
+//
 //    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
 //}
 
@@ -569,173 +755,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
 {
     DDLogWarn(@"%s", __FUNCTION__);
     [_delegate hideEnterUsernamePasswordDialog];
-}
-
-
-static NSString *urlStrippedFragment(NSURL* url)
-{
-    NSString *absoluteRequestURL = url.absoluteString;
-    
-    NSString *fragment = url.fragment;
-    NSString *requestURLStrippedFragment;
-    if (fragment.length) {
-        // if there is a fragment
-        requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
-    } else requestURLStrippedFragment = absoluteRequestURL;
-    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
-    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
-    return requestURLStrippedFragment;
-}
-
-
-- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
-{
-    NSURL *url = request.URL;
-    
-    //// Check if quit URL has been clicked (regardless of current URL Filter)
-    
-    // Trim a possible trailing slash "/"    
-    NSString *absoluteRequestURLTrimmed = [url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-
-    if ([absoluteRequestURLTrimmed isEqualToString:_quitURL]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"quitLinkDetected" object:self];
-    }
-    
-
-    NSDictionary *headerFields;
-    headerFields = [request allHTTPHeaderFields];
-    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
-    
-//    if ([request valueForHTTPHeaderField:@"Origin"].length == 0) {
-//        return request;
-//    }
-    
-    if (sendHashKeys) {
-        
-        NSMutableURLRequest *modifiedRequest = [request mutableCopy];
-
-        // Browser Exam Key
-        
-        [modifiedRequest setValue:[self browserExamKeyForURL:url] forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
-        
-        // Config Key
-        
-        [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
-        
-        headerFields = [modifiedRequest allHTTPHeaderFields];
-        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
-        
-        return [modifiedRequest copy];
-
-    } else {
-
-        return request;
-    }
-}
-
-
-- (NSString *) browserExamKeyForURL:(NSURL *)url
-{
-        unsigned char hashedChars[32];
-        [self.browserExamKey getBytes:hashedChars length:32];
-        
-#ifdef DEBUG
-        DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
-#endif
-
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-#ifdef DEBUG
-        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
-#endif
-        const char *urlString = [browserExamKeyString UTF8String];
-        CC_SHA256(urlString,
-                  (uint)strlen(urlString),
-                  hashedChars);
-        
-        NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
-        for (NSUInteger i = 0 ; i < 32 ; ++i) {
-            [hashedString appendFormat: @"%02x", hashedChars[i]];
-        }
-    return hashedString;
-}
-
-
-- (NSString *) configKeyForURL:(NSURL *)url
-{
-    unsigned char hashedChars[32];
-
-    [self.configKey getBytes:hashedChars length:32];
-    
-#ifdef DEBUG
-    DDLogVerbose(@"Current Config Key: %@", self.configKey);
-#endif
-    
-    NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
-    for (NSUInteger i = 0 ; i < 32 ; ++i) {
-        [configKeyString appendFormat: @"%02x", hashedChars[i]];
-    }
-#ifdef DEBUG
-    DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
-#endif
-    const char *urlString = [configKeyString UTF8String];
-    CC_SHA256(urlString,
-              (uint)strlen(urlString),
-              hashedChars);
-    
-    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
-    for (NSUInteger i = 0 ; i < 32 ; ++i) {
-        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
-    }
-    return hashedConfigKeyString;
-}
-
-
-- (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol logWithFormat:(NSString *)format arguments:(va_list)arguments;
-{
-    NSString *message = [[NSString alloc] initWithFormat:format arguments:arguments];
-    DDLogVerbose(@"%@", message);
-}
-
-
-// Called by the CustomHTTPProtocol class to let the delegate know that a regular HTTP request
-// or a XMLHttpRequest (XHR) successfully completed loading. The delegate can use this callback
-// for example to scan the newly received HTML data
-- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task
-{
-    [_delegate sessionTaskDidCompleteSuccessfully:task];
-}
-
-
-// Check if reconfiguring is allowed depending on settings and referrer URL (if one is passed)
-- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
-{
-    // If a quit password is set (= running in exam session),
-    // then check if the reconfigure config file URL matches the setting
-    // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL secureSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    BOOL secureSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-    BOOL secureSessionReconfigureURLMatch = NO;
-    if (url && secureSession && secureSessionReconfigureAllow) {
-        NSString *sebConfigURLString = url.absoluteString;
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
-        secureSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
-    }
-    // Check if SEB is in exam mode (= quit password is set) and exam is running,
-    // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
-    // or SEB isn't in exam mode, but is running with settings for starting an exam and the
-    // reconfigure allow setting isn't set
-    if ((secureSession && !(secureSessionReconfigureAllow && secureSessionReconfigureURLMatch)) ||
-        (!secureSession && NSUserDefaults.userDefaultsPrivate && !secureSessionReconfigureAllow)) {
-        // If yes, we don't download the .seb file
-        return NO;
-    } else {
-        return YES;
-    }
 }
 
 

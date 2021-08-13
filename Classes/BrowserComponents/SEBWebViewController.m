@@ -16,10 +16,8 @@
 
 - (void)loadView
 {
-    // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = self.parentViewController.view.frame;
     if (!_sebWebView) {
-        _sebWebView = [[SEBWebView alloc] initWithFrame:webFrame];
+        _sebWebView = [[SEBWebView alloc] initWithFrame:CGRectZero];
         _sebWebView.navigationDelegate = self;
         
         // Suppress right-click with own delegate method for context menu
@@ -702,7 +700,7 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
         }
     };
 
-    [self.navigationDelegate didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    [self.navigationDelegate webView:nil didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
 
