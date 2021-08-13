@@ -931,6 +931,13 @@
 
 }
 
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+//    if (_establishingSEBServerConnection) {
+//        [self.serverController shouldStartLoadFormSubmittedURL:url];
+//    }
+}
+
 
 - (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward {
     // Would be used if SEB for macOS would support back/forward buttons in the Dock
