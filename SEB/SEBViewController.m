@@ -2511,9 +2511,6 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) downloadSEBConfigFromURL:(NSURL *)url
 {
-    // Check URL for additional query string
-    startURLQueryParameter = [self.browserController startURLQueryParameter:&url];
-    
     if (url.isFileURL) {
         run_on_ui_thread(^{
             NSError *error = nil;
@@ -2546,98 +2543,6 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     [self.browserController openConfigFromSEBURL:url];
     return;
-    /*
-     if (!self.browserController.URLSession) {
-     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-     self.browserController.URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-     }
-     
-     // Download the .seb file directly into memory (not onto disc like other files)
-     if ([url.scheme isEqualToString:SEBProtocolScheme]) {
-     // If it's a seb:// URL, we try to download it by http
-     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-     urlComponents.scheme = @"http";
-     NSURL *httpURL = urlComponents.URL;
-     
-     if (self.browserController.downloadTask) {
-     [self.browserController.downloadTask cancel];
-     }
-     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpURL
-     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-     {
-     if (error) {
-     // If that didn't work, we try to download it by https
-     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-     urlComponents.scheme = @"https";
-     NSURL *httpsURL = urlComponents.URL;
-     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
-     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-     {
-     self.browserController.downloadTask = nil;
-     // Still couldn't download the .seb file: present an error and abort
-     if (error) {
-     error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
-     [self storeNewSEBSettingsSuccessful:error];
-     } else {
-     [self storeDownloadedData:sebFileData fromURL:url];
-     }
-     }];
-     [self.browserController.downloadTask resume];
-     } else {
-     [self storeDownloadedData:sebFileData fromURL:url];
-     }
-     }];
-     [self.browserController.downloadTask resume];
-     return;
-     
-     } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
-     // If it's a sebs:// URL, we try to download it by https
-     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-     urlComponents.scheme = @"https";
-     NSURL *httpsURL = urlComponents.URL;
-     if (self.browserController.downloadTask) {
-     [self.browserController.downloadTask cancel];
-     }
-     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:httpsURL
-     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-     {
-     self.browserController.downloadTask = nil;
-     // Still couldn't download the .seb file: present an error and abort
-     if (error || !sebFileData) {
-     // Couldn't download the .seb file: for the case it is a deep link, treat the link
-     // same as a Universal Link
-     [self.browserController handleUniversalLink:httpsURL];
-     } else {
-     [self storeDownloadedData:sebFileData fromURL:url];
-     }
-     }];
-     [self.browserController.downloadTask resume];
-     
-     } else {
-     // We got passed a http(s) URL: Try to download the seb data directly
-     if (self.browserController.downloadTask) {
-     [self.browserController.downloadTask cancel];
-     }
-     self.browserController.downloadTask = [self.browserController.URLSession dataTaskWithURL:url
-     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-     {
-     self.browserController.downloadTask = nil;
-     if (error || !sebFileData) {
-     // Check if the URL is in an associated domain
-     [self storeSEBSettingsDownloadedDirectlySuccessful:error];
-     } else {
-     // Directly downloading config file worked:
-     
-     // Cache current config URL, as it has to be restored if current URL fails in the end
-     self->currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-     
-     // Store the filename from the URL as current config file name
-     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]];
-     [self storeDownloadedData:sebFileData fromURL:url];
-     }
-     }];
-     [self.browserController.downloadTask resume];
-     }*/
 }
 
 
