@@ -110,6 +110,10 @@ import Foundation
         let sebWKWebViewController = SEBiOSWKWebViewController()
         sebWKWebViewController.navigationDelegate = self
         self.browserControllerDelegate = sebWKWebViewController
+        #elseif os(macOS)
+        let sebWKWebViewController = SEBOSXWKWebViewController()
+        sebWKWebViewController.navigationDelegate = self
+        self.browserControllerDelegate = sebWKWebViewController
         #endif
     }
     
@@ -247,7 +251,7 @@ import Foundation
         navigationDelegate?.sebWebViewDidStartLoad?()
     }
     
-    public func webView(_ webView: WKWebView,
+    public func webView(_ webView: WKWebView?,
                         didReceive challenge: URLAuthenticationChallenge,
                         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         navigationDelegate?.webView?(webView, didReceive: challenge, completionHandler: completionHandler)

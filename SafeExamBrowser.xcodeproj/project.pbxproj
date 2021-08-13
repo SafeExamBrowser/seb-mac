@@ -813,6 +813,7 @@
 		69E036C6230D8E1D00DCBDA6 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D468230D7584005656B8 /* SEB-Bridging-Header.h */; };
 		69E0B31B21467A1C007ACF03 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E0B31A21467A1C007ACF03 /* libmbedtls.a */; };
 		69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
+		69E1310826C665B0005C5530 /* SEBOSXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */; };
 		69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
 		69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
 		69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
@@ -1483,6 +1484,7 @@
 		69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor OS X-Prefix.pch"; sourceTree = "<group>"; };
 		69E0B31A21467A1C007ACF03 /* libmbedtls.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmbedtls.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E0F3471C454F370038CCCD /* SEB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SEB.xcdatamodel; sourceTree = "<group>"; };
+		69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBOSXWKWebViewController.swift; path = Classes/BrowserComponents/SEBOSXWKWebViewController.swift; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
 		69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSKeychainManager.h; path = Classes/Cryptography/SEBiOSKeychainManager.h; sourceTree = "<group>"; };
@@ -2056,6 +2058,7 @@
 				69E977EF25F0423C00634D74 /* SEBAbstractModernWebView.swift */,
 				69E977D325F040F400634D74 /* SEBAbstractClassicWebView.h */,
 				69E977D425F040F400634D74 /* SEBAbstractClassicWebView.m */,
+				69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */,
 				69CEDCF026ACD00C0030787B /* SEBWebViewController.h */,
 				69CEDCF126ACD00C0030787B /* SEBWebViewController.m */,
 				69263A9C1A2E0765006F1E31 /* SEBWebView.h */,
@@ -4048,6 +4051,7 @@
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F522C92146720C009F3999 /* SEBCertServices.m in Sources */,
+				69E1310826C665B0005C5530 /* SEBOSXWKWebViewController.swift in Sources */,
 				698DFD2A267E9F2B00B8F1D6 /* ProcessManager.m in Sources */,
 				698DFD10267E9B1900B8F1D6 /* NSDictionary+Extensions.m in Sources */,
 				69F522AE21467188009F3999 /* QNSURLSessionDemux.m in Sources */,
