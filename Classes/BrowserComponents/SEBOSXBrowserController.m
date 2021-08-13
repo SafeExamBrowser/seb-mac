@@ -195,7 +195,6 @@
 {
     SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:title overrideSpellCheck:overrideSpellCheck];
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
-//    newWindowWebView.window = newWindowWebView;
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
         [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
@@ -322,10 +321,10 @@
 
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
-    // because otherwise menu bar and dock are deducted from screen size)
+    // because otherwise menu bar and dock are deducted from screen size)    
+    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlString);
     SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
     SEBBrowserWindow *newBrowserWindow = newBrowserWindowWebView.window;
-//    SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO];
 
     self.mainBrowserWindow = newBrowserWindow;
     self.mainWebView = newBrowserWindowWebView;
@@ -351,14 +350,6 @@
         [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
-    
-//    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
-//        [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-//    }
-//    [self.mainBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
-//    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"] && _sebController.isAACEnabled == NO) {
-//        [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
-//    }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
     // Setup bindings to the preferences window close button
@@ -369,15 +360,10 @@
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit"
               options:nil];
     
-//    [self addBrowserWindow:self.mainBrowserWindow withWebView:self.mainWebView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
     [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
 //    self.activeBrowserWindow = self.mainBrowserWindow;
-    
-    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlString);
-    
-//    [self.mainWebView loadURL:startURL];
 }
 
 
@@ -797,7 +783,6 @@
     temporaryWebView.originalURL = originalURL;
     
     temporaryBrowserWindow.isPanel = true;
-//    [temporaryBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
     [temporaryBrowserWindow setTitle:tempWindowTitle];
     
     return temporaryWebView;
