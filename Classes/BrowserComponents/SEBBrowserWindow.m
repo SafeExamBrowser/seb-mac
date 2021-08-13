@@ -117,13 +117,19 @@
 
 - (void) setCalculatedFrame
 {
-    [self setCalculatedFrameOnScreen:self.screen];
-
+    [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
 }
-
 
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen
 {
+    [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
+}
+
+- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
+{
+    if (mainBrowserWindow || temporaryWindow) {
+        screen = _browserController.mainScreen;
+    }
     if (screen) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
@@ -134,7 +140,7 @@
         NSString *windowWidth;
         NSString *windowHeight;
         NSInteger windowPositioning;
-        if (self == self.browserController.mainBrowserWindow) {
+        if (mainBrowserWindow || self == self.browserController.mainBrowserWindow) {
             // This is the main browser window
             if (_isFullScreen) {
                 // Full screen windows cover the whole screen
@@ -146,7 +152,7 @@
                 windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
                 windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
             }
-        } else if (self.webView && self.webView == self.browserController.temporaryWebView) {
+        } else if (temporaryWindow || (self.webView && self.webView == self.browserController.temporaryWebView)) {
             // This is a temporary browser window used for downloads with authentication
             windowWidth = @"1050";
             windowHeight = @"100%";
