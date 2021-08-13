@@ -167,7 +167,7 @@
 
 @property (readwrite) BOOL usingCustomURLProtocol;
 
-@property (strong) NSString *currentMainHost;
+@property (strong, nonatomic) NSString *currentMainHost;
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 @property (strong) NSURLCredential *enteredCredential;
@@ -176,6 +176,7 @@
 @property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong) SEBURLFilter *urlFilter;
+@property (strong, nonatomic) NSString *javaScriptFunctions;
 
 @property (strong, nonatomic) NSData *browserExamKey;
 @property (strong, nonatomic) NSData *browserExamKeySalt;

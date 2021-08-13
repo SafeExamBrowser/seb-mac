@@ -2293,7 +2293,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     [self closeSettingsBeforeOpeningSEBConfig:url
                                      callback:self
-                                     selector:@selector(downloadSEBConfigFromURL:)];
+                                     selector:@selector(saveOrDownloadSEBConfigFromURL:)];
 }
 
 
@@ -2509,7 +2509,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) downloadSEBConfigFromURL:(NSURL *)url
+- (void) saveOrDownloadSEBConfigFromURL:(NSURL *)url
 {
     if (url.isFileURL) {
         run_on_ui_thread(^{

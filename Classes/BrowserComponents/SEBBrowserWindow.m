@@ -111,6 +111,7 @@
             [self.toolbar setVisible:YES];
         }
     }
+    _javaScriptFunctions = self.browserController.pageJavaScript;
 }
 
 
@@ -869,6 +870,45 @@
     return self.browserController.quitURL;
 }
 
+- (NSString *)pageJavaScript
+{
+    return self.browserController.pageJavaScript;
+}
+
+- (BOOL)overrideAllowSpellCheck
+{
+    return self.browserController.overrideAllowSpellCheck;
+}
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    return [self.browserController modifyRequest:request];
+}
+
+- (NSString *) browserExamKeyForURL:(NSURL *)url
+{
+    return [self.browserController browserExamKeyForURL:url];
+}
+
+- (NSString *) configKeyForURL:(NSURL *)url
+{
+    return [self.browserController configKeyForURL:url];
+}
+
+- (NSString *) appVersion
+{
+    return [self.browserController appVersion];
+}
+
+
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return self.browserController.customSEBUserAgent;
+    
+}
+
 
 - (NSArray <NSData *> *) privatePasteboardItems
 {
@@ -878,6 +918,12 @@
 - (void) setPrivatePasteboardItems:(NSArray<NSData *> *)privatePasteboardItems
 {
     self.browserController.privatePasteboardItems = privatePasteboardItems;
+}
+
+
+- (id) window
+{
+    return self;
 }
 
 
@@ -942,6 +988,13 @@
 {
     [self setTitle:title];
     [self.browserController setTitle: title forWindow:self withWebView:self.webView];
+}
+
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -1191,6 +1244,18 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    [self.browserController shouldStartLoadFormSubmittedURL:url];
+}
+
+
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
+{
+    [self.browserController transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+}
+
+
 - (BOOL) showURLFilterAlertForRequest:(NSURLRequest *)request
                      forContentFilter:(BOOL)contentFilter
                        filterResponse:(URLFilterRuleActions)filterResponse
@@ -1199,15 +1264,21 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
-- (id) window
-{
-    return self;
-}
-
-
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
 {
     [self.browserController downloadFileFromURL:url filename:filename];
+}
+
+
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
+{
+    [self.browserController openConfigFromSEBURL:url];
+}
+
+
+- (BOOL) downloadingInTemporaryWebView
+{
+    return [self.browserController downloadingInTemporaryWebView];
 }
 
 

@@ -361,6 +361,18 @@
 }
 
 
+- (SEBBackgroundTintStyle) backgroundTintStyle
+{
+    return [self.navigationDelegate backgroundTintStyle];
+}
+
+
+- (id) window
+{
+    return self.navigationDelegate.window;
+}
+
+
 - (void)sebWebViewDidStartLoad
 {
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -631,18 +643,6 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
-}
-
-
-- (SEBBackgroundTintStyle) backgroundTintStyle
-{
-    return [self.navigationDelegate backgroundTintStyle];
-}
-
-
-- (id) window
-{
-    return self.navigationDelegate.window;
 }
 
 
