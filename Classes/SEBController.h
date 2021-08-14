@@ -150,6 +150,7 @@
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
 @property(weak, nonatomic) IBOutlet AboutWindow *aboutWindow;
 @property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
+@property (strong, nonatomic) WKWebView *temporaryWebView;
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;

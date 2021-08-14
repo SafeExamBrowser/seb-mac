@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SEBOSXWebViewController : NSViewController <SEBAbstractBrowserControllerDelegate> //, SEBAbstractWebViewNavigationDelegate>
+@interface SEBOSXWebViewController : NSViewController // <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 
 //@property (weak, nonatomic) id <SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 @property (strong, nonatomic) SEBAbstractWebView *sebAbstractWebView;

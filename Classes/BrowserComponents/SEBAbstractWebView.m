@@ -45,8 +45,8 @@
     if (self) {
         _overrideAllowSpellCheck = overrideSpellCheck;
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
-        quitURLTrimmed = self.navigationDelegate.quitURL;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
         downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];

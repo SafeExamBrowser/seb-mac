@@ -93,56 +93,56 @@
     [super viewDidDisappear];
 }
 
-- (id)nativeWebView
-{
-    return _sebAbstractWebView.nativeWebView;
-}
-
-- (NSURL*)url
-{
-    return [_sebAbstractWebView url];
-}
-
-- (NSString*)pageTitle
-{
-    return [_sebAbstractWebView pageTitle];
-}
-
-- (BOOL)canGoBack
-{
-    return [_sebAbstractWebView canGoBack];
-}
-
-- (BOOL)canGoForward;
-{
-    return [_sebAbstractWebView canGoForward];
-}
-
-- (void)goBack {
-    [_sebAbstractWebView goBack];
-}
-
-- (void)goForward {
-    [_sebAbstractWebView goForward];
-}
-
-- (void)reload {
-    [_sebAbstractWebView reload];
-}
-
-- (void)loadURL:(NSURL *)url
-{
-    [_sebAbstractWebView loadURL:url];
-}
-
-- (void)stopLoading {
-    [_sebAbstractWebView stopLoading];
-}
-
-- (void)disableFlashFullscreen
-{
-    [_sebAbstractWebView disableFlashFullscreen];
-}
+//- (id)nativeWebView
+//{
+//    return _sebAbstractWebView.nativeWebView;
+//}
+//
+//- (NSURL*)url
+//{
+//    return [_sebAbstractWebView url];
+//}
+//
+//- (NSString*)pageTitle
+//{
+//    return [_sebAbstractWebView pageTitle];
+//}
+//
+//- (BOOL)canGoBack
+//{
+//    return [_sebAbstractWebView canGoBack];
+//}
+//
+//- (BOOL)canGoForward;
+//{
+//    return [_sebAbstractWebView canGoForward];
+//}
+//
+//- (void)goBack {
+//    [_sebAbstractWebView goBack];
+//}
+//
+//- (void)goForward {
+//    [_sebAbstractWebView goForward];
+//}
+//
+//- (void)reload {
+//    [_sebAbstractWebView reload];
+//}
+//
+//- (void)loadURL:(NSURL *)url
+//{
+//    [_sebAbstractWebView loadURL:url];
+//}
+//
+//- (void)stopLoading {
+//    [_sebAbstractWebView stopLoading];
+//}
+//
+//- (void)disableFlashFullscreen
+//{
+//    [_sebAbstractWebView disableFlashFullscreen];
+//}
 
 
 #pragma mark - SEBAbstractWebViewNavigationDelegate Methods
