@@ -65,12 +65,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
 // downloads to disk, and ensures that future requests occur on a new socket.
-- (void)resetAllCookies
+- (void)resetAllCookiesWithCompletionHandler:(void (^)(void))completionHandler
 {
     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
         run_block_on_ui_thread(^{
             [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObject:WKWebsiteDataTypeCookies] modifiedSince:NSDate.distantPast completionHandler:^{
                 DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches and credential stores were reset");
+                completionHandler();
             }];
         });
     }];
@@ -82,12 +83,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
 {
     self = [super init];
     if (self) {
-        [self resetAllCookies];
-        DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores are being reset");
-        [self initSessionSettings];
-        // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
-        _javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        [self resetAllCookiesWithCompletionHandler:^{
+            DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores have been reset");
+            [self initSessionSettings];
+            // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
+            self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        }];
     }
     return self;
 }
@@ -163,29 +165,25 @@ void run_block_on_ui_thread(dispatch_block_t block)
     self.customSEBUserAgent = nil;
     [self initSessionSettings];
 
-    BOOL cookiesActuallyCleared = NO;
+    void (^completionHandler)(void) = ^void() {
+        // Additional commands for resetting browser
+    };
+
     if (examSessionCookiesAlreadyCleared == NO) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
             // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
             // downloads to disk, and ensures that future requests occur on a new socket.
-            cookiesActuallyCleared = YES;
             DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)");
-            [self resetAllCookies];
+            [self resetAllCookiesWithCompletionHandler:^{
+                completionHandler();
+            }];
+            return;
         }
     } else {
         // reset the flag when it was true before
         examSessionCookiesAlreadyCleared = NO;
     }
-    
-    void (^completionHandler)(void) = ^void() {
-        // Additional commands for resetting browser
-    };
-
-    if (!cookiesActuallyCleared) {
-        [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
-    } else {
-        completionHandler();
-    }
+    [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
 }
 
 
@@ -783,29 +781,6 @@ static NSString *urlStrippedFragment(NSURL* url)
                 url = [url URLByReplacingScheme:@"https"];
             }
             
-            // When the URL of the SEB config file to load is on another host than the current page
-            // then we might need to clear session cookies before attempting to download the config file
-            // when the setting examSessionClearCookiesOnEnd is true
-            BOOL cookiesActuallyCleared = NO;
-            if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
-                    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-                    // downloads to disk, and ensures that future requests occur on a new socket.
-                    cookiesActuallyCleared = YES;
-                    DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
-                    [self resetAllCookies];
-                }
-                // Set the flag for cookies cleared (either they actually were or they would have
-                // been settings prevented it)
-                examSessionCookiesAlreadyCleared = YES;
-
-            } else if (!_delegate.currentMainHost) {
-                // When currentMainHost isn't set yet, SEB was started with a config link, possibly
-                // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
-                // as they were anyways cleared when SEB was started
-                examSessionCookiesAlreadyCleared = YES;
-            }
-            
             void (^conditionallyDownloadConfig)(void) = ^void() {
                 // Check if we should try to download the config file from the seb(s) URL directly
                 // This is the case when the URL has a .seb filename extension
@@ -821,14 +796,32 @@ static NSString *urlStrippedFragment(NSURL* url)
                 }
             };
 
-            if (!cookiesActuallyCleared) {
-                [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
-            } else {
-                conditionallyDownloadConfig();
+            // When the URL of the SEB config file to load is on another host than the current page
+            // then we might need to clear session cookies before attempting to download the config file
+            // when the setting examSessionClearCookiesOnEnd is true
+            if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
+                // Set the flag for cookies cleared (either they actually will be or they would have
+                // been, but settings prevented it)
+                examSessionCookiesAlreadyCleared = YES;
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
+                    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+                    // downloads to disk, and ensures that future requests occur on a new socket.
+                    DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
+                    [self resetAllCookiesWithCompletionHandler:^{
+                        conditionallyDownloadConfig();
+                    }];
+                    return;
+                }
+            } else if (!_delegate.currentMainHost) {
+                // When currentMainHost isn't set yet, SEB was started with a config link, possibly
+                // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
+                // as they were anyways cleared when SEB was started
+                examSessionCookiesAlreadyCleared = YES;
             }
+            [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
         }
     } else {
-        DDLogDebug(@"%s aborted, downloading and opening settings not allowed or temporary webview already open: %@", __FUNCTION__, _temporaryWebView);
+        DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] ? @"downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open: %@." : @"");
         _delegate.openingSettings = false;
     }
 }
@@ -888,7 +881,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                                           }];
     [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
     NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
-    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+//    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
     [downloadTask resume];
 }
 
@@ -1470,30 +1463,27 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
         _delegate.openingSettings = true;
         
-        BOOL cookiesActuallyCleared = NO;
-        if (examSessionCookiesAlreadyCleared == NO) {
-            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
-                // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-                // downloads to disk, and ensures that future requests occur on a new socket.
-                cookiesActuallyCleared = YES;
-                DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
-                [self resetAllCookies];
-            }
-            // Set the flag for cookies cleared (either they actually were or they would have
-            // been settings prevented it)
-            examSessionCookiesAlreadyCleared = YES;
-        }
         void (^completionHandler)(void) = ^void() {
             self->downloadedSEBConfigDataURL = url;
             [self.delegate openDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
         };
         
-        if (!cookiesActuallyCleared) {
-            [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
-        } else {
-            completionHandler();
+        if (examSessionCookiesAlreadyCleared == NO) {
+            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
+                // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+                // downloads to disk, and ensures that future requests occur on a new socket.
+                DDLogInfo(@"-[SEBBrowserController processDownloadedSEBConfigData: fromURL: originalURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
+                [self resetAllCookiesWithCompletionHandler:^{
+                    completionHandler();
+                }];
+                return;
+            }
+            // Set the flag for cookies cleared (either they actually were or they would have
+            // been settings prevented it)
+            examSessionCookiesAlreadyCleared = YES;
         }
-        
+        [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+
     } else {
         // Opening downloaded SEB config data definitely failed:
         // we might need to quit (if SEB was just started)
