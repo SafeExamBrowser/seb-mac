@@ -195,6 +195,7 @@
 {
     SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:title overrideSpellCheck:overrideSpellCheck];
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
+    newBrowserWindow.browserControllerDelegate = newWindowWebView;
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
         [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
@@ -768,7 +769,7 @@
 // This allows the user to authenticate if the link target is stored on a secured server
 - (SEBAbstractWebView *) openTempWindowForDownloadingConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    DDLogDebug(@"[SEBOSXBrowserController openTempWindowForDownloadingConfigFromURL: %@ originalURL: %@]", url, originalURL);
     
     // Create a new WebView
     NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
