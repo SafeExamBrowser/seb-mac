@@ -1000,6 +1000,12 @@ bool insideMatrix(void);
             NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
             NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
             if (matchingProhibitedApplications.count != 0) {
+                if ([bundleID isEqualToString:@"com.apple.WebKit.Networking"]) {
+                    NSNumber *processParentPID = process[@"PPID"];
+                    NSNumber *processGroupID = process[@"PGID"];
+                    DDLogVerbose(@"PID: %d - Bundle ID: %@ - ParentPID: %@ - GroupID: %@", processPID, bundleID, processParentPID, processGroupID);
+                }
+
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
                 if (appURL) {
                     // Add the app's file URL, so we can restart it when exiting SEB
@@ -1594,14 +1600,18 @@ bool insideMatrix(void);
         kinfo_proc *proc = NULL;
         proc = &mylist[k];
         pid_t processPID = proc-> kp_proc.p_pid;
+        pid_t processParentPID = proc->kp_eproc.e_ppid;
+        pid_t processGroupID = proc->kp_eproc.e_pgid;
         NSString * processName = [self getProcessName:processPID];
         processDetails = @{
                            @"name" : processName,
-                           @"PID" : [NSNumber numberWithInt:processPID]
+                           @"PID" : [NSNumber numberWithInt:processPID],
+                           @"PPID" : [NSNumber numberWithInt:processParentPID],
+                           @"PGID" : [NSNumber numberWithInt:processGroupID]
                            };
         [ProcList addObject:processDetails];
         if (numberRunningBSDProcessesChanged) {
-            DDLogVerbose(@"PID: %d - Name: %@", processPID, processName);
+            DDLogVerbose(@"PID: %d - Name: %@ - ParentPID: %d - GroupID: %d", processPID, processName, processParentPID, processGroupID);
         }
     }
     free(mylist);
@@ -5161,7 +5171,12 @@ conditionallyForWindow:(NSWindow *)window
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
                 NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {
-                    [self killApplication:startedApplication];
+                    if ([bundleID isEqualToString:@"com.apple.WebKit.Networking"]) {
+                        pid_t processPID = startedApplication.processIdentifier;
+                        DDLogVerbose(@"PID: %d - Bundle ID: %@", processPID, bundleID);
+                    } else {
+                        [self killApplication:startedApplication];
+                    }
                 }
             }
         } else {
