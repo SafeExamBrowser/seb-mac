@@ -49,7 +49,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 + (NSArray *)SEBExtensions
 {
-    return @[];
+    return @[@"SEBPresetSettings"];
 }
 
 
