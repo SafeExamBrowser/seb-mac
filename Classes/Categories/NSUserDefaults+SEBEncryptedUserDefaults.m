@@ -51,6 +51,8 @@
 #import "SEBKeychainManager.h"
 #import "SEBConfigFileManager.h"
 #import "SEBSettings.h"
+#import "NSDictionary+Extensions.h"
+
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -194,10 +196,14 @@ static NSNumber *_logLevel;
                                         @NO,
                                         @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                         
-                                        @YES,
+                                        @NO,
                                         @"org_safeexambrowser_elevateWindowLevels",
-                                        
+
+#if TARGET_OS_IPHONE
                                         [NSString stringWithFormat:@"SEB_iOS_%@_%@",
+#else
+                                        [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+#endif
                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                         @"org_safeexambrowser_originatorVersion",
@@ -282,6 +288,7 @@ static NSNumber *_logLevel;
         if (sebUserDefaults == nil) {
             // Set the flag to indicate user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+            DDLogError(@"%s: Something went wrong reading SEB client settings from UserDefaults: Local preferences have been reset!", __FUNCTION__);
             // The currentUserDefaults should be an empty dictionary then
             currentUserDefaults = [NSMutableDictionary new];
         } else {
@@ -396,16 +403,79 @@ static NSNumber *_logLevel;
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
+        NSString *keyWithPrefix = [self prefixKey:key];
         
         // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
         // will cause a crash when trying to modify the dictionary
         if ([value isKindOfClass:[NSDictionary class]]) {
             value = [NSMutableDictionary dictionaryWithDictionary:value];
         }
-        NSString *keyWithPrefix = [self prefixKey:key];
+        
+        // We need to join loaded prohibited processes with preset default processes
+        if ([key isEqualToString:@"prohibitedProcesses"]) {
+            NSDictionary *presetProcess;
+            NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
+            NSMutableArray *presetProcesses = [self secureArrayForKey:keyWithPrefix].mutableCopy;
+            NSMutableArray *newProcesses = [NSMutableArray new];
+            for (NSUInteger i = 0; i < presetProcesses.count; i++) {
+                presetProcess = presetProcesses[i];
+                NSInteger os = [presetProcess[@"os"] longValue];
+                if (os == operatingSystemMacOS) {
+                    NSString *bundleID = presetProcess[@"identifier"];
+                    NSString *executable = presetProcess[@"executable"];
+                    NSArray *matches;
+                    if (bundleID.length > 0) {
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                    } else {
+                        // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
+                        if (executable.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingProcess;
+                            for (NSDictionary *processFromSettings in matches) {
+                                NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
+                                if (processFromSettingsBundleID.length == 0) {
+                                    // we join processes with same executable only if they both
+                                    // don't specify a bundle ID
+                                    matchingProcess = processFromSettings;
+                                    break;
+                                }
+                            }
+                            if (matchingProcess) {
+                                matches = [NSArray arrayWithObject:matchingProcess];
+                            }
+                        }
+                    }
+                    if (matches.count > 0) {
+                        NSDictionary *matchingProcessFromSettings = matches[0];
+                        [processesFromSettings removeObject:matchingProcessFromSettings];
+                        if (executable.length == 0) {
+                            [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:keyWithPrefix];
+                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
+                        NSString *description = matchingProcessFromSettings[@"description"];
+                        if (description.length > 0) {
+                            [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:@"description"];
+                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+                        
+                        [newProcesses addObject:matchingProcessFromSettings];
+                    } else {
+                        [newProcesses addObject:presetProcess];
+                    }
+                }
+            }
+            [newProcesses addObjectsFromArray:processesFromSettings];
+            value = newProcesses.copy;
+        }
+        
         [self setSecureObject:value forKey:keyWithPrefix];
     }
 }
+
 
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
