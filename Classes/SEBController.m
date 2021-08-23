@@ -45,6 +45,12 @@
 #include <mach/mach_interface.h>
 #include <mach/mach_init.h>
 
+#import <sys/sysctl.h>
+#import <sys/mount.h>
+#import <sys/stat.h>
+#import <mach-o/dyld.h>
+#import <dlfcn.h>
+
 #import <objc/runtime.h>
 
 #include <IOKit/pwr_mgt/IOPMLib.h>
@@ -203,6 +209,10 @@ bool insideMatrix(void);
 - (id)init {
     self = [super init];
     if (self) {
+        // Get SEB's PID
+        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
+        sebPID = [sebRunningApp processIdentifier];
+
         _modalAlertWindows = [NSMutableArray new];
         _startingUp = true;
         self.systemManager = [[SEBSystemManager alloc] init];
@@ -1000,12 +1010,6 @@ bool insideMatrix(void);
             NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
             NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
             if (matchingProhibitedApplications.count != 0) {
-                if ([bundleID isEqualToString:@"com.apple.WebKit.Networking"]) {
-                    NSNumber *processParentPID = process[@"PPID"];
-                    NSNumber *processGroupID = process[@"PGID"];
-                    DDLogVerbose(@"PID: %d - Bundle ID: %@ - ParentPID: %@ - GroupID: %@", processPID, bundleID, processParentPID, processGroupID);
-                }
-
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
                 if (appURL) {
                     // Add the app's file URL, so we can restart it when exiting SEB
@@ -1600,18 +1604,14 @@ bool insideMatrix(void);
         kinfo_proc *proc = NULL;
         proc = &mylist[k];
         pid_t processPID = proc-> kp_proc.p_pid;
-        pid_t processParentPID = proc->kp_eproc.e_ppid;
-        pid_t processGroupID = proc->kp_eproc.e_pgid;
         NSString * processName = [self getProcessName:processPID];
         processDetails = @{
                            @"name" : processName,
-                           @"PID" : [NSNumber numberWithInt:processPID],
-                           @"PPID" : [NSNumber numberWithInt:processParentPID],
-                           @"PGID" : [NSNumber numberWithInt:processGroupID]
+                           @"PID" : [NSNumber numberWithInt:processPID]
                            };
         [ProcList addObject:processDetails];
         if (numberRunningBSDProcessesChanged) {
-            DDLogVerbose(@"PID: %d - Name: %@ - ParentPID: %d - GroupID: %d", processPID, processName, processParentPID, processGroupID);
+            DDLogVerbose(@"PID: %d - Name: %@", processPID, processName);
         }
     }
     free(mylist);
@@ -1958,9 +1958,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             firstScan = true;
             _systemProcessPIDs = [NSMutableArray new];
             options = kCGWindowListOptionAll;
-            // Get SEB's PID
-            NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
-            sebPID = [sebRunningApp processIdentifier];
             fishyWindowWasOpened = true;
 
         } else {
@@ -5173,10 +5170,16 @@ conditionallyForWindow:(NSWindow *)window
                 if (matchingProhibitedApplications.count != 0) {
                     if ([bundleID isEqualToString:@"com.apple.WebKit.Networking"]) {
                         pid_t processPID = startedApplication.processIdentifier;
-                        DDLogVerbose(@"PID: %d - Bundle ID: %@", processPID, bundleID);
-                    } else {
-                        [self killApplication:startedApplication];
+                        typedef pid_t (*pidResolver)(pid_t pid);
+                        pidResolver resolver = dlsym(RTLD_NEXT, "responsibility_get_pid_responsible_for_pid");
+                        pid_t trueParentPid = resolver(processPID);
+                        DDLogVerbose(@"PID: %d - Bundle ID: %@ - True Parent PID: %d", processPID, bundleID, trueParentPid);
+                        if (trueParentPid == sebPID) {
+                            DDLogDebug(@"Not terminating instance of com.apple.WebKit.Networking started by SEB");
+                            return;
+                        }
                     }
+                    [self killApplication:startedApplication];
                 }
             }
         } else {
