@@ -1261,6 +1261,8 @@
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProctoringVideoCapturer.h; sourceTree = "<group>"; };
 		6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProctoringVideoCapturer.m; sourceTree = "<group>"; };
+		697736FB26D3E4E2000B7C0D /* libquarantine.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libquarantine.tbd; path = usr/lib/system/libquarantine.tbd; sourceTree = SDKROOT; };
+		697736FD26D3E5D4000B7C0D /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		69782A4D1CCE068C00C2AA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = Resources/InAppSettings.bundle; sourceTree = "<group>"; };
 		697852B32177AC7200E93AD8 /* SEBEncapsulatedSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBEncapsulatedSettings.m; sourceTree = "<group>"; };
@@ -1735,6 +1737,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				697736FD26D3E5D4000B7C0D /* libSystem.tbd */,
+				697736FB26D3E4E2000B7C0D /* libquarantine.tbd */,
 				69637420267E6DD400058E7C /* libmbedtls.a */,
 				6988A0DA25228D4700F15236 /* libSEBSupport.a */,
 				699B325E2154639800EEA3E5 /* libmbedtls.a */,
@@ -4824,8 +4828,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SDKROOT)/usr/lib/system\"",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MARKETING_VERSION = 3.0;
@@ -4883,8 +4888,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SDKROOT)/usr/lib/system\"",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MARKETING_VERSION = 3.0;
