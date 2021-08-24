@@ -413,7 +413,10 @@ enum {
     SEBMinOSX10_11                              = 4,
     SEBMinMacOS10_12                            = 5,
     SEBMinMacOS10_13                            = 6,
-    SEBMinMacOS10_14                            = 7
+    SEBMinMacOS10_14                            = 7,
+    SEBMinMacOS10_15                            = 8,
+    SEBMinMacOS11                               = 9,
+    SEBMinMacOS12                               = 10
 };
 typedef NSUInteger SEBMinMacOSVersion;
 
@@ -526,6 +529,6 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 // The dictionary that is sent back to the MDM server as feedback must be stored in this key.
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
 
-static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_7;
+static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_11;
 
 #endif
