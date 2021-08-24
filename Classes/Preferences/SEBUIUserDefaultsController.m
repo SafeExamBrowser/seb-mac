@@ -218,6 +218,9 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             NSLocalizedString(@"macOS 10.12 Sierra", nil),
             NSLocalizedString(@"macOS 10.13 High Sierra", nil),
             NSLocalizedString(@"macOS 10.14 Mojave", nil),
+            NSLocalizedString(@"macOS 10.15 Catalina", nil),
+            NSLocalizedString(@"macOS 11 Big Sur", nil),
+            NSLocalizedString(@"macOS 12 Monterey", nil),
             nil];
 }
 
