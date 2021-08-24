@@ -2530,24 +2530,31 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
     _enforceMinMacOSVersion = SEBMinMacOSVersionSupported;
     switch (minMacOSVersion) {
-        case SEBMinOSX10_8:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_8 ? SEBMinOSX10_8 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinOSX10_9:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9 ? SEBMinOSX10_9 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinOSX10_10:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10 ? SEBMinOSX10_10 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinOSX10_11:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_11 ? SEBMinOSX10_11 : _enforceMinMacOSVersion;
-            break;
-            
         case SEBMinMacOS10_12:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_11 ? SEBMinMacOS10_12 : _enforceMinMacOSVersion;
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_12 ? SEBMinMacOS10_12 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinMacOS10_13:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_13 ? SEBMinMacOS10_13 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinMacOS10_14:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_14 ? SEBMinMacOS10_14 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinMacOS10_15:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_15 ? SEBMinMacOS10_15 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinMacOS11:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_15 ? SEBMinMacOS11 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinMacOS12:
+            if (@available(macOS 12, *)) {
+            } else {
+                _enforceMinMacOSVersion = SEBMinMacOS12;
+            }
             break;
             
         default:
