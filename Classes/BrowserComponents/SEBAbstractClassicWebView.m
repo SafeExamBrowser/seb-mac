@@ -331,6 +331,27 @@
 }
 
 
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+{
+    return [self.navigationDelegate modifyRequest:request];
+}
+
+- (NSString *) browserExamKeyForURL:(NSURL *)url
+{
+    return [self.navigationDelegate browserExamKeyForURL:url];
+}
+
+- (NSString *) configKeyForURL:(NSURL *)url
+{
+    return [self.navigationDelegate configKeyForURL:url];
+}
+
+- (NSString *) appVersion
+{
+    return [self.navigationDelegate appVersion];
+}
+
+
 @synthesize customSEBUserAgent;
 
 - (NSString *) customSEBUserAgent

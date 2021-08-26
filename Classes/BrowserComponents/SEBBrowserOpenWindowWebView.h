@@ -36,11 +36,11 @@
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 
+@class SEBBrowserWindow;
+
 @interface SEBBrowserOpenWindowWebView : NSMenuItem
 
-@property (nonatomic, retain) SEBBrowserWindow *browserWindow;
-@property (nonatomic, retain) SEBAbstractWebView *webView;
-//@property (nonatomic, retain) NSString *title;
-//@property (nonatomic, retain) NSMenuItem *menuItem;
+@property (nonatomic, weak) SEBBrowserWindow *browserWindow;
+@property (nonatomic, weak) SEBAbstractWebView *webView;
 
 @end
