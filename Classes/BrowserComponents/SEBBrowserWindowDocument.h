@@ -43,7 +43,7 @@
 
 @interface SEBBrowserWindowDocument : NSDocument {
 @private
-    SEBBrowserWindowController *__strong browserWindowController;
+//    SEBBrowserWindowController *__strong browserWindowController;
 }
 
 @property (nonatomic, strong) SEBBrowserWindowController *browserWindowController;
