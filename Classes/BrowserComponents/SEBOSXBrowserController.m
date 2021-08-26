@@ -33,7 +33,6 @@
 //
 
 #import "SEBOSXBrowserController.h"
-#import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBWebViewController.h"
 #import "SEBOSXConfigFileController.h"
@@ -620,12 +619,11 @@
 
 - (BOOL) browserWindowHasCommonHostWithURL:(NSURL *)url
 {
-    for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
-        if ([openWindowWebView.webView.url.host isEqualToString:url.host]) {
-            return YES;
-        }
+    BOOL commonHost = YES;
+    if (self.openBrowserWindowsWebViews.count > 0) {
+        commonHost = [self.openBrowserWindowsWebViews[0].webView.url.host isEqualToString:url.host];
     }
-    return NO;
+    return commonHost;
 }
 
 

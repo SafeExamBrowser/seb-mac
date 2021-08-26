@@ -39,6 +39,7 @@
 #import "SEBBrowserWindowDocument.h"
 #import "SEBBrowserWindow.h"
 #import "SEBOSXWebViewController.h"
+#import "SEBBrowserOpenWindowWebView.h"
 #import "SEBDockController.h"
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
@@ -49,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
 @class SEBOSXWebViewController;
+@class SEBBrowserOpenWindowWebView;
 
 @interface SEBOSXBrowserController : SEBBrowserController <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 {
@@ -67,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) SEBDockController *dockController;
 @property (strong, nonatomic) NSString *activeBrowserWindowTitle;
 
-@property (strong) NSMutableArray *openBrowserWindowsWebViews;
+@property (strong) NSMutableArray <SEBBrowserOpenWindowWebView*> *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
 @property (strong) NSTimer *panelWatchTimer;
