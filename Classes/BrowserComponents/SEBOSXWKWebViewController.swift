@@ -49,6 +49,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     public override func loadView() {
         if sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
             sebWebView = WKWebView.init(frame: .zero, configuration: webViewConfiguration!)
         }
         sebWebView?.autoresizingMask = [.width, .height]
