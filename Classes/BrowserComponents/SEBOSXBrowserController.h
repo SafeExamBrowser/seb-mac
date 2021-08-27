@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBOSXWebViewController;
 @class SEBBrowserOpenWindowWebView;
 
-@interface SEBOSXBrowserController : SEBBrowserController <WebResourceLoadDelegate, SEBBrowserControllerDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
+@interface SEBOSXBrowserController : SEBBrowserController <SEBBrowserControllerDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 {
     @private
     NSURL *currentConfigPath;

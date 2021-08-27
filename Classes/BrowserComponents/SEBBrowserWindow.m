@@ -792,8 +792,6 @@
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
-@synthesize wkWebViewConfiguration;
-
 - (WKWebViewConfiguration *) wkWebViewConfiguration
 {
     return self.browserController.wkWebViewConfiguration;
