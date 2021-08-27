@@ -47,7 +47,7 @@
 }
 
 @property (nonatomic, strong) SEBBrowserWindowController *browserWindowController;
-@property (nonatomic, strong) SEBOSXBrowserController *browserController;
+@property (nonatomic, weak) SEBOSXBrowserController *browserController;
 
 - (SEBBrowserWindowController*)mainWindowController;
 //- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo;

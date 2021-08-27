@@ -218,8 +218,6 @@
 
 /// SEBAbstractWebViewNavigationDelegate Methods
 
-@synthesize wkWebViewConfiguration;
-
 - (WKWebViewConfiguration *)wkWebViewConfiguration
 {
     return [_sebViewController.browserController wkWebViewConfiguration];

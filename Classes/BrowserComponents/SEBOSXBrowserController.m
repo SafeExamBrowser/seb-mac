@@ -208,7 +208,9 @@
     [newBrowserWindow setCalculatedFrameOnScreen:newBrowserWindow.screen mainBrowserWindow:mainBrowserWindow temporaryWindow:temporaryWindow];
     [newBrowserWindow.windowController showWindow:self];
     [newBrowserWindow makeKeyAndOrderFront:self];
-    [newWindowWebView loadURL:url];
+    [self transferCookiesToWKWebViewWithCompletionHandler:^{
+        [newWindowWebView loadURL:url];
+    }];
 
     return newWindowWebView;
 }

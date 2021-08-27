@@ -197,8 +197,6 @@
 
 /// SEBAbstractWebViewNavigationDelegate Methods
 
-@synthesize wkWebViewConfiguration;
-
 - (WKWebViewConfiguration *)wkWebViewConfiguration
 {
     return self.navigationDelegate.wkWebViewConfiguration;
