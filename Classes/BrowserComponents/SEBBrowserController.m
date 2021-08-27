@@ -133,6 +133,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
 {
     NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+#ifdef DEBUG
+    DDLogDebug(@"NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies: %@", cookies);
+#endif
     if (@available(macOS 10.13, *)) {
         dispatch_group_t waitGroup = dispatch_group_create();
         WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
@@ -235,8 +238,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (WKWebViewConfiguration *)wkWebViewConfiguration
 {
     if (!_wkWebViewConfiguration) {
-        WKWebViewConfiguration *newSharedWebViewConfiguration = [WKWebViewConfiguration new];
-        _wkWebViewConfiguration = newSharedWebViewConfiguration;
+        _wkWebViewConfiguration = [[WKWebViewConfiguration alloc] init];
+        DDLogDebug(@"Created new WKWebViewConfiguration %@", _wkWebViewConfiguration);
     }
     
 //    WKWebsiteDataStore *nonPersistentDataStore = [WKWebsiteDataStore nonPersistentDataStore];
