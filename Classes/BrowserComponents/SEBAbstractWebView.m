@@ -62,6 +62,7 @@
                     (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
                     downloadingInTemporaryWebView) {
                     
+                    DDLogInfo(@"Opening modern WebView");
                     SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
                     sebAbstractModernWebView.navigationDelegate = self;
                     self.browserControllerDelegate = sebAbstractModernWebView;
@@ -69,6 +70,7 @@
                 }
             }
         }
+        DDLogInfo(@"Opening classic WebView");
         SEBAbstractClassicWebView *sebAbstractClassicWebView = [SEBAbstractClassicWebView new];
         sebAbstractClassicWebView.navigationDelegate = self;
         self.browserControllerDelegate = sebAbstractClassicWebView;
@@ -571,7 +573,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         ([mimeType isEqualToString:SEBUnencryptedConfigMIMEType]) ||
         ([url.pathExtension isEqualToString:SEBFileExtension])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
+        NSURL *originalURL = self.originalURL;
+        [self.navigationDelegate downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
         return SEBNavigationActionPolicyCancel;
     }
 

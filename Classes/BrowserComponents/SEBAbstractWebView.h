@@ -233,6 +233,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies;
 @property (readonly) BOOL downloadingInTemporaryWebView;
 // Required by SEB-iOS (SEBUIWebViewController)
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;
