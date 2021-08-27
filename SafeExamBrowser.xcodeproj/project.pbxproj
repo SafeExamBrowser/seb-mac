@@ -491,6 +491,8 @@
 		696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
 		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		697048E226D779D4009A822B /* SEBBatteryIcon_charging.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 697048E026D779D4009A822B /* SEBBatteryIcon_charging.iconset */; };
+		697048E326D779D4009A822B /* SEBBatteryIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 697048E126D779D4009A822B /* SEBBatteryIcon.iconset */; };
 		6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */; };
 		6974C04A2475E354009F0529 /* ProctoringVideoCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */; };
 		6974C04B2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */; };
@@ -1259,6 +1261,8 @@
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ApplicationsIcon.png; path = Resources/Icons/ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ApplicationsIcon@2x.png"; path = "Resources/Icons/ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		697048E026D779D4009A822B /* SEBBatteryIcon_charging.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBBatteryIcon_charging.iconset; path = Resources/Icons/SEBBatteryIcon_charging.iconset; sourceTree = "<group>"; };
+		697048E126D779D4009A822B /* SEBBatteryIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBBatteryIcon.iconset; path = Resources/Icons/SEBBatteryIcon.iconset; sourceTree = "<group>"; };
 		6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProctoringVideoCapturer.h; sourceTree = "<group>"; };
 		6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProctoringVideoCapturer.m; sourceTree = "<group>"; };
 		697736FB26D3E4E2000B7C0D /* libquarantine.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libquarantine.tbd; path = usr/lib/system/libquarantine.tbd; sourceTree = SDKROOT; };
@@ -2120,6 +2124,8 @@
 				69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */,
 				69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */,
 				69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */,
+				697048E026D779D4009A822B /* SEBBatteryIcon_charging.iconset */,
+				697048E126D779D4009A822B /* SEBBatteryIcon.iconset */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -3527,6 +3533,7 @@
 				6947D8981BB073EA00899A8A /* ZoomPageIn.png in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
 				69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
+				697048E326D779D4009A822B /* SEBBatteryIcon.iconset in Resources */,
 				696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */,
 				696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
 				699447FF248D54870074A655 /* SEBBadgeWarning.png in Resources */,
@@ -3557,6 +3564,7 @@
 				69358DD71E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
 				69E87E3B202924E70055988F /* SEBShutDownIconLandscape@3x.png in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
+				697048E226D779D4009A822B /* SEBBatteryIcon_charging.iconset in Resources */,
 				695A8EF31E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69E87E56202927330055988F /* SEBDockIconLandscape@3x.png in Resources */,
