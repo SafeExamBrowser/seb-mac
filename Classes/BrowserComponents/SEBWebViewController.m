@@ -92,7 +92,7 @@
         _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
 
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
-        quitURLTrimmed = self.navigationDelegate.quitURL;
+        quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
         // Display all MIME types the WebView can display as HTML
         NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];

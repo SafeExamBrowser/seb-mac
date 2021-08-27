@@ -821,7 +821,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
         }
     } else {
-        DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] ? @"downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open: %@." : @"");
+        DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
         _delegate.openingSettings = false;
     }
 }
@@ -881,7 +881,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                                           }];
     [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
     NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
-//    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
     [downloadTask resume];
 }
 
