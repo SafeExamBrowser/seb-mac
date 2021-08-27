@@ -599,13 +599,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
     if ([absoluteRequestURLTrimmed isEqualTo:quitURLTrimmed]) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitWPwdNotification" object:self];
-        } else {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestQuitNotification" object:self];
-        }
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"quitLinkDetected" object:self];
         return request;
     }
     
