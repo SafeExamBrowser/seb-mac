@@ -405,8 +405,8 @@ bool insideMatrix(void);
     
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedConditionalQuit)
-                                                 name:@"requestQuitWPwdNotification" object:nil];
+                                             selector:@selector(quitLinkDetected:)
+                                                 name:@"quitLinkDetected" object:nil];
     
     // Add an observer for the request to reload start URL
     [[NSNotificationCenter defaultCenter] addObserver:self
