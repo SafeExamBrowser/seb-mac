@@ -641,6 +641,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
+{
+    [self.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
+}
+
+
 - (BOOL) downloadingInTemporaryWebView
 {
     return self.navigationDelegate.downloadingInTemporaryWebView;
