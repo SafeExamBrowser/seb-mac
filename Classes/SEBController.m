@@ -624,8 +624,9 @@ bool insideMatrix(void);
     DDLogDebug(@"%s file URL: %@", __FUNCTION__, fileURL);
 
     if (!_openingSettings) {
-        _openingSettings = true;
+        _openingSettings = YES;
         if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
+            _openedURL = YES;
             DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
             _openingSettingsFileURL = fileURL;
         } else {
@@ -652,7 +653,8 @@ bool insideMatrix(void);
     if (url && !_openingSettings) {
         // If we have any URL, we try to download and open (conditionally) a .seb file
         // hopefully linked by this URL (also supporting redirections and authentification)
-        _openingSettings = true;
+        _openingSettings = YES;
+        _openedURL = YES;
         DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
         [self.browserController openConfigFromSEBURL:url];
     }
@@ -676,7 +678,8 @@ bool insideMatrix(void);
         if (url && !_openingSettings) {
             // If we have any URL, we try to download and open (conditionally) a .seb file
             // hopefully linked by this URL (also supporting redirections and authentification)
-            _openingSettings = true;
+            _openingSettings = YES;
+            _openedURL = YES;
             DDLogInfo(@"openURLs event: Loading .seb settings file with URL %@", url.absoluteString);
             [self.browserController openConfigFromSEBURL:url];
         }
@@ -804,14 +807,18 @@ bool insideMatrix(void);
         NSError *error = nil;
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
         
-        // Save the path to the file for possible editing in the preferences window
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
-        
-        // Decrypt and store the .seb config file
-        [self.configFileController storeNewSEBSettings:sebData
-                                         forEditing:NO
-                                           callback:self
-                                           selector:@selector(storeNewSEBSettingsSuccessful:)];
+        if (!error) {
+            // Save the path to the file for possible editing in the preferences window
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+            
+            // Decrypt and store the .seb config file
+            [self.configFileController storeNewSEBSettings:sebData
+                                             forEditing:NO
+                                               callback:self
+                                               selector:@selector(storeNewSEBSettingsSuccessful:)];
+        } else {
+            //ToDo: Show alert for file loading error
+        }
     }
 }
 
@@ -1324,7 +1331,14 @@ bool insideMatrix(void);
 
 - (BOOL) quitSession
 {
-    return !_startingUp && NSUserDefaults.userDefaultsPrivate;
+    BOOL examSession = NSUserDefaults.userDefaultsPrivate;
+    BOOL secureClientSession = NO;
+    if (examSession) {
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+    }
+    return !_startingUp && examSession && secureClientSession && !_openedURL;
 }
 
 
@@ -4653,17 +4667,12 @@ conditionallyForWindow:(NSWindow *)window
 // Quit or restart session without asking for confirmation
 - (void) sessionQuitRestart:(BOOL)restart
 {
-    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     _openingSettings = NO;
-    
-    // Are exam settings active and we aren't restarting the exam?
-    if (!quittingClientConfig && !restart) {
-        // Switch to system's (persisted) UserDefaults
-        [NSUserDefaults setUserDefaultsPrivate:NO];
-        // Reset settings password and config key hash for settings,
-        // as we're returning from exam to client settings
+    if (restart) {
+        [self requestedRestart:nil];
+    } else {
+        [self quitSEBOrSession];
     }
-    [self quitSEBOrSession];
 }
 
 
@@ -4672,13 +4681,12 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
-    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
 
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (quittingClientConfig ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
-    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (quittingClientConfig ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?",nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
+    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (!self.quitSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (!self.quitSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?",nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
     [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSWarningAlertStyle];
@@ -4691,7 +4699,7 @@ conditionallyForWindow:(NSWindow *)window
                     DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
-                    DDLogInfo(@"Confirmed to quit %@", quittingClientConfig ? SEBShortAppName : @"exam session");
+                    DDLogInfo(@"Confirmed to quit %@", !self.quitSession ? SEBShortAppName : @"exam session");
                     [self sessionQuitRestart:restart];
                 }
                 return;
@@ -4717,6 +4725,7 @@ conditionallyForWindow:(NSWindow *)window
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
     _conditionalInitAfterProcessesChecked = NO;
+    _openedURL = NO;
 
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again

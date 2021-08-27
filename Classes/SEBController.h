@@ -181,6 +181,7 @@
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
 @property(readwrite) BOOL startingUp;
+@property(readwrite) BOOL openedURL;
 @property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL conditionalInitAfterProcessesChecked;
