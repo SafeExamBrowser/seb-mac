@@ -195,6 +195,20 @@
     [_sebWebView stopLoading];
 }
 
+- (void) zoomPageIn
+{
+    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.25\""];
+}
+
+- (void) zoomPageOut
+{
+    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.75\""];
+}
+
+- (void) zoomPageReset
+{
+    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
+}
 
 #pragma mark -
 #pragma mark UIWebViewDelegate

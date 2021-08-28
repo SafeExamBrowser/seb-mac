@@ -415,9 +415,9 @@ void DisposeWindow (
 - (IBAction) zoomText: (id)sender
 {
     if ([sender selectedSegment] == 0) {
-        [self.browserWindow textSizeIncrease];
-    } else {
         [self.browserWindow textSizeDecrease];
+    } else {
+        [self.browserWindow textSizeIncrease];
     }
 }
 
@@ -425,10 +425,16 @@ void DisposeWindow (
 - (IBAction) zoomPage: (id)sender
 {
     if ([sender selectedSegment] == 0) {
-        [self.browserWindow zoomPageIn];
-    } else {
         [self.browserWindow zoomPageOut];
+    } else {
+        [self.browserWindow zoomPageIn];
     }
+}
+
+
+- (IBAction) reload: (id)sender
+{
+    [self.browserWindow reload];
 }
 
 @end

@@ -197,6 +197,36 @@
     [self.browserControllerDelegate stopLoading];
 }
 
+- (void) zoomPageIn
+{
+    [self.browserControllerDelegate zoomPageIn];
+}
+
+- (void) zoomPageOut
+{
+    [self.browserControllerDelegate zoomPageOut];
+}
+
+- (void) zoomPageReset
+{
+    [self.browserControllerDelegate zoomPageReset];
+}
+
+- (void) textSizeIncrease
+{
+    [self.browserControllerDelegate textSizeIncrease];
+}
+
+- (void) textSizeDecrease
+{
+    [self.browserControllerDelegate textSizeDecrease];
+}
+
+- (void) textSizeReset
+{
+    [self.browserControllerDelegate textSizeReset];
+}
+
 
 - (void)toggleScrollLock
 {
@@ -392,6 +422,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void)sebWebViewDidFinishLoad
 {
     [self.navigationDelegate sebWebViewDidFinishLoad];
+    [self.navigationDelegate setCanGoBack:self.canGoBack canGoForward:self.canGoForward];
 }
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error

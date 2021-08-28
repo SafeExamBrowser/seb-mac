@@ -176,20 +176,19 @@
     [self.browserControllerDelegate stopLoading];
 }
 
-
 - (void) zoomPageIn
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.5\""];
+    [self.browserControllerDelegate zoomPageIn];
 }
 
 - (void) zoomPageOut
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.5\""];
+    [self.browserControllerDelegate zoomPageOut];
 }
 
 - (void) zoomPageReset
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
+    [self.browserControllerDelegate zoomPageReset];
 }
 
 - (void) textSizeIncrease
@@ -206,6 +205,7 @@
 {
     [self.browserControllerDelegate textSizeReset];
 }
+
 
 - (void)toggleScrollLock
 {
