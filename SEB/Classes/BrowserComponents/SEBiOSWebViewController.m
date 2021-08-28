@@ -364,7 +364,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.navigationDelegate setLoading:NO];
-    [self setBackForwardAvailabilty];
 }
 
 
@@ -542,11 +541,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 }
 
-
-- (void)setBackForwardAvailabilty
-{
-    [self.navigationDelegate setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];
-}
 
 - (BOOL)canGoBack {
     return [_sebWebView canGoBack];

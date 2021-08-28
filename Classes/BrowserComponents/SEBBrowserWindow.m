@@ -293,6 +293,11 @@
     [self.browserControllerDelegate goForward];
 }
 
+- (void)reload
+{
+    [self.browserControllerDelegate reload];
+}
+
 
 - (void)zoomPageIn
 {
@@ -782,11 +787,6 @@
 
 - (void)stopLoading {
     [self.browserControllerDelegate stopLoading];
-}
-
-
-- (void)reload {
-    [self.browserControllerDelegate reload];
 }
 
 

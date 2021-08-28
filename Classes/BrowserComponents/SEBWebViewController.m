@@ -223,6 +223,39 @@
     [_sebWebView.mainFrame stopLoading];
 }
 
+- (void) zoomPageIn
+{
+    SEL selector = NSSelectorFromString(@"zoomPageIn:");
+    [[NSApplication sharedApplication] sendAction:selector to:_sebWebView from:self];
+}
+
+- (void) zoomPageOut
+{
+    SEL selector = NSSelectorFromString(@"zoomPageOut:");
+    [[NSApplication sharedApplication] sendAction:selector to:_sebWebView from:self];
+}
+
+- (void) zoomPageReset
+{
+    SEL selector = NSSelectorFromString(@"zoomPageStandard:");
+    [[NSApplication sharedApplication] sendAction:selector to:_sebWebView from:self];
+}
+
+- (void) textSizeIncrease
+{
+    [_sebWebView makeTextLarger:self];
+}
+
+- (void) textSizeDecrease
+{
+    [_sebWebView makeTextSmaller:self];
+}
+
+- (void) textSizeReset
+{
+    [_sebWebView makeTextStandardSize:self];
+}
+
 - (nonnull id)nativeWebView
 {
     return _sebWebView;
