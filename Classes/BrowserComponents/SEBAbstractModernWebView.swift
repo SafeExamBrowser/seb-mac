@@ -209,6 +209,51 @@ import Foundation
         browserControllerDelegate?.stopLoading()
     }
 
+    public func zoomPageIn() {
+        let webView = nativeWebView() as! WKWebView
+        if #available(macOS 11.0, *) {
+            webView.pageZoom += 0.1
+        } else {
+            let js = "document.documentElement.style.zoom = '1.25'"
+            webView.evaluateJavaScript(js, completionHandler: nil)
+        }
+    }
+    
+    public func zoomPageOut() {
+        let webView = nativeWebView() as! WKWebView
+        if #available(macOS 11.0, *) {
+            webView.pageZoom -= 0.1
+        } else {
+            let js = "document.documentElement.style.zoom = '0.75'"
+            webView.evaluateJavaScript(js, completionHandler: nil)
+        }
+    }
+    
+    public func zoomPageReset() {
+        let webView = nativeWebView() as! WKWebView
+        if #available(macOS 11.0, *) {
+            webView.pageZoom = 1.0
+        } else {
+            let js = "document.documentElement.style.zoom = '1.0'"
+            webView.evaluateJavaScript(js, completionHandler: nil)
+        }
+    }
+    
+    public func textSizeIncrease() {
+        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='125%'"
+        (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
+    }
+    
+    public func textSizeDecrease() {
+        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='75%'"
+        (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
+    }
+    
+    public func textSizeReset() {
+        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='100%'"
+        (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
+    }
+    
     public func toggleScrollLock() {
         browserControllerDelegate?.toggleScrollLock?()
     }
