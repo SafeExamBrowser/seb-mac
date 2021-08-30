@@ -99,11 +99,13 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" sizingBehavior="auto" id="192">
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" id="192">
                         <nil key="toolTip"/>
+                        <size key="minSize" width="28" height="23"/>
+                        <size key="maxSize" width="30" height="23"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="30" height="23"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIcon" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
