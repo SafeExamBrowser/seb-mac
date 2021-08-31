@@ -2059,7 +2059,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 }
                             }
                         } else {
-                            DDLogDebug(@"Preferences are open, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
+                            DDLogDebug(@"%@%@don't terminate application %@ (%@)", _allowSwitchToApplications ? @"Switching to applications is allowed, " : @"",
+                                       _preferencesController.preferencesAreOpen ? @"Preferences are open, " : @"", windowOwner, appWithPanelBundleID);
                         }
                     }
                 }
