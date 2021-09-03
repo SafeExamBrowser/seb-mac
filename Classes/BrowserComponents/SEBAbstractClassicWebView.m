@@ -61,71 +61,6 @@
 
 #pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
-- (void)loadView
-{
-    [self.browserControllerDelegate loadView];
-}
-
-- (void)didMoveToParentViewController
-{
-    [self.browserControllerDelegate didMoveToParentViewController];
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [self.browserControllerDelegate viewDidLayoutSubviews];
-}
-
-- (void)viewWillTransitionToSize
-{
-    [self.browserControllerDelegate viewWillTransitionToSize];
-}
-
-- (void) viewDidLoad
-{
-    [self.browserControllerDelegate viewDidLoad];
-}
-
-- (void)viewWillAppear
-{
-    [self.browserControllerDelegate viewWillAppear];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewWillAppear:(BOOL)animated];
-}
-
-- (void)viewDidAppear
-{
-    [self.browserControllerDelegate viewDidAppear];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewDidAppear:(BOOL)animated];
-}
-
-- (void)viewWillDisappear
-{
-    [self.browserControllerDelegate viewWillDisappear];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewWillDisappear:(BOOL)animated];
-}
-
-- (void)viewWDidDisappear
-{
-    [self.browserControllerDelegate viewDidDisappear];
-}
-
-- (void)viewWDidDisappear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewDidDisappear:(BOOL)animated];
-}
-
 - (id)nativeWebView
 {
     return self.browserControllerDelegate.nativeWebView;
@@ -207,6 +142,77 @@
 }
 
 
+- (void)loadView
+{
+    [self.browserControllerDelegate loadView];
+}
+
+- (void)didMoveToParentViewController
+{
+    [self.browserControllerDelegate didMoveToParentViewController];
+}
+
+- (void)viewDidLayout
+{
+    [self.browserControllerDelegate viewDidLayout];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.browserControllerDelegate viewDidLayoutSubviews];
+}
+
+- (void)viewWillTransitionToSize
+{
+    [self.browserControllerDelegate viewWillTransitionToSize];
+}
+
+- (void) viewDidLoad
+{
+    [self.browserControllerDelegate viewDidLoad];
+}
+
+- (void)viewWillAppear
+{
+    [self.browserControllerDelegate viewWillAppear];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewWillAppear:(BOOL)animated];
+}
+
+- (void)viewDidAppear
+{
+    [self.browserControllerDelegate viewDidAppear];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewDidAppear:(BOOL)animated];
+}
+
+- (void)viewWillDisappear
+{
+    [self.browserControllerDelegate viewWillDisappear];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewWillDisappear:(BOOL)animated];
+}
+
+- (void)viewWDidDisappear
+{
+    [self.browserControllerDelegate viewDidDisappear];
+}
+
+- (void)viewWDidDisappear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewDidDisappear:(BOOL)animated];
+}
+
+
 - (void)toggleScrollLock
 {
     if ([self.browserControllerDelegate respondsToSelector:@selector(toggleScrollLock)]) {
@@ -220,6 +226,22 @@
         return [self.browserControllerDelegate isScrollLockActive];
     }
     return NO;
+}
+
+
+- (void)setPrivateClipboardEnabled:(BOOL)privateClipboardEnabled
+{
+    [self.browserControllerDelegate setPrivateClipboardEnabled: privateClipboardEnabled];
+}
+
+- (void)setAllowDictionaryLookup:(BOOL)allowDictionaryLookup
+{
+    [self.browserControllerDelegate setAllowDictionaryLookup:allowDictionaryLookup];
+}
+
+- (void)setAllowPDFPlugIn:(BOOL)allowPDFPlugIn
+{
+    [self.browserControllerDelegate setAllowPDFPlugIn:allowPDFPlugIn];
 }
 
 
@@ -355,19 +377,27 @@
 - (NSString *) customSEBUserAgent
 {
     return self.navigationDelegate.customSEBUserAgent;
-    
 }
 
 
 - (NSArray <NSData *> *) privatePasteboardItems
 {
     return self.navigationDelegate.privatePasteboardItems;
-    
 }
 
 - (void) setPrivatePasteboardItems:(NSArray<NSData *> *)privatePasteboardItems
 {
     self.navigationDelegate.privatePasteboardItems = privatePasteboardItems;
+}
+
+- (void) storePasteboard
+{
+    [self.navigationDelegate storePasteboard];
+}
+
+- (void) restorePasteboard
+{
+    [self.navigationDelegate restorePasteboard];
 }
 
 

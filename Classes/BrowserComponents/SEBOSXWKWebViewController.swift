@@ -38,19 +38,32 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
     
-    public var scrollLockActive = false
+    public var sebWebView : SEBOSXWKWebView?
     
-    public var sebWebView : WKWebView?
+    public var privateClipboardEnabled = false
+    public var allowDictionaryLookup = false
+    public var allowPDFPlugIn = false
+
+    public var scrollLockActive = false
     
     private var zoomScale : CGFloat?
 
     private var urlFilter : SEBURLFilter?
     
+    public func contentView() -> NSView? {
+        return self.contentView()
+    }
+    
     public override func loadView() {
         if sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
             DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
-            sebWebView = WKWebView.init(frame: .zero, configuration: webViewConfiguration!)
+            sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
+            sebWebView?.sebOSXWebViewController = self
+            
+//            try? sebWebView?.swizzleMethod(NSSelectorFromString("copy:"), withSelector: #selector(newCopy(_:)))
+//            try? sebWebView?.swizzleMethod(NSSelectorFromString("cut:"), withSelector: #selector(newCut(_:)))
+//            try? sebWebView?.swizzleMethod(NSSelectorFromString("paste:"), withSelector: #selector(newPaste(_:)))
         }
         sebWebView?.autoresizingMask = [.width, .height]
         sebWebView?.translatesAutoresizingMaskIntoConstraints = true
@@ -88,6 +101,18 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         return false
     }
     
+    public func setPrivateClipboardEnabled(_ privateClipboardEnabled: Bool) {
+        self.privateClipboardEnabled = privateClipboardEnabled
+    }
+    
+    public func setAllowDictionaryLookup(_ allowDictionaryLookup: Bool) {
+        self.allowDictionaryLookup = allowDictionaryLookup
+    }
+    
+    public func setAllowPDFPlugIn(_ allowPDFPlugIn: Bool) {
+        self.allowPDFPlugIn = allowPDFPlugIn
+    }
+    
     public func canGoBack() -> Bool {
         return sebWebView?.canGoBack ?? false
     }
@@ -116,7 +141,15 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         sebWebView?.stopLoading()
     }
  
+    public func storePasteboard() {
+        self.navigationDelegate?.storePasteboard?()
+    }
     
+    public func restorePasteboard() {
+        self.navigationDelegate?.restorePasteboard?()
+    }
+    
+
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
     }
@@ -171,4 +204,135 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
         navigationDelegate?.webView?(webView, runJavaScriptTextInputPanelWithPrompt: prompt, defaultText: defaultText, initiatedByFrame: frame, completionHandler: completionHandler)
     }
+}
+
+extension NSView {
+
+    /// Find a subview corresponding to the className parameter, recursively.
+    public func subviewWithClassName(_ className: String) -> NSView? {
+        if NSStringFromClass(type(of: self)) == className {
+            return self
+        } else {
+            let subviews = subviews
+            for subview in subviews {
+                return subview.subviewWithClassName(className)
+            }
+        }
+        return nil
+    }
+   
+}
+
+extension WKWebView {
+    
+    public func contentView() -> NSView? {
+        return self.subviews.first //subviewWithClassName("WKContentView")
+    }
+}
+
+extension NSObject {
+
+    enum NSObjectSwizzlingError: Error {
+        case originalSelectorNotFound
+    }
+
+    @objc public func swizzleMethod(_ currentSelector: Selector, withSelector newSelector: Selector) throws {
+        if let currentMethod = self.instanceMethod(for: currentSelector),
+            let newMethod = self.instanceMethod(for:newSelector) {
+            method_exchangeImplementations(currentMethod, newMethod)
+        } else {
+            throw NSObjectSwizzlingError.originalSelectorNotFound
+        }
+    }
+
+    @objc public func instanceMethod(for selector: Selector) -> Method? {
+        let classType: AnyClass! = object_getClass(self)
+        return class_getInstanceMethod(classType, selector)
+    }
+}
+
+//extension NSResponder {
+//    
+//    @objc public func newCopy(_ sender: Any?) {
+////        newCopy(sender as Any)
+////        self.nextResponder?.tryToPerform(NSSelectorFromString("copy:"), with: sender)
+//    }
+//
+//    @objc public func newCut(_ sender: Any?) {
+////        newCut(sender as Any)
+////        self.nextResponder?.tryToPerform(NSSelectorFromString("cut:"), with: sender)
+//    }
+//
+//    @objc public func newPaste(_ sender: Any?) {
+////        newPaste(sender as Any)
+////        self.nextResponder?.tryToPerform(NSSelectorFromString("paste:"), with: sender)
+//    }
+//}
+
+public class SEBOSXWKWebView: WKWebView {
+    
+    weak public var sebOSXWebViewController: SEBOSXWKWebViewController?
+        
+    public override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        let chars = event.characters
+        var status = false
+        
+        if event.modifierFlags.contains(.command)  {
+            if chars == "c" {
+                newCopy(self)
+                status = true
+            }
+            if chars == "x" {
+                newCut(self)
+                status = true
+            }
+            if chars == "v" {
+                newPaste(self)
+                status = true
+            }
+        }
+        if status {
+            return true
+        }
+        return super.performKeyEquivalent(with: event)
+    }
+
+    @objc public func newCopy(_ sender: Any?) {
+        super.perform(NSSelectorFromString("copy:"), with: sender)
+        if sebOSXWebViewController!.privateClipboardEnabled {
+            delayWithSeconds(0.1) {
+                self.sebOSXWebViewController!.storePasteboard()
+            }
+        }
+    }
+
+    @objc public func newCut(_ sender: Any?) {
+        super.perform(NSSelectorFromString("cut:"), with: sender)
+        if sebOSXWebViewController!.privateClipboardEnabled {
+            delayWithSeconds(0.1) {
+                self.sebOSXWebViewController!.storePasteboard()
+            }
+        }
+    }
+
+    @objc public func newPaste(_ sender: Any?) {
+        if sebOSXWebViewController!.privateClipboardEnabled {
+            self.sebOSXWebViewController!.restorePasteboard()
+            delayWithSeconds(0.1) {
+                super.perform(NSSelectorFromString("paste:"), with: sender)
+                self.delayWithSeconds(0.1) {
+                    NSPasteboard.general.clearContents()
+                }
+            }
+        } else {
+            super.perform(NSSelectorFromString("paste:"), with: sender)
+        }
+    }
+
+    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            completion()
+        }
+    }
+
 }
