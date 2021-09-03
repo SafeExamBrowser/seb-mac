@@ -35,6 +35,7 @@
 #import "SEBAbstractWebView.h"
 #import "SEBAbstractClassicWebView.h"
 #import "SafeExamBrowser-Swift.h"
+#import "NSPasteboard+SaveRestore.h"
 
 
 @implementation SEBAbstractWebView
@@ -66,6 +67,7 @@
                     SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
                     sebAbstractModernWebView.navigationDelegate = self;
                     self.browserControllerDelegate = sebAbstractModernWebView;
+                    [self initGeneralProperties];
                     return self;
                 }
             }
@@ -75,77 +77,21 @@
         sebAbstractClassicWebView.navigationDelegate = self;
         self.browserControllerDelegate = sebAbstractClassicWebView;
     }
+    [self initGeneralProperties];
     return self;
+}
+
+- (void) initGeneralProperties
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [self.browserControllerDelegate setPrivateClipboardEnabled:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
+     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]];
+    [self.browserControllerDelegate setAllowDictionaryLookup:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]];
+    [self.browserControllerDelegate setAllowPDFPlugIn:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"]];
 }
 
 
 #pragma mark - SEBAbstractBrowserControllerDelegate Methods
-
-- (void)loadView
-{
-    [self.browserControllerDelegate loadView];
-}
-
-- (void)didMoveToParentViewController
-{
-    [self.browserControllerDelegate didMoveToParentViewController];
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [self.browserControllerDelegate viewDidLayoutSubviews];
-}
-
-- (void)viewWillTransitionToSize
-{
-    [self.browserControllerDelegate viewWillTransitionToSize];
-}
-
-- (void) viewDidLoad
-{
-    [self.browserControllerDelegate viewDidLoad];
-}
-
-- (void)viewWillAppear
-{
-    [self.browserControllerDelegate viewWillAppear];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewWillAppear:(BOOL)animated];
-}
-
-- (void)viewDidAppear
-{
-    [self.browserControllerDelegate viewDidAppear];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewDidAppear:(BOOL)animated];
-}
-
-- (void)viewWillDisappear
-{
-    [self.browserControllerDelegate viewWillDisappear];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewWillDisappear:(BOOL)animated];
-}
-
-- (void)viewWDidDisappear
-{
-    [self.browserControllerDelegate viewDidDisappear];
-}
-
-- (void)viewWDidDisappear:(BOOL)animated
-{
-    [self.browserControllerDelegate viewDidDisappear:(BOOL)animated];
-}
-
 
 - (id)nativeWebView
 {
@@ -225,6 +171,77 @@
 - (void) textSizeReset
 {
     [self.browserControllerDelegate textSizeReset];
+}
+
+
+- (void)loadView
+{
+    [self.browserControllerDelegate loadView];
+}
+
+- (void)didMoveToParentViewController
+{
+    [self.browserControllerDelegate didMoveToParentViewController];
+}
+
+- (void)viewDidLayout
+{
+    [self.browserControllerDelegate viewDidLayout];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.browserControllerDelegate viewDidLayoutSubviews];
+}
+
+- (void)viewWillTransitionToSize
+{
+    [self.browserControllerDelegate viewWillTransitionToSize];
+}
+
+- (void) viewDidLoad
+{
+    [self.browserControllerDelegate viewDidLoad];
+}
+
+- (void)viewWillAppear
+{
+    [self.browserControllerDelegate viewWillAppear];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewWillAppear:(BOOL)animated];
+}
+
+- (void)viewDidAppear
+{
+    [self.browserControllerDelegate viewDidAppear];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewDidAppear:(BOOL)animated];
+}
+
+- (void)viewWillDisappear
+{
+    [self.browserControllerDelegate viewWillDisappear];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewWillDisappear:(BOOL)animated];
+}
+
+- (void)viewWDidDisappear
+{
+    [self.browserControllerDelegate viewDidDisappear];
+}
+
+- (void)viewWDidDisappear:(BOOL)animated
+{
+    [self.browserControllerDelegate viewDidDisappear:(BOOL)animated];
 }
 
 
@@ -388,6 +405,20 @@
 - (void) setPrivatePasteboardItems:(NSArray<NSData *> *)privatePasteboardItems
 {
     self.navigationDelegate.privatePasteboardItems = privatePasteboardItems;
+}
+
+- (void) storePasteboard {
+    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+    NSArray *archive = [generalPasteboard archiveObjects];
+    self.navigationDelegate.privatePasteboardItems = archive;
+    [generalPasteboard clearContents];
+}
+
+- (void) restorePasteboard {
+    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+    [generalPasteboard clearContents];
+    NSArray *archive = self.navigationDelegate.privatePasteboardItems;
+    [generalPasteboard restoreArchive:archive];
 }
 
 
