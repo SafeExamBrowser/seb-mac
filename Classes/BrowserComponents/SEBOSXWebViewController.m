@@ -49,6 +49,10 @@
     return self;
 }
 
+//- (IBAction) copy:(id)sender
+//{
+//    
+//}
 
 #pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
@@ -79,6 +83,13 @@
     [super viewDidAppear];
 }
 
+- (void)viewDidLayout
+{
+    [_sebAbstractWebView viewDidLayout];
+    
+    [super viewDidLayout];
+}
+
 - (void)viewWillDisappear
 {
     [_sebAbstractWebView viewWillDisappear];
@@ -92,6 +103,12 @@
     
     [super viewDidDisappear];
 }
+
+//- (void)viewDidLayout
+//{
+//    [_sebAbstractWebView view]
+//    
+//}
 
 //- (id)nativeWebView
 //{

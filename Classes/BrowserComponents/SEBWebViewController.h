@@ -39,6 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString * _Nullable downloadFilename;
 @property (strong, nonatomic) NSString * _Nullable downloadFileExtension;
 
+@property (readwrite, nonatomic) BOOL privateClipboardEnabled;
+@property (readwrite, nonatomic) BOOL allowDictionaryLookup;
+@property (readwrite, nonatomic) BOOL allowPDFPlugIn;
+
 @property (readwrite) BOOL allowDownloads;
 @property (readwrite) BOOL allowDeveloperConsole;
 

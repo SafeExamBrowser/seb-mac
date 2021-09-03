@@ -64,14 +64,14 @@ import Foundation
             userContentController.addUserScript(controlSpellCheckUserScript)
         }
         userContentController.add(self, name: "updateKeys")
-        webViewConfiguration.userContentController = userContentController
-        return webViewConfiguration
+        webViewConfiguration!.userContentController = userContentController
+        return webViewConfiguration!
     }
     
     public func userContentController(_ userContentController: WKUserContentController,
                                       didReceive message: WKScriptMessage) {
         if message.name == "updateKeys" {
-            guard let webView = (browserControllerDelegate?.nativeWebView()) as? WKWebView else {
+            guard let webView = (browserControllerDelegate!.nativeWebView!()) as? WKWebView else {
                 return
             }
             print(message.body as Any)
@@ -118,95 +118,99 @@ import Foundation
     }
     
     public func loadView() {
-        browserControllerDelegate?.loadView?()
+        browserControllerDelegate!.loadView?()
     }
     
     public func didMoveToParentViewController() {
-        browserControllerDelegate?.didMoveToParentViewController?()
+        browserControllerDelegate!.didMoveToParentViewController?()
+    }
+    
+    public func viewDidLayout() {
+        browserControllerDelegate!.viewDidLayout?()
     }
     
     public func viewDidLayoutSubviews() {
-        browserControllerDelegate?.viewDidLayoutSubviews?()
+        browserControllerDelegate!.viewDidLayoutSubviews?()
     }
     
     public func viewWillTransitionToSize() {
-        browserControllerDelegate?.viewWillTransitionToSize?()
+        browserControllerDelegate!.viewWillTransitionToSize?()
     }
     
     public func viewDidLoad() {
-        browserControllerDelegate?.viewDidLoad?()
+        browserControllerDelegate!.viewDidLoad?()
     }
     
     public func viewWillAppear() {
-        browserControllerDelegate?.viewWillAppear?()
+        browserControllerDelegate!.viewWillAppear?()
     }
     
     public func viewWillAppear(_ animated: Bool) {
-        browserControllerDelegate?.viewWillAppear?(animated)
+        browserControllerDelegate!.viewWillAppear?(animated)
     }
     
     public func viewDidAppear() {
-        browserControllerDelegate?.viewDidAppear?()
+        browserControllerDelegate!.viewDidAppear?()
     }
 
     public func viewDidAppear(_ animated: Bool) {
-        browserControllerDelegate?.viewDidAppear?(animated)
+        browserControllerDelegate!.viewDidAppear?(animated)
     }
     
     public func viewWillDisappear() {
-        browserControllerDelegate?.viewWillDisappear?()
+        browserControllerDelegate!.viewWillDisappear?()
     }
     
     public func viewWillDisappear(_ animated: Bool) {
-        browserControllerDelegate?.viewWillDisappear?(animated)
+        browserControllerDelegate!.viewWillDisappear?(animated)
     }
     
     public func viewDidDisappear() {
-        browserControllerDelegate?.viewDidDisappear?()
+        browserControllerDelegate!.viewDidDisappear?()
     }
     
     public func viewDidDisappear(_ animated: Bool) {
-        browserControllerDelegate?.viewDidDisappear?(animated)
+        browserControllerDelegate!.viewDidDisappear?(animated)
     }
     
     public func nativeWebView() -> Any {
-        return browserControllerDelegate?.nativeWebView() as Any
+        return browserControllerDelegate!.nativeWebView!() as Any
     }
     
     public func url() -> URL? {
-        return browserControllerDelegate?.url()
+        return browserControllerDelegate!.url?()
     }
     
     public func pageTitle() -> String? {
-        return browserControllerDelegate?.pageTitle()
+        return browserControllerDelegate!.pageTitle?()
     }
     
     public func canGoBack() -> Bool {
-        return browserControllerDelegate?.canGoBack() ?? false
+        return browserControllerDelegate!.canGoBack?() ?? false
     }
     
     public func canGoForward() -> Bool {
-        return browserControllerDelegate?.canGoForward() ?? false
+        return browserControllerDelegate!.canGoForward?() ?? false
     }
     
     public func goBack() {
-        browserControllerDelegate?.goBack()
+        browserControllerDelegate!.goBack!()
     }
     
     public func goForward() {
-        browserControllerDelegate?.goForward()
+        browserControllerDelegate!.goForward!()
     }
     
     public func reload() {
-        browserControllerDelegate?.reload()
+        browserControllerDelegate!.reload!()
     }
     
     public func load(_ url: URL) {
-        browserControllerDelegate?.load(url)
+        browserControllerDelegate!.load!(url)
     }
     
     public func stopLoading() {
-        browserControllerDelegate?.stopLoading()
+        browserControllerDelegate!.stopLoading!()
     }
 
     public func zoomPageIn() {
@@ -255,25 +259,37 @@ import Foundation
     }
     
     public func toggleScrollLock() {
-        browserControllerDelegate?.toggleScrollLock?()
+        browserControllerDelegate!.toggleScrollLock?()
     }
     
     public func isScrollLockActive() -> Bool {
-        return browserControllerDelegate?.isScrollLockActive?() ?? false
+        return browserControllerDelegate!.isScrollLockActive?() ?? false
+    }
+    
+    public func setPrivateClipboardEnabled(_ privateClipboardEnabled: Bool) {
+        browserControllerDelegate!.setPrivateClipboardEnabled?(privateClipboardEnabled)
+    }
+    
+    public func setAllowDictionaryLookup(_ allowDictionaryLookup: Bool) {
+        browserControllerDelegate!.setAllowDictionaryLookup?(allowDictionaryLookup)
+    }
+    
+    public func setAllowPDFPlugIn(_ allowPDFPlugIn: Bool) {
+        browserControllerDelegate!.setAllowPDFPlugIn?(allowPDFPlugIn)
     }
     
     public func sessionTaskDidCompleteSuccessfully(_ task: URLSessionTask) {
-        browserControllerDelegate?.sessionTaskDidCompleteSuccessfully?(task)
+        browserControllerDelegate!.sessionTaskDidCompleteSuccessfully?(task)
     }
     
     /// SEBAbstractWebViewNavigationDelegate Methods
 
     public func setLoading(_ loading: Bool) {
-        navigationDelegate?.setLoading(loading)
+        navigationDelegate?.setLoading!(loading)
     }
     
     public func setCanGoBack(_ canGoBack: Bool, canGoForward: Bool) {
-        navigationDelegate?.setCanGoBack(canGoBack, canGoForward: canGoForward)
+        navigationDelegate?.setCanGoBack!(canGoBack, canGoForward: canGoForward)
     }
     
     public func openNewTab(with url: URL) -> SEBAbstractWebView {
@@ -281,7 +297,7 @@ import Foundation
     }
 
     public func examine(_ cookies: [HTTPCookie]) {
-        navigationDelegate?.examine(cookies)
+        navigationDelegate?.examine!(cookies)
     }
     
     public func sebWebViewDidStartLoad() {
@@ -431,6 +447,14 @@ import Foundation
     
     public func backgroundTintStyle () -> SEBBackgroundTintStyle {
         return navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
+    }
+    
+    public func storePasteboard() {
+        self.navigationDelegate?.storePasteboard?()
+    }
+    
+    public func restorePasteboard() {
+        self.navigationDelegate?.restorePasteboard?()
     }
     
     public var uiAlertController: Any?

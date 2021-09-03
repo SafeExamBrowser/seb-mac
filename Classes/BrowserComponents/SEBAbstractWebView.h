@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SEBAbstractBrowserControllerDelegate <NSObject>
 
-@required
+@optional
 - (id) nativeWebView;
 - (nullable NSURL*) url;
 - (nullable NSString*) pageTitle;
@@ -56,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) stopLoading;
 - (void) reload;
 
-@optional
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;
@@ -69,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) loadView;
 - (void) didMoveToParentViewController;
+- (void) viewDidLayout;
 - (void) viewDidLayoutSubviews;
 - (void) viewWillTransitionToSize;
 - (void) viewDidLoad;
@@ -84,6 +84,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) toggleScrollLock;
 - (BOOL) isScrollLockActive;
 
+- (void) setPrivateClipboardEnabled:(BOOL)privateClipboardEnabled;
+- (void) setAllowDictionaryLookup:(BOOL)allowDictionaryLookup;
+- (void) setAllowPDFPlugIn:(BOOL)allowPDFPlugIn;
+
 - (void) disableFlashFullscreen;
 
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
@@ -93,13 +97,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SEBAbstractWebViewNavigationDelegate <NSObject>
 
-@required
+@optional
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (void) setLoading:(BOOL)loading;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
-
-@optional
 - (void) setTitle:(NSString *)title;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
@@ -127,6 +129,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 // Currently required by SEB-macOS
 @property (nullable, readwrite, nonatomic) NSArray<NSData *> *privatePasteboardItems;
+- (void) storePasteboard;
+- (void) restorePasteboard;
 
 // Required by SEB-iOS
 - (SEBBackgroundTintStyle) backgroundTintStyle;
