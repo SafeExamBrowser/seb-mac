@@ -34,7 +34,6 @@
 
 #import "SEBWebView.h"
 #import "WebPluginDatabase.h"
-#import "NSPasteboard+SaveRestore.h"
 
 
 @implementation SEBWebView
@@ -53,68 +52,10 @@
 }
 
 
-//- (void) reload:(id)sender
-//{
-//    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
-//         (self.window == self.browserController.mainBrowserWindow ?
-//          @"org_safeexambrowser_SEB_browserWindowAllowReload" : @"org_safeexambrowser_SEB_newBrowserWindowAllowReload")]) {
-//        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
-//             (self.window == self.browserController.mainBrowserWindow ?
-//              @"org_safeexambrowser_SEB_showReloadWarning" : @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning")]) {
-//            // Display warning and ask if to reload page
-//            NSAlert *newAlert = [[NSAlert alloc] init];
-//            [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
-//            [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
-//            [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
-//            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-//            [newAlert setAlertStyle:NSWarningAlertStyle];
-//
-//            void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
-//                switch(answer) {
-//                    case NSAlertFirstButtonReturn:
-//                        // Reset the list of dismissed URLs and the dismissAll flag
-//                        // (for the Teach allowed/blocked URLs mode)
-//                        [self.notAllowedURLs removeAllObjects];
-//                        self.dismissAll = NO;
-//
-//                        // Reload page
-//                        DDLogInfo(@"Reloading current webpage");
-//                        [super reload:sender];
-//
-//                        break;
-//
-//                    default:
-//                        // Return without reloading page
-//                        return;
-//                }
-//            };
-//
-//            if ((self.window.styleMask == NSBorderlessWindowMask ||
-//                 floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) &&
-//                floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_15) {
-//                [self.browserController.sebController.modalAlertWindows addObject:newAlert.window];
-//                NSModalResponse answer = [newAlert runModal];
-//                [self.browserController.sebController removeAlertWindow:newAlert.window];
-//                conditionalReload(answer);
-//
-//            } else {
-//                [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
-//            }
-//
-//        } else {
-//            // Reload page without displaying warning
-//            DDLogInfo(@"Reloading current webpage");
-//            [super reload:sender];
-//        }
-//    }
-//}
-
-
 // Optional blocking of dictionary lookup (by 3-finger tap)
 -(void)quickLookWithEvent:(NSEvent *)event
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+    if (self.navigationDelegate.allowDictionaryLookup) {
         [super quickLookWithEvent:event];
         DDLogInfo(@"Dictionary look-up was used! %s", __FUNCTION__);
     } else {
@@ -139,8 +80,7 @@
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
+    if ([MIMEType isEqualToString:@"application/pdf"] && !self.navigationDelegate.allowPDFPlugIn)
     {
         return nil;
     }
@@ -185,12 +125,8 @@
 - (void)copy:(id)sender
 {
     [super copy:sender];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
-        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]) {
-        NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-        NSArray *archive = [generalPasteboard archiveObjects];
-        self.navigationDelegate.privatePasteboardItems = archive;
-        [generalPasteboard clearContents];
+    if (self.navigationDelegate.privateClipboardEnabled) {
+        [self.navigationDelegate storePasteboard];
     }
 }
 
@@ -198,26 +134,18 @@
 - (void)cut:(id)sender
 {
     [super cut:sender];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
-        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]) {
-        NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-        NSArray *archive = [generalPasteboard archiveObjects];
-        self.navigationDelegate.privatePasteboardItems = archive;
-        [generalPasteboard clearContents];
+    if (self.navigationDelegate.privateClipboardEnabled) {
+        [self.navigationDelegate storePasteboard];
     }
 }
 
 
 - (void)paste:(id)sender
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
-        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]) {
-        NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-        [generalPasteboard clearContents];
-        NSArray *archive = self.navigationDelegate.privatePasteboardItems;
-        [generalPasteboard restoreArchive:archive];
+    if (self.navigationDelegate.privateClipboardEnabled) {
+        [self.navigationDelegate restorePasteboard];
         [super paste:sender];
-        [generalPasteboard clearContents];
+        [[NSPasteboard generalPasteboard] clearContents];
     } else {
         [super paste:sender];
     }

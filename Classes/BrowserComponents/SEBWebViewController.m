@@ -272,6 +272,22 @@
 }
 
 
+- (void)setPrivateClipboardEnabled:(BOOL)privateClipboardEnabled
+{
+    _privateClipboardEnabled = privateClipboardEnabled;
+}
+
+- (void)setAllowDictionaryLookup:(BOOL)allowDictionaryLookup
+{
+    _allowDictionaryLookup = allowDictionaryLookup;
+}
+
+- (void)setAllowPDFPlugIn:(BOOL)allowPDFPlugIn
+{
+    _allowPDFPlugIn = allowPDFPlugIn;
+}
+
+
 - (void) disableFlashFullscreen
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -374,6 +390,15 @@
 }
 
 
+- (void) storePasteboard
+{
+    [self.navigationDelegate storePasteboard];
+}
+
+- (void) restorePasteboard
+{
+    [self.navigationDelegate restorePasteboard];
+}
 
 
 #pragma mark WebView Delegates

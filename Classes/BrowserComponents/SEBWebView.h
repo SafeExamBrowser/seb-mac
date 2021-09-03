@@ -34,14 +34,16 @@
 
 #import <WebKit/WebKit.h>
 #include "WebViewInternal.h"
+#import "SEBWebViewController.h"
 #import "SEBOSXBrowserController.h"
 
 @class WebBasePluginPackage;
+@class SEBWebViewController;
 @class SEBOSXBrowserController;
 
 @interface SEBWebView : WebView <NSTouchBarProvider>
 
-@property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
+@property (weak, nonatomic) SEBWebViewController *navigationDelegate;
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
 @property (strong, nonatomic) NSURL *originalURL;
