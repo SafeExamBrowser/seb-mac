@@ -92,37 +92,39 @@
 }
 
 
-- (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
-    
-    NSString * chars = [theEvent characters];
-    BOOL status = NO;
-    
-    if ([theEvent modifierFlags] & NSCommandKeyMask){
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent
+{
+    if (self.navigationDelegate.privateClipboardEnabled) {
+        NSString * chars = [theEvent characters];
+        BOOL status = NO;
         
-        if ([chars isEqualTo:@"c"]){
-            [self copy:nil];
-            status = YES;
+        if ([theEvent modifierFlags] & NSCommandKeyMask) {
+            
+            if ([chars isEqualTo:@"c"]){
+                [self privateCopy:nil];
+                status = YES;
+            }
+            
+            if ([chars isEqualTo:@"v"]){
+                [self privatePaste:nil];
+                status = YES;
+            }
+            
+            if ([chars isEqualTo:@"x"]){
+                [self privateCut:nil];
+                status = YES;
+            }
         }
         
-        if ([chars isEqualTo:@"v"]){
-            [self paste:nil];
-            status = YES;
-        }
-        
-        if ([chars isEqualTo:@"x"]){
-            [self cut:nil];
-            status = YES;
+        if (status) {
+            return YES;
         }
     }
-    
-    if (status)
-        return YES;
-    
     return [super performKeyEquivalent:theEvent];
 }
 
 
-- (void)copy:(id)sender
+- (void)privateCopy:(id)sender
 {
     [super copy:sender];
     if (self.navigationDelegate.privateClipboardEnabled) {
@@ -131,7 +133,7 @@
 }
 
 
-- (void)cut:(id)sender
+- (void)privateCut:(id)sender
 {
     [super cut:sender];
     if (self.navigationDelegate.privateClipboardEnabled) {
@@ -140,7 +142,7 @@
 }
 
 
-- (void)paste:(id)sender
+- (void)privatePaste:(id)sender
 {
     if (self.navigationDelegate.privateClipboardEnabled) {
         [self.navigationDelegate restorePasteboard];

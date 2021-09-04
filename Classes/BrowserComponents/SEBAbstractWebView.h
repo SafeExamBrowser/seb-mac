@@ -64,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) textSizeDecrease;
 - (void) textSizeReset;
 
+- (void) privateCopy:(id)sender;
+- (void) privateCut:(id)sender;
+- (void) privatePaste:(id)sender;
 - (void) clearPrivatePasteboard;
 
 - (void) loadView;
