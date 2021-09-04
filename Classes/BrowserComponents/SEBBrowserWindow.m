@@ -335,6 +335,22 @@
 }
 
 
+- (void) privateCopy:(id)sender
+{
+    [self.browserControllerDelegate privateCopy:sender];
+}
+
+- (void) privateCut:(id)sender
+{
+    [self.browserControllerDelegate privateCut:sender];
+}
+
+- (void) privatePaste:(id)sender
+{
+    [self.browserControllerDelegate privatePaste:sender];
+}
+
+
 #pragma mark URL Filter Blocked Message
 
 - (void) showURLFilterMessage {
@@ -788,6 +804,7 @@
 - (void)stopLoading {
     [self.browserControllerDelegate stopLoading];
 }
+
 
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods

@@ -258,6 +258,18 @@ import Foundation
         (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
     }
     
+    public func privateCopy(_ sender: Any) {
+        browserControllerDelegate?.privateCopy?(sender)
+    }
+    
+    public func privateCut(_ sender: Any) {
+        browserControllerDelegate?.privateCut?(sender)
+    }
+    
+    public func privatePaste(_ sender: Any) {
+        browserControllerDelegate?.privatePaste?(sender)
+    }
+    
     public func toggleScrollLock() {
         browserControllerDelegate!.toggleScrollLock?()
     }

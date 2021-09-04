@@ -256,6 +256,23 @@
     [_sebWebView makeTextStandardSize:self];
 }
 
+
+- (void) privateCopy:(id)sender
+{
+    [_sebWebView privateCopy:sender];
+}
+
+- (void) privateCut:(id)sender
+{
+    [_sebWebView privateCut:sender];
+}
+
+- (void) privatePaste:(id)sender
+{
+    [_sebWebView privatePaste:sender];
+}
+
+
 - (nonnull id)nativeWebView
 {
     return _sebWebView;

@@ -174,6 +174,22 @@
 }
 
 
+- (void) privateCopy:(id)sender
+{
+    [self.browserControllerDelegate privateCopy:sender];
+}
+
+- (void) privateCut:(id)sender
+{
+    [self.browserControllerDelegate privateCut:sender];
+}
+
+- (void) privatePaste:(id)sender
+{
+    [self.browserControllerDelegate privatePaste:sender];
+}
+
+
 - (void)loadView
 {
     [self.browserControllerDelegate loadView];
