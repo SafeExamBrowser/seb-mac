@@ -898,6 +898,21 @@
 
 #pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
+- (void) privateCopy:(id)sender
+{
+    [self.activeBrowserWindow privateCopy:sender];
+}
+
+- (void) privateCut:(id)sender
+{
+    [self.activeBrowserWindow privateCut:sender];
+}
+
+- (void) privatePaste:(id)sender
+{
+    [self.activeBrowserWindow privatePaste:sender];
+}
+
 - (void) clearPrivatePasteboard
 {
     self.privatePasteboardItems = [NSArray array];

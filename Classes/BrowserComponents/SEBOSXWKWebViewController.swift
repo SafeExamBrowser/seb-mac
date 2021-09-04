@@ -94,6 +94,18 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         return sebWebView?.title
     }
     
+    public func privateCopy(_ sender: Any) {
+        sebWebView?.privateCopy(sender)
+    }
+    
+    public func privateCut(_ sender: Any) {
+        sebWebView?.privateCut(sender)
+    }
+    
+    public func privatePaste(_ sender: Any) {
+        sebWebView?.privatePaste(sender)
+    }
+    
     public func toggleScrollLock() {
     }
     
@@ -274,30 +286,32 @@ public class SEBOSXWKWebView: WKWebView {
     weak public var sebOSXWebViewController: SEBOSXWKWebViewController?
         
     public override func performKeyEquivalent(with event: NSEvent) -> Bool {
-        let chars = event.characters
-        var status = false
-        
-        if event.modifierFlags.contains(.command)  {
-            if chars == "c" {
-                newCopy(self)
-                status = true
+        if sebOSXWebViewController!.privateClipboardEnabled {
+            let chars = event.characters
+            var status = false
+            
+            if event.modifierFlags.contains(.command)  {
+                if chars == "c" {
+                    privateCopy(self)
+                    status = true
+                }
+                if chars == "x" {
+                    privateCut(self)
+                    status = true
+                }
+                if chars == "v" {
+                    privatePaste(self)
+                    status = true
+                }
             }
-            if chars == "x" {
-                newCut(self)
-                status = true
+            if status {
+                return true
             }
-            if chars == "v" {
-                newPaste(self)
-                status = true
-            }
-        }
-        if status {
-            return true
         }
         return super.performKeyEquivalent(with: event)
     }
 
-    @objc public func newCopy(_ sender: Any?) {
+    @objc public func privateCopy(_ sender: Any?) {
         super.perform(NSSelectorFromString("copy:"), with: sender)
         if sebOSXWebViewController!.privateClipboardEnabled {
             delayWithSeconds(0.1) {
@@ -306,7 +320,7 @@ public class SEBOSXWKWebView: WKWebView {
         }
     }
 
-    @objc public func newCut(_ sender: Any?) {
+    @objc public func privateCut(_ sender: Any?) {
         super.perform(NSSelectorFromString("cut:"), with: sender)
         if sebOSXWebViewController!.privateClipboardEnabled {
             delayWithSeconds(0.1) {
@@ -315,7 +329,7 @@ public class SEBOSXWKWebView: WKWebView {
         }
     }
 
-    @objc public func newPaste(_ sender: Any?) {
+    @objc public func privatePaste(_ sender: Any?) {
         if sebOSXWebViewController!.privateClipboardEnabled {
             self.sebOSXWebViewController!.restorePasteboard()
             delayWithSeconds(0.1) {
