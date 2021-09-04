@@ -58,4 +58,8 @@
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType;
 
+- (void) privateCopy:(id)sender;
+- (void) privateCut:(id)sender;
+- (void) privatePaste:(id)sender;
+
 @end

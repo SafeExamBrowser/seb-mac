@@ -4123,6 +4123,26 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Setup Main User Interface
 
+// Customized cut, copy, paste Menu commands
+
+- (IBAction) copy:(id)sender
+{
+    [self.browserController privateCopy:sender];
+}
+
+
+- (IBAction) cut:(id)sender
+{
+    [self.browserController privateCut:sender];
+}
+
+
+- (IBAction) paste:(id)sender
+{
+    [self.browserController privatePaste:sender];
+}
+
+
 // Set up and display SEB Dock
 - (void) openSEBDock
 {
