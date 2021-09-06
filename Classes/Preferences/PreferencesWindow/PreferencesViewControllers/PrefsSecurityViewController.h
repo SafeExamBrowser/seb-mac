@@ -58,7 +58,7 @@
     __weak IBOutlet NSButton *allowedDisplayBuiltinEnforceButton;
     __weak IBOutlet NSButton *allowedDisplayBuiltinExceptDesktopButton;
     
-    __weak IBOutlet NSButton *allowMacOSVersionNumberCheckFullButton;
+    __weak IBOutlet NSPopUpButton *minMacOSVersionPopUpButton;
     __weak IBOutlet NSComboBox *minMacOSVersionMajor;
     __weak IBOutlet NSComboBox *minMacOSVersionMinor;
     __weak IBOutlet NSComboBox *minMacOSVersionPatch;
