@@ -2542,45 +2542,111 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (void)checkMinMacOSVersion
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
-    _enforceMinMacOSVersion = SEBMinMacOSVersionSupported;
-    switch (minMacOSVersion) {
-        case SEBMinMacOS10_12:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_12 ? SEBMinMacOS10_12 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinMacOS10_13:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_13 ? SEBMinMacOS10_13 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinMacOS10_14:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_14 ? SEBMinMacOS10_14 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinMacOS10_15:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_15 ? SEBMinMacOS10_15 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinMacOS11:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_15 ? SEBMinMacOS11 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinMacOS12:
-            if (@available(macOS 12, *)) {
-            } else {
-                _enforceMinMacOSVersion = SEBMinMacOS12;
-            }
-            break;
-            
-        default:
-            break;
-    }
-    if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
-        DDLogError(@"Current settings require SEB to be running at least on %@, but it isn't! SEB will therefore quit!", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]);
-        quittingMyself = true; //quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; //quit SEB
+    
+    // Check if running on older macOS version than the one allowed in settings
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+
+    NSUInteger allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+    NSUInteger allowMacOSVersionMinor = 0;
+    NSUInteger allowMacOSVersionPatch = 0;
+
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"]) {
+        // Manage old check only for allowed major version
+        SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
+        switch (minMacOSVersion) {
+            case SEBMinMacOS10_12:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 12;
+                break;
+                
+            case SEBMinMacOS10_13:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 13;
+                break;
+                
+            case SEBMinMacOS10_14:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 14;
+                break;
+                
+            case SEBMinMacOS10_15:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 15;
+                break;
+                
+            case SEBMinMacOS11:
+                allowMacOSVersionMajor = 11;
+                break;
+                
+            case SEBMinMacOS12:
+                allowMacOSVersionMajor = 12;
+                break;
+                
+            default:
+                break;
+        }
     } else {
-        DDLogInfo(@"SEB is running at least on the minimal macOS version %@ required by current settings (actually on version %f)", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion], floor(NSAppKitVersionNumber));
+        // Full granular check for allowed major, minor and patch version
+        allowMacOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
+        allowMacOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
+        allowMacOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    }
+    
+    // Check for minimal macOS version requirements of this SEB version
+    if (allowMacOSVersionMajor < SEBMinMacOSVersionSupportedMajor) {
+        allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+        allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+        allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+    } else if (allowMacOSVersionMajor == SEBMinMacOSVersionSupportedMajor) {
+        if (allowMacOSVersionMinor < SEBMinMacOSVersionSupportedMinor) {
+            allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        } else if (allowMacOSVersionMinor == SEBMinMacOSVersionSupportedMinor && allowMacOSVersionPatch < SEBMinMacOSVersionSupportedPatch) {
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        }
+    }
+
+    if (currentOSMajorVersion < allowMacOSVersionMajor ||
+        (currentOSMajorVersion == allowMacOSVersionMajor &&
+         currentOSMinorVersion < allowMacOSVersionMinor) ||
+        (currentOSMajorVersion == allowMacOSVersionMajor &&
+         currentOSMinorVersion == allowMacOSVersionMinor &&
+         currentOSPatchVersion < allowMacOSVersionPatch)
+        )
+    {
+        NSString *allowedMacOSVersionMinorString = @"";
+        NSString *allowedMacOSVersionPatchString = @"";
+        if (allowMacOSVersionPatch > 0 || allowMacOSVersionMinor > 0) {
+            allowedMacOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowMacOSVersionMinor];
+        }
+        if (allowMacOSVersionPatch > 0) {
+            allowedMacOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowMacOSVersionPatch];
+        }
+        NSString *alertMessageMacOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
+                                            SEBShortAppName,
+                                            NSLocalizedString(@" settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS ", nil),
+                                            (unsigned long)allowMacOSVersionMajor,
+                                            allowedMacOSVersionMinorString,
+                                            allowedMacOSVersionPatchString];
+        DDLogError(@"%s %@", __FUNCTION__, alertMessageMacOSVersion);
+        
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Running on Current macOS Version Not Allowed!", nil)]];
+        [modalAlert setInformativeText:alertMessageMacOSVersion];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            if (self.startingUp) {
+                self->quittingMyself = true; //quit SEB without asking for confirmation or password
+                [NSApp terminate: nil]; //quit SEB
+            } else {
+                [self quitSEBOrSession];
+            }
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     }
 }
 
@@ -4978,27 +5044,22 @@ conditionallyForWindow:(NSWindow *)window
     
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
     // downloads to disk, and ensures that future requests occur on a new socket.
-    // OS X 10.9 and newer
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            DDLogInfo(@"Cookies, caches and credential stores were reset");
-        }];
-    } else {
-        DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
-    }
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        DDLogInfo(@"Cookies, caches and credential stores were reset");
+    }];
 
     if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
-        NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil),
-                                        [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
-        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-            [self removeAlertWindow:modalAlert.window];
-            [self applicationWillTerminateProceed];
-        };
-        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+//        NSAlert *modalAlert = [self newAlert];
+//        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
+//        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil),
+//                                        [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
+//        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+//        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+//        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+//            [self removeAlertWindow:modalAlert.window];
+//            [self applicationWillTerminateProceed];
+//        };
+//        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     } else if (_forceAppFolder) {
         // Show alert that SEB is not placed in Applications folder
         NSString *applicationsDirectoryName = @"Applications";
