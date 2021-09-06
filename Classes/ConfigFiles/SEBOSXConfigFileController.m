@@ -232,10 +232,13 @@
                 return false;
         }
     };
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
-            return true;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
+                return true;
+            }
         }
     }
     [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
