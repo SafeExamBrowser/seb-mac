@@ -197,6 +197,18 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowiOSVersionNumberPatch",
                    
                    @NO,
+                   @"allowMacOSVersionNumberCheckFull",
+                   
+                   [NSNumber numberWithLong:SEBMinMacOSVersionSupportedMajor],
+                   @"allowMacOSVersionNumberMajor",
+                   
+                   [NSNumber numberWithLong:SEBMinMacOSVersionSupportedMinor],
+                   @"allowMacOSVersionNumberMinor",
+                   
+                   [NSNumber numberWithLong:SEBMinMacOSVersionSupportedPatch],
+                   @"allowMacOSVersionNumberPatch",
+                   
+                   @NO,
                    @"allowPDFPlugIn",
                    
                    @YES,
@@ -618,6 +630,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:SEBMinOSX10_11],
                    @"minMacOSVersion",
+                   
+                   @0,
+                   @"minMacOSVersionNumberMinor",
                    
                    @YES,
                    @"mobileAllowInlineMediaPlayback",
