@@ -2542,6 +2542,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (void)checkMinMacOSVersion
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    enforceMinMacOSVersion = NO;
     
     // Check if running on older macOS version than the one allowed in settings
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
@@ -2549,8 +2550,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
 
     NSUInteger allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
-    NSUInteger allowMacOSVersionMinor = 0;
-    NSUInteger allowMacOSVersionPatch = 0;
+    NSUInteger allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+    NSUInteger allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
 
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"]) {
         // Manage old check only for allowed major version
@@ -2559,29 +2560,37 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             case SEBMinMacOS10_12:
                 allowMacOSVersionMajor = 10;
                 allowMacOSVersionMinor = 12;
+                allowMacOSVersionPatch = 0;
                 break;
                 
             case SEBMinMacOS10_13:
                 allowMacOSVersionMajor = 10;
                 allowMacOSVersionMinor = 13;
+                allowMacOSVersionPatch = 0;
                 break;
                 
             case SEBMinMacOS10_14:
                 allowMacOSVersionMajor = 10;
                 allowMacOSVersionMinor = 14;
+                allowMacOSVersionPatch = 0;
                 break;
                 
             case SEBMinMacOS10_15:
                 allowMacOSVersionMajor = 10;
                 allowMacOSVersionMinor = 15;
+                allowMacOSVersionPatch = 0;
                 break;
                 
             case SEBMinMacOS11:
                 allowMacOSVersionMajor = 11;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
                 break;
                 
             case SEBMinMacOS12:
                 allowMacOSVersionMajor = 12;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
                 break;
                 
             default:
@@ -2639,8 +2648,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
+            self->enforceMinMacOSVersion = YES;
             if (self.startingUp) {
-                self->quittingMyself = true; //quit SEB without asking for confirmation or password
+                self->quittingMyself = YES; //quit SEB without asking for confirmation or password
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 [self quitSEBOrSession];
@@ -5048,18 +5058,8 @@ conditionallyForWindow:(NSWindow *)window
         DDLogInfo(@"Cookies, caches and credential stores were reset");
     }];
 
-    if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
-//        NSAlert *modalAlert = [self newAlert];
-//        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
-//        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil),
-//                                        [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
-//        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-//        [modalAlert setAlertStyle:NSCriticalAlertStyle];
-//        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-//            [self removeAlertWindow:modalAlert.window];
-//            [self applicationWillTerminateProceed];
-//        };
-//        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+    if (enforceMinMacOSVersion) {
+        [self applicationWillTerminateProceed];
     } else if (_forceAppFolder) {
         // Show alert that SEB is not placed in Applications folder
         NSString *applicationsDirectoryName = @"Applications";
