@@ -244,18 +244,21 @@ import Foundation
     }
     
     public func textSizeIncrease() {
+        let webView = nativeWebView() as! WKWebView
         let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='125%'"
-        (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
     public func textSizeDecrease() {
+        let webView = nativeWebView() as! WKWebView
         let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='75%'"
-        (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
     public func textSizeReset() {
+        let webView = nativeWebView() as! WKWebView
         let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='100%'"
-        (nativeWebView() as! WKWebView).evaluateJavaScript(js, completionHandler: nil)
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
     public func privateCopy(_ sender: Any) {
