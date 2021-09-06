@@ -271,14 +271,10 @@
         }
     }
     
-    // If we deal with an unencrypted seb file
-    if ([prefixString isEqualToString:@"<?xm"]) {
-        // We reset the "for editing" flag, because it doesn't make sense having to enter an admin pw if the file is unencrypted
-        forEditing = false;
-    } else {
-        // The file was encrypted:
-        // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
-        encryptedSEBData = [encryptedSEBData gzipInflate];
+    // If we don't deal with an unencrypted seb file
+    // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    if (![prefixString isEqualToString:@"<?xm"]) {
+        sebData = [sebData gzipInflate];
     }
     [self parseSettingsStartingExamForEditing:forEditing];
 }
