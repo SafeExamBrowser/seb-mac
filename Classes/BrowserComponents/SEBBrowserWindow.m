@@ -548,9 +548,12 @@
                             window = nil;
                         }
                         
-                        if (@available(macOS 11.0, *)) {
-                            if (!window && (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled)) {
-                                window = self.browserController.mainBrowserWindow;
+                        if (@available(macOS 12.0, *)) {
+                        } else {
+                            if (@available(macOS 11.0, *)) {
+                                if (!window && (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled)) {
+                                    window = self.browserController.mainBrowserWindow;
+                                }
                             }
                         }
                         
@@ -1071,10 +1074,13 @@ completionHandler:(void (^)(BOOL result))completionHandler
     [self makeKeyAndOrderFront:self];
     
     NSModalResponse alertResultButton;
-    if (@available(macOS 11.0, *)) {
-        if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
-            alertResultButton = [self showCustomModalAlert:[NSString stringWithFormat:@"%@\n\n%@", pageTitle, message]];
-            completionHandler(YES);
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
+                alertResultButton = [self showCustomModalAlert:[NSString stringWithFormat:@"%@\n\n%@", pageTitle, message]];
+                completionHandler(YES);
+            }
         }
     }
     NSAlert *modalAlert = [self.browserController.sebController newAlert];
@@ -1099,10 +1105,13 @@ runJavaScriptConfirmPanelWithMessage:(NSString *)message
     [self makeKeyAndOrderFront:self];
     
     NSModalResponse alertResultButton;
-    if (@available(macOS 11.0, *)) {
-        if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
-            alertResultButton = [self showCustomModalAlert:[NSString stringWithFormat:@"%@\n\n%@", pageTitle, message]];
-            return alertResultButton == NSAlertFirstButtonReturn;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.browserController.sebController.isAACEnabled || self.browserController.sebController.wasAACEnabled) {
+                alertResultButton = [self showCustomModalAlert:[NSString stringWithFormat:@"%@\n\n%@", pageTitle, message]];
+                return alertResultButton == NSAlertFirstButtonReturn;
+            }
         }
     }
     NSAlert *modalAlert = [self.browserController.sebController newAlert];

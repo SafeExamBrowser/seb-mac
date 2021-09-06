@@ -571,9 +571,12 @@
 
 - (SEBDisabledPreferencesAnswer) alertForDisabledPreferences
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBDisabledPreferencesAnswerApply;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBDisabledPreferencesAnswerApply;
+            }
         }
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
@@ -611,9 +614,12 @@
 
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlertWithText:(NSString *)informativeText
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBUnsavedSettingsAnswerDontSave;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBUnsavedSettingsAnswerDontSave;
+            }
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -638,9 +644,12 @@
 // Ask if edited settings should be applied or previously active settings restored
 - (SEBApplySettingsAnswers) askToApplySettingsAlert
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBApplySettingsAnswerApply;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBApplySettingsAnswerApply;
+            }
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -1077,9 +1086,12 @@
 
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
-            if (@available(macOS 11.0, *)) {
-                if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-                    return YES;
+            if (@available(macOS 12.0, *)) {
+            } else {
+                if (@available(macOS 11.0, *)) {
+                    if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                        return YES;
+                    }
                 }
             }
 
