@@ -3986,8 +3986,14 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) updateAACAvailablility
 {
-    if (@available(macOS 10.15.4, *)) {
-        DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+
+    if ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) ||
+        (currentOSMajorVersion == 11 && currentOSMinorVersion >= 4) ||
+        currentOSMajorVersion > 11) {
+        DDLogDebug(@"Running on macOS 10.15.4-11.0 or >11.4, may use AAC if allowed in current settings.");
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] && !_overrideAAC;
     } else {
         _isAACEnabled = NO;
