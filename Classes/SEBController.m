@@ -3148,10 +3148,13 @@ bool insideMatrix(){
 conditionallyForWindow:(NSWindow *)window
      completionHandler:(void (^)(NSModalResponse returnCode))handler
 {
-    if (@available(macOS 11.0, *)) {
-        if (_isAACEnabled || _wasAACEnabled) {
-            [alert beginSheetModalForWindow:window completionHandler:(void (^)(NSModalResponse answer))handler];
-            return;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (_isAACEnabled || _wasAACEnabled) {
+                [alert beginSheetModalForWindow:window completionHandler:(void (^)(NSModalResponse answer))handler];
+                return;
+            }
         }
     }
     NSModalResponse answer = [alert runModal];
@@ -4457,9 +4460,12 @@ conditionallyForWindow:(NSWindow *)window
         window = nil;
     }
     
-    if (@available(macOS 11.0, *)) {
-        if (!window && (_isAACEnabled || _wasAACEnabled)) {
-            window = self.browserController.mainBrowserWindow;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (!window && (_isAACEnabled || _wasAACEnabled)) {
+                window = self.browserController.mainBrowserWindow;
+            }
         }
     }
 
@@ -4548,9 +4554,12 @@ conditionallyForWindow:(NSWindow *)window
         [_modalAlertWindows addObject:enterPasswordDialogWindow];
     }
     
-    if (@available(macOS 11.0, *)) {
-        if (!window && (_isAACEnabled || _wasAACEnabled)) {
-            window = self.browserController.mainBrowserWindow;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (!window && (_isAACEnabled || _wasAACEnabled)) {
+                window = self.browserController.mainBrowserWindow;
+            }
         }
     }
 
