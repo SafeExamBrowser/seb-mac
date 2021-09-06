@@ -251,7 +251,7 @@
                                         <subviews>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
                                                 <rect key="frame" x="-2" y="382" width="272" height="18"/>
-                                                <string key="toolTip">The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) </string>
+                                                <string key="toolTip">Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4 (except macOS Big Sur 11.0-11.3). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) </string>
                                                 <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
