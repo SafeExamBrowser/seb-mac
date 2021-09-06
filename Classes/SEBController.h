@@ -115,7 +115,7 @@
     BOOL _cmdKeyDown;
     DDFileLogger *_myLogger;
     BOOL _forceAppFolder;
-    SEBMinMacOSVersion _enforceMinMacOSVersion;
+    BOOL enforceMinMacOSVersion;
     pid_t sebPID;
     BOOL allowScreenCapture;
     BOOL allowScreenSharing;

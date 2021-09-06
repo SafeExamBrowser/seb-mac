@@ -210,17 +210,17 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_minMacOSVersions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"OS X 10.7 Lion", nil),
-            NSLocalizedString(@"OS X 10.8 Mountain Lion", nil),
-            NSLocalizedString(@"OS X 10.9 Mavericks", nil),
-            NSLocalizedString(@"OS X 10.10 Yosemite", nil),
-            NSLocalizedString(@"OS X 10.11 El Capitan", nil),
-            NSLocalizedString(@"macOS 10.12 Sierra", nil),
-            NSLocalizedString(@"macOS 10.13 High Sierra", nil),
-            NSLocalizedString(@"macOS 10.14 Mojave", nil),
-            NSLocalizedString(@"macOS 10.15 Catalina", nil),
-            NSLocalizedString(@"macOS 11 Big Sur", nil),
-            NSLocalizedString(@"macOS 12 Monterey", nil),
+            NSLocalizedString(@"10.7 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.8 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.9 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.10 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.11 El Capitan", nil),
+            NSLocalizedString(@"10.12 Sierra", nil),
+            NSLocalizedString(@"10.13 High Sierra", nil),
+            NSLocalizedString(@"10.14 Mojave", nil),
+            NSLocalizedString(@"10.15 Catalina", nil),
+            NSLocalizedString(@"11 Big Sur", nil),
+            NSLocalizedString(@"12 Monterey", nil),
             nil];
 }
 

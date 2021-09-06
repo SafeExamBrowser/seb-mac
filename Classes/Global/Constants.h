@@ -530,8 +530,8 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
 
 static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_11;
-static NSInteger SEBMinMacOSVersionSupportedMajor = 11;
-static NSInteger SEBMinMacOSVersionSupportedMinor = 0;
+static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
+static NSInteger SEBMinMacOSVersionSupportedMinor = 11;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
 
 #endif
