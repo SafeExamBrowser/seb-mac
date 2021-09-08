@@ -53,22 +53,24 @@
         downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
-        if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
-            BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-            
-            if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
+        if (@available(macOS 10.13, *)) {
+            if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
+                BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
                 
-                if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
-                    (webViewSelectPolicy == webViewSelectPreferModern) ||
-                    (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
-                    downloadingInTemporaryWebView) {
+                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
                     
-                    DDLogInfo(@"Opening modern WebView");
-                    SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
-                    sebAbstractModernWebView.navigationDelegate = self;
-                    self.browserControllerDelegate = sebAbstractModernWebView;
-                    [self initGeneralProperties];
-                    return self;
+                    if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
+                        (webViewSelectPolicy == webViewSelectPreferModern) ||
+                        (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                        downloadingInTemporaryWebView) {
+                        
+                        DDLogInfo(@"Opening modern WebView");
+                        SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
+                        sebAbstractModernWebView.navigationDelegate = self;
+                        self.browserControllerDelegate = sebAbstractModernWebView;
+                        [self initGeneralProperties];
+                        return self;
+                    }
                 }
             }
         }
