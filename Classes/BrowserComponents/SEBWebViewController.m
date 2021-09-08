@@ -857,7 +857,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
-    DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+    DDLogDebug(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
     //NSString *requestedHost = [[request mainDocumentURL] host];
     
     SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
@@ -956,20 +956,20 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                     // Close document and therefore also window
                     //Workaround: Flash crashes after closing window and then clicking some other link
                     [[sender preferences] setPlugInsEnabled:NO];
-                    DDLogDebug(@"Now closing new document browser window for: %@", self.sebWebView);
+                    DDLogDebug(@"newBrowserWindowPolicy == openInNewWindow: closing new document browser window for: %@", self.sebWebView);
                     [self.navigationDelegate closeWebView];
                 } else if (newBrowserWindowPolicy == openInSameWindow) {
                     if (self.sebWebView) {
+                        DDLogDebug(@"newBrowserWindowPolicy == openInSameWindow: closing the temporary WebView: %@", self.sebWebView);
                         [sender close]; //close the temporary webview
                     }
                 }
             }
-            // Don't load the request
-            [listener ignore];
-            return;
         }
+        // Don't load the request
+        [listener ignore];
+        return;
     }
-    
     [listener use];
 }
 
