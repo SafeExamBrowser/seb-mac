@@ -75,12 +75,6 @@
 - (BOOL) isMainBrowserWebViewActive;
 
 /**
- * @brief       Delegate method which returns a placeholder text in case settings
- *              don't allow to display its URL
- */
-- (NSString *) showURLplaceholderTitleForWebpage;
-
-/**
  * @brief       Open a new, temporary webView for downloading the linked config file
  *              This allows the user to authenticate if the link target is stored on a secured server
  */
@@ -162,7 +156,9 @@
 
 @property (strong, nonatomic) NSURL *sebServerExamStartURL;
 
+@property (readwrite) BOOL finishedInitializing;
 @property (readwrite) BOOL directConfigDownloadAttempted;
+@property (strong, nonatomic) NSURL *openConfigSEBURL;
 @property (strong, nonatomic) NSURL *originalURL;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
