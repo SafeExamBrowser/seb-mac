@@ -81,6 +81,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 // Initialize and register as delegate for custom URL protocol
 - (instancetype)init
 {
+    DDLogInfo(@"-[SEBBrowserController init]");
     self = [super init];
     if (self) {
         [self resetAllCookiesWithCompletionHandler:^{
@@ -89,6 +90,12 @@ void run_block_on_ui_thread(dispatch_block_t block)
             // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
             NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
             self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+            self.finishedInitializing = YES;
+            NSURL *sebURLWaitingToBeOpened = self.openConfigSEBURL;
+            if (sebURLWaitingToBeOpened) {
+                self.openConfigSEBURL = nil;
+                [self openConfigFromSEBURL:sebURLWaitingToBeOpened];
+            }
         }];
     }
     return self;
@@ -768,64 +775,69 @@ static NSString *urlStrippedFragment(NSURL* url)
 - (void) openConfigFromSEBURL:(NSURL *)url
 {
     DDLogDebug(@"[SEBBrowserController openConfigFromSEBURL: %@]", url);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
-            // SEB isn't in exam mode: reconfiguring is allowed
-            NSURL *sebURL = url;
-            // Figure the download URL out, depending on if http or https should be used
-            if ([url.scheme isEqualToString:SEBProtocolScheme]) {
-                // If it's a seb:// URL, we try to download it by http
-                url = [url URLByReplacingScheme:@"http"];
-            } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
-                // If it's a sebs:// URL, we try to download it by https
-                url = [url URLByReplacingScheme:@"https"];
-            }
-            
-            void (^conditionallyDownloadConfig)(void) = ^void() {
-                // Check if we should try to download the config file from the seb(s) URL directly
-                // This is the case when the URL has a .seb filename extension
-                // But we only try it when it didn't fail in a first attempt
-                if (self.directConfigDownloadAttempted == NO) {
-                    self.directConfigDownloadAttempted = YES;
-                    self.originalURL = sebURL;
-                    [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
-                } else {
-                    self.directConfigDownloadAttempted = NO;
-                    
-                    self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:self.originalURL];
-                }
-            };
-
-            // When the URL of the SEB config file to load is on another host than the current page
-            // then we might need to clear session cookies before attempting to download the config file
-            // when the setting examSessionClearCookiesOnEnd is true
-            if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
-                // Set the flag for cookies cleared (either they actually will be or they would have
-                // been, but settings prevented it)
-                examSessionCookiesAlreadyCleared = YES;
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
-                    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-                    // downloads to disk, and ensures that future requests occur on a new socket.
-                    DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
-                    [self resetAllCookiesWithCompletionHandler:^{
-                        conditionallyDownloadConfig();
-                    }];
-                    return;
-                }
-            } else if (!_delegate.currentMainHost) {
-                // When currentMainHost isn't set yet, SEB was started with a config link, possibly
-                // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
-                // as they were anyways cleared when SEB was started
-                examSessionCookiesAlreadyCleared = YES;
-            }
-            [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
-        }
+    if (!self.finishedInitializing) {
+        // Wait until this SEBBrowserController finished initializing and then open this SEB URL
+        self.openConfigSEBURL = url;
     } else {
-        DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
-        _delegate.openingSettings = false;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
+            // Check if SEB is in exam mode = private UserDefauls are switched on
+            if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
+                // SEB isn't in exam mode: reconfiguring is allowed
+                NSURL *sebURL = url;
+                // Figure the download URL out, depending on if http or https should be used
+                if ([url.scheme isEqualToString:SEBProtocolScheme]) {
+                    // If it's a seb:// URL, we try to download it by http
+                    url = [url URLByReplacingScheme:@"http"];
+                } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+                    // If it's a sebs:// URL, we try to download it by https
+                    url = [url URLByReplacingScheme:@"https"];
+                }
+                
+                void (^conditionallyDownloadConfig)(void) = ^void() {
+                    // Check if we should try to download the config file from the seb(s) URL directly
+                    // This is the case when the URL has a .seb filename extension
+                    // But we only try it when it didn't fail in a first attempt
+                    if (self.directConfigDownloadAttempted == NO) {
+                        self.directConfigDownloadAttempted = YES;
+                        self.originalURL = sebURL;
+                        [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
+                    } else {
+                        self.directConfigDownloadAttempted = NO;
+                        
+                        self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:self.originalURL];
+                    }
+                };
+
+                // When the URL of the SEB config file to load is on another host than the current page
+                // then we might need to clear session cookies before attempting to download the config file
+                // when the setting examSessionClearCookiesOnEnd is true
+                if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
+                    // Set the flag for cookies cleared (either they actually will be or they would have
+                    // been, but settings prevented it)
+                    examSessionCookiesAlreadyCleared = YES;
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
+                        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+                        // downloads to disk, and ensures that future requests occur on a new socket.
+                        DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
+                        [self resetAllCookiesWithCompletionHandler:^{
+                            conditionallyDownloadConfig();
+                        }];
+                        return;
+                    }
+                } else if (!_delegate.currentMainHost) {
+                    // When currentMainHost isn't set yet, SEB was started with a config link, possibly
+                    // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
+                    // as they were anyways cleared when SEB was started
+                    examSessionCookiesAlreadyCleared = YES;
+                }
+                [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
+            }
+        } else {
+            DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
+            _delegate.openingSettings = false;
+        }
     }
 }
 
