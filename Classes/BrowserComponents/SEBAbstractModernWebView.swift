@@ -36,6 +36,9 @@ import Foundation
 
 @objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {    
     
+    private var pageZoom = WebViewDefaultPageZoom
+    private var textSize = WebViewDefaultTextSize
+
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
         let userContentController = WKUserContentController()
@@ -203,6 +206,8 @@ import Foundation
     
     public func reload() {
         browserControllerDelegate!.reload!()
+        pageZoom = WebViewDefaultPageZoom
+        textSize = WebViewDefaultTextSize
     }
     
     public func load(_ url: URL) {
@@ -213,13 +218,22 @@ import Foundation
         browserControllerDelegate!.stopLoading!()
     }
 
+    fileprivate func setPageZoom(_ webView: WKWebView) {
+        let js = "document.documentElement.style.zoom = '\(pageZoom)'"
+        webView.evaluateJavaScript(js) { (response, error) in
+            if let _ = error {
+                print(error as Any)
+            }
+        }
+    }
+    
     public func zoomPageIn() {
         let webView = nativeWebView() as! WKWebView
         if #available(macOS 11.0, *) {
             webView.pageZoom += 0.1
         } else {
-            let js = "document.documentElement.style.zoom = '1.25'"
-            webView.evaluateJavaScript(js, completionHandler: nil)
+            pageZoom += 0.1
+            setPageZoom(webView)
         }
     }
     
@@ -228,8 +242,8 @@ import Foundation
         if #available(macOS 11.0, *) {
             webView.pageZoom -= 0.1
         } else {
-            let js = "document.documentElement.style.zoom = '0.75'"
-            webView.evaluateJavaScript(js, completionHandler: nil)
+            pageZoom -= 0.1
+            setPageZoom(webView)
         }
     }
     
@@ -238,27 +252,34 @@ import Foundation
         if #available(macOS 11.0, *) {
             webView.pageZoom = 1.0
         } else {
-            let js = "document.documentElement.style.zoom = '1.0'"
-            webView.evaluateJavaScript(js, completionHandler: nil)
+            pageZoom = WebViewDefaultPageZoom
+            setPageZoom(webView)
+        }
+    }
+    
+    fileprivate func setTextSize() {
+        let webView = nativeWebView() as! WKWebView
+        let js = "document.getElementsByTagName('body')[0].style.fontSize = '\(textSize)%'"
+        webView.evaluateJavaScript(js) { (response, error) in
+            if let _ = error {
+                print(error as Any)
+            }
         }
     }
     
     public func textSizeIncrease() {
-        let webView = nativeWebView() as! WKWebView
-        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='125%'"
-        webView.evaluateJavaScript(js, completionHandler: nil)
+        textSize += 10
+        setTextSize()
     }
     
     public func textSizeDecrease() {
-        let webView = nativeWebView() as! WKWebView
-        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='75%'"
-        webView.evaluateJavaScript(js, completionHandler: nil)
+        textSize -= 10
+        setTextSize()
     }
     
     public func textSizeReset() {
-        let webView = nativeWebView() as! WKWebView
-        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='100%'"
-        webView.evaluateJavaScript(js, completionHandler: nil)
+        textSize = WebViewDefaultTextSize
+        setTextSize()
     }
     
     public func privateCopy(_ sender: Any) {
