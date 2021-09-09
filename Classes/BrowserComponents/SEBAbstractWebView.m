@@ -53,7 +53,7 @@
         downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
-        if (@available(macOS 10.13, *)) {
+        if (@available(macOS 10.13, iOS 11.0, *)) {
             if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
                 BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
                 
