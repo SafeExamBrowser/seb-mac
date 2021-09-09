@@ -79,8 +79,10 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 14
+#define currentStableMajoriOSVersion 15
 
+#define WebViewDefaultTextSize 135
+#define WebViewDefaultPageZoom 1.0
 
 enum {
     webViewSelectAutomatic                      = 0,

@@ -40,11 +40,11 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public var scrollLockActive = false
     
-    public var sebWebView : WKWebView?
+    public var sebWebView: WKWebView?
     
-    private var zoomScale : CGFloat?
+    private var zoomScale: CGFloat?
 
-    private var urlFilter : SEBURLFilter?
+    private var urlFilter: SEBURLFilter?
     
     public override func loadView() {
         let webFrame = UIScreen.main.bounds
