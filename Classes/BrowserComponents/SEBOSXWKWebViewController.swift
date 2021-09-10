@@ -191,6 +191,10 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         
     }
     
+    public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        DDLogError("[SEBOSXWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+    }
+
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         navigationDelegate?.webView?(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
     }
@@ -215,6 +219,11 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
         navigationDelegate?.webView?(webView, runJavaScriptTextInputPanelWithPrompt: prompt, defaultText: defaultText, initiatedByFrame: frame, completionHandler: completionHandler)
+    }
+    
+    @available(macOS 10.12, *)
+    public func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
+        navigationDelegate?.webView?(webView, runOpenPanelWithParameters: parameters, initiatedByFrame: frame, completionHandler: completionHandler)
     }
 }
 
