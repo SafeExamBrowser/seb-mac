@@ -143,7 +143,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 #ifdef DEBUG
     DDLogDebug(@"NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies: %@", cookies);
 #endif
-    if (@available(macOS 10.13, *)) {
+    if (@available(macOS 10.13, iOS 11.0, *)) {
         dispatch_group_t waitGroup = dispatch_group_create();
         WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
         for (NSHTTPCookie *cookie in cookies) {

@@ -263,28 +263,25 @@ extension NSObject {
     }
 }
 
-//extension NSResponder {
-//    
-//    @objc public func newCopy(_ sender: Any?) {
-////        newCopy(sender as Any)
-////        self.nextResponder?.tryToPerform(NSSelectorFromString("copy:"), with: sender)
-//    }
-//
-//    @objc public func newCut(_ sender: Any?) {
-////        newCut(sender as Any)
-////        self.nextResponder?.tryToPerform(NSSelectorFromString("cut:"), with: sender)
-//    }
-//
-//    @objc public func newPaste(_ sender: Any?) {
-////        newPaste(sender as Any)
-////        self.nextResponder?.tryToPerform(NSSelectorFromString("paste:"), with: sender)
-//    }
-//}
 
 public class SEBOSXWKWebView: WKWebView {
     
     weak public var sebOSXWebViewController: SEBOSXWKWebViewController?
         
+    @available(macOS 10.12.2, *)
+    public override func makeTouchBar() -> NSTouchBar? {
+        return nil
+    }
+    
+    public override func quickLook(with event: NSEvent) {
+        if sebOSXWebViewController!.allowDictionaryLookup {
+            super.quickLook(with: event)
+            DDLogInfo("Dictionary look-up was used! [SEBOSXWKWebView quickLookWithEvent:]")
+        } else {
+            DDLogInfo("Dictionary look-up was blocked! [SEBOSXWKWebView quickLookWithEvent:]")
+        }
+    }
+    
     public override func performKeyEquivalent(with event: NSEvent) -> Bool {
         if sebOSXWebViewController!.privateClipboardEnabled {
             let chars = event.characters
@@ -348,5 +345,4 @@ public class SEBOSXWKWebView: WKWebView {
             completion()
         }
     }
-
 }
