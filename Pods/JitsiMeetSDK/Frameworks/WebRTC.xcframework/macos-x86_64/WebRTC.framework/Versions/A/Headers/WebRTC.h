@@ -39,11 +39,14 @@
 #import <WebRTC/RTCRtpTransceiver.h>
 #import <WebRTC/RTCSSLAdapter.h>
 #import <WebRTC/RTCSessionDescription.h>
+#import <WebRTC/RTCStatisticsReport.h>
 #import <WebRTC/RTCTracing.h>
 #import <WebRTC/RTCVideoSource.h>
 #import <WebRTC/RTCVideoTrack.h>
+#import <WebRTC/RTCVideoDecoderAV1.h>
 #import <WebRTC/RTCVideoDecoderVP8.h>
 #import <WebRTC/RTCVideoDecoderVP9.h>
+#import <WebRTC/RTCVideoEncoderAV1.h>
 #import <WebRTC/RTCVideoEncoderVP8.h>
 #import <WebRTC/RTCVideoEncoderVP9.h>
 #import <WebRTC/RTCNativeI420Buffer.h>
