@@ -69,7 +69,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 {
     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
         run_block_on_ui_thread(^{
-            [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObject:WKWebsiteDataTypeCookies] modifiedSince:NSDate.distantPast completionHandler:^{
+            [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObjects:WKWebsiteDataTypeCookies, WKWebsiteDataTypeSessionStorage, WKWebsiteDataTypeDiskCache, nil] modifiedSince:NSDate.distantPast completionHandler:^{
                 DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches and credential stores were reset");
                 completionHandler();
             }];
@@ -248,9 +248,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
         _wkWebViewConfiguration = [[WKWebViewConfiguration alloc] init];
         DDLogDebug(@"Created new WKWebViewConfiguration %@", _wkWebViewConfiguration);
     }
-    
-//    WKWebsiteDataStore *nonPersistentDataStore = [WKWebsiteDataStore nonPersistentDataStore];
-//    _wkWebViewConfiguration.websiteDataStore = nonPersistentDataStore;
     
     // Set media playback properties on new webview
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
