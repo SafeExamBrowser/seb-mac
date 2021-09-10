@@ -251,7 +251,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     
     // Set media playback properties on new webview
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (@available(macOS 10.12, *)) {
+    if (@available(macOS 10.12, iOS 11.0, *)) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"] == NO) {
             _wkWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
         } else {
@@ -580,12 +580,6 @@ static NSString *urlStrippedFragment(NSURL* url)
     if (usingEmbeddedCertificates)
 #endif
     {
-        // macOS 10.7 and 10.8: Custom URL protocol isn't supported
-        if (@available(macOS 9, *)) {
-        } else {
-            DDLogError(@"When running on OS X 10.7 or 10.8, embedded TLS/SSL/CA certificates and certificate pinning are not supported!");
-            return;
-        }
         _usingCustomURLProtocol = true;
         // Become delegate of and register custom SEB NSURL protocol class
         [CustomHTTPProtocol setDelegate:self];
