@@ -19,7 +19,7 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -99,7 +99,7 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" id="192">
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" bordered="YES" id="192">
                         <nil key="toolTip"/>
                         <size key="minSize" width="28" height="23"/>
                         <size key="maxSize" width="30" height="23"/>
@@ -145,7 +145,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -407,7 +407,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" misplaced="YES" id="4Pp-ao-nkH">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
