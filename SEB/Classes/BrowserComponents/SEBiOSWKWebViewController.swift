@@ -177,6 +177,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         
     }
     
+    public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        DDLogError("[SEBiOSWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+    }
+
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         navigationDelegate?.webView?(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
     }

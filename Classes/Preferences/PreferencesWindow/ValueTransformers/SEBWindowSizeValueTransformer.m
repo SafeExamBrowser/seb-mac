@@ -40,7 +40,6 @@
 
 + (Class)transformedValueClass
 {
-    //return [NSNumber class];
     return [NSString class];
 }
 
