@@ -1236,16 +1236,19 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         // Enable the selection of files in the dialog.
         openFilePanel.canChooseFiles = YES;
         
-        if ([[parameters class] isEqual:WKOpenPanelParameters.class]) {
-            // Is selection of multiple files at a time allowed?
-            openFilePanel.allowsMultipleSelection = ((WKOpenPanelParameters *)parameters).allowsMultipleSelection;
-            // Is selection of directories allowed?
-            if (@available(macOS 10.13.4, *)) {
-                openFilePanel.canChooseDirectories = ((WKOpenPanelParameters *)parameters).allowsDirectories;
-            } else {
-                openFilePanel.canChooseDirectories = NO;
+        if (@available(macOS 10.12, *)) {
+            if ([[parameters class] isEqual:WKOpenPanelParameters.class]) {
+                // Is selection of multiple files at a time allowed?
+                openFilePanel.allowsMultipleSelection = ((WKOpenPanelParameters *)parameters).allowsMultipleSelection;
+                // Is selection of directories allowed?
+                if (@available(macOS 10.13.4, *)) {
+                    openFilePanel.canChooseDirectories = ((WKOpenPanelParameters *)parameters).allowsDirectories;
+                } else {
+                    openFilePanel.canChooseDirectories = NO;
+                }
             }
-        } else {
+        }
+        if ([parameters respondsToSelector: @selector(boolValue)]) {
             openFilePanel.allowsMultipleSelection = ((NSNumber *)parameters).boolValue;
             openFilePanel.canChooseDirectories = NO;
         }
