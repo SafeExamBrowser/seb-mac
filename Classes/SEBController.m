@@ -220,7 +220,6 @@ bool insideMatrix(void);
         // Initialize console loggers
 #ifdef DEBUG
         // We show log messages only in Console.app and the Xcode console in debug mode
-        [DDLog addLogger:[DDASLLogger sharedInstance]];
         [DDLog addLogger:[DDOSLogger sharedInstance]];
 #endif
         
