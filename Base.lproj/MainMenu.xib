@@ -445,7 +445,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -615,7 +615,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="108"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -761,7 +761,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
@@ -1007,7 +1007,7 @@ DQ
             <point key="canvasLocation" x="1006" y="709"/>
         </customView>
         <customView verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="opR-sj-lUP" userLabel="SEB Locked View">
-            <rect key="frame" x="0.0" y="-14" width="500" height="711"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="711"/>
             <subviews>
                 <secureTextField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
                     <rect key="frame" x="65" y="170" width="370" height="21"/>
@@ -1072,7 +1072,7 @@ DQ
                     <rect key="frame" x="20" y="223" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
@@ -1223,7 +1223,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>

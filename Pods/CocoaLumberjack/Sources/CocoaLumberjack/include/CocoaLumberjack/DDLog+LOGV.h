@@ -23,9 +23,9 @@
 /**
  * The constant/variable/method responsible for controlling the current log level.
  **/
-#ifndef LOG_LEVEL_DEF
-    #define LOG_LEVEL_DEF ddLogLevel
-#endif
+//#ifndef LOG_LEVEL_DEF
+//    #define LOG_LEVEL_DEF ddLogLevel
+//#endif
 
 /**
  * Whether async should be used by log messages, excluding error messages that are always sent sync.
