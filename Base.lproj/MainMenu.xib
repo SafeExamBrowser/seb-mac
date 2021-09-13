@@ -614,11 +614,11 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="rLU-be-IrT" userLabel="Password Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="108"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="107"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="107"/>
-            <view key="contentView" misplaced="YES" id="vWC-gd-xPh">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
+            <view key="contentView" id="vWC-gd-xPh">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
