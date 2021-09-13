@@ -719,7 +719,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 }
 
 - (void)webView:(WKWebView *)webView
-runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters
+runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
