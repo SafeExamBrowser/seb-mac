@@ -1,11 +1,37 @@
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "0h8-R9-UfE"; */
+"0h8-R9-UfE.title" = "Sichern";
 
-/* Class = "NSMenuItem"; title = "Alle nach vorne bringen"; ObjectID = "5"; */
+/* Class = "NSTextFieldCell"; title = "This screen is disabled in current settings"; ObjectID = "0RK-x9-0F0"; */
+"0RK-x9-0F0.title" = "Dieser Bildschirm ist in den aktuellen Einstellungen deaktiviert";
+
+/* Class = "NSTextFieldCell"; title = "Please enter correct password/response!"; ObjectID = "2XV-dZ-8rd"; */
+"2XV-dZ-8rd.title" = "Bitte korrektes Passwort/Response eingeben!";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Alle nach vorne bringen";
 
-/* Class = "NSMenuItem"; title = "Fenster"; ObjectID = "19"; */
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "6w8-6M-a1v"; */
+"6w8-6M-a1v.title" = "Label";
+
+/* Class = "NSButtonCell"; title = "Override checking for dictation"; ObjectID = "7xF-1g-PGT"; */
+"7xF-1g-PGT.title" = "Check für Diktieren deaktivieren";
+
+/* Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "8GV-gd-2lK"; */
+"8GV-gd-2lK.title" = "Duplikat bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "9NP-zj-EeW"; */
+"9NP-zj-EeW.title" = "Zurücksetzen auf Client-Einstellungen";
+
+/* Class = "NSButtonCell"; title = "Override checking for the processes listed above"; ObjectID = "9TK-SC-OtA"; */
+"9TK-SC-OtA.title" = "Check für oben gelistete Prozesse deaktivieren";
+
+/* Class = "NSTextFieldCell"; title = "Prohibited Process Locked SEB!"; ObjectID = "9V8-Fs-9oi"; */
+"9V8-Fs-9oi.title" = "SEB gesperrt wegen verbotenem Prozess!";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "Fenster";
 
-/* Class = "NSMenu"; title = "Fenster"; ObjectID = "24"; */
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
 "24.title" = "Fenster";
 
 /* Class = "NSMenuItem"; title = "SEB"; ObjectID = "56"; */
@@ -14,311 +40,297 @@
 /* Class = "NSMenu"; title = "SEB"; ObjectID = "57"; */
 "57.title" = "SEB";
 
-/* Class = "NSMenuItem"; title = "Über SEB"; ObjectID = "58"; */
+/* Class = "NSMenuItem"; title = "About SEB"; ObjectID = "58"; */
 "58.title" = "Über SEB";
 
-/* Class = "NSMenuItem"; title = "Einstellungen …"; ObjectID = "129"; */
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
 "129.title" = "Einstellungen …";
 
-/* Class = "NSMenuItem"; title = "SEB beenden"; ObjectID = "136"; */
+/* Class = "NSMenuItem"; title = "Quit SEB"; ObjectID = "136"; */
 "136.title" = "SEB beenden";
 
-/* Class = "NSMenuItem"; title = "Sprachausgabe stoppen"; ObjectID = "195"; */
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "195"; */
 "195.title" = "Sprachausgabe stoppen";
 
-/* Class = "NSMenuItem"; title = "Sprachausgabe starten"; ObjectID = "196"; */
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "196"; */
 "196.title" = "Sprachausgabe starten";
 
-/* Class = "NSMenuItem"; title = "Kopieren"; ObjectID = "197"; */
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "197"; */
 "197.title" = "Kopieren";
 
-/* Class = "NSMenuItem"; title = "Alles auswählen"; ObjectID = "198"; */
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "198"; */
 "198.title" = "Alles auswählen";
 
-/* Class = "NSMenuItem"; title = "Ausschneiden"; ObjectID = "199"; */
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "199"; */
 "199.title" = "Ausschneiden";
 
-/* Class = "NSMenu"; title = "Rechtschreibung und Grammatik"; ObjectID = "200"; */
+/* Class = "NSMenu"; title = "Spelling and Grammar"; ObjectID = "200"; */
 "200.title" = "Rechtschreibung und Grammatik";
 
-/* Class = "NSMenuItem"; title = "Dokument jetzt prüfen"; ObjectID = "201"; */
+/* Class = "NSMenuItem"; title = "Check Document Now"; ObjectID = "201"; */
 "201.title" = "Dokument jetzt prüfen";
 
-/* Class = "NSMenuItem"; title = "Löschen"; ObjectID = "202"; */
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "202"; */
 "202.title" = "Löschen";
 
-/* Class = "NSMenuItem"; title = "Einfügen"; ObjectID = "203"; */
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "203"; */
 "203.title" = "Einfügen";
 
-/* Class = "NSMenuItem"; title = "Rechtschreibung und Grammatik einblenden"; ObjectID = "204"; */
+/* Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "204"; */
 "204.title" = "Rechtschreibung und Grammatik einblenden";
 
-/* Class = "NSMenu"; title = "Bearbeiten"; ObjectID = "205"; */
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "205"; */
 "205.title" = "Bearbeiten";
 
-/* Class = "NSMenuItem"; title = "Widerrufen"; ObjectID = "207"; */
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "207"; */
 "207.title" = "Widerrufen";
 
-/* Class = "NSMenuItem"; title = "Weitersuchen (vorwärts)"; ObjectID = "208"; */
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "208"; */
 "208.title" = "Weitersuchen (vorwärts)";
 
-/* Class = "NSMenuItem"; title = "Suchen …"; ObjectID = "209"; */
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "209"; */
 "209.title" = "Suchen …";
 
-/* Class = "NSMenuItem"; title = "Auswahl anzeigen"; ObjectID = "210"; */
+/* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "210"; */
 "210.title" = "Auswahl anzeigen";
 
-/* Class = "NSMenuItem"; title = "Sprachausgabe"; ObjectID = "211"; */
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
 "211.title" = "Sprachausgabe";
 
-/* Class = "NSMenu"; title = "Sprachausgabe"; ObjectID = "212"; */
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "212"; */
 "212.title" = "Sprachausgabe";
 
-/* Class = "NSMenuItem"; title = "Weitersuchen (rückwärts)"; ObjectID = "213"; */
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "213"; */
 "213.title" = "Weitersuchen (rückwärts)";
 
-/* Class = "NSMenuItem"; title = "Wiederholen"; ObjectID = "215"; */
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "215"; */
 "215.title" = "Wiederholen";
 
-/* Class = "NSMenuItem"; title = "Rechtschreibung und Grammatik"; ObjectID = "216"; */
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "216"; */
 "216.title" = "Rechtschreibung und Grammatik";
 
-/* Class = "NSMenuItem"; title = "Bearbeiten"; ObjectID = "217"; */
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "217"; */
 "217.title" = "Bearbeiten";
 
-/* Class = "NSMenuItem"; title = "Suchen"; ObjectID = "218"; */
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "218"; */
 "218.title" = "Suchen";
 
-/* Class = "NSMenuItem"; title = "Während der Texteingabe prüfen"; ObjectID = "219"; */
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "219"; */
 "219.title" = "Während der Texteingabe prüfen";
 
-/* Class = "NSMenu"; title = "Suchen"; ObjectID = "220"; */
+/* Class = "NSMenu"; title = "Find"; ObjectID = "220"; */
 "220.title" = "Suchen";
 
-/* Class = "NSMenuItem"; title = "In Auswahl suchen"; ObjectID = "221"; */
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "221"; */
 "221.title" = "In Auswahl suchen";
 
-/* Class = "NSMenuItem"; title = "Zoomen"; ObjectID = "239"; */
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
 "239.title" = "Zoomen";
 
-/* Class = "NSMenuItem"; title = "Darstellung"; ObjectID = "295"; */
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "295"; */
 "295.title" = "Darstellung";
 
-/* Class = "NSMenu"; title = "Darstellung"; ObjectID = "296"; */
+/* Class = "NSMenu"; title = "View"; ObjectID = "296"; */
 "296.title" = "Darstellung";
 
-/* Class = "NSMenuItem"; title = "Symbolleiste anzeigen"; ObjectID = "297"; */
+/* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "297"; */
 "297.title" = "Symbolleiste anzeigen";
 
-/* Class = "NSMenuItem"; title = "Rechtschreib- und Grammatikprüfung"; ObjectID = "346"; */
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "346"; */
 "346.title" = "Rechtschreib- und Grammatikprüfung";
 
-/* Class = "NSMenuItem"; title = "Ersetzungen"; ObjectID = "348"; */
+/* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "348"; */
 "348.title" = "Ersetzungen";
 
-/* Class = "NSMenu"; title = "Ersetzungen"; ObjectID = "349"; */
+/* Class = "NSMenu"; title = "Substitutions"; ObjectID = "349"; */
 "349.title" = "Ersetzungen";
 
-/* Class = "NSMenuItem"; title = "Intelligentes Kopieren/Einsetzen"; ObjectID = "350"; */
+/* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "350"; */
 "350.title" = "Intelligentes Kopieren/Einsetzen";
 
-/* Class = "NSMenuItem"; title = "Intelligente Anführungszeichen"; ObjectID = "351"; */
+/* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "351"; */
 "351.title" = "Intelligente Anführungszeichen";
 
-/* Class = "NSMenuItem"; title = "Intelligente Links"; ObjectID = "354"; */
+/* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "354"; */
 "354.title" = "Intelligente Links";
 
-/* Class = "NSMenuItem"; title = "Transformationen"; ObjectID = "450"; */
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "450"; */
 "450.title" = "Transformationen";
 
-/* Class = "NSMenu"; title = "Transformationen"; ObjectID = "451"; */
+/* Class = "NSMenu"; title = "Transformations"; ObjectID = "451"; */
 "451.title" = "Transformationen";
 
-/* Class = "NSMenuItem"; title = "Grossbuchstaben"; ObjectID = "452"; */
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "452"; */
 "452.title" = "Grossbuchstaben";
 
-/* Class = "NSMenuItem"; title = "Rechtschreibung autom. korrigieren"; ObjectID = "454"; */
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "454"; */
 "454.title" = "Rechtschreibung autom. korrigieren";
 
-/* Class = "NSMenuItem"; title = "Ersetzungen einblenden"; ObjectID = "457"; */
+/* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "457"; */
 "457.title" = "Ersetzungen einblenden";
 
-/* Class = "NSMenuItem"; title = "Intelligente Bindestriche"; ObjectID = "460"; */
+/* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "460"; */
 "460.title" = "Intelligente Bindestriche";
 
-/* Class = "NSMenuItem"; title = "Text ersetzen"; ObjectID = "462"; */
+/* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "462"; */
 "462.title" = "Text ersetzen";
 
-/* Class = "NSMenuItem"; title = "Kleinbuchstaben"; ObjectID = "465"; */
+/* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "465"; */
 "465.title" = "Kleinbuchstaben";
 
-/* Class = "NSMenuItem"; title = "Grossschreiben"; ObjectID = "466"; */
+/* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "466"; */
 "466.title" = "Grossschreiben";
 
-/* Class = "NSMenuItem"; title = "Hilfe"; ObjectID = "490"; */
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "490"; */
 "490.title" = "Hilfe";
 
-/* Class = "NSMenu"; title = "Hilfe"; ObjectID = "491"; */
+/* Class = "NSMenu"; title = "Help"; ObjectID = "491"; */
 "491.title" = "Hilfe";
 
-/* Class = "NSMenuItem"; title = "SEB Hilfe"; ObjectID = "492"; */
+/* Class = "NSMenuItem"; title = "SEB Help"; ObjectID = "492"; */
 "492.title" = "SEB Hilfe";
 
-/* Class = "NSMenuItem"; title = "Seite neu laden"; ObjectID = "887"; */
+/* Class = "NSMenuItem"; title = "Reload Page"; ObjectID = "887"; */
 "887.title" = "Seite neu laden";
 
-/* Class = "NSMenuItem"; title = "Text vergrössern"; ObjectID = "907"; */
+/* Class = "NSMenuItem"; title = "Larger Text"; ObjectID = "907"; */
 "907.title" = "Text vergrössern";
 
-/* Class = "NSMenuItem"; title = "Text verkleinern"; ObjectID = "908"; */
+/* Class = "NSMenuItem"; title = "Smaller Text"; ObjectID = "908"; */
 "908.title" = "Text verkleinern";
 
-/* Class = "NSMenuItem"; title = "Originalgrösse"; ObjectID = "912"; */
+/* Class = "NSMenuItem"; title = "Regular Text Size"; ObjectID = "912"; */
 "912.title" = "Originalgrösse";
 
-/* Class = "NSMenuItem"; title = "Stopp"; ObjectID = "913"; */
+/* Class = "NSMenuItem"; title = "Stop"; ObjectID = "913"; */
 "913.title" = "Stopp";
 
-/* Class = "NSMenuItem"; title = "Sichern"; ObjectID = "0h8-R9-UfE"; */
-"0h8-R9-UfE.title" = "Sichern";
-
-/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "6w8-6M-a1v"; */
-"6w8-6M-a1v.title" = "Label";
-
-/* Class = "NSMenuItem"; title = "Duplikat bearbeiten"; ObjectID = "8GV-gd-2lK"; */
-"8GV-gd-2lK.title" = "Duplikat bearbeiten";
-
-/* Class = "NSMenuItem"; title = "Zurücksetzen auf Client-Einstellungen"; ObjectID = "9NP-zj-EeW"; */
-"9NP-zj-EeW.title" = "Zurücksetzen auf Client-Einstellungen";
-
-/* Class = "NSTextFieldCell"; title = " Zum Entsperren Beenden-Passwort/Response eingeben"; ObjectID = "Fnc-XR-wb9"; */
-"Fnc-XR-wb9.title" = " Zum Entsperren Beenden-Passwort/Response eingeben";
-
-/* Class = "NSMenuItem"; title = "Öffnen …"; ObjectID = "HGQ-o5-kHC"; */
-"HGQ-o5-kHC.title" = "Öffnen …";
-
-/* Class = "NSButtonCell"; title = "Check für Siri deaktivieren"; ObjectID = "Heg-Vv-67d"; */
-"Heg-Vv-67d.title" = "Check für Siri deaktivieren";
-
-/* Class = "NSTextFieldCell"; placeholderString = "09:41"; ObjectID = "ITD-IF-Cv9"; */
-"ITD-IF-Cv9.placeholderString" = "09:41";
-
-/* Class = "NSButtonCell"; title = "Check für Bildschirmfreigabe deaktivieren"; ObjectID = "K35-KX-kQR"; */
-"K35-KX-kQR.title" = "Check für Bildschirmfreigabe deaktivieren";
-
-/* Class = "NSMenuItem"; title = "Öffnen …"; ObjectID = "KqQ-9i-HSM"; */
-"KqQ-9i-HSM.title" = "Öffnen …";
-
-/* Class = "NSMenuItem"; title = "Client konfigurieren"; ObjectID = "LTv-Us-Cro"; */
-"LTv-Us-Cro.title" = "Client konfigurieren";
-
-/* Class = "NSMenu"; title = "Einstellungen"; ObjectID = "LkZ-vD-zaJ"; */
-"LkZ-vD-zaJ.title" = "Einstellungen";
-
-/* Class = "NSTextFieldCell"; title = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."; ObjectID = "LsF-1w-rA0"; */
-"LsF-1w-rA0.title" = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
-
-/* Class = "NSButtonCell"; title = "Abbrechen"; ObjectID = "M3p-IB-w62"; */
-"M3p-IB-w62.title" = "Abbrechen";
-
-/* Class = "NSMenuItem"; title = "Zurücksetzen auf Datei"; ObjectID = "MYP-4t-dpx"; */
-"MYP-4t-dpx.title" = "Zurücksetzen auf Datei";
-
-/* Class = "NSButtonCell"; title = "Abbrechen"; ObjectID = "Qlt-2p-OmY"; */
-"Qlt-2p-OmY.title" = "Abbrechen";
-
-/* Class = "NSMenuItem"; title = "Sichern als …"; ObjectID = "QrI-qU-IU3"; */
-"QrI-qU-IU3.title" = "Sichern als …";
-
-/* Class = "NSMenuItem"; title = "Seiteninhalt vergrössern"; ObjectID = "S4Y-jw-8zY"; */
-"S4Y-jw-8zY.title" = "Seiteninhalt vergrössern";
-
-/* Class = "NSMenuItem"; title = "Anwenden und Neustart"; ObjectID = "Thx-Ic-L6f"; */
-"Thx-Ic-L6f.title" = "Anwenden und Neustart";
-
-/* Class = "NSMenuItem"; title = "Einstellungen"; ObjectID = "UaS-yv-Dq3"; */
-"UaS-yv-Dq3.title" = "Einstellungen";
-
-/* Class = "NSTextFieldCell"; title = "Dieser Bildschirm ist in den aktuellen Einstellungen deaktiviert"; ObjectID = "XJl-Bt-kJo"; */
-"XJl-Bt-kJo.title" = "Dieser Bildschirm ist in den aktuellen Einstellungen deaktiviert";
-
-/* Class = "NSButtonCell"; title = "Einloggen"; ObjectID = "XyK-fe-W3O"; */
-"XyK-fe-W3O.title" = "Einloggen";
-
-/* Class = "NSMenuItem"; title = "Duplikat bearbeiten"; ObjectID = "YC0-l9-3YS"; */
-"YC0-l9-3YS.title" = "Duplikat bearbeiten";
-
-/* Class = "NSMenuItem"; title = "Vollbild ein"; ObjectID = "YsN-Cb-3bf"; */
-"YsN-Cb-3bf.title" = "Vollbild ein";
-
-/* Class = "NSMenuItem"; title = "Zurücksetzen auf Voreinstellungen"; ObjectID = "aG5-0k-cAL"; */
+/* Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "aG5-0k-cAL"; */
 "aG5-0k-cAL.title" = "Zurücksetzen auf Voreinstellungen";
 
-/* Class = "NSTextFieldCell"; title = "Bitte korrektes Passwort/Response eingeben!"; ObjectID = "aOo-kP-rSF"; */
-"aOo-kP-rSF.title" = "Bitte korrektes Passwort/Response eingeben!";
-
-/* Class = "NSTextFieldCell"; title = "Passwort eingeben:"; ObjectID = "anq-S4-gmN"; */
+/* Class = "NSTextFieldCell"; title = "Enter password:"; ObjectID = "anq-S4-gmN"; */
 "anq-S4-gmN.title" = "Passwort eingeben:";
 
-/* Class = "NSButtonCell"; title = "Check für Diktieren deaktivieren"; ObjectID = "bYS-hb-eeB"; */
-"bYS-hb-eeB.title" = "Check für Diktieren deaktivieren";
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "BaL-l1-4iZ"; */
+"BaL-l1-4iZ.title" = "Name:";
 
-/* Class = "NSButtonCell"; title = "Check für oben gelistete Prozesse deaktivieren"; ObjectID = "e0z-AQ-dCp"; */
-"e0z-AQ-dCp.title" = "Check für oben gelistete Prozesse deaktivieren";
+/* Class = "NSButtonCell"; title = "Override checking for screen sharing"; ObjectID = "bsl-EU-pHD"; */
+"bsl-EU-pHD.title" = "Check für Bildschirmfreigabe deaktivieren";
 
-/* Class = "NSMenuItem"; title = "Sichern"; ObjectID = "eiW-K5-gGu"; */
+/* Class = "NSTextFieldCell"; title = "This event has been recorded."; ObjectID = "Dex-y3-8UD"; */
+"Dex-y3-8UD.title" = "Dieses Ereigniss wurde aufgezeichnet.";
+
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "eiW-K5-gGu"; */
 "eiW-K5-gGu.title" = "Sichern";
 
-/* Class = "NSButtonCell"; title = "SEB/Prüfungssession beenden anstatt entsperren"; ObjectID = "fVU-lF-Tri"; */
-"fVU-lF-Tri.title" = "SEB/Prüfungssession beenden anstatt entsperren";
+/* Class = "NSTextFieldCell"; title = "Warning!"; ObjectID = "f7N-eB-F22"; */
+"f7N-eB-F22.title" = "Warnung!";
 
-/* Class = "NSMenuItem"; title = "Originalgrösse"; ObjectID = "fhi-DK-hWE"; */
+/* Class = "NSMenuItem"; title = "Actual Size"; ObjectID = "fhi-DK-hWE"; */
 "fhi-DK-hWE.title" = "Originalgrösse";
 
-/* Class = "NSButtonCell"; title = "Check für verbotene Prozesse ganz deaktivieren"; ObjectID = "g7t-Wt-5qh"; */
-"g7t-Wt-5qh.title" = "Check für verbotene Prozesse ganz deaktivieren";
-
-/* Class = "NSMenuItem"; title = "Sichern als …"; ObjectID = "gQN-UT-3wR"; */
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "gQN-UT-3wR"; */
 "gQN-UT-3wR.title" = "Sichern als …";
 
-/* Class = "NSTextFieldCell"; title = "SEB ist gesperrt!"; ObjectID = "h8S-7a-w0u"; */
-"h8S-7a-w0u.title" = "SEB ist gesperrt!";
+/* Class = "NSButtonCell"; title = "Override checking for Siri"; ObjectID = "H1g-uS-wch"; */
+"H1g-uS-wch.title" = "Check für Siri deaktivieren";
 
-/* Class = "NSTextFieldCell"; title = "Passwort:"; ObjectID = "hFP-0W-Sgi"; */
-"hFP-0W-Sgi.title" = "Passwort:";
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "HGQ-o5-kHC"; */
+"HGQ-o5-kHC.title" = "Öffnen …";
+
+/* Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "icu-d0-oaR"; */
+"icu-d0-oaR.title" = "Zurücksetzen auf Voreinstellungen";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "iQ5-CR-q1d"; */
 "iQ5-CR-q1d.title" = "OK";
 
-/* Class = "NSMenuItem"; title = "Zurücksetzen auf Voreinstellungen"; ObjectID = "icu-d0-oaR"; */
-"icu-d0-oaR.title" = "Zurücksetzen auf Voreinstellungen";
+/* Class = "NSTextFieldCell"; placeholderString = "09:41"; ObjectID = "ITD-IF-Cv9"; */
+"ITD-IF-Cv9.placeholderString" = "09:41";
+
+/* Class = "NSButtonCell"; title = "Override enforcing built-in display"; ObjectID = "kbH-iY-TGy"; */
+"kbH-iY-TGy.title" = "Eingebautes Display erzwingen deaktivieren";
 
 /* Class = "NSDateFormatter"; ibShadowedDateFormat = "HH:mm"; ObjectID = "kfS-SN-RBm"; */
 "kfS-SN-RBm.ibShadowedDateFormat" = "HH:mm";
 
-/* Class = "NSWindow"; title = "SEB-Lockdown-Information"; ObjectID = "kwi-CI-5lx"; */
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "KqQ-9i-HSM"; */
+"KqQ-9i-HSM.title" = "Öffnen …";
+
+/* Class = "NSWindow"; title = "SEB Lockdown Information"; ObjectID = "kwi-CI-5lx"; */
 "kwi-CI-5lx.title" = "SEB-Lockdown-Information";
 
-/* Class = "NSMenuItem"; title = "Zurücksetzen auf Client-Einstellungen"; ObjectID = "lIX-w9-SMd"; */
+/* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "lIX-w9-SMd"; */
 "lIX-w9-SMd.title" = "Zurücksetzen auf Client-Einstellungen";
 
-/* Class = "NSButtonCell"; title = "Internen Bildschirm erzwingen deaktivieren"; ObjectID = "nCE-J9-nn7"; */
-"nCE-J9-nn7.title" = "Internen Bildschirm erzwingen deaktivieren";
+/* Class = "NSMenu"; title = "Settings"; ObjectID = "LkZ-vD-zaJ"; */
+"LkZ-vD-zaJ.title" = "Einstellungen";
 
-/* Class = "NSMenuItem"; title = "Seiteninhalt verkleinern"; ObjectID = "npk-yl-ONe"; */
+/* Class = "NSMenuItem"; title = "Configure Client"; ObjectID = "LTv-Us-Cro"; */
+"LTv-Us-Cro.title" = "Client konfigurieren";
+
+/* Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "MYP-4t-dpx"; */
+"MYP-4t-dpx.title" = "Zurücksetzen auf Datei";
+
+/* Class = "NSMenuItem"; title = "Zoom Page Out"; ObjectID = "npk-yl-ONe"; */
 "npk-yl-ONe.title" = "Seiteninhalt verkleinern";
 
-/* Class = "NSMenuItem"; title = "Zurücksetzen auf Datei"; ObjectID = "pMV-oP-mZU"; */
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "nYI-e9-Ags"; */
+"nYI-e9-Ags.title" = "Abbrechen";
+
+/* Class = "NSButtonCell"; title = "Log In"; ObjectID = "pIH-zG-hNx"; */
+"pIH-zG-hNx.title" = "Einloggen";
+
+/* Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "pMV-oP-mZU"; */
 "pMV-oP-mZU.title" = "Zurücksetzen auf Datei";
 
-/* Class = "NSMenuItem"; title = "Anwenden und Neustart"; ObjectID = "sFU-ql-51U"; */
-"sFU-ql-51U.title" = "Anwenden und Neustart";
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "Qlt-2p-OmY"; */
+"Qlt-2p-OmY.title" = "Abbrechen";
 
-/* Class = "NSMenu"; title = "Einstellungen"; ObjectID = "sdD-uM-Hx0"; */
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "QrI-qU-IU3"; */
+"QrI-qU-IU3.title" = "Sichern als …";
+
+/* Class = "NSButtonCell"; title = "Quit SEB/exam session instead of unlocking"; ObjectID = "rlJ-6q-QNz"; */
+"rlJ-6q-QNz.title" = "SEB oder Prüfungssession beenden anstatt Entsperren";
+
+/* Class = "NSMenuItem"; title = "Zoom Page In"; ObjectID = "S4Y-jw-8zY"; */
+"S4Y-jw-8zY.title" = "Seiteninhalt vergrössern";
+
+/* Class = "NSMenu"; title = "Settings"; ObjectID = "sdD-uM-Hx0"; */
 "sdD-uM-Hx0.title" = "Einstellungen";
 
-/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "umM-rP-kTW"; */
-"umM-rP-kTW.title" = "Name:";
+/* Class = "NSButtonCell"; title = "Dismiss"; ObjectID = "SDp-oG-6Ia"; */
+"SDp-oG-6Ia.title" = "Verwerfen";
 
-/* Class = "NSMenuItem"; title = "Client konfigurieren"; ObjectID = "ztz-q9-fV1"; */
+/* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "sFU-ql-51U"; */
+"sFU-ql-51U.title" = "Anwenden und Neustart";
+
+/* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "Thx-Ic-L6f"; */
+"Thx-Ic-L6f.title" = "Anwenden und Neustart";
+
+/* Class = "NSTextFieldCell"; title = "Enter quit/unlock password/response to unlock SEB:"; ObjectID = "toT-ZU-d4i"; */
+"toT-ZU-d4i.title" = "Beenden/Entsperren-Passwort/Response eingeben, um SEB zu entsperren:";
+
+/* Class = "NSMenuItem"; title = "Settings"; ObjectID = "UaS-yv-Dq3"; */
+"UaS-yv-Dq3.title" = "Einstellungen";
+
+/* Class = "NSButtonCell"; title = "Override process security check completely"; ObjectID = "UPO-LF-2DU"; */
+"UPO-LF-2DU.title" = "Check für verbotene Prozesse ganz deaktivieren";
+
+/* Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK"; */
+"xDQ-P3-KpK.title" = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "XL9-tP-eEk"; */
+"XL9-tP-eEk.title" = "Passwort:";
+
+/* Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "YC0-l9-3YS"; */
+"YC0-l9-3YS.title" = "Duplikat bearbeiten";
+
+/* Class = "NSTextFieldCell"; title = "Some tool tried to circumvent the SEB kiosk mode. Make sure you don't use any key combinations or trackpad gestures which might trigger such tools or the Notification Center."; ObjectID = "YeX-5O-huE"; */
+"YeX-5O-huE.title" = "Ein Hilfsprogramm hat versucht, den SEB Kiosk-Modus zu umgehen. Stellen Sie sicher, dass Sie keine Tastenkombinationen oder Trackpad-Gesten verwenden, welche solche Hilfsprogramme aktivieren könnten.";
+
+/* Class = "NSMenuItem"; title = "Fullscreen"; ObjectID = "YsN-Cb-3bf"; */
+"YsN-Cb-3bf.title" = "Vollbild ein";
+
+/* Class = "NSMenuItem"; title = "Configure Client"; ObjectID = "ztz-q9-fV1"; */
 "ztz-q9-fV1.title" = "Client konfigurieren";
+
