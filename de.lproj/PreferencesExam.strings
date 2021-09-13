@@ -112,7 +112,7 @@
 /* Class = "NSTextFieldCell"; placeholderString = "Back to Start"; ObjectID = "sY9-Fu-u2Z"; */
 "sY9-Fu-u2Z.placeholderString" = "Prüfung neu starten";
 
-/* Class = "NSButtonCell"; title = "Restart instead of quitting (iOS)"; ObjectID = "u5B-hW-58P"; */
+/* Class = "NSButtonCell"; title = "Restart instead of quitting"; ObjectID = "u5B-hW-58P"; */
 "u5B-hW-58P.title" = "Neustarten anstatt Beenden (iOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "The Back to Start Button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75"; */

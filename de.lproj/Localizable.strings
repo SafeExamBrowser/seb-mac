@@ -5,10 +5,25 @@
 " copy" = "Kopie";
 
 /* No comment provided by engineer. */
+" settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " = " Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS";
+
+/* No comment provided by engineer. */
 "(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
 
 /* No comment provided by engineer. */
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
+
+/* No comment provided by engineer. */
+"10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.8 (this SEB: 10.11)" = "10.8 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.9 (this SEB: 10.11)" = "10.9 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.10 (this SEB: 10.11)" = "10.10 (dieser SEB: 10.11)";
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
@@ -59,7 +74,16 @@
 "Apply Settings?" = "Einstellungen anwenden?";
 
 /* No comment provided by engineer. */
+"Are you sure you want to quit Safe Exam Browser?" = "Sind Sie sicher, dass Sie Safe Exam Browser beenden wollen?";
+
+/* No comment provided by engineer. */
 "Are you sure you want to quit SEB?" = "Sind Sie sicher, dass Sie SEB beenden wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to restart this session?" = "Sind Sie sicher, dass Sie diese Session neu starten wollen?";
 
 /* No comment provided by engineer. */
 "Are you sure?" = "Sind Sie sicher?";
@@ -69,6 +93,9 @@
 
 /* No comment provided by engineer. */
 "Auto Proxy Discovery" = "Automatische Proxy-Entdeckung";
+
+/* No comment provided by engineer. */
+"Automatic" = "Automatisch";
 
 /* No comment provided by engineer. */
 "Automatic Proxy Configuration" = "Autom. Proxy-Konfiguration";
@@ -173,10 +200,10 @@
 "Correct password entered" = "Korrektes Passwort eingegeben";
 
 /* No comment provided by engineer. */
-"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+"Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Konnte keinen korrekten Host-Namen ermitteln. Geben Sie die Domain-URL Ihrer Institution manuell ein.";
 
 /* No comment provided by engineer. */
-"Current SEB settings require at least %@, but your system is older. SEB will quit!" = "Die SEB-Einstellungen verlangen mindestens %@, aber dieses Betriebssystem ist älter. SEB wird beendet!";
+"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
@@ -228,9 +255,6 @@
 
 /* No comment provided by engineer. */
 "Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.";
-
-/* No comment provided by engineer. */
-"Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
 
 /* No comment provided by engineer. */
 "Do you want to continue editing the saved settings file?" = "Wollen Sie die gespeicherten Einstellungen weiter bearbeiten?";
@@ -323,6 +347,9 @@
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* No comment provided by engineer. */
+"Force Classic" = "Klassisch erzwingen";
+
+/* No comment provided by engineer. */
 "Force Quit All Processes" = "Prozesse sofort beenden";
 
 /* No comment provided by engineer. */
@@ -368,6 +395,9 @@
 "If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font." = "Wenn Sie SEB diese Erlaubnis nicht gewähren, dann können Sie solche Webseiten nicht benutzen. Beim letzten Mal als SEB lief, hat die Webseite mit dem Titel '%1$@' (%2$@) versucht, eine Schriftart herunter zu laden.";
 
 /* No comment provided by engineer. */
+"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." = "Falls Ihre Institution die automatische %@-Client-Konfiguration nicht unterstützt, befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
+
+/* No comment provided by engineer. */
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
 
 /* No comment provided by engineer. */
@@ -381,6 +411,9 @@
 
 /* No comment provided by engineer. */
 "Left" = "Links";
+
+/* No comment provided by engineer. */
+"Load Error" = "Verbindungsfehler";
 
 /* No comment provided by engineer. */
 "Loaded data doesn't contain valid %@ settings." = "Geladene Daten beinhalten keine gültigen %@ Einstellungen.";
@@ -439,6 +472,9 @@
 /* No comment provided by engineer. */
 "manually with file requester" = "manuell mit Dateidialog";
 
+/* No comment provided by engineer. */
+"More information at https://safeexambrowser.org" = "Mehr Information auf https://safeexambrowser.org";
+
 /* Title of 'Network' preference pane */
 "Network" = "Netzwerk";
 
@@ -450,6 +486,9 @@
 
 /* No comment provided by engineer. */
 "New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder SEB beenden?";
+
+/* No comment provided by engineer. */
+"No %@ Configuration Found" = "Keine %@-Konfiguration gefunden";
 
 /* No comment provided by engineer. */
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten";
@@ -467,6 +506,9 @@
 "No Encryption Credentials Chosen" = "Keine Verschlüsselung gewählt";
 
 /* No comment provided by engineer. */
+"No Hostname Found" = "Kein Hostname gefunden";
+
+/* No comment provided by engineer. */
 "None" = "Keine";
 
 /* No comment provided by engineer. */
@@ -476,7 +518,7 @@
 "None - White" = "Keine - Weiss";
 
 /* No comment provided by engineer. */
-"Not Running Minimal macOS Version!" = "Zu alte macOS-Version!";
+"Not Connected to WiFi" = "Nicht mit WLAN verbunden";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
@@ -542,6 +584,12 @@
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
+"Prefer Modern" = "Modern bevorzugen";
+
+/* No comment provided by engineer. */
+"Prefer Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
+
+/* No comment provided by engineer. */
 "Preferences Window Available From macOS 10.11" = "Einstellungen-Fenster erst ab macOS 10.11 verfügbar";
 
 /* No comment provided by engineer. */
@@ -560,7 +608,10 @@
 "Prohibited processes still running" = "Verbotene Prozesse laufen noch";
 
 /* No comment provided by engineer. */
-"Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
+"Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
+
+/* No comment provided by engineer. */
+"Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
 
 /* No comment provided by engineer. */
 "quit" = "Beenden";
@@ -593,9 +644,6 @@
 "Reconfigure SEB Settings" = "Einstellungen neu konfigurieren";
 
 /* No comment provided by engineer. */
-"Reload" = "Neu laden";
-
-/* No comment provided by engineer. */
 "Reload Current Page" = "Aktuelle Seite neu laden";
 
 /* No comment provided by engineer. */
@@ -615,6 +663,9 @@
 
 /* No comment provided by engineer. */
 "Right" = "Rechts";
+
+/* No comment provided by engineer. */
+"Running on Current macOS Version Not Allowed!" = "Benutzung auf aktueller macOS-Version nicht erlaubt!";
 
 /* No comment provided by engineer. */
 "Save Changes" = "Änderungen speichern";
@@ -654,6 +705,9 @@
 
 /* No comment provided by engineer. */
 "Searching for a valid %@ config file was canceled." = "Suche nach einer gültigen %@ Konfigurationsdatei wurde abgebrochen.";
+
+/* No comment provided by engineer. */
+"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
 
 /* No comment provided by engineer. */
 "SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." = "SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.";
@@ -761,12 +815,6 @@
 "Start" = "Start";
 
 /* No comment provided by engineer. */
-"Started exam" = "Prüfungssession gestartet";
-
-/* No comment provided by engineer. */
-"Started exam with URL " = "Prüfung gestartet mit URL";
-
-/* No comment provided by engineer. */
 "Starting Exam" = "Prüfung starten";
 
 /* No comment provided by engineer. */
@@ -800,9 +848,6 @@
 "The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Bitte versuchen Sie es erneut.";
 
 /* No comment provided by engineer. */
-"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Vergewissern Sie sich, dass sie korrekt eingegeben sind, und versuchen Sie es erneut.";
-
-/* No comment provided by engineer. */
 "the webpage" = "die Webseite";
 
 /* No comment provided by engineer. */
@@ -834,9 +879,6 @@
 
 /* No comment provided by engineer. */
 "To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." = "Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben und 'Zugang zu meinem Mac' in Systemeinstellungen/iCloud ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.";
-
-/* No comment provided by engineer. */
-"To proceed, you must log in to" = "Um weiterzufahren, müssen Sie sich anmelden";
 
 /* No comment provided by engineer. */
 "Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane." = "Der Modus Touch-optimiert funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.";
@@ -978,4 +1020,7 @@
 
 /* No comment provided by engineer. */
 "You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.";
+
+/* No comment provided by engineer. */
+"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." = "Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
 

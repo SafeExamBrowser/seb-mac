@@ -702,6 +702,9 @@
 		69A727EE249D93CA0087B193 /* SEBScrollLock_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E9249D93CA0087B193 /* SEBScrollLock_locked@3x.png */; };
 		69A727EF249D93CA0087B193 /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727EA249D93CA0087B193 /* SEBScrollLockIcon_locked.png */; };
 		69A727F0249D93CA0087B193 /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727EA249D93CA0087B193 /* SEBScrollLockIcon_locked.png */; };
+		69AA20B826EEA4A2002287A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69AA20B626EEA4A2002287A9 /* InfoPlist.strings */; };
+		69AA20BB26EEA4A2002287A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69AA20B926EEA4A2002287A9 /* Localizable.strings */; };
+		69AA20BC26EEA4A2002287A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69AA20B926EEA4A2002287A9 /* Localizable.strings */; };
 		69AEC956218A228300848945 /* SEBFilteredURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AEC954218A228300848945 /* SEBFilteredURLCache.h */; };
 		69AEC957218A228300848945 /* SEBFilteredURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AEC954218A228300848945 /* SEBFilteredURLCache.h */; };
 		69AEC95A218A228300848945 /* SEBFilteredURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AEC955218A228300848945 /* SEBFilteredURLCache.m */; };
@@ -1000,7 +1003,7 @@
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6902C96C1B0BA16000715855 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesConfigFile.strings; sourceTree = "<group>"; };
 		6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBShutDownIcon.iconset; path = Resources/Icons/SEBShutDownIcon.iconset; sourceTree = "<group>"; };
-		690408EA1D4181A800A9EDDA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
+		690408EA1D4181A800A9EDDA /* SEB-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SEB-Info.plist"; path = "Resources/SEB-Info.plist"; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+KKDomain.h"; sourceTree = "<group>"; };
 		6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+KKDomain.m"; sourceTree = "<group>"; };
@@ -1402,6 +1405,9 @@
 		69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsGeneralViewController.h; sourceTree = "<group>"; };
 		69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PrefsGeneralViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
+		69AA20B526EEA4A2002287A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		69AA20B726EEA4A2002287A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		69AA20BA26EEA4A2002287A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69AEC954218A228300848945 /* SEBFilteredURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBFilteredURLCache.h; path = Classes/BrowserComponents/SEBFilteredURLCache.h; sourceTree = "<group>"; };
 		69AEC955218A228300848945 /* SEBFilteredURLCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBFilteredURLCache.m; path = Classes/BrowserComponents/SEBFilteredURLCache.m; sourceTree = "<group>"; };
 		69AF449E24699A5300F56542 /* JitsiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JitsiViewController.swift; path = Classes/AdditionalViews/JitsiViewController.swift; sourceTree = "<group>"; };
@@ -1693,7 +1699,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* SEB */ = {
 			isa = PBXGroup;
 			children = (
 				69637422267E6F6A00058E7C /* Safe Exam Browser.entitlements */,
@@ -2021,7 +2027,9 @@
 				6940B99D1BA0FBDF008C8CFC /* Icons */,
 				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,
 				69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */,
-				690408EA1D4181A800A9EDDA /* Info.plist */,
+				690408EA1D4181A800A9EDDA /* SEB-Info.plist */,
+				69AA20B926EEA4A2002287A9 /* Localizable.strings */,
+				69AA20B626EEA4A2002287A9 /* InfoPlist.strings */,
 				69421680214544AC002EB416 /* SEBDev-Info.plist */,
 				69DD92A01A463435004072E5 /* InfoPlist.strings */,
 				69B1721520FE2D96004BD0FC /* SEB-ETH-Enterprise-Info.plist */,
@@ -3191,7 +3199,7 @@
 				de,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3233,7 +3241,9 @@
 				695A8EF71E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
 				69E87E51202927330055988F /* SEBDockIconLandscape.png in Resources */,
 				69B253F61E4E275D000B4A6D /* SEBSkipBackIcon@2x.png in Resources */,
+				69AA20B826EEA4A2002287A9 /* InfoPlist.strings in Resources */,
 				695A8EF41E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
+				69AA20BB26EEA4A2002287A9 /* Localizable.strings in Resources */,
 				695A8EFD1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */,
 				6966F87F1D1D4E7100684182 /* SEBSliderReloadIcon.png in Resources */,
 				699AB096246DFFFE001BF70C /* SEBSliderProctoringViewIcon@2x.png in Resources */,
@@ -3392,6 +3402,7 @@
 				694215FE214544AB002EB416 /* SEBToolbarNavigateForwardIcon.png in Resources */,
 				694215FF214544AB002EB416 /* SEBToolbarReloadIcon@3x.png in Resources */,
 				69421600214544AB002EB416 /* SEBSliderReloadIcon.png in Resources */,
+				69AA20BC26EEA4A2002287A9 /* Localizable.strings in Resources */,
 				699AB097246DFFFE001BF70C /* SEBSliderProctoringViewIcon@2x.png in Resources */,
 				69421601214544AB002EB416 /* SEBNavigateBackIcon@2x.png in Resources */,
 				69421602214544AB002EB416 /* SEBNavigateForwardIcon@2x.png in Resources */,
@@ -4136,6 +4147,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6940B9721BA0F2FB008C8CFC /* Base */,
+				69AA20B526EEA4A2002287A9 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -4218,6 +4230,24 @@
 				69F3122F1B6FC85500169E9A /* de */,
 			);
 			name = PreferencesSecurity.xib;
+			sourceTree = "<group>";
+		};
+		69AA20B626EEA4A2002287A9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69AA20B726EEA4A2002287A9 /* de */,
+			);
+			name = InfoPlist.strings;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		69AA20B926EEA4A2002287A9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69AA20BA26EEA4A2002287A9 /* de */,
+			);
+			name = Localizable.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69DD92A01A463435004072E5 /* InfoPlist.strings */ = {
@@ -4317,7 +4347,7 @@
 					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
 					SEB/Frameworks/OpenSSL/include,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -4401,7 +4431,7 @@
 					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
 					SEB/Frameworks/OpenSSL/include,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -4807,7 +4837,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.0b2;
+				MARKETING_VERSION = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
@@ -4867,7 +4897,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.0b2;
+				MARKETING_VERSION = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
