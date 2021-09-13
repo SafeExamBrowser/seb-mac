@@ -40,12 +40,6 @@
 /* Class = "NSTextFieldCell"; title = "Links requesting to be opened in a new browser window ..."; ObjectID = "91"; */
 "91.title" = "Links, die in einem neuen Browserfenster geöffnet werden sollen …";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "94"; */
-"94.ibShadowedToolTip" = "ACHTUNG: Wenn 'Öffnen im selben Fenster' ausgewählt ist, dann funktionieren einige JavaScript/HTML5 Funktionen (wie File API) nicht";
-
-/* Class = "NSTextFieldCell"; title = "Links in JavaScript/plug-ins ..."; ObjectID = "100"; */
-"100.title" = "Links in JavaScript/Plug-Ins ...";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Hyperlinks which direct to a different host than the one of the current main page will be ignored"; ObjectID = "101"; */
 "101.ibShadowedToolTip" = "Hyperlinks werden ignoriert, wenn sie auf einen anderen Server als den der aktuellen Webseite führen";
 
@@ -142,6 +136,9 @@
 /* Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663"; */
 "663.title" = "Profil löschen (Win)";
 
+/* Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj"; */
+"ADW-iA-ngj.title" = "Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";
+
 /* Class = "NSButtonCell"; title = "Media autoplay"; ObjectID = "Afc-A3-r3P"; */
 "Afc-A3-r3P.title" = "Medien automatisch abspielen";
 
@@ -199,6 +196,9 @@
 /* Class = "NSButtonCell"; title = "Allow audio capture (microphone, Win)"; ObjectID = "gw2-ot-VdZ"; */
 "gw2-ot-VdZ.title" = "Audioaufnahme erlauben (Mikrofon, Win)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, audio autoplay can be controlled separately"; ObjectID = "H1e-8y-dLi"; */
+"H1e-8y-dLi.ibShadowedToolTip" = "Im modernen WebView kann Audio-Autoplay separat gesteuert werden";
+
 /* Class = "NSBox"; title = "Restrictions in Exam Window"; ObjectID = "IEP-y6-APQ"; */
 "IEP-y6-APQ.title" = "Einschränkungen im Prüfungsfenster";
 
@@ -217,6 +217,9 @@
 /* Class = "NSButtonCell"; title = "Default:"; ObjectID = "Lq8-Fi-SDM"; */
 "Lq8-Fi-SDM.title" = "Standard:";
 
+/* Class = "NSButtonCell"; title = "Video autoplay"; ObjectID = "MOG-Nd-tGS"; */
+"MOG-Nd-tGS.title" = "Video automatisch abspielen";
+
 /* Class = "NSButtonCell"; title = "iPad"; ObjectID = "mRw-O9-H0n"; */
 "mRw-O9-H0n.title" = "iPad";
 
@@ -231,6 +234,12 @@
 
 /* Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu"; */
 "p3T-fI-3bu.ibShadowedToolTip" = "Standard-String auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)";
+
+/* Class = "NSButtonCell"; title = "Audio autoplay"; ObjectID = "p8H-vN-YbW"; */
+"p8H-vN-YbW.title" = "Audio automatisch abspielen";
+
+/* Class = "NSBox"; title = "Select Browser Engine Policy"; ObjectID = "QLJ-Tp-en0"; */
+"QLJ-Tp-en0.title" = "Policy zum Wählen der Browser-Engine";
 
 /* Class = "NSButtonCell"; title = "Custom"; ObjectID = "qVa-6O-Lcc"; */
 "qVa-6O-Lcc.title" = "Benutzerdefiniert";
@@ -250,8 +259,11 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "twb-Ov-Zlx"; */
 "twb-Ov-Zlx.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
-/* Class = "NSBox"; title = "Media Playback (iOS)"; ObjectID = "u8M-48-HFC"; */
+/* Class = "NSBox"; title = "Media Playback"; ObjectID = "u8M-48-HFC"; */
 "u8M-48-HFC.title" = "Medienwiedergabe (iOS)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip"; */
+"uOh-V9-bip.ibShadowedToolTip" = "Im modernen WebView kann Video-Autoplay separat gesteuert werden";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Each SEB version/device type has separate user agent settings"; ObjectID = "UsO-tg-591"; */
 "UsO-tg-591.ibShadowedToolTip" = "VORSICHT: Wenn '' angewählt ist, können einige JavaScript-/HTML5-Funktionen (wie etwa File API) nicht verwendet werden";
@@ -289,6 +301,6 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "Z3B-Za-z4X"; */
 "Z3B-Za-z4X.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
-/* Class = "NSButtonCell"; title = "Allow picture in picture video"; ObjectID = "zZ5-9g-Lhz"; */
+/* Class = "NSButtonCell"; title = "Allow picture in picture video (iOS)"; ObjectID = "zZ5-9g-Lhz"; */
 "zZ5-9g-Lhz.title" = "Bild-in-Bild-Wiedergabe erlauben";
 

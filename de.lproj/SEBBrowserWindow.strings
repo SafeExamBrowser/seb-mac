@@ -1,105 +1,102 @@
-
 /* Class = "NSWindow"; title = "Safe Exam Browser"; ObjectID = "3"; */
 "3.title" = "Safe Exam Browser";
 
-/* Class = "NSToolbarItem"; label = "Zurück/Vorwärts"; ObjectID = "175"; */
+/* Class = "NSWindow"; title = "Resource Not Permitted"; ObjectID = "5ay-Fd-lF5"; */
+"5ay-Fd-lF5.title" = "Ressource nicht erlaubt";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "7Mz-lY-Ld6"; */
+"7Mz-lY-Ld6.title" = "Abbrechen";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "7wI-3Z-I1s"; */
+"7wI-3Z-I1s.title" = "Frei";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a filter rule for the current URL/resource to the ignore list, based on the selected pattern. Ignored URLs don't show a warning permanently in the URL filter teach mode"; ObjectID = "8py-w9-weT"; */
+"8py-w9-weT.ibShadowedToolTip" = "Filterregel für die aktuelle URL zur Ignorieren-Liste hinzufügen, basierend auf dem ausgewählten Schema. Für ignorierte URLs wird dauerhaft keine Warnung im Filterregeln-Lernen-Modus angezeigt";
+
+/* Class = "NSButtonCell"; title = "Ignore"; ObjectID = "9Wp-xb-WzU"; */
+"9Wp-xb-WzU.title" = "Ignorieren";
+
+/* Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175"; */
 "175.label" = "Zurück/Vorwärts";
 
 /* Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179"; */
 "179.label" = "Zoom";
 
-/* Class = "NSToolbarItem"; label = "Neu laden"; ObjectID = "192"; */
+/* Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192"; */
 "192.label" = "Neu laden";
 
-/* Class = "NSWindow"; title = "Ressource nicht erlaubt"; ObjectID = "5ay-Fd-lF5"; */
-"5ay-Fd-lF5.title" = "Ressource nicht erlaubt";
-
-/* Class = "NSButtonCell"; title = "Abbrechen"; ObjectID = "5n5-dp-cDk"; */
-"5n5-dp-cDk.title" = "Abbrechen";
-
-/* Class = "NSButtonCell"; title = "Frei"; ObjectID = "7wI-3Z-I1s"; */
-"7wI-3Z-I1s.title" = "Frei";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Filterregel für die aktuelle URL zur Ignorieren-Liste hinzufügen, basierend auf dem ausgewählten Schema. Für ignorierte URLs wird dauerhaft keine Warnung im Filterregeln-Lernen-Modus angezeigt"; ObjectID = "8py-w9-weT"; */
-"8py-w9-weT.ibShadowedToolTip" = "Filterregel für die aktuelle URL zur Ignorieren-Liste hinzufügen, basierend auf dem ausgewählten Schema. Für ignorierte URLs wird dauerhaft keine Warnung im Filterregeln-Lernen-Modus angezeigt";
-
-/* Class = "NSButtonCell"; title = "Ignorieren"; ObjectID = "9Wp-xb-WzU"; */
-"9Wp-xb-WzU.title" = "Ignorieren";
-
-/* Class = "NSButtonCell"; title = "Blockieren"; ObjectID = "AcO-IT-BuS"; */
+/* Class = "NSButtonCell"; title = "Block"; ObjectID = "AcO-IT-BuS"; */
 "AcO-IT-BuS.title" = "Blockieren";
 
-/* Class = "NSTextFieldCell"; title = "Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:"; ObjectID = "B3X-Rp-SlN"; */
+/* Class = "NSButtonCell"; title = "Directory"; ObjectID = "aE8-n6-keh"; */
+"aE8-n6-keh.title" = "Verzeichnis";
+
+/* Class = "NSTextFieldCell"; title = "It's not allowed to open this link! You can create a new filter rule based on the following patterns:"; ObjectID = "B3X-Rp-SlN"; */
 "B3X-Rp-SlN.title" = "Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
+
+/* Class = "NSButtonCell"; title = "Dismiss"; ObjectID = "baa-dD-Wnp"; */
+"baa-dD-Wnp.title" = "Verwerfen";
 
 /* Class = "NSButtonCell"; title = "Domain"; ObjectID = "BmY-jI-Mu3"; */
 "BmY-jI-Mu3.title" = "Domain";
 
-/* Class = "NSButtonCell"; title = "Alle verwerfen"; ObjectID = "FW8-h0-H13"; */
-"FW8-h0-H13.title" = "Alle verwerfen";
-
-/* Class = "NSButtonCell"; title = "www.host.com"; ObjectID = "H5P-Ew-Qp9"; */
-"H5P-Ew-Qp9.title" = "www.host.com";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Alle unbekannten URLs/Ressourcen des aktullen HTTP-Requests verwerfen. Neu laden einer Seite zeigt verworfene URLs wieder an"; ObjectID = "KId-E2-Y59"; */
-"KId-E2-Y59.ibShadowedToolTip" = "Alle unbekannten URLs/Ressourcen des aktullen HTTP-Requests verwerfen. Neu laden einer Seite zeigt verworfene URLs wieder an";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren"; ObjectID = "KUW-Xw-ucJ"; */
-"KUW-Xw-ucJ.ibShadowedToolTip" = "Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
-
-/* Class = "NSButtonCell"; title = "www.host.com/path"; ObjectID = "Poj-9Z-f7h"; */
-"Poj-9Z-f7h.title" = "www.host.com/path";
-
-/* Class = "NSButtonCell"; title = "Host"; ObjectID = "TD9-Qa-GkX"; */
-"TD9-Qa-GkX.title" = "Host";
-
-/* Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "ZLD-BY-T5K"; */
-"ZLD-BY-T5K.label" = "Zoom";
-
-/* Class = "NSButtonCell"; title = "Verzeichnis"; ObjectID = "aE8-n6-keh"; */
-"aE8-n6-keh.title" = "Verzeichnis";
-
-/* Class = "NSButtonCell"; title = "Verwerfen"; ObjectID = "baa-dD-Wnp"; */
-"baa-dD-Wnp.title" = "Verwerfen";
-
-/* Class = "NSButtonCell"; title = "OK"; ObjectID = "bbD-Aa-mxH"; */
-"bbD-Aa-mxH.title" = "OK";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Eine 'blockieren' Filterregel für die aktuelle URL/Ressource hinzufügen, basierend auf dem angewählten Schema. Sollte nur selten notwendig sein, weil alle nicht explizit erlaubten URLs vom Filter sowieso blockiert werden"; ObjectID = "cja-1x-YEa"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Add a block filter rule for the current URL/resource based on the selected pattern"; ObjectID = "cja-1x-YEa"; */
 "cja-1x-YEa.ibShadowedToolTip" = "Eine 'blockieren' Filterregel für die aktuelle URL/Ressource hinzufügen, basierend auf dem angewählten Schema. Sollte nur selten notwendig sein, weil alle nicht explizit erlaubten URLs vom Filter sowieso blockiert werden";
 
 /* Class = "NSButtonCell"; title = "www.host.com/directory/*"; ObjectID = "fhn-de-60C"; */
 "fhn-de-60C.title" = "www.host.com/directory/*";
 
+/* Class = "NSButtonCell"; title = "Dismiss All"; ObjectID = "FW8-h0-H13"; */
+"FW8-h0-H13.title" = "Alle verwerfen";
+
 /* Class = "NSButtonCell"; title = "host.com"; ObjectID = "gwZ-Bv-sYP"; */
 "gwZ-Bv-sYP.title" = "host.com";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an"; ObjectID = "ig8-v8-XUJ"; */
+/* Class = "NSButtonCell"; title = "www.host.com"; ObjectID = "H5P-Ew-Qp9"; */
+"H5P-Ew-Qp9.title" = "www.host.com";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again"; ObjectID = "ig8-v8-XUJ"; */
 "ig8-v8-XUJ.ibShadowedToolTip" = "Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren"; ObjectID = "jnc-il-FuZ"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ"; */
 "jnc-il-FuZ.ibShadowedToolTip" = "Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
 
-/* Class = "NSScrollView"; ibShadowedToolTip = "Zeigt zu Beginn die vollständige URL, kann editiert werden, um einen benutzerdefinierten URL-Filterausdruck zu erstellen. Das Wildcard-Zeichen * kann verwendet werden. Obenstehende Links können angeklickt werden, um die den Schemen entsprechenden URL-Teile in dieses Feld zu kopieren"; ObjectID = "kPG-Y4-EWv"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Dismiss all unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again"; ObjectID = "KId-E2-Y59"; */
+"KId-E2-Y59.ibShadowedToolTip" = "Alle unbekannten URLs/Ressourcen des aktullen HTTP-Requests verwerfen. Neu laden einer Seite zeigt verworfene URLs wieder an";
+
+/* Class = "NSScrollView"; ibShadowedToolTip = "Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field"; ObjectID = "kPG-Y4-EWv"; */
 "kPG-Y4-EWv.ibShadowedToolTip" = "Zeigt zu Beginn die vollständige URL, kann editiert werden, um einen benutzerdefinierten URL-Filterausdruck zu erstellen. Das Wildcard-Zeichen * kann verwendet werden. Obenstehende Links können angeklickt werden, um die den Schemen entsprechenden URL-Teile in dieses Feld zu kopieren";
 
-/* Class = "NSButtonCell"; title = "Anklicken, um die vollständige URL als Filterausdruck wiederherzustellen"; ObjectID = "lbT-D3-1dX"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/directory part of the current URL into the custom filter expression text field"; ObjectID = "KUW-Xw-ucJ"; */
+"KUW-Xw-ucJ.ibShadowedToolTip" = "Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
+
+/* Class = "NSButtonCell"; title = "Click to restore full URL as filter expression"; ObjectID = "lbT-D3-1dX"; */
 "lbT-D3-1dX.title" = "Anklicken, um die vollständige URL als Filterausdruck wiederherzustellen";
 
-/* Class = "NSButtonCell"; title = "Host/Pfad"; ObjectID = "mk7-3C-ndY"; */
+/* Class = "NSButtonCell"; title = "Host/Path"; ObjectID = "mk7-3C-ndY"; */
 "mk7-3C-ndY.title" = "Host/Pfad";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren"; ObjectID = "mvP-Sq-mee"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee"; */
 "mvP-Sq-mee.ibShadowedToolTip" = "Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren"; ObjectID = "sIN-ro-zV3"; */
-"sIN-ro-zV3.ibShadowedToolTip" = "Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
+/* Class = "NSButtonCell"; title = "www.host.com/path"; ObjectID = "Poj-9Z-f7h"; */
+"Poj-9Z-f7h.title" = "www.host.com/path";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Anklicken, um den Host-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren"; ObjectID = "sfT-nQ-Hte"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Click to copy the host part of the current URL into the custom filter expression text field"; ObjectID = "sfT-nQ-Hte"; */
 "sfT-nQ-Hte.ibShadowedToolTip" = "Anklicken, um den Host-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
 
-/* Class = "NSButtonCell"; title = "Erlauben"; ObjectID = "vVz-K2-Hbd"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Click to restore the full current URL into the custom filter expression text field"; ObjectID = "sIN-ro-zV3"; */
+"sIN-ro-zV3.ibShadowedToolTip" = "Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
+
+/* Class = "NSButtonCell"; title = "Host"; ObjectID = "TD9-Qa-GkX"; */
+"TD9-Qa-GkX.title" = "Host";
+
+/* Class = "NSButtonCell"; title = "Allow"; ObjectID = "vVz-K2-Hbd"; */
 "vVz-K2-Hbd.title" = "Erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Filterregel für die aktuelle URL/Resource basierend auf dem ausgewählten Schema hinzufügen"; ObjectID = "z9W-wM-LUg"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Add an allow filter rule for the current URL/resource based on the selected pattern"; ObjectID = "z9W-wM-LUg"; */
 "z9W-wM-LUg.ibShadowedToolTip" = "Filterregel für die aktuelle URL/Resource basierend auf dem ausgewählten Schema hinzufügen";
+
+/* Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "ZLD-BY-T5K"; */
+"ZLD-BY-T5K.label" = "Zoom";
+

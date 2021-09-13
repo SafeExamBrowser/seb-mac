@@ -1255,10 +1255,10 @@
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
-                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
+                <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
                     <rect key="frame" x="20" y="674" width="610" height="16"/>
                     <subviews>
-                        <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
+                        <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
                             <rect key="frame" x="-2" y="-1" width="612" height="18"/>
                             <buttonCell key="cell" type="check" title="Attempt to quit prohibited applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="MVu-c3-I1R">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
