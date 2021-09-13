@@ -50,10 +50,6 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
 
     private var urlFilter : SEBURLFilter?
     
-    public func contentView() -> NSView? {
-        return self.contentView()
-    }
-    
     public override func loadView() {
         if sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
