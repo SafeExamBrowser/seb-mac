@@ -16,23 +16,23 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView horizontalHuggingPriority="1000" id="1" userLabel="Applications Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="710"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="714"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView translatesAutoresizingMaskIntoConstraints="NO" id="239">
-                    <rect key="frame" x="13" y="0.0" width="624" height="670"/>
+                    <rect key="frame" x="13" y="0.0" width="624" height="674"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                             <view key="view" id="243">
-                                <rect key="frame" x="10" y="33" width="604" height="624"/>
+                                <rect key="frame" x="10" y="33" width="604" height="628"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                        <rect key="frame" x="15" y="599" width="279" height="16"/>
+                                        <rect key="frame" x="15" y="601" width="279" height="18"/>
                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="14" id="n1G-IX-Eg8"/>
+                                            <constraint firstAttribute="height" constant="16" id="n1G-IX-Eg8"/>
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="Allow switching to third party applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -49,10 +49,10 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
-                                        <rect key="frame" x="35" y="579" width="235" height="14"/>
+                                        <rect key="frame" x="35" y="579" width="235" height="16"/>
                                         <string key="toolTip">Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="12" id="pXh-9j-eb0"/>
+                                            <constraint firstAttribute="height" constant="14" id="pXh-9j-eb0"/>
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -521,9 +521,9 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                    <rect key="frame" x="14" y="107" width="115" height="16"/>
+                                                    <rect key="frame" x="14" y="107" width="115" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="aLJ-BZ-5BG"/>
+                                                        <constraint firstAttribute="height" constant="16" id="aLJ-BZ-5BG"/>
                                                     </constraints>
                                                     <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1256,7 +1256,7 @@
                     </tabViewItems>
                 </tabView>
                 <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
-                    <rect key="frame" x="20" y="674" width="610" height="16"/>
+                    <rect key="frame" x="20" y="678" width="610" height="16"/>
                     <subviews>
                         <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
                             <rect key="frame" x="-2" y="-1" width="612" height="18"/>
