@@ -228,7 +228,13 @@
     newWindowWebView.creatingWebView = nil;
     browserWindow.webView = newWindowWebView;
 
-    browserWindow.contentViewController = newViewController;
+    NSView *webView = newViewController.view;
+    [browserWindow.contentView addSubview:webView];
+    webView.translatesAutoresizingMaskIntoConstraints = NO;
+    [webView.leadingAnchor constraintEqualToAnchor:browserWindow.contentView.leadingAnchor].active = YES;
+    [webView.trailingAnchor constraintEqualToAnchor:browserWindow.contentView.trailingAnchor].active = YES;
+    [webView.topAnchor constraintEqualToAnchor:browserWindow.contentView.topAnchor].active = YES;
+    [webView.bottomAnchor constraintEqualToAnchor:browserWindow.contentView.bottomAnchor].active = YES;
     
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
                withWebView:newWindowWebView
