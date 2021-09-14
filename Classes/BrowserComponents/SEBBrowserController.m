@@ -69,10 +69,15 @@ void run_block_on_ui_thread(dispatch_block_t block)
 {
     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
         run_block_on_ui_thread(^{
-            [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObjects:WKWebsiteDataTypeCookies, WKWebsiteDataTypeSessionStorage, WKWebsiteDataTypeDiskCache, nil] modifiedSince:NSDate.distantPast completionHandler:^{
+            if (@available(macOS 10.13, iOS 11.0, *)) {
+                [self.wkWebViewConfiguration.websiteDataStore removeDataOfTypes:[NSSet setWithObjects:WKWebsiteDataTypeCookies, WKWebsiteDataTypeSessionStorage, WKWebsiteDataTypeDiskCache, nil] modifiedSince:NSDate.distantPast completionHandler:^{
+                    DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches, credential stores and WKWebsiteDataTypes were reset");
+                    completionHandler();
+                }];
+            } else {
                 DDLogInfo(@"-[SEBBrowserController resetAllCookies] Cookies, caches and credential stores were reset");
                 completionHandler();
-            }];
+            }
         });
     }];
 }
@@ -156,7 +161,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
             completionHandler();
         });
     } else {
-        completionHandler();
+        run_block_on_ui_thread(^{
+            completionHandler();
+        });
     }
 };
 
@@ -168,6 +175,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void) resetBrowser
 {
+    self.downloadingInTemporaryWebView = NO;
     self.temporaryWebView = nil;
 
     self.browserExamKey = nil;
@@ -269,13 +277,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
         _wkWebViewConfiguration.allowsInlineMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback"];
     }
     _wkWebViewConfiguration.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];
-    
-    if (@available(macOS 10.11, *)) {
-        _wkWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
-    }
     _wkWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
 #endif
-
+    if (@available(macOS 10.13, *)) {
+        _wkWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
+    }
     return _wkWebViewConfiguration;
 }
 
@@ -768,11 +774,12 @@ static NSString *urlStrippedFragment(NSURL* url)
     DDLogDebug(@"[SEBBrowserController openConfigFromSEBURL: %@]", url);
     if (!self.finishedInitializing) {
         // Wait until this SEBBrowserController finished initializing and then open this SEB URL
+        DDLogDebug(@"[SEBBrowserController openConfigFromSEBURL:] Wait until this SEBBrowserController finished initializing and then open this SEB URL.");
         self.openConfigSEBURL = url;
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_downloadingInTemporaryWebView) {
             // Check if SEB is in exam mode = private UserDefauls are switched on
             if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
                 // SEB isn't in exam mode: reconfiguring is allowed
@@ -796,7 +803,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                         [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
                     } else {
                         self.directConfigDownloadAttempted = NO;
-                        
+                        self.downloadingInTemporaryWebView = YES;
                         self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:self.originalURL];
                     }
                 };
@@ -842,12 +849,6 @@ static NSString *urlStrippedFragment(NSURL* url)
 }
 
 
-- (BOOL) downloadingInTemporaryWebView
-{
-    return _temporaryWebView != nil;
-}
-
-
 // Called by the browser webview delegate if loading the config URL failed
 - (void) openingConfigURLFailed {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -856,6 +857,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     if (_temporaryWebView) {
         dispatch_async(dispatch_get_main_queue(), ^{
             DDLogDebug(@"Closing temporary browser window in: %s", __FUNCTION__);
+            self.downloadingInTemporaryWebView = NO;
             [self.delegate closeWebView:self.temporaryWebView];
         });
     }
@@ -906,6 +908,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             if (!_directConfigDownloadAttempted) {
                 // Close the temporary browser window
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    self.downloadingInTemporaryWebView = NO;
                     [self.delegate closeWebView:self.temporaryWebView];
                 });
                 [_delegate openingConfigURLRoleBack];
@@ -929,6 +932,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 // by opening the URL in a temporary webview
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // which needs to be done on the main thread!
+                    self.downloadingInTemporaryWebView = YES;
                     self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:originalURL];
                     self.temporaryWebView.originalURL = originalURL;
                 });
@@ -1459,6 +1463,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     
     // Close the temporary browser window
     if (_temporaryWebView) {
+        self.downloadingInTemporaryWebView = NO;
         [_delegate closeWebView:_temporaryWebView];
         _temporaryWebView = nil;
     }
