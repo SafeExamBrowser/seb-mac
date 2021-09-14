@@ -371,7 +371,7 @@
 "vh3-YR-Pun.ibShadowedToolTip" = "Diktieren kann mittels der in den Systemeinstellungen/Tastatur/Diktat definierten Tastenkombination (Standard: fn zweimal drücken) aktiviert werden";
 
 /* Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb"; */
-"WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses deaktivieren";
+"WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses detektieren";
 
 /* Class = "NSBox"; title = "SEB Service (Win)"; ObjectID = "wI5-Zh-Qfa"; */
 "wI5-Zh-Qfa.title" = "";
