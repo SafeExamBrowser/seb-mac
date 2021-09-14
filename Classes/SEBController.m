@@ -257,12 +257,19 @@ bool insideMatrix(void);
         
         // Get default WebKit browser User Agent and create
         // default SEB User Agent
-        _temporaryWebView = [WKWebView new];
-        [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
-            [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
-            self.temporaryWebView = nil;
-        }];
-        DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+        if (@available(macOS 10.13, iOS 11.0, *)) {
+            _temporaryWebView = [WKWebView new];
+            [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
+                [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+                self.temporaryWebView = nil;
+                DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+            }];
+        } else {
+            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+            NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
+            [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+            DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+        }
 
         // Cache current settings for Siri and dictation
         [_systemManager cacheCurrentSystemSettings];
