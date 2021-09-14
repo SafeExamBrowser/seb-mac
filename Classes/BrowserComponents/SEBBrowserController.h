@@ -158,6 +158,7 @@
 
 @property (readwrite) BOOL finishedInitializing;
 @property (readwrite) BOOL directConfigDownloadAttempted;
+@property (readwrite) BOOL downloadingInTemporaryWebView;
 @property (strong, nonatomic) NSURL *openConfigSEBURL;
 @property (strong, nonatomic) NSURL *originalURL;
 
