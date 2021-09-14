@@ -91,6 +91,7 @@
         _activeBrowserWindow = nil;
         
         if (webViewToClose == self.temporaryWebView) {
+            self.downloadingInTemporaryWebView = NO;
             self.temporaryWebView = nil;
         }
     }
@@ -280,6 +281,7 @@
 {
     DDLogDebug(@"%s", __FUNCTION__);
     if (webViewToClose == self.temporaryWebView) {
+        self.downloadingInTemporaryWebView = NO;
         [self openingConfigURLRoleBack];
     }
 }

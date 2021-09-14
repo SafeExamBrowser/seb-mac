@@ -666,7 +666,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked before a request is initiated for a resource and returns a possibly modified request
 - (NSURLRequest *)webView:(SEBWebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *absoluteRequestURL = [[request URL] absoluteString];
     
     // Trim a possible trailing slash "/"
