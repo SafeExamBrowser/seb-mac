@@ -38,7 +38,10 @@ import Foundation
     
     private var pageZoom = WebViewDefaultPageZoom
     private var textSize = WebViewDefaultTextSize
+    private var downloadFilename: String?
 
+    public var downloadingSEBConfig = false
+    
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
         let userContentController = WKUserContentController()
@@ -371,55 +374,104 @@ import Foundation
             decisionHandler(.cancel)
             return
         }
-        if navigationActionPolicy == SEBNavigationActionPolicyAllow {
-            decisionHandler(.allow)
-        } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
+        guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
-        } else if navigationActionPolicy == SEBNavigationActionPolicyDownload {
-            if #available(macOS 11.3, *) {
-                decisionHandler(.download)
-            } else {
-                // Fallback on earlier versions
+            return
+        }
+
+        let callDecisionHandler:() -> () = {
+            if navigationActionPolicy == SEBNavigationActionPolicyAllow {
+                decisionHandler(.allow)
+            } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
+                decisionHandler(.cancel)
+            } else if navigationActionPolicy == SEBNavigationActionPolicyDownload {
+                // This case should not happen in the current implementation
+                decisionHandler(.cancel)
             }
         }
+
+        if navigationActionPolicy == SEBNavigationActionPolicyAllow && !url.hasDirectoryPath {
+            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
+                self.downloadFilename = result as? String
+                if !(self.downloadFilename ?? "").isEmpty {
+                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+                }
+                callDecisionHandler()
+            }
+            return
+        }
+        callDecisionHandler()
     }
     
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
-        let decidePolicyWithCookies:([HTTPCookie]?) -> () = { cookies in
+        let decidePolicyWithCookies:([HTTPCookie]) -> () = { cookies in
+            guard let url = navigationResponse.response.url else {
+                decisionHandler(.cancel)
+                return
+            }
             let canShowMIMEType = navigationResponse.canShowMIMEType
             let isForMainFrame = navigationResponse.isForMainFrame
             let mimeType = navigationResponse.response.mimeType
-            let url = navigationResponse.response.url
             let suggestedFilename = navigationResponse.response.suggestedFilename
+
             guard let navigationResponsePolicy = self.navigationDelegate?.decidePolicy?(forMIMEType: mimeType, url: url, canShowMIMEType: canShowMIMEType, isForMainFrame: isForMainFrame, suggestedFilename: suggestedFilename, cookies: cookies) else {
                 decisionHandler(.cancel)
                 return
             }
+            
+            if (self.downloadFilename ?? "").isEmpty {
+                self.downloadFilename = self.getFileNameFromResponse(navigationResponse.response)
+            }
+
+            if (!(self.downloadFilename ?? "").isEmpty || navigationResponsePolicy == SEBNavigationActionPolicyDownload) && !self.downloadingSEBConfig {
+                var filename = self.downloadFilename ?? ""
+                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
+                if filename.isEmpty {
+                    filename = suggestedFilename ?? ""
+                }
+                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
+                decisionHandler(.cancel)
+                self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
+                self.downloadFilename = nil
+                return
+            }
+            
             if navigationResponsePolicy == SEBNavigationResponsePolicyAllow {
                 decisionHandler(.allow)
             } else if navigationResponsePolicy == SEBNavigationResponsePolicyCancel {
                 decisionHandler(.cancel)
-            } else if navigationResponsePolicy == SEBNavigationResponsePolicyDownload {
-                if #available(macOS 11.3, *) {
-                    decisionHandler(.download)
-                } else {
-                    // Fallback on earlier versions
-                }
             }
-            
         }
-        
+
         if #available(macOS 10.13, *) {
             let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
             httpCookieStore.getAllCookies{ cookies in
                 decidePolicyWithCookies(cookies)
             }
         } else {
-            decidePolicyWithCookies(nil)
+            decidePolicyWithCookies([])
         }
+    }
+    
+    private func getFileNameFromResponse(_ response:URLResponse) -> String {
+        if let httpResponse = response as? HTTPURLResponse {
+            let headers = httpResponse.allHeaderFields
+            if let disposition = headers["Content-Disposition"] as? String {
+                let components = disposition.components(separatedBy: " ")
+                if components.count > 1 {
+                    let innerComponents = components[1].components(separatedBy: "=")
+                    if innerComponents.count > 1 {
+                        if innerComponents[0].contains("filename") {
+                            return innerComponents[1]
+                        }
+                    }
+                }
+            }
+        }
+        return ""
     }
     
     public func sebWebViewDidFailLoadWithError(_ error: Error) {
@@ -530,6 +582,26 @@ import Foundation
     public func conditionallyOpenSEBConfig(from sebConfigData: Data) {
         navigationDelegate?.conditionallyOpenSEBConfig?(from: sebConfigData)
     }
-    
-
 }
+
+//@available(macOS 11.3, iOS 14.5, *)
+//extension SEBAbstractModernWebView: WKDownloadDelegate {
+//    public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
+//        let temporaryDir = NSTemporaryDirectory()
+//        let fileName = temporaryDir + "/" + suggestedFilename
+//        let url = URL(fileURLWithPath: fileName)
+//        fileDestinationURL = url
+//        completionHandler(url)
+//    }
+//
+//    public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+//        print("download failed \(error)")
+//    }
+//
+//    public func downloadDidFinish(_ download: WKDownload) {
+//        print("download finish")
+//        if let url = fileDestinationURL {
+//            self.delegate.fileDownloadedAtURL(url: url)
+//        }
+//    }
+//}

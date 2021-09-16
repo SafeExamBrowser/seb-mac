@@ -95,6 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
+@property (readwrite, nonatomic) BOOL downloadingSEBConfig;
+
 @end
 
 
@@ -237,10 +239,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) closeTab;
 - (void) closeTabWithIndex:(NSUInteger)tabIndex;
 
-- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename;
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies;
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies;
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 @property (readonly) BOOL downloadingInTemporaryWebView;
 // Required by SEB-iOS (SEBUIWebViewController)
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;

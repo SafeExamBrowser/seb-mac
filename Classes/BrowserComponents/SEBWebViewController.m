@@ -1002,7 +1002,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     if (self.downloadFilename) {
         DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
         [listener download];
-        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename];
+        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
+        self.downloadFilename = nil;
         return;
     }
 
@@ -1019,7 +1020,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         if (extension) CFRelease(extension);
         DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
         [listener download];
-        [self.navigationDelegate downloadFileFromURL:request.URL filename:[NSString stringWithFormat:@".%@", downloadFileExtension]];
+        [self.navigationDelegate downloadFileFromURL:request.URL filename:[NSString stringWithFormat:@".%@", downloadFileExtension] cookies:@[]];
         
         // Close the temporary Window or WebView which has been opend by the data: download link
         SEBAbstractWebView *creatingWebView = self.navigationDelegate.abstractWebView.creatingWebView;
@@ -1043,7 +1044,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         return;
     }
     
-    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:nil];
+    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:@[]];
     if (delegateNavigationActionPolicy == SEBNavigationResponsePolicyAllow) {
         [listener use];
     } else {

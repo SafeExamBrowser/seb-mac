@@ -872,6 +872,29 @@
 }
 
 
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+{
+    NSAlert *modalAlert = [self.sebController newAlert];
+    // Inform user that download succeeded
+    [modalAlert setMessageText:title];
+    [modalAlert setInformativeText:message];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:modalAlert.window];
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.activeBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+
+}
+
+
+- (void) presentDownloadError:(NSError *)error
+{
+    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+}
+
+
 #pragma mark SEB Dock Buttons Action Methods
 
 - (void) backToStartCommand
