@@ -289,7 +289,9 @@
 
 - (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig
 {
-    self.browserControllerDelegate.downloadingSEBConfig = downloadingSEBConfig;
+    if ([self.browserControllerDelegate respondsToSelector:@selector(downloadingSEBConfig)]) {
+        self.browserControllerDelegate.downloadingSEBConfig = downloadingSEBConfig;
+    }
 }
 
 
@@ -664,9 +666,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         ([url.pathExtension isEqualToString:SEBFileExtension])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = self.originalURL;
-        if ([self.browserControllerDelegate respondsToSelector:@selector(downloadingSEBConfig)]) {
-            self.browserControllerDelegate.downloadingSEBConfig = YES;
-        }
+        self.downloadingSEBConfig = YES;
         [self.navigationDelegate downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
         return SEBNavigationActionPolicyCancel;
     }
