@@ -770,7 +770,7 @@ bool insideMatrix(void);
         /// Open settings file in preferences window for editing
         
         [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-        _openingSettings = false;
+        _openingSettings = NO;
         return;
         
     } else {
@@ -780,13 +780,14 @@ bool insideMatrix(void);
         // Check if any alerts are open in SEB, abort opening if yes
         if (_modalAlertWindows.count > 0) {
             DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
-            _openingSettings = false;
+            _openingSettings = NO;
             // We have to return YES anyways, because otherwise the system displays an error message
             return;
         }
         
         // Check if SEB is in an exam session and reconfiguring isn't allowed
         if (![self.browserController isReconfiguringAllowedFromURL:sebFileURL]) {
+            _openingSettings = NO;
             return;
         }
         
@@ -797,6 +798,7 @@ bool insideMatrix(void);
                 [self closeAboutWindow];
             }
             [self.preferencesController openSEBPrefsAtURL:sebFileURL];
+            _openingSettings = NO;
             return;
         }
         
@@ -841,7 +843,7 @@ bool insideMatrix(void);
     
     if (!error) {
         // If successfull start/restart with new settings
-        _openingSettings = false;
+        _openingSettings = NO;
         
         [self updateAACAvailablility];
         
@@ -863,7 +865,7 @@ bool insideMatrix(void);
             // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
 //        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         }
-        _openingSettings = false;
+        _openingSettings = NO;
     }
 }
 
@@ -873,7 +875,7 @@ bool insideMatrix(void);
 - (void)didOpenSettings
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    _openingSettings = false;
+    _openingSettings = NO;
     [self updateAACAvailablility];
 
     if (_startingUp) {
