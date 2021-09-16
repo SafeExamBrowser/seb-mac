@@ -242,7 +242,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 		NSToolbar *toolbar = [self.window toolbar];
 		if (toolbar) {
 			NSInteger index = [[toolbar items] count]-1;
-			while (index > 0) {
+			while (index >= 0) {
 				[toolbar removeItemAtIndex:index];
 				index--;
 			}
