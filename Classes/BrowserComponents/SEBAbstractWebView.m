@@ -287,6 +287,12 @@
 }
 
 
+- (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig
+{
+    self.browserControllerDelegate.downloadingSEBConfig = downloadingSEBConfig;
+}
+
+
 #pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 - (WKWebViewConfiguration *) wkWebViewConfiguration
@@ -461,6 +467,7 @@
     [self.navigationDelegate sebWebViewDidStartLoad];
 }
 
+
 - (void)webView:(WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
@@ -468,11 +475,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [self.navigationDelegate webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
+
 - (void)sebWebViewDidFinishLoad
 {
     [self.navigationDelegate sebWebViewDidFinishLoad];
     [self.navigationDelegate setCanGoBack:self.canGoBack canGoForward:self.canGoForward];
 }
+
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error
 {
@@ -520,6 +529,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     
     [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
+
 
 - (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
@@ -631,12 +641,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 }
 
+
 - (void)sebWebViewDidUpdateProgress:(double)progress
 {
     if ([self.navigationDelegate respondsToSelector:@selector(sebWebViewDidUpdateProgress:)]) {
         [self.navigationDelegate sebWebViewDidUpdateProgress:progress];
     }
 }
+
 
 - (SEBNavigationResponsePolicy)decidePolicyForMIMEType:(NSString*)mimeType
                                                    url:(NSURL *)url
@@ -652,6 +664,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         ([url.pathExtension isEqualToString:SEBFileExtension])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = self.originalURL;
+        if ([self.browserControllerDelegate respondsToSelector:@selector(downloadingSEBConfig)]) {
+            self.browserControllerDelegate.downloadingSEBConfig = YES;
+        }
         [self.navigationDelegate downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
         return SEBNavigationActionPolicyCancel;
     }
@@ -663,11 +678,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             return SEBNavigationActionPolicyAllow;
         }
     }
-    
     // If MIME type cannot be displayed by the WebView, then we download it
     DDLogInfo(@"MIME type to download is %@", mimeType);
-//    [self startDownloadingURL:request.URL];
-    return SEBNavigationActionPolicyCancel;
+    return SEBNavigationActionPolicyDownload;
 }
 
 
@@ -727,9 +740,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
-- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [self.navigationDelegate downloadFileFromURL:url filename:filename];
+    [self.navigationDelegate downloadFileFromURL:url filename:filename cookies:cookies];
 }
 
 - (BOOL) downloadingInTemporaryWebView

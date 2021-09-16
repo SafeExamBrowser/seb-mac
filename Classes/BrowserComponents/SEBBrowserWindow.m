@@ -805,9 +805,15 @@
 
 
 - (void)stopLoading {
-    [self.browserControllerDelegate stopLoading];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setLoading:NO];
+    });
 }
 
+
+- (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
+    self.browserControllerDelegate.downloadingSEBConfig = downloadingSEBConfig;
+}
 
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
@@ -1297,9 +1303,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
-- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [self.browserController downloadFileFromURL:url filename:filename];
+    [self.browserController downloadFileFromURL:url filename:filename cookies:cookies sender:self];
 }
 
 
@@ -1311,7 +1317,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [self.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
+    [self.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:self];
 }
 
 

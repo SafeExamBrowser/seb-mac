@@ -51,15 +51,6 @@
 
 @interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSTextViewDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 
-{
-    SEBAbstractWebView *requestingWebView;
-    NSString *downloadPath;
-    NSURL *downloadURL;
-    NSString *lastUsername;
-    NSString *quitURLTrimmed;
-    
-}
-
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
@@ -83,10 +74,6 @@
 @property (strong) NSView *progressIndicatorHolder;
 @property (strong) NSView *filterMessageHolder;
 @property (strong) NSPanel *filterMessageHUD;
-
-@property (strong) id URLSession;
-@property (copy) NSString *downloadFilename;
-@property (copy) NSString *downloadFileExtension;
 
 - (void) setCalculatedFrame;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
