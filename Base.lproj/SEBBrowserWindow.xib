@@ -30,7 +30,7 @@
                     <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward" paletteLabel="" sizingBehavior="auto" id="175">
                         <nil key="toolTip"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="173">
-                            <rect key="frame" x="0.0" y="14" width="55" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="59" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
@@ -47,8 +47,8 @@
                     <toolbarItem implicitItemIdentifier="3082AAA6-C29B-4778-98BC-31306EF71511" label="Zoom" paletteLabel="" sizingBehavior="auto" id="ZLD-BY-T5K" userLabel="ZoomPage">
                         <nil key="toolTip"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="4DV-qc-FmI">
-                            <rect key="frame" x="0.0" y="14" width="55" height="28"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <rect key="frame" x="0.0" y="14" width="59" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="qkO-f0-59m">
                                 <font key="font" metaFont="system"/>
                                 <segments>
@@ -72,8 +72,8 @@
                     <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" sizingBehavior="auto" id="179" userLabel="ZoomText">
                         <nil key="toolTip"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="180">
-                            <rect key="frame" x="0.0" y="14" width="56" height="24"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <rect key="frame" x="0.0" y="14" width="59" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="181">
                                 <font key="font" metaFont="system"/>
                                 <segments>
@@ -97,7 +97,7 @@
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="30" height="23"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIcon" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -277,7 +277,7 @@
                                 <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                                 <clipView key="contentView" drawsBackground="NO" id="c8z-5s-Dgt">
                                     <rect key="frame" x="1" y="1" width="528" height="120"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
                                             <rect key="frame" x="0.0" y="0.0" width="528" height="120"/>
