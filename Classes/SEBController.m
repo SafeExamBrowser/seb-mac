@@ -785,19 +785,8 @@ bool insideMatrix(void);
             return;
         }
         
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            void (^loadingSettingsNotAllowedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self removeAlertWindow:modalAlert.window];
-                self.openingSettings = false;
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
-              completionHandler:(void (^)(NSModalResponse answer))loadingSettingsNotAllowedHandler];
+        // Check if SEB is in an exam session and reconfiguring isn't allowed
+        if (![self.browserController isReconfiguringAllowedFromURL:sebFileURL]) {
             return;
         }
         
@@ -810,6 +799,7 @@ bool insideMatrix(void);
             [self.preferencesController openSEBPrefsAtURL:sebFileURL];
             return;
         }
+        
         NSError *error = nil;
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
         
