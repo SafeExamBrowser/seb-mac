@@ -130,6 +130,10 @@
  */
 - (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message;
+- (void) presentDownloadError:(NSError *)error;
+
 @property (readwrite) BOOL startingUp;
 @property (readwrite) BOOL openingSettings;
 
@@ -168,7 +172,7 @@
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 @property (strong) NSURLCredential *enteredCredential;
-@property (strong) id URLSession;
+@property (strong) NSURLSession *URLSession;
 @property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
 @property (strong) NSURLSessionDataTask *downloadTask;
 

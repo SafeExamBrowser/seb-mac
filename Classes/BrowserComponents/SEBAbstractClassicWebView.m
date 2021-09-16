@@ -517,9 +517,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
     [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
 }
 
-- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [self.navigationDelegate downloadFileFromURL:url filename:filename];
+    [self.navigationDelegate downloadFileFromURL:url filename:filename cookies:cookies];
 }
 
 - (BOOL) downloadingInTemporaryWebView

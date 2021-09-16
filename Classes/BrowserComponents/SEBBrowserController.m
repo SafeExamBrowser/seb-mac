@@ -800,7 +800,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                     if (self.directConfigDownloadAttempted == NO) {
                         self.directConfigDownloadAttempted = YES;
                         self.originalURL = sebURL;
-                        [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:nil];
+                        [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:@[] sender:nil];
                     } else {
                         self.directConfigDownloadAttempted = NO;
                         self.downloadingInTemporaryWebView = YES;
@@ -872,7 +872,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 /// Performing the Download
 
 // This method is called by the browser webview delegate if the file to download has a .seb extension
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id<SEBAbstractBrowserControllerDelegate>)sender
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
@@ -883,10 +883,9 @@ static NSString *urlStrippedFragment(NSURL* url)
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
     NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
-                                                    completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                          {
-                                              [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL];
-                                          }];
+                                                    completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error) {
+        [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL sender:sender];
+    }];
     [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
     NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
     DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
@@ -899,9 +898,13 @@ static NSString *urlStrippedFragment(NSURL* url)
                          error:(NSError *)error
                            URL:(NSURL *)url
                    originalURL:(NSURL *)originalURL
+                        sender:(nonnull id<SEBAbstractBrowserControllerDelegate>)sender
 {
     DDLogDebug(@"-[SEBBrowserController didDownloadConfigData:response:error:URL:originalURL:] URL: %@, error: %@", url, error);
-    
+    if (sender) {
+        [sender stopLoading];
+        sender.downloadingSEBConfig = NO;
+    }
     if (error) {
         if (error.code == NSURLErrorCancelled) {
             // Only close temp browser window if this wasn't a direct download attempt
@@ -922,7 +925,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             // If it was a seb:// URL, and http failed, we try to download it by https
             NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
             if (_directConfigDownloadAttempted) {
-                [self downloadSEBConfigFileFromURL:downloadURL originalURL:originalURL cookies:nil];
+                [self downloadSEBConfigFileFromURL:downloadURL originalURL:originalURL cookies:@[] sender:sender];
             } else {
                 [self tryToDownloadConfigByOpeningURL:downloadURL];
             }
@@ -956,20 +959,30 @@ static NSString *urlStrippedFragment(NSURL* url)
 
 #pragma mark Downloading Files
 
-- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename
+- (void) downloadFileFromURL:(NSURL *)url
+                    filename:(NSString *)filename
+                     cookies:(NSArray <NSHTTPCookie *>*)cookies
+                      sender:(nullable id<SEBAbstractBrowserControllerDelegate>)sender
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
+    NSURLSessionConfiguration *sessionConfig;
     if (!_URLSession) {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    } else {
+        sessionConfig = _URLSession.configuration;
     }
     NSURLSessionDownloadTask *downloadTask = [_URLSession downloadTaskWithURL:url
-                                                            completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error)
-                                              {
-                                                  [self didDownloadFile:fileLocation filename:(NSString *)filename response:response error:error];
-                                              }];
-    
+                                                            completionHandler:^(NSURL *fileLocation, NSURLResponse *response, NSError *error) {
+        if (sender) {
+            [sender stopLoading];
+        }
+        [self didDownloadFile:fileLocation filename:(NSString *)filename response:response error:error];
+    }];
+    [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
+    NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
+    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
     [downloadTask resume];
 }
 
@@ -1045,13 +1058,13 @@ static NSString *urlStrippedFragment(NSURL* url)
             if (!error) {
                 [self storeDownloadPath:destinationURL.absoluteString];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self fileDownloadedSuccessfully:destinationURL.absoluteString];
+                    [self fileDownloadedSuccessfully:destinationURL.path];
                 });
                 return;
             } else {
                 DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
                 dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                    [self.delegate presentDownloadError:error];
                 });
                 return;
             }
@@ -1066,7 +1079,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                error.description,
                [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        [self.delegate presentDownloadError:error];
     });
 }
 
@@ -1091,16 +1104,8 @@ static NSString *urlStrippedFragment(NSURL* url)
         // Open downloaded file
         [[NSWorkspace sharedWorkspace] openFile:path];
     } else {
-//        NSAlert *modalAlert = [self.browserController.sebController newAlert];
-//        // Inform user that download succeeded
-//        [modalAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
-//        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
-//        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-//        [modalAlert setAlertStyle:NSInformationalAlertStyle];
-//        void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-//            [self.browserController.sebController removeAlertWindow:modalAlert.window];
-//        };
-//        [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+        [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), path]];
     }
 }
 
