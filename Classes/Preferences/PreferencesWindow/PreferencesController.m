@@ -184,6 +184,7 @@
 
     // Store current settings (before they probably get edited)
     [self storeCurrentSettings];
+    urlFilterLearningModeInitialState = self.networkVC.URLFilterLearningMode;
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
 	[[MBPreferencesController sharedController] showWindow:self];
@@ -447,6 +448,9 @@
 // Check if settings have changed
 - (BOOL) settingsChanged
 {
+    if (self.networkVC.URLFilterLearningMode != urlFilterLearningModeInitialState) {
+        return YES;
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     return ![settingsBeforeEditing.browserExamKey isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
