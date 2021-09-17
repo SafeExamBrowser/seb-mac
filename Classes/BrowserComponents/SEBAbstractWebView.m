@@ -567,12 +567,15 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         if (filterActionResponse != URLFilterActionAllow) {
             /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
             // We show the URL blocked overlay message only if a link was actively tapped by the user
-            if (navigationType == WKNavigationTypeLinkActivated) {
-                [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:filterActionResponse];
+            if ((navigationType == WKNavigationTypeLinkActivated || urlFilter.learningMode)) {
+                if ([self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:filterActionResponse] == NO) {
+                    /// User didn't allow the content, don't load it
+                    DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
+                    return SEBNavigationActionPolicyCancel;
+                }
+            } else {
+                return SEBNavigationActionPolicyCancel;
             }
-            /// User didn't allow the content, don't load it
-            DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
-            return SEBNavigationActionPolicyCancel;
         }
     }
 
@@ -737,6 +740,14 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     [self.navigationDelegate webView:webView runOpenPanelWithParameters:parameters initiatedByFrame:frame completionHandler:completionHandler];
+}
+
+
+- (BOOL) showURLFilterAlertForRequest:(NSURLRequest *)request
+                     forContentFilter:(BOOL)contentFilter
+                       filterResponse:(URLFilterRuleActions)filterResponse
+{
+    return [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:contentFilter filterResponse:filterResponse];
 }
 
 
