@@ -380,6 +380,7 @@ import Foundation
         }
 
         let callDecisionHandler:() -> () = {
+            DDLogDebug("navigationActionPolicy: \(navigationActionPolicy)")
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
                 decisionHandler(.allow)
             } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
@@ -395,6 +396,17 @@ import Foundation
                 self.downloadFilename = result as? String
                 if !(self.downloadFilename ?? "").isEmpty {
                     DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+                    if ProcessInfo.processInfo.operatingSystemVersion.majorVersion < 11 {
+                        if #available(macOS 10.13, *) {
+                            let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
+                            httpCookieStore.getAllCookies{ cookies in
+                                self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: cookies)
+                                self.downloadFilename = nil
+                            }
+                            decisionHandler(.cancel)
+                            return
+                        }
+                    }
                 }
                 callDecisionHandler()
             }
@@ -406,6 +418,8 @@ import Foundation
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        
+        DDLogDebug("decidePolicyFor navigationResponse")
         
         let decidePolicyWithCookies:([HTTPCookie]) -> () = { cookies in
             guard let url = navigationResponse.response.url else {
@@ -437,6 +451,8 @@ import Foundation
                 self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
                 self.downloadFilename = nil
                 return
+            } else {
+                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
             }
             
             if navigationResponsePolicy == SEBNavigationResponsePolicyAllow {
