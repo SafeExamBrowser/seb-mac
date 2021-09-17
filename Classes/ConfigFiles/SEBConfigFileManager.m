@@ -274,7 +274,7 @@
     // If we don't deal with an unencrypted seb file
     // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
     if (![prefixString isEqualToString:@"<?xm"]) {
-        sebData = [sebData gzipInflate];
+        encryptedSEBData = [encryptedSEBData gzipInflate];
     }
     [self parseSettingsStartingExamForEditing:forEditing];
 }
