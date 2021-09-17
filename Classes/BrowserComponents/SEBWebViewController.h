@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     @private
     SEBURLFilter *urlFilter;
+    BOOL urlFilterContentLearningAlertDisplayed;
     NSString *quitURLTrimmed;
     BOOL sendBrowserExamKey;
 }
