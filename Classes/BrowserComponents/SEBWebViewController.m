@@ -685,11 +685,28 @@ willPerformClientRedirectToURL:(NSURL *)URL
         URLFilterRuleActions filterActionResponse = [urlFilter testURLAllowed:request.URL];
         if (filterActionResponse != URLFilterActionAllow) {
             /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
-            if (![self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
-                /// User didn't allow the content, don't load it
-                DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+            if (@available(macOS 11, *)) {
+                if (urlFilter.learningMode && !urlFilterContentLearningAlertDisplayed) {
+                    if ([urlFilter testURLIgnored:request.URL] == NO) {
+                        urlFilterContentLearningAlertDisplayed = YES;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self stopLoading];
+                            [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:YES filterResponse:filterActionResponse];
+                            self->urlFilterContentLearningAlertDisplayed = NO;
+                            [self reload];
+                        });
+                    }
+                }
+                DDLogVerbose(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
                 // Return nil instead of request
                 return nil;
+            } else {
+                if (![self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
+                    /// User didn't allow the content, don't load it
+                    DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+                    // Return nil instead of request
+                    return nil;
+                }
             }
         }
     }
