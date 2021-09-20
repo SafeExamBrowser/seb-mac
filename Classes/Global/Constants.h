@@ -79,7 +79,7 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 14
+#define currentStableMajoriOSVersion 15
 
 
 enum {
