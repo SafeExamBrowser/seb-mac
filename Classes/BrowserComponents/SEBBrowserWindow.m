@@ -1016,8 +1016,20 @@
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
 {
-    [self setTitle:title];
     [self.browserController setTitle: title forWindow:self withWebView:self.webView];
+    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString* appTitleString = [NSString stringWithFormat:@"%@ %@  —  %@",
+                                SEBFullAppNameClassic,
+                                versionString,
+                                title];
+    CGFloat windowWidth = [NSWindow minFrameWidthWithTitle:appTitleString styleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
+    if (windowWidth > self.frame.size.width) {
+        appTitleString = [NSString stringWithFormat:@"SEB %@  —  %@",
+                                    [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                    title];
+    }
+    DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self, appTitleString);
+    [self setTitle:appTitleString];
 }
 
 - (void)webView:(WKWebView *)webView

@@ -56,18 +56,24 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
             sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
             sebWebView?.sebOSXWebViewController = self
-            
-//            try? sebWebView?.swizzleMethod(NSSelectorFromString("copy:"), withSelector: #selector(newCopy(_:)))
-//            try? sebWebView?.swizzleMethod(NSSelectorFromString("cut:"), withSelector: #selector(newCut(_:)))
-//            try? sebWebView?.swizzleMethod(NSSelectorFromString("paste:"), withSelector: #selector(newPaste(_:)))
         }
         sebWebView?.autoresizingMask = [.width, .height]
         sebWebView?.translatesAutoresizingMaskIntoConstraints = true
         sebWebView?.uiDelegate = self
         sebWebView?.navigationDelegate = self
         
+        sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+        
         sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
         urlFilter = SEBURLFilter.shared()
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "title" {
+            if let title = sebWebView?.title {
+                self.navigationDelegate?.sebWebViewDidUpdateTitle?(title)
+            }
+        }
     }
     
     public override func viewWillAppear() {
@@ -149,6 +155,8 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         sebWebView?.stopLoading()
     }
  
+//    public func
+    
     public func storePasteboard() {
         self.navigationDelegate?.storePasteboard?()
     }
