@@ -4243,7 +4243,7 @@ conditionallyForWindow:(NSWindow *)window
         self.dockController = newDockController;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
-            SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
+            SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
                                                                      icon:[NSApp applicationIconImage]
                                                           highlightedIcon:[NSApp applicationIconImage]
                                                                   toolTip:nil

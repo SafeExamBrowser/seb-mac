@@ -137,7 +137,9 @@
 
 - (void)loadURL:(NSURL *)url
 {
-    [self.browserControllerDelegate loadURL:url];
+    if (url) {
+        [self.browserControllerDelegate loadURL:url];
+    }
 }
 
 - (void)stopLoading
@@ -306,11 +308,6 @@
 - (void) setLoading:(BOOL)loading
 {
     [self.navigationDelegate setLoading:loading];
-}
-
-- (void) setTitle:(NSString *)title
-{
-    [self.navigationDelegate setTitle:title];
 }
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
@@ -538,6 +535,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
+    DDLogDebug(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields =
@@ -570,10 +568,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             if ((navigationType == WKNavigationTypeLinkActivated || urlFilter.learningMode)) {
                 if ([self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:filterActionResponse] == NO) {
                     /// User didn't allow the content, don't load it
-                    DDLogWarn(@"This link was blocked by the URL filter: %@", originalURL.absoluteString);
+                    DDLogWarn(@"A clicked link was blocked by the URL filter");
+                    DDLogDebug(@"This clicked link was blocked by the URL filter: %@", originalURL.absoluteString);
                     return SEBNavigationActionPolicyCancel;
                 }
             } else {
+                DDLogDebug(@"This resource was blocked by the URL filter: %@", originalURL.absoluteString);
                 return SEBNavigationActionPolicyCancel;
             }
         }
@@ -591,11 +591,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 [self.navigationDelegate.currentMainHost isEqualToString:request.URL.host]) {
                 if (newBrowserWindowPolicy == openInNewWindow) {
                     // Open in new tab
+                    DDLogInfo(@"Open new window/tab URL in new window");
                     [self.navigationDelegate openNewTabWithURL:url];
                     return SEBNavigationActionPolicyCancel;
                 }
                 if (newBrowserWindowPolicy == openInSameWindow) {
                     // Load URL request in existing tab
+                    DDLogInfo(@"Open new window/tab URL in same window (selected in current settings)");
                     [self loadURL:url];
                     return SEBNavigationActionPolicyCancel;
                 }
@@ -606,10 +608,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         if (navigationType == WKNavigationTypeLinkActivated) {
             [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:SEBURLFilterAlertBlock];
         }
+        DDLogInfo(@"Opening new window/tab URL generally blocked in current settings");
         return SEBNavigationActionPolicyCancel;
     }
 
     if ([url.scheme isEqualToString:@"about"]) {
+        DDLogVerbose(@"This about request URL %@ was blocked", originalURL.absoluteString);
         return SEBNavigationActionPolicyCancel;
     }
     

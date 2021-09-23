@@ -394,7 +394,7 @@ void DisposeWindow (
     // Check data source of web view
     if (!((SEBBrowserWindow *)(self.window)).browserControllerDelegate) {
         NSString* appTitleString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@", appTitleString];
+        appTitleString = [NSString stringWithFormat:@"%@ %@", SEBFullAppNameClassic, appTitleString];
         DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self.window, appTitleString);
         return appTitleString;
     }

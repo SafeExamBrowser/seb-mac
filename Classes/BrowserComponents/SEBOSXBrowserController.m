@@ -987,7 +987,7 @@
 
 - (void) showWebView:(SEBAbstractWebView *)webView
 {
-    [self showWebView:webView];
+    [self webViewShow:webView];
 }
 
 

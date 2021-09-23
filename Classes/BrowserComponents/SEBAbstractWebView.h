@@ -107,7 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setLoading:(BOOL)loading;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
-- (void) setTitle:(NSString *)title;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url;
