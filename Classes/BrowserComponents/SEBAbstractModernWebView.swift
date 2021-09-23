@@ -549,10 +549,6 @@ import Foundation
         return (navigationDelegate?.appVersion?() ?? "")
     }
     
-    public func setTitle(_ title: String) {
-        navigationDelegate?.setTitle!(title)
-    }
-    
     public func backgroundTintStyle () -> SEBBackgroundTintStyle {
         return navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
     }
