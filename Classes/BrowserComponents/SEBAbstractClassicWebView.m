@@ -281,11 +281,6 @@
     [self.navigationDelegate setLoading:loading];
 }
 
-- (void) setTitle:(NSString *)title
-{
-    [self.navigationDelegate setTitle:title];
-}
-
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
     [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];

@@ -47,6 +47,7 @@ static NSString __unused *SEBWebsiteShort = @"safeexambrowser.org";
 static NSString __unused *SEBOrganization = @"ETH Zurich";
 static NSString __unused *SEBCountry = @"CH";
 
+static NSString __unused *SEBFullAppNameClassic = @"Safe Exam Browser";
 static NSString __unused *SEBFullAppName = @"SafeExamBrowser";
 static NSString __unused *SEBShortAppName = @"SEB";
 static NSString __unused *SEBExtraShortAppName = @"SEB";
