@@ -1068,7 +1068,7 @@ bool insideMatrix(void);
     [_sebServerViewController updateExamList];
 }
 
-- (void)closeSEBServerView
+- (void) closeSEBServerView
 {
     _sebServerViewWindowController.window.delegate = nil;
     [_sebServerViewWindowController close];
@@ -1691,6 +1691,10 @@ bool insideMatrix(void);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
         [DDLog removeLogger:_myLogger];
+        _myLogger = nil;
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            [DDLog removeLogger:ServerLogger.sharedInstance];
+        }
     } else {
         //Set log directory
         NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
@@ -1707,6 +1711,13 @@ bool insideMatrix(void);
         _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
         _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
         [DDLog addLogger:_myLogger];
+        
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            if (![DDLog.allLoggers containsObject:ServerLogger.sharedInstance]) {
+                [DDLog addLogger:ServerLogger.sharedInstance];
+                ServerLogger.sharedInstance.delegate = self;
+            }
+        }
         
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
         NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
@@ -1732,6 +1743,15 @@ bool insideMatrix(void);
         DDLogInfo(@"User name: %@", userName);
         DDLogInfo(@"Full user name: %@", fullUserName);
     }
+}
+
+
+- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
+                        timestamp:(NSString *)timestamp
+                     numericValue:(double)numericValue
+                          message:(NSString *)message
+{
+    [self.serverController sendLogEventWithLogLevel:logLevel timestamp:timestamp numericValue:numericValue message:message];
 }
 
 
@@ -4944,6 +4964,16 @@ conditionallyForWindow:(NSWindow *)window
 - (void) sessionQuitRestart:(BOOL)restart
 {
     _openingSettings = NO;
+    
+    if (self.startingExamFromSEBServer) {
+        self.establishingSEBServerConnection = false;
+        self.startingExamFromSEBServer = false;
+        [self.serverController loginToExamAborted];
+    } else if (self.sebServerConnectionEstablished) {
+        self.sebServerConnectionEstablished = false;
+        [self.serverController quitSession];
+    }
+
     if (restart) {
         [self requestedRestart:nil];
     } else {
@@ -5002,15 +5032,6 @@ conditionallyForWindow:(NSWindow *)window
     _restarting = YES;
     _conditionalInitAfterProcessesChecked = NO;
     _openedURL = NO;
-
-    if (self.startingExamFromSEBServer) {
-        self.establishingSEBServerConnection = false;
-        self.startingExamFromSEBServer = false;
-        [self.serverController loginToExamAborted];
-    } else if (self.sebServerConnectionEstablished) {
-        self.sebServerConnectionEstablished = false;
-        [self.serverController quitSession];
-    }
 
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again

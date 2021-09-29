@@ -156,13 +156,17 @@
         }
         
         if ([instruction isEqualToString:@"SEB_PROCTORING"]) {
-            NSDictionary *attributes = sebInstruction.attributes;
-            [self.delegate startProctoringWithAttributes:(NSDictionary *)attributes];
+            if ([self.delegate respondsToSelector:@selector(startProctoringWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate startProctoringWithAttributes:(NSDictionary *)attributes];
+            }
         }
         
         if ([instruction isEqualToString:@"SEB_RECONFIGURE_SETTINGS"]) {
-            NSDictionary *attributes = sebInstruction.attributes;
-            [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
+            if ([self.delegate respondsToSelector:@selector(reconfigureWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
+            }
         }
     }
 }

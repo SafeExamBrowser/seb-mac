@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
+- (void) examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies;
 
 @end
 
