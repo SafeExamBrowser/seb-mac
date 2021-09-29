@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
 - (void) serverSessionQuitRestart:(BOOL)restart;
+- (void) closeServerView:(id)sender;
 
 @optional
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
