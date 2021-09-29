@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) SEBServerController *sebServerController;
 @property (weak, nonatomic) id <ServerControllerDelegate> serverControllerDelegate;
-@property (weak, nonatomic) NSArray * exams;
+@property (weak, nonatomic) NSArray *exams;
 
 @property (strong, nonatomic) NSTableView *examsTableView;
 
