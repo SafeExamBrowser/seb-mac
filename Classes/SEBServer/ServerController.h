@@ -45,9 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) storeNewSEBSettings:(NSData *)configData;
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
+- (void) serverSessionQuitRestart:(BOOL)restart;
+
+@optional
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
-- (void) serverSessionQuitRestart:(BOOL)restart;
 
 @end
 
