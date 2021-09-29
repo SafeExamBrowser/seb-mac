@@ -180,6 +180,16 @@ bool insideMatrix(void);
 }
 
 
+- (ServerController*)serverController
+{
+    if (!_serverController) {
+        _serverController = [[ServerController alloc] init];
+        _serverController.delegate = self;
+    }
+    return _serverController;
+}
+
+
 #pragma mark - Class and Instance Initialization
 
 + (void) initialize
@@ -945,7 +955,7 @@ bool insideMatrix(void);
     // Open the main browser window
     DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
     
-    [self.browserController openMainBrowserWindow];
+    [self startExam];
 
     // Persist start URL of a "secure" exam
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -968,6 +978,174 @@ bool insideMatrix(void);
     }
 
 }
+
+
+- (void) startExam
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    if (_establishingSEBServerConnection == true) {
+        _startingExamFromSEBServer = true;
+        [self.serverController startExamFromServer];
+    } else {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
+            NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
+            _establishingSEBServerConnection = true;
+            if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
+                // All necessary information for connecting to SEB Server was available in settings:
+                // try to connect to SEB Server and wait for delegate method to be called with success/failure
+                [self showSEBServerView];
+                return;
+            } else {
+                // Cannot connect as some SEB Server settings/API endpoints are missing
+                // Abort if fallback isn't enabled
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerFallback"] == NO) {
+//                    [self alertWithTitle:NSLocalizedString(@"Cannot Connect to SEB Server", nil)
+//                                 message:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)
+//                            action1Title:NSLocalizedString(@"OK", nil)
+//                          action1Handler:^(void){
+//                        [self closeServerView:self];
+//                    }
+//                            action2Title:nil
+//                          action2Handler:nil];
+//                    return;
+                }
+            }
+        } else {
+            //        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+            //        NSURL *startURL = [NSURL URLWithString:startURLString];
+            //        if (startURLString.length == 0 ||
+            //            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+            //              [startURL.host hasSuffix:SEBWebsiteShort]) &&
+            //             [startURL.path hasSuffix:@"start"]))
+            //        {
+            //            // Start URL was set to the default value, show init assistant
+            //            [self openInitAssistant];
+            //        } else {
+                        _sessionRunning = true;
+                        
+                        // Load all open web pages from the persistent store and re-create webview(s) for them
+                        // or if no persisted web pages are available, load the start URL
+                        [self.browserController openMainBrowserWindow];
+                        
+            //            if (_secureMode) {
+            //                [self.sebLockedViewController addLockedExam:startURLString];
+            //            }
+                    // Persist start URL of a "secure" exam
+                    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+                        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+                        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+                    } else {
+                        currentExamStartURL = nil;
+                    }
+
+
+            //        }
+        }
+    }
+}
+
+
+#pragma mark - Connecting to SEB Server
+
+- (void) showSEBServerView
+{
+    _sebServerViewController = [SEBServerOSXViewController new];
+    _sebServerViewController.sebServerController = self.serverController.sebServerController;
+    self.serverController.sebServerController.serverControllerUIDelegate = _sebServerViewController;
+    _sebServerViewController.serverControllerDelegate = self;
+    NSWindow *sebServerViewWindow;
+    sebServerViewWindow = [NSWindow windowWithContentViewController:_sebServerViewController];
+    [sebServerViewWindow setLevel:NSMainMenuWindowLevel+5];
+    sebServerViewWindow.title = NSLocalizedString(@"Connecting to SEB Server", nil);
+    sebServerViewWindow.delegate = _sebServerViewController;
+    NSWindowController *sebServerViewWindowController = [[NSWindowController alloc] initWithWindow:sebServerViewWindow];
+    _sebServerViewWindowController = sebServerViewWindowController;
+    [_sebServerViewWindowController showWindow:nil];
+
+    _sebServerViewDisplayed = YES;
+    [_sebServerViewController updateExamList];
+}
+
+- (void)closeSEBServerView
+{
+    _sebServerViewWindowController.window.delegate = nil;
+    [_sebServerViewWindowController close];
+    _sebServerViewController = nil;
+    _sebServerViewDisplayed = NO;
+}
+
+
+- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
+{
+    _sebServerViewController = false;
+    [self closeSEBServerView];
+    [self.serverController examSelected:examId url:url];
+}
+
+
+- (void) storeNewSEBSettings:(NSData *)configData
+{
+    [self storeNewSEBSettings:configData forEditing:NO forceConfiguringClient:NO showReconfiguredAlert:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
+- (void) closeServerView:(id)sender
+{
+    _establishingSEBServerConnection = NO;
+    [self closeSEBServerView];
+    [self sessionQuitRestart:NO];
+}
+
+
+- (void) loginToExam:(NSString *)url
+{
+    NSURL *examURL = [NSURL URLWithString:url];
+    [self.browserController openMainBrowserWindowWithStartURL:examURL];
+    self.browserController.sebServerExamStartURL = examURL;
+    _sessionRunning = true;
+}
+
+
+- (void) didEstablishSEBServerConnection
+{
+    _establishingSEBServerConnection = false;
+    _startingExamFromSEBServer = false;
+    _sebServerConnectionEstablished = true;
+}
+
+
+- (void) serverSessionQuitRestart:(BOOL)restart
+{
+    if (_sebServerViewDisplayed) {
+        [self closeSEBServerView];
+        self.establishingSEBServerConnection = false;
+    }
+    // Check if Preferences are currently open
+    if ([self.preferencesController preferencesAreOpen]) {
+        // Close Preferences
+        [self closePreferencesWindow];
+    }
+    [self sessionQuitRestart:restart];
+}
+
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineCookies:cookies];
+    }
+}
+
+
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController shouldStartLoadFormSubmittedURL:url];
+    }
+}
+
 
 #pragma mark - Initialization depending on client or opened settings
 
@@ -1064,15 +1242,7 @@ bool insideMatrix(void);
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             NSWindow *runningProcessesListWindow;
-            if (@available(macOS 10.10, *)) {
-                runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
-            } else {
-                runningProcessesListWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
-                NSRect newWindowFrame = self.processListViewController.view.frame;
-                runningProcessesListWindow.contentView = self.processListViewController.view;
-                [runningProcessesListWindow setFrame:newWindowFrame display:YES animate:NO];
-                [runningProcessesListWindow center];
-            }
+            runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
             [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
             runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
             NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
@@ -1081,9 +1251,9 @@ bool insideMatrix(void);
             // important: processListViewController must be accessed with the instance variable
             // _processListViewController here and not using the property self.processListViewController
             // as otherwise a new instance of the controller will be allocated
-            if (self->_processListViewController &&
-                self->_processListViewController.runningApplications.count +
-                self->_processListViewController.runningProcesses.count > 0) {
+            if (self.processListViewController &&
+                self.processListViewController.runningApplications.count +
+                self.processListViewController.runningProcesses.count > 0) {
                 runningProcessesListWindow.delegate = self.processListViewController;
                 [self.runningProcessesListWindowController showWindow:nil];
                 return;
@@ -4610,16 +4780,6 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_11) {
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Available From macOS 10.11", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert runModal];
-            [self removeAlertWindow:modalAlert.window];
-            return;
-        }
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
@@ -4667,16 +4827,22 @@ conditionallyForWindow:(NSWindow *)window
         } else {
             // Show preferences window
             DDLogDebug(@"openPreferences: Preferences already open, just show Window");
-            if (@available(macOS 11.0, *)) {
-                // Release preferences window so buttons get enabled properly for the local client settings mode
-                [self.preferencesController releasePreferencesWindow];
-                // Re-initialize and open preferences window
-                [self.preferencesController initPreferencesWindow];
-                [self.preferencesController reopenPreferencesWindow];
-            }
+            // Release preferences window so buttons get enabled properly for the local client settings mode
+            [self.preferencesController releasePreferencesWindow];
+            // Re-initialize and open preferences window
+            [self.preferencesController initPreferencesWindow];
+            [self.preferencesController reopenPreferencesWindow];
             [self.preferencesController showPreferencesWindow:nil];
         }
     }
+}
+
+
+- (void)closePreferencesWindow
+{
+    // Release preferences window so buttons get enabled properly for the local client settings mode
+    [self.preferencesController releasePreferencesWindow];
+    [self.preferencesController initPreferencesWindow];
 }
 
 
@@ -4837,6 +5003,15 @@ conditionallyForWindow:(NSWindow *)window
     _conditionalInitAfterProcessesChecked = NO;
     _openedURL = NO;
 
+    if (self.startingExamFromSEBServer) {
+        self.establishingSEBServerConnection = false;
+        self.startingExamFromSEBServer = false;
+        [self.serverController loginToExamAborted];
+    } else if (self.sebServerConnectionEstablished) {
+        self.sebServerConnectionEstablished = false;
+        [self.serverController quitSession];
+    }
+
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
     if (currentExamStartURL) {
@@ -4905,16 +5080,7 @@ conditionallyForWindow:(NSWindow *)window
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     
-    [self.browserController openMainBrowserWindow];
-
-    // Persist start URL of a "secure" exam
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        [self.sebLockedViewController addLockedExam:currentExamStartURL];
-    } else {
-        currentExamStartURL = nil;
-    }
+    [self startExam];
 
     // Adjust screen locking
     [self adjustScreenLocking:nil];
