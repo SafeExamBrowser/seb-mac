@@ -23,12 +23,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:NSMakeRect(10, 10, 380, 200)];
-    self.examsTableView = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 364, 200)];
+    NSScrollView *tableContainer = [[NSScrollView alloc] initWithFrame:NSMakeRect(10, 10, 460, 250)];
+    tableContainer.borderType = NSNoBorder;
+    self.examsTableView = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 444, 250)];
 
     NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:@"Column1"];
 
-    [column1 setWidth:364];
+    [column1 setWidth:444];
     // generally you want to add at least one column to the table view.
     [self.examsTableView addTableColumn:column1];
     self.examsTableView.dataSource = self;
@@ -85,5 +86,13 @@
     [self.serverControllerDelegate didSelectExamWithExamId:examId url:examURL];
 }
 
+
+/// NSWindowDelegate methods
+
+- (BOOL)windowShouldClose:(NSWindow *)sender
+{
+    [_serverControllerDelegate closeServerView:sender];
+    return YES;
+}
 
 @end
