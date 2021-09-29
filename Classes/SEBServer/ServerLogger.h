@@ -34,15 +34,21 @@
 
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack.h>
-//#import "SEBViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ServerLoggerDelegate <NSObject>
+
+- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
+                        timestamp: (NSString *)timestamp
+                     numericValue:(double)numericValue
+                          message:(NSString *)message;
+
+@end
+
 @interface ServerLogger : DDAbstractLogger <DDLogger>
 
-#if TARGET_OS_IPHONE
-@property (weak) SEBViewController *sebViewController;
-#endif
+@property (weak, nonatomic) id <ServerLoggerDelegate> delegate;
 
 + (ServerLogger *) sharedInstance;
 

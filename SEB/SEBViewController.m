@@ -260,7 +260,7 @@ static NSMutableSet *browserWindowControllers;
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             if (![DDLog.allLoggers containsObject:ServerLogger.sharedInstance]) {
                 [DDLog addLogger:ServerLogger.sharedInstance];
-                ServerLogger.sharedInstance.sebViewController = self;
+                ServerLogger.sharedInstance.delegate = self;
             }
         }
     }

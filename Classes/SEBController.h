@@ -83,8 +83,8 @@
 @class SEBServerOSXViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate> {
-	
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
+{
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
     BOOL f3Pressed;
