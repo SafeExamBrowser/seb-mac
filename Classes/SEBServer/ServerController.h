@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) didEstablishSEBServerConnection;
 - (void) serverSessionQuitRestart:(BOOL)restart;
 - (void) closeServerView:(id)sender;
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
 
 @optional
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
                         timestamp: (NSString *)timestamp
                      numericValue:(double)numericValue
                           message:(NSString *)message;
-- (void) quitSession;
+- (void) quitSessionWithRestart:(BOOL)restart;
 
 - (void) loginToExamAborted;
 
