@@ -40,6 +40,7 @@ import Foundation
     func reconfigureWithServerExamConfig(_ configData: Data)
     func didEstablishSEBServerConnection()
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
+    func didCloseSEBServerConnectionRestart(_ restart: Bool)
 }
 
 @objc public protocol ServerControllerUIDelegate: AnyObject {
@@ -298,7 +299,7 @@ public extension SEBServerController {
     }
     
     
-    @objc func quitSession() {
+    @objc func quitSession(restart: Bool) {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         
         let quitSessionRequest = DataRequest(resource: quitSessionResource)
@@ -314,6 +315,7 @@ public extension SEBServerController {
                 let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
                 print(responseBody as Any)
             }
+            self.delegate?.didCloseSEBServerConnectionRestart(restart)
         })
     }
 }

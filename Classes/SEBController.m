@@ -4971,9 +4971,15 @@ conditionallyForWindow:(NSWindow *)window
         [self.serverController loginToExamAborted];
     } else if (self.sebServerConnectionEstablished) {
         self.sebServerConnectionEstablished = false;
-        [self.serverController quitSession];
+        [self.serverController quitSessionWithRestart:restart];
+        return;
     }
+    [self didCloseSEBServerConnectionRestart:restart];
+}
 
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
     if (restart) {
         [self requestedRestart:nil];
     } else {
