@@ -172,9 +172,15 @@
 }
 
 
-- (void) quitSession
+- (void) quitSessionWithRestart:(BOOL)restart
 {
-    [_sebServerController quitSession];
+    [_sebServerController quitSessionWithRestart:restart];
+}
+
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    [self.delegate didCloseSEBServerConnectionRestart:restart];
 }
 
 
