@@ -112,6 +112,8 @@
             if (openEdXUsername) {
                 [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
             }
+        } else if ([cookie.name isEqualToString:@"MoodleSession"]) {
+            DDLogDebug(@"Cookie 'MoodleSession': %@", cookie);
         }
     }
 }
@@ -123,7 +125,7 @@
     // Search for the testsession ID query parameter which Moodle sends back
     // after a user logs in to a quiz
     NSRange testsessionRange = [query rangeOfString:@"testsession="];
-    if (testsessionRange.location != NSNotFound) {
+    if (query && testsessionRange.location != NSNotFound) {
         NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
         if (testsessionID.length > 0) {
             [_sebServerController startMonitoringWithUserSessionId:testsessionID];

@@ -157,7 +157,7 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
         handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, statusCode, responseHeaders) in
-            guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == keys.sebConnectionToken }))?.value else {
+            guard let connectionTokenString = (responseHeaders?.first(where: { ($0.key as! String).caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value else {
                 return
             }
             self.connectionToken = connectionTokenString as? String

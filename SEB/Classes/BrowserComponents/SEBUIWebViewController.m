@@ -234,12 +234,6 @@
     //[self speakWebView:webView];
     
     [self.navigationDelegate sebWebViewDidFinishLoad];
-
-    // Look for a user cookie if logging in to an exam system/LMS supporting SEB Server
-    // ToDo: Only search for cookie when logging in to Open edX
-//    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    NSArray<NSHTTPCookie *> *cookies = cookieJar.cookies;
-//    [self.navigationDelegate examineCookies:cookies];
 }
 
 
