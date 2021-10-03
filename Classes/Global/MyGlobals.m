@@ -83,6 +83,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
++ (DDFileLogger *)initializeFileLoggerWithDirectory:(NSString *)logPath
+{
+    DDFileLogger *myLogger;
+    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
+    myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+    myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd HH:mm:ss:SSS"];
+    myLogger.logFormatter = [[DDLogFileFormatterDefault alloc] initWithDateFormatter:dateFormatter];
+    
+    return myLogger;
+}
+
+
 - (NSString *)createUniqueFilename:(NSString *)filename
 {
     // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
