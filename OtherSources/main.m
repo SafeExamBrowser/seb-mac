@@ -53,8 +53,6 @@ int main(int argc, char *argv[])
     [NSWindow setupChangingWindowLevels];
             [WebView setupOverridePlugins];
 
-    //[NSUserDefaults setupPrivateUserDefaults];
-
     return NSApplicationMain(argc,  (const char **) argv);
     }
 }
