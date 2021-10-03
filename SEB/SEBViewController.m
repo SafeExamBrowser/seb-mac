@@ -251,10 +251,7 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         if (!_myLogger) {
-            DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] init];
-            _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-            _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-            _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+            _myLogger = [MyGlobals initializeFileLoggerWithDirectory:nil];
             [DDLog addLogger:_myLogger];
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
