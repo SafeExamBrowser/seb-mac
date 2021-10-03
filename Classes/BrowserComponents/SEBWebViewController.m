@@ -131,20 +131,7 @@
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
 {
     // Set browser user agent according to settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *overrideUserAgent;
-    NSString *browserUserAgentSuffix = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgent"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (browserUserAgentSuffix.length != 0) {
-        browserUserAgentSuffix = [NSString stringWithFormat:@" %@", browserUserAgentSuffix];
-    }
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
-        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
-    } else {
-        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
-    }
-    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@%@", SEBUserAgentDefaultSuffix, versionString, browserUserAgentSuffix]];
+    NSString *overrideUserAgent = self.navigationDelegate.customSEBUserAgent;
     [webView setCustomUserAgent:overrideUserAgent];
     
     WebPreferences* prefs = [webView preferences];
@@ -181,6 +168,7 @@
     } else {
         DDLogError(@"WebStorageManager did not respond to selector _storageDirectoryPath. Local Storage won't be available!");
     }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [prefs setDeveloperExtrasEnabled:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"]];
 
     [webView setPreferences:prefs];
