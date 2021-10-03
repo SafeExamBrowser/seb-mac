@@ -284,6 +284,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
     _wkWebViewConfiguration.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];
     _wkWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
+#else
+    BOOL developerExtrasEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
+    [_wkWebViewConfiguration.preferences setValue:[NSNumber numberWithBool:developerExtrasEnabled] forKey: @"developerExtrasEnabled"];
 #endif
     if (@available(macOS 10.13, *)) {
         _wkWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
