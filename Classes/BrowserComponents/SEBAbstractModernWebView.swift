@@ -121,6 +121,12 @@ import Foundation
         sebWKWebViewController.navigationDelegate = self
         self.browserControllerDelegate = sebWKWebViewController
         #endif
+        
+        guard let webView = (browserControllerDelegate!.nativeWebView!()) as? WKWebView else {
+            return
+        }
+        let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
+        webView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
     }
     
     public func loadView() {
