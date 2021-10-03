@@ -1488,10 +1488,7 @@ bool insideMatrix(void);
 // settings are initialized
 - (void) initializeTemporaryLogger
 {
-    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:nil];
-    _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-    _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-    _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+    _myLogger = [MyGlobals initializeFileLoggerWithDirectory:nil];
     [DDLog addLogger:_myLogger];
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
@@ -1532,10 +1529,7 @@ bool insideMatrix(void);
             logPath = [logPath stringByExpandingTildeInPath];
             // Add subdirectory with the name of the computer
         }
-        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
-        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+        _myLogger = [MyGlobals initializeFileLoggerWithDirectory:logPath];
         [DDLog addLogger:_myLogger];
         
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
