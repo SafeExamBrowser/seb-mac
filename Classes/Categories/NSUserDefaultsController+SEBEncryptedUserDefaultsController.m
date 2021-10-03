@@ -58,9 +58,6 @@
             return nil;
         }
         NSError *error;
-//        NSData *decrypted = [RNDecryptor decryptData:encrypted
-//                                        withPassword:userDefaultsMasala
-//                                               error:&error];
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey: key error:&error];
         
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
@@ -87,10 +84,7 @@
     
     if ([NSUserDefaults userDefaultsPrivate]) {
         if (value == nil) value = [NSNull null];
-//        [[NSUserDefaults standardUserDefaults] willChangeValueForKey:key];
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
-//        [[NSUserDefaults standardUserDefaults] didChangeValueForKey:key];
-        //[self.defaults setSecureObject:value forKey:key];
         DDLogVerbose(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
     } else {
         if (value == nil || keyPath == nil) {
@@ -100,10 +94,6 @@
         } else {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-//            NSData *encryptedData = [RNEncryptor encryptData:data
-//                                                withSettings:kRNCryptorAES256Settings
-//                                                    password:userDefaultsMasala
-//                                                       error:&error];
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             
             DDLogVerbose(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
