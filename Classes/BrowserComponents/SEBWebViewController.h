@@ -33,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
-//@property (weak) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBWebView *sebWebView;
 @property (strong, nonatomic) NSString *currentWebViewMainHost;
 @property (strong, nonatomic) NSURLAuthenticationChallenge * _Nullable pendingChallenge;
