@@ -43,7 +43,7 @@
 
 @interface SEBWebView : WebView <NSTouchBarProvider>
 
-@property (weak, nonatomic) SEBWebViewController *navigationDelegate;
+@property (weak, nonatomic) SEBWebViewController <SEBAbstractWebViewNavigationDelegate>* navigationDelegate;
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
 @property (strong, nonatomic) NSURL *originalURL;
@@ -51,6 +51,8 @@
 @property (readwrite) BOOL dismissAll;
 
 @property (strong, readonly) NSTouchBar *touchBar;
+
+- (instancetype)initWithFrame:(NSRect)frameRect delegate:(SEBWebViewController <SEBAbstractWebViewNavigationDelegate>*)delegate;
 
 - (NSArray *)plugins;
 

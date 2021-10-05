@@ -271,7 +271,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (readwrite) BOOL dismissAll;
 
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck;
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
 
 @end
 

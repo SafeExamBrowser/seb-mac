@@ -41,17 +41,16 @@
 
 @implementation SEBAbstractClassicWebView
 
-- (instancetype)init
+- (instancetype)initWithDelegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     if (self) {
+        _navigationDelegate = delegate;
 #if TARGET_OS_IPHONE
-        SEBUIWebViewController *sebUIWebViewController = [SEBUIWebViewController new];
-        sebUIWebViewController.navigationDelegate = self;
+        SEBUIWebViewController *sebUIWebViewController = [[SEBUIWebViewController alloc] initWithDelegate:self];
         self.browserControllerDelegate = sebUIWebViewController;
 #else
-        SEBWebViewController *sebWebViewController = [SEBWebViewController new];
-        sebWebViewController.navigationDelegate = self;
+        SEBWebViewController *sebWebViewController = [[SEBWebViewController alloc] initWithDelegate:self];
         self.browserControllerDelegate = sebWebViewController;
 #endif
     }
