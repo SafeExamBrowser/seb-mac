@@ -40,9 +40,10 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
+    _navigationDelegate = delegate;
     if (self) {
         _overrideAllowSpellCheck = overrideSpellCheck;
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -65,8 +66,7 @@
                         downloadingInTemporaryWebView) {
                         
                         DDLogInfo(@"Opening modern WebView");
-                        SEBAbstractModernWebView *sebAbstractModernWebView = [SEBAbstractModernWebView new];
-                        sebAbstractModernWebView.navigationDelegate = self;
+                        SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self];
                         self.browserControllerDelegate = sebAbstractModernWebView;
                         [self initGeneralProperties];
                         return self;
@@ -75,8 +75,7 @@
             }
         }
         DDLogInfo(@"Opening classic WebView");
-        SEBAbstractClassicWebView *sebAbstractClassicWebView = [SEBAbstractClassicWebView new];
-        sebAbstractClassicWebView.navigationDelegate = self;
+        SEBAbstractClassicWebView *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:self];
         self.browserControllerDelegate = sebAbstractClassicWebView;
     }
     [self initGeneralProperties];

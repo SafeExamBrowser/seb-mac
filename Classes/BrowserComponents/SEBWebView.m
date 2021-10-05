@@ -39,6 +39,17 @@
 @implementation SEBWebView
 
 
+- (instancetype)initWithFrame:(NSRect)frameRect delegate:(SEBWebViewController <SEBAbstractWebViewNavigationDelegate>*)delegate
+{
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        _navigationDelegate = delegate;
+    }
+    return self;
+}
+
+
+
 - (NSTouchBar *)makeTouchBar
 {
     return nil;
