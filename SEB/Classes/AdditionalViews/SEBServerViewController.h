@@ -33,19 +33,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#if TARGET_OS_IPHONE
 #import "SEBViewController.h"
 @class SEBViewController;
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SEBServerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ServerControllerUIDelegate>
 
 @property (weak) SEBServerController *sebServerController;
-#if TARGET_OS_IPHONE
 @property (weak) SEBViewController *sebViewController;
-#endif
 @property (nonatomic, weak) NSArray * exams;
 
 @property (weak, nonatomic) IBOutlet UITableView *examsTableView;
