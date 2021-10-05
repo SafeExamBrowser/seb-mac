@@ -84,6 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose;
 - (void) webViewShow:(SEBAbstractWebView *)sender;
 - (void) openMainBrowserWindow;
+- (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL;
 
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 - (void) adjustMainBrowserWindow;
