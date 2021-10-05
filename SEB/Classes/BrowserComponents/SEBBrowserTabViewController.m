@@ -552,17 +552,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         Webpages *webpageToClose = _persistentWebpages[tabIndex];
         
         NSString *pageToCloseURL = webpageToClose.url;
-        if ([pageToCloseURL hasPrefix:@"drawing"]) {
-        } else {
-            OpenWebpages *webpage = _openWebpages[tabIndex];
-            SEBiOSWebViewController *webViewController = webpage.webViewController;
-            // Prevent media player from playing audio after its webview was closed
-            // by properly releasing it
-            webViewController.sebWebView = nil;
-            webViewController.view = nil;
-            webViewController = nil;
-        }
-        
+        OpenWebpages *webpage = _openWebpages[tabIndex];
+        SEBiOSWebViewController *webViewController = webpage.webViewController;
+        // Prevent media player from playing audio after its webview was closed
+        // by properly releasing it
+        webViewController.sebWebView = nil;
+        webViewController.view = nil;
+        webViewController = nil;
+
         [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
         
         // Save everything
