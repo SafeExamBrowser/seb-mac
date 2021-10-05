@@ -76,6 +76,7 @@
 
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
++ (DDFileLogger *)initializeFileLoggerWithDirectory:(NSString *)logPath;
 - (NSString *)createUniqueFilename:(NSString *)filename;
 
 @end

@@ -39,12 +39,12 @@
 
 @implementation SEBiOSWebViewController
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
+    _navigationDelegate = delegate;
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck];
-        sebAbstractWebView.navigationDelegate = self;
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -451,62 +451,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             }
         }
         return SEBNavigationActionPolicyCancel;
-    }
-    
-    // Downloading image files for the freehand drawing functionality
-    if(navigationType == WKNavigationTypeLinkActivated || navigationType == WKNavigationTypeOther) {
-        if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
-            if (enableDrawingEditor) {
-                // Get the filename of the loaded ressource form the UIWebView's request URL
-                NSString *filename = [url lastPathComponent];
-                DDLogInfo(@"%s: Filename: %@", __FUNCTION__, filename);
-                // Get the path to the App's Documents directory
-                NSString *docPath = [self tempDirectoryPath];
-                // Combine the filename and the path to the documents dir into the full path
-                NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", docPath, filename];
-                
-                
-                // Load the file from the remote server
-                NSData *tmp = [NSData dataWithContentsOfURL:url];
-                // Save the loaded data if loaded successfully
-                if (tmp != nil) {
-                    NSError *error = nil;
-                    UIImage *sourceImage = [UIImage imageWithData: tmp];
-                    // ToDo: Process image if necessary
-                    UIImage *processedImage = sourceImage;
-                    
-                    NSData *dataForPNGFile = UIImagePNGRepresentation(processedImage);
-                    
-                    // Write the contents of our tmp object into a file
-                    [dataForPNGFile writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
-                    if (error != nil) {
-                        DDLogError(@"%s: Failed to save the file: %@", __FUNCTION__, [error description]);
-                    } else {
-                        //                    NSString *base64PNGData = [dataForPNGFile base64EncodedStringWithOptions:0];
-                        //                    NSString *simulateDropFunction = [NSString stringWithFormat:@"SEB_replaceImage('%@')", base64PNGData];
-                        //                    NSString *result =[_sebWebView stringByEvaluatingJavaScriptFromString:simulateDropFunction];
-                        //                    NSString *result = [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_replaceImage()"];
-                        // Display an UIAlertView that shows the users we saved the file :)
-                        NSURL *drawingURL = [NSURL fileURLWithPath:pathToDownloadTo];
-                        // Replace file:// scheme with drawing://
-                        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:drawingURL resolvingAgainstBaseURL:NO];
-                        // Download the .seb file directly into memory (not onto disc like other files)
-                        urlComponents.scheme = @"drawing";
-                        drawingURL = urlComponents.URL;
-                        //                    NSURL *drawingURL = [NSURL URLWithString:[NSString stringWithFormat:@"drawing://%@", pathToDownloadTo]];
-                        [self.navigationDelegate openNewTabWithURL:drawingURL image:processedImage];
-                        //                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        //                    [filenameAlert show];
-                        return SEBNavigationActionPolicyCancel;
-                    }
-                } else {
-                    // File could notbe loaded -> handle errors
-                }
-            }
-        } else {
-            // File type not supported
-        }
-
     }
     return SEBNavigationActionPolicyAllow;
 }
