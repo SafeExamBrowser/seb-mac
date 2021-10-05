@@ -40,29 +40,38 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public var scrollLockActive = false
     
-    public var sebWebView: WKWebView?
-    
+    private var _sebWebView: WKWebView?
+
+    public var sebWebView: WKWebView? {
+        if sebWebView == nil {
+            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            let webFrame = UIScreen.main.bounds
+            sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
+            let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
+            sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
+            sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            sebWebView?.scrollView.isScrollEnabled = true
+            sebWebView?.translatesAutoresizingMaskIntoConstraints = true
+            zoomScale = sebWebView?.scrollView.zoomScale
+            sebWebView?.uiDelegate = self
+            sebWebView?.navigationDelegate = self
+            
+            sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            urlFilter = SEBURLFilter.shared()
+        }
+        return _sebWebView
+    }
+
     private var zoomScale: CGFloat?
 
     private var urlFilter: SEBURLFilter?
     
+    convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {
+        self.init()
+        navigationDelegate = delegate
+    }
+    
     public override func loadView() {
-        let webFrame = UIScreen.main.bounds
-        if sebWebView == nil {
-            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
-            sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
-        }
-        let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
-        sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
-        sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        sebWebView?.scrollView.isScrollEnabled = true
-        sebWebView?.translatesAutoresizingMaskIntoConstraints = true
-        zoomScale = sebWebView?.scrollView.zoomScale
-        sebWebView?.uiDelegate = self
-        sebWebView?.navigationDelegate = self
-        
-        sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
-        urlFilter = SEBURLFilter.shared()
     }
     
     public func viewWillTransitionToSize() {

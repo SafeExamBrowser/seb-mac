@@ -110,15 +110,14 @@ import Foundation
 
     private var firstLoad = true
 
-    @objc public override init() {
+    @objc public init(delegate: SEBAbstractWebViewNavigationDelegate) {
         super.init()
+        navigationDelegate = delegate
         #if os(iOS)
-        let sebWKWebViewController = SEBiOSWKWebViewController()
-        sebWKWebViewController.navigationDelegate = self
+        let sebWKWebViewController = SEBiOSWKWebViewController(delegate: self)
         self.browserControllerDelegate = sebWKWebViewController
         #elseif os(macOS)
-        let sebWKWebViewController = SEBOSXWKWebViewController()
-        sebWKWebViewController.navigationDelegate = self
+        let sebWKWebViewController = SEBOSXWKWebViewController(delegate: self)
         self.browserControllerDelegate = sebWKWebViewController
         #endif
         

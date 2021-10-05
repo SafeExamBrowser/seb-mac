@@ -37,51 +37,63 @@
 #import "Constants.h"
 #import "AppDelegate.h"
 
-@interface SEBUIWebViewController ()
-
-@end
-
 @implementation SEBUIWebViewController
+
+- (instancetype)initWithDelegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate
+{
+    self = [super init];
+    if (self) {
+        _navigationDelegate = delegate;
+    }
+    return self;
+}
+
+
+- (SEBWebView *)sebWebView
+{
+    if (!_sebWebView) {
+        // Create a webview to fit underneath the navigation view (=fill the whole screen).
+        CGRect webFrame = [[UIScreen mainScreen] bounds];
+        _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
+        // Get statusbar appearance depending on device type (traditional or iPhone X like)
+        SEBBackgroundTintStyle backgroundTintStyle = [self.navigationDelegate backgroundTintStyle];
+        _sebWebView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+        _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
+        _sebWebView.scalesPageToFit = YES;
+        if (@available(iOS 11.0, *)) {
+            _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
+        }
+        _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        _sebWebView.scrollView.scrollEnabled = YES;
+        [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
+        
+        // Set media playback properties on new webview
+
+        WKWebViewConfiguration *webViewConfiguration = self.navigationDelegate.wkWebViewConfiguration;
+        
+        _sebWebView.mediaPlaybackRequiresUserAction = webViewConfiguration.mediaTypesRequiringUserActionForPlayback != WKAudiovisualMediaTypeNone;
+        
+        _sebWebView.allowsInlineMediaPlayback = webViewConfiguration.allowsInlineMediaPlayback;
+        _sebWebView.allowsPictureInPictureMediaPlayback = webViewConfiguration.allowsPictureInPictureMediaPlayback;
+        _sebWebView.mediaPlaybackAllowsAirPlay = NO;
+
+        _sebWebView.delegate = self;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            if (UIApplication.sharedApplication.keyWindow == self.view.window) {
+                DDLogDebug(@"UIWindowDidBecomeKeyNotification with UIApplication.sharedApplication.keyWindow == self.view.window.");
+                // ToDo: The possible fix below first has to be tested
+                //[self reload];
+            }
+        }];
+    }
+    return _sebWebView;
+}
+
 
 - (void)loadView
 {
-    // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] bounds];
-    if (!_sebWebView) {
-        _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
-    }
-    
-    // Get statusbar appearance depending on device type (traditional or iPhone X like)
-    SEBBackgroundTintStyle backgroundTintStyle = [self.navigationDelegate backgroundTintStyle];
-    _sebWebView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
-    _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
-    _sebWebView.scalesPageToFit = YES;
-    if (@available(iOS 11.0, *)) {
-        _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
-    }
-    _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    _sebWebView.scrollView.scrollEnabled = YES;
-    [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-    
-    // Set media playback properties on new webview
-
-    WKWebViewConfiguration *webViewConfiguration = self.navigationDelegate.wkWebViewConfiguration;
-    
-    _sebWebView.mediaPlaybackRequiresUserAction = webViewConfiguration.mediaTypesRequiringUserActionForPlayback != WKAudiovisualMediaTypeNone;
-    
-    _sebWebView.allowsInlineMediaPlayback = webViewConfiguration.allowsInlineMediaPlayback;
-    _sebWebView.allowsPictureInPictureMediaPlayback = webViewConfiguration.allowsPictureInPictureMediaPlayback;
-    _sebWebView.mediaPlaybackAllowsAirPlay = NO;
-
-    _sebWebView.delegate = self;
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-        if (UIApplication.sharedApplication.keyWindow == self.view.window) {
-            DDLogDebug(@"UIWindowDidBecomeKeyNotification with UIApplication.sharedApplication.keyWindow == self.view.window.");
-            // ToDo: The possible fix below first has to be tested
-            //[self reload];
-        }
-    }];
+    self.view = self.sebWebView;
 }
 
 
@@ -92,9 +104,9 @@
     if (@available(iOS 11.0, *)) {
         // Not necessary for iOS 11 thanks to Safe Area
     } else {
-        [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        [_sebWebView.scrollView setZoomScale:0 animated:YES];
+        [self.sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [self.sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [self.sebWebView.scrollView setZoomScale:0 animated:YES];
     }
 }
 
@@ -126,7 +138,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _sebWebView.delegate = self;    // setup the delegate as the web view is shown
+    self.sebWebView.delegate = self;    // setup the delegate as the web view is shown
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowSpellCheck = self.navigationDelegate.allowSpellCheck;
@@ -151,39 +163,39 @@
 
 - (void)toggleScrollLock {
     _isScrollLockActive = !_isScrollLockActive;
-    _sebWebView.scrollView.scrollEnabled = !_isScrollLockActive;
-    _sebWebView.scrollView.bounces = !_isScrollLockActive;
+    self.sebWebView.scrollView.scrollEnabled = !_isScrollLockActive;
+    self.sebWebView.scrollView.bounces = !_isScrollLockActive;
     if (_isScrollLockActive) {
         // Disable text/content selection
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='none';"];
+        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='none';"];
         // Disable selection context popup (copy/paste etc.)
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='none';"];
+        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='none';"];
         // Disable magnifier glass
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='none';"];
+        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='none';"];
     } else {
         // Enable text/content selection
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='text';"];
+        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='text';"];
         // Enable selection context popup (copy/paste etc.)
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='default';"];
+        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='default';"];
         // Enable magnifier glass
-        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='default';"];
+        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='default';"];
     }
 }
 
 - (void)backToStart {
-    [_sebWebView goBack];
+    [self.sebWebView goBack];
 }
 
 - (void)goBack {
-    [_sebWebView goBack];
+    [self.sebWebView goBack];
 }
 
 - (void)goForward {
-    [_sebWebView goForward];
+    [self.sebWebView goForward];
 }
 
 - (void)reload {
-    [_sebWebView reload];
+    [self.sebWebView reload];
 }
 
 - (void)loadURL:(NSURL *)url
@@ -192,7 +204,7 @@
 }
 
 - (void)stopLoading {
-    [_sebWebView stopLoading];
+    [self.sebWebView stopLoading];
 }
 
 - (void) zoomPageIn
@@ -221,12 +233,12 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [_sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
     
-    [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
-    [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
     
-    [_sebWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"SEB_AllowSpellCheck(%@)", allowSpellCheck ? @"true" : @"false"]];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"SEB_AllowSpellCheck(%@)", allowSpellCheck ? @"true" : @"false"]];
     
     //[webView stringByEvaluatingJavaScriptFromString:@"SEB_increaseMaxZoomFactor()"];
     
@@ -303,7 +315,7 @@
 
     if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        NSURL *originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
+        NSURL *originalURL = [NSURL URLWithString:urlString relativeToURL:[self.sebWebView url]];
         request = [NSURLRequest requestWithURL:originalURL];
         newTabRequested = YES;
     }
@@ -367,32 +379,32 @@
 
 - (void)setBackForwardAvailabilty
 {
-    [self.navigationDelegate setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];
+    [self.navigationDelegate setCanGoBack:self.sebWebView.canGoBack canGoForward:self.sebWebView.canGoForward];
 }
 
 - (BOOL)canGoBack {
-    return _sebWebView.canGoBack;
+    return self.sebWebView.canGoBack;
 }
 
 
 - (BOOL)canGoForward {
-    return _sebWebView.canGoForward;
+    return self.sebWebView.canGoForward;
 }
 
 
 - (nonnull id)nativeWebView {
-    return _sebWebView;
+    return self.sebWebView;
 }
 
 
 - (NSURL *)url {
-    return [_sebWebView url];
+    return [self.sebWebView url];
 }
 
 
 - (NSString*)pageTitle
 {
-    return [_sebWebView title];
+    return [self.sebWebView title];
 }
 
 
