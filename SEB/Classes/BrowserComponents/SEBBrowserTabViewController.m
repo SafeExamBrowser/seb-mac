@@ -769,8 +769,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 // Create a UIViewController with a SEBWebView to hold new webpages
 - (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
-    newSEBWebViewController.navigationDelegate = self;
+    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate: self];
     return newSEBWebViewController;
 }
 

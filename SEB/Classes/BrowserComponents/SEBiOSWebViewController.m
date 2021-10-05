@@ -39,12 +39,12 @@
 
 @implementation SEBiOSWebViewController
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
+    _navigationDelegate = delegate;
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck];
-        sebAbstractWebView.navigationDelegate = self;
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

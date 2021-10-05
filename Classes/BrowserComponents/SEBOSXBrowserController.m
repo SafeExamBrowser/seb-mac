@@ -222,10 +222,9 @@
     SEBBrowserWindow *browserWindow = [self openBrowserWindow];
     
     SEBOSXWebViewController *newViewController;
-    newViewController = [self createNewWebViewControllerWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+    newViewController = [self createNewWebViewControllerWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck delegate:browserWindow];
 
     SEBAbstractWebView *newWindowWebView = newViewController.sebAbstractWebView;
-    newWindowWebView.navigationDelegate = browserWindow;
     newWindowWebView.creatingWebView = nil;
     browserWindow.webView = newWindowWebView;
 
@@ -270,9 +269,8 @@
 
 
 // Create a NSViewController with a SEBAbstractWebView to hold new webpages
-- (SEBOSXWebViewController *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck];
-//    newSEBWebViewController.navigationDelegate = self;
+- (SEBOSXWebViewController *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
+    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate:delegate];
     return newSEBWebViewController;
 }
 
