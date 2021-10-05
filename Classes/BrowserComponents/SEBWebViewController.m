@@ -14,11 +14,20 @@
 @implementation SEBWebViewController
 
 
-- (void)loadView
+- (instancetype)initWithDelegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate
+{
+    self = [super init];
+    if (self) {
+        _navigationDelegate = delegate;
+    }
+    return self;
+}
+
+
+- (SEBWebView *)sebWebView
 {
     if (!_sebWebView) {
-        _sebWebView = [[SEBWebView alloc] initWithFrame:CGRectZero];
-        _sebWebView.navigationDelegate = self;
+        _sebWebView = [[SEBWebView alloc] initWithFrame:CGRectZero delegate: self];
         
         // Suppress right-click with own delegate method for context menu
         [_sebWebView setUIDelegate:self];
@@ -101,6 +110,13 @@
             DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
         }
     }
+    return _sebWebView;
+}
+
+
+- (void)loadView
+{
+    self.view = self.sebWebView;
 }
 
 
@@ -131,20 +147,7 @@
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
 {
     // Set browser user agent according to settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *overrideUserAgent;
-    NSString *browserUserAgentSuffix = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgent"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (browserUserAgentSuffix.length != 0) {
-        browserUserAgentSuffix = [NSString stringWithFormat:@" %@", browserUserAgentSuffix];
-    }
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
-        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
-    } else {
-        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
-    }
-    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@%@", SEBUserAgentDefaultSuffix, versionString, browserUserAgentSuffix]];
+    NSString *overrideUserAgent = self.navigationDelegate.customSEBUserAgent;
     [webView setCustomUserAgent:overrideUserAgent];
     
     WebPreferences* prefs = [webView preferences];
@@ -181,6 +184,7 @@
     } else {
         DDLogError(@"WebStorageManager did not respond to selector _storageDirectoryPath. Local Storage won't be available!");
     }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [prefs setDeveloperExtrasEnabled:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"]];
 
     [webView setPreferences:prefs];
@@ -190,102 +194,102 @@
 
 - (BOOL)canGoBack
 {
-    return _sebWebView.canGoBack;
+    return self.sebWebView.canGoBack;
 }
 
 - (BOOL)canGoForward
 {
-    return _sebWebView.canGoForward;
+    return self.sebWebView.canGoForward;
 }
 
 - (void)goBack
 {
-    [_sebWebView goBack];
+    [self.sebWebView goBack];
 }
 
 - (void)goForward
 {
-    [_sebWebView goForward];
+    [self.sebWebView goForward];
 }
 
 - (void)reload
 {
-    [_sebWebView.mainFrame reload];
+    [self.sebWebView.mainFrame reload];
 }
 
 - (void)loadURL:(nonnull NSURL *)url
 {
-    [_sebWebView.mainFrame loadRequest:[NSURLRequest requestWithURL:url]];
+    [self.sebWebView.mainFrame loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)stopLoading
 {
-    [_sebWebView.mainFrame stopLoading];
+    [self.sebWebView.mainFrame stopLoading];
 }
 
 - (void) zoomPageIn
 {
     SEL selector = NSSelectorFromString(@"zoomPageIn:");
-    [[NSApplication sharedApplication] sendAction:selector to:_sebWebView from:self];
+    [[NSApplication sharedApplication] sendAction:selector to:self.sebWebView from:self];
 }
 
 - (void) zoomPageOut
 {
     SEL selector = NSSelectorFromString(@"zoomPageOut:");
-    [[NSApplication sharedApplication] sendAction:selector to:_sebWebView from:self];
+    [[NSApplication sharedApplication] sendAction:selector to:self.sebWebView from:self];
 }
 
 - (void) zoomPageReset
 {
     SEL selector = NSSelectorFromString(@"zoomPageStandard:");
-    [[NSApplication sharedApplication] sendAction:selector to:_sebWebView from:self];
+    [[NSApplication sharedApplication] sendAction:selector to:self.sebWebView from:self];
 }
 
 - (void) textSizeIncrease
 {
-    [_sebWebView makeTextLarger:self];
+    [self.sebWebView makeTextLarger:self];
 }
 
 - (void) textSizeDecrease
 {
-    [_sebWebView makeTextSmaller:self];
+    [self.sebWebView makeTextSmaller:self];
 }
 
 - (void) textSizeReset
 {
-    [_sebWebView makeTextStandardSize:self];
+    [self.sebWebView makeTextStandardSize:self];
 }
 
 
 - (void) privateCopy:(id)sender
 {
-    [_sebWebView privateCopy:sender];
+    [self.sebWebView privateCopy:sender];
 }
 
 - (void) privateCut:(id)sender
 {
-    [_sebWebView privateCut:sender];
+    [self.sebWebView privateCut:sender];
 }
 
 - (void) privatePaste:(id)sender
 {
-    [_sebWebView privatePaste:sender];
+    [self.sebWebView privatePaste:sender];
 }
 
 
 - (nonnull id)nativeWebView
 {
-    return _sebWebView;
+    return self.sebWebView;
 }
 
 - (nullable NSString *)pageTitle
 {
-    return _sebWebView.mainFrameTitle;
+    return self.sebWebView.mainFrameTitle;
 }
 
 - (nullable NSURL *)url
 {
-    return [NSURL URLWithString:_sebWebView.mainFrameURL];
+    return [NSURL URLWithString:self.sebWebView.mainFrameURL];
 }
 
 

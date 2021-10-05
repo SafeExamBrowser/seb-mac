@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (weak, nonatomic) id <SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 @property (strong, nonatomic) SEBAbstractWebView *sebAbstractWebView;
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck;
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate;
 
 @end
 
