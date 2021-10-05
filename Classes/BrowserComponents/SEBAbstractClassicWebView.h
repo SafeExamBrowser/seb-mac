@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
+- (instancetype)initWithDelegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
+
 @end
 
 NS_ASSUME_NONNULL_END

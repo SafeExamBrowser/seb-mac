@@ -186,7 +186,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     void (^completionHandler)(void) = ^void() {
         // Additional commands for resetting browser
     };
-
     if (examSessionCookiesAlreadyCleared == NO) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
             // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
@@ -217,7 +216,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     } else {
         webKitVersion = SEBUserAgentDefaultSafariVersion;
     }
-    
     defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
     [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
 }
@@ -235,6 +233,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
             browserUserAgentSuffix = [NSString stringWithFormat:@" %@", browserUserAgentSuffix];
         }
         
+#if TARGET_OS_IPHONE
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentiOS"] == browserUserAgentModeiOSDefault) {
             overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
         } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentiOS"] == browserUserAgentModeiOSMacDesktop) {
@@ -242,6 +241,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
         } else {
             overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentiOSCustom"];
         }
+#else
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
+            overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
+        } else {
+            overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
+        }
+#endif
         // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
         overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@%@", SEBUserAgentDefaultSuffix, versionString, browserUserAgentSuffix]];
         _customSEBUserAgent = overrideUserAgent;
@@ -278,6 +284,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
     _wkWebViewConfiguration.allowsPictureInPictureMediaPlayback = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"];
     _wkWebViewConfiguration.dataDetectorTypes = WKDataDetectorTypeNone;
+#else
+    BOOL developerExtrasEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
+    [_wkWebViewConfiguration.preferences setValue:[NSNumber numberWithBool:developerExtrasEnabled] forKey: @"developerExtrasEnabled"];
 #endif
     if (@available(macOS 10.13, *)) {
         _wkWebViewConfiguration.allowsAirPlayForMediaPlayback = NO;
