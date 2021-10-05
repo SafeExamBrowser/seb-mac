@@ -746,6 +746,8 @@
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
 		69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */; };
+		69B42897270C36870061E328 /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
+		69B42898270C368C0061E328 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
 		69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */; };
 		69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */; };
 		69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
@@ -3547,6 +3549,7 @@
 				696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
 				699447FF248D54870074A655 /* SEBBadgeWarning.png in Resources */,
 				696A3AF019F6FBF600274214 /* PreferencesApplications.xib in Resources */,
+				69B42897270C36870061E328 /* ModifyPages.js in Resources */,
 				696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
 				695A8EF91E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */,
@@ -3597,6 +3600,7 @@
 				69428CF4172F2E2500C87C58 /* ZoomTextIn.png in Resources */,
 				69428CF6172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */,
 				6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */,
+				69B42898270C368C0061E328 /* SearchWebView.js in Resources */,
 				69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */,
 				69E87E44202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
