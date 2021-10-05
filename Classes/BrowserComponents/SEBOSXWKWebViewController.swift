@@ -38,7 +38,26 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
     
-    public var sebWebView : SEBOSXWKWebView?
+    private var _sebWebView : SEBOSXWKWebView?
+    
+    public var sebWebView : SEBOSXWKWebView? {
+        if _sebWebView == nil {
+            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
+            _sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
+            _sebWebView?.sebOSXWebViewController = self
+            _sebWebView?.autoresizingMask = [.width, .height]
+            _sebWebView?.translatesAutoresizingMaskIntoConstraints = true
+            _sebWebView?.uiDelegate = self
+            _sebWebView?.navigationDelegate = self
+
+            _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+            
+            _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            urlFilter = SEBURLFilter.shared()
+        }
+        return _sebWebView
+    }
     
     public var privateClipboardEnabled = false
     public var allowDictionaryLookup = false
@@ -50,22 +69,13 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
 
     private var urlFilter : SEBURLFilter?
     
+    convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {
+        self.init()
+        navigationDelegate = delegate
+    }
+    
     public override func loadView() {
-        if sebWebView == nil {
-            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
-            DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
-            sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
-            sebWebView?.sebOSXWebViewController = self
-        }
-        sebWebView?.autoresizingMask = [.width, .height]
-        sebWebView?.translatesAutoresizingMaskIntoConstraints = true
-        sebWebView?.uiDelegate = self
-        sebWebView?.navigationDelegate = self
-        
-        sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
-        
-        sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
-        urlFilter = SEBURLFilter.shared()
+        view = sebWebView!
     }
     
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -155,8 +165,6 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         sebWebView?.stopLoading()
     }
  
-//    public func
-    
     public func storePasteboard() {
         self.navigationDelegate?.storePasteboard?()
     }

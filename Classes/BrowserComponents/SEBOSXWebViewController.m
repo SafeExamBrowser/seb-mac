@@ -38,12 +38,11 @@
 @implementation SEBOSXWebViewController
 
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck
+- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck];
-//        sebAbstractWebView.navigationDelegate = self;
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:delegate];
         _sebAbstractWebView = sebAbstractWebView;
     }
     return self;
@@ -54,7 +53,6 @@
 
 - (void)loadView
 {
-    [_sebAbstractWebView loadView];
     self.view = _sebAbstractWebView.nativeWebView;
 }
 

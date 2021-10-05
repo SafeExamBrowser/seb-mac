@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL allowDownloads;
 @property (readwrite) BOOL allowDeveloperConsole;
 
+- (instancetype)initWithDelegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
+
 @end
 
 NS_ASSUME_NONNULL_END
