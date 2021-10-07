@@ -216,7 +216,7 @@ public extension SEBServerController {
     
     
     @objc func getMoodleUserId(moodleSession: String, url: URL, endpoint: String) {
-        let moodleUserIdResource = MoodleUserIdResource(baseURL: self.baseURL, endpoint: endpoint)
+        let moodleUserIdResource = MoodleUserIdResource(baseURL: url, endpoint: endpoint)
 
         let moodleUserIdRequest = DataRequest(resource: moodleUserIdResource)
         pendingRequests?.append(moodleUserIdRequest)
@@ -228,7 +228,9 @@ public extension SEBServerController {
                     return
                 }
                 print(moodleUserId as Any)
-                self.delegate?.didReceiveMoodleUserId(moodleUserId)
+                if moodleUserId != "0" {
+                    self.delegate?.didReceiveMoodleUserId(moodleUserId)
+                }
             }
         })
     }
