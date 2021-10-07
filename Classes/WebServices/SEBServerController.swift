@@ -162,6 +162,9 @@ public extension SEBServerController {
                 return
             }
             self.connectionToken = connectionTokenString as? String
+            
+            self.pingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+
             guard let exams = handshakeResponse else {
                 return
             }
@@ -211,6 +214,7 @@ public extension SEBServerController {
 
 
     @objc func loginToExamAborted() {
+        self.pingTimer?.invalidate()
         connectionToken = nil
     }
     
@@ -252,7 +256,6 @@ public extension SEBServerController {
                 print(responseBody as Any)
             }
             self.delegate?.didEstablishSEBServerConnection()
-            self.pingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
         })
     }
     
