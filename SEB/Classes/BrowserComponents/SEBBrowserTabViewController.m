@@ -820,10 +820,16 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [_sebViewController examineCookies:cookies];
+    [_sebViewController examineCookies:cookies forURL:url];
 }
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [_sebViewController examineHeaders:headerFields forURL:url];
+}
+
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {

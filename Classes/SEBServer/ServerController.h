@@ -53,7 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
-- (void) examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies;
+- (void) examineCookies:(NSArray<NSHTTPCookie *> *)cookies forURL:(NSURL *)url;
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
 
 @end
 
@@ -63,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
     @private
     NSString *lmsLoginLastUsername;
     NSString *lmsLoginBaseURL;
+    NSString *sessionIdentifier;
 }
 
 @property (weak) id<ServerControllerDelegate> delegate;
@@ -74,7 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) startExamFromServer;
 - (void) loginToExam:(NSString * _Nonnull)url;
 - (void) examSelected:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url;
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(nonnull NSURL *)url;
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
                         timestamp: (NSString *)timestamp

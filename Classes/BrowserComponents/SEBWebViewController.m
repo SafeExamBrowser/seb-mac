@@ -379,9 +379,14 @@
     return [self.navigationDelegate openNewTabWithURL:url];
 }
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.navigationDelegate examineCookies:cookies];
+    [self.navigationDelegate examineCookies:cookies forURL:url];
+}
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.navigationDelegate examineHeaders:headerFields forURL:url];
 }
 
 - (BOOL) allowSpellCheck
@@ -713,6 +718,16 @@ willPerformClientRedirectToURL:(NSURL *)URL
     } else {
         return request;
     }
+}
+
+
+- (void)webView:(WebView *)sender
+       resource:(id)identifier
+didReceiveResponse:(NSURLResponse *)response
+ fromDataSource:(WebDataSource *)dataSource
+{
+    NSHTTPURLResponse *httpURLResponse = (NSHTTPURLResponse *)response;
+    [self.navigationDelegate examineHeaders:httpURLResponse.allHeaderFields forURL:httpURLResponse.URL];
 }
 
 

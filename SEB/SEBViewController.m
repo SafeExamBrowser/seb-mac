@@ -3231,10 +3231,18 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
     if (_establishingSEBServerConnection) {
-        [self.serverController examineCookies:cookies];
+        [self.serverController examineCookies:cookies forURL:url];
+    }
+}
+
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineHeaders:headerFields forURL:url];
     }
 }
 

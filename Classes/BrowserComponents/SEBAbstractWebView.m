@@ -314,9 +314,14 @@
     [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.navigationDelegate examineCookies:cookies];
+    [self.navigationDelegate examineCookies:cookies forURL:url];
+}
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.navigationDelegate examineHeaders:headerFields forURL:url];
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
@@ -458,9 +463,9 @@
 
 - (void)sebWebViewDidStartLoad
 {
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray<NSHTTPCookie *> *cookies = cookieJar.cookies;
-    [self.navigationDelegate examineCookies:cookies];
+//    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    NSArray<NSHTTPCookie *> *cookies = cookieJar.cookies;
+//    [self.navigationDelegate examineCookies:cookies];
 
     [self.navigationDelegate sebWebViewDidStartLoad];
 }
@@ -542,7 +547,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
     DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
     DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
-
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     NSURL *originalURL = url;
@@ -666,6 +671,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                                                cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
+    
+    [self.navigationDelegate examineCookies:cookies forURL:url];
     
     if (([mimeType isEqualToString:SEBConfigMIMEType]) ||
         ([mimeType isEqualToString:SEBUnencryptedConfigMIMEType]) ||
