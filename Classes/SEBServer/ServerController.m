@@ -139,6 +139,7 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     NSString *userID = [headerFields objectForKey:@"X-LMS-USER-ID"];
+    DDLogDebug(@"Examine Headers: %@", headerFields);
     if (userID.length > 0 && ![sessionIdentifier isEqualToString:userID]) {
         sessionIdentifier = userID;
         [_sebServerController startMonitoringWithUserSessionId:userID];
