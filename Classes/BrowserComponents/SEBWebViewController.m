@@ -663,8 +663,13 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked before a request is initiated for a resource and returns a possibly modified request
 - (NSURLRequest *)webView:(SEBWebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
+    NSHTTPURLResponse *httpURLResponse = (NSHTTPURLResponse *)redirectResponse;
+    NSDictionary<NSString *,NSString *>*headerFields = httpURLResponse.allHeaderFields;
+    if (headerFields) {
+        [self.navigationDelegate examineHeaders:httpURLResponse.allHeaderFields forURL:httpURLResponse.URL];
+    }
+
     NSString *absoluteRequestURL = [[request URL] absoluteString];
-    
     // Trim a possible trailing slash "/"
     NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
 
