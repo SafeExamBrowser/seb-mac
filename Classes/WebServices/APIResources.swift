@@ -140,6 +140,25 @@ struct ExamConfigResource: ApiResource {
     }
 }
 
+struct MoodleUserIdResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "POST"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    
+    func makeModel(data: Data) -> Data? {
+        return data
+    }
+}
+
 struct HandshakeCloseResource: ApiResource {
     
     var baseURL: URL

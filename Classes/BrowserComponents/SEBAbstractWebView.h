@@ -106,7 +106,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (void) setLoading:(BOOL)loading;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies;
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url;
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url;
@@ -160,6 +161,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webView:(WKWebView *)webView
 didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
+
+- (void)webView:(WKWebView *)webView
+didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
 
 - (void)webView:(nullable WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge

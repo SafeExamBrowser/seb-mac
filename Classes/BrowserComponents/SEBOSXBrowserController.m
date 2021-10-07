@@ -956,9 +956,14 @@
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
-- (void)examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.sebController examineCookies:cookies];
+    [self.sebController examineCookies:cookies forURL:url];
+}
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.sebController examineHeaders:headerFields forURL:url];
 }
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
