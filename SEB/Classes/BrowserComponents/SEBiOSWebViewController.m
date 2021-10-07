@@ -497,9 +497,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
     [self.navigationDelegate examineCookies:cookies];
+}
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.navigationDelegate examineHeaders:headerFields];
 }
 
 

@@ -844,9 +844,14 @@
     [self.browserController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.browserController examineCookies:cookies];
+    [self.browserController examineCookies:cookies forURL:url];
+}
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.browserController examineHeaders:headerFields forURL:url];
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
