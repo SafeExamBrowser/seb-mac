@@ -96,7 +96,7 @@
 }
 
 
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(nonnull NSURL *)url
 {
     // Look for a user cookie if logging in to an exam system/LMS supporting SEB Server
     // ToDo: Only search for cookie when logging in to Open edX
@@ -109,26 +109,56 @@
             NSError *error = nil;
             NSDictionary* cookieKeyValues = [NSJSONSerialization JSONObjectWithData:[cookieValue dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
             NSString *openEdXUsername = [cookieKeyValues valueForKey:@"username"];
-            if (openEdXUsername) {
+            if (openEdXUsername && ![sessionIdentifier isEqualToString:openEdXUsername]) {
+                sessionIdentifier = openEdXUsername;
                 [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
             }
         } else if ([cookie.name isEqualToString:@"MoodleSession"]) {
             DDLogDebug(@"Cookie 'MoodleSession': %@", cookie);
+            NSString *domain = cookie.domain;
+            if ([url.absoluteString containsString:domain]) {
+                NSString *moodleSession = cookie.value;
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                urlComponents.path = nil;
+                urlComponents.query = nil;
+                [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:urlComponents.URL endpoint:@"theme/boost_ethz/sebuser.php"];
+            }
         }
+    }
+}
+
+- (void) didReceiveMoodleUserId:(NSString *)moodleUserId
+{
+    if (moodleUserId.length > 0  && ![sessionIdentifier isEqualToString:moodleUserId]) {
+        sessionIdentifier = moodleUserId;
+        [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
+    }
+}
+
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    NSString *userID = [headerFields objectForKey:@"X-LMS-USER-ID"];
+    if (userID.length > 0 && ![sessionIdentifier isEqualToString:userID]) {
+        sessionIdentifier = userID;
+        [_sebServerController startMonitoringWithUserSessionId:userID];
     }
 }
 
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
-    NSString *query = url.query;
-    // Search for the testsession ID query parameter which Moodle sends back
-    // after a user logs in to a quiz
-    NSRange testsessionRange = [query rangeOfString:@"testsession="];
-    if (query && testsessionRange.location != NSNotFound) {
-        NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
-        if (testsessionID.length > 0) {
-            [_sebServerController startMonitoringWithUserSessionId:testsessionID];
+    if ([url.absoluteString containsString:@"/login/index.php?testsession"]) {
+        NSString *query = url.query;
+        // Search for the testsession ID query parameter which Moodle sends back
+        // after a user logs in to a quiz
+        NSRange testsessionRange = [query rangeOfString:@"testsession="];
+        if (query && testsessionRange.location != NSNotFound) {
+            NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
+            if (testsessionID.length > 0 && ![sessionIdentifier isEqualToString:testsessionID]) {
+                sessionIdentifier = testsessionID;
+                [_sebServerController startMonitoringWithUserSessionId:testsessionID];
+            }
         }
     }
 }

@@ -340,8 +340,8 @@ import Foundation
         return (navigationDelegate?.openNewTab!(with: url))!
     }
 
-    public func examine(_ cookies: [HTTPCookie]) {
-        navigationDelegate?.examine!(cookies)
+    public func examine(_ cookies: [HTTPCookie], url: URL) {
+        navigationDelegate?.examine?(cookies, for: url)
     }
     
     public func sebWebViewDidStartLoad() {
@@ -350,10 +350,15 @@ import Foundation
     
     public func sebWebViewDidFinishLoad() {
         navigationDelegate?.sebWebViewDidFinishLoad?()
+//        searchSessionIdentifiers()
+    }
+    
+    private func searchSessionIdentifiers(url: URL) {
         if #available(macOS 10.13, iOS 11.0, *) {
             let httpCookieStore = (self.nativeWebView() as! WKWebView).configuration.websiteDataStore.httpCookieStore
             httpCookieStore.getAllCookies{ cookies in
-                self.navigationDelegate?.examine?(cookies)
+                let jointCookies = cookies + (HTTPCookieStorage.shared.cookies ?? [])
+                self.navigationDelegate?.examine?(jointCookies, for:url)
             }
             return
         }
@@ -361,6 +366,10 @@ import Foundation
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         navigationDelegate?.sebWebViewDidStartLoad?()
+    }
+    
+    public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+//        searchSessionIdentifiers()
     }
     
     public func webView(_ webView: WKWebView?,
@@ -448,6 +457,13 @@ import Foundation
                 return
             }
             
+            if let response = navigationResponse.response as? HTTPURLResponse,
+                  let url = response.url,
+                  response.statusCode == 200,
+                  let headers = response.allHeaderFields as? [String: String] {
+                self.navigationDelegate?.examineHeaders?(headers, for: url)
+            }
+            
             if (self.downloadFilename ?? "").isEmpty {
                 self.downloadFilename = self.getFileNameFromResponse(navigationResponse.response)
             }
@@ -474,7 +490,7 @@ import Foundation
             }
         }
 
-        if #available(macOS 10.13, *) {
+        if #available(macOS 10.13, iOS 11.0, *) {
             let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
             httpCookieStore.getAllCookies{ cookies in
                 decidePolicyWithCookies(cookies)

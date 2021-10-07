@@ -37,6 +37,7 @@ import Foundation
 @objc public protocol SEBServerControllerDelegate: AnyObject {
     func didSelectExam(_ examId: String, url: String)
     func loginToExam(_ url: String)
+    func didReceiveMoodleUserId(_ moodleUserId: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
     func didEstablishSEBServerConnection()
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
@@ -211,6 +212,25 @@ public extension SEBServerController {
 
     @objc func loginToExamAborted() {
         connectionToken = nil
+    }
+    
+    
+    @objc func getMoodleUserId(moodleSession: String, url: URL, endpoint: String) {
+        let moodleUserIdResource = MoodleUserIdResource(baseURL: self.baseURL, endpoint: endpoint)
+
+        let moodleUserIdRequest = DataRequest(resource: moodleUserIdResource)
+        pendingRequests?.append(moodleUserIdRequest)
+        let requestHeaders = ["Cookie" : "MoodleSession=\(moodleSession)"]
+        moodleUserIdRequest.load(httpMethod: moodleUserIdResource.httpMethod, body:"", headers: requestHeaders, completion: { (moodleUserIdResponse, statusCode, responseHeaders) in
+            if statusCode == 200 && moodleUserIdResponse != nil {
+                guard let moodleUserId = String(data: moodleUserIdResponse!, encoding: .utf8) else {
+                    DDLogDebug("No valid Moodle user ID found")
+                    return
+                }
+                print(moodleUserId as Any)
+                self.delegate?.didReceiveMoodleUserId(moodleUserId)
+            }
+        })
     }
     
     
