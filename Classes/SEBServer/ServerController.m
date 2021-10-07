@@ -121,7 +121,7 @@
                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                 urlComponents.path = nil;
                 urlComponents.query = nil;
-                [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:urlComponents.URL endpoint:@"theme/boost_ethz/sebuser.php"];
+                [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:urlComponents.URL endpoint:@"/theme/boost_ethz/sebuser.php"];
             }
         }
     }
