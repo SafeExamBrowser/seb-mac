@@ -310,7 +310,7 @@
 
 
 // Action for the Quit button in preferences
-// Save preferences and quit SEB
+// Save preferences and exit SEB
 - (IBAction) quitSEB:(id)sender {
     [self.preferencesController quitSEB:sender];
 }

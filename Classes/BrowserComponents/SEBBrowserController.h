@@ -188,6 +188,7 @@
 @property (readwrite) BOOL didReconfigureWithUniversalLink;
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 
+- (void) resetAllCookiesWithCompletionHandler:(void (^)(void))completionHandler;
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 
 - (void) quitSession;

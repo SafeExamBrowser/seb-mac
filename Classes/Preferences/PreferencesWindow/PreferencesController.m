@@ -884,7 +884,7 @@
     [self closePreferencesWindow];
 
 	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestQuitNotification" object:self];
+     postNotificationName:@"requestExitNotification" object:self];
 }
 
 
