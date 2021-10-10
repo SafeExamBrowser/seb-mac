@@ -276,7 +276,7 @@ conditionallyForWindow:(NSWindow *)window
                           didEndSelector:(SEL)didEndSelector;
 - (void) hideEnterUsernamePasswordDialog;
 
-- (IBAction) exitSEB:(id)sender;
+- (IBAction) requestedQuit:(id)sender;
 - (void) requestedConditionalQuit;
 
 - (IBAction) openPreferences:(id)sender;
@@ -293,5 +293,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) correctPasswordEntered;
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
+
+- (void) exitSEB;
 
 @end

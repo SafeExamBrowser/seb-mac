@@ -213,9 +213,8 @@ public extension SEBServerController {
     }
 
 
-    @objc func loginToExamAborted() {
-        self.pingTimer?.invalidate()
-        connectionToken = nil
+    @objc func loginToExamAborted(completion: @escaping (Bool) -> Void) {
+        quitSession(restart: false, completion: completion)
     }
     
     
@@ -324,7 +323,7 @@ public extension SEBServerController {
     }
     
     
-    @objc func quitSession(restart: Bool) {
+    @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         
         let quitSessionRequest = DataRequest(resource: quitSessionResource)
@@ -332,7 +331,7 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
-                              keys.sebConnectionToken : connectionToken!]
+                              keys.sebConnectionToken : connectionToken ?? ""]
         quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, statusCode, responseHeaders) in
             self.pingTimer?.invalidate()
             self.connectionToken = nil
@@ -340,7 +339,7 @@ public extension SEBServerController {
                 let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
                 print(responseBody as Any)
             }
-            self.delegate?.didCloseSEBServerConnectionRestart(restart)
+            completion(restart)
         })
     }
 }

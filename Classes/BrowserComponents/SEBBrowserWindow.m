@@ -78,9 +78,9 @@
 {
     DDLogDebug(@"SEBBrowserWindow %@ windowShouldClose: %@", self, sender);
     if (self == self.browserController.mainBrowserWindow) {
-        // Post a notification that SEB should conditionally quit
+        // Post a notification that SEB/Session should conditionally quit
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestExitNotification" object:self];
+         postNotificationName:@"requestQuitNotification" object:self];
         
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
     }
