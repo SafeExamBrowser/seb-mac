@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSTimer *batteryTimer;
     CFRunLoopSourceRef powerSourceMonitoringLoop;
+    
+    double lastBatteryLevel;
 }
 
 @property (strong, nonatomic) IBOutlet NSView *view;
