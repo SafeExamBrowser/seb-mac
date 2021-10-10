@@ -70,7 +70,7 @@ import Foundation
     private let password: String
     private let discoveryEndpoint: String
     @objc public var examList: [ExamObject]?
-    @objc public var pingTimer: Timer?
+    private var pingTimer: Timer?
     @objc public var pingInstruction: String?
 
     @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, delegate: SEBServerControllerDelegate) {
@@ -163,8 +163,8 @@ public extension SEBServerController {
             }
             self.connectionToken = connectionTokenString as? String
             
-            self.pingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
-
+            self.startPingTimer()
+            
             guard let exams = handshakeResponse else {
                 return
             }
@@ -181,6 +181,22 @@ public extension SEBServerController {
                 self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
             }
         })
+    }
+    
+    
+    private func startPingTimer() {
+        if self.pingTimer == nil {
+            let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+            RunLoop.current.add(timer, forMode: .common)
+            self.pingTimer = timer
+        }
+    }
+    
+    func stopPingTimer() {
+        if pingTimer != nil {
+            pingTimer?.invalidate()
+            pingTimer = nil
+        }
     }
     
     
@@ -333,7 +349,7 @@ public extension SEBServerController {
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken ?? ""]
         quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, statusCode, responseHeaders) in
-            self.pingTimer?.invalidate()
+            self.stopPingTimer()
             self.connectionToken = nil
             if quitSessionResponse != nil  {
                 let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
