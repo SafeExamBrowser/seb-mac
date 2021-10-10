@@ -5231,7 +5231,8 @@ conditionallyForWindow:(NSWindow *)window
 #pragma mark - Action and Application Delegates for Quitting SEB
 
 // Called when SEB should be terminated
-- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
+- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
+{
 	if (quittingMyself) {
         DDLogDebug(@"%s: quttingMyself = true", __FUNCTION__);
         if (_isAACEnabled && _wasAACEnabled && !_isTerminating) {
