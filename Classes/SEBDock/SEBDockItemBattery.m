@@ -124,6 +124,10 @@ void powerSourceMonitoringCallbackMethod(void *context)
                        ((remainingTime == kIOPSTimeRemainingUnknown ?
                          @"" :
                          [NSString stringWithFormat:@" (%d:%d Remaining)", hoursRemaining, minutesRemaining])))]];
+    if (batteryLevel != lastBatteryLevel) {
+        lastBatteryLevel = batteryLevel;
+        
+    }
 }
 
 
