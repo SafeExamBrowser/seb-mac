@@ -318,7 +318,7 @@ public extension SEBServerController {
             default:
                 serverLogLevel = keys.logLevelUnknown
             }
-            let logJSON = [ keys.logType : serverLogLevel, keys.timestamp : timestamp, keys.logNumericValue : 0, keys.logText : message ] as [String : Any]
+            let logJSON = [ keys.logType : serverLogLevel, keys.timestamp : timestamp, keys.logNumericValue : numericValue, keys.logText : message ] as [String : Any]
             let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
             let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
             logResource.body = jsonString
