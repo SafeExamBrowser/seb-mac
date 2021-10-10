@@ -83,9 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
                         timestamp: (NSString *)timestamp
                      numericValue:(double)numericValue
                           message:(NSString *)message;
-- (void) quitSessionWithRestart:(BOOL)restart;
-
-- (void) loginToExamAborted;
+- (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion;
+- (void) quitSessionWithRestart:(BOOL)restart completion:(void (^ _Nonnull)(BOOL))completion;
 
 @end
 

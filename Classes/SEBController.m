@@ -127,7 +127,7 @@ bool insideMatrix(void);
 
 @synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
-@synthesize quitSession;
+@synthesize quittingSession;
 @synthesize capWindows;
 @synthesize lockdownWindows;
 
@@ -246,10 +246,10 @@ bool insideMatrix(void);
             _inactiveScreenWindows = [NSMutableArray new];
         }
         
-        // Add an observer for the request to unconditionally quit SEB
+        // Add an observer for the request to unconditionally exit SEB
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(requestedQuit:)
-                                                     name:@"requestQuitNotification" object:nil];
+                                                 selector:@selector(requestedExit:)
+                                                     name:@"requestExitNotification" object:nil];
         
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -416,8 +416,8 @@ bool insideMatrix(void);
     
     // Add an observer for the request to conditionally exit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(exitSEB:)
-                                                 name:@"requestExitNotification" object:nil];
+                                             selector:@selector(requestedQuit:)
+                                                 name:@"requestQuitNotification" object:nil];
     
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -869,8 +869,7 @@ bool insideMatrix(void);
         if (_startingUp) {
             // we quit, as decrypting the config wasn't successful
             DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            quittingMyself = true; // quit SEB without asking for confirmation or password
-            [NSApp terminate: nil]; // Quit SEB
+            [self exitSEB]; // Quit SEB
         } else {
             // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
 //        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
@@ -983,8 +982,8 @@ bool insideMatrix(void);
 - (void) startExam
 {
     DDLogInfo(@"%s", __FUNCTION__);
-    if (_establishingSEBServerConnection == true) {
-        _startingExamFromSEBServer = true;
+    if (_establishingSEBServerConnection == YES) {
+        _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1104,15 +1103,15 @@ bool insideMatrix(void);
     NSURL *examURL = [NSURL URLWithString:url];
     [self.browserController openMainBrowserWindowWithStartURL:examURL];
     self.browserController.sebServerExamStartURL = examURL;
-    _sessionRunning = true;
+    _sessionRunning = YES;
 }
 
 
 - (void) didEstablishSEBServerConnection
 {
-    _establishingSEBServerConnection = false;
-    _startingExamFromSEBServer = false;
-    _sebServerConnectionEstablished = true;
+    _establishingSEBServerConnection = NO;
+    _startingExamFromSEBServer = NO;
+    _sebServerConnectionEstablished = YES;
 }
 
 
@@ -1120,7 +1119,7 @@ bool insideMatrix(void);
 {
     if (_sebServerViewDisplayed) {
         [self closeSEBServerView];
-        self.establishingSEBServerConnection = false;
+        self.establishingSEBServerConnection = NO;
     }
     // Check if Preferences are currently open
     if ([self.preferencesController preferencesAreOpen]) {
@@ -1395,8 +1394,7 @@ bool insideMatrix(void);
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    quittingMyself = true; //quit SEB without asking for confirmation or password
-    [NSApp terminate: nil]; //quit SEB
+    [self exitSEB]; // Quit SEB
 }
 
 - (void) initSEBProcessesCheckedWithCallback:(id)callback
@@ -1477,8 +1475,7 @@ bool insideMatrix(void);
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
-                    self->quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
+                    [self quitSEBOrSession];
                 };
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
                 return;
@@ -1498,33 +1495,6 @@ bool insideMatrix(void);
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
     func(callback, selector);
-}
-
-
-- (BOOL) quitSession
-{
-    BOOL examSession = NSUserDefaults.userDefaultsPrivate;
-    BOOL secureClientSession = NO;
-    if (examSession) {
-        [NSUserDefaults setUserDefaultsPrivate:NO];
-        secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
-        [NSUserDefaults setUserDefaultsPrivate:YES];
-    }
-    return !_startingUp && examSession && secureClientSession && !_openedURL;
-}
-
-
-- (void) quitSEBOrSession
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    if (self.quitSession) {
-        [NSUserDefaults setUserDefaultsPrivate:NO];
-        [self updateAACAvailablility];
-        [self requestedRestart:nil];
-    } else {
-        [self requestedQuit:nil];
-
-    }
 }
 
 
@@ -1593,8 +1563,7 @@ bool insideMatrix(void);
     [modalAlert setAlertStyle:NSCriticalAlertStyle];
     void (^quitAlertConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
-        self->quittingMyself = true; //quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; //quit SEB
+        [self exitSEB]; // Quit SEB
     };
     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))quitAlertConfirmed];
 }
@@ -1643,7 +1612,7 @@ bool insideMatrix(void);
                     
                 case NSAlertSecondButtonReturn:
                 {
-                    [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
+                    [self performSelector:@selector(exitSEB) withObject: nil afterDelay: 3];
                 }
             }
         };
@@ -2836,8 +2805,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             [self removeAlertWindow:modalAlert.window];
             self->enforceMinMacOSVersion = YES;
             if (self.startingUp) {
-                self->quittingMyself = YES; //quit SEB without asking for confirmation or password
-                [NSApp terminate: nil]; //quit SEB
+                [self exitSEB]; // Quit SEB
             } else {
                 [self quitSEBOrSession];
             }
@@ -2860,8 +2828,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 #ifndef DEBUG
             DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
             _forceAppFolder = YES;
-            quittingMyself = true; //quit SEB without asking for confirmation or password
-            [NSApp terminate: nil]; //quit SEB
+            [self quitSEBOrSession]; // Quit SEB or the exam session
 #else
             DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
 #endif
@@ -2910,9 +2877,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            DDLogError(@"Command key is pressed and forbidden, SEB cannot restart");
-            quittingMyself = true; //quit SEB without asking for confirmation or password
-            [NSApp terminate: nil]; //quit SEB
+            DDLogError(@"Command key is pressed and forbidden, SEB cannot continue");
+            [self exitSEB]; // Quit SEB
         } else {
             DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
         }
@@ -2945,8 +2911,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 {
                     // Quit SEB
                     DDLogError(@"Force Quit window was open, user decided to quit SEB.");
-                    quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
+                    [self exitSEB]; // Quit SEB
                 }
             }
     }
@@ -4625,7 +4590,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     // Post a notification that SEB should conditionally quit
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestExitNotification" object:self];
+     postNotificationName:@"requestQuitNotification" object:self];
 }
 
 
@@ -4946,42 +4911,90 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)quitLinkDetected:(NSNotification *)notification
+- (void) requestedShowAbout:(NSNotification *)notification
 {
+    [self showAbout:self];
+}
+
+- (IBAction)showAbout:(id)sender
+{
+    if (_alternateKeyPressed == NO) {
+        [self.aboutWindow setStyleMask:NSBorderlessWindowMask];
+        [self.aboutWindow center];
+        //[self.aboutWindow orderFront:self];
+        //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
+        [[NSApplication sharedApplication] runModalForWindow:self.aboutWindow];
+    }
+}
+
+
+- (void) requestedShowHelp:(NSNotification *)notification
+{
+    [self showHelp:self];
+}
+
+
+// Load manual page URL in new browser window
+- (IBAction) showHelp: (id)sender
+{
+    NSString *urlString = SEBHelpPage;
+    // Open new browser window containing WebView and show it
+    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString]];
+}
+
+
+- (void) closeDocument:(id)document
+{
+    [document close];
+}
+
+
+#pragma mark - Quitting/Restarting Sessions and SEB
+
+- (IBAction) requestedQuit:(id)sender
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    // Load quitting preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-        [self requestedConditionalQuit];
-    } else {
-        [self sessionQuitRestart:restart];
-    }
-}
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
+        NSWindow *currentMainWindow = self.browserController.mainBrowserWindow;
+        if ([self.preferencesController preferencesAreOpen] ) {
+            currentMainWindow = self.preferencesController.preferencesWindow;
+            DDLogDebug(@"Preferences are open, displaying according alerts as sheet on window %@", currentMainWindow);
+        }
+        // if quitting SEB is allowed
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
+        if (![hashedQuitPassword isEqualToString:@""]) {
+            DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
+            // if quit password is set, then restrict quitting
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+            NSString *password = [self.enterPassword stringValue];
+            
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                // if the correct quit password was entered
+                DDLogInfo(@"Correct quit password entered");
+                [self quitSEBOrSession]; // Quit SEB or the exam session
 
-// Quit or restart session without asking for confirmation
-- (void) sessionQuitRestart:(BOOL)restart
-{
-    _openingSettings = NO;
-    
-    if (self.startingExamFromSEBServer) {
-        self.establishingSEBServerConnection = false;
-        self.startingExamFromSEBServer = false;
-        [self.serverController loginToExamAborted];
-    } else if (self.sebServerConnectionEstablished) {
-        self.sebServerConnectionEstablished = false;
-        [self.serverController quitSessionWithRestart:restart];
-        return;
-    }
-    [self didCloseSEBServerConnectionRestart:restart];
-}
-
-
-- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
-{
-    if (restart) {
-        [self requestedRestart:nil];
-    } else {
-        [self quitSEBOrSession];
+            } else {
+                // Wrong quit password was entered
+                DDLogInfo(@"Wrong quit password entered");
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit.", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+            }
+        } else {
+            // If no quit password is required, then confirm quitting, with default option "Quit"
+            [self requestedConditionalQuit];
+        }
     }
 }
 
@@ -4995,8 +5008,8 @@ conditionallyForWindow:(NSWindow *)window
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (!self.quitSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
-    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (!self.quitSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?",nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
+    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?",nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
     [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSWarningAlertStyle];
@@ -5009,7 +5022,7 @@ conditionallyForWindow:(NSWindow *)window
                     DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
-                    DDLogInfo(@"Confirmed to quit %@", !self.quitSession ? SEBShortAppName : @"exam session");
+                    DDLogInfo(@"Confirmed to quit %@", !self.quittingSession ? SEBShortAppName : @"exam session");
                     [self sessionQuitRestart:restart];
                 }
                 return;
@@ -5023,10 +5036,99 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)requestedQuit:(NSNotification *)notification
+- (void) quitLinkDetected:(NSNotification *)notification
 {
-    quittingMyself = true; //quit SEB without asking for confirmation or password
-    [NSApp terminate: nil]; //quit SEB
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+        [self requestedConditionalQuit];
+    } else {
+        [self sessionQuitOrRestart];
+    }
+}
+
+
+// Quit or restart session without asking for confirmation
+
+- (void) sessionQuitOrRestart
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    [self sessionQuitRestart:restart];
+}
+
+- (void) sessionQuitRestart:(BOOL)restart
+{
+    _openingSettings = NO;
+    
+    [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+        [self didCloseSEBServerConnectionRestart:restart];
+    }];
+}
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    if (restart) {
+        [self requestedRestart:nil];
+    } else {
+        [self quitSEBOrSession];
+    }
+}
+
+
+- (void)requestedExit:(NSNotification *)notification
+{
+    [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+        [self exitSEB];
+    }];
+}
+
+- (void)exitSEB
+{
+    quittingMyself = YES; //quit SEB without asking for confirmation or password
+    [NSApp terminate: nil]; //quit (exit) SEB
+}
+
+
+- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
+{
+    if (self.startingExamFromSEBServer) {
+        self.establishingSEBServerConnection = NO;
+        self.startingExamFromSEBServer = NO;
+        [self.serverController loginToExamAbortedWithCompletion:completion];
+    } else if (self.sebServerConnectionEstablished) {
+        self.sebServerConnectionEstablished = NO;
+        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
+            completion(restart);
+        }];
+    } else {
+        completion(restart);
+    }
+}
+
+
+- (BOOL) quittingSession
+{
+    BOOL examSession = NSUserDefaults.userDefaultsPrivate;
+    BOOL secureClientSession = NO;
+    if (examSession) {
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+    }
+    return !_startingUp && examSession && secureClientSession && !_openedURL;
+}
+
+
+- (void) quitSEBOrSession
+{
+    DDLogDebug(@"[SEBController quitSEBOrSession]");
+    if (self.quittingSession) {
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        [self updateAACAvailablility];
+        [self requestedRestart:nil];
+    } else {
+        [self requestedExit:nil];
+    }
 }
 
 
@@ -5126,93 +5228,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) requestedShowAbout:(NSNotification *)notification
-{
-    [self showAbout:self];
-}
-
-- (IBAction)showAbout:(id)sender
-{
-    if (_alternateKeyPressed == NO) {
-        [self.aboutWindow setStyleMask:NSBorderlessWindowMask];
-        [self.aboutWindow center];
-        //[self.aboutWindow orderFront:self];
-        //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
-        [[NSApplication sharedApplication] runModalForWindow:self.aboutWindow];
-    }
-}
-
-
-- (void) requestedShowHelp:(NSNotification *)notification
-{
-    [self showHelp:self];
-}
-
-
-// Load manual page URL in new browser window
-- (IBAction) showHelp: (id)sender
-{
-    NSString *urlString = SEBHelpPage;
-    // Open new browser window containing WebView and show it
-    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString]];
-}
-
-
-- (void) closeDocument:(id)document
-{
-    [document close];
-}
-
-
 #pragma mark - Action and Application Delegates for Quitting SEB
-
-- (IBAction) exitSEB:(id)sender
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    // Load quitting preferences from the system's user defaults database
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
-        NSWindow *currentMainWindow = self.browserController.mainBrowserWindow;
-        if ([self.preferencesController preferencesAreOpen] ) {
-            currentMainWindow = self.preferencesController.preferencesWindow;
-            DDLogDebug(@"Preferences are open, displaying according alerts as sheet on window %@", currentMainWindow);
-        }
-        // if quitting SEB is allowed
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
-        if (![hashedQuitPassword isEqualToString:@""]) {
-            DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
-            // if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
-            NSString *password = [self.enterPassword stringValue];
-            
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-                // if the correct quit password was entered
-                DDLogInfo(@"Correct quit password entered");
-                quittingMyself = true; //quit SEB without asking for confirmation or password
-                [NSApp terminate: nil]; //quit SEB
-            } else {
-                // Wrong quit password was entered
-                DDLogInfo(@"Wrong quit password entered");
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [modalAlert setAlertStyle:NSWarningAlertStyle];
-                void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
-            }
-        } else {
-            // If no quit password is required, then confirm quitting, with default option "Quit"
-            [self requestedConditionalQuit];
-        }
-    }
-}
-
 
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
@@ -5256,12 +5272,6 @@ conditionallyForWindow:(NSWindow *)window
         [self.browserController closeAllBrowserWindows];
     }
     
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket.
-    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        DDLogInfo(@"Cookies, caches and credential stores were reset");
-    }];
-
     if (enforceMinMacOSVersion) {
         [self applicationWillTerminateProceed];
     } else if (_forceAppFolder) {
@@ -5310,6 +5320,19 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 - (void) applicationWillTerminateProceed
+{
+    if (self.browserController) {
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        [self.browserController resetAllCookiesWithCompletionHandler:^{
+            [self applicationWillTerminateProceed2];
+        }];
+    } else {
+        [self applicationWillTerminateProceed2];
+    }
+}
+
+- (void) applicationWillTerminateProceed2
 {
     DDLogDebug(@"%s", __FUNCTION__);
 
