@@ -74,7 +74,7 @@
 - (NSString *)quitSEBOrSessionString
 {
     NSString *quitSEBOrSessionString;
-    if (self.delegate.quitSession) {
+    if (self.delegate.quittingSession) {
         quitSEBOrSessionString = NSLocalizedString(@"Quit Session", nil);
     } else {
         quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", nil);

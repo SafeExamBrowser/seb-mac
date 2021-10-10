@@ -78,9 +78,9 @@
 }
 
 
-- (void) loginToExamAborted
+- (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion
 {
-    [_sebServerController loginToExamAborted];
+    [_sebServerController loginToExamAbortedWithCompletion:completion];
 }
 
 
@@ -205,9 +205,9 @@
 }
 
 
-- (void) quitSessionWithRestart:(BOOL)restart
+- (void) quitSessionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-    [_sebServerController quitSessionWithRestart:restart];
+    [_sebServerController quitSessionWithRestart:restart completion:completion];
 }
 
 
