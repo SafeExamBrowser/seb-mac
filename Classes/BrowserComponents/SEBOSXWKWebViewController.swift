@@ -44,6 +44,12 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         if _sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
             DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
+            webViewConfiguration?.preferences.perform(NSSelectorFromString("_setNeedsInAppBrowserPrivacyQuirks:"), with: false)
+            webViewConfiguration?.preferences.perform(NSSelectorFromString("_setPeerConnectionEnabled:"), with: true)
+            webViewConfiguration?.preferences.perform(NSSelectorFromString("_setMediaDevicesEnabled:"), with: true)
+            webViewConfiguration?.preferences.perform(NSSelectorFromString("_setScreenCaptureEnabled:"), with: true)
+            webViewConfiguration?.preferences.perform(NSSelectorFromString("_setMediaStreamEnabled:"), with: true) //.setValue(true, forKey: "_mediaStreamEnabled") //_setBoolValue() :flag forKey:WebKitMediaStreamEnabledPreferenceKey];
+
             _sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
             _sebWebView?.sebOSXWebViewController = self
             _sebWebView?.autoresizingMask = [.width, .height]

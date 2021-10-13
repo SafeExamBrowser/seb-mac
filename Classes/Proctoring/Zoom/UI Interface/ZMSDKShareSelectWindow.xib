@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ZMSDKShareSelectWindow">
+            <connections>
+                <outlet property="_shareCameraButton" destination="E2k-2X-tYk" id="LQL-iQ-8zM"/>
+                <outlet property="_shareDesktopButton" destination="qqf-85-4RC" id="hQs-cc-X7I"/>
+                <outlet property="_shareFrameButton" destination="5ic-0T-u5n" id="EkL-eh-IyU"/>
+                <outlet property="_shareSoundButton" destination="qMn-7v-LAN" id="ShB-Xk-DC9"/>
+                <outlet property="_shareWhiteboradButton" destination="nXN-nO-Nsd" id="IOi-k8-W9L"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="580" height="450"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="580" height="450"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button misplaced="YES" imageHugsTitle="YES" id="nXN-nO-Nsd">
+                        <rect key="frame" x="217" y="300" width="146" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Whiteboard" bezelStyle="shadowlessSquare" image="share_whiteboard" imagePosition="above" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="eU2-PC-QC4">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareWhiteboradButtonClick:" target="-2" id="r2e-6E-eJn"/>
+                        </connections>
+                    </button>
+                    <button imageHugsTitle="YES" id="5ic-0T-u5n">
+                        <rect key="frame" x="423" y="302" width="120" height="116"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Screen Frame" bezelStyle="shadowlessSquare" image="share_frame" imagePosition="above" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4O4-pS-9H6">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareFrameButtonClick:" target="-2" id="rkc-FM-5qK"/>
+                        </connections>
+                    </button>
+                    <button misplaced="YES" imageHugsTitle="YES" id="qMn-7v-LAN">
+                        <rect key="frame" x="152" y="95" width="109" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Computer Sound" bezelStyle="shadowlessSquare" image="share_audio" imagePosition="above" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="fSf-Td-LQ8">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareSoundButtonClick:" target="-2" id="DF9-0W-SMY"/>
+                        </connections>
+                    </button>
+                    <button misplaced="YES" imageHugsTitle="YES" id="E2k-2X-tYk">
+                        <rect key="frame" x="340" y="83" width="109" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Camera" bezelStyle="shadowlessSquare" image="share_camera" imagePosition="above" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="N42-Zd-9mF">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareCameraButtonClick:" target="-2" id="7tl-fV-O4R"/>
+                        </connections>
+                    </button>
+                    <button misplaced="YES" imageHugsTitle="YES" id="qqf-85-4RC">
+                        <rect key="frame" x="58" y="282" width="120" height="146"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Desktop" bezelStyle="shadowlessSquare" image="share_window_one" imagePosition="above" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2IY-em-q9d">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onShareDesktopButtonClick:" target="-2" id="YHQ-Z3-1Sv"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+        </window>
+    </objects>
+    <resources>
+        <image name="share_audio" width="76" height="77"/>
+        <image name="share_camera" width="116" height="90"/>
+        <image name="share_frame" width="116" height="90"/>
+        <image name="share_whiteboard" width="172" height="114"/>
+        <image name="share_window_one" width="130" height="77"/>
+    </resources>
+</document>

@@ -37,6 +37,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
+#import <AVFoundation/AVFoundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
 #import "SEBOSXConfigFileController.h"
@@ -71,6 +72,8 @@
 #import "SEBServerOSXViewController.h"
 #import "ServerLogger.h"
 
+#import "SEBZoomController.h"
+
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
@@ -81,6 +84,7 @@
 @class HUDController;
 @class ServerController;
 @class SEBServerOSXViewController;
+@class SEBZoomController;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
@@ -172,6 +176,35 @@
 @property (strong, nonatomic) ServerController *serverController;
 @property (strong, nonatomic) NSWindowController *sebServerViewWindowController;
 @property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
+
+/// Remote Proctoring
+@property (strong, nonatomic) SEBZoomController *zoomController;
+//@property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer API_AVAILABLE(ios(11));
+//@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
+//@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
+//@property (strong, nonatomic) CIContext *ciContext;
+//@property (strong, nonatomic) CIImage *proctoringStateIcon;
+
+@property(readwrite) BOOL previousSessionZoomEnabled;
+
+@property(readwrite) BOOL zoomReceiveAudio;
+@property(readwrite) BOOL zoomReceiveVideo;
+@property(readwrite) BOOL zoomSendAudio;
+@property(readwrite) BOOL zoomSendVideo;
+@property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
+
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) toggleProctoringViewVisibility;
+//- (BOOL) rtcAudioInputEnabled;
+//- (BOOL) rtcAudioReceivingEnabled;
+//- (BOOL) rtcVideoSendingEnabled;
+//- (BOOL) rtcVideoReceivingEnabled;
+//- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
+//
+//- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+//- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
+
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;
