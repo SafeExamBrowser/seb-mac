@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ZMSDKMainWindowController">
+            <connections>
+                <outlet property="_joinMeetingButton" destination="U6o-Br-yhY" id="oY0-u8-K9b"/>
+                <outlet property="_settingButton" destination="8ll-hp-diL" id="RwM-4J-dj0"/>
+                <outlet property="_startAudioMeetingButton" destination="lz8-KM-Xve" id="uPQ-Mk-Llh"/>
+                <outlet property="_startVideoMeetingButton" destination="D0o-XE-gxn" id="JXl-co-6lm"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="650" height="370"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="650" height="370"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button id="D0o-XE-gxn" customClass="ZMSDKPTImageButton">
+                        <rect key="frame" x="148" y="201" width="124" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Video Meeting" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="LOU-yE-Vce">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onStartVideoMeetingButtonClicked:" target="-2" id="3Sl-Ze-h8P"/>
+                        </connections>
+                    </button>
+                    <button id="lz8-KM-Xve" customClass="ZMSDKPTImageButton">
+                        <rect key="frame" x="366" y="201" width="124" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Audio Meeting" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="BnO-2q-e0v">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onStartAudioMeetingButtonClicked:" target="-2" id="2bX-CM-ruK"/>
+                        </connections>
+                    </button>
+                    <button id="8ll-hp-diL" customClass="ZMSDKPTImageButton">
+                        <rect key="frame" x="366" y="41" width="124" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Setting" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="M3c-GL-jlZ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onSettingButtonClicked:" target="-2" id="KL5-sS-dzP"/>
+                        </connections>
+                    </button>
+                    <button id="U6o-Br-yhY" customClass="ZMSDKPTImageButton">
+                        <rect key="frame" x="148" y="41" width="124" height="125"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Join" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="7pW-e4-lBq">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onJoinMeetingButtonClicked:" target="-2" id="S74-Rt-3Z3"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+        </window>
+    </objects>
+</document>

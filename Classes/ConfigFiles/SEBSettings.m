@@ -928,6 +928,66 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBZoomModePage],
                    @"zoomMode",
                    
+                   @"",
+                   @"zoomAPIKey",
+                   
+                   @NO,
+                   @"zoomAudioMuted",
+                   
+                   @NO,
+                   @"zoomEnable",
+                   
+                   @NO,
+                   @"zoomFeatureFlagChat",
+                   
+                   @NO,
+                   @"zoomFeatureFlagCloseCaptions",
+                   
+                   @NO,
+                   @"zoomFeatureFlagRaiseHand",
+                   
+                   @NO,
+                   @"zoomFeatureFlagTileView",
+                   
+                   @"",
+                   @"zoomMeetingKey",
+                   
+                   @NO,
+                   @"zoomReceiveAudio",
+                   
+                   @NO,
+                   @"zoomReceiveVideo",
+                   
+                   @"",
+                   @"zoomRoom",
+                   
+                   @"",
+                   @"zoomSDKToken",
+                   
+                   @YES,
+                   @"zoomSendAudio",
+                   
+                   @YES,
+                   @"zoomSendVideo",
+                   
+                   @"",
+                   @"zoomServerURL",
+                   
+                   @"",
+                   @"zoomSubject",
+                   
+                   @"",
+                   @"zoomToken",
+                   
+                   @"",
+                   @"zoomUserInfoDisplayName",
+                   
+                   @"",
+                   @"zoomUserName",
+                   
+                   @NO,
+                   @"zoomVideoMuted",
+                   
                    nil],
               
               @"additionalResources" : @{

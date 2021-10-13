@@ -567,6 +567,179 @@
 		6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
 		699282E319D0430A00270E86 /* CapWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699282E119D0430A00270E86 /* CapWindowController.h */; };
 		699282E419D0430A00270E86 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699282E219D0430A00270E86 /* CapWindowController.m */; };
+		6992E0F82717601100A6463B /* SEBZoomController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E07B2717601000A6463B /* SEBZoomController.h */; };
+		6992E0F92717601100A6463B /* ZMSDKInitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E07D2717601000A6463B /* ZMSDKInitHelper.m */; };
+		6992E0FA2717601100A6463B /* ZMSDKInitHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E07E2717601000A6463B /* ZMSDKInitHelper.h */; };
+		6992E0FB2717601100A6463B /* toolbar_stop_video_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0802717601000A6463B /* toolbar_stop_video_normal.png */; };
+		6992E0FC2717601100A6463B /* share_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0812717601000A6463B /* share_camera.png */; };
+		6992E0FD2717601100A6463B /* toolbar_participant_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0822717601000A6463B /* toolbar_participant_normal.png */; };
+		6992E0FE2717601100A6463B /* toolbar_unmute_voip_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0832717601000A6463B /* toolbar_unmute_voip_normal.png */; };
+		6992E0FF2717601100A6463B /* toolbar_stop_video_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0842717601000A6463B /* toolbar_stop_video_press.png */; };
+		6992E1002717601100A6463B /* btn_schedule_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0852717601000A6463B /* btn_schedule_normal.png */; };
+		6992E1012717601100A6463B /* toolbar_share_stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0862717601000A6463B /* toolbar_share_stop.png */; };
+		6992E1022717601100A6463B /* toolbar_share_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0872717601000A6463B /* toolbar_share_normal.png */; };
+		6992E1032717601100A6463B /* toolbar_mute_voip_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0882717601000A6463B /* toolbar_mute_voip_press.png */; };
+		6992E1042717601100A6463B /* share_audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0892717601000A6463B /* share_audio.png */; };
+		6992E1052717601100A6463B /* toolbar_mute_tele_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E08A2717601000A6463B /* toolbar_mute_tele_normal.png */; };
+		6992E1062717601100A6463B /* toolbar_unmute_tele_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E08B2717601000A6463B /* toolbar_unmute_tele_press.png */; };
+		6992E1072717601100A6463B /* btn_startshare_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E08C2717601000A6463B /* btn_startshare_normal.png */; };
+		6992E1082717601100A6463B /* share_frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E08D2717601000A6463B /* share_frame.png */; };
+		6992E1092717601100A6463B /* btn_joinmeeting_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E08E2717601000A6463B /* btn_joinmeeting_normal@2x.png */; };
+		6992E10A2717601100A6463B /* toolbar_unmute_tele_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E08F2717601000A6463B /* toolbar_unmute_tele_normal.png */; };
+		6992E10B2717601100A6463B /* toolbar_chat_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0902717601000A6463B /* toolbar_chat_normal.png */; };
+		6992E10C2717601100A6463B /* btn_leave_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0912717601000A6463B /* btn_leave_normal.png */; };
+		6992E10D2717601100A6463B /* toolbar_mute_voip_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0922717601000A6463B /* toolbar_mute_voip_normal.png */; };
+		6992E10E2717601100A6463B /* plistArrowTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0932717601000A6463B /* plistArrowTop.png */; };
+		6992E10F2717601100A6463B /* btn_joinmeeting_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0942717601000A6463B /* btn_joinmeeting_normal.png */; };
+		6992E1102717601100A6463B /* plistArrowBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0952717601000A6463B /* plistArrowBottom.png */; };
+		6992E1112717601100A6463B /* btn_setting_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0962717601000A6463B /* btn_setting_normal.png */; };
+		6992E1122717601100A6463B /* toolbar_start_video_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0972717601000A6463B /* toolbar_start_video_normal.png */; };
+		6992E1132717601100A6463B /* toolbar_share_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0982717601000A6463B /* toolbar_share_press.png */; };
+		6992E1142717601100A6463B /* btn_unpresentshare_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0992717601000A6463B /* btn_unpresentshare_normal@2x.png */; };
+		6992E1152717601100A6463B /* toolbar_participant_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E09A2717601000A6463B /* toolbar_participant_press.png */; };
+		6992E1162717601100A6463B /* btn_unpresentshare_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E09B2717601000A6463B /* btn_unpresentshare_normal.png */; };
+		6992E1172717601100A6463B /* ZoomLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E09C2717601000A6463B /* ZoomLogo.png */; };
+		6992E1182717601100A6463B /* toolbar_mute_tele_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E09D2717601000A6463B /* toolbar_mute_tele_press.png */; };
+		6992E1192717601100A6463B /* btn_startshare_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E09E2717601000A6463B /* btn_startshare_normal@2x.png */; };
+		6992E11A2717601100A6463B /* toolbar_chat_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E09F2717601000A6463B /* toolbar_chat_press.png */; };
+		6992E11B2717601100A6463B /* share_whiteboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A02717601000A6463B /* share_whiteboard.png */; };
+		6992E11C2717601100A6463B /* btn_schedule_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A12717601000A6463B /* btn_schedule_normal@2x.png */; };
+		6992E11D2717601100A6463B /* share_window_one.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A22717601000A6463B /* share_window_one.png */; };
+		6992E11E2717601100A6463B /* btn_startvideo_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A32717601000A6463B /* btn_startvideo_normal@2x.png */; };
+		6992E11F2717601100A6463B /* toolbar_noaudio_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A42717601000A6463B /* toolbar_noaudio_normal.png */; };
+		6992E1202717601100A6463B /* btn_startvideo_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A52717601000A6463B /* btn_startvideo_normal.png */; };
+		6992E1212717601100A6463B /* toolbar_unmute_voip_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A62717601000A6463B /* toolbar_unmute_voip_press.png */; };
+		6992E1222717601100A6463B /* toolbar_noaudio_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A72717601000A6463B /* toolbar_noaudio_highlight.png */; };
+		6992E1232717601100A6463B /* toolbar_start_video_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0A82717601000A6463B /* toolbar_start_video_press.png */; };
+		6992E1242717601100A6463B /* ZMSDKAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0AA2717601000A6463B /* ZMSDKAuthHelper.m */; };
+		6992E1252717601100A6463B /* ZMSDKAuthHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0AB2717601000A6463B /* ZMSDKAuthHelper.h */; };
+		6992E1262717601100A6463B /* ZMSDKChatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0AD2717601000A6463B /* ZMSDKChatWindowController.m */; };
+		6992E1272717601100A6463B /* ShareContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0AE2717601000A6463B /* ShareContentView.h */; };
+		6992E1282717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0AF2717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.m */; };
+		6992E1292717601100A6463B /* ZMSDKThumbnailVideoItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0B02717601000A6463B /* ZMSDKThumbnailVideoItemView.h */; };
+		6992E12A2717601100A6463B /* ZMSDKMeetingStatusMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0B12717601000A6463B /* ZMSDKMeetingStatusMgr.m */; };
+		6992E12B2717601100A6463B /* ZMSDKHCTableItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0B22717601000A6463B /* ZMSDKHCTableItemView.h */; };
+		6992E12C2717601100A6463B /* ZMSDKUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0B32717601000A6463B /* ZMSDKUserHelper.m */; };
+		6992E12D2717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0B42717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.xib */; };
+		6992E12E2717601100A6463B /* ZMSDKConfUIMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0B52717601000A6463B /* ZMSDKConfUIMgr.m */; };
+		6992E12F2717601100A6463B /* ZMSDKDelegateMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0B62717601000A6463B /* ZMSDKDelegateMgr.h */; };
+		6992E1302717601100A6463B /* ZPLogo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0B72717601000A6463B /* ZPLogo.icns */; };
+		6992E1312717601100A6463B /* ZMSDKThumbnailVideoItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0B82717601000A6463B /* ZMSDKThumbnailVideoItemView.m */; };
+		6992E1322717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0B92717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.h */; };
+		6992E1332717601100A6463B /* ShareContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0BA2717601000A6463B /* ShareContentView.m */; };
+		6992E1342717601100A6463B /* ZMSDKChatWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0BB2717601000A6463B /* ZMSDKChatWindowController.h */; };
+		6992E1352717601100A6463B /* ZMSDKUserHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0BC2717601000A6463B /* ZMSDKUserHelper.h */; };
+		6992E1362717601100A6463B /* ZMSDKHCTableItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0BD2717601000A6463B /* ZMSDKHCTableItemView.m */; };
+		6992E1372717601100A6463B /* ZMSDKMeetingStatusMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0BE2717601000A6463B /* ZMSDKMeetingStatusMgr.h */; };
+		6992E1382717601100A6463B /* ZMSDKConfUIMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0BF2717601000A6463B /* ZMSDKConfUIMgr.h */; };
+		6992E1392717601100A6463B /* ZMSDKChatWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0C02717601000A6463B /* ZMSDKChatWindowController.xib */; };
+		6992E13A2717601100A6463B /* ZMSDKDelegateMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0C12717601000A6463B /* ZMSDKDelegateMgr.m */; };
+		6992E13B2717601100A6463B /* ZMSDKApiMeetingInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0C32717601000A6463B /* ZMSDKApiMeetingInterface.h */; };
+		6992E13C2717601100A6463B /* ZMSDKEmailMeetingInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0C42717601000A6463B /* ZMSDKEmailMeetingInterface.h */; };
+		6992E13D2717601100A6463B /* ZMSDKSSOMeetingInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0C52717601000A6463B /* ZMSDKSSOMeetingInterface.h */; };
+		6992E13E2717601100A6463B /* ZMSDKApiMeetingInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0C62717601000A6463B /* ZMSDKApiMeetingInterface.m */; };
+		6992E13F2717601100A6463B /* ZMSDKEmailMeetingInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0C72717601000A6463B /* ZMSDKEmailMeetingInterface.m */; };
+		6992E1402717601100A6463B /* ZMSDKSSOMeetingInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0C82717601000A6463B /* ZMSDKSSOMeetingInterface.m */; };
+		6992E1412717601100A6463B /* ZMSDKRoundImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0CA2717601000A6463B /* ZMSDKRoundImageView.h */; };
+		6992E1422717601100A6463B /* ZMSDKPTImageButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0CB2717601000A6463B /* ZMSDKPTImageButton.h */; };
+		6992E1432717601100A6463B /* ZMSDKCommonHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0CC2717601000A6463B /* ZMSDKCommonHelper.h */; };
+		6992E1442717601100A6463B /* ZMSDKButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0CD2717601000A6463B /* ZMSDKButton.m */; };
+		6992E1452717601100A6463B /* NSColor+Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0CE2717601000A6463B /* NSColor+Category.h */; };
+		6992E1462717601100A6463B /* ZMSDKRoundImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0CF2717601000A6463B /* ZMSDKRoundImageView.m */; };
+		6992E1472717601100A6463B /* ZMSDKPTImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0D02717601000A6463B /* ZMSDKPTImageButton.m */; };
+		6992E1482717601100A6463B /* ZMSDKButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0D12717601000A6463B /* ZMSDKButton.h */; };
+		6992E1492717601100A6463B /* ZMSDKCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0D22717601000A6463B /* ZMSDKCommonHelper.m */; };
+		6992E14A2717601100A6463B /* NSColor+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0D32717601000A6463B /* NSColor+Category.m */; };
+		6992E14B2717601100A6463B /* SEBZoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0D42717601000A6463B /* SEBZoomController.m */; };
+		6992E14C2717601100A6463B /* ZMSDKSettingWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0D62717601000A6463B /* ZMSDKSettingWindowController.xib */; };
+		6992E14D2717601100A6463B /* ZoomSDKWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0D72717601000A6463B /* ZoomSDKWindowController.m */; };
+		6992E14E2717601100A6463B /* ZMSDKSettingWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0D82717601000A6463B /* ZMSDKSettingWindowController.h */; };
+		6992E14F2717601100A6463B /* ZMSDKMeetingMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0D92717601000A6463B /* ZMSDKMeetingMainWindowController.xib */; };
+		6992E1502717601100A6463B /* ZMSDKHCPanelistsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0DA2717601000A6463B /* ZMSDKHCPanelistsView.h */; };
+		6992E1512717601100A6463B /* ZMSDKJoinMeetingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0DB2717601000A6463B /* ZMSDKJoinMeetingWindowController.m */; };
+		6992E1522717601100A6463B /* ZMSDKShareSelectWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0DC2717601000A6463B /* ZMSDKShareSelectWindow.h */; };
+		6992E1532717601100A6463B /* ZMSDKLoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0DD2717601000A6463B /* ZMSDKLoginWindowController.m */; };
+		6992E1542717601100A6463B /* ZMSDKThumbnailView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0DE2717601000A6463B /* ZMSDKThumbnailView.h */; };
+		6992E1552717601100A6463B /* ZMSDKMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0DF2717601000A6463B /* ZMSDKMainWindowController.m */; };
+		6992E1562717601100A6463B /* ZMSDKMeetingMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0E02717601000A6463B /* ZMSDKMeetingMainWindowController.m */; };
+		6992E1572717601100A6463B /* ZoomSDKWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0E12717601000A6463B /* ZoomSDKWindowController.xib */; };
+		6992E1582717601100A6463B /* ZMSDKSettingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0E22717601000A6463B /* ZMSDKSettingWindowController.m */; };
+		6992E1592717601100A6463B /* ZMSDKLoginWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0E32717601000A6463B /* ZMSDKLoginWindowController.xib */; };
+		6992E15A2717601100A6463B /* ZMSDKMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0E42717601000A6463B /* ZMSDKMainWindowController.xib */; };
+		6992E15B2717601100A6463B /* ZoomSDKWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0E52717601000A6463B /* ZoomSDKWindowController.h */; };
+		6992E15C2717601100A6463B /* ZMSDKJoinMeetingWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0E62717601000A6463B /* ZMSDKJoinMeetingWindowController.xib */; };
+		6992E15D2717601100A6463B /* ZMSDKShareSelectWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992E0E72717601000A6463B /* ZMSDKShareSelectWindow.xib */; };
+		6992E15E2717601100A6463B /* ZMSDKJoinMeetingWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0E82717601000A6463B /* ZMSDKJoinMeetingWindowController.h */; };
+		6992E15F2717601100A6463B /* ZMSDKHCPanelistsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0E92717601000A6463B /* ZMSDKHCPanelistsView.m */; };
+		6992E1602717601100A6463B /* ZMSDKLoginWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0EA2717601000A6463B /* ZMSDKLoginWindowController.h */; };
+		6992E1612717601100A6463B /* ZMSDKThumbnailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0EB2717601000A6463B /* ZMSDKThumbnailView.m */; };
+		6992E1622717601100A6463B /* ZMSDKShareSelectWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0EC2717601000A6463B /* ZMSDKShareSelectWindow.m */; };
+		6992E1632717601100A6463B /* ZMSDKMeetingMainWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0ED2717601000A6463B /* ZMSDKMeetingMainWindowController.h */; };
+		6992E1642717601100A6463B /* ZMSDKMainWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0EE2717601000A6463B /* ZMSDKMainWindowController.h */; };
+		6992E1652717601100A6463B /* ZMSDKJoinOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0F02717601000A6463B /* ZMSDKJoinOnly.h */; };
+		6992E1662717601100A6463B /* ZMSDKSSOLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0F12717601000A6463B /* ZMSDKSSOLogin.h */; };
+		6992E1672717601100A6463B /* ZMSDKEmailLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F22717601000A6463B /* ZMSDKEmailLogin.m */; };
+		6992E1682717601100A6463B /* ZMSDKRestAPILogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0F32717601000A6463B /* ZMSDKRestAPILogin.h */; };
+		6992E1692717601100A6463B /* ZMSDKEmailLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992E0F42717601000A6463B /* ZMSDKEmailLogin.h */; };
+		6992E16A2717601100A6463B /* ZMSDKSSOLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F52717601000A6463B /* ZMSDKSSOLogin.m */; };
+		6992E16B2717601100A6463B /* ZMSDKJoinOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F62717601000A6463B /* ZMSDKJoinOnly.m */; };
+		6992E16C2717601100A6463B /* ZMSDKRestAPILogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F72717601000A6463B /* ZMSDKRestAPILogin.m */; };
+		6992E19427179B2500A6463B /* ZoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18D27179B0000A6463B /* ZoomSDK.framework */; };
+		6992E19527179B2500A6463B /* ZoomSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18D27179B0000A6463B /* ZoomSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E19627179BE400A6463B /* airhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E19327179B0000A6463B /* airhost.app */; };
+		6992E19727179BE400A6463B /* annoter.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17527179AFF00A6463B /* annoter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E19827179BE400A6463B /* aomagent.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E19227179B0000A6463B /* aomagent.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E19927179BE400A6463B /* aomhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E19027179B0000A6463B /* aomhost.app */; };
+		6992E19A27179BE400A6463B /* asproxy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18027179AFF00A6463B /* asproxy.framework */; };
+		6992E19B27179BE400A6463B /* asproxy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18027179AFF00A6463B /* asproxy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E19C27179BE400A6463B /* capHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E18B27179B0000A6463B /* capHost.app */; };
+		6992E19D27179BE400A6463B /* cmmlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18127179AFF00A6463B /* cmmlib.framework */; };
+		6992E19E27179BE500A6463B /* cmmlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18127179AFF00A6463B /* cmmlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E19F27179BE500A6463B /* CptHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E18227179AFF00A6463B /* CptHost.app */; };
+		6992E1A027179BE500A6463B /* curl64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17327179AFF00A6463B /* curl64.framework */; };
+		6992E1A127179BE500A6463B /* curl64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17327179AFF00A6463B /* curl64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1A227179BE500A6463B /* fdkaac2.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17E27179AFF00A6463B /* fdkaac2.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1A327179BE500A6463B /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18427179AFF00A6463B /* libcrypto.dylib */; };
+		6992E1A427179BE500A6463B /* libcrypto.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18427179AFF00A6463B /* libcrypto.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6992E1A527179BE500A6463B /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17D27179AFF00A6463B /* libjson.dylib */; };
+		6992E1A627179BE500A6463B /* libjson.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17D27179AFF00A6463B /* libjson.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6992E1A727179BE500A6463B /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18F27179B0000A6463B /* libminizip.dylib */; };
+		6992E1A827179BE500A6463B /* libminizip.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18F27179B0000A6463B /* libminizip.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6992E1A927179BE600A6463B /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17B27179AFF00A6463B /* libssl.dylib */; };
+		6992E1AA27179BE600A6463B /* libssl.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17B27179AFF00A6463B /* libssl.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6992E1AB27179BE600A6463B /* mcm.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E19127179B0000A6463B /* mcm.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1AC27179BE600A6463B /* nydus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18827179AFF00A6463B /* nydus.framework */; };
+		6992E1AD27179BE600A6463B /* nydus.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18827179AFF00A6463B /* nydus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1AE27179BE600A6463B /* protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E16F27179AFF00A6463B /* protobuf.framework */; };
+		6992E1AF27179BE600A6463B /* protobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E16F27179AFF00A6463B /* protobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1B027179BE700A6463B /* RingtoneRes.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18E27179B0000A6463B /* RingtoneRes.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1B127179BE700A6463B /* SDK_Transcode.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E18727179AFF00A6463B /* SDK_Transcode.app */; };
+		6992E1B227179BE700A6463B /* ssb_sdk.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18C27179B0000A6463B /* ssb_sdk.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1B327179BE700A6463B /* tp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18927179B0000A6463B /* tp.framework */; };
+		6992E1B427179BE700A6463B /* tp.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18927179B0000A6463B /* tp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1B527179BE700A6463B /* util.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17F27179AFF00A6463B /* util.framework */; };
+		6992E1B627179BE700A6463B /* util.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17F27179AFF00A6463B /* util.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1B727179BE800A6463B /* viper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17227179AFF00A6463B /* viper.framework */; };
+		6992E1B827179BE800A6463B /* viper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17227179AFF00A6463B /* viper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1B927179BE800A6463B /* viperex.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17027179AFF00A6463B /* viperex.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1BA27179BE800A6463B /* xmpp_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18627179AFF00A6463B /* xmpp_framework.framework */; };
+		6992E1BB27179BE800A6463B /* xmpp_framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18627179AFF00A6463B /* xmpp_framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1BC27179BE800A6463B /* zChatApp.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17127179AFF00A6463B /* zChatApp.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1BD27179BE900A6463B /* ZCommonUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17927179AFF00A6463B /* ZCommonUI.framework */; };
+		6992E1BE27179BE900A6463B /* ZCommonUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17927179AFF00A6463B /* ZCommonUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1BF27179BE900A6463B /* zData.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18A27179B0000A6463B /* zData.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C027179BE900A6463B /* zKBCrypto.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18327179AFF00A6463B /* zKBCrypto.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C127179BE900A6463B /* zlt.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17C27179AFF00A6463B /* zlt.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C227179BEA00A6463B /* zmb.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17A27179AFF00A6463B /* zmb.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C327179BEA00A6463B /* zmLoader.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17727179AFF00A6463B /* zmLoader.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C427179BEA00A6463B /* ZoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18D27179B0000A6463B /* ZoomSDK.framework */; };
+		6992E1C527179BEA00A6463B /* ZoomSDKChatUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */; };
+		6992E1C627179BEB00A6463B /* ZoomSDKChatUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C727179BEB00A6463B /* ZoomSDKVideoUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */; };
+		6992E1C827179BEB00A6463B /* ZoomSDKVideoUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1C927179BEB00A6463B /* zSDKRes.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E16E27179AFF00A6463B /* zSDKRes.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1CA27179BEC00A6463B /* zVideoApp.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17627179AFF00A6463B /* zVideoApp.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6992E1CB27179BEC00A6463B /* zWebService.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17827179AFF00A6463B /* zWebService.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		699447F5248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
 		699447F6248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
 		699447F7248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
@@ -975,12 +1148,55 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6992E1CC27179BEC00A6463B /* Embed PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6992E1C127179BE900A6463B /* zlt.bundle in Embed PlugIns */,
+				6992E1CA27179BEC00A6463B /* zVideoApp.bundle in Embed PlugIns */,
+				6992E1C027179BE900A6463B /* zKBCrypto.bundle in Embed PlugIns */,
+				6992E1CB27179BEC00A6463B /* zWebService.bundle in Embed PlugIns */,
+				6992E1A227179BE500A6463B /* fdkaac2.bundle in Embed PlugIns */,
+				6992E1C227179BEA00A6463B /* zmb.bundle in Embed PlugIns */,
+				6992E19727179BE400A6463B /* annoter.bundle in Embed PlugIns */,
+				6992E1BC27179BE800A6463B /* zChatApp.bundle in Embed PlugIns */,
+				6992E1BF27179BE900A6463B /* zData.bundle in Embed PlugIns */,
+				6992E1B927179BE800A6463B /* viperex.bundle in Embed PlugIns */,
+				6992E1C927179BEB00A6463B /* zSDKRes.bundle in Embed PlugIns */,
+				6992E1B027179BE700A6463B /* RingtoneRes.bundle in Embed PlugIns */,
+				6992E1B227179BE700A6463B /* ssb_sdk.bundle in Embed PlugIns */,
+				6992E1C327179BEA00A6463B /* zmLoader.bundle in Embed PlugIns */,
+				6992E19827179BE400A6463B /* aomagent.bundle in Embed PlugIns */,
+				6992E1AB27179BE600A6463B /* mcm.bundle in Embed PlugIns */,
+			);
+			name = "Embed PlugIns";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B62114F411FB00FD0761 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6992E1A627179BE500A6463B /* libjson.dylib in CopyFiles */,
+				6992E1AD27179BE600A6463B /* nydus.framework in CopyFiles */,
+				6992E1C827179BEB00A6463B /* ZoomSDKVideoUI.framework in CopyFiles */,
+				6992E1A827179BE500A6463B /* libminizip.dylib in CopyFiles */,
+				6992E1B827179BE800A6463B /* viper.framework in CopyFiles */,
+				6992E1A427179BE500A6463B /* libcrypto.dylib in CopyFiles */,
+				6992E1BE27179BE900A6463B /* ZCommonUI.framework in CopyFiles */,
+				6992E1A127179BE500A6463B /* curl64.framework in CopyFiles */,
+				6992E19527179B2500A6463B /* ZoomSDK.framework in CopyFiles */,
+				6992E1C627179BEB00A6463B /* ZoomSDKChatUI.framework in CopyFiles */,
+				6992E19B27179BE400A6463B /* asproxy.framework in CopyFiles */,
+				6992E1BB27179BE800A6463B /* xmpp_framework.framework in CopyFiles */,
+				6992E1B427179BE700A6463B /* tp.framework in CopyFiles */,
+				6992E1B627179BE700A6463B /* util.framework in CopyFiles */,
+				6992E1AF27179BE600A6463B /* protobuf.framework in CopyFiles */,
+				6992E19E27179BE500A6463B /* cmmlib.framework in CopyFiles */,
+				6992E1AA27179BE600A6463B /* libssl.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,6 +1550,161 @@
 		6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsApplicationsViewController.m; sourceTree = "<group>"; };
 		699282E119D0430A00270E86 /* CapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapWindowController.h; sourceTree = "<group>"; };
 		699282E219D0430A00270E86 /* CapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindowController.m; sourceTree = "<group>"; };
+		6992E07B2717601000A6463B /* SEBZoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBZoomController.h; sourceTree = "<group>"; };
+		6992E07D2717601000A6463B /* ZMSDKInitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKInitHelper.m; sourceTree = "<group>"; };
+		6992E07E2717601000A6463B /* ZMSDKInitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKInitHelper.h; sourceTree = "<group>"; };
+		6992E0802717601000A6463B /* toolbar_stop_video_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_stop_video_normal.png; sourceTree = "<group>"; };
+		6992E0812717601000A6463B /* share_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_camera.png; sourceTree = "<group>"; };
+		6992E0822717601000A6463B /* toolbar_participant_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_participant_normal.png; sourceTree = "<group>"; };
+		6992E0832717601000A6463B /* toolbar_unmute_voip_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_unmute_voip_normal.png; sourceTree = "<group>"; };
+		6992E0842717601000A6463B /* toolbar_stop_video_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_stop_video_press.png; sourceTree = "<group>"; };
+		6992E0852717601000A6463B /* btn_schedule_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_schedule_normal.png; sourceTree = "<group>"; };
+		6992E0862717601000A6463B /* toolbar_share_stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_share_stop.png; sourceTree = "<group>"; };
+		6992E0872717601000A6463B /* toolbar_share_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_share_normal.png; sourceTree = "<group>"; };
+		6992E0882717601000A6463B /* toolbar_mute_voip_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_mute_voip_press.png; sourceTree = "<group>"; };
+		6992E0892717601000A6463B /* share_audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_audio.png; sourceTree = "<group>"; };
+		6992E08A2717601000A6463B /* toolbar_mute_tele_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_mute_tele_normal.png; sourceTree = "<group>"; };
+		6992E08B2717601000A6463B /* toolbar_unmute_tele_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_unmute_tele_press.png; sourceTree = "<group>"; };
+		6992E08C2717601000A6463B /* btn_startshare_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_startshare_normal.png; sourceTree = "<group>"; };
+		6992E08D2717601000A6463B /* share_frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_frame.png; sourceTree = "<group>"; };
+		6992E08E2717601000A6463B /* btn_joinmeeting_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_joinmeeting_normal@2x.png"; sourceTree = "<group>"; };
+		6992E08F2717601000A6463B /* toolbar_unmute_tele_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_unmute_tele_normal.png; sourceTree = "<group>"; };
+		6992E0902717601000A6463B /* toolbar_chat_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_chat_normal.png; sourceTree = "<group>"; };
+		6992E0912717601000A6463B /* btn_leave_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_leave_normal.png; sourceTree = "<group>"; };
+		6992E0922717601000A6463B /* toolbar_mute_voip_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_mute_voip_normal.png; sourceTree = "<group>"; };
+		6992E0932717601000A6463B /* plistArrowTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plistArrowTop.png; sourceTree = "<group>"; };
+		6992E0942717601000A6463B /* btn_joinmeeting_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_joinmeeting_normal.png; sourceTree = "<group>"; };
+		6992E0952717601000A6463B /* plistArrowBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plistArrowBottom.png; sourceTree = "<group>"; };
+		6992E0962717601000A6463B /* btn_setting_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_setting_normal.png; sourceTree = "<group>"; };
+		6992E0972717601000A6463B /* toolbar_start_video_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_start_video_normal.png; sourceTree = "<group>"; };
+		6992E0982717601000A6463B /* toolbar_share_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_share_press.png; sourceTree = "<group>"; };
+		6992E0992717601000A6463B /* btn_unpresentshare_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unpresentshare_normal@2x.png"; sourceTree = "<group>"; };
+		6992E09A2717601000A6463B /* toolbar_participant_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_participant_press.png; sourceTree = "<group>"; };
+		6992E09B2717601000A6463B /* btn_unpresentshare_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_unpresentshare_normal.png; sourceTree = "<group>"; };
+		6992E09C2717601000A6463B /* ZoomLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZoomLogo.png; sourceTree = "<group>"; };
+		6992E09D2717601000A6463B /* toolbar_mute_tele_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_mute_tele_press.png; sourceTree = "<group>"; };
+		6992E09E2717601000A6463B /* btn_startshare_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_startshare_normal@2x.png"; sourceTree = "<group>"; };
+		6992E09F2717601000A6463B /* toolbar_chat_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_chat_press.png; sourceTree = "<group>"; };
+		6992E0A02717601000A6463B /* share_whiteboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_whiteboard.png; sourceTree = "<group>"; };
+		6992E0A12717601000A6463B /* btn_schedule_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_schedule_normal@2x.png"; sourceTree = "<group>"; };
+		6992E0A22717601000A6463B /* share_window_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_window_one.png; sourceTree = "<group>"; };
+		6992E0A32717601000A6463B /* btn_startvideo_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_startvideo_normal@2x.png"; sourceTree = "<group>"; };
+		6992E0A42717601000A6463B /* toolbar_noaudio_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_noaudio_normal.png; sourceTree = "<group>"; };
+		6992E0A52717601000A6463B /* btn_startvideo_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_startvideo_normal.png; sourceTree = "<group>"; };
+		6992E0A62717601000A6463B /* toolbar_unmute_voip_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_unmute_voip_press.png; sourceTree = "<group>"; };
+		6992E0A72717601000A6463B /* toolbar_noaudio_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_noaudio_highlight.png; sourceTree = "<group>"; };
+		6992E0A82717601000A6463B /* toolbar_start_video_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_start_video_press.png; sourceTree = "<group>"; };
+		6992E0AA2717601000A6463B /* ZMSDKAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKAuthHelper.m; sourceTree = "<group>"; };
+		6992E0AB2717601000A6463B /* ZMSDKAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKAuthHelper.h; sourceTree = "<group>"; };
+		6992E0AD2717601000A6463B /* ZMSDKChatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKChatWindowController.m; sourceTree = "<group>"; };
+		6992E0AE2717601000A6463B /* ShareContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareContentView.h; sourceTree = "<group>"; };
+		6992E0AF2717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKJoinMeetingConfirmWindowCtrl.m; sourceTree = "<group>"; };
+		6992E0B02717601000A6463B /* ZMSDKThumbnailVideoItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKThumbnailVideoItemView.h; sourceTree = "<group>"; };
+		6992E0B12717601000A6463B /* ZMSDKMeetingStatusMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKMeetingStatusMgr.m; sourceTree = "<group>"; };
+		6992E0B22717601000A6463B /* ZMSDKHCTableItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKHCTableItemView.h; sourceTree = "<group>"; };
+		6992E0B32717601000A6463B /* ZMSDKUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKUserHelper.m; sourceTree = "<group>"; };
+		6992E0B42717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKJoinMeetingConfirmWindowCtrl.xib; sourceTree = "<group>"; };
+		6992E0B52717601000A6463B /* ZMSDKConfUIMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKConfUIMgr.m; sourceTree = "<group>"; };
+		6992E0B62717601000A6463B /* ZMSDKDelegateMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKDelegateMgr.h; sourceTree = "<group>"; };
+		6992E0B72717601000A6463B /* ZPLogo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ZPLogo.icns; sourceTree = "<group>"; };
+		6992E0B82717601000A6463B /* ZMSDKThumbnailVideoItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKThumbnailVideoItemView.m; sourceTree = "<group>"; };
+		6992E0B92717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKJoinMeetingConfirmWindowCtrl.h; sourceTree = "<group>"; };
+		6992E0BA2717601000A6463B /* ShareContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareContentView.m; sourceTree = "<group>"; };
+		6992E0BB2717601000A6463B /* ZMSDKChatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKChatWindowController.h; sourceTree = "<group>"; };
+		6992E0BC2717601000A6463B /* ZMSDKUserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKUserHelper.h; sourceTree = "<group>"; };
+		6992E0BD2717601000A6463B /* ZMSDKHCTableItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKHCTableItemView.m; sourceTree = "<group>"; };
+		6992E0BE2717601000A6463B /* ZMSDKMeetingStatusMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKMeetingStatusMgr.h; sourceTree = "<group>"; };
+		6992E0BF2717601000A6463B /* ZMSDKConfUIMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKConfUIMgr.h; sourceTree = "<group>"; };
+		6992E0C02717601000A6463B /* ZMSDKChatWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKChatWindowController.xib; sourceTree = "<group>"; };
+		6992E0C12717601000A6463B /* ZMSDKDelegateMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKDelegateMgr.m; sourceTree = "<group>"; };
+		6992E0C32717601000A6463B /* ZMSDKApiMeetingInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKApiMeetingInterface.h; sourceTree = "<group>"; };
+		6992E0C42717601000A6463B /* ZMSDKEmailMeetingInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKEmailMeetingInterface.h; sourceTree = "<group>"; };
+		6992E0C52717601000A6463B /* ZMSDKSSOMeetingInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKSSOMeetingInterface.h; sourceTree = "<group>"; };
+		6992E0C62717601000A6463B /* ZMSDKApiMeetingInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKApiMeetingInterface.m; sourceTree = "<group>"; };
+		6992E0C72717601000A6463B /* ZMSDKEmailMeetingInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKEmailMeetingInterface.m; sourceTree = "<group>"; };
+		6992E0C82717601000A6463B /* ZMSDKSSOMeetingInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKSSOMeetingInterface.m; sourceTree = "<group>"; };
+		6992E0CA2717601000A6463B /* ZMSDKRoundImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKRoundImageView.h; sourceTree = "<group>"; };
+		6992E0CB2717601000A6463B /* ZMSDKPTImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKPTImageButton.h; sourceTree = "<group>"; };
+		6992E0CC2717601000A6463B /* ZMSDKCommonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKCommonHelper.h; sourceTree = "<group>"; };
+		6992E0CD2717601000A6463B /* ZMSDKButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKButton.m; sourceTree = "<group>"; };
+		6992E0CE2717601000A6463B /* NSColor+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Category.h"; sourceTree = "<group>"; };
+		6992E0CF2717601000A6463B /* ZMSDKRoundImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKRoundImageView.m; sourceTree = "<group>"; };
+		6992E0D02717601000A6463B /* ZMSDKPTImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKPTImageButton.m; sourceTree = "<group>"; };
+		6992E0D12717601000A6463B /* ZMSDKButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKButton.h; sourceTree = "<group>"; };
+		6992E0D22717601000A6463B /* ZMSDKCommonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKCommonHelper.m; sourceTree = "<group>"; };
+		6992E0D32717601000A6463B /* NSColor+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Category.m"; sourceTree = "<group>"; };
+		6992E0D42717601000A6463B /* SEBZoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBZoomController.m; sourceTree = "<group>"; };
+		6992E0D62717601000A6463B /* ZMSDKSettingWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKSettingWindowController.xib; sourceTree = "<group>"; };
+		6992E0D72717601000A6463B /* ZoomSDKWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSDKWindowController.m; sourceTree = "<group>"; };
+		6992E0D82717601000A6463B /* ZMSDKSettingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKSettingWindowController.h; sourceTree = "<group>"; };
+		6992E0D92717601000A6463B /* ZMSDKMeetingMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKMeetingMainWindowController.xib; sourceTree = "<group>"; };
+		6992E0DA2717601000A6463B /* ZMSDKHCPanelistsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKHCPanelistsView.h; sourceTree = "<group>"; };
+		6992E0DB2717601000A6463B /* ZMSDKJoinMeetingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKJoinMeetingWindowController.m; sourceTree = "<group>"; };
+		6992E0DC2717601000A6463B /* ZMSDKShareSelectWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKShareSelectWindow.h; sourceTree = "<group>"; };
+		6992E0DD2717601000A6463B /* ZMSDKLoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKLoginWindowController.m; sourceTree = "<group>"; };
+		6992E0DE2717601000A6463B /* ZMSDKThumbnailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKThumbnailView.h; sourceTree = "<group>"; };
+		6992E0DF2717601000A6463B /* ZMSDKMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKMainWindowController.m; sourceTree = "<group>"; };
+		6992E0E02717601000A6463B /* ZMSDKMeetingMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKMeetingMainWindowController.m; sourceTree = "<group>"; };
+		6992E0E12717601000A6463B /* ZoomSDKWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZoomSDKWindowController.xib; sourceTree = "<group>"; };
+		6992E0E22717601000A6463B /* ZMSDKSettingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKSettingWindowController.m; sourceTree = "<group>"; };
+		6992E0E32717601000A6463B /* ZMSDKLoginWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKLoginWindowController.xib; sourceTree = "<group>"; };
+		6992E0E42717601000A6463B /* ZMSDKMainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKMainWindowController.xib; sourceTree = "<group>"; };
+		6992E0E52717601000A6463B /* ZoomSDKWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSDKWindowController.h; sourceTree = "<group>"; };
+		6992E0E62717601000A6463B /* ZMSDKJoinMeetingWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKJoinMeetingWindowController.xib; sourceTree = "<group>"; };
+		6992E0E72717601000A6463B /* ZMSDKShareSelectWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZMSDKShareSelectWindow.xib; sourceTree = "<group>"; };
+		6992E0E82717601000A6463B /* ZMSDKJoinMeetingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKJoinMeetingWindowController.h; sourceTree = "<group>"; };
+		6992E0E92717601000A6463B /* ZMSDKHCPanelistsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKHCPanelistsView.m; sourceTree = "<group>"; };
+		6992E0EA2717601000A6463B /* ZMSDKLoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKLoginWindowController.h; sourceTree = "<group>"; };
+		6992E0EB2717601000A6463B /* ZMSDKThumbnailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKThumbnailView.m; sourceTree = "<group>"; };
+		6992E0EC2717601000A6463B /* ZMSDKShareSelectWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKShareSelectWindow.m; sourceTree = "<group>"; };
+		6992E0ED2717601000A6463B /* ZMSDKMeetingMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKMeetingMainWindowController.h; sourceTree = "<group>"; };
+		6992E0EE2717601000A6463B /* ZMSDKMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKMainWindowController.h; sourceTree = "<group>"; };
+		6992E0F02717601000A6463B /* ZMSDKJoinOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKJoinOnly.h; sourceTree = "<group>"; };
+		6992E0F12717601000A6463B /* ZMSDKSSOLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKSSOLogin.h; sourceTree = "<group>"; };
+		6992E0F22717601000A6463B /* ZMSDKEmailLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKEmailLogin.m; sourceTree = "<group>"; };
+		6992E0F32717601000A6463B /* ZMSDKRestAPILogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKRestAPILogin.h; sourceTree = "<group>"; };
+		6992E0F42717601000A6463B /* ZMSDKEmailLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMSDKEmailLogin.h; sourceTree = "<group>"; };
+		6992E0F52717601000A6463B /* ZMSDKSSOLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKSSOLogin.m; sourceTree = "<group>"; };
+		6992E0F62717601000A6463B /* ZMSDKJoinOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKJoinOnly.m; sourceTree = "<group>"; };
+		6992E0F72717601000A6463B /* ZMSDKRestAPILogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKRestAPILogin.m; sourceTree = "<group>"; };
+		6992E16E27179AFF00A6463B /* zSDKRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zSDKRes.bundle; sourceTree = "<group>"; };
+		6992E16F27179AFF00A6463B /* protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = protobuf.framework; sourceTree = "<group>"; };
+		6992E17027179AFF00A6463B /* viperex.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = viperex.bundle; sourceTree = "<group>"; };
+		6992E17127179AFF00A6463B /* zChatApp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zChatApp.bundle; sourceTree = "<group>"; };
+		6992E17227179AFF00A6463B /* viper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = viper.framework; sourceTree = "<group>"; };
+		6992E17327179AFF00A6463B /* curl64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = curl64.framework; sourceTree = "<group>"; };
+		6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDKChatUI.framework; sourceTree = "<group>"; };
+		6992E17527179AFF00A6463B /* annoter.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = annoter.bundle; sourceTree = "<group>"; };
+		6992E17627179AFF00A6463B /* zVideoApp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zVideoApp.bundle; sourceTree = "<group>"; };
+		6992E17727179AFF00A6463B /* zmLoader.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zmLoader.bundle; sourceTree = "<group>"; };
+		6992E17827179AFF00A6463B /* zWebService.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zWebService.bundle; sourceTree = "<group>"; };
+		6992E17927179AFF00A6463B /* ZCommonUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZCommonUI.framework; sourceTree = "<group>"; };
+		6992E17A27179AFF00A6463B /* zmb.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zmb.bundle; sourceTree = "<group>"; };
+		6992E17B27179AFF00A6463B /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libssl.dylib; sourceTree = "<group>"; };
+		6992E17C27179AFF00A6463B /* zlt.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zlt.bundle; sourceTree = "<group>"; };
+		6992E17D27179AFF00A6463B /* libjson.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjson.dylib; sourceTree = "<group>"; };
+		6992E17E27179AFF00A6463B /* fdkaac2.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = fdkaac2.bundle; sourceTree = "<group>"; };
+		6992E17F27179AFF00A6463B /* util.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = util.framework; sourceTree = "<group>"; };
+		6992E18027179AFF00A6463B /* asproxy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = asproxy.framework; sourceTree = "<group>"; };
+		6992E18127179AFF00A6463B /* cmmlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cmmlib.framework; sourceTree = "<group>"; };
+		6992E18227179AFF00A6463B /* CptHost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = CptHost.app; sourceTree = "<group>"; };
+		6992E18327179AFF00A6463B /* zKBCrypto.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zKBCrypto.bundle; sourceTree = "<group>"; };
+		6992E18427179AFF00A6463B /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.dylib; sourceTree = "<group>"; };
+		6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDKVideoUI.framework; sourceTree = "<group>"; };
+		6992E18627179AFF00A6463B /* xmpp_framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = xmpp_framework.framework; sourceTree = "<group>"; };
+		6992E18727179AFF00A6463B /* SDK_Transcode.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = SDK_Transcode.app; sourceTree = "<group>"; };
+		6992E18827179AFF00A6463B /* nydus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nydus.framework; sourceTree = "<group>"; };
+		6992E18927179B0000A6463B /* tp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tp.framework; sourceTree = "<group>"; };
+		6992E18A27179B0000A6463B /* zData.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zData.bundle; sourceTree = "<group>"; };
+		6992E18B27179B0000A6463B /* capHost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = capHost.app; sourceTree = "<group>"; };
+		6992E18C27179B0000A6463B /* ssb_sdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ssb_sdk.bundle; sourceTree = "<group>"; };
+		6992E18D27179B0000A6463B /* ZoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDK.framework; sourceTree = "<group>"; };
+		6992E18E27179B0000A6463B /* RingtoneRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RingtoneRes.bundle; sourceTree = "<group>"; };
+		6992E18F27179B0000A6463B /* libminizip.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libminizip.dylib; sourceTree = "<group>"; };
+		6992E19027179B0000A6463B /* aomhost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = aomhost.app; sourceTree = "<group>"; };
+		6992E19127179B0000A6463B /* mcm.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mcm.bundle; sourceTree = "<group>"; };
+		6992E19227179B0000A6463B /* aomagent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = aomagent.bundle; sourceTree = "<group>"; };
+		6992E19327179B0000A6463B /* airhost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = airhost.app; sourceTree = "<group>"; };
 		699447F3248D4B840074A655 /* SEBBadgeError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeError.png; sourceTree = "<group>"; };
 		699447F4248D4B840074A655 /* SEBBadgeError@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBBadgeError@2x.png"; sourceTree = "<group>"; };
 		699447FB248D54870074A655 /* SEBBadgeWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeWarning.png; sourceTree = "<group>"; };
@@ -1636,15 +2007,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6992E1A527179BE500A6463B /* libjson.dylib in Frameworks */,
 				69433AEC268A793F005E59A5 /* libmbedtls.a in Frameworks */,
+				6992E1B527179BE700A6463B /* util.framework in Frameworks */,
 				8DE31FEF9851E3ED88004761 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 				6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */,
 				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
+				6992E19A27179BE400A6463B /* asproxy.framework in Frameworks */,
+				6992E1AE27179BE600A6463B /* protobuf.framework in Frameworks */,
+				6992E1BD27179BE900A6463B /* ZCommonUI.framework in Frameworks */,
+				6992E19427179B2500A6463B /* ZoomSDK.framework in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
+				6992E1A327179BE500A6463B /* libcrypto.dylib in Frameworks */,
+				6992E1C527179BEA00A6463B /* ZoomSDKChatUI.framework in Frameworks */,
+				6992E1A727179BE500A6463B /* libminizip.dylib in Frameworks */,
+				6992E1AC27179BE600A6463B /* nydus.framework in Frameworks */,
+				6992E1B327179BE700A6463B /* tp.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
+				6992E1B727179BE800A6463B /* viper.framework in Frameworks */,
+				6992E1BA27179BE800A6463B /* xmpp_framework.framework in Frameworks */,
+				6992E19D27179BE400A6463B /* cmmlib.framework in Frameworks */,
+				6992E1C727179BEB00A6463B /* ZoomSDKVideoUI.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
+				6992E1A927179BE600A6463B /* libssl.dylib in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
+				6992E1A027179BE500A6463B /* curl64.framework in Frameworks */,
+				6992E1C427179BEA00A6463B /* ZoomSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1670,6 +2059,7 @@
 				695AF20C149128A300B18DD8 /* Categories */,
 				69E036CF230D916A00DCBDA6 /* SEBServer */,
 				69B1D466230D7534005656B8 /* WebServices */,
+				6964B7D827164074003E1C01 /* Proctoring */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1755,6 +2145,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6992E16D27179AFF00A6463B /* ZoomSDK */,
 				697736FD26D3E5D4000B7C0D /* libSystem.tbd */,
 				697736FB26D3E4E2000B7C0D /* libquarantine.tbd */,
 				69637420267E6DD400058E7C /* libmbedtls.a */,
@@ -2359,6 +2750,15 @@
 			path = Resources/Icons/QuickActions;
 			sourceTree = "<group>";
 		};
+		6964B7D827164074003E1C01 /* Proctoring */ = {
+			isa = PBXGroup;
+			children = (
+				6992E07A2717601000A6463B /* Zoom */,
+			);
+			name = Proctoring;
+			path = Classes/Proctoring;
+			sourceTree = "<group>";
+		};
 		6966F8781D1C080100684182 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
@@ -2487,6 +2887,239 @@
 			);
 			name = ProcessMonitoring;
 			path = Classes/ProcessMonitoring;
+			sourceTree = "<group>";
+		};
+		6992E07A2717601000A6463B /* Zoom */ = {
+			isa = PBXGroup;
+			children = (
+				6992E07B2717601000A6463B /* SEBZoomController.h */,
+				6992E0D42717601000A6463B /* SEBZoomController.m */,
+				6992E07C2717601000A6463B /* Init */,
+				6992E07F2717601000A6463B /* Image Resource */,
+				6992E0A92717601000A6463B /* Auth */,
+				6992E0AC2717601000A6463B /* General */,
+				6992E0C22717601000A6463B /* StartJoinMeeting */,
+				6992E0C92717601000A6463B /* Common */,
+				6992E0D52717601000A6463B /* UI Interface */,
+				6992E0EF2717601000A6463B /* Login */,
+			);
+			path = Zoom;
+			sourceTree = "<group>";
+		};
+		6992E07C2717601000A6463B /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				6992E07D2717601000A6463B /* ZMSDKInitHelper.m */,
+				6992E07E2717601000A6463B /* ZMSDKInitHelper.h */,
+			);
+			path = Init;
+			sourceTree = "<group>";
+		};
+		6992E07F2717601000A6463B /* Image Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0802717601000A6463B /* toolbar_stop_video_normal.png */,
+				6992E0812717601000A6463B /* share_camera.png */,
+				6992E0822717601000A6463B /* toolbar_participant_normal.png */,
+				6992E0832717601000A6463B /* toolbar_unmute_voip_normal.png */,
+				6992E0842717601000A6463B /* toolbar_stop_video_press.png */,
+				6992E0852717601000A6463B /* btn_schedule_normal.png */,
+				6992E0862717601000A6463B /* toolbar_share_stop.png */,
+				6992E0872717601000A6463B /* toolbar_share_normal.png */,
+				6992E0882717601000A6463B /* toolbar_mute_voip_press.png */,
+				6992E0892717601000A6463B /* share_audio.png */,
+				6992E08A2717601000A6463B /* toolbar_mute_tele_normal.png */,
+				6992E08B2717601000A6463B /* toolbar_unmute_tele_press.png */,
+				6992E08C2717601000A6463B /* btn_startshare_normal.png */,
+				6992E08D2717601000A6463B /* share_frame.png */,
+				6992E08E2717601000A6463B /* btn_joinmeeting_normal@2x.png */,
+				6992E08F2717601000A6463B /* toolbar_unmute_tele_normal.png */,
+				6992E0902717601000A6463B /* toolbar_chat_normal.png */,
+				6992E0912717601000A6463B /* btn_leave_normal.png */,
+				6992E0922717601000A6463B /* toolbar_mute_voip_normal.png */,
+				6992E0932717601000A6463B /* plistArrowTop.png */,
+				6992E0942717601000A6463B /* btn_joinmeeting_normal.png */,
+				6992E0952717601000A6463B /* plistArrowBottom.png */,
+				6992E0962717601000A6463B /* btn_setting_normal.png */,
+				6992E0972717601000A6463B /* toolbar_start_video_normal.png */,
+				6992E0982717601000A6463B /* toolbar_share_press.png */,
+				6992E0992717601000A6463B /* btn_unpresentshare_normal@2x.png */,
+				6992E09A2717601000A6463B /* toolbar_participant_press.png */,
+				6992E09B2717601000A6463B /* btn_unpresentshare_normal.png */,
+				6992E09C2717601000A6463B /* ZoomLogo.png */,
+				6992E09D2717601000A6463B /* toolbar_mute_tele_press.png */,
+				6992E09E2717601000A6463B /* btn_startshare_normal@2x.png */,
+				6992E09F2717601000A6463B /* toolbar_chat_press.png */,
+				6992E0A02717601000A6463B /* share_whiteboard.png */,
+				6992E0A12717601000A6463B /* btn_schedule_normal@2x.png */,
+				6992E0A22717601000A6463B /* share_window_one.png */,
+				6992E0A32717601000A6463B /* btn_startvideo_normal@2x.png */,
+				6992E0A42717601000A6463B /* toolbar_noaudio_normal.png */,
+				6992E0A52717601000A6463B /* btn_startvideo_normal.png */,
+				6992E0A62717601000A6463B /* toolbar_unmute_voip_press.png */,
+				6992E0A72717601000A6463B /* toolbar_noaudio_highlight.png */,
+				6992E0A82717601000A6463B /* toolbar_start_video_press.png */,
+			);
+			path = "Image Resource";
+			sourceTree = "<group>";
+		};
+		6992E0A92717601000A6463B /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0AA2717601000A6463B /* ZMSDKAuthHelper.m */,
+				6992E0AB2717601000A6463B /* ZMSDKAuthHelper.h */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		6992E0AC2717601000A6463B /* General */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0AD2717601000A6463B /* ZMSDKChatWindowController.m */,
+				6992E0AE2717601000A6463B /* ShareContentView.h */,
+				6992E0AF2717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.m */,
+				6992E0B02717601000A6463B /* ZMSDKThumbnailVideoItemView.h */,
+				6992E0B12717601000A6463B /* ZMSDKMeetingStatusMgr.m */,
+				6992E0B22717601000A6463B /* ZMSDKHCTableItemView.h */,
+				6992E0B32717601000A6463B /* ZMSDKUserHelper.m */,
+				6992E0B42717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.xib */,
+				6992E0B52717601000A6463B /* ZMSDKConfUIMgr.m */,
+				6992E0B62717601000A6463B /* ZMSDKDelegateMgr.h */,
+				6992E0B72717601000A6463B /* ZPLogo.icns */,
+				6992E0B82717601000A6463B /* ZMSDKThumbnailVideoItemView.m */,
+				6992E0B92717601000A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.h */,
+				6992E0BA2717601000A6463B /* ShareContentView.m */,
+				6992E0BB2717601000A6463B /* ZMSDKChatWindowController.h */,
+				6992E0BC2717601000A6463B /* ZMSDKUserHelper.h */,
+				6992E0BD2717601000A6463B /* ZMSDKHCTableItemView.m */,
+				6992E0BE2717601000A6463B /* ZMSDKMeetingStatusMgr.h */,
+				6992E0BF2717601000A6463B /* ZMSDKConfUIMgr.h */,
+				6992E0C02717601000A6463B /* ZMSDKChatWindowController.xib */,
+				6992E0C12717601000A6463B /* ZMSDKDelegateMgr.m */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		6992E0C22717601000A6463B /* StartJoinMeeting */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0C32717601000A6463B /* ZMSDKApiMeetingInterface.h */,
+				6992E0C42717601000A6463B /* ZMSDKEmailMeetingInterface.h */,
+				6992E0C52717601000A6463B /* ZMSDKSSOMeetingInterface.h */,
+				6992E0C62717601000A6463B /* ZMSDKApiMeetingInterface.m */,
+				6992E0C72717601000A6463B /* ZMSDKEmailMeetingInterface.m */,
+				6992E0C82717601000A6463B /* ZMSDKSSOMeetingInterface.m */,
+			);
+			path = StartJoinMeeting;
+			sourceTree = "<group>";
+		};
+		6992E0C92717601000A6463B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0CA2717601000A6463B /* ZMSDKRoundImageView.h */,
+				6992E0CB2717601000A6463B /* ZMSDKPTImageButton.h */,
+				6992E0CC2717601000A6463B /* ZMSDKCommonHelper.h */,
+				6992E0CD2717601000A6463B /* ZMSDKButton.m */,
+				6992E0CE2717601000A6463B /* NSColor+Category.h */,
+				6992E0CF2717601000A6463B /* ZMSDKRoundImageView.m */,
+				6992E0D02717601000A6463B /* ZMSDKPTImageButton.m */,
+				6992E0D12717601000A6463B /* ZMSDKButton.h */,
+				6992E0D22717601000A6463B /* ZMSDKCommonHelper.m */,
+				6992E0D32717601000A6463B /* NSColor+Category.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6992E0D52717601000A6463B /* UI Interface */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0D62717601000A6463B /* ZMSDKSettingWindowController.xib */,
+				6992E0D72717601000A6463B /* ZoomSDKWindowController.m */,
+				6992E0D82717601000A6463B /* ZMSDKSettingWindowController.h */,
+				6992E0D92717601000A6463B /* ZMSDKMeetingMainWindowController.xib */,
+				6992E0DA2717601000A6463B /* ZMSDKHCPanelistsView.h */,
+				6992E0DB2717601000A6463B /* ZMSDKJoinMeetingWindowController.m */,
+				6992E0DC2717601000A6463B /* ZMSDKShareSelectWindow.h */,
+				6992E0DD2717601000A6463B /* ZMSDKLoginWindowController.m */,
+				6992E0DE2717601000A6463B /* ZMSDKThumbnailView.h */,
+				6992E0DF2717601000A6463B /* ZMSDKMainWindowController.m */,
+				6992E0E02717601000A6463B /* ZMSDKMeetingMainWindowController.m */,
+				6992E0E12717601000A6463B /* ZoomSDKWindowController.xib */,
+				6992E0E22717601000A6463B /* ZMSDKSettingWindowController.m */,
+				6992E0E32717601000A6463B /* ZMSDKLoginWindowController.xib */,
+				6992E0E42717601000A6463B /* ZMSDKMainWindowController.xib */,
+				6992E0E52717601000A6463B /* ZoomSDKWindowController.h */,
+				6992E0E62717601000A6463B /* ZMSDKJoinMeetingWindowController.xib */,
+				6992E0E72717601000A6463B /* ZMSDKShareSelectWindow.xib */,
+				6992E0E82717601000A6463B /* ZMSDKJoinMeetingWindowController.h */,
+				6992E0E92717601000A6463B /* ZMSDKHCPanelistsView.m */,
+				6992E0EA2717601000A6463B /* ZMSDKLoginWindowController.h */,
+				6992E0EB2717601000A6463B /* ZMSDKThumbnailView.m */,
+				6992E0EC2717601000A6463B /* ZMSDKShareSelectWindow.m */,
+				6992E0ED2717601000A6463B /* ZMSDKMeetingMainWindowController.h */,
+				6992E0EE2717601000A6463B /* ZMSDKMainWindowController.h */,
+			);
+			path = "UI Interface";
+			sourceTree = "<group>";
+		};
+		6992E0EF2717601000A6463B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				6992E0F02717601000A6463B /* ZMSDKJoinOnly.h */,
+				6992E0F12717601000A6463B /* ZMSDKSSOLogin.h */,
+				6992E0F22717601000A6463B /* ZMSDKEmailLogin.m */,
+				6992E0F32717601000A6463B /* ZMSDKRestAPILogin.h */,
+				6992E0F42717601000A6463B /* ZMSDKEmailLogin.h */,
+				6992E0F52717601000A6463B /* ZMSDKSSOLogin.m */,
+				6992E0F62717601000A6463B /* ZMSDKJoinOnly.m */,
+				6992E0F72717601000A6463B /* ZMSDKRestAPILogin.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		6992E16D27179AFF00A6463B /* ZoomSDK */ = {
+			isa = PBXGroup;
+			children = (
+				6992E16E27179AFF00A6463B /* zSDKRes.bundle */,
+				6992E16F27179AFF00A6463B /* protobuf.framework */,
+				6992E17027179AFF00A6463B /* viperex.bundle */,
+				6992E17127179AFF00A6463B /* zChatApp.bundle */,
+				6992E17227179AFF00A6463B /* viper.framework */,
+				6992E17327179AFF00A6463B /* curl64.framework */,
+				6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */,
+				6992E17527179AFF00A6463B /* annoter.bundle */,
+				6992E17627179AFF00A6463B /* zVideoApp.bundle */,
+				6992E17727179AFF00A6463B /* zmLoader.bundle */,
+				6992E17827179AFF00A6463B /* zWebService.bundle */,
+				6992E17927179AFF00A6463B /* ZCommonUI.framework */,
+				6992E17A27179AFF00A6463B /* zmb.bundle */,
+				6992E17B27179AFF00A6463B /* libssl.dylib */,
+				6992E17C27179AFF00A6463B /* zlt.bundle */,
+				6992E17D27179AFF00A6463B /* libjson.dylib */,
+				6992E17E27179AFF00A6463B /* fdkaac2.bundle */,
+				6992E17F27179AFF00A6463B /* util.framework */,
+				6992E18027179AFF00A6463B /* asproxy.framework */,
+				6992E18127179AFF00A6463B /* cmmlib.framework */,
+				6992E18227179AFF00A6463B /* CptHost.app */,
+				6992E18327179AFF00A6463B /* zKBCrypto.bundle */,
+				6992E18427179AFF00A6463B /* libcrypto.dylib */,
+				6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */,
+				6992E18627179AFF00A6463B /* xmpp_framework.framework */,
+				6992E18727179AFF00A6463B /* SDK_Transcode.app */,
+				6992E18827179AFF00A6463B /* nydus.framework */,
+				6992E18927179B0000A6463B /* tp.framework */,
+				6992E18A27179B0000A6463B /* zData.bundle */,
+				6992E18B27179B0000A6463B /* capHost.app */,
+				6992E18C27179B0000A6463B /* ssb_sdk.bundle */,
+				6992E18D27179B0000A6463B /* ZoomSDK.framework */,
+				6992E18E27179B0000A6463B /* RingtoneRes.bundle */,
+				6992E18F27179B0000A6463B /* libminizip.dylib */,
+				6992E19027179B0000A6463B /* aomhost.app */,
+				6992E19127179B0000A6463B /* mcm.bundle */,
+				6992E19227179B0000A6463B /* aomagent.bundle */,
+				6992E19327179B0000A6463B /* airhost.app */,
+			);
+			path = ZoomSDK;
 			sourceTree = "<group>";
 		};
 		699447F2248D4B840074A655 /* ProctoringBadges */ = {
@@ -2952,6 +3585,7 @@
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */,
+				6992E1272717601100A6463B /* ShareContentView.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
 				69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */,
@@ -2959,18 +3593,25 @@
 				695EE19626D2F2F8004D8FF7 /* SEBPresetSettings.h in Headers */,
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
+				6992E1382717601100A6463B /* ZMSDKConfUIMgr.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
 				690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */,
 				69331F0A1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */,
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
+				6992E1502717601100A6463B /* ZMSDKHCPanelistsView.h in Headers */,
+				6992E1352717601100A6463B /* ZMSDKUserHelper.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */,
 				697852C62177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				691B521026BE21A30087C09E /* MBPreferencesController.h in Headers */,
+				6992E14E2717601100A6463B /* ZMSDKSettingWindowController.h in Headers */,
+				6992E1652717601100A6463B /* ZMSDKJoinOnly.h in Headers */,
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69CEDCF226ACD00C0030787B /* SEBWebViewController.h in Headers */,
+				6992E1662717601100A6463B /* ZMSDKSSOLogin.h in Headers */,
+				6992E1292717601100A6463B /* ZMSDKThumbnailVideoItemView.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
 				69E2BBB126FDBAA90055531A /* SEBServerOSXViewController.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
@@ -2979,6 +3620,7 @@
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
 				690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */,
+				6992E0F82717601100A6463B /* SEBZoomController.h in Headers */,
 				69F522B821467188009F3999 /* CustomHTTPProtocol.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				697919D326BE1EB50002D296 /* PrefsBrowserViewController.h in Headers */,
@@ -2987,20 +3629,27 @@
 				69B1D474230D7586005656B8 /* ServerController.h in Headers */,
 				695B838326C1CD7600A382EB /* SEBOSXWebViewController.h in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
+				6992E12B2717601100A6463B /* ZMSDKHCTableItemView.h in Headers */,
 				698DFD41267EA38400B8F1D6 /* CGSPrivate.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				698C154026D1A8D700B5AD96 /* ProhibitedProcessesArrayController.h in Headers */,
 				698DFD17267E9DC000B8F1D6 /* AboutWindowController.h in Headers */,
+				6992E13C2717601100A6463B /* ZMSDKEmailMeetingInterface.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
 				69E977D525F040F400634D74 /* SEBAbstractClassicWebView.h in Headers */,
+				6992E1372717601100A6463B /* ZMSDKMeetingStatusMgr.h in Headers */,
 				695370A72033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
+				6992E0FA2717601100A6463B /* ZMSDKInitHelper.h in Headers */,
 				69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */,
+				6992E1522717601100A6463B /* ZMSDKShareSelectWindow.h in Headers */,
 				69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				691B521226BE21BC0087C09E /* PrefsExamViewController.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				69F522A921467188009F3999 /* CanonicalRequest.h in Headers */,
+				6992E1452717601100A6463B /* NSColor+Category.h in Headers */,
+				6992E15E2717601100A6463B /* ZMSDKJoinMeetingWindowController.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69A3FCD41C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
 				69F522C42146720C009F3999 /* SEBCertServices.h in Headers */,
@@ -3008,8 +3657,10 @@
 				698DFD45267EA3D900B8F1D6 /* NSScreen+SEBScreen.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				698DFD14267E9B1900B8F1D6 /* NSRunningApplication+SEB.h in Headers */,
+				6992E1322717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.h in Headers */,
 				6930D22C1C2086010087F79E /* SEBOSXKeychainManager.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
+				6992E1542717601100A6463B /* ZMSDKThumbnailView.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				698DFD12267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h in Headers */,
@@ -3023,29 +3674,44 @@
 				698DFD48267EA43500B8F1D6 /* PreferencesViewController.h in Headers */,
 				691B521326BE21C90087C09E /* PrefsDownUploadsViewController.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
+				6992E1432717601100A6463B /* ZMSDKCommonHelper.h in Headers */,
+				6992E1692717601100A6463B /* ZMSDKEmailLogin.h in Headers */,
 				69F522B321467188009F3999 /* QNSURLSessionDemux.h in Headers */,
 				698DFD0F267E9B1900B8F1D6 /* NSDictionary+Extensions.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
+				6992E1482717601100A6463B /* ZMSDKButton.h in Headers */,
 				698DFD3E267EA31C00B8F1D6 /* HUDPanel.h in Headers */,
 				69F522A421467188009F3999 /* CacheStoragePolicy.h in Headers */,
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
+				6992E1602717601100A6463B /* ZMSDKLoginWindowController.h in Headers */,
+				6992E1642717601100A6463B /* ZMSDKMainWindowController.h in Headers */,
 				698DFD26267E9F2B00B8F1D6 /* ProcessListElement.h in Headers */,
 				69B5E2A925756BEF009030C2 /* SEBAbstractWebView.h in Headers */,
 				691B521126BE21AD0087C09E /* PrefsGeneralViewController.h in Headers */,
+				6992E12F2717601100A6463B /* ZMSDKDelegateMgr.h in Headers */,
 				6930D2281C205F4C0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
+				6992E1412717601100A6463B /* ZMSDKRoundImageView.h in Headers */,
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
 				691B520F26BE219D0087C09E /* PreferencesController.h in Headers */,
+				6992E1342717601100A6463B /* ZMSDKChatWindowController.h in Headers */,
+				6992E1422717601100A6463B /* ZMSDKPTImageButton.h in Headers */,
+				6992E15B2717601100A6463B /* ZoomSDKWindowController.h in Headers */,
 				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
 				698DFD1B267E9DE800B8F1D6 /* SEBDockItemBattery.h in Headers */,
+				6992E1632717601100A6463B /* ZMSDKMeetingMainWindowController.h in Headers */,
 				698DFD28267E9F2B00B8F1D6 /* ProcessManager.h in Headers */,
+				6992E13D2717601100A6463B /* ZMSDKSSOMeetingInterface.h in Headers */,
+				6992E1252717601100A6463B /* ZMSDKAuthHelper.h in Headers */,
+				6992E1682717601100A6463B /* ZMSDKRestAPILogin.h in Headers */,
 				69EDAC1E1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				6932ABC421DE29BE00DEF77D /* SEBConstants.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
 				697852C12177AC7300E93AD8 /* SEBSettings.h in Headers */,
+				6992E13B2717601100A6463B /* ZMSDKApiMeetingInterface.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3141,6 +3807,7 @@
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
 				69A0BF6F1660239400A866C4 /* Headers */,
 				84B27CA23A9B4214361538EB /* [CP] Embed Pods Frameworks */,
+				6992E1CC27179BEC00A6463B /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
@@ -3534,66 +4201,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6992E1222717601100A6463B /* toolbar_noaudio_highlight.png in Resources */,
 				69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */,
 				699D508126877EA80026D8D9 /* Images.xcassets in Resources */,
+				6992E0FB2717601100A6463B /* toolbar_stop_video_normal.png in Resources */,
+				6992E1302717601100A6463B /* ZPLogo.icns in Resources */,
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
+				6992E12D2717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.xib in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
 				695A8EF61E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
+				6992E10A2717601100A6463B /* toolbar_unmute_tele_normal.png in Resources */,
 				69944802248D54870074A655 /* SEBBadgeCheckmark@2x.png in Resources */,
 				69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */,
 				69F7B5FF14F411FB00FD0761 /* MainMenu.xib in Resources */,
 				6902C9701B0CF95E00715855 /* SEBShutDownIcon.iconset in Resources */,
+				6992E1052717601100A6463B /* toolbar_mute_tele_normal.png in Resources */,
+				6992E1092717601100A6463B /* btn_joinmeeting_normal@2x.png in Resources */,
+				6992E10C2717601100A6463B /* btn_leave_normal.png in Resources */,
 				69F7B60014F411FB00FD0761 /* SEBicon.icns in Resources */,
 				6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */,
+				6992E1022717601100A6463B /* toolbar_share_normal.png in Resources */,
+				6992E0FC2717601100A6463B /* share_camera.png in Resources */,
 				69F7B60514F411FB00FD0761 /* BrowserIcon.png in Resources */,
+				6992E1232717601100A6463B /* toolbar_start_video_press.png in Resources */,
+				6992E15C2717601100A6463B /* ZMSDKJoinMeetingWindowController.xib in Resources */,
+				6992E0FE2717601100A6463B /* toolbar_unmute_voip_normal.png in Resources */,
 				69F7B60614F411FB00FD0761 /* BrowserIcon@2x.png in Resources */,
 				69358DDA1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
 				69E87E47202926080055988F /* SEBReloadIconLandscape.png in Resources */,
 				69E87E50202927330055988F /* SEBDockIconLandscape.png in Resources */,
+				6992E1062717601100A6463B /* toolbar_unmute_tele_press.png in Resources */,
+				6992E1072717601100A6463B /* btn_startshare_normal.png in Resources */,
 				69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */,
 				6947D8981BB073EA00899A8A /* ZoomPageIn.png in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
 				69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
+				6992E1182717601100A6463B /* toolbar_mute_tele_press.png in Resources */,
+				6992E1212717601100A6463B /* toolbar_unmute_voip_press.png in Resources */,
+				6992E1032717601100A6463B /* toolbar_mute_voip_press.png in Resources */,
 				697048E326D779D4009A822B /* SEBBatteryIcon.iconset in Resources */,
+				6992E11C2717601100A6463B /* btn_schedule_normal@2x.png in Resources */,
 				696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */,
 				696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
+				6992E1112717601100A6463B /* btn_setting_normal.png in Resources */,
 				699447FF248D54870074A655 /* SEBBadgeWarning.png in Resources */,
+				6992E19627179BE400A6463B /* airhost.app in Resources */,
 				696A3AF019F6FBF600274214 /* PreferencesApplications.xib in Resources */,
 				69B42897270C36870061E328 /* ModifyPages.js in Resources */,
 				696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
+				6992E19C27179BE400A6463B /* capHost.app in Resources */,
+				6992E1082717601100A6463B /* share_frame.png in Resources */,
 				695A8EF91E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */,
 				69944805248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
 				69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */,
+				6992E1392717601100A6463B /* ZMSDKChatWindowController.xib in Resources */,
+				6992E1042717601100A6463B /* share_audio.png in Resources */,
 				696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
 				695A8EFC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */,
+				6992E10D2717601100A6463B /* toolbar_mute_voip_normal.png in Resources */,
+				6992E1132717601100A6463B /* toolbar_share_press.png in Resources */,
 				696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
 				69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */,
 				69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */,
+				6992E0FD2717601100A6463B /* toolbar_participant_normal.png in Resources */,
+				6992E0FF2717601100A6463B /* toolbar_stop_video_press.png in Resources */,
 				69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
 				69261B8F26BE2FE4001DE2BB /* PreferencesBrowser.xib in Resources */,
 				695A8EF01E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69E87E3E202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
+				6992E11B2717601100A6463B /* share_whiteboard.png in Resources */,
 				69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */,
 				695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */,
 				699447F8248D4B840074A655 /* SEBBadgeError@2x.png in Resources */,
 				695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */,
+				6992E1152717601100A6463B /* toolbar_participant_press.png in Resources */,
 				69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
+				6992E19F27179BE500A6463B /* CptHost.app in Resources */,
 				696A3AFC19F6FC5600274214 /* PreferencesSecurity.xib in Resources */,
+				6992E1162717601100A6463B /* btn_unpresentshare_normal.png in Resources */,
 				6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */,
 				695A8EE01E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
+				6992E10B2717601100A6463B /* toolbar_chat_normal.png in Resources */,
 				69358DD71E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
+				6992E14F2717601100A6463B /* ZMSDKMeetingMainWindowController.xib in Resources */,
+				6992E15D2717601100A6463B /* ZMSDKShareSelectWindow.xib in Resources */,
+				6992E1592717601100A6463B /* ZMSDKLoginWindowController.xib in Resources */,
+				6992E14C2717601100A6463B /* ZMSDKSettingWindowController.xib in Resources */,
+				6992E10F2717601100A6463B /* btn_joinmeeting_normal.png in Resources */,
 				69E87E3B202924E70055988F /* SEBShutDownIconLandscape@3x.png in Resources */,
+				6992E1102717601100A6463B /* plistArrowBottom.png in Resources */,
+				6992E1572717601100A6463B /* ZoomSDKWindowController.xib in Resources */,
+				6992E1002717601100A6463B /* btn_schedule_normal.png in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				697048E226D779D4009A822B /* SEBBatteryIcon_charging.iconset in Resources */,
 				695A8EF31E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
+				6992E11D2717601100A6463B /* share_window_one.png in Resources */,
+				6992E15A2717601100A6463B /* ZMSDKMainWindowController.xib in Resources */,
+				6992E19927179BE400A6463B /* aomhost.app in Resources */,
+				6992E11A2717601100A6463B /* toolbar_chat_press.png in Resources */,
+				6992E1B127179BE700A6463B /* SDK_Transcode.app in Resources */,
 				69E2BBB62703FD8F0055531A /* SEBServerOSXViewController.xib in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69E87E56202927330055988F /* SEBDockIconLandscape@3x.png in Resources */,
 				6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */,
 				696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */,
 				69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */,
+				6992E11F2717601100A6463B /* toolbar_noaudio_normal.png in Resources */,
 				69E87E4A202926080055988F /* SEBReloadIconLandscape@3x.png in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
@@ -3602,22 +4317,30 @@
 				69944808248D54870074A655 /* SEBBadgeCheckmark.png in Resources */,
 				69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
 				69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */,
+				6992E1142717601100A6463B /* btn_unpresentshare_normal@2x.png in Resources */,
+				6992E10E2717601100A6463B /* plistArrowTop.png in Resources */,
+				6992E1202717601100A6463B /* btn_startvideo_normal.png in Resources */,
 				69428CEC172F2B5700C87C58 /* sebConfigIcon.png in Resources */,
 				695A8EED1E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png in Resources */,
 				699447F5248D4B840074A655 /* SEBBadgeError.png in Resources */,
 				69428CEE172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */,
 				69E87E53202927330055988F /* SEBDockIconLandscape@2x.png in Resources */,
+				6992E1122717601100A6463B /* toolbar_start_video_normal.png in Resources */,
+				6992E11E2717601100A6463B /* btn_startvideo_normal@2x.png in Resources */,
 				69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */,
 				69428CF4172F2E2500C87C58 /* ZoomTextIn.png in Resources */,
 				69428CF6172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */,
 				6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */,
+				6992E1192717601100A6463B /* btn_startshare_normal@2x.png in Resources */,
 				69B42898270C368C0061E328 /* SearchWebView.js in Resources */,
+				6992E1172717601100A6463B /* ZoomLogo.png in Resources */,
 				69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */,
 				69E87E44202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
 				69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */,
 				695A8EE41E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
 				69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */,
+				6992E1012717601100A6463B /* toolbar_share_stop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4013,38 +4736,53 @@
 				699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */,
 				6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
+				6992E13F2717601100A6463B /* ZMSDKEmailMeetingInterface.m in Sources */,
+				6992E1512717601100A6463B /* ZMSDKJoinMeetingWindowController.m in Sources */,
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
+				6992E1462717601100A6463B /* ZMSDKRoundImageView.m in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
 				69F7B60E14F411FB00FD0761 /* AboutView.m in Sources */,
 				69F7B60F14F411FB00FD0761 /* SEBBrowserWindow.m in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
+				6992E1362717601100A6463B /* ZMSDKHCTableItemView.m in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
 				697852BC2177AC7300E93AD8 /* SEBSettings.m in Sources */,
+				6992E1242717601100A6463B /* ZMSDKAuthHelper.m in Sources */,
 				69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */,
 				69B1D46F230D7586005656B8 /* APIResources.swift in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				69358DEA1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
+				6992E1582717601100A6463B /* ZMSDKSettingWindowController.m in Sources */,
+				6992E1612717601100A6463B /* ZMSDKThumbnailView.m in Sources */,
 				698DFD27267E9F2B00B8F1D6 /* ProcessListViewController.m in Sources */,
 				69B1D480230D75ED005656B8 /* NetworkRequest.swift in Sources */,
 				69E977D825F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
+				6992E1312717601100A6463B /* ZMSDKThumbnailVideoItemView.m in Sources */,
 				690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */,
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
+				6992E1672717601100A6463B /* ZMSDKEmailLogin.m in Sources */,
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
+				6992E1442717601100A6463B /* ZMSDKButton.m in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
+				6992E14A2717601100A6463B /* NSColor+Category.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
+				6992E13A2717601100A6463B /* ZMSDKDelegateMgr.m in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
+				6992E1622717601100A6463B /* ZMSDKShareSelectWindow.m in Sources */,
 				698DFD38267EA2CA00B8F1D6 /* HUDController.m in Sources */,
+				6992E12E2717601100A6463B /* ZMSDKConfUIMgr.m in Sources */,
+				6992E15F2717601100A6463B /* ZMSDKHCPanelistsView.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				69F5229A21467188009F3999 /* CacheStoragePolicy.m in Sources */,
@@ -4053,11 +4791,13 @@
 				69B5E2A625756BEF009030C2 /* SEBAbstractWebView.m in Sources */,
 				6930D22D1C2086010087F79E /* SEBOSXKeychainManager.m in Sources */,
 				69F522BD21467188009F3999 /* CanonicalRequest.m in Sources */,
+				6992E1562717601100A6463B /* ZMSDKMeetingMainWindowController.m in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				697919D026BD36F10002D296 /* PreferencesViewController.m in Sources */,
+				6992E1262717601100A6463B /* ZMSDKChatWindowController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				698DFD1C267E9DE800B8F1D6 /* SEBDockItemBattery.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
@@ -4070,13 +4810,18 @@
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
 				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
+				6992E1282717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.m in Sources */,
 				69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */,
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
+				6992E13E2717601100A6463B /* ZMSDKApiMeetingInterface.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
+				6992E14B2717601100A6463B /* SEBZoomController.m in Sources */,
 				69E2BBB226FDBAA90055531A /* SEBServerOSXViewController.m in Sources */,
 				695EE19326D2F2F8004D8FF7 /* SEBPresetSettings.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
+				6992E1332717601100A6463B /* ShareContentView.m in Sources */,
+				6992E12A2717601100A6463B /* ZMSDKMeetingStatusMgr.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F522C92146720C009F3999 /* SEBCertServices.m in Sources */,
 				69E1310826C665B0005C5530 /* SEBOSXWKWebViewController.swift in Sources */,
@@ -4084,33 +4829,44 @@
 				698DFD10267E9B1900B8F1D6 /* NSDictionary+Extensions.m in Sources */,
 				69F522AE21467188009F3999 /* QNSURLSessionDemux.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
+				6992E16C2717601100A6463B /* ZMSDKRestAPILogin.m in Sources */,
+				6992E1472717601100A6463B /* ZMSDKPTImageButton.m in Sources */,
 				698DFD39267EA2CA00B8F1D6 /* AssessmentModeManager.m in Sources */,
+				6992E12C2717601100A6463B /* ZMSDKUserHelper.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F5229F21467188009F3999 /* CustomHTTPProtocol.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
+				6992E1492717601100A6463B /* ZMSDKCommonHelper.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
+				6992E0F92717601100A6463B /* ZMSDKInitHelper.m in Sources */,
 				69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */,
 				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				693FB268231D22010062E36E /* SEBServerController.swift in Sources */,
+				6992E1402717601100A6463B /* ZMSDKSSOMeetingInterface.m in Sources */,
 				69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
+				6992E1552717601100A6463B /* ZMSDKMainWindowController.m in Sources */,
 				697919D226BE1EA50002D296 /* PrefsBrowserViewController.m in Sources */,
 				69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
+				6992E1532717601100A6463B /* ZMSDKLoginWindowController.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
 				698DFD25267E9F2B00B8F1D6 /* ProcessListElement.m in Sources */,
 				69CEDCF326ACD00C0030787B /* SEBWebViewController.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
+				6992E14D2717601100A6463B /* ZoomSDKWindowController.m in Sources */,
+				6992E16B2717601100A6463B /* ZMSDKJoinOnly.m in Sources */,
 				698C153F26D1A8D700B5AD96 /* ProhibitedProcessesArrayController.m in Sources */,
 				69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
+				6992E16A2717601100A6463B /* ZMSDKSSOLogin.m in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,
 			);
@@ -4838,8 +5594,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)/ZoomSDK",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/..\"",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -4859,9 +5617,10 @@
 					"$(SRCROOT)",
 					"\"$(SDKROOT)/usr/lib/system\"",
 					"$(SDKROOT)/usr/lib/system",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.1pre4;
+				MARKETING_VERSION = 3.2pre1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
@@ -4896,8 +5655,10 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)/ZoomSDK",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/..\"",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
@@ -4919,9 +5680,10 @@
 					"$(SRCROOT)",
 					"\"$(SDKROOT)/usr/lib/system\"",
 					"$(SDKROOT)/usr/lib/system",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.1pre4;
+				MARKETING_VERSION = 3.2pre1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
