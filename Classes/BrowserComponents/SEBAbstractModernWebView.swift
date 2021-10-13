@@ -380,6 +380,13 @@ import Foundation
     
     public func webView(_ webView: WKWebView,
                         didCommit navigation: WKNavigation) {
+        let browserExamKey = navigationDelegate?.browserExamKey?(for: webView.url!)
+        let configKey = navigationDelegate?.configKey?(for: webView.url!)
+        webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { (response, error) in
+            if let _ = error {
+                print(error as Any)
+            }
+        }
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
