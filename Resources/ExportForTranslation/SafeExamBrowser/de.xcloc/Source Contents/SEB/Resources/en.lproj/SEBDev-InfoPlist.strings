@@ -1,0 +1,10 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "SEB Dev";
+/* Bundle name */
+"CFBundleName" = "SEB Dev";
+"Gzip Archive (SEB files are gzipped)" = "Gzip Archive (SEB files are gzipped)";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Camera is needed to scan QR codes";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
+"Safe Exam Browser Configuration" = "Safe Exam Browser Configuration";
