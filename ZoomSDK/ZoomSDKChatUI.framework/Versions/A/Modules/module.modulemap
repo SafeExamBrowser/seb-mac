@@ -1,0 +1,6 @@
+framework module ZoomSDKChatUI {
+  umbrella header "ZoomSDKChatUI.h"
+
+  export *
+  module * { export * }
+}

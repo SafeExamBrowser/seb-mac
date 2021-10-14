@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+    <English>
+        <ID0 text="Default"></ID0>
+        <ID1 text="Ripple"></ID1>
+        <ID2 text="Discotheque"></ID2>
+        <ID3 text="Awaken"></ID3>
+        <ID4 text="Joys of Spring"></ID4>
+        <ID5 text="In the Reeds"></ID5>
+        <ID6 text="Midday Sun"></ID6>
+        <ID7 text="Soft Reveille"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="Beep"></ID9>
+    </English>
+    <ChineseSimplified>
+        <ID0 text="默认"></ID0>
+        <ID1 text="涟漪"></ID1>
+        <ID2 text="迪斯科"></ID2>
+        <ID3 text="唤醒"></ID3>
+        <ID4 text="春之趣"></ID4>
+        <ID5 text="芦苇丛中"></ID5>
+        <ID6 text="正午阳光"></ID6>
+        <ID7 text="柔和版起床号"></ID7>
+        <ID8 text="弗雷德"></ID8>
+        <ID9 text="蜂鸣音"></ID9>
+    </ChineseSimplified>
+    <ChineseTraditional>
+        <ID0 text="預設"></ID0>
+        <ID1 text="漣漪"></ID1>
+        <ID2 text="迪斯可"></ID2>
+        <ID3 text="覺醒"></ID3>
+        <ID4 text="充滿喜悅"></ID4>
+        <ID5 text="蘆葦叢中"></ID5>
+        <ID6 text="日正當中"></ID6>
+        <ID7 text="輕柔起床號"></ID7>
+        <ID8 text="佛瑞德"></ID8>
+        <ID9 text="嗶聲"></ID9>
+    </ChineseTraditional>
+    <Italian>
+        <ID0 text="Predefinito"></ID0>
+        <ID1 text="Ripple"></ID1>
+        <ID2 text="Discotheque"></ID2>
+        <ID3 text="Awaken"></ID3>
+        <ID4 text="Joys of Spring"></ID4>
+        <ID5 text="In the Reeds"></ID5>
+        <ID6 text="Midday Sun"></ID6>
+        <ID7 text="Soft Reveille"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="Bip"></ID9>
+    </Italian>
+    <French>
+        <ID0 text="Par défaut"></ID0>
+        <ID1 text="Ondulation"></ID1>
+        <ID2 text="Discothèque"></ID2>
+        <ID3 text="Réveillé"></ID3>
+        <ID4 text="Joies du printemps"></ID4>
+        <ID5 text="Dans les roseaux"></ID5>
+        <ID6 text="Soleil de midi"></ID6>
+        <ID7 text="Doux réveil"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="Signal sonore"></ID9>
+    </French>
+    <German>
+        <ID0 text="Standard"></ID0>
+        <ID1 text="Riffel"></ID1>
+        <ID2 text="Disko"></ID2>
+        <ID3 text="Erwachen"></ID3>
+        <ID4 text="Frühlingsfreuden"></ID4>
+        <ID5 text="Im Schilfrohr"></ID5>
+        <ID6 text="Mittagssonne"></ID6>
+        <ID7 text="Sanfte Wehmut"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="Signalton"></ID9>
+    </German>
+    <Spanish>
+        <ID0 text="Predeterminado"></ID0>
+        <ID1 text="Ondulación"></ID1>
+        <ID2 text="Discoteca"></ID2>
+        <ID3 text="Despertar"></ID3>
+        <ID4 text="Alegría de primavera"></ID4>
+        <ID5 text="Entre juncos"></ID5>
+        <ID6 text="Sol de mediodía"></ID6>
+        <ID7 text="Toque de diana suave"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="Sonido"></ID9>
+    </Spanish>
+    <Japanese>
+        <ID0 text="デフォルト"></ID0>
+        <ID1 text="さざ波"></ID1>
+        <ID2 text="ディスコ"></ID2>
+        <ID3 text="覚醒"></ID3>
+        <ID4 text="春の喜び"></ID4>
+        <ID5 text="芦の茂み"></ID5>
+        <ID6 text="陽光"></ID6>
+        <ID7 text="穏やかな目覚め"></ID7>
+        <ID8 text="フレッド"></ID8>
+        <ID9 text="ビープ"></ID9>
+    </Japanese>
+    <Portuguese>
+        <ID0 text="Padrão"></ID0>
+        <ID1 text="Ondulação"></ID1>
+        <ID2 text="Discoteca"></ID2>
+        <ID3 text="Despertar"></ID3>
+        <ID4 text="Alegrias da primavera"></ID4>
+        <ID5 text="Nas palhetas"></ID5>
+        <ID6 text="Sol do meio-dia"></ID6>
+        <ID7 text="Reveille macia"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="Bipe"></ID9>
+    </Portuguese>
+    <Russian>
+        <ID0 text="По умолчанию"></ID0>
+        <ID1 text="Пульсация"></ID1>
+        <ID2 text="Дискотека"></ID2>
+        <ID3 text="Бодрость"></ID3>
+        <ID4 text="Весенняя радость"></ID4>
+        <ID5 text="Тростник"></ID5>
+        <ID6 text="Полуденное солнце"></ID6>
+        <ID7 text="Нежное пробуждение"></ID7>
+        <ID8 text="Фред"></ID8>
+        <ID9 text="Сигнал"></ID9>
+    </Russian>
+    <Korean>
+        <ID0 text="기본"></ID0>
+        <ID1 text="잔물결"></ID1>
+        <ID2 text="디스코텍"></ID2>
+        <ID3 text="깨어남"></ID3>
+        <ID4 text="봄의 기쁨"></ID4>
+        <ID5 text="갈대숲 안"></ID5>
+        <ID6 text="한낮의 태양"></ID6>
+        <ID7 text="부드러운 기상나팔"></ID7>
+        <ID8 text="Fred"></ID8>
+        <ID9 text="경고음"></ID9>
+    </Korean>
+    <Vietnamese>
+        <ID0 text="Mặc định"></ID0>
+        <ID1 text="Gợn sóng"></ID1>
+        <ID2 text="Nhạc thính phòng"></ID2>
+        <ID3 text="Thức tỉnh"></ID3>
+        <ID4 text="Hân hoan mùa xuân"></ID4>
+        <ID5 text="Mong manh"></ID5>
+        <ID6 text="Mặt trời giữa trưa"></ID6>
+        <ID7 text="Đánh thức nhẹ nhàng"></ID7>
+        <ID8 text="Yên ả"></ID8>
+        <ID9 text="Beep"></ID9>
+    </Vietnamese>
+</language>
