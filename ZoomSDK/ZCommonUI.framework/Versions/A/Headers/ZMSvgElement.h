@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMSvgElement : NSObject<NSCopying>
+@property(assign) CGFloat scale;
 @property(nullable,retain) NSString* elementName;
 @property(nullable,retain) NSDictionary* attribute;
 @property(nullable,retain) NSArray* childElements;

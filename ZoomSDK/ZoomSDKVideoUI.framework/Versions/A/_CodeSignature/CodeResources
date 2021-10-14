@@ -14,15 +14,7 @@
 		</data>
 		<key>Resources/Info.plist</key>
 		<data>
-		M/NBLKl5WoTlRB0aQU55WlITV9E=
-		</data>
-		<key>Resources/LaunchPollWindow.nib</key>
-		<data>
-		WjA429OfDpxRVF+cn4xFcQLj8oM=
-		</data>
-		<key>Resources/PollProgressWindow.nib</key>
-		<data>
-		BpTOsm/diI97IcRaheXXEyvqmvE=
+		Atst5mH9Ucq1x3rJ9xkv/2c9QyY=
 		</data>
 		<key>Resources/RemoteControlUserListForLion.nib</key>
 		<data>
@@ -42,7 +34,7 @@
 		</data>
 		<key>Resources/ZMAudioInfoWindowController.nib</key>
 		<data>
-		tNsgMrpMwHTQdipsqazx3zZUTNo=
+		EhPCGoymi2EdMLCChIxYCEE5vuM=
 		</data>
 		<key>Resources/ZMCMRTipWindowController.nib</key>
 		<data>
@@ -134,22 +126,11 @@
 		</data>
 		<key>Resources/ZoomSDKVideoUI.def</key>
 		<data>
-		l4aKaHFkWeoZWRZStNEUY8Mqnp4=
+		V/G7SLSo8Q3w9BkPnMngCfu3TLw=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/ZoomSDKVideoUI.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			l6NeJjF06SKaGl0YSE5eRvar+2c=
-			</data>
-			<key>hash2</key>
-			<data>
-			wna5cqj1xC5h+5oIA7/ji8kvhM78POy9qM7APGS1dnQ=
-			</data>
-		</dict>
 		<key>Resources/ConfJoinByID.nib</key>
 		<dict>
 			<key>hash</key>
@@ -176,33 +157,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			M/NBLKl5WoTlRB0aQU55WlITV9E=
+			Atst5mH9Ucq1x3rJ9xkv/2c9QyY=
 			</data>
 			<key>hash2</key>
 			<data>
-			79LiEIXSUkC8FWNrEcuQb8Nr4flQEVOYmBRzxK8+vHY=
-			</data>
-		</dict>
-		<key>Resources/LaunchPollWindow.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			WjA429OfDpxRVF+cn4xFcQLj8oM=
-			</data>
-			<key>hash2</key>
-			<data>
-			gg32cR5Qlp31JPwJT595Vd23m+Fa/XyaYhI8KHvu+as=
-			</data>
-		</dict>
-		<key>Resources/PollProgressWindow.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			BpTOsm/diI97IcRaheXXEyvqmvE=
-			</data>
-			<key>hash2</key>
-			<data>
-			51hmbffcRKAbJ2hj/GCmU7I445EE1i0EJFrMuJl1IeA=
+			6qXAyufrMpcNcTFFB1FSkFimNujHTW8u4L6Igin7sXg=
 			</data>
 		</dict>
 		<key>Resources/RemoteControlUserListForLion.nib</key>
@@ -253,11 +212,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tNsgMrpMwHTQdipsqazx3zZUTNo=
+			EhPCGoymi2EdMLCChIxYCEE5vuM=
 			</data>
 			<key>hash2</key>
 			<data>
-			OOjvmh72Gzoxsg4xF590B92xoZEvkJbuzAMO55eSZT4=
+			T7DW/LsMiKTX48T2gamzk4d0J97oUvPaVX6J1D9B4Do=
 			</data>
 		</dict>
 		<key>Resources/ZMCMRTipWindowController.nib</key>
@@ -506,11 +465,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l4aKaHFkWeoZWRZStNEUY8Mqnp4=
+			V/G7SLSo8Q3w9BkPnMngCfu3TLw=
 			</data>
 			<key>hash2</key>
 			<data>
-			yWj93gjbEcmWbgE+qsdhtlUWg7uR7uN8NLNZVO2z7NA=
+			uz7NZDx8Sh/M3TJTe1k0/yLbu1DYdQ32sP9+O4d3H6Q=
 			</data>
 		</dict>
 	</dict>

@@ -30,4 +30,6 @@ _AVMediaTypeAudio
 _OBJC_CLASS_$_ZMNewCommonAPI
 _OBJC_CLASS_$_ZPLoader
 _OBJC_CLASS_$_ZPSBPTUIHelper
+_OBJC_CLASS_$_ZMOnZoomEventMgr
+_OBJC_CLASS_$_ZMOnZoomHelper
 
