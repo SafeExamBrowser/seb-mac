@@ -1,0 +1,62 @@
+[
+  {
+    "shortDescription" : "",
+    "metadataOutputVersion" : "3.0",
+    "outputSchema" : [
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32 64 × 17 × 31)",
+        "shortDescription" : "",
+        "shape" : "[64, 17, 31]",
+        "name" : "output",
+        "type" : "MultiArray"
+      }
+    ],
+    "version" : "",
+    "modelParameters" : [
+
+    ],
+    "author" : "",
+    "specificationVersion" : 1,
+    "license" : "",
+    "isUpdatable" : "0",
+    "availability" : {
+      "macOS" : "10.13",
+      "tvOS" : "11.0",
+      "watchOS" : "4.0",
+      "iOS" : "11.0",
+      "macCatalyst" : "11.0"
+    },
+    "modelType" : {
+      "name" : "MLModelType_neuralNetwork"
+    },
+    "inputSchema" : [
+      {
+        "height" : "144",
+        "colorspace" : "RGB",
+        "isOptional" : "0",
+        "width" : "256",
+        "isColor" : "1",
+        "formattedType" : "Image (Color 256 × 144)",
+        "hasSizeFlexibility" : "0",
+        "type" : "Image",
+        "shortDescription" : "",
+        "name" : "input"
+      }
+    ],
+    "userDefinedMetadata" : {
+
+    },
+    "generatedClassName" : "bgr_mac",
+    "neuralNetworkLayerTypeHistogram" : {
+      "Convolution" : 50,
+      "ActivationSigmoid" : 1,
+      "BatchNorm" : 27,
+      "ActivationReLU" : 39,
+      "Add" : 9
+    },
+    "method" : "predict"
+  }
+]
