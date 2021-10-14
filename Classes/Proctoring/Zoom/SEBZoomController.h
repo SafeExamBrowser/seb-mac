@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ZoomSDK/ZoomSDK.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,9 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SEBZoomController : NSObject
+@class ZMSDKMainWindowController;
+
+@interface SEBZoomController : NSObject<ZoomSDKAuthDelegate>
 
 @property (strong, nonatomic) id proctoringUIDelegate;
+
+@property(nonatomic, strong, readwrite)ZMSDKMainWindowController *mainWindowController;
+@property(nonatomic, weak,readwrite)ZoomSDKAuthService*  auth;
 
 @property (strong, nonatomic) NSURL *serverURL;
 @property (strong, nonatomic) NSString *userName;
