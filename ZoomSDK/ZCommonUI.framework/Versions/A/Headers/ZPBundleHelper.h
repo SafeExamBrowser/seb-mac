@@ -47,4 +47,6 @@
 + (BOOL)isBuildForArm64;
 + (BOOL)isRunningOnArm64;
 
++ (NSURL *)URLForImageName:(NSString *)imageName;
+
 @end

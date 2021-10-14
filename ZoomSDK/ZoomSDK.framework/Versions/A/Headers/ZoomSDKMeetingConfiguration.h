@@ -104,6 +104,8 @@
     BOOL                _disableToolbarLeaveButtonClickOriginAction;
     //Disable ZOOM original actions of clicking toolbar CloseCaption button.
     BOOL                _disableToolbarCloseCaptionButtonClickOriginAction;
+    //hide invited link on meeting info window.
+    BOOL                _hideInviteLinkOnMeetingUI;
 }
 @property(nonatomic, assign)CGDirectDisplayID displayAppID;
 @property(nonatomic, assign)CGDirectDisplayID monitorID;
@@ -154,7 +156,7 @@
 @property(nonatomic, assign)BOOL hideInvitButtonOnHCWindow;
 @property(nonatomic, assign)BOOL disableToolbarLeaveButtonClickOriginAction;
 @property(nonatomic, assign)BOOL disableToolbarCloseCaptionButtonClickOriginAction;
-
+@property(nonatomic, assign)BOOL hideInviteLinkOnMeetingUI;
 - (ZoomSDKError)prefillWebinarUserName:(NSString*)userName Email:(NSString*)email;
 - (ZoomSDKError)hideSDKButtons:(BOOL)hide ButtonType:(SDKButton)button;
 

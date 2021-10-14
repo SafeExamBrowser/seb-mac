@@ -677,7 +677,7 @@
 
 /**
  @brief Determine whether the legal notice for chat is available.
- @return true indicates the legal notice for chat is available. Otherwise false.
+ @return YES means the legal notice for chat is available, otherwise not.
  */
 - (BOOL)isMeetingChatLegalNoticeAvailable;
 

@@ -12,7 +12,7 @@
 		<key>CocoaLumberjack-framework-iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>12</integer>
 		</dict>
 		<key>CocoaLumberjack-framework-macOS.xcscheme</key>
 		<dict>
@@ -22,7 +22,7 @@
 		<key>CocoaLumberjack-framework-macOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>10</integer>
 		</dict>
 		<key>CocoaLumberjack-library.xcscheme</key>
 		<dict>
@@ -32,7 +32,7 @@
 		<key>CocoaLumberjack-library.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>6</integer>
 		</dict>
 		<key>InAppSettingsKit-framework-InAppSettingsKit.xcscheme</key>
 		<dict>
@@ -42,7 +42,7 @@
 		<key>InAppSettingsKit-framework-InAppSettingsKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>7</integer>
 		</dict>
 		<key>InAppSettingsKit-framework.xcscheme</key>
 		<dict>
@@ -52,7 +52,7 @@
 		<key>InAppSettingsKit-framework.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>19</integer>
 		</dict>
 		<key>InAppSettingsKit-library-InAppSettingsKit.xcscheme</key>
 		<dict>
@@ -62,7 +62,7 @@
 		<key>InAppSettingsKit-library-InAppSettingsKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>11</integer>
 		</dict>
 		<key>InAppSettingsKit-library.xcscheme</key>
 		<dict>
@@ -72,7 +72,7 @@
 		<key>InAppSettingsKit-library.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>15</integer>
 		</dict>
 		<key>JitsiMeetSDK-framework.xcscheme</key>
 		<dict>
@@ -82,7 +82,7 @@
 		<key>JitsiMeetSDK-framework.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>18</integer>
 		</dict>
 		<key>JitsiMeetSDK-library.xcscheme</key>
 		<dict>
@@ -92,7 +92,7 @@
 		<key>JitsiMeetSDK-library.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-SEB Dev.xcscheme</key>
 		<dict>
@@ -102,7 +102,7 @@
 		<key>Pods-SEB Dev.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>14</integer>
 		</dict>
 		<key>Pods-SEB.xcscheme</key>
 		<dict>
@@ -112,7 +112,7 @@
 		<key>Pods-SEB.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>9</integer>
 		</dict>
 		<key>Pods-Safe Exam Browser.xcscheme</key>
 		<dict>
@@ -122,7 +122,7 @@
 		<key>Pods-Safe Exam Browser.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>16</integer>
 		</dict>
 		<key>QRCodeReaderViewController-framework.xcscheme</key>
 		<dict>
@@ -132,7 +132,7 @@
 		<key>QRCodeReaderViewController-framework.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>13</integer>
 		</dict>
 		<key>QRCodeReaderViewController-library.xcscheme</key>
 		<dict>
@@ -142,7 +142,7 @@
 		<key>QRCodeReaderViewController-library.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>17</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

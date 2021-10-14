@@ -364,7 +364,6 @@
 "This free HD meeting has ended. Thank you for choosing Zoom!" = "This free HD meeting has ended. Thank you for choosing Zoom!";
 "The meeting has ended because the host doesn't show up." = "The meeting has ended because the host doesn't show up.";
 "This meeting has been ended by host" = "This meeting has been ended by host";
-"Do you want to change the host to %@?" = "Do you want to change the host to %@?";
 "No new attendees can join this meeting once locked." = "No new participants can join this meeting once locked.";
 "New attendees can join this meeting once unlocked." = "New participants can join this meeting once unlocked.";
 "You have left this meeting." = "You have left this meeting.";
@@ -737,7 +736,7 @@
 "Memory" = "Memory";
 "Your internet connection is unstable" = "Your internet connection is unstable";
 
-"LN_Setting_Statistic_Phone_Register_Server_IP_Port_82877" = "Register Server IP:Port";
+"LN_Setting_Statistic_Phone_Register_Server_IP_Port_82877" = "Register Server IP: Port";
 "LN_Setting_Statistic_Phone_Register_ID_265200" = "Register ID";
 "LN_Setting_Statistic_Phone_Local_Network_Interface_82877" = "Local Network Interface";
 "LN_Setting_Statistic_Phone_Peer_Number_82877" = "Peer Number";
@@ -749,7 +748,7 @@
 "LN_Setting_Statistic_Phone_Packet_Loss_Average_Max_96715" = "Packet Loss - Average (Max)";
 "LN_Setting_Statistic_Phone_Bandwidth_96715" = "Bandwidth";
 "LN_Setting_Statistic_Phone_Codec_Used_82877" = "Codec";
-"LN_Setting_Statistic_Phone_Accessibility_Basic_Info_82877" = "basic zoom phone info";
+"LN_Setting_Statistic_Phone_Accessibility_Basic_Info_82877" = "basic Zoom Phone info";
 "LN_Setting_Statistic_Phone_Accessibility_Peer_Info_82877" = "peer number data";
 "LN_Setting_Statistic_Phone_Accessibility_First_Peer_Info_82877" = "first peer number data";
 "LN_Setting_Statistic_Phone_Accessibility_Second_Peer_Info_82877" = "second peer number data";
@@ -802,9 +801,76 @@
 "LN_Re_Launch_199234" = "Re-launch";
 //zoom-12484
 "The poll was closed before you submitted your answer" = "The poll was closed before you submitted your answer";
+//ZOOM-233647
+"LN_Poll_Launch_233647" = "Launch";
+"LN_Poll_Per_Participated_233647" = "%d of %d (%d%%) participated";
+"LN_Poll_Participated_233647" = "participated";
+"LN_Poll_Quiz_Ended_233647" = "%@ ended";
+"LN_Poll_View_Poll_Result_233647" = "You are viewing the poll results (shared by host)";
+"LN_Poll_View_Quiz_Results_233647" = "You are viewing your quiz results";
+"LN_Poll_Participated_Number_233647" = "%d participated";
+"LN_Poll_Relaunch_Reminder_233647" = "Relaunching a Poll will clear the existing poll results";
+"LN_Poll_Answer_Characters_Count_233647" = "Enter an answer that is less than %ld characters";
+"LN_Poll_Type_Answer_233647" = "Type answer";
+"LN_Poll_Enter_Answer_233647" = "Enter answer";
+"LN_Poll_No_Poll_Created_233647" = "No polls created";
+"LN_Poll_No_Poll_Quiz_Created_233647" = "No polls or quizzes created";
+"LN_Poll_Create_233647" = "Create";
+"LN_Poll_Download_Results_233647" = "Download Results";
+"LN_Poll_View_Results_233647" = "View Results from Browser";
+"LN_Poll_Single_Choice_233647" = "Single Choice";
+"LN_Poll_Dropdown_233647" = "Dropdown";
+"LN_Poll_Matching_233647" = "Matching";
+"LN_Poll_Rank_Order_233647" = "Rank Order";
+"LN_Poll_Short_Answr_233647" = "Short Answer";
+"LN_Poll_Long_Answer_233647" = "Long Answer";
+"LN_Poll_Fill_In_233647" = "Fill in The Blank";
+"LN_Poll_RatingScale_233647" = "Rating Scale";
+"LN_Poll_Your_Answer_233647" = "Your answer: ";
+"LN_Poll_You_Did_Not_Answer_233647" = "You did not answer this question";
+"LN_Poll_View_Details_233647" = "View Details";
+"LN_Poll_View_Answered_233647" = "answered";
+"LN_Poll_View_Select_An_Answer_233647" = "Please select an answer";
+"LN_Poll_View_Enter_An_Answer_233647" = "Please enter an answer";
+"LN_Poll_Previous_233647" = "Previous";
+"LN_Poll_Next_233647" = "Next";
+"LN_Poll_Question_Index_233647" = "%d of %d";
+"LN_Poll_Correct_233647" = "Correct";
+"LN_Poll_Wrong_233647" = "Wrong";
+"LN_Poll_Correct_Answer_Is_233647" = "The correct answer is ";
+"LN_Poll_Correct_Answer_Are_233647" = "The correct answers are:";
+"LN_Poll_Correct_Answer_233647" = "Correct!";
+"LN_Poll_Show_Correct_Answers_233647" = "Show correct answers to all";
+"LN_Poll_Edit_233647" = "Edit Poll";
+"LN_Poll_Select_Answer_233647" = "Select Answer";
+"LN_Poll_One_Question_233647" = "%d question";
+"LN_Poll_Question_Count_233647" = "%d questions";
+"LN_Poll_Reached_Max_Characters_233647" = "You've reached the maximum amount of characters allowed";
+"LN_Poll_Enter_At_Least_Characters_233647" = "Please enter at least %d characters";
+"LN_Quiz_233647" = "Quiz";
+"LN_Poll_Display_In_A_Random_233647" = "Display questions in a random order";
+"LN_Poll_Show_One_Question_At_A_Time_233647" = "Show one question at a time";
+"LN_Poll_Submitted_233647" = "Poll submitted.";
+"LN_Quiz_Submitted_233647" = "Quiz submitted.";
+"LN_Quiz_Thank_You_For_Your_Participation_233647" = "Thank you for your participation";
+"LN_Poll_Do_Not_Show_Me_Again_233647" = "Do not show me again";
+"LN_Poll_Quiz_233647" = "Polls/Quizzes";
+"LN_Poll_Qs_233647" = "Qs";
+"LN_Poll_Host_Start_A_233647" = "The host has started a %@";
+"LN_Poll_View_A_Result_233647" = "View %@ result";
+"LN_Poll_Quiz_Submitted_Tip_233647" = "%@ submitted. Thank you for your participation";
+"LN_Poll_Pop_Up_233647" = "pop up";
+"LN_Poll_Not_Checked_233647" = "not checked";
+"LN_Poll_Characters_Left_233647" = "%@ characters left";
+"LN_Poll_In_Progress_233647" = "in progress";
+"LN_AX_Poll_Press_Arrow_To_Navigate_291535" = "press arrow key to navigate";
+"LN_AX_Poll_Selected_291535" = "selected";
+"LN_AX_Poll_Not_Selected_291535" = "not selected";
+"LN_AX_Poll_Incorrect_291535" = "Incorrect";
+
 //ZOOM-18526
 //ZOOM-260951
-"LN_Poll_Legal_Message_260951" = "The account owner and host will be able to see who you are, your contact information (if you’re logged in or you provided it), and your responses — and can share them with apps and others.";
+"LN_Poll_Legal_Message_260951" = "The account owner and host will be able to see who you are, your contact information (if you're logged in or you provided it), and your responses — and can share them with apps and others.";
 "LN_Poll_Legal_Message_Anonymous_260951" = "This is an anonymous poll, so the account owner and host will not be able to see who submitted these responses.";
 "LN_Poll_Legal_Tip_260951" = "Who can see your responses?";
 
@@ -827,7 +893,7 @@
 "LN_Broadcast_Start_166405" = "Start Webinar";
 "LN_Broadcast_Live_221715" = "The webinar has started";
 "LN_Broadcast_Tip_Title_221715" = "You are in a practice session";
-"LN_Broadcast_Alert_Message_221715" = "Let’s get this started";
+"LN_Broadcast_Alert_Message_221715" = "Let's get this started";
 "LN_Broadcase_Alert_Info_221715" = "Once you click start, attendees can join this webinar.";
 "LN_Broadcase_Alert_Start_221715" = "Start";
 
@@ -1210,7 +1276,7 @@
 "Merge back to main window" = "Merge back to main window";
 "Share with" = "Share with";
 "Share Error" = "Share Error";
-"%@  cannot be shared." = "%@  cannot be shared.";
+"%@  cannot be shared." = "%@ cannot be shared.";
 "Browse" = "Browse";
 "Zoom Rooms" = "Zoom Rooms";
 
@@ -1544,10 +1610,8 @@
 "Private" = "Private";
 //Zoom-16973
 "Block Contact" = "Block Contact";
-"Block App" = "Block App";
 //Zoom-16973
 "Unblock Contact" = "Unblock Contact";
-"Unblock App" = "Unblock App";
 //Zoom-16973
 "Are you sure you want to block this contact?" = "Are you sure you want to block this contact?";
 //Zoom-128022
@@ -1573,8 +1637,6 @@
 //ZOOM-14478
 "Contact name or phone number" = "Enter a name or number";
 
-//ZOOM-14478
-"From: %@" = "From: %@";
 //ZOOM-14478
 "Your audio has been switched to the connected voice call, and your audio will automatically reconnect back after the end of the voice call." = "Your audio has been switched to the connected voice call, and your audio will automatically reconnect back after the end of the voice call.";
 "LN_Meeting_Click_To_Reconnect_Audio_108087" = "Click to reconnect meeting audio";
@@ -1858,7 +1920,6 @@
 "Upload" = "Upload";
 "Code" = "Code";
 "Type message..." = "Type message...";
-"What's on your mind..." = "What's on your mind...";
 "You can not send message in offline status." = "You can not send message in offline status.";
 "You cannot send a message as you are not a member of this group." = "You cannot send a message as you are not a member of this group.";
 "Files" = "Files";
@@ -1936,7 +1997,7 @@
 "Please try again later." = "Please try again later.";
 "Sign in" = "Sign in";
 "Jump to Chat" = "Jump to Chat";
-"The meeting has an unexpected error. Error code : %d" = "The meeting has an unexpected error. Error code : %d";
+"The meeting has an unexpected error. Error code : %d" = "The meeting has an unexpected error. Error code: %d";
 
 "LN_New_Version_Zoom_Title_271926" = "Update to the latest version of Zoom.";
 "LN_New_Version_Zoom_Update_271926" = "Update";
@@ -2043,7 +2104,7 @@
 //[Zoom-17822]
 "LN_Schedule_Alternative_Hosts_Label_18144" = "Alternative Hosts:";
 //ZOOM-18144
-"LN_Schedule_Input_Alternate_Host_Example_18144" = "Example:john@company.com;peter@school.edu";
+"LN_Schedule_Input_Alternate_Host_Example_18144" = "Example: john@company.com; peter@school.edu";
 //ZOOM-18144
 
 "LN_In_Meeting_Label_19901" = "In a meeting";
@@ -2212,7 +2273,7 @@
 "LN_Waiting_Admit_All_39691" = "Admit all";
 
 "LN_Metting_RemoteControl_Abort_Control_28437" = "Abort Control"; //[ZOOM-28437]
-"LN_Metting_RemoteControl_Who_Is_Controlling_28437" = "(Controlling)" ;//[ZOOM-28437]
+"LN_Metting_RemoteControl_Who_Is_Controlling_28437" = "(Controlling)";//[ZOOM-28437]
 "LN_Metting_RemoteControl_SearchUser_NOResult_28437" = "No result"; //[ZOOM-28437]
 "LN_Meeting_IsAutoAcceptRemoteControl_28437" = "Auto accept all requests";//[ZOOM-28437]
 "LN_Meeting_RemoteControl_UnderControlling" = "Remote controlled"; //[ZOOM-28437]
@@ -2268,8 +2329,8 @@
 "LN_GDPR_40930_I Disagree" = "I Disagree";
 "LN_GDPR_40930_Leave Meeting" = "Leave Meeting";
 
-"LN_Meeting_ID_%@_41652" = "Meeting ID : %@";
-"LN_%@_Meeting_ID_%@_41652" = "%@ Meeting ID : %@";
+"LN_Meeting_ID_%@_41652" = "Meeting ID: %@";
+"LN_%@_Meeting_ID_%@_41652" = "%@ Meeting ID: %@";
 "LN_Help_String_40539" = "Help";
 "LN_Participants_Raised_Hand_39858" = "participants raised hand";
 "LN_Raised_Hand_39858" = "raised hand";
@@ -2529,6 +2590,8 @@
 "LN_Multiple_Call_Hold_TiTle_26674" = "On Hold";
 "LN_Remind_Multiple_Call_On_Hold_26674" = "phone calls are on hold";
 
+"LN_Sip_Transfer_Toast_268963" = "Restricted by admin";
+
 "LN_Warm_Transfer_Button_31431" = "Assisted\nTransfer";
 "LN_Blind_Transfer_Button_31431" = "Blind Transfer";
 "LN_Transfer_Label_Title_31431" = "Transfer to";
@@ -2559,8 +2622,8 @@
 "LN_Setting_Phone_Params_Title_211266" = "These parameters can be used as command line arguments:";
 "LN_Setting_Phone_Params_211266" = "%N - Full Name\n%F - First Name\n%L - Last Name\n%C - Caller ID Number\n%E - Caller ID Number (in E.164 format)";
 "LN_Setting_Phone_Example_211266" = "Example:";
-"LN_Setting_Phone_Example_URL_211266" = "this example launches a browser, opens a webpage and passes it the caller’s number.";
-"LN_Setting_Phone_Example_App_211266" = "this example invokes an application on your computer and passes it the caller’s phone number and full name";
+"LN_Setting_Phone_Example_URL_211266" = "this example launches a browser, opens a webpage and passes it the caller's number.";
+"LN_Setting_Phone_Example_App_211266" = "this example invokes an application on your computer and passes it the caller's phone number and full name";
 "LN_Setting_Phone_Report_Txt_88942" = "Report Problem:";
 "LN_Setting_Phone_Report_Title_88942" = "Report";
 "LN_Setting_Phone_Diagnostics_Detail_Content_88942" = "If you are having problems while using Zoom Phone, please contact Zoom technical support. When requested by your support agent, you can report a problem to Zoom for troubleshooting.";
@@ -2703,7 +2766,7 @@
 "LN_Phone_MultiCall_OnHold_61400" = "Click to see all";
 "LN_Phone_MultiCall_ClickToSwap_61400" = "On Hold - Click to swap";
 "LN_Phone_ShowMyCallerID_title_54271" = "Caller ID";
-"LN_Phone_Transfer_Result_Success_64264" = "Transfer Successful";
+"LN_Phone_Transfer_Result_Success_64264" = "Transfer Success";
 "LN_Phone_MultiCall_OnHold_Hide_61400" = "Click to hide";
 "LN_Phone_ShowMyCallerID_MyExtension_54271" = "Your Extension";
 "LN_Phone_Merge_Call_ToolTip_54271" = "Merge Call";
@@ -2780,6 +2843,8 @@
 "LN_Sip_PAB_Home_Fax_58882" = "Home fax";
 "LN_Sip_PAB_Main_58882" = "Main";
 "LN_Sip_PAB_Mobile_58882" = "Mobile";
+"LN_Sip_Office_292860" = "Office";
+"LN_Sip_Fax_292860" = "Fax";
 "LN_Sip_Start_Adding_Contact_58882" = "Start adding phone contacts";
 "LN_Sip_Connect_ContactBook_Lowercase_58882" = "Connect a contact book";
 "LN_Sip_Connect_ContactBook_58882" = "Connect a Contact Book";
@@ -2877,6 +2942,10 @@
 "LN_Phone_Invite_to_ZOOM_tips_224836" = "If this user accepts your request, your profile information (including your status) will be visible to this contact. You can also meet and chat with this contact.";
 "LN_Phone_Invite_to_ZOOM_title_224836" = "Invite to Zoom";
 
+"LN_Phone_Setting_Statistics_SwitchInfo_281512" = "Network Switch";
+"LN_Phone_Setting_Statistics_Port_281512" = "Port";
+"LN_Phone_Invalid_Emergency_Number_230110" = "Invalid Emergency Number";
+
 "LN_Phone_Invite_to_ZOOM_MenuItem_Exchange_224836" = "Create an Exchange Contact";
 "LN_Phone_Invite_to_ZOOM_MenuItem_Offce365_224836" = "Create an Office 365 Contact";
 "LN_Phone_Invite_to_ZOOM_MenuItem_Google_224836" = "Create a Google Contact";
@@ -2948,7 +3017,7 @@
 "LN_SMS_Reply_Alert_Content_224493" = "Once you reply to this inquiry, all other members in this call queue will not be able to reply to this message unless you release this conversation.\n\nThis conversation will be released to the queue after 5 minutes of inactivity.";
 "LN_SMS_Release_Alert_Title_224493" = "Release Conversation";
 "LN_SMS_Release_Alert_Content_224493" = "Once you release this conversation, other queue members will be able to reply";
-"LN_SMS_Release_Alert_Tip_224493" = "Don’t show this message again";
+"LN_SMS_Release_Alert_Tip_224493" = "Don't show this message again";
 "LN_SMS_Push_Notifications_224493" = "Push Notifications";
 "LN_SMS_All_Messages_224493" = "All Messages";
 "LN_SMS_Nothing_224493" = "Nothing";
@@ -3091,7 +3160,7 @@
 "LN_Setting_VB_DetectsColorTip_NewIM" = "Zoom automatically detects the color of your video background and replaces it with the virtual background image. You can manually pick the background color if the detected color is not accurate.";
 "LN_Setting_LocationRecording_NewIM" = "Choose a location to save the recording to after the meeting ends";
 "LN_Setting_RecordSeparate_NewIM" = "Record a separate audio file of each participant";
-"LN_Setting_RecordSeparate_HelpString_273146" = "Support the first 80 speakers’ audio files";
+"LN_Setting_RecordSeparate_HelpString_273146" = "Support the first 80 speakers' audio files. The audio of users who joined by phone will be merged into one audio file.";
 "LN_Setting_ViewAdvanced_NewIM" = "View Advanced Features";
 "LN_Setting_ChangeSubscription_NewIM" = "Change My Subscription";
 "LN_Setting_PacketLoss_NewIM" = "Packet Loss - Average (Max)";
@@ -3113,10 +3182,6 @@
 "LN_Home_SwitchToLandscape_NewIM" = "Switch to Landscape View";
 "LN_Home_SwitchToPortrait_NewIM" = "Switch to Portrait View";
 "LN_Home_ViewTodaysUpcomingMeetings_NewIM" = "View today's upcoming meetings (%lu)";
-"LN_Home_Meetings_NewIM" = "%ld meetings";
-"LN_Home_MeetingsNOW_NewIM" = "%ld meetings NOW";
-"LN_Home_meetingsIn1Min_NewIM" = "%ld meetings in 1 min";
-"LN_Home_meetingsInNMins_NewIM" = "%1$ld meetings in %2$ld mins";
 "LN_Home_View_NewIM" = "View";
 "LN_Home_meeting(s)_NewIM" = "%lu meeting(s) ";
 "LN_Home_Now_NewIM" = "NOW";
@@ -3193,7 +3258,7 @@
 "LN_Channel_AddChannel_By_Click_NewIM" = "Add a channel by clicking +";
 "LN_No_Channels_To_Show_241005" = "No channels to show";
 "LN_Channels_Info_Appear_Here_241005" = "Your channel information will appear here";
-"LN_Channel_MembersIn_NewIM" = "members in";
+"LN_Channel_%ld_MembersIn_%@_285376" = "%1$ld members in %2$@";
 "LN_Channel_EnterNameHere_NewIM" = "Enter name here...";
 "LN_Channel_CreateNamePlaceholder_NewIM" = "e.g. Happy Crew";
 "LN_Channel_EnterChannelName_NewIM" = "Enter channel name";
@@ -3228,8 +3293,6 @@
 "LN_Starred_NewIM" = "Starred";
 "LN_Starred_StarContact_NewIM" = "Star this Contact";
 "LN_Starred_UnStarContact_NewIM" = "Unstar this Contact";
-"LN_Starred_StarApp_NewIM" = "Star this App";
-"LN_Starred_UnStarApp_NewIM" = "Unstar this App";
 "LN_Starred_StarChannel_NewIM" = "Star this Channel";
 "LN_Starred_UnStarChannel_NewIM" = "Unstar this Channel";
 "LN_Starred_StarChat_NewIM" = "Star this Chat";
@@ -3238,7 +3301,7 @@
 "LN_File_Share_File_NewIM" = "Share File";
 "LN_File_Search_Files_NewIM" = "Search files";
 "LN_File_AllFile_Shared_NewIM" = "All files shared";
-"LN_File_AllFile_ShareIn_NewIM" = "All files shared in";
+"LN_File_AllFile_ShareIn_%@_285376" = "All files shared in %@";
 
 "LN_Error_SearchBuddy_Failure_NewIM" = "search buddy failure, please try again later";
 "LN_Error_SearchFail_NewIM" = "Your results failed to load. Try searching again.";
@@ -3345,8 +3408,6 @@
 "LN_UnStarChannelBtn_ToolTip_NewIM" = "Unstar Channel";
 "LN_StarContactBtn_ToolTip_NewIM" = "Star Contact";
 "LN_UnStarContactBtn_ToolTip_NewIM" = "Unstar Contact";
-"LN_StarAppBtn_ToolTip_NewIM" = "Star App";
-"LN_UnStarAppBtn_ToolTip_NewIM" = "Unstar App";
 "LN_Option_ToolTip_NewIM" = "Option";
 
 "LN_ZOOM-50139_Unable to connect" = "Unable to connect";
@@ -3608,7 +3669,6 @@
 "LN_Accessibility_ViewProfile_61896" = "view profile";
 //ZOOM-62352
 "LN_Add_New_Chat_Or_Creat_62352" = "New Chat or Channel";
-"LN_Add_An_App_62352" = "Add an App";
 
 "LN_Accessibility_X_Of_M_60995" = "%d of %d";
 
@@ -3658,7 +3718,6 @@
 "LN_Accessibility_%ld_Results_60775" = "[%ld] results";
 
 "LN_HideThisChat_NewIM" = "Hide this Chat";
-"LN_HideThisApp_NewIM" = "Hide this App";
 "LN_CloseThisChannel_NewIM" = "Close this Channel";
 "LN_Audio_Tsp_Both_45801" = "Both";
 
@@ -4347,7 +4406,6 @@
 "LN_72640_CC_API_Token_Copied" = "API token copied to clipboard";
 "LN_72640_Save Transcript" = "Save Transcript";
 "LN_72640_Transcript saved" = "Transcript saved";
-"LN_72640_Powered by Otter.ai" = "Powered by Otter.ai";
 "LN_72640_You have turned on live transcription" = "You have turned on live transcription";
 "LN_72640_Live transcript sub menu" = "Live transcript sub menu";
 "LN_72640_Closed caption sub menu" = "Closed caption sub menu";
@@ -4546,7 +4604,7 @@
 "LN_Failed_Convert_Recording_Path_105238" = "Recording Original Path:";
 "LN_Failed_Convert_Recording_In_Process_105238" = "There is another recording conversion in progress, please convert this recording later in Meetings > Recorded.";
 "LN_A_Recording_Was_Not_Converted_Title_105238" = "A Recording Was Not Converted";
-"LN_A_Recording_Was_Not_Converted_Content_105238" = "You can also convert  the recording in Meetings > Recorded.";
+"LN_A_Recording_Was_Not_Converted_Content_105238" = "You can also convert the recording in Meetings > Recorded.";
 "LN_Convert_Now_105238" = "Convert Now";
 
 //ZOOM-148868
@@ -4596,8 +4654,6 @@
 "LN_IM_Announcement_NO_Message_Sender_Tip" = "Send one-way announcements to everyone in your company";
 "LN_IM_Announcement_NO_Message_Reeciver_Tip" = "No announcements yet";
 
-//ZOOM-112089
-"LN_Add_App_Tip_112089" = "Simplify your workflow by connecting apps";
 //ZOOM-92265
 "LN_Copied_92265" = "Copied";
 "LN_Deleted_92265" = "Deleted";
@@ -4768,7 +4824,7 @@
 "LN_Phone_Setting_Open_System_Preferences_125373" = "System Preferences";
 "LN_Phone_History_Unknow_Location_205366" = "unknown location";
 
-"LN_Phone_EmergencyAddress_NotINList_230418" = "Your location isn’t already on the list?";
+"LN_Phone_EmergencyAddress_NotINList_230418" = "Your location isn't already on the list?";
 "LN_Phone_EmergencyAddress_Create_230418" = "Add a new Emergency Address";
 "LN_Phone_EmergencyAddress_UpdateView_Confirm_230418" = "Confirm Emergency Address";
 "LN_Phone_EmergencyAddress_UpdateView_Update_230418" = "Update Emergency Address";
@@ -5114,25 +5170,25 @@
 "LN_Meeting_QA_My_Question_Message_94012" = "Questions you ask the host and panelists will show up here";
 "LN_Meeting_QA_All_Questions_Message_94012" = "Questions you ask will show up here. Only host and panelists will be able to see all questions.";
 "LN_Meeting_QA_Single_Typing_196082" = "%@ is typing an answer...";
-"LN_Meeting_QA_Double_Typing_196082" = "%@ and %@ are typing answers....";
-"LN_Meeting_QA_Multi_Typing_196082" = "%@ and %ld others are typing answers....";
+"LN_Meeting_QA_Double_Typing_196082" = "%@ and %@ are typing answers…";
+"LN_Meeting_QA_Multi_Typing_196082" = "%@ and %ld others are typing answers…";
 "LN_Security_Code_Change_Tip_203013" = "The encryption key has been updated.";
 "LN_Security_Code_Second_203013" = "Updated seconds ago";
 "LN_Security_Code_Minute_203013" = "Updated 1 minute ago";
 "LN_Security_Code_Minutes_203013" = "Updated %ld minutes ago";
 "LN_Security_Code_Hour_203013" = "Updated 1 hour ago";
 "LN_Security_Code_Hours_203013" = "Updated %ld hours ago";
-"LN_File_Size_Limit_187327" = "Your file cannot be sent because it exceeds your account’s max file size limit of %@";
+"LN_File_Size_Limit_187327" = "Your file cannot be sent because it exceeds your account's max file size limit of %@";
 "LN_Unencrypted_Title_211916" = "Unencrypted Connections";
 "LN_Unencrypted_Single_Count_211916" = "1 Exception";
 "LN_Unencrypted_Count_211916" = "%ld Exceptions";
-"LN_Unencrypted_Video_Audio_Share_211916" = "%@’s audio, video, and screen share";
-"LN_Unencrypted_Video_Share_211916" = "%@’s video and screen share";
-"LN_Unencrypted_Video_Audio_211916" = "%@’s audio and video";
-"LN_Unencrypted_Video_211916" = "%@’s video";
-"LN_Unencrypted_Audio_211916" = "%@’s audio";
-"LN_Unencrypted_Share_211916" = "%@’s screen share";
-"LN_Unencrypted_Audio_Share_211916" = "%@’s audio and screen share";
+"LN_Unencrypted_Video_Audio_Share_211916" = "%@'s audio, video, and screen share";
+"LN_Unencrypted_Video_Share_211916" = "%@'s video and screen share";
+"LN_Unencrypted_Video_Audio_211916" = "%@'s audio and video";
+"LN_Unencrypted_Video_211916" = "%@'s video";
+"LN_Unencrypted_Audio_211916" = "%@'s audio";
+"LN_Unencrypted_Share_211916" = "%@'s screen share";
+"LN_Unencrypted_Audio_Share_211916" = "%@'s audio and screen share";
 "LN_Unencrypted_Livestream_211916" = "Livestream";
 "LN_Unencrypted_Participant_Telephone_211916" = "1 phone participant";
 "LN_Unencrypted_Participants_Telephone_211916" = "%ld phone participants";
@@ -5161,8 +5217,8 @@
 "LN_E2e_Encryption_Message_239211" = "The host should read the numbers below to all other participants. All participants should check that the codes match to ensure that the meeting is end-to-end encrypted.";
 "LN_Removed_By_Host_162967" = "You were removed from the webinar by the host and cannot rejoin.";
 "LN_Unable_To_Sign_In_165085" = "Unable to sign in. %@ (Error code: %ld)";
-"LN_Unable_To_Join_In_250334" = "Don’t Join";
-"LN_None_Archived_236359" = "This meeting is being archived by the host’s organization for compliance purposes.";
+"LN_Unable_To_Join_In_250334" = "Don't Join";
+"LN_None_Archived_236359" = "This meeting is being archived by the host's organization for compliance purposes.";
 "LN_Single_Archived_236359" = "This meeting's %@ is being archived by the host's organization based on their account's policy. Their account owner will receive content from this meeting and can share it with apps and others.";
 "LN_Double_Archived_236359" = "This meeting's %@ and %@ are being archived by the host's organization based on their account's policy. Their account owner will receive content from this meeting and can share it with apps and others.";
 "LN_Triple_Archived_236359" = "This meeting's %@, %@, and %@ are being archived by the host's organization based on their account's policy. Their account owner will receive content from this meeting and can share it with apps and others.";
@@ -5177,10 +5233,10 @@
 "LN_Archived_Alert_Title_236359" = "This meeting is being archived";
 "LN_Basic_Archived_236359" = "basic information";
 "LN_QA_Legal_Notice_Title_260936" = "Who can see your questions?";
-"LN_QA_Legal_Notice_Tips_260936" = "The account owner, host, and panelists will be able to see who you are, your contact information (if you’re logged in or you provided it), and your question — and can share them with apps and others.\n\nIf your question is selected, it will be visible to all attendees.";
-"LN_QA_Legal_Notice_Public_Tips_260936" = "This Q&A is public, so everyone can see your questions.\n\nThe account owner, host, and panelists will be able to see who you are, your contact information (if you’re logged in or you provided it), and your question — and can share them with apps and others.";
-"LN_QA_Legal_Notice_Anonymous_Tips_260936" = "Unless you submit anonymously, the account owner, host, and panelists will be able to see who you are, your contact information (if you’re logged in or you provided it), and your question — and can share them with apps and others.\n\nIf your question is selected, it will be visible to all attendees.";
-"LN_QA_Legal_Notice_Public_Anonymous_Tips_260936" = "This Q&A is public, so everyone can see your questions.\n\nThe account owner, host, and panelists will be able to see who you are, your contact information (if you’re logged in or you provided it), and your question — and can share them with apps and others.\n\nIf you submit your questions anonymously, nobody can see who submitted your questions.";
+"LN_QA_Legal_Notice_Tips_260936" = "The account owner, host, and panelists will be able to see who you are, your contact information (if you're logged in or you provided it), and your question — and can share them with apps and others.\n\nIf your question is selected, it will be visible to all attendees.";
+"LN_QA_Legal_Notice_Public_Tips_260936" = "This Q&A is public, so everyone can see your questions.\n\nThe account owner, host, and panelists will be able to see who you are, your contact information (if you're logged in or you provided it), and your question — and can share them with apps and others.";
+"LN_QA_Legal_Notice_Anonymous_Tips_260936" = "Unless you submit anonymously, the account owner, host, and panelists will be able to see who you are, your contact information (if you're logged in or you provided it), and your question — and can share them with apps and others.\n\nIf your question is selected, it will be visible to all attendees.";
+"LN_QA_Legal_Notice_Public_Anonymous_Tips_260936" = "This Q&A is public, so everyone can see your questions.\n\nThe account owner, host, and panelists will be able to see who you are, your contact information (if you're logged in or you provided it), and your question — and can share them with apps and others.\n\nIf you submit your questions anonymously, nobody can see who submitted your questions.";
 "LN_Chat_Legal_Title_260936" = "Who can see your messages?";
 "LN_Chat_Legal_Archive_Title_260936" = "Who can see your messages? Archiving On";
 "LN_Chat_Legal_Record_Title_260936" = "Who can see your messages? Recording On";
@@ -5218,11 +5274,34 @@
 "LN_Sign_In_With_Apple_137210" = "Sign in with Apple";
 "LN_Sign_In_Agree_206763" = "By signing in, I agree to the Privacy Policy and Terms of Service.";
 "LN_Register_Title_192336" = "Register for this webinar";
-"LN_Register_Message_192336" = "If you’ve registered for this webinar or have been invited as a panelist, join via the link in your email invitation or sign in to your account.";
+"LN_Register_Message_192336" = "If you've registered for this webinar or have been invited as a panelist, join via the link in your email invitation or sign in to your account.";
 "LN_Sign_In_Account_192336" = "sign in to your account.";
 "LN_Register_Meeting_Title_192336" = "Register for this meeting";
-"LN_Register_Meeting_Message_192336" = "If you’ve registered for this meeting, join via the link in your email invitation or sign in to your account.";
+"LN_Register_Meeting_Message_192336" = "If you've registered for this meeting, join via the link in your email invitation or sign in to your account.";
 "LN_Account_Switcher_206763" = "Account Switcher";
+"LN_Meeting_Chat_Panelists_245291" = "Host and Panelists";
+"LN_Meeting_Chat_Host_Only_245291" = "Host and co-hosts";
+"LN_Chat_Everyone_Publicly_Privately_245291" = "Everyone and anyone directly";
+"LN_Chat_To_Host_Panelists_245291" = "From %@ to Host and Panelists";
+"LN_Chat_To_Me_Panelists_245291" = "From %@ to Me, Host and Panelists";
+"LN_Chat_To_Panelists_245291" = "From %1$@ to %2$@, Host and Panelists";
+"LN_Chat_CC_To_Panelists_245291" = ", Host and Panelists";
+"LN_Allow_Panelists_Chat_With_245291" = "Panelists Can Chat with:";
+"LN_Allow_Attendees_Chat_With_245291" = "Attendees Can Chat with:";
+"LN_SSO_Count_Down_Title_273370" = "Renew Session";
+"LN_SSO_Count_Down_Message_Minutes_273370" = "%1$@ requires that you sign in to Zoom every %2$@.\n\nYour session will expire in %3$@. Sign in again to renew your session.";
+"LN_SSO_Count_Down_Message_Days_273370" = "%1$@ requires that you sign in to Zoom every %2$@.\n\nYour session will expire on %3$@. Sign in again to renew your session.";
+"LN_SSO_Count_Down_Hour_273370" = "1 hour";
+"LN_SSO_Count_Down_Hours_273370" = "%ld hours";
+"LN_SSO_Count_Down_Day_273370" = "1 day";
+"LN_SSO_Count_Down_Days_273370" = "%ld days";
+"LN_SSO_Count_Down_Minutes_273370" = "%ld minutes";
+"LN_End_By_Host_83219" = "This meeting has been ended by the host";
+"LN_End_By_None_83219" = "This meeting has been ended";
+"LN_End_By_Admin_83219" = "This meeting has been ended by your admin";
+"LN_SSO_Count_Down_Admin_273370" = "Your admin";
+"LN_Session_Warning_Title_273370" = "Session Warning";
+"LN_Session_Warning_Message_273370" = "Your session will be automatically signed out in %1$@, following %2$@’s policy.";
 
 "LN_Record_Disclaimer_Cloud_133456" = "Record this meeting to the cloud?";
 "LN_Record_Disclaimer_Local_133456" = "Record this meeting to this computer?";
@@ -5295,7 +5374,7 @@
 "LN_Security_What_Problem_147465" = "What was the problem?";
 "LN_Security_Additional_147465" = "Additional Information";
 "LN_Security_Upload_File_147465" = "Upload File";
-"LN_Security_Policy_200525" = "By sending this report, you authorize Zoom to access all data in this report, subject to Zoom’s %@. This data includes screenshots, your user information, the user information of those you report, and all relevant meeting information.";
+"LN_Security_Policy_200525" = "By sending this report, you authorize Zoom to access all data in this report, subject to Zoom's %@. This data includes screenshots, your user information, the user information of those you report, and all relevant meeting information.";
 "LN_Security_Privacy_Statement_200525" = "Privacy Statement";
 "LN_Security_Not_Know_147465" = "I don't know";
 "LN_Security_File_Limit_147465" = "Your upload exceeds the 25MB limit";
@@ -5336,10 +5415,20 @@
 "LN_Messages_In_E2E_Channel_61519" = "Messages in this channel are encrypted.";
 "LN_Messages_You_Enable_E2E_61519" = "Your messages in this channel are encrypted.";
 "LN_Messages_In_E2E_1To1_Chat_61519" = "Messages in this chat are encrypted.";
+"LN_Messages_You_Enable_E2E_InChat_283523" = "Your messages in this chat are encrypted.";
 
 "LN_Phone_Park_131319" = "Park";
 "LN_Phone_Park_Detail_131319" = "Place call on hold for another user pick it up";
 "LN_Phone_Minimize_Detail_131319" = "Shrink the size of your calls";
+"LN_Phone_LockCall_285598" = "Lock Call";
+"LN_Phone_UnlockCall_285598" = "Unlock Call";
+"LN_Phone_LockCall_Detail_285598" = "Prevent others from joining the call";
+"LN_Phone_LockCall_Toast_285598" = "Locked call";
+"LN_Phone_UnlockCall_Toast_285598" = "Unlocked call";
+"LN_Phone_LockCall_Error_285598" = "Unable to lock the call at this time. Try again later.";
+"LN_Phone_UnlockCall_Error_285598" = "Unable to unlock the call at this time. Try again later.";
+"LN_Phone_Merge_LockCall_Content_285598" = "If you continue to merge the calls, the call will get unlocked.";
+"LN_Phone_Merge_Calls_285598" = "Merge Calls";
 
 "LN_Phone_Lines_Parked_131319" = "PARKED";
 "LN_Phone_Parked_Location_131319" = "Location: %@";
@@ -5360,13 +5449,13 @@
 "LN_Phone_Peer_Not_Support_E2E_267077" = "Unable to switch this call to end-to-end encryption (E2EE) because the person you are calling does not support E2EE";
 "LN_Phone_E2E_Verify_267077" = "Verify";
 "LN_Phone_E2E_Verify_Security_Code_267077" = "Verify Security Code";
-"LN_Phone_E2E_Verify_Security_Code_Introduction_267077" = "If these numbers are the same on everyone’s screen, then this call is end-to-end encrypted.";
+"LN_Phone_E2E_Verify_Security_Code_Introduction_267077" = "If these numbers are the same on everyone's screen, then this call is end-to-end encrypted.";
 "LN_Phone_E2E_Stop_Recording_Title_267077" = "Stop Recording?";
 "LN_Phone_E23_Stop_Recording_Content_267077" = "Switching this phone call to end-to-end encryption will stop recording. Are you sure you want to continue?";
 "LN_Phone_E2E_Unhold_Caller_Title_267077" = "Unhold Caller?";
 "LN_Phone_E2E_Unhold_Caller_Content_267077" = "When switching to end-to-end encryption. the user will be unheld. Are you sure you want to continue?";
 "LN_Phone_Meeting_Is_Not_E2E_Title_267077" = "Meeting is not using end-to-end encryption";
-"LN_Phone_Meeting_Is_Not_E2E_Content_267077" = "The meeting you’re inviting the user into is not end-to-end encrypted. Are you sure you want to continue?";
+"LN_Phone_Meeting_Is_Not_E2E_Content_267077" = "The meeting you're inviting the user into is not end-to-end encrypted. Are you sure you want to continue?";
 
 //ZOOM-153605
 "LN_PMIDisabled_153605" = "Personal Meeting ID is disabled";
@@ -5695,7 +5784,7 @@
 "LN_Chat_Add_Menbers_Disable_Tip_167727" = "You cannot add members to this chat because the admin belongs to an external organization.";
 
 //184354
-"LN_CannotChooseVidoeFilter_184354" = "You cannot choose a video filter  while sharing slides as a virtual background";
+"LN_CannotChooseVidoeFilter_184354" = "You cannot choose a video filter while sharing slides as a virtual background";
 "LN_CannotChooseVidoeBackgrounds_184354" = "You cannot choose a virtual background while sharing slides as a virtual background";
 "LN_NotSupportVideoFilters_184354" = "Your machine does not support Video Filters.";
 
@@ -5704,7 +5793,7 @@
 "LN_TemporalDenoise_176732" = "Optimize video quality with de-noise";
 
 //ZOOM-184871
-"LN_helpScreenCaptureMode_184871" = "Screen capture mode refers to the method we use to capture the screen for screen sharing. This drop down allows you to choose different modes.";
+"LN_helpScreenCaptureMode_184871" = "Screen capture mode refers to the method we use to capture the screen for screen sharing. This dropdown allows you to choose different modes.";
 "LN_CaptureLegacy_184871" = "Previous Operating Systems";
 "LN_CaptureGPUCopyFilter_184871" = "Capture with window filtering";
 "LN_CaptureADACopyFilter_184871" = "Advanced capture with window filtering";
@@ -5718,8 +5807,8 @@
 "LN_HelpEnableStereo_180322" = "This option enables Zoom to encode audio in stereo. A stereo capable microphone or audio interface is necessary. It will increase CPU utilization and consume greater network bandwidth.";
 
 //ZOOM-205873
-"LN_HelpEchoCancellation_205873" = "Prevent echoes from being captured or created to improve audio quality. Unless you’re using headphones or playing a musical instrument, we recommend that you enable this option.";
-"LN_TipSideBySide_205873" = "While viewing others’ shared screens, automatically place the participants’ videos to the right of the shared screen";
+"LN_HelpEchoCancellation_205873" = "Prevent echoes from being captured or created to improve audio quality. Unless you're using headphones or playing a musical instrument, we recommend that you enable this option.";
+"LN_TipSideBySide_205873" = "While viewing others' shared screens, automatically place the participants' videos to the right of the shared screen";
 
 //ZOOM-234250
 "LN_Setting_ViewSubscription_234250" = "View My Subscription";
@@ -5728,8 +5817,9 @@
 "LN_Sip_Duration_166163" = "Duration";
 "LN_Sip_3rdparty_Call_Duration_Select_Title_166163" = "Automatically Make Calls from %@?";
 "LN_Sip_3rdparty_Call_Duration_Select_Information_166163" = "Select a duration to determine how long calls will be automatically placed for you. You can always change this later in your settings.";
-"LN_Sip_3rdparty_Call_Control_Select_Title_277296" = "Allow %@ to manage call control actions on your behalf?";
-"LN_Sip_3rdparty_Call_Control_Select_Information_277296" = "Zoom currently supports the following call controls: make a call, accept or decline a call, start or stop recording, end a call. Additional call controls may be added in future releases. Please refer to the %@’s documentation to determine which call controls are supported. \n \n \nChoose the length of time you’d like %@ to be able to manage these controls. You can always change this later in your settings.";
+"LN_Sip_3rdparty_Call_Control_Select_Title_277296" = "Allow %@ to manage call control actions on your behalf? ";
+"LN_Sip_3rdparty_Call_Control_Select_Information_288894" = "Zoom currently supports the following call controls: make a call, accept or decline a call, hold or resume a call, blind or warm transfer, park or unpark a call, listen, whisper, barge or take over a call, start or stop recording, escalate to meeting, end a call. Additional call controls may be added in future releases. Please refer to the %@’s documentation to determine which call controls are supported.";
+"LN_Sip_3rdparty_Call_Control_Select_Choose_288894" = "Choose the length of time you’d like %@ to be able to manage these controls. You can always change this later in your settings.";
 "LN_Sip_3rdparty_Default_Device_166163" = "Set this device as default";
 "LN_Sip_Duration_Never_166163" = "Never";
 "LN_Sip_Duration_Now_166163" = "Now";
@@ -5743,6 +5833,7 @@
 "LN_Sip_reset_default_device_169454" = "Reset Default Device";
 "LN_Sip_autodial_desc_169454" = "Changes will only take effects on this device";
 "LN_Sip_CallControl_desc_169454" = "Third Party Call Controls";
+"LN_Sip_CallControl_tips_288894" = "Managed call controls: make a call, accept or decline a call, hold or resume a call, blind or warm transfer, park or unpark a call, listen, whisper, barge or take over a call, start or stop recording, escalate to meeting, end a call.";
 "LN_Sip_autodial_reset_default_success_169454" = "Default devices are reset successfully";
 "LN_Sip_autodial_reset_default_success2_169454" = "Reset Successfully!";
 "LN_Sip_autodial_reset_default_fail_169454" = "Fail to reset your default devices";
@@ -6250,7 +6341,7 @@
 "LN_Hide_Avatar_200525" = "Hide Profile Pictures";
 "LN_Suspend_Participant_Activities_200525" = "Suspend Participant Activities";
 "LN_Suspend_Message_200525" = "Suspend all participant activities?";
-"LN_Suspend_Infomation_200525" = "Everyone’s video and audio will be turned off, screen sharing will stop, chat will be disabled, and the meeting will be locked.  %@";
+"LN_Suspend_Infomation_200525" = "Everyone's video and audio will be turned off, screen sharing will stop, chat will be disabled, and the meeting will be locked.  %@";
 "LN_Learn_More_200525" = "Learn More";
 "LN_Suspend_200525" = "Suspend";
 "LN_%@_Been_Removed_200525" = "\"%@\" has been removed";
@@ -6311,7 +6402,7 @@
 
 "LN_Share_Select_BO_Alert_Title_222604" = "Share screen to all breakout rooms";
 "LN_Share_Select_BO_Alert_Info_222604" = "· Your screen will be shared in the main session and in all breakout rooms\n· Your video and audio will not be shared with Breakout Rooms\n· Screens that others are sharing in the rooms will be stopped";
-"LN_Share_Select_BO_Alert_CheckBox_222604" = "Don’t show this again";
+"LN_Share_Select_BO_Alert_CheckBox_222604" = "Don't show this again";
 "LN_Share_Fit_Status_BO_Share_222604" = "You are screen sharing to breakout rooms";
 "LN_Share_Fit_ToolBar_Stop_BO_Share_222604" = "Stop Sharing to Breakout Rooms";
 "LN_Share_Deny_Grab_BO_Master_Share_Alert_222604" = "Unable to share your screen while someone is sharing from the main session";
@@ -6322,7 +6413,7 @@
 "LN_Annotation_Auto_Save_WB_BO_Share_Alert_Save_As_222604" = "Save whiteboard as:";
 "LN_Annotation_Auto_Save_Annotation_BO_Share_Alert_Count_Down_222604" = "Annotations will be saved in %d...";
 "LN_Annotation_Auto_Save_WB_BO_Share_Alert_Count_Down_222604" = "Whiteboard will be saved in %d...";
-"LN_Annotation_Auto_Save_BO_Share_Alert_No_Save_222604" = "Don’t Save";
+"LN_Annotation_Auto_Save_BO_Share_Alert_No_Save_222604" = "Don't Save";
 
 
 "LN_Connected_Voip_224845" = "You are connected to computer audio";
@@ -6368,6 +6459,8 @@
 
 "LN_%@_CannotInvite_NotContact_229084" = "%@ cannot be invited because they are not your contact";
 
+"LN_Meeting_Reaction_Feedback_Coffee_283798" = "I'm away";
+"LN_Meeting_Reaction_Feedback_Coffee_Back_283798" = "I'm back";
 "LN_Meeting_Reaction_Feedback_Slower_211851" = "Slower";
 "LN_Meeting_Reaction_Feedback_Faster_211851" = "Faster";
 "LN_Meeting_Reaction_First_Time_Feedback_Tip_211851" = "You can now send non-verbal feedback (\"yes\", \"go faster\", etc.) from \"Reactions\" on the toolbar.";
@@ -6457,6 +6550,7 @@
 "LN_Schedule_Allow_Title_188706" = "Only allow users from the following countries/regions";
 "LN_Schedule_Block_Title_188706" = "Block users from the following countries/regions";
 "LN_Schedule_Empty_Dial_In_Countries_188706" = "No dial-in countries/regions selected";
+"LN_Schedule_No_Dial_In_Countries_Available_188706" = "No dial-in countries/regions available";
 "LN_Schedule_Region_Updated_Tip_188706" = "The dial-in options on the meeting invitation have been updated because this option was changed.";
 
 "LN_Direct_Share_Desktop_Toast_Info_220828" = "Desktop screen sharing is not allowed by %@. Select an application or file to share instead.";
@@ -6465,7 +6559,10 @@
 "LN_VB_Load_Error_ForceVB_Infomation_278260" = "You will not be able to start video.";
 "LN_VB_Load_Error_Infomation_278260" = "Start video anyway?";
 "LN_Use_Video_278260" = "Use Video";
-"LN_Not_Use_Video_278260" = "Don’t Use Video";
+"LN_Not_Use_Video_278260" = "Don't Use Video";
+
+//ZOOM-285842
+"LN_VBLoadErrorMessage_285769" = "Virtual Background is still loading";
 
 //Zapp String begin
 "LN_Apps_Chat_Detail_230400" = "This is a Zoom App Invitation Message";
@@ -6485,8 +6582,8 @@
 "LN_Apps_Title_230400" = "Apps";
 "LN_Apps_AppButton_AXTitle_263987" = "%ld Apps";
 "LN_Apps_Tip_Title_230400" = "APPS";
-"LN_Apps_Chat_Unavailable_Detail_230400." = "Zoom Apps are disabled. To enable them, please go to your Settings.";
-"LN_Apps_Chat_Unavailable_Button_Title_230400" = "Go to Settings";
+"LN_Apps_Chat_Unavailable_Detail_230400" = "Zoom Apps has been disabled. To enable, go to your Settings.";
+"LN_Apps_Chat_Unavailable_Unknown_230400" = "Unknown error occurred";
 "LN_Apps_Chat_Share_Title_230400" = "Send a Zoom App";
 "LN_Apps_Chat_Notification_Title_230400" = "sent you a Zoom App";
 "LN_Apps_Chat_Sender_%@_Title_230400" = "You send a Zoom App to %@";
@@ -6508,12 +6605,13 @@
 "LN_Apps_%@_JS_Confirm_Remove_VB_242845" = "Allow %@ to remove your current meeting virtual background?";
 "LN_Apps_%@_JS_Confirm_Send_Notification_242845" = "%@ would like to send notifications in Zoom.";
 "LN_Apps_Chat_Share_Button_Title_230400" = "Send App";
-"LN_Apps_Chat_GPO_Unavailable_Detail_230400." = "Zoom Apps are disabled. Contact support for more details.";
+"LN_Apps_Chat_GPO_Unavailable_Detail_230400" = "Zoom Apps are disabled. Contact support for more details.";
 "LN_Apps_Permission_Allow_242845" = "Allow";
 "LN_Apps_Permission_Don't_Allow_242845" = "Don't Allow";
 "LN_Apps_Prompt_NEW_267102" = "NEW";
 "LN_Apps_Prompt_Detail_267102" = "Discover and add apps to enhance your Zoom experience.";
-"LN_Apps_Prompt_Chat_Detail_267102" = "Introducing Zoom Apps! Add and access your favorite productivity tools right here in Zoom.";
+"LN_Apps_Prompt_Chat_Detail_267102" = "Add and access your favorite productivity tools right here in Zoom";
+"LN_Apps_Prompt_Title_267102" = "Introducing Zoom Apps";
 "LN_Apps_Opened_List_269015" = "opened list";
 "LN_Apps_Opened_List_Title_269015" = "OPENED";
 "Collapse" = "Collapse";
@@ -6551,6 +6649,7 @@
 "LN_Apps_ShareTip_267071" = "One-click share";
 "LN_Apps_Share_Sound_Title_267610" = "Would you also like to share all sounds?";
 "LN_Apps_Share_Sound_Info_267610" = "All sounds (e.g. notifications) from your device will be shared.";
+"LN_Apps_Share_ALL_SOUND_267610" = "All Computer Audio";
 
 "LN_Apps_Suspend_Infomation_268831" = "Everyone will be muted, video and screen sharing will be stopped, Zoom Apps will be disabled, and the meeting will be locked.  %@";
 
@@ -6569,6 +6668,10 @@
 "LN_Apps_NewVersionCloseApp_272073" = " If you choose to update Zoom, all Zoom Apps in use will be closed.";
 "LN_AskCamera_UseYour_273772" = "Use your";
 "LN_AskCamera_Camera_273772" = "camera";
+"LN_Apps_%@_Grant_Recording_292983" = "Allow %@ to record the meeting";
+"LN_Apps_%@_Revoke_Recording_292983" = "Remove %@'s permission to record the meeting";
+"LN_Apps_%@_Send_All_Invite_292983" = "%@ wants to send an invitation to all meeting participants";
+"LN_Apps_Dont_Ask_Again_InMeeting_292983" = "Don't ask again in this meeting";
 "LN_Apps_Discover_275319" = "Discover";
 "LN_Apps_Enable_ZoomApps_Resatrt_Tip_274809" = "Restart to use Zoom Apps";
 "LN_Apps_Enable_ZoomApps_Resatrt_Info_274809" = "Zoom Apps have been enabled. Please restart Zoom.";
@@ -6584,13 +6687,30 @@
 "LN_Setting_Privacy_Alert_Cancel_257741" = "Cancel";
 "LN_Setting_Privacy_Alert_Clear_257741" = "Clear";
 "LN_Apps_WebView_Failed_Loading_282694" = "Oops! It seems like your internet connection is unstable. Check your connection and come back in a few minutes.";
-"LN_Apps_InviteByOther_283783" =  "%@ is inviting you to use a Zoom App";
+"LN_Apps_InviteByOther_283783" = "%@ is inviting you to use a Zoom App";
 "LN_Apps_SendByMySelf_283783" = "You sent a Zoom App invite";
-"LN_Apps_Ask_To_RemoveVB_Alert_Title_%@_283821" = "%@ wants to remove your virtual background";
+"LN_Apps_Ask_To_RemoveVB_Alert_Title_%@_283821" = "%@ wants to reset your virtual background to none";
 "LN_Apps_Ask_To_RemoveVB_Alert_Des_283821" = "Clicking 'Allow' will remove your virtual background and allow meeting participants to see your surroundings.";
 
-"LN_Apps_Ask_To_SetBlur_Alert_Title_%@_283821" = "%@ wants to blur your virtual background";
+"LN_Share_Disable_ExternalLimit_Tip_Title_284933" = "You are restricted from screen sharing in this meeting";
+"LN_Share_Stopped_ExternalLimit_Alert_Title_284933" = "Your screen sharing has stopped";
+"LN_Share_Stopped_ExternalLimit_Alert_Info_284933" = "Because you are restricted from screen sharing when external users are present";
+"LN_Apps_Ask_To_SetBlur_Alert_Title_%@_283821" = "%@ wants to reset your virtual background to blur";
 "LN_Apps_Ask_To_SetBlur_Alert_Des_283821" = "Clicking 'Allow' will remove your virtual background and blur surroundings that may be recognizable by meeting participants.";
+"LN_Apps_Meeting_Toast_View_Button_Title_271620" = "View";
+"LN_Apps_Meeting_Toast_Ignore_Button_Title_271620" = "Ignore";
+"LN_Apps_Meeting_Toast_OK_Button_Title_271620" = "Ok";
+"LN_Apps_ShareApp_Toast_AppName_290161" = "a Zoom App";
+"LN_Apps_ShareApp_Toast_%@_to_%@_290161" = "You sent %@ to %@";
+"LN_Apps_ShareApp_All_Host_292974" = "Host and Co-host(s)";
+"LN_Apps_ShareApp_Tips_292974" = "The list has updated due to changes made by the host or other users";
+"LN_Apps_ShareApp_Disable_292974" = "Your host changed chat permissions which prevents you from sending this App";
+"LN_Apps_Update_ZAPP_292166_%@" = "Update your operating system to use %@";
+"LN_Apps_WebView_ForceUpdate_293399" = "Update your operating system to use Zoom Apps";
+"LN_App_Expand_Tip_296046" = "Click \"Collapse\" to see what is being shared";
+"LN_App_%@_Ask_Start_Meeting_Title_294782" = "%@ wants to open in a meeting";
+"LN_App_%@_Ask_Join_Meeting_Title_294782" = "%@ wants to open in your current meeting";
+"LN_App_Donot_Ask_Today_294782" = "Don't ask again for this app today";
 //Zapp String end
 
 //ZOOM-250432
@@ -6664,7 +6784,7 @@
 "LN_View_Channel_218632" = "View Channel";
 "LN_View_Chat_218632" = "View Chat";
 "LN_NEW_218632" = "NEW";
-"LN_Post_Fail_By_ChatDisable_%@_218632" = "In-meeting information cannot be posted because %@’s Chat has been restricted by their account admin";
+"LN_Post_Fail_By_ChatDisable_%@_218632" = "In-meeting information cannot be posted because %@'s Chat has been restricted by their account admin";
 "LN_Post_Fail_By_You_ChatDisable_218632" = "In-meeting information cannot be posted because your Chat has been restricted by your account admin";
 "LN_Post_Fail_By_Restricted_Domain_218632" = "Chats with contacts outside of the account have been restricted by your account admin";
 "LN_Post_Fail_By_You_Are_Blocked_%@_218632" = "In-meeting information cannot be posted because you have been blocked by %@";
@@ -6677,7 +6797,7 @@
 "LN_Post_Fail_By_Encrypted_Chat_218632" = "In-meeting information cannot be posted to an encrypted chat";
 "LN_Post_Fail_218632" = "Unable to post in-meeting information";
 "LN_%@_View_Meeting_Assets_218632" = "%@ | View In-Meeting Information";
-"LN_%@_Assets_218632" = "%@’s in-meeting information";
+"LN_%@_Assets_218632" = "%@'s in-meeting information";
 "LN_MeetingIn_%@_218632" = "Meeting in %@";
 "LN_You_Host_Meeting_218632" = "You hosted a meeting";
 "LN_%@_Host_Meeting_218632" = "%@ hosted a meeting";
@@ -6718,19 +6838,25 @@
 "LN_Custom_Cannt_Choose_VB_206956" = "You cannot choose a virtual background while in an immersive scene.";
 "LN_Custom_Cannt_Choose_Filter_206956" = "You cannot choose a video filter while in an immersive scene.";
 "LN_Custom_Unable_Download_Package_206956" = "Unable to download the Immersive view package";
-"LN_Custom_Unable_Download_Package_Update_206956" = "Unable to download the Immersive view package. Make sure that you’ve updated to the latest version of Zoom.";
+"LN_Custom_Unable_Download_Package_Update_206956" = "Unable to download the Immersive view package. Make sure that you've updated to the latest version of Zoom.";
 
 //ZOOM-267129
 "LN_Apps_Loading_267129" = "Loading...";
 "LN_Apps_Loading_Fail_267129" = "Unable to load apps with real-time access to your information.";
 "LN_Apps_Retry_267129" = "Retry";
 "LN_AX_Apps_Signal_Title_267129" = "Apps with real-time access";
-"LN_Apps_New_Signal_Tip_267129" = "Apps have real-time access to your information in this meeting";
-"LN_Apps_Used_By_Someone_267129" = "Used by %@";
-"LN_Apps_Used_By_People_267129" = "Used by %ld people";
-"LN_Apps_Used_By_Someone_And_Another" = "Used by %1$@ and another person";
-"LN_Apps_Used_By_Someone_And_People" = "Used by %1$@ and %2$ld other people";
-"LN_Apps_Host_Account_Admin_267129" = "Host's account admin";
+//"LN_Apps_New_Signal_Tip_267129" = "Apps have real-time access to your information in this meeting";
+//"LN_Apps_Used_By_Someone_267129" = "Used by %@";
+//"LN_Apps_Used_By_People_267129" = "Used by %ld people";
+//"LN_Apps_Used_By_Someone_And_Another" = "Used by %1$@ and another person";
+//"LN_Apps_Used_By_Someone_And_People" = "Used by %1$@ and %2$ld other people";
+//"LN_Apps_Host_Account_Admin_267129" = "Host's account admin";
+
+//ZOOM-285413
+"LN_Apps_New_Signal_Tip_285413" = "See apps that are accessing your meeting content";
+"LN_Apps_Approved_By_Someone_285413" = "Approved by %@";
+"LN_Apps_Approved_By_N_People_285413" = "Approved by %ld people";
+"LN_Apps_Host_Account_285413" = "Host's account";
 
 //ZOOM-261363
 "LN_Custom_Immersive_261363" = "Immersive";
@@ -6742,11 +6868,11 @@
 
 "LN_Custom_Host_Tip_261363" = "Everyone can now see the immersive view";
 "LN_Custom_Participant_Tip_261363" = "The host started an immersive view";
-"LN_Custom_Participant_Weak_Cpu_Tip_261363" = "The host started an immersive view. Your view is modified because your device doesn’t have enough processing power to support the full experience.";
+"LN_Custom_Participant_Weak_Cpu_Tip_261363" = "The host started an immersive view. Your view is modified because your device doesn't have enough processing power to support the full experience.";
 "LN_Custom_Participant_Update_Tip_261363" = "The host started an immersive view. Update to the latest version of Zoom for the full experience.";
 "LN_Custom_Stop_Immersive_Title_261363" = "Stop immersive view for everyone?";
 "LN_Custom_Stop_Immersive_Info_261363" = "Participants will return to the view (e.g. speaker, gallery) they were in before.";
-"LN_Custom_Dont_Ask_Me_Again_261363" = "Don’t ask me again";
+"LN_Custom_Dont_Ask_Me_Again_261363" = "Don't ask me again";
 "LN_Custom_Change_Host_Title_261363" = "Changing the host will stop the immersive view";
 "LN_Custom_Change_Host_Info_261363" = "Make %@ the meeting host and stop the immersive view?";
 "LN_Custom_Scene_Is_Full_261363" = "The immersive view is full";
@@ -6866,7 +6992,7 @@
 "LN_Host_Has_Disabled_Live_Transcription_For_The_Meeting_254515" = "The host has disabled Live Transcription for the meeting";
 "LN_Enable_254515" = "Enable";
 "LN_Disable_254515" = "Disable";
-"LN_Decline_And_Don’t_ask_again_254515" = "Decline and don’t ask again";
+"LN_Decline_And_Don’t_ask_again_254515" = "Decline and don't ask again";
 "LN_Live_Transcipt_disabled_254515" = "Live Transcription disabled.";
 "LN_Allow_Participants_To_Request_Live_Transcription_254515" = "Allow participants to request Live Transcription";
 "LN_Live_Transcription_254515" = "Live Transcription";
@@ -6899,11 +7025,17 @@
 "LN_ForceVB_Alert_Select_VB_Infomation_257648" = "Your admin has required that you use a virtual background to start video, but there are no available backgrounds for you to use yet.";
 
 "LN_OnZoom_PrepareLobby_259496" = "Your lobby is being prepared.\nPlease wait a moment.";
-"LN_OnZoom_RemoveChannel_259496" = "You're not able to join the summit chat because you canceled your ticket to the summit.";
+"LN_OnZoom_RemoveChannel_259496" = "You're not able to join the event chat because you canceled your ticket to the event.";
 "LN_OnZoom_UnableJoinLobby_Title_275227" = "Unable to Join Lobby";
 "LN_OnZoom_UnableJoinLobby_Desc_275227" = "Event Lobby requires %@.";
 "LN_OnZoom_UnableJoinLobby_Desc_Info_275227" = "Mac OS X devices to be on version 10.10 or higher";
 "LN_OnZoom_UnableJoinLobby_Desc_UpdateOS_275227" = "Please update your Mac OS X version. You can join the event after updating.";
+"LN_OnZoom_RemoveChannel_Kick_294368" = "You're not able to join the event chat because your ticket is inactive.";
+"LN_OnZoom_RemoveChannel_Destroy_294368" = "The event was canceled by the Host.";
+"LN_OnZoom_ScreenShotAlertView_Title_294368" = "Take a Screenshot";
+"LN_OnZoom_ScreenShotAlertView_Content_294368" = "You are about to take a screenshot to submit in your report.";
+"LN_OnZoom_Permission_Allow_294368" = "Allow";
+"LN_OnZoom_Permission_Don't_Allow_294368" = "Don't Allow";
 
 "LN_Phone_PowerUser_Calling_You_259288" = "is calling you";
 "LN_IM_File_Downloading_239315" = "Downloading...";
@@ -6917,11 +7049,11 @@
 "LN_IM_File_Downloaded_239315" = "Downloaded";
 "LN_IM_Send_Video_LargerThan_30MB_239315" = "Videos larger than 30 MB can only be sent as files";
 
-"LN_Advanced_Chat_Encrypted_268515" = "Chat content is <a href='%@'>Advanced Chat Encrypted</a>. However, this chat’s metadata (such as channel name, channel members’ names, and channel privacy configuration) will still be viewable or editable by account owner, account admins, and others designated by the account owner.";
+"LN_Advanced_Chat_Encrypted_268515" = "Chat content is <a href='%@'>Advanced Chat Encrypted</a>. However, this chat's metadata (such as channel name, channel members' names, and channel privacy configuration) will still be viewable or editable by account owner, account admins, and others designated by the account owner.";
  
-"LN_Advanced_Chat_Encrypted_1V1_268515" = "Chat content is <a href='%@'>Advanced Chat Encrypted</a>. However, this chat’s metadata (such as the chat's name and chat members' names) will still be viewable or editable by account owner, account admins, and others designated by the account owner.";
+"LN_Advanced_Chat_Encrypted_1V1_268515" = "Chat content is <a href='%@'>Advanced Chat Encrypted</a>. However, this chat's metadata (such as the chat's name and chat members' names) will still be viewable or editable by account owner, account admins, and others designated by the account owner.";
 
-"LN_Advanced_Chat_Encrypted_MUC_268515" = "Chat content is <a href='%@'>Advanced Chat Encrypted</a>. However, this chat’s metadata (such as group chat name, group chat members’ names, and group chat privacy configuration) will still be viewable or editable by account owner, account admins, and others designated by the account owner.";
+"LN_Advanced_Chat_Encrypted_MUC_268515" = "Chat content is <a href='%@'>Advanced Chat Encrypted</a>. However, this chat's metadata (such as group chat name, group chat members' names, and group chat privacy configuration) will still be viewable or editable by account owner, account admins, and others designated by the account owner.";
 
 "LN_Schedule_Unable_Save_Tip_260491" = "Unable to save this meeting. To schedule or edit meetings for %@, please go to the Zoom web portal.";
 //ZOOM-251821
@@ -6937,7 +7069,7 @@
 
 
 "LN_Main_Tab_ZRC_FTE_Info_179546" = "Pair with a Zoom Room to control meetings from your desktop client.\r\n\r\nYou can disable this feature in <a href='%@'>Settings</a>";
-"LN_Main_Tab_ZRC_Setting_179546" = "Show \"Pair with Room\" feature on tab bar";
+"LN_Main_Tab_ZRC_Setting_179546" = "Show \"Pair with Room\" feature on home screen navigation bar";
 "LN_Main_Tab_ZRC_Setting_Disable_Tooltip_179546" = "This feature is disabled by your admin";
 "LN_Main_Tab_ZRC_Unpaired_Status_Hover_179546" = "Pair with a Zoom Room or Zoom for Home device";
 "LN_Main_Tab_ZRC_Paired_Status_Hover_179546" = "Paired with %@";
@@ -6974,7 +7106,7 @@
 "LN_Main_Tab_ZRC_Join_ZR_Meeting_Toast_Title_179546" = "Meeting in %@";
 
 "LN_Legal_Notice_Feedback_Title_260584" = "Who can see your feedback?";
-"LN_Legal_Notice_Feedback_Content_260584" = "The account owner can see who you are, your contact information (if you’re logged in or provided it) and your feedback — and can share them with apps and others.";
+"LN_Legal_Notice_Feedback_Content_260584" = "The account owner can see who you are, your contact information (if you're logged in or provided it) and your feedback — and can share them with apps and others.";
 
 "LN_Legal_Notice_Close_Caption_Enabled_260553" = "Live Transcription (Closed Captioning) has been enabled";
 "LN_Legal_Notice_Close_Caption_Title_260553" = "Who can see this transcript?";
@@ -7015,21 +7147,9 @@
 
 "LN_Phone_Complete_Meeting_Invite_249950" = "Complete meeting invite";
 
-//ZOOM-271443
-"LN_Attention_Mode_Title_271443" = "ATTENTION MODE";
-"LN_Attention_Mode_Start_Title_271443" = "Start Attention Mode?";
-"LN_Attention_Mode_Start_Message_271443" = "Participants will not be able to see one another's videos and profile pictures.";
-"LN_Attention_Mode_Start_271443" = "Start Attention Mode";
-"LN_Attention_Mode_Stop_271443" = "Stop Attention Mode";
-"LN_Attention_Mode_Host_Tip_271443" = "Participants can no longer see each other, but they can see the host, cohost, and spotlighted users";
-"LN_Attention_Mode_Host_Pop_Tip_271443" = "In Attention Mode, participants can no longer see each other, but they can see the host, cohost, and spotlighted users";
-"LN_Attention_Mode_Participant_Tip_271443" = "Only host and co-host can see your video";
-"LN_Attention_Mode_Participant_Pop_Tip_271443" = "In Attention Mode, only host and co-host can see your video, other participants cannot.";
-"LN_Attention_Mode_Spotlight_Tip_271443" = "The host spotlighted you, everyone can now see your video";
-
 //ZOOM-273351
 "LN_NDI_Live_Alert_Title_273351" = "This meeting is being\nlivestreamed on NDI®";
-"LN_NDI_Live_Alert_Content_273351" = "Video and audio feeds from this meeting are being livestreamed on a network and may be recorded, modified, or otherwise used in accordance with the host organization’s %@.\n\nBy staying in this meeting, you consent to being livestreamed.";
+"LN_NDI_Live_Alert_Content_273351" = "Video and audio feeds from this meeting are being livestreamed on a network and may be recorded, modified, or otherwise used in accordance with the host organization's %@.\n\nBy staying in this meeting, you consent to being livestreamed.";
 "LN_NDI_Policy_URL_Text_273351" = "Privacy Policy";
 "LN_NDI_Info_Title_273351" = "NDI information";
 "LN_NDI_Stream_Info_273351" = "Meeting is streaming live on NDI®";
@@ -7039,7 +7159,197 @@
 //ZOOM-273485
 "LN_Pronoun_Tip_273485" = "Would you like to share your pronouns %@ in this meeting?";
 "LN_Pronoun_Dont_Share_Button_273485" = "Don't Share";
+"LN_Pronoun_Share_Button_273485" = "Share";
 "LN_Pronoun_Share_Menu_Button_273485" = "Share My Pronouns";
 "LN_Pronoun_Unshare_Menu_Button_273485" = "Unshare My Pronouns";
 
+//ZOOM-276920
+"LN_Plist_Accepted_TextField_276920" = "Accepted";
+"LN_Plist_Maybe_TextField_276920" = "Maybe";
+"LN_Plist_Declined_TextField_276920" = "Declined";
+"LN_Plist_NoResponsed_TextField_276920" = "No response";
+"LN_Plist_AskToJoin_Button_276920" = "Ask to Join";
+"LN_Plist_ShowInvitedParticipants_276920" = "Show Not Joined Participants";
+"LN_Plist_NotJoined_276920" = "Not Joined";
+"LN_Plist_Joined_276920" = "Joined";
+
 "LN_Phone_Invite_Meeting_Error_282208" = "Unable to invite %@ to the meeting";
+"LN_JoinMeeting_Declare_283780" = "By clicking \"Join\", you agree to our <a href='%1$@'>Terms of Service</a> and <a href='%2$@'>Privacy Statement</a>.";
+
+"LN_Show_Unread_Badge_285929" = "Show unread message count (<zmview key=1>)";
+
+//ZOOM-271186
+"LN_Setting_UnreadBadgeForChannels_271186" = "Show unread message count (<zmview key=1>) for channels";
+
+//ZOOM-264229
+"LN_Top_Results_264229" = "Top Results";
+"LN_View_All_Contacts_264229" = "View all %lu contacts";
+"LN_View_All_Channels_264229" = "View all %lu channels";
+"LN_Not_Results_Expected_264229" = "Not the results you expected?";
+"LN_Give_FeedBack_264229" = "Give Feedback";
+"LN_Search_Results_264229" = "%lu Results";
+"LN_Search_FeedBack_PreStrings_264229" = "We appreciate your ideas, comments, and suggestions on improving our search experience.\n";
+"LN_Search_Or_JumpTo_264229" = "Search / Jump To";
+"LN_Search_No_Results_264229" = "No Results";
+"LN_Recent_Contacts_264229" = "Recent Contacts";
+"LN_Recent_Channels_264229" = "Recent Channels";
+"LN_Recent_Files_264229" = "Recent Files";
+"LN_Relevant_Files_264229" = "Relevant Files";
+"LN_Recents_264229" = "Recents";
+"LN_Filter_From_264229" = "From";
+"LN_Filter_Type_264229" = "Type";
+"LN_Filter_Time_264229" = "Time";
+
+
+//ZOOM-283609, apps => bots
+"LN_Add_Bots_Tip_283609" = "Simplify your workflow by connecting bots";
+"LN_BOTS_Session_283609" = "BOTS";
+"LN_Bots_Contact_Group_283609" = "Bots";
+"LN_Add_A_Bot_283609" = "Add a Bot";
+"LN_Block_Bot_283609" = "Block Bot";
+"LN_Unblock_Bot_283609" = "Unblock Bot";
+"LN_Star_this_Bot_283609" = "Star this Bot";
+"LN_UnStar_this_Bot_283609" = "Unstar this Bot";
+"LN_Star_Bot_283609" = "Star Bot";
+"LN_UnStar_Bot_283609" = "Unstar Bot";
+"LN_Hide_this_Bot_283609" = "Hide this Bot";
+"LN_Bot_283609" = "BOT";
+
+//ZOOM-285965
+"LN_Pronouns_NewIM" = "PRONOUNS";
+
+"LN_IM_New_Notification_283209" = "new notification";
+
+//ZOOM-284044
+"LN_Waiting_Room_Title_284044" = "The host will let you in soon";
+"LN_Waiting_Room_Test_Audio_284044" = "Test Speaker and Mic";
+"LN_Waiting_Room_Unable_Load_284044" = "Unable to load the video";
+
+//zoom-276949
+"LN_IMReportUser_%@_276949" = "By sending this report, you authorize Zoom to access all data in this report, subject to Zoom’s <a href='%@'>Privacy Policy</a>. This data includes all attached files and screenshots, your user information, the user information of those you report, and all relevant meeting information.";
+
+"LN_ReportWho_276949" = "Who would you like to report?";
+
+"LN_ReportToZoom_276949" = "Report to Zoom";
+"LN_ReportUser_276949" = "Report user";
+"LN_RemoveChatMsg_276949" = "Remove chat message";
+"LN_ReportUser_UpperCase_276949" = "Report User";
+"LN_RemoveChatMsg_UpperCase_276949" = "Remove Chat Message";
+"LN_RptRmUserAndMsg_276949" = "Report and Remove User and Message";
+
+"LN_RMThisAndAllMsgFromUser_276949" = "Remove this and all chat messages from this user";
+
+"LN_RMChatMsgDescription_%@_276949" = "This chat message cannot be recovered once it is removed, and you will not be able to undo this action. %@ will be notified via email that their chat message was removed.";
+"LN_RMChatMsgOptionTip_276949" = "To remove this chat message and submit an incident report to Zoom, enable the \"Report to Zoom\" toggle then click \"Continue\". Learn more about <a href='%@'>Zoom Trust & Safety</a> incident reports.";
+
+
+"LN_AdminRMMsg_ConfirmTitle_%@_276949" = "Are you sure you want to remove the chat message sent by the user %@?";
+"LN_AdminRMMsg_ConfirmDescription1_276949" = "Lobby chat messages that have been removed cannot be recovered and the action cannot be undone.";
+"LN_AdminRMMsg_ConfirmDescription2_%@_276949" = "The user %@ will be notified via email that their message was removed from this event.";
+"LN_AdminRMMsg_ConfirmDescription3_276949" = "By sending this report, you authorize Zoom—subject to <a href='%@'>Zoom Events Privacy Policy</a>—to access all data in this report. This data includes all attached files and screenshots, your user information, the user information of users you report, and all relevant meeting information.";
+"LN_YES_RMMsgAndSendReport_276949" = "Yes, Remove Message & Send Report";
+"LN_YES_RMMsg_276949" = "Yes, Remove Message";
+
+
+"LN_AdminReportRMUser_%@_276949" = "Report and remove this chat message and the user %@";
+
+"LN_AdminRMReport_Desc1_276949" = "This chat message cannot be recovered once it is removed, and you will not be able to undo this action.";
+
+"LN_AdminRMReport_Desc2_276949" = "To remove this user and their message and submit an incident report to Zoom, click \"Continue\". To remove this user and chat message without submitting an incident report, disable the \"Report to Zoom\" toggle. Learn more about <a href='%@'>Zoom Trust & Safety</a> incident reports.";
+
+"LN_AdminRptRMUserMsg_276949" = "Report user and remove user and/or chat messages";
+"LN_AdminRptRMUserMsg_Desc1_276949" = "Once chat messages are removed, this action cannot be undone.";
+"LN_AdminRptRMUserMsg_Desc2_276949" = "Click \"Continue\" to complete removal of the user and the following message and submit an incident report to Zoom. Learn more about <a href='%@'>Zoom Trust & Safety incident reports</a>.";
+
+"LN_UserAndThisMsg_276949" = "User and this message";
+"LN_UserAndAllMsg_276949" = "User and all their messages";
+"LN_User_276949" = "User";
+
+"LN_RM_%@_UserAndOneMsg_276949" = "Are you sure you want to remove the user %@ and their chat message from this event?";
+"LN_RM_%@_UserAndOneMsg_Desc_276949" = "Once a lobby chat message has been removed, the action cannot be undone. The user %@ will be notified via email that their message was removed and that their access to this event has been revoked.";
+"LN_YES_SendRptRMUserAndOneMsg_276949" = "Yes, Send Report & Remove User and Message";
+
+"LN_RM_%@_UserAndAllMsgs_276949" = "Are you sure you want to remove the user %@ and all their chat messages from this event?";
+"LN_RM_%@_UserAndAllMsgs_Desc_276949" = "Once lobby chat messages have been removed, the action cannot be undone. The user %@ will be notified via email that their messages were removed and that their access to this event has been revoked.";
+"LN_YES_SendRptRMUserAndAllMsgs_276949" = "Yes, Send Report & Remove User and Messages";
+
+"LN_RM_%@_User_276949" = "Are you sure you want to remove the user %@ from this event?";
+"LN_RM_%@_User_Desc_276949" = "The user %@ will be notified via email that their access to this event has been revoked.";
+"LN_YES_SendRptRMUser_276949" = "Yes, Send Report & Remove User";
+
+"LN_Report_%@_276949" = "You are about to report %@:";
+"LN_Who_Be_Report_276949" = "Who do you want to report to?";
+
+"LN_EventOrganizerandZoom_276949" = "Event Organizer and Zoom";
+"LN_EventOrganizer_276949" = "Event Organizer";
+
+"LN_ReportBeSubmitted_TeamFollowUp_276949" = "Your report has been submitted to Zoom. Our Trust & Safety team will follow up over email to learn more about the incident.";
+"LN_OrganizerAndTeamSendEmail_276949" = "The organizer will review your report and make a decision. Also, Our Trust & Safety team will send you an email after the meeting to learn more about the incident.";
+"LN_OrganizerReviewAndMakeDecision_276949" = "The organizer will review your report and make a decision.";
+"LN_TeamSendEmail_276949" = "Our Trust & Safety team will send you an email after the meeting to learn more about the incident.";
+
+"LN_MsgsSentBy_%@_BeRemoved_276949" = "Chat messages sent by the user %@ have been removed";
+"LN_MsgsSentBy_%@_BeRemoved_Desc1_276949" = "The user %@ has been notified via email that their chat message has been removed from this event.";
+ 
+"LN_ReportSubmitted_TeamSendEmail_276949" = "Additionally, your report has been submitted to Zoom. Our Trust & Safety team will send you an email shortly to learn more about the incident.";
+
+"LN_%@_AndMsg_BeRemoved_276949" = "The user %@ and their lobby chat message has been removed from this event";
+"LN_%@_AndMsg_BeRemoved_Desc_276949" = "The user %@ has been notified via email that their lobby chat messages have been removed, and that their access to this event has been revoked.";
+
+"LN_%@_AndMsgs_BeRemoved_276949" = "The user %@ and their lobby chat messages have been removed from this event";
+"LN_%@_AndMsgs_BeRemoved_Desc_276949" = "The user %@ has been notified via email that their lobby chat messages have been removed, and that their access to this event has been revoked.";
+
+"LN_%@_BeRemoved_Title_276949" = "The user %@ has been removed from this event";
+"LN_%@_BeRemoved_Desc1_276949" = "The user %@ has been notified via email that their access to this event has been revoked.";
+
+"LN_Failed2Report_Try_276949" = "Failed to report. Please try again.";
+"LN_Failed2Remove_Try_276949" = "Failed to remove. Please try again.";
+"LN_Failed2RemoveAndReport_Try_276949" = "Failed to remove and report. Please try again.";
+//end zoom-276949
+
+//ZOOM-284044
+"LN_Focus_Mode_Start_284044" = "Start Focus Mode";
+"LN_Foucs_Mode_Stop_284044" = "Stop Focus Mode";
+"LN_Focus_Mode_Alet_Title_284044" = "Start Focus Mode?";
+"LN_Focus_Mode_Alert_Text_284044" = "Participants will only be able to see hosts' videos and shared content, and videos of spotlighted participants.\n\n";
+"LN_Focus_Mode_Alert_Note_284044" = "Note: You can allow shared content to be viewed by everyone in the \"Screen Sharing\" menu.";
+"LN_Focus_Mode_Host_Tip_284044" = "Participants can see only the host, co-hosts, and spotlighted users";
+"LN_Focus_Mode_Pariticipants_Tip_284044" = "Meeting is in Focus Mode: Only host and co-hosts can see your video.";
+"LN_Fcous_Mode_Spotlight_Tip_284044" = "Everyone can see your video because the host spotlighted you";
+"LN_Focus_Mode_Host_Pop_Tip_284044" = "This meeting is in focus mode. Participants can see only hosts' videos and shared content, and videos of spotlighted participants.";
+"LN_Focus_Mode_Participants_Pop_Tip_284044" = "This meeting is in focus mode. You can see only hosts' videos and shared content, and videos of spotlighted participants.";
+"LN_Focus_Mode_Shared_Seen_Menu_284044" = "Shared screens can be seen by";
+"LN_Focus_Mode_Shared_Seen_By_Hosts_284044" = "Your shared screen can be seen only by host and co-hosts";
+"LN_Focus_Mode_Shared_Seen_By_Participants_284044" = "Your shared screen can be seen by all participants";
+"LN_Focus_Mode_Shared_Hosts_Tip_284044" = "Content shared by participants is only visible to host and co-hosts";
+"LN_Focus_Mode_All_Participants_284044" = "All participants";
+"LN_Focus_Mode_Ending_Tip_293660" = "Focus mode is ending. Participants who've started video will be seen by everybody.";
+
+"LN_Phone_Profile_Avatar_Accessibility_284592" = "view profile";
+"LN_Phone_Calling_Info_Company_289110" = "%@ - Ext. %@";
+
+//ZOOM-273685
+"LN_Home_Upcoming_Meetings_273685" = "%lu upcoming meetings";
+"LN_Home_In_progress_Meetings_273685" = "%lu in-progress meeting(s)";
+"LN_Home_In_progress_And_Upcoming_Meetings_273685" = "%1$lu in-progress and %2$lu upcoming meeting(s)";
+"LN_Meeting_Not_Be_Transferred_273685" = "Your meeting could not be transferred. Please try again.";
+"LN_Home_Transfer_In_progress_273685" = "In progress";
+"LN_Home_Transfer_On_Device_273685" = "On %@";
+
+//ZOOM-292580
+"Fax" = "Fax";
+"Office" = "Office";
+
+//ZOOM-288353
+"LN_IM_Toady_Mentions_288353" = "Today’s Mentions";
+"LN_Show_Profile_Photos_Label_288353" = "Show profile photos next to Direct Messages";
+"LN_IM_Session_List_View_All_288353" = "View All";
+"LN_IM_Session_List_View_Less_288353" = "View Less";
+"LN_IM_Session_List_Show_Avatar_Tip_288353" = "Update your settings to show individual profile photos!";
+
+//ZOOM-297016
+"LN_Lobby_297016" = "LOBBY";
+"LN_Lobby_Tip_In_Meeting_297016" = "This meeting is being livestreamed to the lobby. Everyone in the lobby can watch this livestream.";
+"LN_Lobby_Tip_In_Webinar_297016" = "This webinar is being livestreamed to the lobby. Everyone in the lobby can watch this livestream.";
+"LN_Lobby_Notification_In_Meeting_297016" = "This meeting is being livestreamed to the lobby";
+"LN_Lobby_Notification_In_Webinar_297016" = "This webinar is being livestreamed to the lobby";

@@ -107,7 +107,14 @@
  * @param element The point of element to the user.
  * @param error The error of the failed reason.
  */
--(void)onCustomVideoSubscribeFail:(ZoomSDKVideoElement*)element error:(int)error;
+-(void)onCustomVideoSubscribeFail:(ZoomSDKVideoElement*)element error:(int)error NS_DEPRECATED_MAC(5.2, 5.7);
+
+/**
+ * @brief Callback of user's subscription failed.
+ * @param error The error of the failed reason.
+ * @param element The point of video element to the user.
+ */
+-(void)onSubscribeUserFail:(ZoomSDKVideoSubscribeFailReason)error videoElement:(ZoomSDKVideoElement*)element NS_AVAILABLE_MAC(5.7);
 @end
 
 @interface ZoomSDKVideoContainer : NSObject
