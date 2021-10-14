@@ -1,0 +1,6 @@
+framework module libcmlFramework {
+  umbrella header "libcmlFramework.h"
+
+  export *
+  module * { export * }
+}

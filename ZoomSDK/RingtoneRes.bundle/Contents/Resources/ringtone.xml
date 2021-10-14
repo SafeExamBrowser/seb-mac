@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ringtone version="1.0">
+    <filelist>
+        <file id="0" name="ring.pcm" ios_name="ring.m4r" ></file>
+        <file id="1" name="G Arpeggio.pcm" ios_name="G Arpeggio.m4r" ></file>
+        <file id="2" name="G Step.pcm" ios_name="G Step.m4r" ></file>
+        <file id="3" name="Gamelan.pcm" ios_name="Gamelan.m4r" ></file>
+        <file id="4" name="Pizzicato Strings.pcm" ios_name="Pizzicato Strings.m4r" ></file>
+        <file id="5" name="Reed Organ.pcm" ios_name="Reed Organ.m4r" ></file>
+        <file id="6" name="Ukulele.pcm" ios_name="Ukulele.m4r" ></file>
+        <file id="7" name="Ukulele G.pcm" ios_name="Ukulele G.m4r" ></file>
+        <file id="8" name="Vibraphone.pcm" ios_name="Vibraphone.m4r" ></file>
+        <file id="9" name="double_beep.pcm" ios_name="double_beep.m4r" ></file>
+    </filelist>
+</ringtone>
