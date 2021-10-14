@@ -24,7 +24,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			30kv6p8J2wtcMJq+RlC6YNBwK5Q=
+			nrugAjzwORyVI/86V9N+sv0tyeE=
 			</data>
 			<key>requirement</key>
 			<string>identifier "zoom.us.libmklFramework" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3</string>
@@ -33,7 +33,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			Q4WnVk9I2Hq8RHL+2z7PxnWzyxA=
+			P/uzNIZATNhpcDS5/0cfjd8J/i0=
 			</data>
 			<key>requirement</key>
 			<string>identifier "SaaSBee.util" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3</string>
@@ -42,7 +42,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			skK9wN4enH5AOfRxWjqMIBdcov0=
+			N6EQVjIUCc2ifsYsgbZVW4ywTW8=
 			</data>
 			<key>requirement</key>
 			<string>identifier "us.zoom.zmp" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3</string>

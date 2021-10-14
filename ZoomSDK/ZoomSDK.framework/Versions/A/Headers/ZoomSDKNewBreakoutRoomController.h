@@ -258,6 +258,11 @@ NS_ASSUME_NONNULL_BEGIN
  *@brief If the unassigned user changed,will receive the callback.
  */
 -(void)onUnAssignedUserUpdated;
+
+/**
+ *@brief If breakout meeting list changed,will receive the callback.
+ */
+-(void)onBOListInfoUpdated;
 @end
 
 @interface ZoomSDKBOMeetingDataHelp : NSObject

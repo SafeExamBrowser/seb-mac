@@ -11,6 +11,8 @@
 #ifndef ZMNotificationProtocol_h
 #define ZMNotificationProtocol_h
 
+@class ZMUserNotification;
+
 @protocol ZMNotificationProtocol <NSObject>
 
 @optional
@@ -18,19 +20,13 @@
  return - need remove notification BOOL
  click notification, response notification action
  */
-- (BOOL)zmNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification;
+- (BOOL)zmDidActiveNotification:(ZMUserNotification *)notification;
 
 /*
  return - need remove notification BOOL
  when user click close button on notification
  */
 - (BOOL)zmNotificationCenter:(NSUserNotificationCenter *)center didDismissAlert:(NSUserNotification *)alert;
-
-/*
- return - need remove notification BOOL
- notification did deliver, show in notification center
- */
-- (BOOL)zmNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification;
 
 @end
 

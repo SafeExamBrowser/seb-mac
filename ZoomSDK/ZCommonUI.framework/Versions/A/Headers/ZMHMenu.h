@@ -68,6 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign) BOOL onlyDarkMode;
 
+/// This property is added for dealing with the scenario that no menu window or child-window is active or is keyWindow but don't want to close the menu when resignKeyWindow happens.
+@property (assign) BOOL ignoreResignKeyWindow; //ZOOM-257029
+
 - (BOOL)isMouseOnMenu;
 
 - (void)showSubMenuWithItem:(ZMHMenuItem *)item;

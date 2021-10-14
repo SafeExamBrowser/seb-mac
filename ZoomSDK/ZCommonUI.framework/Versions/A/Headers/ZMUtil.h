@@ -114,6 +114,7 @@ typedef enum
 + (NSArray*)parseURLs:(NSMutableAttributedString*)inMsg forCommonApp:(BOOL)isCommonApp;
 + (NSArray*)parseURLs:(NSMutableAttributedString*)inMsg urlOnly:(BOOL)urlOnly;
 
++ (void)parseEmails:(NSMutableAttributedString*)textContent;
 #pragma mark - window level
 + (NSInteger)getNormalWindowLevel;//0
 + (NSInteger)getFloatingWindowLevel;//3
