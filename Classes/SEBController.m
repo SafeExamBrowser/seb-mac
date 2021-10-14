@@ -180,13 +180,23 @@ bool insideMatrix(void);
 }
 
 
-- (ServerController*)serverController
+- (ServerController *)serverController
 {
     if (!_serverController) {
         _serverController = [[ServerController alloc] init];
         _serverController.delegate = self;
     }
     return _serverController;
+}
+
+
+- (SEBZoomController *)zoomController
+{
+    if (!_zoomController) {
+        _zoomController = [[SEBZoomController alloc] init];
+        _zoomController.proctoringUIDelegate = self;
+    }
+    return _zoomController;
 }
 
 

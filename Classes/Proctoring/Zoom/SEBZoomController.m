@@ -6,8 +6,21 @@
 //
 
 #import "SEBZoomController.h"
+#import "ZMSDKMainWindowController.h"
+#import "ZMSDKDelegateMgr.h"
+#import "ZMSDKCommonHelper.h"
 
 @implementation SEBZoomController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [[ZMSDKCommonHelper sharedInstance].delegateMgr addAuthDelegateListener:self];
+    }
+    return self;
+}
+
 
 - (void) openZoomWithSender:(id)sender
 {
@@ -61,6 +74,8 @@
         [self closeZoomMeeting:self];
     }
     self.zoomActive = YES;
+    
+    [self newAuth:self.sdkToken];
 }
 
 
@@ -78,6 +93,65 @@
 
 
 - (void) closeZoomMeeting:(id)sender
+{
+    
+}
+
+
+-(void)cleanUp
+{
+    [[ZMSDKCommonHelper sharedInstance].delegateMgr removeAuthDelegateListener:self];
+}
+
+- (void)dealloc
+{
+    [self cleanUp];
+}
+
+
+-(ZoomSDKError)newAuth:(NSString *)jwtToken
+{
+    if (!jwtToken || jwtToken.length == 0) {
+        return ZoomSDKError_InvalidPrameter;
+    }
+    ZoomSDKAuthContext *content = [[ZoomSDKAuthContext alloc] init];
+    content.jwtToken = jwtToken;
+    return [[[ZoomSDK sharedSDK] getAuthService] sdkAuth:content];
+}
+
+-(BOOL)isAuthed
+{
+    return [_auth isAuthorized];
+}
+
+-(void)onZoomSDKAuthReturn:(ZoomSDKAuthError)returnValue
+{
+    if( ZoomSDKAuthError_Success == returnValue)
+    {
+        
+        //error code handle
+        NSString* error = @"";
+        switch (returnValue) {
+            case ZoomSDKAuthError_KeyOrSecretWrong:
+                error = @"Key Or Secret is wrong!";
+                break;
+            case ZoomSDKAuthError_AccountNotSupport:
+                error = @"Your account doesn't support!";
+                break;
+            case ZoomSDKAuthError_AccountNotEnableSDK:
+                error = @"Your account doesn't enable SDK!";
+                break;
+            case ZoomSDKAuthError_Unknown:
+                error = @"Unknow error!";
+                break;
+            default:
+                break;
+        }
+
+    }
+}
+
+-(void)onZoomAuthIdentityExpired
 {
     
 }
