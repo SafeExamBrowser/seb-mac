@@ -33,7 +33,7 @@ static  ZMSDKInitHelper *initHelper = nil;
     
     ZoomSDKInitParams* params = [[ZoomSDKInitParams alloc] init];
     params.needCustomizedUI = useCustomizedUI;
-    params.teamIdentifier = nil;
+    params.teamIdentifier = @"6F38DNSC7X";
     [[ZoomSDK sharedSDK] initSDKWithParams:params];
     [ZMSDKCommonHelper sharedInstance].isUseCutomizeUI = useCustomizedUI;
     params = nil;

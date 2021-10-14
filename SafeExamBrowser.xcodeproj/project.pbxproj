@@ -684,62 +684,6 @@
 		6992E16A2717601100A6463B /* ZMSDKSSOLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F52717601000A6463B /* ZMSDKSSOLogin.m */; };
 		6992E16B2717601100A6463B /* ZMSDKJoinOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F62717601000A6463B /* ZMSDKJoinOnly.m */; };
 		6992E16C2717601100A6463B /* ZMSDKRestAPILogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992E0F72717601000A6463B /* ZMSDKRestAPILogin.m */; };
-		6992E19427179B2500A6463B /* ZoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18D27179B0000A6463B /* ZoomSDK.framework */; };
-		6992E19527179B2500A6463B /* ZoomSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18D27179B0000A6463B /* ZoomSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E19627179BE400A6463B /* airhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E19327179B0000A6463B /* airhost.app */; };
-		6992E19727179BE400A6463B /* annoter.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17527179AFF00A6463B /* annoter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E19827179BE400A6463B /* aomagent.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E19227179B0000A6463B /* aomagent.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E19927179BE400A6463B /* aomhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E19027179B0000A6463B /* aomhost.app */; };
-		6992E19A27179BE400A6463B /* asproxy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18027179AFF00A6463B /* asproxy.framework */; };
-		6992E19B27179BE400A6463B /* asproxy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18027179AFF00A6463B /* asproxy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E19C27179BE400A6463B /* capHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E18B27179B0000A6463B /* capHost.app */; };
-		6992E19D27179BE400A6463B /* cmmlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18127179AFF00A6463B /* cmmlib.framework */; };
-		6992E19E27179BE500A6463B /* cmmlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18127179AFF00A6463B /* cmmlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E19F27179BE500A6463B /* CptHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E18227179AFF00A6463B /* CptHost.app */; };
-		6992E1A027179BE500A6463B /* curl64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17327179AFF00A6463B /* curl64.framework */; };
-		6992E1A127179BE500A6463B /* curl64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17327179AFF00A6463B /* curl64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1A227179BE500A6463B /* fdkaac2.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17E27179AFF00A6463B /* fdkaac2.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1A327179BE500A6463B /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18427179AFF00A6463B /* libcrypto.dylib */; };
-		6992E1A427179BE500A6463B /* libcrypto.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18427179AFF00A6463B /* libcrypto.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		6992E1A527179BE500A6463B /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17D27179AFF00A6463B /* libjson.dylib */; };
-		6992E1A627179BE500A6463B /* libjson.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17D27179AFF00A6463B /* libjson.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		6992E1A727179BE500A6463B /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18F27179B0000A6463B /* libminizip.dylib */; };
-		6992E1A827179BE500A6463B /* libminizip.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18F27179B0000A6463B /* libminizip.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		6992E1A927179BE600A6463B /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17B27179AFF00A6463B /* libssl.dylib */; };
-		6992E1AA27179BE600A6463B /* libssl.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17B27179AFF00A6463B /* libssl.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		6992E1AB27179BE600A6463B /* mcm.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E19127179B0000A6463B /* mcm.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1AC27179BE600A6463B /* nydus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18827179AFF00A6463B /* nydus.framework */; };
-		6992E1AD27179BE600A6463B /* nydus.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18827179AFF00A6463B /* nydus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1AE27179BE600A6463B /* protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E16F27179AFF00A6463B /* protobuf.framework */; };
-		6992E1AF27179BE600A6463B /* protobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E16F27179AFF00A6463B /* protobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1B027179BE700A6463B /* RingtoneRes.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18E27179B0000A6463B /* RingtoneRes.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1B127179BE700A6463B /* SDK_Transcode.app in Resources */ = {isa = PBXBuildFile; fileRef = 6992E18727179AFF00A6463B /* SDK_Transcode.app */; };
-		6992E1B227179BE700A6463B /* ssb_sdk.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18C27179B0000A6463B /* ssb_sdk.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1B327179BE700A6463B /* tp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18927179B0000A6463B /* tp.framework */; };
-		6992E1B427179BE700A6463B /* tp.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18927179B0000A6463B /* tp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1B527179BE700A6463B /* util.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17F27179AFF00A6463B /* util.framework */; };
-		6992E1B627179BE700A6463B /* util.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17F27179AFF00A6463B /* util.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1B727179BE800A6463B /* viper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17227179AFF00A6463B /* viper.framework */; };
-		6992E1B827179BE800A6463B /* viper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17227179AFF00A6463B /* viper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1B927179BE800A6463B /* viperex.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17027179AFF00A6463B /* viperex.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1BA27179BE800A6463B /* xmpp_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18627179AFF00A6463B /* xmpp_framework.framework */; };
-		6992E1BB27179BE800A6463B /* xmpp_framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18627179AFF00A6463B /* xmpp_framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1BC27179BE800A6463B /* zChatApp.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17127179AFF00A6463B /* zChatApp.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1BD27179BE900A6463B /* ZCommonUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17927179AFF00A6463B /* ZCommonUI.framework */; };
-		6992E1BE27179BE900A6463B /* ZCommonUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17927179AFF00A6463B /* ZCommonUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1BF27179BE900A6463B /* zData.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18A27179B0000A6463B /* zData.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C027179BE900A6463B /* zKBCrypto.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E18327179AFF00A6463B /* zKBCrypto.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C127179BE900A6463B /* zlt.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17C27179AFF00A6463B /* zlt.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C227179BEA00A6463B /* zmb.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17A27179AFF00A6463B /* zmb.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C327179BEA00A6463B /* zmLoader.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17727179AFF00A6463B /* zmLoader.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C427179BEA00A6463B /* ZoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18D27179B0000A6463B /* ZoomSDK.framework */; };
-		6992E1C527179BEA00A6463B /* ZoomSDKChatUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */; };
-		6992E1C627179BEB00A6463B /* ZoomSDKChatUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C727179BEB00A6463B /* ZoomSDKVideoUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */; };
-		6992E1C827179BEB00A6463B /* ZoomSDKVideoUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1C927179BEB00A6463B /* zSDKRes.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E16E27179AFF00A6463B /* zSDKRes.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1CA27179BEC00A6463B /* zVideoApp.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17627179AFF00A6463B /* zVideoApp.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6992E1CB27179BEC00A6463B /* zWebService.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 6992E17827179AFF00A6463B /* zWebService.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		699447F5248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
 		699447F6248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
 		699447F7248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
@@ -943,6 +887,99 @@
 		69B5E2AB25756BEF009030C2 /* SEBAbstractWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */; };
 		69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
+		69B8A7132718A34C0006178D /* CodeResources in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6E42718A34C0006178D /* CodeResources */; };
+		69B8A7142718A34C0006178D /* ZoomAudioDevice in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6E62718A34C0006178D /* ZoomAudioDevice */; };
+		69B8A7152718A34C0006178D /* ZoomAudioIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6E82718A34C0006178D /* ZoomAudioIcon.icns */; };
+		69B8A7162718A34C0006178D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6E92718A34C0006178D /* Localizable.strings */; };
+		69B8A7172718A34C0006178D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6EA2718A34C0006178D /* Info.plist */; };
+		69B8A7182718A34C0006178D /* zSDKRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6EC2718A34C0006178D /* zSDKRes.bundle */; };
+		69B8A7192718A34C0006178D /* protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6ED2718A34C0006178D /* protobuf.framework */; };
+		69B8A71A2718A34D0006178D /* viperex.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6EE2718A34C0006178D /* viperex.bundle */; };
+		69B8A71B2718A34D0006178D /* zChatApp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6EF2718A34C0006178D /* zChatApp.bundle */; };
+		69B8A71C2718A34D0006178D /* viper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F02718A34C0006178D /* viper.framework */; };
+		69B8A71D2718A34D0006178D /* curl64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F12718A34C0006178D /* curl64.framework */; };
+		69B8A71E2718A34D0006178D /* ZoomSDKChatUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F22718A34C0006178D /* ZoomSDKChatUI.framework */; };
+		69B8A71F2718A34D0006178D /* annoter.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6F32718A34C0006178D /* annoter.bundle */; };
+		69B8A7202718A34D0006178D /* zVideoApp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6F42718A34C0006178D /* zVideoApp.bundle */; };
+		69B8A7212718A34D0006178D /* zmLoader.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6F52718A34C0006178D /* zmLoader.bundle */; };
+		69B8A7222718A34D0006178D /* zWebService.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6F62718A34C0006178D /* zWebService.bundle */; };
+		69B8A7232718A34D0006178D /* ZCommonUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F72718A34C0006178D /* ZCommonUI.framework */; };
+		69B8A7242718A34D0006178D /* zmb.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6F82718A34C0006178D /* zmb.bundle */; };
+		69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
+		69B8A7262718A34D0006178D /* zlt.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6FA2718A34C0006178D /* zlt.bundle */; };
+		69B8A7272718A34D0006178D /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6FB2718A34C0006178D /* libjson.dylib */; };
+		69B8A7282718A34D0006178D /* fdkaac2.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A6FC2718A34C0006178D /* fdkaac2.bundle */; };
+		69B8A7292718A34D0006178D /* util.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6FD2718A34C0006178D /* util.framework */; };
+		69B8A72A2718A34D0006178D /* asproxy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6FE2718A34C0006178D /* asproxy.framework */; };
+		69B8A72B2718A34D0006178D /* cmmlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6FF2718A34C0006178D /* cmmlib.framework */; };
+		69B8A72C2718A34D0006178D /* CptHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7002718A34C0006178D /* CptHost.app */; };
+		69B8A72D2718A34D0006178D /* zKBCrypto.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7012718A34C0006178D /* zKBCrypto.bundle */; };
+		69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
+		69B8A72F2718A34D0006178D /* ZoomSDKVideoUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7032718A34C0006178D /* ZoomSDKVideoUI.framework */; };
+		69B8A7302718A34D0006178D /* xmpp_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7042718A34C0006178D /* xmpp_framework.framework */; };
+		69B8A7312718A34D0006178D /* SDK_Transcode.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7052718A34C0006178D /* SDK_Transcode.app */; };
+		69B8A7322718A34D0006178D /* zVideoUIEx.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7062718A34C0006178D /* zVideoUIEx.bundle */; };
+		69B8A7332718A34D0006178D /* nydus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7072718A34C0006178D /* nydus.framework */; };
+		69B8A7342718A34D0006178D /* tp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7082718A34C0006178D /* tp.framework */; };
+		69B8A7352718A34D0006178D /* zData.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7092718A34C0006178D /* zData.bundle */; };
+		69B8A7362718A34D0006178D /* capHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A70A2718A34C0006178D /* capHost.app */; };
+		69B8A7372718A34D0006178D /* ssb_sdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A70B2718A34C0006178D /* ssb_sdk.bundle */; };
+		69B8A7382718A34D0006178D /* ZoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A70C2718A34C0006178D /* ZoomSDK.framework */; };
+		69B8A7392718A34D0006178D /* RingtoneRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A70D2718A34C0006178D /* RingtoneRes.bundle */; };
+		69B8A73A2718A34D0006178D /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A70E2718A34C0006178D /* libminizip.dylib */; };
+		69B8A73B2718A34D0006178D /* aomhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A70F2718A34C0006178D /* aomhost.app */; };
+		69B8A73C2718A34D0006178D /* mcm.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7102718A34C0006178D /* mcm.bundle */; };
+		69B8A73D2718A34D0006178D /* aomagent.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7112718A34C0006178D /* aomagent.bundle */; };
+		69B8A73E2718A34D0006178D /* airhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7122718A34C0006178D /* airhost.app */; };
+		69B8A7412718A37A0006178D /* protobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6ED2718A34C0006178D /* protobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7452718A37B0006178D /* viper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F02718A34C0006178D /* viper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7472718A37B0006178D /* curl64.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F12718A34C0006178D /* curl64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7492718A37B0006178D /* ZoomSDKChatUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F22718A34C0006178D /* ZoomSDKChatUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A74F2718A37C0006178D /* ZCommonUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F72718A34C0006178D /* ZCommonUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7512718A37D0006178D /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
+		69B8A7522718A37D0006178D /* libssl.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		69B8A7542718A37D0006178D /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6FB2718A34C0006178D /* libjson.dylib */; };
+		69B8A7552718A37D0006178D /* libjson.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6FB2718A34C0006178D /* libjson.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		69B8A7582718A37E0006178D /* util.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6FD2718A34C0006178D /* util.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A75A2718A37F0006178D /* asproxy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6FE2718A34C0006178D /* asproxy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A75C2718A37F0006178D /* cmmlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6FF2718A34C0006178D /* cmmlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A75D2718A37F0006178D /* CptHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7002718A34C0006178D /* CptHost.app */; };
+		69B8A75F2718A3800006178D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
+		69B8A7602718A3800006178D /* libcrypto.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		69B8A7622718A3800006178D /* ZoomSDKVideoUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7032718A34C0006178D /* ZoomSDKVideoUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7642718A3810006178D /* xmpp_framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7042718A34C0006178D /* xmpp_framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7652718A3810006178D /* SDK_Transcode.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7052718A34C0006178D /* SDK_Transcode.app */; };
+		69B8A7682718A3820006178D /* nydus.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7072718A34C0006178D /* nydus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A76A2718A3820006178D /* tp.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7082718A34C0006178D /* tp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A76C2718A3830006178D /* capHost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A70A2718A34C0006178D /* capHost.app */; };
+		69B8A76E2718A3830006178D /* ZoomSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A70C2718A34C0006178D /* ZoomSDK.framework */; };
+		69B8A76F2718A3830006178D /* ZoomSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A70C2718A34C0006178D /* ZoomSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7712718A3840006178D /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A70E2718A34C0006178D /* libminizip.dylib */; };
+		69B8A7722718A3840006178D /* libminizip.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A70E2718A34C0006178D /* libminizip.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		69B8A7732718A3850006178D /* aomhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A70F2718A34C0006178D /* aomhost.app */; };
+		69B8A7762718A3850006178D /* airhost.app in Resources */ = {isa = PBXBuildFile; fileRef = 69B8A7122718A34C0006178D /* airhost.app */; };
+		69B8A7782718A52E0006178D /* zmLoader.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F52718A34C0006178D /* zmLoader.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7792718A53B0006178D /* zVideoUIEx.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7062718A34C0006178D /* zVideoUIEx.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A77A2718A5430006178D /* fdkaac2.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6FC2718A34C0006178D /* fdkaac2.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A77B2718A5540006178D /* RingtoneRes.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A70D2718A34C0006178D /* RingtoneRes.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A77C2718A55B0006178D /* zKBCrypto.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7012718A34C0006178D /* zKBCrypto.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A77D2718A5630006178D /* viperex.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6EE2718A34C0006178D /* viperex.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A77E2718A5700006178D /* CptHost.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7002718A34C0006178D /* CptHost.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		69B8A77F2718A5750006178D /* capHost.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A70A2718A34C0006178D /* capHost.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		69B8A7802718A5820006178D /* aomagent.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7112718A34C0006178D /* aomagent.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7812718A5950006178D /* aomhost.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A70F2718A34C0006178D /* aomhost.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		69B8A7822718A5CF0006178D /* SDK_Transcode.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7052718A34C0006178D /* SDK_Transcode.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		69B8A7832718A5FB0006178D /* airhost.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7122718A34C0006178D /* airhost.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		69B8A7842718A6150006178D /* annoter.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F32718A34C0006178D /* annoter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7852718A62D0006178D /* mcm.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7102718A34C0006178D /* mcm.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7862718A6700006178D /* ssb_sdk.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A70B2718A34C0006178D /* ssb_sdk.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7872718A6A80006178D /* zChatApp.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6EF2718A34C0006178D /* zChatApp.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7882718A6B60006178D /* zData.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A7092718A34C0006178D /* zData.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A7892718A6D20006178D /* zlt.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6FA2718A34C0006178D /* zlt.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A78A2718A6DB0006178D /* zmb.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F82718A34C0006178D /* zmb.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A78B2718A6FA0006178D /* zSDKRes.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6EC2718A34C0006178D /* zSDKRes.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A78C2718A7010006178D /* zVideoApp.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F42718A34C0006178D /* zVideoApp.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		69B8A78D2718A70B0006178D /* zWebService.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69B8A6F62718A34C0006178D /* zWebService.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
@@ -1148,55 +1185,51 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6992E1CC27179BEC00A6463B /* Embed PlugIns */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				6992E1C127179BE900A6463B /* zlt.bundle in Embed PlugIns */,
-				6992E1CA27179BEC00A6463B /* zVideoApp.bundle in Embed PlugIns */,
-				6992E1C027179BE900A6463B /* zKBCrypto.bundle in Embed PlugIns */,
-				6992E1CB27179BEC00A6463B /* zWebService.bundle in Embed PlugIns */,
-				6992E1A227179BE500A6463B /* fdkaac2.bundle in Embed PlugIns */,
-				6992E1C227179BEA00A6463B /* zmb.bundle in Embed PlugIns */,
-				6992E19727179BE400A6463B /* annoter.bundle in Embed PlugIns */,
-				6992E1BC27179BE800A6463B /* zChatApp.bundle in Embed PlugIns */,
-				6992E1BF27179BE900A6463B /* zData.bundle in Embed PlugIns */,
-				6992E1B927179BE800A6463B /* viperex.bundle in Embed PlugIns */,
-				6992E1C927179BEB00A6463B /* zSDKRes.bundle in Embed PlugIns */,
-				6992E1B027179BE700A6463B /* RingtoneRes.bundle in Embed PlugIns */,
-				6992E1B227179BE700A6463B /* ssb_sdk.bundle in Embed PlugIns */,
-				6992E1C327179BEA00A6463B /* zmLoader.bundle in Embed PlugIns */,
-				6992E19827179BE400A6463B /* aomagent.bundle in Embed PlugIns */,
-				6992E1AB27179BE600A6463B /* mcm.bundle in Embed PlugIns */,
-			);
-			name = "Embed PlugIns";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69F7B62114F411FB00FD0761 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6992E1A627179BE500A6463B /* libjson.dylib in CopyFiles */,
-				6992E1AD27179BE600A6463B /* nydus.framework in CopyFiles */,
-				6992E1C827179BEB00A6463B /* ZoomSDKVideoUI.framework in CopyFiles */,
-				6992E1A827179BE500A6463B /* libminizip.dylib in CopyFiles */,
-				6992E1B827179BE800A6463B /* viper.framework in CopyFiles */,
-				6992E1A427179BE500A6463B /* libcrypto.dylib in CopyFiles */,
-				6992E1BE27179BE900A6463B /* ZCommonUI.framework in CopyFiles */,
-				6992E1A127179BE500A6463B /* curl64.framework in CopyFiles */,
-				6992E19527179B2500A6463B /* ZoomSDK.framework in CopyFiles */,
-				6992E1C627179BEB00A6463B /* ZoomSDKChatUI.framework in CopyFiles */,
-				6992E19B27179BE400A6463B /* asproxy.framework in CopyFiles */,
-				6992E1BB27179BE800A6463B /* xmpp_framework.framework in CopyFiles */,
-				6992E1B427179BE700A6463B /* tp.framework in CopyFiles */,
-				6992E1B627179BE700A6463B /* util.framework in CopyFiles */,
-				6992E1AF27179BE600A6463B /* protobuf.framework in CopyFiles */,
-				6992E19E27179BE500A6463B /* cmmlib.framework in CopyFiles */,
-				6992E1AA27179BE600A6463B /* libssl.dylib in CopyFiles */,
+				69B8A7782718A52E0006178D /* zmLoader.bundle in CopyFiles */,
+				69B8A7792718A53B0006178D /* zVideoUIEx.bundle in CopyFiles */,
+				69B8A77A2718A5430006178D /* fdkaac2.bundle in CopyFiles */,
+				69B8A7722718A3840006178D /* libminizip.dylib in CopyFiles */,
+				69B8A7552718A37D0006178D /* libjson.dylib in CopyFiles */,
+				69B8A77B2718A5540006178D /* RingtoneRes.bundle in CopyFiles */,
+				69B8A77C2718A55B0006178D /* zKBCrypto.bundle in CopyFiles */,
+				69B8A77D2718A5630006178D /* viperex.bundle in CopyFiles */,
+				69B8A77F2718A5750006178D /* capHost.app in CopyFiles */,
+				69B8A77E2718A5700006178D /* CptHost.app in CopyFiles */,
+				69B8A7802718A5820006178D /* aomagent.bundle in CopyFiles */,
+				69B8A7812718A5950006178D /* aomhost.app in CopyFiles */,
+				69B8A7622718A3800006178D /* ZoomSDKVideoUI.framework in CopyFiles */,
+				69B8A7822718A5CF0006178D /* SDK_Transcode.app in CopyFiles */,
+				69B8A7472718A37B0006178D /* curl64.framework in CopyFiles */,
+				69B8A7492718A37B0006178D /* ZoomSDKChatUI.framework in CopyFiles */,
+				69B8A7522718A37D0006178D /* libssl.dylib in CopyFiles */,
+				69B8A7832718A5FB0006178D /* airhost.app in CopyFiles */,
+				69B8A7602718A3800006178D /* libcrypto.dylib in CopyFiles */,
+				69B8A7842718A6150006178D /* annoter.bundle in CopyFiles */,
+				69B8A75A2718A37F0006178D /* asproxy.framework in CopyFiles */,
+				69B8A75C2718A37F0006178D /* cmmlib.framework in CopyFiles */,
+				69B8A7852718A62D0006178D /* mcm.bundle in CopyFiles */,
+				69B8A7682718A3820006178D /* nydus.framework in CopyFiles */,
+				69B8A7412718A37A0006178D /* protobuf.framework in CopyFiles */,
+				69B8A7862718A6700006178D /* ssb_sdk.bundle in CopyFiles */,
+				69B8A76A2718A3820006178D /* tp.framework in CopyFiles */,
+				69B8A7582718A37E0006178D /* util.framework in CopyFiles */,
+				69B8A7452718A37B0006178D /* viper.framework in CopyFiles */,
+				69B8A7642718A3810006178D /* xmpp_framework.framework in CopyFiles */,
+				69B8A7872718A6A80006178D /* zChatApp.bundle in CopyFiles */,
+				69B8A74F2718A37C0006178D /* ZCommonUI.framework in CopyFiles */,
+				69B8A7882718A6B60006178D /* zData.bundle in CopyFiles */,
+				69B8A7892718A6D20006178D /* zlt.bundle in CopyFiles */,
+				69B8A78A2718A6DB0006178D /* zmb.bundle in CopyFiles */,
+				69B8A76F2718A3830006178D /* ZoomSDK.framework in CopyFiles */,
+				69B8A78B2718A6FA0006178D /* zSDKRes.bundle in CopyFiles */,
+				69B8A78C2718A7010006178D /* zVideoApp.bundle in CopyFiles */,
+				69B8A78D2718A70B0006178D /* zWebService.bundle in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1667,44 +1700,6 @@
 		6992E0F52717601000A6463B /* ZMSDKSSOLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKSSOLogin.m; sourceTree = "<group>"; };
 		6992E0F62717601000A6463B /* ZMSDKJoinOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKJoinOnly.m; sourceTree = "<group>"; };
 		6992E0F72717601000A6463B /* ZMSDKRestAPILogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMSDKRestAPILogin.m; sourceTree = "<group>"; };
-		6992E16E27179AFF00A6463B /* zSDKRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zSDKRes.bundle; sourceTree = "<group>"; };
-		6992E16F27179AFF00A6463B /* protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = protobuf.framework; sourceTree = "<group>"; };
-		6992E17027179AFF00A6463B /* viperex.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = viperex.bundle; sourceTree = "<group>"; };
-		6992E17127179AFF00A6463B /* zChatApp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zChatApp.bundle; sourceTree = "<group>"; };
-		6992E17227179AFF00A6463B /* viper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = viper.framework; sourceTree = "<group>"; };
-		6992E17327179AFF00A6463B /* curl64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = curl64.framework; sourceTree = "<group>"; };
-		6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDKChatUI.framework; sourceTree = "<group>"; };
-		6992E17527179AFF00A6463B /* annoter.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = annoter.bundle; sourceTree = "<group>"; };
-		6992E17627179AFF00A6463B /* zVideoApp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zVideoApp.bundle; sourceTree = "<group>"; };
-		6992E17727179AFF00A6463B /* zmLoader.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zmLoader.bundle; sourceTree = "<group>"; };
-		6992E17827179AFF00A6463B /* zWebService.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zWebService.bundle; sourceTree = "<group>"; };
-		6992E17927179AFF00A6463B /* ZCommonUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZCommonUI.framework; sourceTree = "<group>"; };
-		6992E17A27179AFF00A6463B /* zmb.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zmb.bundle; sourceTree = "<group>"; };
-		6992E17B27179AFF00A6463B /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libssl.dylib; sourceTree = "<group>"; };
-		6992E17C27179AFF00A6463B /* zlt.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zlt.bundle; sourceTree = "<group>"; };
-		6992E17D27179AFF00A6463B /* libjson.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjson.dylib; sourceTree = "<group>"; };
-		6992E17E27179AFF00A6463B /* fdkaac2.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = fdkaac2.bundle; sourceTree = "<group>"; };
-		6992E17F27179AFF00A6463B /* util.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = util.framework; sourceTree = "<group>"; };
-		6992E18027179AFF00A6463B /* asproxy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = asproxy.framework; sourceTree = "<group>"; };
-		6992E18127179AFF00A6463B /* cmmlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cmmlib.framework; sourceTree = "<group>"; };
-		6992E18227179AFF00A6463B /* CptHost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = CptHost.app; sourceTree = "<group>"; };
-		6992E18327179AFF00A6463B /* zKBCrypto.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zKBCrypto.bundle; sourceTree = "<group>"; };
-		6992E18427179AFF00A6463B /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.dylib; sourceTree = "<group>"; };
-		6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDKVideoUI.framework; sourceTree = "<group>"; };
-		6992E18627179AFF00A6463B /* xmpp_framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = xmpp_framework.framework; sourceTree = "<group>"; };
-		6992E18727179AFF00A6463B /* SDK_Transcode.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = SDK_Transcode.app; sourceTree = "<group>"; };
-		6992E18827179AFF00A6463B /* nydus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nydus.framework; sourceTree = "<group>"; };
-		6992E18927179B0000A6463B /* tp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tp.framework; sourceTree = "<group>"; };
-		6992E18A27179B0000A6463B /* zData.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zData.bundle; sourceTree = "<group>"; };
-		6992E18B27179B0000A6463B /* capHost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = capHost.app; sourceTree = "<group>"; };
-		6992E18C27179B0000A6463B /* ssb_sdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ssb_sdk.bundle; sourceTree = "<group>"; };
-		6992E18D27179B0000A6463B /* ZoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDK.framework; sourceTree = "<group>"; };
-		6992E18E27179B0000A6463B /* RingtoneRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RingtoneRes.bundle; sourceTree = "<group>"; };
-		6992E18F27179B0000A6463B /* libminizip.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libminizip.dylib; sourceTree = "<group>"; };
-		6992E19027179B0000A6463B /* aomhost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = aomhost.app; sourceTree = "<group>"; };
-		6992E19127179B0000A6463B /* mcm.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mcm.bundle; sourceTree = "<group>"; };
-		6992E19227179B0000A6463B /* aomagent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = aomagent.bundle; sourceTree = "<group>"; };
-		6992E19327179B0000A6463B /* airhost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = airhost.app; sourceTree = "<group>"; };
 		699447F3248D4B840074A655 /* SEBBadgeError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeError.png; sourceTree = "<group>"; };
 		699447F4248D4B840074A655 /* SEBBadgeError@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBBadgeError@2x.png"; sourceTree = "<group>"; };
 		699447FB248D54870074A655 /* SEBBadgeWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeWarning.png; sourceTree = "<group>"; };
@@ -1830,6 +1825,50 @@
 		69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBAbstractWebView.h; path = Classes/BrowserComponents/SEBAbstractWebView.h; sourceTree = "<group>"; };
 		69B675992038849000FA58F5 /* SEBUIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIController.h; path = Classes/AdditionalViews/SEBUIController.h; sourceTree = "<group>"; };
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
+		69B8A6E42718A34C0006178D /* CodeResources */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CodeResources; sourceTree = "<group>"; };
+		69B8A6E62718A34C0006178D /* ZoomAudioDevice */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = ZoomAudioDevice; sourceTree = "<group>"; };
+		69B8A6E82718A34C0006178D /* ZoomAudioIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ZoomAudioIcon.icns; sourceTree = "<group>"; };
+		69B8A6E92718A34C0006178D /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		69B8A6EA2718A34C0006178D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69B8A6EC2718A34C0006178D /* zSDKRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zSDKRes.bundle; sourceTree = "<group>"; };
+		69B8A6ED2718A34C0006178D /* protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = protobuf.framework; sourceTree = "<group>"; };
+		69B8A6EE2718A34C0006178D /* viperex.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = viperex.bundle; sourceTree = "<group>"; };
+		69B8A6EF2718A34C0006178D /* zChatApp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zChatApp.bundle; sourceTree = "<group>"; };
+		69B8A6F02718A34C0006178D /* viper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = viper.framework; sourceTree = "<group>"; };
+		69B8A6F12718A34C0006178D /* curl64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = curl64.framework; sourceTree = "<group>"; };
+		69B8A6F22718A34C0006178D /* ZoomSDKChatUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDKChatUI.framework; sourceTree = "<group>"; };
+		69B8A6F32718A34C0006178D /* annoter.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = annoter.bundle; sourceTree = "<group>"; };
+		69B8A6F42718A34C0006178D /* zVideoApp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zVideoApp.bundle; sourceTree = "<group>"; };
+		69B8A6F52718A34C0006178D /* zmLoader.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zmLoader.bundle; sourceTree = "<group>"; };
+		69B8A6F62718A34C0006178D /* zWebService.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zWebService.bundle; sourceTree = "<group>"; };
+		69B8A6F72718A34C0006178D /* ZCommonUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZCommonUI.framework; sourceTree = "<group>"; };
+		69B8A6F82718A34C0006178D /* zmb.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zmb.bundle; sourceTree = "<group>"; };
+		69B8A6F92718A34C0006178D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libssl.dylib; sourceTree = "<group>"; };
+		69B8A6FA2718A34C0006178D /* zlt.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zlt.bundle; sourceTree = "<group>"; };
+		69B8A6FB2718A34C0006178D /* libjson.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjson.dylib; sourceTree = "<group>"; };
+		69B8A6FC2718A34C0006178D /* fdkaac2.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = fdkaac2.bundle; sourceTree = "<group>"; };
+		69B8A6FD2718A34C0006178D /* util.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = util.framework; sourceTree = "<group>"; };
+		69B8A6FE2718A34C0006178D /* asproxy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = asproxy.framework; sourceTree = "<group>"; };
+		69B8A6FF2718A34C0006178D /* cmmlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cmmlib.framework; sourceTree = "<group>"; };
+		69B8A7002718A34C0006178D /* CptHost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = CptHost.app; sourceTree = "<group>"; };
+		69B8A7012718A34C0006178D /* zKBCrypto.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zKBCrypto.bundle; sourceTree = "<group>"; };
+		69B8A7022718A34C0006178D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.dylib; sourceTree = "<group>"; };
+		69B8A7032718A34C0006178D /* ZoomSDKVideoUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDKVideoUI.framework; sourceTree = "<group>"; };
+		69B8A7042718A34C0006178D /* xmpp_framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = xmpp_framework.framework; sourceTree = "<group>"; };
+		69B8A7052718A34C0006178D /* SDK_Transcode.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = SDK_Transcode.app; sourceTree = "<group>"; };
+		69B8A7062718A34C0006178D /* zVideoUIEx.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zVideoUIEx.bundle; sourceTree = "<group>"; };
+		69B8A7072718A34C0006178D /* nydus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nydus.framework; sourceTree = "<group>"; };
+		69B8A7082718A34C0006178D /* tp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tp.framework; sourceTree = "<group>"; };
+		69B8A7092718A34C0006178D /* zData.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = zData.bundle; sourceTree = "<group>"; };
+		69B8A70A2718A34C0006178D /* capHost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = capHost.app; sourceTree = "<group>"; };
+		69B8A70B2718A34C0006178D /* ssb_sdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ssb_sdk.bundle; sourceTree = "<group>"; };
+		69B8A70C2718A34C0006178D /* ZoomSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZoomSDK.framework; sourceTree = "<group>"; };
+		69B8A70D2718A34C0006178D /* RingtoneRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RingtoneRes.bundle; sourceTree = "<group>"; };
+		69B8A70E2718A34C0006178D /* libminizip.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libminizip.dylib; sourceTree = "<group>"; };
+		69B8A70F2718A34C0006178D /* aomhost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = aomhost.app; sourceTree = "<group>"; };
+		69B8A7102718A34C0006178D /* mcm.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mcm.bundle; sourceTree = "<group>"; };
+		69B8A7112718A34C0006178D /* aomagent.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = aomagent.bundle; sourceTree = "<group>"; };
+		69B8A7122718A34C0006178D /* airhost.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = airhost.app; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
@@ -1969,11 +2008,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B8A7272718A34D0006178D /* libjson.dylib in Frameworks */,
+				69B8A7232718A34D0006178D /* ZCommonUI.framework in Frameworks */,
+				69B8A72F2718A34D0006178D /* ZoomSDKVideoUI.framework in Frameworks */,
 				699B325F2154639800EEA3E5 /* libmbedtls.a in Frameworks */,
+				69B8A7302718A34D0006178D /* xmpp_framework.framework in Frameworks */,
+				69B8A72A2718A34D0006178D /* asproxy.framework in Frameworks */,
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				6918212B268B1C3400F116D1 /* libSEBSupport.a in Frameworks */,
+				69B8A71E2718A34D0006178D /* ZoomSDKChatUI.framework in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
+				69B8A7332718A34D0006178D /* nydus.framework in Frameworks */,
+				69B8A71D2718A34D0006178D /* curl64.framework in Frameworks */,
+				69B8A7342718A34D0006178D /* tp.framework in Frameworks */,
+				69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */,
+				69B8A71C2718A34D0006178D /* viper.framework in Frameworks */,
+				69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */,
+				69B8A7292718A34D0006178D /* util.framework in Frameworks */,
+				69B8A73A2718A34D0006178D /* libminizip.dylib in Frameworks */,
+				69B8A7382718A34D0006178D /* ZoomSDK.framework in Frameworks */,
 				BF713791494E8E9D2AD42E83 /* libPods-SEB.a in Frameworks */,
+				69B8A7192718A34C0006178D /* protobuf.framework in Frameworks */,
+				69B8A72B2718A34D0006178D /* cmmlib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2007,33 +2063,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6992E1A527179BE500A6463B /* libjson.dylib in Frameworks */,
+				69B8A7542718A37D0006178D /* libjson.dylib in Frameworks */,
+				69B8A7712718A3840006178D /* libminizip.dylib in Frameworks */,
 				69433AEC268A793F005E59A5 /* libmbedtls.a in Frameworks */,
-				6992E1B527179BE700A6463B /* util.framework in Frameworks */,
+				69B8A75F2718A3800006178D /* libcrypto.dylib in Frameworks */,
 				8DE31FEF9851E3ED88004761 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 				6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */,
 				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
-				6992E19A27179BE400A6463B /* asproxy.framework in Frameworks */,
-				6992E1AE27179BE600A6463B /* protobuf.framework in Frameworks */,
-				6992E1BD27179BE900A6463B /* ZCommonUI.framework in Frameworks */,
-				6992E19427179B2500A6463B /* ZoomSDK.framework in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
-				6992E1A327179BE500A6463B /* libcrypto.dylib in Frameworks */,
-				6992E1C527179BEA00A6463B /* ZoomSDKChatUI.framework in Frameworks */,
-				6992E1A727179BE500A6463B /* libminizip.dylib in Frameworks */,
-				6992E1AC27179BE600A6463B /* nydus.framework in Frameworks */,
-				6992E1B327179BE700A6463B /* tp.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
-				6992E1B727179BE800A6463B /* viper.framework in Frameworks */,
-				6992E1BA27179BE800A6463B /* xmpp_framework.framework in Frameworks */,
-				6992E19D27179BE400A6463B /* cmmlib.framework in Frameworks */,
-				6992E1C727179BEB00A6463B /* ZoomSDKVideoUI.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
-				6992E1A927179BE600A6463B /* libssl.dylib in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				6992E1A027179BE500A6463B /* curl64.framework in Frameworks */,
-				6992E1C427179BEA00A6463B /* ZoomSDK.framework in Frameworks */,
+				69B8A7512718A37D0006178D /* libssl.dylib in Frameworks */,
+				69B8A76E2718A3830006178D /* ZoomSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2145,7 +2188,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6992E16D27179AFF00A6463B /* ZoomSDK */,
+				69B8A6E02718A34C0006178D /* Plugins */,
+				69B8A6EB2718A34C0006178D /* ZoomSDK */,
 				697736FD26D3E5D4000B7C0D /* libSystem.tbd */,
 				697736FB26D3E4E2000B7C0D /* libquarantine.tbd */,
 				69637420267E6DD400058E7C /* libmbedtls.a */,
@@ -3077,51 +3121,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		6992E16D27179AFF00A6463B /* ZoomSDK */ = {
-			isa = PBXGroup;
-			children = (
-				6992E16E27179AFF00A6463B /* zSDKRes.bundle */,
-				6992E16F27179AFF00A6463B /* protobuf.framework */,
-				6992E17027179AFF00A6463B /* viperex.bundle */,
-				6992E17127179AFF00A6463B /* zChatApp.bundle */,
-				6992E17227179AFF00A6463B /* viper.framework */,
-				6992E17327179AFF00A6463B /* curl64.framework */,
-				6992E17427179AFF00A6463B /* ZoomSDKChatUI.framework */,
-				6992E17527179AFF00A6463B /* annoter.bundle */,
-				6992E17627179AFF00A6463B /* zVideoApp.bundle */,
-				6992E17727179AFF00A6463B /* zmLoader.bundle */,
-				6992E17827179AFF00A6463B /* zWebService.bundle */,
-				6992E17927179AFF00A6463B /* ZCommonUI.framework */,
-				6992E17A27179AFF00A6463B /* zmb.bundle */,
-				6992E17B27179AFF00A6463B /* libssl.dylib */,
-				6992E17C27179AFF00A6463B /* zlt.bundle */,
-				6992E17D27179AFF00A6463B /* libjson.dylib */,
-				6992E17E27179AFF00A6463B /* fdkaac2.bundle */,
-				6992E17F27179AFF00A6463B /* util.framework */,
-				6992E18027179AFF00A6463B /* asproxy.framework */,
-				6992E18127179AFF00A6463B /* cmmlib.framework */,
-				6992E18227179AFF00A6463B /* CptHost.app */,
-				6992E18327179AFF00A6463B /* zKBCrypto.bundle */,
-				6992E18427179AFF00A6463B /* libcrypto.dylib */,
-				6992E18527179AFF00A6463B /* ZoomSDKVideoUI.framework */,
-				6992E18627179AFF00A6463B /* xmpp_framework.framework */,
-				6992E18727179AFF00A6463B /* SDK_Transcode.app */,
-				6992E18827179AFF00A6463B /* nydus.framework */,
-				6992E18927179B0000A6463B /* tp.framework */,
-				6992E18A27179B0000A6463B /* zData.bundle */,
-				6992E18B27179B0000A6463B /* capHost.app */,
-				6992E18C27179B0000A6463B /* ssb_sdk.bundle */,
-				6992E18D27179B0000A6463B /* ZoomSDK.framework */,
-				6992E18E27179B0000A6463B /* RingtoneRes.bundle */,
-				6992E18F27179B0000A6463B /* libminizip.dylib */,
-				6992E19027179B0000A6463B /* aomhost.app */,
-				6992E19127179B0000A6463B /* mcm.bundle */,
-				6992E19227179B0000A6463B /* aomagent.bundle */,
-				6992E19327179B0000A6463B /* airhost.app */,
-			);
-			path = ZoomSDK;
-			sourceTree = "<group>";
-		};
 		699447F2248D4B840074A655 /* ProctoringBadges */ = {
 			isa = PBXGroup;
 			children = (
@@ -3236,6 +3235,104 @@
 				69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */,
 			);
 			name = AboutSEB;
+			sourceTree = "<group>";
+		};
+		69B8A6E02718A34C0006178D /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6E12718A34C0006178D /* ZoomAudioDevice.driver */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		69B8A6E12718A34C0006178D /* ZoomAudioDevice.driver */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6E22718A34C0006178D /* Contents */,
+			);
+			path = ZoomAudioDevice.driver;
+			sourceTree = "<group>";
+		};
+		69B8A6E22718A34C0006178D /* Contents */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6E32718A34C0006178D /* _CodeSignature */,
+				69B8A6E52718A34C0006178D /* MacOS */,
+				69B8A6E72718A34C0006178D /* Resources */,
+				69B8A6EA2718A34C0006178D /* Info.plist */,
+			);
+			path = Contents;
+			sourceTree = "<group>";
+		};
+		69B8A6E32718A34C0006178D /* _CodeSignature */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6E42718A34C0006178D /* CodeResources */,
+			);
+			path = _CodeSignature;
+			sourceTree = "<group>";
+		};
+		69B8A6E52718A34C0006178D /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6E62718A34C0006178D /* ZoomAudioDevice */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
+		69B8A6E72718A34C0006178D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6E82718A34C0006178D /* ZoomAudioIcon.icns */,
+				69B8A6E92718A34C0006178D /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		69B8A6EB2718A34C0006178D /* ZoomSDK */ = {
+			isa = PBXGroup;
+			children = (
+				69B8A6EC2718A34C0006178D /* zSDKRes.bundle */,
+				69B8A6ED2718A34C0006178D /* protobuf.framework */,
+				69B8A6EE2718A34C0006178D /* viperex.bundle */,
+				69B8A6EF2718A34C0006178D /* zChatApp.bundle */,
+				69B8A6F02718A34C0006178D /* viper.framework */,
+				69B8A6F12718A34C0006178D /* curl64.framework */,
+				69B8A6F22718A34C0006178D /* ZoomSDKChatUI.framework */,
+				69B8A6F32718A34C0006178D /* annoter.bundle */,
+				69B8A6F42718A34C0006178D /* zVideoApp.bundle */,
+				69B8A6F52718A34C0006178D /* zmLoader.bundle */,
+				69B8A6F62718A34C0006178D /* zWebService.bundle */,
+				69B8A6F72718A34C0006178D /* ZCommonUI.framework */,
+				69B8A6F82718A34C0006178D /* zmb.bundle */,
+				69B8A6F92718A34C0006178D /* libssl.dylib */,
+				69B8A6FA2718A34C0006178D /* zlt.bundle */,
+				69B8A6FB2718A34C0006178D /* libjson.dylib */,
+				69B8A6FC2718A34C0006178D /* fdkaac2.bundle */,
+				69B8A6FD2718A34C0006178D /* util.framework */,
+				69B8A6FE2718A34C0006178D /* asproxy.framework */,
+				69B8A6FF2718A34C0006178D /* cmmlib.framework */,
+				69B8A7002718A34C0006178D /* CptHost.app */,
+				69B8A7012718A34C0006178D /* zKBCrypto.bundle */,
+				69B8A7022718A34C0006178D /* libcrypto.dylib */,
+				69B8A7032718A34C0006178D /* ZoomSDKVideoUI.framework */,
+				69B8A7042718A34C0006178D /* xmpp_framework.framework */,
+				69B8A7052718A34C0006178D /* SDK_Transcode.app */,
+				69B8A7062718A34C0006178D /* zVideoUIEx.bundle */,
+				69B8A7072718A34C0006178D /* nydus.framework */,
+				69B8A7082718A34C0006178D /* tp.framework */,
+				69B8A7092718A34C0006178D /* zData.bundle */,
+				69B8A70A2718A34C0006178D /* capHost.app */,
+				69B8A70B2718A34C0006178D /* ssb_sdk.bundle */,
+				69B8A70C2718A34C0006178D /* ZoomSDK.framework */,
+				69B8A70D2718A34C0006178D /* RingtoneRes.bundle */,
+				69B8A70E2718A34C0006178D /* libminizip.dylib */,
+				69B8A70F2718A34C0006178D /* aomhost.app */,
+				69B8A7102718A34C0006178D /* mcm.bundle */,
+				69B8A7112718A34C0006178D /* aomagent.bundle */,
+				69B8A7122718A34C0006178D /* airhost.app */,
+			);
+			path = ZoomSDK;
 			sourceTree = "<group>";
 		};
 		69BA05A91D57E4C200C07C4F /* Recovered References */ = {
@@ -3807,7 +3904,6 @@
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
 				69A0BF6F1660239400A866C4 /* Headers */,
 				84B27CA23A9B4214361538EB /* [CP] Embed Pods Frameworks */,
-				6992E1CC27179BEC00A6463B /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
@@ -3897,9 +3993,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B8A7242718A34D0006178D /* zmb.bundle in Resources */,
 				69A0FDB02652DD6500DF1AD6 /* Main.storyboard in Resources */,
 				69B226E51D4108BA0065B831 /* Icon-320x320.png in Resources */,
 				69B253DA1E4E2200000B4A6D /* SEBSliderClosePage@3x.png in Resources */,
+				69B8A71A2718A34D0006178D /* viperex.bundle in Resources */,
 				699AB092246DFFFE001BF70C /* SEBSliderProctoringViewIcon.png in Resources */,
 				69331F021C10AC1B0038BD31 /* continueCircle@2x.png in Resources */,
 				69B253E31E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png in Resources */,
@@ -3910,6 +4008,7 @@
 				695A8EEE1E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png in Resources */,
 				693A39771E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png in Resources */,
 				699447F6248D4B840074A655 /* SEBBadgeError.png in Resources */,
+				69B8A7362718A34D0006178D /* capHost.app in Resources */,
 				696DAD161C3C2AB900397E18 /* Cancel.png in Resources */,
 				69220709249B9FDA009F8CD1 /* SEBScrollLockIcon@3x.png in Resources */,
 				69B253E91E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png in Resources */,
@@ -3918,11 +4017,15 @@
 				691018D31CF1EA8300AB8803 /* SEBDockIcon@3x.png in Resources */,
 				698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */,
 				695A8EF71E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
+				69B8A7212718A34D0006178D /* zmLoader.bundle in Resources */,
 				69E87E51202927330055988F /* SEBDockIconLandscape.png in Resources */,
 				69B253F61E4E275D000B4A6D /* SEBSkipBackIcon@2x.png in Resources */,
+				69B8A71B2718A34D0006178D /* zChatApp.bundle in Resources */,
 				69AA20B826EEA4A2002287A9 /* InfoPlist.strings in Resources */,
 				695A8EF41E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
 				69AA20BB26EEA4A2002287A9 /* Localizable.strings in Resources */,
+				69B8A73D2718A34D0006178D /* aomagent.bundle in Resources */,
+				69B8A7132718A34C0006178D /* CodeResources in Resources */,
 				695A8EFD1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */,
 				6966F87F1D1D4E7100684182 /* SEBSliderReloadIcon.png in Resources */,
 				699AB096246DFFFE001BF70C /* SEBSliderProctoringViewIcon@2x.png in Resources */,
@@ -3932,11 +4035,14 @@
 				696DAD181C3C2AB900397E18 /* Next.png in Resources */,
 				69A727E0249D6DD80087B193 /* SEBSliderScrollLockIcon@2x.png in Resources */,
 				69E87E57202927330055988F /* SEBDockIconLandscape@3x.png in Resources */,
+				69B8A7352718A34D0006178D /* zData.bundle in Resources */,
+				69B8A7392718A34D0006178D /* RingtoneRes.bundle in Resources */,
 				694A7A6D24890B8E00B45C88 /* SEBProctoringViewIcon_checkmark@2x.png in Resources */,
 				69944800248D54870074A655 /* SEBBadgeWarning.png in Resources */,
 				69B253F81E4E275D000B4A6D /* SEBSkipBackIcon@3x.png in Resources */,
 				694A7A6524890B8E00B45C88 /* SEBProctoringViewIcon_checkmark.png in Resources */,
 				69331F011C10AC1B0038BD31 /* continueCircle.png in Resources */,
+				69B8A7162718A34C0006178D /* Localizable.strings in Resources */,
 				69B581791ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */,
 				69E87E45202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69E87E4B202926080055988F /* SEBReloadIconLandscape@3x.png in Resources */,
@@ -3951,6 +4057,7 @@
 				6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */,
 				695A8EF11E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69633E5B1E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png in Resources */,
+				69B8A7262718A34D0006178D /* zlt.bundle in Resources */,
 				693A395B1E60AC6C005030B0 /* SEBNavigateBackIcon.png in Resources */,
 				694A7A6724890B8E00B45C88 /* SEBProctoringViewIcon_checkmark@3x.png in Resources */,
 				69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */,
@@ -3959,6 +4066,7 @@
 				694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */,
 				691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */,
 				69E87E3C202924E70055988F /* SEBShutDownIconLandscape@3x.png in Resources */,
+				69B8A7152718A34C0006178D /* ZoomAudioIcon.icns in Resources */,
 				693A39711E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png in Resources */,
 				699AB089246DF844001BF70C /* SEBProctoringViewIcon.png in Resources */,
 				69A727ED249D93CA0087B193 /* SEBScrollLock_locked@3x.png in Resources */,
@@ -3967,9 +4075,11 @@
 				6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */,
 				69B253EF1E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png in Resources */,
 				695A8EE51E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
+				69B8A7322718A34D0006178D /* zVideoUIEx.bundle in Resources */,
 				695A8EFA1E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				695A8EE11E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
 				69633E601E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */,
+				69B8A7182718A34C0006178D /* zSDKRes.bundle in Resources */,
 				694A7A6924890B8E00B45C88 /* SEBProctoringViewIcon_error.png in Resources */,
 				69E87E3F202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
 				69B226E31D4108BA0065B831 /* Icon-22x29.png in Resources */,
@@ -3980,17 +4090,23 @@
 				691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */,
 				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
 				693A39651E60AC6C005030B0 /* SEBNavigateForwardIcon@3x.png in Resources */,
+				69B8A7372718A34D0006178D /* ssb_sdk.bundle in Resources */,
+				69B8A71F2718A34D0006178D /* annoter.bundle in Resources */,
 				69A727E6249D6DD80087B193 /* SEBSliderScrollLockIcon@3x.png in Resources */,
 				69B253ED1E4E2630000B4A6D /* SEBSliderSettingsIcon@3x.png in Resources */,
 				699AB08D246DF844001BF70C /* SEBProctoringViewIcon@2x.png in Resources */,
+				69B8A7312718A34D0006178D /* SDK_Transcode.app in Resources */,
 				69B226E41D4108BA0065B831 /* Icon-22x29@2x.png in Resources */,
 				695A8EDE1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
+				69B8A73C2718A34D0006178D /* mcm.bundle in Resources */,
 				6922070D249B9FDA009F8CD1 /* SEBScrollLockIcon@2x.png in Resources */,
 				69D5988C1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */,
 				69633E571E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png in Resources */,
 				69358DD81E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
+				69B8A7282718A34D0006178D /* fdkaac2.bundle in Resources */,
 				694A7A6124890B8E00B45C88 /* SEBProctoringViewIcon_warning@2x.png in Resources */,
 				694A7A5F24890B8E00B45C88 /* SEBProctoringViewIcon_error@2x.png in Resources */,
+				69B8A73B2718A34D0006178D /* aomhost.app in Resources */,
 				69944803248D54870074A655 /* SEBBadgeCheckmark@2x.png in Resources */,
 				69358DDB1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
 				69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */,
@@ -4001,6 +4117,8 @@
 				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
 				69944806248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
 				694A7A6324890B8E00B45C88 /* SEBProctoringViewIcon_warning@3x.png in Resources */,
+				69B8A73E2718A34D0006178D /* airhost.app in Resources */,
+				69B8A72D2718A34D0006178D /* zKBCrypto.bundle in Resources */,
 				69633E621E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */,
 				6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */,
 				69A727E2249D6DD80087B193 /* SEBSliderScrollLockIcon.png in Resources */,
@@ -4012,6 +4130,7 @@
 				695AEAD91EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png in Resources */,
 				69633E641E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */,
 				69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
+				69B8A7222718A34D0006178D /* zWebService.bundle in Resources */,
 				696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */,
 				695AEAD71EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png in Resources */,
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
@@ -4022,7 +4141,9 @@
 				696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */,
 				69B226E61D4108BA0065B831 /* Icon-64x64.png in Resources */,
 				695AEADB1EDA375A008D46C0 /* SEBSliderInfoIcon.png in Resources */,
+				69B8A72C2718A34D0006178D /* CptHost.app in Resources */,
 				693A39751E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@2x.png in Resources */,
+				69B8A7172718A34C0006178D /* Info.plist in Resources */,
 				69A727EB249D93CA0087B193 /* SEBScrollLock_locked@2x.png in Resources */,
 				694A7A6F24890B8E00B45C88 /* SEBProctoringViewIcon_error@3x.png in Resources */,
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
@@ -4030,10 +4151,12 @@
 				6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */,
 				691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */,
 				69A727E4249D6DD80087B193 /* SEBSliderScrollLockIcon_locked@3x.png in Resources */,
+				69B8A7142718A34C0006178D /* ZoomAudioDevice in Resources */,
 				693A39611E60AC6C005030B0 /* SEBNavigateForwardIcon.png in Resources */,
 				69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */,
 				69B253EB1E4E2630000B4A6D /* SEBSliderRestartIcon@3x.png in Resources */,
 				696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */,
+				69B8A7202718A34D0006178D /* zVideoApp.bundle in Resources */,
 				6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4209,6 +4332,7 @@
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
 				6992E12D2717601100A6463B /* ZMSDKJoinMeetingConfirmWindowCtrl.xib in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
+				69B8A7732718A3850006178D /* aomhost.app in Resources */,
 				695A8EF61E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
 				6992E10A2717601100A6463B /* toolbar_unmute_tele_normal.png in Resources */,
 				69944802248D54870074A655 /* SEBBadgeCheckmark@2x.png in Resources */,
@@ -4245,12 +4369,11 @@
 				696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
 				6992E1112717601100A6463B /* btn_setting_normal.png in Resources */,
 				699447FF248D54870074A655 /* SEBBadgeWarning.png in Resources */,
-				6992E19627179BE400A6463B /* airhost.app in Resources */,
 				696A3AF019F6FBF600274214 /* PreferencesApplications.xib in Resources */,
 				69B42897270C36870061E328 /* ModifyPages.js in Resources */,
 				696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
-				6992E19C27179BE400A6463B /* capHost.app in Resources */,
 				6992E1082717601100A6463B /* share_frame.png in Resources */,
+				69B8A76C2718A3830006178D /* capHost.app in Resources */,
 				695A8EF91E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */,
 				69944805248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
@@ -4265,7 +4388,9 @@
 				69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */,
 				69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */,
 				6992E0FD2717601100A6463B /* toolbar_participant_normal.png in Resources */,
+				69B8A7762718A3850006178D /* airhost.app in Resources */,
 				6992E0FF2717601100A6463B /* toolbar_stop_video_press.png in Resources */,
+				69B8A75D2718A37F0006178D /* CptHost.app in Resources */,
 				69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
 				69261B8F26BE2FE4001DE2BB /* PreferencesBrowser.xib in Resources */,
 				695A8EF01E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
@@ -4278,7 +4403,6 @@
 				6992E1152717601100A6463B /* toolbar_participant_press.png in Resources */,
 				69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
-				6992E19F27179BE500A6463B /* CptHost.app in Resources */,
 				696A3AFC19F6FC5600274214 /* PreferencesSecurity.xib in Resources */,
 				6992E1162717601100A6463B /* btn_unpresentshare_normal.png in Resources */,
 				6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */,
@@ -4292,6 +4416,7 @@
 				6992E10F2717601100A6463B /* btn_joinmeeting_normal.png in Resources */,
 				69E87E3B202924E70055988F /* SEBShutDownIconLandscape@3x.png in Resources */,
 				6992E1102717601100A6463B /* plistArrowBottom.png in Resources */,
+				69B8A7652718A3810006178D /* SDK_Transcode.app in Resources */,
 				6992E1572717601100A6463B /* ZoomSDKWindowController.xib in Resources */,
 				6992E1002717601100A6463B /* btn_schedule_normal.png in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
@@ -4299,9 +4424,7 @@
 				695A8EF31E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
 				6992E11D2717601100A6463B /* share_window_one.png in Resources */,
 				6992E15A2717601100A6463B /* ZMSDKMainWindowController.xib in Resources */,
-				6992E19927179BE400A6463B /* aomhost.app in Resources */,
 				6992E11A2717601100A6463B /* toolbar_chat_press.png in Resources */,
-				6992E1B127179BE700A6463B /* SDK_Transcode.app in Resources */,
 				69E2BBB62703FD8F0055531A /* SEBServerOSXViewController.xib in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69E87E56202927330055988F /* SEBDockIconLandscape@3x.png in Resources */,
@@ -5104,6 +5227,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks\"",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
@@ -5134,6 +5258,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
 					"$(PROJECT_DIR)/SEB/Frameworks",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				MARKETING_VERSION = 3.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -5186,6 +5311,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks\"",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -5218,6 +5344,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
 					"$(PROJECT_DIR)/SEB/Frameworks",
+					"$(PROJECT_DIR)/ZoomSDK",
 				);
 				MARKETING_VERSION = 3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -5611,7 +5738,7 @@
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -5674,7 +5801,7 @@
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Applications;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",

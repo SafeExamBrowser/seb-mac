@@ -54,15 +54,17 @@
                         apiKey:(NSString *)apiKey
                     meetingKey:(NSString *)meetingKey
 {
-    self.serverURL = serverURL;
-    self.userName = userName;
-    self.room = room;
-    self.subject = subject;
-    self.token = token;
-    self.sdkToken = sdkToken;
-    self.apiKey = apiKey;
-    self.meetingKey = meetingKey;
-    [self openZoomWithReceiveAudioOverride:NO receiveVideoOverride:NO useChatOverride:NO];
+    if (serverURL && room.length>0 && token.length>0 && sdkToken.length>0) {
+        self.serverURL = serverURL;
+        self.userName = userName;
+        self.room = room;
+        self.subject = subject;
+        self.token = token;
+        self.sdkToken = sdkToken;
+        self.apiKey = apiKey;
+        self.meetingKey = meetingKey;
+        [self openZoomWithReceiveAudioOverride:NO receiveVideoOverride:NO useChatOverride:NO];
+    }
 }
 
 
@@ -70,12 +72,29 @@
                      receiveVideoOverride:(BOOL)receiveVideoFlag
                           useChatOverride:(BOOL)useChatFlag
 {
-    if (self.zoomActive) {
-        [self closeZoomMeeting:self];
+    if (self.serverURL) {
+        if (self.zoomActive) {
+            [self closeZoomMeeting:self];
+        }
+        self.zoomActive = YES;
+        
+        BOOL useCustomizedUI = NO;
+        ZoomSDKInitParams* params = [[ZoomSDKInitParams alloc] init];
+        params.needCustomizedUI = useCustomizedUI;
+        params.teamIdentifier = @"6F38DNSC7X";
+        params.enableLog = YES;
+        ZoomSDKError error = [[ZoomSDK sharedSDK] initSDKWithParams:params];
+        DDLogDebug(@"Zoom SDK initSDKWithParams error: %u", error);
+        [ZMSDKCommonHelper sharedInstance].isUseCutomizeUI = useCustomizedUI;
+        params = nil;
+
+        ZoomSDK* sdk = [ZoomSDK sharedSDK];
+        NSString *domain = @"https://zoom.us";
+        [sdk setZoomDomain:domain];
+
+        error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzQyMzU3MzksImV4cCI6MTYzNDMxNDI1OCwidG9rZW5FeHAiOjE2MzQzMTQyNTh9.phJt8eZRu7Xjul8nBddLJ-783Ew87sMGMzMqjniWfWM"]; //self.sdkToken];
+        DDLogDebug(@"Zoom SDK getAuthService error: %u", error);
     }
-    self.zoomActive = YES;
-    
-    [self newAuth:self.sdkToken];
 }
 
 
@@ -126,9 +145,26 @@
 
 -(void)onZoomSDKAuthReturn:(ZoomSDKAuthError)returnValue
 {
-    if( ZoomSDKAuthError_Success == returnValue)
+    if (ZoomSDKAuthError_Success == returnValue)
     {
-        
+//        BOOL isEmailLoginEnabled = NO;
+//        if(([[[ZoomSDK sharedSDK] getAuthService] isEmailLoginEnabled:&isEmailLoginEnabled] == ZoomSDKError_Success) && !isEmailLoginEnabled)
+//        {
+//            [_loginController removeEmailLoginTab];
+//        }
+//        if([[NSUserDefaults standardUserDefaults] boolForKey:kZMSDKLoginEmailRemember])
+//        {
+//            [_loginController switchToLoginTab];
+//            [ZMSDKCommonHelper sharedInstance].loginType = ZMSDKLoginType_Email;
+//        }
+//        else if([[NSUserDefaults standardUserDefaults] boolForKey:kZMSDKLoginSSORemember])
+//        {
+//            [_loginController switchToLoginTab];
+//             [ZMSDKCommonHelper sharedInstance].loginType = ZMSDKLoginType_SSO;
+//        }
+//        else
+//            [_loginController switchToLoginTab];
+    } else {
         //error code handle
         NSString* error = @"";
         switch (returnValue) {
@@ -147,9 +183,9 @@
             default:
                 break;
         }
-
     }
 }
+
 
 -(void)onZoomAuthIdentityExpired
 {

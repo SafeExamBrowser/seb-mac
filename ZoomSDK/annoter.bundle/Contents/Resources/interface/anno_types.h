@@ -488,6 +488,9 @@ typedef enum tagAnnoEventType
 	ANNO_EVENT_CAPTURE_CHANGED			= 0x0302,		// to notify AS module that new difference of frame has been made and needs AS to refresh
 
     ANNO_EVENT_WB_TITLE_CHANGED,                        // to notify that whiteboard title has been changed.
+
+    ANNO_EVENT_CHECK_REMOVE_ALL_BY_HOST,			    // to notify that this user want to clear all datas, we need to check is host/cohost
+    ANNO_EVENT_CHECK_RESTORE_ALL_BY_HOST,			    // to notify that this user want to restore all datas, we need to check is host/cohost
 	
     NUMBER_OF_ANNO_EVENT_TYPE
 } AnnoEventType;
@@ -818,6 +821,24 @@ struct AnnoTranslateInfo
 {
     AnnoTranslateType translateType;
     std::wstring      translateText;
+};
+
+struct AnnoAndroidJniInfo
+{
+    long annoWindowJni;
+    long annoRenderJni;
+    long startbarHeight;
+    bool bShareScreen;
+    bool bHDpi;
+
+    AnnoAndroidJniInfo()
+    {
+        annoWindowJni = 0;
+        annoRenderJni = 0;
+        startbarHeight = 0;
+        bShareScreen = false;
+        bHDpi = false;
+    }
 };
 
 #endif // __ANNO_TYPES_H__

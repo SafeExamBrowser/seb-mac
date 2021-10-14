@@ -1557,3 +1557,13 @@ typedef enum{
     //BO is ended.
     ZoomSDKBOStatus_Ended = 4,
 } ZoomSDKBOStatus;
+
+typedef enum{
+    ZoomSDKVideoSubscribe_Fail_None = 0,
+    ZoomSDKVideoSubscribe_Fail_ViewOnly,
+    ZoomSDKVideoSubscribe_Fail_NotInMeeting,
+    ZoomSDKVideoSubscribe_Fail_HasSubscribe1080POr720P,
+    ZoomSDKVideoSubscribe_Fail_HasSubscribe720P,
+    ZoomSDKVideoSubscribe_Fail_HasSubscribeTwo720P,
+    ZoomSDKVideoSubscribe_Fail_HasSubscribeExceededLimit,
+} ZoomSDKVideoSubscribeFailReason;

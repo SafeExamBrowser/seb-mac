@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/Info.plist</key>
 		<data>
-		jxl8KWWpx9h9OEPVhQ/1NrmoHug=
+		UTXgpIGDm72ojlgHUIUVdpzoNjM=
 		</data>
 		<key>Resources/checksrc.pl</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Resources/curl64-Info.plist</key>
 		<data>
-		KdynSpo2WMiZj+SnilO7ddCg22I=
+		FnkfbhGjpYi2/7RdBxIjSXD6JkQ=
 		</data>
 		<key>Resources/curl_config.h.cmake</key>
 		<data>
@@ -73,11 +73,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jxl8KWWpx9h9OEPVhQ/1NrmoHug=
+			UTXgpIGDm72ojlgHUIUVdpzoNjM=
 			</data>
 			<key>hash2</key>
 			<data>
-			v8D0XFqrBUazX26qhkk5M7WdEEcNDNVpshGHHAR9pGg=
+			8DElx7Gmv1VJy9PLELMPNGS+6k5OfAiWvp209z2CffA=
 			</data>
 		</dict>
 		<key>Resources/checksrc.pl</key>
@@ -95,11 +95,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KdynSpo2WMiZj+SnilO7ddCg22I=
+			FnkfbhGjpYi2/7RdBxIjSXD6JkQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			hfDmTvViXsqfzZVPctwR+w/hjH6RghbYPry16vfVIaI=
+			80Kvmq1pOeYs2v4orDCIhatZ/AHKvyjjUlMgciuMI+k=
 			</data>
 		</dict>
 		<key>Resources/curl_config.h.cmake</key>
