@@ -1,0 +1,6 @@
+framework module ZoomSDK {
+  umbrella header "ZoomSDK.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module libmklFramework {
+  umbrella header "libmklFramework.h"
+
+  export *
+  module * { export * }
+}
