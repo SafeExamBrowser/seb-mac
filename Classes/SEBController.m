@@ -884,7 +884,7 @@ bool insideMatrix(void);
         if (_startingUp) {
             // we quit, as decrypting the config wasn't successful
             DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            [self exitSEB]; // Quit SEB
+            [self requestedExit:nil]; // Quit SEB
         } else {
             // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
 //        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
@@ -1273,6 +1273,14 @@ bool insideMatrix(void);
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
 }
 
+- (void) stopProctoring
+{
+    if (_zoomController) {
+        [_zoomController closeZoomMeeting:self];
+        _zoomController = nil;
+    }
+}
+
 - (void) toggleProctoringViewVisibility
 {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -1538,7 +1546,7 @@ bool insideMatrix(void);
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    [self exitSEB]; // Quit SEB
+    [self requestedExit:nil]; // Quit SEB
 }
 
 
@@ -1874,7 +1882,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [modalAlert setAlertStyle:NSCriticalAlertStyle];
     void (^quitAlertConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
-        [self exitSEB]; // Quit SEB
+        [self requestedExit:nil]; // Quit SEB
     };
     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))quitAlertConfirmed];
 }
@@ -1923,7 +1931,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                 case NSAlertSecondButtonReturn:
                 {
-                    [self performSelector:@selector(exitSEB) withObject: nil afterDelay: 3];
+                    [self performSelector:@selector(requestedExit:) withObject: nil afterDelay: 3];
                 }
             }
         };
@@ -3116,7 +3124,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             [self removeAlertWindow:modalAlert.window];
             self->enforceMinMacOSVersion = YES;
             if (self.startingUp) {
-                [self exitSEB]; // Quit SEB
+                [self requestedExit:nil]; // Quit SEB
             } else {
                 [self quitSEBOrSession];
             }
@@ -3189,7 +3197,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             DDLogError(@"Command key is pressed and forbidden, SEB cannot continue");
-            [self exitSEB]; // Quit SEB
+            [self requestedExit:nil]; // Quit SEB
         } else {
             DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
         }
@@ -3222,7 +3230,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 {
                     // Quit SEB
                     DDLogError(@"Force Quit window was open, user decided to quit SEB.");
-                    [self exitSEB]; // Quit SEB
+                    [self requestedExit:nil]; // Quit SEB
                 }
             }
     }
@@ -5389,6 +5397,10 @@ conditionallyForWindow:(NSWindow *)window
 - (void)requestedExit:(NSNotification *)notification
 {
     [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+
+        // Stop/Reset proctoring
+        [self stopProctoring];
+
         [self exitSEB];
     }];
 }
@@ -5466,6 +5478,9 @@ conditionallyForWindow:(NSWindow *)window
 
     // Reset SEB Browser
     [self.browserController resetBrowser];
+    
+    // Stop/Reset proctoring
+    [self stopProctoring];
 
 //    NSApp.presentationOptions = NSApplicationPresentationDisableForceQuit + NSApplicationPresentationHideDock;
 

@@ -327,6 +327,6 @@ conditionallyForWindow:(NSWindow *)window
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
-- (void) exitSEB;
+- (void) requestedExit:(NSNotification *)notification;
 
 @end
