@@ -37,7 +37,7 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 }
 + (void)uninitConfUIMgr
 {
-    if (nil != confUIMgr)
+    if (confUIMgr)
     {
         [confUIMgr cleanUp];
         confUIMgr = nil;
@@ -77,6 +77,7 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     {
         _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] init];
     }
+    [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
     [_meetingMainWindowController.window makeKeyAndOrderFront:nil];
     [_meetingMainWindowController showWindow:nil];
     [_meetingMainWindowController updateUI];

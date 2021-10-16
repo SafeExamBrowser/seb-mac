@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <ZoomSDK/ZoomSDK.h>
-#import "ZMSDKMainWindowController.h"
 #import "ZoomSDKWindowController.h"
 
-@interface ZMSDKMeetingStatusMgr : NSObject  <ZoomSDKMeetingServiceDelegate,ZoomSDKMeetingActionControllerDelegate,ZoomSDKWebinarControllerDelegate,ZoomSDKMeetingRecordDelegate>
+@interface ZMSDKMeetingStatusMgr : NSObject  <ZoomSDKMeetingServiceDelegate, ZoomSDKMeetingActionControllerDelegate, ZoomSDKWebinarControllerDelegate, ZoomSDKMeetingRecordDelegate>
 {
-    ZMSDKMainWindowController* _mainWindowController;
     ZoomSDKMeetingService* _meetingService;
 }
-- (id)initWithWindowController:(ZMSDKMainWindowController*)mainWindowController;
+
 @end

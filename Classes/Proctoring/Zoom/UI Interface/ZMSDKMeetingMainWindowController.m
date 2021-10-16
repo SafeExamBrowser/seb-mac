@@ -54,7 +54,8 @@ const int DEFAULT_Thumbnail_View_Width = 320;
     self = [super init];
     if(self)
     {
-        _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 1100, 700) styleMask:NSWindowStyleMaskTitled|NSWindowStyleMaskClosable backing:NSBackingStoreBuffered defer:NO];
+        _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 550, 350) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
+        [_meetingMainWindow setLevel:NSModalPanelWindowLevel-1];
         self.window = _meetingMainWindow;
         _preViewVideoItem = nil;
         _activeUserVideo = nil;
@@ -449,7 +450,7 @@ const int DEFAULT_Thumbnail_View_Width = 320;
 
 -(void)updateInMeetingUI
 {
-    [self cleanUpPreViewVideo];
+//    [self cleanUpPreViewVideo];
     [self initActiveVideoUserView];
     [self initButtons];
     NSArray* userList = [[[[ZoomSDK sharedSDK] getMeetingService] getMeetingActionController] getParticipantsList];
@@ -504,16 +505,16 @@ const int DEFAULT_Thumbnail_View_Width = 320;
 }
 - (void)updateUI
 {
-    if(!_preViewVideoItem)
-    {
-        ZoomSDKPreViewVideoElement* tempPreViewVideoItem = [[ZoomSDKPreViewVideoElement alloc] initWithFrame:self.window.contentView.frame];
-        //_preViewVideoItem = [[ZoomSDKPreViewVideoElement alloc] initWithFrame:self.window.contentView.frame];
-        ZoomSDKVideoContainer* videoContainer = [[[ZoomSDK sharedSDK] getMeetingService] getVideoContainer];
-        [videoContainer createVideoElement:&tempPreViewVideoItem];
-        self.preViewVideoItem = tempPreViewVideoItem;
-        [self.window.contentView addSubview:[_preViewVideoItem getVideoView]];
-    }
-    [_preViewVideoItem startPreview:YES];
+//    if(!_preViewVideoItem)
+//    {
+//        ZoomSDKPreViewVideoElement* tempPreViewVideoItem = [[ZoomSDKPreViewVideoElement alloc] initWithFrame:self.window.contentView.frame];
+//        //_preViewVideoItem = [[ZoomSDKPreViewVideoElement alloc] initWithFrame:self.window.contentView.frame];
+//        ZoomSDKVideoContainer* videoContainer = [[[ZoomSDK sharedSDK] getMeetingService] getVideoContainer];
+//        [videoContainer createVideoElement:&tempPreViewVideoItem];
+//        self.preViewVideoItem = tempPreViewVideoItem;
+//        [self.window.contentView addSubview:[_preViewVideoItem getVideoView]];
+//    }
+//    [_preViewVideoItem startPreview:YES];
 }
 
 - (void)onUserJoin:(unsigned int)userID
