@@ -6,9 +6,10 @@
 //
 
 #import "SEBZoomController.h"
-#import "ZMSDKMainWindowController.h"
+#import "ZMSDKMeetingMainWindowController.h"
 #import "ZMSDKDelegateMgr.h"
 #import "ZMSDKCommonHelper.h"
+#import "ZMSDKMeetingStatusMgr.h"
 
 @implementation SEBZoomController
 
@@ -88,22 +89,26 @@
         }
         self.zoomActive = YES;
         
-        BOOL useCustomizedUI = YES;
-        ZoomSDKInitParams* params = [[ZoomSDKInitParams alloc] init];
-        params.needCustomizedUI = useCustomizedUI;
-        params.teamIdentifier = @"6F38DNSC7X";
-        params.enableLog = YES;
-        ZoomSDKError error = [[ZoomSDK sharedSDK] initSDKWithParams:params];
-        DDLogDebug(@"Zoom SDK initSDKWithParams error: %u", error);
-        [ZMSDKCommonHelper sharedInstance].isUseCutomizeUI = useCustomizedUI;
-        params = nil;
+        if (_authService && _authService.isAuthorized) {
+            [self startZoomMeeting];
+        } else {
+            BOOL useCustomizedUI = YES;
+            ZoomSDKInitParams* params = [[ZoomSDKInitParams alloc] init];
+            params.needCustomizedUI = useCustomizedUI;
+            params.teamIdentifier = @"6F38DNSC7X";
+            params.enableLog = YES;
+            ZoomSDKError error = [[ZoomSDK sharedSDK] initSDKWithParams:params];
+            DDLogDebug(@"Zoom SDK initSDKWithParams error: %u", error);
+            [ZMSDKCommonHelper sharedInstance].isUseCutomizeUI = useCustomizedUI;
+            params = nil;
 
-        ZoomSDK* sdk = [ZoomSDK sharedSDK];
-        NSString *domain = @"https://zoom.us";
-        [sdk setZoomDomain:domain];
+            ZoomSDK* sdk = [ZoomSDK sharedSDK];
+            NSString *domain = @"https://zoom.us";
+            [sdk setZoomDomain:domain];
 
-        error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzQyMzU3MzksImV4cCI6MTYzNDMxNDI1OCwidG9rZW5FeHAiOjE2MzQzMTQyNTh9.phJt8eZRu7Xjul8nBddLJ-783Ew87sMGMzMqjniWfWM"]; //self.sdkToken];
-        DDLogDebug(@"Zoom SDK getAuthService error: %u", error);
+            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzMzMzYyMTAsImV4cCI6MTYzNDU0NTgxMCwidG9rZW5FeHAiOjE2MzQ1NDU4MTB9.wk-6ZmUzA8udXJlcZzjGvmb4I_vrkVinQokYrX84lV8"]; //self.sdkToken];
+            DDLogDebug(@"Zoom SDK getAuthService error: %u", error);
+        }
     }
 }
 
@@ -120,61 +125,59 @@
     
 }
 
-
 - (void) closeZoomMeeting:(id)sender
 {
+    [self stopZoomMeeting];
+    self.zoomActive = NO;
+}
+
+
+#pragma mark - Initialize and start Zoom meetings
+
+- (void) startZoomMeeting
+{
+    _meetingStatusMgr = [[ZMSDKMeetingStatusMgr alloc] init];
+
+    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
     
+    ZoomSDKJoinMeetingElements *joinParams = [[ZoomSDKJoinMeetingElements alloc] init];
+    joinParams.userType = ZoomSDKUserType_WithoutLogin;
+    joinParams.webinarToken = nil;
+    joinParams.customerKey = nil;
+    joinParams.meetingNumber = self.room.longLongValue;
+    joinParams.displayName = self.userName;
+    joinParams.password = self.meetingKey;
+    joinParams.isDirectShare = NO;
+    joinParams.displayID = 0;
+    joinParams.isNoVideo = NO;
+    joinParams.isNoAuido = NO;
+    joinParams.vanityID = nil;
+    joinParams.zak = nil;
+
+    ZoomSDKError error = [meetingService joinMeeting:joinParams];
+    DDLogDebug(@"[ZoomSDKMeetingService joinMeeting] error: %u", error);
 }
 
 
-- (void) createMainWindow
+- (void) stopZoomMeeting
 {
-    if (self.mainWindowController)
-    {
-        [self.mainWindowController showWindow:nil];
-        [self.mainWindowController updateUI];
-        return;
+    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
+    [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_End)];
+
+    [self cleanUp];
+}
+
+
+- (void) cleanUp
+{
+    if (_meetingStatusMgr) {
+        _meetingStatusMgr = nil;
     }
-    self.mainWindowController = [[ZMSDKMainWindowController alloc] init] ;
-    [self.mainWindowController.window makeKeyAndOrderFront:nil];
-    [self.mainWindowController showWindow:nil];
+
+//    _authService.delegate = nil;
+//    _authService = nil;
 }
 
-
-- (void) updateUIWithLoginStatus:(BOOL)hasLogin
-{
-//    [ZMSDKCommonHelper sharedInstance].hasLogin = hasLogin;
-//    BOOL isEmailLoginEnabled = NO;
-//    if([[[ZoomSDK sharedSDK] getAuthService] isEmailLoginEnabled:&isEmailLoginEnabled] == ZoomSDKError_Success && isEmailLoginEnabled)
-//    {
-//        if (_emailRememerMeButton.state == NSOnState && [ZMSDKCommonHelper sharedInstance].loginType == ZMSDKLoginType_Email)
-//        {
-//            [[NSUserDefaults standardUserDefaults] setBool:hasLogin forKey:kZMSDKLoginEmailRemember];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-//        }
-//    }
-}
-
-
-- (void) logOut
-{
-//    if ([ZMSDKCommonHelper sharedInstance].loginType == ZMSDKLoginType_Email)
-//    {
-//       [_emailLoginHelper logOutWithEmail];
-//    }
-//    else if([ZMSDKCommonHelper sharedInstance].loginType == ZMSDKLoginType_SSO)
-//    {
-//        [_ssoLoginHelper logOutWithSSO];
-//    }
-    if (self.mainWindowController) {
-        [self.mainWindowController close];
-    }
-}
-
--(void) cleanUp
-{
-    _authService.delegate = nil;
-}
 
 - (void) dealloc
 {
@@ -182,7 +185,7 @@
 }
 
 
--(ZoomSDKError) newAuth:(NSString *)jwtToken
+- (ZoomSDKError) newAuth:(NSString *)jwtToken
 {
     if (!jwtToken || jwtToken.length == 0) {
         return ZoomSDKError_InvalidPrameter;
@@ -192,34 +195,16 @@
     return [self.authService sdkAuth:content];
 }
 
--(BOOL) isAuthed
+- (BOOL) isAuthed
 {
     return [_authService isAuthorized];
 }
 
--(void) onZoomSDKAuthReturn:(ZoomSDKAuthError)returnValue
+- (void) onZoomSDKAuthReturn:(ZoomSDKAuthError)returnValue
 {
     if (returnValue == ZoomSDKAuthError_Success) {
 
-        ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
-        [self createMainWindow];
-        
-        ZoomSDKJoinMeetingElements *joinParams = [[ZoomSDKJoinMeetingElements alloc] init];
-        joinParams.userType = ZoomSDKUserType_WithoutLogin;
-        joinParams.webinarToken = nil;
-        joinParams.customerKey = nil;
-        joinParams.meetingNumber = self.room.longLongValue;
-        joinParams.displayName = self.userName;
-        joinParams.password = self.meetingKey;
-        joinParams.isDirectShare = NO;
-        joinParams.displayID = 0;
-        joinParams.isNoVideo = NO;
-        joinParams.isNoAuido = NO;
-        joinParams.vanityID = nil;
-        joinParams.zak = nil;
-
-        ZoomSDKError error = [meetingService joinMeeting:joinParams];
-        DDLogDebug(@"[ZoomSDKMeetingService joinMeeting] error: %u", error);
+        [self startZoomMeeting];
 
     } else {
         NSString* error = @"";
@@ -243,7 +228,7 @@
 }
 
 
--(void)onZoomAuthIdentityExpired
+- (void) onZoomAuthIdentityExpired
 {
     
 }
