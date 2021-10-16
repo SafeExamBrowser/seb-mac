@@ -52,7 +52,7 @@
         _apiMeetingInterface = [[ZMSDKApiMeetingInterface alloc] initWithWindowController:self];
         _joinMeetingWindowController = [[ZMSDKJoinMeetingWindowController alloc] initWithMgr:self];
         _settingWindowController = [[ZMSDKSettingWindowController alloc] init];
-        _meetingStatusMgr = [[ZMSDKMeetingStatusMgr alloc] initWithWindowController:self];
+        _meetingStatusMgr = [[ZMSDKMeetingStatusMgr alloc] init];
         return self;
     }
     return nil;

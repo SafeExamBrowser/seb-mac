@@ -16,14 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@class ZMSDKMainWindowController;
+@class ZMSDKMeetingStatusMgr;
 
 @interface SEBZoomController : NSObject <ZoomSDKAuthDelegate>
 
 @property (strong, nonatomic) id proctoringUIDelegate;
 
-@property (strong, nonatomic) ZMSDKMainWindowController *mainWindowController;
 @property (strong, nonatomic) ZoomSDKAuthService* authService;
+@property (strong, nonatomic) ZMSDKMeetingStatusMgr *meetingStatusMgr;
 
 @property (strong, nonatomic) NSURL *serverURL;
 @property (strong, nonatomic) NSString *userName;
