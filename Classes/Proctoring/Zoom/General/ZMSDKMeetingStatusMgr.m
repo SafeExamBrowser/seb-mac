@@ -16,11 +16,13 @@
 
 @implementation ZMSDKMeetingStatusMgr
 
-- (id)init
+- (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     self = [super init];
     if (self)
     {
+        _zoomProctoringDelegate = proctoringDelegate;
+        
         if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI) {
            [ZMSDKConfUIMgr initConfUIMgr];
         }
@@ -123,10 +125,13 @@
 
                 case EndMeetingReason_NetworkBroken:
                     NSLog(@"Meeting ended because of broken network");
+                    [_zoomProctoringDelegate meetingReconnect];
+                    return;
                     break;
                 default:
                     break;
             }
+            [_zoomProctoringDelegate meetingStatusEnded];
         }
             break;
         case ZoomSDKMeetingStatus_Disconnecting:

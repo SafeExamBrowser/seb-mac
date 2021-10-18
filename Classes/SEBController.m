@@ -4961,8 +4961,16 @@ conditionallyForWindow:(NSWindow *)window
 
     [enterPasswordDialog setAttributedStringValue:text];
     
+    NSWindow *windowToShowModalFor;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            windowToShowModalFor = window;
+        }
+    }
+    
     [NSApp beginSheet: enterPasswordDialogWindow
-       modalForWindow: window
+       modalForWindow: windowToShowModalFor
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
