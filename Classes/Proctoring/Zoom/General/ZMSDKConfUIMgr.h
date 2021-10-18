@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "ZMSDKMeetingMainWindowController.h"
 #import "ZMSDKUserHelper.h"
+#import "ZMSDKMeetingStatusMgr.h"
+
 @class ZoomSDKWindowController;
+@class ZMSDKMeetingStatusMgr;
 
 @interface ZMSDKConfUIMgr : NSObject
 @property(nonatomic, strong, readwrite)ZMSDKMeetingMainWindowController *meetingMainWindowController;
@@ -18,7 +21,7 @@
 + (ZMSDKConfUIMgr*)sharedConfUIMgr;
 + (void)initConfUIMgr;
 + (void)uninitConfUIMgr;
-- (void)createMeetingMainWindow;
+- (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)zoomProctoringDelegate;
 - (ZMSDKUserHelper*)getUserHelper;
 - (ZMSDKMeetingMainWindowController*)getMeetingMainWindowController;
 - (int)getSystemVersion;

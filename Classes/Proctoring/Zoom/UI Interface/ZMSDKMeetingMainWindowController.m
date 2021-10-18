@@ -67,6 +67,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     }
     return nil;
 }
+
 - (void)updateUIInWaitingRoom
 {
     if(_preViewVideoItem)
@@ -220,24 +221,26 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 //    theButton = nil;
 //    xposLeft -= width + margin;
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
-    theButton.tag = BUTTON_TAG_ThUMBNAIL_VIEW;
-    theButton.title = @"Thumbnail Video";
-    theButton.image = [NSImage imageNamed:@"toolbar_participant_normal"];
-    theButton.pressImage = [NSImage imageNamed:@"toolbar_participant_press"];
-    theButton.titleColor = titleColor;
-    theButton.pressTitleColor = pressTitleColor;
-    theButton.font = theFont;
-    theButton.hoverBackgroundColor = hoverBgColor;
-    theButton.pressBackgoundColor = pressBgColor;
-    theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
-    [theButton setTarget:self];
-    [theButton setAction:@selector(onThumbnailButtonClicked:)];
-    [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
-    theButton = nil;
-    xposLeft -= width + margin;
+    if (_zoomProctoringDelegate.tileView) {
+        theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
+        theButton.tag = BUTTON_TAG_ThUMBNAIL_VIEW;
+        theButton.title = @"Thumbnail Video";
+        theButton.image = [NSImage imageNamed:@"toolbar_participant_normal"];
+        theButton.pressImage = [NSImage imageNamed:@"toolbar_participant_press"];
+        theButton.titleColor = titleColor;
+        theButton.pressTitleColor = pressTitleColor;
+        theButton.font = theFont;
+        theButton.hoverBackgroundColor = hoverBgColor;
+        theButton.pressBackgoundColor = pressBgColor;
+        theButton.imagePosition = NSImageAbove;
+        theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
+        [theButton setTarget:self];
+        [theButton setAction:@selector(onThumbnailButtonClicked:)];
+        [theButton setHidden:YES];
+        [self.window.contentView addSubview:theButton];
+        theButton = nil;
+        xposLeft -= width + margin;
+    }
     
     theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
     theButton.tag = BUTTON_TAG_PARTICIPANT;
@@ -259,26 +262,28 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     theButton = nil;
     xposRight += width + margin;
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
-    theButton.tag = BUTTON_TAG_CHAT;
-    theButton.title = @"Chat";
-    theButton.image = [NSImage imageNamed:@"toolbar_chat_normal"];
-    theButton.pressImage = [NSImage imageNamed:@"toolbar_chat_press"];
-    
-    theButton.titleColor = titleColor;
-    theButton.pressTitleColor = pressTitleColor;
-    theButton.font = theFont;
-    theButton.hoverBackgroundColor = hoverBgColor;
-    theButton.pressBackgoundColor = pressBgColor;
-    theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
-    [theButton setTarget:self];
-    [theButton setAction:@selector(onChatButtonClicked:)];
-    [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
-    theButton = nil;
-    xposRight += width + margin;
-    
+    if (_zoomProctoringDelegate.useChat) {
+        theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
+        theButton.tag = BUTTON_TAG_CHAT;
+        theButton.title = @"Chat";
+        theButton.image = [NSImage imageNamed:@"toolbar_chat_normal"];
+        theButton.pressImage = [NSImage imageNamed:@"toolbar_chat_press"];
+        
+        theButton.titleColor = titleColor;
+        theButton.pressTitleColor = pressTitleColor;
+        theButton.font = theFont;
+        theButton.hoverBackgroundColor = hoverBgColor;
+        theButton.pressBackgoundColor = pressBgColor;
+        theButton.imagePosition = NSImageAbove;
+        theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
+        [theButton setTarget:self];
+        [theButton setAction:@selector(onChatButtonClicked:)];
+        [theButton setHidden:YES];
+        [self.window.contentView addSubview:theButton];
+        theButton = nil;
+        xposRight += width + margin;
+    }
+        
 //    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
 //    theButton.tag = BUTTON_TAG_SHARE;
 //    theButton.title = @"Share";

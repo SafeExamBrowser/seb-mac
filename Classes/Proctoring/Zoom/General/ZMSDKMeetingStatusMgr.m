@@ -62,7 +62,7 @@
         {
             if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI)
             {
-                [[ZMSDKConfUIMgr sharedConfUIMgr] createMeetingMainWindow];
+                [[ZMSDKConfUIMgr sharedConfUIMgr] createMeetingMainWindowWithProctoringDelegate:_zoomProctoringDelegate];
             }
         }
             break;
