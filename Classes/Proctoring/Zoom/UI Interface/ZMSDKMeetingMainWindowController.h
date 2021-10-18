@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import <ZoomSDK/ZoomSDK.h>
+#import "ZMSDKMeetingStatusMgr.h"
+
 
 @class ZMSDKMainWindowController;
 @class ZMSDKTrackingButton;
 @class ZMSDKHCPanelistsView;
 @class ZMSDKThumbnailView;
+@class ZMSDKMeetingStatusMgr;
 
 enum MeetiongToolbarButtonTags
 {
@@ -43,6 +46,9 @@ typedef enum
     ZMSDKHCPanelistsView*  _panelistUserView;
     ZMSDKThumbnailView*    _thumbnailView;
 }
+
+@property (weak, nonatomic) id<ZoomProctoringDelegate> zoomProctoringDelegate;
+
 @property(nonatomic, strong, readwrite)ZoomSDKActiveVideoElement* activeUserVideo;
 @property(nonatomic, strong, readwrite)ZoomSDKPreViewVideoElement* preViewVideoItem;
 @property(nonatomic, strong, readwrite)NSWindow* meetingMainWindow;
