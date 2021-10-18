@@ -70,12 +70,13 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 {
     [self cleanUp];
 }
-- (void)createMeetingMainWindow
+- (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)zoomProctoringDelegate
 {
     if (!_meetingMainWindowController)
     {
         _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] init];
     }
+    _meetingMainWindowController.zoomProctoringDelegate = zoomProctoringDelegate;
     [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
     [_meetingMainWindowController.window makeKeyAndOrderFront:nil];
     [_meetingMainWindowController showWindow:nil];
