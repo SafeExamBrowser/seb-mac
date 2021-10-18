@@ -111,7 +111,7 @@
 
 #ifdef DEBUG
             // ETHZ SDK JWT
-            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzMzMzYyMTAsImV4cCI6MTYzNDU0NTgxMCwidG9rZW5FeHAiOjE2MzQ1NDU4MTB9.wk-6ZmUzA8udXJlcZzjGvmb4I_vrkVinQokYrX84lV8"]; //self.sdkToken];
+            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzQ1NjA0ODYsImV4cCI6MTYzNjE1Njc4NiwidG9rZW5FeHAiOjE2MzYxNTY3ODZ9.l5I_tv6l507bZX6EFJDVXZyET-kh5Da4Jlp6z5M_pbo"]; //self.sdkToken];
 #else
             // UZH SDK JWT
             error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJySWVDT2hGUkJqc3JhRUFOOXQzSTBDYTJGbjRpbkNFbncwdkIiLCJpYXQiOjE2MzQ1Mzg0NDEsImV4cCI6MTYzNjE1Njc5OSwidG9rZW5FeHAiOjE2MzYxNTY3OTl9.NDtZO83CZ7YpQGzc-ivat0Y8-z6trSahptwUT1muGI4"]; //self.sdkToken];

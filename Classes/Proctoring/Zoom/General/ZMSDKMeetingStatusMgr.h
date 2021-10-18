@@ -37,7 +37,7 @@
     ZoomSDKMeetingService* _meetingService;
 }
 
-@property (strong, nonatomic) id zoomProctoringDelegate;
+@property (weak, nonatomic) id zoomProctoringDelegate;
 
 - (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)delegate;
 
