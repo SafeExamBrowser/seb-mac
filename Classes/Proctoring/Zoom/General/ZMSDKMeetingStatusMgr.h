@@ -10,9 +10,23 @@
 #import <ZoomSDK/ZoomSDK.h>
 #import "ZoomSDKWindowController.h"
 
+
+@protocol ZoomProctoringDelegate <NSObject>
+
+- (void) meetingStatusInMeeting;
+- (void) meetingStatusEnded;
+- (void) meetingReconnect;
+
+@end
+
+
 @interface ZMSDKMeetingStatusMgr : NSObject  <ZoomSDKMeetingServiceDelegate, ZoomSDKMeetingActionControllerDelegate, ZoomSDKWebinarControllerDelegate, ZoomSDKMeetingRecordDelegate>
 {
     ZoomSDKMeetingService* _meetingService;
 }
+
+@property (strong, nonatomic) id zoomProctoringDelegate;
+
+- (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)delegate;
 
 @end
