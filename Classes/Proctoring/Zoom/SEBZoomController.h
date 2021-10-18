@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ZoomSDK/ZoomSDK.h>
+#import "ZMSDKMeetingStatusMgr.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ZMSDKMeetingStatusMgr;
 
-@interface SEBZoomController : NSObject <ZoomSDKAuthDelegate>
+@interface SEBZoomController : NSObject <ZoomSDKAuthDelegate, ZoomProctoringDelegate> {
+    @private
+    BOOL openZoomWithOverrideParameters;
+    BOOL _receiveAudioFlag;
+    BOOL _receiveVideoFlag;
+    BOOL _useChatFlag;
+}
 
 @property (strong, nonatomic) id proctoringUIDelegate;
 
@@ -34,8 +41,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *apiKey;
 @property (strong, nonatomic) NSString *meetingKey;
 
-@property (readwrite) BOOL zoomActive;
+@property (readonly) BOOL audioMuted;
+@property (readonly) BOOL videoMuted;
+@property (readonly) BOOL useChat;
+@property (readonly) BOOL closeCaptions;
+@property (readonly) BOOL raiseHand;
+@property (readonly) BOOL tileView;
 @property (readwrite) BOOL viewIsVisible;
+
+@property (readwrite) BOOL zoomActive;
+
+@property (strong, nonatomic) void (^meetingEndedCompletionHandler)(void);
 
 - (void) openZoomWithSender:(id)sender;
 

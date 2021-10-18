@@ -19,8 +19,10 @@
 #import "ZMSDKChatWindowController.h"
 #import "ZMSDKJoinMeetingConfirmWindowCtrl.h"
 #import "ZMSDKCommonHelper.h"
+const int MeetingWindow_Width = 640;
+const int MeetingWindow_height = 450;
 const int DEFAULT_Toolbar_Button_height = 60;
-const int DEFAULT_Thumbnail_View_Width = 320;
+const int DEFAULT_Thumbnail_View_Width = 185;
 
 
 @interface ZMSDKMeetingMainWindowController ()
@@ -54,8 +56,8 @@ const int DEFAULT_Thumbnail_View_Width = 320;
     self = [super init];
     if(self)
     {
-        _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 550, 350) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
-        [_meetingMainWindow setLevel:NSModalPanelWindowLevel-1];
+        _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
+        [_meetingMainWindow setLevel:NSModalPanelWindowLevel];
         self.window = _meetingMainWindow;
         _preViewVideoItem = nil;
         _activeUserVideo = nil;
@@ -149,7 +151,7 @@ const int DEFAULT_Thumbnail_View_Width = 320;
 }
 - (void)initUI
 {
-    [self.window setFrame:NSMakeRect(0, 0, 1100, 700) display:YES];
+    [self.window setFrame:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) display:YES];
     [self.window center];
     [self.window setTitle:@"Zoom Meeting"];
     [self.window setBackgroundColor:[NSColor blackColor]];
@@ -199,24 +201,24 @@ const int DEFAULT_Thumbnail_View_Width = 320;
     theButton = nil;
     xposLeft -= width + margin;
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
-    theButton.tag = BUTTON_TAG_VIDEO;
-    theButton.title = @"Video";
-    theButton.image = [NSImage imageNamed:@"toolbar_stop_video_normal"];
-    theButton.pressImage = [NSImage imageNamed:@"toolbar_stop_video_press"];
-    theButton.titleColor = titleColor;
-    theButton.pressTitleColor = pressTitleColor;
-    theButton.font = theFont;
-    theButton.hoverBackgroundColor = hoverBgColor;
-    theButton.pressBackgoundColor = pressBgColor;
-    theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMaxXMargin;
-    [theButton setTarget:self];
-    [theButton setAction:@selector(onVideoButtonClicked:)];
-    [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
-    theButton = nil;
-    xposLeft -= width + margin;
+//    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
+//    theButton.tag = BUTTON_TAG_VIDEO;
+//    theButton.title = @"Video";
+//    theButton.image = [NSImage imageNamed:@"toolbar_stop_video_normal"];
+//    theButton.pressImage = [NSImage imageNamed:@"toolbar_stop_video_press"];
+//    theButton.titleColor = titleColor;
+//    theButton.pressTitleColor = pressTitleColor;
+//    theButton.font = theFont;
+//    theButton.hoverBackgroundColor = hoverBgColor;
+//    theButton.pressBackgoundColor = pressBgColor;
+//    theButton.imagePosition = NSImageAbove;
+//    theButton.autoresizingMask = NSViewMaxXMargin;
+//    [theButton setTarget:self];
+//    [theButton setAction:@selector(onVideoButtonClicked:)];
+//    [theButton setHidden:YES];
+//    [self.window.contentView addSubview:theButton];
+//    theButton = nil;
+//    xposLeft -= width + margin;
     
     theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
     theButton.tag = BUTTON_TAG_ThUMBNAIL_VIEW;
@@ -277,67 +279,67 @@ const int DEFAULT_Thumbnail_View_Width = 320;
     theButton = nil;
     xposRight += width + margin;
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
-    theButton.tag = BUTTON_TAG_SHARE;
-    theButton.title = @"Share";
-    theButton.image = [NSImage imageNamed:@"toolbar_share_normal"];
-    theButton.pressImage = [NSImage imageNamed:@"toolbar_share_press"];
-    theButton.titleColor = titleColor;
-    theButton.pressTitleColor = pressTitleColor;
-    theButton.font = theFont;
-    theButton.hoverBackgroundColor = hoverBgColor;
-    theButton.pressBackgoundColor = pressBgColor;
-    theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
-    [theButton setTarget:self];
-    [theButton setAction:@selector(onShareButtonClicked:)];
-    [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
-    theButton = nil;
-    xposRight += width + margin;
+//    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
+//    theButton.tag = BUTTON_TAG_SHARE;
+//    theButton.title = @"Share";
+//    theButton.image = [NSImage imageNamed:@"toolbar_share_normal"];
+//    theButton.pressImage = [NSImage imageNamed:@"toolbar_share_press"];
+//    theButton.titleColor = titleColor;
+//    theButton.pressTitleColor = pressTitleColor;
+//    theButton.font = theFont;
+//    theButton.hoverBackgroundColor = hoverBgColor;
+//    theButton.pressBackgoundColor = pressBgColor;
+//    theButton.imagePosition = NSImageAbove;
+//    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
+//    [theButton setTarget:self];
+//    [theButton setAction:@selector(onShareButtonClicked:)];
+//    [theButton setHidden:YES];
+//    [self.window.contentView addSubview:theButton];
+//    theButton = nil;
+//    xposRight += width + margin;
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
-    theButton.tag = BUTTON_TAG_LEAVE_MEETING;
-    theButton.title = @"Leave Meeting";
-    theButton.image = [NSImage imageNamed:@"btn_leave_normal"];
-    theButton.pressImage = [NSImage imageNamed:@"btn_leave_normal"];
-    theButton.titleColor = titleColor;
-    theButton.pressTitleColor = pressTitleColor;
-    theButton.font = theFont;
-    theButton.hoverBackgroundColor = hoverBgColor;
-    theButton.pressBackgoundColor = pressBgColor;
-    theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
-    [theButton setTarget:self];
-    [theButton setAction:@selector(onLeaveMeetingButtonClicked:)];
-    [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
-    theButton = nil;
-    xposRight += width + margin;
-    
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
-    theButton.tag = BUTTON_TAG_STOP_SHARE;
-    theButton.title = @"Stop Share";
-    theButton.image = [NSImage imageNamed:@"toolbar_share_stop"];
-    theButton.pressImage = [NSImage imageNamed:@"toolbar_share_stop"];
-    theButton.titleColor = titleColor;
-    theButton.pressTitleColor = pressTitleColor;
-    theButton.font = theFont;
-    theButton.hoverBackgroundColor = hoverBgColor;
-    theButton.pressBackgoundColor = pressBgColor;
-    theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
-    [theButton setTarget:self];
-    [theButton setAction:@selector(onStopShareButtonClicked:)];
-    [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
-    theButton = nil;
-    xposRight += width + margin;
+//    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
+//    theButton.tag = BUTTON_TAG_LEAVE_MEETING;
+//    theButton.title = @"Leave Meeting";
+//    theButton.image = [NSImage imageNamed:@"btn_leave_normal"];
+//    theButton.pressImage = [NSImage imageNamed:@"btn_leave_normal"];
+//    theButton.titleColor = titleColor;
+//    theButton.pressTitleColor = pressTitleColor;
+//    theButton.font = theFont;
+//    theButton.hoverBackgroundColor = hoverBgColor;
+//    theButton.pressBackgoundColor = pressBgColor;
+//    theButton.imagePosition = NSImageAbove;
+//    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
+//    [theButton setTarget:self];
+//    [theButton setAction:@selector(onLeaveMeetingButtonClicked:)];
+//    [theButton setHidden:YES];
+//    [self.window.contentView addSubview:theButton];
+//    theButton = nil;
+//    xposRight += width + margin;
+//
+//    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
+//    theButton.tag = BUTTON_TAG_STOP_SHARE;
+//    theButton.title = @"Stop Share";
+//    theButton.image = [NSImage imageNamed:@"toolbar_share_stop"];
+//    theButton.pressImage = [NSImage imageNamed:@"toolbar_share_stop"];
+//    theButton.titleColor = titleColor;
+//    theButton.pressTitleColor = pressTitleColor;
+//    theButton.font = theFont;
+//    theButton.hoverBackgroundColor = hoverBgColor;
+//    theButton.pressBackgoundColor = pressBgColor;
+//    theButton.imagePosition = NSImageAbove;
+//    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
+//    [theButton setTarget:self];
+//    [theButton setAction:@selector(onStopShareButtonClicked:)];
+//    [theButton setHidden:YES];
+//    [self.window.contentView addSubview:theButton];
+//    theButton = nil;
+//    xposRight += width + margin;
 }
 - (void)onLeaveMeetingButtonClicked:(id)sender
 {
-    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
-    [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_End)];
+//    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
+//    [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_End)];
 }
 - (void)onThumbnailButtonClicked:(id)sender
 {
@@ -383,6 +385,7 @@ const int DEFAULT_Thumbnail_View_Width = 320;
     }
     if(_chatWindowCtrl)
     {
+        [_chatWindowCtrl.window setLevel:NSModalPanelWindowLevel];
         [_chatWindowCtrl.window makeKeyAndOrderFront:nil];
         [_chatWindowCtrl.window center];
     }
@@ -526,15 +529,27 @@ const int DEFAULT_Thumbnail_View_Width = 320;
 {
     if(!_activeUserVideo)
     {
-        ZoomSDKActiveVideoElement* tempActiveUserVideo = [[ZoomSDKActiveVideoElement alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.origin.x, self.window.contentView.frame.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, self.window.contentView.frame.size.height - DEFAULT_Toolbar_Button_height - 2)];
+        [self joinVoipStartVideo];
+        NSRect contentViewFrame = self.window.contentView.frame;
+        ZoomSDKActiveVideoElement* tempActiveUserVideo = [[ZoomSDKActiveVideoElement alloc] initWithFrame:NSMakeRect(contentViewFrame.origin.x, contentViewFrame.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, contentViewFrame.size.height - DEFAULT_Toolbar_Button_height - 2)];
         
         //_activeUserVideo = [[ZoomSDKActiveVideoElement alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.origin.x, self.window.contentView.frame.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, self.window.contentView.frame.size.height - DEFAULT_Toolbar_Button_height - 2)];
         ZoomSDKVideoContainer* videoContainer = [[[ZoomSDK sharedSDK] getMeetingService] getVideoContainer];
         [videoContainer createVideoElement:&tempActiveUserVideo];
         self.activeUserVideo = tempActiveUserVideo;
-        [self.window.contentView addSubview:[_activeUserVideo getVideoView]];
+        NSView *videoView = [_activeUserVideo getVideoView];
+        [videoView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [videoView setTranslatesAutoresizingMaskIntoConstraints:YES];
+        [self.window.contentView addSubview:videoView];
         [_activeUserVideo startActiveView:YES];
     }
+}
+
+- (void)joinVoipStartVideo
+{
+    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
+    [[meetingService getMeetingActionController] actionMeetingWithCmd:ActionMeetingCmd_JoinVoip userID:0 onScreen:ScreenType_First];
+    [[meetingService getMeetingActionController] actionMeetingWithCmd:ActionMeetingCmd_UnMuteVideo userID:0 onScreen:ScreenType_First];
 }
 
 - (void)cleanUpPreViewVideo
@@ -549,6 +564,7 @@ const int DEFAULT_Thumbnail_View_Width = 320;
         _preViewVideoItem = nil;
     }
 }
+
 - (void)onUserleft:(unsigned int)userID
 {
     [_panelistUserView onUserleft:userID];

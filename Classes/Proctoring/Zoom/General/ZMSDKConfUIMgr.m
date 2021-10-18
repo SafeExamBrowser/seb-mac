@@ -39,7 +39,6 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 {
     if (confUIMgr)
     {
-        [confUIMgr cleanUp];
         confUIMgr = nil;
     }
 }
@@ -54,13 +53,13 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 
 - (void)cleanUp
 {
-    if(_meetingMainWindowController)
+    if (_meetingMainWindowController)
     {
         [_meetingMainWindowController.window close];
         [_meetingMainWindowController cleanUp];
         _meetingMainWindowController = nil;
     }
-    if(_userHelper)
+    if (_userHelper)
     {
         _userHelper = nil;
     }
