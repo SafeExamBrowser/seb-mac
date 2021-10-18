@@ -109,7 +109,13 @@
             NSString *domain = @"https://zoom.us";
             [sdk setZoomDomain:domain];
 
+#ifdef DEBUG
+            // ETHZ SDK JWT
             error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzMzMzYyMTAsImV4cCI6MTYzNDU0NTgxMCwidG9rZW5FeHAiOjE2MzQ1NDU4MTB9.wk-6ZmUzA8udXJlcZzjGvmb4I_vrkVinQokYrX84lV8"]; //self.sdkToken];
+#else
+            // UZH SDK JWT
+            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJySWVDT2hGUkJqc3JhRUFOOXQzSTBDYTJGbjRpbkNFbncwdkIiLCJpYXQiOjE2MzQ1Mzg0NDEsImV4cCI6MTYzNjE1Njc5OSwidG9rZW5FeHAiOjE2MzYxNTY3OTl9.NDtZO83CZ7YpQGzc-ivat0Y8-z6trSahptwUT1muGI4"]; //self.sdkToken];
+#endif
             DDLogDebug(@"Zoom SDK getAuthService error: %u", error);
         }
     }
@@ -142,12 +148,17 @@
                               useChatOverride:(BOOL)useChatOverride
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    remoteProctoringViewShowPolicies remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+    _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
+    _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
+    _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
+    _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
+    _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+
     _audioMuted = !receiveAudioOverride &&
-    remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+    _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomAudioMuted"];
     _videoMuted = !receiveVideoOverride &&
-    remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+    _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomVideoMuted"];
     _useChat = useChatOverride || [preferences secureBoolForKey:@"zoomFeatureFlagChat"];
     _closeCaptions = [preferences secureBoolForKey:@"zoomFeatureFlagCloseCaptions"];
@@ -222,7 +233,7 @@
 {
     if (returnValue == ZoomSDKAuthError_Success) {
 
-        [self startZoomMeeting];
+        [self startZoomMeetingReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
 
     } else {
         NSString* error = @"";
@@ -277,7 +288,7 @@
 
 - (void)meetingReconnect {
     DDLogInfo(@"Zoom meeting was interrupted due to network issues, need to reconnect");
-    [self startZoomMeeting];
+    [self startZoomMeetingReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
 }
 
 

@@ -17,6 +17,18 @@
 - (void) meetingStatusEnded;
 - (void) meetingReconnect;
 
+@property (readonly) BOOL zoomReceiveAudio;
+@property (readonly) BOOL zoomReceiveVideo;
+@property (readonly) BOOL zoomSendAudio;
+@property (readonly) BOOL zoomSendVideo;
+@property (readonly) NSUInteger remoteProctoringViewShowPolicy;
+@property (readonly) BOOL audioMuted;
+@property (readonly) BOOL videoMuted;
+@property (readonly) BOOL useChat;
+@property (readonly) BOOL closeCaptions;
+@property (readonly) BOOL raiseHand;
+@property (readonly) BOOL tileView;
+
 @end
 
 

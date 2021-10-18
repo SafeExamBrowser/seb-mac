@@ -41,14 +41,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *apiKey;
 @property (strong, nonatomic) NSString *meetingKey;
 
+@property (readonly) BOOL zoomReceiveAudio;
+@property (readonly) BOOL zoomReceiveVideo;
+@property (readonly) BOOL zoomSendAudio;
+@property (readonly) BOOL zoomSendVideo;
+@property (readonly) NSUInteger remoteProctoringViewShowPolicy;
 @property (readonly) BOOL audioMuted;
 @property (readonly) BOOL videoMuted;
 @property (readonly) BOOL useChat;
 @property (readonly) BOOL closeCaptions;
 @property (readonly) BOOL raiseHand;
 @property (readonly) BOOL tileView;
-@property (readwrite) BOOL viewIsVisible;
 
+@property (readwrite) BOOL viewIsVisible;
 @property (readwrite) BOOL zoomActive;
 
 @property (strong, nonatomic) void (^meetingEndedCompletionHandler)(void);
