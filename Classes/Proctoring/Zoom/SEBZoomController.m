@@ -149,7 +149,9 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
+    _zoomReceiveAudioOverride = receiveAudioOverride;
     _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
+    _zoomReceiveVideoOverride = receiveVideoOverride;
     _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
     _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
     _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];

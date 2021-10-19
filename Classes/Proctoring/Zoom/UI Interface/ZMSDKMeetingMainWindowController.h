@@ -55,6 +55,8 @@ typedef enum
 @property(nonatomic, assign, readwrite)SelfAudioStatus audioStatus;
 @property(nonatomic, strong, readwrite)ZoomSDKUserInfo* mySelfUserInfo;
 
+- (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate;
+
 - (void)showSelf;
 - (void)relayoutWindowPosition;
 - (void)updateUI;
