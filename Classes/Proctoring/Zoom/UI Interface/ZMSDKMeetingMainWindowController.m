@@ -51,11 +51,12 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:nil];
 }
 
-- (id)init
+- (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     self = [super init];
     if(self)
     {
+        _zoomProctoringDelegate = proctoringDelegate;
         _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
         [_meetingMainWindow setLevel:NSModalPanelWindowLevel];
         self.window = _meetingMainWindow;

@@ -20,7 +20,7 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     {
         if (!_meetingMainWindowController)
         {
-            _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] init];
+            _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] initWithProctoringDelegate:nil];
         }
         if (!_userHelper)
         {
@@ -70,18 +70,25 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 {
     [self cleanUp];
 }
-- (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)zoomProctoringDelegate
+- (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     if (!_meetingMainWindowController)
     {
-        _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] init];
+        _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] initWithProctoringDelegate:proctoringDelegate];
     }
-    _meetingMainWindowController.zoomProctoringDelegate = zoomProctoringDelegate;
-    [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
-    [_meetingMainWindowController.window makeKeyAndOrderFront:nil];
-    [_meetingMainWindowController showWindow:nil];
-    [_meetingMainWindowController updateUI];
+    _meetingMainWindowController.zoomProctoringDelegate = proctoringDelegate;
+    if (proctoringDelegate.remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+        proctoringDelegate.remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
+        proctoringDelegate.zoomReceiveAudioOverride == true ||
+        proctoringDelegate.zoomReceiveVideoOverride == true)
+    {
+        [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
+        [_meetingMainWindowController.window makeKeyAndOrderFront:nil];
+        [_meetingMainWindowController showWindow:nil];
+        [_meetingMainWindowController updateUI];
+    }
 }
+
 - (ZMSDKUserHelper*)getUserHelper
 {
     if (!_userHelper)
