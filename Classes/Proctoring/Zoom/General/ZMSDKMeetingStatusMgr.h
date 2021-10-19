@@ -18,7 +18,9 @@
 - (void) meetingReconnect;
 
 @property (readonly) BOOL zoomReceiveAudio;
+@property (readonly) BOOL zoomReceiveAudioOverride;
 @property (readonly) BOOL zoomReceiveVideo;
+@property (readonly) BOOL zoomReceiveVideoOverride;
 @property (readonly) BOOL zoomSendAudio;
 @property (readonly) BOOL zoomSendVideo;
 @property (readonly) NSUInteger remoteProctoringViewShowPolicy;
