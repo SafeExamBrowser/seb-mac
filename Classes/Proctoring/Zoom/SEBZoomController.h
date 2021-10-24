@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProctoringUIDelegate <NSObject>
 
-- (void) setProctoringViewButtonState:(BOOL)remoteProctoringViewButtonState;
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringViewButtonState;
 
 @end
 
@@ -21,13 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SEBZoomController : NSObject <ZoomSDKAuthDelegate, ZoomProctoringDelegate> {
     @private
-    BOOL openZoomWithOverrideParameters;
     BOOL _receiveAudioFlag;
     BOOL _receiveVideoFlag;
     BOOL _useChatFlag;
 }
 
-@property (strong, nonatomic) id proctoringUIDelegate;
+@property (strong, nonatomic) id<ProctoringUIDelegate> proctoringUIDelegate;
 
 @property (strong, nonatomic) ZoomSDKAuthService* authService;
 @property (strong, nonatomic) ZMSDKMeetingStatusMgr *meetingStatusMgr;
@@ -79,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) updateProctoringViewButtonState;
 
-- (void) closeZoomMeeting:(id)sender;
+- (void) closeZoomMeeting:(void (^)(void))completionHandler;
 
 @end
 
