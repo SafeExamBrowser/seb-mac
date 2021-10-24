@@ -1005,7 +1005,7 @@ bool insideMatrix(void);
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
-            _establishingSEBServerConnection = true;
+            _establishingSEBServerConnection = YES;
             if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
                 // All necessary information for connecting to SEB Server was available in settings:
                 // try to connect to SEB Server and wait for delegate method to be called with success/failure
@@ -1273,11 +1273,13 @@ bool insideMatrix(void);
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
 }
 
-- (void) stopProctoring
+- (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
 {
     if (_zoomController) {
-        [_zoomController closeZoomMeeting:self];
+        [_zoomController closeZoomMeeting:completionHandler];
         _zoomController = nil;
+    } else {
+        completionHandler();
     }
 }
 
@@ -1298,6 +1300,82 @@ bool insideMatrix(void);
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:^(NSModalResponse returnCode) {
             [self removeAlertWindow:modalAlert.window];
         }];
+    }
+}
+
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+{
+    [self setProctoringViewButtonState:remoteProctoringButtonState userFeedback:YES];
+}
+
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+                         userFeedback:(BOOL)userFeedback
+{
+    NSImage *remoteProctoringButtonImage;
+    NSColor *remoteProctoringButtonTintColor;
+    switch (remoteProctoringButtonState) {
+        case remoteProctoringButtonStateNormal:
+//            remoteProctoringButtonImage = ProctoringIconNormalState;
+            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+//            _sebViewController.proctoringStateIcon = ProctoringBadgeNormalState;
+            break;
+            
+        case remoteProctoringButtonStateWarning:
+//            remoteProctoringButtonImage = ProctoringIconWarningState;
+            remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
+//            _sebViewController.proctoringStateIcon = ProctoringBadgeWarningState;
+            break;
+            
+        case remoteProctoringButtonStateError:
+//            remoteProctoringButtonImage = ProctoringIconErrorState;
+            remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
+//            _sebViewController.proctoringStateIcon = ProctoringBadgeErrorState;
+            break;
+            
+        case remoteProctoringButtonStateAIInactive:
+            if (@available(macOS 10.14, *)) {
+                remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconAIInactiveState;
+            }
+//            _sebViewController.proctoringStateIcon = nil;
+            break;
+            
+        default:
+            if (@available(macOS 10.14, *)) {
+                remoteProctoringButtonTintColor = nil;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconDefaultState;
+            }
+//            _sebViewController.proctoringStateIcon = nil;
+            break;
+    }
+    if (userFeedback) {
+        if (@available(macOS 10.14, *)) {
+            _dockButtonProctoringView.contentTintColor = remoteProctoringButtonTintColor;
+        } else {
+            _dockButtonProctoringView.image = remoteProctoringButtonImage;
+        }
+    }
+}
+
+
+- (void) toggleRaiseHand
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    
+    if (_raiseHandRaised) {
+        _dockButtonRaiseHand.image = RaisedHandIconDefaultState;
+        if (@available(macOS 10.14, *)) {
+            _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorDefaultState;
+        }
+    } else {
+        _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
+        if (@available(macOS 10.14, *)) {
+            _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorRaisedState;
+        }
     }
 }
 
@@ -4749,6 +4827,60 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
+            ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
+            ProctoringIconDefaultState.template = YES;
+            ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
+            ProctoringIconNormalState = [NSImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+            ProctoringIconColorNormalState = [NSColor systemGreenColor];
+//            ProctoringBadgeNormalState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeCheckmark"].CGImage];
+            ProctoringIconWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ProctoringIconColorWarningState = [NSColor systemOrangeColor];
+//            ProctoringBadgeWarningState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeWarning"].CGImage];
+            ProctoringIconErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ProctoringIconColorErrorState = [NSColor systemRedColor];
+//            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
+
+            NSUInteger remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+            BOOL allowToggleProctoringView = (remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+                                              remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
+
+            SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                                       toolTip:allowToggleProctoringView ?
+                                                   NSLocalizedString(@"Toggle Proctoring View",nil) :
+                                                   NSLocalizedString(@"Remote Proctoring",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(toggleProctoringViewVisibility)];
+            [rightDockItems addObject:dockItemProctoringView];
+        }
+        
+        if (([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
+            _establishingSEBServerConnection || _sebServerConnectionEstablished) &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"] &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonShow"]) {
+            RaisedHandIconDefaultState = [NSImage imageNamed:@"SEBRaiseHandIcon"];
+            RaisedHandIconColorDefaultState = nil;
+            RaisedHandIconDefaultState.template = YES;
+            if (@available(macOS 10.14, *)) {
+                RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised"];
+                RaisedHandIconRaisedState.template = YES;
+                RaisedHandIconColorRaisedState = [NSColor systemYellowColor];
+            } else {
+                RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised_yellow"];
+            }
+            SEBDockItem *dockItemRaiseHand = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
+                                                                       toolTip:NSLocalizedString(@"Raise Hand",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(toggleRaiseHand)];
+            [rightDockItems addObject:dockItemRaiseHand];
+        }
+        
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showBackToStartButton"] &&
             ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
@@ -4795,6 +4927,18 @@ conditionallyForWindow:(NSWindow *)window
         {
             if (dockButton.action == @selector(reloadButtonPressed)) {
                 _dockButtonReload = dockButton;
+            }
+            if (dockButton.action == @selector(toggleProctoringViewVisibility)) {
+                _dockButtonProctoringView = dockButton;
+//                _dockButtonProctoringView.image.template = YES;
+                _dockButtonProctoringView.bezelStyle = NSBezelStyleInline;
+                _dockButtonProctoringView.bordered = NO;
+            }
+            if (dockButton.action == @selector(toggleRaiseHand)) {
+                _dockButtonRaiseHand = dockButton;
+//                _dockButtonRaiseHand.image.template = YES;
+                _dockButtonRaiseHand.bezelStyle = NSBezelStyleInline;
+                _dockButtonRaiseHand.bordered = NO;
             }
         }
         
@@ -5407,9 +5551,9 @@ conditionallyForWindow:(NSWindow *)window
     [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
 
         // Stop/Reset proctoring
-        [self stopProctoring];
-
-        [self exitSEB];
+        [self stopProctoringWithCompletion:^{
+            [self exitSEB];
+        }];
     }];
 }
 
@@ -5487,18 +5631,17 @@ conditionallyForWindow:(NSWindow *)window
     // Reset SEB Browser
     [self.browserController resetBrowser];
     
-    // Stop/Reset proctoring
-    [self stopProctoring];
-
-//    NSApp.presentationOptions = NSApplicationPresentationDisableForceQuit + NSApplicationPresentationHideDock;
-
     // Clear private pasteboard
     [self.browserController clearPrivatePasteboard];
     
-    // Re-Initialize file logger if logging enabled
-    [self initializeLogger];
-    
-    [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+    // Stop/Reset proctoring
+    [self stopProctoringWithCompletion:^{
+        run_on_ui_thread(^{
+            // Re-Initialize file logger if logging enabled
+            [self initializeLogger];
+            [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+        });
+    }];
 }
 
 - (void)requestedRestartProcessesChecked

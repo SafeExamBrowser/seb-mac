@@ -42,5 +42,6 @@
 @property (weak, nonatomic) id zoomProctoringDelegate;
 
 - (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)delegate;
+- (void)toggleZoomViewVisibility;
 
 @end

@@ -87,7 +87,7 @@
 @class SEBZoomController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringUIDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -149,6 +149,24 @@
     NSDate *timeProcessCheckBeforeSIGSTOP;
     
     CGEventRef keyboardEventReturnKey;
+    
+    NSImage *ProctoringIconDefaultState;
+    NSImage *ProctoringIconAIInactiveState;
+    NSImage *ProctoringIconNormalState;
+    NSImage *ProctoringIconWarningState;
+    NSImage *ProctoringIconErrorState;
+    NSColor *ProctoringIconColorNormalState;
+    NSColor *ProctoringIconColorWarningState;
+    NSColor *ProctoringIconColorErrorState;
+    
+    CIImage *ProctoringBadgeNormalState;
+    CIImage *ProctoringBadgeWarningState;
+    CIImage *ProctoringBadgeErrorState;
+    
+    NSImage *RaisedHandIconDefaultState;
+    NSColor *RaisedHandIconColorDefaultState;
+    NSImage *RaisedHandIconRaisedState;
+    NSColor *RaisedHandIconColorRaisedState;
 }
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
@@ -205,6 +223,7 @@
 //- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
 //- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
 
+@property(readwrite) BOOL raiseHandRaised;
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;
@@ -262,10 +281,10 @@
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
 @property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
 
-
+@property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery
-;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing

@@ -793,6 +793,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"quitURLRestart",
                    
+                   @YES,
+                   @"raiseHandButtonShow",
+                   
+                   @NO,
+                   @"raiseHandButtonAlwaysPromptMessage",
+                   
                    [NSNumber numberWithLong:remoteProctoringViewShowNever],
                    @"remoteProctoringViewShow",
 

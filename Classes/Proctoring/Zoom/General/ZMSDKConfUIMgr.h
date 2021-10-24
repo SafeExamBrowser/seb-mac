@@ -22,6 +22,7 @@
 + (void)initConfUIMgr;
 + (void)uninitConfUIMgr;
 - (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)zoomProctoringDelegate;
+- (void)toggleZoomViewVisibility;
 - (ZMSDKUserHelper*)getUserHelper;
 - (ZMSDKMeetingMainWindowController*)getMeetingMainWindowController;
 - (int)getSystemVersion;
