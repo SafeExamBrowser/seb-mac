@@ -86,8 +86,9 @@
             _receiveAudioFlag = receiveAudioFlag;
             _receiveVideoFlag = receiveVideoFlag;
             _useChatFlag = useChatFlag;
-            openZoomWithOverrideParameters = YES;
-            [self closeZoomMeeting:self];
+            [self closeZoomMeeting:^{
+                [self openZoomWithReceiveAudioOverride:receiveAudioFlag receiveVideoOverride:receiveVideoFlag useChatOverride:useChatFlag];
+            }];
             return;
         }
         self.zoomActive = YES;
@@ -125,17 +126,18 @@
 - (void) toggleZoomViewVisibilityWithSender:(id)sender
 
 {
-    
+    [_meetingStatusMgr toggleZoomViewVisibility];
 }
 
 
 - (void) updateProctoringViewButtonState
 {
-    
+    [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateAIInactive];
 }
 
-- (void) closeZoomMeeting:(id)sender
+- (void) closeZoomMeeting:(void (^)(void))completionHandler
 {
+    _meetingEndedCompletionHandler = completionHandler;
     [self stopZoomMeeting];
     self.zoomActive = NO;
 }
@@ -282,9 +284,8 @@
 
 - (void)meetingStatusEnded {
     DDLogInfo(@"Zoom meeting ended.");
-    if (openZoomWithOverrideParameters) {
-        openZoomWithOverrideParameters = NO;
-        [self openZoomWithReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
+    if (_meetingEndedCompletionHandler) {
+        _meetingEndedCompletionHandler();
     }
 }
 

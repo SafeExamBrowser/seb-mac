@@ -28,6 +28,9 @@
 		690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB519D30DF800F7C9C6 /* SEBDockView.m */; };
 		690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */; };
 		690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */; };
+		690D18FB271EFFC100558338 /* SEBRaiseHandIcon_raised.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 690D18F8271EFFC100558338 /* SEBRaiseHandIcon_raised.iconset */; };
+		690D18FC271EFFC100558338 /* SEBRaiseHandIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 690D18F9271EFFC100558338 /* SEBRaiseHandIcon.iconset */; };
+		690D18FD271EFFC100558338 /* SEBProctoringViewIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 690D18FA271EFFC100558338 /* SEBProctoringViewIcon.iconset */; };
 		691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */; };
 		691018C61CF1B33900AB8803 /* SEBShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */; };
 		691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */; };
@@ -71,6 +74,8 @@
 		6922070C249B9FDA009F8CD1 /* SEBScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220707249B9FD9009F8CD1 /* SEBScrollLockIcon.png */; };
 		6922070D249B9FDA009F8CD1 /* SEBScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220708249B9FD9009F8CD1 /* SEBScrollLockIcon@2x.png */; };
 		6922070E249B9FDA009F8CD1 /* SEBScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220708249B9FD9009F8CD1 /* SEBScrollLockIcon@2x.png */; };
+		69243B7C272609750026427D /* SEBProctoringViewIcon_green.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69243B7B272609750026427D /* SEBProctoringViewIcon_green.iconset */; };
+		69243B7E272609860026427D /* SEBRaiseHandIcon_raised_yellow.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69243B7D272609860026427D /* SEBRaiseHandIcon_raised_yellow.iconset */; };
 		69261B8F26BE2FE4001DE2BB /* PreferencesBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69261B8D26BE2FE4001DE2BB /* PreferencesBrowser.xib */; };
 		69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69263A9C1A2E0765006F1E31 /* SEBWebView.h */; };
 		69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69263A9D1A2E0765006F1E31 /* SEBWebView.m */; };
@@ -1274,6 +1279,9 @@
 		690BBEB519D30DF800F7C9C6 /* SEBDockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockView.m; path = Classes/SEBDock/SEBDockView.m; sourceTree = "<group>"; };
 		690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBOSXBrowserController.h; path = Classes/BrowserComponents/SEBOSXBrowserController.h; sourceTree = "<group>"; };
 		690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBOSXBrowserController.m; path = Classes/BrowserComponents/SEBOSXBrowserController.m; sourceTree = "<group>"; };
+		690D18F8271EFFC100558338 /* SEBRaiseHandIcon_raised.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRaiseHandIcon_raised.iconset; path = Resources/Icons/SEBRaiseHandIcon_raised.iconset; sourceTree = "<group>"; };
+		690D18F9271EFFC100558338 /* SEBRaiseHandIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRaiseHandIcon.iconset; path = Resources/Icons/SEBRaiseHandIcon.iconset; sourceTree = "<group>"; };
+		690D18FA271EFFC100558338 /* SEBProctoringViewIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBProctoringViewIcon.iconset; path = Resources/Icons/SEBProctoringViewIcon.iconset; sourceTree = "<group>"; };
 		690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsBrowserViewController.h; sourceTree = "<group>"; };
 		690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsBrowserViewController.m; sourceTree = "<group>"; };
 		690D234A1452000800CCCFF9 /* BrowserIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BrowserIcon.png; path = Resources/Icons/BrowserIcon.png; sourceTree = "<group>"; };
@@ -1306,6 +1314,8 @@
 		69220706249B9FD9009F8CD1 /* SEBScrollLockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLockIcon@3x.png"; path = "Resources/Icons/Dock/SEBScrollLockIcon@3x.png"; sourceTree = "<group>"; };
 		69220707249B9FD9009F8CD1 /* SEBScrollLockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBScrollLockIcon.png; path = Resources/Icons/Dock/SEBScrollLockIcon.png; sourceTree = "<group>"; };
 		69220708249B9FD9009F8CD1 /* SEBScrollLockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLockIcon@2x.png"; path = "Resources/Icons/Dock/SEBScrollLockIcon@2x.png"; sourceTree = "<group>"; };
+		69243B7B272609750026427D /* SEBProctoringViewIcon_green.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBProctoringViewIcon_green.iconset; path = Resources/Icons/SEBProctoringViewIcon_green.iconset; sourceTree = "<group>"; };
+		69243B7D272609860026427D /* SEBRaiseHandIcon_raised_yellow.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRaiseHandIcon_raised_yellow.iconset; path = Resources/Icons/SEBRaiseHandIcon_raised_yellow.iconset; sourceTree = "<group>"; };
 		692476F41D27343600931AD8 /* SEB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SEB.entitlements; path = Resources/SEB.entitlements; sourceTree = "<group>"; };
 		69261B8E26BE2FE4001DE2BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69261B9026BE2FF5001DE2BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesBrowser.strings; sourceTree = "<group>"; };
@@ -2577,6 +2587,11 @@
 				69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */,
 				697048E026D779D4009A822B /* SEBBatteryIcon_charging.iconset */,
 				697048E126D779D4009A822B /* SEBBatteryIcon.iconset */,
+				690D18FA271EFFC100558338 /* SEBProctoringViewIcon.iconset */,
+				69243B7B272609750026427D /* SEBProctoringViewIcon_green.iconset */,
+				690D18F9271EFFC100558338 /* SEBRaiseHandIcon.iconset */,
+				690D18F8271EFFC100558338 /* SEBRaiseHandIcon_raised.iconset */,
+				69243B7D272609860026427D /* SEBRaiseHandIcon_raised_yellow.iconset */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -4343,6 +4358,7 @@
 				6992E1092717601100A6463B /* btn_joinmeeting_normal@2x.png in Resources */,
 				6992E10C2717601100A6463B /* btn_leave_normal.png in Resources */,
 				69F7B60014F411FB00FD0761 /* SEBicon.icns in Resources */,
+				69243B7C272609750026427D /* SEBProctoringViewIcon_green.iconset in Resources */,
 				6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */,
 				6992E1022717601100A6463B /* toolbar_share_normal.png in Resources */,
 				6992E0FC2717601100A6463B /* share_camera.png in Resources */,
@@ -4369,6 +4385,7 @@
 				696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
 				6992E1112717601100A6463B /* btn_setting_normal.png in Resources */,
 				699447FF248D54870074A655 /* SEBBadgeWarning.png in Resources */,
+				69243B7E272609860026427D /* SEBRaiseHandIcon_raised_yellow.iconset in Resources */,
 				696A3AF019F6FBF600274214 /* PreferencesApplications.xib in Resources */,
 				69B42897270C36870061E328 /* ModifyPages.js in Resources */,
 				696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
@@ -4393,6 +4410,7 @@
 				69B8A75D2718A37F0006178D /* CptHost.app in Resources */,
 				69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
 				69261B8F26BE2FE4001DE2BB /* PreferencesBrowser.xib in Resources */,
+				690D18FC271EFFC100558338 /* SEBRaiseHandIcon.iconset in Resources */,
 				695A8EF01E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
 				69E87E3E202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
 				6992E11B2717601100A6463B /* share_whiteboard.png in Resources */,
@@ -4429,6 +4447,7 @@
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69E87E56202927330055988F /* SEBDockIconLandscape@3x.png in Resources */,
 				6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */,
+				690D18FD271EFFC100558338 /* SEBProctoringViewIcon.iconset in Resources */,
 				696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */,
 				69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */,
 				6992E11F2717601100A6463B /* toolbar_noaudio_normal.png in Resources */,
@@ -4439,6 +4458,7 @@
 				69428CD0172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */,
 				69944808248D54870074A655 /* SEBBadgeCheckmark.png in Resources */,
 				69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
+				690D18FB271EFFC100558338 /* SEBRaiseHandIcon_raised.iconset in Resources */,
 				69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */,
 				6992E1142717601100A6463B /* btn_unpresentshare_normal@2x.png in Resources */,
 				6992E10E2717601100A6463B /* plistArrowTop.png in Resources */,

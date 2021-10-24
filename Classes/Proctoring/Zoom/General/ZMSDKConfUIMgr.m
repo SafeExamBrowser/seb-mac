@@ -89,6 +89,19 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     }
 }
 
+- (void)toggleZoomViewVisibility
+{
+    if (_meetingMainWindowController.window.visible) {
+        [_meetingMainWindowController.window close];
+    } else {
+        [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
+        [_meetingMainWindowController.window makeKeyAndOrderFront:nil];
+        [_meetingMainWindowController showWindow:nil];
+    }
+    
+}
+
+
 - (ZMSDKUserHelper*)getUserHelper
 {
     if (!_userHelper)
