@@ -165,7 +165,7 @@
 }
 
 
-- (void)didEstablishSEBServerConnection {
+- (void) didEstablishSEBServerConnection {
     [self.delegate didEstablishSEBServerConnection];
 }
 
