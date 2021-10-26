@@ -506,6 +506,10 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedRequiredBuiltinDisplayMissing" object:nil];
+    // Add an observer for the notification that proctoring failed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"proctoringFailed" object:nil];
 
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
@@ -1277,11 +1281,18 @@ bool insideMatrix(void);
 {
     if (_zoomController) {
         [_zoomController closeZoomMeeting:completionHandler];
-        _zoomController = nil;
     } else {
         completionHandler();
     }
 }
+
+
+- (void) proctoringFailedWithErrorMessage:(NSString *)errorMessage
+{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"proctoringFailed" object:self userInfo:@{NSLocalizedFailureReasonErrorKey : errorMessage}];
+}
+
 
 - (void) toggleProctoringViewVisibility
 {
@@ -1336,6 +1347,7 @@ bool insideMatrix(void);
             
         case remoteProctoringButtonStateAIInactive:
             if (@available(macOS 10.14, *)) {
+                _dockButtonProctoringView.image.template = YES;
                 remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
             } else {
                 remoteProctoringButtonImage = ProctoringIconAIInactiveState;
@@ -1367,11 +1379,13 @@ bool insideMatrix(void);
     DDLogInfo(@"%s", __FUNCTION__);
     
     if (_raiseHandRaised) {
+        _raiseHandRaised = NO;
         _dockButtonRaiseHand.image = RaisedHandIconDefaultState;
         if (@available(macOS 10.14, *)) {
             _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorDefaultState;
         }
     } else {
+        _raiseHandRaised = YES;
         _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
         if (@available(macOS 10.14, *)) {
             _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorRaisedState;
@@ -4033,6 +4047,21 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         
+        // Handler called when dictation was detected
+        
+        else if ([[notification name] isEqualToString:
+                  @"proctoringFailed"])
+        {
+            // Set custom alert message string
+            NSString *proctoringFailedErrorString = [notification.userInfo objectForKey:NSLocalizedFailureReasonErrorKey];
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Proctoring Error Locked SEB!", @"Lockdown alert title text for proctoring failure")
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
+            [self openLockdownWindows];
+
+            // Add log string for dictation active
+            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Proctoring failed", nil)] withTime:self.didBecomeActiveTime];
+        }
+
     });
 }
 
@@ -4829,7 +4858,7 @@ conditionallyForWindow:(NSWindow *)window
 
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
             ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
-            ProctoringIconDefaultState.template = YES;
+//            ProctoringIconDefaultState.template = YES;
             ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
             ProctoringIconNormalState = [NSImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
             ProctoringIconColorNormalState = [NSColor systemGreenColor];
@@ -4863,7 +4892,7 @@ conditionallyForWindow:(NSWindow *)window
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonShow"]) {
             RaisedHandIconDefaultState = [NSImage imageNamed:@"SEBRaiseHandIcon"];
             RaisedHandIconColorDefaultState = nil;
-            RaisedHandIconDefaultState.template = YES;
+//            RaisedHandIconDefaultState.template = YES;
             if (@available(macOS 10.14, *)) {
                 RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised"];
                 RaisedHandIconRaisedState.template = YES;
@@ -5440,7 +5469,7 @@ conditionallyForWindow:(NSWindow *)window
         if (![hashedQuitPassword isEqualToString:@""]) {
             DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
             // if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:", nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
             
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -5552,6 +5581,7 @@ conditionallyForWindow:(NSWindow *)window
 
         // Stop/Reset proctoring
         [self stopProctoringWithCompletion:^{
+            self.zoomController = nil;
             [self exitSEB];
         }];
     }];
