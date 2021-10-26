@@ -77,8 +77,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) toggleZoomViewVisibilityWithSender:(id)sender;
 
-- (void) updateProctoringViewButtonState;
-
 - (void) closeZoomMeeting:(void (^)(void))completionHandler;
 
 @end

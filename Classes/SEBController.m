@@ -1225,7 +1225,6 @@ bool insideMatrix(void);
                                                 apiKey:zoomAPIKey
                                             meetingKey:zoomMeetingKey];
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
-            [self.zoomController updateProctoringViewButtonState];
         } else {
             DDLogError(@"%s: Cannot start proctoring, missing parameters in attributes %@!", __FUNCTION__, attributes);
         }
@@ -1268,7 +1267,6 @@ bool insideMatrix(void);
         _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
         _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
     }
-    [self.zoomController updateProctoringViewButtonState];
     NSString *instructionConfirm = attributes[@"instruction-confirm"];
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
 }
@@ -1353,6 +1351,7 @@ bool insideMatrix(void);
             
         default:
             if (@available(macOS 10.14, *)) {
+                remoteProctoringButtonImage.template = NO;
                 remoteProctoringButtonTintColor = nil;
             } else {
                 remoteProctoringButtonImage = ProctoringIconDefaultState;
@@ -4055,7 +4054,7 @@ conditionallyForWindow:(NSWindow *)window
             [self openLockdownWindows];
 
             // Add log string for dictation active
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Proctoring failed", nil)] withTime:self.didBecomeActiveTime];
+            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime];
         }
 
     });
@@ -5580,7 +5579,6 @@ conditionallyForWindow:(NSWindow *)window
 
         // Stop/Reset proctoring
         [self stopProctoringWithCompletion:^{
-            self.zoomController = nil;
             [self exitSEB];
         }];
     }];
