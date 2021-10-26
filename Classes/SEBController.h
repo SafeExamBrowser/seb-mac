@@ -341,7 +341,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
-- (void) conditionallyLockExam;
+- (BOOL) conditionallyLockExam:(NSString *)examURLString;
+
 - (void) correctPasswordEntered;
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
