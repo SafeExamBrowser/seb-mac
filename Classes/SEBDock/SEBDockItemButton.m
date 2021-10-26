@@ -138,6 +138,21 @@
     return self;
 }
 
+- (void)setImage:(NSImage *)image
+{
+    CGFloat iconSize = self.frame.size.width;
+    
+    [image setSize: NSMakeSize(iconSize, iconSize)];
+    _defaultImage = image;
+
+//        if (@available(macOS 10.14, *)) {
+//        } else {
+//            [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
+//            _highlightedImage = itemHighlightedIcon;
+//        }
+    
+    super.image = _defaultImage;
+}
 
 - (void)mouseDown:(NSEvent*)theEvent
 {
