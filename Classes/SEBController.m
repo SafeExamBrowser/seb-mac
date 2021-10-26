@@ -975,15 +975,6 @@ bool insideMatrix(void);
     
     [self startExam];
 
-    // Persist start URL of a "secure" exam
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        [self.sebLockedViewController addLockedExam:currentExamStartURL];
-    } else {
-        currentExamStartURL = nil;
-    }
-    
     // SEB finished starting up, reset the flag for starting up
     _startingUp = false;
 
@@ -1050,20 +1041,24 @@ bool insideMatrix(void);
             //            if (_secureMode) {
             //                [self.sebLockedViewController addLockedExam:startURLString];
             //            }
-                    // Persist start URL of a "secure" exam
-                    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-                        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-                        [self.sebLockedViewController addLockedExam:currentExamStartURL];
-                    } else {
-                        currentExamStartURL = nil;
-                    }
-
-
+            // Persist start URL of a "secure" exam
+            [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
             //        }
         }
     }
 }
 
+// Persist start URL of a secure exam
+- (void) persistSecureExamStartURL:(NSString *)startURLString
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentExamStartURL = startURLString;
+        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+    } else {
+        currentExamStartURL = nil;
+    }
+}
 
 #pragma mark - Connecting to SEB Server
 
@@ -1121,6 +1116,7 @@ bool insideMatrix(void);
 {
     NSURL *examURL = [NSURL URLWithString:url];
     [self.browserController openMainBrowserWindowWithStartURL:examURL];
+    [self persistSecureExamStartURL:url];
     self.browserController.sebServerExamStartURL = examURL;
     _sessionRunning = YES;
 }
@@ -4066,18 +4062,21 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) conditionallyLockExam
+- (BOOL) conditionallyLockExam:(NSString *)examURLString
 {
-    if ([_sebLockedViewController isStartingLockedExam]) {
+    
+    if ([_sebLockedViewController isStartingLockedExam:examURLString]) {
         if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedReOpeningExam" object:self];
+            return YES;
         } else {
             // Remove a previously locked exam
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
-            [_sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
+            [_sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString]];
         }
     }
+    return NO;
 }
 
 
@@ -5590,7 +5589,16 @@ conditionallyForWindow:(NSWindow *)window
 - (void)exitSEB
 {
     quittingMyself = YES; //quit SEB without asking for confirmation or password
-    [NSApp terminate: nil]; //quit (exit) SEB
+
+    if (self.browserController) {
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        [self.browserController resetAllCookiesWithCompletionHandler:^{
+            [NSApp terminate: nil]; //quit (exit) SEB
+        }];
+    } else {
+        [NSApp terminate: nil]; //quit (exit) SEB
+    }
 }
 
 
@@ -5765,7 +5773,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) terminateSEB
 {
     DDLogInfo(@"Terminating SEB after ending Assessment Mode");
-    [NSApp terminate: nil];
+    [self exitSEB];
 }
 
 
@@ -5778,6 +5786,12 @@ conditionallyForWindow:(NSWindow *)window
 
     if (self.browserController) {
         [self.browserController closeAllBrowserWindows];
+    }
+    
+    // If this was a secured exam, we remove it from the list of running exams,
+    // otherwise it would be locked next time it is started again
+    if (currentExamStartURL) {
+        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
     if (enforceMinMacOSVersion) {
@@ -5829,19 +5843,6 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) applicationWillTerminateProceed
 {
-    if (self.browserController) {
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket.
-        [self.browserController resetAllCookiesWithCompletionHandler:^{
-            [self applicationWillTerminateProceed2];
-        }];
-    } else {
-        [self applicationWillTerminateProceed2];
-    }
-}
-
-- (void) applicationWillTerminateProceed2
-{
     DDLogDebug(@"%s", __FUNCTION__);
 
     BOOL success = [self.systemManager restoreScreenCapture];
@@ -5859,12 +5860,6 @@ conditionallyForWindow:(NSWindow *)window
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] == NO) {
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         [self killTouchBarAgent];
-    }
-    
-    // If this was a secured exam, we remove it from the list of running exams,
-    // otherwise it would be locked next time it is started again
-    if (currentExamStartURL) {
-        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
     // Restart terminated apps
