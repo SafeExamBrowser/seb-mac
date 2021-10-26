@@ -198,7 +198,7 @@
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
-- (BOOL) isStartingLockedExam;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 
 /// Lockview business logic
 - (NSString *) appendChallengeToMessage:(NSString *)alertMessage;

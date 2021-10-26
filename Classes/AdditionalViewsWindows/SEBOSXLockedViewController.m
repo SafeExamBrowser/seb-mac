@@ -73,8 +73,9 @@
 }
 
 
-- (BOOL)isStartingLockedExam {
-    return [self.lockedViewController isStartingLockedExam];
+- (BOOL) isStartingLockedExam:(NSString *)examURLString
+{
+    return [self.lockedViewController isStartingLockedExam:examURLString];
 }
 
 - (void)shouldCloseLockdownWindows {
