@@ -133,11 +133,6 @@
 }
 
 
-- (void) updateProctoringViewButtonState
-{
-    [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateAIInactive];
-}
-
 - (void) closeZoomMeeting:(void (^)(void))completionHandler
 {
     _meetingEndedCompletionHandler = completionHandler;
@@ -195,7 +190,10 @@
     ZoomSDKError error = [meetingService joinMeeting:joinParams];
     DDLogDebug(@"[ZoomSDKMeetingService joinMeeting] error: %u", error);
     if (error != ZoomSDKError_Success) {
+        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Joining the Zoom proctoring meeting failed with error code", nil), error]];
+    } else {
+        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateAIInactive];
     }
 }
 
@@ -203,7 +201,12 @@
 - (void) stopZoomMeeting
 {
     ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
-    [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_End)];
+    if (meetingService) {
+        [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_End)];
+    } else {
+        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
+        _meetingEndedCompletionHandler();
+    }
 }
 
 
@@ -212,7 +215,6 @@
     if (_meetingStatusMgr) {
         _meetingStatusMgr = nil;
     }
-
 //    _authService.delegate = nil;
 //    _authService = nil;
 }
@@ -273,6 +275,7 @@
                 break;
         }
         DDLogError(@"Authentication failed: %@", error);
+        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Authentication with the Zoom proctoring meeting failed with error", nil), error]];
     }
 }
@@ -281,6 +284,7 @@
 - (void) onZoomAuthIdentityExpired
 {
     DDLogError(@"Zoom authentication identity is expired!");
+    [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
     [_proctoringUIDelegate proctoringFailedWithErrorMessage:NSLocalizedString(@"Starting Zoom proctoring failed, because authentication identity is expired.", nil)];
 }
 
@@ -293,6 +297,7 @@
 - (void) meetingStatusEnded {
     DDLogInfo(@"Zoom meeting ended.");
     if (_meetingEndedCompletionHandler) {
+        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         _meetingEndedCompletionHandler();
         _meetingEndedCompletionHandler = nil;
     } else {
