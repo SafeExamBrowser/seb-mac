@@ -92,19 +92,18 @@
 }
 
 
-- (BOOL) isStartingLockedExam
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 {
     BOOL isStartingLockedExam = false;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
-    if ([[lockedExams valueForKey:@"startURL"] containsObject:startURL]) {
+    if ([[lockedExams valueForKey:@"startURL"] containsObject:examURLString]) {
         if (!([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle)) {
-            startURL = @"";
+            examURLString = @"";
             [lockedExams removeAllObjects];
         }
-        DDLogError(@"Attempting to start an exam %@ which is on the list %@ of previously interrupted and not properly finished exams.", startURL, lockedExams);
-        isStartingLockedExam = true;
+        DDLogError(@"Attempting to start an exam %@ which is on the list %@ of previously interrupted and not properly finished exams.", examURLString, lockedExams);
+        isStartingLockedExam = YES;
     }
     return isStartingLockedExam;
 }
