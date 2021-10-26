@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ProctoringUIDelegate <NSObject>
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringViewButtonState;
+- (void) proctoringFailedWithErrorMessage:(NSString *)errorMessage;
 
 @end
 

@@ -112,12 +112,15 @@
 
 #ifdef DEBUG
             // ETHZ SDK JWT
-            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzQ1NjA0ODYsImV4cCI6MTYzNjE1Njc4NiwidG9rZW5FeHAiOjE2MzYxNTY3ODZ9.l5I_tv6l507bZX6EFJDVXZyET-kh5Da4Jlp6z5M_pbo"]; //self.sdkToken];
+            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJPT2YzSkJBU1BPZFdFWFdkSVZ6ODM3NkJ5TlhiWlAxQnlwVkMiLCJpYXQiOjE2MzUxNjA5MDEsImV4cCI6MTYzNTI0NzI5NCwidG9rZW5FeHAiOjE2MzUyNDcyOTR9.M7aflI0_LzU9wR4J3sDKOj7saEPQawikVkcBhdKHrEQ"]; //self.sdkToken];
 #else
             // UZH SDK JWT
             error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJySWVDT2hGUkJqc3JhRUFOOXQzSTBDYTJGbjRpbkNFbncwdkIiLCJpYXQiOjE2MzQ1Mzg0NDEsImV4cCI6MTYzNjE1Njc5OSwidG9rZW5FeHAiOjE2MzYxNTY3OTl9.NDtZO83CZ7YpQGzc-ivat0Y8-z6trSahptwUT1muGI4"]; //self.sdkToken];
 #endif
             DDLogDebug(@"Zoom SDK getAuthService error: %u", error);
+            if (error != ZoomSDKError_Success) {
+                [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Starting authentication for the Zoom proctoring meeting failed with error code", nil), error]];
+            }
         }
     }
 }
@@ -191,6 +194,9 @@
 
     ZoomSDKError error = [meetingService joinMeeting:joinParams];
     DDLogDebug(@"[ZoomSDKMeetingService joinMeeting] error: %u", error);
+    if (error != ZoomSDKError_Success) {
+        [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Joining the Zoom proctoring meeting failed with error code", nil), error]];
+    }
 }
 
 
@@ -267,6 +273,7 @@
                 break;
         }
         DDLogError(@"Authentication failed: %@", error);
+        [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Authentication with the Zoom proctoring meeting failed with error", nil), error]];
     }
 }
 
@@ -274,22 +281,27 @@
 - (void) onZoomAuthIdentityExpired
 {
     DDLogError(@"Zoom authentication identity is expired!");
+    [_proctoringUIDelegate proctoringFailedWithErrorMessage:NSLocalizedString(@"Starting Zoom proctoring failed, because authentication identity is expired.", nil)];
 }
 
 
-- (void)meetingStatusInMeeting {
+- (void) meetingStatusInMeeting {
     DDLogInfo(@"Connected to Zoom meeting");
 }
 
 
-- (void)meetingStatusEnded {
+- (void) meetingStatusEnded {
     DDLogInfo(@"Zoom meeting ended.");
     if (_meetingEndedCompletionHandler) {
         _meetingEndedCompletionHandler();
+        _meetingEndedCompletionHandler = nil;
+    } else {
+        [self meetingReconnect];
     }
 }
 
-- (void)meetingReconnect {
+
+- (void) meetingReconnect {
     DDLogInfo(@"Zoom meeting was interrupted due to network issues, need to reconnect");
     [self startZoomMeetingReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
 }
