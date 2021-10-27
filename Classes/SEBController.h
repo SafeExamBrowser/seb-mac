@@ -167,6 +167,8 @@
     NSColor *RaisedHandIconColorDefaultState;
     NSImage *RaisedHandIconRaisedState;
     NSColor *RaisedHandIconColorRaisedState;
+    
+    NSInteger raiseHandUID;
 }
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
@@ -213,6 +215,7 @@
 
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
 //- (BOOL) rtcAudioInputEnabled;
 //- (BOOL) rtcAudioReceivingEnabled;
