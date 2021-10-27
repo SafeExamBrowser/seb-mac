@@ -179,6 +179,17 @@
 }
 
 
+- (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message
+{
+    return [_sebServerController sendRaiseHandWithMessage:message];
+}
+
+- (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID
+{
+    [_sebServerController sendLowerHandWithNotificationUID:notificationUID];
+}
+
+
 - (void) executeSEBInstruction:(SEBInstruction *)sebInstruction
 {
     if (sebInstruction) {
@@ -199,6 +210,13 @@
             if ([self.delegate respondsToSelector:@selector(reconfigureWithAttributes:)]) {
                 NSDictionary *attributes = sebInstruction.attributes;
                 [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
+            }
+        }
+        
+        if ([instruction isEqualToString:@"NOTIFICATION_CONFIRM"]) {
+            if ([self.delegate respondsToSelector:@selector(confirmNotificationWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate confirmNotificationWithAttributes:(NSDictionary *)attributes];
             }
         }
     }

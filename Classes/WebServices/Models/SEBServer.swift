@@ -54,6 +54,9 @@ public struct keys {
     static let logLevelInfo = "INFO_LOG"
     static let logLevelDebug = "DEBUG_LOG"
     static let logLevelUnknown = "UNKNOWN"
+    static let notificationType = "NOTIFICATION"
+    static let notificationTagRaisehand = "raisehand"
+    static let notificationConfirmed = "NOTIFICATION_CONFIRMED"
 }
 
 public struct Discovery: Codable {

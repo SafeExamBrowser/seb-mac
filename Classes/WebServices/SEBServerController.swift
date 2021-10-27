@@ -59,6 +59,7 @@ import Foundation
     fileprivate var selectedExamId = ""
     fileprivate var selectedExamURL = ""
     fileprivate var pingNumber: Int64 = 0
+    fileprivate var notificationNumber: Int64 = 0
 
     @objc weak public var delegate: SEBServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
@@ -302,23 +303,15 @@ public extension SEBServerController {
     }
     
     
-    @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
+    func sendNotification(_ type: String, timestamp: String, numericValue: Double, text: String?) {
         if (serverAPI != nil) && (connectionToken != nil) {
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
-            var serverLogLevel: String
-            switch logLevel {
-            case 1:
-                serverLogLevel = keys.logLevelError
-            case 2:
-                serverLogLevel = keys.logLevelWarning
-            case 4:
-                serverLogLevel = keys.logLevelInfo
-            case 8:
-                serverLogLevel = keys.logLevelDebug
-            default:
-                serverLogLevel = keys.logLevelUnknown
+            var logJSON: [String : Any]
+            if let notificationText = text {
+                logJSON = [ keys.logType : type, keys.timestamp : timestamp, keys.logNumericValue : numericValue, keys.logText : notificationText ]
+            } else {
+                logJSON = [ keys.logType : type, keys.timestamp : timestamp, keys.logNumericValue : numericValue ]
             }
-            let logJSON = [ keys.logType : serverLogLevel, keys.timestamp : timestamp, keys.logNumericValue : numericValue, keys.logText : message ] as [String : Any]
             let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
             let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
             logResource.body = jsonString
@@ -338,6 +331,35 @@ public extension SEBServerController {
         }
     }
     
+    
+    @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
+        if (serverAPI != nil) && (connectionToken != nil) {
+            var serverLogLevel: String
+            switch logLevel {
+            case 1:
+                serverLogLevel = keys.logLevelError
+            case 2:
+                serverLogLevel = keys.logLevelWarning
+            case 4:
+                serverLogLevel = keys.logLevelInfo
+            case 8:
+                serverLogLevel = keys.logLevelDebug
+            default:
+                serverLogLevel = keys.logLevelUnknown
+            }
+            sendNotification(serverLogLevel, timestamp: timestamp, numericValue: numericValue, text: message)
+        }
+    }
+    
+    @objc func sendRaiseHand(message: String?) -> Int64 {
+        notificationNumber+=1
+        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
+        return notificationNumber
+    }
+    
+    @objc func sendLowerHand(notificationUID: Int64) {
+        sendNotification(keys.notificationConfirmed, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: nil)
+    }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
