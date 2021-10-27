@@ -1271,6 +1271,20 @@ bool insideMatrix(void);
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
 }
 
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSString *notificationType = attributes[@"type"];
+    NSNumber *notificationID = [attributes objectForKey:@"id"];
+    
+    if ([notificationType isEqualToString:@"raisehand"]) {
+        if (_raiseHandRaised && raiseHandUID == notificationID.integerValue) {
+            [self toggleRaiseHandLoweredByServer:YES];
+        }
+    }
+}
+
+
 - (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
 {
     if (_zoomController) {
@@ -1371,6 +1385,11 @@ bool insideMatrix(void);
 
 - (void) toggleRaiseHand
 {
+    [self toggleRaiseHandLoweredByServer:NO];
+}
+
+- (void) toggleRaiseHandLoweredByServer:(BOOL)loweredByServer
+{
     DDLogInfo(@"%s", __FUNCTION__);
     
     if (_raiseHandRaised) {
@@ -1379,12 +1398,17 @@ bool insideMatrix(void);
         if (@available(macOS 10.14, *)) {
             _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorDefaultState;
         }
+        if (!loweredByServer) {
+            [self.serverController sendLowerHandNotificationWithUID:raiseHandUID];
+        }
+        
     } else {
         _raiseHandRaised = YES;
         _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
         if (@available(macOS 10.14, *)) {
             _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorRaisedState;
         }
+        raiseHandUID = [self.serverController sendRaiseHandNotificationWithMessage:@""];
     }
 }
 
@@ -4904,7 +4928,7 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Raise Hand",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(toggleRaiseHand)];
+                                                                         action:@selector(toggleRaiseHand)];
             [rightDockItems addObject:dockItemRaiseHand];
         }
         
