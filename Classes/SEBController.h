@@ -169,6 +169,7 @@
     NSColor *RaisedHandIconColorRaisedState;
     
     NSInteger raiseHandUID;
+    NSString *raiseHandNotification;
 }
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
@@ -284,10 +285,12 @@
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
 @property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
 
-@property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
+@property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
+@property (weak) IBOutlet NSTextField *raiseHandMessageTextField;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing

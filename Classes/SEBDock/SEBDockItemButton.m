@@ -38,9 +38,16 @@
 
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
+{
+    return [self initWithFrame:frameRect icon:itemIcon highlightedIcon:itemHighlightedIcon title:itemTitle menu:itemMenu target:nil secondaryAction:nil];
+}
+
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu target:(id)newTarget secondaryAction:(SEL)newSecondaryAction
  {
     self = [super initWithFrame:frameRect];
     if (self) {
+        _secondaryAction = newSecondaryAction;
+        
         mouseDown = NO;
         
         // Get image size
@@ -191,7 +198,7 @@
 {
     if (mouseDown) {
         mouseDown = NO;
-        [self rightMouseDown:[NSEvent new]];
+        [self rightMouseUp:[NSEvent new]];
     }
     
 }
@@ -211,7 +218,6 @@
         [self.labelPopover close];
         [self.dockMenu showRelativeToRect:[self bounds] ofView:self];
         DDLogDebug(@"Dock menu show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
-
     }
 }
 
@@ -235,15 +241,20 @@ self.highlighted = false;
 //        self.image = _defaultImage;
 //    }
     self.highlighted = false;
+    
+    if (self.target && _secondaryAction) {
+        IMP imp = [self.target methodForSelector:_secondaryAction];
+        void (*func)(id, SEL) = (void *)imp;
+        func(self.target, _secondaryAction);
+    }
 }
 
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void)drawRect:(NSRect)dirtyRect
+{
     [super drawRect:dirtyRect];
-    
-    // Drawing code here.
-[self createTrackingArea];
 
+    [self createTrackingArea];
 }
 
 
@@ -251,7 +262,6 @@ self.highlighted = false;
 {
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
     DDLogDebug(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
-
 }
 
 
@@ -283,10 +293,10 @@ self.highlighted = false;
                               fromView: nil];
     
     if (NSPointInRect(mouseLocation, [self bounds])) {
-            [self mouseEntered: nil];
-        } else {
-            [self mouseExited: nil];
-        }
+        [self mouseEntered: nil];
+    } else {
+        [self mouseExited: nil];
+    }
 }
 
 
