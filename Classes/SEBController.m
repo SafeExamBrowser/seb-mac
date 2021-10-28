@@ -1403,6 +1403,17 @@ bool insideMatrix(void);
         }
         
     } else {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonAlwaysPromptMessage"]) {
+            [self showEnterRaiseHandMessageWindow];
+        } else {
+            [self raiseHand];
+        }
+    }
+}
+
+- (void) raiseHand
+{
+    if (!_raiseHandRaised) {
         _raiseHandRaised = YES;
         _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
         if (@available(macOS 10.14, *)) {
@@ -1416,30 +1427,32 @@ bool insideMatrix(void);
 
 - (void) showEnterRaiseHandMessageWindow
 {
-    NSWindow *windowToShowModalFor;
+    if (!_raiseHandRaised) {
+        NSWindow *windowToShowModalFor;
 
-    if (@available(macOS 12.0, *)) {
-    } else {
-        if (@available(macOS 11.0, *)) {
-            if (_isAACEnabled || _wasAACEnabled) {
-                windowToShowModalFor = self.browserController.mainBrowserWindow;
+        if (@available(macOS 12.0, *)) {
+        } else {
+            if (@available(macOS 11.0, *)) {
+                if (_isAACEnabled || _wasAACEnabled) {
+                    windowToShowModalFor = self.browserController.mainBrowserWindow;
+                }
             }
         }
-    }
 
-    [NSApp beginSheet: _enterRaiseHandMessageWindow
-       modalForWindow: windowToShowModalFor
-        modalDelegate: nil
-       didEndSelector: nil
-          contextInfo: nil];
-    [NSApp runModalForWindow: _enterRaiseHandMessageWindow];
-    // Dialog is up here.
-    [NSApp endSheet: _enterRaiseHandMessageWindow];
-    self.raiseHandMessageTextField.stringValue = @"";
-    [_enterRaiseHandMessageWindow orderOut: self];
-    [self removeAlertWindow:_enterRaiseHandMessageWindow];
-    if (raiseHandNotification) {
-        [self toggleRaiseHand];
+        [NSApp beginSheet: _enterRaiseHandMessageWindow
+           modalForWindow: windowToShowModalFor
+            modalDelegate: nil
+           didEndSelector: nil
+              contextInfo: nil];
+        [NSApp runModalForWindow: _enterRaiseHandMessageWindow];
+        // Dialog is up here.
+        [NSApp endSheet: _enterRaiseHandMessageWindow];
+        self.raiseHandMessageTextField.stringValue = @"";
+        [_enterRaiseHandMessageWindow orderOut: self];
+        [self removeAlertWindow:_enterRaiseHandMessageWindow];
+        if (raiseHandNotification) {
+            [self raiseHand];
+        }
     }
 }
 
@@ -2110,24 +2123,8 @@ void run_on_ui_thread(dispatch_block_t block)
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
     DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
-    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-    NSString *userName = NSUserName();
-    NSString *fullUserName = NSFullUserName();
-    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-    
-    DDLogInfo(@"Local hostname: %@", localHostname);
-    DDLogInfo(@"Computer name: %@", computerName);
-    DDLogInfo(@"User name: %@", userName);
-    DDLogInfo(@"Full user name: %@", fullUserName);
+    [self logSystemInfo];
 }
-
 
 - (void) initializeLogger
 {
@@ -2153,7 +2150,8 @@ void run_on_ui_thread(dispatch_block_t block)
         _myLogger = [MyGlobals initializeFileLoggerWithDirectory:logPath];
         [DDLog addLogger:_myLogger];
         
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
+            _establishingSEBServerConnection || _sebServerConnectionEstablished) {
             if (![DDLog.allLoggers containsObject:ServerLogger.sharedInstance]) {
                 [DDLog addLogger:ServerLogger.sharedInstance];
                 ServerLogger.sharedInstance.delegate = self;
@@ -2161,29 +2159,29 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
-        NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-        NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-        NSString *userName = NSUserName();
-        NSString *fullUserName = NSFullUserName();
-        
-        // To Do: Find out domain of the current host address
-        // This has to be processed asynchronously with GCD
-        //        NSHost *host;
-        //        host = [NSHost currentHost];
-        
-        NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-        NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-        NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-        NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-        DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-        DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-        
-        DDLogInfo(@"Local hostname: %@", localHostname);
-        DDLogInfo(@"Computer name: %@", computerName);
-        DDLogInfo(@"User name: %@", userName);
-        DDLogInfo(@"Full user name: %@", fullUserName);
+        [self logSystemInfo];
     }
+}
+
+- (void) logSystemInfo
+{
+    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+    NSString *userName = NSUserName();
+    NSString *fullUserName = NSFullUserName();
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+    DDLogInfo(@"%@ version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
+    DDLogInfo(@"macOS version %@", processInfo.operatingSystemVersionString);
+    DDLogInfo(@"Local hostname: %@", localHostname);
+    DDLogInfo(@"Computer name: %@", computerName);
+    DDLogInfo(@"User name: %@", userName);
+    DDLogInfo(@"Full user name: %@", fullUserName);
 }
 
 
