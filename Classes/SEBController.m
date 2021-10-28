@@ -1408,8 +1408,52 @@ bool insideMatrix(void);
         if (@available(macOS 10.14, *)) {
             _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorRaisedState;
         }
-        raiseHandUID = [self.serverController sendRaiseHandNotificationWithMessage:@""];
+        raiseHandUID = [self.serverController sendRaiseHandNotificationWithMessage:raiseHandNotification];
+        raiseHandNotification = @"";
     }
+}
+
+
+- (void) showEnterRaiseHandMessageWindow
+{
+    NSWindow *windowToShowModalFor;
+
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (_isAACEnabled || _wasAACEnabled) {
+                windowToShowModalFor = self.browserController.mainBrowserWindow;
+            }
+        }
+    }
+
+    [NSApp beginSheet: _enterRaiseHandMessageWindow
+       modalForWindow: windowToShowModalFor
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    [NSApp runModalForWindow: _enterRaiseHandMessageWindow];
+    // Dialog is up here.
+    [NSApp endSheet: _enterRaiseHandMessageWindow];
+    self.raiseHandMessageTextField.stringValue = @"";
+    [_enterRaiseHandMessageWindow orderOut: self];
+    [self removeAlertWindow:_enterRaiseHandMessageWindow];
+    if (raiseHandNotification) {
+        [self toggleRaiseHand];
+    }
+}
+
+
+- (IBAction)sendEnteredRaiseHandMessage:(id)sender
+{
+    raiseHandNotification = self.raiseHandMessageTextField.stringValue;
+    [NSApp stopModal];
+}
+
+- (IBAction)cancelEnteringRaiseHandMessage:(id)sender
+{
+    raiseHandNotification = nil;
+    [NSApp stopModal];
 }
 
 
@@ -4850,7 +4894,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
-                                                                   action:@selector(buttonPressed)];
+                                                                   action:@selector(buttonPressed)
+                                                          secondaryAction:nil];
             [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
         }
         
@@ -4865,7 +4910,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Quit SEB",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(quitButtonPressed)];
+                                                                        action:@selector(quitButtonPressed)
+                                                               secondaryAction:nil];
             [rightDockItems addObject:dockItemShutDown];
         }
         
@@ -4904,7 +4950,8 @@ conditionallyForWindow:(NSWindow *)window
                                                    NSLocalizedString(@"Remote Proctoring",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(toggleProctoringViewVisibility)];
+                                                                        action:@selector(toggleProctoringViewVisibility)
+                                                                     secondaryAction:nil];
             [rightDockItems addObject:dockItemProctoringView];
         }
         
@@ -4928,7 +4975,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Raise Hand",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                         action:@selector(toggleRaiseHand)];
+                                                                         action:@selector(toggleRaiseHand)
+                                                                secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
             [rightDockItems addObject:dockItemRaiseHand];
         }
         
@@ -4946,7 +4994,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:restartButtonToolTip
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(restartButtonPressed)];
+                                                                        action:@selector(restartButtonPressed)
+                                                               secondaryAction:nil];
             [rightDockItems addObject:dockItemSkipBack];
         }
         
@@ -4958,7 +5007,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(reloadButtonPressed)];
+                                                                        action:@selector(reloadButtonPressed)
+                                                             secondaryAction:nil];
             [rightDockItems addObject:dockItemReload];
         }
         

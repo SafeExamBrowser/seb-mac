@@ -116,6 +116,7 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
+                    [newDockItemButton setSecondaryAction:dockItem.secondaryAction];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
 
@@ -200,6 +201,7 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
+                    [newDockItemButton setSecondaryAction:dockItem.secondaryAction];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
@@ -291,6 +293,7 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
+                    [newDockItemButton setSecondaryAction:dockItem.secondaryAction];
                     [newDockItemButton setButtonType:NSMomentaryLightButton];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
