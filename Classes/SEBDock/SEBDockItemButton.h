@@ -54,7 +54,10 @@
 @property (strong) NSPopover *labelPopover;
 @property (strong) SEBDockItemMenu *dockMenu;
 
+@property (assign, nonatomic) SEL secondaryAction;
+
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu target:(id)newTarget secondaryAction:(SEL)newSecondaryAction;
 
 - (void)unhighlight;
 - (void)mouseEntered:(NSEvent *)theEvent;

@@ -49,6 +49,7 @@
 
 @property (weak, nonatomic) id target;
 @property (assign, nonatomic) SEL action;
+@property (assign, nonatomic) SEL secondaryAction;
 
 
 - (id) initWithTitle:(NSString *)newTitle
@@ -56,6 +57,7 @@
      highlightedIcon:(NSImage *)newHighlightedIcon
              toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
               target:(id)newTarget
-              action:(SEL)newAction;
+              action:(SEL)newAction
+     secondaryAction:(SEL)newSecondaryAction;
 
 @end
