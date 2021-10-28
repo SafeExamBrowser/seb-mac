@@ -114,19 +114,19 @@
             error = [self newAuth:self.sdkToken];
 #else
             // UZH SDK JWT
-            error = [self newAuth:@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJySWVDT2hGUkJqc3JhRUFOOXQzSTBDYTJGbjRpbkNFbncwdkIiLCJpYXQiOjE2MzQ1Mzg0NDEsImV4cCI6MTYzNjE1Njc5OSwidG9rZW5FeHAiOjE2MzYxNTY3OTl9.NDtZO83CZ7YpQGzc-ivat0Y8-z6trSahptwUT1muGI4"]; //self.sdkToken];
+            error = [self newAuth:self.sdkToken]; //@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBLZXkiOiJySWVDT2hGUkJqc3JhRUFOOXQzSTBDYTJGbjRpbkNFbncwdkIiLCJpYXQiOjE2MzQ1Mzg0NDEsImV4cCI6MTYzNjE1Njc5OSwidG9rZW5FeHAiOjE2MzYxNTY3OTl9.NDtZO83CZ7YpQGzc-ivat0Y8-z6trSahptwUT1muGI4"];
 #endif
             DDLogDebug(@"Zoom SDK getAuthService error: %u", error);
             if (error != ZoomSDKError_Success) {
 #ifndef DEBUG
-                // Fallback in release build for the case the hardcoded token is expired/revoked
-                if (error == ZoomSDKError_Failed) {
-                    // then use the one delivered by SEB Server (which was hopefully fixed in the meantime)
-                    error = [self newAuth:self.sdkToken];
-                    if (error == ZoomSDKError_Success) {
-                        return;
-                    }
-                }
+//                // Fallback in release build for the case the hardcoded token is expired/revoked
+//                if (error == ZoomSDKError_Failed) {
+//                    // then use the one delivered by SEB Server (which was hopefully fixed in the meantime)
+//                    error = [self newAuth:self.sdkToken];
+//                    if (error == ZoomSDKError_Success) {
+//                        return;
+//                    }
+//                }
 #endif
                 [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
                 [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Starting authentication for the Zoom proctoring meeting failed with error code", nil), error]];
