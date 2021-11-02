@@ -6034,7 +6034,7 @@ conditionallyForWindow:(NSWindow *)window
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    DDLogDebug(@"Value for key path %@ changed: %@", keyPath, change);
+    DDLogVerbose(@"Value for key path %@ changed: %@", keyPath, change);
     
     // If the startKioskMode method changed presentation options, then we don't do nothing here
     if (_isAACEnabled == NO && _wasAACEnabled == NO && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
