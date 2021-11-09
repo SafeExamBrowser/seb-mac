@@ -286,6 +286,9 @@ bool insideMatrix(void);
             }];
         } else {
             NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+            if (urlText.length == 0) {
+                urlText = SEBStartPage;
+            }
             NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
             [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
             DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
@@ -649,26 +652,24 @@ bool insideMatrix(void);
 //
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-    NSURL *fileURL;
-    if (@available(macOS 10.13, *)) {
-        fileURL = [NSURL URLWithString:filename];
-    } else {
-        fileURL = [NSURL fileURLWithPath:filename isDirectory:NO];
-    }
-    
-    DDLogDebug(@"%s file URL: %@", __FUNCTION__, fileURL);
+    if (filename) {
+        NSURL *fileURL = [NSURL fileURLWithPathString:filename];
+        DDLogDebug(@"%s file URL: %@", __FUNCTION__, fileURL);
 
-    if (!_openingSettings) {
-        _openingSettings = YES;
-        if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
-            _openedURL = YES;
-            DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
-            _openingSettingsFileURL = fileURL;
-        } else {
-            [self openFile:fileURL];
+        if (!_openingSettings) {
+            _openingSettings = YES;
+            if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
+                _openedURL = YES;
+                DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
+                _openingSettingsFileURL = fileURL;
+            } else {
+                [self openFile:fileURL];
+            }
         }
+        return YES;
+    } else {
+        return NO;
     }
-    return YES;
 }
 
 
@@ -684,14 +685,16 @@ bool insideMatrix(void);
     }
     
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-    NSURL *url = [NSURL URLWithString:urlString];
-    if (url && !_openingSettings) {
-        // If we have any URL, we try to download and open (conditionally) a .seb file
-        // hopefully linked by this URL (also supporting redirections and authentification)
-        _openingSettings = YES;
-        _openedURL = YES;
-        DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-        [self.browserController openConfigFromSEBURL:url];
+    if (urlString) {
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (url && !_openingSettings) {
+            // If we have any URL, we try to download and open (conditionally) a .seb file
+            // hopefully linked by this URL (also supporting redirections and authentification)
+            _openingSettings = YES;
+            _openedURL = YES;
+            DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
+            [self.browserController openConfigFromSEBURL:url];
+        }
     }
 }
 
@@ -1538,14 +1541,17 @@ bool insideMatrix(void);
             NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", process[@"name"]];
             NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
             if (filteredProcesses.count != 0) {
-                NSURL *processURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
                     if ((NSInteger)kill(processPID, 9) != ERR_SUCCESS) {
                         [runningProcesses addObject:process];
                     } else {
-                        // Add the process' file URL, so we can restart it when exiting SEB
-                        [_terminatedProcessesExecutableURLs addObject:processURL];
+                        NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
+                        if (executablePath) {
+                            NSURL *processURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
+                            // Add the process' file URL, so we can restart it when exiting SEB
+                            [_terminatedProcessesExecutableURLs addObject:processURL];
+                        }
                     }
                 } else {
                     [runningProcesses addObject:process];
@@ -2759,83 +2765,87 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
 {
     NSString * executablePath = [ProcessManager getExecutablePathForPID:runningExecutablePID];
-    NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
+    if (executablePath) {
+        NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
 
-    DDLogDebug(@"Evaluating code signature of %@", executablePath);
-    
-    OSStatus status;
-    SecStaticCodeRef ref = NULL;
-    
-    // obtain the cert info from the executable
-    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
-    
-    if (ref == NULL) return false;
-    if (status != noErr) return false;
-    
-    SecRequirementRef req = NULL;
-    NSString * reqStr;
-    
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        // Public SHA1 fingerprint of the CA cert match string
-        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                  @"certificate",
-                  @"leaf",
-                  @"H\"013E2787748A74",
-                  @"103D62D2CDBF77",
-                  @"A1345517C482\""
-                  ];
-    } else {
-        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                  @"certificate",
-                  @"leaf",
-                  @"H\"2203029E85EFB1",
-                  @"828B928C3B6545",
-                  @"F003CC0E515C\""
-                  ];
-    }
-    
-    // create the requirement to check against
-    status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-    
-    if (status == noErr && req != NULL) {
-        status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
-    }
-    
-    if (status != noErr) {
-        if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
-            // Public SHA1 fingerprint of the CA certificate
-            // for macOS system software signed by Apple this is the
-            // "Software Signing" certificate (use Max Inspect from App Store or similar)
+        DDLogDebug(@"Evaluating code signature of %@", executablePath);
+        
+        OSStatus status;
+        SecStaticCodeRef ref = NULL;
+        
+        // obtain the cert info from the executable
+        status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
+        
+        if (ref == NULL) return false;
+        if (status != noErr) return false;
+        
+        SecRequirementRef req = NULL;
+        NSString * reqStr;
+        
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+            // Public SHA1 fingerprint of the CA cert match string
             reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                       @"certificate",
                       @"leaf",
-                      @"H\"EFDBC9139DD98D",
-                      @"BAE5A9C7165A09",
-                      @"6511B15EAEF9\""
+                      @"H\"013E2787748A74",
+                      @"103D62D2CDBF77",
+                      @"A1345517C482\""
                       ];
-            // create the requirement to check against
-            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-            
-            if (status == noErr && req != NULL) {
-                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+        } else {
+            reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                      @"certificate",
+                      @"leaf",
+                      @"H\"2203029E85EFB1",
+                      @"828B928C3B6545",
+                      @"F003CC0E515C\""
+                      ];
+        }
+        
+        // create the requirement to check against
+        status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+        
+        if (status == noErr && req != NULL) {
+            status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+        }
+        
+        if (status != noErr) {
+            if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
+                // Public SHA1 fingerprint of the CA certificate
+                // for macOS system software signed by Apple this is the
+                // "Software Signing" certificate (use Max Inspect from App Store or similar)
+                reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                          @"certificate",
+                          @"leaf",
+                          @"H\"EFDBC9139DD98D",
+                          @"BAE5A9C7165A09",
+                          @"6511B15EAEF9\""
+                          ];
+                // create the requirement to check against
+                status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+                
+                if (status == noErr && req != NULL) {
+                    status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+                }
             }
         }
-    }
-    
-    if (ref) {
-        CFRelease(ref);
-    }
-    if (req) {
-        CFRelease(req);
-    }
         
-    if (status != noErr) {
+        if (ref) {
+            CFRelease(ref);
+        }
+        if (req) {
+            CFRelease(req);
+        }
+            
+        if (status != noErr) {
+            return NO;
+        }
+
+        DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
+        
+        return YES;
+    } else {
         return NO;
     }
-
-    DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
-    
-    return YES;
 }
 
 
@@ -4561,9 +4571,14 @@ conditionallyForWindow:(NSWindow *)window
             appURL = [self getBundleOrExecutableURL:application];
             [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
         } else {
-            appURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
+            NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
+            if (executablePath) {
+                appURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
+            }
         }
-        [processDetails setValue:appURL forKey:@"URL"];
+        if (appURL) {
+            [processDetails setValue:appURL forKey:@"URL"];
+        }
     }
     
     NSInteger killSuccess = ERR_SUCCESS;
