@@ -36,6 +36,7 @@
 #import "CustomHTTPProtocol.h"
 #import "SEBCertServices.h"
 #include "x509_crt.h"
+#import "NSURL+SEBURL.h"
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
@@ -1047,7 +1048,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 downloadPath = @"~/Downloads";
             }
             downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
+            NSURL *destinationURL = [NSURL fileURLWithPathString:[downloadPath stringByAppendingPathComponent:filename]];
             
             NSFileManager *fileManager = [NSFileManager defaultManager];
             int fileIndex = 1;
