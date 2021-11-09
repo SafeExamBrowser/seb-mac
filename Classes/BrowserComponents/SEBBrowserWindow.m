@@ -1280,7 +1280,13 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
         
         // Change default directory in file dialog
-        openFilePanel.directoryURL = [NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"] isDirectory:NO];
+        NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        if (downloadPath.length == 0) {
+            //if there's no path saved in preferences, set standard path
+            downloadPath = @"~/Downloads";
+        }
+        downloadPath = [downloadPath stringByExpandingTildeInPath];
+        openFilePanel.directoryURL = [NSURL fileURLWithPathString:downloadPath];
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self makeKeyAndOrderFront:self];
