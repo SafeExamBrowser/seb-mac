@@ -1218,6 +1218,7 @@ bool insideMatrix(void);
         NSString *zoomMeetingKey = attributes[@"zoomMeetingKey"];
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (zoomServerURL && zoomRoom.length>0 && zoomToken.length>0 && zoomSDKToken.length>0 && instructionConfirm.length>0) {
+            self.serverController.sebServerController.pingInstruction = instructionConfirm;
             DDLogInfo(@"Starting Zoom proctoring.");
             [self.zoomController openZoomWithServerURL:zoomServerURL
                                               userName:zoomUserName
@@ -1227,7 +1228,6 @@ bool insideMatrix(void);
                                               sdkToken:zoomSDKToken
                                                 apiKey:zoomAPIKey
                                             meetingKey:zoomMeetingKey];
-            self.serverController.sebServerController.pingInstruction = instructionConfirm;
         } else {
             DDLogError(@"%s: Cannot start proctoring, missing parameters in attributes %@!", __FUNCTION__, attributes);
         }
@@ -1241,6 +1241,8 @@ bool insideMatrix(void);
     NSNumber *receiveVideo = [attributes objectForKey:@"zoomReceiveVideo"];
     NSNumber *featureFlagChat = [attributes objectForKey:@"zoomFeatureFlagChat"];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *instructionConfirm = attributes[@"instruction-confirm"];
+    self.serverController.sebServerController.pingInstruction = instructionConfirm;
     if (receiveAudio != nil || receiveVideo != nil || featureFlagChat != nil) {
         BOOL receiveAudioFlag = receiveAudio.boolValue;
         if (receiveAudio != nil) {
@@ -1270,8 +1272,6 @@ bool insideMatrix(void);
         _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
         _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
     }
-    NSString *instructionConfirm = attributes[@"instruction-confirm"];
-    self.serverController.sebServerController.pingInstruction = instructionConfirm;
 }
 
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
