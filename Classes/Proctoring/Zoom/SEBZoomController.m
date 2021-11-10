@@ -147,7 +147,6 @@
 {
     _meetingEndedCompletionHandler = completionHandler;
     [self stopZoomMeeting];
-    self.zoomActive = NO;
 }
 
 
@@ -306,6 +305,7 @@
 
 - (void) meetingStatusEnded {
     DDLogInfo(@"Zoom meeting ended.");
+    self.zoomActive = NO;
     if (_meetingEndedCompletionHandler) {
         [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         _meetingEndedCompletionHandler();
