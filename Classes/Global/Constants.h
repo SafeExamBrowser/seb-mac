@@ -484,6 +484,7 @@ static NSString __unused *TouchBarFnDefaultsKey = @"fullControlStrip";
 static NSString __unused *TouchBarFnDefaultsValue = @"functionKeys";
 static NSString __unused *BTouchBarAgent = @"BetterTouchTool";
 static NSString __unused *BTouchBarRestartAgent = @"BTTRelaunch";
+static NSString __unused *WebKitNetworkingProcess = @"com.apple.WebKit.Networking";
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
 static NSString __unused *pathToKeyboardPreferences = @"/System/Library/PreferencePanes/Keyboard.prefPane";

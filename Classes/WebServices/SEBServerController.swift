@@ -247,7 +247,6 @@ public extension SEBServerController {
                     DDLogDebug("No valid Moodle user ID found")
                     return
                 }
-                print(moodleUserId as Any)
                 if moodleUserId != "0" {
                     self.delegate?.didReceiveMoodleUserId(moodleUserId)
                 }
@@ -267,10 +266,10 @@ public extension SEBServerController {
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
         handshakeCloseRequest.load(httpMethod: handshakeCloseResource.httpMethod, body:handshakeCloseResource.body, headers: requestHeaders, completion: { (handshakeCloseResponse, statusCode, responseHeaders) in
-            if handshakeCloseResponse != nil  {
-                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
-                print(responseBody as Any)
-            }
+//            if handshakeCloseResponse != nil  {
+//                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
+//                DDLogVerbose(responseBody as Any)
+//            }
             self.delegate?.didEstablishSEBServerConnection()
         })
     }
@@ -323,10 +322,10 @@ public extension SEBServerController {
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
             logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, responseHeaders) in
-                if logResponse != nil  {
-                    let responseBody = String(data: logResponse!, encoding: .utf8)
-                    print(responseBody as Any)
-                }
+//                if logResponse != nil  {
+//                    let responseBody = String(data: logResponse!, encoding: .utf8)
+//                    DDLogVerbose(responseBody as Any)
+//                }
             })
         }
     }
@@ -379,10 +378,10 @@ public extension SEBServerController {
         quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, statusCode, responseHeaders) in
             self.stopPingTimer()
             self.connectionToken = nil
-            if quitSessionResponse != nil  {
-                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
-                print(responseBody as Any)
-            }
+//            if quitSessionResponse != nil  {
+//                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
+//                DDLogVerbose(responseBody as Any)
+//            }
             completion(restart)
         })
     }
