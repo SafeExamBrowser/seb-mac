@@ -82,11 +82,13 @@
                           useChatOverride:(BOOL)useChatFlag
 {
     if (self.serverURL) {
-        if (self.zoomActive) {
+        if (self.zoomActive && _authService && _authService.isAuthorized) {
             _receiveAudioFlag = receiveAudioFlag;
             _receiveVideoFlag = receiveVideoFlag;
             _useChatFlag = useChatFlag;
+            DDLogInfo(@"%s Zoom is active, need to first end previous meeting.", __FUNCTION__);
             [self closeZoomMeeting:^{
+                DDLogInfo(@"%s Starting new meeting after previous was ended.", __FUNCTION__);
                 [self openZoomWithReceiveAudioOverride:receiveAudioFlag receiveVideoOverride:receiveVideoFlag useChatOverride:useChatFlag];
             }];
             return;
@@ -94,6 +96,7 @@
         self.zoomActive = YES;
         
         if (_authService && _authService.isAuthorized) {
+            DDLogInfo(@"%s Starting new meeting", __FUNCTION__);
             [self startZoomMeetingReceiveAudioOverride:receiveAudioFlag receiveVideoOverride:receiveVideoFlag useChatOverride:useChatFlag];
         } else {
             BOOL useCustomizedUI = YES;
@@ -139,6 +142,7 @@
 - (void) toggleZoomViewVisibilityWithSender:(id)sender
 
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     [_meetingStatusMgr toggleZoomViewVisibility];
 }
 
@@ -163,6 +167,7 @@
                          receiveVideoOverride:(BOOL)receiveVideoOverride
                               useChatOverride:(BOOL)useChatOverride
 {
+    self.zoomActive = YES;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
     _zoomReceiveAudioOverride = receiveAudioOverride;
@@ -310,6 +315,7 @@
 
 
 - (void) meetingStatusInMeeting {
+    self.zoomActive = YES;
     DDLogInfo(@"Connected to Zoom meeting");
 }
 
@@ -328,7 +334,7 @@
 
 
 - (void) meetingReconnect {
-    DDLogInfo(@"Zoom meeting was interrupted due to network issues, need to reconnect");
+    DDLogInfo(@"Zoom meeting was interrupted or ended without SEB Server command to do so, need to reconnect");
     [self startZoomMeetingReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
 }
 

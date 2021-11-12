@@ -1023,13 +1023,6 @@ Gw
                                 <size key="minSize" width="458" height="290"/>
                                 <size key="maxSize" width="460" height="2000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <connections>
-                                    <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="IC6-de-0ot">
-                                        <dictionary key="options">
-                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
                             </textView>
                         </subviews>
                     </clipView>

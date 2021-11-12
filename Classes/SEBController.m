@@ -2665,7 +2665,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         // running legit Apple executables
                         NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                         NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
+#ifndef DEBUG
                         DDLogWarn(@"Application %@ with bundle ID %@ has opened a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+#endif
     #ifdef DEBUG
                         CGSConnection connection = _CGSDefaultConnection();
                         int workspace;
@@ -2713,8 +2715,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 }
                             }
                         } else {
+#ifndef DEBUG
                             DDLogDebug(@"%@%@don't terminate application %@ (%@)", _allowSwitchToApplications ? @"Switching to applications is allowed, " : @"",
                                        _preferencesController.preferencesAreOpen ? @"Preferences are open, " : @"", windowOwner, appWithPanelBundleID);
+#endif
                         }
                     }
                 }
@@ -2777,7 +2781,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // If this didn't work then it's probably an app without bundle, get executable URL
         runningAppURL = runningApp.executableURL;
     }
-    DDLogDebug(@"NSRunningApplication %@ bundle or executable URL: %@", runningApp, runningAppURL);
+    DDLogVerbose(@"NSRunningApplication %@ bundle or executable URL: %@", runningApp, runningAppURL);
     return runningAppURL;
 }
 
@@ -4150,10 +4154,10 @@ conditionallyForWindow:(NSWindow *)window
                                                         Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
             self.sebLockedViewController.retryButton.hidden = NO;
             
+            // Add log string for proctoring failed
+            [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime repeated:self.zoomUserRetryWasUsed];
+            
             [self openLockdownWindows];
-
-            // Add log string for dictation active
-            [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime repeated:NO];
         }
 
     });
@@ -4163,7 +4167,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     if (!repeated &&
         (_establishingSEBServerConnection || _sebServerConnectionEstablished)) {
-        NSInteger notificationID = [self.serverController sendLockscreenWithMessage:[NSString stringWithFormat:@"%@ %@", errorTime, errorString]];
+        NSInteger notificationID = [self.serverController sendLockscreenWithMessage:[NSString stringWithFormat:@"%@", errorString]];
         NSNumber *notificationIDNumber = [NSNumber numberWithInteger:notificationID];
         [self.sebServerPendingLockscreenEvents addObject:notificationIDNumber];
     }
@@ -4214,7 +4218,10 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) retryButtonPressed
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     if (_zoomController) {
+        _zoomUserRetryWasUsed = YES;
+        DDLogInfo(@"Retry button in lock screen pressed, after a connection failure to Zoom locked SEB: Try to reconnect to the meeting");
         [_zoomController retryConnectingToMeeting];
     }
 }
@@ -4332,6 +4339,7 @@ conditionallyForWindow:(NSWindow *)window
         }
 
         _proctoringFailedDetected = NO;
+        _zoomUserRetryWasUsed = NO;
         _sebLockedViewController.retryButton.hidden = YES;
         [self.sebServerPendingLockscreenEvents removeAllObjects];
         
@@ -4606,7 +4614,11 @@ conditionallyForWindow:(NSWindow *)window
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedProhibitedProcess" object:self];
         } else {
-            DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            if (appLocalizedName && [appLocalizedName isEqualToString:WebKitNetworkingProcess]) {
+                DDLogVerbose(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            } else {
+                DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            }
             if (appURL) {
                 // Add the app's file URL, so we can restart it when exiting SEB
                 [_terminatedProcessesExecutableURLs addObject:appURL];
@@ -6150,18 +6162,22 @@ conditionallyForWindow:(NSWindow *)window
             NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
             for (NSRunningApplication *startedApplication in startedProcesses) {
                 NSString *bundleID = startedApplication.bundleIdentifier;
-                DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                if (bundleID && [bundleID isEqualToString:WebKitNetworkingProcess]) {
+                    DDLogVerbose(@"Started application with bundle ID: %@", bundleID);
+                } else {
+                    DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                }
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
                 NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {
-                    if ([bundleID isEqualToString:@"com.apple.WebKit.Networking"]) {
+                    if ([bundleID isEqualToString:WebKitNetworkingProcess]) {
                         pid_t processPID = startedApplication.processIdentifier;
                         typedef pid_t (*pidResolver)(pid_t pid);
                         pidResolver resolver = dlsym(RTLD_NEXT, "responsibility_get_pid_responsible_for_pid");
                         pid_t trueParentPid = resolver(processPID);
                         DDLogVerbose(@"PID: %d - Bundle ID: %@ - True Parent PID: %d", processPID, bundleID, trueParentPid);
                         if (trueParentPid == sebPID) {
-                            DDLogDebug(@"Not terminating instance of com.apple.WebKit.Networking started by SEB");
+                            DDLogDebug(@"Not terminating instance of WebKit networking process started by SEB");
                             return;
                         }
                     }

@@ -189,6 +189,7 @@
 @interface SEBLockedViewController : NSObject {
     @private
     NSString *challenge;
+    NSString *currentExamURL;
 }
 
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
