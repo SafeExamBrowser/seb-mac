@@ -98,6 +98,11 @@
 }
 
 
+- (IBAction)retryButtonPressed:(id)sender {
+    [self.lockedViewController retryButtonPressed];
+}
+
+
 - (IBAction)passwordEntered:(id)sender {
     DDLogDebug(@"Password entered in lock view alert");
     DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld",

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -447,7 +447,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -617,7 +617,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -710,7 +710,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-wp-re5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -823,6 +823,7 @@ DQ
                 <outlet property="overrideEnforcingBuiltinScreen" destination="do5-oi-5WI" id="Vub-QQ-Ks7"/>
                 <outlet property="passwordWrongLabel" destination="5gu-rS-ItL" id="Pgk-p0-4JF"/>
                 <outlet property="quitInsteadUnlockingButton" destination="AcD-fw-97S" id="c6i-al-vPg"/>
+                <outlet property="retryButton" destination="bAu-4r-o8x" id="okG-Hr-6Eo"/>
                 <outlet property="view" destination="opR-sj-lUP" id="lJC-D1-R9g"/>
             </connections>
         </viewController>
@@ -864,7 +865,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
@@ -1110,215 +1111,266 @@ DQ
             <point key="canvasLocation" x="1006" y="709"/>
         </customView>
         <customView verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="opR-sj-lUP" userLabel="SEB Locked View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="711"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="733"/>
             <subviews>
-                <secureTextField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
-                    <rect key="frame" x="65" y="170" width="370" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="370" id="PWR-5S-MX2"/>
-                    </constraints>
-                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="5pB-Oo-yvI">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        <allowedInputSourceLocales>
-                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                        </allowedInputSourceLocales>
-                    </secureTextFieldCell>
-                    <connections>
-                        <action selector="passwordEntered:" target="agr-W5-n2K" id="A9P-Tm-0Rt"/>
-                    </connections>
-                </secureTextField>
-                <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="675" width="464" height="24"/>
-                    <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
-                        <font key="font" size="20" name="HelveticaNeue-Bold"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
-                    <rect key="frame" x="65" y="199" width="370" height="16"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="GTM-ss-tIj"/>
-                    </constraints>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password/response to unlock SEB:" id="toT-ZU-d4i">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
-                    <rect key="frame" x="65" y="154" width="370" height="16"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="Wuc-eM-bc0"/>
-                    </constraints>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password/response!" usesSingleLineMode="YES" id="2XV-dZ-8rd">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="611" width="464" height="56"/>
-                    <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="ejj-7G-oh9"/>
-                    </constraints>
-                    <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
-                        <font key="font" metaFont="system"/>
-                        <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</string>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
-                    <rect key="frame" x="20" y="223" width="460" height="380"/>
-                    <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
-                        <rect key="frame" x="1" y="1" width="458" height="378"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-vY-HE2">
+                    <rect key="frame" x="20" y="182" width="460" height="543"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
+                            <rect key="frame" x="-2" y="519" width="464" height="24"/>
+                            <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
+                                <font key="font" size="20" name="HelveticaNeue-Bold"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
+                            <rect key="frame" x="-2" y="463" width="464" height="48"/>
+                            <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
+                                <font key="font" metaFont="system"/>
+                                <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
+                            <rect key="frame" x="0.0" y="75" width="460" height="380"/>
+                            <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
+                                <rect key="frame" x="1" y="1" width="458" height="378"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="458" height="378"/>
-                                <size key="maxSize" width="460" height="2000"/>
-                                <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <connections>
-                                    <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="8dJ-O9-5iO">
-                                        <dictionary key="options">
-                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </clipView>
+                                <subviews>
+                                    <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
+                                        <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <size key="minSize" width="458" height="378"/>
+                                        <size key="maxSize" width="460" height="2000"/>
+                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="8dJ-O9-5iO">
+                                                <dictionary key="options">
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </clipView>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="460" id="SDZ-0E-dlm"/>
+                                <constraint firstAttribute="height" constant="380" id="nQJ-BF-rmg"/>
+                            </constraints>
+                            <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="hdf-4i-b7W">
+                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </scroller>
+                            <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Guc-We-YWU">
+                                <rect key="frame" x="444" y="1" width="15" height="280"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </scroller>
+                        </scrollView>
+                        <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
+                            <rect key="frame" x="-2" y="51" width="464" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="GTM-ss-tIj"/>
+                            </constraints>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password/response to unlock SEB:" id="toT-ZU-d4i">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-Sy-wOH">
+                            <rect key="frame" x="26" y="22" width="434" height="21"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaS-JM-HUH">
+                                    <rect key="frame" x="0.0" y="0.0" width="434" height="21"/>
+                                    <subviews>
+                                        <secureTextField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
+                                            <rect key="frame" x="0.0" y="0.0" width="408" height="21"/>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="5pB-Oo-yvI">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <action selector="passwordEntered:" target="agr-W5-n2K" id="A9P-Tm-0Rt"/>
+                                            </connections>
+                                        </secureTextField>
+                                        <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
+                                            <rect key="frame" x="416" y="-1" width="18" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
+                                                <constraint firstAttribute="width" constant="18" id="EzV-RX-A8U"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="Diq-E8-esA">
+                                                <behavior key="behavior" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="passwordEntered:" target="agr-W5-n2K" id="S2V-hx-Lhj"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
+                                    <rect key="frame" x="-2" y="5" width="256" height="16"/>
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password/response!" usesSingleLineMode="YES" id="2XV-dZ-8rd">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="IaS-JM-HUH" firstAttribute="leading" secondItem="gM7-Sy-wOH" secondAttribute="leading" id="Rwd-Md-kld"/>
+                                <constraint firstAttribute="trailing" secondItem="IaS-JM-HUH" secondAttribute="trailing" id="orX-ic-aoC"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XYL-iY-gT2">
+                            <rect key="frame" x="26" y="0.0" width="434" height="14"/>
+                            <subviews>
+                                <button hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-4r-o8x">
+                                    <rect key="frame" x="348" y="-13" width="67" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Retry" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pZD-Yp-uUL">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="retryButtonPressed:" target="agr-W5-n2K" id="0OO-9e-gOe"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
+                                    <rect key="frame" x="-1" y="-1" width="250" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
+                                    <rect key="frame" x="-1" y="-1" width="216" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Override checking for screen sharing" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bsl-EU-pHD">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="do5-oi-5WI">
+                                    <rect key="frame" x="-1" y="-1" width="200" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Override enforcing built-in display" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="kbH-iY-TGy">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
+                                    <rect key="frame" x="-1" y="-1" width="155" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Override checking for Siri" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="H1g-uS-wch">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
+                                    <rect key="frame" x="-1" y="-1" width="184" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Override checking for dictation" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7xF-1g-PGT">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
+                                    <rect key="frame" x="-1" y="-1" width="278" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Override checking for the processes listed above" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
+                                    <rect key="frame" x="-1" y="-1" width="252" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Override process security check completely" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPO-LF-2DU">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="bAu-4r-o8x" secondAttribute="trailing" constant="26" id="xVB-33-lgu"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="width" constant="460" id="SDZ-0E-dlm"/>
-                        <constraint firstAttribute="height" constant="380" id="nQJ-BF-rmg"/>
+                        <constraint firstItem="XYL-iY-gT2" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" constant="26" id="36u-xQ-HAQ"/>
+                        <constraint firstAttribute="trailing" secondItem="5Ez-0g-525" secondAttribute="trailing" id="9Zb-TJ-scx"/>
+                        <constraint firstItem="5sW-Md-KnP" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="JqT-2o-KB6"/>
+                        <constraint firstAttribute="trailing" secondItem="d45-bx-wxa" secondAttribute="trailing" id="YEN-Bf-hAA"/>
+                        <constraint firstAttribute="trailing" secondItem="XYL-iY-gT2" secondAttribute="trailing" id="cQD-v3-qlo"/>
+                        <constraint firstAttribute="trailing" secondItem="5sW-Md-KnP" secondAttribute="trailing" id="dCv-8E-WGh"/>
+                        <constraint firstItem="gM7-Sy-wOH" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" constant="26" id="j8G-eO-e7x"/>
+                        <constraint firstAttribute="trailing" secondItem="gM7-Sy-wOH" secondAttribute="trailing" id="np0-ME-Mm8"/>
+                        <constraint firstItem="5Ez-0g-525" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="qd2-Fa-Pxe"/>
+                        <constraint firstItem="d45-bx-wxa" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="ys3-BE-yFK"/>
                     </constraints>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="hdf-4i-b7W">
-                        <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Guc-We-YWU">
-                        <rect key="frame" x="444" y="1" width="15" height="280"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
-                <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
-                    <rect key="frame" x="443" y="169" width="18" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
-                        <constraint firstAttribute="width" constant="18" id="EzV-RX-A8U"/>
-                    </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="Diq-E8-esA">
-                        <behavior key="behavior" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="passwordEntered:" target="agr-W5-n2K" id="S2V-hx-Lhj"/>
-                    </connections>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
-                    <rect key="frame" x="64" y="11" width="252" height="16"/>
-                    <buttonCell key="cell" type="check" title="Override process security check completely" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPO-LF-2DU">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
-                    <rect key="frame" x="64" y="31" width="278" height="16"/>
-                    <buttonCell key="cell" type="check" title="Override checking for the processes listed above" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
-                    <rect key="frame" x="64" y="71" width="155" height="16"/>
-                    <buttonCell key="cell" type="check" title="Override checking for Siri" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="H1g-uS-wch">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
-                    <rect key="frame" x="64" y="111" width="216" height="16"/>
-                    <buttonCell key="cell" type="check" title="Override checking for screen sharing" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bsl-EU-pHD">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
-                    <rect key="frame" x="64" y="51" width="184" height="16"/>
-                    <buttonCell key="cell" type="check" title="Override checking for dictation" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7xF-1g-PGT">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
-                <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
-                    <rect key="frame" x="64" y="131" width="250" height="16"/>
-                    <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="do5-oi-5WI">
-                    <rect key="frame" x="64" y="91" width="200" height="16"/>
-                    <buttonCell key="cell" type="check" title="Override enforcing built-in display" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="kbH-iY-TGy">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
-                    </buttonCell>
-                </button>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="do5-oi-5WI" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="1hj-o1-5iA"/>
-                <constraint firstItem="5sW-Md-KnP" firstAttribute="top" secondItem="5Ez-0g-525" secondAttribute="bottom" constant="8" id="4JV-S6-lbE"/>
-                <constraint firstItem="yt2-Rs-d1G" firstAttribute="top" secondItem="do5-oi-5WI" secondAttribute="bottom" constant="6" id="4e0-N1-3Cy"/>
-                <constraint firstAttribute="trailing" secondItem="SZz-tz-Eao" secondAttribute="trailing" constant="20" id="4xS-1B-zfo"/>
-                <constraint firstItem="AcD-fw-97S" firstAttribute="top" secondItem="5gu-rS-ItL" secondAttribute="bottom" constant="8" id="6vP-6Y-zwp"/>
-                <constraint firstItem="d45-bx-wxa" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="7p4-0Y-fDN"/>
-                <constraint firstItem="d45-bx-wxa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="9RW-Dg-SgD"/>
-                <constraint firstItem="K91-6e-rl1" firstAttribute="top" secondItem="d45-bx-wxa" secondAttribute="bottom" constant="8" id="B5X-MD-tHu"/>
-                <constraint firstItem="2n3-Tk-TFb" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="BXq-qF-5Aq"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="d45-bx-wxa" secondAttribute="trailing" constant="20" id="C8x-Qy-kcJ"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yt2-Rs-d1G" secondAttribute="trailing" constant="20" id="CXB-RU-NrA"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="do5-oi-5WI" secondAttribute="trailing" constant="20" id="DGq-ME-xfY"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2n3-Tk-TFb" secondAttribute="trailing" constant="20" id="DIC-2b-JuG"/>
-                <constraint firstItem="K91-6e-rl1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Eiy-o7-jFA"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oDg-Su-CdJ" secondAttribute="trailing" constant="20" id="Gol-tc-d6H"/>
-                <constraint firstItem="oDg-Su-CdJ" firstAttribute="centerY" secondItem="K91-6e-rl1" secondAttribute="centerY" id="J2X-Ds-Ffy"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5gu-rS-ItL" secondAttribute="trailing" constant="20" id="KoP-GP-eDH"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2hk-Dl-Z63" secondAttribute="trailing" constant="20" id="Lm9-cR-0ZU"/>
-                <constraint firstItem="62k-M2-j1C" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="LqD-38-tOb"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AcD-fw-97S" secondAttribute="trailing" constant="20" id="P6e-B0-ufg"/>
-                <constraint firstItem="SZz-tz-Eao" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Q1s-8z-TXu"/>
-                <constraint firstItem="5gu-rS-ItL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Rgu-R6-Dh2"/>
-                <constraint firstItem="5Ez-0g-525" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="T4b-fZ-Ehf"/>
-                <constraint firstItem="K91-6e-rl1" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="XbJ-0R-HKL"/>
-                <constraint firstItem="uLX-fM-8i5" firstAttribute="top" secondItem="2hk-Dl-Z63" secondAttribute="bottom" constant="6" id="Y7A-mS-Ypd"/>
-                <constraint firstItem="SZz-tz-Eao" firstAttribute="top" secondItem="5sW-Md-KnP" secondAttribute="bottom" constant="8" id="YZ6-CN-txg"/>
-                <constraint firstAttribute="trailing" secondItem="5sW-Md-KnP" secondAttribute="trailing" constant="20" id="b6m-9x-lgP"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="62k-M2-j1C" secondAttribute="trailing" constant="20" id="csJ-PD-DUG"/>
-                <constraint firstItem="5sW-Md-KnP" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="d8u-8m-PzJ"/>
-                <constraint firstItem="d45-bx-wxa" firstAttribute="top" secondItem="SZz-tz-Eao" secondAttribute="bottom" constant="8" id="fy1-SU-WbQ"/>
-                <constraint firstItem="oDg-Su-CdJ" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="trailing" constant="8" id="gN0-9C-ndO"/>
-                <constraint firstAttribute="bottom" secondItem="62k-M2-j1C" secondAttribute="bottom" constant="12" id="i1k-IC-hgu"/>
-                <constraint firstItem="2hk-Dl-Z63" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="iiF-hv-gY2"/>
-                <constraint firstAttribute="trailing" secondItem="5Ez-0g-525" secondAttribute="trailing" constant="20" id="isT-4f-tYS"/>
-                <constraint firstItem="5Ez-0g-525" firstAttribute="top" secondItem="opR-sj-lUP" secondAttribute="top" constant="12" id="lTN-7V-P4C"/>
-                <constraint firstItem="2n3-Tk-TFb" firstAttribute="top" secondItem="AcD-fw-97S" secondAttribute="bottom" constant="6" id="mj7-uc-i7g"/>
-                <constraint firstItem="AcD-fw-97S" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="mlM-tj-D7d"/>
-                <constraint firstItem="yt2-Rs-d1G" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="rLO-W8-01m"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uLX-fM-8i5" secondAttribute="trailing" constant="20" id="s5y-yV-Axg"/>
-                <constraint firstItem="5gu-rS-ItL" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="u19-NV-DVx"/>
-                <constraint firstItem="uLX-fM-8i5" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="uqZ-vg-JC8"/>
-                <constraint firstItem="5gu-rS-ItL" firstAttribute="top" secondItem="K91-6e-rl1" secondAttribute="bottom" id="van-DS-kQe"/>
-                <constraint firstItem="2hk-Dl-Z63" firstAttribute="top" secondItem="yt2-Rs-d1G" secondAttribute="bottom" constant="6" id="xHe-IU-mnq"/>
-                <constraint firstItem="62k-M2-j1C" firstAttribute="top" secondItem="uLX-fM-8i5" secondAttribute="bottom" constant="6" id="xkb-Xf-t11"/>
-                <constraint firstItem="do5-oi-5WI" firstAttribute="top" secondItem="2n3-Tk-TFb" secondAttribute="bottom" constant="6" id="y7R-RW-Uuq"/>
+                <constraint firstItem="JHq-vY-HE2" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Abo-9t-a6J"/>
+                <constraint firstAttribute="trailing" secondItem="JHq-vY-HE2" secondAttribute="trailing" constant="20" id="ZR9-y9-Yuz"/>
+                <constraint firstItem="JHq-vY-HE2" firstAttribute="top" secondItem="opR-sj-lUP" secondAttribute="top" constant="8" id="fKf-FY-cuh"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JHq-vY-HE2" secondAttribute="bottom" constant="20" id="uRQ-vm-N0d"/>
             </constraints>
             <point key="canvasLocation" x="999" y="1124.5"/>
         </customView>
@@ -1326,7 +1378,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>

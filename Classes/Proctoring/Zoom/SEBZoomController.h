@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringViewButtonState;
 - (void) proctoringFailedWithErrorMessage:(NSString *)errorMessage;
+- (void) successfullyRetriedToConnect;
 
 @end
 
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL _receiveAudioFlag;
     BOOL _receiveVideoFlag;
     BOOL _useChatFlag;
+    BOOL retryingToConnect;
 }
 
 @property (strong, nonatomic) id<ProctoringUIDelegate> proctoringUIDelegate;
@@ -78,6 +80,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) toggleZoomViewVisibilityWithSender:(id)sender;
 
 - (void) closeZoomMeeting:(void (^)(void))completionHandler;
+
+- (void) retryConnectingToMeeting;
 
 @end
 

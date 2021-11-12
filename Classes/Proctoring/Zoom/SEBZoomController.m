@@ -150,6 +150,13 @@
 }
 
 
+- (void) retryConnectingToMeeting
+{
+    retryingToConnect = YES;
+    [self openZoomWithReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
+}
+
+
 #pragma mark - Initialize and start Zoom meetings
 
 - (void) startZoomMeetingReceiveAudioOverride:(BOOL)receiveAudioOverride
@@ -202,6 +209,10 @@
         [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Joining the Zoom proctoring meeting failed with error code", nil), error]];
     } else {
+        if (retryingToConnect) {
+            retryingToConnect = NO;
+            [_proctoringUIDelegate successfullyRetriedToConnect];
+        }
         [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateAIInactive];
     }
 }

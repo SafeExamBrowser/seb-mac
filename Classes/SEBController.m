@@ -4143,10 +4143,13 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"proctoringFailed"])
         {
+            self.proctoringFailedDetected = YES;
             // Set custom alert message string
             NSString *proctoringFailedErrorString = [notification.userInfo objectForKey:NSLocalizedFailureReasonErrorKey];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Proctoring Error Locked SEB!", @"Lockdown alert title text for proctoring failure")
                                                         Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
+            self.sebLockedViewController.retryButton.hidden = NO;
+            
             [self openLockdownWindows];
 
             // Add log string for dictation active
@@ -4209,6 +4212,20 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (void) retryButtonPressed
+{
+    if (_zoomController) {
+        [_zoomController retryConnectingToMeeting];
+    }
+}
+
+- (void) successfullyRetriedToConnect
+{
+    _proctoringFailedDetected = NO;
+    [self conditionallyCloseLockdownWindows];
+}
+
+
 - (void) correctPasswordEntered
 {
 #ifdef DEBUG
@@ -4225,7 +4242,8 @@ conditionallyForWindow:(NSWindow *)window
         _sebLockedViewController.overrideCheckForSiri.hidden &&
         _sebLockedViewController.overrideCheckForDictation.hidden &&
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
-        _sebLockedViewController.overrideCheckForAllProcesses.hidden) {
+        _sebLockedViewController.overrideCheckForAllProcesses.hidden &&
+        !_proctoringFailedDetected) {
         DDLogDebug(@"%s: close lockdown windows", __FUNCTION__);
         [self closeLockdownWindowsAllowOverride:YES];
     }
@@ -4313,6 +4331,8 @@ conditionallyForWindow:(NSWindow *)window
             _sebLockedViewController.quitInsteadUnlockingButton.state = false;
         }
 
+        _proctoringFailedDetected = NO;
+        _sebLockedViewController.retryButton.hidden = YES;
         [self.sebServerPendingLockscreenEvents removeAllObjects];
         
         [_sebLockedViewController.view removeFromSuperview];
