@@ -351,6 +351,12 @@ public extension SEBServerController {
         }
     }
     
+    @objc func sendLockscreen(message: String?) -> Int64 {
+        notificationNumber+=1
+        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
+        return notificationNumber
+    }
+    
     @objc func sendRaiseHand(message: String?) -> Int64 {
         notificationNumber+=1
         sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")

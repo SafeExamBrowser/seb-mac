@@ -233,6 +233,7 @@
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 @property(readwrite) BOOL isAACEnabled;
 @property(readwrite) BOOL overrideAAC;
@@ -350,7 +351,7 @@ conditionallyForWindow:(NSWindow *)window
 - (BOOL) conditionallyLockExam:(NSString *)examURLString;
 
 - (void) correctPasswordEntered;
-- (void) closeLockdownWindows;
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
 - (void) requestedExit:(NSNotification *)notification;

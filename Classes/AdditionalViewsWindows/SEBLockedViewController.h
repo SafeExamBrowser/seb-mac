@@ -175,7 +175,7 @@
  * @brief       Close lockdown windows and allow to access the exam again.
  * @details
  */
-- (void) closeLockdownWindows;
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 
 @end
 

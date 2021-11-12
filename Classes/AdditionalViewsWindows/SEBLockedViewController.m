@@ -261,8 +261,8 @@
     [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
                    withTime:nil];
     
-    if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
-        [self.controllerDelegate closeLockdownWindows];
+    if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindowsAllowOverride:)]) {
+        [self.controllerDelegate closeLockdownWindowsAllowOverride:YES];
     }
     if ([self.controllerDelegate respondsToSelector:@selector(openInfoHUD:)]) {
         [self.controllerDelegate openInfoHUD:lockedTimeInfo];
