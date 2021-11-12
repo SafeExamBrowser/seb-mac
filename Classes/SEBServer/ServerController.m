@@ -179,6 +179,12 @@
 }
 
 
+- (NSInteger) sendLockscreenWithMessage:(NSString *)message
+{
+    return  [_sebServerController sendLockscreenWithMessage:message];
+}
+
+
 - (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message
 {
     return [_sebServerController sendRaiseHandWithMessage:message];
