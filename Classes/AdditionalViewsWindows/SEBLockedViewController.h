@@ -130,6 +130,12 @@
 @property (strong, readwrite) NSDate *didResumeExamTime;
 
 /**
+ * @brief       Retry button action handler
+ * @details
+ */
+- (void) retryButtonPressed;
+
+/**
  * @brief       Callback executed when the correct password was entered.
  * @details
  */
@@ -203,6 +209,7 @@
 /// Lockview business logic
 - (NSString *) appendChallengeToMessage:(NSString *)alertMessage;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) retryButtonPressed;
 - (void) passwordEntered;
 - (void) closeLockdownWindows;
 - (void) abortClosingLockdownWindows;
