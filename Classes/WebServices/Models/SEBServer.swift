@@ -55,6 +55,7 @@ public struct keys {
     static let logLevelDebug = "DEBUG_LOG"
     static let logLevelUnknown = "UNKNOWN"
     static let notificationType = "NOTIFICATION"
+    static let notificationTagLockscreen = "lockscreen"
     static let notificationTagRaisehand = "raisehand"
     static let notificationConfirmed = "NOTIFICATION_CONFIRMED"
 }

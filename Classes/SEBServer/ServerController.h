@@ -86,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
                           message:(NSString *)message;
 - (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion;
 - (void) quitSessionWithRestart:(BOOL)restart completion:(void (^ _Nonnull)(BOOL))completion;
+- (NSInteger) sendLockscreenWithMessage:(NSString *)message;
 - (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message;
 - (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID;
 

@@ -1278,11 +1278,32 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *notificationType = attributes[@"type"];
-    NSNumber *notificationID = [attributes objectForKey:@"id"];
+    NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
     
     if ([notificationType isEqualToString:@"raisehand"]) {
-        if (_raiseHandRaised && raiseHandUID == notificationID.integerValue) {
+        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
             [self toggleRaiseHandLoweredByServer:YES];
+        }
+    }
+    
+    if ([notificationType isEqualToString:@"lockscreen"]) {
+        if (self.sebServerPendingLockscreenEvents.count > 0) {
+#ifdef DEBUG
+        DDLogDebug(@"sebServerPendingLockscreenEvents: %@", self.sebServerPendingLockscreenEvents);
+#endif
+            NSInteger notificationID = notificationIDNumber.integerValue;
+            for (NSUInteger index = 0 ; index < self.sebServerPendingLockscreenEvents.count ; ++index) {
+                if (self.sebServerPendingLockscreenEvents[index].integerValue == notificationID) {
+                    [self.sebServerPendingLockscreenEvents removeObjectAtIndex:index];
+                }
+            }
+    #ifdef DEBUG
+            DDLogDebug(@"sebServerPendingLockscreenEvents after removing notificationID %@: %@", notificationIDNumber, self.sebServerPendingLockscreenEvents);
+    #endif
+            if (self.sebServerPendingLockscreenEvents.count == 0) {
+                DDLogInfo(@"No pending lock screen events, closing lockdown windows invoked by SEB Server");
+                [self closeLockdownWindowsAllowOverride:NO];
+            }
         }
     }
 }
@@ -3842,7 +3863,7 @@ conditionallyForWindow:(NSWindow *)window
             [self openLockdownWindows];
             
             // Add log string for resign active
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime repeated:NO];
             
         }
         
@@ -3855,9 +3876,6 @@ conditionallyForWindow:(NSWindow *)window
             
             DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
             
-            // Add log string for becoming active
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
-            
             // Calculate time difference between session resigning active and becoming active again
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
             NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
@@ -3866,7 +3884,9 @@ conditionallyForWindow:(NSWindow *)window
                                                         options:NSCalendarWrapComponents];
             NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
             DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockedTimeInfo] withTime:nil];
+            
+            // Add log string for becoming active
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil), lockedTimeInfo] withTime:self.didBecomeActiveTime repeated:NO];
         }
         
         // Handler called when attempting to re-open an exam which was interrupted before
@@ -3883,7 +3903,7 @@ conditionallyForWindow:(NSWindow *)window
                                                                  ]];
             
             // Add log string for trying to re-open a locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:self.didBecomeActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             
             [self openLockdownWindows];
         }
@@ -3914,7 +3934,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Add log string for screen sharing active
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
@@ -3922,7 +3942,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for screen sharing still active
                 if (!self->screenSharingLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->screenSharingLogCounter = logReportCounter;
                 }
             }
@@ -3951,7 +3971,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Add log string for Siri active
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForSiri.hidden = false;
@@ -3959,7 +3979,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for Siri still active
                 if (!self->siriLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->siriLogCounter = logReportCounter;
                 }
             }
@@ -3988,7 +4008,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Add log string for dictation active
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForDictation.hidden = false;
@@ -3996,7 +4016,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for dictation still active
                 if (!self->dictationLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->dictationLogCounter = logReportCounter;
                 }
             }
@@ -4028,7 +4048,7 @@ conditionallyForWindow:(NSWindow *)window
                 if (self.overriddenProhibitedProcesses.count > 0) {
                 }
                 // Add log string for prohibited process detected
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
@@ -4037,7 +4057,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for detected prohibited process
                 if (!self->prohibitedProcessesLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->prohibitedProcessesLogCounter = logReportCounter;
                 }
             }
@@ -4059,7 +4079,7 @@ conditionallyForWindow:(NSWindow *)window
                                                        fromDate:self->timeProcessCheckBeforeSIGSTOP
                                                          toDate:self.didBecomeActiveTime
                                                         options:NSCalendarWrapComponents];
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime repeated:NO];
             
             if (!self.lockdownWindows) {
                 [self openLockdownWindows];
@@ -4097,7 +4117,7 @@ conditionallyForWindow:(NSWindow *)window
                         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
                                                                     Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
                     }
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime repeated:NO];
                     
                     if (self.builtinDisplayEnforceOverride == false) {
                         [self openLockdownWindows];
@@ -4130,10 +4150,29 @@ conditionallyForWindow:(NSWindow *)window
             [self openLockdownWindows];
 
             // Add log string for dictation active
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime repeated:NO];
         }
 
     });
+}
+
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime repeated:(BOOL)repeated
+{
+    if (!repeated &&
+        (_establishingSEBServerConnection || _sebServerConnectionEstablished)) {
+        NSInteger notificationID = [self.serverController sendLockscreenWithMessage:[NSString stringWithFormat:@"%@ %@", errorTime, errorString]];
+        NSNumber *notificationIDNumber = [NSNumber numberWithInteger:notificationID];
+        [self.sebServerPendingLockscreenEvents addObject:notificationIDNumber];
+    }
+    [self.sebLockedViewController appendErrorString:errorString withTime:errorTime];
+}
+
+- (NSMutableArray *) sebServerPendingLockscreenEvents
+{
+    if (!_sebServerPendingLockscreenEvents) {
+        _sebServerPendingLockscreenEvents = [NSMutableArray new];
+    }
+    return _sebServerPendingLockscreenEvents;
 }
 
 
@@ -4188,86 +4227,100 @@ conditionallyForWindow:(NSWindow *)window
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
         _sebLockedViewController.overrideCheckForAllProcesses.hidden) {
         DDLogDebug(@"%s: close lockdown windows", __FUNCTION__);
-        [self closeLockdownWindows];
+        [self closeLockdownWindowsAllowOverride:YES];
     }
 }
 
-- (void) closeLockdownWindows
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride
 {
-    DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
+    if (self.lockdownWindows) {
+        DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
 
-    [NSApp endModalSession:lockdownModalSession];
+        [NSApp endModalSession:lockdownModalSession];
 
-    if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
-        DDLogInfo(@"%s: overrideCheckForScreenSharing selected", __FUNCTION__);
-        _screenSharingCheckOverride = true;
-        _sebLockedViewController.overrideCheckForScreenSharing.state = false;
-        _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
-    }
-
-    if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
-        DDLogInfo(@"%s: overrideEnforcingBuiltinScreen selected", __FUNCTION__);
-        _builtinDisplayEnforceOverride = true;
-        _builtinDisplayNotAvailableDetected = false;
-        _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
-        _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
-    }
-
-    if (_sebLockedViewController.overrideCheckForSiri.state == true) {
-        DDLogInfo(@"%s: overrideCheckForSiri selected", __FUNCTION__);
-        _siriCheckOverride = true;
-        _sebLockedViewController.overrideCheckForSiri.state = false;
-        _sebLockedViewController.overrideCheckForSiri.hidden = true;
-    }
-    
-    if (_sebLockedViewController.overrideCheckForDictation.state == true) {
-        DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
-        _dictationCheckOverride = true;
-        _sebLockedViewController.overrideCheckForDictation.state = false;
-        _sebLockedViewController.overrideCheckForDictation.hidden = true;
-    }
-    
-    if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
-        DDLogInfo(@"%s: overrideCheckForSpecifcProcesses selected", __FUNCTION__);
-        _processCheckSpecificOverride = true;
-        if (_runningProhibitedProcesses.count > 0) {
-            if (!_overriddenProhibitedProcesses) {
-                _overriddenProhibitedProcesses = _runningProhibitedProcesses.mutableCopy;
-            } else {
-                [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
-            }
-            // Check if overridden processes are prohibited BSD processes from settings
-            // and remove them from list the periodically called process watcher checks
-            [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
-            DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, _overriddenProhibitedProcesses);
+        if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
+            DDLogInfo(@"%s: overrideCheckForScreenSharing selected", __FUNCTION__);
+            _screenSharingCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForScreenSharing.state = false;
+            _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
         }
-        _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-        _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+
+        if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
+            DDLogInfo(@"%s: overrideEnforcingBuiltinScreen selected", __FUNCTION__);
+            if (allowOverride) {
+                _builtinDisplayEnforceOverride = true;
+                _builtinDisplayNotAvailableDetected = false;
+            }
+            _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
+            _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
+        }
+
+        if (_sebLockedViewController.overrideCheckForSiri.state == true) {
+            DDLogInfo(@"%s: overrideCheckForSiri selected", __FUNCTION__);
+            _siriCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForSiri.state = false;
+            _sebLockedViewController.overrideCheckForSiri.hidden = true;
+        }
+        
+        if (_sebLockedViewController.overrideCheckForDictation.state == true) {
+            DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
+            _dictationCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForDictation.state = false;
+            _sebLockedViewController.overrideCheckForDictation.hidden = true;
+        }
+        
+        if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
+            DDLogInfo(@"%s: overrideCheckForSpecifcProcesses selected", __FUNCTION__);
+            if (allowOverride) {
+                _processCheckSpecificOverride = true;
+                if (_runningProhibitedProcesses.count > 0) {
+                    if (!_overriddenProhibitedProcesses) {
+                        _overriddenProhibitedProcesses = _runningProhibitedProcesses.mutableCopy;
+                    } else {
+                        [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
+                    }
+                    // Check if overridden processes are prohibited BSD processes from settings
+                    // and remove them from list the periodically called process watcher checks
+                    [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
+                    DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, _overriddenProhibitedProcesses);
+                }
+            }
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+        }
+        
+        if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
+            DDLogInfo(@"%s: overrideCheckForAllProcesses selected", __FUNCTION__);
+            _processCheckAllOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForAllProcesses.state = false;
+            _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+        }
+        
+        if (_screenSharingCheckOverride == false) {
+            _screenSharingDetected = false;
+        }
+        lastTimeProcessCheck = [NSDate date];
+        _SIGSTOPDetected = false;
+        
+        if (allowOverride) {
+            DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
+            if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+                DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
+                _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+                [self quitSEBOrSession];
+            }
+        } else {
+            _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+        }
+
+        [self.sebServerPendingLockscreenEvents removeAllObjects];
+        
+        [_sebLockedViewController.view removeFromSuperview];
+        [self closeCoveringWindows:self.lockdownWindows];
+        self.lockdownWindows = nil;
+    } else {
+        DDLogDebug(@"%s but there are no open lockdown windows anymore, returning.", __FUNCTION__);
     }
-    
-    if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
-        DDLogInfo(@"%s: overrideCheckForAllProcesses selected", __FUNCTION__);
-        _processCheckAllOverride = true;
-        _sebLockedViewController.overrideCheckForAllProcesses.state = false;
-        _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
-    }
-    
-    if (_screenSharingCheckOverride == false) {
-        _screenSharingDetected = false;
-    }
-    lastTimeProcessCheck = [NSDate date];
-    _SIGSTOPDetected = false;
-    
-    DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
-    if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
-        DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
-        _sebLockedViewController.quitInsteadUnlockingButton.state = false;
-        [self quitSEBOrSession];
-    }
-    
-    [_sebLockedViewController.view removeFromSuperview];
-    [self closeCoveringWindows:self.lockdownWindows];
-    self.lockdownWindows = nil;
 }
 
 
