@@ -214,6 +214,8 @@
 @property(readwrite) BOOL zoomSendVideo;
 @property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
 
+@property(readwrite) BOOL zoomUserRetryWasUsed;
+
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;

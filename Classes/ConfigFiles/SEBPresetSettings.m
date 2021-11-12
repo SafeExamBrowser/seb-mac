@@ -107,8 +107,8 @@
                       },
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
-                          @"executable" : @"Safari Networking",
-                          @"identifier" : @"com.apple.WebKit.Networking",
+                          @"executable" : @"Safari/WebKit Networking",
+                          @"identifier" : WebKitNetworkingProcess,
                           @"strongKill" : @YES,
                       },
                       @{
