@@ -255,6 +255,7 @@
 @property(readwrite) BOOL builtinDisplayNotAvailableDetected;
 @property(readwrite) BOOL builtinDisplayEnforceOverride;
 @property(readwrite) BOOL touchBarDetected;
+@property(readwrite) BOOL proctoringFailedDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;

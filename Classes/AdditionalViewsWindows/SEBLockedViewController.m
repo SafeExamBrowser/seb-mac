@@ -200,6 +200,11 @@
 }
 
 
+- (void) retryButtonPressed {
+    [self.controllerDelegate retryButtonPressed];
+}
+
+
 - (void) passwordEntered {
     // Check if the exam is protected with the quit/unlock password (and one is set)
     if (!closingLockdownWindowsInProgress) {
