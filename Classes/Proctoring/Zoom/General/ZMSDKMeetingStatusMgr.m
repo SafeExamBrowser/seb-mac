@@ -87,6 +87,7 @@
                     [meetingActionController setShareSettingType:ShareSettingType_AnyoneCanGrab];
                 }
             }
+            [_zoomProctoringDelegate meetingStatusInMeeting];
         }
             break;
         case ZoomSDKMeetingStatus_Webinar_Promote:
