@@ -189,7 +189,6 @@
 		694215E3214544AB002EB416 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
 		694215E4214544AB002EB416 /* Webpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4E1C3C7C9A00397E18 /* Webpages.m */; };
 		694215E7214544AB002EB416 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A223401C20E38600766354 /* libz.tbd */; };
-		694215E8214544AB002EB416 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		694215EB214544AB002EB416 /* Icon-320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* Icon-320x320.png */; };
 		694215EC214544AB002EB416 /* SEBSliderClosePage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D51E4E2200000B4A6D /* SEBSliderClosePage@3x.png */; };
 		694215ED214544AB002EB416 /* continueCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331F001C10AC1B0038BD31 /* continueCircle@2x.png */; };
@@ -684,6 +683,7 @@
 		69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
 		69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
+		69A6A18C27432B2A0034DBF6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6962F88D13A8C21B007C16F0 /* WebKit.framework */; };
 		69A727DC249D6DD80087B193 /* SEBSliderScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D6249D6DD70087B193 /* SEBSliderScrollLockIcon_locked.png */; };
 		69A727DD249D6DD80087B193 /* SEBSliderScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D6249D6DD70087B193 /* SEBSliderScrollLockIcon_locked.png */; };
 		69A727DE249D6DD80087B193 /* SEBSliderScrollLockIcon_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D7249D6DD70087B193 /* SEBSliderScrollLockIcon_locked@2x.png */; };
@@ -770,7 +770,6 @@
 		69B5E2AB25756BEF009030C2 /* SEBAbstractWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */; };
 		69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
-		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE58232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
@@ -937,7 +936,6 @@
 		69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693D5A1614C59B4300E37C68 /* SEBBrowserWindowController.m */; };
 		69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983314C81FEA005FE98C /* NSWindow+SEBWindow.m */; };
 		69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
-		69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6962F88D13A8C21B007C16F0 /* WebKit.framework */; };
 		69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
 		69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
@@ -1457,7 +1455,6 @@
 		69B675992038849000FA58F5 /* SEBUIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIController.h; path = Classes/AdditionalViews/SEBUIController.h; sourceTree = "<group>"; };
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
-		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
 		69BBAE55232702BD005BC19F /* ServerLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerLogger.m; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1595,7 +1592,6 @@
 				699B325F2154639800EEA3E5 /* libmbedtls.a in Frameworks */,
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				6918212B268B1C3400F116D1 /* libSEBSupport.a in Frameworks */,
-				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
 				BF713791494E8E9D2AD42E83 /* libPods-SEB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1621,7 +1617,6 @@
 				69E0B31B21467A1C007ACF03 /* libmbedtls.a in Frameworks */,
 				694215E7214544AB002EB416 /* libz.tbd in Frameworks */,
 				6988A0DD25228D6700F15236 /* libSEBSupport.a in Frameworks */,
-				694215E8214544AB002EB416 /* WebKit.framework in Frameworks */,
 				BD3A6F274200FC0D4538AE69 /* Pods_SEB_Dev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1634,8 +1629,8 @@
 				8DE31FEF9851E3ED88004761 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 				6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */,
 				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
-				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
+				69A6A18C27432B2A0034DBF6 /* WebKit.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
@@ -1761,7 +1756,6 @@
 				694803961C2373CC00593711 /* UIKit.framework */,
 				694803941C2373AD00593711 /* Foundation.framework */,
 				69A223401C20E38600766354 /* libz.tbd */,
-				69BB07431BA11CD40065E1F2 /* WebKit.framework */,
 				6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */,
 				6940A7661853B62000D9D00D /* libz.dylib */,
 				6940A7641853B4BC00D9D00D /* libssl.dylib */,
