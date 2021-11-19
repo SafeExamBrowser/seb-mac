@@ -33,6 +33,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import "SEBURLFilter.h"
 
