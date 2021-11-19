@@ -260,7 +260,7 @@ void run_block_on_main_thread(dispatch_block_t block)
 
 - (void) closeLockdownWindows {
     // Add log information about closing lockdown alert
-    DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
+    DDLogInfo(@"Lockdown alert: Correct password entered, closing lockdown windows");
     self.controllerDelegate.didResumeExamTime = [NSDate date];
     [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Closing lockdown windows", nil)] withTime:self.controllerDelegate.didResumeExamTime];
     // Calculate time difference between session resigning active and closing lockdown alert
@@ -270,14 +270,14 @@ void run_block_on_main_thread(dispatch_block_t block)
                                                  toDate:self.controllerDelegate.didResumeExamTime
                                                 options:NSCalendarWrapComponents];
     
-    DDLogError(@"Lockdown alert: Closing lockdown windows");
+    DDLogInfo(@"Lockdown alert: Closing lockdown windows");
     NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];
     }
 
-    DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
+    DDLogInfo(@"Lockdown alert: %@", lockedTimeInfo);
     [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
                    withTime:nil];
     
