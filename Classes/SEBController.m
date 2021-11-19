@@ -6112,7 +6112,7 @@ conditionallyForWindow:(NSWindow *)window
             {
                 case NSAlertFirstButtonReturn:
                     [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences isDirectory:NO]];
-                    DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
+                    DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
                     return;
                 default:
                 {
@@ -6121,7 +6121,7 @@ conditionallyForWindow:(NSWindow *)window
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))cannotRestoreTouchBarAlertOK];
     } else {
-        DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
+        DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
     }
 }
 
