@@ -130,7 +130,7 @@
 - (void) openingConfigURLRoleBack
 {
     // If SEB was just started (by opening a seb(s) link)
-    if (_sebController.startingUp) {
+    if (self.startingUp) {
         // we quit, as decrypting the config wasn't successful
         DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
         [_sebController requestedExit:nil]; // Quit SEB
@@ -140,23 +140,22 @@
 }
 
 
-- (void)closeOpeningConfigFileDialog {
+- (void) closeOpeningConfigFileDialog {
     //TODO: not yet used on macOS
 }
 
 
-- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
     //TODO: not yet used on macOS
 }
-
 
 @synthesize startingUp;
 
-- (BOOL)isStartingUp {
+- (BOOL) startingUp {
     return _sebController.startingUp;
 }
 
-- (void)setStartingUp:(BOOL)startingUp {
+- (void) setStartingUp:(BOOL)startingUp {
     _sebController.startingUp = startingUp;
 }
 
@@ -756,7 +755,7 @@
     if (![super isReconfiguringAllowedFromURL:url]) {
         // If yes, we don't download the .seb file
         // Also reset the flag for SEB starting up
-        _sebController.startingUp = false;
+        self.startingUp = false;
         NSAlert *modalAlert = [_sebController newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
         [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
@@ -787,7 +786,7 @@
     SEBAbstractWebView *temporaryWebView = [self openAndShowWebViewWithURL:url title:tempWindowTitle overrideSpellCheck:YES mainBrowserWindow:NO temporaryWindow:YES];
     SEBBrowserWindow *temporaryBrowserWindow = temporaryWebView.window;
 
-    if (_sebController.startingUp) {
+    if (self.startingUp) {
         temporaryWebView.creatingWebView = temporaryWebView;
     } else {
         temporaryWebView.creatingWebView = nil;
@@ -816,7 +815,7 @@
     DDLogError(@"%s error: %@", __FUNCTION__, error);
     _sebController.openingSettings = false;
     // Also reset the flag for SEB starting up
-    _sebController.startingUp = false;
+    self.startingUp = false;
 
     // Only show the download error and close temp browser window if this wasn't a direct download attempt
     if (!self.directConfigDownloadAttempted) {

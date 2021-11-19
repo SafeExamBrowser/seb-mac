@@ -818,7 +818,7 @@ bool insideMatrix(void);
         }
         
         // Check if SEB is in an exam session and reconfiguring isn't allowed
-        if (![self.browserController isReconfiguringAllowedFromURL:sebFileURL]) {
+        if (!_startingUp && ![self.browserController isReconfiguringAllowedFromURL:sebFileURL]) {
             _openingSettings = NO;
             return;
         }
