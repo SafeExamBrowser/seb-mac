@@ -112,6 +112,8 @@
             if (openEdXUsername) {
                 [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
             }
+        } else if ([cookie.name isEqualToString:@"MoodleSession"]) {
+            DDLogDebug(@"Cookie 'MoodleSession': %@", cookie);
         }
     }
 }
@@ -123,7 +125,7 @@
     // Search for the testsession ID query parameter which Moodle sends back
     // after a user logs in to a quiz
     NSRange testsessionRange = [query rangeOfString:@"testsession="];
-    if (testsessionRange.location != NSNotFound) {
+    if (query && testsessionRange.location != NSNotFound) {
         NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
         if (testsessionID.length > 0) {
             [_sebServerController startMonitoringWithUserSessionId:testsessionID];
@@ -156,21 +158,31 @@
         }
         
         if ([instruction isEqualToString:@"SEB_PROCTORING"]) {
-            NSDictionary *attributes = sebInstruction.attributes;
-            [self.delegate startProctoringWithAttributes:(NSDictionary *)attributes];
+            if ([self.delegate respondsToSelector:@selector(startProctoringWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate startProctoringWithAttributes:(NSDictionary *)attributes];
+            }
         }
         
         if ([instruction isEqualToString:@"SEB_RECONFIGURE_SETTINGS"]) {
-            NSDictionary *attributes = sebInstruction.attributes;
-            [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
+            if ([self.delegate respondsToSelector:@selector(reconfigureWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
+            }
         }
     }
 }
 
 
-- (void) quitSession
+- (void) quitSessionWithRestart:(BOOL)restart
 {
-    [_sebServerController quitSession];
+    [_sebServerController quitSessionWithRestart:restart];
+}
+
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    [self.delegate didCloseSEBServerConnectionRestart:restart];
 }
 
 

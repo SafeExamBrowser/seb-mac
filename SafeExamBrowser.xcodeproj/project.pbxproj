@@ -828,6 +828,9 @@
 		69E0B31B21467A1C007ACF03 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E0B31A21467A1C007ACF03 /* libmbedtls.a */; };
 		69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
 		69E1310826C665B0005C5530 /* SEBOSXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */; };
+		69E2BBB126FDBAA90055531A /* SEBServerOSXViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */; };
+		69E2BBB226FDBAA90055531A /* SEBServerOSXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */; };
+		69E2BBB62703FD8F0055531A /* SEBServerOSXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */; };
 		69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
 		69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
 		69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
@@ -1510,6 +1513,9 @@
 		69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBOSXWKWebViewController.swift; path = Classes/BrowserComponents/SEBOSXWKWebViewController.swift; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
+		69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBServerOSXViewController.h; sourceTree = "<group>"; };
+		69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBServerOSXViewController.m; sourceTree = "<group>"; };
+		69E2BBB52703FD8F0055531A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEBServerOSXViewController.xib; sourceTree = "<group>"; };
 		69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSKeychainManager.h; path = Classes/Cryptography/SEBiOSKeychainManager.h; sourceTree = "<group>"; };
 		69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSKeychainManager.m; path = Classes/Cryptography/SEBiOSKeychainManager.m; sourceTree = "<group>"; };
 		69E64C0622B7D5F300B593AE /* SEBRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBRootViewController.h; sourceTree = "<group>"; };
@@ -2146,6 +2152,7 @@
 		69428C96172E5FBA00C87C58 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */,
 				69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */,
@@ -2201,6 +2208,8 @@
 				69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */,
 				69B581821ED8214700CE70F3 /* SEBAboutController.h */,
 				69B581831ED8214700CE70F3 /* SEBAboutController.m */,
+				69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */,
+				69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -2957,6 +2966,7 @@
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69CEDCF226ACD00C0030787B /* SEBWebViewController.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
+				69E2BBB126FDBAA90055531A /* SEBServerOSXViewController.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				698CCFB6268F813D002973D3 /* SEB_Prefix.pch in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
@@ -3572,6 +3582,7 @@
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				697048E226D779D4009A822B /* SEBBatteryIcon_charging.iconset in Resources */,
 				695A8EF31E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
+				69E2BBB62703FD8F0055531A /* SEBServerOSXViewController.xib in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69E87E56202927330055988F /* SEBDockIconLandscape@3x.png in Resources */,
 				6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */,
@@ -4057,6 +4068,7 @@
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
+				69E2BBB226FDBAA90055531A /* SEBServerOSXViewController.m in Sources */,
 				695EE19326D2F2F8004D8FF7 /* SEBPresetSettings.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
@@ -4255,6 +4267,14 @@
 			);
 			name = InfoPlist.strings;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69E2BBB52703FD8F0055531A /* Base */,
+			);
+			name = SEBServerOSXViewController.xib;
 			sourceTree = "<group>";
 		};
 		69EA170119FA77A0001E0C51 /* Localizable.strings */ = {
@@ -4835,7 +4855,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.1pre2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
@@ -4895,7 +4915,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.1pre2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
