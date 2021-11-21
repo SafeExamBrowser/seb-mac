@@ -295,8 +295,26 @@
 
 
 // Set up SEB Browser and open the main window
-- (void) openMainBrowserWindow {
+- (void) openMainBrowserWindow
+{
+    // Load start URL from the system's user defaults
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *urlString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
+    // Handle Start URL Query String Parameter
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
+        NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
+        if (queryString.length > 0) {
+            urlString = [NSString stringWithFormat:@"%@?%@", urlString, queryString];
+        }
+    }
+    NSURL *startURL = [NSURL URLWithString:urlString];
+    [self openMainBrowserWindowWithStartURL:startURL];
+}
+
+
+- (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL
+{
     [self.sebController conditionallyLockExam];
     
     // Log current WebKit Cookie Policy
@@ -315,22 +333,10 @@
     
     DDLogInfo(@"Open MainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
     
-    // Load start URL from the system's user defaults
-    NSString *urlString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    
-    // Handle Start URL Query String Parameter
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
-        NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
-        if (queryString.length > 0) {
-            urlString = [NSString stringWithFormat:@"%@?%@", urlString, queryString];
-        }
-    }
-    NSURL *startURL = [NSURL URLWithString:urlString];
-
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)    
-    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlString);
+    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", startURL.absoluteString);
     SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
     SEBBrowserWindow *newBrowserWindow = newBrowserWindowWebView.window;
 
@@ -950,15 +956,14 @@
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
-- (void)examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies {
-
+- (void)examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies
+{
+    [self.sebController examineCookies:cookies];
 }
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
-//    if (_establishingSEBServerConnection) {
-//        [self.serverController shouldStartLoadFormSubmittedURL:url];
-//    }
+    [self.sebController shouldStartLoadFormSubmittedURL:url];
 }
 
 

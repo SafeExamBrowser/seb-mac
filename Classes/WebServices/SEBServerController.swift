@@ -40,6 +40,7 @@ import Foundation
     func reconfigureWithServerExamConfig(_ configData: Data)
     func didEstablishSEBServerConnection()
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
+    func didCloseSEBServerConnectionRestart(_ restart: Bool)
 }
 
 @objc public protocol ServerControllerUIDelegate: AnyObject {
@@ -156,7 +157,7 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
         handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, statusCode, responseHeaders) in
-            guard let connectionTokenString = (responseHeaders?.first(where: { $0.key as! String == keys.sebConnectionToken }))?.value else {
+            guard let connectionTokenString = (responseHeaders?.first(where: { ($0.key as! String).caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value else {
                 return
             }
             self.connectionToken = connectionTokenString as? String
@@ -298,7 +299,7 @@ public extension SEBServerController {
     }
     
     
-    @objc func quitSession() {
+    @objc func quitSession(restart: Bool) {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         
         let quitSessionRequest = DataRequest(resource: quitSessionResource)
@@ -314,6 +315,7 @@ public extension SEBServerController {
                 let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
                 print(responseBody as Any)
             }
+            self.delegate?.didCloseSEBServerConnectionRestart(restart)
         })
     }
 }

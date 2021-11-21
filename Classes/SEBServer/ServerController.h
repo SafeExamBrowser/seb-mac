@@ -45,9 +45,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) storeNewSEBSettings:(NSData *)configData;
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
+- (void) serverSessionQuitRestart:(BOOL)restart;
+- (void) closeServerView:(id)sender;
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
+
+@optional
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
-- (void) serverSessionQuitRestart:(BOOL)restart;
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
+- (void) examineCookies:(nonnull NSArray<NSHTTPCookie *> *)cookies;
 
 @end
 
@@ -74,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
                         timestamp: (NSString *)timestamp
                      numericValue:(double)numericValue
                           message:(NSString *)message;
-- (void) quitSession;
+- (void) quitSessionWithRestart:(BOOL)restart;
 
 - (void) loginToExamAborted;
 

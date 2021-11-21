@@ -350,6 +350,13 @@ import Foundation
     
     public func sebWebViewDidFinishLoad() {
         navigationDelegate?.sebWebViewDidFinishLoad?()
+        if #available(macOS 10.13, iOS 11.0, *) {
+            let httpCookieStore = (self.nativeWebView() as! WKWebView).configuration.websiteDataStore.httpCookieStore
+            httpCookieStore.getAllCookies{ cookies in
+                self.navigationDelegate?.examine?(cookies)
+            }
+            return
+        }
     }
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {

@@ -67,6 +67,10 @@
 
 #import "CocoaLumberjack.h"
 
+#import "ServerController.h"
+#import "SEBServerOSXViewController.h"
+#import "ServerLogger.h"
+
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
@@ -75,10 +79,12 @@
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
 @class HUDController;
+@class ServerController;
+@class SEBServerOSXViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate> {
-	
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
+{
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
     BOOL f3Pressed;
@@ -151,6 +157,21 @@
 @property(weak, nonatomic) IBOutlet AboutWindow *aboutWindow;
 @property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
 @property (strong, nonatomic) WKWebView *temporaryWebView;
+
+#pragma mark - Connecting to SEB Server
+// Waiting for user to select exam from SEB Server and to successfully log in
+@property(readwrite) BOOL establishingSEBServerConnection;
+// Exam URL is opened in a webview (tab), waiting for user to log in
+@property(readwrite) BOOL startingExamFromSEBServer;
+// User logged in to LMS, monitoring the client started
+@property(readwrite) BOOL sebServerConnectionEstablished;
+// The SEB Server exam list view is displayed
+@property(readwrite) BOOL sebServerViewDisplayed;
+@property(readwrite) BOOL sessionRunning;
+
+@property (strong, nonatomic) ServerController *serverController;
+@property (strong, nonatomic) NSWindowController *sebServerViewWindowController;
+@property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;

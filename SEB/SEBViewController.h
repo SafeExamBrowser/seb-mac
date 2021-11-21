@@ -106,7 +106,7 @@
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, ServerControllerDelegate, ProctoringImageAnayzerDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -262,10 +262,6 @@
 
 
 - (void) initializeLogger;
-- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
-                        timestamp: (NSString *)timestamp
-                     numericValue:(double)numericValue
-                          message:(NSString *)message;
 
 - (NSString *) appVersion;
 - (BOOL) allowediOSVersion;
