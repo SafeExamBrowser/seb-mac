@@ -189,18 +189,6 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-+ (WKWebViewConfiguration *)defaultWebViewConfiguration
-{
-    static WKWebViewConfiguration *configuration;
-    
-    if (!configuration) {
-        configuration = [[WKWebViewConfiguration alloc] init];
-    }
-    
-    return configuration;
-}
-
-
 - (BOOL)isStartingUp
 {
     return !_finishedStartingUp;
