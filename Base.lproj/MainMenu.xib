@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -332,6 +332,7 @@
                             <menuItem title="Reload Page" keyEquivalent="r" id="887">
                                 <connections>
                                     <action selector="reload:" target="-1" id="888"/>
+                                    <binding destination="543" name="enabled" keyPath="self.dockButtonReload.enabled" id="FOS-yi-Kew"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="905"/>
@@ -360,6 +361,7 @@
                             <menuItem title="Actual Size" keyEquivalent="0" id="fhi-DK-hWE">
                                 <connections>
                                     <action selector="resetPageZoom:" target="-1" id="vJV-Dd-eoM"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="xYE-D7-bYW"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Zoom Page In" keyEquivalent="+" id="S4Y-jw-8zY">
@@ -1130,7 +1132,7 @@ DQ
                             <rect key="frame" x="0.0" y="75" width="460" height="380"/>
                             <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                                 <rect key="frame" x="1" y="1" width="458" height="378"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
                                         <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>

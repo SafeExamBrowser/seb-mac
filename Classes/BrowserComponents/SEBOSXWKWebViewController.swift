@@ -153,6 +153,10 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         sebWebView?.goForward()
     }
     
+    public func clearBackForwardList() {
+        sebWebView?.backForwardList.perform(Selector(("_removeAllItems")))
+    }
+    
     public func reload() {
         let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
         WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince:NSDate.distantPast, completionHandler:{
