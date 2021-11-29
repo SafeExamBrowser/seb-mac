@@ -425,6 +425,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableRightMouse",
                    
                    @NO,
+                   @"enableRightMouseMac",
+                   
+                   @NO,
                    @"enableStartMenu",
                    
                    @YES,

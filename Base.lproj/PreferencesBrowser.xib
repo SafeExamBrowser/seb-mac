@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -226,13 +226,13 @@
                                                     <rect key="frame" x="11" y="16" width="588" height="82"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="PeV-BM-OcJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="82"/>
+                                                            <rect key="frame" x="0.0" y="22" width="284" height="60"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="238" height="82"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="151" height="60"/>
                                                                     <subviews>
                                                                         <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                                                                            <rect key="frame" x="-2" y="65" width="121" height="18"/>
+                                                                            <rect key="frame" x="-2" y="43" width="121" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -242,23 +242,13 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Enables Java applets" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                                                            <rect key="frame" x="-2" y="43" width="98" height="18"/>
+                                                                            <rect key="frame" x="-2" y="21" width="98" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button toolTip="Allow web applications to access camera (using HMTL 5 APIs)" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="e54-Gu-GIx">
-                                                                            <rect key="frame" x="-2" y="21" width="240" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Allow video capture (webcam, Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="RdC-g0-HsE">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowVideoCapture" id="APH-Ka-AD6"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
@@ -276,10 +266,8 @@
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
-                                                                        <integer value="1000"/>
                                                                     </visibilityPriorities>
                                                                     <customSpacing>
-                                                                        <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
@@ -319,18 +307,8 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_blockPopUpWindows" id="208"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Allow web applications to access microphone (using HMTL 5 APIs)" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="aND-Ot-lHG">
-                                                                            <rect key="frame" x="-2" y="21" width="261" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Allow audio capture (microphone, Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="gw2-ot-VdZ">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowAudioCapture" id="2RI-e2-TvS"/>
-                                                                            </connections>
-                                                                        </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
-                                                                            <rect key="frame" x="-2" y="-1" width="265" height="18"/>
+                                                                            <rect key="frame" x="-2" y="21" width="265" height="18"/>
                                                                             <string key="toolTip">If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
                                                                             <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -338,6 +316,17 @@
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowDeveloperConsole" id="foy-Kd-tRw"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-38-Q1a">
+                                                                            <rect key="frame" x="-2" y="-1" width="147" height="18"/>
+                                                                            <string key="toolTip">Enable in SEB for macOS to access context menu for Web Inspector (ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</string>
+                                                                            <buttonCell key="cell" type="check" title="Enable Right Mouse" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aN2-81-3Zh">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouseMac" id="cAk-bY-V8I"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -1385,7 +1374,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.054151624548736454" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.74007220216606506" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
