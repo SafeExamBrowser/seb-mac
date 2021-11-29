@@ -40,7 +40,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="58"/>
                                                             <subviews>
                                                                 <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfl-QX-6zS">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="58"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="588" height="58"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="58" id="6mG-oh-m2u"/>
                                                                     </constraints>
@@ -76,23 +76,11 @@
                                                                         </binding>
                                                                     </connections>
                                                                 </matrix>
-                                                                <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="tX1-my-lCf">
-                                                                    <rect key="frame" x="300" y="-1" width="288" height="16"/>
-                                                                    <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oYY-YL-Kal">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="message" size="11"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="IU9-gd-ndI"/>
-                                                                    </connections>
-                                                                </button>
                                                             </subviews>
                                                             <visibilityPriorities>
                                                                 <integer value="1000"/>
-                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
-                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
@@ -933,7 +921,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.33333333333333337" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
