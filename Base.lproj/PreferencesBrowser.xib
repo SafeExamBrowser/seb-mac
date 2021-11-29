@@ -229,7 +229,7 @@
                                                             <rect key="frame" x="0.0" y="22" width="284" height="60"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="151" height="60"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="60"/>
                                                                     <subviews>
                                                                         <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
                                                                             <rect key="frame" x="-2" y="43" width="121" height="18"/>
@@ -251,9 +251,10 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
-                                                                            <rect key="frame" x="-2" y="-1" width="153" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Remove profile (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
+                                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
+                                                                            <rect key="frame" x="-2" y="-1" width="131" height="18"/>
+                                                                            <string key="toolTip">Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</string>
+                                                                            <buttonCell key="cell" type="check" title="Clear cache(Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
@@ -1374,7 +1375,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.74007220216606506" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99277978339350181" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
