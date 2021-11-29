@@ -1217,7 +1217,12 @@ bool insideMatrix(void);
         NSString *zoomAPIKey = attributes[@"zoomAPIKey"];
         NSString *zoomMeetingKey = attributes[@"zoomMeetingKey"];
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
-        if (zoomServerURL && zoomRoom.length>0 && zoomToken.length>0 && zoomSDKToken.length>0 && instructionConfirm.length>0) {
+        if (zoomServerURL &&
+            zoomRoom.length>0 &&
+            zoomToken.length>0 &&
+            zoomSDKToken.length>0 &&
+            instructionConfirm.length>0 &&
+            instructionConfirm != self.serverController.sebServerController.pingInstruction) {
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
             DDLogInfo(@"Starting Zoom proctoring.");
             [self.zoomController openZoomWithServerURL:zoomServerURL
