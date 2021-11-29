@@ -218,7 +218,7 @@
         // Allow right mouse button/context menu according to setting
         // This is the only way how to block the context menu in browser plugins
         // and video players etc. (not on regular website elements)
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouse"]) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouseMac"]) {
             [super sendEvent:theEvent];
         }
     }
