@@ -214,6 +214,10 @@ import Foundation
         browserControllerDelegate!.goForward!()
     }
     
+    public func clearBackForwardList() {
+        browserControllerDelegate!.clearBackForwardList?()
+    }
+    
     public func reload() {
         browserControllerDelegate!.reload!()
         pageZoom = WebViewDefaultPageZoom
@@ -344,6 +348,10 @@ import Foundation
 
     public func examine(_ cookies: [HTTPCookie], url: URL) {
         navigationDelegate?.examine?(cookies, for: url)
+    }
+    
+    public var isNavigationAllowed: Bool {
+        return navigationDelegate?.isNavigationAllowed ?? false
     }
     
     public func sebWebViewDidStartLoad() {
