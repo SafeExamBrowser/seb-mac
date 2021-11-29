@@ -1102,7 +1102,8 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"institution" : @"",
                       @"clientName" : @"",
                       @"clientSecret" : @"",
-                      @"apiDiscovery" : @""
+                      @"apiDiscovery" : @"",
+                      @"pingInterval" : @1000
                       }
               
               };
