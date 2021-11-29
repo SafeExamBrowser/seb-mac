@@ -131,6 +131,11 @@
 
 - (void)reload
 {
+    if ([self.navigationDelegate respondsToSelector:@selector(isReloadAllowed)]) {
+        if (self.navigationDelegate.isReloadAllowed == NO) {
+            return;
+        }
+    }
     [self.browserControllerDelegate reload];
 }
 
@@ -379,6 +384,11 @@
     return self.navigationDelegate.isMainBrowserWebViewActive;
 }
 
+- (BOOL)isNavigationAllowed
+{
+    return self.navigationDelegate.isNavigationAllowed;
+}
+
 - (NSString *)quitURL
 {
     return self.navigationDelegate.quitURL;
@@ -468,6 +478,9 @@
 //    [self.navigationDelegate examineCookies:cookies];
 
     [self.navigationDelegate sebWebViewDidStartLoad];
+    if (self.navigationDelegate.isNavigationAllowed == NO && [self.browserControllerDelegate respondsToSelector:@selector(clearBackForwardList)]) {
+        [self.browserControllerDelegate clearBackForwardList];
+    }
 }
 
 
