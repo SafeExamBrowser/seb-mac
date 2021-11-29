@@ -70,18 +70,19 @@ import Foundation
     private let username: String
     private let password: String
     private let discoveryEndpoint: String
+    private let pingInterval: Double
     @objc public var examList: [ExamObject]?
     private var pingTimer: Timer?
     @objc public var pingInstruction: String?
 
-    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, delegate: SEBServerControllerDelegate) {
+    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
         self.institution = institution
         self.exam = exam
         self.username = username
         self.password = password
         self.discoveryEndpoint = discoveryEndpoint
-        
+        self.pingInterval = pingInterval
         self.delegate = delegate
     }
 }
@@ -187,7 +188,7 @@ public extension SEBServerController {
     
     private func startPingTimer() {
         if self.pingTimer == nil {
-            let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+            let timer = Timer.scheduledTimer(timeInterval: self.pingInterval, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
             RunLoop.current.add(timer, forMode: .common)
             self.pingTimer = timer
         }
