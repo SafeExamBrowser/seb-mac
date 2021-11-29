@@ -82,7 +82,7 @@
                           useChatOverride:(BOOL)useChatFlag
 {
     if (self.serverURL) {
-        if (self.zoomActive && _authService && _authService.isAuthorized) {
+        if (self.zoomActive && _authService && _authService.isAuthorized && !retryingToConnect) {
             _receiveAudioFlag = receiveAudioFlag;
             _receiveVideoFlag = receiveVideoFlag;
             _useChatFlag = useChatFlag;
@@ -301,7 +301,9 @@
         }
         DDLogError(@"Authentication failed: %@", error);
         [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
-        [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Authentication with the Zoom proctoring meeting failed with error", nil), error]];
+        if (!retryingToConnect) {
+            [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Authentication with the Zoom proctoring meeting failed with error", nil), error]];
+        }
     }
 }
 
@@ -327,7 +329,7 @@
         [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         _meetingEndedCompletionHandler();
         _meetingEndedCompletionHandler = nil;
-    } else {
+    } else if (!retryingToConnect) {
         [self meetingReconnect];
     }
 }
