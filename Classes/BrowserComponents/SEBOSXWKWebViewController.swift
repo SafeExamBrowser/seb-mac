@@ -54,6 +54,8 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
             
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            let enableZoomPage = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage")
+            _sebWebView?.allowsMagnification = enableZoomPage
             urlFilter = SEBURLFilter.shared()
         }
         return _sebWebView
