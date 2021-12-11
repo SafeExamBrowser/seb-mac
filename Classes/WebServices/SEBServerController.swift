@@ -280,7 +280,7 @@ public extension SEBServerController {
         if connectionToken != nil {
             var pingResource = PingResource(baseURL: self.baseURL, endpoint: (serverAPI?.ping.endpoint?.location)!)
             pingNumber += 1
-            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970)
+            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
                 + "&" + keys.pingNumber + "=" + String(pingNumber)
                 + (pingInstruction == nil ? "" : "&" + keys.pingInstructionConfirm + "=" + pingInstruction!)
             
@@ -353,18 +353,18 @@ public extension SEBServerController {
     
     @objc func sendLockscreen(message: String?) -> Int64 {
         notificationNumber+=1
-        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
+        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
         return notificationNumber
     }
     
     @objc func sendRaiseHand(message: String?) -> Int64 {
         notificationNumber+=1
-        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
+        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
         return notificationNumber
     }
     
     @objc func sendLowerHand(notificationUID: Int64) {
-        sendNotification(keys.notificationConfirmed, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970), numericValue: Double(notificationNumber), text: nil)
+        sendNotification(keys.notificationConfirmed, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: nil)
     }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
