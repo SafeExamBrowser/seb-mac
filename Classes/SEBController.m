@@ -1222,9 +1222,10 @@ bool insideMatrix(void);
             zoomToken.length>0 &&
             zoomSDKToken.length>0 &&
             instructionConfirm.length>0 &&
-            instructionConfirm != self.serverController.sebServerController.pingInstruction) {
+            ![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
             DDLogInfo(@"Starting Zoom proctoring.");
+            DDLogDebug(@"Starting Zoom proctoring with instruction-confirm %@, current pingInstruction %@, ", instructionConfirm, self.serverController.sebServerController.pingInstruction);
             [self.zoomController openZoomWithServerURL:zoomServerURL
                                               userName:zoomUserName
                                                   room:zoomRoom
