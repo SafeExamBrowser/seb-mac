@@ -8,9 +8,9 @@
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/ios-mbedtls/mbedtls-iOS.xcodeproj">
+      location = "group:ios-mbedtls">
    </FileRef>
    <FileRef
-      location = "group:/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/osx-mbedtls/mbedtls/mbedtls-macOS.xcodeproj">
+      location = "container:osx-mbedtls/mbedtls">
    </FileRef>
 </Workspace>
