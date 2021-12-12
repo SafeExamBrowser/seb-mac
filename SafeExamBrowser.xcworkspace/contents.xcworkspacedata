@@ -11,6 +11,6 @@
       location = "group:/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/ios-mbedtls/mbedtls-iOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/osx-mbedtls/mbedtls/mbedtls-macOS.xcodeproj">
+      location = "container:osx-mbedtls/mbedtls/mbedtls-macOS.xcodeproj">
    </FileRef>
 </Workspace>
