@@ -165,13 +165,18 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 }
 - (void)initButtons
 {
-    float xpos = self.window.contentView.frame.size.width/2 - 50;
-    float xposLeft = xpos;
-    float xposRight = xpos;
-    float yPos = 2;
+    NSStackView *stackView = [[NSStackView alloc] init];
+    stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+//    stackView.alignment = alignment;
+    stackView.distribution = NSStackViewDistributionFillEqually;
+    [self.window.contentView addSubview:stackView];
+    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    [stackView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
+    [stackView.trailingAnchor constraintEqualToAnchor:self.window.contentView.trailingAnchor].active = YES;
+    [stackView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
+
     float width = 80;
     float height = DEFAULT_Toolbar_Button_height;
-    float margin = 20;
     ZMSDKButton* theButton = nil;
     
     NSColor* titleColor = [NSColor whiteColor];
@@ -182,7 +187,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     pressBgColor = [NSColor colorWithCalibratedWhite:0 alpha:0.5];
     NSFont* theFont = [NSFont systemFontOfSize:12];
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xpos, yPos, width, height)];
+    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
     theButton.tag = BUTTON_TAG_AUDIO;
     theButton.title = @"Audio";
     theButton.titleColor = titleColor;
@@ -194,14 +199,12 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     theButton.imagePosition = NSImageAbove;
     theButton.image = [NSImage imageNamed:@"toolbar_mute_voip_normal"];
     theButton.pressImage = [NSImage imageNamed:@"toolbar_mute_voip_press"];
-    
-    theButton.autoresizingMask = NSViewMaxXMargin;
     [theButton setTarget:self];
     [theButton setAction:@selector(onAudioButtonClicked:)];
     [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
+    
+    [stackView addArrangedSubview:theButton];
     theButton = nil;
-    xposLeft -= width + margin;
     
 //    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
 //    theButton.tag = BUTTON_TAG_VIDEO;
@@ -220,10 +223,9 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 //    [theButton setHidden:YES];
 //    [self.window.contentView addSubview:theButton];
 //    theButton = nil;
-//    xposLeft -= width + margin;
     
     if (_zoomProctoringDelegate.tileView) {
-        theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
+        theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
         theButton.tag = BUTTON_TAG_ThUMBNAIL_VIEW;
         theButton.title = @"Thumbnail Video";
         theButton.image = [NSImage imageNamed:@"toolbar_participant_normal"];
@@ -234,16 +236,15 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         theButton.hoverBackgroundColor = hoverBgColor;
         theButton.pressBackgoundColor = pressBgColor;
         theButton.imagePosition = NSImageAbove;
-        theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
         [theButton setTarget:self];
         [theButton setAction:@selector(onThumbnailButtonClicked:)];
         [theButton setHidden:YES];
-        [self.window.contentView addSubview:theButton];
+        
+        [stackView addArrangedSubview:theButton];
         theButton = nil;
-        xposLeft -= width + margin;
     }
     
-    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
+    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
     theButton.tag = BUTTON_TAG_PARTICIPANT;
     theButton.title = @"Participants";
     theButton.image = [NSImage imageNamed:@"toolbar_participant_normal"];
@@ -255,16 +256,15 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     theButton.hoverBackgroundColor = hoverBgColor;
     theButton.pressBackgoundColor = pressBgColor;
     theButton.imagePosition = NSImageAbove;
-    theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
     [theButton setTarget:self];
     [theButton setAction:@selector(onParticipantButtonClicked:)];
     [theButton setHidden:YES];
-    [self.window.contentView addSubview:theButton];
+    
+    [stackView addArrangedSubview:theButton];
     theButton = nil;
-    xposRight += width + margin;
     
     if (_zoomProctoringDelegate.useChat) {
-        theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
+        theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
         theButton.tag = BUTTON_TAG_CHAT;
         theButton.title = @"Chat";
         theButton.image = [NSImage imageNamed:@"toolbar_chat_normal"];
@@ -276,13 +276,12 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         theButton.hoverBackgroundColor = hoverBgColor;
         theButton.pressBackgoundColor = pressBgColor;
         theButton.imagePosition = NSImageAbove;
-        theButton.autoresizingMask = NSViewMinXMargin|NSViewMaxXMargin;
         [theButton setTarget:self];
         [theButton setAction:@selector(onChatButtonClicked:)];
         [theButton setHidden:YES];
-        [self.window.contentView addSubview:theButton];
+        
+        [stackView addArrangedSubview:theButton];
         theButton = nil;
-        xposRight += width + margin;
     }
         
 //    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
@@ -302,8 +301,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 //    [theButton setHidden:YES];
 //    [self.window.contentView addSubview:theButton];
 //    theButton = nil;
-//    xposRight += width + margin;
-    
+
 //    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
 //    theButton.tag = BUTTON_TAG_LEAVE_MEETING;
 //    theButton.title = @"Leave Meeting";
@@ -321,7 +319,6 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 //    [theButton setHidden:YES];
 //    [self.window.contentView addSubview:theButton];
 //    theButton = nil;
-//    xposRight += width + margin;
 //
 //    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposRight, yPos, width, height)];
 //    theButton.tag = BUTTON_TAG_STOP_SHARE;
@@ -340,8 +337,8 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 //    [theButton setHidden:YES];
 //    [self.window.contentView addSubview:theButton];
 //    theButton = nil;
-//    xposRight += width + margin;
 }
+
 - (void)onLeaveMeetingButtonClicked:(id)sender
 {
 //    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
