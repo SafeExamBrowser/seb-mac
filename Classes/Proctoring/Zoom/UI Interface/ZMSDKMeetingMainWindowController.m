@@ -23,6 +23,7 @@ const int MeetingWindow_Width = 640;
 const int MeetingWindow_height = 450;
 const int DEFAULT_Toolbar_Button_height = 60;
 const int DEFAULT_Thumbnail_View_Width = 185;
+const int DEFAULT_Panelist_View_Width = 220;
 
 
 @interface ZMSDKMeetingMainWindowController ()
@@ -89,14 +90,17 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         stackView.distribution = NSStackViewDistributionFillEqually;
         _activeUserSection = stackView;
         [_videoSection addArrangedSubview:_activeUserSection];
+//        _activeUserSection.translatesAutoresizingMaskIntoConstraints = NO;
 
         stackView = [[NSStackView alloc] init];
         stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
-        stackView.alignment = NSLayoutAttributeCenterY;
+        stackView.alignment = NSLayoutAttributeTop;
         stackView.distribution = NSStackViewDistributionFillEqually;
         _thumbnailSection = stackView;
         [_videoSection addArrangedSubview:_thumbnailSection];
+//        _thumbnailSection.translatesAutoresizingMaskIntoConstraints = NO;
 
+//        [_activeUserSection.widthAnchor constraintEqualToAnchor:_thumbnailSection.widthAnchor multiplier:2.0 constant:0].active = YES;
         
         stackView = [[NSStackView alloc] init];
         stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
@@ -206,10 +210,10 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 {
     [self.window setFrame:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) display:YES];
     [self.window center];
-    [self.window setTitle:@"Zoom Meeting"];
+    [self.window setTitle:NSLocalizedString(@"Zoom Proctoring", nil)];
     [self.window setBackgroundColor:[NSColor blackColor]];
     
-    _panelistUserView = [[ZMSDKHCPanelistsView alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.origin.x, DEFAULT_Toolbar_Button_height + 5, 220, self.window.contentView.frame.size.height - DEFAULT_Toolbar_Button_height - 20)];
+    _panelistUserView = [[ZMSDKHCPanelistsView alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.origin.x, DEFAULT_Toolbar_Button_height + 5, DEFAULT_Panelist_View_Width, self.window.contentView.frame.size.height - DEFAULT_Toolbar_Button_height - 20)];
     
     _thumbnailView = [[ZMSDKThumbnailView alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.size.width - DEFAULT_Thumbnail_View_Width, self.window.contentView.frame.origin.y, DEFAULT_Thumbnail_View_Width, self.window.contentView.frame.size.height)];
     [_thumbnailView setMeetingMainWindowController:self];
@@ -401,19 +405,27 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     if(!_thumbnailView.superview)
     {
         [_thumbnailSection addArrangedSubview:_thumbnailView];
+        _thumbnailView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_thumbnailView.leadingAnchor constraintEqualToAnchor:_thumbnailSection.leadingAnchor].active = YES;
+        [_thumbnailView.trailingAnchor constraintEqualToAnchor:_thumbnailSection.trailingAnchor].active = YES;
+//        [_thumbnailView.centerYAnchor constraintEqualToAnchor:_thumbnailSection.centerYAnchor].active = YES;
+        [_thumbnailView.topAnchor constraintEqualToAnchor:_thumbnailSection.topAnchor].active = YES;
+//        [_thumbnailView.bottomAnchor constraintEqualToAnchor:_thumbnailSection.bottomAnchor].active = YES;
+        [_thumbnailView.widthAnchor constraintEqualToConstant:DEFAULT_Thumbnail_View_Width].active = YES;
+
 //        [self.window.contentView addSubview:_thumbnailView];
-        [_thumbnailView setHidden:NO];
+        [_thumbnailSection setHidden:NO];
 //        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
         return;
     }
-    if([_thumbnailView isHidden])
+    if([_thumbnailSection isHidden])
     {
-        [_thumbnailView setHidden:NO];
+        [_thumbnailSection setHidden:NO];
 //        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
     }
     else
     {
-        [_thumbnailView setHidden:YES];
+        [_thumbnailSection setHidden:YES];
 //        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
     }
 }
@@ -425,8 +437,8 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         _panelistUserView.translatesAutoresizingMaskIntoConstraints = NO;
         [_panelistUserView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
         [_panelistUserView.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor].active = YES;
-        [_panelistUserView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
-
+        [_panelistUserView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor constant:-DEFAULT_Toolbar_Button_height].active = YES;
+        [_panelistUserView.widthAnchor constraintEqualToConstant:DEFAULT_Panelist_View_Width].active = YES;
         [_panelistUserView setHidden:NO];
         return;
     }
