@@ -183,10 +183,10 @@
     _videoMuted = !receiveVideoOverride &&
     _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomVideoMuted"];
-    _useChat = useChatOverride || [preferences secureBoolForKey:@"zoomFeatureFlagChat"];
-    _closeCaptions = [preferences secureBoolForKey:@"zoomFeatureFlagCloseCaptions"];
-    _raiseHand = [preferences secureBoolForKey:@"zoomFeatureFlagRaiseHand"];
-    _tileView = [preferences secureBoolForKey:@"zoomFeatureFlagTileView"];
+    _useChat = useChatOverride || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagChat"];
+    _closeCaptions = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagCloseCaptions"];
+    _raiseHand = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagRaiseHand"];
+    _tileView = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagTileView"];
     
     if (!_meetingStatusMgr) {
         _meetingStatusMgr = [[ZMSDKMeetingStatusMgr alloc] initWithProctoringDelegate:self];
