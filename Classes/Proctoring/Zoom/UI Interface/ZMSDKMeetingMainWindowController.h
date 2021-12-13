@@ -49,6 +49,12 @@ typedef enum
 
 @property (weak, nonatomic) id<ZoomProctoringDelegate> zoomProctoringDelegate;
 
+@property(nonatomic, strong, readwrite) NSStackView* controlsSection;
+@property(nonatomic, strong, readwrite) NSStackView* videoSection;
+@property(nonatomic, strong, readwrite) NSStackView* activeUserSection;
+//@property(nonatomic, strong, readwrite) NSView* activeUserSection;
+@property(nonatomic, strong, readwrite) NSStackView* thumbnailSection;
+
 @property(nonatomic, strong, readwrite)ZoomSDKActiveVideoElement* activeUserVideo;
 @property(nonatomic, strong, readwrite)ZoomSDKPreViewVideoElement* preViewVideoItem;
 @property(nonatomic, strong, readwrite)NSWindow* meetingMainWindow;

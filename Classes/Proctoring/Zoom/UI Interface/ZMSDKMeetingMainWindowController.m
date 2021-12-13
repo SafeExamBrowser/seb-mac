@@ -60,6 +60,57 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
         [_meetingMainWindow setLevel:NSModalPanelWindowLevel];
         self.window = _meetingMainWindow;
+
+        NSStackView *rootStackView = [[NSStackView alloc] init];
+        rootStackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+    //    stackView.alignment = alignment;
+        rootStackView.distribution = NSStackViewDistributionFillProportionally;
+        rootStackView.spacing = 0;
+        [self.window.contentView addSubview:rootStackView];
+        rootStackView.translatesAutoresizingMaskIntoConstraints = NO;
+        [rootStackView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
+        [rootStackView.trailingAnchor constraintEqualToAnchor:self.window.contentView.trailingAnchor].active = YES;
+        [rootStackView.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor].active = YES;
+        [rootStackView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
+        
+        
+        NSStackView *stackView = [[NSStackView alloc] init];
+        stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+        stackView.distribution = NSStackViewDistributionFillProportionally;
+        stackView.alignment = NSLayoutAttributeTop;
+        _videoSection = stackView;
+        [rootStackView addArrangedSubview:_videoSection];
+        _videoSection.translatesAutoresizingMaskIntoConstraints = NO;
+        [_videoSection.trailingAnchor constraintEqualToAnchor:rootStackView.trailingAnchor].active = YES;
+
+//        _activeUserSection = [[NSView alloc] initWithFrame:NSZeroRect];
+        stackView = [[NSStackView alloc] init];
+        stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+        stackView.distribution = NSStackViewDistributionFillEqually;
+        _activeUserSection = stackView;
+        [_videoSection addArrangedSubview:_activeUserSection];
+
+        stackView = [[NSStackView alloc] init];
+        stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+        stackView.alignment = NSLayoutAttributeCenterY;
+        stackView.distribution = NSStackViewDistributionFillEqually;
+        _thumbnailSection = stackView;
+        [_videoSection addArrangedSubview:_thumbnailSection];
+
+        
+        stackView = [[NSStackView alloc] init];
+        stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+        stackView.distribution = NSStackViewDistributionFillEqually;
+        stackView.alignment = NSLayoutAttributeBottom;
+        _controlsSection = stackView;
+        [rootStackView addArrangedSubview:_controlsSection];
+
+//        [self.window.contentView addSubview:stackView];
+//        stackView.translatesAutoresizingMaskIntoConstraints = NO;
+//        [stackView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
+//        [stackView.trailingAnchor constraintEqualToAnchor:self.window.contentView.trailingAnchor].active = YES;
+//        [stackView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
+
         _preViewVideoItem = nil;
         _activeUserVideo = nil;
         [self initNotification];
@@ -165,15 +216,15 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 }
 - (void)initButtons
 {
-    NSStackView *stackView = [[NSStackView alloc] init];
-    stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
-//    stackView.alignment = alignment;
-    stackView.distribution = NSStackViewDistributionFillEqually;
-    [self.window.contentView addSubview:stackView];
-    stackView.translatesAutoresizingMaskIntoConstraints = NO;
-    [stackView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
-    [stackView.trailingAnchor constraintEqualToAnchor:self.window.contentView.trailingAnchor].active = YES;
-    [stackView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
+//    NSStackView *stackView = [[NSStackView alloc] init];
+//    stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+////    stackView.alignment = alignment;
+//    stackView.distribution = NSStackViewDistributionFillEqually;
+//    [self.window.contentView addSubview:stackView];
+//    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [stackView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
+//    [stackView.trailingAnchor constraintEqualToAnchor:self.window.contentView.trailingAnchor].active = YES;
+//    [stackView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
 
     float width = 80;
     float height = DEFAULT_Toolbar_Button_height;
@@ -203,7 +254,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     [theButton setAction:@selector(onAudioButtonClicked:)];
     [theButton setHidden:YES];
     
-    [stackView addArrangedSubview:theButton];
+    [_controlsSection addArrangedSubview:theButton];
     theButton = nil;
     
 //    theButton = [[ZMSDKButton alloc] initWithFrame:NSMakeRect(xposLeft, yPos, width, height)];
@@ -240,7 +291,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         [theButton setAction:@selector(onThumbnailButtonClicked:)];
         [theButton setHidden:YES];
         
-        [stackView addArrangedSubview:theButton];
+        [_controlsSection addArrangedSubview:theButton];
         theButton = nil;
     }
     
@@ -260,7 +311,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     [theButton setAction:@selector(onParticipantButtonClicked:)];
     [theButton setHidden:YES];
     
-    [stackView addArrangedSubview:theButton];
+    [_controlsSection addArrangedSubview:theButton];
     theButton = nil;
     
     if (_zoomProctoringDelegate.useChat) {
@@ -280,7 +331,7 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         [theButton setAction:@selector(onChatButtonClicked:)];
         [theButton setHidden:YES];
         
-        [stackView addArrangedSubview:theButton];
+        [_controlsSection addArrangedSubview:theButton];
         theButton = nil;
     }
         
@@ -346,23 +397,24 @@ const int DEFAULT_Thumbnail_View_Width = 185;
 }
 - (void)onThumbnailButtonClicked:(id)sender
 {
-    NSRect rect = self.window.contentView.frame;
+//    NSRect rect = self.window.contentView.frame;
     if(!_thumbnailView.superview)
     {
-        [self.window.contentView addSubview:_thumbnailView];
+        [_thumbnailSection addArrangedSubview:_thumbnailView];
+//        [self.window.contentView addSubview:_thumbnailView];
         [_thumbnailView setHidden:NO];
-        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
+//        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
         return;
     }
     if([_thumbnailView isHidden])
     {
         [_thumbnailView setHidden:NO];
-        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
+//        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
     }
     else
     {
         [_thumbnailView setHidden:YES];
-        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
+//        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
     }
 }
 - (void)onParticipantButtonClicked:(id)sender
@@ -370,6 +422,11 @@ const int DEFAULT_Thumbnail_View_Width = 185;
     if(!_panelistUserView.superview)
     {
         [self.window.contentView addSubview:_panelistUserView];
+        _panelistUserView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_panelistUserView.leadingAnchor constraintEqualToAnchor:self.window.contentView.leadingAnchor].active = YES;
+        [_panelistUserView.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor].active = YES;
+        [_panelistUserView.bottomAnchor constraintEqualToAnchor:self.window.contentView.bottomAnchor].active = YES;
+
         [_panelistUserView setHidden:NO];
         return;
     }
@@ -543,7 +600,9 @@ const int DEFAULT_Thumbnail_View_Width = 185;
         NSView *videoView = [_activeUserVideo getVideoView];
         [videoView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [videoView setTranslatesAutoresizingMaskIntoConstraints:YES];
-        [self.window.contentView addSubview:videoView];
+        
+        [_activeUserSection addArrangedSubview:videoView];
+//        [self.window.contentView addSubview:videoView];
         [_activeUserVideo startActiveView:YES];
     }
 }
