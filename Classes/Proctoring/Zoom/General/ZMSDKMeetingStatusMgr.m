@@ -24,7 +24,7 @@
         _zoomProctoringDelegate = proctoringDelegate;
         
         if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI) {
-           [ZMSDKConfUIMgr initConfUIMgr];
+           [ZMSDKConfUIMgr initConfUIMgrWithDelegate:proctoringDelegate];
         }
         _meetingService = [[ZoomSDK sharedSDK] getMeetingService];
         _meetingService.delegate = self;
@@ -63,6 +63,7 @@
 {
     NSLog(@"MeetingStatus change %d", state);
     switch (state) {
+            
         case ZoomSDKMeetingStatus_Connecting:
         {
             if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI)
@@ -71,6 +72,7 @@
             }
         }
             break;
+            
         case ZoomSDKMeetingStatus_InMeeting:
         {
             if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI)
@@ -90,16 +92,22 @@
             [_zoomProctoringDelegate meetingStatusInMeeting];
         }
             break;
+            
         case ZoomSDKMeetingStatus_Webinar_Promote:
+            
         case ZoomSDKMeetingStatus_Webinar_Depromote:
+            
         case ZoomSDKMeetingStatus_Join_Breakout_Room:
+            
         case ZoomSDKMeetingStatus_Leave_Breakout_Room:
         {
             [ZMSDKConfUIMgr uninitConfUIMgr];
         }
             break;
+            
         case ZoomSDKMeetingStatus_AudioReady:
             break;
+            
         case ZoomSDKMeetingStatus_Failed:
         {
             if (error == ZoomSDKMeetingError_PasswordError) {
@@ -113,6 +121,7 @@
             [ZMSDKConfUIMgr uninitConfUIMgr];
         }
             break;
+            
         case ZoomSDKMeetingStatus_Ended:
         {
             if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI)
@@ -137,14 +146,16 @@
                 default:
                     break;
             }
+            
             [_zoomProctoringDelegate meetingStatusEnded];
         }
             break;
+            
         case ZoomSDKMeetingStatus_Disconnecting:
         {
             
         }
-            break;
+                break;
             
         case ZoomSDKMeetingStatus_Reconnecting:
         {
@@ -154,6 +165,7 @@
             }
         }
             break;
+            
         case ZoomSDKMeetingStatus_InWaitingRoom:
         {
             if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI)
@@ -162,9 +174,10 @@
             }
         }
             break;
+            
         default:
         {
-            
+
         }
             break;
     }
