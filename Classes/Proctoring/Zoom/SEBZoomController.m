@@ -182,6 +182,7 @@
         _videoMuted = !receiveVideoOverride &&
         _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomVideoMuted"];
+        _useChatOverride = useChatOverride;
         _useChat = useChatOverride || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagChat"];
         _closeCaptions = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagCloseCaptions"];
         _raiseHand = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagRaiseHand"];
@@ -320,6 +321,10 @@
 - (void) meetingStatusInMeeting {
     self.zoomActive = YES;
     DDLogInfo(@"Connected to Zoom meeting");
+    if (_useChatOverride && !_zoomReceiveVideoOverride && !_zoomReceiveAudioOverride && _zoomReconfiguring) {
+        _zoomReconfiguring = NO;
+        [_meetingStatusMgr showChat];
+    }
 }
 
 

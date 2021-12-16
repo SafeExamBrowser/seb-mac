@@ -58,6 +58,11 @@
     [[ZMSDKConfUIMgr sharedConfUIMgr] toggleZoomViewVisibility];
 }
 
+- (void)showChat
+{
+    [[ZMSDKConfUIMgr sharedConfUIMgr] showChat];
+}
+
 /**************ZoomSDKMeetingServiceDelegate***********/
 - (void)onMeetingStatusChange:(ZoomSDKMeetingStatus)state meetingError:(ZoomSDKMeetingError)error EndReason:(EndMeetingReason)reason
 {

@@ -15,6 +15,9 @@
 @class ZMSDKMeetingStatusMgr;
 
 @interface ZMSDKConfUIMgr : NSObject
+
+//@property (weak, nonatomic) id zoomProctoringDelegate;
+
 @property(nonatomic, strong, readwrite)ZMSDKMeetingMainWindowController *meetingMainWindowController;
 @property(nonatomic, strong, readwrite)ZMSDKUserHelper *userHelper;
 
@@ -24,6 +27,7 @@
 + (void)uninitConfUIMgr;
 - (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)zoomProctoringDelegate;
 - (void)toggleZoomViewVisibility;
+- (void)showChat;
 - (ZMSDKUserHelper*)getUserHelper;
 - (ZMSDKMeetingMainWindowController*)getMeetingMainWindowController;
 - (int)getSystemVersion;
