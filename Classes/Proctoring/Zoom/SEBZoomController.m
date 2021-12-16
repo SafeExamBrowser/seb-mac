@@ -165,7 +165,13 @@
                          receiveVideoOverride:(BOOL)receiveVideoOverride
                               useChatOverride:(BOOL)useChatOverride
 {
-    if (!self.zoomActive) {
+    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
+    ZoomSDKMeetingStatus meetingStatus = ZoomSDKMeetingStatus_Ended;
+    if (meetingService) {
+        meetingStatus = [meetingService getMeetingStatus];
+    }
+
+    if (!self.zoomActive && (meetingStatus == ZoomSDKMeetingStatus_Ended || meetingStatus == ZoomSDKMeetingStatus_Idle)) {
         self.zoomActive = YES;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
