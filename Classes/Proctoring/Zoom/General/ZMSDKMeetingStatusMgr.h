@@ -29,6 +29,7 @@
 @property (readonly) BOOL audioMuted;
 @property (readonly) BOOL videoMuted;
 @property (readonly) BOOL useChat;
+@property (readonly) BOOL useChatOverride;
 @property (readonly) BOOL closeCaptions;
 @property (readonly) BOOL raiseHand;
 @property (readonly) BOOL tileView;
@@ -45,5 +46,6 @@
 
 - (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)delegate;
 - (void)toggleZoomViewVisibility;
+- (void)showChat;
 
 @end
