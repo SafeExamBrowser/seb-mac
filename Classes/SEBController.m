@@ -1226,6 +1226,7 @@ bool insideMatrix(void);
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
             DDLogInfo(@"Starting Zoom proctoring.");
             DDLogDebug(@"Starting Zoom proctoring with instruction-confirm %@, current pingInstruction %@, ", instructionConfirm, self.serverController.sebServerController.pingInstruction);
+            self.zoomController.zoomReconfiguring = NO;
             [self.zoomController openZoomWithServerURL:zoomServerURL
                                               userName:zoomUserName
                                                   room:zoomRoom
@@ -1248,8 +1249,11 @@ bool insideMatrix(void);
     NSNumber *featureFlagChat = [attributes objectForKey:@"zoomFeatureFlagChat"];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *instructionConfirm = attributes[@"instruction-confirm"];
-    self.serverController.sebServerController.pingInstruction = instructionConfirm;
-    if (receiveAudio != nil || receiveVideo != nil || featureFlagChat != nil) {
+    DDLogInfo(@"Reconfiguring Zoom proctoring.");
+    DDLogDebug(@"Reconfiguring Zoom proctoring with instruction-confirm %@, current pingInstruction %@, ", instructionConfirm, self.serverController.sebServerController.pingInstruction);
+    if ((receiveAudio != nil || receiveVideo != nil || featureFlagChat != nil) &&
+        ![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
+        self.serverController.sebServerController.pingInstruction = instructionConfirm;
         BOOL receiveAudioFlag = receiveAudio.boolValue;
         if (receiveAudio != nil) {
             _zoomReceiveAudio = receiveAudioFlag;
@@ -1268,6 +1272,7 @@ bool insideMatrix(void);
         } else {
             _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
         }
+        self.zoomController.zoomReconfiguring = YES;
         [self.zoomController openZoomWithReceiveAudioOverride:receiveAudioFlag
                                                    receiveVideoOverride:receiveVideoFlag
                                                         useChatOverride:useChatFlag];
@@ -4972,6 +4977,28 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) paste:(id)sender
 {
     [self.browserController privatePaste:sender];
+}
+
+
+// Find the real visible frame of a screen SEB is running on
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen
+{
+    if (!screen) {
+        screen = self.browserController.mainBrowserWindow.screen;
+    }
+    // Get frame of the usable screen (considering if menu bar is enabled)
+    NSRect screenFrame = screen.usableFrame;
+    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+    // Also check if mainBrowserWindow exists, because when starting with a temporary
+    // browser window for loading a seb(s):// link from a authenticated server, there
+    // is no main browser window open yet
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ((!self.browserController.mainBrowserWindow || screen == self.browserController.mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        screenFrame.origin.y += dockHeight;
+        screenFrame.size.height -= dockHeight;
+    }
+    return screenFrame;
 }
 
 

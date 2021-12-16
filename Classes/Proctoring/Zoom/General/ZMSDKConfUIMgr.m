@@ -11,13 +11,24 @@
 #import "ZMSDKCommonHelper.h"
 
 static ZMSDKConfUIMgr* confUIMgr = nil;
+static id zoomProctoringDelegate;
 
 @implementation ZMSDKConfUIMgr
+
+- (instancetype)init
+{
+    
+    self = [self initWithDelegate:zoomProctoringDelegate];
+    return self;
+}
+
 - (id)initWithDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     self = [super init];
     if (self)
     {
+        zoomProctoringDelegate = proctoringDelegate;
+        
         if (!_meetingMainWindowController)
         {
             _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] initWithProctoringDelegate:proctoringDelegate];
@@ -29,12 +40,14 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     }
     return self;
 }
+
 + (void)initConfUIMgrWithDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     if ( !confUIMgr ) {
         confUIMgr = [[ZMSDKConfUIMgr alloc] initWithDelegate:proctoringDelegate];
     }
 }
+
 + (void)uninitConfUIMgr
 {
     if (confUIMgr)
@@ -42,6 +55,7 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
         confUIMgr = nil;
     }
 }
+
 + (ZMSDKConfUIMgr*)sharedConfUIMgr
 {
     if([ZMSDKCommonHelper sharedInstance].isUseCutomizeUI && !confUIMgr)
@@ -70,6 +84,7 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 {
     [self cleanUp];
 }
+
 - (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     if (!_meetingMainWindowController)
@@ -80,7 +95,8 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     if (proctoringDelegate.remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
         proctoringDelegate.remoteProctoringViewShowPolicy == remoteProctoringViewShowAlways ||
         proctoringDelegate.zoomReceiveAudioOverride == true ||
-        proctoringDelegate.zoomReceiveVideoOverride == true)
+        proctoringDelegate.zoomReceiveVideoOverride == true ||
+        proctoringDelegate.useChatOverride == true)
     {
         [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
         [_meetingMainWindowController.window makeKeyAndOrderFront:nil];
@@ -101,6 +117,10 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     
 }
 
+- (void)showChat
+{
+    [_meetingMainWindowController onChatButtonClicked:self];
+}
 
 - (ZMSDKUserHelper*)getUserHelper
 {
@@ -110,10 +130,12 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     }
     return self.userHelper;
 }
+
 - (ZMSDKMeetingMainWindowController*)getMeetingMainWindowController
 {
     return self.meetingMainWindowController;
 }
+
 - (int)getSystemVersion
 {
     NSDictionary* sv = [NSDictionary dictionaryWithContentsOfFile:@"/System/Library/CoreServices/SystemVersion.plist"];

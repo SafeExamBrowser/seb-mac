@@ -55,12 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL audioMuted;
 @property (readonly) BOOL videoMuted;
 @property (readonly) BOOL useChat;
+@property (readonly) BOOL useChatOverride;
 @property (readonly) BOOL closeCaptions;
 @property (readonly) BOOL raiseHand;
 @property (readonly) BOOL tileView;
 
 @property (readwrite) BOOL viewIsVisible;
 @property (readwrite) BOOL zoomActive;
+@property (readwrite) BOOL zoomReconfiguring;
 
 @property (strong, nonatomic) void (^meetingEndedCompletionHandler)(void);
 
