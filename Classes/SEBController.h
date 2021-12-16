@@ -320,6 +320,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;
 
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen;
+
 - (NSInteger) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *)window
                           windowTitle:(NSString *)title;

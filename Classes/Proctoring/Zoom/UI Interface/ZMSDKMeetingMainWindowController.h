@@ -38,7 +38,7 @@ typedef enum
 }SelfAudioStatus;
 
 
-@interface ZMSDKMeetingMainWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
+@interface ZMSDKMeetingMainWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate>
 {
     NSButton*              _manegePanelistButton;
     NSButton*              _manegeShareButton;
@@ -52,7 +52,6 @@ typedef enum
 @property(nonatomic, strong, readwrite) NSStackView* controlsSection;
 @property(nonatomic, strong, readwrite) NSStackView* videoSection;
 @property(nonatomic, strong, readwrite) NSStackView* activeUserSection;
-//@property(nonatomic, strong, readwrite) NSView* activeUserSection;
 @property(nonatomic, strong, readwrite) NSStackView* thumbnailSection;
 
 @property(nonatomic, strong, readwrite)ZoomSDKActiveVideoElement* activeUserVideo;
@@ -80,6 +79,7 @@ typedef enum
 
 - (void)showJoinMeetingAlert:(ZoomSDKJoinMeetingHelper *)joinMeetingHelper;
 - (void)showWebinarRegisterAlert:(ZoomSDKWebinarRegisterHelper *)webinarRegisterHelper;
+- (void)onChatButtonClicked:(id)sender;
 - (void)onChatMessageNotification:(ZoomSDKChatInfo*)chatInfo;
 @end
 

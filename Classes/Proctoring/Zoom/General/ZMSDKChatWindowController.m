@@ -43,7 +43,7 @@
 
 - (void)initUI
 {
-    self.window.title = @"Chat";
+    self.window.title = NSLocalizedString(@"Chat", nil);
     self.chatContentTextField.delegate = self;
     
     ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
@@ -64,7 +64,7 @@
         self.chatUserList = [[NSMutableArray alloc]init];
     }
     NSMutableArray <NSString *>*popItemArr = [[NSMutableArray alloc]init];
-    [popItemArr addObject:@"Send to All"];
+    [popItemArr addObject:NSLocalizedString(@"Send to All", nil)];
     NSArray *userIDArr = [self.meetActionController getParticipantsList];
     for (NSNumber *userId in userIDArr) {
         ZoomSDKUserInfo *userInfo = [_meetActionController getUserByUserID:userId.unsignedIntValue];
@@ -176,10 +176,10 @@
 }
 
 - (void)showPromptExplained {
-    NSString *chatPrompt = [self.meetActionController getChatLegalNoticesPrompt]?:@"";
-    NSString *chatExplain = [self.meetActionController getChatLegalNoticesExplained]?:@"";
-    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"chat\nPrompt:%@\nexplain:%@",chatPrompt,chatExplain] defaultButton:@"ok" alternateButton:@"" otherButton:@"" informativeTextWithFormat:@""];
-    [alert beginSheetModalForWindow:_meetingMainWindowController.window completionHandler:nil];
+//    NSString *chatPrompt = [self.meetActionController getChatLegalNoticesPrompt]?:@"";
+//    NSString *chatExplain = [self.meetActionController getChatLegalNoticesExplained]?:@"";
+//    NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"chat\nPrompt:%@\nexplain:%@",chatPrompt,chatExplain] defaultButton:@"ok" alternateButton:@"" otherButton:@"" informativeTextWithFormat:@""];
+//    [alert beginSheetModalForWindow:_meetingMainWindowController.window completionHandler:nil];
 }
 
 @end

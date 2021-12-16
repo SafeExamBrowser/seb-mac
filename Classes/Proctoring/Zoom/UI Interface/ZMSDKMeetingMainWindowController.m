@@ -19,8 +19,10 @@
 #import "ZMSDKChatWindowController.h"
 #import "ZMSDKJoinMeetingConfirmWindowCtrl.h"
 #import "ZMSDKCommonHelper.h"
-const int MeetingWindow_Width = 640;
-const int MeetingWindow_height = 450;
+const CGFloat MeetingVideoDefault_width = 638;
+const CGFloat MeetingVideoDefault_height = 358.875;
+const CGFloat MeetingWindow_widthOffset = 2;
+const CGFloat MeetingWindow_heightOffset = 88;
 const int DEFAULT_Toolbar_Button_height = 60;
 const int DEFAULT_Thumbnail_View_Width = 185;
 const int DEFAULT_Panelist_View_Width = 220;
@@ -35,22 +37,63 @@ const int DEFAULT_Panelist_View_Width = 220;
 @end
 
 @implementation ZMSDKMeetingMainWindowController
+
 - (void)windowDidLoad {
     [super windowDidLoad];
 }
+
 -(void)awakeFromNib
 {
     [self initUI];
 }
+
 - (void)uninitNotification
 {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
 }
+
 -(void)initNotification
 {
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:nil];
 }
+
+
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
+{
+    if (frameSize.width < 100+MeetingWindow_widthOffset || frameSize.height < 56+MeetingWindow_heightOffset) {
+        return sender.frame.size;
+    }
+    if (_thumbnailView.superview && ![_thumbnailSection isHidden]) {
+        return frameSize;
+    }
+    CGFloat currentVideoWidth = frameSize.width - MeetingWindow_widthOffset;
+    CGFloat currentVideoHeight = frameSize.height - MeetingWindow_heightOffset;
+    NSSize newFrameSize;
+    CGFloat defaultAspectRatio = MeetingVideoDefault_width/MeetingVideoDefault_height;
+    if ((currentVideoWidth/currentVideoHeight) > defaultAspectRatio) {
+        newFrameSize = NSMakeSize(frameSize.width, currentVideoWidth/defaultAspectRatio + MeetingWindow_heightOffset);
+    } else {
+        newFrameSize = NSMakeSize(currentVideoHeight*defaultAspectRatio+MeetingWindow_widthOffset, frameSize.height);
+    }
+    return newFrameSize;
+}
+
+- (void)resizeWindowToSmallerRatio
+{
+    NSSize windowSize = self.window.frame.size;
+    CGFloat currentVideoWidth = windowSize.width - MeetingWindow_widthOffset;
+    CGFloat currentVideoHeight = windowSize.height - MeetingWindow_heightOffset;
+    NSSize newFrameSize;
+    CGFloat defaultAspectRatio = MeetingVideoDefault_width/MeetingVideoDefault_height;
+    if ((currentVideoWidth/currentVideoHeight) < defaultAspectRatio) {
+        newFrameSize = NSMakeSize(windowSize.width, currentVideoWidth/defaultAspectRatio + MeetingWindow_heightOffset);
+    } else {
+        newFrameSize = NSMakeSize(currentVideoHeight*defaultAspectRatio+MeetingWindow_widthOffset, windowSize.height);
+    }
+    [self.window setFrame:NSMakeRect(self.window.frame.origin.x, self.window.frame.origin.y, newFrameSize.width, newFrameSize.height) display:YES];
+}
+
 
 - (id)initWithProctoringDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
@@ -58,7 +101,7 @@ const int DEFAULT_Panelist_View_Width = 220;
     if(self)
     {
         _zoomProctoringDelegate = proctoringDelegate;
-        _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
+        _meetingMainWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, MeetingVideoDefault_width, MeetingVideoDefault_height) styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable backing:NSBackingStoreBuffered defer:NO];
         [_meetingMainWindow setLevel:NSModalPanelWindowLevel];
         self.window = _meetingMainWindow;
 
@@ -170,6 +213,7 @@ const int DEFAULT_Panelist_View_Width = 220;
     textView.string = @"You are in waiting room now, please wait for host to allow you in meeting.";
     [self.window.contentView addSubview:textView];
 }
+
 - (void)cleanUp
 {
     if(_preViewVideoItem)
@@ -202,22 +246,29 @@ const int DEFAULT_Panelist_View_Width = 220;
     [self.window close];
     [self uninitNotification];
 }
+
 - (void)dealloc
 {
     [self cleanUp];
 }
+
 - (void)initUI
 {
-    [self.window setFrame:NSMakeRect(0, 0, MeetingWindow_Width, MeetingWindow_height) display:YES];
-    [self.window center];
+    NSRect currentScreenUsableFrame = [_zoomProctoringDelegate visibleFrameForScreen:nil];
+    NSRect initialMeetingWindowFrame = NSMakeRect(currentScreenUsableFrame.origin.x + (currentScreenUsableFrame.size.width - (MeetingVideoDefault_width + MeetingWindow_widthOffset) - 20), currentScreenUsableFrame.origin.y + 20, MeetingVideoDefault_width + MeetingWindow_widthOffset, MeetingVideoDefault_height + MeetingWindow_heightOffset);
+    [self.window setFrame:initialMeetingWindowFrame display:YES];
     [self.window setTitle:NSLocalizedString(@"Zoom Proctoring", nil)];
     [self.window setBackgroundColor:[NSColor blackColor]];
+    self.window.delegate = self;
     
     _panelistUserView = [[ZMSDKHCPanelistsView alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.origin.x, DEFAULT_Toolbar_Button_height + 5, DEFAULT_Panelist_View_Width, self.window.contentView.frame.size.height - DEFAULT_Toolbar_Button_height - 20)];
     
     _thumbnailView = [[ZMSDKThumbnailView alloc] initWithFrame:NSMakeRect(self.window.contentView.frame.size.width - DEFAULT_Thumbnail_View_Width, self.window.contentView.frame.origin.y, DEFAULT_Thumbnail_View_Width, self.window.contentView.frame.size.height)];
     [_thumbnailView setMeetingMainWindowController:self];
+    
+    [_thumbnailSection setHidden:YES];
 }
+
 - (void)initButtons
 {
 //    NSStackView *stackView = [[NSStackView alloc] init];
@@ -402,7 +453,7 @@ const int DEFAULT_Panelist_View_Width = 220;
 - (void)onThumbnailButtonClicked:(id)sender
 {
 //    NSRect rect = self.window.contentView.frame;
-    if(!_thumbnailView.superview)
+    if (!_thumbnailView.superview)
     {
         [_thumbnailSection addArrangedSubview:_thumbnailView];
         _thumbnailView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -415,18 +466,16 @@ const int DEFAULT_Panelist_View_Width = 220;
 
 //        [self.window.contentView addSubview:_thumbnailView];
         [_thumbnailSection setHidden:NO];
-//        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
         return;
     }
-    if([_thumbnailSection isHidden])
+    if ([_thumbnailSection isHidden])
     {
         [_thumbnailSection setHidden:NO];
-//        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width - DEFAULT_Thumbnail_View_Width - 10, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
     }
     else
     {
         [_thumbnailSection setHidden:YES];
-//        [_activeUserVideo resize:NSMakeRect(rect.origin.x, rect.origin.y + DEFAULT_Toolbar_Button_height + 2, self.window.frame.size.width, rect.size.height - DEFAULT_Toolbar_Button_height - 2)];
+        [self resizeWindowToSmallerRatio];
     }
 }
 - (void)onParticipantButtonClicked:(id)sender
@@ -473,6 +522,7 @@ const int DEFAULT_Panelist_View_Width = 220;
 }
 - (void)onAudioButtonClicked:(id)sender
 {
+
     switch (_audioStatus)
     {
         case Audio_Status_UnMuted:
@@ -497,6 +547,7 @@ const int DEFAULT_Panelist_View_Width = 220;
             break;
     }
 }
+
 - (void)onVideoButtonClicked:(id)sender
 {
     ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
