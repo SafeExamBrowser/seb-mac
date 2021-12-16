@@ -13,14 +13,14 @@
 static ZMSDKConfUIMgr* confUIMgr = nil;
 
 @implementation ZMSDKConfUIMgr
-- (id)init
+- (id)initWithDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     self = [super init];
     if (self)
     {
         if (!_meetingMainWindowController)
         {
-            _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] initWithProctoringDelegate:nil];
+            _meetingMainWindowController = [[ZMSDKMeetingMainWindowController alloc] initWithProctoringDelegate:proctoringDelegate];
         }
         if (!_userHelper)
         {
@@ -29,10 +29,10 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
     }
     return self;
 }
-+ (void)initConfUIMgr
++ (void)initConfUIMgrWithDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate
 {
     if ( !confUIMgr ) {
-        confUIMgr = [[ZMSDKConfUIMgr alloc] init];
+        confUIMgr = [[ZMSDKConfUIMgr alloc] initWithDelegate:proctoringDelegate];
     }
 }
 + (void)uninitConfUIMgr
@@ -92,7 +92,7 @@ static ZMSDKConfUIMgr* confUIMgr = nil;
 - (void)toggleZoomViewVisibility
 {
     if (_meetingMainWindowController.window.visible) {
-        [_meetingMainWindowController.window close];
+        [_meetingMainWindowController.window orderOut:self];
     } else {
         [_meetingMainWindowController.window setLevel:NSModalPanelWindowLevel];
         [_meetingMainWindowController.window makeKeyAndOrderFront:nil];

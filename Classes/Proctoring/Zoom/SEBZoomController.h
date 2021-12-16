@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringViewButtonState;
 - (void) proctoringFailedWithErrorMessage:(NSString *)errorMessage;
 - (void) successfullyRetriedToConnect;
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen;
+
 
 @end
 

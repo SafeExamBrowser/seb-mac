@@ -19,7 +19,8 @@
 @property(nonatomic, strong, readwrite)ZMSDKUserHelper *userHelper;
 
 + (ZMSDKConfUIMgr*)sharedConfUIMgr;
-+ (void)initConfUIMgr;
++ (void)initConfUIMgrWithDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate;
+- (id)initWithDelegate:(id <ZoomProctoringDelegate>)proctoringDelegate;
 + (void)uninitConfUIMgr;
 - (void)createMeetingMainWindowWithProctoringDelegate:(id <ZoomProctoringDelegate>)zoomProctoringDelegate;
 - (void)toggleZoomViewVisibility;
