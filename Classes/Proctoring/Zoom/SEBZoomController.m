@@ -82,7 +82,7 @@
                           useChatOverride:(BOOL)useChatFlag
 {
     if (self.serverURL) {
-        if (self.zoomActive && _authService && _authService.isAuthorized && !retryingToConnect) {
+        if (self.zoomActive && _authService && _authService.isAuthorized) {
             _receiveAudioFlag = receiveAudioFlag;
             _receiveVideoFlag = receiveVideoFlag;
             _useChatFlag = useChatFlag;
@@ -93,8 +93,6 @@
             }];
             return;
         }
-        self.zoomActive = YES;
-        
         if (_authService && _authService.isAuthorized) {
             DDLogInfo(@"%s Starting new meeting", __FUNCTION__);
             [self startZoomMeetingReceiveAudioOverride:receiveAudioFlag receiveVideoOverride:receiveVideoFlag useChatOverride:useChatFlag];
@@ -167,58 +165,61 @@
                          receiveVideoOverride:(BOOL)receiveVideoOverride
                               useChatOverride:(BOOL)useChatOverride
 {
-    self.zoomActive = YES;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
-    _zoomReceiveAudioOverride = receiveAudioOverride;
-    _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
-    _zoomReceiveVideoOverride = receiveVideoOverride;
-    _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
-    _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
-    _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+    if (!self.zoomActive) {
+        self.zoomActive = YES;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
+        _zoomReceiveAudioOverride = receiveAudioOverride;
+        _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
+        _zoomReceiveVideoOverride = receiveVideoOverride;
+        _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
+        _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
+        _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
 
-    _audioMuted = !receiveAudioOverride &&
-    _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
-    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomAudioMuted"];
-    _videoMuted = !receiveVideoOverride &&
-    _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
-    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomVideoMuted"];
-    _useChat = useChatOverride || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagChat"];
-    _closeCaptions = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagCloseCaptions"];
-    _raiseHand = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagRaiseHand"];
-    _tileView = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagTileView"];
-    
-    if (!_meetingStatusMgr) {
-        _meetingStatusMgr = [[ZMSDKMeetingStatusMgr alloc] initWithProctoringDelegate:self];
-    }
-
-    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
-    
-    ZoomSDKJoinMeetingElements *joinParams = [[ZoomSDKJoinMeetingElements alloc] init];
-    joinParams.userType = ZoomSDKUserType_WithoutLogin;
-    joinParams.webinarToken = nil;
-    joinParams.customerKey = nil;
-    joinParams.meetingNumber = self.room.longLongValue;
-    joinParams.displayName = self.userName;
-    joinParams.password = self.meetingKey;
-    joinParams.isDirectShare = NO;
-    joinParams.displayID = 0;
-    joinParams.isNoVideo = _videoMuted;
-    joinParams.isNoAuido = _audioMuted;
-    joinParams.vanityID = nil;
-    joinParams.zak = nil;
-
-    ZoomSDKError error = [meetingService joinMeeting:joinParams];
-    DDLogDebug(@"[ZoomSDKMeetingService joinMeeting] error: %u", error);
-    if (error != ZoomSDKError_Success) {
-        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
-        [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Joining the Zoom proctoring meeting failed with error code", nil), error]];
-    } else {
-        if (retryingToConnect) {
-            retryingToConnect = NO;
-            [_proctoringUIDelegate successfullyRetriedToConnect];
+        _audioMuted = !receiveAudioOverride &&
+        _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomAudioMuted"];
+        _videoMuted = !receiveVideoOverride &&
+        _remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomVideoMuted"];
+        _useChat = useChatOverride || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagChat"];
+        _closeCaptions = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagCloseCaptions"];
+        _raiseHand = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagRaiseHand"];
+        _tileView = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomFeatureFlagTileView"];
+        
+        if (!_meetingStatusMgr) {
+            _meetingStatusMgr = [[ZMSDKMeetingStatusMgr alloc] initWithProctoringDelegate:self];
         }
-        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateAIInactive];
+
+        ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
+        
+        ZoomSDKJoinMeetingElements *joinParams = [[ZoomSDKJoinMeetingElements alloc] init];
+        joinParams.userType = ZoomSDKUserType_WithoutLogin;
+        joinParams.webinarToken = nil;
+        joinParams.customerKey = nil;
+        joinParams.meetingNumber = self.room.longLongValue;
+        joinParams.displayName = self.userName;
+        joinParams.password = self.meetingKey;
+        joinParams.isDirectShare = NO;
+        joinParams.displayID = 0;
+        joinParams.isNoVideo = _videoMuted;
+        joinParams.isNoAuido = _audioMuted;
+        joinParams.vanityID = nil;
+        joinParams.zak = nil;
+
+        ZoomSDKError error = [meetingService joinMeeting:joinParams];
+        DDLogDebug(@"[ZoomSDKMeetingService joinMeeting] error: %u", error);
+        if (error != ZoomSDKError_Success) {
+            self.zoomActive = NO;
+            [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
+            [_proctoringUIDelegate proctoringFailedWithErrorMessage:[NSString stringWithFormat:@"%@ %u", NSLocalizedString(@"Joining the Zoom proctoring meeting failed with error code", nil), error]];
+        } else {
+            if (retryingToConnect) {
+                retryingToConnect = NO;
+                [_proctoringUIDelegate successfullyRetriedToConnect];
+            }
+            [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateAIInactive];
+        }
     }
 }
 
@@ -227,7 +228,7 @@
 {
     ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
     if (meetingService) {
-        [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_End)];
+        [meetingService leaveMeetingWithCmd:(LeaveMeetingCmd_Leave)];
     } else {
         [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
         _meetingEndedCompletionHandler();
@@ -325,12 +326,19 @@
 - (void) meetingStatusEnded {
     DDLogInfo(@"Zoom meeting ended.");
     self.zoomActive = NO;
-    if (_meetingEndedCompletionHandler) {
-        [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
-        _meetingEndedCompletionHandler();
-        _meetingEndedCompletionHandler = nil;
-    } else if (!retryingToConnect) {
-        [self meetingReconnect];
+    ZoomSDKMeetingService* meetingService = [[ZoomSDK sharedSDK] getMeetingService];
+    ZoomSDKMeetingStatus meetingStatus = ZoomSDKMeetingStatus_Ended;
+    if (meetingService) {
+        meetingStatus = [meetingService getMeetingStatus];
+    }
+    if (meetingStatus == ZoomSDKMeetingStatus_Ended || meetingStatus == ZoomSDKMeetingStatus_Idle) {
+        if (_meetingEndedCompletionHandler) {
+            [_proctoringUIDelegate setProctoringViewButtonState:remoteProctoringButtonStateDefault];
+            _meetingEndedCompletionHandler();
+            _meetingEndedCompletionHandler = nil;
+        } else if (!retryingToConnect) {
+            [self meetingReconnect];
+        }
     }
 }
 
@@ -338,6 +346,12 @@
 - (void) meetingReconnect {
     DDLogInfo(@"Zoom meeting was interrupted or ended without SEB Server command to do so, need to reconnect");
     [self startZoomMeetingReceiveAudioOverride:_receiveAudioFlag receiveVideoOverride:_receiveVideoFlag useChatOverride:_useChatFlag];
+}
+
+
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen
+{
+    return [_proctoringUIDelegate visibleFrameForScreen:screen];
 }
 
 
