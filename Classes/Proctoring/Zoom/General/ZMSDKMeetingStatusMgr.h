@@ -16,6 +16,8 @@
 - (void) meetingStatusInMeeting;
 - (void) meetingStatusEnded;
 - (void) meetingReconnect;
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen;
+
 
 @property (readonly) BOOL zoomReceiveAudio;
 @property (readonly) BOOL zoomReceiveAudioOverride;
