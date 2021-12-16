@@ -3103,6 +3103,8 @@
 				6992E0DC2717601000A6463B /* ZMSDKShareSelectWindow.h */,
 				6992E0DD2717601000A6463B /* ZMSDKLoginWindowController.m */,
 				6992E0DE2717601000A6463B /* ZMSDKThumbnailView.h */,
+				6992E0EB2717601000A6463B /* ZMSDKThumbnailView.m */,
+				6992E0EE2717601000A6463B /* ZMSDKMainWindowController.h */,
 				6992E0DF2717601000A6463B /* ZMSDKMainWindowController.m */,
 				6992E0D82717601000A6463B /* ZMSDKSettingWindowController.h */,
 				6992E0E22717601000A6463B /* ZMSDKSettingWindowController.m */,
@@ -3114,9 +3116,7 @@
 				6992E0E82717601000A6463B /* ZMSDKJoinMeetingWindowController.h */,
 				6992E0E92717601000A6463B /* ZMSDKHCPanelistsView.m */,
 				6992E0EA2717601000A6463B /* ZMSDKLoginWindowController.h */,
-				6992E0EB2717601000A6463B /* ZMSDKThumbnailView.m */,
 				6992E0EC2717601000A6463B /* ZMSDKShareSelectWindow.m */,
-				6992E0EE2717601000A6463B /* ZMSDKMainWindowController.h */,
 			);
 			path = "UI Interface";
 			sourceTree = "<group>";
