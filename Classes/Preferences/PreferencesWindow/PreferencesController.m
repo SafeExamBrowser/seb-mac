@@ -38,6 +38,7 @@
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
 
 @implementation PreferencesController
@@ -984,7 +985,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         // Preset "SebClientSettings.seb" as default file name
-        currentConfigFileURL = [NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO];
+        currentConfigFileURL = [NSURL fileURLWithPathString:SEBClientSettingsFilename];
         
     } else {
         
@@ -1473,7 +1474,7 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPathString:SEBClientSettingsFilename]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
