@@ -190,16 +190,6 @@ bool insideMatrix(void);
 }
 
 
-- (SEBZoomController *)zoomController
-{
-    if (!_zoomController) {
-        _zoomController = [[SEBZoomController alloc] init];
-        _zoomController.proctoringUIDelegate = self;
-    }
-    return _zoomController;
-}
-
-
 #pragma mark - Class and Instance Initialization
 
 + (void) initialize
@@ -1206,83 +1196,11 @@ bool insideMatrix(void);
     
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
-    if ([serviceType isEqualToString:@"ZOOM"]) {
-        NSString *zoomServerURLString = attributes[@"zoomServerURL"];
-        NSURL *zoomServerURL = [NSURL URLWithString:zoomServerURLString];
-        NSString *zoomUserName = attributes[@"zoomUserName"];
-        NSString *zoomRoom = attributes[@"zoomRoom"];
-        NSString *zoomSubject = attributes[@"zoomSubject"];
-        NSString *zoomToken = attributes[@"zoomToken"];
-        NSString *zoomSDKToken = attributes[@"zoomSDKToken"];
-        NSString *zoomAPIKey = attributes[@"zoomAPIKey"];
-        NSString *zoomMeetingKey = attributes[@"zoomMeetingKey"];
-        NSString *instructionConfirm = attributes[@"instruction-confirm"];
-        if (zoomServerURL &&
-            zoomRoom.length>0 &&
-            zoomToken.length>0 &&
-            zoomSDKToken.length>0 &&
-            instructionConfirm.length>0 &&
-            ![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
-            self.serverController.sebServerController.pingInstruction = instructionConfirm;
-            DDLogInfo(@"Starting Zoom proctoring.");
-            DDLogDebug(@"Starting Zoom proctoring with instruction-confirm %@, current pingInstruction %@, ", instructionConfirm, self.serverController.sebServerController.pingInstruction);
-            self.zoomController.zoomReconfiguring = NO;
-            [self.zoomController openZoomWithServerURL:zoomServerURL
-                                              userName:zoomUserName
-                                                  room:zoomRoom
-                                               subject:zoomSubject
-                                                 token:zoomToken
-                                              sdkToken:zoomSDKToken
-                                                apiKey:zoomAPIKey
-                                            meetingKey:zoomMeetingKey];
-        } else {
-            DDLogError(@"%s: Cannot start proctoring, missing parameters in attributes %@!", __FUNCTION__, attributes);
-        }
-    }
 }
 
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
-    NSNumber *receiveAudio = [attributes objectForKey:@"zoomReceiveAudio"];
-    NSNumber *receiveVideo = [attributes objectForKey:@"zoomReceiveVideo"];
-    NSNumber *featureFlagChat = [attributes objectForKey:@"zoomFeatureFlagChat"];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *instructionConfirm = attributes[@"instruction-confirm"];
-    DDLogInfo(@"Reconfiguring Zoom proctoring.");
-    DDLogDebug(@"Reconfiguring Zoom proctoring with instruction-confirm %@, current pingInstruction %@, ", instructionConfirm, self.serverController.sebServerController.pingInstruction);
-    if ((receiveAudio != nil || receiveVideo != nil || featureFlagChat != nil) &&
-        ![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
-        self.serverController.sebServerController.pingInstruction = instructionConfirm;
-        BOOL receiveAudioFlag = receiveAudio.boolValue;
-        if (receiveAudio != nil) {
-            _zoomReceiveAudio = receiveAudioFlag;
-        } else {
-            _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
-        }
-        BOOL receiveVideoFlag = receiveVideo.boolValue;
-        if (receiveVideo != nil) {
-            _zoomReceiveVideo = receiveVideoFlag;
-        } else {
-            _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
-        }
-        BOOL useChatFlag = featureFlagChat.boolValue;
-        if (receiveVideoFlag || useChatFlag) {
-            _remoteProctoringViewShowPolicy = remoteProctoringViewShowAlways;
-        } else {
-            _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
-        }
-        self.zoomController.zoomReconfiguring = YES;
-        [self.zoomController openZoomWithReceiveAudioOverride:receiveAudioFlag
-                                                   receiveVideoOverride:receiveVideoFlag
-                                                        useChatOverride:useChatFlag];
-    } else {
-        _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
-        _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
-        _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
-        _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
-        _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
-    }
 }
 
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
@@ -1322,11 +1240,7 @@ bool insideMatrix(void);
 
 - (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
 {
-    if (_zoomController) {
-        [_zoomController closeZoomMeeting:completionHandler];
-    } else {
-        completionHandler();
-    }
+    completionHandler();
 }
 
 
@@ -1340,21 +1254,6 @@ bool insideMatrix(void);
 - (void) toggleProctoringViewVisibility
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
-    BOOL allowToggleProctoringView = (_remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
-                                      _remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
-    if (allowToggleProctoringView) {
-        [self.zoomController toggleZoomViewVisibilityWithSender:self];
-    } else {
-        NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Active", nil)];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [modalAlert setAlertStyle:NSWarningAlertStyle];
-        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:^(NSModalResponse returnCode) {
-            [self removeAlertWindow:modalAlert.window];
-        }];
-    }
 }
 
 
@@ -1858,162 +1757,6 @@ void run_on_ui_thread(dispatch_block_t block)
         if (virtualMachine) {
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
         }
-    }
-    
-    BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
-    if (zoomEnable) {
-        void (^conditionallyStartProctoring)(void) =
-        ^{
-            // OK action handler
-            void (^startRemoteProctoringOK)(void) =
-            ^{
-                [self openZoomView];
-                [self.zoomController openZoomWithSender:self];
-                // Continue starting the exam session
-                IMP imp = [callback methodForSelector:selector];
-                void (*func)(id, SEL) = (void *)imp;
-                func(callback, selector);
-            };
-            // Check if previous SEB session already had proctoring active
-            if (self.previousSessionZoomEnabled) {
-                run_on_ui_thread(startRemoteProctoringOK);
-            } else {
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", nil)];
-                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                [modalAlert setAlertStyle:NSWarningAlertStyle];
-                void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                    switch(answer)
-                    {
-                        case NSAlertFirstButtonReturn:
-                        {
-                            run_on_ui_thread(startRemoteProctoringOK);
-                            return;
-                        }
-                            
-                        case NSAlertSecondButtonReturn:
-                        {
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuitSEBOrSession" object:self];
-                            return;
-                        }
-                            
-                        default:
-                        {
-                        }
-                    }
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
-                return;
-            }
-            
-        };
-        if (@available(macOS 10.14, *)) {
-            AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-            AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
-                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
-                NSString *camera = @"";
-                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
-                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
-                }
-                NSString *resolveSuggestion;
-                NSString *resolveSuggestion2;
-                NSString *message;
-                if (videoAuthorization == AVAuthorizationStatusDenied ||
-                    audioAuthorization == AVAuthorizationStatusDenied) {
-                    resolveSuggestion = NSLocalizedString(@"in System Preferences ", nil);
-                    resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
-                } else {
-                    resolveSuggestion = @"";
-                    resolveSuggestion2 = @"";
-                }
-                if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                    audioAuthorization == AVAuthorizationStatusRestricted) {
-                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
-                } else {
-                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
-                }
-                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"System Preferences", nil) : NSLocalizedString(@"OK", nil);
-                
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)];
-                [modalAlert setInformativeText:message];
-                [modalAlert addButtonWithTitle:firstButtonTitle];
-                if (NSUserDefaults.userDefaultsPrivate) {
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                }
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                    switch(answer)
-                    {
-                        case NSAlertFirstButtonReturn:
-                        {
-                            if (videoAuthorization == AVAuthorizationStatusDenied ||
-                                audioAuthorization == AVAuthorizationStatusDenied) {
-                                //                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
-                                return;
-                            }
-                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                                if (granted){
-                                    DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
-                                    
-                                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                                        if (granted){
-                                            DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-                                            
-                                            run_on_ui_thread(conditionallyStartProctoring);
-                                            
-                                        } else {
-                                            DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
-                                            [[NSNotificationCenter defaultCenter]
-                                             postNotificationName:@"requestQuitSEBOrSession" object:self];
-                                        }
-                                    }];
-                                    return;
-                                    
-                                } else {
-                                    DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
-                                    [[NSNotificationCenter defaultCenter]
-                                     postNotificationName:@"requestQuitSEBOrSession" object:self];
-                                }
-                            }];
-                            return;
-                        }
-                            
-                        case NSAlertSecondButtonReturn:
-                        {
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuitSEBOrSession" object:self];
-                        }
-                            
-                        default:
-                        {
-                        }
-                    }
-                    
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
-                return;
-                
-            } else {
-                run_on_ui_thread(conditionallyStartProctoring);
-                return;
-            }
-        } else {
-            run_on_ui_thread(conditionallyStartProctoring);
-            return;
-        }
-    } else {
-        self.previousSessionZoomEnabled = NO;
     }
     
     // Continue to starting the exam session
@@ -4230,11 +3973,6 @@ conditionallyForWindow:(NSWindow *)window
 - (void) retryButtonPressed
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    if (_zoomController) {
-        _zoomUserRetryWasUsed = YES;
-        DDLogInfo(@"Retry button in lock screen pressed, after a connection failure to Zoom locked SEB: Try to reconnect to the meeting");
-        [_zoomController retryConnectingToMeeting];
-    }
 }
 
 - (void) successfullyRetriedToConnect
