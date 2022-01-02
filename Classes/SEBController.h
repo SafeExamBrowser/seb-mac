@@ -72,8 +72,6 @@
 #import "SEBServerOSXViewController.h"
 #import "ServerLogger.h"
 
-#import "SEBZoomController.h"
-
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
@@ -84,10 +82,9 @@
 @class HUDController;
 @class ServerController;
 @class SEBServerOSXViewController;
-@class SEBZoomController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringUIDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -199,13 +196,6 @@
 @property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
 
 /// Remote Proctoring
-@property (strong, nonatomic) SEBZoomController *zoomController;
-//@property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer API_AVAILABLE(ios(11));
-//@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
-//@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
-//@property (strong, nonatomic) CIContext *ciContext;
-//@property (strong, nonatomic) CIImage *proctoringStateIcon;
-
 @property(readwrite) BOOL previousSessionZoomEnabled;
 
 @property(readwrite) BOOL zoomReceiveAudio;
