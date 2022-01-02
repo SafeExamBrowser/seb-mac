@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) goBack;
 - (void) goForward;
+- (void) clearBackForwardList;
 - (void) loadURL:(NSURL *)url;
 - (void) stopLoading;
 - (void) reload;
@@ -121,6 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString  *_Nullable currentMainHost;
 @property (readonly) BOOL isMainBrowserWebViewActive;
+@property (readonly) BOOL isNavigationAllowed;
+@property (readonly) BOOL isReloadAllowed;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL directConfigDownloadAttempted;
