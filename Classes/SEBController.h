@@ -37,6 +37,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
+#import <AVFoundation/AVFoundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
 #import "SEBOSXConfigFileController.h"
@@ -145,6 +146,27 @@
     NSDate *timeProcessCheckBeforeSIGSTOP;
     
     CGEventRef keyboardEventReturnKey;
+    
+    NSImage *ProctoringIconDefaultState;
+    NSImage *ProctoringIconAIInactiveState;
+    NSImage *ProctoringIconNormalState;
+    NSImage *ProctoringIconWarningState;
+    NSImage *ProctoringIconErrorState;
+    NSColor *ProctoringIconColorNormalState;
+    NSColor *ProctoringIconColorWarningState;
+    NSColor *ProctoringIconColorErrorState;
+    
+    CIImage *ProctoringBadgeNormalState;
+    CIImage *ProctoringBadgeWarningState;
+    CIImage *ProctoringBadgeErrorState;
+    
+    NSImage *RaisedHandIconDefaultState;
+    NSColor *RaisedHandIconColorDefaultState;
+    NSImage *RaisedHandIconRaisedState;
+    NSColor *RaisedHandIconColorRaisedState;
+    
+    NSInteger raiseHandUID;
+    NSString *raiseHandNotification;
 }
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
@@ -173,10 +195,37 @@
 @property (strong, nonatomic) NSWindowController *sebServerViewWindowController;
 @property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
 
+/// Remote Proctoring
+@property(readwrite) BOOL previousSessionZoomEnabled;
+
+@property(readwrite) BOOL zoomReceiveAudio;
+@property(readwrite) BOOL zoomReceiveVideo;
+@property(readwrite) BOOL zoomSendAudio;
+@property(readwrite) BOOL zoomSendVideo;
+@property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
+
+@property(readwrite) BOOL zoomUserRetryWasUsed;
+
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
+- (void) toggleProctoringViewVisibility;
+//- (BOOL) rtcAudioInputEnabled;
+//- (BOOL) rtcAudioReceivingEnabled;
+//- (BOOL) rtcVideoSendingEnabled;
+//- (BOOL) rtcVideoReceivingEnabled;
+//- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
+//
+//- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+//- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
+
+@property(readwrite) BOOL raiseHandRaised;
+
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 @property(readwrite) BOOL isAACEnabled;
 @property(readwrite) BOOL overrideAAC;
@@ -198,6 +247,7 @@
 @property(readwrite) BOOL builtinDisplayNotAvailableDetected;
 @property(readwrite) BOOL builtinDisplayEnforceOverride;
 @property(readwrite) BOOL touchBarDetected;
+@property(readwrite) BOOL proctoringFailedDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
@@ -229,10 +279,12 @@
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
 @property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
 
-
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery
-;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
+@property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
+@property (weak) IBOutlet NSTextField *raiseHandMessageTextField;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing
@@ -257,6 +309,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void) regainActiveStatus:(id)sender;
 - (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;
+
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 
 - (NSInteger) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *)window
@@ -289,11 +343,12 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
-- (void) conditionallyLockExam;
+- (BOOL) conditionallyLockExam:(NSString *)examURLString;
+
 - (void) correctPasswordEntered;
-- (void) closeLockdownWindows;
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
-- (void) exitSEB;
+- (void) requestedExit:(NSNotification *)notification;
 
 @end

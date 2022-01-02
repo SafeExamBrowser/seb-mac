@@ -149,7 +149,7 @@
                         
                     case NSAlertSecondButtonReturn:
                         
-                        [self.sebController exitSEB]; // Quit SEB
+                        [self.sebController requestedExit:nil]; // Quit SEB
                         return;
                 }
             };
