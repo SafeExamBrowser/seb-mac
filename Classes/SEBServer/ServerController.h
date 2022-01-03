@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *> *)cookies forURL:(NSURL *)url;
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
@@ -85,6 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
                           message:(NSString *)message;
 - (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion;
 - (void) quitSessionWithRestart:(BOOL)restart completion:(void (^ _Nonnull)(BOOL))completion;
+- (NSInteger) sendLockscreenWithMessage:(NSString *)message;
+- (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message;
+- (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID;
 
 @end
 

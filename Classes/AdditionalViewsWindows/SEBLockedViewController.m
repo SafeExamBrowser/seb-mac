@@ -47,10 +47,19 @@
 @implementation SEBLockedViewController
 
 
+void run_block_on_main_thread(dispatch_block_t block)
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
+
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 
 - (void) addLockedExam:(NSString *)examURLString
 {
+    currentExamURL = examURLString;
     NSString *examInfo;
     if ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
         examInfo = [NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Secure exam session was started, URL: ", nil), examURLString];
@@ -74,6 +83,7 @@
         [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }
+    currentExamURL = nil;
 }
 
 - (NSUInteger) getIndexOfLockedExam:(NSArray *)lockedExams withStartURL:(NSString *)startURL
@@ -92,19 +102,18 @@
 }
 
 
-- (BOOL) isStartingLockedExam
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 {
     BOOL isStartingLockedExam = false;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
-    if ([[lockedExams valueForKey:@"startURL"] containsObject:startURL]) {
+    if ([[lockedExams valueForKey:@"startURL"] containsObject:examURLString]) {
         if (!([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle)) {
-            startURL = @"";
+            examURLString = @"";
             [lockedExams removeAllObjects];
         }
-        DDLogError(@"Attempting to start an exam %@ which is on the list %@ of previously interrupted and not properly finished exams.", startURL, lockedExams);
-        isStartingLockedExam = true;
+        DDLogError(@"Attempting to start an exam %@ which is on the list %@ of previously interrupted and not properly finished exams.", examURLString, lockedExams);
+        isStartingLockedExam = YES;
     }
     return isStartingLockedExam;
 }
@@ -128,7 +137,11 @@
     
     // Persist log strings for a "secure exam" (has a quit password)
     if (secureExam) {
-        startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        if (currentExamURL) {
+            startURL = currentExamURL;
+        } else {
+            startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        }
         lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
         // Check if an exam with this Start URL already was persisted
         indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:startURL];
@@ -177,9 +190,10 @@
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }
 
-    [self.UIDelegate setResignActiveLogString:[logString copy]];
-    
-    [self.UIDelegate scrollToBottom];
+    run_block_on_main_thread(^{
+        [self.UIDelegate setResignActiveLogString:[logString copy]];
+        [self.UIDelegate scrollToBottom];
+    });
 }
 
 
@@ -198,6 +212,11 @@
     [logString appendAttributedString:attributedErrorString];
     
     return logString;
+}
+
+
+- (void) retryButtonPressed {
+    [self.controllerDelegate retryButtonPressed];
 }
 
 
@@ -241,7 +260,7 @@
 
 - (void) closeLockdownWindows {
     // Add log information about closing lockdown alert
-    DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
+    DDLogInfo(@"Lockdown alert: Correct password entered, closing lockdown windows");
     self.controllerDelegate.didResumeExamTime = [NSDate date];
     [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Closing lockdown windows", nil)] withTime:self.controllerDelegate.didResumeExamTime];
     // Calculate time difference between session resigning active and closing lockdown alert
@@ -251,19 +270,19 @@
                                                  toDate:self.controllerDelegate.didResumeExamTime
                                                 options:NSCalendarWrapComponents];
     
-    DDLogError(@"Lockdown alert: Closing lockdown windows");
+    DDLogInfo(@"Lockdown alert: Closing lockdown windows");
     NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];
     }
 
-    DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
+    DDLogInfo(@"Lockdown alert: %@", lockedTimeInfo);
     [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
                    withTime:nil];
     
-    if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
-        [self.controllerDelegate closeLockdownWindows];
+    if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindowsAllowOverride:)]) {
+        [self.controllerDelegate closeLockdownWindowsAllowOverride:YES];
     }
     if ([self.controllerDelegate respondsToSelector:@selector(openInfoHUD:)]) {
         [self.controllerDelegate openInfoHUD:lockedTimeInfo];

@@ -59,6 +59,7 @@ import Foundation
     fileprivate var selectedExamId = ""
     fileprivate var selectedExamURL = ""
     fileprivate var pingNumber: Int64 = 0
+    fileprivate var notificationNumber: Int64 = 0
 
     @objc weak public var delegate: SEBServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
@@ -69,18 +70,19 @@ import Foundation
     private let username: String
     private let password: String
     private let discoveryEndpoint: String
+    private let pingInterval: Double
     @objc public var examList: [ExamObject]?
     private var pingTimer: Timer?
     @objc public var pingInstruction: String?
 
-    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, delegate: SEBServerControllerDelegate) {
+    @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
         self.institution = institution
         self.exam = exam
         self.username = username
         self.password = password
         self.discoveryEndpoint = discoveryEndpoint
-        
+        self.pingInterval = pingInterval
         self.delegate = delegate
     }
 }
@@ -186,7 +188,7 @@ public extension SEBServerController {
     
     private func startPingTimer() {
         if self.pingTimer == nil {
-            let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+            let timer = Timer.scheduledTimer(timeInterval: self.pingInterval, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
             RunLoop.current.add(timer, forMode: .common)
             self.pingTimer = timer
         }
@@ -246,7 +248,6 @@ public extension SEBServerController {
                     DDLogDebug("No valid Moodle user ID found")
                     return
                 }
-                print(moodleUserId as Any)
                 if moodleUserId != "0" {
                     self.delegate?.didReceiveMoodleUserId(moodleUserId)
                 }
@@ -266,10 +267,10 @@ public extension SEBServerController {
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
         handshakeCloseRequest.load(httpMethod: handshakeCloseResource.httpMethod, body:handshakeCloseResource.body, headers: requestHeaders, completion: { (handshakeCloseResponse, statusCode, responseHeaders) in
-            if handshakeCloseResponse != nil  {
-                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
-                print(responseBody as Any)
-            }
+//            if handshakeCloseResponse != nil  {
+//                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
+//                DDLogVerbose(responseBody as Any)
+//            }
             self.delegate?.didEstablishSEBServerConnection()
         })
     }
@@ -279,7 +280,7 @@ public extension SEBServerController {
         if connectionToken != nil {
             var pingResource = PingResource(baseURL: self.baseURL, endpoint: (serverAPI?.ping.endpoint?.location)!)
             pingNumber += 1
-            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970)
+            pingResource.body = keys.timestamp + "=" + String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
                 + "&" + keys.pingNumber + "=" + String(pingNumber)
                 + (pingInstruction == nil ? "" : "&" + keys.pingInstructionConfirm + "=" + pingInstruction!)
             
@@ -302,9 +303,37 @@ public extension SEBServerController {
     }
     
     
-    @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
+    func sendNotification(_ type: String, timestamp: String, numericValue: Double, text: String?) {
         if (serverAPI != nil) && (connectionToken != nil) {
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
+            var logJSON: [String : Any]
+            if let notificationText = text {
+                logJSON = [ keys.logType : type, keys.timestamp : timestamp, keys.logNumericValue : numericValue, keys.logText : notificationText ]
+            } else {
+                logJSON = [ keys.logType : type, keys.timestamp : timestamp, keys.logNumericValue : numericValue ]
+            }
+            let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
+            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+            logResource.body = jsonString
+            
+            let logRequest = DataRequest(resource: logResource)
+            pendingRequests?.append(logRequest)
+            let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+            let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
+                                  keys.headerAuthorization : authorizationString,
+                                  keys.sebConnectionToken : connectionToken!]
+            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, responseHeaders) in
+//                if logResponse != nil  {
+//                    let responseBody = String(data: logResponse!, encoding: .utf8)
+//                    DDLogVerbose(responseBody as Any)
+//                }
+            })
+        }
+    }
+    
+    
+    @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
+        if (serverAPI != nil) && (connectionToken != nil) {
             var serverLogLevel: String
             switch logLevel {
             case 1:
@@ -318,26 +347,25 @@ public extension SEBServerController {
             default:
                 serverLogLevel = keys.logLevelUnknown
             }
-            let logJSON = [ keys.logType : serverLogLevel, keys.timestamp : timestamp, keys.logNumericValue : numericValue, keys.logText : message ] as [String : Any]
-            let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
-            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-            logResource.body = jsonString
-            
-            let logRequest = DataRequest(resource: logResource)
-            pendingRequests?.append(logRequest)
-            let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
-            let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
-                                  keys.headerAuthorization : authorizationString,
-                                  keys.sebConnectionToken : connectionToken!]
-            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, responseHeaders) in
-                if logResponse != nil  {
-                    let responseBody = String(data: logResponse!, encoding: .utf8)
-                    print(responseBody as Any)
-                }
-            })
+            sendNotification(serverLogLevel, timestamp: timestamp, numericValue: numericValue, text: message)
         }
     }
     
+    @objc func sendLockscreen(message: String?) -> Int64 {
+        notificationNumber+=1
+        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
+        return notificationNumber
+    }
+    
+    @objc func sendRaiseHand(message: String?) -> Int64 {
+        notificationNumber+=1
+        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
+        return notificationNumber
+    }
+    
+    @objc func sendLowerHand(notificationUID: Int64) {
+        sendNotification(keys.notificationConfirmed, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: nil)
+    }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
@@ -351,10 +379,10 @@ public extension SEBServerController {
         quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, statusCode, responseHeaders) in
             self.stopPingTimer()
             self.connectionToken = nil
-            if quitSessionResponse != nil  {
-                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
-                print(responseBody as Any)
-            }
+//            if quitSessionResponse != nil  {
+//                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
+//                DDLogVerbose(responseBody as Any)
+//            }
             completion(restart)
         })
     }
