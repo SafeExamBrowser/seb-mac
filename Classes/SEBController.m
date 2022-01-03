@@ -1704,7 +1704,9 @@ void run_on_ui_thread(dispatch_block_t block)
         [self clearPasteboardSavingCurrentString];
         
         // Check if the Force Quit window is open
-        [self forceQuitWindowCheck];
+        if (![self forceQuitWindowCheckContinue]) {
+            return;
+        }
         
         // Run watchdog event for windows and events which need to be observed
         // on the main (UI!) thread once, to initialize
@@ -1860,7 +1862,9 @@ void run_on_ui_thread(dispatch_block_t block)
     
     if (_isAACEnabled == NO) {
         // Check if the Force Quit window is open
-        [self forceQuitWindowCheck];
+        if (![self forceQuitWindowCheckContinue]) {
+            return;
+        }
     }
     
     if ([MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
@@ -3148,7 +3152,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 
 // Check if the Force Quit window is open
-- (void)forceQuitWindowCheck
+- (BOOL)forceQuitWindowCheckContinue
 {
     while ([self forceQuitWindowOpen]) {
         // Show alert that the Force Quit window is open
@@ -3173,9 +3177,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                     // Quit SEB
                     DDLogError(@"Force Quit window was open, user decided to quit SEB.");
                     [self requestedExit:nil]; // Quit SEB
+                    return NO;
                 }
             }
     }
+    return YES;
 }
 
 
@@ -5531,7 +5537,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     quittingMyself = YES; //quit SEB without asking for confirmation or password
 
-    if (self.browserController) {
+    if (_browserController) {
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket.
         [self.browserController resetAllCookiesWithCompletionHandler:^{
