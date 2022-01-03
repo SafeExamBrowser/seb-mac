@@ -218,7 +218,7 @@
         // Allow right mouse button/context menu according to setting
         // This is the only way how to block the context menu in browser plugins
         // and video players etc. (not on regular website elements)
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouse"]) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouseMac"]) {
             [super sendEvent:theEvent];
         }
     }
@@ -295,7 +295,80 @@
 
 - (void)reload
 {
+    if (self.isReloadAllowed) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
+             (self.window == self.browserController.mainBrowserWindow ?
+              @"org_safeexambrowser_SEB_showReloadWarning" : @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning")]) {
+            // Display warning and ask if to reload page
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSWarningAlertStyle];
+            
+            void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
+                switch(answer) {
+                    case NSAlertFirstButtonReturn:
+                        [self unconditionallyReload];
+                        break;
+                    
+                        
+                    default:
+                        // Return without reloading page
+                        return;
+                }
+            };
+            
+            if ((self.styleMask == NSBorderlessWindowMask ||
+                 floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) &&
+                floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_15) {
+                [self.browserController.sebController.modalAlertWindows addObject:newAlert.window];
+                NSModalResponse answer = [newAlert runModal];
+                [self.browserController.sebController removeAlertWindow:newAlert.window];
+                conditionalReload(answer);
+                
+            } else {
+                [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
+            }
+            
+        } else {
+            // Reload page without displaying warning
+            [self unconditionallyReload];
+        }
+    }
+}
+
+- (void)unconditionallyReload
+{
+    // Reset the list of dismissed URLs and the dismissAll flag
+    // (for the Teach allowed/blocked URLs mode)
+    SEBAbstractWebView *creatingWebView = [self.webView creatingWebView];
+    if (!creatingWebView) {
+        creatingWebView = self.webView;
+    }
+    [creatingWebView.notAllowedURLs removeAllObjects];
+    creatingWebView.dismissAll = NO;
+    
+    // Reload page
+    DDLogInfo(@"Reloading current webpage");
     [self.browserControllerDelegate reload];
+}
+
+
+- (void)zoomPageIn:(id)sender
+{
+    [self zoomPageIn];
+}
+
+- (void)zoomPageOut:(id)sender
+{
+    [self zoomPageOut];
+}
+
+- (void)resetPageZoom:(id)sender
+{
+    [self zoomPageReset];
 }
 
 
@@ -314,6 +387,22 @@
 - (void)zoomPageReset
 {
     [self.browserControllerDelegate zoomPageReset];
+}
+
+
+- (void)makeTextLarger:(id)sender
+{
+    [self textSizeIncrease];
+}
+
+- (void)makeTextSmaller:(id)sender
+{
+    [self textSizeDecrease];
+}
+
+- (void)makeTextStandardSize:(id)sender
+{
+    [self textSizeReset];
 }
 
 
@@ -1280,7 +1369,13 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
         
         // Change default directory in file dialog
-        openFilePanel.directoryURL = [NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"] isDirectory:NO];
+        NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        if (downloadPath.length == 0) {
+            //if there's no path saved in preferences, set standard path
+            downloadPath = @"~/Downloads";
+        }
+        downloadPath = [downloadPath stringByExpandingTildeInPath];
+        openFilePanel.directoryURL = [NSURL fileURLWithPathString:downloadPath];
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self makeKeyAndOrderFront:self];

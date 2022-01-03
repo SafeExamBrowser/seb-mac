@@ -56,6 +56,8 @@
 @property (strong, nonatomic) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
+@property (weak) IBOutlet NSButton *retryButton;
+
 @property (weak) IBOutlet NSButton *quitInsteadUnlockingButton;
 @property (weak) IBOutlet NSButton *overrideCheckForScreenSharing;
 @property (weak) IBOutlet NSButton *overrideEnforcingBuiltinScreen;
@@ -71,7 +73,7 @@
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
 
-- (BOOL) isStartingLockedExam;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 - (void) shouldCloseLockdownWindows;
 
 @end

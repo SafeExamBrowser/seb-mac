@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,7 +40,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="58"/>
                                                             <subviews>
                                                                 <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfl-QX-6zS">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="58"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="588" height="58"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="58" id="6mG-oh-m2u"/>
                                                                     </constraints>
@@ -76,23 +76,11 @@
                                                                         </binding>
                                                                     </connections>
                                                                 </matrix>
-                                                                <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="tX1-my-lCf">
-                                                                    <rect key="frame" x="300" y="-1" width="288" height="16"/>
-                                                                    <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oYY-YL-Kal">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="message" size="11"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="IU9-gd-ndI"/>
-                                                                    </connections>
-                                                                </button>
                                                             </subviews>
                                                             <visibilityPriorities>
                                                                 <integer value="1000"/>
-                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
-                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
@@ -758,140 +746,67 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="258" id="FLM-Nm-Cwk"/>
                                         </constraints>
                                     </box>
-                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="ayC-nf-hkG">
-                                        <rect key="frame" x="20" y="79" width="610" height="74"/>
-                                        <subviews>
-                                            <box autoresizesSubviews="NO" borderType="line" title="Enable zoom (Mac/Win)" translatesAutoresizingMaskIntoConstraints="NO" id="01r-Av-2fG">
-                                                <rect key="frame" x="-3" y="-4" width="301" height="78"/>
-                                                <view key="contentView" id="QpG-u2-Pup">
-                                                    <rect key="frame" x="3" y="3" width="295" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <box autoresizesSubviews="NO" borderType="line" title="Enable zoom" translatesAutoresizingMaskIntoConstraints="NO" id="01r-Av-2fG">
+                                        <rect key="frame" x="17" y="75" width="616" height="78"/>
+                                        <view key="contentView" id="QpG-u2-Pup">
+                                            <rect key="frame" x="3" y="3" width="610" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="VJ0-87-gKe">
+                                                    <rect key="frame" x="11" y="14" width="588" height="38"/>
                                                     <subviews>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="VJ0-87-gKe">
-                                                            <rect key="frame" x="11" y="14" width="273" height="38"/>
-                                                            <subviews>
-                                                                <button toolTip="Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-9k-8so">
-                                                                    <rect key="frame" x="-2" y="21" width="138" height="18"/>
-                                                                    <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="oH6-kG-mSm">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <action selector="enablePageZoomButton:" target="-2" id="tQR-G5-9Gh"/>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="EPr-8U-ltO">
-                                                                            <dictionary key="options">
-                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                            </dictionary>
-                                                                        </binding>
-                                                                    </connections>
-                                                                </button>
-                                                                <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="AYo-yw-GhI">
-                                                                    <rect key="frame" x="-2" y="-1" width="131" height="18"/>
-                                                                    <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4om-Lh-WpE">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <action selector="enableTextZoomButton:" target="-2" id="dIT-fG-SA8"/>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="sVT-1N-8Up">
-                                                                            <dictionary key="options">
-                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                            </dictionary>
-                                                                        </binding>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                            <visibilityPriorities>
-                                                                <integer value="1000"/>
-                                                                <integer value="1000"/>
-                                                            </visibilityPriorities>
-                                                            <customSpacing>
-                                                                <real value="3.4028234663852886e+38"/>
-                                                                <real value="3.4028234663852886e+38"/>
-                                                            </customSpacing>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="VJ0-87-gKe" firstAttribute="top" secondItem="QpG-u2-Pup" secondAttribute="top" constant="8" id="2b9-3L-FPR"/>
-                                                        <constraint firstAttribute="trailing" secondItem="VJ0-87-gKe" secondAttribute="trailing" constant="11" id="PVg-F5-crw"/>
-                                                        <constraint firstItem="VJ0-87-gKe" firstAttribute="leading" secondItem="QpG-u2-Pup" secondAttribute="leading" constant="11" id="RyZ-17-Egz"/>
-                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VJ0-87-gKe" secondAttribute="bottom" constant="10" id="lQS-OU-mrd"/>
-                                                    </constraints>
-                                                </view>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="295" id="V0L-dK-Zmk"/>
-                                                </constraints>
-                                            </box>
-                                            <box autoresizesSubviews="NO" borderType="line" title="Zoom mode Win (Ctrl-Mousewheel)" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-KD-Mam">
-                                                <rect key="frame" x="312" y="-4" width="301" height="78"/>
-                                                <view key="contentView" id="zZs-ID-Ode">
-                                                    <rect key="frame" x="3" y="3" width="295" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <matrix toolTip="Zoom whole web pages or just text using Ctrl-Mousewheel (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIF-nh-kEl">
-                                                            <rect key="frame" x="11" y="14" width="273" height="38"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            <size key="cellSize" width="267" height="18"/>
-                                                            <size key="intercellSpacing" width="4" height="2"/>
-                                                            <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="lM6-7z-Sl8">
+                                                        <button toolTip="Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-9k-8so">
+                                                            <rect key="frame" x="-2" y="21" width="138" height="18"/>
+                                                            <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="oH6-kG-mSm">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
-                                                            <cells>
-                                                                <column>
-                                                                    <buttonCell type="radio" title="Use page zoom" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="TOC-TB-yVI">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <connections>
-                                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="tY4-ZT-S9A"/>
-                                                                        </connections>
-                                                                    </buttonCell>
-                                                                    <buttonCell type="radio" title="Use text zoom" imagePosition="left" alignment="left" inset="2" id="Ub7-Fc-noP">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <connections>
-                                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="qaq-9k-oeP"/>
-                                                                        </connections>
-                                                                    </buttonCell>
-                                                                </column>
-                                                            </cells>
                                                             <connections>
-                                                                <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_zoomMode" id="aMG-rF-hSb">
+                                                                <action selector="enablePageZoomButton:" target="-2" id="tQR-G5-9Gh"/>
+                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="EPr-8U-ltO">
                                                                     <dictionary key="options">
                                                                         <bool key="NSConditionallySetsEnabled" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
-                                                        </matrix>
+                                                        </button>
+                                                        <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="AYo-yw-GhI">
+                                                            <rect key="frame" x="-2" y="-1" width="131" height="18"/>
+                                                            <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4om-Lh-WpE">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="enableTextZoomButton:" target="-2" id="dIT-fG-SA8"/>
+                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="sVT-1N-8Up">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="xIF-nh-kEl" firstAttribute="top" secondItem="zZs-ID-Ode" secondAttribute="top" constant="8" id="0fM-ov-YWb"/>
-                                                        <constraint firstAttribute="trailing" secondItem="xIF-nh-kEl" secondAttribute="trailing" constant="11" id="MiB-kT-FQv"/>
-                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xIF-nh-kEl" secondAttribute="bottom" constant="10" id="dLE-F3-zwy"/>
-                                                    </constraints>
-                                                </view>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="295" id="AoG-ru-e1C"/>
-                                                    <constraint firstItem="xIF-nh-kEl" firstAttribute="leading" secondItem="SGO-KD-Mam" secondAttribute="leading" constant="11" id="Ud9-SY-9OS"/>
-                                                </constraints>
-                                            </box>
-                                        </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VJ0-87-gKe" firstAttribute="top" secondItem="QpG-u2-Pup" secondAttribute="top" constant="8" id="2b9-3L-FPR"/>
+                                                <constraint firstAttribute="trailing" secondItem="VJ0-87-gKe" secondAttribute="trailing" constant="11" id="PVg-F5-crw"/>
+                                                <constraint firstItem="VJ0-87-gKe" firstAttribute="leading" secondItem="QpG-u2-Pup" secondAttribute="leading" constant="11" id="RyZ-17-Egz"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VJ0-87-gKe" secondAttribute="bottom" constant="10" id="lQS-OU-mrd"/>
+                                            </constraints>
+                                        </view>
                                         <constraints>
-                                            <constraint firstItem="01r-Av-2fG" firstAttribute="top" secondItem="ayC-nf-hkG" secondAttribute="top" id="13d-4V-pQR"/>
-                                            <constraint firstItem="SGO-KD-Mam" firstAttribute="top" secondItem="ayC-nf-hkG" secondAttribute="top" id="LPx-Ub-zj8"/>
-                                            <constraint firstAttribute="bottom" secondItem="SGO-KD-Mam" secondAttribute="bottom" id="QZZ-EF-caa"/>
-                                            <constraint firstAttribute="bottom" secondItem="01r-Av-2fG" secondAttribute="bottom" id="Zbu-HK-TLH"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="74" id="pIm-ix-Usa"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="74" id="Uf9-ae-J9d"/>
                                         </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                    </stackView>
+                                    </box>
                                     <box borderType="line" title="Spell Checker" translatesAutoresizingMaskIntoConstraints="NO" id="nO5-ha-zqD">
                                         <rect key="frame" x="17" y="11" width="616" height="58"/>
                                         <view key="contentView" id="vTr-lN-r8P">
@@ -969,9 +884,9 @@
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="15"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="kyV-Ns-eIu" secondAttribute="trailing" id="9vA-B7-tWT"/>
-                                    <constraint firstAttribute="trailing" secondItem="ayC-nf-hkG" secondAttribute="trailing" id="fWZ-en-1aE"/>
+                                    <constraint firstAttribute="trailing" secondItem="01r-Av-2fG" secondAttribute="trailing" id="Ezc-QH-BLc"/>
+                                    <constraint firstAttribute="width" constant="630" id="eSZ-Xh-RNM"/>
                                     <constraint firstAttribute="trailing" secondItem="JtS-CO-tOW" secondAttribute="trailing" id="gIE-of-yrv"/>
-                                    <constraint firstItem="ayC-nf-hkG" firstAttribute="leading" secondItem="Kpu-hv-Qpn" secondAttribute="leading" constant="20" id="tfi-yn-Vkh"/>
                                     <constraint firstAttribute="trailing" secondItem="Qdn-Cu-Oym" secondAttribute="trailing" id="thy-01-ihV"/>
                                     <constraint firstAttribute="trailing" secondItem="nO5-ha-zqD" secondAttribute="trailing" id="vww-2R-D7H"/>
                                     <constraint firstAttribute="trailing" secondItem="J5d-BA-D2w" secondAttribute="trailing" id="wtY-RX-agS"/>
@@ -998,7 +913,7 @@
                             <constraint firstAttribute="bottom" secondItem="Kpu-hv-Qpn" secondAttribute="bottom" id="6Z8-iA-Gu6"/>
                             <constraint firstItem="Kpu-hv-Qpn" firstAttribute="leading" secondItem="bmI-dS-Jv0" secondAttribute="leading" id="Lf9-AB-viA"/>
                             <constraint firstItem="Kpu-hv-Qpn" firstAttribute="top" secondItem="bmI-dS-Jv0" secondAttribute="top" id="ZSY-yW-ZHo"/>
-                            <constraint firstAttribute="trailing" secondItem="Kpu-hv-Qpn" secondAttribute="trailing" id="poG-wm-1hJ"/>
+                            <constraint firstAttribute="trailing" secondItem="Kpu-hv-Qpn" secondAttribute="trailing" id="bSy-fK-rKg"/>
                         </constraints>
                         <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>

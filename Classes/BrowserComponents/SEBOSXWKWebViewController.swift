@@ -54,6 +54,8 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
             
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            let enableZoomPage = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage")
+            _sebWebView?.allowsMagnification = enableZoomPage
             urlFilter = SEBURLFilter.shared()
         }
         return _sebWebView
@@ -153,8 +155,21 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         sebWebView?.goForward()
     }
     
+    public func clearBackForwardList() {
+        sebWebView?.backForwardList.perform(Selector(("_removeAllItems")))
+    }
+    
     public func reload() {
-        sebWebView?.reload()
+        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
+        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince:NSDate.distantPast, completionHandler:{
+            if let url = self.sebWebView?.url {
+                self.load(url)
+            } else {
+                if let currentURL = self.navigationDelegate?.currentURL {
+                    self.load(currentURL)
+                }
+            }
+        })
     }
     
     public func load(_ url: URL) {
