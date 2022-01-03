@@ -44,6 +44,7 @@
     NSString *username =  [sebServerConfiguration valueForKey:@"clientName"];
     NSString *password =  [sebServerConfiguration valueForKey:@"clientSecret"];
     NSString *discoveryAPIEndpoint = [sebServerConfiguration valueForKey:@"apiDiscovery"];
+    double pingInterval = [[sebServerConfiguration valueForKey:@"pingInterval"] doubleValue] / 1000;
     if (url && institution && username && password && discoveryAPIEndpoint)
     {
         _sebServerController = [[SEBServerController alloc] initWithBaseURL:url
@@ -52,6 +53,7 @@
                                                                    username:username
                                                                    password:password
                                                           discoveryEndpoint:discoveryAPIEndpoint
+                                                               pingInterval:pingInterval
                                                                    delegate:self];
         [_sebServerController getServerAPI];
         return YES;
@@ -139,7 +141,7 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     NSString *userID = [headerFields objectForKey:@"X-LMS-USER-ID"];
-    DDLogDebug(@"Examine Headers: %@", headerFields);
+    DDLogVerbose(@"Examine Headers: %@", headerFields);
     if (userID.length > 0 && ![sessionIdentifier isEqualToString:userID]) {
         sessionIdentifier = userID;
         [_sebServerController startMonitoringWithUserSessionId:userID];
@@ -165,7 +167,7 @@
 }
 
 
-- (void)didEstablishSEBServerConnection {
+- (void) didEstablishSEBServerConnection {
     [self.delegate didEstablishSEBServerConnection];
 }
 
@@ -176,6 +178,23 @@
                           message:(NSString *)message
 {
     [_sebServerController sendLogEvent:logLevel timestamp:timestamp numericValue:numericValue message:message];
+}
+
+
+- (NSInteger) sendLockscreenWithMessage:(NSString *)message
+{
+    return  [_sebServerController sendLockscreenWithMessage:message];
+}
+
+
+- (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message
+{
+    return [_sebServerController sendRaiseHandWithMessage:message];
+}
+
+- (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID
+{
+    [_sebServerController sendLowerHandWithNotificationUID:notificationUID];
 }
 
 
@@ -199,6 +218,13 @@
             if ([self.delegate respondsToSelector:@selector(reconfigureWithAttributes:)]) {
                 NSDictionary *attributes = sebInstruction.attributes;
                 [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
+            }
+        }
+        
+        if ([instruction isEqualToString:@"NOTIFICATION_CONFIRM"]) {
+            if ([self.delegate respondsToSelector:@selector(confirmNotificationWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate confirmNotificationWithAttributes:(NSDictionary *)attributes];
             }
         }
     }

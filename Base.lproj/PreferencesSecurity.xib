@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -538,12 +538,12 @@
                                                                                 </menu>
                                                                             </popUpButtonCell>
                                                                             <connections>
+                                                                                <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_minMacOSVersions" id="mPe-vZ-lKs"/>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="Dvj-Pa-CpJ">
                                                                                     <dictionary key="options">
                                                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                                     </dictionary>
                                                                                 </binding>
-                                                                                <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_minMacOSVersions" id="mPe-vZ-lKs"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_minMacOSVersion" previousBinding="mPe-vZ-lKs" id="kHp-ui-D9G">
                                                                                     <dictionary key="options">
                                                                                         <bool key="NSAlwaysPresentsApplicationModalAlerts" value="YES"/>
@@ -1464,20 +1464,20 @@
                         </tabViewItem>
                         <tabViewItem label="Hooked Keys" identifier="" id="3Kv-Y4-p4B">
                             <view key="view" verticalHuggingPriority="500" id="wcR-7a-nHQ">
-                                <rect key="frame" x="10" y="33" width="604" height="413"/>
+                                <rect key="frame" x="10" y="33" width="609" height="413"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DHl-16-VpL">
-                                        <rect key="frame" x="16" y="3" width="572" height="407"/>
+                                        <rect key="frame" x="16" y="3" width="577" height="407"/>
                                         <subviews>
                                             <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Special Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
-                                                <rect key="frame" x="-3" y="161" width="283" height="246"/>
+                                                <rect key="frame" x="-3" y="161" width="286" height="246"/>
                                                 <view key="contentView" id="FRQ-6d-6TB">
-                                                    <rect key="frame" x="3" y="3" width="277" height="228"/>
+                                                    <rect key="frame" x="3" y="3" width="280" height="228"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="r3h-pS-fWz">
-                                                            <rect key="frame" x="15" y="22" width="247" height="198"/>
+                                                            <rect key="frame" x="15" y="22" width="250" height="198"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="xUc-ld-ncn">
                                                                     <rect key="frame" x="-2" y="181" width="92" height="18"/>
@@ -1529,10 +1529,9 @@
                                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAltF4" id="7I1-SJ-hXV"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="Udm-zO-P00">
-                                                                    <rect key="frame" x="-2" y="51" width="220" height="18"/>
-                                                                    <string key="toolTip">Enable in SEB for macOS to access context menu for Web Inspector (see Browser pane). Disable to prevent right mouse button actions/context menu in browser plugins and video players</string>
-                                                                    <buttonCell key="cell" type="check" title="Enable Right Mouse (also Mac*)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PWk-fT-HdC">
+                                                                <button toolTip="Enable for using right mouse button in allowed third party applications (since SEB 3.1 no longer affecting Mac version)" translatesAutoresizingMaskIntoConstraints="NO" id="Udm-zO-P00">
+                                                                    <rect key="frame" x="-2" y="51" width="147" height="18"/>
+                                                                    <buttonCell key="cell" type="check" title="Enable Right Mouse" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PWk-fT-HdC">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -1597,13 +1596,13 @@
                                                 </constraints>
                                             </box>
                                             <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Function Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
-                                                <rect key="frame" x="292" y="53" width="283" height="354"/>
+                                                <rect key="frame" x="295" y="53" width="285" height="354"/>
                                                 <view key="contentView" id="kSW-ge-fQu">
-                                                    <rect key="frame" x="3" y="3" width="277" height="336"/>
+                                                    <rect key="frame" x="3" y="3" width="279" height="336"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="S8O-Zi-NxF">
-                                                            <rect key="frame" x="15" y="26" width="247" height="302"/>
+                                                            <rect key="frame" x="15" y="26" width="249" height="302"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Tdg-eI-qqw">
                                                                     <rect key="frame" x="-2" y="285" width="84" height="18"/>

@@ -54,7 +54,11 @@ import Foundation
             configKey: '', \
             appVersion: '\(appVersion ?? "")', \
             updateKeys: function (callback) { \
-              window.webkit.messageHandlers.updateKeys.postMessage(callback.name); \
+              if (callback) { \
+                window.webkit.messageHandlers.updateKeys.postMessage(callback.name); \
+              } else { \
+                window.webkit.messageHandlers.updateKeys.postMessage(); \
+              } \
             } \
           } \
         }
@@ -82,9 +86,7 @@ import Foundation
             }
             print(message.body as Any)
             let parameter = message.body as? String
-            let browserExamKey = navigationDelegate?.browserExamKey?(for: webView.url!)
-            let configKey = navigationDelegate?.configKey?(for: webView.url!)
-            webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { (response, error) in
+            updateKeyJSVariables(webView) { response, error in
                 if let _ = error {
                     print(error as Any)
                 } else {
@@ -210,6 +212,10 @@ import Foundation
     
     public func goForward() {
         browserControllerDelegate!.goForward!()
+    }
+    
+    public func clearBackForwardList() {
+        browserControllerDelegate!.clearBackForwardList?()
     }
     
     public func reload() {
@@ -344,6 +350,10 @@ import Foundation
         navigationDelegate?.examine?(cookies, for: url)
     }
     
+    public var isNavigationAllowed: Bool {
+        return navigationDelegate?.isNavigationAllowed ?? false
+    }
+    
     public func sebWebViewDidStartLoad() {
         navigationDelegate?.sebWebViewDidStartLoad?()
     }
@@ -364,8 +374,27 @@ import Foundation
         }
     }
     
+    private func updateKeyJSVariables(_ webView: WKWebView) {
+        updateKeyJSVariables(webView) { response, error in
+            if let _ = error {
+                print(error as Any)
+            }
+        }
+    }
+
+    private func updateKeyJSVariables(_ webView: WKWebView, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        if let url = webView.url {
+            let browserExamKey = navigationDelegate?.browserExamKey?(for: url)
+            let configKey = navigationDelegate?.configKey?(for: url)
+            webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { (response, error) in
+                completionHandler?(response ?? "", error)
+            }
+        }
+    }
+    
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         navigationDelegate?.sebWebViewDidStartLoad?()
+        updateKeyJSVariables(webView)
     }
     
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
@@ -380,6 +409,7 @@ import Foundation
     
     public func webView(_ webView: WKWebView,
                         didCommit navigation: WKNavigation) {
+        updateKeyJSVariables(webView)
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
