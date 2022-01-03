@@ -130,33 +130,32 @@
 - (void) openingConfigURLRoleBack
 {
     // If SEB was just started (by opening a seb(s) link)
-    if (_sebController.startingUp) {
+    if (self.startingUp) {
         // we quit, as decrypting the config wasn't successful
         DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
-        [_sebController exitSEB]; // Quit SEB
+        [_sebController requestedExit:nil]; // Quit SEB
     }
     // Reset the opening settings flag which prevents opening URLs concurrently
     _sebController.openingSettings = false;
 }
 
 
-- (void)closeOpeningConfigFileDialog {
+- (void) closeOpeningConfigFileDialog {
     //TODO: not yet used on macOS
 }
 
 
-- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
     //TODO: not yet used on macOS
 }
-
 
 @synthesize startingUp;
 
-- (BOOL)isStartingUp {
+- (BOOL) startingUp {
     return _sebController.startingUp;
 }
 
-- (void)setStartingUp:(BOOL)startingUp {
+- (void) setStartingUp:(BOOL)startingUp {
     _sebController.startingUp = startingUp;
 }
 
@@ -314,7 +313,7 @@
 
 - (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL
 {
-    [self.sebController conditionallyLockExam];
+    [self.sebController conditionallyLockExam:startURL.absoluteString];
     
     // Log current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
@@ -390,19 +389,7 @@
 // Find the real visible frame of a screen SEB is running on
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen
 {
-    // Get frame of the usable screen (considering if menu bar is enabled)
-    NSRect screenFrame = screen.usableFrame;
-    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-    // Also check if mainBrowserWindow exists, because when starting with a temporary
-    // browser window for loading a seb(s):// link from a authenticated server, there
-    // is no main browser window open yet
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ((!_mainBrowserWindow || screen == _mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        screenFrame.origin.y += dockHeight;
-        screenFrame.size.height -= dockHeight;
-    }
-    return screenFrame;
+    return [_sebController visibleFrameForScreen:screen];
 }
 
 
@@ -756,7 +743,7 @@
     if (![super isReconfiguringAllowedFromURL:url]) {
         // If yes, we don't download the .seb file
         // Also reset the flag for SEB starting up
-        _sebController.startingUp = false;
+        self.startingUp = false;
         NSAlert *modalAlert = [_sebController newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
         [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
@@ -787,7 +774,7 @@
     SEBAbstractWebView *temporaryWebView = [self openAndShowWebViewWithURL:url title:tempWindowTitle overrideSpellCheck:YES mainBrowserWindow:NO temporaryWindow:YES];
     SEBBrowserWindow *temporaryBrowserWindow = temporaryWebView.window;
 
-    if (_sebController.startingUp) {
+    if (self.startingUp) {
         temporaryWebView.creatingWebView = temporaryWebView;
     } else {
         temporaryWebView.creatingWebView = nil;
@@ -816,7 +803,7 @@
     DDLogError(@"%s error: %@", __FUNCTION__, error);
     _sebController.openingSettings = false;
     // Also reset the flag for SEB starting up
-    _sebController.startingUp = false;
+    self.startingUp = false;
 
     // Only show the download error and close temp browser window if this wasn't a direct download attempt
     if (!self.directConfigDownloadAttempted) {

@@ -71,15 +71,15 @@ extension NetworkRequest {
 
         let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            print(data as Any)
-            if (data != nil) {
-                print(String(decoding: data!, as: UTF8.self))
-            }
-            print(response as Any)
+//            print(data as Any)
+//            if (data != nil) {
+//                print(String(decoding: data!, as: UTF8.self))
+//            }
+//            print(response as Any)
             let httpResponse = response as? HTTPURLResponse
             let statusCode = httpResponse?.statusCode
             let responseHeaders = httpResponse?.allHeaderFields
-            print(error as Any)
+//            print(error as Any)
             guard let receivedData = data else {
                 completion(nil, statusCode, [:])
                 return

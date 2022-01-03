@@ -425,6 +425,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableRightMouse",
                    
                    @NO,
+                   @"enableRightMouseMac",
+                   
+                   @NO,
                    @"enableStartMenu",
                    
                    @YES,
@@ -793,6 +796,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"quitURLRestart",
                    
+                   @YES,
+                   @"raiseHandButtonShow",
+                   
+                   @NO,
+                   @"raiseHandButtonAlwaysPromptMessage",
+                   
                    [NSNumber numberWithLong:remoteProctoringViewShowNever],
                    @"remoteProctoringViewShow",
 
@@ -928,6 +937,66 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBZoomModePage],
                    @"zoomMode",
                    
+                   @"",
+                   @"zoomAPIKey",
+                   
+                   @NO,
+                   @"zoomAudioMuted",
+                   
+                   @NO,
+                   @"zoomEnable",
+                   
+                   @NO,
+                   @"zoomFeatureFlagChat",
+                   
+                   @NO,
+                   @"zoomFeatureFlagCloseCaptions",
+                   
+                   @NO,
+                   @"zoomFeatureFlagRaiseHand",
+                   
+                   @NO,
+                   @"zoomFeatureFlagTileView",
+                   
+                   @"",
+                   @"zoomMeetingKey",
+                   
+                   @NO,
+                   @"zoomReceiveAudio",
+                   
+                   @NO,
+                   @"zoomReceiveVideo",
+                   
+                   @"",
+                   @"zoomRoom",
+                   
+                   @"",
+                   @"zoomSDKToken",
+                   
+                   @YES,
+                   @"zoomSendAudio",
+                   
+                   @YES,
+                   @"zoomSendVideo",
+                   
+                   @"",
+                   @"zoomServerURL",
+                   
+                   @"",
+                   @"zoomSubject",
+                   
+                   @"",
+                   @"zoomToken",
+                   
+                   @"",
+                   @"zoomUserInfoDisplayName",
+                   
+                   @"",
+                   @"zoomUserName",
+                   
+                   @NO,
+                   @"zoomVideoMuted",
+                   
                    nil],
               
               @"additionalResources" : @{
@@ -1033,7 +1102,8 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"institution" : @"",
                       @"clientName" : @"",
                       @"clientSecret" : @"",
-                      @"apiDiscovery" : @""
+                      @"apiDiscovery" : @"",
+                      @"pingInterval" : @1000
                       }
               
               };

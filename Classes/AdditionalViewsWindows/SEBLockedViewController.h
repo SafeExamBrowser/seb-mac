@@ -130,6 +130,12 @@
 @property (strong, readwrite) NSDate *didResumeExamTime;
 
 /**
+ * @brief       Retry button action handler
+ * @details
+ */
+- (void) retryButtonPressed;
+
+/**
  * @brief       Callback executed when the correct password was entered.
  * @details
  */
@@ -175,7 +181,7 @@
  * @brief       Close lockdown windows and allow to access the exam again.
  * @details
  */
-- (void) closeLockdownWindows;
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 
 @end
 
@@ -183,6 +189,7 @@
 @interface SEBLockedViewController : NSObject {
     @private
     NSString *challenge;
+    NSString *currentExamURL;
 }
 
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
@@ -198,11 +205,12 @@
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
-- (BOOL) isStartingLockedExam;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 
 /// Lockview business logic
 - (NSString *) appendChallengeToMessage:(NSString *)alertMessage;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) retryButtonPressed;
 - (void) passwordEntered;
 - (void) closeLockdownWindows;
 - (void) abortClosingLockdownWindows;

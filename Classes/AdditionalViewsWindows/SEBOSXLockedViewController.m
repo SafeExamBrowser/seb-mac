@@ -73,8 +73,9 @@
 }
 
 
-- (BOOL)isStartingLockedExam {
-    return [self.lockedViewController isStartingLockedExam];
+- (BOOL) isStartingLockedExam:(NSString *)examURLString
+{
+    return [self.lockedViewController isStartingLockedExam:examURLString];
 }
 
 - (void)shouldCloseLockdownWindows {
@@ -97,9 +98,14 @@
 }
 
 
+- (IBAction)retryButtonPressed:(id)sender {
+    [self.lockedViewController retryButtonPressed];
+}
+
+
 - (IBAction)passwordEntered:(id)sender {
-    DDLogDebug(@"Password entered in lock view alert");
-    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld",
+    DDLogInfo(@"Password entered in lock view alert");
+    DDLogVerbose(@"Lockdown alert: Covering window has frame %@ and window level %ld",
                (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(self.view.superview.frame)),
                self.view.window.level);
     [self.lockedViewController passwordEntered];
@@ -132,7 +138,7 @@
     } else {
         newScrollOrigin = NSMakePoint(0.0,0.0);
     }
-    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f",
+    DDLogDebug(@"Log scroll view %@ frame: %@, y coordinate to scroll to: %f", logScrollView, 
                (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame])),
                newScrollOrigin.y);
     

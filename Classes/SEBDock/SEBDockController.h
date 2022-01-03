@@ -105,6 +105,12 @@
 - (SEL) action;
 
 /**
+ * @brief       Action to be performed when a right or long mouse click on the dock item is
+ *              performed.
+ */
+- (SEL) secondaryAction;
+
+/**
  * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
  */
 - (NSView *) view;
