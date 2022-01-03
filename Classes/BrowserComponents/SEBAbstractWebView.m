@@ -131,6 +131,11 @@
 
 - (void)reload
 {
+    if ([self.navigationDelegate respondsToSelector:@selector(isReloadAllowed)]) {
+        if (self.navigationDelegate.isReloadAllowed == NO) {
+            return;
+        }
+    }
     [self.browserControllerDelegate reload];
 }
 
@@ -379,6 +384,11 @@
     return self.navigationDelegate.isMainBrowserWebViewActive;
 }
 
+- (BOOL)isNavigationAllowed
+{
+    return self.navigationDelegate.isNavigationAllowed;
+}
+
 - (NSString *)quitURL
 {
     return self.navigationDelegate.quitURL;
@@ -468,6 +478,9 @@
 //    [self.navigationDelegate examineCookies:cookies];
 
     [self.navigationDelegate sebWebViewDidStartLoad];
+    if (self.navigationDelegate.isNavigationAllowed == NO && [self.browserControllerDelegate respondsToSelector:@selector(clearBackForwardList)]) {
+        [self.browserControllerDelegate clearBackForwardList];
+    }
 }
 
 
@@ -539,7 +552,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    DDLogDebug(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
+    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields =
@@ -670,7 +683,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                                      suggestedFilename:(NSString *)suggestedFilename
                                                cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
+    DDLogVerbose(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
     
     [self.navigationDelegate examineCookies:cookies forURL:url];
     
