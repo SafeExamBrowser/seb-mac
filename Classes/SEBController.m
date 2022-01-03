@@ -1761,6 +1761,25 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     
+    BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
+    BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
+    if (zoomEnable || jitsiMeetEnable) {
+
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", nil)];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil), SEBShortAppName, SEBShortAppName]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitSEBOrSession" object:self];
+            return;
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
+        return;
+    }
+
     // Continue to starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
@@ -4799,7 +4818,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
+        if (ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
             ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
 //            ProctoringIconDefaultState.template = YES;
             ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
@@ -4832,7 +4851,7 @@ conditionallyForWindow:(NSWindow *)window
         
         if (([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
             _establishingSEBServerConnection || _sebServerConnectionEstablished) &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"] &&
+            ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonShow"]) {
             RaisedHandIconDefaultState = [NSImage imageNamed:@"SEBRaiseHandIcon"];
             RaisedHandIconColorDefaultState = nil;

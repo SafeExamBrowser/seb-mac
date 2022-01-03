@@ -196,6 +196,8 @@
 @property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
 
 /// Remote Proctoring
+#define JitsiMeetProctoringSupported NO
+#define ZoomProctoringSupported NO
 @property(readwrite) BOOL previousSessionZoomEnabled;
 
 @property(readwrite) BOOL zoomReceiveAudio;
