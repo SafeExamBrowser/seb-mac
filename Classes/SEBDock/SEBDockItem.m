@@ -43,6 +43,7 @@
              toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
               target:(id)newTarget
               action:(SEL)newAction
+     secondaryAction:(SEL)newSecondaryAction
 {
     self = [super init];
     if (self) {
@@ -53,6 +54,7 @@
         _menu = newMenu;
         _target = newTarget;
         _action = newAction;
+        _secondaryAction = newSecondaryAction;
     }
     return self;
 }

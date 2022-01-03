@@ -103,12 +103,14 @@
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+#ifdef DEBUG
         // Display all MIME types the WebView can display as HTML
         NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
         NSUInteger i, count = [MIMETypes count];
         for (i=0; i<count; i++) {
-            DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
+            DDLogVerbose(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
         }
+#endif
     }
     return _sebWebView;
 }
@@ -885,8 +887,8 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
-    DDLogDebug(@"[SEBWebViewController webView: %@ decidePolicyForNavigationAction request URL: %@ ...]", sender, [[request URL] absoluteString]);
-    DDLogDebug(@"self.sebWebView: %@", self.sebWebView);
+    DDLogVerbose(@"[SEBWebViewController webView: %@ decidePolicyForNavigationAction request URL: %@ ...]", sender, [[request URL] absoluteString]);
+    DDLogVerbose(@"self.sebWebView: %@", self.sebWebView);
     //NSString *requestedHost = [[request mainDocumentURL] host];
     
     SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
@@ -1001,7 +1003,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             return;
         } else {
             SEBWebView *creatingWebView = self.sebWebView.creatingWebView;
-            DDLogDebug(@"navigationDelegate decidePolicyForNavigationAction was Allow: sender WebView %@, creatingWebView property: %@, self.sebWebView: %@", sender, creatingWebView, self.sebWebView);
+            DDLogVerbose(@"navigationDelegate decidePolicyForNavigationAction was Allow: sender WebView %@, creatingWebView property: %@, self.sebWebView: %@", sender, creatingWebView, self.sebWebView);
             
             // Check if the request's sender is different than the current webview (means the sender is the temporary webview)
             if (self.sebWebView && ![sender isEqual:self.sebWebView]) {
@@ -1058,8 +1060,8 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
-    DDLogDebug(@"[SEBWebViewController webView: %@ decidePolicyForMIMEType: %@ requestURL: %@ ...]", sender, type, request.URL.absoluteString);
-    DDLogDebug(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
+    DDLogVerbose(@"[SEBWebViewController webView: %@ decidePolicyForMIMEType: %@ requestURL: %@ ...]", sender, type, request.URL.absoluteString);
+    DDLogVerbose(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
 
     // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
     if (self.downloadFilename) {
