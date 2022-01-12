@@ -518,7 +518,7 @@
 initiatedByFrame:(WebFrame *)frame
 {
     NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message];
 }
 
 
@@ -527,7 +527,7 @@ initiatedByFrame:(WebFrame *)frame
 initiatedByFrame:(WebFrame *)frame
 {
     NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message];
 }
 
 
@@ -537,7 +537,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
      initiatedByFrame:(WebFrame *)frame
 {
     NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 

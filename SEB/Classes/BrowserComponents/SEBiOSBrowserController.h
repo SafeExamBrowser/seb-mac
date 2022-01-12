@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SEBViewController;
 
-@interface SEBiOSBrowserController : SEBBrowserController <SEBBrowserControllerDelegate>
+@interface SEBiOSBrowserController : SEBBrowserController <SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 
 @property (weak, nonatomic) SEBViewController *sebViewController;
 @property (readwrite) BOOL openingSettings;

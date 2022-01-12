@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SEBAbstractWebView;
 @class SEBURLFilter;
+@class WKWebView;
 
 @protocol SEBAbstractBrowserControllerDelegate <NSObject>
 
@@ -199,8 +200,7 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(void))completionHandler;
 
 - (void)pageTitle:(NSString *)pageTitle
-runJavaScriptAlertPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame;
+runJavaScriptAlertPanelWithMessage:(NSString *)message;
 
 - (void)webView:(WKWebView *)webView
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
@@ -208,8 +208,7 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(BOOL result))completionHandler;
 
 - (BOOL)pageTitle:(NSString *)pageTitle
-runJavaScriptConfirmPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame;
+runJavaScriptConfirmPanelWithMessage:(NSString *)message;
 
 - (void)webView:(WKWebView *)webView
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
@@ -219,8 +218,7 @@ completionHandler:(void (^)(NSString *result))completionHandler;
 
 - (NSString *)pageTitle:(NSString *)pageTitle
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
-          defaultText:(NSString *)defaultText
-     initiatedByFrame:(WebFrame *)frame;
+            defaultText:(NSString *)defaultText;
 
 - (void)webView:(nullable WKWebView *)webView
 runOpenPanelWithParameters:(id)parameters

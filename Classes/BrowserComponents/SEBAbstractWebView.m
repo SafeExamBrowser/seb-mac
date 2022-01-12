@@ -35,8 +35,9 @@
 #import "SEBAbstractWebView.h"
 #import "SEBAbstractClassicWebView.h"
 #import "SafeExamBrowser-Swift.h"
+#if TARGET_OS_OSX
 #import "NSPasteboard+SaveRestore.h"
-
+#endif
 
 @implementation SEBAbstractWebView
 
@@ -445,17 +446,21 @@
 }
 
 - (void) storePasteboard {
+#if TARGET_OS_OSX
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     NSArray *archive = [generalPasteboard archiveObjects];
     self.navigationDelegate.privatePasteboardItems = archive;
     [generalPasteboard clearContents];
+#endif
 }
 
 - (void) restorePasteboard {
+#if TARGET_OS_OSX
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     [generalPasteboard clearContents];
     NSArray *archive = self.navigationDelegate.privatePasteboardItems;
     [generalPasteboard restoreArchive:archive];
+#endif
 }
 
 
@@ -720,9 +725,8 @@ completionHandler:(void (^)(void))completionHandler
 
 - (void)pageTitle:(NSString *)pageTitle
 runJavaScriptAlertPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
 {
-    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -735,9 +739,8 @@ completionHandler:(void (^)(BOOL result))completionHandler
 
 - (BOOL)pageTitle:(NSString *)pageTitle
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
 {
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -752,9 +755,8 @@ completionHandler:(void (^)(NSString *result))completionHandler
 - (NSString *)pageTitle:(NSString *)pageTitle
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
           defaultText:(NSString *)defaultText
-     initiatedByFrame:(WebFrame *)frame
 {
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 - (void)webView:(WKWebView *)webView

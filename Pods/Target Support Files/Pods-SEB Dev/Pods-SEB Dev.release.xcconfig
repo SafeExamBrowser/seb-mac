@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-framework-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit-framework" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReaderViewController-framework" "${PODS_ROOT}/JitsiMeetSDK/Frameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK" "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReaderViewController" "${PODS_ROOT}/JitsiMeetSDK/Frameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK" "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-framework-iOS/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit-framework/InAppSettingsKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReaderViewController-framework/QRCodeReaderViewController.framework/Headers" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/InAppSettingsKit" "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReaderViewController/QRCodeReaderViewController.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 OTHER_LDFLAGS = $(inherited) -framework "AVFoundation" -framework "CocoaLumberjack" -framework "InAppSettingsKit" -framework "JitsiMeetSDK" -framework "MessageUI" -framework "QRCodeReaderViewController" -framework "UIKit" -framework "WebRTC"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS

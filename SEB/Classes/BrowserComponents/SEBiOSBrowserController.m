@@ -170,4 +170,12 @@
     [_sebViewController storeNewSEBSettingsSuccessful:error];
 }
 
+- (void)presentAlertWithTitle:(nonnull NSString *)title message:(nonnull NSString *)message {
+}
+
+
+- (void)presentDownloadError:(nonnull NSError *)error {
+}
+
+
 @end

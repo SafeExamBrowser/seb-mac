@@ -116,6 +116,17 @@
 
 #pragma mark - Controller interface
 
+- (NSUInteger) currentTabIndex
+{
+    return [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+}
+
+- (void) setCurrentTabIndex:(NSUInteger)currentTabIndex
+{
+    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = currentTabIndex;
+}
+
+
 - (NSURL *) currentURL
 {
     return _visibleWebViewController.currentURL;
@@ -134,7 +145,7 @@
 
 - (BOOL) isMainBrowserWebViewActive
 {
-    return self.navigationDelegate.isMainBrowserWebViewActive;
+    return self.currentTabIndex == 0;
 }
 
 - (void) toggleScrollLock
@@ -173,7 +184,7 @@
 
 - (void) goBack {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
+    if (self.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam
@@ -191,7 +202,7 @@
 
 - (void) goForward {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
+    if (self.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam
@@ -238,6 +249,11 @@
 }
 
 
+- (NSString *)pageJavaScript
+{
+    return _sebViewController.browserController.pageJavaScript;
+}
+
 - (void) setLoading:(BOOL)loading
 {
 //    if (self.searchBar.text.length > 0) {
@@ -261,7 +277,7 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL showToolbarNavigation = true;
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
+    if (self.isMainBrowserWebViewActive) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam
@@ -370,7 +386,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [_openWebpages addObject:newOpenWebpage];
     
     // Set the index of the current web page
-    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = _openWebpages.count-1;
+    self.currentTabIndex = _openWebpages.count-1;
     
     // Exchange the old against the new webview
     [_visibleWebViewController removeFromParentViewController];
@@ -381,6 +397,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     _visibleWebViewController = newViewController;
 
     NSString *browserTabTitle;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (index == 0) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
             browserTabTitle = url.absoluteString;
@@ -399,6 +416,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [_sebViewController activateReloadButtonsExamTab:index == 0];
 
     [_sebViewController updateScrollLockButtonStates];
+    
+    if (self.currentTabIndex == 0) {
+        // For the main WebView (exam page), we check if the exam should be locked
+        [_sebViewController conditionallyOpenStartExamLockdownWindows:url.absoluteString];
+    }
     
     [_visibleWebViewController loadURL:url];
     
@@ -463,14 +485,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];
         [_sebViewController setToolbarTitle:title];
         
-        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = tabIndex;
+        self.currentTabIndex = tabIndex;
     }
 }
 
 
 - (void) switchToNextTab
 {
-    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+    NSUInteger tabIndex = self.currentTabIndex;
     NSUInteger tabCount = _openWebpages.count;
     if (tabCount > 1) {
         if (tabIndex == tabCount - 1) {
@@ -487,7 +509,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void) switchToPreviousTab
 {
-    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+    NSUInteger tabIndex = self.currentTabIndex;
     NSUInteger tabCount = _openWebpages.count;
     if (tabCount > 1) {
         if (tabIndex == 0) {
@@ -551,7 +573,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     if (tabIndex < _persistentWebpages.count) {
         Webpages *webpageToClose = _persistentWebpages[tabIndex];
         
-        NSString *pageToCloseURL = webpageToClose.url;
+//        NSString *pageToCloseURL = webpageToClose.url;
         OpenWebpages *webpage = _openWebpages[tabIndex];
         SEBiOSWebViewController *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
@@ -579,7 +601,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             _visibleWebViewController = nil;
         } else {
             NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-            NSInteger currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+            NSInteger currentWebpageIndexPathRow = self.currentTabIndex;
             // Was a tab closed which was before the currently displayed in the webpage side panel list
             if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
                 // Yes: the index of the current webpage must be decreased by one
@@ -587,7 +609,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 // Or was the currently displayed webpage closed?
             } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
                 // Yes: the index of the current webpage must be decreased by one
-                [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+                self.currentTabIndex--;
                 [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
                 // and we switch to the webpage one position before the closed one in the webpage side panel list
                 [self switchToTab:nil];
@@ -628,8 +650,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
     
-    [_sebViewController conditionallyOpenStartExamLockdownWindows];
-    
     NSArray<Webpages*> *persistedOpenWebPages;
     
     NSManagedObjectContext *context = self.managedObjectContext;
@@ -668,6 +688,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             if (index != 0) {
                 _maxIndex++;
                 index = _maxIndex;
+            } else {
+                // For the main WebView (exam page), we check if the exam should be locked
+                [_sebViewController conditionallyOpenStartExamLockdownWindows:webpageURL.absoluteString];
             }
             newOpenWebpage.index = index;
             newOpenWebpage.loadDate = webpage.loadDate;
