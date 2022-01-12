@@ -48,7 +48,7 @@
 @class SEBSearchBarViewController;
 
 
-@interface SEBBrowserTabViewController : UIViewController <SEBAbstractWebViewNavigationDelegate, NSFetchedResultsControllerDelegate>
+@interface SEBBrowserTabViewController : UIViewController <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, NSFetchedResultsControllerDelegate>
 {
     IBOutlet UIBarButtonItem *MainWebView;
 }

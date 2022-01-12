@@ -49,7 +49,7 @@
 }
 
 
-- (SEBWebView *)sebWebView
+- (UIWebView *)sebWebView
 {
     if (!_sebWebView) {
         // Create a webview to fit underneath the navigation view (=fill the whole screen).
@@ -209,17 +209,17 @@
 
 - (void) zoomPageIn
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.25\""];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.25\""];
 }
 
 - (void) zoomPageOut
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.75\""];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.75\""];
 }
 
 - (void) zoomPageReset
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
+    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
 }
 
 #pragma mark -
@@ -332,13 +332,13 @@
             waitingForConfigDownload = NO;
             // If the scheme is seb(s):// or the file extension .seb,
             // we (conditionally) download and open the linked .seb file
-            [self.navigationDelegate decidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[];
+            [self.navigationDelegate decidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[]];
             return NO;
         }
     }
 
     SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested];
-    if (navigationActionPolicy = SEBNavigationActionPolicyAllow) {
+    if (navigationActionPolicy == SEBNavigationActionPolicyAllow) {
         return YES;
     } else {
         return NO;

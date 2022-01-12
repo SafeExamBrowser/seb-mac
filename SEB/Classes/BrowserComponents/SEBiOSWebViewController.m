@@ -42,12 +42,11 @@
 - (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
-    _navigationDelegate = delegate;
+    _navigationDelegate = (SEBBrowserTabViewController *)delegate;
     if (self) {
         SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = self.navigationDelegate.quitURL;
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         _javaScriptFunctions = self.navigationDelegate.pageJavaScript;
@@ -341,6 +340,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void)sebWebViewDidFinishLoad
 {
     NSString *webPageTitle;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (self.navigationDelegate.isMainBrowserWebViewActive) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
             webPageTitle = [_sebWebView url].absoluteString;
@@ -499,12 +499,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.navigationDelegate examineCookies:cookies];
+    [self.navigationDelegate examineCookies:cookies forURL:url];
 }
 
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
-    [self.navigationDelegate examineHeaders:headerFields];
+    [self.navigationDelegate examineHeaders:headerFields forURL:url];
 }
 
 
@@ -579,7 +579,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [self.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
+    [self.navigationDelegate downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];
 }
 
 

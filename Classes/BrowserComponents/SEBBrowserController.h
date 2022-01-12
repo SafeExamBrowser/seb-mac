@@ -37,6 +37,8 @@
 #import <Foundation/Foundation.h>
 #import "SEBAbstractWebView.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBURLFilter;
 
 /**
@@ -137,6 +139,9 @@
 @property (readwrite) BOOL startingUp;
 @property (readwrite) BOOL openingSettings;
 
+@optional
+- (void) openDownloadedFile:(NSString *)path;
+
 @end
 
 
@@ -179,9 +184,9 @@
 @property (strong) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 
-@property (strong, nonatomic) NSData *browserExamKey;
-@property (strong, nonatomic) NSData *browserExamKeySalt;
-@property (strong, nonatomic) NSData *configKey;
+@property (strong, nonatomic) NSData *_Nullable browserExamKey;
+@property (strong, nonatomic) NSData *_Nullable browserExamKeySalt;
+@property (strong, nonatomic) NSData *_Nullable configKey;
 
 @property (readwrite) BOOL isShowingOpeningConfigFileDialog;
 
@@ -194,14 +199,14 @@
 - (void) quitSession;
 - (void) resetBrowser;
 + (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-@property (strong, nonatomic) NSString* customSEBUserAgent;
+@property (strong, nonatomic) NSString*_Nullable customSEBUserAgent;
 @property (strong, nonatomic) NSString* quitURL;
 
 @property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
 
 @property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
-- (NSString *) startURLQueryParameter:(NSURL**)url;
+- (NSString *) startURLQueryParameter:(NSURL*_Nonnull*_Nonnull)url;
 - (NSString *) backToStartURLString;
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
@@ -218,6 +223,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (BOOL) downloadingInTemporaryWebView;
 - (void) openConfigFromSEBURL:(NSURL *)url;
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 - (void) openingConfigURLFailed;
 
 @property (weak) SEBAbstractWebView *temporaryWebView;
@@ -232,3 +238,5 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 @end
+
+NS_ASSUME_NONNULL_END
