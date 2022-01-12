@@ -37,13 +37,15 @@
 #ifdef __OBJC__
 
 #define LOG_LEVEL_DEF [MyGlobals ddLogLevel]
-#import <CocoaLumberjack/CocoaLumberjack.h>
+@import CocoaLumberjack;
 
 #import "Constants.h"
 #import "MyGlobals.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 #import <CoreData/CoreData.h>
+
+@class MyGlobals;
 
 static DDLogLevel ddLogLevel = DDLogLevelDebug;
 

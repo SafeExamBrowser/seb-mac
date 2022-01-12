@@ -34,11 +34,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "SEBWebViewController.h"
+#import "SEBiOSWebViewController.h"
 
 @interface OpenWebpages : NSObject
 
-@property (nonatomic, retain) SEBWebViewController<SEBAbstractBrowserControllerDelegate> *webViewController;
+@property (nonatomic, retain) SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *webViewController;
 @property (readwrite) NSUInteger index;
 @property (nonatomic, retain) NSNumber *loadDate;
 

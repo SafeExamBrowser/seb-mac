@@ -1112,7 +1112,9 @@ static NSString *urlStrippedFragment(NSURL* url)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
         // Open downloaded file
-        [[NSWorkspace sharedWorkspace] openFile:path];
+        if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
+            [self.delegate openDownloadedFile:path];
+        }
     } else {
         [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
                                      message:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), path]];

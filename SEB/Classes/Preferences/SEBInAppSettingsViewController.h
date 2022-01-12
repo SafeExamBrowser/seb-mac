@@ -35,9 +35,12 @@
 #import <UIKit/UIKit.h>
 
 #import "IASKAppSettingsViewController.h"
+#import "IASKSpecifier.h"
 #import "SEBViewController.h"
 #import "SEBKeychainManager.h"
 
+@class IASKAppSettingsViewController;
+@class IASKSpecifier;
 @class SEBViewController;
 
 @interface SEBInAppSettingsViewController : UIViewController <IASKSettingsDelegate, UITextViewDelegate> {

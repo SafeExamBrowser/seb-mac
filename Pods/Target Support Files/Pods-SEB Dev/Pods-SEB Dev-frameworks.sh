@@ -175,16 +175,16 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack-framework-iOS/CocoaLumberjack.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/InAppSettingsKit-framework/InAppSettingsKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController-framework/QRCodeReaderViewController.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack-iOS/CocoaLumberjack.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/InAppSettingsKit/InAppSettingsKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController/QRCodeReaderViewController.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC/WebRTC.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack-framework-iOS/CocoaLumberjack.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/InAppSettingsKit-framework/InAppSettingsKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController-framework/QRCodeReaderViewController.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack-iOS/CocoaLumberjack.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/InAppSettingsKit/InAppSettingsKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController/QRCodeReaderViewController.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC/WebRTC.framework"
 fi

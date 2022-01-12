@@ -245,7 +245,7 @@ public extension SEBServerController {
         moodleUserIdRequest.load(httpMethod: moodleUserIdResource.httpMethod, body:"", headers: requestHeaders, completion: { (moodleUserIdResponse, statusCode, responseHeaders) in
             if statusCode == 200 && moodleUserIdResponse != nil {
                 guard let moodleUserId = String(data: moodleUserIdResponse!, encoding: .utf8) else {
-                    DDLogDebug("No valid Moodle user ID found")
+//                    DDLogDebug("No valid Moodle user ID found")
                     return
                 }
                 if moodleUserId != "0" {

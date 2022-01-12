@@ -5504,6 +5504,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) quitLinkDetected:(NSNotification *)notification
 {
+    DDLogInfo(@"Quit Link detected");
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
         [self requestedConditionalQuit];

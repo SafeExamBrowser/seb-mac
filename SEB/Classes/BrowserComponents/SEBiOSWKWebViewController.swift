@@ -43,20 +43,20 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     private var _sebWebView: WKWebView?
 
     public var sebWebView: WKWebView? {
-        if sebWebView == nil {
+        if _sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
             let webFrame = UIScreen.main.bounds
-            sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
+            _sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
             let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
-            sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
-            sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            sebWebView?.scrollView.isScrollEnabled = true
-            sebWebView?.translatesAutoresizingMaskIntoConstraints = true
-            zoomScale = sebWebView?.scrollView.zoomScale
-            sebWebView?.uiDelegate = self
-            sebWebView?.navigationDelegate = self
+            _sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
+            _sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            _sebWebView?.scrollView.isScrollEnabled = true
+            _sebWebView?.translatesAutoresizingMaskIntoConstraints = true
+            zoomScale = _sebWebView?.scrollView.zoomScale
+            _sebWebView?.uiDelegate = self
+            _sebWebView?.navigationDelegate = self
             
-            sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
             urlFilter = SEBURLFilter.shared()
         }
         return _sebWebView
@@ -187,7 +187,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        DDLogError("[SEBiOSWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+//        DDLogError("[SEBiOSWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -201,7 +201,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        return navigationDelegate?.webView?(webView(webView, createWebViewWith: configuration, for: navigationAction, windowFeatures: windowFeatures))
+        return navigationDelegate?.webView?(webView, createWebViewWith: configuration, for: navigationAction, windowFeatures: windowFeatures)
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {

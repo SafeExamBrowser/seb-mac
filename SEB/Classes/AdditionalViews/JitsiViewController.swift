@@ -124,18 +124,17 @@ class JitsiViewController: UIViewController {
         let remoteProctoringViewShowPolicy = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_remoteProctoringViewShow")
 
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
-            builder.welcomePageEnabled = false
             builder.serverURL = self.serverURL
             builder.room = self.room
             builder.token = self.token
-            builder.subject = self.subject
-            builder.audioMuted = !receiveAudioOverride &&
+            builder.setSubject(self.subject ?? "")
+            builder.setAudioMuted(!receiveAudioOverride &&
+                                  remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
+                                  UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted"))
+            builder.setVideoMuted(!receiveVideoOverride &&
                 remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
-                UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioMuted")
-            builder.videoMuted = !receiveVideoOverride &&
-                remoteProctoringViewShowPolicy != remoteProctoringViewShowNever &&
-                UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted")
-            builder.audioOnly = !receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly")
+                UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetVideoMuted"))
+            builder.setAudioOnly(!receiveVideoOverride && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetAudioOnly"))
             builder.userInfo = userInfo
             
             builder.setFeatureFlag("add-people.enabled",
@@ -168,6 +167,8 @@ class JitsiViewController: UIViewController {
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagRecording"))
             builder.setFeatureFlag("tile-view.enabled",
                                    withBoolean: UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView"))
+            builder.setFeatureFlag("welcomepage.enabled",
+                                   withBoolean: false)
         }
         jitsiMeetView.join(options)
         

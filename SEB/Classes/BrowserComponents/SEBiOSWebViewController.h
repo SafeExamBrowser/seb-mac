@@ -1,5 +1,5 @@
 //
-//  SEBWebViewController.h
+//  SEBiOSWebViewController.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
 //  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
@@ -38,6 +38,8 @@
 #import "SEBBrowserTabViewController.h"
 #import "SEBURLFilter.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBAbstractWebView;
 @class SEBBrowserTabViewController;
 @class SEBURLFilter;
@@ -57,8 +59,8 @@
 }
 
 
-@property (weak, nonatomic) SEBBrowserTabViewController *navigationDelegate;
-@property (strong, nonatomic) SEBAbstractWebView *sebWebView;
+@property (weak, nonatomic) SEBBrowserTabViewController<SEBAbstractWebViewNavigationDelegate> *navigationDelegate;
+@property (strong, nonatomic) SEBAbstractWebView *_Nullable sebWebView;
 @property (strong, nonatomic) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (strong, nonatomic) UIView *filterMessageHolder;
@@ -85,5 +87,7 @@
 - (void)loadURL:(NSURL *)url;
 
 - (void)setBackForwardAvailabilty;
+
+NS_ASSUME_NONNULL_END
 
 @end
