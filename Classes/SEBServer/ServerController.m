@@ -64,30 +64,37 @@
 
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
+    DDLogInfo(@"ServerController: Reconfigure with server exam config");
     [self.delegate storeNewSEBSettings:configData];
 }
 
 
 - (void) startExamFromServer
 {
+    DDLogInfo(@"ServerController: Start exam from server");
     [_sebServerController loginToExam];
 }
 
 
 - (void) loginToExam:(NSString * _Nonnull)url
 {
+    DDLogInfo(@"ServerController: Login to exam");
+    DDLogDebug(@"ServerController: Login to exam with URL %@", url);
     [self.delegate loginToExam:url];
 }
 
 
 - (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion
 {
+    DDLogInfo(@"ServerController: Abort SEB Server login to exam");
     [_sebServerController loginToExamAbortedWithCompletion:completion];
 }
 
 
 - (void) didSelectExam:(NSString *)examId url:(NSString *)url
 {
+    DDLogInfo(@"ServerController: Did select exam");
+    DDLogDebug(@"ServerController: Did select exam with URL %@", url);
     [self.delegate didSelectExamWithExamId:examId url:url];
 }
 
@@ -132,7 +139,8 @@
 - (void) didReceiveMoodleUserId:(NSString *)moodleUserId
 {
     if (moodleUserId.length > 0  && ![sessionIdentifier isEqualToString:moodleUserId]) {
-        sessionIdentifier = moodleUserId;
+        DDLogInfo(@"ServerController: Did receive Moodle user ID");
+       sessionIdentifier = moodleUserId;
         [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
     }
 }
@@ -157,6 +165,7 @@
         // after a user logs in to a quiz
         NSRange testsessionRange = [query rangeOfString:@"testsession="];
         if (query && testsessionRange.location != NSNotFound) {
+            DDLogInfo(@"ServerController: Found Moodle testsession ID");
             NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
             if (testsessionID.length > 0 && ![sessionIdentifier isEqualToString:testsessionID]) {
                 sessionIdentifier = testsessionID;
@@ -168,6 +177,7 @@
 
 
 - (void) didEstablishSEBServerConnection {
+    DDLogInfo(@"[ServerController: Did establish SEB Server connection]");
     [self.delegate didEstablishSEBServerConnection];
 }
 
@@ -233,12 +243,14 @@
 
 - (void) quitSessionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
+    DDLogInfo(@"ServerController: Quit SEB Server session");
     [_sebServerController quitSessionWithRestart:restart completion:completion];
 }
 
 
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart
 {
+    DDLogInfo(@"ServerController: Did close SEB Server connection");
     [self.delegate didCloseSEBServerConnectionRestart:restart];
 }
 

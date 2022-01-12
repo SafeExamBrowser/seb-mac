@@ -243,7 +243,7 @@ import Foundation
     
     public func zoomPageIn() {
         let webView = nativeWebView() as! WKWebView
-        if #available(macOS 11.0, *) {
+        if #available(macOS 11.0, iOS 14.0, *) {
             webView.pageZoom += 0.1
         } else {
             pageZoom += 0.1
@@ -253,7 +253,7 @@ import Foundation
     
     public func zoomPageOut() {
         let webView = nativeWebView() as! WKWebView
-        if #available(macOS 11.0, *) {
+        if #available(macOS 11.0, iOS 14.0, *) {
             webView.pageZoom -= 0.1
         } else {
             pageZoom -= 0.1
@@ -263,7 +263,7 @@ import Foundation
     
     public func zoomPageReset() {
         let webView = nativeWebView() as! WKWebView
-        if #available(macOS 11.0, *) {
+        if #available(macOS 11.0, iOS 14.0, *) {
             webView.pageZoom = 1.0
         } else {
             pageZoom = WebViewDefaultPageZoom
@@ -431,7 +431,7 @@ import Foundation
         }
 
         let callDecisionHandler:() -> () = {
-            DDLogDebug("navigationActionPolicy: \(navigationActionPolicy)")
+//            DDLogDebug("navigationActionPolicy: \(navigationActionPolicy)")
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
                 decisionHandler(.allow)
             } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
@@ -446,7 +446,7 @@ import Foundation
             webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
                 self.downloadFilename = result as? String
                 if !(self.downloadFilename ?? "").isEmpty {
-                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+//                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
                     if ProcessInfo.processInfo.operatingSystemVersion.majorVersion < 11 {
                         if #available(macOS 10.13, *) {
                             let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
@@ -470,7 +470,7 @@ import Foundation
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
-        DDLogDebug("decidePolicyFor navigationResponse")
+//        DDLogDebug("decidePolicyFor navigationResponse")
         
         let decidePolicyWithCookies:([HTTPCookie]) -> () = { cookies in
             guard let url = navigationResponse.response.url else {
@@ -500,17 +500,17 @@ import Foundation
 
             if (!(self.downloadFilename ?? "").isEmpty || navigationResponsePolicy == SEBNavigationActionPolicyDownload) && !self.downloadingSEBConfig {
                 var filename = self.downloadFilename ?? ""
-                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
+//                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
                 if filename.isEmpty {
                     filename = suggestedFilename ?? ""
                 }
-                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
+//                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
                 decisionHandler(.cancel)
                 self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
                 self.downloadFilename = nil
                 return
             } else {
-                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
+//                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
             }
             
             if navigationResponsePolicy == SEBNavigationResponsePolicyAllow {

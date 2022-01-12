@@ -862,6 +862,13 @@
 }
 
 
+- (void) openDownloadedFile:(NSString *)path
+{
+    // Open downloaded file
+    [[NSWorkspace sharedWorkspace] openFile:path];
+}
+
+
 - (void) presentAlertWithTitle:(NSString *)title
                        message:(NSString *)message
 {

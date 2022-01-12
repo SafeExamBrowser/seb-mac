@@ -321,7 +321,7 @@
 - (void) stopAutonomousSingleAppMode;
 
 #pragma mark - Lockdown windows
-- (void) conditionallyOpenStartExamLockdownWindows;
+- (void) conditionallyOpenStartExamLockdownWindows:(NSString *)examURLString;
 - (BOOL) conditionallyOpenSleepModeLockdownWindows;
 - (void) openLockdownWindows;
 
