@@ -222,6 +222,22 @@
     [self.sebWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
 }
 
+- (void) setPrivateClipboardEnabled:(BOOL)privateClipboardEnabled
+{
+    return;
+}
+
+- (void)setAllowDictionaryLookup:(BOOL)allowDictionaryLookup
+{
+    return;
+}
+
+- (void)setAllowPDFPlugIn:(BOOL)allowPDFPlugIn
+{
+    return;
+}
+
+
 #pragma mark -
 #pragma mark UIWebViewDelegate
 
