@@ -72,7 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)tempDirectoryPath;
 
 - (void)backToStart;
-- (void)setBackForwardAvailabilty;
 
 @end
 

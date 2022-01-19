@@ -121,6 +121,43 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (BOOL)isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    NSString *keyAllowNavigation;
+    if (mainWebView) {
+        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
+    } else {
+        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowNavigation];
+}
+
+- (BOOL)isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    NSString *keyAllowReload;
+    if (mainWebView) {
+        keyAllowReload = @"org_safeexambrowser_SEB_browserWindowAllowReload";
+    } else {
+        keyAllowReload = @"org_safeexambrowser_SEB_newBrowserWindowAllowReload";
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowReload];
+}
+
+- (BOOL)showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    NSString *keyShowReloadWarning;
+    if (mainWebView) {
+        keyShowReloadWarning = @"org_safeexambrowser_SEB_showReloadWarning";
+    } else {
+        keyShowReloadWarning = @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning";
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyShowReloadWarning];
+}
+
+
 #pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
 
@@ -299,23 +336,23 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url
 {
-    NSString *urlOrPlaceholder = [self showURLplaceholderTitleForWebpage];
+    NSString *urlOrPlaceholder = [self urlPlaceholderTitleForWebpage];
     return urlOrPlaceholder ? urlOrPlaceholder : url;
 }
 
 
 // Delegate method which returns a placeholder text in case settings
 // don't allow to display its URL
-- (NSString *) showURLplaceholderTitleForWebpage
+- (NSString *) urlPlaceholderTitleForWebpage
 {
     NSString *placeholderString = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([self.delegate isMainBrowserWebViewActive]) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLNever) {
             placeholderString = NSLocalizedString(@"the exam page", nil);
         }
     } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLNever) {
             placeholderString = NSLocalizedString(@"the webpage", nil);
         }
     }
@@ -1173,7 +1210,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             _pendingChallengeCompletionHandler = completionHandler;
             //            _pendingChallenge = challenge;
             
-            NSString *text = [self showURLplaceholderTitleForWebpage];
+            NSString *text = [self urlPlaceholderTitleForWebpage];
             if (!text) {
                 text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
             } else {

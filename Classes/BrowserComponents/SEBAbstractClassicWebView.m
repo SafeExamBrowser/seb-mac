@@ -340,6 +340,11 @@
     self.navigationDelegate.currentMainHost = currentMainHost;
 }
 
+- (BOOL) isMainBrowserWebView
+{
+    return self.navigationDelegate.isMainBrowserWebView;
+}
+
 - (BOOL) isMainBrowserWebViewActive
 {
     return self.navigationDelegate.isMainBrowserWebViewActive;

@@ -4619,28 +4619,14 @@ quittingClientConfig:(BOOL)quittingClientConfig
         [self->_browserTabViewController reload];
         [self.sideMenuController hideLeftViewAnimated];
     };
-    
-    BOOL showReloadWarning = false;
-    
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.browserController.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"]) {
-            // Cancel if navigation is disabled in exam
-            [self.sideMenuController hideLeftViewAnimated];
-            return;
-        }
-        showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"];
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            [self.sideMenuController hideLeftViewAnimated];
-            return;
-        }
-        showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning"];
+        
+    BOOL isMainBrowserWebViewActive = self.browserController.isMainBrowserWebViewActive;
+    if (![self.browserController isReloadAllowedMainWebView:isMainBrowserWebViewActive]) {
+        // Cancel if reload is disabled in exam or additional browser tabs
+        [self.sideMenuController hideLeftViewAnimated];
+        return;
     }
-    
+    BOOL showReloadWarning = [self.browserController showReloadWarningMainWebView:isMainBrowserWebViewActive];
     if (showReloadWarning) {
         [self alertWithTitle:NSLocalizedString(@"Reload Page", nil)
                      message:NSLocalizedString(@"Do you really want to reload the web page?", nil)
@@ -4670,15 +4656,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 // active tab is the exam tab or a new (additional) tab
 - (void) activateReloadButtonsExamTab:(BOOL)examTab
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL showReload = false;
-    if (examTab) {
-        // Main browser tab with the exam
-        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
-    } else {
-        // Additional browser tab
-        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
-    }
+    BOOL showReload = [self.browserController isReloadAllowedMainWebView:examTab];
     [self activateReloadButtons:showReload];
 }
 
