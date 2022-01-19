@@ -50,7 +50,6 @@
         quitURLTrimmed = self.navigationDelegate.quitURL;
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         _javaScriptFunctions = self.navigationDelegate.pageJavaScript;
-        
     }
     return self;
 }
@@ -598,6 +597,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (BOOL) downloadingInTemporaryWebView
 {
     return self.navigationDelegate.downloadingInTemporaryWebView;
+}
+
+
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
 }
 
 
