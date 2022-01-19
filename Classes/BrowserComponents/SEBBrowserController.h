@@ -161,6 +161,10 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL pinEmbeddedCertificates;
 }
 
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
+
 @property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
 
 @property (strong, nonatomic) NSURL *sebServerExamStartURL;
@@ -168,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL finishedInitializing;
 @property (readwrite) BOOL directConfigDownloadAttempted;
 @property (readwrite) BOOL downloadingInTemporaryWebView;
-@property (strong, nonatomic) NSURL *openConfigSEBURL;
+@property (strong, nonatomic) NSURL *_Nullable openConfigSEBURL;
 @property (strong, nonatomic) NSURL *originalURL;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
@@ -178,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) NSURLCredential *enteredCredential;
 @property (strong) NSURLSession *URLSession;
-@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
+@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *_Nullable credential);
 @property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong) SEBURLFilter *urlFilter;

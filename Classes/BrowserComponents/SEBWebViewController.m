@@ -84,7 +84,7 @@
         // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
         [self setCustomWebPreferencesForWebView:_sebWebView];
         
-        if (self.navigationDelegate.isMainBrowserWebViewActive) {
+        if (self.navigationDelegate.isMainBrowserWebView) {
             [_sebWebView bind:@"maintainsBackForwardList"
                       toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
                    withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
