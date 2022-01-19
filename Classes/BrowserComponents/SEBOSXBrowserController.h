@@ -128,6 +128,8 @@ NS_ASSUME_NONNULL_BEGIN
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
 
+- (BOOL) isMainBrowserWindow:(SEBBrowserWindow *)browserWindow;
+
 NS_ASSUME_NONNULL_END
 
 @end

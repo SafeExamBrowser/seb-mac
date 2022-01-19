@@ -183,37 +183,17 @@
 }
 
 - (void) goBack {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // Cancel if navigation is disabled in exam
+    if (![_sebViewController.browserController isNavigationAllowedMainWebView:self.isMainBrowserWebViewActive]) {
+            // Cancel if navigation is disabled in current tab
             return;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            return;
-        }
     }
     [_visibleWebViewController goBack];
 }
 
 - (void) goForward {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // Cancel if navigation is disabled in exam
+    if (![_sebViewController.browserController isNavigationAllowedMainWebView:self.isMainBrowserWebViewActive]) {
+            // Cancel if navigation is disabled in current tab
             return;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            return;
-        }
     }
     [_visibleWebViewController goForward];
 }
@@ -275,26 +255,12 @@
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL showToolbarNavigation = true;
-    if (self.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // Cancel if navigation is disabled in exam
-            showToolbarNavigation = false;
-            canGoBack = false;
-            canGoForward = false;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            showToolbarNavigation = false;
-            canGoBack = false;
-            canGoForward = false;
-        }
+    if (![_sebViewController.browserController isNavigationAllowedMainWebView:self.isMainBrowserWebViewActive]) {
+        showToolbarNavigation = false;
+        canGoBack = false;
+        canGoForward = false;
     }
-
     [_sebViewController showToolbarNavigation:showToolbarNavigation];
     [_sebViewController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
@@ -376,9 +342,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // Create new OpenWebpage object with reference to the CoreData information
     OpenWebpages *newOpenWebpage = [OpenWebpages new];
     
-    id newViewController;
+    SEBiOSWebViewController *newViewController;
 
-    newViewController = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+    BOOL isMainWebView = _openWebpages.count == 0;
+    newViewController = [self createNewWebViewControllerMainWebView:isMainWebView withCommonHost:[self examTabHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
@@ -461,7 +428,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
-            webViewControllerToSwitch = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] overrideSpellCheck:NO];
+            webViewControllerToSwitch = [self createNewWebViewControllerMainWebView:(tabIndex == 0) withCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] overrideSpellCheck:NO];
         }
         
         // Exchange the old against the new webview
@@ -678,13 +645,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         for (Webpages *webpage in persistedOpenWebPages) {
             // Open URL in a new webview
             // Create a new WebView
+            NSUInteger index = [webpage.index unsignedIntegerValue];
             NSURL *webpageURL = [NSURL URLWithString:webpage.url];
-            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
+            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerMainWebView:(index == 0) withCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
             newOpenWebpage.webViewController = newWebViewController;
-            NSUInteger index = [webpage.index unsignedIntegerValue];
             if (index != 0) {
                 _maxIndex++;
                 index = _maxIndex;
@@ -788,8 +755,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate: self];
+- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
+    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate: self];
     return newSEBWebViewController;
 }
 
@@ -851,6 +818,22 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [_sebViewController examineHeaders:headerFields forURL:url];
+}
+
+
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController isNavigationAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController isReloadAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController showReloadWarningMainWebView:mainWebView];
 }
 
 

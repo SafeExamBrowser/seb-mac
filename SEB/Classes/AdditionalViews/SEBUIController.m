@@ -191,9 +191,9 @@
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
         
+        BOOL showNavigationButtons = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"];
         // Add Navigate Back Button to dock if enabled
-        if (_dockEnabled &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]) {
+        if (_dockEnabled && showNavigationButtons) {
             dockIcon = [UIImage imageNamed:@"SEBNavigateBackIcon"];
             
             dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
@@ -210,6 +210,7 @@
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
+            
         } else if (!_browserToolbarEnabled) {
             // otherwise add navigate back command to slider if the toolbar isn't enabled
             sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
@@ -221,8 +222,7 @@
         }
         
         // Add Navigate Forward Button to dock if enabled
-        if (_dockEnabled &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]) {
+        if (_dockEnabled && showNavigationButtons) {
             dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
             
             dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
@@ -251,35 +251,35 @@
     
     // Add Reload dock button if enabled and dock visible
     _dockReloadButton = nil;
-    if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
-         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
-        _dockEnabled &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
-        dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
-        dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
-                                                    style:UIBarButtonItemStylePlain
-                                                   target:self
-                                                   action:@selector(reload)];
-        dockItem.accessibilityLabel = NSLocalizedString(@"Reload", nil);
-        dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
-        //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
-        [newDockItems addObject:dockItem];
-        _dockReloadButton = dockItem;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
+         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) {
         
-        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        dockItem.width = 0;
-        [newDockItems addObject:dockItem];
-        
-    } else if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
-                [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
-               !_browserToolbarEnabled) {
-        // otherwise add reload page command to slider if the toolbar isn't enabled
-        sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
-                                                            icon:sliderIcon
-                                                          target:self
-                                                          action:@selector(reload)];
-        [sliderCommands addObject:sliderReloadButtonItem];
+        if (_dockEnabled &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+            dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(reload)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+            //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
+            [newDockItems addObject:dockItem];
+            _dockReloadButton = dockItem;
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+            
+        } else if (!_browserToolbarEnabled) {
+            // otherwise add reload page command to slider if the toolbar isn't enabled
+            sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
+            sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
+                                                                icon:sliderIcon
+                                                              target:self
+                                                              action:@selector(reload)];
+            [sliderCommands addObject:sliderReloadButtonItem];
+        }
     }
     
     // Add Proctoring slider command and dock button if enabled and dock visible

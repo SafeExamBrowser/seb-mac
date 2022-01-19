@@ -350,7 +350,7 @@ import Foundation
         navigationDelegate?.examine?(cookies, for: url)
     }
     
-    public var isNavigationAllowed: Bool {
+    public func isNavigationAllowed() -> Bool {
         return navigationDelegate?.isNavigationAllowed ?? false
     }
     

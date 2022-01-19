@@ -191,7 +191,7 @@
 // Open a new WebView and show its window
 - (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
 {
-    SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:title overrideSpellCheck:overrideSpellCheck];
+    SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:title overrideSpellCheck:overrideSpellCheck mainWebView:mainBrowserWindow];
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
     newBrowserWindow.browserControllerDelegate = newWindowWebView;
     
@@ -215,12 +215,12 @@
 }
 
 
-- (SEBBrowserWindow *) openBrowserWindowWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck
+- (SEBBrowserWindow *) openBrowserWindowWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainWebView:(BOOL)mainWebView
 {
     SEBBrowserWindow *browserWindow = [self openBrowserWindow];
     
     SEBOSXWebViewController *newViewController;
-    newViewController = [self createNewWebViewControllerWithCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck delegate:browserWindow];
+    newViewController = [self createNewWebViewControllerMainWebView:mainWebView withCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck delegate:browserWindow];
 
     SEBAbstractWebView *newWindowWebView = newViewController.sebAbstractWebView;
     newWindowWebView.creatingWebView = nil;
@@ -267,8 +267,8 @@
 
 
 // Create a NSViewController with a SEBAbstractWebView to hold new webpages
-- (SEBOSXWebViewController *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
-    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate:delegate];
+- (SEBOSXWebViewController *) createNewWebViewControllerMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
+    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabMainWebView:mainWebView withCommonHostWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate:delegate];
     return newSEBWebViewController;
 }
 
@@ -525,9 +525,7 @@
         }
     }
     // Update enabled property of reload button in Dock
-    [self.sebController reloadButtonEnabled:[[NSUserDefaults standardUserDefaults] secureBoolForKey:
-                                             (_activeBrowserWindow == _mainBrowserWindow ?
-                                             @"org_safeexambrowser_SEB_browserWindowAllowReload" : @"org_safeexambrowser_SEB_newBrowserWindowAllowReload")]];
+    [self.sebController reloadButtonEnabled:webView.isReloadAllowed];
 }
 
 
@@ -710,27 +708,17 @@
 }
 
 
+- (BOOL) isMainBrowserWindow:(SEBBrowserWindow *)browserWindow
+{
+    return (_mainBrowserWindow == nil || browserWindow == _mainBrowserWindow);
+}
+
 
 // Delegate method which returns URL or placeholder text (in case settings
 // don't allow to display its URL) for active browser window
 - (NSString *) placeholderTitleOrURLForActiveWebpage
 {
-    NSString *placeholderOrURLString = nil;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([self isMainBrowserWebViewActive]) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLNever) {
-            placeholderOrURLString = NSLocalizedString(@"the exam page", nil);
-        } else {
-            placeholderOrURLString = _activeBrowserWindow.webView.url.absoluteString;
-        }
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLNever) {
-            placeholderOrURLString = NSLocalizedString(@"the webpage", nil);
-        } else {
-            placeholderOrURLString = _activeBrowserWindow.webView.url.absoluteString;
-        }
-    }
-    return placeholderOrURLString;
+    return [super urlOrPlaceholderForURL:_activeBrowserWindow.webView.url.absoluteString];
 }
 
 
@@ -920,7 +908,7 @@
 - (void) reloadCommand
 {
     DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
-    [self.activeBrowserWindow.browserControllerDelegate reload];
+    [self.activeBrowserWindow reload];
 }
 
 
