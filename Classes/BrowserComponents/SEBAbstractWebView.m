@@ -41,11 +41,15 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = delegate;
     if (self) {
+        _isMainBrowserWebView = mainWebView;
+        _isReloadAllowed = [_navigationDelegate isReloadAllowedMainWebView:mainWebView];
+        _showReloadWarning = [_navigationDelegate showReloadWarningMainWebView:mainWebView];
+        _isNavigationAllowed = [_navigationDelegate isNavigationAllowedMainWebView:mainWebView];
         _overrideAllowSpellCheck = overrideSpellCheck;
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -132,10 +136,8 @@
 
 - (void)reload
 {
-    if ([self.navigationDelegate respondsToSelector:@selector(isReloadAllowed)]) {
-        if (self.navigationDelegate.isReloadAllowed == NO) {
-            return;
-        }
+    if (self.isReloadAllowed == NO) {
+        return;
     }
     [self.browserControllerDelegate reload];
 }
@@ -382,12 +384,7 @@
 
 - (BOOL)isMainBrowserWebViewActive
 {
-    return self.navigationDelegate.isMainBrowserWebViewActive;
-}
-
-- (BOOL)isNavigationAllowed
-{
-    return self.navigationDelegate.isNavigationAllowed;
+    return self.isMainBrowserWebView;
 }
 
 - (NSString *)quitURL
@@ -483,7 +480,7 @@
 //    [self.navigationDelegate examineCookies:cookies];
 
     [self.navigationDelegate sebWebViewDidStartLoad];
-    if (self.navigationDelegate.isNavigationAllowed == NO && [self.browserControllerDelegate respondsToSelector:@selector(clearBackForwardList)]) {
+    if (self.isNavigationAllowed == NO && [self.browserControllerDelegate respondsToSelector:@selector(clearBackForwardList)]) {
         [self.browserControllerDelegate clearBackForwardList];
     }
 }
@@ -531,7 +528,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         // (according to current ShowURL policy settings for exam/additional tab)
         BOOL showURL = false;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if (self.navigationDelegate.isMainBrowserWebViewActive) {
+        if (self.isMainBrowserWebView) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
                 showURL = true;
             }

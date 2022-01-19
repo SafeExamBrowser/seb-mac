@@ -371,11 +371,6 @@
 }
 
 
-- (void)setBackForwardAvailabilty
-{
-    [self.navigationDelegate setCanGoBack:self.sebWebView.canGoBack canGoForward:self.sebWebView.canGoForward];
-}
-
 - (BOOL)canGoBack {
     return self.sebWebView.canGoBack;
 }

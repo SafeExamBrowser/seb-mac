@@ -295,10 +295,8 @@
 
 - (void)reload
 {
-    if (self.isReloadAllowed) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:
-             (self.window == self.browserController.mainBrowserWindow ?
-              @"org_safeexambrowser_SEB_showReloadWarning" : @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning")]) {
+    if (self.webView.isReloadAllowed) {
+        if (self.webView.showReloadWarning) {
             // Display warning and ask if to reload page
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
@@ -986,7 +984,49 @@
 
 - (BOOL) isMainBrowserWebViewActive
 {
-    return self.browserController.isMainBrowserWebViewActive;
+    return self.webView.isMainBrowserWebView;
+}
+
+- (BOOL) isNavigationAllowed
+{
+    if (self.webView) {
+        return self.webView.isNavigationAllowed;
+    } else {
+        return [self isNavigationAllowedMainWebView:self.browserController.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    return [self.browserController isNavigationAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) isReloadAllowed
+{
+    if (self.webView) {
+        return self.webView.isReloadAllowed;
+    } else {
+        return [self isReloadAllowedMainWebView:self.browserController.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    return [self.browserController isReloadAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) showReloadWarning
+{
+    if (self.webView) {
+        return self.webView.showReloadWarning;
+    } else {
+        return [self showReloadWarningMainWebView:self.browserController.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    return [self.browserController showReloadWarningMainWebView:mainWebView];
 }
 
 - (NSString *)quitURL

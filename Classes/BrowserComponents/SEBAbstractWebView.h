@@ -123,8 +123,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString  *_Nullable currentMainHost;
 @property (readonly) BOOL isMainBrowserWebViewActive;
-@property (readonly) BOOL isNavigationAllowed;
-@property (readonly) BOOL isReloadAllowed;
+@property (readwrite) BOOL isMainBrowserWebView;
+@property (readwrite) BOOL isNavigationAllowed;
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
+@property (readwrite) BOOL isReloadAllowed;
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
+@property (readwrite) BOOL showReloadWarning;
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL directConfigDownloadAttempted;
@@ -268,7 +273,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 
+@property (readwrite) BOOL isMainBrowserWebView;
 @property (strong, nonatomic) NSURL *originalURL;
+@property (readwrite) BOOL isNavigationAllowed;
+@property (readwrite) BOOL isReloadAllowed;
+@property (readwrite) BOOL showReloadWarning;
 @property (readwrite, nonatomic) BOOL allowSpellCheck;
 @property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
 @property (weak, nonatomic) SEBAbstractWebView *creatingWebView;
@@ -276,7 +285,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (readwrite) BOOL dismissAll;
 
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
 
 @end
 

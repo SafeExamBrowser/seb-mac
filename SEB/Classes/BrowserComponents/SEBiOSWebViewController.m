@@ -39,12 +39,12 @@
 
 @implementation SEBiOSWebViewController
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = (SEBBrowserTabViewController *)delegate;
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
         _urlFilter = [SEBURLFilter sharedSEBURLFilter];
         quitURLTrimmed = self.navigationDelegate.quitURL;
@@ -191,6 +191,12 @@
 
 - (void)stopLoading {
     [_sebWebView stopLoading];
+}
+
+
+- (void)setBackForwardAvailabilty
+{
+    [self.navigationDelegate setCanGoBack:self.sebWebView.canGoBack canGoForward:self.sebWebView.canGoForward];
 }
 
 
@@ -341,7 +347,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     NSString *webPageTitle;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
+    if (self.sebWebView.isMainBrowserWebView) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
             webPageTitle = [_sebWebView url].absoluteString;
         } else {
@@ -592,6 +598,49 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler
 {
     [self.navigationDelegate transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+}
+
+
+- (BOOL) isNavigationAllowed
+{
+    if (_sebWebView) {
+        return _sebWebView.isNavigationAllowed;
+    } else {
+        return [self isNavigationAllowedMainWebView:self.navigationDelegate.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    return [self.navigationDelegate isNavigationAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) isReloadAllowed
+{
+    if (_sebWebView) {
+        return _sebWebView.isReloadAllowed;
+    } else {
+        return [self isReloadAllowedMainWebView:self.navigationDelegate.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    return [self.navigationDelegate isReloadAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) showReloadWarning
+{
+    if (_sebWebView) {
+        return _sebWebView.showReloadWarning;
+    } else {
+        return [self showReloadWarningMainWebView:self.navigationDelegate.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    return [self.navigationDelegate showReloadWarningMainWebView:mainWebView];
 }
 
 

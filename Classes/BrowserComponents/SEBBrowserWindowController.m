@@ -80,12 +80,9 @@ void DisposeWindow (
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-
     if (@available(macOS 11, *)) {
         self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
     }
-
     
     // Set the reference to the browser controller in the browser window instance
     self.browserWindow.browserController = _browserController;
@@ -93,23 +90,11 @@ void DisposeWindow (
     [self.browserWindow setCalculatedFrameOnScreen:[_browserController mainScreen]];
     self.browserController.activeBrowserWindow = self.browserWindow;
     _previousScreen = self.window.screen;
-    
-    NSString *keyAllowNavigation;
-    NSString *keyAllowReload;
-    if (self.browserController.isMainBrowserWebViewActive) {
-        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
-        keyAllowReload = @"org_safeexambrowser_SEB_browserWindowAllowReload";
-    } else {
-        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
-        keyAllowReload = @"org_safeexambrowser_SEB_newBrowserWindowAllowReload";
-    }
-    
-    BOOL allowNavigation = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowNavigation];
+        
+    BOOL allowNavigation = self.browserWindow.isNavigationAllowed;
     [self.backForwardButtons setHidden:!allowNavigation];
-    self.browserWindow.isNavigationAllowed = allowNavigation;
-    BOOL allowReload = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowReload];
+    BOOL allowReload = self.browserWindow.isReloadAllowed;
     [self.toolbarReloadButton setHidden:!allowReload];
-    self.browserWindow.isReloadAllowed = allowReload;
 
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
