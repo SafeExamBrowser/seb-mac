@@ -583,6 +583,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
+{
+    [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
+}
+
+
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     [self.navigationDelegate downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies];

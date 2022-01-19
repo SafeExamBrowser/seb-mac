@@ -3129,15 +3129,16 @@ quittingClientConfig:(BOOL)quittingClientConfig
             self.sebServerConnectionEstablished = NO;
             BOOL restart = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
             [self.serverController quitSessionWithRestart:(restart) completion:completionHandler];
+            return;
         }
     }
     if (self.startingExamFromSEBServer) {
         self.establishingSEBServerConnection = NO;
         self.startingExamFromSEBServer = NO;
         [self.serverController loginToExamAbortedWithCompletion:completionHandler];
+    } else {
+        completionHandler(NO);
     }
-    
-    
 }
 
 
