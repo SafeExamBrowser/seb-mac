@@ -4723,6 +4723,11 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Setup Main User Interface
 
+- (IBAction) reload:(id)sender
+{
+    [self reloadButtonPressed];
+}
+
 // Customized cut, copy, paste Menu commands
 
 - (IBAction) copy:(id)sender
@@ -4894,6 +4899,8 @@ conditionallyForWindow:(NSWindow *)window
         }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
+            ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
+             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
