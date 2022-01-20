@@ -130,6 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
 @property (readwrite) BOOL showReloadWarning;
 - (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
+@property (readonly) BOOL downloadPDFFiles;
 - (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
@@ -267,7 +268,6 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @private
     NSString *quitURLTrimmed;
     SEBURLFilter *urlFilter;
-    BOOL downloadPDFFiles;
 }
 
 
@@ -281,6 +281,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (readwrite) BOOL showReloadWarning;
 @property (readwrite, nonatomic) BOOL allowSpellCheck;
 @property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
+@property (readonly) BOOL downloadPDFFiles;
 @property (weak, nonatomic) SEBAbstractWebView *creatingWebView;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;

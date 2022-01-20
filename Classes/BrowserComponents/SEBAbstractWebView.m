@@ -56,7 +56,10 @@
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
-        downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
+#if TARGET_OS_OSX
+        // Downloading PDF files on iOS is currently unsupported, they will always be displayed
+        _downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
+#endif
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
         if (@available(macOS 10.13, iOS 11.0, *)) {
@@ -700,7 +703,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (![mimeType isEqualToString:mimeTypePDF] || !downloadPDFFiles) {
+    if (![mimeType isEqualToString:mimeTypePDF] || !_downloadPDFFiles) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
         if (canShowMIMEType) {
             return SEBNavigationActionPolicyAllow;
