@@ -500,15 +500,20 @@ import Foundation
 
             if (!(self.downloadFilename ?? "").isEmpty || navigationResponsePolicy == SEBNavigationActionPolicyDownload) && !self.downloadingSEBConfig {
                 var filename = self.downloadFilename ?? ""
-//                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
-                if filename.isEmpty {
-                    filename = suggestedFilename ?? ""
+                let isPDF = filename.hasSuffix(".pdf")
+                let downloadPDFFiles = self.navigationDelegate!.downloadPDFFiles
+                if !isPDF || isPDF && downloadPDFFiles == true {
+                    if filename.isEmpty {
+                        filename = suggestedFilename ?? ""
+                    }
+    //                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
+                    decisionHandler(.cancel)
+                    self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
+                    self.downloadFilename = nil
+                    return
+
                 }
-//                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
-                decisionHandler(.cancel)
-                self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
-                self.downloadFilename = nil
-                return
+//                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
             } else {
 //                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
             }
@@ -539,7 +544,8 @@ import Foundation
                     let innerComponents = components[1].components(separatedBy: "=")
                     if innerComponents.count > 1 {
                         if innerComponents[0].contains("filename") {
-                            return innerComponents[1]
+                            let filename = innerComponents[1]
+                            return filename.replacingOccurrences(of: "\"", with: "")
                         }
                     }
                 }

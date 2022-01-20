@@ -794,7 +794,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [_sebViewController.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:nil];
+    [_sebViewController.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:self];
+}
+
+
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
+{
+    [_sebViewController.browserController downloadFileFromURL:url filename:filename cookies:cookies sender:self];
 }
 
 
