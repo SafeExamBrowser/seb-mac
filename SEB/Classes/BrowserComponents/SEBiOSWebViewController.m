@@ -588,6 +588,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
+{
+    [self.navigationDelegate downloadFileFromURL:url filename:filename cookies:cookies];
+}
+
+
 - (BOOL) downloadingInTemporaryWebView
 {
     return self.navigationDelegate.downloadingInTemporaryWebView;
