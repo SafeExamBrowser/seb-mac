@@ -94,6 +94,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
         self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+
         [self resetAllCookiesWithCompletionHandler:^{
             DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores have been reset");
             self.finishedInitializing = YES;
@@ -118,6 +119,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
     self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    webPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways);
+    newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
 }
 
 
@@ -332,6 +335,25 @@ void run_block_on_ui_thread(dispatch_block_t block)
     return _wkWebViewConfiguration;
 }
 
+
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
+{
+    NSString *webPageTitle;
+    if (mainWebView) {
+        if (webPageShowURLAlways) {
+            webPageTitle = url.absoluteString;
+        } else {
+            webPageTitle = title;
+        }
+    } else {
+        if (newWebPageShowURLAlways) {
+                webPageTitle = url.absoluteString;
+            } else {
+                webPageTitle = title;
+            }
+    }
+    return webPageTitle;
+}
 
 
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url

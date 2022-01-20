@@ -159,6 +159,8 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL sendHashKeys;
     BOOL usingEmbeddedCertificates;
     BOOL pinEmbeddedCertificates;
+    BOOL webPageShowURLAlways;
+    BOOL newWebPageShowURLAlways;
 }
 
 - (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
@@ -209,6 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
 
 @property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
 - (NSString *) startURLQueryParameter:(NSURL*_Nonnull*_Nonnull)url;
 - (NSString *) backToStartURLString;

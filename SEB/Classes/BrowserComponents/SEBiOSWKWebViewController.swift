@@ -55,7 +55,8 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
             zoomScale = _sebWebView?.scrollView.zoomScale
             _sebWebView?.uiDelegate = self
             _sebWebView?.navigationDelegate = self
-            
+            _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)            
+
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
             urlFilter = SEBURLFilter.shared()
         }
@@ -72,6 +73,14 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public override func loadView() {
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "title" {
+            if let title = sebWebView?.title {
+                self.navigationDelegate?.sebWebViewDidUpdateTitle?(title)
+            }
+        }
     }
     
     public func viewWillTransitionToSize() {
