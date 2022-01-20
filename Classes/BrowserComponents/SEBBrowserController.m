@@ -90,12 +90,12 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogInfo(@"-[SEBBrowserController init]");
     self = [super init];
     if (self) {
+        [self initSessionSettings];
+        // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
+        self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         [self resetAllCookiesWithCompletionHandler:^{
             DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores have been reset");
-            [self initSessionSettings];
-            // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
-            self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
             self.finishedInitializing = YES;
             NSURL *sebURLWaitingToBeOpened = self.openConfigSEBURL;
             if (sebURLWaitingToBeOpened) {
