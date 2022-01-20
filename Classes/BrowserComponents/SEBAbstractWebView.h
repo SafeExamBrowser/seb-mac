@@ -130,6 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
 @property (readwrite) BOOL showReloadWarning;
 - (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL directConfigDownloadAttempted;
