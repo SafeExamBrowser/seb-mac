@@ -836,6 +836,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     return [_sebViewController.browserController showReloadWarningMainWebView:mainWebView];
 }
 
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController webPageTitle:title orURL:url mainWebView:mainWebView];
+}
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {

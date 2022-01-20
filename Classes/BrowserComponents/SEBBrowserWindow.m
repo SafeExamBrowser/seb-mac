@@ -1150,6 +1150,7 @@
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
 {
+    title = [self.browserController webPageTitle:title orURL:self.webView.url mainWebView:self.webView.isMainBrowserWebView];
     [self.browserController setTitle: title forWindow:self withWebView:self.webView];
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     NSString* appTitleString = [NSString stringWithFormat:@"%@ %@  —  %@",

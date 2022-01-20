@@ -345,21 +345,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void)sebWebViewDidFinishLoad
 {
-    NSString *webPageTitle;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.sebWebView.isMainBrowserWebView) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
-            webPageTitle = [_sebWebView url].absoluteString;
-        } else {
-            webPageTitle = [_sebWebView pageTitle];
-        }
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways) {
-                webPageTitle = [_sebWebView url].absoluteString;
-            } else {
-                webPageTitle = [_sebWebView pageTitle];
-            }
-    }
+    NSString *webPageTitle = [self.navigationDelegate webPageTitle:_sebWebView.pageTitle orURL:_sebWebView.url mainWebView:self.sebWebView.isMainBrowserWebView];
     [self.navigationDelegate setTitle:webPageTitle forWebViewController:self];
 
     // finished loading, hide the activity indicator in the status bar
@@ -407,13 +393,20 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
+- (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
+{
+    NSString *webPageTitle = [self.navigationDelegate webPageTitle:title orURL:_sebWebView.url mainWebView:self.sebWebView.isMainBrowserWebView];
+    [self.navigationDelegate setTitle:webPageTitle forWebViewController:self];
+}
+
+
 /// Request handling
 - (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    WKNavigationType navigationType = navigationAction.navigationType;
+//    WKNavigationType navigationType = navigationAction.navigationType;
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
