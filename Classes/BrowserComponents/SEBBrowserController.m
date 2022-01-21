@@ -189,23 +189,25 @@ void run_block_on_ui_thread(dispatch_block_t block)
 #ifdef DEBUG
     DDLogDebug(@"NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies: %@", cookies);
 #endif
-    if (@available(macOS 10.13, iOS 11.0, *)) {
-        dispatch_group_t waitGroup = dispatch_group_create();
-        WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
-        for (NSHTTPCookie *cookie in cookies) {
-            dispatch_group_enter(waitGroup);
-            [cookieStore setCookie:cookie completionHandler:^{
-                dispatch_group_leave(waitGroup);
-            }];
+    if (cookies.count > 0) {
+        if (@available(macOS 10.13, iOS 11.0, *)) {
+            dispatch_group_t waitGroup = dispatch_group_create();
+            WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
+            for (NSHTTPCookie *cookie in cookies) {
+                dispatch_group_enter(waitGroup);
+                [cookieStore setCookie:cookie completionHandler:^{
+                    dispatch_group_leave(waitGroup);
+                }];
+            }
+            dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
+                completionHandler();
+            });
+            return;
         }
-        dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
-            completionHandler();
-        });
-    } else {
-        run_block_on_ui_thread(^{
-            completionHandler();
-        });
     }
+    run_block_on_ui_thread(^{
+        completionHandler();
+    });
 };
 
 
@@ -955,10 +957,24 @@ static NSString *urlStrippedFragment(NSURL* url)
                                                     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error) {
         [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL sender:sender];
     }];
-    [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
-    NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
-    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
-    [downloadTask resume];
+    if (cookies.count > 0) {
+        [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
+        NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
+        DDLogVerbose(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+        [downloadTask resume];
+    } else {
+        if (@available(macOS 10.13, *)) {
+            WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
+            [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull cookies) {
+                [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
+                NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
+                DDLogVerbose(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+                [downloadTask resume];
+            }];
+        } else {
+            [downloadTask resume];
+        }
+    }
 }
 
 
