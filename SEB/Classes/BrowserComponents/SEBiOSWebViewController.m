@@ -139,7 +139,7 @@
 
 
 #pragma mark -
-#pragma mark Controller interface
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
 
 //- (id)nativeWebView {
 //    return _sebWebView.nativeWebView;
@@ -191,6 +191,10 @@
 
 - (void)stopLoading {
     [_sebWebView stopLoading];
+}
+
+- (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
+    _sebWebView.downloadingSEBConfig = downloadingSEBConfig;
 }
 
 
