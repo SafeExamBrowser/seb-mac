@@ -206,8 +206,12 @@
     [_visibleWebViewController stopLoading];
 }
 
+- (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
+    _visibleWebViewController.downloadingSEBConfig = downloadingSEBConfig;
+}
 
-/// SEBAbstractWebViewNavigationDelegate Methods
+
+#pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 - (WKWebViewConfiguration *)wkWebViewConfiguration
 {
