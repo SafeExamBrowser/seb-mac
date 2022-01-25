@@ -193,16 +193,21 @@ void run_block_on_ui_thread(dispatch_block_t block)
         if (@available(macOS 10.13, iOS 11.0, *)) {
             dispatch_group_t waitGroup = dispatch_group_create();
             WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
-            for (NSHTTPCookie *cookie in cookies) {
-                dispatch_group_enter(waitGroup);
-                [cookieStore setCookie:cookie completionHandler:^{
-                    dispatch_group_leave(waitGroup);
-                }];
-            }
-            dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
-                completionHandler();
-            });
-            return;
+            [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull wkWebViewCookies) {
+#ifdef DEBUG
+    DDLogDebug(@"wkWebViewConfiguration.websiteDataStore.httpCookieStore cookies: %@", wkWebViewCookies);
+#endif
+                for (NSHTTPCookie *cookie in cookies) {
+                    dispatch_group_enter(waitGroup);
+                    [cookieStore setCookie:cookie completionHandler:^{
+                        dispatch_group_leave(waitGroup);
+                    }];
+                }
+                dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
+                    completionHandler();
+                });
+                return;
+            }];
         }
     }
     run_block_on_ui_thread(^{
