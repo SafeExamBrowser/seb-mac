@@ -1171,7 +1171,11 @@
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    if (_browserController == nil) {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    } else {
+        [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    }
 }
 
 - (void)webView:(WKWebView *)webView
