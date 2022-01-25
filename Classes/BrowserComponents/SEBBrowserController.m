@@ -799,13 +799,19 @@ static NSString *urlStrippedFragment(NSURL* url)
             if (!found) {
                 [previousAuthentications addObject:newAuthentication];
             }
+            _pendingChallenge = nil;
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+            _pendingChallengeCompletionHandler = nil;
             return;
         } else if (returnCode == SEBEnterPasswordCancel) {
+            _pendingChallenge = nil;
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
             _pendingChallengeCompletionHandler = nil;
         } else {
             // Any other case as when the server aborted the authentication challenge
+            // We still might have to call the completion handler with the NSURLSessionAuthChallengeCancelAuthenticationChallenge answer
+            _pendingChallenge = nil;
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
             _pendingChallengeCompletionHandler = nil;
             _authenticatingProtocol = nil;
         }
@@ -1230,54 +1236,64 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         NSString *server = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
         DDLogDebug(@"Server which requires authentication: %@", server);
 #endif
-        _pendingChallenge = challenge;
-        
-        NSString *host = challenge.protectionSpace.host;
-        NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
-        if (!_pendingChallengeCompletionHandler && previousAuthentication && challenge.previousFailureCount == 0) {
-            NSURLCredential *newCredential;
-            newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
-                                                       password:[previousAuthentication objectForKey:authenticationPassword]
-                                                    persistence:NSURLCredentialPersistenceForSession];
-            completionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
-            return;
-        }
-        // Allow to enter password 3 times
-        if ([challenge previousFailureCount] < 3) {
-            // Display authentication dialog
-            _pendingChallengeCompletionHandler = completionHandler;
-            //            _pendingChallenge = challenge;
-            
-            NSString *text = [self urlPlaceholderTitleForWebpage];
-            if (!text) {
-                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
-            } else {
-                if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
-                    text = [NSString stringWithFormat:@"%@ (secure connection)", text];
-                } else {
-                    text = [NSString stringWithFormat:@"%@ (insecure connection!)", text];
-                }
-            }
-            if ([challenge previousFailureCount] == 0) {
-                text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", nil), text];
-                _lastUsername = @"";
-            } else {
-                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate showEnterUsernamePasswordDialog:text
-                                                         title:NSLocalizedString(@"Authentication Required", nil)
-                                                      username:self.lastUsername
-                                                 modalDelegate:self
-                                                didEndSelector:@selector(enteredUsername:password:returnCode:)];
-            });
-            
-        } else {
+        if (_pendingChallenge) {
+            // There already is a pending challenge: We cancel the current one expecting a new one will be created
+            // at a later point, when the pending one maybe already was processed
+            // ToDo: Maybe allow parallel challenges to be processes in future
+            DDLogWarn(@"Canceling new authentication challenge as there is already a pending challenge");
             completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-            // inform the user that the user name and password
-            // in the preferences are incorrect
-            [_delegate openingConfigURLRoleBack];
+        } else {
+            _pendingChallenge = challenge;
+            
+            NSString *host = challenge.protectionSpace.host;
+            NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
+            if (!_pendingChallengeCompletionHandler && previousAuthentication && challenge.previousFailureCount == 0) {
+                NSURLCredential *newCredential;
+                newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
+                                                           password:[previousAuthentication objectForKey:authenticationPassword]
+                                                        persistence:NSURLCredentialPersistenceForSession];
+                completionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+                _pendingChallenge = nil;
+                return;
+            }
+            // Allow to enter password 3 times
+            if ([challenge previousFailureCount] < 3) {
+                // Display authentication dialog
+                _pendingChallengeCompletionHandler = completionHandler;
+                
+                NSString *text = [self urlPlaceholderTitleForWebpage];
+                if (!text) {
+                    text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
+                } else {
+                    if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
+                        text = [NSString stringWithFormat:@"%@ (secure connection)", text];
+                    } else {
+                        text = [NSString stringWithFormat:@"%@ (insecure connection!)", text];
+                    }
+                }
+                if ([challenge previousFailureCount] == 0) {
+                    text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", nil), text];
+                    _lastUsername = @"";
+                } else {
+                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate showEnterUsernamePasswordDialog:text
+                                                             title:NSLocalizedString(@"Authentication Required", nil)
+                                                          username:self.lastUsername
+                                                     modalDelegate:self
+                                                    didEndSelector:@selector(enteredUsername:password:returnCode:)];
+                });
+                
+            } else {
+                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+                _pendingChallenge = nil;
+                // inform the user that the user name and password
+                // in the preferences are incorrect
+                [_delegate openingConfigURLRoleBack];
+            }
         }
+        
     } else {
         // Server trust authentication challenge
         if (!usingEmbeddedCertificates) {

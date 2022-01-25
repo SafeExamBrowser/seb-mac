@@ -426,6 +426,17 @@
     [self.navigationDelegate sebWebViewDidStartLoad];
 }
 
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    if (self.navigationDelegate == nil) {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    } else {
+        [self.navigationDelegate webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    }
+}
+
 - (void)sebWebViewDidFinishLoad
 {
     [self.navigationDelegate sebWebViewDidFinishLoad];
