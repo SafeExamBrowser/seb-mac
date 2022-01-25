@@ -404,7 +404,11 @@ import Foundation
     public func webView(_ webView: WKWebView?,
                         didReceive challenge: URLAuthenticationChallenge,
                         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        navigationDelegate?.webView?(webView, didReceive: challenge, completionHandler: completionHandler)
+        if navigationDelegate == nil {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+        } else {
+            navigationDelegate?.webView?(webView, didReceive: challenge, completionHandler: completionHandler)
+        }
     }
     
     public func webView(_ webView: WKWebView,
