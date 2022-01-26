@@ -22,17 +22,6 @@ pod 'JitsiMeetSDK', '~> 3.9.0'#, :git => 'https://github.com/jitsi/jitsi-meet-io
 
 end
 
-target 'SEB Dev' do
-
-platform :ios, '11'
-use_frameworks!
-pod 'CocoaLumberjack/Swift'
-pod 'InAppSettingsKit'#, '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
-pod 'QRCodeReaderViewController', '~> 4.0.2'
-pod 'JitsiMeetSDK', '~> 3.9.0'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
-
-end
-
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
