@@ -4858,7 +4858,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.safeexambrowser.Safe-Exam-Browser";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "SEB ETH macOS Assessment Profile";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
