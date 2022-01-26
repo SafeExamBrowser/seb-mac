@@ -1927,7 +1927,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
     DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
-    [self logSystemInfo];
+    [MyGlobals logSystemInfo];
 }
 
 - (void) initializeLogger
@@ -1963,29 +1963,8 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
-        [self logSystemInfo];
+        [MyGlobals logSystemInfo];
     }
-}
-
-- (void) logSystemInfo
-{
-    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-    NSString *userName = NSUserName();
-    NSString *fullUserName = NSFullUserName();
-    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogInfo(@"%@ version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
-    DDLogInfo(@"macOS version %@", processInfo.operatingSystemVersionString);
-    DDLogInfo(@"Local hostname: %@", localHostname);
-    DDLogInfo(@"Computer name: %@", computerName);
-    DDLogInfo(@"User name: %@", userName);
-    DDLogInfo(@"Full user name: %@", fullUserName);
 }
 
 

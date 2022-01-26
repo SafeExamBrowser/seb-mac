@@ -521,6 +521,9 @@ static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows N
 static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Mobile/15E148 Safari/604.1";
 static NSString __unused *SEBBrowserExamKeyHeaderKey = @"X-SafeExamBrowser-RequestHash";
 static NSString __unused *SEBConfigKeyHeaderKey = @"X-SafeExamBrowser-ConfigKeyHash";
+static NSString __unused *runningOSmacOS = @"macOS";
+static NSString __unused *runningOSiOS = @"iOS";
+static NSString __unused *runningOSiPadOS = @"iPadOS";
 
 static NSString __unused *mimeTypePDF = @"application/pdf";
 
