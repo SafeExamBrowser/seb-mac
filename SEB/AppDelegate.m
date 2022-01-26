@@ -363,22 +363,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
     DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
-//    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-//    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-    NSString *userName = NSUserName();
-    NSString *fullUserName = NSFullUserName();
-    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-    
-//    DDLogInfo(@"Local hostname: %@", localHostname);
-//    DDLogInfo(@"Computer name: %@", computerName);
-    DDLogInfo(@"User name: %@", userName);
-    DDLogInfo(@"Full user name: %@", fullUserName);
+    [MyGlobals logSystemInfo];
 }
 
 

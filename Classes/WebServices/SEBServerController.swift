@@ -57,6 +57,10 @@ import Foundation
     fileprivate var connectionToken: String?
     fileprivate var exams: [Exam]?
     fileprivate var selectedExamId = ""
+    fileprivate let clientUserId = MyGlobals.userName()
+    fileprivate let osName = MyGlobals.osName()
+    fileprivate let version = MyGlobals.versionString()
+    fileprivate let machineName = MyGlobals.computerName()
     fileprivate var selectedExamURL = ""
     fileprivate var pingNumber: Int64 = 0
     fileprivate var notificationNumber: Int64 = 0
@@ -258,7 +262,9 @@ public extension SEBServerController {
     
     @objc func startMonitoring(userSessionId: String) {
         var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId
+        let environmentInfo = keys.clientId + "=" + (clientUserId ?? "") + "&" + keys.sebOSName + "=" + osName
+        let clientInfo = keys.sebVersion + "=" + version + "&" + keys.sebMachineName + "=" + machineName
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + environmentInfo + "&" + clientInfo + "&" + keys.sebUserSessionId + "=" + userSessionId
 
         let handshakeCloseRequest = DataRequest(resource: handshakeCloseResource)
         pendingRequests?.append(handshakeCloseRequest)

@@ -2047,6 +2047,20 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
             } else {
                 self.previousSessionJitsiMeetEnabled = NO;
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
+                    run_on_ui_thread(^{
+                        [self alertWithTitle:NSLocalizedString(@"Zoom Remote Proctoring Not Available", nil)
+                                     message:NSLocalizedString(@"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil)
+                                action1Title:NSLocalizedString(@"OK", nil)
+                              action1Handler:^ {
+                            self->_alertController = nil;
+                            [self sessionQuitRestart:NO];
+                        }
+                                action2Title:nil
+                              action2Handler:^{}];
+                    });
+                    return;
+                }
             }
         }
         run_on_ui_thread(completionBlock);
