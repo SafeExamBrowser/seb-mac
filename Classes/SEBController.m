@@ -3158,7 +3158,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             DDLogError(@"Show error message and ask user to close it or quit SEB.");
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
