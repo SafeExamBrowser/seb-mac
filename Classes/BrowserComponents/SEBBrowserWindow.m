@@ -1315,7 +1315,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSString *result))completionHandler
 {
-    //    [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText completionHandler:completionHandler];
+    [self.browserController webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
 }
 
 
@@ -1323,7 +1323,7 @@ completionHandler:(void (^)(NSString *result))completionHandler
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
             defaultText:(NSString *)defaultText
 {
-    return @"";
+    return [self.browserController pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 

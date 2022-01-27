@@ -284,6 +284,50 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler
+{
+    if (self.uiAlertController) {
+        [self.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+    }
+
+    self.uiAlertController = [UIAlertController  alertControllerWithTitle:webView.title
+                                                                              message:prompt
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = ((UIAlertController *)self.uiAlertController).textFields[0];
+        completionHandler(textField.text);
+        self.uiAlertController = nil;
+                                                        }]];
+    
+    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        completionHandler(@"");
+        self.uiAlertController = nil;
+                                                        }]];
+
+    [self.uiAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.text = defaultText;
+        textField.keyboardType = UIKeyboardTypeDefault;
+    }];
+
+    [self presentViewController:self.uiAlertController animated:NO completion:nil];
+}
+
+
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+            defaultText:(NSString *)defaultText
+{
+    // On iOS, this will never be called (as UIWebView doesn't implement this delegate)
+    return @"";
+}
+
+
 #pragma mark - Opening and closing tabs
 
 // Open new tab and load URL

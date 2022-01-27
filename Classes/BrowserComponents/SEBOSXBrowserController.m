@@ -980,4 +980,60 @@
 }
 
 
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler
+{
+    NSAlert *modalAlert = [_sebController newAlert];
+    [modalAlert setMessageText:webView.title];
+    [modalAlert setInformativeText:prompt];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
+    NSTextField *textInput = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    [textInput setStringValue:defaultText];
+    [modalAlert setAccessoryView:textInput];
+    void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+        NSString *resultString;
+        [self.sebController removeAlertWindow:modalAlert.window];
+        if (answer == NSAlertFirstButtonReturn) {
+            [textInput validateEditing];
+            resultString = textInput.stringValue;
+        } else {
+            resultString = @"";
+        }
+        completionHandler(resultString);
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))reconfiguringNotAllowedOK];
+}
+
+
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+            defaultText:(NSString *)defaultText
+{
+    NSAlert *modalAlert = [_sebController newAlert];
+    [modalAlert setMessageText:pageTitle];
+    [modalAlert setInformativeText:prompt];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
+    NSTextField *textInput = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    [textInput setStringValue:defaultText];
+    [modalAlert setAccessoryView:textInput];
+    NSModalResponse answer = [modalAlert runModal];
+    NSString *resultString;
+    [self.sebController removeAlertWindow:modalAlert.window];
+    if (answer == NSAlertFirstButtonReturn) {
+        [textInput validateEditing];
+        resultString = textInput.stringValue;
+    } else {
+        resultString = @"";
+    }
+    return resultString;
+}
+
+
 @end
