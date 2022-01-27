@@ -55,6 +55,10 @@
                                                           discoveryEndpoint:discoveryAPIEndpoint
                                                                pingInterval:pingInterval
                                                                    delegate:self];
+        _sebServerController.clientUserId = MyGlobals.userName;
+        _sebServerController.osName = MyGlobals.osName;
+        _sebServerController.sebVersion = MyGlobals.versionString;
+        _sebServerController.machineName = MyGlobals.computerName;
         [_sebServerController getServerAPI];
         return YES;
     }
