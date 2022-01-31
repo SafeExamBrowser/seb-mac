@@ -707,7 +707,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (![mimeType isEqualToString:mimeTypePDF] || !_downloadPDFFiles) {
+    if (!([mimeType isEqualToString:mimeTypePDF] && _downloadPDFFiles)) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
         if (canShowMIMEType) {
             return SEBNavigationActionPolicyAllow;
