@@ -206,8 +206,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
                 dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
                     completionHandler();
                 });
-                return;
             }];
+            return;
         }
     }
     run_block_on_ui_thread(^{
