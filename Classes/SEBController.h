@@ -333,7 +333,6 @@ conditionallyForWindow:(NSWindow *)window
 - (void) hideEnterUsernamePasswordDialog;
 
 - (IBAction) requestedQuit:(id)sender;
-- (void) requestedConditionalQuit;
 
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout:(id)sender;
