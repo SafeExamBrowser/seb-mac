@@ -5445,23 +5445,33 @@ conditionallyForWindow:(NSWindow *)window
             }
         } else {
             // If no quit password is required, then confirm quitting, with default option "Quit"
-            [self requestedConditionalQuit];
+            [self sessionQuitRestartIgnoringQuitPW:NO];
         }
     }
 }
 
 
-// Confirm quitting, with default option "Quit"
-- (void)requestedConditionalQuit
+- (void) quitLinkDetected:(NSNotification *)notification
 {
+    DDLogInfo(@"Quit Link invoked");
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+        [self sessionQuitRestartIgnoringQuitPW:restart];
+    } else {
+        [self sessionQuitRestart:restart];
+    }
+}
 
+
+// Confirm quitting, with default option "Quit"
+- (void)sessionQuitRestartIgnoringQuitPW:(BOOL)restart
+{
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
     [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
-    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?",nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?", nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
     [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSWarningAlertStyle];
@@ -5474,12 +5484,13 @@ conditionallyForWindow:(NSWindow *)window
                     DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
-                    DDLogInfo(@"Confirmed to quit %@", !self.quittingSession ? SEBShortAppName : @"exam session");
+                    DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
                     [self sessionQuitRestart:restart];
                 }
                 return;
             default:
             {
+                DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
                 return; //Cancel: don't quit
             }
         }
@@ -5488,26 +5499,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) quitLinkDetected:(NSNotification *)notification
-{
-    DDLogInfo(@"Quit Link detected");
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-        [self requestedConditionalQuit];
-    } else {
-        [self sessionQuitOrRestart];
-    }
-}
-
-
 // Quit or restart session without asking for confirmation
-
-- (void) sessionQuitOrRestart
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
-    [self sessionQuitRestart:restart];
-}
 
 - (void) sessionQuitRestart:(BOOL)restart
 {
@@ -5518,8 +5510,27 @@ conditionallyForWindow:(NSWindow *)window
     }];
 }
 
+
+- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
+{
+    if (self.startingExamFromSEBServer) {
+        self.establishingSEBServerConnection = NO;
+        self.startingExamFromSEBServer = NO;
+        [self.serverController loginToExamAbortedWithCompletion:completion];
+    } else if (self.sebServerConnectionEstablished) {
+        self.sebServerConnectionEstablished = NO;
+        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
+            completion(restart);
+        }];
+    } else {
+        completion(restart);
+    }
+}
+
+
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart
 {
+    _establishingSEBServerConnection = NO;
     if (restart) {
         [self requestedRestart:nil];
     } else {
@@ -5551,23 +5562,6 @@ conditionallyForWindow:(NSWindow *)window
         }];
     } else {
         [NSApp terminate: nil]; //quit (exit) SEB
-    }
-}
-
-
-- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
-{
-    if (self.startingExamFromSEBServer) {
-        self.establishingSEBServerConnection = NO;
-        self.startingExamFromSEBServer = NO;
-        [self.serverController loginToExamAbortedWithCompletion:completion];
-    } else if (self.sebServerConnectionEstablished) {
-        self.sebServerConnectionEstablished = NO;
-        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
-            completion(restart);
-        }];
-    } else {
-        completion(restart);
     }
 }
 
