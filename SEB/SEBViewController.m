@@ -1520,14 +1520,14 @@ static NSMutableSet *browserWindowControllers;
     
     // Settings
     if (_startingExamFromSEBServer) {
-        _startingExamFromSEBServer = false;
+        _startingExamFromSEBServer = NO;
         //        [self.serverController loginToExamAborted];
     }
     
     // Restart exam: Close all tabs, reset browser and reset kiosk mode
     // before re-initializing SEB with new settings
     _settingsDidClose = YES;
-    [self restartExam:NO quittingClientConfig:NO pasteboardString:pasteboardString.copy];
+    [self restartExamQuitting:NO quittingClientConfig:NO pasteboardString:pasteboardString.copy];
 }
 
 
@@ -2667,7 +2667,7 @@ void run_on_ui_thread(dispatch_block_t block)
         self.isReconfiguringToMDMConfig = NO;
         self.didReceiveMDMConfig = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self restartExam:false];
+            [self restartExamQuitting:NO];
         });
         
     } else {
@@ -2681,7 +2681,7 @@ void run_on_ui_thread(dispatch_block_t block)
             self.isReconfiguringToMDMConfig = NO;
             self.didReceiveMDMConfig = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self restartExam:NO];
+                [self restartExamQuitting:NO];
             });
             
         } else if (self.scannedQRCode) {
@@ -2808,15 +2808,15 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) startExam
 {
     DDLogInfo(@"%s", __FUNCTION__);
-    if (_establishingSEBServerConnection == true) {
-        _startingExamFromSEBServer = true;
+    if (_establishingSEBServerConnection == YES) {
+        _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
-            _establishingSEBServerConnection = true;
+            _establishingSEBServerConnection = YES;
             [self showSEBServerView];
             if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
                 // All necessary information for connecting to SEB Server was available in settings:
@@ -2848,7 +2848,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Start URL was set to the default value, show init assistant
             [self openInitAssistant];
         } else {
-            _sessionRunning = true;
+            _sessionRunning = YES;
             
             // Load all open web pages from the persistent store and re-create webview(s) for them
             // or if no persisted web pages are available, load the start URL
@@ -2890,6 +2890,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)quitLinkDetected:(NSNotification *)notification
 {
+    DDLogInfo(@"Quit Link invoked");
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
@@ -2900,15 +2901,87 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+// Quit or restart session, but ask user for confirmation first
+- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
+    _alertController = [UIAlertController  alertControllerWithTitle:restart ? NSLocalizedString(@"Restart Session", nil) : NSLocalizedString(@"Quit Session", nil)
+                                                            message:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil)
+                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self->_alertController = nil;
+        DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
+        [self sessionQuitRestart:restart];
+    }]];
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        self->_alertController = nil;
+        DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
+        [self.sideMenuController hideLeftViewAnimated];
+    }]];
+    
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
 // Quit or restart session without asking for confirmation
 - (void) sessionQuitRestart:(BOOL)restart
 {
-    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+//    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     _openingSettings = NO;
     _resettingSettings = NO;
     
-    // Are exam settings active and we aren't restarting the exam?
-    if (!quittingClientConfig && !restart) {
+    [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+        [self didCloseSEBServerConnectionRestart:restart];
+    }];
+}
+
+
+- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
+{
+    if (self.startingExamFromSEBServer) {
+        self.establishingSEBServerConnection = NO;
+        self.startingExamFromSEBServer = NO;
+        [self.serverController loginToExamAbortedWithCompletion:completion];
+    } else if (self.sebServerConnectionEstablished) {
+        self.sebServerConnectionEstablished = NO;
+        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
+            completion(restart);
+        }];
+    } else {
+        completion(restart);
+    }
+}
+
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    _establishingSEBServerConnection = NO;
+    if (restart) {
+        [self restartExamQuitting:YES];
+    } else {
+        [self quitSEBOrSession];
+    }
+}
+
+
+- (BOOL) quittingSession
+{
+    BOOL examSession = NSUserDefaults.userDefaultsPrivate;
+    return examSession;
+}
+
+
+- (void) quitSEBOrSession
+{
+    DDLogDebug(@"[SEBViewController quitSEBOrSession]");
+    BOOL quittingExamSession = self.quittingSession;
+    if (quittingExamSession) {
         // Switch to system's (persisted) UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
         // Reset settings password and config key hash for settings,
@@ -2916,34 +2989,9 @@ void run_on_ui_thread(dispatch_block_t block)
         [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_settingsPassword"];
         _configFileKeyHash = nil;
     }
-    [self restartExam:true
- quittingClientConfig:quittingClientConfig
-     pasteboardString:nil];
-}
-
-
-// Quit or restart session, but ask user for confirmation first
-- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart
-{
-    if (_alertController) {
-        [_alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    _alertController = [UIAlertController  alertControllerWithTitle:restart ? NSLocalizedString(@"Restart Session", nil) : NSLocalizedString(@"Quit Session", nil)
-                                                            message:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil)
-                                                     preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self->_alertController = nil;
-        [self sessionQuitRestart:restart];
-    }]];
-    
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        self->_alertController = nil;
-        [self.sideMenuController hideLeftViewAnimated];
-    }]];
-    
-    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+    [self restartExamQuitting:YES
+         quittingClientConfig:quittingExamSession
+             pasteboardString:nil];
 }
 
 
@@ -3008,15 +3056,15 @@ void run_on_ui_thread(dispatch_block_t block)
 
 // Close all tabs, reset browser and reset kiosk mode
 // before re-initializing SEB with new settings and restarting exam
-- (void) restartExam:(BOOL)quitting
+- (void) restartExamQuitting:(BOOL)quitting
 {
     BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
-    [self restartExam:quitting
- quittingClientConfig:quittingClientConfig
-     pasteboardString:nil];
+    [self restartExamQuitting:quitting
+         quittingClientConfig:quittingClientConfig
+             pasteboardString:nil];
 }
 
-- (void) restartExam:(BOOL)quitting
+- (void) restartExamQuitting:(BOOL)quitting
 quittingClientConfig:(BOOL)quittingClientConfig
     pasteboardString:(NSString *)pasteboardString
 {
@@ -3024,135 +3072,117 @@ quittingClientConfig:(BOOL)quittingClientConfig
     // Close the left slider view first if it was open
     if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
-            [self restartExam:quitting
-         quittingClientConfig:quittingClientConfig
-             pasteboardString:pasteboardString];
+            [self restartExamQuitting:quitting
+                 quittingClientConfig:quittingClientConfig
+                     pasteboardString:pasteboardString];
         }];
         return;
     }
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     
-    void (^completionHandler)(BOOL restart) = ^void(BOOL restart) {
-        run_on_ui_thread(^{
+    run_on_ui_thread(^{
+        
+        [self initializeLogger];
+        
+        // Close browser tabs and reset browser session
+        [self resetSEB];
+        
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        
+        // We only might need to switch off kiosk mode if it was active in previous settings
+        if (self.secureMode) {
             
-            [self initializeLogger];
+            // Remove this exam from the list of running exams,
+            // otherwise it would be locked next time it is started again
+            [self.sebLockedViewController removeLockedExam:self->currentStartURL];
             
-            // Close browser tabs and reset browser session
-            [self resetSEB];
+            // Clear Pasteboard if we don't have to copy the hash keys into it
+            if (pasteboardString) {
+                pasteboard.string = pasteboardString;
+            } else {
+                pasteboard.items = @[];
+            }
             
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            // Get new setting for running SEB in secure mode
+            BOOL oldSecureMode = self.secureMode;
             
-            // We only might need to switch off kiosk mode if it was active in previous settings
-            if (self.secureMode) {
+            // Get new setting for ASAM/AAC enabled
+            BOOL oldEnableASAM = self.enableASAM;
+            
+            if (quittingClientConfig) {
+                self.previousSessionJitsiMeetEnabled = NO;
+            }
+            // Update kiosk flags according to current settings
+            [self updateKioskSettingFlags];
+            
+            // If there are one or more difference(s) in active kiosk mode
+            // compared to the new kiosk mode settings, also considering:
+            // when we're running in SAM mode, it's not relevant if settings for ASAM differ
+            // when we're running in ASAM mode, it's not relevant if settings for SAM differ
+            // we deactivate the current kiosk mode
+            if ((quittingClientConfig && oldSecureMode) ||
+                oldSecureMode != self.secureMode ||
+                (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
+                (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM))) {
                 
-                // Remove this exam from the list of running exams,
-                // otherwise it would be locked next time it is started again
-                [self.sebLockedViewController removeLockedExam:self->currentStartURL];
-                
-                // Clear Pasteboard if we don't have to copy the hash keys into it
-                if (pasteboardString) {
-                    pasteboard.string = pasteboardString;
-                } else {
-                    pasteboard.items = @[];
-                }
-                
-                // Get new setting for running SEB in secure mode
-                BOOL oldSecureMode = self.secureMode;
-                
-                // Get new setting for ASAM/AAC enabled
-                BOOL oldEnableASAM = self.enableASAM;
-                
-                if (quittingClientConfig) {
-                    self.previousSessionJitsiMeetEnabled = NO;
-                }
-                // Update kiosk flags according to current settings
-                [self updateKioskSettingFlags];
-                
-                // If there are one or more difference(s) in active kiosk mode
-                // compared to the new kiosk mode settings, also considering:
-                // when we're running in SAM mode, it's not relevant if settings for ASAM differ
-                // when we're running in ASAM mode, it's not relevant if settings for SAM differ
-                // we deactivate the current kiosk mode
-                if ((quittingClientConfig && oldSecureMode) ||
-                    oldSecureMode != self.secureMode ||
-                    (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
-                    (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM))) {
-                    
-                    // If SAM is active, we display the alert for waiting for it to be switched off
-                    if (self.singleAppModeActivated) {
-                        if (self.sebLockedViewController) {
-                            self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-                        }
-                        if (self.alertController) {
-                            [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                        }
-                        
-                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
-                                                                                    message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
-                                                                             preferredStyle:UIAlertControllerStyleAlert];
-                        self.endSAMWAlertDisplayed = true;
-                        [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
-                        return;
+                // If SAM is active, we display the alert for waiting for it to be switched off
+                if (self.singleAppModeActivated) {
+                    if (self.sebLockedViewController) {
+                        self.sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+                    }
+                    if (self.alertController) {
+                        [self.alertController dismissViewControllerAnimated:NO completion:nil];
                     }
                     
-                    // If ASAM is active, we stop it now and display the alert for restarting session
-                    if (oldEnableASAM) {
-                        if (self.ASAMActive) {
-                            DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                            UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
-                                if (didSucceed) {
-                                    DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                                    self.ASAMActive = false;
-                                }
-                                else {
-                                    DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
-                                }
-                                [self restartExamASAM:quitting && self.secureMode];
-                            });
-                        } else {
+                    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
+                                                                                message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                    self.endSAMWAlertDisplayed = true;
+                    [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                    return;
+                }
+                
+                // If ASAM is active, we stop it now and display the alert for restarting session
+                if (oldEnableASAM) {
+                    if (self.ASAMActive) {
+                        DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
+                        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                            if (didSucceed) {
+                                DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
+                                self.ASAMActive = false;
+                            }
+                            else {
+                                DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
+                            }
                             [self restartExamASAM:quitting && self.secureMode];
-                        }
+                        });
                     } else {
-                        // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
-                        [self initSEBUIWithCompletionBlock:^{
-                            [self conditionallyStartKioskMode];
-                        }];
+                        [self restartExamASAM:quitting && self.secureMode];
                     }
                 } else {
-                    // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
+                    // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
                     [self initSEBUIWithCompletionBlock:^{
-                        [self startExam];
+                        [self conditionallyStartKioskMode];
                     }];
                 }
-                
             } else {
-                // When no kiosk mode was active, then we can just restart SEB
-                // and switch kiosk mode on conditionally according to new settings
-                if (pasteboardString) {
-                    pasteboard.string = pasteboardString;
-                }
+                // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
                 [self initSEBUIWithCompletionBlock:^{
-                    [self conditionallyStartKioskMode];
+                    [self startExam];
                 }];
             }
-        });
-    };
-    
-    if (quitting) {
-        if (self.sebServerConnectionEstablished) {
-            self.sebServerConnectionEstablished = NO;
-            BOOL restart = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
-            [self.serverController quitSessionWithRestart:(restart) completion:completionHandler];
-            return;
+            
+        } else {
+            // When no kiosk mode was active, then we can just restart SEB
+            // and switch kiosk mode on conditionally according to new settings
+            if (pasteboardString) {
+                pasteboard.string = pasteboardString;
+            }
+            [self initSEBUIWithCompletionBlock:^{
+                [self conditionallyStartKioskMode];
+            }];
         }
-    }
-    if (self.startingExamFromSEBServer) {
-        self.establishingSEBServerConnection = NO;
-        self.startingExamFromSEBServer = NO;
-        [self.serverController loginToExamAbortedWithCompletion:completionHandler];
-    } else {
-        completionHandler(NO);
-    }
+    });
 }
 
 
@@ -3278,9 +3308,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
 
 - (void) didEstablishSEBServerConnection
 {
-    _establishingSEBServerConnection = false;
-    _startingExamFromSEBServer = false;
-    _sebServerConnectionEstablished = true;
+    _establishingSEBServerConnection = NO;
+    _startingExamFromSEBServer = NO;
+    _sebServerConnectionEstablished = YES;
 }
 
 
@@ -3318,12 +3348,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
             return;
         }
     }
-    [self sessionQuitRestart:restart];
-}
-
-
-- (void)didCloseSEBServerConnectionRestart:(BOOL)restart
-{
     [self sessionQuitRestart:restart];
 }
 
