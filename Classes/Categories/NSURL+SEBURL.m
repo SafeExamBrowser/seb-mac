@@ -96,7 +96,11 @@
 
 + (NSURL *) fileURLWithPathString:(NSString *)pathString
 {
-    return [NSURL fileURLWithPath:pathString isDirectory:NO];
+    if (@available(macOS 10.13, *)) {
+        return [NSURL URLWithString:pathString];
+    } else {
+        return [NSURL fileURLWithPath:pathString isDirectory:NO];
+    }
 }
 
 @end
