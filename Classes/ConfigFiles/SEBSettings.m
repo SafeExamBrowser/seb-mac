@@ -337,6 +337,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"createNewDesktop",
                    
+                   [NSNumber numberWithDouble:WebViewDefaultPageZoom],
+                   @"defaultPageZoomLevel",
+                   
+                   [NSNumber numberWithDouble:WebViewDefaultPageZoom],
+                   @"defaultTextZoomLevel",
+                   
                    @YES,
                    @"detectStoppedProcess",
                    
