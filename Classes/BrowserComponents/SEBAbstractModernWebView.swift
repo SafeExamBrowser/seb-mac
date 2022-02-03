@@ -36,6 +36,11 @@ import Foundation
 
 @objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {
     
+    private var sebWebView: WKWebView {
+        let webView = nativeWebView() as! WKWebView
+        return webView
+    }
+    
     private var pageZoom = WebViewDefaultPageZoom
     private var textSize = WebViewDefaultTextSize
     private var downloadFilename: String?
@@ -81,19 +86,16 @@ import Foundation
     public func userContentController(_ userContentController: WKUserContentController,
                                       didReceive message: WKScriptMessage) {
         if message.name == "updateKeys" {
-            guard let webView = (browserControllerDelegate!.nativeWebView!()) as? WKWebView else {
-                return
-            }
             print(message.body as Any)
             let parameter = message.body as? String
-            updateKeyJSVariables(webView) { response, error in
+            updateKeyJSVariables(sebWebView) { response, error in
                 if let _ = error {
                     print(error as Any)
                 } else {
                     guard let callback = parameter else {
                         return
                     }
-                    webView.evaluateJavaScript(callback + "();") { (response, error) in
+                    self.sebWebView.evaluateJavaScript(callback + "();") { (response, error) in
                         if let _ = error {
                             print(error as Any)
                         }
@@ -123,11 +125,8 @@ import Foundation
         self.browserControllerDelegate = sebWKWebViewController
         #endif
         
-        guard let webView = (browserControllerDelegate!.nativeWebView!()) as? WKWebView else {
-            return
-        }
         let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
-        webView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
+        sebWebView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
     }
     
     public func loadView() {
@@ -219,7 +218,16 @@ import Foundation
     }
     
     public func reload() {
-        browserControllerDelegate!.reload!()
+        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
+        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince:NSDate.distantPast, completionHandler:{
+            if let url = self.sebWebView.url {
+                self.load(url)
+            } else {
+                if let currentURL = self.navigationDelegate?.currentURL {
+                    self.load(currentURL)
+                }
+            }
+        })
         pageZoom = WebViewDefaultPageZoom
         textSize = WebViewDefaultTextSize
     }
@@ -242,39 +250,35 @@ import Foundation
     }
     
     public func zoomPageIn() {
-        let webView = nativeWebView() as! WKWebView
         if #available(macOS 11.0, iOS 14.0, *) {
-            webView.pageZoom += 0.1
+            sebWebView.pageZoom += 0.1
         } else {
             pageZoom += 0.1
-            setPageZoom(webView)
+            setPageZoom(sebWebView)
         }
     }
     
     public func zoomPageOut() {
-        let webView = nativeWebView() as! WKWebView
         if #available(macOS 11.0, iOS 14.0, *) {
-            webView.pageZoom -= 0.1
+            sebWebView.pageZoom -= 0.1
         } else {
             pageZoom -= 0.1
-            setPageZoom(webView)
+            setPageZoom(sebWebView)
         }
     }
     
     public func zoomPageReset() {
-        let webView = nativeWebView() as! WKWebView
         if #available(macOS 11.0, iOS 14.0, *) {
-            webView.pageZoom = 1.0
+            sebWebView.pageZoom = 1.0
         } else {
             pageZoom = WebViewDefaultPageZoom
-            setPageZoom(webView)
+            setPageZoom(sebWebView)
         }
     }
     
     fileprivate func setTextSize() {
-        let webView = nativeWebView() as! WKWebView
         let js = "document.getElementsByTagName('body')[0].style.fontSize = '\(textSize)%'"
-        webView.evaluateJavaScript(js) { (response, error) in
+        sebWebView.evaluateJavaScript(js) { (response, error) in
             if let _ = error {
                 print(error as Any)
             }
@@ -365,7 +369,7 @@ import Foundation
     
     private func searchSessionIdentifiers(url: URL) {
         if #available(macOS 10.13, iOS 11.0, *) {
-            let httpCookieStore = (self.nativeWebView() as! WKWebView).configuration.websiteDataStore.httpCookieStore
+            let httpCookieStore = sebWebView.configuration.websiteDataStore.httpCookieStore
             httpCookieStore.getAllCookies{ cookies in
                 let jointCookies = cookies + (HTTPCookieStorage.shared.cookies ?? [])
                 self.navigationDelegate?.examine?(jointCookies, for:url)
