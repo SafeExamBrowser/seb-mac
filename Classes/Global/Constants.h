@@ -81,8 +81,13 @@
 
 #define currentStableMajoriOSVersion 15
 
-#define WebViewDefaultTextSize 135
+#define WebViewDefaultTextSize 135.0
+#define WebViewDefaultTextZoom 1.0
+#define WebViewMinTextZoom 0.5
+#define WebViewMaxTextZoom 3.5
 #define WebViewDefaultPageZoom 1.0
+#define WebViewMinPageZoom 0.25
+#define WebViewMaxPageZoom 3.0
 
 enum {
     webViewSelectAutomatic                      = 0,

@@ -41,8 +41,15 @@ import Foundation
         return webView
     }
     
+    private let defaultPageZoom = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel")
+    private let defaultTextZoom = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel")
     private var pageZoom = WebViewDefaultPageZoom
-    private var textSize = WebViewDefaultTextSize
+    private var textZoom = WebViewDefaultTextZoom
+
+    private var textSize: Int {
+        return Int(WebViewDefaultTextSize * textZoom)
+    }
+
     private var downloadFilename: String?
 
     public var downloadingSEBConfig = false
@@ -127,6 +134,9 @@ import Foundation
         
         let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
         sebWebView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
+        
+        pageZoom = defaultPageZoom
+        textZoom = defaultTextZoom
     }
     
     public func loadView() {
@@ -228,8 +238,8 @@ import Foundation
                 }
             }
         })
-        pageZoom = WebViewDefaultPageZoom
-        textSize = WebViewDefaultTextSize
+        pageZoom = defaultPageZoom
+        textZoom = defaultTextZoom
     }
     
     public func load(_ url: URL) {
@@ -240,63 +250,83 @@ import Foundation
         browserControllerDelegate!.stopLoading!()
     }
 
-    fileprivate func setPageZoom(_ webView: WKWebView) {
-        let js = "document.documentElement.style.zoom = '\(pageZoom)'"
-        webView.evaluateJavaScript(js) { (response, error) in
-            if let _ = error {
-                print(error as Any)
+    fileprivate func setPageZoom() {
+        if (pageZoom <= WebViewMaxPageZoom && pageZoom >= WebViewMinPageZoom) {
+            if #available(macOS 11.0, iOS 14.0, *) {
+                sebWebView.pageZoom = pageZoom
+            } else {
+                let js = "document.documentElement.style.zoom = '\(pageZoom)'"
+                sebWebView.evaluateJavaScript(js) { (response, error) in
+                    if let _ = error {
+                        print(error as Any)
+                    }
+                }
             }
         }
     }
     
     public func zoomPageIn() {
         if #available(macOS 11.0, iOS 14.0, *) {
-            sebWebView.pageZoom += 0.1
+            if sebWebView.pageZoom < WebViewMaxPageZoom {
+                sebWebView.pageZoom += 0.1
+            }
         } else {
-            pageZoom += 0.1
-            setPageZoom(sebWebView)
+            if pageZoom < WebViewMaxPageZoom {
+                pageZoom += 0.1
+                setPageZoom()
+            }
         }
     }
     
     public func zoomPageOut() {
         if #available(macOS 11.0, iOS 14.0, *) {
-            sebWebView.pageZoom -= 0.1
+            if sebWebView.pageZoom > WebViewMinPageZoom {
+                sebWebView.pageZoom -= 0.1
+            }
         } else {
-            pageZoom -= 0.1
-            setPageZoom(sebWebView)
+            if pageZoom > WebViewMinPageZoom {
+                pageZoom -= 0.1
+                setPageZoom()
+            }
         }
     }
     
     public func zoomPageReset() {
         if #available(macOS 11.0, iOS 14.0, *) {
-            sebWebView.pageZoom = 1.0
+            sebWebView.pageZoom = defaultPageZoom
         } else {
-            pageZoom = WebViewDefaultPageZoom
-            setPageZoom(sebWebView)
+            pageZoom = defaultPageZoom
+            setPageZoom()
         }
     }
     
     fileprivate func setTextSize() {
-        let js = "document.getElementsByTagName('body')[0].style.fontSize = '\(textSize)%'"
-        sebWebView.evaluateJavaScript(js) { (response, error) in
-            if let _ = error {
-                print(error as Any)
+        if (textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
+            let js = "document.getElementsByTagName('body')[0].style.fontSize = '\(textSize)%'"
+            sebWebView.evaluateJavaScript(js) { (response, error) in
+                if let _ = error {
+                    print(error as Any)
+                }
             }
         }
     }
     
     public func textSizeIncrease() {
-        textSize += 10
-        setTextSize()
+        if textZoom < WebViewMaxTextZoom {
+            textZoom += 0.1
+            setTextSize()
+        }
     }
     
     public func textSizeDecrease() {
-        textSize -= 10
-        setTextSize()
+        if textZoom > WebViewMinTextZoom {
+            textZoom -= 0.1
+            setTextSize()
+        }
     }
     
     public func textSizeReset() {
-        textSize = WebViewDefaultTextSize
+        textZoom = defaultTextZoom
         setTextSize()
     }
     
@@ -417,6 +447,8 @@ import Foundation
     
     public func webView(_ webView: WKWebView,
                         didCommit navigation: WKNavigation) {
+        setPageZoom()
+        setTextSize()
         updateKeyJSVariables(webView)
     }
     
@@ -478,7 +510,7 @@ import Foundation
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
-//        DDLogDebug("decidePolicyFor navigationResponse")
+        DDLogDebug("decidePolicyFor navigationResponse")
         
         let decidePolicyWithCookies:([HTTPCookie]) -> () = { cookies in
             guard let url = navigationResponse.response.url else {
