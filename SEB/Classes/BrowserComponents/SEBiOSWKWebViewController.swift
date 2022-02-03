@@ -149,10 +149,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.goForward()
     }
     
-    public func reload() {
-        sebWebView?.reload()
-    }
-    
     public func load(_ url: URL) {
         sebWebView?.load(URLRequest.init(url: url))
     }
