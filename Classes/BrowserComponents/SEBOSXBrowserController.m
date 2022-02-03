@@ -853,7 +853,7 @@
 - (void) openDownloadedFile:(NSString *)path
 {
     // Open downloaded file
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:path]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:path isDirectory:NO]];
 }
 
 
