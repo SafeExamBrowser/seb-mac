@@ -819,13 +819,13 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="1Un-CF-a4a"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultPageZoomLevel" id="3oy-Ld-7Da">
                                                                                     <dictionary key="options">
                                                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                                         <bool key="NSValidatesImmediately" value="YES"/>
                                                                                     </dictionary>
                                                                                 </binding>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="1Un-CF-a4a"/>
                                                                             </connections>
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITS-ce-QW5">
@@ -864,13 +864,13 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="Oyh-yD-tqA"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultTextZoomLevel" id="XF2-7I-DF2">
                                                                                     <dictionary key="options">
                                                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                                         <bool key="NSValidatesImmediately" value="YES"/>
                                                                                     </dictionary>
                                                                                 </binding>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="Oyh-yD-tqA"/>
                                                                             </connections>
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jF6-pn-oQs">
@@ -1037,7 +1037,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.3666666666666667" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.31666666666666665" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
