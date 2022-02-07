@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEB Is Locked!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-As-V6t">
-                                <rect key="frame" x="344.5" y="39" width="145" height="24"/>
+                                <rect key="frame" x="344.5" y="15" width="145" height="24"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72x-TK-QER">
-                                <rect key="frame" x="137" y="69" width="560" height="54"/>
+                                <rect key="frame" x="137" y="45" width="560" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="560" id="aXb-WD-Xzt"/>
                                 </constraints>
@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0nm-pU-BZ0">
-                                <rect key="frame" x="311.5" y="159" width="211.5" height="34"/>
+                                <rect key="frame" x="311.5" y="135" width="211.5" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -42,20 +42,20 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter quit password to unlock SEB:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBa-LL-dKG">
-                                <rect key="frame" x="311.5" y="135" width="211.5" height="16"/>
+                                <rect key="frame" x="311.5" y="111" width="211.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter correct password!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-rT-cNJ">
-                                <rect key="frame" x="316" y="199" width="202" height="16"/>
+                                <rect key="frame" x="316" y="175" width="202" height="16"/>
                                 <accessibility key="accessibilityConfiguration" hint="Enter the corrrect quit password to close the lock screen" label="Warning: Wrong password"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arM-6u-TmT">
-                                <rect key="frame" x="528" y="162" width="28" height="28"/>
+                                <rect key="frame" x="528" y="138" width="28" height="28"/>
                                 <accessibility key="accessibilityConfiguration" hint="Closes lock screen if entered quit password is correct" label="Continue"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="qak-9g-v5I"/>
@@ -68,7 +68,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
-                                <rect key="frame" x="137" y="223" width="560" height="931"/>
+                                <rect key="frame" x="137" y="199" width="560" height="955"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="560" id="tMb-l5-M9t"/>
@@ -224,8 +224,8 @@
                                     <constraint firstAttribute="height" constant="20" id="oiY-3L-viP"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yZU-Q0-ht8">
-                                <rect key="frame" x="6" y="20" width="834" height="1174"/>
+                            <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yZU-Q0-ht8">
+                                <rect key="frame" x="0.0" y="20" width="834" height="1174"/>
                                 <viewLayoutGuide key="safeArea" id="09Z-pA-jDI"/>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="33" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -234,7 +234,7 @@
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WebpageCell" id="Ati-f3-XtO" customClass="SEBActionUITableViewCell">
-                                        <rect key="frame" x="0.0" y="44.5" width="834" height="33"/>
+                                        <rect key="frame" x="0.0" y="28" width="834" height="33"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ati-f3-XtO" id="ghO-1C-TKs">
                                             <rect key="frame" x="0.0" y="0.0" width="834" height="33"/>
@@ -285,7 +285,7 @@
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandCell" id="IIu-gY-Wy3" customClass="SEBActionUITableViewCell">
-                                        <rect key="frame" x="0.0" y="77.5" width="834" height="33"/>
+                                        <rect key="frame" x="0.0" y="61" width="834" height="33"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IIu-gY-Wy3" id="GOz-5x-upb">
                                             <rect key="frame" x="0.0" y="0.0" width="834" height="33"/>
@@ -330,7 +330,7 @@
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionHeader" id="x4Z-NO-f0U">
-                                        <rect key="frame" x="0.0" y="110.5" width="834" height="33"/>
+                                        <rect key="frame" x="0.0" y="94" width="834" height="33"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x4Z-NO-f0U" id="qBD-V7-FzV">
                                             <rect key="frame" x="0.0" y="0.0" width="834" height="33"/>
@@ -503,13 +503,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvS-YS-Rz4">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="423.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="425"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cj0-uR-8kk">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="64.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="834" height="55.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ofu-OY-erm">
-                                                        <rect key="frame" x="0.0" y="64" width="834" height="0.5"/>
+                                                        <rect key="frame" x="0.0" y="55" width="834" height="0.5"/>
                                                         <viewLayoutGuide key="safeArea" id="yTS-Uz-NdW"/>
                                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -539,7 +539,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GzA-jp-7VX">
-                                                <rect key="frame" x="0.0" y="118.5" width="834" height="124"/>
+                                                <rect key="frame" x="0.0" y="113" width="834" height="127.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8e-we-2Uj">
                                                         <rect key="frame" x="0.0" y="-0.5" width="834" height="0.5"/>
@@ -550,7 +550,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Suy-cx-d8k">
-                                                        <rect key="frame" x="0.0" y="123.5" width="834" height="0.5"/>
+                                                        <rect key="frame" x="0.0" y="127" width="834" height="0.5"/>
                                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="0.5" id="v7f-9R-RJW"/>
@@ -568,7 +568,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMS-9D-3zr">
-                                                <rect key="frame" x="0.0" y="360.5" width="834" height="60"/>
+                                                <rect key="frame" x="0.0" y="362" width="834" height="60"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLT-21-gLh">
                                                         <rect key="frame" x="0.0" y="59.5" width="834" height="0.5"/>
@@ -598,7 +598,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCX-Ab-h85">
-                                                <rect key="frame" x="20" y="81.5" width="7" height="17"/>
+                                                <rect key="frame" x="20" y="72.5" width="8" height="20.5"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -607,7 +607,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="Options to start an exam or configure SafeExamBrowser for your institution" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmj-TM-U1f">
-                                                <rect key="frame" x="20" y="24" width="704.5" height="25.5"/>
+                                                <rect key="frame" x="20" y="15" width="704.5" height="25.5"/>
                                                 <viewLayoutGuide key="safeArea" id="pIG-My-eHk"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -616,13 +616,13 @@
                                                 <size key="shadowOffset" width="1.5" height="1.5"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open an SEB exam or configuration link from Safari, Mail or a messenger app." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BE1-ZM-fgu">
-                                                <rect key="frame" x="32" y="81.5" width="519.5" height="17"/>
+                                                <rect key="frame" x="32" y="72.5" width="611.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCj-e3-Pe5">
-                                                <rect key="frame" x="20" y="133.5" width="8" height="17"/>
+                                                <rect key="frame" x="20" y="128" width="8" height="20.5"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -631,13 +631,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the URL of an institution which supports SEB" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lf7-gn-5ng">
-                                                <rect key="frame" x="32" y="133.5" width="340" height="17"/>
+                                                <rect key="frame" x="32" y="128" width="400.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-KW-3Qp">
-                                                <rect key="frame" x="32" y="160.5" width="768" height="34"/>
+                                                <rect key="frame" x="32" y="158.5" width="768" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration" hint="Enter the domain URL of an institution which supports SEB" label="URL"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -648,10 +648,10 @@
                                                 </connections>
                                             </textField>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
-                                                <rect key="frame" x="775" y="167.5" width="20" height="20"/>
+                                                <rect key="frame" x="775" y="165.5" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaL-4I-bjq">
-                                                <rect key="frame" x="32" y="197.5" width="110" height="30"/>
+                                                <rect key="frame" x="32" y="195.5" width="110" height="30"/>
                                                 <accessibility key="accessibilityConfiguration" hint="Search local network for a SEB configuration (requires WiFi)" label="Search Network"/>
                                                 <state key="normal" title="Search Network"/>
                                                 <connections>
@@ -659,7 +659,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
-                                                <rect key="frame" x="811" y="167.5" width="11" height="20"/>
+                                                <rect key="frame" x="811" y="165.5" width="11" height="20"/>
                                                 <accessibility key="accessibilityConfiguration" hint="Searches for a SEB configuration at the entered domain URL" label="Search for configuration"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="11" id="bj0-dq-iPp"/>
@@ -670,7 +670,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No config found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9il-ut-H8z">
-                                                <rect key="frame" x="705.5" y="197.5" width="94.5" height="30"/>
+                                                <rect key="frame" x="699" y="195.5" width="101" height="30"/>
                                                 <accessibility key="accessibilityConfiguration" hint="No SEB configuration found at the entered domain URL" label="Warning: No SEB Configuration found!"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="KR2-7W-Vfb"/>
@@ -680,7 +680,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-7Z-Q9L">
-                                                <rect key="frame" x="20" y="259.5" width="8" height="17"/>
+                                                <rect key="frame" x="20" y="257.5" width="8" height="20.5"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -689,13 +689,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan SEB configuration QR code" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6r-Ir-cTX">
-                                                <rect key="frame" x="32" y="259.5" width="218.5" height="17"/>
+                                                <rect key="frame" x="32" y="257.5" width="257.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLh-eI-sov">
-                                                <rect key="frame" x="32" y="286.5" width="54" height="54"/>
+                                                <rect key="frame" x="32" y="288" width="54" height="54"/>
                                                 <accessibility key="accessibilityConfiguration" hint="Displays a camera view to scan for SEB configuration QR codes" label="Scan QR Code"/>
                                                 <state key="normal" image="SEBQRCode.png"/>
                                                 <connections>
@@ -703,14 +703,14 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
-                                                <rect key="frame" x="672" y="372.5" width="130" height="36"/>
+                                                <rect key="frame" x="672" y="374" width="130" height="36"/>
                                                 <state key="normal" title="More Information…"/>
                                                 <connections>
                                                     <action selector="more:" destination="h8j-pm-u2W" eventType="touchUpInside" id="aN6-qz-a60"/>
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No SEB configuration found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fem-Ic-Pih">
-                                                <rect key="frame" x="94" y="326" width="160.5" height="14.5"/>
+                                                <rect key="frame" x="94" y="326" width="172" height="16"/>
                                                 <accessibility key="accessibilityConfiguration" hint="The scanned QR code didn't contain an SEB configuration" label="Warning: No SEB Configuration found!"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -986,18 +986,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-Hd-KaC">
-                                        <rect key="frame" x="0.0" y="64.5" width="834" height="1129.5"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="834" height="1138.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examListCell" id="7kU-4n-zRN" customClass="ExamCell">
-                                                <rect key="frame" x="0.0" y="44.5" width="834" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="834" height="44.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7kU-4n-zRN" id="2ZN-V2-0ax">
-                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-Xm-hMN">
-                                                            <rect key="frame" x="16" y="11" width="802" height="21"/>
+                                                            <rect key="frame" x="16" y="11" width="802" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1017,10 +1017,10 @@
                                         </prototypes>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2b-dm-MqG" userLabel="Header">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="64.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="55.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERg-pp-4QO" userLabel="Separator">
-                                                <rect key="frame" x="0.0" y="64" width="834" height="0.5"/>
+                                                <rect key="frame" x="0.0" y="55" width="834" height="0.5"/>
                                                 <viewLayoutGuide key="safeArea" id="5TZ-BG-AVC"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1049,7 +1049,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="Connecting to SEB Server" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8j-P3-Yzd">
-                                        <rect key="frame" x="41" y="24" width="243" height="25.5"/>
+                                        <rect key="frame" x="41" y="15" width="243" height="25.5"/>
                                         <viewLayoutGuide key="safeArea" id="O4u-1z-2NB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1058,7 +1058,7 @@
                                         <size key="shadowOffset" width="1.5" height="1.5"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akf-kQ-g5l" userLabel="Close Button">
-                                        <rect key="frame" x="15" y="28" width="16" height="18"/>
+                                        <rect key="frame" x="15" y="19" width="16" height="18"/>
                                         <accessibility key="accessibilityConfiguration" hint="Closes About SEB view" label="Close"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="Cancel.png"/>
