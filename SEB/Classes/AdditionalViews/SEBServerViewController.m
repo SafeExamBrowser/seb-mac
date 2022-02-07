@@ -51,6 +51,9 @@
 
     self.examsTableView.dataSource = self;
     self.examsTableView.delegate = self;
+    if (@available(iOS 15.0, *)) {
+        self.examsTableView.sectionHeaderTopPadding = 0.0;
+    }
 
     [self updateExamList];
 }
