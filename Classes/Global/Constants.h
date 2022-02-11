@@ -87,7 +87,7 @@
 #define WebViewMaxTextZoom 3.5
 #define WebViewDefaultPageZoom 1.0
 #define WebViewMinPageZoom 0.25
-#define WebViewMaxPageZoom 3.0
+#define WebViewMaxPageZoom 4.0
 
 enum {
     webViewSelectAutomatic                      = 0,
