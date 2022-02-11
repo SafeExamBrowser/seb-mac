@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;
+- (void) updateZoomScale;
 
 - (void) textSizeIncrease;
 - (void) textSizeDecrease;
@@ -141,6 +142,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
 - (NSString *) appVersion;
+
+@property (readwrite, nonatomic) double pageZoom;
 
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 // Currently required by SEB-macOS
