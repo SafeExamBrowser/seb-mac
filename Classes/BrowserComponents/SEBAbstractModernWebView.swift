@@ -41,14 +41,10 @@ import Foundation
         return webView
     }
     
-    private let defaultPageZoom = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel")
-    private let defaultTextZoom = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel")
-    private var pageZoom = WebViewDefaultPageZoom
+    private let defaultPageZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel") : WebViewDefaultPageZoom
+    private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
+    public var pageZoom = WebViewDefaultPageZoom
     private var textZoom = WebViewDefaultTextZoom
-
-    private var textSize: Int {
-        return Int(WebViewDefaultTextSize * textZoom)
-    }
 
     private var downloadFilename: String?
 
@@ -253,56 +249,101 @@ import Foundation
     fileprivate func setPageZoom() {
         if (pageZoom <= WebViewMaxPageZoom && pageZoom >= WebViewMinPageZoom) {
             if #available(macOS 11.0, iOS 14.0, *) {
+#if os(iOS)
+                if pageZoom >= 1 {
+                    let iOSPageZoom = (abs((pageZoom - 1) / (WebViewMaxPageZoom - 1) - 1) * (1 - WebViewMinPageZoom)) + WebViewMinPageZoom
+                    sebWebView.pageZoom = iOSPageZoom
+                    if pageZoom != 1 {
+                        let js = """
+                                var images = document.images;
+                                for (var i = 0, max = images.length; i < max; i++)
+                                {
+                                    var width = images[i].width;
+                                    var height = images[i].height;
+                                    images[i].width = width * \(pageZoom);
+                                    images[i].height = height * \(pageZoom);
+                                }
+    """
+                        sebWebView.evaluateJavaScript(js) { (response, error) in
+                            if let _ = error {
+                                    print(error as Any)
+                            }
+                        }
+                    }
+                } else {
+                    let js = "document.documentElement.style.zoom = '\(pageZoom)'; \(textZoomJS(zoomLevel: pageZoom))"
+                    sebWebView.evaluateJavaScript(js) { (response, error) in
+                        if let _ = error {
+                                print(error as Any)
+                        }
+                    }
+                }
+#else
                 sebWebView.pageZoom = pageZoom
+#endif
             } else {
                 let js = "document.documentElement.style.zoom = '\(pageZoom)'"
                 sebWebView.evaluateJavaScript(js) { (response, error) in
                     if let _ = error {
                         print(error as Any)
                     }
+                    self.browserControllerDelegate?.updateZoomScale?()
                 }
             }
         }
     }
     
     public func zoomPageIn() {
-        if #available(macOS 11.0, iOS 14.0, *) {
-            if sebWebView.pageZoom < WebViewMaxPageZoom {
-                sebWebView.pageZoom += 0.1
-            }
-        } else {
-            if pageZoom < WebViewMaxPageZoom {
-                pageZoom += 0.1
-                setPageZoom()
-            }
-        }
-    }
-    
-    public func zoomPageOut() {
-        if #available(macOS 11.0, iOS 14.0, *) {
-            if sebWebView.pageZoom > WebViewMinPageZoom {
-                sebWebView.pageZoom -= 0.1
-            }
-        } else {
-            if pageZoom > WebViewMinPageZoom {
-                pageZoom -= 0.1
-                setPageZoom()
-            }
-        }
-    }
-    
-    public func zoomPageReset() {
-        if #available(macOS 11.0, iOS 14.0, *) {
-            sebWebView.pageZoom = defaultPageZoom
-        } else {
-            pageZoom = defaultPageZoom
+        if pageZoom < WebViewMaxPageZoom {
+            pageZoom += 0.1
             setPageZoom()
         }
     }
     
+    public func zoomPageOut() {
+        if pageZoom > WebViewMinPageZoom {
+            pageZoom -= 0.1
+            setPageZoom()
+        }
+    }
+    
+    public func zoomPageReset() {
+        pageZoom = defaultPageZoom
+        setPageZoom()
+    }
+    
+    private func textZoomJS(zoomLevel: Double) -> String {
+        let fontSize = Int(WebViewDefaultTextSize * zoomLevel)
+        return """
+                function zoomTextForTagName(tag) {
+                    var elements = document.getElementsByTagName(tag);
+                    for (var i = 0, max = elements.length; i < max; i++)
+                    {
+                        var computedFontSize = parseInt(window.getComputedStyle(elements[i]).fontSize, 10);
+                        computedFontSize *= \(zoomLevel);
+                        elements[i].style.fontSize = computedFontSize + 'px';
+                    }
+                }
+                document.getElementsByTagName('body')[0].style.fontSize = '\(fontSize)%';
+                zoomTextForTagName('p');
+                zoomTextForTagName('span');
+                zoomTextForTagName('em');
+                zoomTextForTagName('a');
+                zoomTextForTagName('ul');
+                zoomTextForTagName('li');
+                zoomTextForTagName('h1');
+                zoomTextForTagName('h2');
+                zoomTextForTagName('h3');
+                zoomTextForTagName('h4');
+                zoomTextForTagName('h5');
+                zoomTextForTagName('h6');
+"""
+    }
+    
+
     fileprivate func setTextSize() {
-        if (textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
-            let js = "document.getElementsByTagName('body')[0].style.fontSize = '\(textSize)%'"
+        if (pageZoom == 1 && textZoom != 1 && textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
+            let js = textZoomJS(zoomLevel: textZoom)
             sebWebView.evaluateJavaScript(js) { (response, error) in
                 if let _ = error {
                     print(error as Any)
