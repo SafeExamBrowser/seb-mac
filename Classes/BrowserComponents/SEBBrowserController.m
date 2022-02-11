@@ -204,7 +204,12 @@ void run_block_on_ui_thread(dispatch_block_t block)
                     }];
                 }
                 dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
-                    completionHandler();
+                    [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull wkWebViewCookies) {
+        #ifdef DEBUG
+            DDLogDebug(@"wkWebViewConfiguration.websiteDataStore.httpCookieStore cookies after transfer: %@", wkWebViewCookies);
+        #endif
+                        completionHandler();
+                    }];
                 });
             }];
             return;
@@ -213,7 +218,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     run_block_on_ui_thread(^{
         completionHandler();
     });
-};
+}
 
 
 - (void) quitSession
