@@ -67,6 +67,11 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
 
     private var urlFilter: SEBURLFilter?
     
+    public func updateZoomScale() {
+        zoomScale = sebWebView?.scrollView.zoomScale
+        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
+    }
+    
     convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {
         self.init()
         navigationDelegate = delegate
@@ -89,7 +94,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public override func viewWillAppear(_ animated: Bool) {
         sebWebView?.uiDelegate = self
-        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
+        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: animated)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
