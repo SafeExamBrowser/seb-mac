@@ -55,20 +55,20 @@ import Foundation
         let userContentController = WKUserContentController()
         let appVersion = navigationDelegate?.appVersion?()
         let jsApiCode = """
-        window.SafeExamBrowser = { \
-          version: '\(appVersion ?? "")', \
-          security: { \
-            browserExamKey: '', \
-            configKey: '', \
-            appVersion: '\(appVersion ?? "")', \
-            updateKeys: function (callback) { \
-              if (callback) { \
-                window.webkit.messageHandlers.updateKeys.postMessage(callback.name); \
-              } else { \
-                window.webkit.messageHandlers.updateKeys.postMessage(); \
-              } \
-            } \
-          } \
+        window.SafeExamBrowser = {
+          version: '\(appVersion ?? "")',
+          security: {
+            browserExamKey: '',
+            configKey: '',
+            appVersion: '\(appVersion ?? "")',
+            updateKeys: function (callback) {
+              if (callback) {
+                window.webkit.messageHandlers.updateKeys.postMessage(callback.name);
+              } else {
+                window.webkit.messageHandlers.updateKeys.postMessage();
+              }
+            }
+          }
         }
 """
         let jsApiUserScript = WKUserScript(source: jsApiCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
@@ -469,7 +469,6 @@ import Foundation
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         navigationDelegate?.sebWebViewDidStartLoad?()
-        updateKeyJSVariables(webView)
     }
     
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
