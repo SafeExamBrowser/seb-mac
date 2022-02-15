@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) closeWebView:(SEBAbstractWebView *)webView;
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
-@property (strong, nonatomic) NSURL *currentURL;
+@property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString  *_Nullable currentMainHost;
 @property (readonly) BOOL isMainBrowserWebViewActive;
 @property (readwrite) BOOL isMainBrowserWebView;

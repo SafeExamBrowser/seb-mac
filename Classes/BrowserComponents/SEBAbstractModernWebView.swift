@@ -229,7 +229,7 @@ import Foundation
             if let url = self.sebWebView.url {
                 self.load(url)
             } else {
-                if let currentURL = self.navigationDelegate?.currentURL {
+                if let currentURL = self.navigationDelegate?.currentURL! {
                     self.load(currentURL)
                 }
             }

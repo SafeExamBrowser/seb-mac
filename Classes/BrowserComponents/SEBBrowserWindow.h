@@ -55,7 +55,7 @@
 @property (weak) SEBOSXBrowserController *browserController;
 @property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (strong, nonatomic) SEBAbstractWebView *webView;
-@property (strong, nonatomic) NSURL *currentURL;
+@property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (readwrite) BOOL isMainBrowserWindow;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
