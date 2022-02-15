@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (strong, nonatomic) UIView *filterMessageHolder;
-@property (strong, nonatomic) NSURL *currentURL;
+@property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (strong, nonatomic) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;
