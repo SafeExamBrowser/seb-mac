@@ -475,7 +475,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableZoomPage",
                    
-                   @YES,
+                   @NO,
                    @"enableZoomText",
                    
                    [NSData data],
