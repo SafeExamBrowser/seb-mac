@@ -773,8 +773,9 @@
                                                                         </binding>
                                                                     </connections>
                                                                 </button>
-                                                                <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="AYo-yw-GhI">
+                                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="AYo-yw-GhI">
                                                                     <rect key="frame" x="-2" y="-1" width="131" height="18"/>
+                                                                    <string key="toolTip">Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0</string>
                                                                     <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4om-Lh-WpE">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -804,7 +805,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-Xz-cHe">
                                                                     <rect key="frame" x="0.0" y="27" width="194" height="21"/>
                                                                     <subviews>
-                                                                        <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l2A-KY-iEk">
+                                                                        <textField toolTip="Zoom level to use by default on every page" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l2A-KY-iEk">
                                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="21"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="o6y-S1-KoU"/>
@@ -849,8 +850,9 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1MU-KN-Svg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="21"/>
                                                                     <subviews>
-                                                                        <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z1l-z6-njE">
+                                                                        <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z1l-z6-njE">
                                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="21"/>
+                                                                            <string key="toolTip">Zoom level to use by default on every page. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0</string>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="C2O-Ch-LUj"/>
                                                                             </constraints>
