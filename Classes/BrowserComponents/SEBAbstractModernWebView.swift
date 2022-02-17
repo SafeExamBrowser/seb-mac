@@ -532,16 +532,19 @@ import Foundation
                 self.downloadFilename = result as? String
                 if !(self.downloadFilename ?? "").isEmpty {
 //                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
-                    if ProcessInfo.processInfo.operatingSystemVersion.majorVersion < 11 {
-                        if #available(macOS 10.13, iOS 11.0, *) {
-                            let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
-                            httpCookieStore.getAllCookies{ cookies in
-                                self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: cookies)
-                                self.downloadFilename = nil
-                            }
-                            decisionHandler(.cancel)
-                            return
+                    if #available(macOS 10.13, iOS 11.0, *) {
+                        let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
+                        httpCookieStore.getAllCookies{ cookies in
+                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: cookies)
+                            self.downloadFilename = nil
                         }
+                        decisionHandler(.cancel)
+                        return
+                    } else {
+                        decisionHandler(.cancel)
+                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: [])
+                        self.downloadFilename = nil
+                        return
                     }
                 }
                 callDecisionHandler()
