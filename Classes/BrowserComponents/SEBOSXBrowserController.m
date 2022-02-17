@@ -98,57 +98,6 @@
 }
 
 
-// Called when SEB successfully downloaded the config file
-- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-    
-    _sebController.openingSettings = true;
-    SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
-    configFileController.sebController = self.sebController;
-
-    // Get current config path
-    currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Store the URL of the .seb file as current config file path
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-        
-    [configFileController storeNewSEBSettings:sebFileData
-                                forEditing:NO
-                                  callback:self
-                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
-}
-
-
-- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
-{
-    SEBAbstractWebView *tempWebView = [self openTempWindowForDownloadingConfigFromURL:url originalURL:originalURL];
-    
-    return tempWebView;
-}
-
-
-- (void) openingConfigURLRoleBack
-{
-    // If SEB was just started (by opening a seb(s) link)
-    if (self.startingUp) {
-        // we quit, as decrypting the config wasn't successful
-        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
-        [_sebController requestedExit:nil]; // Quit SEB
-    }
-    // Reset the opening settings flag which prevents opening URLs concurrently
-    _sebController.openingSettings = false;
-}
-
-
-- (void) closeOpeningConfigFileDialog {
-    //TODO: not yet used on macOS
-}
-
-
-- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
-    //TODO: not yet used on macOS
-}
-
 @synthesize startingUp;
 
 - (BOOL) startingUp {
@@ -724,8 +673,7 @@
 
 #pragma mark Downloading SEB Config Files
 
-// Check if SEB is in exam mode = private UserDefauls are switched on:
-// Then opening a new config file/reconfiguring SEB isn't allowed
+// Check if reconfiguring from exam or secure mode is allowed
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
 {
     if (![super isReconfiguringAllowedFromURL:url]) {
@@ -733,8 +681,8 @@
         // Also reset the flag for SEB starting up
         self.startingUp = false;
         NSAlert *modalAlert = [_sebController newAlert];
-        [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-        [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", nil), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -750,6 +698,14 @@
 
 
 /// Initiating Opening the Config File Link
+
+- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
+{
+    SEBAbstractWebView *tempWebView = [self openTempWindowForDownloadingConfigFromURL:url originalURL:originalURL];
+    
+    return tempWebView;
+}
+
 
 // Open a new, temporary browser window for downloading the linked config file
 // This allows the user to authenticate if the link target is stored on a secured server
@@ -785,6 +741,27 @@
 }
 
 
+// Called when SEB successfully downloaded the config file
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    _sebController.openingSettings = true;
+    SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
+    configFileController.sebController = self.sebController;
+
+    // Get current config path
+    currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    // Store the URL of the .seb file as current config file path
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
+        
+    [configFileController storeNewSEBSettings:sebFileData
+                                forEditing:NO
+                                  callback:self
+                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
 // Called when downloading the config file failed
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
@@ -804,6 +781,28 @@
     }
 }
 
+
+- (void) openingConfigURLRoleBack
+{
+    // If SEB was just started (by opening a seb(s) link)
+    if (self.startingUp) {
+        // we quit, as decrypting the config wasn't successful
+        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
+        [_sebController requestedExit:nil]; // Quit SEB
+    }
+    // Reset the opening settings flag which prevents opening URLs concurrently
+    _sebController.openingSettings = false;
+}
+
+
+- (void) closeOpeningConfigFileDialog {
+    //TODO: not yet used on macOS
+}
+
+
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
+    //TODO: not yet used on macOS
+}
 
 - (void) storeNewSEBSettingsSuccessfulProceed:(NSError *)error
 {
