@@ -1201,7 +1201,8 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogInfo(@"Download of File %@ did finish.", path);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
+    if (([path.pathExtension isEqualToString:@"pdf"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
             [self.delegate openDownloadedFile:path];
