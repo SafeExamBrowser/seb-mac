@@ -65,21 +65,26 @@
 }
 
 
-// Called when downloading the config file failed
-- (void) downloadingSEBConfigFailed:(NSError *)error
+#pragma mark Downloading SEB Config Files
+
+// Check if reconfiguring from exam or secure mode is allowed
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
 {
-    DDLogError(@"%s error: %@", __FUNCTION__, error);
-    _sebViewController.openingSettings = false;
-    
-    // Only show the download error and close temp browser window if this wasn't a direct download attempt
-    if (!self.directConfigDownloadAttempted) {
-        
-        // Close the temporary browser window
-        [self closeWebView:self.temporaryWebView];
-        // Show the load error
-        [_sebViewController showAlertWithError:error];
-        [self openingConfigURLRoleBack];
+    if (![super isReconfiguringAllowedFromURL:url]) {
+        [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
+                         andText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", nil), SEBShortAppName, SEBShortAppName]];
+        return NO;
+    } else {
+        return YES;
     }
+}
+
+
+- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
+{
+    SEBAbstractWebView *tempWebView = [_sebViewController openTempWebViewForDownloadingConfigFromURL:url originalURL:originalURL];
+    
+    return tempWebView;
 }
 
 
@@ -95,11 +100,21 @@
 }
 
 
-- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
+// Called when downloading the config file failed
+- (void) downloadingSEBConfigFailed:(NSError *)error
 {
-    SEBAbstractWebView *tempWebView = [_sebViewController openTempWebViewForDownloadingConfigFromURL:url originalURL:originalURL];
+    DDLogError(@"%s error: %@", __FUNCTION__, error);
+    _sebViewController.openingSettings = false;
     
-    return tempWebView;
+    // Only show the download error and close temp browser window if this wasn't a direct download attempt
+    if (!self.directConfigDownloadAttempted) {
+        
+        // Close the temporary browser window
+        [self closeWebView:self.temporaryWebView];
+        // Show the load error
+        [_sebViewController showAlertWithError:error];
+        [self openingConfigURLRoleBack];
+    }
 }
 
 
