@@ -1348,7 +1348,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 lastDownloadPathIndex--;
                 [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
                 if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
-                    completionHandler(@[[NSURL fileURLWithPathString:lastDownloadPath]]);
+                    completionHandler(@[[NSURL fileURLWithPath:lastDownloadPath]]);
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
                     
@@ -1431,6 +1431,8 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 // files and directories selected.
                 NSArray* fileURLs = [openFilePanel URLs];
                 completionHandler(fileURLs);
+            } else {
+                completionHandler(nil);
             }
         }];
     }
