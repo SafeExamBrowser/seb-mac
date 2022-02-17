@@ -1139,7 +1139,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 downloadPath = @"~/Downloads";
             }
             downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSURL *destinationURL = [NSURL fileURLWithPathString:[downloadPath stringByAppendingPathComponent:filename]];
+            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
             
             NSFileManager *fileManager = [NSFileManager defaultManager];
             int fileIndex = 1;
@@ -1147,7 +1147,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
             NSString* extension = [filename pathExtension];
 
-            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename] error:&error] == NO) {
+            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename isDirectory:NO] error:&error] == NO) {
                 if (error.code == NSFileWriteFileExistsError) {
                     error = nil;
                     filename = [NSString stringWithFormat:@"%@-%d.%@", filenameWithoutExtension, fileIndex, extension];
@@ -1157,7 +1157,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 }
             }
             if (!error) {
-                [self storeDownloadPath:destinationURL.absoluteString];
+                [self storeDownloadPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self fileDownloadedSuccessfully:destinationURL.path];
                 });
