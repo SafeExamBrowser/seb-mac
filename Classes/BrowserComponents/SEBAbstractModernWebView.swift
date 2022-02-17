@@ -83,6 +83,11 @@ import Foundation
         }
         userContentController.add(self, name: "updateKeys")
         webViewConfiguration!.userContentController = userContentController
+#if os(macOS)
+        if #available(macOS 10.12.3, *) {
+            webViewConfiguration!.preferences.tabFocusesLinks = true
+        }
+#endif
         return webViewConfiguration!
     }
     
@@ -528,7 +533,7 @@ import Foundation
                 if !(self.downloadFilename ?? "").isEmpty {
 //                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
                     if ProcessInfo.processInfo.operatingSystemVersion.majorVersion < 11 {
-                        if #available(macOS 10.13, *) {
+                        if #available(macOS 10.13, iOS 11.0, *) {
                             let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
                             httpCookieStore.getAllCookies{ cookies in
                                 self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: cookies)
@@ -580,12 +585,12 @@ import Foundation
 
             if (!(self.downloadFilename ?? "").isEmpty || navigationResponsePolicy == SEBNavigationActionPolicyDownload) && !self.downloadingSEBConfig {
                 var filename = self.downloadFilename ?? ""
+                if filename.isEmpty {
+                    filename = suggestedFilename ?? ""
+                }
                 let isPDF = filename.hasSuffix(".pdf")
                 let downloadPDFFiles = self.navigationDelegate!.downloadPDFFiles
                 if !isPDF || isPDF && downloadPDFFiles == true {
-                    if filename.isEmpty {
-                        filename = suggestedFilename ?? ""
-                    }
     //                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
                     decisionHandler(.cancel)
                     self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
@@ -619,7 +624,7 @@ import Foundation
         if let httpResponse = response as? HTTPURLResponse {
             let headers = httpResponse.allHeaderFields
             if let disposition = headers["Content-Disposition"] as? String {
-                let components = disposition.components(separatedBy: " ")
+                let components = disposition.components(separatedBy: ";")
                 if components.count > 1 {
                     let innerComponents = components[1].components(separatedBy: "=")
                     if innerComponents.count > 1 {
