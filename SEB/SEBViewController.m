@@ -2483,17 +2483,6 @@ void run_on_ui_thread(dispatch_block_t block)
             if (_sessionRunning && ![self.browserController isReconfiguringAllowedFromURL:sebConfigURL]) {
                 // If yes, we don't download the .seb file
                 _scannedQRCode = false;
-                if (_alertController) {
-                    [_alertController dismissViewControllerAnimated:NO completion:nil];
-                }
-                _alertController = [UIAlertController  alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
-                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in %@ before starting another exam.", nil), SEBShortAppName, SEBShortAppName]
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
-                }]];
-                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
                 return;
             }
         } else {
@@ -2990,7 +2979,7 @@ void run_on_ui_thread(dispatch_block_t block)
         _configFileKeyHash = nil;
     }
     [self restartExamQuitting:YES
-         quittingClientConfig:quittingExamSession
+         quittingClientConfig:!quittingExamSession
              pasteboardString:nil];
 }
 
