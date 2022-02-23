@@ -85,7 +85,7 @@ import Foundation
         webViewConfiguration!.userContentController = userContentController
 #if os(macOS)
         if #available(macOS 10.12.3, *) {
-            webViewConfiguration!.preferences.tabFocusesLinks = true
+            webViewConfiguration!.preferences.tabFocusesLinks = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_tabFocusesLinks")
         }
 #endif
         return webViewConfiguration!
