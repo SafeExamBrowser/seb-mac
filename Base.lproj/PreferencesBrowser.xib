@@ -226,13 +226,13 @@
                                                     <rect key="frame" x="11" y="16" width="588" height="82"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="PeV-BM-OcJ">
-                                                            <rect key="frame" x="0.0" y="22" width="284" height="60"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="82"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="60"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="82"/>
                                                                     <subviews>
                                                                         <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                                                                            <rect key="frame" x="-2" y="43" width="121" height="18"/>
+                                                                            <rect key="frame" x="-2" y="65" width="121" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -242,13 +242,23 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Enables Java applets" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                                                            <rect key="frame" x="-2" y="21" width="98" height="18"/>
+                                                                            <rect key="frame" x="-2" y="43" width="98" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Pressing the tab key changes the focus to links and form controls" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
+                                                                            <rect key="frame" x="-2" y="21" width="130" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Tab focuses links" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2BE-Ri-RWP">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_tabFocusesLinks" id="NyC-8f-hpk"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
@@ -267,8 +277,10 @@
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
+                                                                        <integer value="1000"/>
                                                                     </visibilityPriorities>
                                                                     <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
@@ -1375,7 +1387,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.74007220216606506" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99277978339350181" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

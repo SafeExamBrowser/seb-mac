@@ -67,6 +67,11 @@
            withKeyPath:@"values.org_safeexambrowser_SEB_enableJavaScript"
                options:nil];
 
+        [webPrefs bind:@"tabsToLinks"
+              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+           withKeyPath:@"values.org_safeexambrowser_SEB_tabFocusesLinks"
+               options:nil];
+
         NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:@"NSNegateBoolean",NSValueTransformerNameBindingOption,nil];
         [webPrefs bind:@"javaScriptCanOpenWindowsAutomatically"
               toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
