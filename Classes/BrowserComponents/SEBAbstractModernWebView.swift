@@ -83,6 +83,13 @@ import Foundation
         }
         userContentController.add(self, name: "updateKeys")
         webViewConfiguration!.userContentController = userContentController
+        let allowContentJavaScript = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableJavaScript")
+        if #available(macOS 11.0, iOS 14.0, *) {
+            webViewConfiguration?.defaultWebpagePreferences.allowsContentJavaScript = allowContentJavaScript
+        } else {
+            webViewConfiguration!.preferences.javaScriptEnabled = allowContentJavaScript
+        }
+        webViewConfiguration!.preferences.javaScriptCanOpenWindowsAutomatically = !UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_blockPopUpWindows")
 #if os(macOS)
         if #available(macOS 10.12.3, *) {
             webViewConfiguration!.preferences.tabFocusesLinks = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_tabFocusesLinks")
