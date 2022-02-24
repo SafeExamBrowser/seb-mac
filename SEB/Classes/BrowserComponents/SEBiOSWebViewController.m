@@ -333,6 +333,12 @@
 #pragma mark -
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
+- (void) setPageTitle:(NSString *)title
+{
+    [self.navigationDelegate setTitle:title forWebViewController:self];
+}
+
+
 - (void)sebWebViewDidStartLoad
 {
     // starting the load, show the activity indicator in the status bar
@@ -353,9 +359,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void)sebWebViewDidFinishLoad
 {
-    NSString *webPageTitle = [self.navigationDelegate webPageTitle:_sebWebView.pageTitle orURL:_sebWebView.url mainWebView:self.sebWebView.isMainBrowserWebView];
-    [self.navigationDelegate setTitle:webPageTitle forWebViewController:self];
-
+    [self.navigationDelegate sebWebViewDidFinishLoad];
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.navigationDelegate setLoading:NO];
@@ -435,7 +439,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 }
                 [self.navigationDelegate conditionallyOpenSEBConfigFromData:sebConfigData];
-            } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"]) {
+            } else if (self.allowDownUploads) {
                 NSString *fileDataString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                 NSData *fileData;
                 if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
@@ -674,6 +678,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (NSString *) pageJavaScript
 {
     return _javaScriptFunctions;
+}
+
+- (BOOL)allowDownUploads
+{
+    return self.navigationDelegate.allowDownUploads;
 }
 
 - (BOOL) overrideAllowSpellCheck

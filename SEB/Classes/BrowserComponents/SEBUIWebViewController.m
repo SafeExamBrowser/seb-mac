@@ -337,6 +337,19 @@
         }
     }
 
+    if (!url.hasDirectoryPath && ([url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && self.downloadFilename.length == 0)) {
+        NSString *javaScript = [NSString stringWithFormat:@"document.querySelector('[href=\"%@\"]').download", url.absoluteString];
+        self.downloadFilename = [webView stringByEvaluatingJavaScriptFromString:javaScript];
+    } else {
+        self.downloadFilename = nil;
+    }
+    if (self.downloadFilename.length != 0) {
+        BOOL displayPDF = [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
+        if (displayPDF) {
+            newTabRequested = YES;
+        }
+    }
+
     SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested];
     if (navigationActionPolicy == SEBNavigationActionPolicyAllow) {
         return YES;
