@@ -276,7 +276,7 @@ enum {
     SEBNavigationActionPolicyAllow              = 1,
     SEBNavigationActionPolicyDownload           = 2
 };
-typedef NSUInteger SEBNavigationActionPolicy;
+typedef NSInteger SEBNavigationActionPolicy;
 
 
 enum {
@@ -530,6 +530,7 @@ static NSString __unused *runningOSmacOS = @"macOS";
 static NSString __unused *runningOSiOS = @"iOS";
 static NSString __unused *runningOSiPadOS = @"iPadOS";
 
+static NSString __unused *filenameExtensionPDF = @"pdf";
 static NSString __unused *mimeTypePDF = @"application/pdf";
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};

@@ -276,6 +276,12 @@
 }
 
 
+- (void)sebWebViewDidFinishLoad
+{
+
+}
+
+
 - (void)webView:(WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
@@ -893,6 +899,11 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 - (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
 {
     return [_sebViewController.browserController webPageTitle:title orURL:url mainWebView:mainWebView];
+}
+
+- (BOOL)allowDownUploads
+{
+    return _sebViewController.browserController.allowDownUploads;
 }
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
