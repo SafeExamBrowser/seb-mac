@@ -508,6 +508,10 @@ import Foundation
         navigationDelegate?.sebWebViewDidFinishLoad?()
     }
     
+    public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        reload()
+    }
+
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         var newTab = false
         if navigationAction.targetFrame == nil {

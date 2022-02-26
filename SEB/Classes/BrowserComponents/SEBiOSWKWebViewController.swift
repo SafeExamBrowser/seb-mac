@@ -163,7 +163,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
  
     
-    public func webView(_ webView: WKWebView,  shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
+    public func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
         return false
     }
 
@@ -173,7 +173,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView,
                          didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        
+        navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
     }
     
     public func webView(_ webView: WKWebView,
@@ -193,11 +193,11 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
-        
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-//        DDLogError("[SEBiOSWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+        DDLogError("[SEBiOSWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+        navigationDelegate?.webViewWebContentProcessDidTerminate?(webView)
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
