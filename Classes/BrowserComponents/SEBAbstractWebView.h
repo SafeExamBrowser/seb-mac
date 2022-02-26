@@ -191,6 +191,8 @@ didCommitNavigation:(WKNavigation *)navigation;
 - (void)webView:(WKWebView *)webView
 didFinishNavigation:(WKNavigation *)navigation;
 
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView;
+
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;
