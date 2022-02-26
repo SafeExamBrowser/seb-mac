@@ -202,11 +202,11 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
-        
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         DDLogError("[SEBOSXWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+        navigationDelegate?.webViewWebContentProcessDidTerminate?(webView)
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
