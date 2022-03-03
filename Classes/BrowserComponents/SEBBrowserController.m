@@ -199,10 +199,23 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"wkWebViewConfiguration.websiteDataStore.httpCookieStore cookies: %@", wkWebViewCookies);
 #endif
                 for (NSHTTPCookie *cookie in cookies) {
-                    dispatch_group_enter(waitGroup);
-                    [cookieStore setCookie:cookie completionHandler:^{
-                        dispatch_group_leave(waitGroup);
-                    }];
+                    NSString *name = cookie.name;
+                    NSString *domain = cookie.domain;
+                    BOOL cookieExists = NO;
+                    for (NSHTTPCookie *wkCookie in wkWebViewCookies) {
+                        if ([name isEqualToString:wkCookie.name]) {
+                            if ([domain isEqualToString:wkCookie.domain]) {
+                                cookieExists = YES;
+                                break;
+                            }
+                        }
+                    }
+                    if (!cookieExists) {
+                        dispatch_group_enter(waitGroup);
+                        [cookieStore setCookie:cookie completionHandler:^{
+                            dispatch_group_leave(waitGroup);
+                        }];
+                    }
                 }
                 dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
                     [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull wkWebViewCookies) {
