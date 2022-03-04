@@ -326,13 +326,17 @@ import Foundation
     
     private func textZoomJS(zoomLevel: Double) -> String {
         let fontSize = Int(WebViewDefaultTextSize * zoomLevel)
+        var jsZoomLevel = zoomLevel
+        if zoomLevel > 1 {
+            jsZoomLevel = ((zoomLevel-1)/5)+1
+        }
         return """
                 function zoomTextForTagName(tag) {
                     var elements = document.getElementsByTagName(tag);
                     for (var i = 0, max = elements.length; i < max; i++)
                     {
                         var computedFontSize = parseInt(window.getComputedStyle(elements[i]).fontSize, 10);
-                        computedFontSize *= \(zoomLevel);
+                        computedFontSize *= \(jsZoomLevel);
                         elements[i].style.fontSize = computedFontSize + 'px';
                     }
                 }
@@ -354,6 +358,7 @@ import Foundation
     
 
     fileprivate func setTextSize() {
+#if os(iOS)
         if (pageZoom == 1 && textZoom != 1 && textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
             let js = textZoomJS(zoomLevel: textZoom)
             sebWebView.evaluateJavaScript(js) { (response, error) in
@@ -362,6 +367,14 @@ import Foundation
                 }
             }
         }
+#else
+        typealias setTextZoomMethod = @convention(c) (NSObject, Selector, Double) -> Void
+        
+        let selector = NSSelectorFromString("_setTextZoomFactor:")
+        let methodIMP = sebWebView.method(for: selector)
+        let method = unsafeBitCast(methodIMP, to: setTextZoomMethod.self)
+        let _ = method(sebWebView, selector, textZoom)
+#endif
     }
     
     public func textSizeIncrease() {
