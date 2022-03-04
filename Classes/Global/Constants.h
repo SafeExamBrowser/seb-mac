@@ -83,7 +83,7 @@
 
 #define WebViewDefaultTextSize 135.0
 #define WebViewDefaultTextZoom 1.0
-#define WebViewMinTextZoom 0.5
+#define WebViewMinTextZoom 0.9
 #define WebViewMaxTextZoom 3.5
 #define WebViewDefaultPageZoom 1.0
 #define WebViewMinPageZoom 0.25
