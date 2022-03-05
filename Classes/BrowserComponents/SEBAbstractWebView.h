@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;
-- (void) updateZoomScale;
+- (void) updateZoomScale:(double)zoomScale;
 
 - (void) textSizeIncrease;
 - (void) textSizeDecrease;

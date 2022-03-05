@@ -813,7 +813,7 @@
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="6S4-iC-qVF">
                                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="gni-Yb-8cB">
                                                                                     <real key="minimum" value="0.25"/>
-                                                                                    <real key="maximum" value="3"/>
+                                                                                    <real key="maximum" value="4"/>
                                                                                 </numberFormatter>
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -858,7 +858,7 @@
                                                                             </constraints>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="N95-QU-gCN">
                                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="7ZU-j5-PaB">
-                                                                                    <real key="minimum" value="0.5"/>
+                                                                                    <real key="minimum" value="0.90000000000000002"/>
                                                                                     <real key="maximum" value="3.5"/>
                                                                                 </numberFormatter>
                                                                                 <font key="font" metaFont="system"/>
