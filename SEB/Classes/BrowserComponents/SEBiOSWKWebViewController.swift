@@ -67,9 +67,13 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
 
     private var urlFilter: SEBURLFilter?
     
-    public func updateZoomScale() {
+    public func updateZoomScale(_ contentZoomScale: Double) {
         zoomScale = sebWebView?.scrollView.zoomScale
         sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
+        if contentZoomScale != 1 {
+            let js = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
+            sebWebView?.evaluateJavaScript(js)
+        }
     }
     
     convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {

@@ -280,6 +280,7 @@ import Foundation
                             if let _ = error {
                                     print(error as Any)
                             }
+                            self.browserControllerDelegate?.updateZoomScale?(iOSPageZoom)
                         }
                     }
                 } else {
@@ -288,6 +289,7 @@ import Foundation
                         if let _ = error {
                                 print(error as Any)
                         }
+                        self.browserControllerDelegate?.updateZoomScale?(self.pageZoom)
                     }
                 }
 #else
@@ -299,7 +301,7 @@ import Foundation
                     if let _ = error {
                         print(error as Any)
                     }
-                    self.browserControllerDelegate?.updateZoomScale?()
+                    self.browserControllerDelegate?.updateZoomScale?(self.pageZoom)
                 }
             }
         }
