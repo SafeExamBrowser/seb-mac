@@ -203,6 +203,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="645" id="br7-Sj-xez"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1213">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -236,6 +237,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="674" id="MdX-Yl-x3F"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1237">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -266,6 +268,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="654" id="tVk-SI-AGZ"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1231">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -296,6 +299,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="687" id="Aay-Kg-DfZ"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1225">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -311,6 +315,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="link" destination="736" id="Gf6-N1-yPP"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1200">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -482,6 +487,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="887" id="k7O-n5-oXS"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1197">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -561,6 +567,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1314" id="Sk5-Rt-lcn"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1305">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -617,6 +624,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="2202" id="OIV-cr-P3Z"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="2206">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -916,6 +924,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1893" id="Utn-wX-eYg"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1948">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -949,6 +958,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1895" id="xgs-sf-I8a"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1951">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -979,6 +989,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1896" id="AIF-S6-QQT"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1943">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -1027,6 +1038,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1859" id="Wg4-aF-wnU"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1945">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -1102,6 +1114,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1900" id="f6m-AT-WmH"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1949">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
