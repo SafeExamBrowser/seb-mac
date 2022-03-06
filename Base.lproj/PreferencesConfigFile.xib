@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19528"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,6 +36,9 @@
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <accessibilityConnection property="title" destination="249" id="ueE-v0-eFB"/>
+                                    </connections>
                                 </textField>
                                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
                                     <rect key="frame" x="131" y="0.0" width="481" height="40"/>
@@ -179,6 +182,9 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="114" id="8xa-c3-9yO"/>
+                                            </connections>
                                         </textField>
                                         <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                             <rect key="frame" x="119" y="1" width="300" height="21"/>
@@ -225,6 +231,9 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="110" id="o37-Z8-d72"/>
+                                            </connections>
                                         </textField>
                                         <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                             <rect key="frame" x="171" y="0.0" width="300" height="21"/>
@@ -329,6 +338,7 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="openSEBPrefs:" target="-2" id="1313"/>
+                                                <outlet property="nextKeyView" destination="3" id="4Wu-Og-s22"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Save settings file with same name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
@@ -352,6 +362,7 @@
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="1106" id="qBh-ui-HsV"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Choose file name and destination to save settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
@@ -367,6 +378,7 @@
                                                         <string key="NSValueTransformerName">NSIsNil</string>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="1072" id="UEa-SO-xf6"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -410,6 +422,7 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="revertToDefaultSettings:" target="-2" id="1364"/>
+                                                <outlet property="nextKeyView" destination="1137" id="c4S-vR-lyR"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Revert to the local client settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
@@ -425,6 +438,7 @@
                                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="1060" id="RGt-Cq-33e"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Revert to last saved (or opened) settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
@@ -436,6 +450,7 @@
                                             <connections>
                                                 <action selector="revertToLastSaved:" target="-2" id="GAc-Rh-nw1"/>
                                                 <binding destination="-2" name="enabled" keyPath="self.editingSettingsFile" id="H2x-be-PFI"/>
+                                                <outlet property="nextKeyView" destination="1165" id="gmp-PJ-HHy"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -479,6 +494,7 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="editDuplicate:" target="-2" id="1361"/>
+                                                <outlet property="nextKeyView" destination="1157" id="bAk-TC-bEV"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Configure client using current settings (overwriting current local settings)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1157">
@@ -490,6 +506,7 @@
                                             <connections>
                                                 <action selector="configureClient:" target="-2" id="1366"/>
                                                 <binding destination="-2" name="enabled" keyPath="self.usingPrivateDefaults" id="1356"/>
+                                                <outlet property="nextKeyView" destination="1292" id="Rcb-Bx-W9H"/>
                                             </connections>
                                         </button>
                                         <button toolTip="Apply current settings and restart SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1292">

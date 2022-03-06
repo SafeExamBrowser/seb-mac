@@ -50,6 +50,9 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <accessibilityConnection property="title" destination="85" id="Abn-aQ-RQD"/>
+                                                </connections>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                                                 <rect key="frame" x="-3" y="17" width="601" height="25"/>
@@ -814,13 +817,13 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                                        <rect key="frame" x="17" y="52" width="616" height="201"/>
+                                        <rect key="frame" x="16" y="52" width="617" height="201"/>
                                         <view key="contentView" id="axo-2J-CZ8">
-                                            <rect key="frame" x="3" y="3" width="610" height="183"/>
+                                            <rect key="frame" x="3" y="3" width="611" height="183"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <popUpButton toolTip="Each SEB version/device type has separate user agent settings" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                                    <rect key="frame" x="8" y="121" width="595" height="25"/>
+                                                    <rect key="frame" x="8" y="121" width="596" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -840,7 +843,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <tabView verticalCompressionResistancePriority="1000" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                                    <rect key="frame" x="11" y="12" width="588" height="105"/>
+                                                    <rect key="frame" x="11" y="12" width="589" height="105"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="105" id="rSZ-FD-lbj"/>
                                                     </constraints>
@@ -868,10 +871,16 @@
                                                                                 <buttonCell type="radio" title="Default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="Lq8-Fi-SDM">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="dP1-5V-zqF" id="hZc-8K-N7g"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                                 <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="YE5-tr-HaY">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="FHC-Y1-NDD" id="d3t-9m-bCX"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
@@ -939,16 +948,16 @@
                                                         </tabViewItem>
                                                         <tabViewItem identifier="" id="8tq-Bu-Cs3" userLabel="Tab View Item - Win Desktop">
                                                             <view key="view" id="OdS-lv-NbA">
-                                                                <rect key="frame" x="0.0" y="0.0" width="588" height="104"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="588" height="105"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <matrix horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFV-q6-A2b">
-                                                                        <rect key="frame" x="0.0" y="64" width="124" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="65" width="126" height="40"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="cj4-7i-4tw"/>
                                                                         </constraints>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        <size key="cellSize" width="124" height="18"/>
+                                                                        <size key="cellSize" width="126" height="19"/>
                                                                         <size key="intercellSpacing" width="4" height="2"/>
                                                                         <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="cM3-iz-gU7">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -959,10 +968,16 @@
                                                                                 <buttonCell type="radio" title="Desktop default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="fzm-2I-vcw">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="Z3B-Za-z4X" id="oGI-6O-nsg"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                                 <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="kJa-eD-szz">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="YGc-0N-3Cu" id="e4H-wy-yyh"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
@@ -971,7 +986,7 @@
                                                                         </connections>
                                                                     </matrix>
                                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YGc-0N-3Cu">
-                                                                        <rect key="frame" x="0.0" y="39" width="588" height="21"/>
+                                                                        <rect key="frame" x="0.0" y="40" width="588" height="21"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="588" id="iCD-1t-EAe"/>
                                                                         </constraints>
@@ -991,7 +1006,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-Za-z4X">
-                                                                        <rect key="frame" x="132" y="85" width="456" height="19"/>
+                                                                        <rect key="frame" x="134" y="86" width="454" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="456" id="nwA-PJ-FOI"/>
                                                                         </constraints>
@@ -1002,7 +1017,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-76-Lv7">
-                                                                        <rect key="frame" x="-2" y="7" width="592" height="28"/>
+                                                                        <rect key="frame" x="-2" y="8" width="592" height="28"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="m10-X9-qlH"/>
                                                                         </constraints>
@@ -1051,14 +1066,23 @@
                                                                                 <buttonCell type="radio" title="Touch default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="al8-58-HPQ">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="XSw-aj-V6a" id="dpg-4G-EtO"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                                 <buttonCell type="radio" title="iPad" imagePosition="left" alignment="left" inset="2" id="mRw-O9-H0n">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="twb-Ov-Zlx" id="D1e-gY-YQV"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                                 <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="qVa-6O-Lcc">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="34u-Jt-GbJ" id="ccL-zj-x1V"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
@@ -1136,16 +1160,16 @@
                                                         </tabViewItem>
                                                         <tabViewItem identifier="" id="YuA-HG-YlI" userLabel="Tab View Item - iOS">
                                                             <view key="view" id="ZbY-Fs-tI4">
-                                                                <rect key="frame" x="0.0" y="0.0" width="585" height="104"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="589" height="105"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <matrix horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFj-GF-HjV">
-                                                                        <rect key="frame" x="0.0" y="43" width="106" height="61"/>
+                                                                        <rect key="frame" x="0.0" y="44" width="110" height="61"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="61" id="tOf-70-AdN"/>
                                                                         </constraints>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        <size key="cellSize" width="106" height="19"/>
+                                                                        <size key="cellSize" width="110" height="19"/>
                                                                         <size key="intercellSpacing" width="4" height="2"/>
                                                                         <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="Lp4-ds-S87">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1156,14 +1180,23 @@
                                                                                 <buttonCell type="radio" title="Default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="t6p-Cb-xTk">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="F1k-Qz-pMS" id="x5R-B6-XZc"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                                 <buttonCell type="radio" title="Mac Desktop:" imagePosition="left" alignment="left" inset="2" id="T01-cf-vMr">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="0DR-0l-x3s" id="Nqr-GG-UkD"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                                 <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="Bth-dN-6f1">
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="oTH-6g-3oo" id="DuC-sQ-dJf"/>
+                                                                                    </connections>
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
@@ -1172,7 +1205,7 @@
                                                                         </connections>
                                                                     </matrix>
                                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oTH-6g-3oo">
-                                                                        <rect key="frame" x="0.0" y="17" width="585" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="589" height="22"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="22" id="m2M-eU-iVb"/>
                                                                         </constraints>
@@ -1192,7 +1225,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <textField toolTip="Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1k-Qz-pMS">
-                                                                        <rect key="frame" x="114" y="85" width="471" height="19"/>
+                                                                        <rect key="frame" x="118" y="86" width="471" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="471" id="ORT-KL-agB"/>
                                                                         </constraints>
@@ -1203,7 +1236,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField toolTip="Mac Safari (desktop browser) user agent string" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-0l-x3s" userLabel="User Agent iOS Mac Desktop">
-                                                                        <rect key="frame" x="114" y="64" width="471" height="19"/>
+                                                                        <rect key="frame" x="118" y="65" width="471" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="iOS Mac desktop user agent" id="Bmg-9t-VQK">
                                                                             <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1211,7 +1244,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="emi-HA-bH3">
-                                                                        <rect key="frame" x="-2" y="-1" width="589" height="14"/>
+                                                                        <rect key="frame" x="-2" y="0.0" width="593" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default strings depend on installed iOS version and therefore can differ on exam clients." id="yW3-rB-jbe">
                                                                             <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1245,7 +1278,7 @@
                                                     </connections>
                                                 </tabView>
                                                 <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
-                                                    <rect key="frame" x="127" y="153" width="470" height="22"/>
+                                                    <rect key="frame" x="127" y="153" width="471" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
                                                     </constraints>
@@ -1271,6 +1304,9 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <connections>
+                                                        <accessibilityConnection property="title" destination="p3T-fI-3bu" id="YH7-bL-xDX"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
