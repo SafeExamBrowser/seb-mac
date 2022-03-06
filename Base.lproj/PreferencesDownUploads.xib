@@ -41,6 +41,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="32" id="pIS-KU-twY"/>
+                    </connections>
                 </textField>
                 <popUpButton toolTip="Choose download directory" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                     <rect key="frame" x="327" y="241" width="307" height="25"/>
@@ -127,6 +130,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="93" id="n2T-Il-JuS"/>
+                    </connections>
                 </textField>
                 <button toolTip="Download and open .seb config files regardless if downloading and opening other file types is allowed" translatesAutoresizingMaskIntoConstraints="NO" id="265">
                     <rect key="frame" x="18" y="24" width="612" height="18"/>
@@ -168,6 +174,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="fKA-Ye-zQz" id="rUa-e4-3ZN"/>
+                    </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
                     <rect key="frame" x="38" y="57" width="592" height="18"/>
