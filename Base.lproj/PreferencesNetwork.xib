@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -807,9 +807,12 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <accessibilityConnection property="title" destination="1779" id="ok7-7q-7Zu"/>
+                                        </connections>
                                     </textField>
                                     <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
-                                        <rect key="frame" x="14" y="595" width="576" height="22"/>
+                                        <rect key="frame" x="13" y="596" width="578" height="22"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="1782" id="1780">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -824,15 +827,18 @@
                                         </connections>
                                     </popUpButton>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1813">
-                                        <rect key="frame" x="18" y="573" width="571" height="17"/>
+                                        <rect key="frame" x="18" y="576" width="571" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose CA certificate to embed into settings ..." usesSingleLineMode="YES" id="1818">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <accessibilityConnection property="title" destination="1814" id="cdZ-nk-W6d"/>
+                                        </connections>
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1814">
-                                        <rect key="frame" x="14" y="548" width="576" height="22"/>
+                                        <rect key="frame" x="13" y="552" width="578" height="22"/>
                                         <string key="toolTip">CA (certificate authority) certificates from the default keychain. This allows to extend or override (when 'Pin embedded certificates' is selected) the default browser trust store</string>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="1817" id="1815">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -848,13 +854,13 @@
                                         </connections>
                                     </popUpButton>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1831">
-                                        <rect key="frame" x="17" y="39" width="570" height="423"/>
+                                        <rect key="frame" x="17" y="39" width="570" height="429"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
-                                            <rect key="frame" x="1" y="1" width="568" height="421"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <rect key="frame" x="1" y="1" width="568" height="427"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="398"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="404"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -886,7 +892,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="428" minWidth="40" maxWidth="1000" id="1837">
+                                                        <tableColumn width="399" minWidth="40" maxWidth="1000" id="1837">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -913,7 +919,7 @@
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <tableHeaderView key="headerView" id="1834">
+                                        <tableHeaderView key="headerView" wantsLayer="YES" id="1834">
                                             <rect key="frame" x="0.0" y="0.0" width="568" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
@@ -933,7 +939,7 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="0yk-gp-6bB">
-                                        <rect key="frame" x="30" y="527" width="182" height="18"/>
+                                        <rect key="frame" x="30" y="531" width="185" height="18"/>
                                         <string key="toolTip">If selected, then HTTPS connections will only be allowed if there is an exact match of a server certificate with one of the embedded TLS/SSL certificates or if one of the embedded CAs establish trust</string>
                                         <buttonCell key="cell" type="check" title="Pin embedded certificates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="r6V-Ca-cfU">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -949,15 +955,18 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6i-Is-hu5">
-                                        <rect key="frame" x="18" y="498" width="571" height="17"/>
+                                        <rect key="frame" x="18" y="502" width="571" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity to embed into settings ..." id="cfG-U9-U7j">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <accessibilityConnection property="title" destination="UIS-5m-9TC" id="2Kg-y3-U71"/>
+                                        </connections>
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UIS-5m-9TC">
-                                        <rect key="frame" x="14" y="473" width="576" height="22"/>
+                                        <rect key="frame" x="13" y="478" width="578" height="22"/>
                                         <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting (see Config File pane) and decrypting SEB config files. Embedded identities in config files saved for configuring clients will be imported into the Keychain of exam clients.</string>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="Lxp-Pp-Yke" id="OMx-hT-rLB">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -973,7 +982,7 @@
                                         </connections>
                                     </popUpButton>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oMT-Yl-qL1">
-                                        <rect key="frame" x="482" y="3" width="111" height="32"/>
+                                        <rect key="frame" x="488" y="3" width="106" height="33"/>
                                         <buttonCell key="cell" type="push" title="Advanced…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wrm-JO-cYX">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1025,7 +1034,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="768">
-                                        <rect key="frame" x="15" y="555" width="188" height="17"/>
+                                        <rect key="frame" x="15" y="556" width="188" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select a protocol to configure:" id="769">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1033,13 +1042,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="805">
-                                        <rect key="frame" x="17" y="412" width="240" height="135"/>
+                                        <rect key="frame" x="17" y="414" width="240" height="134"/>
                                         <clipView key="contentView" id="QXl-Cs-ddI">
-                                            <rect key="frame" x="1" y="1" width="238" height="133"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <rect key="frame" x="1" y="1" width="238" height="132"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="806">
-                                                    <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="238" height="132"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1093,22 +1102,22 @@
                                         </scroller>
                                     </scrollView>
                                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="821" translatesAutoresizingMaskIntoConstraints="NO" id="820">
-                                        <rect key="frame" x="275" y="412" width="312" height="160"/>
+                                        <rect key="frame" x="275" y="414" width="312" height="158"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem identifier="1" id="821">
                                                 <view key="view" id="824">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </tabViewItem>
                                             <tabViewItem identifier="2" id="822">
                                                 <view key="view" id="823">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="854">
-                                                            <rect key="frame" x="1" y="143" width="149" height="17"/>
+                                                            <rect key="frame" x="1" y="142" width="149" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Proxy Configuration File" id="855">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1116,15 +1125,18 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1156">
-                                                            <rect key="frame" x="1" y="115" width="35" height="17"/>
+                                                            <rect key="frame" x="1" y="115" width="35" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="URL:" id="1157">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1160" id="0ZD-ma-UY0"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1160">
-                                                            <rect key="frame" x="42" y="112" width="270" height="22"/>
+                                                            <rect key="frame" x="42" y="112" width="270" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="270" id="1167"/>
                                                             </constraints>
@@ -1138,7 +1150,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1168">
-                                                            <rect key="frame" x="196" y="76" width="122" height="32"/>
+                                                            <rect key="frame" x="203" y="77" width="116" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Choose File…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1169">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1176,19 +1188,22 @@
                                             </tabViewItem>
                                             <tabViewItem identifier="" id="1194" userLabel="Tab View Item - HTTP">
                                                 <view key="view" id="1195">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1214">
-                                                            <rect key="frame" x="1" y="143" width="112" height="17"/>
+                                                            <rect key="frame" x="1" y="142" width="112" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Web Proxy Server" usesSingleLineMode="YES" id="1215">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1221" id="YFN-bQ-k3v"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1221">
-                                                            <rect key="frame" x="0.0" y="113" width="240" height="22"/>
+                                                            <rect key="frame" x="0.0" y="113" width="240" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="240" id="1237"/>
                                                             </constraints>
@@ -1197,12 +1212,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPProxy" id="1947"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1226">
-                                                            <rect key="frame" x="252" y="113" width="60" height="22"/>
+                                                            <rect key="frame" x="252" y="113" width="60" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="1231"/>
                                                             </constraints>
@@ -1215,12 +1231,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Port number"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPPort" id="1948"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1232">
-                                                            <rect key="frame" x="241" y="116" width="8" height="17"/>
+                                                            <rect key="frame" x="241" y="116" width="8" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1233">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1228,7 +1245,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1240">
-                                                            <rect key="frame" x="-2" y="87" width="212" height="18"/>
+                                                            <rect key="frame" x="-2" y="86" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1241">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1238,7 +1255,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1246">
-                                                            <rect key="frame" x="112" y="56" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1277"/>
                                                             </constraints>
@@ -1252,23 +1269,29 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1258">
-                                                            <rect key="frame" x="32" y="59" width="70" height="17"/>
+                                                            <rect key="frame" x="32" y="58" width="70" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1259">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1246" id="zcB-A3-D8H"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1284">
-                                                            <rect key="frame" x="36" y="27" width="66" height="17"/>
+                                                            <rect key="frame" x="36" y="27" width="66" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1285">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1278" id="dy5-Pm-2u4"/>
+                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1278">
-                                                            <rect key="frame" x="112" y="24" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1279">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1312,19 +1335,22 @@
                                             </tabViewItem>
                                             <tabViewItem identifier="" id="1196" userLabel="Tab View Item - HTTPS">
                                                 <view key="view" id="1197">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1516">
-                                                            <rect key="frame" x="1" y="143" width="158" height="17"/>
+                                                            <rect key="frame" x="1" y="142" width="158" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Secure Web Proxy Server" usesSingleLineMode="YES" id="1536">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1517" id="AVE-MB-JXW"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1517">
-                                                            <rect key="frame" x="0.0" y="113" width="240" height="22"/>
+                                                            <rect key="frame" x="0.0" y="113" width="240" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="240" id="1534"/>
                                                             </constraints>
@@ -1333,12 +1359,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Secure host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSProxy" id="1919"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1518">
-                                                            <rect key="frame" x="252" y="113" width="60" height="22"/>
+                                                            <rect key="frame" x="252" y="113" width="60" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="1532"/>
                                                             </constraints>
@@ -1351,12 +1378,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Port number"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSPort" id="1921"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1519">
-                                                            <rect key="frame" x="241" y="116" width="8" height="17"/>
+                                                            <rect key="frame" x="241" y="116" width="8" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1531">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1364,7 +1392,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1520">
-                                                            <rect key="frame" x="-2" y="87" width="212" height="18"/>
+                                                            <rect key="frame" x="-2" y="86" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1530">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1374,7 +1402,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1521">
-                                                            <rect key="frame" x="112" y="56" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1528"/>
                                                             </constraints>
@@ -1388,23 +1416,29 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1522">
-                                                            <rect key="frame" x="32" y="59" width="70" height="17"/>
+                                                            <rect key="frame" x="32" y="58" width="70" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1527">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1521" id="Olu-4T-efX"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1523">
-                                                            <rect key="frame" x="36" y="27" width="66" height="17"/>
+                                                            <rect key="frame" x="36" y="27" width="66" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1526">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1524" id="Pk3-he-tfp"/>
+                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1524">
-                                                            <rect key="frame" x="112" y="24" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1525">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1448,19 +1482,22 @@
                                             </tabViewItem>
                                             <tabViewItem identifier="" id="1198" userLabel="Tab View Item - FTP">
                                                 <view key="view" id="1199">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1557">
-                                                            <rect key="frame" x="1" y="143" width="109" height="17"/>
+                                                            <rect key="frame" x="1" y="142" width="109" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="FTP Proxy Server" usesSingleLineMode="YES" id="1577">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1558" id="TOL-sX-LRY"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1558">
-                                                            <rect key="frame" x="0.0" y="113" width="240" height="22"/>
+                                                            <rect key="frame" x="0.0" y="113" width="240" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="240" id="1575"/>
                                                             </constraints>
@@ -1469,12 +1506,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPProxy" id="1937"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1559">
-                                                            <rect key="frame" x="252" y="113" width="60" height="22"/>
+                                                            <rect key="frame" x="252" y="113" width="60" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="1573"/>
                                                             </constraints>
@@ -1487,12 +1525,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Port number"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPPort" id="1939"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1560">
-                                                            <rect key="frame" x="241" y="116" width="8" height="17"/>
+                                                            <rect key="frame" x="241" y="116" width="8" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1572">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1500,7 +1539,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1561">
-                                                            <rect key="frame" x="-2" y="87" width="212" height="18"/>
+                                                            <rect key="frame" x="-2" y="86" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1571">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1510,7 +1549,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1562">
-                                                            <rect key="frame" x="112" y="56" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1569"/>
                                                             </constraints>
@@ -1524,23 +1563,29 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1563">
-                                                            <rect key="frame" x="32" y="59" width="70" height="17"/>
+                                                            <rect key="frame" x="32" y="58" width="70" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1568">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1562" id="X0z-V4-2jc"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1564">
-                                                            <rect key="frame" x="36" y="27" width="66" height="17"/>
+                                                            <rect key="frame" x="36" y="27" width="66" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1567">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1565" id="T5y-8J-8jP"/>
+                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1565">
-                                                            <rect key="frame" x="112" y="24" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1566">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1584,19 +1629,22 @@
                                             </tabViewItem>
                                             <tabViewItem identifier="" id="1200" userLabel="Tab View Item - SOCKS">
                                                 <view key="view" id="1201">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1598">
-                                                            <rect key="frame" x="1" y="143" width="129" height="17"/>
+                                                            <rect key="frame" x="1" y="142" width="129" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="SOCKS Proxy Server" usesSingleLineMode="YES" id="1618">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1599" id="u9F-oh-3g3"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1599">
-                                                            <rect key="frame" x="0.0" y="113" width="240" height="22"/>
+                                                            <rect key="frame" x="0.0" y="113" width="240" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="240" id="1616"/>
                                                             </constraints>
@@ -1605,12 +1653,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSProxy" id="1951"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
-                                                            <rect key="frame" x="252" y="113" width="60" height="22"/>
+                                                            <rect key="frame" x="252" y="113" width="60" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="1614"/>
                                                             </constraints>
@@ -1623,12 +1672,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Port number"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSPort" id="1955"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1601">
-                                                            <rect key="frame" x="241" y="116" width="8" height="17"/>
+                                                            <rect key="frame" x="241" y="116" width="8" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1613">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1636,7 +1686,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1602">
-                                                            <rect key="frame" x="-2" y="87" width="212" height="18"/>
+                                                            <rect key="frame" x="-2" y="86" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1612">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1646,7 +1696,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1603">
-                                                            <rect key="frame" x="112" y="56" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1610"/>
                                                             </constraints>
@@ -1660,23 +1710,29 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1604">
-                                                            <rect key="frame" x="32" y="59" width="70" height="17"/>
+                                                            <rect key="frame" x="32" y="58" width="70" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1609">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1603" id="oc7-kI-Zc2"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1605">
-                                                            <rect key="frame" x="36" y="27" width="66" height="17"/>
+                                                            <rect key="frame" x="36" y="27" width="66" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1608">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1606" id="dWP-eF-VUj"/>
+                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1606">
-                                                            <rect key="frame" x="112" y="24" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1607">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1720,19 +1776,22 @@
                                             </tabViewItem>
                                             <tabViewItem identifier="" id="1202" userLabel="Tab View Item - RTSP">
                                                 <view key="view" id="1203">
-                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1639">
-                                                            <rect key="frame" x="1" y="143" width="147" height="17"/>
+                                                            <rect key="frame" x="1" y="142" width="147" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Streaming Proxy Server" usesSingleLineMode="YES" id="1659">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1640" id="goa-hW-QwL"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1640">
-                                                            <rect key="frame" x="0.0" y="113" width="240" height="22"/>
+                                                            <rect key="frame" x="0.0" y="113" width="240" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="240" id="1657"/>
                                                             </constraints>
@@ -1741,12 +1800,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPProxy" id="1737"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1641">
-                                                            <rect key="frame" x="252" y="113" width="60" height="22"/>
+                                                            <rect key="frame" x="252" y="113" width="60" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="1655"/>
                                                             </constraints>
@@ -1759,12 +1819,13 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Port number"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPPort" id="1736"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1642">
-                                                            <rect key="frame" x="241" y="116" width="8" height="17"/>
+                                                            <rect key="frame" x="241" y="116" width="8" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1654">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1772,7 +1833,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1643">
-                                                            <rect key="frame" x="-2" y="87" width="212" height="18"/>
+                                                            <rect key="frame" x="-2" y="86" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1653">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1782,7 +1843,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1644">
-                                                            <rect key="frame" x="112" y="56" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1651"/>
                                                             </constraints>
@@ -1796,23 +1857,29 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1645">
-                                                            <rect key="frame" x="32" y="59" width="70" height="17"/>
+                                                            <rect key="frame" x="32" y="58" width="70" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1650">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1644" id="Njh-0p-S9n"/>
+                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1646">
-                                                            <rect key="frame" x="36" y="27" width="66" height="17"/>
+                                                            <rect key="frame" x="36" y="27" width="66" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1649">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="1647" id="hYZ-xb-B3D"/>
+                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1647">
-                                                            <rect key="frame" x="112" y="24" width="200" height="22"/>
+                                                            <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1648">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1889,7 +1956,7 @@
                                         </connections>
                                     </matrix>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1058">
-                                        <rect key="frame" x="15" y="388" width="183" height="18"/>
+                                        <rect key="frame" x="15" y="389" width="187" height="18"/>
                                         <buttonCell key="cell" type="check" title="Exclude simple hostnames" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1059">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1899,12 +1966,15 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1063">
-                                        <rect key="frame" x="15" y="353" width="303" height="17"/>
+                                        <rect key="frame" x="15" y="353" width="303" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bypass proxy settings for these hosts &amp; domains:" id="1064">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <accessibilityConnection property="title" destination="1076" id="smY-O6-a19"/>
+                                        </connections>
                                     </textField>
                                     <textField toolTip="Separate hosts/domains with commas" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1076">
                                         <rect key="frame" x="17" y="285" width="570" height="60"/>
@@ -1921,7 +1991,7 @@
                                         </connections>
                                     </textField>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1088">
-                                        <rect key="frame" x="15" y="219" width="207" height="18"/>
+                                        <rect key="frame" x="15" y="220" width="211" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use Passive FTP Mode (PASV)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1089">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -2046,7 +2116,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2132,7 +2202,7 @@
                         </tableHeaderView>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qiQ-yv-KyL">
-                        <rect key="frame" x="18" y="537" width="181" height="16"/>
+                        <rect key="frame" x="18" y="537" width="180" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose certificate to embed:" id="VV0-Zp-Taw">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
