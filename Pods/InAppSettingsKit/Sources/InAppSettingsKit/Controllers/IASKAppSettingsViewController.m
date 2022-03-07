@@ -819,7 +819,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 
-	[tableView beginUpdates];
 	if ([specifier.type isEqualToString:kIASKDatePickerSpecifier]) {
 		[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
@@ -1010,7 +1009,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 			});
 		}
     }
-	[tableView endUpdates];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1291,7 +1289,6 @@ static NSMutableDictionary *oldUserDefaults = nil;
 
 - (void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier {
 	if (specifier.multipleValues.count == 0) {
-		NSLog(@"need to init from delegate");
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
 			[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
 		{
