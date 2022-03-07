@@ -16,7 +16,7 @@ target 'SEB' do
 platform :ios, '11'
 use_frameworks!
 pod 'CocoaLumberjack/Swift'
-pod 'InAppSettingsKit'#, '~> 2.15'#, :git => 'https://github.com/futuretap/InAppSettingsKit.git'
+pod 'InAppSettingsKit', :git => 'https://github.com/SafeExamBrowser/InAppSettingsKit.git'#, :branch => 'Crash_after_selection'
 pod 'QRCodeReaderViewController', '~> 4.0.2'
 pod 'JitsiMeetSDK', '~> 3.9.0'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
 
