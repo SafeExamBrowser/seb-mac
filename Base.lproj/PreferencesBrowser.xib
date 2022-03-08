@@ -69,6 +69,7 @@
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>
+                                                <accessibility description="Links requesting to be opened in a new browser window"/>
                                                 <connections>
                                                     <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="gwZ-7t-bYr"/>
                                                     <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies" id="238"/>
@@ -128,6 +129,7 @@
                                                             <string>1000</string>
                                                         </objectValues>
                                                     </comboBoxCell>
+                                                    <accessibility description="New browser window width"/>
                                                     <connections>
                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkWidth" id="642"/>
                                                     </connections>
@@ -153,6 +155,7 @@
                                                             <string>800</string>
                                                         </objectValues>
                                                     </comboBoxCell>
+                                                    <accessibility description="New browser window height"/>
                                                     <connections>
                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkHeight" id="641"/>
                                                     </connections>
@@ -189,6 +192,7 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <accessibility description="Horizontal positioning of new browser windows"/>
                                                     <connections>
                                                         <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="649"/>
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning" previousBinding="649" id="650"/>
@@ -458,6 +462,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Show URLs in exam window"/>
                                                                             <connections>
                                                                                 <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowShowURLPolicies" id="7ip-mK-5Vr"/>
                                                                                 <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserWindowShowURL" previousBinding="7ip-mK-5Vr" id="9xf-bT-hhx"/>
@@ -562,6 +567,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Show URLs in additional windows"/>
                                                                             <connections>
                                                                                 <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowShowURLPolicies" id="0fT-V9-vMc"/>
                                                                                 <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowShowURL" previousBinding="0fT-V9-vMc" id="Cgb-VC-ae1"/>
@@ -775,6 +781,7 @@
                                                                     </items>
                                                                 </menu>
                                                             </popUpButtonCell>
+                                                            <accessibility description="Select Browser Engine Policy"/>
                                                             <connections>
                                                                 <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="s1c-41-8ik"/>
                                                                 <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowWebViewPolicies" id="goH-Ql-oOy"/>
@@ -837,6 +844,7 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <accessibility description="Select SEB platform version plus device type"/>
                                                     <connections>
                                                         <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserUserAgentEnvironments" id="hs7-nc-o7A"/>
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" previousBinding="hs7-nc-o7A" id="FnP-tl-2nu"/>
@@ -884,6 +892,7 @@
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
+                                                                        <accessibility description="Choose user agent"/>
                                                                         <connections>
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentMac" id="4k3-RK-DGV"/>
                                                                         </connections>
@@ -899,6 +908,7 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <accessibility description="Enter custom user agent string for SEB on macOS"/>
                                                                         <connections>
                                                                             <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentMacCustom" id="8xq-8U-ARB">
                                                                                 <dictionary key="options">
@@ -981,6 +991,7 @@
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
+                                                                        <accessibility description="Choose user agent"/>
                                                                         <connections>
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinDesktopMode" id="tBa-PL-j1j"/>
                                                                         </connections>
@@ -995,6 +1006,7 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <accessibility description="Enter custom user agent string for SEB on Windows desktop devices"/>
                                                                         <connections>
                                                                             <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinDesktopModeCustom" id="YHv-k2-gGZ">
                                                                                 <dictionary key="options">
@@ -1086,6 +1098,7 @@
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
+                                                                        <accessibility description="Choose user agent"/>
                                                                         <connections>
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchMode" id="YNV-gT-xXs"/>
                                                                         </connections>
@@ -1100,6 +1113,7 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <accessibility description="Enter custom user agent string for SEB on Windows touch devices"/>
                                                                         <connections>
                                                                             <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchModeCustom" id="DBE-IV-5fQ">
                                                                                 <dictionary key="options">
@@ -1200,6 +1214,7 @@
                                                                                 </buttonCell>
                                                                             </column>
                                                                         </cells>
+                                                                        <accessibility description="Choose user agent"/>
                                                                         <connections>
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentiOS" id="bml-yw-tnL"/>
                                                                         </connections>
@@ -1214,6 +1229,7 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <accessibility description="Enter custom user agent string for SEB on iOS"/>
                                                                         <connections>
                                                                             <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentiOSCustom" id="7Q1-rm-C7L">
                                                                                 <dictionary key="options">
@@ -1287,6 +1303,7 @@
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="User agent suffix"/>
                                                     <connections>
                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgent" id="0Q2-XI-8oS">
                                                             <dictionary key="options">
@@ -1342,6 +1359,7 @@
                                                     <font key="font" metaFont="message" size="11"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <accessibilityConnection property="link" destination="447" id="qcZ-nn-jrM"/>
                                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableSebBrowser" id="658">
                                                         <dictionary key="options">
                                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -1423,7 +1441,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99277978339350181" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.054151624548736454" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

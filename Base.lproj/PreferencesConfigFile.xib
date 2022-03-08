@@ -58,6 +58,7 @@
                                             <buttonCell type="radio" title="starting exams" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings" tag="1" inset="2" id="251">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <accessibility description="Use config file for"/>
                                                 <connections>
                                                     <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
                                                 </connections>
@@ -65,9 +66,11 @@
                                             <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <accessibility description="Use config file for"/>
                                             </buttonCell>
                                         </column>
                                     </cells>
+                                    <accessibility description="Use config file for ..."/>
                                     <connections>
                                         <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
                                     </connections>
@@ -139,6 +142,7 @@
                                             </items>
                                         </menu>
                                     </popUpButtonCell>
+                                    <accessibility description="Choose identity certificate to be used for encrypting SEB settings file"/>
                                 </popUpButton>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
                                     <rect key="frame" x="-2" y="0.0" width="308" height="14"/>
@@ -186,7 +190,7 @@
                                                 <accessibilityConnection property="title" destination="114" id="8xa-c3-9yO"/>
                                             </connections>
                                         </textField>
-                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                             <rect key="frame" x="119" y="1" width="300" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
@@ -199,6 +203,7 @@
                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                 </allowedInputSourceLocales>
                                             </secureTextFieldCell>
+                                            <accessibility description="Settings password"/>
                                             <connections>
                                                 <binding destination="560" name="value" keyPath="selection.settingsPassword" id="1340">
                                                     <dictionary key="options">
@@ -235,7 +240,7 @@
                                                 <accessibilityConnection property="title" destination="110" id="o37-Z8-d72"/>
                                             </connections>
                                         </textField>
-                                        <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
+                                        <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                             <rect key="frame" x="171" y="0.0" width="300" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="81y-1l-6VD"/>
@@ -248,6 +253,7 @@
                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                 </allowedInputSourceLocales>
                                             </secureTextFieldCell>
+                                            <accessibility description="Confirm settings password"/>
                                             <connections>
                                                 <binding destination="560" name="value" keyPath="selection.confirmSettingsPassword" id="1339">
                                                     <dictionary key="options">
