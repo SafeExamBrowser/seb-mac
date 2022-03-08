@@ -95,6 +95,7 @@ void DisposeWindow (
     [self.backForwardButtons setHidden:!allowNavigation];
     BOOL allowReload = self.browserWindow.isReloadAllowed;
     [self.toolbarReloadButton setHidden:!allowReload];
+    [self.window recalculateKeyViewLoop];
 
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
@@ -124,6 +125,7 @@ void DisposeWindow (
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
+    [self.window recalculateKeyViewLoop];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
 }
