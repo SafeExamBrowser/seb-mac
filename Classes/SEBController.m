@@ -4925,6 +4925,7 @@ conditionallyForWindow:(NSWindow *)window
         
         // Display the dock
         [self.dockController showDockOnScreen:_mainScreen];
+        [self.dockController.window recalculateKeyViewLoop];
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");
