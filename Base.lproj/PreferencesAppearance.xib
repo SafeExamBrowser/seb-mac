@@ -56,14 +56,17 @@
                                                                             <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="W1X-bf-zFD">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
+                                                                                <accessibility description="Browser view mode"/>
                                                                             </buttonCell>
                                                                             <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" inset="2" id="ID6-7c-aOO">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
+                                                                                <accessibility description="Browser view mode"/>
                                                                             </buttonCell>
                                                                             <buttonCell type="radio" title="Touch optimized (Win)" imagePosition="left" alignment="left" inset="2" id="0g5-nW-upZ">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
+                                                                                <accessibility description="Browser view mode"/>
                                                                             </buttonCell>
                                                                         </column>
                                                                     </cells>
@@ -98,6 +101,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="mCQ-XS-RTq" secondAttribute="trailing" constant="11" id="dFQ-V8-9XB"/>
                                                 <constraint firstItem="mCQ-XS-RTq" firstAttribute="top" secondItem="gyQ-3a-4mB" secondAttribute="top" constant="8" id="r4s-zH-ME7"/>
                                             </constraints>
+                                            <accessibility description="Select browser view mode"/>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="92" id="ovS-Yr-fz9"/>
@@ -145,6 +149,7 @@
                                                                                     <string>1000</string>
                                                                                 </objectValues>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Main browser window width"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="ur2-BM-hAU">
                                                                                     <dictionary key="options">
@@ -195,6 +200,7 @@
                                                                                     <string>800</string>
                                                                                 </objectValues>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Main browser window height"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="V5y-1O-GV2">
                                                                                     <dictionary key="options">
@@ -255,6 +261,7 @@
                                                                             </items>
                                                                         </menu>
                                                                     </popUpButtonCell>
+                                                                    <accessibility description="Horizontal positioning of main browser window"/>
                                                                     <connections>
                                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="yRL-tO-ei4"/>
                                                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="ROt-mh-hbI">
@@ -404,6 +411,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Status Bar Appearance (iOS)"/>
                                                                             <connections>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_mobileStatusBarAppearances" id="tDi-fK-LLU"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended" previousBinding="tDi-fK-LLU" id="mtD-ag-5fc"/>
@@ -448,6 +456,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Status Bar with FaceID (iOS)"/>
                                                                             <connections>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_mobileStatusBarAppearancesExtended" id="5QE-t7-ig0"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mobileStatusBarAppearance" previousBinding="5QE-t7-ig0" id="r1p-v1-bCE"/>
@@ -701,6 +710,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Dock height in points"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="qzw-jc-PCS"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="3h8-dl-Izv">
@@ -837,6 +847,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Default page zoom level"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultPageZoomLevel" id="3oy-Ld-7Da">
                                                                                     <dictionary key="options">
@@ -886,6 +897,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Default text zoom level"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultTextZoomLevel" id="XF2-7I-DF2">
                                                                                     <dictionary key="options">
@@ -1063,7 +1075,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.31666666666666665" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.875" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

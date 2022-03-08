@@ -211,6 +211,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="568" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
+                                        <accessibility description="URL filter rules and actions"/>
                                     </scrollView>
                                     <button toolTip="Not only web page URLs are filtered using the URL filter rules, but also all embedded resources" translatesAutoresizingMaskIntoConstraints="NO" id="648">
                                         <rect key="frame" x="292" y="618" width="204" height="18"/>
@@ -362,6 +363,7 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <accessibility description="Action"/>
                                                     <connections>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_URLFilterRuleActions" id="ezt-yw-4Ii"/>
                                                         <binding destination="Hmk-IV-hfb" name="selectedIndex" keyPath="selection.action" previousBinding="ezt-yw-4Ii" id="68d-rB-FdT">
@@ -379,6 +381,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Selected URL filter action"/>
                                                     <connections>
                                                         <action selector="selectedExpression:" target="-2" id="P3C-B1-39r"/>
                                                         <binding destination="Hmk-IV-hfb" name="value" keyPath="selection.expression" id="qiA-65-KIA">
@@ -729,12 +732,14 @@
                                                 <buttonCell type="radio" title="Display 'URL Blocked!'" imagePosition="left" alignment="left" controlSize="small" scrollable="YES" lineBreakMode="clipping" state="on" tag="1" inset="2" id="UCE-sZ-Ixh">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
+                                                    <accessibility description="URL Filter message"/>
                                                 </buttonCell>
                                             </column>
                                             <column>
                                                 <buttonCell type="radio" title="Display 'X'" imagePosition="left" alignment="left" controlSize="small" scrollable="YES" lineBreakMode="clipping" inset="2" id="gNh-Qf-Z8W">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
+                                                    <accessibility description="URL Filter message"/>
                                                 </buttonCell>
                                             </column>
                                         </cells>
@@ -822,6 +827,7 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <accessibility description="Choose TLS/SSL certificate to embed into settings"/>
                                         <connections>
                                             <action selector="certificateSelected:" target="-2" id="1904"/>
                                         </connections>
@@ -849,6 +855,7 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <accessibility description="Choose certificate authority certificate to embed into settings"/>
                                         <connections>
                                             <action selector="CASelected:" target="-2" id="IAx-qz-90Q"/>
                                         </connections>
@@ -923,6 +930,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="568" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
+                                        <accessibility description="Embedded certificates"/>
                                     </scrollView>
                                     <button toolTip="Remove certificate/identity from settings" translatesAutoresizingMaskIntoConstraints="NO" id="1863">
                                         <rect key="frame" x="17" y="10" width="22" height="21"/>
@@ -977,6 +985,7 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <accessibility description="Choose identity certificate to embed into settings"/>
                                         <connections>
                                             <action selector="identitySelected:" target="-2" id="Acv-FY-uZe"/>
                                         </connections>
@@ -1145,6 +1154,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Proxy Configuration File URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.AutoConfigurationURL" id="1960"/>
                                                             </connections>
@@ -1212,7 +1222,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Host URL"/>
+                                                            <accessibility description="Web Proxy Server http host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPProxy" id="1947"/>
                                                             </connections>
@@ -1254,7 +1264,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPRequiresPassword" id="1915"/>
                                                             </connections>
                                                         </button>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1246">
+                                                        <textField verticalHuggingPriority="750" contentType="username" translatesAutoresizingMaskIntoConstraints="NO" id="1246">
                                                             <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1277"/>
@@ -1264,6 +1274,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Username"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPUser" id="1949"/>
                                                             </connections>
@@ -1290,7 +1301,7 @@
                                                                 <accessibilityConnection property="title" destination="1278" id="dy5-Pm-2u4"/>
                                                             </connections>
                                                         </textField>
-                                                        <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1278">
+                                                        <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1278">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1279">
                                                                 <font key="font" metaFont="system"/>
@@ -1300,6 +1311,7 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
+                                                            <accessibility description="Password"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPPassword" id="1950"/>
                                                             </connections>
@@ -1359,7 +1371,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Secure host URL"/>
+                                                            <accessibility description="Secure Web Proxy Server https host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSProxy" id="1919"/>
                                                             </connections>
@@ -1401,7 +1413,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSRequiresPassword" id="1917"/>
                                                             </connections>
                                                         </button>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1521">
+                                                        <textField verticalHuggingPriority="750" contentType="username" translatesAutoresizingMaskIntoConstraints="NO" id="1521">
                                                             <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1528"/>
@@ -1411,6 +1423,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Username"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSUser" id="1935"/>
                                                             </connections>
@@ -1437,7 +1450,7 @@
                                                                 <accessibilityConnection property="title" destination="1524" id="Pk3-he-tfp"/>
                                                             </connections>
                                                         </textField>
-                                                        <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1524">
+                                                        <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1524">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1525">
                                                                 <font key="font" metaFont="system"/>
@@ -1447,6 +1460,7 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
+                                                            <accessibility description="Password"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSPassword" id="1936"/>
                                                             </connections>
@@ -1506,7 +1520,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Host URL"/>
+                                                            <accessibility description="FTP Proxy Server host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPProxy" id="1937"/>
                                                             </connections>
@@ -1548,7 +1562,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPRequiresPassword" id="1941"/>
                                                             </connections>
                                                         </button>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1562">
+                                                        <textField verticalHuggingPriority="750" contentType="username" translatesAutoresizingMaskIntoConstraints="NO" id="1562">
                                                             <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1569"/>
@@ -1558,6 +1572,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Username"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPUser" id="1943"/>
                                                             </connections>
@@ -1584,7 +1599,7 @@
                                                                 <accessibilityConnection property="title" destination="1565" id="T5y-8J-8jP"/>
                                                             </connections>
                                                         </textField>
-                                                        <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1565">
+                                                        <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1565">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1566">
                                                                 <font key="font" metaFont="system"/>
@@ -1594,6 +1609,7 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
+                                                            <accessibility description="Password"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPPassword" id="1945"/>
                                                             </connections>
@@ -1653,7 +1669,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Host URL"/>
+                                                            <accessibility description="SOCKS Proxy Server host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSProxy" id="1951"/>
                                                             </connections>
@@ -1695,7 +1711,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSRequiresPassword" id="1953"/>
                                                             </connections>
                                                         </button>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1603">
+                                                        <textField verticalHuggingPriority="750" contentType="username" translatesAutoresizingMaskIntoConstraints="NO" id="1603">
                                                             <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1610"/>
@@ -1705,6 +1721,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Username"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSUser" id="1956"/>
                                                             </connections>
@@ -1731,7 +1748,7 @@
                                                                 <accessibilityConnection property="title" destination="1606" id="dWP-eF-VUj"/>
                                                             </connections>
                                                         </textField>
-                                                        <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1606">
+                                                        <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1606">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1607">
                                                                 <font key="font" metaFont="system"/>
@@ -1741,6 +1758,7 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
+                                                            <accessibility description="Password"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSPassword" id="1957"/>
                                                             </connections>
@@ -1800,7 +1818,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Host URL"/>
+                                                            <accessibility description="Streaming Proxy Server host URL"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPProxy" id="1737"/>
                                                             </connections>
@@ -1842,7 +1860,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPRequiresPassword" id="1913"/>
                                                             </connections>
                                                         </button>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1644">
+                                                        <textField verticalHuggingPriority="750" contentType="username" translatesAutoresizingMaskIntoConstraints="NO" id="1644">
                                                             <rect key="frame" x="112" y="55" width="200" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="200" id="1651"/>
@@ -1852,6 +1870,7 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <accessibility description="Username"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPUser" id="1959"/>
                                                             </connections>
@@ -1878,7 +1897,7 @@
                                                                 <accessibilityConnection property="title" destination="1647" id="hYZ-xb-B3D"/>
                                                             </connections>
                                                         </textField>
-                                                        <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1647">
+                                                        <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1647">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
                                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1648">
                                                                 <font key="font" metaFont="system"/>
@@ -1888,6 +1907,7 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
+                                                            <accessibility description="Password"/>
                                                             <connections>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPPassword" id="1911"/>
                                                             </connections>
@@ -1986,6 +2006,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <accessibility description="Bypass proxy settings for these hosts &amp; domains"/>
                                         <connections>
                                             <action selector="saveProxyExceptionsList:" target="-2" id="N8j-vQ-emh"/>
                                         </connections>
@@ -2116,7 +2137,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>

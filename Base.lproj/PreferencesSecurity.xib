@@ -394,6 +394,7 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </comboBoxCell>
+                                                        <accessibility description="maximum allowed number of connected displays"/>
                                                         <connections>
                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplaysMaxNumber" id="wCO-jz-tZL"/>
                                                         </connections>
@@ -520,8 +521,9 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton toolTip="SEB refuses to run on an older system version" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
+                                                                        <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
                                                                             <rect key="frame" x="209" y="-4" width="39" height="25"/>
+                                                                            <string key="toolTip">SEB refuses to run on an older system version. This setting is used when the new setting "Check full macOS version number" is disabled</string>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="0hJ-dB-9wR" userLabel="Log Level Pop Up Button Cell">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
@@ -537,6 +539,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Enforce minimum macOS version"/>
                                                                             <connections>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_minMacOSVersions" id="mPe-vZ-lKs"/>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="Dvj-Pa-CpJ">
@@ -598,6 +601,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Major version number"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="avV-3v-4ZK"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberMajor" id="QGy-fX-PWt"/>
@@ -638,6 +642,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Minor version number"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="GTg-Hy-D4a"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberMinor" id="lft-Ot-Ip9"/>
@@ -678,6 +683,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Patch version number"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="N3U-0L-9Rv"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberPatch" id="Ajo-dR-eca"/>
@@ -762,11 +768,11 @@
                         </tabViewItem>
                         <tabViewItem label="iOS" identifier="" id="qR0-7R-jPL">
                             <view key="view" id="ygF-kY-Ym5">
-                                <rect key="frame" x="10" y="33" width="609" height="413"/>
+                                <rect key="frame" x="10" y="33" width="604" height="413"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-xT-OWu">
-                                        <rect key="frame" x="15" y="94" width="579" height="311"/>
+                                        <rect key="frame" x="15" y="94" width="574" height="311"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="h1A-i1-vyN">
                                                 <rect key="frame" x="0.0" y="251" width="310" height="60"/>
@@ -864,13 +870,13 @@
                                                 </customSpacing>
                                             </stackView>
                                             <box borderType="line" title="Allow running from iOS version" translatesAutoresizingMaskIntoConstraints="NO" id="oIi-XG-JWG">
-                                                <rect key="frame" x="-3" y="35" width="585" height="116"/>
+                                                <rect key="frame" x="-3" y="35" width="580" height="116"/>
                                                 <view key="contentView" id="Tn1-Pd-ckg">
-                                                    <rect key="frame" x="3" y="3" width="579" height="98"/>
+                                                    <rect key="frame" x="3" y="3" width="574" height="98"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5gm-pV-kID">
-                                                            <rect key="frame" x="11" y="15" width="557" height="73"/>
+                                                            <rect key="frame" x="11" y="15" width="552" height="73"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="vke-9s-XWR">
                                                                     <rect key="frame" x="0.0" y="54" width="197" height="19"/>
@@ -900,6 +906,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Major version number"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSVersionNumberMajor" id="6f3-nX-Pdc"/>
                                                                             </connections>
@@ -942,6 +949,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Minor version number"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSVersionNumberMinor" id="rr9-sC-HRF"/>
                                                                             </connections>
@@ -984,6 +992,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Patch version number"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSVersionNumberPatch" id="RPP-pG-Cum"/>
                                                                             </connections>
@@ -1049,6 +1058,7 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </comboBoxCell>
+                                                        <accessibility description="Allow running on iOS beta"/>
                                                         <connections>
                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSBetaVersionNumber" id="tiD-Ie-F14"/>
                                                         </connections>
@@ -1091,20 +1101,20 @@
                         </tabViewItem>
                         <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
                             <view key="view" verticalHuggingPriority="500" id="uoJ-Ks-O1o">
-                                <rect key="frame" x="10" y="33" width="609" height="413"/>
+                                <rect key="frame" x="10" y="33" width="604" height="413"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-A1-Ubb">
-                                        <rect key="frame" x="15" y="146" width="579" height="262"/>
+                                        <rect key="frame" x="15" y="146" width="574" height="262"/>
                                         <subviews>
                                             <box title="SEB Service (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="wI5-Zh-Qfa" userLabel="SEB Service (Win)">
-                                                <rect key="frame" x="-3" y="102" width="585" height="160"/>
+                                                <rect key="frame" x="-3" y="102" width="580" height="160"/>
                                                 <view key="contentView" id="uQf-2N-Seo">
-                                                    <rect key="frame" x="3" y="3" width="579" height="142"/>
+                                                    <rect key="frame" x="3" y="3" width="574" height="142"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="g5b-aI-HW0">
-                                                            <rect key="frame" x="11" y="17" width="557" height="117"/>
+                                                            <rect key="frame" x="11" y="17" width="552" height="117"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kFz-c0-Xi1">
                                                                     <rect key="frame" x="-2" y="100" width="142" height="18"/>
@@ -1118,7 +1128,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="u5p-5T-HAi">
-                                                                    <rect key="frame" x="0.0" y="50" width="557" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="50" width="552" height="39"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                                                                             <rect key="frame" x="-2" y="23" width="117" height="16"/>
@@ -1132,7 +1142,7 @@
                                                                             </connections>
                                                                         </textField>
                                                                         <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                                                                            <rect key="frame" x="-3" y="-4" width="564" height="25"/>
+                                                                            <rect key="frame" x="-3" y="-4" width="559" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
@@ -1146,6 +1156,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Select SEB Service policy for SEB on Windows"/>
                                                                             <connections>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_sebServicePolicies" id="274"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebServicePolicy" previousBinding="274" id="353">
@@ -1252,14 +1263,17 @@
                                                                     <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" state="on" tag="1" inset="2" id="AwA-eq-zFC">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
+                                                                        <accessibility description="Kiosk mode"/>
                                                                     </buttonCell>
                                                                     <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="dpL-te-8hi">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
+                                                                        <accessibility description="Kiosk mode"/>
                                                                     </buttonCell>
                                                                     <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="KbI-Yu-DVk">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
+                                                                        <accessibility description="Kiosk mode"/>
                                                                     </buttonCell>
                                                                 </column>
                                                             </cells>
@@ -1268,6 +1282,7 @@
                                                             </connections>
                                                         </matrix>
                                                     </subviews>
+                                                    <accessibility description="Select kiosk mode for SEB on Windows"/>
                                                 </view>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="kBz-Xz-wNK" secondAttribute="bottom" constant="13" id="1uq-Y9-1ab"/>
@@ -1479,20 +1494,20 @@
                         </tabViewItem>
                         <tabViewItem label="Hooked Keys" identifier="" id="3Kv-Y4-p4B">
                             <view key="view" verticalHuggingPriority="500" id="wcR-7a-nHQ">
-                                <rect key="frame" x="10" y="33" width="604" height="413"/>
+                                <rect key="frame" x="10" y="33" width="609" height="413"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DHl-16-VpL">
-                                        <rect key="frame" x="16" y="3" width="572" height="407"/>
+                                        <rect key="frame" x="16" y="3" width="577" height="407"/>
                                         <subviews>
                                             <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Special Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
-                                                <rect key="frame" x="-3" y="161" width="283" height="246"/>
+                                                <rect key="frame" x="-3" y="161" width="286" height="246"/>
                                                 <view key="contentView" id="FRQ-6d-6TB">
-                                                    <rect key="frame" x="3" y="3" width="277" height="228"/>
+                                                    <rect key="frame" x="3" y="3" width="280" height="228"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="r3h-pS-fWz">
-                                                            <rect key="frame" x="15" y="22" width="247" height="198"/>
+                                                            <rect key="frame" x="15" y="22" width="250" height="198"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="xUc-ld-ncn">
                                                                     <rect key="frame" x="-2" y="181" width="92" height="18"/>
@@ -1611,13 +1626,13 @@
                                                 </constraints>
                                             </box>
                                             <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Function Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
-                                                <rect key="frame" x="292" y="53" width="283" height="354"/>
+                                                <rect key="frame" x="295" y="53" width="285" height="354"/>
                                                 <view key="contentView" id="kSW-ge-fQu">
-                                                    <rect key="frame" x="3" y="3" width="277" height="336"/>
+                                                    <rect key="frame" x="3" y="3" width="279" height="336"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="S8O-Zi-NxF">
-                                                            <rect key="frame" x="15" y="26" width="247" height="302"/>
+                                                            <rect key="frame" x="15" y="26" width="249" height="302"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Tdg-eI-qqw">
                                                                     <rect key="frame" x="-2" y="285" width="84" height="18"/>
@@ -1859,6 +1874,7 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <accessibility description="Save log file to directory:"/>
                                 <connections>
                                     <action selector="chooseDirectory:" target="-2" id="59"/>
                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="350"/>
@@ -1892,6 +1908,7 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <accessibility description="Log level"/>
                                 <connections>
                                     <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_logLevels" id="xym-2h-sHg"/>
                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="LiL-Df-Iy9"/>
@@ -1909,6 +1926,7 @@
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <accessibility description="Log file directory (Windows Versions 2.x):"/>
                                 <connections>
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="Qlb-UC-yb6">
                                         <dictionary key="options">
