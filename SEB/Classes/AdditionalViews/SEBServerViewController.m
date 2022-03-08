@@ -101,6 +101,14 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *tableHeader = (UITableViewHeaderFooterView *)view;
+    tableHeader.contentView.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    tableHeader.textLabel.textColor = UIColor.blackColor;
+}
+
+
 #pragma mark - IB Action Handler
 
 - (IBAction)closeButtonAction:(id)sender
