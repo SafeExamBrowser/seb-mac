@@ -2933,7 +2933,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-    if (self.startingExamFromSEBServer) {
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
         self.establishingSEBServerConnection = NO;
         self.startingExamFromSEBServer = NO;
         [self.serverController loginToExamAbortedWithCompletion:completion];
