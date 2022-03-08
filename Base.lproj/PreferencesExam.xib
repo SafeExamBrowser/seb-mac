@@ -102,6 +102,7 @@
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <accessibility description="Browser Exam Key"/>
                                                                     <connections>
                                                                         <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="A4R-q9-m1B"/>
                                                                     </connections>
@@ -154,6 +155,7 @@
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <accessibility description="Config Key"/>
                                                                     <connections>
                                                                         <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
                                                                     </connections>
@@ -234,6 +236,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <accessibility description="Link to quit SEB after exam"/>
                                                                     <connections>
                                                                         <action selector="generateKeys:" target="-2" id="NcY-v5-XrC"/>
                                                                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="Ymc-lh-u1g">
@@ -364,6 +367,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <accessibility description="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar."/>
                                                                     <connections>
                                                                         <action selector="generateKeys:" target="-2" id="VTm-Oo-6qz"/>
                                                                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamURL" id="b5R-hF-LwF">
@@ -414,6 +418,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <accessibility description="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)"/>
                                                                     <connections>
                                                                         <action selector="generateKeys:" target="-2" id="QUs-iy-yvv"/>
                                                                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamText" id="1iF-CY-mCC">
@@ -537,6 +542,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Reconfiguring URL"/>
                                                                             <connections>
                                                                                 <action selector="generateKeys:" target="-2" id="jcL-gb-aNm"/>
                                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_examSessionReconfigureConfigURL" id="djF-mV-6Rw">
@@ -849,7 +855,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99322033898305084" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.94915254237288138" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
