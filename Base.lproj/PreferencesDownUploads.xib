@@ -65,6 +65,7 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <accessibility description="Save downloaded files to directory"/>
                     <connections>
                         <action selector="chooseDirectory:" target="-2" id="59"/>
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="172"/>
@@ -114,6 +115,7 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <accessibility description="Choose file to upload policy"/>
                     <connections>
                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_chooseFileToUploadPolicies" id="202"/>
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="178"/>
@@ -154,6 +156,7 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <accessibility description="Download directory Windows"/>
                     <connections>
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadDirectoryWin" id="hwS-Qy-pF2">
                             <dictionary key="options">
