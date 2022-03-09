@@ -2836,11 +2836,20 @@ void run_on_ui_thread(dispatch_block_t block)
             // or if no persisted web pages are available, load the start URL
             [_browserTabViewController loadPersistedOpenWebPages];
             
-            currentStartURL = startURLString;
-            if (_secureMode) {
-                [self.sebLockedViewController addLockedExam:startURLString];
-            }
+            [self persistSecureExamStartURL:startURLString];
         }
+    }
+}
+
+// Persist start URL of a secure exam
+- (void) persistSecureExamStartURL:(NSString *)startURLString
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentStartURL = startURLString;
+        [self.sebLockedViewController addLockedExam:currentStartURL];
+    } else {
+        currentStartURL = nil;
     }
 }
 
@@ -3259,6 +3268,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     NSURL *examURL = [NSURL URLWithString:url];
     [_browserTabViewController openNewTabWithURL:examURL];
+    [self persistSecureExamStartURL:url];
     self.browserController.sebServerExamStartURL = examURL;
     _sessionRunning = true;
 }
@@ -3950,6 +3960,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
             // Add log string for entering a previously locked exam
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date] repeated:NO];
+            [self.sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString]];
         }
     }
 }
