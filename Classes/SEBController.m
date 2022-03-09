@@ -1031,9 +1031,6 @@ bool insideMatrix(void);
                         // or if no persisted web pages are available, load the start URL
                         [self.browserController openMainBrowserWindow];
                         
-            //            if (_secureMode) {
-            //                [self.sebLockedViewController addLockedExam:startURLString];
-            //            }
             // Persist start URL of a "secure" exam
             [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
             //        }
@@ -3943,7 +3940,6 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) conditionallyLockExam:(NSString *)examURLString
 {
-    
     if ([_sebLockedViewController isStartingLockedExam:examURLString]) {
         if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
             [[NSNotificationCenter defaultCenter]
