@@ -61,7 +61,7 @@ public class ProctoringImageAnalyzer: NSObject {
     private var detectionRequests: [VNDetectFaceRectanglesRequest]?
     private var trackingRequests: [VNTrackObjectRequest]?
     
-    lazy var sequenceRequestHandler = VNSequenceRequestHandler()
+    lazy var sequenceRequestHandler = VNDetectFaceRectanglesRequest() //VNSequenceRequestHandler()
     
     fileprivate var trackedObjectDisappeared = false
     
@@ -145,13 +145,15 @@ public class ProctoringImageAnalyzer: NSObject {
                         return
                     }
                     let exifOrientation = self.exifOrientationForCurrentDeviceOrientation()
-                    let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: self.detectedFace(request:error:))
+                    let faceDetectionRequest = VNDetectFaceRectanglesRequest() //LandmarksRequest(completionHandler: self.detectedFace(request:error:))
+                    if #available(iOS 15.0, *) {
+                        faceDetectionRequest.revision = VNDetectFaceRectanglesRequestRevision3
+                    }
+                    let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: exifOrientation, options: [:])
 
                     do {
-                        try self.sequenceRequestHandler.perform(
-                        [faceDetectionRequest],
-                        on: pixelBuffer,
-                        orientation: exifOrientation)
+                        try handler.perform(
+                        [faceDetectionRequest]) //, on: pixelBuffer,  orientation: exifOrientation)
                     } catch {
                       print(error.localizedDescription)
                     }
@@ -179,22 +181,25 @@ public class ProctoringImageAnalyzer: NSObject {
 
                     if innerLipsBoundingBox != nil && (proctoringDetectFacePitch || proctoringDetectFaceYaw) {
                         
-                        if proctoringDetectFacePitch {
-                            var faceAngleMessage : String? = nil
-                            // Inner lips
-                            let innerLipsUpper = innerLipsBoundingBox!.origin.y + innerLipsBoundingBox!.size.height
-                            //                        print(innerLipsUpper)
-                            
-                            if innerLipsUpper >= 0.39 {
-                                faceAngleMessage = "<proctoring_face_pitch> Face turned upwards"
-                            }
-                            if innerLipsUpper < 0.31 {
-                                faceAngleMessage = "<proctoring_face_pitch> Face turned downwards"
-                            }
-                            if faceAngleMessage != nil {
-                                self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: faceAngleMessage!, userFeedback: proctoringDetectFaceAngleDisplay)
-                                self.detectingFace = false
-                                return
+                        if #available(iOS 15, *) {
+                        } else {
+                            if proctoringDetectFacePitch {
+                                var faceAngleMessage : String? = nil
+                                // Inner lips
+                                let innerLipsUpper = innerLipsBoundingBox!.origin.y + innerLipsBoundingBox!.size.height
+                                //                        print(innerLipsUpper)
+                                
+                                if innerLipsUpper >= 0.39 {
+                                    faceAngleMessage = "<proctoring_face_pitch> Face turned upwards"
+                                }
+                                if innerLipsUpper < 0.31 {
+                                    faceAngleMessage = "<proctoring_face_pitch> Face turned downwards"
+                                }
+                                if faceAngleMessage != nil {
+                                    self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: faceAngleMessage!, userFeedback: proctoringDetectFaceAngleDisplay)
+                                    self.detectingFace = false
+                                    return
+                                }
                             }
                         }
                         
@@ -216,6 +221,20 @@ public class ProctoringImageAnalyzer: NSObject {
                                     }
                                 }
                                 
+                            }
+                        }
+                    }
+                }
+                
+                if #available(iOS 15, *) {
+                    if proctoringDetectFacePitch {
+                        if let facePitch = results.first?.pitch {
+                            let facePitchDegrees = self.degrees(radians: facePitch as! Double)
+                            if abs(facePitchDegrees) > 20 {
+                                print("Face turned \(facePitchDegrees > 0 ? "upwards" : "downwards")")
+                                self.updateProctoringStateTriggered(RemoteProctoringEventTypeWarning, message: "<proctoring_face_pitch> Face turned " + (facePitchDegrees > 0 ? "upwards" : "downwards"), userFeedback: proctoringDetectFaceAngleDisplay)
+                                self.detectingFace = false
+                                return
                             }
                         }
                     }
