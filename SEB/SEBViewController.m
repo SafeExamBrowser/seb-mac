@@ -1483,13 +1483,6 @@ static NSMutableSet *browserWindowControllers;
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
     
-    // Check if settings changed
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
-        // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
-        [[NSUserDefaults standardUserDefaults] setSecureObject:nil
-                                                        forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    }
     _settingsOpen = false;
     
     NSMutableString *pasteboardString = NSMutableString.new;
