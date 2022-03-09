@@ -3334,6 +3334,41 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSString *notificationType = attributes[@"type"];
+    NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
+    
+//    if ([notificationType isEqualToString:@"raisehand"]) {
+//        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
+//            [self toggleRaiseHandLoweredByServer:YES];
+//        }
+//    }
+    
+    if ([notificationType isEqualToString:@"lockscreen"]) {
+        if (self.sebServerPendingLockscreenEvents.count > 0) {
+#ifdef DEBUG
+        DDLogDebug(@"sebServerPendingLockscreenEvents: %@", self.sebServerPendingLockscreenEvents);
+#endif
+            NSInteger notificationID = notificationIDNumber.integerValue;
+            for (NSUInteger index = 0 ; index < self.sebServerPendingLockscreenEvents.count ; ++index) {
+                if (self.sebServerPendingLockscreenEvents[index].integerValue == notificationID) {
+                    [self.sebServerPendingLockscreenEvents removeObjectAtIndex:index];
+                }
+            }
+    #ifdef DEBUG
+            DDLogDebug(@"sebServerPendingLockscreenEvents after removing notificationID %@: %@", notificationIDNumber, self.sebServerPendingLockscreenEvents);
+    #endif
+            if (self.sebServerPendingLockscreenEvents.count == 0) {
+                DDLogInfo(@"No pending lock screen events, closing lockdown windows invoked by SEB Server");
+                [self correctPasswordEntered];
+            }
+        }
+    }
+}
+
+
 #pragma mark - Kiosk mode
 
 // Called when the Single App Mode (SAM) status changes
@@ -3370,7 +3405,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime repeated:NO];
                 
             } else {
                 
@@ -3381,7 +3416,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 
                 DDLogDebug(@"Single App Mode was switched on again.");
                 
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime repeated:NO];
                 
                 // Close lock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
@@ -3910,11 +3945,11 @@ quittingClientConfig:(BOOL)quittingClientConfig
             [self.sebLockedViewController setLockdownAlertTitle: nil
                                                         Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
             // Add log string for entering a locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date] repeated: NO];
         } else {
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
             // Add log string for entering a previously locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date] repeated:NO];
         }
     }
 }
@@ -3935,7 +3970,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
                                                         Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
             // Add log string for entering a locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date] repeated:NO];
         } else {
             NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
                                    UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
@@ -3965,7 +4000,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                    fromDate:_appDidEnterBackgroundTime
                                                      toDate:_appDidBecomeActiveTime
                                                     options:NSCalendarWrapComponents];
-        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime repeated:NO];
         return YES;
     } else {
         return NO;
@@ -3985,7 +4020,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     DDLogError(@"%@", lockReason);
     [self openLockdownWindows];
     [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
-    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date] repeated:NO];
 }
 
 
@@ -4060,6 +4095,25 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (void)retryButtonPressed {
 }
 
+
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime repeated:(BOOL)repeated
+{
+    if (!repeated &&
+        (_establishingSEBServerConnection || _sebServerConnectionEstablished)) {
+        NSInteger notificationID = [self.serverController sendLockscreenWithMessage:[NSString stringWithFormat:@"%@", errorString]];
+        NSNumber *notificationIDNumber = [NSNumber numberWithInteger:notificationID];
+        [self.sebServerPendingLockscreenEvents addObject:notificationIDNumber];
+    }
+    [self.sebLockedViewController appendErrorString:errorString withTime:errorTime];
+}
+
+- (NSMutableArray *) sebServerPendingLockscreenEvents
+{
+    if (!_sebServerPendingLockscreenEvents) {
+        _sebServerPendingLockscreenEvents = [NSMutableArray new];
+    }
+    return _sebServerPendingLockscreenEvents;
+}
 
 
 #pragma mark - Remote Proctoring
