@@ -165,6 +165,7 @@
 @property (readwrite, strong) NSDate *didResumeExamTime;
 @property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
 @property (readwrite, strong) NSDate *appDidBecomeActiveTime;
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 /// Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
