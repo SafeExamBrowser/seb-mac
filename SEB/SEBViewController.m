@@ -2790,11 +2790,43 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) startExam
 {
     DDLogInfo(@"%s", __FUNCTION__);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    if (@available(iOS 11.0, *)) {
+        if (_secureMode &&
+            UIScreen.mainScreen.isCaptured &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
+                                                                    message:alertMessageiOSVersion
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                self->_alertController = nil;
+                [self startExam];
+            }]];
+            if (NSUserDefaults.userDefaultsPrivate) {
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self->_alertController = nil;
+                    DDLogInfo(@"%s: Quitting session", __FUNCTION__);
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                }]];
+            }
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
+        }
+    }
+    
     if (_establishingSEBServerConnection == YES) {
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
@@ -3577,37 +3609,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
         
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
-        
-        if (@available(iOS 11.0, *)) {
-            if (_secureMode &&
-                UIScreen.mainScreen.isCaptured &&
-                ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
-                NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
-                if (_alertController) {
-                    [_alertController dismissViewControllerAnimated:NO completion:nil];
-                }
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
-                                                                        message:alertMessageiOSVersion
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
-                    [self conditionallyStartKioskMode];
-                }]];
-                if (NSUserDefaults.userDefaultsPrivate) {
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                        self->_alertController = nil;
-                        DDLogInfo(@"%s: Quitting session", __FUNCTION__);
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestQuit" object:self];
-                    }]];
-                }
-                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                return;
-            }
-        }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
