@@ -68,12 +68,12 @@
         // Select identity for passed identity reference
         [self selectSettingsIdentity];
 
-        // Set visibility of keys dependent on specific settings
-        [self setAllDependentKeys];
-
-        // Display current keys
+        // Set current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
+
+        // Set visibility of keys dependent on specific settings
+        [self setAllDependentKeys];
         
         [self initTextFieldValues];
     }
@@ -272,7 +272,8 @@
 #pragma mark -
 #pragma mark IASKAppSettingsViewControllerDelegate protocol
 
-- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
+- (CGFloat)settingsViewController:(UITableViewController<IASKViewController> *)settingsViewController heightForSpecifier:(IASKSpecifier *)specifier
+{
     if ([specifier.key isEqualToString:@"browserExamKey"]) {
         if (_configModified) {
             _configModified = NO;
@@ -289,8 +290,9 @@
 }
 
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
-    CustomViewCell *cell = (CustomViewCell*)[tableView dequeueReusableCellWithIdentifier:specifier.key];
+- (UITableViewCell*)settingsViewController:(UITableViewController<IASKViewController> *)settingsViewController cellForSpecifier:(IASKSpecifier*)specifier
+ {
+    CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
     
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
@@ -442,6 +444,8 @@
                               forKey:@"org_safeexambrowser_configKeyContainedKeys"];
         _sebViewController.browserController.browserExamKey = nil;
         _sebViewController.browserController.configKey = nil;
+        // Force recalculating Config Key
+        [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         // Display updated or current keys
         [self displayBrowserExamKey];
@@ -713,6 +717,7 @@
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
         
     } else {
+        [self setDependentKeysForPermanentSettingsChanged];
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];

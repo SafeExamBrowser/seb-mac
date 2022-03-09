@@ -600,6 +600,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
+    NSString *type = specifier.type;
+    NSLog(@"TableViewCell specifier type: %@", type);
 	if ([specifier.type isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:cellForSpecifier:)]) {
 		UITableViewCell* cell = [self.delegate settingsViewController:self cellForSpecifier:specifier];
 		assert(nil != cell && "delegate must return a UITableViewCell for custom cell types");
