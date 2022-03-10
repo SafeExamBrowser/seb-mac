@@ -106,6 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView;
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView;
+- (BOOL) getIsDockSelected;
 - (void) activateNextOpenWindow;
 - (void) activatePreviousOpenWindow;
 
