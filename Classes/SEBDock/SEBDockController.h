@@ -159,8 +159,14 @@
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
 - (NSArray *) setRightItems:(NSArray *)newRightDockItems;
+- (int) getSelectedObjc;
 
 - (void) showDockOnScreen:(NSScreen *)screen;
+- (void) makeFirstDockItemFirstResponder;
+- (void) makeNextDockItemFirstResponder;
+- (void) makePreviousDockItemFirstResponder;
+- (void) selectFirstResponderDockItem;
+- (void) resignFirstResponderSelectDockItem;
 - (void) hideDock;
 - (void) adjustDock;
 - (void) moveDockToScreen:(NSScreen *)screen;
