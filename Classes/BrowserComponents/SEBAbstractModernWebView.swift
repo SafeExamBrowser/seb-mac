@@ -83,9 +83,16 @@ import Foundation
         }
         userContentController.add(self, name: "updateKeys")
         webViewConfiguration!.userContentController = userContentController
+        let allowContentJavaScript = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableJavaScript")
+        if #available(macOS 11.0, iOS 14.0, *) {
+            webViewConfiguration?.defaultWebpagePreferences.allowsContentJavaScript = allowContentJavaScript
+        } else {
+            webViewConfiguration!.preferences.javaScriptEnabled = allowContentJavaScript
+        }
+        webViewConfiguration!.preferences.javaScriptCanOpenWindowsAutomatically = !UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_blockPopUpWindows")
 #if os(macOS)
         if #available(macOS 10.12.3, *) {
-            webViewConfiguration!.preferences.tabFocusesLinks = true
+            webViewConfiguration!.preferences.tabFocusesLinks = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_tabFocusesLinks")
         }
 #endif
         return webViewConfiguration!
@@ -273,6 +280,7 @@ import Foundation
                             if let _ = error {
                                     print(error as Any)
                             }
+                            self.browserControllerDelegate?.updateZoomScale?(iOSPageZoom)
                         }
                     }
                 } else {
@@ -281,6 +289,7 @@ import Foundation
                         if let _ = error {
                                 print(error as Any)
                         }
+                        self.browserControllerDelegate?.updateZoomScale?(self.pageZoom)
                     }
                 }
 #else
@@ -292,7 +301,7 @@ import Foundation
                     if let _ = error {
                         print(error as Any)
                     }
-                    self.browserControllerDelegate?.updateZoomScale?()
+                    self.browserControllerDelegate?.updateZoomScale?(self.pageZoom)
                 }
             }
         }
@@ -319,13 +328,17 @@ import Foundation
     
     private func textZoomJS(zoomLevel: Double) -> String {
         let fontSize = Int(WebViewDefaultTextSize * zoomLevel)
+        var jsZoomLevel = zoomLevel
+        if zoomLevel > 1 {
+            jsZoomLevel = ((zoomLevel-1)/5)+1
+        }
         return """
                 function zoomTextForTagName(tag) {
                     var elements = document.getElementsByTagName(tag);
                     for (var i = 0, max = elements.length; i < max; i++)
                     {
                         var computedFontSize = parseInt(window.getComputedStyle(elements[i]).fontSize, 10);
-                        computedFontSize *= \(zoomLevel);
+                        computedFontSize *= \(jsZoomLevel);
                         elements[i].style.fontSize = computedFontSize + 'px';
                     }
                 }
@@ -347,6 +360,7 @@ import Foundation
     
 
     fileprivate func setTextSize() {
+#if os(iOS)
         if (pageZoom == 1 && textZoom != 1 && textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
             let js = textZoomJS(zoomLevel: textZoom)
             sebWebView.evaluateJavaScript(js) { (response, error) in
@@ -355,6 +369,14 @@ import Foundation
                 }
             }
         }
+#else
+        typealias setTextZoomMethod = @convention(c) (NSObject, Selector, Double) -> Void
+        
+        let selector = NSSelectorFromString("_setTextZoomFactor:")
+        let methodIMP = sebWebView.method(for: selector)
+        let method = unsafeBitCast(methodIMP, to: setTextZoomMethod.self)
+        let _ = method(sebWebView, selector, textZoom)
+#endif
     }
     
     public func textSizeIncrease() {
@@ -501,22 +523,26 @@ import Foundation
         navigationDelegate?.sebWebViewDidFinishLoad?()
     }
     
+    public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        reload()
+    }
+
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         var newTab = false
         if navigationAction.targetFrame == nil {
             newTab = true;
         }
-        guard let navigationActionPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab) else {
-            decisionHandler(.cancel)
-            return
-        }
+        var navigationActionPolicy = SEBNavigationActionPolicyCancel
+
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
             return
         }
 
+        let allowDownloads = self.navigationDelegate?.allowDownUploads ?? false
+        
         let callDecisionHandler:() -> () = {
-//            DDLogDebug("navigationActionPolicy: \(navigationActionPolicy)")
+            DDLogDebug("navigationActionPolicy: \(navigationActionPolicy)")
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
                 decisionHandler(.allow)
             } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
@@ -527,11 +553,26 @@ import Foundation
             }
         }
 
-        if navigationActionPolicy == SEBNavigationActionPolicyAllow && !url.hasDirectoryPath {
-            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
-                self.downloadFilename = result as? String
-                if !(self.downloadFilename ?? "").isEmpty {
-//                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+        let proceedHandler:() -> () = {
+            if !(self.downloadFilename ?? "").isEmpty {
+                // On iOS we currently don't support donwloading PDFs -> display it
+                var displayPDF = (self.downloadFilename! as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
+#if os(macOS)
+                if displayPDF {
+                    // A link to a PDF file with the "download" parameter was invoked
+                    // if downloading is not allowed, we display the PDF in the browser
+                    displayPDF = !allowDownloads
+                }
+#endif
+                if displayPDF {
+                    newTab = true
+                }
+            }
+            navigationActionPolicy = self.navigationDelegate!.decidePolicy!(for: navigationAction, newTab: newTab)
+
+            if navigationActionPolicy != SEBNavigationActionPolicyCancel {
+                if allowDownloads && !(self.downloadFilename ?? "").isEmpty {
+                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
                     if #available(macOS 10.13, iOS 11.0, *) {
                         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
                         httpCookieStore.getAllCookies{ cookies in
@@ -547,11 +588,19 @@ import Foundation
                         return
                     }
                 }
-                callDecisionHandler()
             }
-            return
+            callDecisionHandler()
         }
-        callDecisionHandler()
+
+        if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
+            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
+                self.downloadFilename = result as? String
+                proceedHandler()
+            }
+        } else {
+            self.downloadFilename = nil
+            proceedHandler()
+        }
     }
     
     public func webView(_ webView: WKWebView,
@@ -591,19 +640,19 @@ import Foundation
                 if filename.isEmpty {
                     filename = suggestedFilename ?? ""
                 }
-                let isPDF = filename.hasSuffix(".pdf")
+                let isPDF = (filename as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
                 let downloadPDFFiles = self.navigationDelegate!.downloadPDFFiles
                 if !isPDF || isPDF && downloadPDFFiles == true {
-    //                DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
+                    DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
                     decisionHandler(.cancel)
                     self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
                     self.downloadFilename = nil
                     return
 
                 }
-//                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
+                DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
             } else {
-//                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
+                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
             }
             
             if navigationResponsePolicy == SEBNavigationResponsePolicyAllow {

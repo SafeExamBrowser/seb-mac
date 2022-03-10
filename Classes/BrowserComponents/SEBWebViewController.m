@@ -67,6 +67,11 @@
            withKeyPath:@"values.org_safeexambrowser_SEB_enableJavaScript"
                options:nil];
 
+        [webPrefs bind:@"tabsToLinks"
+              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+           withKeyPath:@"values.org_safeexambrowser_SEB_tabFocusesLinks"
+               options:nil];
+
         NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:@"NSNegateBoolean",NSValueTransformerNameBindingOption,nil];
         [webPrefs bind:@"javaScriptCanOpenWindowsAutomatically"
               toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
@@ -97,7 +102,7 @@
         }
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
+        _allowDownloads = self.navigationDelegate.allowDownUploads;
         _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
 
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -898,7 +903,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     #ifdef DEBUG
         DDLogDebug(@"%s: Downloading allowed: %hhd", __FUNCTION__, _allowDownloads);
     #endif
-        if (_allowDownloads) {
+        if (_allowDownloads || [request.URL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
             // Get the DOMNode from the information about the action that triggered the navigation request
             self.downloadFilename = nil;
             NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
@@ -971,7 +976,12 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 }
             }
         }
-        SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+        SEBNavigationActionPolicy delegateNavigationActionPolicy;
+        if (!_allowDownloads && self.downloadFilename && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+        } else {
+            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+        }
     #ifdef DEBUG
         DDLogDebug(@"%s: [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO] = (SEBNavigationActionPolicy) %lu", __FUNCTION__, (unsigned long)delegateNavigationActionPolicy);
     #endif
@@ -1064,7 +1074,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     DDLogVerbose(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
 
     // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-    if (self.downloadFilename) {
+    if (self.downloadFilename && _allowDownloads) {
         DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
         [listener download];
         [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
@@ -1110,7 +1120,11 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     }
     
     SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:@[]];
-    if (delegateNavigationActionPolicy == SEBNavigationResponsePolicyAllow) {
+    if (delegateNavigationActionPolicy == SEBNavigationActionPolicyDownload) {
+        DDLogInfo(@"Resource %@ will be downloaded.", request.URL.lastPathComponent);
+        [listener download];
+        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
+    } else if (delegateNavigationActionPolicy == SEBNavigationResponsePolicyAllow) {
         [listener use];
     } else {
         [listener ignore];

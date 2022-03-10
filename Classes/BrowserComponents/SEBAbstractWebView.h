@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;
-- (void) updateZoomScale;
+- (void) updateZoomScale:(double)zoomScale;
 
 - (void) textSizeIncrease;
 - (void) textSizeDecrease;
@@ -107,6 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
+- (void) setPageTitle:(NSString *)title;
 - (void) setLoading:(BOOL)loading;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url;
@@ -131,13 +132,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
 @property (readwrite) BOOL showReloadWarning;
 - (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
-@property (readonly) BOOL downloadPDFFiles;
 - (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
+@property (readonly) BOOL allowDownUploads;
+@property (readonly) BOOL downloadPDFFiles;
 @property (readonly) BOOL directConfigDownloadAttempted;
-@property (readonly) BOOL overrideAllowSpellCheck;
 @property (readonly) BOOL allowSpellCheck;
+@property (readonly) BOOL overrideAllowSpellCheck;
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
 - (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
@@ -188,6 +190,8 @@ didCommitNavigation:(WKNavigation *)navigation;
 
 - (void)webView:(WKWebView *)webView
 didFinishNavigation:(WKNavigation *)navigation;
+
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView;
 
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
@@ -284,6 +288,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (readwrite) BOOL showReloadWarning;
 @property (readwrite, nonatomic) BOOL allowSpellCheck;
 @property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
+@property (readonly) BOOL downUploadsAllowed;
 @property (readonly) BOOL downloadPDFFiles;
 @property (weak, nonatomic) SEBAbstractWebView *creatingWebView;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;

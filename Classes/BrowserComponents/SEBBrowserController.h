@@ -207,6 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 @property (strong, nonatomic) NSString*_Nullable customSEBUserAgent;
 @property (strong, nonatomic) NSString* quitURL;
+@property (readonly) BOOL allowDownUploads;
 
 @property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
 

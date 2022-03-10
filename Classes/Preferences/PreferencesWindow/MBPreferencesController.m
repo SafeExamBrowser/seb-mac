@@ -326,6 +326,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	
 	_currentModule = module;
 	[[self.window contentView] addSubview:[_currentModule view]];
+    [self.window recalculateKeyViewLoop];
 	
     // Set preferences title as module title – settings title
     [self setPreferencesWindowTitle];
