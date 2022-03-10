@@ -1483,13 +1483,6 @@ static NSMutableSet *browserWindowControllers;
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
     
-    // Check if settings changed
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
-        // Yes: Reset contained keys dictionary for Config Key, because it needs to be updated
-        [[NSUserDefaults standardUserDefaults] setSecureObject:nil
-                                                        forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    }
     _settingsOpen = false;
     
     NSMutableString *pasteboardString = NSMutableString.new;
@@ -2797,11 +2790,43 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) startExam
 {
     DDLogInfo(@"%s", __FUNCTION__);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    if (@available(iOS 11.0, *)) {
+        if (_secureMode &&
+            UIScreen.mainScreen.isCaptured &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
+                                                                    message:alertMessageiOSVersion
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                self->_alertController = nil;
+                [self startExam];
+            }]];
+            if (NSUserDefaults.userDefaultsPrivate) {
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self->_alertController = nil;
+                    DDLogInfo(@"%s: Quitting session", __FUNCTION__);
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                }]];
+            }
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
+        }
+    }
+    
     if (_establishingSEBServerConnection == YES) {
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
@@ -2843,11 +2868,20 @@ void run_on_ui_thread(dispatch_block_t block)
             // or if no persisted web pages are available, load the start URL
             [_browserTabViewController loadPersistedOpenWebPages];
             
-            currentStartURL = startURLString;
-            if (_secureMode) {
-                [self.sebLockedViewController addLockedExam:startURLString];
-            }
+            [self persistSecureExamStartURL:startURLString];
         }
+    }
+}
+
+// Persist start URL of a secure exam
+- (void) persistSecureExamStartURL:(NSString *)startURLString
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentStartURL = startURLString;
+        [self.sebLockedViewController addLockedExam:currentStartURL];
+    } else {
+        currentStartURL = nil;
     }
 }
 
@@ -2933,7 +2967,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-    if (self.startingExamFromSEBServer) {
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
         self.establishingSEBServerConnection = NO;
         self.startingExamFromSEBServer = NO;
         [self.serverController loginToExamAbortedWithCompletion:completion];
@@ -3266,6 +3300,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
 {
     NSURL *examURL = [NSURL URLWithString:url];
     [_browserTabViewController openNewTabWithURL:examURL];
+    [self persistSecureExamStartURL:url];
     self.browserController.sebServerExamStartURL = examURL;
     _sessionRunning = true;
 }
@@ -3341,6 +3376,41 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSString *notificationType = attributes[@"type"];
+    NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
+    
+//    if ([notificationType isEqualToString:@"raisehand"]) {
+//        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
+//            [self toggleRaiseHandLoweredByServer:YES];
+//        }
+//    }
+    
+    if ([notificationType isEqualToString:@"lockscreen"]) {
+        if (self.sebServerPendingLockscreenEvents.count > 0) {
+#ifdef DEBUG
+        DDLogDebug(@"sebServerPendingLockscreenEvents: %@", self.sebServerPendingLockscreenEvents);
+#endif
+            NSInteger notificationID = notificationIDNumber.integerValue;
+            for (NSUInteger index = 0 ; index < self.sebServerPendingLockscreenEvents.count ; ++index) {
+                if (self.sebServerPendingLockscreenEvents[index].integerValue == notificationID) {
+                    [self.sebServerPendingLockscreenEvents removeObjectAtIndex:index];
+                }
+            }
+    #ifdef DEBUG
+            DDLogDebug(@"sebServerPendingLockscreenEvents after removing notificationID %@: %@", notificationIDNumber, self.sebServerPendingLockscreenEvents);
+    #endif
+            if (self.sebServerPendingLockscreenEvents.count == 0) {
+                DDLogInfo(@"No pending lock screen events, closing lockdown windows invoked by SEB Server");
+                [self correctPasswordEntered];
+            }
+        }
+    }
+}
+
+
 #pragma mark - Kiosk mode
 
 // Called when the Single App Mode (SAM) status changes
@@ -3377,7 +3447,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime repeated:NO];
                 
             } else {
                 
@@ -3388,7 +3458,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                 
                 DDLogDebug(@"Single App Mode was switched on again.");
                 
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime repeated:NO];
                 
                 // Close lock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
@@ -3539,37 +3609,6 @@ quittingClientConfig:(BOOL)quittingClientConfig
         
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
-        
-        if (@available(iOS 11.0, *)) {
-            if (_secureMode &&
-                UIScreen.mainScreen.isCaptured &&
-                ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
-                NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
-                if (_alertController) {
-                    [_alertController dismissViewControllerAnimated:NO completion:nil];
-                }
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
-                                                                        message:alertMessageiOSVersion
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
-                    [self conditionallyStartKioskMode];
-                }]];
-                if (NSUserDefaults.userDefaultsPrivate) {
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                        self->_alertController = nil;
-                        DDLogInfo(@"%s: Quitting session", __FUNCTION__);
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestQuit" object:self];
-                    }]];
-                }
-                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                return;
-            }
-        }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
@@ -3917,11 +3956,12 @@ quittingClientConfig:(BOOL)quittingClientConfig
             [self.sebLockedViewController setLockdownAlertTitle: nil
                                                         Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
             // Add log string for entering a locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date] repeated: NO];
         } else {
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
             // Add log string for entering a previously locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date] repeated:NO];
+            [self.sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString]];
         }
     }
 }
@@ -3942,7 +3982,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
                                                         Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
             // Add log string for entering a locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date] repeated:NO];
         } else {
             NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
                                    UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
@@ -3972,7 +4012,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
                                                    fromDate:_appDidEnterBackgroundTime
                                                      toDate:_appDidBecomeActiveTime
                                                     options:NSCalendarWrapComponents];
-        [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime repeated:NO];
         return YES;
     } else {
         return NO;
@@ -3992,7 +4032,7 @@ quittingClientConfig:(BOOL)quittingClientConfig
     DDLogError(@"%@", lockReason);
     [self openLockdownWindows];
     [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
-    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date]];
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date] repeated:NO];
 }
 
 
@@ -4067,6 +4107,25 @@ quittingClientConfig:(BOOL)quittingClientConfig
 - (void)retryButtonPressed {
 }
 
+
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime repeated:(BOOL)repeated
+{
+    if (!repeated &&
+        (_establishingSEBServerConnection || _sebServerConnectionEstablished)) {
+        NSInteger notificationID = [self.serverController sendLockscreenWithMessage:[NSString stringWithFormat:@"%@", errorString]];
+        NSNumber *notificationIDNumber = [NSNumber numberWithInteger:notificationID];
+        [self.sebServerPendingLockscreenEvents addObject:notificationIDNumber];
+    }
+    [self.sebLockedViewController appendErrorString:errorString withTime:errorTime];
+}
+
+- (NSMutableArray *) sebServerPendingLockscreenEvents
+{
+    if (!_sebServerPendingLockscreenEvents) {
+        _sebServerPendingLockscreenEvents = [NSMutableArray new];
+    }
+    return _sebServerPendingLockscreenEvents;
+}
 
 
 #pragma mark - Remote Proctoring

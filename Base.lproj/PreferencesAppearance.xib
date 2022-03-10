@@ -56,14 +56,17 @@
                                                                             <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="W1X-bf-zFD">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
+                                                                                <accessibility description="Browser view mode"/>
                                                                             </buttonCell>
                                                                             <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" inset="2" id="ID6-7c-aOO">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
+                                                                                <accessibility description="Browser view mode"/>
                                                                             </buttonCell>
                                                                             <buttonCell type="radio" title="Touch optimized (Win)" imagePosition="left" alignment="left" inset="2" id="0g5-nW-upZ">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
+                                                                                <accessibility description="Browser view mode"/>
                                                                             </buttonCell>
                                                                         </column>
                                                                     </cells>
@@ -98,6 +101,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="mCQ-XS-RTq" secondAttribute="trailing" constant="11" id="dFQ-V8-9XB"/>
                                                 <constraint firstItem="mCQ-XS-RTq" firstAttribute="top" secondItem="gyQ-3a-4mB" secondAttribute="top" constant="8" id="r4s-zH-ME7"/>
                                             </constraints>
+                                            <accessibility description="Select browser view mode"/>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="92" id="ovS-Yr-fz9"/>
@@ -125,6 +129,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="9eK-6x-D8A" id="CyE-R4-mob"/>
+                                                                            </connections>
                                                                         </textField>
                                                                         <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9eK-6x-D8A">
                                                                             <rect key="frame" x="44" y="-4" width="93" height="25"/>
@@ -142,6 +149,7 @@
                                                                                     <string>1000</string>
                                                                                 </objectValues>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Main browser window width"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="ur2-BM-hAU">
                                                                                     <dictionary key="options">
@@ -172,6 +180,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="XV8-Xi-8DI" id="Bug-Av-96a"/>
+                                                                            </connections>
                                                                         </textField>
                                                                         <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XV8-Xi-8DI">
                                                                             <rect key="frame" x="98" y="-4" width="93" height="25"/>
@@ -189,6 +200,7 @@
                                                                                     <string>800</string>
                                                                                 </objectValues>
                                                                             </comboBoxCell>
+                                                                            <accessibility description="Main browser window height"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="V5y-1O-GV2">
                                                                                     <dictionary key="options">
@@ -229,6 +241,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="geu-O8-rL1" id="eaA-NL-2xZ"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <popUpButton toolTip="Position browser window on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="geu-O8-rL1">
                                                                     <rect key="frame" x="138" y="-4" width="109" height="25"/>
@@ -246,6 +261,7 @@
                                                                             </items>
                                                                         </menu>
                                                                     </popUpButtonCell>
+                                                                    <accessibility description="Horizontal positioning of main browser window"/>
                                                                     <connections>
                                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="yRL-tO-ei4"/>
                                                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="ROt-mh-hbI">
@@ -376,6 +392,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="5FQ-cv-4vv" id="YKq-7w-Wmr"/>
+                                                                            </connections>
                                                                         </textField>
                                                                         <popUpButton toolTip="Status Bar appearance on devices without FaceID" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5FQ-cv-4vv">
                                                                             <rect key="frame" x="295" y="-4" width="297" height="25"/>
@@ -392,6 +411,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Status Bar Appearance (iOS)"/>
                                                                             <connections>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_mobileStatusBarAppearances" id="tDi-fK-LLU"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended" previousBinding="tDi-fK-LLU" id="mtD-ag-5fc"/>
@@ -417,6 +437,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="Fjl-cW-pil" id="fVo-VJ-cys"/>
+                                                                            </connections>
                                                                         </textField>
                                                                         <popUpButton toolTip="Status Bar appearance on devices with FaceID" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Fjl-cW-pil">
                                                                             <rect key="frame" x="295" y="-4" width="297" height="25"/>
@@ -433,6 +456,7 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
+                                                                            <accessibility description="Status Bar with FaceID (iOS)"/>
                                                                             <connections>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_mobileStatusBarAppearancesExtended" id="5QE-t7-ig0"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mobileStatusBarAppearance" previousBinding="5QE-t7-ig0" id="r1p-v1-bCE"/>
@@ -668,6 +692,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="oZJ-Jp-rma" id="Bho-cC-ynf"/>
+                                                                            </connections>
                                                                         </textField>
                                                                         <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-Jp-rma">
                                                                             <rect key="frame" x="81" y="0.0" width="40" height="21"/>
@@ -683,6 +710,7 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Dock height in points"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="qzw-jc-PCS"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="3h8-dl-Izv">
@@ -813,12 +841,13 @@
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="6S4-iC-qVF">
                                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="gni-Yb-8cB">
                                                                                     <real key="minimum" value="0.25"/>
-                                                                                    <real key="maximum" value="3"/>
+                                                                                    <real key="maximum" value="4"/>
                                                                                 </numberFormatter>
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Default page zoom level"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultPageZoomLevel" id="3oy-Ld-7Da">
                                                                                     <dictionary key="options">
@@ -836,6 +865,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="l2A-KY-iEk" id="2G6-eX-y58"/>
+                                                                            </connections>
                                                                         </textField>
                                                                     </subviews>
                                                                     <visibilityPriorities>
@@ -858,13 +890,14 @@
                                                                             </constraints>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="N95-QU-gCN">
                                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="7ZU-j5-PaB">
-                                                                                    <real key="minimum" value="0.5"/>
+                                                                                    <real key="minimum" value="0.90000000000000002"/>
                                                                                     <real key="maximum" value="3.5"/>
                                                                                 </numberFormatter>
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <accessibility description="Default text zoom level"/>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultTextZoomLevel" id="XF2-7I-DF2">
                                                                                     <dictionary key="options">
@@ -882,6 +915,9 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="Z1l-z6-njE" id="ZzT-ke-1CP"/>
+                                                                            </connections>
                                                                         </textField>
                                                                     </subviews>
                                                                     <visibilityPriorities>
@@ -1039,7 +1075,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.31666666666666665" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.875" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

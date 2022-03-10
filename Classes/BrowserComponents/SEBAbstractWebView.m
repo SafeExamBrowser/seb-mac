@@ -56,6 +56,7 @@
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
+        _downUploadsAllowed = _navigationDelegate.allowDownUploads;
 #if TARGET_OS_OSX
         // Downloading PDF files on iOS is currently unsupported, they will always be displayed
         _downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
@@ -400,6 +401,11 @@
     return self.navigationDelegate.pageJavaScript;
 }
 
+- (BOOL)allowDownUploads
+{
+    return _downUploadsAllowed;
+}
+
 - (BOOL)overrideAllowSpellCheck
 {
     return _overrideAllowSpellCheck;
@@ -504,6 +510,16 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void)sebWebViewDidFinishLoad
 {
     [self.navigationDelegate sebWebViewDidFinishLoad];
+
+    NSURL *pageURL = self.url;
+    NSString *pageTitle = self.pageTitle;
+    if (pageTitle.length == 0) {
+        if ([pageURL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+            pageTitle = pageURL.lastPathComponent;
+        }
+    }
+    [self.navigationDelegate setPageTitle:pageTitle];
+
     [self.navigationDelegate setCanGoBack:self.canGoBack canGoForward:self.canGoForward];
 }
 
@@ -707,7 +723,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (!([mimeType isEqualToString:mimeTypePDF] && _downloadPDFFiles)) {
+    if (!([mimeType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && _downUploadsAllowed && _downloadPDFFiles)) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
         if (canShowMIMEType) {
             return SEBNavigationActionPolicyAllow;
