@@ -1047,9 +1047,6 @@ bool insideMatrix(void);
                         // or if no persisted web pages are available, load the start URL
                         [self.browserController openMainBrowserWindow];
                         
-            //            if (_secureMode) {
-            //                [self.sebLockedViewController addLockedExam:startURLString];
-            //            }
             // Persist start URL of a "secure" exam
             [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
             //        }
@@ -3959,7 +3956,6 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) conditionallyLockExam:(NSString *)examURLString
 {
-    
     if ([_sebLockedViewController isStartingLockedExam:examURLString]) {
         if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
             [[NSNotificationCenter defaultCenter]
@@ -4925,6 +4921,7 @@ conditionallyForWindow:(NSWindow *)window
         
         // Display the dock
         [self.dockController showDockOnScreen:_mainScreen];
+        [self.dockController.window recalculateKeyViewLoop];
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");
@@ -5543,7 +5540,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-    if (self.startingExamFromSEBServer) {
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
         self.establishingSEBServerConnection = NO;
         self.startingExamFromSEBServer = NO;
         [self.serverController loginToExamAbortedWithCompletion:completion];

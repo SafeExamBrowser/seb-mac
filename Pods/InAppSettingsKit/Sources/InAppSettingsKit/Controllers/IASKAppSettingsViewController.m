@@ -600,6 +600,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
+    NSString *type = specifier.type;
+    NSLog(@"TableViewCell specifier type: %@", type);
 	if ([specifier.type isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:cellForSpecifier:)]) {
 		UITableViewCell* cell = [self.delegate settingsViewController:self cellForSpecifier:specifier];
 		assert(nil != cell && "delegate must return a UITableViewCell for custom cell types");
@@ -819,7 +821,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 
-	[tableView beginUpdates];
 	if ([specifier.type isEqualToString:kIASKDatePickerSpecifier]) {
 		[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
@@ -1010,7 +1011,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 			});
 		}
     }
-	[tableView endUpdates];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1291,7 +1291,6 @@ static NSMutableDictionary *oldUserDefaults = nil;
 
 - (void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier {
 	if (specifier.multipleValues.count == 0) {
-		NSLog(@"need to init from delegate");
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
 			[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
 		{

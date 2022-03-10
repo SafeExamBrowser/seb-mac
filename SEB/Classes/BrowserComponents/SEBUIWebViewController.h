@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIWebView *sebWebView;
 @property (readonly) BOOL isScrollLockActive;
 
+@property (strong, nonatomic) NSString * _Nullable downloadFilename;
+
 - (instancetype)initWithDelegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;

@@ -76,7 +76,7 @@
 + (void)_newRegisterPluginMIMEType:(NSString *)MIMEType
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
+    if ([MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
     {
         return;
     }

@@ -911,6 +911,12 @@
 }
 
 
+- (void) setPageTitle:(NSString *)title
+{
+    [self sebWebViewDidUpdateTitle:title];
+}
+
+
 - (void) setLoading:(BOOL)loading
 {
     if (loading) {
@@ -1029,6 +1035,11 @@
     return [self.browserController showReloadWarningMainWebView:mainWebView];
 }
 
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
+{
+    return [self.browserController webPageTitle:title orURL:url mainWebView:mainWebView];
+}
+
 - (NSString *)quitURL
 {
     return self.browserController.quitURL;
@@ -1037,6 +1048,11 @@
 - (NSString *)pageJavaScript
 {
     return self.browserController.pageJavaScript;
+}
+
+- (BOOL)allowDownUploads
+{
+    return self.browserController.allowDownUploads;
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -1333,7 +1349,7 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+    if (self.allowDownUploads) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
             // If the policy isn't "manually with file requester"
             // We try to choose the filename and path ourselves, it's the last dowloaded file

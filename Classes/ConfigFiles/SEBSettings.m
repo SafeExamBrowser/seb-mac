@@ -904,6 +904,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"startURLAppendQueryParameter",
                    
+                   @YES,
+                   @"tabFocusesLinks",
+                   
                    [NSNumber numberWithLong:SEBDefaultDockHeight],
                    @"taskBarHeight",
                    
