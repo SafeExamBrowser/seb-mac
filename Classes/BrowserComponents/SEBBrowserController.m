@@ -121,6 +121,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
     webPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways);
     newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
+    _allowDownUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
 }
 
 
@@ -198,10 +199,23 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"wkWebViewConfiguration.websiteDataStore.httpCookieStore cookies: %@", wkWebViewCookies);
 #endif
                 for (NSHTTPCookie *cookie in cookies) {
-                    dispatch_group_enter(waitGroup);
-                    [cookieStore setCookie:cookie completionHandler:^{
-                        dispatch_group_leave(waitGroup);
-                    }];
+                    NSString *name = cookie.name;
+                    NSString *domain = cookie.domain;
+                    BOOL cookieExists = NO;
+                    for (NSHTTPCookie *wkCookie in wkWebViewCookies) {
+                        if ([name isEqualToString:wkCookie.name]) {
+                            if ([domain isEqualToString:wkCookie.domain]) {
+                                cookieExists = YES;
+                                break;
+                            }
+                        }
+                    }
+                    if (!cookieExists) {
+                        dispatch_group_enter(waitGroup);
+                        [cookieStore setCookie:cookie completionHandler:^{
+                            dispatch_group_leave(waitGroup);
+                        }];
+                    }
                 }
                 dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
                     [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull wkWebViewCookies) {
@@ -1131,7 +1145,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                     return;
                 }
             }
-        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+        } else if (self.allowDownUploads) {
             // If downloading is allowed
             NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
             if (downloadPath.length == 0) {
@@ -1201,7 +1215,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogInfo(@"Download of File %@ did finish.", path);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (([path.pathExtension isEqualToString:@"pdf"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
+    if (([path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {

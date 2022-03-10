@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="344"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <secureTextField toolTip="Retype the administrator password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="78">
+                <secureTextField toolTip="Retype the administrator password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="78">
                     <rect key="frame" x="380" y="216" width="250" height="21"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="113">
                         <font key="font" metaFont="system"/>
@@ -34,7 +34,10 @@
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
+                    <accessibility description="Confirm administrator password"/>
                     <connections>
+                        <accessibilityConnection property="link" destination="81" id="dYc-qO-dn0"/>
+                        <accessibilityConnection property="title" destination="81" id="ver-4C-XBu"/>
                         <binding destination="115" name="value" keyPath="selection.confirmAdminPassword" id="129">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -43,7 +46,7 @@
                         <outlet property="nextKeyView" destination="79" id="tJo-WV-rBZ"/>
                     </connections>
                 </secureTextField>
-                <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="79">
+                <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="79">
                     <rect key="frame" x="380" y="117" width="250" height="21"/>
                     <string key="toolTip">This password is prompted when users try to quit SEB and when the Back to Start Button is pressed. Not prompted when using a quit link</string>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="112">
@@ -54,7 +57,10 @@
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
+                    <accessibility description="Quit/unlock password"/>
                     <connections>
+                        <accessibilityConnection property="link" destination="82" id="uZT-4f-0ZZ"/>
+                        <accessibilityConnection property="title" destination="82" id="7EO-Te-eS8"/>
                         <binding destination="115" name="value" keyPath="selection.quitPassword" id="135">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -75,6 +81,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="93" id="pT4-ui-odg"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="81">
                     <rect key="frame" x="18" y="219" width="356" height="16"/>
@@ -83,6 +92,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="78" id="2zp-KR-Rgt"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="82">
                     <rect key="frame" x="19" y="120" width="355" height="16"/>
@@ -91,8 +103,12 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="link" destination="79" id="haL-Iy-kLe"/>
+                        <accessibilityConnection property="title" destination="79" id="yRf-0w-6bY"/>
+                    </connections>
                 </textField>
-                <secureTextField toolTip="Retype the quit password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="83">
+                <secureTextField toolTip="Retype the quit password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="83">
                     <rect key="frame" x="380" y="88" width="250" height="21"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="108">
                         <font key="font" metaFont="system"/>
@@ -102,7 +118,10 @@
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
+                    <accessibility description="Confirm quit/unlock password"/>
                     <connections>
+                        <accessibilityConnection property="link" destination="84" id="WbI-Ks-RrW"/>
+                        <accessibilityConnection property="title" destination="84" id="Zey-J0-aoA"/>
                         <binding destination="115" name="value" keyPath="selection.confirmQuitPassword" id="138">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -122,6 +141,10 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="link" destination="83" id="L3n-Sv-Cyn"/>
+                        <accessibilityConnection property="title" destination="83" id="TFi-tl-SuV"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                     <rect key="frame" x="51" y="306" width="63" height="16"/>
@@ -130,6 +153,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <accessibilityConnection property="link" destination="255" id="mMT-mF-yMq"/>
+                    </connections>
                 </textField>
                 <button toolTip="Saves preferences and exits SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="88">
                     <rect key="frame" x="258" y="13" width="134" height="32"/>
@@ -204,7 +230,7 @@
                         <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_ignoreExitKeys" id="427"/>
                     </connections>
                 </button>
-                <secureTextField toolTip="Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
+                <secureTextField toolTip="Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                     <rect key="frame" x="380" y="245" width="250" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="357"/>
@@ -217,7 +243,10 @@
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
+                    <accessibility description="Administrator password"/>
                     <connections>
+                        <accessibilityConnection property="link" destination="80" id="bcC-zj-ZyM"/>
+                        <accessibilityConnection property="title" destination="80" id="ogO-RS-MfP"/>
                         <binding destination="115" name="value" keyPath="selection.adminPassword" id="126">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -291,7 +320,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="194">
-                    <rect key="frame" x="483" y="281" width="147" height="21"/>
+                    <rect key="frame" x="482" y="281" width="148" height="21"/>
                     <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="410"/>
@@ -314,7 +343,10 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <accessibility description="Start URL"/>
                     <connections>
+                        <accessibilityConnection property="link" destination="85" id="jCg-OD-hHi"/>
+                        <accessibilityConnection property="title" destination="85" id="Ylh-Vs-Ae9"/>
                         <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_startURL" id="z54-4d-hC3">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>

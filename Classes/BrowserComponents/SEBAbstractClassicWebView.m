@@ -360,6 +360,11 @@
     return self.navigationDelegate.pageJavaScript;
 }
 
+- (BOOL)allowDownUploads
+{
+    return self.navigationDelegate.allowDownUploads;
+}
+
 - (BOOL) allowSpellCheck
 {
     return self.navigationDelegate.allowSpellCheck;
