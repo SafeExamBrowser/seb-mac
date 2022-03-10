@@ -43,6 +43,10 @@
 
 @implementation SEBDockController
 
+
+int selectedDockItem = -1;
+
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -77,7 +81,7 @@
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+6];
         [self.window setAcceptsMouseMovedEvents:YES];
-
+        self.window.accessibilityValueDescription = NSLocalizedString(@"Safe Exam Browser Dock", nil);
     }
     return self;
 }
@@ -355,6 +359,97 @@
     DDLogDebug(@"[SEBDockController showDock]");
     [self.dockWindow setCalculatedFrame:screen];
     [self showWindow:self];
+    [self resignFirstResponderSelectDockItem];
+}
+
+
+- (void) makeFirstDockItemFirstResponder
+{
+    DDLogDebug(@"[SEBDockController makeFirstDockItemFirstResponder]");
+    
+    selectedDockItem -= 1;
+    [self makeDockItemFirstResponder: TRUE];
+}
+
+
+- (void) makeNextDockItemFirstResponder
+{
+    DDLogDebug(@"[SEBDockController makeNextDockItemFirstResponder]");
+    
+    NSArray *dockItems = self.dockWindow.contentView.subviews;
+    selectedDockItem += 1;
+    
+    if (![self isIndexInRange: dockItems with: selectedDockItem]) {
+        selectedDockItem = 0;
+    }
+    
+    [self makeDockItemFirstResponder: TRUE];
+}
+
+
+- (void) makePreviousDockItemFirstResponder
+{
+    DDLogDebug(@"[SEBDockController makePreviousDockItemFirstResponder]");
+    
+    NSArray *dockItems = self.dockWindow.contentView.subviews;
+    selectedDockItem -= 1;
+    
+    if (![self isIndexInRange: dockItems with: selectedDockItem]) {
+        selectedDockItem = (int)dockItems.count - 1;
+    }
+    
+    [self makeDockItemFirstResponder: FALSE];
+}
+
+
+- (void) makeDockItemFirstResponder: (BOOL)isNextDockItem
+{
+    DDLogDebug(@"[SEBDockController makeDockItemFirstResponder]");
+    
+    NSArray *dockItems = self.dockWindow.contentView.subviews;
+    if ([self isIndexInRange: dockItems with: selectedDockItem]) {
+        SEBDockItemButton *firstResponder = (SEBDockItemButton *)dockItems[selectedDockItem];
+        if (firstResponder != nil && firstResponder.class == SEBDockItemButton.class) {
+            [self.window makeFirstResponder:firstResponder];
+        }
+        else {
+            if (isNextDockItem) {
+                [self makeNextDockItemFirstResponder];
+            }
+            else {
+                [self makePreviousDockItemFirstResponder];
+            }
+        }
+    }
+}
+
+
+- (void) selectFirstResponderDockItem
+{
+    DDLogDebug(@"[SEBDockController selectFirstResponderDockItem]");
+    
+    SEBDockItemButton *firstResponder = (SEBDockItemButton *)[self.window firstResponder];
+    
+    if (firstResponder != nil) {
+        [firstResponder performClick:self];
+    }
+}
+
+
+- (void) resignFirstResponderSelectDockItem
+{
+    DDLogDebug(@"[SEBDockController resignFirstResponderSelectDockItem]");
+    
+    SEBDockItemButton *firstResponder = (SEBDockItemButton *)[self.window firstResponder];
+    
+    if (firstResponder != nil) {
+        [firstResponder resignFirstResponder];
+    }
+}
+
+
+- (int) getSelectedObjc {
+    return selectedDockItem;
 }
 
 
@@ -379,5 +474,19 @@
     [self.dockWindow setCalculatedFrame:screen];
 }
 
+- (BOOL) isIndexInRange: (NSArray *)array with:(int)index {
+    if (array.count > 0) {
+        if (index > -1
+            && array.count > index) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
+    else {
+        return FALSE;
+    }
+}
 
 @end

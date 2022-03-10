@@ -48,6 +48,7 @@
 - (void) startDisplayingTime
 {
     NSDate *dateNow = [NSDate date];
+    timeTextField.placeholderString = @"";
     
     NSFont *itemFont = timeTextField.font;
     CGFloat dockHeight = [[NSUserDefaults standardUserDefaults] secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];

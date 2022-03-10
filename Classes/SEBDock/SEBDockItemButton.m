@@ -33,8 +33,12 @@
 //
 
 #import "SEBDockItemButton.h"
+#import "BezierPathQuartzUtilities.h"
 
 @implementation SEBDockItemButton
+
+
+CAShapeLayer *focusRing = nil;
 
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
@@ -307,6 +311,53 @@ self.highlighted = false;
         if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10) {
             [super setHighlighted:highlighted];
         }
+}
+
+
+- (BOOL)acceptsFirstResponder {
+    return !self.hidden;
+}
+
+    
+- (BOOL)becomeFirstResponder {
+    [self setFocusRing];
+    BOOL okToChange = [super becomeFirstResponder];
+    self.highlighted = TRUE;
+    return okToChange;
+}
+
+
+- (BOOL)resignFirstResponder {
+    [self removeFocusRing];
+    BOOL okToChange = [super resignFirstResponder];
+    self.highlighted = FALSE;
+    return okToChange;
+}
+
+
+- (void)setFocusRing {
+    if (focusRing == nil) {
+        CGFloat radius = 4;
+        NSBezierPath *path = [[NSBezierPath alloc] init];
+        [path appendBezierPathWithRoundedRect:self.bounds xRadius:radius yRadius:radius];
+        
+        focusRing = [[CAShapeLayer alloc] init];
+        focusRing.backgroundColor = [NSColor clearColor].CGColor;
+        focusRing.fillColor = [NSColor clearColor].CGColor;
+        focusRing.strokeColor = [NSColor colorWithRed:.1 green:.1 blue:1 alpha:1].CGColor;
+        focusRing.path = [path quartzPath];
+        focusRing.lineWidth = 1.5;
+        
+        [self.layer addSublayer:focusRing];
+    }
+}
+
+
+- (void)removeFocusRing {
+    if (focusRing != nil) {
+        [focusRing removeFromSuperlayer];
+        focusRing = nil;
+    }
 }
 
 
