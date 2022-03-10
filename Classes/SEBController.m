@@ -526,6 +526,22 @@ bool insideMatrix(void);
                 [self openPreferences:self]; //show preferences window
             }
             return nil;
+        } else if (self.browserController.getIsDockSelected) {
+            if (event.keyCode == 48) {   //Tab
+                DDLogDebug(@"Tab Key pressed!");
+                [self.dockController makeNextDockItemFirstResponder];
+                return nil;
+            } else if (event.keyCode == 48 && isLeftShift) {   //Tab
+                DDLogDebug(@"Left Shift + Tab Key pressed!");
+                [self.dockController makeNextDockItemFirstResponder];
+                return nil;
+            } else if (event.keyCode == 49 || event.keyCode == 36) {   //Enter && Space
+                DDLogDebug(@"Enter or Space Key pressed!");
+                [self.dockController selectFirstResponderDockItem];
+                return nil;
+            } else {
+                return event;
+            }
         } else {
             return event;
         }
@@ -4774,7 +4790,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                    target:self
                                                                    action:@selector(buttonPressed)
                                                           secondaryAction:nil];
-            [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
+            NSArray *dockButtons = [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
+            [self setUpDockLeftButtons:dockButtons];
         }
         
         // Initialize right dock items (controlls and info widgets)
@@ -4904,30 +4921,43 @@ conditionallyForWindow:(NSWindow *)window
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
         NSArray *dockButtons = [self.dockController setRightItems:rightDockItems];
-        for (SEBDockItemButton *dockButton in dockButtons)
-        {
-            if (dockButton.action == @selector(reloadButtonPressed)) {
-                _dockButtonReload = dockButton;
-            }
-            if (dockButton.action == @selector(toggleProctoringViewVisibility)) {
-                _dockButtonProctoringView = dockButton;
-//                _dockButtonProctoringView.image.template = YES;
-                _dockButtonProctoringView.bezelStyle = NSBezelStyleInline;
-                _dockButtonProctoringView.bordered = NO;
-            }
-            if (dockButton.action == @selector(toggleRaiseHand)) {
-                _dockButtonRaiseHand = dockButton;
-//                _dockButtonRaiseHand.image.template = YES;
-                _dockButtonRaiseHand.bezelStyle = NSBezelStyleInline;
-                _dockButtonRaiseHand.bordered = NO;
-            }
-        }
+        [self setUpDockRightButtons:dockButtons];
         
         // Display the dock
         [self.dockController showDockOnScreen:_mainScreen];
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");
+    }
+}
+
+
+- (void)setUpDockLeftButtons: (NSArray *)dockButtons {
+    for (SEBDockItemButton *dockButton in dockButtons) {
+        if (dockButton.action == @selector(buttonPressed)) {
+            dockButton.accessibilityTitle = NSLocalizedString(@"Safe Exam Browser", nil);
+        }
+    }
+}
+
+
+- (void)setUpDockRightButtons: (NSArray *)dockButtons {
+    for (SEBDockItemButton *dockButton in dockButtons) {
+        if (dockButton.action == @selector(reloadButtonPressed)) {
+            _dockButtonReload = dockButton;
+        }
+        else if (dockButton.action == @selector(toggleProctoringViewVisibility)) {
+            _dockButtonProctoringView = dockButton;
+                //                _dockButtonProctoringView.image.template = YES;
+            _dockButtonProctoringView.bezelStyle = NSBezelStyleInline;
+            _dockButtonProctoringView.bordered = NO;
+        }
+        else if (dockButton.action == @selector(toggleRaiseHand)) {
+            _dockButtonRaiseHand = dockButton;
+                //                _dockButtonRaiseHand.image.template = YES;
+            _dockButtonRaiseHand.bezelStyle = NSBezelStyleInline;
+            _dockButtonRaiseHand.bordered = NO;
+        }
     }
 }
 
