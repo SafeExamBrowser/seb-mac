@@ -42,6 +42,11 @@
                           @"identifier" : @"im.riot.app",
                       },
                       @{
+                          @"executable" : @"Universal Control",
+                          @"identifier" : @"com.apple.universalcontrol",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
                       },
