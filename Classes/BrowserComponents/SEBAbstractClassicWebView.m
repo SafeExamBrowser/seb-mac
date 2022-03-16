@@ -287,6 +287,9 @@
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
+    if (cookies.count == 0) {
+        cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+    }
     [self.navigationDelegate examineCookies:cookies forURL:url];
 }
 
