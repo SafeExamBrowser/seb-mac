@@ -50,6 +50,10 @@
                           @"identifier" : @"com.apple.iChat",
                       },
                       @{
+                          @"executable" : @"Messages",
+                          @"identifier" : @"com.apple.MobileSMS",
+                      },
+                      @{
                           @"executable" : @"Telegram",
                           @"identifier" : @"ru.keepcoder.Telegram",
                       },
