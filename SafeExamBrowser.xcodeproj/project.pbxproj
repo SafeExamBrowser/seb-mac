@@ -264,7 +264,6 @@
 		696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD141C3C2AB900397E18 /* Reload.png */; };
 		696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD151C3C2AB900397E18 /* Reload@2x.png */; };
 		696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
-		696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
 		696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */; };
 		696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */; };
 		696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */; };
@@ -464,7 +463,6 @@
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
 		69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */; };
 		69B42897270C36870061E328 /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
-		69B42898270C368C0061E328 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
 		69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */; };
 		69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */; };
 		69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
@@ -593,7 +591,6 @@
 		69D3C4FB27A0366400890B31 /* ZoomTextIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF0172F2E2500C87C58 /* ZoomTextIn.png */; };
 		69D3C4FC27A0366400890B31 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */; };
 		69D3C4FD27A0366400890B31 /* ZoomPageOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */; };
-		69D3C4FE27A0366400890B31 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
 		69D3C4FF27A0366400890B31 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
 		69D3C50027A0366400890B31 /* SEBReloadIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E41202926060055988F /* SEBReloadIconLandscape@2x.png */; };
 		69D3C50127A0366400890B31 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF2172F2E2500C87C58 /* ZoomTextOut.png */; };
@@ -1246,7 +1243,6 @@
 		696DAD141C3C2AB900397E18 /* Reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reload.png; path = Resources/Icons/Reload.png; sourceTree = "<group>"; };
 		696DAD151C3C2AB900397E18 /* Reload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Reload@2x.png"; path = "Resources/Icons/Reload@2x.png"; sourceTree = "<group>"; };
 		696DAD1F1C3C2B1400397E18 /* ModifyPages.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ModifyPages.js; sourceTree = "<group>"; };
-		696DAD201C3C2B1400397E18 /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
 		696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDetailViewController.h; path = Classes/BrowserComponents/SEBDetailViewController.h; sourceTree = "<group>"; };
 		696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDetailViewController.m; path = Classes/BrowserComponents/SEBDetailViewController.m; sourceTree = "<group>"; };
 		696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBMasterViewController.h; path = Classes/BrowserComponents/SEBMasterViewController.h; sourceTree = "<group>"; };
@@ -1763,7 +1759,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* SEB */ = {
 			isa = PBXGroup;
 			children = (
 				69637422267E6F6A00058E7C /* Safe Exam Browser.entitlements */,
@@ -2474,7 +2470,6 @@
 			isa = PBXGroup;
 			children = (
 				696DAD1F1C3C2B1400397E18 /* ModifyPages.js */,
-				696DAD201C3C2B1400397E18 /* SearchWebView.js */,
 			);
 			name = JavaScript;
 			path = Resources/JavaScript;
@@ -3378,7 +3373,7 @@
 				de,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3532,7 +3527,6 @@
 				693A39611E60AC6C005030B0 /* SEBNavigateForwardIcon.png in Resources */,
 				69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */,
 				69B253EB1E4E2630000B4A6D /* SEBSliderRestartIcon@3x.png in Resources */,
-				696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */,
 				6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3637,7 +3631,6 @@
 				69D3C4FB27A0366400890B31 /* ZoomTextIn.png in Resources */,
 				69D3C4FC27A0366400890B31 /* ZoomTextIn@2x.png in Resources */,
 				69D3C4FD27A0366400890B31 /* ZoomPageOut@2x.png in Resources */,
-				69D3C4FE27A0366400890B31 /* SearchWebView.js in Resources */,
 				69D3C4FF27A0366400890B31 /* Localizable.strings in Resources */,
 				69D3C50027A0366400890B31 /* SEBReloadIconLandscape@2x.png in Resources */,
 				69D3C50127A0366400890B31 /* ZoomTextOut.png in Resources */,
@@ -3733,7 +3726,6 @@
 				69428CF4172F2E2500C87C58 /* ZoomTextIn.png in Resources */,
 				69428CF6172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */,
 				6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */,
-				69B42898270C368C0061E328 /* SearchWebView.js in Resources */,
 				69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */,
 				69E87E44202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
