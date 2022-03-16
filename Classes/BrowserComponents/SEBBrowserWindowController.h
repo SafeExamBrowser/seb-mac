@@ -53,10 +53,18 @@
 @property (readonly, nonatomic) SEBBrowserWindow *browserWindow;
 //@property (weak) IBOutlet SEBAbstractWebView *webView;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
+@property (weak) IBOutlet NSSearchField *textSearchField;
+@property (weak) IBOutlet NSSegmentedControl *textSearchPreviousNext;
+- (void) searchTextNext;
+- (void) searchTextPrevious;
+@property (weak) IBOutlet NSButton *textSearchDone;
 @property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (strong) NSScreen *previousScreen;
 @property (strong) NSTimer *windowWatchTimer;
+
+@property (strong, nonatomic) NSString *searchText;
+- (void) searchTextMatchFound:(BOOL)matchFound;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;
