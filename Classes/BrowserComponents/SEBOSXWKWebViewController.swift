@@ -244,6 +244,11 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     public func webView(_ webView: WKWebView, decideMediaCapturePermissionsFor origin: WKSecurityOrigin, initiatedBy frame: WKFrameInfo, type: WKMediaCaptureType) async -> WKPermissionDecision {
         return .grant
     }
+    
+//    @available(macOS 12.3, *)
+//    public func webView(_ webView: WKWebView, requestUserMediaAuthorizationForDevices devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping  (Bool) -> Void) {
+//        decisionHandler(true)
+//    }
 }
 
 extension NSView {
