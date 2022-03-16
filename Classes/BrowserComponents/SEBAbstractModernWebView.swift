@@ -530,6 +530,8 @@ import Foundation
                 self.navigationDelegate?.examine?(jointCookies, for:url)
             }
             return
+        } else {
+            self.navigationDelegate?.examine?(HTTPCookieStorage.shared.cookies ?? [], for:url)
         }
     }
     
@@ -640,7 +642,7 @@ import Foundation
                         return
                     } else {
                         decisionHandler(.cancel)
-                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: [])
+                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: HTTPCookieStorage.shared.cookies ?? [])
                         self.downloadFilename = nil
                         return
                     }
@@ -725,7 +727,7 @@ import Foundation
                 decidePolicyWithCookies(cookies)
             }
         } else {
-            decidePolicyWithCookies([])
+            decidePolicyWithCookies(HTTPCookieStorage.shared.cookies ?? [])
         }
     }
     
