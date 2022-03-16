@@ -1119,7 +1119,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         return;
     }
     
-    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:@[]];
+    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies];
     if (delegateNavigationActionPolicy == SEBNavigationActionPolicyDownload) {
         DDLogInfo(@"Resource %@ will be downloaded.", request.URL.lastPathComponent);
         [listener download];
