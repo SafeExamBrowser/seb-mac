@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) textSizeDecrease;
 - (void) textSizeReset;
 
+- (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js;
+
 - (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive;
 
 - (void) privateCopy:(id)sender;
