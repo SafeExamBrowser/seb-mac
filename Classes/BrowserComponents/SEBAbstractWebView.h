@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) textSizeDecrease;
 - (void) textSizeReset;
 
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive;
+
 - (void) privateCopy:(id)sender;
 - (void) privateCut:(id)sender;
 - (void) privatePaste:(id)sender;
@@ -146,6 +148,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) appVersion;
 
 @property (readwrite, nonatomic) double pageZoom;
+
+- (void) searchTextMatchFound:(BOOL)matchFound;
+
 
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 // Currently required by SEB-macOS

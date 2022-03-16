@@ -44,6 +44,8 @@
 #import "SEBOSXBrowserController.h"
 #import "SEBTextField.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBOSXWebViewController;
 @class SEBAbstractWebView;
 @class SEBOSXBrowserController;
@@ -76,6 +78,14 @@
 @property (strong) NSView *filterMessageHolder;
 @property (strong) NSPanel *filterMessageHUD;
 
+- (void) performFindPanelAction:(id)sender;
+- (void) searchText;
+- (void) searchTextNext;
+- (void) searchTextPrevious;
+
+@property (readwrite) BOOL toolbarWasHidden;
+- (void) conditionallyDisplayToolbar;
+
 - (void) setCalculatedFrame;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
@@ -85,3 +95,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

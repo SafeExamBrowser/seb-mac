@@ -189,6 +189,12 @@
 }
 
 
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    [self.browserControllerDelegate searchText:textToSearch backwards:backwards caseSensitive:caseSensitive];
+}
+
+
 - (void) privateCopy:(id)sender
 {
     [self.browserControllerDelegate privateCopy:sender];
@@ -429,6 +435,12 @@
 - (NSString *) appVersion
 {
     return [self.navigationDelegate appVersion];
+}
+
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    [self.navigationDelegate searchTextMatchFound:matchFound];
 }
 
 
