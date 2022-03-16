@@ -141,6 +141,44 @@
 }
 
 
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    if (textToSearch.length == 0) {
+        previousSearchText = textToSearch;
+        [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_RemoveAllHighlights()"];
+        [self.navigationDelegate searchTextMatchFound:NO];
+    } else {
+        if ([previousSearchText isEqualToString:textToSearch]) {
+            if (backwards) {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchPrevious()"];
+            } else {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchNext()"];
+            }
+            [self.navigationDelegate searchTextMatchFound:YES];
+        } else {
+            previousSearchText = textToSearch;
+            NSString *searchString = [NSString stringWithFormat:@"SEB_HighlightAllOccurencesOfString('%@')", textToSearch];
+            [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:searchString];
+            if (backwards) {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchPrevious()"];
+            } else {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchNext()"];
+            }
+            NSString *result = [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchResultCount"];
+            if (result.length > 0) {
+                NSInteger count = result.integerValue;
+                if (count > 0) {
+                    [self.navigationDelegate searchTextMatchFound:YES];
+                    return;
+                }
+            }
+            [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_RemoveAllHighlights()"];
+            [self.navigationDelegate searchTextMatchFound:NO];
+        }
+    }
+}
+
+
 - (void) privateCopy:(id)sender
 {
     [self.browserControllerDelegate privateCopy:sender];
