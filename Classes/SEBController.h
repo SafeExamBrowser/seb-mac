@@ -340,6 +340,10 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) reloadButtonEnabled:(BOOL)enabled;
 
+- (IBAction) searchText:(id)sender;
+- (IBAction) searchTextNext:(id)sender;
+- (IBAction) searchTextPrevious:(id)sender;
+
 - (void) requestedRestart:(NSNotification *)notification;
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;

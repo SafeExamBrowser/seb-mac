@@ -100,18 +100,78 @@
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
-    // Display or don't display toolbar
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // No toolbar on full screen window
     if (!_isFullScreen) {
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
-        {
-            [self.toolbar setVisible:NO];
-        } else {
-            [self.toolbar setVisible:YES];
-        }
+        // Display or don't display toolbar
+        [self conditionallyDisplayToolbar];
     }
     _javaScriptFunctions = self.browserController.pageJavaScript;
+}
+
+- (void)performFindPanelAction:(id)sender
+{
+    long tag = ((NSMenuItem *)sender).tag;
+    switch (tag) {
+        case NSFindPanelActionShowFindPanel:
+            [self searchText];
+            break;
+            
+        case NSFindPanelActionNext:
+            [self searchTextNext];
+            break;
+            
+        case NSFindPanelActionPrevious:
+            [self searchTextPrevious];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void) searchText
+{
+    if (!_isFullScreen) {
+        [self displayToolbar];
+        [(SEBBrowserWindowController *)self.windowController searchTextMatchFound:NO];
+        [self makeFirstResponder:((SEBBrowserWindowController *)self.windowController).textSearchField];
+    }
+}
+
+- (void) searchTextNext
+{
+    if (!_isFullScreen) {
+        [((SEBBrowserWindowController *)self.windowController) searchTextNext];
+    }
+}
+
+- (void) searchTextPrevious
+{
+    if (!_isFullScreen) {
+        [((SEBBrowserWindowController *)self.windowController) searchTextPrevious];
+    }
+}
+
+
+
+- (void) conditionallyDisplayToolbar
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"] || _toolbarWasHidden))
+    {
+        _toolbarWasHidden = NO;
+        [self.toolbar setVisible:NO];
+    } else {
+        [self.toolbar setVisible:YES];
+    }
+}
+
+- (void) displayToolbar
+{
+    if (!_isFullScreen && !self.toolbar.isVisible) {
+        _toolbarWasHidden = !self.toolbar.isVisible;
+        [self.toolbar setVisible:YES];
+    }
 }
 
 
@@ -895,6 +955,18 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setLoading:NO];
     });
+}
+
+
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    [self.browserControllerDelegate searchText:textToSearch backwards:backwards caseSensitive:caseSensitive];
+}
+
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    [(SEBBrowserWindowController *)self.windowController searchTextMatchFound:matchFound];
 }
 
 

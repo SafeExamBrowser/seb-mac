@@ -401,6 +401,55 @@ void DisposeWindow (
 }
 
 
+- (IBAction) textSearch: (NSSearchField *)sender
+{
+    NSString *newSearchText = sender.stringValue;
+    if (![self.searchText isEqualToString:newSearchText]) {
+        self.searchText = newSearchText;
+        self.textSearchDone.hidden = !self.browserWindow.toolbarWasHidden;
+        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+}
+
+- (IBAction)previousNext:(id)sender
+{
+    if ([sender selectedSegment] == 0) {
+        [self searchTextPrevious];
+    } else {
+        [self searchTextNext];
+    }
+}
+
+- (void) searchTextNext
+{
+    [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+}
+
+- (void) searchTextPrevious
+{
+    [self.browserWindow searchText:self.searchText backwards:YES caseSensitive:NO];
+}
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    self.textSearchPreviousNext.hidden = !matchFound;
+    self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
+}
+
+- (IBAction) textSearchDone:(id)sender
+{
+    if (self.textSearchField.stringValue.length > 0) {
+        self.textSearchField.stringValue = @"";
+        self.searchText = @"";
+        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+    self.textSearchPreviousNext.hidden = YES;
+    self.textSearchDone.hidden = YES;
+    [self.browserWindow conditionallyDisplayToolbar];
+    [self.browserWindow makeFirstResponder:self.browserWindow];
+}
+
+
 - (IBAction) zoomText: (id)sender
 {
     if ([sender selectedSegment] == 0) {
