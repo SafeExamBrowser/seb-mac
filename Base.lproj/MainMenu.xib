@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -449,7 +449,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1085"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -497,11 +497,11 @@
                             <constraint firstAttribute="height" constant="170" id="Egl-bF-AuO"/>
                             <constraint firstAttribute="width" constant="220" id="XqY-nP-FWe"/>
                         </constraints>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="fPc-rw-tKb">
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="fPc-rw-tKb">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="KnF-WA-vtw">
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="KnF-WA-vtw">
                             <rect key="frame" x="-100" y="-100" width="15" height="168"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -619,7 +619,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1085"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -712,7 +712,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1085"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-wp-re5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -836,7 +836,7 @@ DQ
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="nSQ-YT-olP" userLabel="Time View">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
                     <subviews>
-                        <textField verticalHuggingPriority="1000" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
+                        <textField horizontalHuggingPriority="1000" verticalHuggingPriority="1000" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
                             <rect key="frame" x="2" y="8" width="46" height="18"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="center" placeholderString="09:41" id="ITD-IF-Cv9">
                                 <dateFormatter key="formatter" formatterBehavior="custom10_4" dateFormat="HH:mm" id="kfS-SN-RBm"/>
@@ -867,7 +867,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1085"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
@@ -1042,7 +1042,7 @@ Gw
                     </scroller>
                 </scrollView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xZt-eP-PbW">
-                    <rect key="frame" x="209" y="13" width="82" height="32"/>
+                    <rect key="frame" x="210" y="13" width="81" height="32"/>
                     <buttonCell key="cell" type="push" title="Dismiss" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="SDp-oG-6Ia">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -1247,7 +1247,7 @@ DQ
                             <rect key="frame" x="26" y="0.0" width="434" height="14"/>
                             <subviews>
                                 <button hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-4r-o8x">
-                                    <rect key="frame" x="347" y="-13" width="68" height="32"/>
+                                    <rect key="frame" x="348" y="-13" width="67" height="32"/>
                                     <buttonCell key="cell" type="push" title="Retry" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pZD-Yp-uUL">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -1373,7 +1373,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1085"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
