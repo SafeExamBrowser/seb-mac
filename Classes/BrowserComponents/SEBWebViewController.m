@@ -268,6 +268,12 @@
 }
 
 
+- (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js
+{
+    return [_sebWebView stringByEvaluatingJavaScriptFromString:js];
+}
+
+
 - (void) privateCopy:(id)sender
 {
     [self.sebWebView privateCopy:sender];
@@ -584,6 +590,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 - (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     if (frame == [sender mainFrame]){
+        [_sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
         [self.navigationDelegate setCanGoBack:sender.canGoBack canGoForward:sender.canGoForward];
         
         [self.navigationDelegate sebWebViewDidFinishLoad];
