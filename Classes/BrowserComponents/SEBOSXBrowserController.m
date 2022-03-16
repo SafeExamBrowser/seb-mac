@@ -308,7 +308,11 @@
     
     if (mainBrowserWindowShouldBeFullScreen) {
         [self.mainBrowserWindow setToolbar:nil];
-        [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
+        if (@available(macOS 10.12, *)) {
+            [self.mainBrowserWindow setStyleMask:NSWindowStyleMaskBorderless];
+        } else {
+            [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
+        }
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
