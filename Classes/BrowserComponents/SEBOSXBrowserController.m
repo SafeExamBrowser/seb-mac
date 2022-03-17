@@ -308,11 +308,7 @@
     
     if (mainBrowserWindowShouldBeFullScreen) {
         [self.mainBrowserWindow setToolbar:nil];
-        if (@available(macOS 10.12, *)) {
-            [self.mainBrowserWindow setStyleMask:NSWindowStyleMaskBorderless];
-        } else {
-            [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
-        }
+        [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -591,11 +587,21 @@
 // Close all browser windows (including the main browser window)
 - (void) closeAllBrowserWindows
 {
-    // Close all browser windows (documents)
-    self.mainBrowserWindow = nil;
-    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
-                                                               didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
-                                                                       contextInfo: nil];
+    if (self.mainBrowserWindow.isFullScreen) {
+        [self closeAllAdditionalBrowserWindows];
+        [self.mainBrowserWindow setStyleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
+        [self.mainBrowserWindow.webView.nativeWebView removeFromSuperview];
+        self.mainBrowserWindow.webView = nil;
+        self.mainBrowserWindow.releasedWhenClosed = NO;
+        [self.mainBrowserWindow close];
+        self.mainBrowserWindow = nil;
+    } else {
+        // Close all browser windows (documents)
+        self.mainBrowserWindow = nil;
+        [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
+                                                                   didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
+                                                                           contextInfo: nil];
+    }
 }
 
 
