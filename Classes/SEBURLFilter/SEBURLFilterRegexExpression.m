@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -116,13 +116,13 @@
             
             NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
             regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
-
+            
             NSString *regexStringDir = [NSRegularExpression escapedPatternForString:filterStringDirectory];
             regexStringDir = [regexStringDir stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
-
+            
             // Add regex command characters for matching at start and end of a line (part)
             regexString = [NSString stringWithFormat:@"^((%@)|(%@))$", regexString, regexStringDir];
-
+            
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
             return regex;
         } else {
@@ -168,11 +168,11 @@
         part = @".*?";
     }
     [expressionString appendFormat:@"%@:\\/\\/", part];
-
+    
     /// User/Password
     if (_user) {
         part = [self stringForRegexFilter:_user];
-
+        
         [expressionString appendString:part];
         
         if (_password) {
@@ -201,7 +201,7 @@
     }
     
     [expressionString appendString:hostPort];
-
+    
     /// Path
     if (_path) {
         NSString *path = [self stringForRegexFilter:_path];
@@ -230,7 +230,7 @@
     }
     
     [expressionString appendString:@"$"];
-
+    
     return expressionString;
 }
 

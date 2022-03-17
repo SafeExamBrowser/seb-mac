@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Control URL Filtering</string>
+			<key>FooterText</key>
+			<string>Filter only links or all embedded resources and XMLHTTPRequests.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Activate URL Filtering</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_URLFilterEnable</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Filter Embedded Content</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_URLFilterEnableContentFilter</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Blocked Message</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_URLFilterMessage</string>
+			<key>FooterText</key>
+			<string>This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped.</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>&apos;URL Blocked!&apos;</string>
+				<string>&apos;✕&apos;</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Filter Rules</string>
+			<key>FooterText</key>
+			<string>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &quot;Teach SEB allowed/blocked URLs&quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Filter Rules</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_URLFilterRulesCombined</string>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>

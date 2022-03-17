@@ -32,7 +32,7 @@
 				<string>seb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>SEBDocumentIcon</string>
+			<string>sebConfigIcon</string>
 			<key>CFBundleTypeName</key>
 			<string>SEBSettings</string>
 			<key>CFBundleTypeRole</key>
@@ -41,12 +41,9 @@
 			<array>
 				<string>org.safeexambrowser.seb</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>NSDocumentClass</key>
 			<string></string>
 		</dict>
-		<dict/>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -90,7 +87,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3140</string>
+	<string>13593</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -102,14 +99,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is required for remote proctoring.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is required for remote proctoring.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSRequiresAquaSystemAppearance</key>
-	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -120,7 +119,7 @@
 			<key>UTTypeDescription</key>
 			<string>Safe Exam Browser Configuration</string>
 			<key>UTTypeIconFile</key>
-			<string>SEBDocumentIcon</string>
+			<string>SEBDocumentIcon.icns</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.safeexambrowser.seb</string>
 			<key>UTTypeTagSpecification</key>

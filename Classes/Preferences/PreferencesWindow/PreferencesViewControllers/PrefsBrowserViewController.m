@@ -84,15 +84,12 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) newBrowserWindowByLinkPolicyChanged:(NSPopUpButton *)sender
 {
-    
     newBrowserWindowByLinkBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
 }
-
-// Action to set the enabled property of dependent buttons
-// This is necessary because bindings don't work with private user defaults
-- (IBAction) newBrowserWindowByScriptPolicyChanged:(NSPopUpButton *)sender
+- (IBAction) setEnabledBrowserMediaAutoplay:(NSButton *)sender
 {
-    newBrowserWindowByScriptBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
+    browserMediaAutoplayVideoButton.enabled = sender.state;
+    browserMediaAutoplayAudioButton.enabled = sender.state;
 }
 
 // Action to change the displayed browser user agent environment tab

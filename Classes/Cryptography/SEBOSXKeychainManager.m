@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -915,8 +915,8 @@
     }
     
     CSSM_RETURN crtn;
-    CSSM_DATA		ptext;
-    CSSM_DATA		ctext;
+    CSSM_DATA        ptext;
+    CSSM_DATA        ctext;
     
     ptext.Data = (uint8 *)[plainData bytes];
     ptext.Length = [plainData length];
@@ -993,9 +993,9 @@
      privKey->KeyHeader.KeyUsage ==
      CSSM_KEYUSE_ANY);*/
     
-    CSSM_DATA		ptext;
-    CSSM_DATA		ctext;
-    CSSM_RETURN		crtn;
+    CSSM_DATA        ptext;
+    CSSM_DATA        ctext;
+    CSSM_RETURN        crtn;
     CSSM_SIZE       bytesEncrypted;
     CSSM_DATA       remData = {0, NULL};
     CSSM_CC_HANDLE  ccHandle;

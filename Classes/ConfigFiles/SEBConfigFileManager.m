@@ -39,7 +39,6 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "NSData+NSDataZIPExtension.h"
-#import "MyGlobals.h"
 
 
 @implementation SEBConfigFileManager
@@ -95,7 +94,9 @@
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
-    DDLogInfo(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#ifdef DEBUG
+    DDLogDebug(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#endif
     [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
 }
 
@@ -270,13 +271,9 @@
         }
     }
     
-    // If we deal with an unencrypted seb file
-    if ([prefixString isEqualToString:@"<?xm"]) {
-        // We reset the "for editing" flag, because it doesn't make sense having to enter an admin pw if the file is unencrypted
-        forEditing = false;
-    } else {
-        // The file was encrypted:
-        // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    // If we don't deal with an unencrypted seb file
+    // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    if (![prefixString isEqualToString:@"<?xm"]) {
         encryptedSEBData = [encryptedSEBData gzipInflate];
     }
     [self parseSettingsStartingExamForEditing:forEditing];
@@ -827,7 +824,7 @@ static NSString *getUppercaseAdminPasswordHash()
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
             return;
-
+            
         } else {
             // Inform callback that storing new settings was successful
             [self storeNewSEBSettingsSuccessful:nil];
@@ -1057,7 +1054,7 @@ static NSString *getUppercaseAdminPasswordHash()
         sebFileCredentials.publicKeyHash = nil;
         return nil;
     }
-
+    
     return sebData;
 }
 

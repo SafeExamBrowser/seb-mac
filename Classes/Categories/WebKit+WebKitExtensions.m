@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -76,7 +76,7 @@
 + (void)_newRegisterPluginMIMEType:(NSString *)MIMEType
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
+    if ([MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
     {
         return;
     }

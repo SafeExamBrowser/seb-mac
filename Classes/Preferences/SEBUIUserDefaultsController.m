@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -62,6 +62,16 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies {
     return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", nil), NSLocalizedString(@"open in same window", nil), NSLocalizedString(@"open in new window", nil), nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_browserWindowWebViewPolicies {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Automatic", nil),
+            NSLocalizedString(@"Force Classic", nil),
+            NSLocalizedString(@"Prefer Modern in New Tab+Different Host", nil),
+            NSLocalizedString(@"Prefer Modern", nil),
+            nil];
 }
 
 
@@ -200,14 +210,17 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_minMacOSVersions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"OS X 10.7 Lion", nil),
-            NSLocalizedString(@"OS X 10.8 Mountain Lion", nil),
-            NSLocalizedString(@"OS X 10.9 Mavericks", nil),
-            NSLocalizedString(@"OS X 10.10 Yosemite", nil),
-            NSLocalizedString(@"OS X 10.11 El Capitan", nil),
-            NSLocalizedString(@"macOS 10.12 Sierra", nil),
-            NSLocalizedString(@"macOS 10.13 High Sierra", nil),
-            NSLocalizedString(@"macOS 10.14 Mojave", nil),
+            NSLocalizedString(@"10.7 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.8 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.9 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.10 (this SEB: 10.11)", nil),
+            NSLocalizedString(@"10.11 El Capitan", nil),
+            NSLocalizedString(@"10.12 Sierra", nil),
+            NSLocalizedString(@"10.13 High Sierra", nil),
+            NSLocalizedString(@"10.14 Mojave", nil),
+            NSLocalizedString(@"10.15 Catalina", nil),
+            NSLocalizedString(@"11 Big Sur", nil),
+            NSLocalizedString(@"12 Monterey", nil),
             nil];
 }
 

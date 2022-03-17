@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -149,8 +149,7 @@
                         
                     case NSAlertSecondButtonReturn:
                         
-                        self.sebController.quittingMyself = true; //quit SEB without asking for confirmation or password
-                        [NSApp terminate: nil]; //quit SEB
+                        [self.sebController requestedExit:nil]; // Quit SEB
                         return;
                 }
             };
@@ -232,10 +231,13 @@
                 return false;
         }
     };
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
-            return true;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
+                return true;
+            }
         }
     }
     [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
@@ -298,7 +300,7 @@
 }
 
 
-- (void)showAlertWithError:(NSError *)error { 
+- (void)showAlertWithError:(NSError *)error {
     [self presentErrorAlert:error];
 }
 

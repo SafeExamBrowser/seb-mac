@@ -2749,8 +2749,8 @@
         <source>Wrong Quit Password</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
-        <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
+      <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password used in these settings:">
+        <source>Wrong password! Try again to enter the correct SEB administrator password used in these settings:</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You are not allowed to run SEB inside a virtual machine!">

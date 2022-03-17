@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -43,15 +43,15 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         if (windowLevel == NSNormalWindowLevel) {
             windowLevel = NSMainMenuWindowLevel+5;
-            DDLogDebug(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
+            DDLogVerbose(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
         }
         if (windowLevel == NSMainMenuWindowLevel) {
             windowLevel = NSScreenSaverWindowLevel+1;
-            DDLogDebug(@"Window %@ level NSMainMenuWindowLevel changed to NSScreenSaverWindowLevel+1", self);
+            DDLogVerbose(@"Window %@ level NSMainMenuWindowLevel changed to NSScreenSaverWindowLevel+1", self);
         }
         if (windowLevel == NSModalPanelWindowLevel) {
             windowLevel = NSMainMenuWindowLevel+6;
-            DDLogDebug(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
+            DDLogVerbose(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
         }
     }
     [self newSetLevel:windowLevel]; //call the original(!) method
@@ -92,7 +92,7 @@
 }
 
 - (void)addPositionedViewToTitleBar:(NSView *)viewToAdd atRightOffset:(CGFloat)x {
-    DDLogDebug(@"View to add frame size: %f, %f at origin: %f, %f", viewToAdd.frame.size.width, viewToAdd.frame.size.height, viewToAdd.frame.origin.x, viewToAdd.frame.origin.y);
+    DDLogVerbose(@"View to add frame size: %f, %f at origin: %f, %f", viewToAdd.frame.size.width, viewToAdd.frame.size.height, viewToAdd.frame.origin.x, viewToAdd.frame.origin.y);
     
     NSUInteger mask = 0;
     if( x > self.frame.size.width / 2.0 )

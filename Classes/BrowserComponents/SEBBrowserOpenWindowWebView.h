@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -36,11 +36,11 @@
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 
+@class SEBBrowserWindow;
+
 @interface SEBBrowserOpenWindowWebView : NSMenuItem
 
-@property (nonatomic, retain) SEBBrowserWindow *browserWindow;
-@property (nonatomic, retain) SEBWebView *webView;
-//@property (nonatomic, retain) NSString *title;
-//@property (nonatomic, retain) NSMenuItem *menuItem;
+@property (nonatomic, weak) SEBBrowserWindow *browserWindow;
+@property (nonatomic, weak) SEBAbstractWebView *webView;
 
 @end

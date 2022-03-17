@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -33,12 +33,18 @@
 //
 
 #ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
 
-    #import "Constants.h"
-    #import "MyGlobals.h"
-    #import "CocoaLumberjack.h"
-    #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import <Cocoa/Cocoa.h>
+
+#define LOG_LEVEL_DEF [MyGlobals ddLogLevel]
+@import CocoaLumberjack;
+
+#import "Constants.h"
+#import "MyGlobals.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+
+@class MyGlobals;
+
+static DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 #endif
-

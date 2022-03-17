@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -32,21 +32,31 @@
 //  Contributor(s): ______________________________________.
 //
 
-
 #import <Cocoa/Cocoa.h>
 #import "SEBController.h"
 #import "SEBLockedViewController.h"
+#import "SEBTextField.h"
 
 @class SEBController;
 @class SEBLockedViewController;
 
 @interface SEBOSXLockedViewController : NSViewController <SEBLockedViewUIDelegate> {
+
     SEBController *_sebController;
+    
+    __weak IBOutlet SEBTextField *alertTitle;
+    __weak IBOutlet SEBTextField *alertMessage;
+    __unsafe_unretained IBOutlet NSTextView *logTextView;
+    __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
+    __weak IBOutlet NSTextField *passwordWrongLabel;
+    __weak IBOutlet NSScrollView *logScrollView;
 }
 
 @property (strong, nonatomic) SEBLockedViewController *lockedViewController;
 @property (strong, nonatomic) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
+
+@property (weak) IBOutlet NSButton *retryButton;
 
 @property (weak) IBOutlet NSButton *quitInsteadUnlockingButton;
 @property (weak) IBOutlet NSButton *overrideCheckForScreenSharing;
@@ -63,7 +73,7 @@
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
 
-- (BOOL) isStartingLockedExam;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 - (void) shouldCloseLockdownWindows;
 
 @end

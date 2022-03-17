@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Sharing Settings as Config Files</string>
+			<key>FooterText</key>
+			<string>Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>File Name</string>
+			<key>Key</key>
+			<string>configFileName</string>
+			<key>IASKPlaceholder</key>
+			<string>Shared config file name</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Use Config File For …</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebConfigPurpose</string>
+			<key>FooterText</key>
+			<string>A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently).</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Starting Exams</string>
+				<string>Configuring Clients</string>
+				<string>MDM Managed Configuration</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Encryption</string>
+			<key>FooterText</key>
+			<string>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Identity Certificate</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_configFileIdentity</string>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Settings Password</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_settingsPassword</string>
+			<key>IsSecure</key>
+			<true/>
+			<key>IASKPlaceholder</key>
+			<string>Encrypts config file</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Encrypting with Identity Certificate</string>
+			<key>FooterText</key>
+			<string>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate.</string>
+			<key>Key</key>
+			<string>autoIdentity</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Create &amp; Embed Identity</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_configFileCreateIdentity</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Auto-Select Identity</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_configFileEncryptUsingIdentity</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SEB Config QR Code</string>
+			<key>FooterText</key>
+			<string>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow QR Code Config</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileAllowQRCodeConfig</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Editing Settings</string>
+			<key>FooterText</key>
+			<string>Recommended for easier set-up and testing. Shows the &quot;Edit Settings&quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Settings In App</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showSettingsInApp</string>
+		</dict>
+	</array>
+</dict>
+</plist>

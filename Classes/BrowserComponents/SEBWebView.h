@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -34,26 +34,34 @@
 
 #import <WebKit/WebKit.h>
 #include "WebViewInternal.h"
+#import "SEBWebViewController.h"
 #import "SEBOSXBrowserController.h"
 
 @class WebBasePluginPackage;
+@class SEBWebViewController;
 @class SEBOSXBrowserController;
 
 @interface SEBWebView : WebView <NSTouchBarProvider>
 
-@property(strong, readonly) NSTouchBar *touchBar;
+@property (weak, nonatomic) SEBWebViewController <SEBAbstractWebViewNavigationDelegate>* navigationDelegate;
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
-@property (weak, nonatomic) SEBOSXBrowserController *browserController;
 @property (strong, nonatomic) NSURL *originalURL;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
 
+@property (strong, readonly) NSTouchBar *touchBar;
+
+- (instancetype)initWithFrame:(NSRect)frameRect delegate:(SEBWebViewController <SEBAbstractWebViewNavigationDelegate>*)delegate;
 
 - (NSArray *)plugins;
 
 + (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins;
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType;
+
+- (void) privateCopy:(id)sender;
+- (void) privateCut:(id)sender;
+- (void) privatePaste:(id)sender;
 
 @end

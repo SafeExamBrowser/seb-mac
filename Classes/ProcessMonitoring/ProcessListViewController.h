@@ -23,7 +23,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) quitSEBOrSession;
 
 @property (readwrite) BOOL quittingMyself;
-@property (readwrite) BOOL quitSession;
+@property (readwrite) BOOL quittingSession;
 
 @end
 

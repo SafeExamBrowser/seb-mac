@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,23 +16,23 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView horizontalHuggingPriority="1000" id="1" userLabel="Applications Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="710"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="714"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <tabView translatesAutoresizingMaskIntoConstraints="NO" id="239">
-                    <rect key="frame" x="13" y="0.0" width="624" height="670"/>
+                    <rect key="frame" x="13" y="0.0" width="624" height="674"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                             <view key="view" id="243">
-                                <rect key="frame" x="10" y="33" width="604" height="624"/>
+                                <rect key="frame" x="10" y="33" width="604" height="628"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                        <rect key="frame" x="15" y="598" width="275" height="18"/>
+                                        <rect key="frame" x="15" y="601" width="279" height="18"/>
                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="14" id="n1G-IX-Eg8"/>
+                                            <constraint firstAttribute="height" constant="16" id="n1G-IX-Eg8"/>
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="Allow switching to third party applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -40,25 +40,27 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="allowSwitchToApplicationsButton:" target="-2" id="Fg8-dm-NeA"/>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="EHG-vh-bWt">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
-                                        <rect key="frame" x="33" y="577" width="236" height="18"/>
+                                        <rect key="frame" x="35" y="579" width="235" height="16"/>
                                         <string key="toolTip">Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="12" id="pXh-9j-eb0"/>
+                                            <constraint firstAttribute="height" constant="14" id="pXh-9j-eb0"/>
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
                                         <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                             <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="IaI-5x-tWV" id="kmL-hs-GOr">
                                                 <dictionary key="options">
                                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -68,18 +70,16 @@
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
-                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345">
                                         <rect key="frame" x="17" y="416" width="570" height="151"/>
                                         <clipView key="contentView" id="X70-IM-m39">
-                                            <rect key="frame" x="1" y="0.0" width="568" height="150"/>
+                                            <rect key="frame" x="1" y="1" width="568" height="149"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="348" id="346">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="127"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="126"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -136,7 +136,7 @@
                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.executable" id="2136"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="230" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
+                                                        <tableColumn width="201" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -178,7 +178,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
-                                                    <rect key="frame" x="14" y="324" width="60" height="22"/>
+                                                    <rect key="frame" x="14" y="325" width="64" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="908"/>
                                                     </constraints>
@@ -203,6 +203,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="645" id="br7-Sj-xez"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1213">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -220,6 +221,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Title"/>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.title" id="1102">
                                                             <dictionary key="options">
@@ -236,6 +238,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="674" id="MdX-Yl-x3F"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1237">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -250,6 +253,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Executable"/>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.executable" id="2130">
                                                             <dictionary key="options">
@@ -266,6 +270,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="654" id="tVk-SI-AGZ"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1231">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -280,6 +285,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Description"/>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.description" id="1111">
                                                             <dictionary key="options">
@@ -296,6 +302,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="687" id="Aay-Kg-DfZ"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1225">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -311,6 +318,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="link" destination="736" id="Gf6-N1-yPP"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1200">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -326,6 +334,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Path"/>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.path" id="1299">
                                                             <dictionary key="options">
@@ -343,6 +352,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Original Name for Windows process"/>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.originalName" id="Lxj-Ye-QvE">
                                                             <dictionary key="options">
@@ -379,7 +389,7 @@
                                                                             <binding destination="1782" name="value" keyPath="arrangedObjects.active" id="1791"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn width="423" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
+                                                                    <tableColumn width="394" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -409,6 +419,7 @@
                                                         <rect key="frame" x="281" y="1" width="15" height="13"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
+                                                    <accessibility description="Arguments"/>
                                                     <connections>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1206">
                                                             <dictionary key="options">
@@ -465,6 +476,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Identifier"/>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.identifier" id="1233">
                                                             <dictionary key="options">
@@ -482,6 +494,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="887" id="k7O-n5-oXS"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1197">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -490,7 +503,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="982">
-                                                    <rect key="frame" x="14" y="47" width="278" height="18"/>
+                                                    <rect key="frame" x="14" y="41" width="282" height="18"/>
                                                     <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted</string>
                                                     <buttonCell key="cell" type="check" title="Allow user to select location of application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="983">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -506,7 +519,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
-                                                    <rect key="frame" x="14" y="87" width="79" height="18"/>
+                                                    <rect key="frame" x="14" y="85" width="83" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -521,9 +534,9 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                    <rect key="frame" x="14" y="107" width="111" height="18"/>
+                                                    <rect key="frame" x="14" y="107" width="115" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="aLJ-BZ-5BG"/>
+                                                        <constraint firstAttribute="height" constant="16" id="aLJ-BZ-5BG"/>
                                                     </constraints>
                                                     <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -539,7 +552,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="956">
-                                                    <rect key="frame" x="14" y="67" width="194" height="18"/>
+                                                    <rect key="frame" x="14" y="63" width="198" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -561,6 +574,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1314" id="Sk5-Rt-lcn"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="1305">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -569,7 +583,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
-                                                    <rect key="frame" x="41" y="265" width="80" height="25"/>
+                                                    <rect key="frame" x="40" y="265" width="82" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="yd6-Ea-gPd"/>
                                                     </constraints>
@@ -584,6 +598,7 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <accessibility description="Select operating system"/>
                                                     <connections>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1328"/>
                                                         <binding destination="610" name="selectedIndex" keyPath="selection.os" previousBinding="1328" id="1349">
@@ -595,7 +610,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
-                                                    <rect key="frame" x="14" y="27" width="192" height="18"/>
+                                                    <rect key="frame" x="14" y="19" width="196" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2246">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -617,6 +632,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="2202" id="OIV-cr-P3Z"/>
                                                         <binding destination="610" name="hidden" keyPath="selectedObjects" id="2206">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -625,7 +641,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
-                                                    <rect key="frame" x="408" y="22" width="152" height="32"/>
+                                                    <rect key="frame" x="415" y="13" width="146" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -737,14 +753,14 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
-                                        <rect key="frame" x="66" y="380" width="169" height="32"/>
+                                        <rect key="frame" x="65" y="381" width="164" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button hidden="YES" toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
-                                        <rect key="frame" x="235" y="380" width="150" height="32"/>
+                                        <rect key="frame" x="227" y="381" width="144" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -782,17 +798,17 @@
                         </tabViewItem>
                         <tabViewItem label="Prohibited Processes" identifier="2" id="241">
                             <view key="view" id="242">
-                                <rect key="frame" x="10" y="33" width="604" height="614"/>
+                                <rect key="frame" x="10" y="33" width="604" height="628"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1839">
-                                        <rect key="frame" x="17" y="226" width="570" height="360"/>
+                                        <rect key="frame" x="17" y="240" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
-                                            <rect key="frame" x="1" y="0.0" width="568" height="359"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <rect key="frame" x="1" y="1" width="568" height="358"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="336"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="335"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -849,7 +865,7 @@
                                                                 <binding destination="1726" name="value" keyPath="arrangedObjects.executable" id="2132"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="230" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
+                                                        <tableColumn width="201" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -885,13 +901,13 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <box autoresizesSubviews="NO" borderType="line" title="Selected Process" translatesAutoresizingMaskIntoConstraints="NO" id="1840">
-                                        <rect key="frame" x="14" y="5" width="577" height="184"/>
+                                        <rect key="frame" x="14" y="5" width="577" height="198"/>
                                         <view key="contentView" id="Chp-M2-5uo">
-                                            <rect key="frame" x="3" y="3" width="571" height="166"/>
+                                            <rect key="frame" x="3" y="3" width="571" height="180"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button toolTip="This prohibited process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="1898">
-                                                    <rect key="frame" x="14" y="135" width="64" height="20"/>
+                                                    <rect key="frame" x="14" y="149" width="64" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="1908"/>
                                                     </constraints>
@@ -909,13 +925,14 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
-                                                    <rect key="frame" x="181" y="139" width="71" height="16"/>
+                                                    <rect key="frame" x="181" y="153" width="71" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="1909">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1893" id="Utn-wX-eYg"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1948">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -924,7 +941,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
-                                                    <rect key="frame" x="258" y="136" width="297" height="21"/>
+                                                    <rect key="frame" x="258" y="150" width="297" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
                                                     </constraints>
@@ -933,6 +950,7 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Executable"/>
                                                     <connections>
                                                         <binding destination="1726" name="value" keyPath="selection.executable" id="2134">
                                                             <dictionary key="options">
@@ -942,13 +960,14 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
-                                                    <rect key="frame" x="14" y="110" width="74" height="16"/>
+                                                    <rect key="frame" x="14" y="124" width="74" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="1913">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1895" id="xgs-sf-I8a"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1951">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -957,12 +976,13 @@
                                                     </connections>
                                                 </textField>
                                                 <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
-                                                    <rect key="frame" x="94" y="107" width="461" height="21"/>
+                                                    <rect key="frame" x="94" y="121" width="461" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Description"/>
                                                     <connections>
                                                         <binding destination="1726" name="value" keyPath="selection.description" id="1942">
                                                             <dictionary key="options">
@@ -972,13 +992,14 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
-                                                    <rect key="frame" x="162" y="52" width="90" height="16"/>
+                                                    <rect key="frame" x="162" y="66" width="90" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="1918">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1896" id="AIF-S6-QQT"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1943">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -987,13 +1008,14 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
-                                                    <rect key="frame" x="258" y="49" width="297" height="21"/>
+                                                    <rect key="frame" x="258" y="63" width="297" height="21"/>
                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Original Name for Windows processes"/>
                                                     <connections>
                                                         <binding destination="1726" name="value" keyPath="selection.originalName" id="6Lg-p3-2IQ">
                                                             <dictionary key="options">
@@ -1004,12 +1026,13 @@
                                                     </connections>
                                                 </textField>
                                                 <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
-                                                    <rect key="frame" x="258" y="78" width="297" height="21"/>
+                                                    <rect key="frame" x="258" y="92" width="297" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1916">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <accessibility description="Identifier"/>
                                                     <connections>
                                                         <binding destination="1726" name="value" keyPath="selection.identifier" id="1952">
                                                             <dictionary key="options">
@@ -1020,13 +1043,14 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
-                                                    <rect key="frame" x="194" y="81" width="58" height="16"/>
+                                                    <rect key="frame" x="194" y="95" width="58" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="1917">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1859" id="Wg4-aF-wnU"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1945">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -1035,7 +1059,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1856">
-                                                    <rect key="frame" x="14" y="51" width="102" height="18"/>
+                                                    <rect key="frame" x="14" y="65" width="102" height="18"/>
                                                     <string key="toolTip">The prohibited process has to run under the currently logged in user. Use it instead of indicating the user. Currently not supported</string>
                                                     <buttonCell key="cell" type="check" title="Current user" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1920">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1051,7 +1075,7 @@
                                                     </connections>
                                                 </button>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="zxG-qL-0eW">
-                                                    <rect key="frame" x="16" y="25" width="539" height="16"/>
+                                                    <rect key="frame" x="16" y="39" width="539" height="16"/>
                                                     <subviews>
                                                         <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="1855">
                                                             <rect key="frame" x="-2" y="-1" width="414" height="18"/>
@@ -1095,13 +1119,14 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
-                                                    <rect key="frame" x="14" y="81" width="23" height="16"/>
+                                                    <rect key="frame" x="14" y="95" width="23" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1906">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="1900" id="f6m-AT-WmH"/>
                                                         <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1949">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
@@ -1110,7 +1135,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the prohibited process runs. macOS is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
-                                                    <rect key="frame" x="40" y="74" width="82" height="25"/>
+                                                    <rect key="frame" x="40" y="88" width="82" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="ooY-Jz-CeW"/>
                                                     </constraints>
@@ -1125,6 +1150,7 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <accessibility description="Select operating system"/>
                                                     <connections>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1956"/>
                                                         <binding destination="1726" name="selectedIndex" keyPath="selection.os" previousBinding="1956" id="1957">
@@ -1180,14 +1206,14 @@
                                         </constraints>
                                     </box>
                                     <button hidden="YES" toolTip="For choosing a running process which will be added to the list of prohibited processes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1841">
-                                        <rect key="frame" x="225" y="191" width="144" height="32"/>
+                                        <rect key="frame" x="225" y="205" width="144" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1853">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button toolTip="Add a prohibited process" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
-                                        <rect key="frame" x="17" y="197" width="22" height="21"/>
+                                        <rect key="frame" x="17" y="211" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="1851"/>
                                             <constraint firstAttribute="width" constant="22" id="1852"/>
@@ -1201,7 +1227,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Remove process" translatesAutoresizingMaskIntoConstraints="NO" id="1843">
-                                        <rect key="frame" x="38" y="197" width="22" height="21"/>
+                                        <rect key="frame" x="38" y="211" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="2090"/>
                                         </constraints>
@@ -1214,7 +1240,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
-                                        <rect key="frame" x="15" y="593" width="318" height="14"/>
+                                        <rect key="frame" x="15" y="607" width="318" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="System processes which are not allowed to run during exam" id="1847">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1222,7 +1248,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button hidden="YES" toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
-                                        <rect key="frame" x="65" y="191" width="162" height="32"/>
+                                        <rect key="frame" x="65" y="205" width="162" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Executable..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1255,11 +1281,11 @@
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
-                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
-                    <rect key="frame" x="20" y="676" width="610" height="14"/>
+                <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
+                    <rect key="frame" x="20" y="678" width="610" height="16"/>
                     <subviews>
-                        <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
-                            <rect key="frame" x="-2" y="-2" width="614" height="18"/>
+                        <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
+                            <rect key="frame" x="-2" y="-1" width="612" height="18"/>
                             <buttonCell key="cell" type="check" title="Attempt to quit prohibited applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="MVu-c3-I1R">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -1273,7 +1299,7 @@
                             </connections>
                         </button>
                         <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="299" userLabel="Require to quit all applications">
-                            <rect key="frame" x="313" y="-2" width="205" height="18"/>
+                            <rect key="frame" x="313" y="-2" width="209" height="18"/>
                             <string key="toolTip">SEB will attempt to quit applications/processes which are not permitted to run during an exam and require to terminate those which are prohibited</string>
                             <buttonCell key="cell" type="check" title="Require to quit all applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1350,7 +1376,7 @@
         </arrayController>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
     </resources>
 </document>

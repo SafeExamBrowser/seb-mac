@@ -114,13 +114,8 @@ static SEBCertServices *gSharedInstance = nil;
                         if (dataString)
                         {
                             NSData *data;
-                            if (@available(macOS 10.9, *)) {
-                                data = [[NSData alloc] initWithBase64EncodedString:dataString
-                                                                                   options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                            } else {
-                                data = [[NSData alloc] initWithBase64Encoding:dataString];
-                            }
-                            
+                            data = [[NSData alloc] initWithBase64EncodedString:dataString
+                                                                               options:NSDataBase64DecodingIgnoreUnknownCharacters];
                             if (data)
                             {
                                 SecCertificateRef cert = SecCertificateCreateWithData(NULL, (CFDataRef)data);
@@ -171,13 +166,8 @@ static SEBCertServices *gSharedInstance = nil;
                         if (dataString)
                         {
                             NSData *data;
-                            if (@available(macOS 10.9, *)) {
-                                data = [[NSData alloc] initWithBase64EncodedString:dataString
-                                                                           options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                            } else {
-                                data = [[NSData alloc] initWithBase64Encoding:dataString];
-                            }
-                            
+                            data = [[NSData alloc] initWithBase64EncodedString:dataString
+                                                                               options:NSDataBase64DecodingIgnoreUnknownCharacters];
                             if (data)
                             {
                                 SecCertificateRef cert = SecCertificateCreateWithData(NULL, (CFDataRef)data);
@@ -225,12 +215,8 @@ static SEBCertServices *gSharedInstance = nil;
                         if (dataString)
                         {
                             NSData *data;
-                            if (@available(macOS 10.9, *)) {
-                                data = [[NSData alloc] initWithBase64EncodedString:dataString
-                                                                           options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                            } else {
-                                data = [[NSData alloc] initWithBase64Encoding:dataString];
-                            }
+                            data = [[NSData alloc] initWithBase64EncodedString:dataString
+                                                                               options:NSDataBase64DecodingIgnoreUnknownCharacters];
 #pragma clang diagnostic pop
                             if (data)
                             {

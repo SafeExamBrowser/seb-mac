@@ -38,6 +38,7 @@
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
 
 @implementation PreferencesController
@@ -89,7 +90,7 @@
 
 - (SEBBrowserController *)browserController {
     if (!_browserController) {
-        _browserController = _sebController.browserController.browserController;
+        _browserController = _sebController.browserController;
     }
     return _browserController;
 }
@@ -184,6 +185,7 @@
 
     // Store current settings (before they probably get edited)
     [self storeCurrentSettings];
+    urlFilterLearningModeInitialState = self.networkVC.URLFilterLearningMode;
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
 	[[MBPreferencesController sharedController] showWindow:self];
@@ -447,6 +449,9 @@
 // Check if settings have changed
 - (BOOL) settingsChanged
 {
+    if (self.networkVC.URLFilterLearningMode != urlFilterLearningModeInitialState) {
+        return YES;
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     return ![settingsBeforeEditing.browserExamKey isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
@@ -571,9 +576,12 @@
 
 - (SEBDisabledPreferencesAnswer) alertForDisabledPreferences
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBDisabledPreferencesAnswerApply;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBDisabledPreferencesAnswerApply;
+            }
         }
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
@@ -611,9 +619,12 @@
 
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlertWithText:(NSString *)informativeText
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBUnsavedSettingsAnswerDontSave;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBUnsavedSettingsAnswerDontSave;
+            }
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -638,9 +649,12 @@
 // Ask if edited settings should be applied or previously active settings restored
 - (SEBApplySettingsAnswers) askToApplySettingsAlert
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBApplySettingsAnswerApply;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBApplySettingsAnswerApply;
+            }
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -654,26 +668,23 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     NSInteger answer = [newAlert runModal];
+    
     switch(answer)
     {
         case NSAlertFirstButtonReturn:
-        {
             // Don't apply edited settings: Restore previous settings
             // Release preferences window so bindings get synchronized properly with the new loaded values
             [self releasePreferencesWindow];
             [self restoreStoredSettings];
             [self initPreferencesWindow];
-        }
-    }
-    switch(answer)
-    {
-        case NSAlertFirstButtonReturn:
             return SEBApplySettingsAnswerDontApply;
             
         case NSAlertSecondButtonReturn:
             return SEBApplySettingsAnswerApply;
+        
+        default:
+            return SEBApplySettingsAnswerCancel;
     }
-    return SEBApplySettingsAnswerCancel;
 }
 
 
@@ -698,88 +709,111 @@
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && browserExamKeyChanged) {
         // There are unsaved changes
-        SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlertWithText:
-                      NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
-        switch(answer)
-        {
-            case SEBUnsavedSettingsAnswerSave:
-            {
-                // Save the current settings data first (this also updates the Browser Exam Key)
-                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Saving failed: Abort closing the prefs window, restore possibly changed setting keys
-                    [oldSettings restoreSettings];
-
-                    return;
-                }
-                break;
-            }
-                
-            case SEBUnsavedSettingsAnswerCancel:
-            {
-                // Cancel: Don't restart, restore possibly changed setting keys
-                [oldSettings restoreSettings];
-
-                return;
-            }
-        }
+        [self handleAlertForUnsavedSettingsAswer:oldSettings withText:NSLocalizedString(@"Edited settings have unsaved changes.", nil) isRestart:TRUE];
     }
 
     // If settings changed since before opening preferences:
-    if ([self settingsChanged]) {
-        // Ask if edited settings should be applied or previously active settings restored
-        SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
-        switch(answer)
-        {
-            case SEBApplySettingsAnswerDontApply:
-            {
-                // Don't apply edited settings and restart SEB
-                break;
-            }
-                
-            case SEBApplySettingsAnswerCancel:
-            {
-                // Cancel: Don't restart, restore possibly changed setting keys
-                [oldSettings restoreSettings];
-
-                return;
-            }
-        }
-    }
+    [self handleAlertForApplySettingsAnswer:oldSettings isRestart:TRUE];
     
     // If opening the preferences window isn't allowed in these settings,
     // which is dangerous when being applied, we confirm the user knows what he's doing
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
-        SEBDisabledPreferencesAnswer answer = [self alertForDisabledPreferences];
-        switch(answer)
-        {
-            case SEBDisabledPreferencesAnswerOverride:
-            {
-                // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
-                [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
-                if (NSUserDefaults.userDefaultsPrivate) {
-                    // Release preferences window so bindings get synchronized properly with the new loaded values
-                    [self releasePreferencesWindow];
-                    // Reopen preferences window
-                    [self initPreferencesWindow];
-                }
-                // Re-generate Browser Exam Key
-                [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-                break;
-            }
-                
-            case SEBDisabledPreferencesAnswerCancel:
-            {
-                // Cancel: Don't apply new settings, don't restart, restore possibly changed setting keys
-                [oldSettings restoreSettings];
-
-                return;
-            }
-        }
-    }
+    [self handleAlertForDisabledPreferencesAswer:preferences oldSettings:oldSettings isRestart:TRUE];
     
     //Close prefs window
     restartSEB = YES;
     [self closePreferencesWindow];
+}
+
+
+- (void)handleAlertForUnsavedSettingsAswer:(SEBEncapsulatedSettings *)oldSettings withText:(NSString *)alertText isRestart:(BOOL)isRestart {
+    
+    SEBUnsavedSettingsAnswer answer;
+    
+    if (isRestart) {
+        answer = [self unsavedSettingsAlertWithText:
+                  alertText];
+    } else {
+        answer = [self unsavedSettingsAlert];
+    }
+    
+    switch(answer)
+        {
+            case SEBUnsavedSettingsAnswerSave:
+            {
+                // Save the current settings data first (this also updates the Browser Exam Key)
+            if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Saving failed: Abort closing the prefs window, restore possibly changed setting keys
+                [oldSettings restoreSettings];
+                
+                return;
+            }
+            break;
+            }
+            
+            case SEBUnsavedSettingsAnswerCancel:
+            {
+                // Cancel: Don't restart, restore possibly changed setting keys
+            [oldSettings restoreSettings];
+            
+            return;
+            }
+        }
+}
+
+
+- (void)handleAlertForApplySettingsAnswer:(SEBEncapsulatedSettings *)oldSettings isRestart:(BOOL)isRestart {
+    
+    if ([self settingsChanged]) {
+        DDLogInfo(@"Client settings have been changed, ask if they should be applied.");
+            // Ask if edited settings should be applied or previously active settings restored
+        SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
+        if (answer == SEBApplySettingsAnswerCancel) {
+            if (isRestart) {
+                [oldSettings restoreSettings];
+            } else {
+                // Cancel: Don't quit
+                DDLogInfo(@"User selected to cancel applying changed client settings, also abort quitting SEB.");
+            }
+        }
+    }
+}
+
+
+- (void)handleAlertForDisabledPreferencesAswer:(NSUserDefaults *)preferences oldSettings:(SEBEncapsulatedSettings *)oldSettings isRestart:(BOOL)isRestart {
+    
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
+        SEBDisabledPreferencesAnswer answer = [self alertForDisabledPreferences];
+        switch(answer)
+            {
+                case SEBDisabledPreferencesAnswerOverride:
+                {
+                        // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
+                    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+                
+                    if (isRestart) {
+                        if (NSUserDefaults.userDefaultsPrivate) {
+                                // Release preferences window so bindings get synchronized properly with the new loaded values
+                            [self releasePreferencesWindow];
+                                // Reopen preferences window
+                            [self initPreferencesWindow];
+                        }
+                            // Re-generate Browser Exam Key
+                        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+                    }
+                    break;
+                }
+                
+                case SEBDisabledPreferencesAnswerCancel:
+                {
+                    // Cancel: Don't apply new settings, don't restart, restore possibly changed setting keys
+                    if (isRestart) {
+                        [oldSettings restoreSettings];
+                    }
+                    
+                    return;
+                }
+            }
+    }
 }
 
 
@@ -802,76 +836,25 @@
 
     if (NSUserDefaults.userDefaultsPrivate && browserExamKeyChanged) {
         DDLogInfo(@"Private user defaults (exam settings) active: There are unsaved changes");
-        SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlert];
-        switch(answer)
-        {
-            case SEBUnsavedSettingsAnswerSave:
-            {
-                // Save the current settings data first (this also updates the Browser Exam Key if saving is successful)
-                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Abort quitting, restore possibly changed setting keys
-                    [oldSettings restoreSettings];
-
-                    return;
-                }
-                break;
-            }
-                
-            case SEBUnsavedSettingsAnswerCancel:
-            {
-                // Cancel: Don't quit, restore possibly changed setting keys
-                [oldSettings restoreSettings];
-
-                return;
-            }
-        }
+        
+        [self handleAlertForUnsavedSettingsAswer:oldSettings withText:nil isRestart:FALSE];
 
     } else if (!NSUserDefaults.userDefaultsPrivate) {
         
         /// Local client settings are active
         DDLogInfo(@"Client settings are active");
         // If settings changed:
-        if ([self settingsChanged]) {
-            DDLogInfo(@"Client settings have been changed, ask if they should be applied.");
-            // Ask if edited settings should be applied or previously active settings restored
-            SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
-            switch(answer)
-            {
-                case SEBApplySettingsAnswerCancel:
-                {
-                    // Cancel: Don't quit
-                    DDLogInfo(@"User selected to cancel applying changed client settings, also abort quitting SEB.");
-                    return;
-                }
-            }
-        }
+        [self handleAlertForApplySettingsAnswer:oldSettings isRestart:FALSE];
         
         // If opening the preferences window isn't allowed in these settings,
         // which is dangerous when being applied, we confirm the user knows what he's doing
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
-            SEBDisabledPreferencesAnswer answer = [self alertForDisabledPreferences];
-            switch(answer)
-            {
-                case SEBDisabledPreferencesAnswerOverride:
-                {
-                    // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
-                    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
-                    break;
-                }
-                    
-                case SEBDisabledPreferencesAnswerCancel:
-                {
-                    // Cancel: Don't apply new settings, don't quit
-                    return;
-                }
-            }
-        }
+        [self handleAlertForDisabledPreferencesAswer:preferences oldSettings:oldSettings isRestart:FALSE];
     }
     _sebController.quittingMyself = YES;
     [self closePreferencesWindow];
 
 	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestQuitNotification" object:self];
+     postNotificationName:@"requestExitNotification" object:self];
 }
 
 
@@ -911,7 +894,7 @@
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
-    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
     // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
     // which also is the minimum macOS version the Preferences window is available from
     [panel beginSheetModalForWindow:self.preferencesWindow
@@ -971,7 +954,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         // Preset "SebClientSettings.seb" as default file name
-        currentConfigFileURL = [NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO];
+        currentConfigFileURL = [NSURL fileURLWithPathString:SEBClientSettingsFilename];
         
     } else {
         
@@ -1026,7 +1009,7 @@
             }
             [panel setDirectoryURL:directory];
             [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
-            [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+            [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
             NSInteger result = [panel runModal];
             if (result == NSFileHandlingPanelOKButton) {
                 prefsFileURL = [panel URL];
@@ -1077,9 +1060,12 @@
 
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
-            if (@available(macOS 11.0, *)) {
-                if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-                    return YES;
+            if (@available(macOS 12.0, *)) {
+            } else {
+                if (@available(macOS 11.0, *)) {
+                    if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                        return YES;
+                    }
                 }
             }
 
@@ -1457,7 +1443,7 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPathString:SEBClientSettingsFilename]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

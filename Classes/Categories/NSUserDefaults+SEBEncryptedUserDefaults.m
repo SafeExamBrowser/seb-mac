@@ -215,7 +215,7 @@ static NSNumber *_logLevel;
                                         @"org_safeexambrowser_startURLQueryParameter",
                                         
                                         nil];
-    
+
     for (NSString *key in processedDictionary) {
         NSString *keyWithPrefix = [self prefixKey:key];
         id value = [processedDictionary objectForKey:key];
@@ -239,7 +239,7 @@ static NSNumber *_logLevel;
     }
 
     // Get all dictionary keys
-    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
+    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveOrdinalCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     
@@ -269,7 +269,7 @@ static NSNumber *_logLevel;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL) setSEBDefaults
 {
-    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
+    DDLogDebug(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
@@ -302,13 +302,13 @@ static NSNumber *_logLevel;
                 // Set the flag to indicate to user later that settings have been reset
                 [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
 
-                DDLogError(@"%s: Initial Exam Settings Key check failed: Local preferences have been reset!", __FUNCTION__);
+                DDLogError(@"Initial Exam Settings Key check failed: Local preferences have been reset!");
             }
         }
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
-            DDLogError(@"%s: There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!", __FUNCTION__);
+            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!");
             // Set the flag to indicate to user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
         } else {
@@ -325,6 +325,11 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
+#if TARGET_OS_IPHONE
+     if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
+         exit(0);
+     }
+#endif
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
     // Check if originatorVersion flag is set and otherwise set it to the current SEB version
@@ -394,7 +399,7 @@ static NSNumber *_logLevel;
 {
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
-    
+
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
@@ -470,9 +475,8 @@ static NSNumber *_logLevel;
         [self setSecureObject:value forKey:keyWithPrefix];
     }
 }
-                                    
-                                    
-                                    
+
+
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {

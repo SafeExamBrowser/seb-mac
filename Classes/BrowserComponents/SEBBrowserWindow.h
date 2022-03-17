@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -38,28 +38,26 @@
 #import <WebKit/WebKit.h>
 
 #import "SEBBrowserWindowController.h"
-#import "SEBWebView.h"
+#import "SEBOSXWebViewController.h"
+#import "SEBAbstractWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBOSXBrowserController.h"
 #import "SEBTextField.h"
 
+@class SEBOSXWebViewController;
+@class SEBAbstractWebView;
 @class SEBOSXBrowserController;
 
 
-@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate>
+@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSTextViewDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 
-{
-    SEBWebView *requestingWebView;
-    NSString *currentURL;
-    NSString *downloadPath;
-    NSURL *downloadURL;
-    NSString *lastUsername;
-    NSString *quitURLTrimmed;
-    
-}
-
+@property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak) SEBOSXBrowserController *browserController;
-@property (strong) IBOutlet SEBWebView *webView;
+@property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
+@property (strong, nonatomic) SEBAbstractWebView *webView;
+@property (nullable, strong, nonatomic) NSURL *currentURL;
+@property (strong, nonatomic) NSString *javaScriptFunctions;
+@property (readwrite) BOOL isMainBrowserWindow;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;
 @property (weak) IBOutlet SEBTextField *customAlertText;
@@ -70,8 +68,6 @@
 @property (strong) IBOutlet NSTextView *filterExpressionField;
 @property BOOL isFullScreen;
 @property BOOL isPanel;
-@property BOOL allowDownloads;
-@property BOOL allowDeveloperConsole;
 @property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
@@ -80,20 +76,12 @@
 @property (strong) NSView *filterMessageHolder;
 @property (strong) NSPanel *filterMessageHUD;
 
-@property (strong) id URLSession;
-@property (strong) NSURLAuthenticationChallenge *pendingChallenge;
-@property (copy) NSString *downloadFilename;
-@property (copy) NSString *downloadFileExtension;
-
 - (void) setCalculatedFrame;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
+- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
-
-- (void) startDownloadingURL:(NSURL *)url;
-
-- (NSView*) findFlashViewInView:(NSView*)view;
 
 
 @end

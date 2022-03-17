@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -35,7 +35,6 @@
 
 #import "SEBKeychainManager.h"
 #import "RNCryptor.h"
-#include <stdlib.h>
 
 #if TARGET_OS_IPHONE
 #import "SEBiOSKeychainManager.h"
@@ -151,10 +150,17 @@
 }
 
 
+// Generate PKCS12 identity data
+- (NSData *)generatePKCS12IdentityWithName:(NSString *)commonName
+{
+    return [self.delegate generatePKCS12IdentityWithName:commonName];
+}
+
+
 // Generate identity and store in Keychain
 - (BOOL)generateIdentityWithName:(NSString *)commonName
 {
-    return NO;
+    return [self importIdentityFromData:[self generatePKCS12IdentityWithName:commonName]];
 }
 
 
@@ -165,7 +171,7 @@
 
     NSDictionary *query = @{
                             (id)kSecValueRef: (__bridge id)identityRef
-    };
+                            };
     OSStatus status = SecItemDelete((CFDictionaryRef)query);
     if (status == errSecSuccess) {
         DDLogInfo(@"%s: Removing identity from Keychain succeeded.", __FUNCTION__);
@@ -264,7 +270,7 @@
         DDLogError(@"%s: SecItemAdd failed with error: %@. Will now try SecItemUpdate.", __FUNCTION__, outError);
         return [self updateKeyWithID:keyID keyData:keyData];
     }
-	return (status == errSecSuccess);
+    return (status == errSecSuccess);
 }
 
 
@@ -342,7 +348,7 @@
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
         DDLogError(@"%s: SecItemUpdate failed with error: %@", __FUNCTION__, outError);
     }
-	return (status == errSecSuccess);
+    return (status == errSecSuccess);
 }
 
 

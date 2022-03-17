@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -33,10 +33,15 @@
 //
 
 
-
+#if TARGET_OS_IPHONE
+@interface SEBUIUserDefaultsController : NSObject {
+    NSArray *org_safeexambrowser_SEB_cryptoIdentities;
+}
+#else
 @interface SEBUIUserDefaultsController : NSUserDefaultsController {
     NSArray *org_safeexambrowser_SEB_cryptoIdentities;
 }
+#endif
 
 //@property(nonatomic, strong) NSArray *org_safeexambrowser_SEB_cryptoIdentities;
 
@@ -45,6 +50,10 @@
 
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies;
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies;
+
+- (NSArray *) org_safeexambrowser_SEB_browserWindowWebViewPolicies;
+
+- (NSArray *) org_safeexambrowser_SEB_browserUserAgentEnvironments;
 
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies;
 

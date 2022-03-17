@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Status/Tool Bar/SEB Dock</string>
+			<key>FooterText</key>
+			<string>On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileStatusBarAppearance</string>
+			<key>Title</key>
+			<string>Status Bar Appearance</string>
+			<key>Titles</key>
+			<array>
+				<string>None</string>
+				<string>White on Black</string>
+				<string>Black on White</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended</string>
+			<key>Title</key>
+			<string>Status Bar (w/FaceID)</string>
+			<key>Titles</key>
+			<array>
+				<string>Inferred</string>
+				<string>White on Black</string>
+				<string>Black on White</string>
+				<string>None - Black</string>
+				<string>None - White</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Browser Toolbar</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableBrowserWindowToolbar</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>SEB Dock</string>
+			<key>File</key>
+			<string>Dock</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Scroll Lock</string>
+			<key>FooterText</key>
+			<string>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Scroll Lock</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableScrollLock</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Page &amp; Text Zoom</string>
+			<key>FooterText</key>
+			<string>Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Page Zoom</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableZoomPage</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Default Page Zoom Level:</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_defaultPageZoomLevel</string>
+			<key>DefaultValue</key>
+			<string>1.0</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Text Zoom</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableZoomText</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Default Text Zoom Level:</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_defaultTextZoomLevel</string>
+			<key>DefaultValue</key>
+			<string>1.0</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Auto-Correction &amp; Predictive Text</string>
+			<key>FooterText</key>
+			<string>In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Auto-Correction</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowSpellCheck</string>
+		</dict>
+	</array>
+</dict>
+</plist>

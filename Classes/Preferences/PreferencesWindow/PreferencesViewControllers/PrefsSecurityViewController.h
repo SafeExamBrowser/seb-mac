@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -58,6 +58,11 @@
     __weak IBOutlet NSButton *allowedDisplayBuiltinEnforceButton;
     __weak IBOutlet NSButton *allowedDisplayBuiltinExceptDesktopButton;
     
+    __weak IBOutlet NSPopUpButton *minMacOSVersionPopUpButton;
+    __weak IBOutlet NSComboBox *minMacOSVersionMajor;
+    __weak IBOutlet NSComboBox *minMacOSVersionMinor;
+    __weak IBOutlet NSComboBox *minMacOSVersionPatch;
+
     __weak IBOutlet NSButton *allowiOSScreenCaptureButton;
     __weak IBOutlet NSComboBox *miniOSVersionMajor;
     __weak IBOutlet NSComboBox *miniOSVersionMinor;

@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -320,7 +320,7 @@
         NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                             [NSNumber numberWithInteger:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
-                                            [certificateData base64Encoding], @"certificateDataBase64",
+                                            [certificateData base64EncodedStringWithOptions:(0)], @"certificateDataBase64",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
         [self conditionallyShowOSCertWarning:nil];
@@ -359,7 +359,7 @@
                 NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     certType, @"type",
                                                     [sender titleOfSelectedItem], @"name",
-                                                    [certificateData base64Encoding], @"certificateDataBase64",
+                                                    [certificateData base64EncodedStringWithOptions:(0)], @"certificateDataBase64",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
                 [self conditionallyShowOSCertWarning:nil];
@@ -487,7 +487,7 @@
             certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                 [NSNumber numberWithInteger:embeddCertificateType], @"type",
                                                 certificateName, @"name",
-                                                [certificateData base64Encoding], @"certificateDataBase64",
+                                                [certificateData base64EncodedStringWithOptions:(0)], @"certificateDataBase64",
                                                 nil];
 
             [certificatesArrayController addObject:certificateToEmbed];

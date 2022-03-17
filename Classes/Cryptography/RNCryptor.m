@@ -28,8 +28,6 @@
 #import "RNCryptor+Private.h"
 #import <Security/SecRandom.h>
 #import <fcntl.h>
-//int SecRandomCopyBytes(SecRandomRef __nullable rnd, size_t count, void *bytes)
-//__attribute__ ((warn_unused_result))
 
 extern int SecRandomCopyBytes(SecRandomRef rnd, size_t count, void *bytes) __attribute__((weak_import));
 extern int
@@ -126,7 +124,7 @@ const uint8_t kRNCryptorFileVersion = 3;
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 #define CC_MAX_PRF_WORKSPACE 128+4
-#define kCCPRFHmacAlgSHA1hlen    CC_SHA1_DIGEST_LENGTH
+#define kCCPRFHmacAlgSHA1hlen	CC_SHA1_DIGEST_LENGTH
 #define kCCPRFHmacAlgSHA224hlen CC_SHA224_DIGEST_LENGTH
 #define kCCPRFHmacAlgSHA256hlen CC_SHA256_DIGEST_LENGTH
 #define kCCPRFHmacAlgSHA384hlen CC_SHA384_DIGEST_LENGTH
@@ -135,38 +133,38 @@ const uint8_t kRNCryptorFileVersion = 3;
 static size_t
 getPRFhlen(CCPseudoRandomAlgorithm prf)
 {
-    switch(prf) {
-        case kCCPRFHmacAlgSHA1:        return kCCPRFHmacAlgSHA1hlen;
-        case kCCPRFHmacAlgSHA224:    return kCCPRFHmacAlgSHA224hlen;
-        case kCCPRFHmacAlgSHA256:    return kCCPRFHmacAlgSHA256hlen;
-        case kCCPRFHmacAlgSHA384:    return kCCPRFHmacAlgSHA384hlen;
-        case kCCPRFHmacAlgSHA512:    return kCCPRFHmacAlgSHA512hlen;
-        default:
+	switch(prf) {
+		case kCCPRFHmacAlgSHA1:		return kCCPRFHmacAlgSHA1hlen;
+		case kCCPRFHmacAlgSHA224:	return kCCPRFHmacAlgSHA224hlen;
+		case kCCPRFHmacAlgSHA256:	return kCCPRFHmacAlgSHA256hlen;
+		case kCCPRFHmacAlgSHA384:	return kCCPRFHmacAlgSHA384hlen;
+		case kCCPRFHmacAlgSHA512:	return kCCPRFHmacAlgSHA512hlen;
+		default:
       NSCAssert(NO, @"Unknown prf: %d", prf);
       return 1;
-    }
+	}
 }
 
 static void
 PRF(CCPseudoRandomAlgorithm prf, const char *password, size_t passwordLen, u_int8_t *salt, size_t saltLen, u_int8_t *output)
 {
-    switch(prf) {
-        case kCCPRFHmacAlgSHA1:
-            CCHmac(kCCHmacAlgSHA1, password, passwordLen, salt, saltLen, output);
-            break;
-        case kCCPRFHmacAlgSHA224:
-            CCHmac(kCCHmacAlgSHA224, password, passwordLen, salt, saltLen, output);
-            break;
-        case kCCPRFHmacAlgSHA256:
-            CCHmac(kCCHmacAlgSHA256, password, passwordLen, salt, saltLen, output);
-            break;
-        case kCCPRFHmacAlgSHA384:
-            CCHmac(kCCHmacAlgSHA384, password, passwordLen, salt, saltLen, output);
-            break;
-        case kCCPRFHmacAlgSHA512:
-            CCHmac(kCCHmacAlgSHA512, password, passwordLen, salt, saltLen, output);
-            break;
-    }
+	switch(prf) {
+		case kCCPRFHmacAlgSHA1:
+			CCHmac(kCCHmacAlgSHA1, password, passwordLen, salt, saltLen, output);
+			break;
+		case kCCPRFHmacAlgSHA224:
+			CCHmac(kCCHmacAlgSHA224, password, passwordLen, salt, saltLen, output);
+			break;
+		case kCCPRFHmacAlgSHA256:
+			CCHmac(kCCHmacAlgSHA256, password, passwordLen, salt, saltLen, output);
+			break;
+		case kCCPRFHmacAlgSHA384:
+			CCHmac(kCCHmacAlgSHA384, password, passwordLen, salt, saltLen, output);
+			break;
+		case kCCPRFHmacAlgSHA512:
+			CCHmac(kCCHmacAlgSHA512, password, passwordLen, salt, saltLen, output);
+			break;
+	}
 }
 
 static int
@@ -175,92 +173,92 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
                      CCPseudoRandomAlgorithm prf, uint rounds,
                      uint8_t *derivedKey, size_t derivedKeyLen)
 {
-    u_int8_t oldbuffer[CC_MAX_PRF_WORKSPACE], newbuffer[CC_MAX_PRF_WORKSPACE],
+	u_int8_t oldbuffer[CC_MAX_PRF_WORKSPACE], newbuffer[CC_MAX_PRF_WORKSPACE],
   saltCopy[CC_MAX_PRF_WORKSPACE+4], collector[CC_MAX_PRF_WORKSPACE];
-    int rawblock, i, j;
+	int rawblock, i, j;
   size_t r, nblocks;
-    size_t    hlen, offset;
+	size_t	hlen, offset;
 
-    if(algorithm != kCCPBKDF2) return -1;
+	if(algorithm != kCCPBKDF2) return -1;
 
-    /*
-     * Check initial parameters
-     */
+	/*
+	 * Check initial parameters
+	 */
 
-    if (rounds < 1 || derivedKeyLen == 0)
-        return -1; // bad parameters
-    if (saltLen == 0 || saltLen > CC_MAX_PRF_WORKSPACE)
-        return -1; // out of bounds parameters
+	if (rounds < 1 || derivedKeyLen == 0)
+		return -1; // bad parameters
+	if (saltLen == 0 || saltLen > CC_MAX_PRF_WORKSPACE)
+		return -1; // out of bounds parameters
 
-    hlen = getPRFhlen(prf);
+	hlen = getPRFhlen(prf);
 
-    /*
-     * FromSpec: Let l be the number of hLen-octet blocks in the derived key, rounding up,
-     * and let r be the number of octets in the last block:
-     */
+	/*
+	 * FromSpec: Let l be the number of hLen-octet blocks in the derived key, rounding up,
+	 * and let r be the number of octets in the last block:
+	 */
 
-    nblocks = (derivedKeyLen+hlen-1)/hlen; // in the spec nblocks is referred to as l
-    r = derivedKeyLen % hlen;
+	nblocks = (derivedKeyLen+hlen-1)/hlen; // in the spec nblocks is referred to as l
+	r = derivedKeyLen % hlen;
   r = (r) ? r: hlen;
 
-    /*
-     * Make a copy of the salt buffer so we can concatenate the
-     * block counter for each series of rounds.
-     */
+	/*
+	 * Make a copy of the salt buffer so we can concatenate the
+	 * block counter for each series of rounds.
+	 */
 
-    memcpy(saltCopy, salt, saltLen);
-    bzero(derivedKey, derivedKeyLen);
+	memcpy(saltCopy, salt, saltLen);
+	bzero(derivedKey, derivedKeyLen);
 
-    /*
-     * FromSpec:
-     *
-     * For each block of the derived key apply the function F defined below to the password P,
-     * the salt S, the iteration count c, and the block index to compute the block:
-     *
-     *           F(P,S,c,i)=U1 \xorU2 \xor⋅⋅⋅\xorUc
-     *
-     * where
-     *                U1 =PRF(P,S||INT (i)),
-     *                U2 =PRF(P,U1),
-     *                ...
-     *                Uc = PRF (P, Uc-1) .
-     */
+	/*
+	 * FromSpec:
+	 *
+	 * For each block of the derived key apply the function F defined below to the password P,
+	 * the salt S, the iteration count c, and the block index to compute the block:
+	 *
+	 *           F(P,S,c,i)=U1 \xorU2 \xor⋅⋅⋅\xorUc
+	 *
+	 * where
+	 *				U1 =PRF(P,S||INT (i)),
+	 *				U2 =PRF(P,U1),
+	 *				...
+	 *				Uc = PRF (P, Uc-1) .
+	 */
 
-    for(rawblock = 0; rawblock < nblocks; rawblock++) {
-        int block = rawblock+1;
-        size_t copyLen;
+	for(rawblock = 0; rawblock < nblocks; rawblock++) {
+		int block = rawblock+1;
+		size_t copyLen;
 
-        offset = rawblock * hlen;
-        copyLen = (block != nblocks) ? hlen: r;
+		offset = rawblock * hlen;
+		copyLen = (block != nblocks) ? hlen: r;
 
-        /*
-         * FromSpec: Here, INT (i) is a four-octet encoding of the integer i, most significant octet first.
-         */
+		/*
+		 * FromSpec: Here, INT (i) is a four-octet encoding of the integer i, most significant octet first.
+		 */
 
-        for(i=0; i<4; i++) saltCopy[saltLen+i] = (block >> 8*(3-i)) & 0xff;
+		for(i=0; i<4; i++) saltCopy[saltLen+i] = (block >> 8*(3-i)) & 0xff;
 
-        PRF(prf, password, passwordLen, saltCopy, saltLen+4, oldbuffer);                    // Initial PRF with the modified salt
+		PRF(prf, password, passwordLen, saltCopy, saltLen+4, oldbuffer);					// Initial PRF with the modified salt
 
-        memcpy(collector, oldbuffer, hlen);                                                // Initial value for this block of the derived key.
+		memcpy(collector, oldbuffer, hlen);												// Initial value for this block of the derived key.
 
-        for(i = 1; i < rounds; i++) {
-            PRF(prf, password, passwordLen, oldbuffer, hlen, newbuffer);                        // Subsequent PRF with the previous result as the salt
-            memcpy(oldbuffer, newbuffer, hlen);
-            for(j = 0; j < hlen; j++) collector[j] ^= newbuffer[j];                    // Xoring the round into the collector
-        }
-        memcpy(derivedKey+offset, collector, copyLen);
-    }
+		for(i = 1; i < rounds; i++) {
+			PRF(prf, password, passwordLen, oldbuffer, hlen, newbuffer);						// Subsequent PRF with the previous result as the salt
+			memcpy(oldbuffer, newbuffer, hlen);
+			for(j = 0; j < hlen; j++) collector[j] ^= newbuffer[j];					// Xoring the round into the collector
+		}
+		memcpy(derivedKey+offset, collector, copyLen);
+	}
 
-    /*
-     * Clear temp buffers.
-     */
+	/*
+	 * Clear temp buffers.
+	 */
 
-    bzero(oldbuffer, CC_MAX_PRF_WORKSPACE);
-    bzero(newbuffer, CC_MAX_PRF_WORKSPACE);
-    bzero(collector, CC_MAX_PRF_WORKSPACE);
-    bzero(saltCopy, CC_MAX_PRF_WORKSPACE+4);
-    
-    return 0;
+	bzero(oldbuffer, CC_MAX_PRF_WORKSPACE);
+	bzero(newbuffer, CC_MAX_PRF_WORKSPACE);
+	bzero(collector, CC_MAX_PRF_WORKSPACE);
+	bzero(saltCopy, CC_MAX_PRF_WORKSPACE+4);
+	
+	return 0;
 }
 
 /* End code derived from CommonKeyDerivation.c */
@@ -268,19 +266,19 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
 
 + (NSData *)keyForPassword:(NSString *)password salt:(NSData *)salt settings:(RNCryptorKeyDerivationSettings)keySettings
 {
-  NSMutableData *derivedKey = [NSMutableData dataWithLength:keySettings.keySize];
-
-  // See Issue #77. V2 incorrectly calculated key for multi-byte characters.
-  NSData *passwordData;
-  if (keySettings.hasV2Password) {
-    passwordData = [NSData dataWithBytes:[password UTF8String] length:[password length]];
-  }
-  else {
-    passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-  }
-
-  // Use the built-in PBKDF2 if it's available. Otherwise, we have our own. Hello crazy function pointer.
-  int result;
+    NSMutableData *derivedKey = [NSMutableData dataWithLength:keySettings.keySize];
+    
+    // See Issue #77. V2 incorrectly calculated key for multi-byte characters.
+    NSData *passwordData;
+    if (keySettings.hasV2Password) {
+        passwordData = [NSData dataWithBytes:[password UTF8String] length:[password length]];
+    }
+    else {
+        passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    // Use the built-in PBKDF2 if it's available. Otherwise, we have our own. Hello crazy function pointer.
+    int result;
     if (CCKeyDerivationPBKDF != NULL) {
         result = CCKeyDerivationPBKDF(keySettings.PBKDFAlgorithm,         // algorithm
                                       password.UTF8String,                // password
@@ -303,11 +301,14 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
                                          derivedKey.mutableBytes,            // derivedKey
                                          derivedKey.length);                 // derivedKeyLen
     }
-
-  // Do not log password here
-  NSAssert(result == kCCSuccess, @"Unable to create AES key for password: %d", result);
-
-  return derivedKey;
+    
+    // Do not log password here
+    NSAssert(result == kCCSuccess, @"Unable to create AES key for password, error code: %d", result);
+    if (result != kCCSuccess) {
+        DDLogError(@"%s: Unable to create AES key for password, error code: %d", __FUNCTION__, result);
+    }
+    
+    return derivedKey;
 }
 
 // For use on OS X 10.6
@@ -335,7 +336,6 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
  *
  * @APPLE_LICENSE_HEADER_END@
  */
-/*
 static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
   static int kSecRandomFD;
   static dispatch_once_t onceToken;
@@ -359,25 +359,26 @@ static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
     count -= bytes_read;
   }
 
-    return 0;
+	return 0;
 }
- */
 /* End code dervied from SecFramework.c */
 
 + (NSData *)randomDataOfLength:(size_t)length
 {
-  NSMutableData *data = [NSMutableData dataWithLength:length];
-
-    int result = 0;
+    NSMutableData *data = [NSMutableData dataWithLength:length];
+    
+    int result;
     if (&SecRandomCopyBytes != NULL) {
-    result = SecRandomCopyBytes(NULL, length, data.mutableBytes);
-  }
-//  else {
-//    result = RN_SecRandomCopyBytes(NULL, length, data.mutableBytes);
-//  }
-  NSAssert(result == 0, @"Unable to generate random bytes: %d", errno);
+        result = SecRandomCopyBytes(NULL, length, data.mutableBytes);
+    } else {
+        result = RN_SecRandomCopyBytes(NULL, length, data.mutableBytes);
+    }
+    NSAssert(result == kCCSuccess, @"Unable to generate random bytes, error code: %d", result);
+    if (result != kCCSuccess) {
+        DDLogError(@"%s: Unable to generate random bytes, error code: %d", __FUNCTION__, result);
+    }
 
-  return data;
+    return data;
 }
 
 - (id)initWithHandler:(RNCryptorHandler)handler

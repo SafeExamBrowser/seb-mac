@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -49,6 +49,7 @@
 
 @property (weak, nonatomic) id target;
 @property (assign, nonatomic) SEL action;
+@property (assign, nonatomic) SEL secondaryAction;
 
 
 - (id) initWithTitle:(NSString *)newTitle
@@ -56,6 +57,7 @@
      highlightedIcon:(NSImage *)newHighlightedIcon
              toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
               target:(id)newTarget
-              action:(SEL)newAction;
+              action:(SEL)newAction
+     secondaryAction:(SEL)newSecondaryAction;
 
 @end

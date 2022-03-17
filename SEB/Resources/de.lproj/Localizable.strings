@@ -1,0 +1,45 @@
+/* No comment provided by engineer. */
+"Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to restart this session?" = "Sind Sie sicher, dass Sie diese Session neu starten wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure?" = "Sind Sie sicher?";
+
+/* No comment provided by engineer. */
+"Automatic" = "Automatisch";
+
+/* No comment provided by engineer. */
+"Automatic Proxy Configuration" = "Autom. Proxy-Konfiguration";
+
+/* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." = "Falls Ihre Institution die automatische %@-Client-Konfiguration nicht unterstützt, befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
+
+/* No comment provided by engineer. */
+"Load Error" = "Verbindungsfehler";
+
+/* No comment provided by engineer. */
+"Not Connected to WiFi" = "Nicht mit WLAN verbunden";
+
+/* No comment provided by engineer. */
+"Only on load error" = "Nur bei Verbindungsfehlern";
+
+/* No comment provided by engineer. */
+"Prefer Modern" = "Modern bevorzugen";
+
+/* No comment provided by engineer. */
+"Prefer Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
+
+/* No comment provided by engineer. */
+"Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
+
+/* No comment provided by engineer. */
+"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
+
+/* No comment provided by engineer. */
+"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." = "Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
+

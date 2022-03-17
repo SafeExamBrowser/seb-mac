@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -38,9 +38,16 @@
 
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
+{
+    return [self initWithFrame:frameRect icon:itemIcon highlightedIcon:itemHighlightedIcon title:itemTitle menu:itemMenu target:nil secondaryAction:nil];
+}
+
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu target:(id)newTarget secondaryAction:(SEL)newSecondaryAction
  {
     self = [super initWithFrame:frameRect];
     if (self) {
+        _secondaryAction = newSecondaryAction;
+        
         mouseDown = NO;
         
         // Get image size
@@ -49,11 +56,11 @@
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
         _defaultImage = itemIcon;
 
-        if (@available(macOS 10.14, *)) {
-        } else {
-            [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
-            _highlightedImage = itemHighlightedIcon;
-        }
+//        if (@available(macOS 10.14, *)) {
+//        } else {
+//            [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
+//            _highlightedImage = itemHighlightedIcon;
+//        }
         
         self.image = _defaultImage;
         
@@ -63,11 +70,11 @@
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
         NSButtonCell *newDockItemButtonCell = self.cell;
+        newDockItemButtonCell.highlightsBy = NSChangeGrayCellMask; //NSCellLightsByGray;
         if (@available(macOS 10.14, *)) {
-            newDockItemButtonCell.highlightsBy = NSCellLightsByGray;
             newDockItemButtonCell.backgroundColor = [NSColor clearColor];
-        } else {
-            newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
+//        } else {
+//            newDockItemButtonCell.highlightsBy = NSContentsCellMask; //NSCellLightsByContents;
         }
         // Create text label for dock item, if there was a title set for the item
         if (itemTitle) {
@@ -126,10 +133,6 @@
             DDLogDebug(@"Dock Item Label Popover content size: %f, %f", popover.contentSize.width, popover.contentSize.height);
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
-            if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
-                // We use NSPopoverAppearanceHUD only for OS X <= 10.9, not on OS X 10.10 upwards
-                [popover setAppearance:NSPopoverAppearanceHUD];
-            }
             [popover setAnimates:NO];
             self.labelPopover = popover;
         }
@@ -142,17 +145,32 @@
     return self;
 }
 
+- (void)setImage:(NSImage *)image
+{
+    CGFloat iconSize = self.frame.size.width;
+    
+    [image setSize: NSMakeSize(iconSize, iconSize)];
+    _defaultImage = image;
+
+//        if (@available(macOS 10.14, *)) {
+//        } else {
+//            [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
+//            _highlightedImage = itemHighlightedIcon;
+//        }
+    
+    super.image = _defaultImage;
+}
 
 - (void)mouseDown:(NSEvent*)theEvent
 {
     mouseDown = YES;
 
     self.highlighted = true;
-    if (@available(macOS 10.14, *)) {
+//    if (@available(macOS 10.14, *)) {
         self.alphaValue = 0.5;
-    } else {
-        self.image = _highlightedImage;
-    }
+//    } else {
+//        self.image = _highlightedImage;
+//    }
     
     [self performSelector:@selector(longMouseDown) withObject: nil afterDelay: 0.5];
 }
@@ -165,11 +183,11 @@
         mouseDown = NO;
         [self performClick:self];
     }
-    if (@available(macOS 10.14, *)) {
+//    if (@available(macOS 10.14, *)) {
         self.alphaValue = 1;
-    } else {
-        self.image = _defaultImage;
-    }
+//    } else {
+//        self.image = _defaultImage;
+//    }
     self.highlighted = false;
 
     [super mouseUp:theEvent];
@@ -180,7 +198,7 @@
 {
     if (mouseDown) {
         mouseDown = NO;
-        [self rightMouseDown:[NSEvent new]];
+        [self rightMouseUp:[NSEvent new]];
     }
     
 }
@@ -189,18 +207,17 @@
 - (void)rightMouseDown:(NSEvent*)theEvent
 {
     self.highlighted = true;
-    if (@available(macOS 10.14, *)) {
+//    if (@available(macOS 10.14, *)) {
         self.alphaValue = 0.5;
-    } else {
-        self.image = _highlightedImage;
-    }
+//    } else {
+//        self.image = _highlightedImage;
+//    }
     
     if (self.dockMenu)
     {
         [self.labelPopover close];
         [self.dockMenu showRelativeToRect:[self bounds] ofView:self];
         DDLogDebug(@"Dock menu show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
-
     }
 }
 
@@ -208,39 +225,45 @@
 // This method is called when the dock item menu is closed
 - (void)unhighlight
 {
-if (@available(macOS 10.14, *)) {
+//if (@available(macOS 10.14, *)) {
     self.alphaValue = 1;
-} else {
-    self.image = _defaultImage;
-}
+//} else {
+//    self.image = _defaultImage;
+//}
 self.highlighted = false;
 }
 
 - (void)rightMouseUp:(NSEvent *)theEvent
 {
-    if (@available(macOS 10.14, *)) {
+//    if (@available(macOS 10.14, *)) {
         self.alphaValue = 1;
-    } else {
-        self.image = _defaultImage;
-    }
+//    } else {
+//        self.image = _defaultImage;
+//    }
     self.highlighted = false;
+    
+    if (self.target && _secondaryAction) {
+        IMP imp = [self.target methodForSelector:_secondaryAction];
+        void (*func)(id, SEL) = (void *)imp;
+        func(self.target, _secondaryAction);
+    }
 }
 
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void)drawRect:(NSRect)dirtyRect
+{
     [super drawRect:dirtyRect];
-    
-    // Drawing code here.
-[self createTrackingArea];
 
+    [self createTrackingArea];
 }
 
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
-    DDLogDebug(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
-
+#ifdef DEBUG
+    DDLogVerbose(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+#endif
 }
 
 
@@ -272,10 +295,10 @@ self.highlighted = false;
                               fromView: nil];
     
     if (NSPointInRect(mouseLocation, [self bounds])) {
-            [self mouseEntered: nil];
-        } else {
-            [self mouseExited: nil];
-        }
+        [self mouseEntered: nil];
+    } else {
+        [self mouseExited: nil];
+    }
 }
 
 

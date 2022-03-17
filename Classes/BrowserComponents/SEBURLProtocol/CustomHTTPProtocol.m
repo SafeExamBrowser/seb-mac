@@ -212,15 +212,18 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
     // NSURLProtocol subclass.
     
     if (shouldAccept) {
+#if TARGET_OS_IPHONE
+        shouldAccept = [scheme isEqual:@"http"] || [scheme isEqual:@"https"];
+#else
         shouldAccept = [scheme isEqual:@"https"];
-
+#endif
         if ( ! shouldAccept ) {
             [self customHTTPProtocol:nil logWithFormat:@"decline request %@ (scheme mismatch)", url];
         } else {
             [self customHTTPProtocol:nil logWithFormat:@"accept request %@", url];
         }
     }
-    
+
     return shouldAccept;
 }
 
@@ -231,13 +234,19 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
     assert(request != nil);
     // can be called on any thread
     
-    // Canonicalising a request is quite complex, so all the heavy lifting has 
+    // Canonicalising a request is quite complex, so all the heavy lifting has
     // been shuffled off to a separate module.
     
     result = CanonicalRequestForRequest(request);
 
     [self customHTTPProtocol:nil logWithFormat:@"canonicalized %@ to %@", [request URL], [result URL]];
     
+    id<CustomHTTPProtocolDelegate> strongDelegate;
+    strongDelegate = [self delegate];
+    if ([strongDelegate respondsToSelector:@selector(modifyRequest:)]) {
+        result = [strongDelegate modifyRequest:result];
+    }
+
     return result;
 }
 
@@ -445,7 +454,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
         // namely, the client thread.
 
         [[self class] customHTTPProtocol:self logWithFormat:@"challenge %@ cancelled; other challenge pending", [[challenge protectionSpace] authenticationMethod]];
-        assert(NO);
+        //assert(NO);
         [self clientThreadCancelAuthenticationChallenge:challenge completionHandler:completionHandler];
     } else {
         id<CustomHTTPProtocolDelegate>  strongDelegate;
@@ -603,6 +612,12 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 
     assert([[self class] propertyForKey:kOurRecursiveRequestFlagProperty inRequest:newRequest] != nil);
     
+    id<CustomHTTPProtocolDelegate> strongeDelegate;
+    strongeDelegate = [[self class] delegate];
+    if ([strongeDelegate respondsToSelector:@selector(modifyRequest:)]) {
+        newRequest = [strongeDelegate modifyRequest:newRequest];
+    }
+
     redirectRequest = [newRequest mutableCopy];
     [[self class] removePropertyForKey:kOurRecursiveRequestFlagProperty inRequest:redirectRequest];
     
@@ -732,6 +747,14 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 
     if (error == nil) {
         [[self class] customHTTPProtocol:self logWithFormat:@"success"];
+
+        // Let the delegate know that a regular HTTP request or a XMLHttpRequest (XHR) successfully
+        // completed loading. The delegate then can for example scan the newly received HTML data
+        id<CustomHTTPProtocolDelegate> strongDelegate;
+        strongDelegate =  [[self class] delegate];
+        if ([strongDelegate respondsToSelector:@selector(sessionTaskDidCompleteSuccessfully:)]) {
+            [strongDelegate sessionTaskDidCompleteSuccessfully:task];
+        }
 
         [[self client] URLProtocolDidFinishLoading:self];
     } else if ( [[error domain] isEqual:NSURLErrorDomain] && ([error code] == NSURLErrorCancelled) ) {

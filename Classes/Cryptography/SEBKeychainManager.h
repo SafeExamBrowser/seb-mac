@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -69,6 +69,7 @@
 
 @optional
 - (NSArray*)getCertificatesOfType:(certificateTypes)certificateType;
+- (NSData*)generatePKCS12IdentityWithName:(NSString *)commonName;
 
 @property (nonatomic, retain) SEBKeychainManager *keychainManager;
 
@@ -94,6 +95,7 @@
 - (BOOL)importCertificateFromData:(NSData*)certificateData;
 - (NSData*)getDataForIdentity:(SecIdentityRef)identity;
 - (BOOL)importIdentityFromData:(NSData*)identityData;
+- (NSData*)generatePKCS12IdentityWithName:(NSString *)commonName;
 - (BOOL)generateIdentityWithName:(NSString *)commonName;
 - (BOOL)removeIdentityFromKeychain:(SecIdentityRef)identityRef;
 - (NSData *)retrieveKeyForIdentity:(SecIdentityRef)identityRef;

@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -38,7 +38,6 @@
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
 
-
 /**
  * @protocol    SEBLockedViewUIDelegate
  *
@@ -48,7 +47,7 @@
  */
 @protocol SEBLockedViewUIDelegate <NSObject>
 /**
- * @name		Item Attributes
+ * @name        Item Attributes
  */
 @required
 /**
@@ -85,7 +84,7 @@
 
 /**
  * @brief       Open lockdown windows to block access to the exam
-.
+ .
  * @details
  */
 //- (void) openLockdownWindows;
@@ -104,7 +103,7 @@
  * @protocol    SEBLockedViewControllerDelegate
  *
  * @brief       A SEBLockedViewController delegate opens a lock screen before passing
-*               control to SEBLockedViewController and must conform to
+ *               control to SEBLockedViewController and must conform to
  *              the SEBLockedViewControllerDelegate protocol.
  */
 @protocol SEBLockedViewControllerDelegate <NSObject>
@@ -131,6 +130,12 @@
 @property (strong, readwrite) NSDate *didResumeExamTime;
 
 /**
+ * @brief       Retry button action handler
+ * @details
+ */
+- (void) retryButtonPressed;
+
+/**
  * @brief       Callback executed when the correct password was entered.
  * @details
  */
@@ -142,6 +147,7 @@
  * @brief       Indicates if the exam is running.
  * @details
  */
+@property(readwrite) BOOL sessionRunning;
 @property(readwrite) BOOL examRunning;
 
 /**
@@ -175,7 +181,7 @@
  * @brief       Close lockdown windows and allow to access the exam again.
  * @details
  */
-- (void) closeLockdownWindows;
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 
 @end
 
@@ -183,6 +189,7 @@
 @interface SEBLockedViewController : NSObject {
     @private
     NSString *challenge;
+    NSString *currentExamURL;
 }
 
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
@@ -198,11 +205,12 @@
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
-- (BOOL) isStartingLockedExam;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString;
 
 /// Lockview business logic
 - (NSString *) appendChallengeToMessage:(NSString *)alertMessage;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) retryButtonPressed;
 - (void) passwordEntered;
 - (void) closeLockdownWindows;
 - (void) abortClosingLockdownWindows;

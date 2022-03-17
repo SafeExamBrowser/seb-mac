@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -35,63 +35,44 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "SEBController.h"
+#import "SEBBrowserController.h"
+#import "SEBBrowserWindowDocument.h"
 #import "SEBBrowserWindow.h"
-#import "SEBWebView.h"
+#import "SEBOSXWebViewController.h"
+#import "SEBBrowserOpenWindowWebView.h"
 #import "SEBDockController.h"
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
-#import "SEBBrowserController.h"
-#import "SEBBrowserWindowDocument.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SEBController;
-@class SEBBrowserController;
 @class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
-@class SEBWebView;
+@class SEBOSXWebViewController;
+@class SEBBrowserOpenWindowWebView;
 
-@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate>
+@interface SEBOSXBrowserController : SEBBrowserController <SEBBrowserControllerDelegate, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
 {
-    NSString *lastUsername;
-    
     @private
-    BOOL examSessionCookiesAlreadyCleared;
-    NSURL *downloadedSEBConfigDataURL;
     NSURL *currentConfigPath;
-    NSString *startURLQueryParameter;
 
 }
 
-@property (weak) SEBController *sebController;
-@property (strong) SEBBrowserController *browserController;
-@property (weak) SEBWebView *mainWebView;
-@property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
-@property (weak) SEBWebView *temporaryWebView;
-@property (strong) SEBBrowserWindow *mainBrowserWindow;
+@property (weak, nonatomic) SEBController *sebController;
+@property (readwrite) BOOL openingSettings;
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_8
-@property (weak) SEBBrowserWindow *activeBrowserWindow;
-@property (weak) SEBDockController *dockController;
-#else
- // weak properties not supported on Mac OS X 10.7
-@property (assign) SEBBrowserWindow *activeBrowserWindow;
-@property (assign) SEBDockController *dockController;
-#endif
+@property (weak, nonatomic, nullable) SEBAbstractWebView *mainWebView;
+@property (strong, nonatomic, nullable) SEBBrowserWindow *mainBrowserWindow;
+
+@property (weak, nonatomic) SEBBrowserWindow *activeBrowserWindow;
+@property (weak, nonatomic) SEBDockController *dockController;
 @property (strong, nonatomic) NSString *activeBrowserWindowTitle;
 
-@property (strong) NSString *currentMainHost;
-@property (strong) NSMutableArray *openBrowserWindowsWebViews;
+@property (strong) NSMutableArray <SEBBrowserOpenWindowWebView*> *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
-@property (readwrite) BOOL directConfigDownloadAttempted;
-@property (readwrite) BOOL allowSpellCheck;
-@property (strong) NSURLCredential *enteredCredential;
-@property (strong) id URLSession;
-@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
-@property (strong) NSArray *privatePasteboardItems;
-@property(strong) NSTimer *panelWatchTimer;
-
-@property (strong, nonatomic) NSData *browserExamKey;
-@property (strong, nonatomic) NSData *configKey;
+@property (strong) NSTimer *panelWatchTimer;
 
 - (NSScreen *) mainScreen;
 
@@ -99,13 +80,11 @@
 
 // Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-
-- (SEBWebView *) openAndShowWebView;
-- (void) closeWebView:(SEBWebView *) webViewToClose;
-- (void) checkForClosingTemporaryWebView:(SEBWebView *) webViewToClose;
-- (void) webViewShow:(SEBWebView *)sender;
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url;
+- (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose;
+- (void) webViewShow:(SEBAbstractWebView *)sender;
 - (void) openMainBrowserWindow;
-- (void) clearBackForwardList;
+- (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL;
 
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 - (void) adjustMainBrowserWindow;
@@ -114,22 +93,19 @@
 - (void) closeAllBrowserWindows;
 - (void) closeAllAdditionalBrowserWindows;
 
-- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
+- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBAbstractWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 
 - (NSString *) placeholderTitleOrURLForActiveWebpage;
 
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
-- (void) openConfigFromSEBURL:(NSURL *)url;
-- (void) openingConfigURLFailed;
 
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 
 - (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
 - (void) openingConfigURLRoleBack;
 
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
-- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView;
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView;
 - (void) activateNextOpenWindow;
 - (void) activatePreviousOpenWindow;
 
@@ -142,7 +118,6 @@
                                 username:(NSString *)username
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
-- (void) hideEnterUsernamePasswordDialog;
 
 
 /// SEBBrowserControllerDelegate Methods
@@ -153,5 +128,8 @@
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
 
+- (BOOL) isMainBrowserWindow:(SEBBrowserWindow *)browserWindow;
+
+NS_ASSUME_NONNULL_END
 
 @end

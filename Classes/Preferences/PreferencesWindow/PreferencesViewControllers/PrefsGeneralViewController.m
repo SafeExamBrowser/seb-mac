@@ -7,7 +7,7 @@
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -238,7 +238,7 @@
     
     // CAUTION: We need to reset this flag BEFORE changing the textBox text value,
     // because otherwise the compare passwords method will delete the first textBox again.
-    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
+    if ([[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
         adminPasswordIsHash = NO;
         [self setValue:nil forKey:@"adminPassword"];
         [self setValue:nil forKey:@"confirmAdminPassword"];
@@ -249,7 +249,7 @@
         [self setValue:@"0000000000000000" forKey:@"confirmAdminPassword"];
     }
     
-    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
+    if ([[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
         quitPasswordIsHash = NO;
         [self setValue:nil forKey:@"quitPassword"];
         [self setValue:nil forKey:@"confirmQuitPassword"];
@@ -310,7 +310,7 @@
 
 
 // Action for the Quit button in preferences
-// Save preferences and quit SEB
+// Save preferences and exit SEB
 - (IBAction) quitSEB:(id)sender {
     [self.preferencesController quitSEB:sender];
 }

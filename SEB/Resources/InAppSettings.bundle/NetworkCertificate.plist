@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Embed Server Certificates</string>
+			<key>FooterText</key>
+			<string>Self-signed TLS/SSL/CA certificates have to be embedded into config files to allow accessing a secure server. With certificate pinning, the iOS certificate store is bypassed and only embedded certificates establish trust for https connections.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Embed in SEB desktop version</string>
+			<key>Key</key>
+			<string>title_long</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Pin Certificates</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_pinEmbeddedCertificates</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Embed Identity Certificates</string>
+			<key>FooterText</key>
+			<string>Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) in a client config file can be used to decrypt exam config files.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Choose Identity</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_chooseIdentityToEmbed</string>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Embedded Certificates</string>
+			<key>FooterText</key>
+			<string>List of all embedded certificates in the current config file, sorted by type. SSL/CA/Debug certificates can currently only be added in SEB desktop versions.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Certificates</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_embeddedCertificatesList</string>
+			<key>DisplaySortedByTitle</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>

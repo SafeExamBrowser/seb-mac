@@ -54,6 +54,8 @@
 @class SEBOSXConfigFileController;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
+@class PrefsAppearanceViewController;
+@class PrefsBrowserViewController;
 @class PrefsExamViewController;
 @class PrefsNetworkViewController;
 @class SEBBrowserController;
@@ -67,6 +69,7 @@
     SEBEncapsulatedSettings *settingsBeforeEditing;
     BOOL restartSEB;
     NSURL *currentSEBFileURL;
+    BOOL urlFilterLearningModeInitialState;
 }
 
 @property BOOL currentConfigPasswordIsHash;

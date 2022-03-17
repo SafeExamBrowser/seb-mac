@@ -45,6 +45,12 @@
 #include <mach/mach_interface.h>
 #include <mach/mach_init.h>
 
+#import <sys/sysctl.h>
+#import <sys/mount.h>
+#import <sys/stat.h>
+#import <mach-o/dyld.h>
+#import <dlfcn.h>
+
 #import <objc/runtime.h>
 
 #include <IOKit/pwr_mgt/IOPMLib.h>
@@ -121,8 +127,7 @@ bool insideMatrix(void);
 
 @synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
-@synthesize quitSession;
-@synthesize webView;
+@synthesize quittingSession;
 @synthesize capWindows;
 @synthesize lockdownWindows;
 
@@ -175,6 +180,16 @@ bool insideMatrix(void);
 }
 
 
+- (ServerController *)serverController
+{
+    if (!_serverController) {
+        _serverController = [[ServerController alloc] init];
+        _serverController.delegate = self;
+    }
+    return _serverController;
+}
+
+
 #pragma mark - Class and Instance Initialization
 
 + (void) initialize
@@ -204,6 +219,10 @@ bool insideMatrix(void);
 - (id)init {
     self = [super init];
     if (self) {
+        // Get SEB's PID
+        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
+        sebPID = [sebRunningApp processIdentifier];
+
         _modalAlertWindows = [NSMutableArray new];
         _startingUp = true;
         self.systemManager = [[SEBSystemManager alloc] init];
@@ -211,8 +230,7 @@ bool insideMatrix(void);
         // Initialize console loggers
 #ifdef DEBUG
         // We show log messages only in Console.app and the Xcode console in debug mode
-        [DDLog addLogger:[DDASLLogger sharedInstance]];
-        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+        [DDLog addLogger:[DDOSLogger sharedInstance]];
 #endif
         
         // Initialize a temporary logger unconditionally with the Debug log level
@@ -228,10 +246,10 @@ bool insideMatrix(void);
             _inactiveScreenWindows = [NSMutableArray new];
         }
         
-        // Add an observer for the request to unconditionally quit SEB
+        // Add an observer for the request to unconditionally exit SEB
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(requestedQuit:)
-                                                     name:@"requestQuitNotification" object:nil];
+                                                 selector:@selector(requestedExit:)
+                                                     name:@"requestExitNotification" object:nil];
         
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -249,11 +267,23 @@ bool insideMatrix(void);
         
         // Get default WebKit browser User Agent and create
         // default SEB User Agent
-        NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
-        [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
-        DDLogError(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
-        
+        if (@available(macOS 10.13, iOS 11.0, *)) {
+            _temporaryWebView = [WKWebView new];
+            [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
+                [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+                self.temporaryWebView = nil;
+                DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+            }];
+        } else {
+            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+            if (urlText.length == 0) {
+                urlText = SEBStartPage;
+            }
+            NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
+            [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+            DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+        }
+
         // Cache current settings for Siri and dictation
         [_systemManager cacheCurrentSystemSettings];
 
@@ -389,18 +419,23 @@ bool insideMatrix(void);
     
     // Add an observer for the request to conditionally exit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(exitSEB:)
-                                                 name:@"requestExitNotification" object:nil];
+                                             selector:@selector(requestedQuit:)
+                                                 name:@"requestQuitNotification" object:nil];
     
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuitWPwd:)
-                                                 name:@"requestQuitWPwdNotification" object:nil];
+                                             selector:@selector(quitLinkDetected:)
+                                                 name:@"quitLinkDetected" object:nil];
     
     // Add an observer for the request to reload start URL
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedRestart:)
                                                  name:@"requestRestartNotification" object:nil];
+    
+    // Add an observer for the request to quit SEB or session unconditionally
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(quitSEBOrSession)
+                                                 name:@"requestQuitSEBOrSession" object:nil];
     
     // Add an observer for the request to start the kiosk mode
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -426,11 +461,6 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedShowHelp:)
                                                  name:@"requestShowHelpNotification" object:nil];
-    
-    // Add an observer for the request to switch plugins on
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(switchPluginsOn:)
-                                                 name:@"switchPluginsOn" object:nil];
     
     // Add an observer for the notification that preferences were closed
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -469,6 +499,10 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedRequiredBuiltinDisplayMissing" object:nil];
+    // Add an observer for the notification that proctoring failed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"proctoringFailed" object:nil];
 
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
@@ -608,25 +642,24 @@ bool insideMatrix(void);
 //
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-    NSURL *fileURL;
-    if (@available(macOS 10.13, *)) {
-        fileURL = [NSURL URLWithString:filename];
-    } else {
-        fileURL = [NSURL fileURLWithPath:filename isDirectory:NO];
-    }
-    
-    DDLogDebug(@"%s file URL: %@", __FUNCTION__, fileURL);
+    if (filename) {
+        NSURL *fileURL = [NSURL fileURLWithPathString:filename];
+        DDLogDebug(@"%s file URL: %@", __FUNCTION__, fileURL);
 
-    if (!_openingSettings) {
-        _openingSettings = true;
-        if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
-            DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
-            _openingSettingsFileURL = fileURL;
-        } else {
-            [self openFile:fileURL];
+        if (!_openingSettings) {
+            _openingSettings = YES;
+            if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
+                _openedURL = YES;
+                DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
+                _openingSettingsFileURL = fileURL;
+            } else {
+                [self openFile:fileURL];
+            }
         }
+        return YES;
+    } else {
+        return NO;
     }
-    return YES;
 }
 
 
@@ -642,13 +675,16 @@ bool insideMatrix(void);
     }
     
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-    NSURL *url = [NSURL URLWithString:urlString];
-    if (url && !_openingSettings) {
-        // If we have any URL, we try to download and open (conditionally) a .seb file
-        // hopefully linked by this URL (also supporting redirections and authentification)
-        _openingSettings = true;
-        DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-        [self.browserController openConfigFromSEBURL:url];
+    if (urlString) {
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (url && !_openingSettings) {
+            // If we have any URL, we try to download and open (conditionally) a .seb file
+            // hopefully linked by this URL (also supporting redirections and authentification)
+            _openingSettings = YES;
+            _openedURL = YES;
+            DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
+            [self.browserController openConfigFromSEBURL:url];
+        }
     }
 }
 
@@ -670,7 +706,8 @@ bool insideMatrix(void);
         if (url && !_openingSettings) {
             // If we have any URL, we try to download and open (conditionally) a .seb file
             // hopefully linked by this URL (also supporting redirections and authentification)
-            _openingSettings = true;
+            _openingSettings = YES;
+            _openedURL = YES;
             DDLogInfo(@"openURLs event: Loading .seb settings file with URL %@", url.absoluteString);
             [self.browserController openConfigFromSEBURL:url];
         }
@@ -755,7 +792,7 @@ bool insideMatrix(void);
         /// Open settings file in preferences window for editing
         
         [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-        _openingSettings = false;
+        _openingSettings = NO;
         return;
         
     } else {
@@ -765,24 +802,14 @@ bool insideMatrix(void);
         // Check if any alerts are open in SEB, abort opening if yes
         if (_modalAlertWindows.count > 0) {
             DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
-            _openingSettings = false;
+            _openingSettings = NO;
             // We have to return YES anyways, because otherwise the system displays an error message
             return;
         }
         
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            void (^loadingSettingsNotAllowedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self removeAlertWindow:modalAlert.window];
-                self.openingSettings = false;
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
-              completionHandler:(void (^)(NSModalResponse answer))loadingSettingsNotAllowedHandler];
+        // Check if SEB is in an exam session and reconfiguring isn't allowed
+        if (!_startingUp && ![self.browserController isReconfiguringAllowedFromURL:sebFileURL]) {
+            _openingSettings = NO;
             return;
         }
         
@@ -793,19 +820,25 @@ bool insideMatrix(void);
                 [self closeAboutWindow];
             }
             [self.preferencesController openSEBPrefsAtURL:sebFileURL];
+            _openingSettings = NO;
             return;
         }
+        
         NSError *error = nil;
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
         
-        // Save the path to the file for possible editing in the preferences window
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
-        
-        // Decrypt and store the .seb config file
-        [self.configFileController storeNewSEBSettings:sebData
-                                         forEditing:NO
-                                           callback:self
-                                           selector:@selector(storeNewSEBSettingsSuccessful:)];
+        if (!error) {
+            // Save the path to the file for possible editing in the preferences window
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+            
+            // Decrypt and store the .seb config file
+            [self.configFileController storeNewSEBSettings:sebData
+                                             forEditing:NO
+                                               callback:self
+                                               selector:@selector(storeNewSEBSettingsSuccessful:)];
+        } else {
+            //ToDo: Show alert for file loading error
+        }
     }
 }
 
@@ -832,7 +865,7 @@ bool insideMatrix(void);
     
     if (!error) {
         // If successfull start/restart with new settings
-        _openingSettings = false;
+        _openingSettings = NO;
         
         [self updateAACAvailablility];
         
@@ -848,13 +881,12 @@ bool insideMatrix(void);
         if (_startingUp) {
             // we quit, as decrypting the config wasn't successful
             DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            quittingMyself = true; // quit SEB without asking for confirmation or password
-            [NSApp terminate: nil]; // Quit SEB
+            [self requestedExit:nil]; // Quit SEB
         } else {
             // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
 //        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         }
-        _openingSettings = false;
+        _openingSettings = NO;
     }
 }
 
@@ -864,7 +896,7 @@ bool insideMatrix(void);
 - (void)didOpenSettings
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    _openingSettings = false;
+    _openingSettings = NO;
     [self updateAACAvailablility];
 
     if (_startingUp) {
@@ -934,17 +966,8 @@ bool insideMatrix(void);
     // Open the main browser window
     DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
     
-    [self.browserController openMainBrowserWindow];
+    [self startExam];
 
-    // Persist start URL of a "secure" exam
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        [self.sebLockedViewController addLockedExam:currentExamStartURL];
-    } else {
-        currentExamStartURL = nil;
-    }
-    
     // SEB finished starting up, reset the flag for starting up
     _startingUp = false;
 
@@ -957,6 +980,426 @@ bool insideMatrix(void);
     }
 
 }
+
+
+- (void) startExam
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    if (_establishingSEBServerConnection == YES) {
+        _startingExamFromSEBServer = YES;
+        [self.serverController startExamFromServer];
+    } else {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
+            NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
+            _establishingSEBServerConnection = YES;
+            if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
+                // All necessary information for connecting to SEB Server was available in settings:
+                // try to connect to SEB Server and wait for delegate method to be called with success/failure
+                [self showSEBServerView];
+                return;
+            } else {
+                // Cannot connect as some SEB Server settings/API endpoints are missing
+                // Abort if fallback isn't enabled
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerFallback"] == NO) {
+//                    [self alertWithTitle:NSLocalizedString(@"Cannot Connect to SEB Server", nil)
+//                                 message:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)
+//                            action1Title:NSLocalizedString(@"OK", nil)
+//                          action1Handler:^(void){
+//                        [self closeServerView:self];
+//                    }
+//                            action2Title:nil
+//                          action2Handler:nil];
+//                    return;
+                }
+            }
+        } else {
+            //        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+            //        NSURL *startURL = [NSURL URLWithString:startURLString];
+            //        if (startURLString.length == 0 ||
+            //            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+            //              [startURL.host hasSuffix:SEBWebsiteShort]) &&
+            //             [startURL.path hasSuffix:@"start"]))
+            //        {
+            //            // Start URL was set to the default value, show init assistant
+            //            [self openInitAssistant];
+            //        } else {
+                        _sessionRunning = true;
+                        
+                        // Load all open web pages from the persistent store and re-create webview(s) for them
+                        // or if no persisted web pages are available, load the start URL
+                        [self.browserController openMainBrowserWindow];
+                        
+            // Persist start URL of a "secure" exam
+            [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
+            //        }
+        }
+    }
+}
+
+// Persist start URL of a secure exam
+- (void) persistSecureExamStartURL:(NSString *)startURLString
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentExamStartURL = startURLString;
+        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+    } else {
+        currentExamStartURL = nil;
+    }
+}
+
+#pragma mark - Connecting to SEB Server
+
+- (void) showSEBServerView
+{
+    _sebServerViewController = [SEBServerOSXViewController new];
+    _sebServerViewController.sebServerController = self.serverController.sebServerController;
+    self.serverController.sebServerController.serverControllerUIDelegate = _sebServerViewController;
+    _sebServerViewController.serverControllerDelegate = self;
+    NSWindow *sebServerViewWindow;
+    sebServerViewWindow = [NSWindow windowWithContentViewController:_sebServerViewController];
+    [sebServerViewWindow setLevel:NSMainMenuWindowLevel+5];
+    sebServerViewWindow.title = NSLocalizedString(@"Connecting to SEB Server", nil);
+    sebServerViewWindow.delegate = _sebServerViewController;
+    NSWindowController *sebServerViewWindowController = [[NSWindowController alloc] initWithWindow:sebServerViewWindow];
+    _sebServerViewWindowController = sebServerViewWindowController;
+    [_sebServerViewWindowController showWindow:nil];
+
+    _sebServerViewDisplayed = YES;
+    [_sebServerViewController updateExamList];
+}
+
+- (void) closeSEBServerView
+{
+    _sebServerViewWindowController.window.delegate = nil;
+    [_sebServerViewWindowController close];
+    _sebServerViewController = nil;
+    _sebServerViewDisplayed = NO;
+}
+
+
+- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
+{
+    _sebServerViewController = false;
+    [self closeSEBServerView];
+    [self.serverController examSelected:examId url:url];
+}
+
+
+- (void) storeNewSEBSettings:(NSData *)configData
+{
+    [self storeNewSEBSettings:configData forEditing:NO forceConfiguringClient:NO showReconfiguredAlert:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
+- (void) closeServerView:(id)sender
+{
+    _establishingSEBServerConnection = NO;
+    [self closeSEBServerView];
+    [self sessionQuitRestart:NO];
+}
+
+
+- (void) loginToExam:(NSString *)url
+{
+    NSURL *examURL = [NSURL URLWithString:url];
+    [self.browserController openMainBrowserWindowWithStartURL:examURL];
+    [self persistSecureExamStartURL:url];
+    self.browserController.sebServerExamStartURL = examURL;
+    _sessionRunning = YES;
+}
+
+
+- (void) didEstablishSEBServerConnection
+{
+    _establishingSEBServerConnection = NO;
+    _startingExamFromSEBServer = NO;
+    _sebServerConnectionEstablished = YES;
+}
+
+
+- (void) serverSessionQuitRestart:(BOOL)restart
+{
+    if (_sebServerViewDisplayed) {
+        [self closeSEBServerView];
+        self.establishingSEBServerConnection = NO;
+    }
+    // Check if Preferences are currently open
+    if ([self.preferencesController preferencesAreOpen]) {
+        // Close Preferences
+        [self closePreferencesWindow];
+    }
+    [self sessionQuitRestart:restart];
+}
+
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
+{
+    [self.serverController examineCookies:cookies forURL:url];
+}
+
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.serverController examineHeaders:headerFields forURL:url];
+}
+
+
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController shouldStartLoadFormSubmittedURL:url];
+    }
+}
+
+
+#pragma mark - Remote Proctoring
+
+- (void) openZoomView
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    if (@available(iOS 11.0, *)) {
+        self.previousSessionZoomEnabled = YES;
+        
+        // Initialize Zoom settings
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        _zoomReceiveAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveAudio"];
+        _zoomReceiveVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomReceiveVideo"];
+        _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
+        _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
+        _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+//        _allRTCTracks = [NSMutableArray new];
+//        _localRTCTracks = [NSMutableArray new];
+        
+        
+//        EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+//        [EAGLContext setCurrentContext:eaglContext];
+//        _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
+        
+//        _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+//
+//        [_rootViewController addChildViewController:self.jitsiViewController];
+//        self.jitsiViewController.safeAreaLayoutGuideInsets = self.view.safeAreaInsets;
+//        [self.jitsiViewController didMoveToParentViewController:_rootViewController];
+    }
+}
+
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    NSString *serviceType = attributes[@"service-type"];
+    DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+}
+
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+}
+
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSString *notificationType = attributes[@"type"];
+    NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
+    
+    if ([notificationType isEqualToString:@"raisehand"]) {
+        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
+            [self toggleRaiseHandLoweredByServer:YES];
+        }
+    }
+    
+    if ([notificationType isEqualToString:@"lockscreen"]) {
+        if (self.sebServerPendingLockscreenEvents.count > 0) {
+#ifdef DEBUG
+        DDLogDebug(@"sebServerPendingLockscreenEvents: %@", self.sebServerPendingLockscreenEvents);
+#endif
+            NSInteger notificationID = notificationIDNumber.integerValue;
+            for (NSUInteger index = 0 ; index < self.sebServerPendingLockscreenEvents.count ; ++index) {
+                if (self.sebServerPendingLockscreenEvents[index].integerValue == notificationID) {
+                    [self.sebServerPendingLockscreenEvents removeObjectAtIndex:index];
+                }
+            }
+    #ifdef DEBUG
+            DDLogDebug(@"sebServerPendingLockscreenEvents after removing notificationID %@: %@", notificationIDNumber, self.sebServerPendingLockscreenEvents);
+    #endif
+            if (self.sebServerPendingLockscreenEvents.count == 0) {
+                DDLogInfo(@"No pending lock screen events, closing lockdown windows invoked by SEB Server");
+                [self closeLockdownWindowsAllowOverride:NO];
+            }
+        }
+    }
+}
+
+
+- (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
+{
+    completionHandler();
+}
+
+
+- (void) proctoringFailedWithErrorMessage:(NSString *)errorMessage
+{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"proctoringFailed" object:self userInfo:@{NSLocalizedFailureReasonErrorKey : errorMessage}];
+}
+
+
+- (void) toggleProctoringViewVisibility
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+{
+    [self setProctoringViewButtonState:remoteProctoringButtonState userFeedback:YES];
+}
+
+
+- (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
+                         userFeedback:(BOOL)userFeedback
+{
+    NSImage *remoteProctoringButtonImage;
+    NSColor *remoteProctoringButtonTintColor;
+    switch (remoteProctoringButtonState) {
+        case remoteProctoringButtonStateNormal:
+//            remoteProctoringButtonImage = ProctoringIconNormalState;
+            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+//            _sebViewController.proctoringStateIcon = ProctoringBadgeNormalState;
+            break;
+            
+        case remoteProctoringButtonStateWarning:
+//            remoteProctoringButtonImage = ProctoringIconWarningState;
+            remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
+//            _sebViewController.proctoringStateIcon = ProctoringBadgeWarningState;
+            break;
+            
+        case remoteProctoringButtonStateError:
+//            remoteProctoringButtonImage = ProctoringIconErrorState;
+            remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
+//            _sebViewController.proctoringStateIcon = ProctoringBadgeErrorState;
+            break;
+            
+        case remoteProctoringButtonStateAIInactive:
+            if (@available(macOS 10.14, *)) {
+                _dockButtonProctoringView.image.template = YES;
+                remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconAIInactiveState;
+            }
+//            _sebViewController.proctoringStateIcon = nil;
+            break;
+            
+        default:
+            if (@available(macOS 10.14, *)) {
+                remoteProctoringButtonImage.template = NO;
+                remoteProctoringButtonTintColor = nil;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconDefaultState;
+            }
+//            _sebViewController.proctoringStateIcon = nil;
+            break;
+    }
+    if (userFeedback) {
+        if (@available(macOS 10.14, *)) {
+            _dockButtonProctoringView.contentTintColor = remoteProctoringButtonTintColor;
+        } else {
+            _dockButtonProctoringView.image = remoteProctoringButtonImage;
+        }
+    }
+}
+
+
+- (void) toggleRaiseHand
+{
+    [self toggleRaiseHandLoweredByServer:NO];
+}
+
+- (void) toggleRaiseHandLoweredByServer:(BOOL)loweredByServer
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    
+    if (_raiseHandRaised) {
+        _raiseHandRaised = NO;
+        _dockButtonRaiseHand.image = RaisedHandIconDefaultState;
+        if (@available(macOS 10.14, *)) {
+            _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorDefaultState;
+        }
+        if (!loweredByServer) {
+            [self.serverController sendLowerHandNotificationWithUID:raiseHandUID];
+        }
+        
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonAlwaysPromptMessage"]) {
+            [self showEnterRaiseHandMessageWindow];
+        } else {
+            [self raiseHand];
+        }
+    }
+}
+
+- (void) raiseHand
+{
+    if (!_raiseHandRaised) {
+        _raiseHandRaised = YES;
+        _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
+        if (@available(macOS 10.14, *)) {
+            _dockButtonRaiseHand.contentTintColor = RaisedHandIconColorRaisedState;
+        }
+        raiseHandUID = [self.serverController sendRaiseHandNotificationWithMessage:raiseHandNotification];
+        raiseHandNotification = @"";
+    }
+}
+
+
+- (void) showEnterRaiseHandMessageWindow
+{
+    if (!_raiseHandRaised) {
+        NSWindow *windowToShowModalFor;
+
+        if (@available(macOS 12.0, *)) {
+        } else {
+            if (@available(macOS 11.0, *)) {
+                if (_isAACEnabled || _wasAACEnabled) {
+                    windowToShowModalFor = self.browserController.mainBrowserWindow;
+                }
+            }
+        }
+
+        [NSApp beginSheet: _enterRaiseHandMessageWindow
+           modalForWindow: windowToShowModalFor
+            modalDelegate: nil
+           didEndSelector: nil
+              contextInfo: nil];
+        [NSApp runModalForWindow: _enterRaiseHandMessageWindow];
+        // Dialog is up here.
+        [NSApp endSheet: _enterRaiseHandMessageWindow];
+        self.raiseHandMessageTextField.stringValue = @"";
+        [_enterRaiseHandMessageWindow orderOut: self];
+        [self removeAlertWindow:_enterRaiseHandMessageWindow];
+        if (raiseHandNotification) {
+            [self raiseHand];
+        }
+    }
+}
+
+
+- (IBAction)sendEnteredRaiseHandMessage:(id)sender
+{
+    raiseHandNotification = self.raiseHandMessageTextField.stringValue;
+    [NSApp stopModal];
+}
+
+- (IBAction)cancelEnteringRaiseHandMessage:(id)sender
+{
+    raiseHandNotification = nil;
+    [NSApp stopModal];
+}
+
 
 #pragma mark - Initialization depending on client or opened settings
 
@@ -1026,14 +1469,17 @@ bool insideMatrix(void);
             NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", process[@"name"]];
             NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
             if (filteredProcesses.count != 0) {
-                NSURL *processURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
                     if ((NSInteger)kill(processPID, 9) != ERR_SUCCESS) {
                         [runningProcesses addObject:process];
                     } else {
-                        // Add the process' file URL, so we can restart it when exiting SEB
-                        [_terminatedProcessesExecutableURLs addObject:processURL];
+                        NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
+                        if (executablePath) {
+                            NSURL *processURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
+                            // Add the process' file URL, so we can restart it when exiting SEB
+                            [_terminatedProcessesExecutableURLs addObject:processURL];
+                        }
                     }
                 } else {
                     [runningProcesses addObject:process];
@@ -1053,15 +1499,7 @@ bool insideMatrix(void);
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             NSWindow *runningProcessesListWindow;
-            if (@available(macOS 10.10, *)) {
-                runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
-            } else {
-                runningProcessesListWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskResizable) backing:NSBackingStoreBuffered defer:YES];
-                NSRect newWindowFrame = self.processListViewController.view.frame;
-                runningProcessesListWindow.contentView = self.processListViewController.view;
-                [runningProcessesListWindow setFrame:newWindowFrame display:YES animate:NO];
-                [runningProcessesListWindow center];
-            }
+            runningProcessesListWindow = [NSWindow windowWithContentViewController:self.processListViewController];
             [runningProcessesListWindow setLevel:NSMainMenuWindowLevel+5];
             runningProcessesListWindow.title = NSLocalizedString(@"Prohibited Processes Are Running", nil);
             NSWindowController *processListWindowController = [[NSWindowController alloc] initWithWindow:runningProcessesListWindow];
@@ -1070,9 +1508,9 @@ bool insideMatrix(void);
             // important: processListViewController must be accessed with the instance variable
             // _processListViewController here and not using the property self.processListViewController
             // as otherwise a new instance of the controller will be allocated
-            if (self->_processListViewController &&
-                self->_processListViewController.runningApplications.count +
-                self->_processListViewController.runningProcesses.count > 0) {
+            if (self.processListViewController &&
+                self.processListViewController.runningApplications.count +
+                self.processListViewController.runningProcesses.count > 0) {
                 runningProcessesListWindow.delegate = self.processListViewController;
                 [self.runningProcessesListWindowController showWindow:nil];
                 return;
@@ -1210,9 +1648,18 @@ bool insideMatrix(void);
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    quittingMyself = true; //quit SEB without asking for confirmation or password
-    [NSApp terminate: nil]; //quit SEB
+    [self requestedExit:nil]; // Quit SEB
 }
+
+
+void run_on_ui_thread(dispatch_block_t block)
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
+
 
 - (void) initSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
@@ -1254,7 +1701,9 @@ bool insideMatrix(void);
         [self clearPasteboardSavingCurrentString];
         
         // Check if the Force Quit window is open
-        [self forceQuitWindowCheck];
+        if (![self forceQuitWindowCheckContinue]) {
+            return;
+        }
         
         // Run watchdog event for windows and events which need to be observed
         // on the main (UI!) thread once, to initialize
@@ -1292,8 +1741,7 @@ bool insideMatrix(void);
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
-                    self->quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
+                    [self quitSEBOrSession];
                 };
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
                 return;
@@ -1309,30 +1757,30 @@ bool insideMatrix(void);
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
         }
     }
+    
+    BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
+    BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
+    if (zoomEnable || jitsiMeetEnable) {
+
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", nil)];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil), SEBShortAppName, SEBShortAppName]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitSEBOrSession" object:self];
+            return;
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
+        return;
+    }
+
     // Continue to starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
     func(callback, selector);
-}
-
-
-- (BOOL) quitSession
-{
-    return !_startingUp && NSUserDefaults.userDefaultsPrivate;
-}
-
-
-- (void) quitSEBOrSession
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    if (self.quitSession) {
-        [NSUserDefaults setUserDefaultsPrivate:NO];
-        [self updateAACAvailablility];
-        [self requestedRestart:nil];
-    } else {
-        quittingMyself = true; //quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; //quit SEB
-    }
 }
 
 
@@ -1401,8 +1849,7 @@ bool insideMatrix(void);
     [modalAlert setAlertStyle:NSCriticalAlertStyle];
     void (^quitAlertConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
-        self->quittingMyself = true; //quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; //quit SEB
+        [self requestedExit:nil]; // Quit SEB
     };
     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))quitAlertConfirmed];
 }
@@ -1431,7 +1878,9 @@ bool insideMatrix(void);
     
     if (_isAACEnabled == NO) {
         // Check if the Force Quit window is open
-        [self forceQuitWindowCheck];
+        if (![self forceQuitWindowCheckContinue]) {
+            return;
+        }
     }
     
     if ([MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
@@ -1451,7 +1900,7 @@ bool insideMatrix(void);
                     
                 case NSAlertSecondButtonReturn:
                 {
-                    [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
+                    [self performSelector:@selector(requestedExit:) withObject: nil afterDelay: 3];
                 }
             }
         };
@@ -1470,32 +1919,13 @@ bool insideMatrix(void);
 // settings are initialized
 - (void) initializeTemporaryLogger
 {
-    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:nil];
-    _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-    _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-    _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+    _myLogger = [MyGlobals initializeFileLoggerWithDirectory:nil];
     [DDLog addLogger:_myLogger];
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
     DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
-    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-    NSString *userName = NSUserName();
-    NSString *fullUserName = NSFullUserName();
-    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-    
-    DDLogInfo(@"Local hostname: %@", localHostname);
-    DDLogInfo(@"Computer name: %@", computerName);
-    DDLogInfo(@"User name: %@", userName);
-    DDLogInfo(@"Full user name: %@", fullUserName);
+    [MyGlobals logSystemInfo];
 }
-
 
 - (void) initializeLogger
 {
@@ -1503,6 +1933,10 @@ bool insideMatrix(void);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
         [DDLog removeLogger:_myLogger];
+        _myLogger = nil;
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            [DDLog removeLogger:ServerLogger.sharedInstance];
+        }
     } else {
         //Set log directory
         NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
@@ -1514,36 +1948,29 @@ bool insideMatrix(void);
             logPath = [logPath stringByExpandingTildeInPath];
             // Add subdirectory with the name of the computer
         }
-        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
-        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+        _myLogger = [MyGlobals initializeFileLoggerWithDirectory:logPath];
         [DDLog addLogger:_myLogger];
         
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
+            _establishingSEBServerConnection || _sebServerConnectionEstablished) {
+            if (![DDLog.allLoggers containsObject:ServerLogger.sharedInstance]) {
+                [DDLog addLogger:ServerLogger.sharedInstance];
+                ServerLogger.sharedInstance.delegate = self;
+            }
+        }
+        
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
-        NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-        NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-        NSString *userName = NSUserName();
-        NSString *fullUserName = NSFullUserName();
-        
-        // To Do: Find out domain of the current host address
-        // This has to be processed asynchronously with GCD
-        //        NSHost *host;
-        //        host = [NSHost currentHost];
-        
-        NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-        NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-        NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-        NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-        DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-        DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-        
-        DDLogInfo(@"Local hostname: %@", localHostname);
-        DDLogInfo(@"Computer name: %@", computerName);
-        DDLogInfo(@"User name: %@", userName);
-        DDLogInfo(@"Full user name: %@", fullUserName);
+        [MyGlobals logSystemInfo];
     }
+}
+
+
+- (void) sendLogEventWithLogLevel:(NSUInteger)logLevel
+                        timestamp:(NSString *)timestamp
+                     numericValue:(double)numericValue
+                          message:(NSString *)message
+{
+    [self.serverController sendLogEventWithLogLevel:logLevel timestamp:timestamp numericValue:numericValue message:message];
 }
 
 
@@ -1952,9 +2379,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             firstScan = true;
             _systemProcessPIDs = [NSMutableArray new];
             options = kCGWindowListOptionAll;
-            // Get SEB's PID
-            NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
-            sebPID = [sebRunningApp processIdentifier];
             fishyWindowWasOpened = true;
 
         } else {
@@ -1994,7 +2418,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         // running legit Apple executables
                         NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                         NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
+#ifndef DEBUG
                         DDLogWarn(@"Application %@ with bundle ID %@ has opened a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+#endif
     #ifdef DEBUG
                         CGSConnection connection = _CGSDefaultConnection();
                         int workspace;
@@ -2042,7 +2468,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 }
                             }
                         } else {
-                            DDLogDebug(@"Preferences are open, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
+#ifndef DEBUG
+                            DDLogDebug(@"%@%@don't terminate application %@ (%@)", _allowSwitchToApplications ? @"Switching to applications is allowed, " : @"",
+                                       _preferencesController.preferencesAreOpen ? @"Preferences are open, " : @"", windowOwner, appWithPanelBundleID);
+#endif
                         }
                     }
                 }
@@ -2105,7 +2534,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // If this didn't work then it's probably an app without bundle, get executable URL
         runningAppURL = runningApp.executableURL;
     }
-    DDLogDebug(@"NSRunningApplication %@ bundle or executable URL: %@", runningApp, runningAppURL);
+    DDLogVerbose(@"NSRunningApplication %@ bundle or executable URL: %@", runningApp, runningAppURL);
     return runningAppURL;
 }
 
@@ -2114,83 +2543,87 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
 {
     NSString * executablePath = [ProcessManager getExecutablePathForPID:runningExecutablePID];
-    NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
+    if (executablePath) {
+        NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
 
-    DDLogDebug(@"Evaluating code signature of %@", executablePath);
-    
-    OSStatus status;
-    SecStaticCodeRef ref = NULL;
-    
-    // obtain the cert info from the executable
-    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
-    
-    if (ref == NULL) return false;
-    if (status != noErr) return false;
-    
-    SecRequirementRef req = NULL;
-    NSString * reqStr;
-    
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        // Public SHA1 fingerprint of the CA cert match string
-        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                  @"certificate",
-                  @"leaf",
-                  @"H\"013E2787748A74",
-                  @"103D62D2CDBF77",
-                  @"A1345517C482\""
-                  ];
-    } else {
-        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                  @"certificate",
-                  @"leaf",
-                  @"H\"2203029E85EFB1",
-                  @"828B928C3B6545",
-                  @"F003CC0E515C\""
-                  ];
-    }
-    
-    // create the requirement to check against
-    status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-    
-    if (status == noErr && req != NULL) {
-        status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
-    }
-    
-    if (status != noErr) {
-        if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
-            // Public SHA1 fingerprint of the CA certificate
-            // for macOS system software signed by Apple this is the
-            // "Software Signing" certificate (use Max Inspect from App Store or similar)
+        DDLogDebug(@"Evaluating code signature of %@", executablePath);
+        
+        OSStatus status;
+        SecStaticCodeRef ref = NULL;
+        
+        // obtain the cert info from the executable
+        status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
+        
+        if (ref == NULL) return false;
+        if (status != noErr) return false;
+        
+        SecRequirementRef req = NULL;
+        NSString * reqStr;
+        
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+            // Public SHA1 fingerprint of the CA cert match string
             reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                       @"certificate",
                       @"leaf",
-                      @"H\"EFDBC9139DD98D",
-                      @"BAE5A9C7165A09",
-                      @"6511B15EAEF9\""
+                      @"H\"013E2787748A74",
+                      @"103D62D2CDBF77",
+                      @"A1345517C482\""
                       ];
-            // create the requirement to check against
-            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-            
-            if (status == noErr && req != NULL) {
-                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+        } else {
+            reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                      @"certificate",
+                      @"leaf",
+                      @"H\"2203029E85EFB1",
+                      @"828B928C3B6545",
+                      @"F003CC0E515C\""
+                      ];
+        }
+        
+        // create the requirement to check against
+        status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+        
+        if (status == noErr && req != NULL) {
+            status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+        }
+        
+        if (status != noErr) {
+            if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
+                // Public SHA1 fingerprint of the CA certificate
+                // for macOS system software signed by Apple this is the
+                // "Software Signing" certificate (use Max Inspect from App Store or similar)
+                reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                          @"certificate",
+                          @"leaf",
+                          @"H\"EFDBC9139DD98D",
+                          @"BAE5A9C7165A09",
+                          @"6511B15EAEF9\""
+                          ];
+                // create the requirement to check against
+                status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+                
+                if (status == noErr && req != NULL) {
+                    status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+                }
             }
         }
-    }
-    
-    if (ref) {
-        CFRelease(ref);
-    }
-    if (req) {
-        CFRelease(req);
-    }
         
-    if (status != noErr) {
+        if (ref) {
+            CFRelease(ref);
+        }
+        if (req) {
+            CFRelease(req);
+        }
+            
+        if (status != noErr) {
+            return NO;
+        }
+
+        DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
+        
+        return YES;
+    } else {
         return NO;
     }
-
-    DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
-    
-    return YES;
 }
 
 
@@ -2524,38 +2957,120 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (void)checkMinMacOSVersion
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
-    _enforceMinMacOSVersion = SEBMinMacOSVersionSupported;
-    switch (minMacOSVersion) {
-        case SEBMinOSX10_8:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_8 ? SEBMinOSX10_8 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinOSX10_9:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9 ? SEBMinOSX10_9 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinOSX10_10:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10 ? SEBMinOSX10_10 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinOSX10_11:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_11 ? SEBMinOSX10_11 : _enforceMinMacOSVersion;
-            break;
-            
-        case SEBMinMacOS10_12:
-            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_11 ? SEBMinMacOS10_12 : _enforceMinMacOSVersion;
-            break;
-            
-        default:
-            break;
-    }
-    if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
-        DDLogError(@"Current settings require SEB to be running at least on %@, but it isn't! SEB will therefore quit!", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]);
-        quittingMyself = true; //quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; //quit SEB
+    enforceMinMacOSVersion = NO;
+    
+    // Check if running on older macOS version than the one allowed in settings
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+
+    NSUInteger allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+    NSUInteger allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+    NSUInteger allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"]) {
+        // Manage old check only for allowed major version
+        SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
+        switch (minMacOSVersion) {
+            case SEBMinMacOS10_12:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 12;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS10_13:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 13;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS10_14:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 14;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS10_15:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 15;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS11:
+                allowMacOSVersionMajor = 11;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS12:
+                allowMacOSVersionMajor = 12;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            default:
+                break;
+        }
     } else {
-        DDLogInfo(@"SEB is running at least on the minimal macOS version %@ required by current settings (actually on version %f)", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion], floor(NSAppKitVersionNumber));
+        // Full granular check for allowed major, minor and patch version
+        allowMacOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
+        allowMacOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
+        allowMacOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    }
+    
+    // Check for minimal macOS version requirements of this SEB version
+    if (allowMacOSVersionMajor < SEBMinMacOSVersionSupportedMajor) {
+        allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+        allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+        allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+    } else if (allowMacOSVersionMajor == SEBMinMacOSVersionSupportedMajor) {
+        if (allowMacOSVersionMinor < SEBMinMacOSVersionSupportedMinor) {
+            allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        } else if (allowMacOSVersionMinor == SEBMinMacOSVersionSupportedMinor && allowMacOSVersionPatch < SEBMinMacOSVersionSupportedPatch) {
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        }
+    }
+
+    if (currentOSMajorVersion < allowMacOSVersionMajor ||
+        (currentOSMajorVersion == allowMacOSVersionMajor &&
+         currentOSMinorVersion < allowMacOSVersionMinor) ||
+        (currentOSMajorVersion == allowMacOSVersionMajor &&
+         currentOSMinorVersion == allowMacOSVersionMinor &&
+         currentOSPatchVersion < allowMacOSVersionPatch)
+        )
+    {
+        NSString *allowedMacOSVersionMinorString = @"";
+        NSString *allowedMacOSVersionPatchString = @"";
+        if (allowMacOSVersionPatch > 0 || allowMacOSVersionMinor > 0) {
+            allowedMacOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowMacOSVersionMinor];
+        }
+        if (allowMacOSVersionPatch > 0) {
+            allowedMacOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowMacOSVersionPatch];
+        }
+        NSString *alertMessageMacOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
+                                            SEBShortAppName,
+                                            NSLocalizedString(@" settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS ", nil),
+                                            (unsigned long)allowMacOSVersionMajor,
+                                            allowedMacOSVersionMinorString,
+                                            allowedMacOSVersionPatchString];
+        DDLogError(@"%s %@", __FUNCTION__, alertMessageMacOSVersion);
+        
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Running on Current macOS Version Not Allowed!", nil)]];
+        [modalAlert setInformativeText:alertMessageMacOSVersion];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            self->enforceMinMacOSVersion = YES;
+            if (self.startingUp) {
+                [self requestedExit:nil]; // Quit SEB
+            } else {
+                [self quitSEBOrSession];
+            }
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     }
 }
 
@@ -2573,8 +3088,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 #ifndef DEBUG
             DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
             _forceAppFolder = YES;
-            quittingMyself = true; //quit SEB without asking for confirmation or password
-            [NSApp terminate: nil]; //quit SEB
+            [self quitSEBOrSession]; // Quit SEB or the exam session
 #else
             DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
 #endif
@@ -2623,9 +3137,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            DDLogError(@"Command key is pressed and forbidden, SEB cannot restart");
-            quittingMyself = true; //quit SEB without asking for confirmation or password
-            [NSApp terminate: nil]; //quit SEB
+            DDLogError(@"Command key is pressed and forbidden, SEB cannot continue");
+            [self requestedExit:nil]; // Quit SEB
         } else {
             DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
         }
@@ -2634,7 +3147,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 
 // Check if the Force Quit window is open
-- (void)forceQuitWindowCheck
+- (BOOL)forceQuitWindowCheckContinue
 {
     while ([self forceQuitWindowOpen]) {
         // Show alert that the Force Quit window is open
@@ -2642,7 +3155,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             DDLogError(@"Show error message and ask user to close it or quit SEB.");
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
@@ -2658,11 +3171,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 {
                     // Quit SEB
                     DDLogError(@"Force Quit window was open, user decided to quit SEB.");
-                    quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
+                    [self requestedExit:nil]; // Quit SEB
+                    return NO;
                 }
             }
     }
+    return YES;
 }
 
 
@@ -3047,10 +3561,13 @@ bool insideMatrix(){
 conditionallyForWindow:(NSWindow *)window
      completionHandler:(void (^)(NSModalResponse returnCode))handler
 {
-    if (@available(macOS 11.0, *)) {
-        if (_isAACEnabled || _wasAACEnabled) {
-            [alert beginSheetModalForWindow:window completionHandler:(void (^)(NSModalResponse answer))handler];
-            return;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (_isAACEnabled || _wasAACEnabled) {
+                [alert beginSheetModalForWindow:window completionHandler:(void (^)(NSModalResponse answer))handler];
+                return;
+            }
         }
     }
     NSModalResponse answer = [alert runModal];
@@ -3105,7 +3622,7 @@ conditionallyForWindow:(NSWindow *)window
             [self openLockdownWindows];
             
             // Add log string for resign active
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime repeated:NO];
             
         }
         
@@ -3118,9 +3635,6 @@ conditionallyForWindow:(NSWindow *)window
             
             DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
             
-            // Add log string for becoming active
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
-            
             // Calculate time difference between session resigning active and becoming active again
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
             NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
@@ -3129,7 +3643,9 @@ conditionallyForWindow:(NSWindow *)window
                                                         options:NSCalendarWrapComponents];
             NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
             DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockedTimeInfo] withTime:nil];
+            
+            // Add log string for becoming active
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil), lockedTimeInfo] withTime:self.didBecomeActiveTime repeated:NO];
         }
         
         // Handler called when attempting to re-open an exam which was interrupted before
@@ -3146,7 +3662,7 @@ conditionallyForWindow:(NSWindow *)window
                                                                  ]];
             
             // Add log string for trying to re-open a locked exam
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:self.didBecomeActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             
             [self openLockdownWindows];
         }
@@ -3177,7 +3693,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Add log string for screen sharing active
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
@@ -3185,7 +3701,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for screen sharing still active
                 if (!self->screenSharingLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->screenSharingLogCounter = logReportCounter;
                 }
             }
@@ -3214,7 +3730,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Add log string for Siri active
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForSiri.hidden = false;
@@ -3222,7 +3738,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for Siri still active
                 if (!self->siriLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->siriLogCounter = logReportCounter;
                 }
             }
@@ -3251,7 +3767,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Add log string for dictation active
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForDictation.hidden = false;
@@ -3259,7 +3775,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for dictation still active
                 if (!self->dictationLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->dictationLogCounter = logReportCounter;
                 }
             }
@@ -3291,7 +3807,7 @@ conditionallyForWindow:(NSWindow *)window
                 if (self.overriddenProhibitedProcesses.count > 0) {
                 }
                 // Add log string for prohibited process detected
-                [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime];
+                [self appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
@@ -3300,7 +3816,7 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 // Add log string for detected prohibited process
                 if (!self->prohibitedProcessesLogCounter--) {
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:self.didBecomeActiveTime repeated:YES];
                     self->prohibitedProcessesLogCounter = logReportCounter;
                 }
             }
@@ -3322,7 +3838,7 @@ conditionallyForWindow:(NSWindow *)window
                                                        fromDate:self->timeProcessCheckBeforeSIGSTOP
                                                          toDate:self.didBecomeActiveTime
                                                         options:NSCalendarWrapComponents];
-            [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime repeated:NO];
             
             if (!self.lockdownWindows) {
                 [self openLockdownWindows];
@@ -3360,7 +3876,7 @@ conditionallyForWindow:(NSWindow *)window
                         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
                                                                     Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
                     }
-                    [self.sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime];
+                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime repeated:NO];
                     
                     if (self.builtinDisplayEnforceOverride == false) {
                         [self openLockdownWindows];
@@ -3381,22 +3897,61 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         
+        // Handler called when dictation was detected
+        
+        else if ([[notification name] isEqualToString:
+                  @"proctoringFailed"])
+        {
+            self.proctoringFailedDetected = YES;
+            // Set custom alert message string
+            NSString *proctoringFailedErrorString = [notification.userInfo objectForKey:NSLocalizedFailureReasonErrorKey];
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Proctoring Error Locked SEB!", @"Lockdown alert title text for proctoring failure")
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
+            self.sebLockedViewController.retryButton.hidden = NO;
+            
+            // Add log string for proctoring failed
+            [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime repeated:self.zoomUserRetryWasUsed];
+            
+            [self openLockdownWindows];
+        }
+
     });
 }
 
-
-- (void) conditionallyLockExam
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime repeated:(BOOL)repeated
 {
-    if ([_sebLockedViewController isStartingLockedExam]) {
+    if (!repeated &&
+        (_establishingSEBServerConnection || _sebServerConnectionEstablished)) {
+        NSInteger notificationID = [self.serverController sendLockscreenWithMessage:[NSString stringWithFormat:@"%@", errorString]];
+        NSNumber *notificationIDNumber = [NSNumber numberWithInteger:notificationID];
+        [self.sebServerPendingLockscreenEvents addObject:notificationIDNumber];
+    }
+    [self.sebLockedViewController appendErrorString:errorString withTime:errorTime];
+}
+
+- (NSMutableArray *) sebServerPendingLockscreenEvents
+{
+    if (!_sebServerPendingLockscreenEvents) {
+        _sebServerPendingLockscreenEvents = [NSMutableArray new];
+    }
+    return _sebServerPendingLockscreenEvents;
+}
+
+
+- (BOOL) conditionallyLockExam:(NSString *)examURLString
+{
+    if ([_sebLockedViewController isStartingLockedExam:examURLString]) {
         if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedReOpeningExam" object:self];
+            return YES;
         } else {
             // Remove a previously locked exam
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
-            [_sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
+            [_sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString]];
         }
     }
+    return NO;
 }
 
 
@@ -3412,6 +3967,18 @@ conditionallyForWindow:(NSWindow *)window
         lockdownModalSession = [NSApp beginModalSessionForWindow:self.lockdownWindows[0]];
         [NSApp runModalSession:lockdownModalSession];
     }
+}
+
+
+- (void) retryButtonPressed
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+- (void) successfullyRetriedToConnect
+{
+    _proctoringFailedDetected = NO;
+    [self conditionallyCloseLockdownWindows];
 }
 
 
@@ -3431,88 +3998,106 @@ conditionallyForWindow:(NSWindow *)window
         _sebLockedViewController.overrideCheckForSiri.hidden &&
         _sebLockedViewController.overrideCheckForDictation.hidden &&
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
-        _sebLockedViewController.overrideCheckForAllProcesses.hidden) {
+        _sebLockedViewController.overrideCheckForAllProcesses.hidden &&
+        !_proctoringFailedDetected) {
         DDLogDebug(@"%s: close lockdown windows", __FUNCTION__);
-        [self closeLockdownWindows];
+        [self closeLockdownWindowsAllowOverride:YES];
     }
 }
 
-- (void) closeLockdownWindows
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride
 {
-    DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
+    if (self.lockdownWindows) {
+        DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
 
-    [NSApp endModalSession:lockdownModalSession];
+        [NSApp endModalSession:lockdownModalSession];
 
-    if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
-        DDLogInfo(@"%s: overrideCheckForScreenSharing selected", __FUNCTION__);
-        _screenSharingCheckOverride = true;
-        _sebLockedViewController.overrideCheckForScreenSharing.state = false;
-        _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
-    }
-
-    if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
-        DDLogInfo(@"%s: overrideEnforcingBuiltinScreen selected", __FUNCTION__);
-        _builtinDisplayEnforceOverride = true;
-        _builtinDisplayNotAvailableDetected = false;
-        _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
-        _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
-    }
-
-    if (_sebLockedViewController.overrideCheckForSiri.state == true) {
-        DDLogInfo(@"%s: overrideCheckForSiri selected", __FUNCTION__);
-        _siriCheckOverride = true;
-        _sebLockedViewController.overrideCheckForSiri.state = false;
-        _sebLockedViewController.overrideCheckForSiri.hidden = true;
-    }
-    
-    if (_sebLockedViewController.overrideCheckForDictation.state == true) {
-        DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
-        _dictationCheckOverride = true;
-        _sebLockedViewController.overrideCheckForDictation.state = false;
-        _sebLockedViewController.overrideCheckForDictation.hidden = true;
-    }
-    
-    if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
-        DDLogInfo(@"%s: overrideCheckForSpecifcProcesses selected", __FUNCTION__);
-        _processCheckSpecificOverride = true;
-        if (_runningProhibitedProcesses.count > 0) {
-            if (!_overriddenProhibitedProcesses) {
-                _overriddenProhibitedProcesses = _runningProhibitedProcesses.mutableCopy;
-            } else {
-                [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
-            }
-            // Check if overridden processes are prohibited BSD processes from settings
-            // and remove them from list the periodically called process watcher checks
-            [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
-            DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, _overriddenProhibitedProcesses);
+        if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
+            DDLogInfo(@"%s: overrideCheckForScreenSharing selected", __FUNCTION__);
+            _screenSharingCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForScreenSharing.state = false;
+            _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
         }
-        _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-        _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+
+        if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
+            DDLogInfo(@"%s: overrideEnforcingBuiltinScreen selected", __FUNCTION__);
+            if (allowOverride) {
+                _builtinDisplayEnforceOverride = true;
+                _builtinDisplayNotAvailableDetected = false;
+            }
+            _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
+            _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
+        }
+
+        if (_sebLockedViewController.overrideCheckForSiri.state == true) {
+            DDLogInfo(@"%s: overrideCheckForSiri selected", __FUNCTION__);
+            _siriCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForSiri.state = false;
+            _sebLockedViewController.overrideCheckForSiri.hidden = true;
+        }
+        
+        if (_sebLockedViewController.overrideCheckForDictation.state == true) {
+            DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
+            _dictationCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForDictation.state = false;
+            _sebLockedViewController.overrideCheckForDictation.hidden = true;
+        }
+        
+        if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
+            DDLogInfo(@"%s: overrideCheckForSpecifcProcesses selected", __FUNCTION__);
+            if (allowOverride) {
+                _processCheckSpecificOverride = true;
+                if (_runningProhibitedProcesses.count > 0) {
+                    if (!_overriddenProhibitedProcesses) {
+                        _overriddenProhibitedProcesses = _runningProhibitedProcesses.mutableCopy;
+                    } else {
+                        [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
+                    }
+                    // Check if overridden processes are prohibited BSD processes from settings
+                    // and remove them from list the periodically called process watcher checks
+                    [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
+                    DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, _overriddenProhibitedProcesses);
+                }
+            }
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+        }
+        
+        if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
+            DDLogInfo(@"%s: overrideCheckForAllProcesses selected", __FUNCTION__);
+            _processCheckAllOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForAllProcesses.state = false;
+            _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+        }
+        
+        if (_screenSharingCheckOverride == false) {
+            _screenSharingDetected = false;
+        }
+        lastTimeProcessCheck = [NSDate date];
+        _SIGSTOPDetected = false;
+        
+        if (allowOverride) {
+            DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
+            if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+                DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
+                _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+                [self quitSEBOrSession];
+            }
+        } else {
+            _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+        }
+
+        _proctoringFailedDetected = NO;
+        _zoomUserRetryWasUsed = NO;
+        _sebLockedViewController.retryButton.hidden = YES;
+        [self.sebServerPendingLockscreenEvents removeAllObjects];
+        
+        [_sebLockedViewController.view removeFromSuperview];
+        [self closeCoveringWindows:self.lockdownWindows];
+        self.lockdownWindows = nil;
+    } else {
+        DDLogDebug(@"%s but there are no open lockdown windows anymore, returning.", __FUNCTION__);
     }
-    
-    if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
-        DDLogInfo(@"%s: overrideCheckForAllProcesses selected", __FUNCTION__);
-        _processCheckAllOverride = true;
-        _sebLockedViewController.overrideCheckForAllProcesses.state = false;
-        _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
-    }
-    
-    if (_screenSharingCheckOverride == false) {
-        _screenSharingDetected = false;
-    }
-    lastTimeProcessCheck = [NSDate date];
-    _SIGSTOPDetected = false;
-    
-    DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
-    if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
-        DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
-        _sebLockedViewController.quitInsteadUnlockingButton.state = false;
-        [self quitSEBOrSession];
-    }
-    
-    [_sebLockedViewController.view removeFromSuperview];
-    [self closeCoveringWindows:self.lockdownWindows];
-    self.lockdownWindows = nil;
 }
 
 
@@ -3778,7 +4363,11 @@ conditionallyForWindow:(NSWindow *)window
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedProhibitedProcess" object:self];
         } else {
-            DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            if (appLocalizedName && [appLocalizedName isEqualToString:WebKitNetworkingProcess]) {
+                DDLogVerbose(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            } else {
+                DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+            }
             if (appURL) {
                 // Add the app's file URL, so we can restart it when exiting SEB
                 [_terminatedProcessesExecutableURLs addObject:appURL];
@@ -3816,9 +4405,14 @@ conditionallyForWindow:(NSWindow *)window
             appURL = [self getBundleOrExecutableURL:application];
             [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
         } else {
-            appURL = [NSURL fileURLWithPath:[ProcessManager getExecutablePathForPID:processPID] isDirectory:NO];
+            NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
+            if (executablePath) {
+                appURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
+            }
         }
-        [processDetails setValue:appURL forKey:@"URL"];
+        if (appURL) {
+            [processDetails setValue:appURL forKey:@"URL"];
+        }
     }
     
     NSInteger killSuccess = ERR_SUCCESS;
@@ -3885,8 +4479,14 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) updateAACAvailablility
 {
-    if (@available(macOS 10.15.4, *)) {
-        DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+
+    if ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) ||
+        (currentOSMajorVersion == 11 && currentOSMinorVersion >= 4) ||
+        currentOSMajorVersion > 11) {
+        DDLogDebug(@"Running on macOS 10.15.4-11.0 or >11.4, may use AAC if allowed in current settings.");
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] && !_overrideAAC;
     } else {
         _isAACEnabled = NO;
@@ -4098,6 +4698,53 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Setup Main User Interface
 
+- (IBAction) reload:(id)sender
+{
+    [self reloadButtonPressed];
+}
+
+// Customized cut, copy, paste Menu commands
+
+- (IBAction) copy:(id)sender
+{
+    [self.browserController privateCopy:sender];
+}
+
+
+- (IBAction) cut:(id)sender
+{
+    [self.browserController privateCut:sender];
+}
+
+
+- (IBAction) paste:(id)sender
+{
+    [self.browserController privatePaste:sender];
+}
+
+
+// Find the real visible frame of a screen SEB is running on
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen
+{
+    if (!screen) {
+        screen = self.browserController.mainBrowserWindow.screen;
+    }
+    // Get frame of the usable screen (considering if menu bar is enabled)
+    NSRect screenFrame = screen.usableFrame;
+    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+    // Also check if mainBrowserWindow exists, because when starting with a temporary
+    // browser window for loading a seb(s):// link from a authenticated server, there
+    // is no main browser window open yet
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ((!self.browserController.mainBrowserWindow || screen == self.browserController.mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        screenFrame.origin.y += dockHeight;
+        screenFrame.size.height -= dockHeight;
+    }
+    return screenFrame;
+}
+
+
 // Set up and display SEB Dock
 - (void) openSEBDock
 {
@@ -4115,13 +4762,14 @@ conditionallyForWindow:(NSWindow *)window
         self.dockController = newDockController;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
-            SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
+            SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
                                                                      icon:[NSApp applicationIconImage]
                                                           highlightedIcon:[NSApp applicationIconImage]
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
-                                                                   action:@selector(buttonPressed)];
+                                                                   action:@selector(buttonPressed)
+                                                          secondaryAction:nil];
             [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
         }
         
@@ -4136,7 +4784,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Quit SEB",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(quitButtonPressed)];
+                                                                        action:@selector(quitButtonPressed)
+                                                               secondaryAction:nil];
             [rightDockItems addObject:dockItemShutDown];
         }
         
@@ -4149,6 +4798,62 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
+        if (ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
+            ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
+//            ProctoringIconDefaultState.template = YES;
+            ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
+            ProctoringIconNormalState = [NSImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+            ProctoringIconColorNormalState = [NSColor systemGreenColor];
+//            ProctoringBadgeNormalState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeCheckmark"].CGImage];
+            ProctoringIconWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ProctoringIconColorWarningState = [NSColor systemOrangeColor];
+//            ProctoringBadgeWarningState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeWarning"].CGImage];
+            ProctoringIconErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ProctoringIconColorErrorState = [NSColor systemRedColor];
+//            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
+
+            NSUInteger remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
+            BOOL allowToggleProctoringView = (remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToHide ||
+                                              remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
+
+            SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                                       toolTip:allowToggleProctoringView ?
+                                                   NSLocalizedString(@"Toggle Proctoring View",nil) :
+                                                   NSLocalizedString(@"Remote Proctoring",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(toggleProctoringViewVisibility)
+                                                                     secondaryAction:nil];
+            [rightDockItems addObject:dockItemProctoringView];
+        }
+        
+        if (([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
+            _establishingSEBServerConnection || _sebServerConnectionEstablished) &&
+            ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"] &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonShow"]) {
+            RaisedHandIconDefaultState = [NSImage imageNamed:@"SEBRaiseHandIcon"];
+            RaisedHandIconColorDefaultState = nil;
+//            RaisedHandIconDefaultState.template = YES;
+            if (@available(macOS 10.14, *)) {
+                RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised"];
+                RaisedHandIconRaisedState.template = YES;
+                RaisedHandIconColorRaisedState = [NSColor systemYellowColor];
+            } else {
+                RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised_yellow"];
+            }
+            SEBDockItem *dockItemRaiseHand = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
+                                                                       toolTip:NSLocalizedString(@"Raise Hand",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                         action:@selector(toggleRaiseHand)
+                                                                secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
+            [rightDockItems addObject:dockItemRaiseHand];
+        }
+        
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showBackToStartButton"] &&
             ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
@@ -4163,11 +4868,14 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:restartButtonToolTip
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(restartButtonPressed)];
+                                                                        action:@selector(restartButtonPressed)
+                                                               secondaryAction:nil];
             [rightDockItems addObject:dockItemSkipBack];
         }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
+            ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
+             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
@@ -4175,7 +4883,8 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(reloadButtonPressed)];
+                                                                        action:@selector(reloadButtonPressed)
+                                                             secondaryAction:nil];
             [rightDockItems addObject:dockItemReload];
         }
         
@@ -4196,10 +4905,23 @@ conditionallyForWindow:(NSWindow *)window
             if (dockButton.action == @selector(reloadButtonPressed)) {
                 _dockButtonReload = dockButton;
             }
+            if (dockButton.action == @selector(toggleProctoringViewVisibility)) {
+                _dockButtonProctoringView = dockButton;
+//                _dockButtonProctoringView.image.template = YES;
+                _dockButtonProctoringView.bezelStyle = NSBezelStyleInline;
+                _dockButtonProctoringView.bordered = NO;
+            }
+            if (dockButton.action == @selector(toggleRaiseHand)) {
+                _dockButtonRaiseHand = dockButton;
+//                _dockButtonRaiseHand.image.template = YES;
+                _dockButtonRaiseHand.bezelStyle = NSBezelStyleInline;
+                _dockButtonRaiseHand.bordered = NO;
+            }
         }
         
         // Display the dock
         [self.dockController showDockOnScreen:_mainScreen];
+        [self.dockController.window recalculateKeyViewLoop];
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");
@@ -4309,7 +5031,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     // Post a notification that SEB should conditionally quit
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestExitNotification" object:self];
+     postNotificationName:@"requestQuitNotification" object:self];
 }
 
 
@@ -4330,9 +5052,12 @@ conditionallyForWindow:(NSWindow *)window
         window = nil;
     }
     
-    if (@available(macOS 11.0, *)) {
-        if (!window && (_isAACEnabled || _wasAACEnabled)) {
-            window = self.browserController.mainBrowserWindow;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (!window && (_isAACEnabled || _wasAACEnabled)) {
+                window = self.browserController.mainBrowserWindow;
+            }
         }
     }
 
@@ -4358,8 +5083,16 @@ conditionallyForWindow:(NSWindow *)window
 
     [enterPasswordDialog setAttributedStringValue:text];
     
+    NSWindow *windowToShowModalFor;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            windowToShowModalFor = window;
+        }
+    }
+    
     [NSApp beginSheet: enterPasswordDialogWindow
-       modalForWindow: window
+       modalForWindow: windowToShowModalFor
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
@@ -4421,9 +5154,12 @@ conditionallyForWindow:(NSWindow *)window
         [_modalAlertWindows addObject:enterPasswordDialogWindow];
     }
     
-    if (@available(macOS 11.0, *)) {
-        if (!window && (_isAACEnabled || _wasAACEnabled)) {
-            window = self.browserController.mainBrowserWindow;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (!window && (_isAACEnabled || _wasAACEnabled)) {
+                window = self.browserController.mainBrowserWindow;
+            }
         }
     }
 
@@ -4476,16 +5212,6 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_11) {
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Available From macOS 10.11", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [modalAlert runModal];
-            [self removeAlertWindow:modalAlert.window];
-            return;
-        }
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
@@ -4533,16 +5259,22 @@ conditionallyForWindow:(NSWindow *)window
         } else {
             // Show preferences window
             DDLogDebug(@"openPreferences: Preferences already open, just show Window");
-            if (@available(macOS 11.0, *)) {
-                // Release preferences window so buttons get enabled properly for the local client settings mode
-                [self.preferencesController releasePreferencesWindow];
-                // Re-initialize and open preferences window
-                [self.preferencesController initPreferencesWindow];
-                [self.preferencesController reopenPreferencesWindow];
-            }
+            // Release preferences window so buttons get enabled properly for the local client settings mode
+            [self.preferencesController releasePreferencesWindow];
+            // Re-initialize and open preferences window
+            [self.preferencesController initPreferencesWindow];
+            [self.preferencesController reopenPreferencesWindow];
             [self.preferencesController showPreferencesWindow:nil];
         }
     }
+}
+
+
+- (void)closePreferencesWindow
+{
+    // Release preferences window so buttons get enabled properly for the local client settings mode
+    [self.preferencesController releasePreferencesWindow];
+    [self.preferencesController initPreferencesWindow];
 }
 
 
@@ -4628,15 +5360,116 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (void) requestedShowAbout:(NSNotification *)notification
+{
+    [self showAbout:self];
+}
+
+- (IBAction)showAbout:(id)sender
+{
+    if (_alternateKeyPressed == NO) {
+        [self.aboutWindow setStyleMask:NSBorderlessWindowMask];
+        [self.aboutWindow center];
+        //[self.aboutWindow orderFront:self];
+        //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
+        [[NSApplication sharedApplication] runModalForWindow:self.aboutWindow];
+    }
+}
+
+
+- (void) requestedShowHelp:(NSNotification *)notification
+{
+    [self showHelp:self];
+}
+
+
+// Load manual page URL in new browser window
+- (IBAction) showHelp: (id)sender
+{
+    NSString *urlString = SEBHelpPage;
+    // Open new browser window containing WebView and show it
+    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString]];
+}
+
+
+- (void) closeDocument:(id)document
+{
+    [document close];
+}
+
+
+#pragma mark - Quitting/Restarting Sessions and SEB
+
+- (IBAction) requestedQuit:(id)sender
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    // Load quitting preferences from the system's user defaults database
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
+        NSWindow *currentMainWindow = self.browserController.mainBrowserWindow;
+        if ([self.preferencesController preferencesAreOpen] ) {
+            currentMainWindow = self.preferencesController.preferencesWindow;
+            DDLogDebug(@"Preferences are open, displaying according alerts as sheet on window %@", currentMainWindow);
+        }
+        // if quitting SEB is allowed
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
+        if (![hashedQuitPassword isEqualToString:@""]) {
+            DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
+            // if quit password is set, then restrict quitting
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:", nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+            NSString *password = [self.enterPassword stringValue];
+            
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                // if the correct quit password was entered
+                DDLogInfo(@"Correct quit password entered");
+                [self quitSEBOrSession]; // Quit SEB or the exam session
+
+            } else {
+                // Wrong quit password was entered
+                DDLogInfo(@"Wrong quit password entered");
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit.", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+            }
+        } else {
+            // If no quit password is required, then confirm quitting, with default option "Quit"
+            [self sessionQuitRestartIgnoringQuitPW:NO];
+        }
+    }
+}
+
+
+- (void) quitLinkDetected:(NSNotification *)notification
+{
+    DDLogInfo(@"Quit Link invoked");
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+        [self sessionQuitRestartIgnoringQuitPW:restart];
+    } else {
+        [self sessionQuitRestart:restart];
+    }
+}
+
+
 // Confirm quitting, with default option "Quit"
-- (void)requestedQuitWPwd:(NSNotification *)notification
+- (void)sessionQuitRestartIgnoringQuitPW:(BOOL)restart
 {
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
-    [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?", nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil))];
+    [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSWarningAlertStyle];
     void (^quitSEBAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -4648,13 +5481,13 @@ conditionallyForWindow:(NSWindow *)window
                     DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
-                    DDLogInfo(@"Confirmed to quit, terminate now");
-                    self->quittingMyself = true; //quit SEB without asking for confirmation or password
-                    [NSApp terminate: nil]; //quit SEB
+                    DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
+                    [self sessionQuitRestart:restart];
                 }
                 return;
             default:
             {
+                DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
                 return; //Cancel: don't quit
             }
         }
@@ -4663,10 +5496,96 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)requestedQuit:(NSNotification *)notification
+// Quit or restart session without asking for confirmation
+
+- (void) sessionQuitRestart:(BOOL)restart
 {
-    quittingMyself = true; //quit SEB without asking for confirmation or password
-    [NSApp terminate: nil]; //quit SEB
+    _openingSettings = NO;
+    
+    [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+        [self didCloseSEBServerConnectionRestart:restart];
+    }];
+}
+
+
+- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
+{
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
+        self.establishingSEBServerConnection = NO;
+        self.startingExamFromSEBServer = NO;
+        [self.serverController loginToExamAbortedWithCompletion:completion];
+    } else if (self.sebServerConnectionEstablished) {
+        self.sebServerConnectionEstablished = NO;
+        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
+            completion(restart);
+        }];
+    } else {
+        completion(restart);
+    }
+}
+
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    _establishingSEBServerConnection = NO;
+    if (restart) {
+        [self requestedRestart:nil];
+    } else {
+        [self quitSEBOrSession];
+    }
+}
+
+
+- (void)requestedExit:(NSNotification *)notification
+{
+    [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+
+        // Stop/Reset proctoring
+        [self stopProctoringWithCompletion:^{
+            [self exitSEB];
+        }];
+    }];
+}
+
+- (void)exitSEB
+{
+    quittingMyself = YES; //quit SEB without asking for confirmation or password
+
+    if (_browserController) {
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        [self.browserController resetAllCookiesWithCompletionHandler:^{
+            [NSApp terminate: nil]; //quit (exit) SEB
+        }];
+    } else {
+        [NSApp terminate: nil]; //quit (exit) SEB
+    }
+}
+
+
+- (BOOL) quittingSession
+{
+    BOOL examSession = NSUserDefaults.userDefaultsPrivate;
+    BOOL secureClientSession = NO;
+    if (examSession) {
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+    }
+    return !_startingUp && examSession && secureClientSession && !_openedURL;
+}
+
+
+- (void) quitSEBOrSession
+{
+    DDLogDebug(@"[SEBController quitSEBOrSession]");
+    if (self.quittingSession) {
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        [self updateAACAvailablility];
+        [self requestedRestart:nil];
+    } else {
+        [self requestedExit:nil];
+    }
 }
 
 
@@ -4675,6 +5594,7 @@ conditionallyForWindow:(NSWindow *)window
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
     _conditionalInitAfterProcessesChecked = NO;
+    _openedURL = NO;
 
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
@@ -4692,16 +5612,18 @@ conditionallyForWindow:(NSWindow *)window
 
     // Reset SEB Browser
     [self.browserController resetBrowser];
-
-//    NSApp.presentationOptions = NSApplicationPresentationDisableForceQuit + NSApplicationPresentationHideDock;
-
+    
     // Clear private pasteboard
-    self.browserController.privatePasteboardItems = [NSArray array];
+    [self.browserController clearPrivatePasteboard];
     
-    // Re-Initialize file logger if logging enabled
-    [self initializeLogger];
-    
-    [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+    // Stop/Reset proctoring
+    [self stopProctoringWithCompletion:^{
+        run_on_ui_thread(^{
+            // Re-Initialize file logger if logging enabled
+            [self initializeLogger];
+            [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+        });
+    }];
 }
 
 - (void)requestedRestartProcessesChecked
@@ -4744,16 +5666,7 @@ conditionallyForWindow:(NSWindow *)window
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     
-    [self.browserController openMainBrowserWindow];
-
-    // Persist start URL of a "secure" exam
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
-        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        [self.sebLockedViewController addLockedExam:currentExamStartURL];
-    } else {
-        currentExamStartURL = nil;
-    }
+    [self startExam];
 
     // Adjust screen locking
     [self adjustScreenLocking:nil];
@@ -4774,104 +5687,11 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) requestedShowAbout:(NSNotification *)notification
-{
-    [self showAbout:self];
-}
-
-- (IBAction)showAbout:(id)sender
-{
-    if (_alternateKeyPressed == NO) {
-        [self.aboutWindow setStyleMask:NSBorderlessWindowMask];
-        [self.aboutWindow center];
-        //[self.aboutWindow orderFront:self];
-        //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
-        [[NSApplication sharedApplication] runModalForWindow:self.aboutWindow];
-    }
-}
-
-
-- (void) requestedShowHelp:(NSNotification *)notification
-{
-    [self showHelp:self];
-}
-
-- (IBAction) showHelp: (id)sender
-{
-    // Open new browser window containing WebView and show it
-    SEBWebView *newWebView = [self.browserController openAndShowWebView];
-    // Load manual page URL in new browser window
-    NSString *urlText = SEBHelpPage;
-	[[newWebView mainFrame] loadRequest:
-     [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
-}
-
-
-- (void) closeDocument:(id)document
-{
-    [document close];
-}
-
-- (void) switchPluginsOn:(NSNotification *)notification
-{
-#ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-    [[self.webView preferences] setPlugInsEnabled:YES];
-#endif
-}
-
-
 #pragma mark - Action and Application Delegates for Quitting SEB
 
-- (IBAction) exitSEB:(id)sender
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    // Load quitting preferences from the system's user defaults database
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
-        NSWindow *currentMainWindow = self.browserController.mainBrowserWindow;
-        if ([self.preferencesController preferencesAreOpen] ) {
-            currentMainWindow = self.preferencesController.preferencesWindow;
-            DDLogDebug(@"Preferences are open, displaying according alerts as sheet on window %@", currentMainWindow);
-        }
-        // if quitting SEB is allowed
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
-        if (![hashedQuitPassword isEqualToString:@""]) {
-            DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
-            // if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil) modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
-            NSString *password = [self.enterPassword stringValue];
-            
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-                // if the correct quit password was entered
-                DDLogInfo(@"Correct quit password entered");
-                quittingMyself = true; //quit SEB without asking for confirmation or password
-                [NSApp terminate: nil]; //quit SEB
-            } else {
-                // Wrong quit password was entered
-                DDLogInfo(@"Wrong quit password entered");
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [modalAlert setAlertStyle:NSWarningAlertStyle];
-                void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
-            }
-        } else {
-            // If no quit password is required, then confirm quitting, with default option "Quit"
-            [self requestedQuitWPwd:nil];
-        }
-    }
-}
-
-
 // Called when SEB should be terminated
-- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
+- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
+{
 	if (quittingMyself) {
         DDLogDebug(@"%s: quttingMyself = true", __FUNCTION__);
         if (_isAACEnabled && _wasAACEnabled && !_isTerminating) {
@@ -4897,7 +5717,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) terminateSEB
 {
     DDLogInfo(@"Terminating SEB after ending Assessment Mode");
-    [NSApp terminate: nil];
+    [self exitSEB];
 }
 
 
@@ -4912,29 +5732,14 @@ conditionallyForWindow:(NSWindow *)window
         [self.browserController closeAllBrowserWindows];
     }
     
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket.
-    // OS X 10.9 and newer
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            DDLogInfo(@"Cookies, caches and credential stores were reset");
-        }];
-    } else {
-        DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
+    // If this was a secured exam, we remove it from the list of running exams,
+    // otherwise it would be locked next time it is started again
+    if (currentExamStartURL) {
+        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
-
-    if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
-        NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil),
-                                        [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
-        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-            [self removeAlertWindow:modalAlert.window];
-            [self applicationWillTerminateProceed];
-        };
-        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+    
+    if (enforceMinMacOSVersion) {
+        [self applicationWillTerminateProceed];
     } else if (_forceAppFolder) {
         // Show alert that SEB is not placed in Applications folder
         NSString *applicationsDirectoryName = @"Applications";
@@ -4999,12 +5804,6 @@ conditionallyForWindow:(NSWindow *)window
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] == NO) {
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         [self killTouchBarAgent];
-    }
-    
-    // If this was a secured exam, we remove it from the list of running exams,
-    // otherwise it would be locked next time it is started again
-    if (currentExamStartURL) {
-        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
     // Restart terminated apps
@@ -5087,7 +5886,7 @@ conditionallyForWindow:(NSWindow *)window
             {
                 case NSAlertFirstButtonReturn:
                     [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences isDirectory:NO]];
-                    DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
+                    DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
                     return;
                 default:
                 {
@@ -5096,7 +5895,7 @@ conditionallyForWindow:(NSWindow *)window
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))cannotRestoreTouchBarAlertOK];
     } else {
-        DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
+        DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
     }
 }
 
@@ -5109,7 +5908,7 @@ conditionallyForWindow:(NSWindow *)window
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    DDLogDebug(@"Value for key path %@ changed: %@", keyPath, change);
+    DDLogVerbose(@"Value for key path %@ changed: %@", keyPath, change);
     
     // If the startKioskMode method changed presentation options, then we don't do nothing here
     if (_isAACEnabled == NO && _wasAACEnabled == NO && [keyPath isEqualToString:@"currentSystemPresentationOptions"]) {
@@ -5117,40 +5916,16 @@ conditionallyForWindow:(NSWindow *)window
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
             return;
         }
-        
         // Current Presentation Options changed, so make SEB active and reset them
-        // Load preferences from the system's user defaults database
+        // If plugins are enabled and there is a Flash view in the webview ...
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-        DDLogInfo(@"currentSystemPresentationOptions changed!");
-        // If plugins are enabled and there is a Flash view in the webview ...
-        if ([[self.webView preferences] arePlugInsEnabled]) {
-            NSView* flashView = [self.browserController.mainBrowserWindow findFlashViewInView:webView];
-            if (flashView) {
-                if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
-                    // and either third party Apps or Flash fullscreen is allowed
-                    //... then we switch plugins off and on again to prevent
-                    //the security risk Flash full screen video
-#ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-                    [[self.webView preferences] setPlugInsEnabled:NO];
-                    [[self.webView preferences] setPlugInsEnabled:YES];
-#endif
-                } else {
-                    //or we set the flag that Flash tried to switch presentation options
-                    [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:YES];
-                }
-            }
-        }
-        //[self startKioskMode];
-        //We don't reset the browser window size and position anymore
-        //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentRunning) {
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             [self regainActiveStatus:nil];
-            //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
     } else if (_isAACEnabled == NO && _wasAACEnabled == NO && [keyPath isEqualToString:@"isActive"]) {
         DDLogWarn(@"isActive property of SEB changed!");
@@ -5161,10 +5936,25 @@ conditionallyForWindow:(NSWindow *)window
             NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
             for (NSRunningApplication *startedApplication in startedProcesses) {
                 NSString *bundleID = startedApplication.bundleIdentifier;
-                DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                if (bundleID && [bundleID isEqualToString:WebKitNetworkingProcess]) {
+                    DDLogVerbose(@"Started application with bundle ID: %@", bundleID);
+                } else {
+                    DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                }
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
                 NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {
+                    if ([bundleID isEqualToString:WebKitNetworkingProcess]) {
+                        pid_t processPID = startedApplication.processIdentifier;
+                        typedef pid_t (*pidResolver)(pid_t pid);
+                        pidResolver resolver = dlsym(RTLD_NEXT, "responsibility_get_pid_responsible_for_pid");
+                        pid_t trueParentPid = resolver(processPID);
+                        DDLogVerbose(@"PID: %d - Bundle ID: %@ - True Parent PID: %d", processPID, bundleID, trueParentPid);
+                        if (trueParentPid == sebPID) {
+                            DDLogDebug(@"Not terminating instance of WebKit networking process started by SEB");
+                            return;
+                        }
+                    }
                     [self killApplication:startedApplication];
                 }
             }

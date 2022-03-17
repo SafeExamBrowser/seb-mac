@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Jitsi Meet Features</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Chat</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagChat</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Raise Hand</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagRaiseHand</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Tile View</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagTileView</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Close Captions</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagCloseCaptions</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Display Meeting Name</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetFeatureFlagDisplayMeetingName</string>
+		</dict>
+	</array>
+</dict>
+</plist>

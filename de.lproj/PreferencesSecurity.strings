@@ -142,6 +142,9 @@
 /* Class = "NSMenuItem"; title = "Directory"; ObjectID = "FaM-aF-JR1"; */
 "FaM-aF-JR1.title" = "Verzeichnis";
 
+/* Class = "NSBox"; title = "Allow running from macOS version"; ObjectID = "fbv-Hd-X6P"; */
+"fbv-Hd-X6P.title" = "Erlaube Benutzung ab macOS-Version";
+
 /* Class = "NSButton"; ibShadowedToolTip = "SEB displays a lock screen (requiring to enter the quit/unlock password) if it detects that its process was stopped, which can indicate manipulation"; ObjectID = "FHY-jc-rXS"; */
 "FHY-jc-rXS.ibShadowedToolTip" = "SEB zeigt einen Sperrbildschirm an (Entsperren mittels Beenden/Entsperren-Passwort), wenn sein Prozess unterbrochen wurde, was auf eine Manipulation hindeuten kann";
 
@@ -196,6 +199,9 @@
 /* Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3"; */
 "JRL-fG-lI3.title" = "Programmumschalter während Start verbieten";
 
+/* Class = "NSTextFieldCell"; title = "Patch version number"; ObjectID = "jtH-LC-r6t"; */
+"jtH-LC-r6t.title" = "Patch-Versionsnummer";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used (VNC based) and Windows remote session (RDP)"; ObjectID = "k8Y-ym-LrR"; */
 "k8Y-ym-LrR.ibShadowedToolTip" = "Erlaubt Benutzung der macOS-Bildschirmfreigabe (VNC basiert)";
 
@@ -211,7 +217,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can also be installed in the Applications folder of the current user (~/Applications)"; ObjectID = "KKV-0r-AMe"; */
 "KKV-0r-AMe.ibShadowedToolTip" = "SEB darf auch im Verzeichnis Programme des aktuellen Benutzers installiert sein (~/Programme)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "The Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4. It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) "; ObjectID = "krs-I7-LT9"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4 (except macOS Big Sur 11.0-11.3). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) "; ObjectID = "krs-I7-LT9"; */
 "krs-I7-LT9.ibShadowedToolTip" = "Der Automatic Assessment Configuration (AAC) Modus ist ab macOS Catalina 10.15.4 verfügbar. Er blockiert verschiedene macOS-Funktionen (diese können nicht optional erlaubt werden, beispielsweise Bildschirmaufzeichnung, Siri und Diktieren)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win)."; ObjectID = "LEn-zs-oJl"; */
@@ -256,6 +262,9 @@
 /* Class = "NSBox"; title = "Allow running from iOS version"; ObjectID = "oIi-XG-JWG"; */
 "oIi-XG-JWG.title" = "Erlaube Benutzung ab iOS-Version";
 
+/* Class = "NSButton"; ibShadowedToolTip = "In addition to major version, check also for allowed minor and patch version number"; ObjectID = "OJb-4n-VN8"; */
+"OJb-4n-VN8.ibShadowedToolTip" = "Minor- und Patch-Versionsnummern zusätzlich zur Major-Version ";
+
 /* Class = "NSButton"; ibShadowedToolTip = "If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)"; ObjectID = "oq3-9u-BrJ"; */
 "oq3-9u-BrJ.ibShadowedToolTip" = "SEB verhindert, dass der Hauptbildschirm auf einen anderen gespiegelt wird (beispielsweise auf einen AirPlay-Monitor)";
 
@@ -295,6 +304,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Allows to use Macs, which don't have a built-in display (like a Mac Mini or Mac Pro), even if enforcing it is enabled"; ObjectID = "Q9f-s0-F1Q"; */
 "Q9f-s0-F1Q.ibShadowedToolTip" = "Nutzung von Macs erlauben, welche kein eingebautes Display besitzen (Mac Mini/Mac Pro), selbst wenn dieses erzwungen wird";
 
+/* Class = "NSTextFieldCell"; title = "Minor version number"; ObjectID = "QDh-CB-5x6"; */
+"QDh-CB-5x6.title" = "Minor-Versionsnummer";
+
 /* Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds"; */
 "qqs-ZA-6ds.ibShadowedToolTip" = "Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können";
 
@@ -328,6 +340,9 @@
 /* Class = "NSButtonCell"; title = "Enable Alt-F4"; ObjectID = "TMW-TW-FOP"; */
 "TMW-TW-FOP.title" = "Alt-F4 erlauben";
 
+/* Class = "NSTextFieldCell"; title = "Major version number"; ObjectID = "ttr-Vj-MUS"; */
+"ttr-Vj-MUS.title" = "Major-Versionsnummer";
+
 /* Class = "NSButtonCell"; title = "Enable F12"; ObjectID = "UcT-h8-nFW"; */
 "UcT-h8-nFW.title" = "F12 erlauben";
 
@@ -356,7 +371,7 @@
 "vh3-YR-Pun.ibShadowedToolTip" = "Diktieren kann mittels der in den Systemeinstellungen/Tastatur/Diktat definierten Tastenkombination (Standard: fn zweimal drücken) aktiviert werden";
 
 /* Class = "NSButtonCell"; title = "Detect when SEB process was stopped"; ObjectID = "WA3-Fp-0nb"; */
-"WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses deaktivieren";
+"WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses detektieren";
 
 /* Class = "NSBox"; title = "SEB Service (Win)"; ObjectID = "wI5-Zh-Qfa"; */
 "wI5-Zh-Qfa.title" = "";
@@ -369,6 +384,9 @@
 
 /* Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1"; */
 "yCu-0c-Hf1.title" = "F4 erlauben";
+
+/* Class = "NSButtonCell"; title = "Check full macOS version number"; ObjectID = "yZ6-jt-n52"; */
+"yZ6-jt-n52.title" = "Vollständige macOS-Versionsnummer überprüfen";
 
 /* Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "ZZ6-sG-BWw"; */
 "ZZ6-sG-BWw.ibShadowedToolTip" = "Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt";

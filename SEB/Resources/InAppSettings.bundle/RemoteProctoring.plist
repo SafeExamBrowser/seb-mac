@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Jitsi Meet Support</string>
+			<key>FooterText</key>
+			<string>Connection details for a Jitsi Meet video conference server and room.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Jitsi Meet</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetEnable</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Server URL</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetServerURL</string>
+			<key>IASKPlaceholder</key>
+			<string>Full URL</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>URL</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>NO</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Room</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetRoom</string>
+			<key>IASKPlaceholder</key>
+			<string>Room Name</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>NO</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Subject</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetSubject</string>
+			<key>IASKPlaceholder</key>
+			<string>Subject Text</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>AutocapitalizationType</key>
+			<string>Sentences</string>
+			<key>AutocorrectionType</key>
+			<string>YES</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Token</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetToken</string>
+			<key>IASKPlaceholder</key>
+			<string>Token String</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>NO</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Jitsi Meet Features</string>
+			<key>File</key>
+			<string>RemoteProctoringFeatures</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Jitsi Meet User Controls</string>
+			<key>FooterText</key>
+			<string>When the proctoring view is displayed (see its display policy below), users can mute and unmute audio and video manually. Audio and video streams can be disabled globally with the settings below.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audio Initially Muted</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetAudioMuted</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Video Initially Muted</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetVideoMuted</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audio Only</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetAudioOnly</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Audio/Video Streams</string>
+			<key>FooterText</key>
+			<string>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Receive Audio</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetReceiveAudio</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Receive Video</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetReceiveVideo</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Send Audio</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetSendAudio</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Send Video</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_jitsiMeetSendVideo</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>AI Proctoring Support</string>
+			<key>FooterText</key>
+			<string>AI-based proctoring features like face tracking create log events and send notifications to SEB Server.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>AI Proctoring</string>
+			<key>File</key>
+			<string>AIProctoringSupport</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Proctoring View Display Policy</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_remoteProctoringViewShow</string>
+			<key>FooterText</key>
+			<string>You can hide or show the overlay view showing the user (and if enabled other candidates and the proctor) with this setting or allow users to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command.</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Never</string>
+				<string>Allow to Show</string>
+				<string>Allow to Hide</string>
+				<string>Always</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

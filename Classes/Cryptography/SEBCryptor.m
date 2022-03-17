@@ -7,8 +7,8 @@
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -39,6 +39,16 @@
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
 #import "SEBSettings.h"
+
+
+@implementation NSString (SEBCryptor)
+
+- (NSComparisonResult)caseInsensitiveOrdinalCompare:(NSString *)string {
+    return [self compare:string options:NSCaseInsensitiveSearch | NSForcedOrderingSearch];
+}
+
+@end
+
 
 @implementation SEBCryptor
 
@@ -74,15 +84,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 + (SEBCryptor *)sharedSEBCryptor
 {
-    @synchronized(self)
-    {
-        if (sharedSEBCryptor == nil)
-        {
-            sharedSEBCryptor = [[self alloc] init];
-        }
-    }
+	@synchronized(self)
+	{
+		if (sharedSEBCryptor == nil)
+		{
+			sharedSEBCryptor = [[self alloc] init];
+		}
+	}
     
-    return sharedSEBCryptor;
+	return sharedSEBCryptor;
 }
 
 
@@ -135,13 +145,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
 
-    NSString *password;
-    if (@available(macOS 10.9, *)) {
-        password = [HMACData base64EncodedStringWithOptions:0];
-    } else {
-        password = [HMACData base64Encoding];
-    }
-
+    NSString *password = [HMACData base64EncodedStringWithOptions:0];
+    
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
                                             password:password
@@ -164,12 +169,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
     
-    NSString *password;
-    if (@available(macOS 10.9, *)) {
-        password = [HMACData base64EncodedStringWithOptions:0];
-    } else {
-        password = [HMACData base64Encoding];
-    }
+    NSString *password = [HMACData base64EncodedStringWithOptions:0];
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
@@ -394,13 +394,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         if ([object isEqualToData:[NSData data]]) {
             jsonString = @"\"\"";
         } else {
-            NSString *objectBase64;
-            if (@available(macOS 10.9, *)) {
-                objectBase64 = [object base64EncodedStringWithOptions:0];
-            } else {
-                objectBase64 = [object base64Encoding];
-            }
-            jsonString = [NSString stringWithFormat:@"\"%@\"", objectBase64];
+            jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64EncodedStringWithOptions:0]];
         }
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
@@ -417,7 +411,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData *)generateChecksumForBEK:(NSData *)currentData
 {
     // Get current salt for exam key
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
 
     return [self generateChecksumForData:currentData withSalt:HMACKey];
@@ -487,7 +481,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             [self resetSEBUserDefaults];
             return;
         }
-
+        
         configKey = [NSData data];
         [self updateConfigKeyInSettings:filteredPrefsDict
               configKeyContainedKeysRef:&configKeyContainedKeys
@@ -495,7 +489,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                 initializeContainedKeys:initializeContainedKeys];
         
         [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-
+        
         // Store new Config Key in UserDefaults
         [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
     }
@@ -538,7 +532,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
                                                                                                    sortDescriptorWithKey:@"description"
                                                                                                    ascending:YES
-                                                                                                   selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
+                                                                                                   selector:@selector(caseInsensitiveOrdinalCompare:)]]].mutableCopy;
     // Remove the special key "originatorVersion" which doesn't have any functionality,
     // it's just meta data indicating which SEB version saved the config file
     [configKeysAlphabetically removeObject:@"originatorVersion"];
@@ -763,7 +757,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     if (recoveryOptionIndex == 1) { // Quit requested.
         // Terminate SEB without any further user confirmation required
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuit" object:self];
+         postNotificationName:@"requestExit" object:self];
         success = NO;
     }
     return success;
