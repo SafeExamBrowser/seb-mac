@@ -245,10 +245,14 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         return .grant
     }
     
-//    @available(macOS 12.3, *)
-//    public func webView(_ webView: WKWebView, requestUserMediaAuthorizationForDevices devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping  (Bool) -> Void) {
-//        decisionHandler(true)
-//    }
+    public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
+        decisionHandler(true)
+    }
+    
+    public func _webView(_ webView: WKWebView, requestDisplayCapturePermissionFor securityOrigin: WKSecurityOrigin, initiatedByFrame frame: WKFrameInfo, withSystemAudio: Bool, decisionHandler: @escaping (WKDisplayCapturePermissionDecision) -> Void) {
+        decisionHandler(.screenPrompt)
+    }
+
 }
 
 extension NSView {
