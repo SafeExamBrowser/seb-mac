@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
-@property (strong, nonatomic) SEBAbstractWebView *webView;
+@property (nullable, strong, nonatomic) SEBAbstractWebView *webView;
 @property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (readwrite) BOOL isMainBrowserWindow;
