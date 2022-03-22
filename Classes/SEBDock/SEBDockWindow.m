@@ -46,6 +46,15 @@
 //    }
 //}
 
+
+-(BOOL)canBecomeKeyWindow {
+    return YES;
+}
+
+-(BOOL)canBecomeMainWindow {
+    return YES;
+}
+
         
 - (void) setCalculatedFrame:(NSScreen *)screen
 {
