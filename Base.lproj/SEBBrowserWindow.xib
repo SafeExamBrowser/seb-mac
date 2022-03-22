@@ -108,7 +108,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D8316489-D2D0-4893-B3A7-DB00C4FBBA6F" label="Go to Dock" paletteLabel="" toolTip="Select first control in the Dock" sizingBehavior="auto" id="wjF-4e-tSF" userLabel="Dock">
                         <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
-                        <button key="view" identifier="toolbarGoToDockButton" verticalHuggingPriority="750" id="PVb-Dk-TxC" userLabel="Textured Rounded Button">
+                        <button key="view" identifier="toolbarGoToDockButton" verticalHuggingPriority="750" id="PVb-Dk-TxC" userLabel="Textured Rounded Button" customClass="SEBGoToDockButton">
                             <rect key="frame" x="0.0" y="14" width="30" height="25"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qS-Je-CPh" userLabel="Button Cell">

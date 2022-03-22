@@ -254,6 +254,7 @@
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
 @property(readwrite) BOOL tabPressedWhileDockIsKeyWindow;
+@property(readwrite) BOOL tabPressedWhileWebViewIsFirstResponder;
 @property(readwrite) BOOL shiftTabPressedWhileDockIsKeyWindow;
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openedURL;
