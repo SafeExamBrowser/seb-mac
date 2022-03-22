@@ -141,32 +141,30 @@
  * @details     SEBDockController handles the creation and display of the SEB Dock hovering
  *              window as well as switching between different items using the dock bar.
  */
-@interface SEBDockController : NSWindowController {
+@interface SEBDockController : NSWindowController <SEBDockItemButtonDelegate> {
 
+    @private
     CGFloat horizontalPadding;
     CGFloat verticalPadding;
     CGFloat iconSize;
-    
+    BOOL isLeftmostItemButton;
 }
 
-@property (strong) SEBDockWindow *dockWindow;
+@property (strong, nonatomic) SEBDockWindow *dockWindow;
 
-@property (weak) NSArray *leftDockItems;
-@property (weak) NSArray *centerDockItems;
-@property (weak) NSArray *rightDockItems;
-@property (weak) NSView *rightMostLeftItemView;
+@property (weak, nonatomic) NSArray *leftDockItems;
+@property (weak, nonatomic) NSArray *centerDockItems;
+@property (weak, nonatomic) NSArray *rightDockItems;
+@property (weak, nonatomic) NSView *rightMostLeftItemView;
+
+@property (strong, nonatomic) id<SEBDockItemButtonDelegate> dockButtonDelegate;
 
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
 - (NSArray *) setRightItems:(NSArray *)newRightDockItems;
-- (int) getSelectedObjc;
 
 - (void) showDockOnScreen:(NSScreen *)screen;
-- (void) makeFirstDockItemFirstResponder;
-- (void) makeNextDockItemFirstResponder;
-- (void) makePreviousDockItemFirstResponder;
-- (void) selectFirstResponderDockItem;
-- (void) resignFirstResponderSelectDockItem;
+- (void) activateDockFirstControl:(BOOL)firstControl;
 - (void) hideDock;
 - (void) adjustDock;
 - (void) moveDockToScreen:(NSScreen *)screen;
