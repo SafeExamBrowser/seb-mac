@@ -83,6 +83,7 @@
 #import "ProcessManager.h"
 
 #import "SEBDockItemMenu.h"
+#import "SEBGoToDockButton.h"
 
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
@@ -503,6 +504,11 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"proctoringFailed" object:nil];
+    // Add an observer for the notification necessary for the correct key view look
+    // for tabbing/VoiceOver through the browser window (toolbar) and Dock
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(goToDockButtonBecameFirstResponder)
+                                                 name:@"goToDockButtonBecameFirstResponder" object:nil];
 
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
@@ -512,13 +518,14 @@ bool insideMatrix(void);
         BOOL isShift = (event.modifierFlags & NX_SHIFTMASK) != 0;
         BOOL isControl = (event.modifierFlags & NX_CONTROLMASK) != 0;
         self.tabPressedWhileDockIsKeyWindow = NO;
+        self.tabPressedWhileWebViewIsFirstResponder = NO;
         self.shiftTabPressedWhileDockIsKeyWindow = NO;
         if (isShift && event.keyCode == 48) { //Shift + Tab
             if (NSApp.keyWindow == self.dockController.window) {
                 self.shiftTabPressedWhileDockIsKeyWindow = YES;
             }
             NSResponder *firstResponder = NSApp.keyWindow.firstResponder;
-            if (firstResponder.class == NSButton.class && [((NSButton *)firstResponder).identifier isEqualToString:@"toolbarGoToDockButton"]) {
+            if (firstResponder.class == SEBGoToDockButton.class && [((NSButton *)firstResponder).identifier isEqualToString:@"toolbarGoToDockButton"]) {
                 [self.dockController activateDockFirstControl:NO];
                 return nil;
             }
@@ -531,10 +538,8 @@ bool insideMatrix(void);
                 // and pressing tab (without having to click the browser window first)
                 [(SEBBrowserWindow *)firstResponder makeFirstResponder:[(SEBBrowserWindow *)firstResponder nativeWebView]];
             } else if (firstResponder.class == SEBOSXWKWebView.class || firstResponder.class == SEBWebView.class) {
-            } else if (firstResponder.class == NSButton.class && [((NSButton *)firstResponder).identifier isEqualToString:@"toolbarGoToDockButton"]) {
-                [self.dockController activateDockFirstControl:YES];
-                return nil;
-            }  else if (NSApp.keyWindow == self.dockController.window) {
+                self.tabPressedWhileWebViewIsFirstResponder = YES;
+            } else if (NSApp.keyWindow == self.dockController.window) {
                 self.tabPressedWhileDockIsKeyWindow = YES;
             }
         }
@@ -660,6 +665,13 @@ bool insideMatrix(void);
 {
     if (self.shiftTabPressedWhileDockIsKeyWindow) {
         [self.browserController activateCurrentWindow];
+    }
+}
+
+- (void) goToDockButtonBecameFirstResponder
+{
+    if (self.tabPressedWhileWebViewIsFirstResponder) {
+        [self.dockController activateDockFirstControl:YES];
     }
 }
 
