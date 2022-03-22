@@ -38,9 +38,6 @@
 @implementation SEBDockItemButton
 
 
-CAShapeLayer *focusRing = nil;
-
-
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
 {
     return [self initWithFrame:frameRect icon:itemIcon highlightedIcon:itemHighlightedIcon title:itemTitle menu:itemMenu target:nil secondaryAction:nil];
@@ -202,7 +199,7 @@ CAShapeLayer *focusRing = nil;
 {
     if (mouseDown) {
         mouseDown = NO;
-        [self rightMouseUp:[NSEvent new]];
+        [self rightMouseDown:[NSEvent new]];
     }
     
 }
@@ -210,6 +207,7 @@ CAShapeLayer *focusRing = nil;
 
 - (void)rightMouseDown:(NSEvent*)theEvent
 {
+    DDLogDebug(@"DockItemButton state: %ld, highlighted: %hhd", (long)self.state, self.highlighted);
     self.highlighted = true;
 //    if (@available(macOS 10.14, *)) {
         self.alphaValue = 0.5;
@@ -277,6 +275,13 @@ self.highlighted = false;
 }
 
 
+- (void)cursorDown
+{
+    if (self.dockMenu) {
+    }
+}
+
+
 - (void)updateTrackingAreas
 {
     [self removeTrackingArea:trackingArea];
@@ -314,50 +319,29 @@ self.highlighted = false;
 }
 
 
-- (BOOL)acceptsFirstResponder {
+- (BOOL)acceptsFirstResponder
+{
     return !self.hidden;
 }
 
     
-- (BOOL)becomeFirstResponder {
-    [self setFocusRing];
+- (BOOL)becomeFirstResponder
+{
     BOOL okToChange = [super becomeFirstResponder];
-    self.highlighted = TRUE;
     return okToChange;
 }
 
 
-- (BOOL)resignFirstResponder {
-    [self removeFocusRing];
+- (BOOL)resignFirstResponder
+{
+    if (_isFirstDockItem) {
+        [_delegate firstDockItemResignedFirstResponder];
+    } else if (_isLastDockItem) {
+        [_delegate lastDockItemResignedFirstResponder];
+    }
+
     BOOL okToChange = [super resignFirstResponder];
-    self.highlighted = FALSE;
     return okToChange;
-}
-
-
-- (void)setFocusRing {
-    if (focusRing == nil) {
-        CGFloat radius = 4;
-        NSBezierPath *path = [[NSBezierPath alloc] init];
-        [path appendBezierPathWithRoundedRect:self.bounds xRadius:radius yRadius:radius];
-        
-        focusRing = [[CAShapeLayer alloc] init];
-        focusRing.backgroundColor = [NSColor clearColor].CGColor;
-        focusRing.fillColor = [NSColor clearColor].CGColor;
-        focusRing.strokeColor = [NSColor colorWithRed:.1 green:.1 blue:1 alpha:1].CGColor;
-        focusRing.path = [path quartzPath];
-        focusRing.lineWidth = 1.5;
-        
-        [self.layer addSublayer:focusRing];
-    }
-}
-
-
-- (void)removeFocusRing {
-    if (focusRing != nil) {
-        [focusRing removeFromSuperlayer];
-        focusRing = nil;
-    }
 }
 
 

@@ -52,12 +52,14 @@
 @property (weak) IBOutlet NSView *rootView;
 @property (readonly, nonatomic) SEBBrowserWindow *browserWindow;
 //@property (weak) IBOutlet SEBAbstractWebView *webView;
+@property (weak) IBOutlet NSButton *toolbarGoToDockButton;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
 @property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (strong) NSScreen *previousScreen;
 @property (strong) NSTimer *windowWatchTimer;
 
+- (void) activateInitialFirstResponder;
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;
 - (IBAction) zoomPage: (id)sender;

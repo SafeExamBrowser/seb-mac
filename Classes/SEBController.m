@@ -506,9 +506,38 @@ bool insideMatrix(void);
 
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
-    {
+     {
         BOOL isLeftOption = (event.modifierFlags & NX_DEVICELALTKEYMASK) != 0;
         BOOL isLeftShift = (event.modifierFlags & NX_DEVICELSHIFTKEYMASK) != 0;
+        BOOL isShift = (event.modifierFlags & NX_SHIFTMASK) != 0;
+        BOOL isControl = (event.modifierFlags & NX_CONTROLMASK) != 0;
+        self.tabPressedWhileDockIsKeyWindow = NO;
+        self.shiftTabPressedWhileDockIsKeyWindow = NO;
+        if (isShift && event.keyCode == 48) { //Shift + Tab
+            if (NSApp.keyWindow == self.dockController.window) {
+                self.shiftTabPressedWhileDockIsKeyWindow = YES;
+            }
+            NSResponder *firstResponder = NSApp.keyWindow.firstResponder;
+            if (firstResponder.class == NSButton.class && [((NSButton *)firstResponder).identifier isEqualToString:@"toolbarGoToDockButton"]) {
+                [self.dockController activateDockFirstControl:NO];
+                return nil;
+            }
+        } else if (event.keyCode == 48) { //Tab
+            NSResponder *firstResponder = NSApp.keyWindow.firstResponder;
+            id focusedUIElement = firstResponder.accessibilityFocusedUIElement;
+            DDLogDebug(@"Tab key pressed, current key window: %@, current first responder: %@, current accessibilityFocusedUIElement: %@", NSApp.keyWindow, firstResponder, focusedUIElement);
+            if (firstResponder.class == SEBBrowserWindow.class) {
+                // This selects the first element on a web page directly after opening a new window
+                // and pressing tab (without having to click the browser window first)
+                [(SEBBrowserWindow *)firstResponder makeFirstResponder:[(SEBBrowserWindow *)firstResponder nativeWebView]];
+            } else if (firstResponder.class == SEBOSXWKWebView.class || firstResponder.class == SEBWebView.class) {
+            } else if (firstResponder.class == NSButton.class && [((NSButton *)firstResponder).identifier isEqualToString:@"toolbarGoToDockButton"]) {
+                [self.dockController activateDockFirstControl:YES];
+                return nil;
+            }  else if (NSApp.keyWindow == self.dockController.window) {
+                self.tabPressedWhileDockIsKeyWindow = YES;
+            }
+        }
         if (isLeftOption && !isLeftShift && event.keyCode == 48) {
             DDLogDebug(@"Left Option + Tab Key pressed!");
             [self.browserController activateNextOpenWindow];
@@ -516,6 +545,13 @@ bool insideMatrix(void);
         } else if (isLeftOption && isLeftShift && event.keyCode == 48) {
             DDLogDebug(@"Left Option + Left Shift + Tab Key pressed!");
             [self.browserController activatePreviousOpenWindow];
+            return nil;
+        } else if ((isControl || isShift) && event.keyCode == 0x63 ) {  //Ctrl + F3
+            if (NSApp.keyWindow == self.dockController.window) {
+                [self.browserController activateCurrentWindow];
+            } else {
+                [self.dockController activateDockFirstControl:YES];
+            }
             return nil;
         } else if (event.keyCode == 0x63 ) {  //F3
             self->f3Pressed = YES;
@@ -526,19 +562,18 @@ bool insideMatrix(void);
                 [self openPreferences:self]; //show preferences window
             }
             return nil;
-        } else if (self.browserController.getIsDockSelected) {
-            if (event.keyCode == 48) {   //Tab
-                DDLogDebug(@"Tab Key pressed!");
-                [self.dockController makeNextDockItemFirstResponder];
-                return nil;
-            } else if (event.keyCode == 48 && isLeftShift) {   //Tab
-                DDLogDebug(@"Left Shift + Tab Key pressed!");
-                [self.dockController makeNextDockItemFirstResponder];
-                return nil;
-            } else if (event.keyCode == 49 || event.keyCode == 36) {   //Enter && Space
-                DDLogDebug(@"Enter or Space Key pressed!");
-                [self.dockController selectFirstResponderDockItem];
-                return nil;
+        } else if (NSApp.keyWindow == self.dockController.window) {
+            if (event.keyCode == kVK_UpArrow) {   //Cursor Up
+                DDLogDebug(@"Cursor Up Key inside Dock pressed!");
+                [self.dockController.window.firstResponder rightMouseDown:[NSEvent new]];
+                return event;
+            } else if (event.keyCode == kVK_DownArrow) {
+                DDLogDebug(@"Cursor Down Key inside Dock pressed!");
+                SEBDockItemButton *selectedDockItem = (SEBDockItemButton *)self.dockController.window.firstResponder;
+                if ([selectedDockItem respondsToSelector:@selector(cursorDown)]) {
+                    [selectedDockItem cursorDown];
+                }
+                return event;
             } else {
                 return event;
             }
@@ -611,6 +646,21 @@ bool insideMatrix(void);
             forKeyPath:@"isTerminated"];
     [NSApp removeObserver:self
             forKeyPath:@"isActive"];
+}
+
+
+- (void) lastDockItemResignedFirstResponder
+{
+    if (self.tabPressedWhileDockIsKeyWindow) {
+        [self.browserController activateInitialFirstResponderInCurrentWindow];
+    }
+}
+
+- (void) firstDockItemResignedFirstResponder
+{
+    if (self.shiftTabPressedWhileDockIsKeyWindow) {
+        [self.browserController activateCurrentWindow];
+    }
 }
 
 
@@ -1736,6 +1786,7 @@ void run_on_ui_thread(dispatch_block_t block)
     // Set up and open SEB Dock
     [self openSEBDock];
     self.browserController.dockController = self.dockController;
+    self.dockController.dockButtonDelegate = self;
     
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
@@ -4595,8 +4646,6 @@ conditionallyForWindow:(NSWindow *)window
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL showMenuBar = overrideShowMenuBar || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
-//    BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
-//    BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions presentationOptions;
     
         if (allowSwitchToThirdPartyApps) {
@@ -4921,7 +4970,6 @@ conditionallyForWindow:(NSWindow *)window
         
         // Display the dock
         [self.dockController showDockOnScreen:_mainScreen];
-        [self.dockController.window recalculateKeyViewLoop];
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");
@@ -4929,16 +4977,18 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)setUpDockLeftButtons: (NSArray *)dockButtons {
+- (void)setUpDockLeftButtons: (NSArray *)dockButtons
+{
     for (SEBDockItemButton *dockButton in dockButtons) {
         if (dockButton.action == @selector(buttonPressed)) {
-            dockButton.accessibilityTitle = NSLocalizedString(@"Safe Exam Browser", nil);
+            dockButton.accessibilityTitle = SEBFullAppNameClassic;
         }
     }
 }
 
 
-- (void)setUpDockRightButtons: (NSArray *)dockButtons {
+- (void)setUpDockRightButtons: (NSArray *)dockButtons
+{
     for (SEBDockItemButton *dockButton in dockButtons) {
         if (dockButton.action == @selector(reloadButtonPressed)) {
             _dockButtonReload = dockButton;

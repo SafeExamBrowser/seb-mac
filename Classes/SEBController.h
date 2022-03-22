@@ -84,7 +84,7 @@
 @class SEBServerOSXViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -253,6 +253,8 @@
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
+@property(readwrite) BOOL tabPressedWhileDockIsKeyWindow;
+@property(readwrite) BOOL shiftTabPressedWhileDockIsKeyWindow;
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openedURL;
 @property(readwrite) BOOL restarting;
