@@ -283,6 +283,21 @@
 }
 
 
+- (void) activateInitialFirstResponder
+{
+    [(SEBBrowserWindowController *)(self.windowController) activateInitialFirstResponder];
+}
+
+- (void) makeContentFirstResponder
+{
+    [self makeFirstResponder:(NSResponder *)[self nativeWebView]];
+}
+
+- (void) goToDock
+{
+    [self.browserController goToDock];
+}
+
 - (void)goBack
 {
     [self.browserControllerDelegate goBack];

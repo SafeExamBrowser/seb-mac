@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19528"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +11,7 @@
             <connections>
                 <outlet property="backForwardButtons" destination="173" id="lIt-Jq-0zg"/>
                 <outlet property="rootView" destination="4" id="0ei-JK-6lh"/>
+                <outlet property="toolbarGoToDockButton" destination="PVb-Dk-TxC" id="mgP-n3-aE2"/>
                 <outlet property="toolbarReloadButton" destination="190" id="QQV-oy-lLZ"/>
                 <outlet property="window" destination="3" id="10"/>
             </connections>
@@ -19,7 +21,7 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -27,16 +29,16 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward" paletteLabel="" sizingBehavior="auto" id="175">
+                    <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward Navigation" paletteLabel="" sizingBehavior="auto" id="175">
                         <nil key="toolTip"/>
-                        <segmentedControl key="view" verticalHuggingPriority="750" id="173">
+                        <segmentedControl key="view" toolTip="Navigation in browsing history of this window" verticalHuggingPriority="750" id="173">
                             <rect key="frame" x="0.0" y="14" width="59" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="NSGoLeftTemplate" imageScaling="none" width="24" enabled="NO"/>
-                                    <segment image="NSGoRightTemplate" imageScaling="none" width="24" enabled="NO" tag="1"/>
+                                    <segment label="Go Back" image="NSGoLeftTemplate" imageScaling="none" width="24" enabled="NO"/>
+                                    <segment label="Go Forward" toolTip="Show the next page" image="NSGoRightTemplate" imageScaling="none" width="24" enabled="NO" tag="1"/>
                                 </segments>
                             </segmentedCell>
                             <connections>
@@ -44,16 +46,15 @@
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="3082AAA6-C29B-4778-98BC-31306EF71511" label="Zoom" paletteLabel="" sizingBehavior="auto" id="ZLD-BY-T5K" userLabel="ZoomPage">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="3082AAA6-C29B-4778-98BC-31306EF71511" label="Page Zoom" paletteLabel="" toolTip="Zoom page content" sizingBehavior="auto" id="ZLD-BY-T5K" userLabel="ZoomPage">
                         <segmentedControl key="view" verticalHuggingPriority="750" id="4DV-qc-FmI">
                             <rect key="frame" x="0.0" y="14" width="59" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="qkO-f0-59m">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="ZoomPageOut" imageScaling="none" width="24"/>
-                                    <segment image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
+                                    <segment label="Zoom Out" image="ZoomPageOut" imageScaling="none" width="24"/>
+                                    <segment label="Zoom In" image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
                                 </segments>
                                 <connections>
                                     <action selector="zoomPage:" target="-2" id="wj3-sW-hfi"/>
@@ -69,16 +70,15 @@
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" sizingBehavior="auto" id="179" userLabel="ZoomText">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Text Zoom" paletteLabel="" toolTip="Change text size" sizingBehavior="auto" id="179" userLabel="ZoomText">
                         <segmentedControl key="view" verticalHuggingPriority="750" id="180">
                             <rect key="frame" x="0.0" y="14" width="59" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="181">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="ZoomTextOut" imageScaling="none" width="24"/>
-                                    <segment image="ZoomTextIn" imageScaling="none" width="24" tag="1"/>
+                                    <segment label="Make Text Smaller" image="ZoomTextOut" imageScaling="none" width="24"/>
+                                    <segment label="Make Text Bigger" image="ZoomTextIn" imageScaling="none" width="24" tag="1"/>
                                 </segments>
                             </segmentedCell>
                             <connections>
@@ -93,12 +93,11 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="SEBReloadIcon" bordered="YES" sizingBehavior="auto" id="192">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" toolTip="Reload this webpage" image="SEBReloadIcon" bordered="YES" sizingBehavior="auto" id="192">
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIcon" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIcon" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -107,8 +106,24 @@
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="D8316489-D2D0-4893-B3A7-DB00C4FBBA6F" label="Go to Dock" paletteLabel="" toolTip="Select first control in the Dock" sizingBehavior="auto" id="wjF-4e-tSF" userLabel="Dock">
+                        <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
+                        <button key="view" identifier="toolbarGoToDockButton" verticalHuggingPriority="750" id="PVb-Dk-TxC" userLabel="Textured Rounded Button">
+                            <rect key="frame" x="0.0" y="14" width="30" height="25"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qS-Je-CPh" userLabel="Button Cell">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="goToDock:" target="-1" id="Eu6-uw-yGW"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
+                    <toolbarItem reference="wjF-4e-tSF"/>
                     <toolbarItem reference="175"/>
                     <toolbarItem reference="176"/>
                     <toolbarItem reference="ZLD-BY-T5K"/>
@@ -137,7 +152,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -154,7 +169,7 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YuW-7G-2aQ">
-                                <rect key="frame" x="0.0" y="130" width="323" height="98"/>
+                                <rect key="frame" x="0.0" y="130" width="324" height="98"/>
                                 <subviews>
                                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
                                         <rect key="frame" x="0.0" y="0.0" width="84" height="98"/>
@@ -194,10 +209,10 @@
                                         </connections>
                                     </matrix>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1l7-lf-HAE">
-                                        <rect key="frame" x="92" y="0.0" width="231" height="98"/>
+                                        <rect key="frame" x="92" y="0.0" width="232" height="98"/>
                                         <subviews>
                                             <button toolTip="Click to copy the registred domain part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
-                                                <rect key="frame" x="0.0" y="84" width="53" height="14"/>
+                                                <rect key="frame" x="0.0" y="84" width="54" height="14"/>
                                                 <buttonCell key="cell" type="recessed" title="host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="gwZ-Bv-sYP">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -207,7 +222,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Click to copy the host part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
-                                                <rect key="frame" x="0.0" y="63" width="81" height="14"/>
+                                                <rect key="frame" x="0.0" y="63" width="82" height="14"/>
                                                 <buttonCell key="cell" type="recessed" title="www.host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="H5P-Ew-Qp9">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -237,7 +252,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Click to restore the full current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
-                                                <rect key="frame" x="0.0" y="0.0" width="231" height="14"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="232" height="14"/>
                                                 <buttonCell key="cell" type="recessed" title="Click to restore full URL as filter expression" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="lbT-D3-1dX">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -277,7 +292,7 @@
                                 <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                                 <clipView key="contentView" drawsBackground="NO" id="c8z-5s-Dgt">
                                     <rect key="frame" x="1" y="1" width="528" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
                                             <rect key="frame" x="0.0" y="0.0" width="528" height="120"/>
@@ -409,7 +424,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="93"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <value key="minSize" type="size" width="412" height="93"/>
             <view key="contentView" id="4Pp-ao-nkH">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="93"/>
@@ -487,10 +502,11 @@ Gw
     <resources>
         <image name="NSGoLeftTemplate" width="10" height="14"/>
         <image name="NSGoRightTemplate" width="10" height="14"/>
-        <image name="SEBReloadIcon" width="34" height="34"/>
+        <image name="SEBReloadIcon" width="512" height="512"/>
         <image name="ZoomPageIn" width="20" height="20"/>
         <image name="ZoomPageOut" width="20" height="20"/>
         <image name="ZoomTextIn" width="20" height="20"/>
         <image name="ZoomTextOut" width="20" height="20"/>
+        <image name="dock.rectangle" catalog="system" width="24" height="18"/>
     </resources>
 </document>

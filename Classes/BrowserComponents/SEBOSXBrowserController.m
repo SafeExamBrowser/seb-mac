@@ -42,7 +42,6 @@
 
 @implementation SEBOSXBrowserController
 
-bool isDockSelected = FALSE;
 
 - (instancetype)init
 {
@@ -287,6 +286,8 @@ bool isDockSelected = FALSE;
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", startURL.absoluteString);
     SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
     SEBBrowserWindow *newBrowserWindow = newBrowserWindowWebView.window;
+    [newBrowserWindow recalculateKeyViewLoop];
+
 
     self.mainBrowserWindow = newBrowserWindow;
     self.mainWebView = newBrowserWindowWebView;
@@ -479,8 +480,17 @@ bool isDockSelected = FALSE;
 }
 
 
-- (BOOL) getIsDockSelected {
-    return isDockSelected;
+- (void) activateCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow makeContentFirstResponder];
+}
+
+
+- (void) activateInitialFirstResponderInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow activateInitialFirstResponder];
 }
 
 
@@ -488,14 +498,10 @@ bool isDockSelected = FALSE;
 {
     NSUInteger openBrowserWindowsCount = self.openBrowserWindowsWebViews.count;
     SEBBrowserOpenWindowWebView *openWindowWebView;
-    
     for (NSUInteger i = 0; i < openBrowserWindowsCount; i++) {
         openWindowWebView = self.openBrowserWindowsWebViews[i];
         if ([openWindowWebView.browserWindow isEqualTo:_activeBrowserWindow]) {
-            if (i == openBrowserWindowsCount-1 && !isDockSelected) {
-                isDockSelected = TRUE;
-            } else if (i == openBrowserWindowsCount-1 && isDockSelected) {
-                isDockSelected = FALSE;
+            if (i == openBrowserWindowsCount-1) {
                 openWindowWebView = self.openBrowserWindowsWebViews[0];
             } else {
                 openWindowWebView = self.openBrowserWindowsWebViews[i+1];
@@ -503,8 +509,7 @@ bool isDockSelected = FALSE;
             break;
         }
     }
-    
-    [self activateSelectedOpenWindow:openWindowWebView];
+    [self openWindowSelected:openWindowWebView];
 }
 
 
@@ -512,14 +517,10 @@ bool isDockSelected = FALSE;
 {
     NSUInteger openBrowserWindowsCount = self.openBrowserWindowsWebViews.count;
     SEBBrowserOpenWindowWebView *openWindowWebView;
-    
     for (NSUInteger i = 0; i < openBrowserWindowsCount; i++) {
         openWindowWebView = self.openBrowserWindowsWebViews[i];
         if ([openWindowWebView.browserWindow isEqualTo:_activeBrowserWindow]) {
-            if (i == 0 && !isDockSelected) {
-                isDockSelected = TRUE;
-            } else if (i == 0 && isDockSelected) {
-                isDockSelected = FALSE;
+            if (i == 0) {
                 openWindowWebView = self.openBrowserWindowsWebViews[openBrowserWindowsCount-1];
             } else {
                 openWindowWebView = self.openBrowserWindowsWebViews[i-1];
@@ -527,28 +528,14 @@ bool isDockSelected = FALSE;
             break;
         }
     }
-    
-    [self activateSelectedOpenWindow:openWindowWebView];
-}
-
-
-- (void) activateSelectedOpenWindow: (SEBBrowserOpenWindowWebView *)openWindowWebView
-{
-    if (isDockSelected) {
-        [self openWindowSelected:_dockController.window];
-        [_dockController makeNextDockItemFirstResponder];
-    }
-    else {
-        [self openWindowSelected:openWindowWebView.browserWindow];
-        [_dockController resignFirstResponderSelectDockItem];
-    }
+    [self openWindowSelected:openWindowWebView];
 }
 
 
 // Add an entry for a WebView in a browser window into the array and dock item menu of open browser windows/WebViews
 - (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(SEBAbstractWebView *)newWebView withTitle:(NSString *)newTitle
 {
-    SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openBrowserWindowSelected:) keyEquivalent:@""];
+    SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
     newWindowWebView.browserWindow = newBrowserWindow;
     newWindowWebView.webView = newWebView;
     newWindowWebView.title = newTitle;
@@ -563,14 +550,14 @@ bool isDockSelected = FALSE;
         browserWindowImage = [NSImage imageNamed:@"ExamIcon"];
     } else {
         browserWindowImage = [NSImage imageNamed:@"BrowserIcon"];
-        
-        if (numberOfItems == 2) {
-            [self.openBrowserWindowsWebViewsMenu insertItem:[NSMenuItem separatorItem] atIndex:1];
-        }
     }
-    
     [browserWindowImage setSize:NSMakeSize(16, 16)];
     [newWindowWebView setImage:browserWindowImage];
+
+    if (numberOfItems == 2) {
+        [self.openBrowserWindowsWebViewsMenu insertItem:[NSMenuItem separatorItem] atIndex:1];
+    }
+    
     [self.openBrowserWindowsWebViewsMenu insertItem:newWindowWebView atIndex:1];
 }
 
@@ -603,29 +590,34 @@ bool isDockSelected = FALSE;
 }
 
 
-- (void) openBrowserWindowSelected:(SEBBrowserOpenWindowWebView *)sender
-{
-    [self openWindowSelected: sender.browserWindow];
-}
 
-
-- (void) openWindowSelected:(NSWindow *)sender
+- (void) openWindowSelected:(SEBBrowserOpenWindowWebView *)sender
 {
     DDLogInfo(@"Selected menu item: %@", sender);
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [sender makeKeyAndOrderFront:self];
+    [sender.browserWindow makeKeyAndOrderFront:self];
 }
 
 
 // Close all browser windows (including the main browser window)
 - (void) closeAllBrowserWindows
 {
-    // Close all browser windows (documents)
-    self.mainBrowserWindow = nil;
-    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
-                                                               didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
-                                                                       contextInfo: nil];
+    if (self.mainBrowserWindow.isFullScreen) {
+        [self closeAllAdditionalBrowserWindows];
+        [self.mainBrowserWindow setStyleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
+        [self.mainBrowserWindow.webView.nativeWebView removeFromSuperview];
+        self.mainBrowserWindow.webView = nil;
+        self.mainBrowserWindow.releasedWhenClosed = NO;
+        [self.mainBrowserWindow close];
+        self.mainBrowserWindow = nil;
+    } else {
+        // Close all browser windows (documents)
+        self.mainBrowserWindow = nil;
+        [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
+                                                                   didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
+                                                                           contextInfo: nil];
+    }
 }
 
 
@@ -914,6 +906,12 @@ bool isDockSelected = FALSE;
 
 
 #pragma mark SEB Dock Buttons Action Methods
+
+- (void) goToDock
+{
+    [_dockController activateDockFirstControl:YES];
+}
+
 
 - (void) backToStartCommand
 {

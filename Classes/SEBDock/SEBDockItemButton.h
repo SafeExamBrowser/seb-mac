@@ -38,12 +38,23 @@
 
 @class SEBDockItemMenu;
 
+@protocol SEBDockItemButtonDelegate <NSObject>
+
+- (void) lastDockItemResignedFirstResponder;
+- (void) firstDockItemResignedFirstResponder;
+
+@end
+
 @interface SEBDockItemButton : NSButton
 {
+    @private
+    
     NSTrackingArea *trackingArea;
     NSPopUpButtonCell *popUpCell;
     
     BOOL mouseDown;
+    
+    CAShapeLayer *focusRing;
 }
 
 //@property (strong) NSString *itemTitle;
@@ -53,8 +64,11 @@
 @property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
 @property (strong) SEBDockItemMenu *dockMenu;
-
+@property (readwrite) BOOL isFirstDockItem;
+@property (readwrite) BOOL isLastDockItem;
 @property (assign, nonatomic) SEL secondaryAction;
+
+@property (strong, nonatomic) id<SEBDockItemButtonDelegate> delegate;
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu target:(id)newTarget secondaryAction:(SEL)newSecondaryAction;
@@ -63,6 +77,7 @@
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;
 - (void)updateTrackingAreas;
+- (void)cursorDown;
 
 - (void)setHighlighted:(BOOL)highlighted;
 

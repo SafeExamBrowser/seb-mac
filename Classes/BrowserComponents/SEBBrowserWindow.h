@@ -82,6 +82,9 @@
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
+- (void) activateInitialFirstResponder;
+- (void) makeContentFirstResponder;
+- (void) goToDock;
 
 
 @end
