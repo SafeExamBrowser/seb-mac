@@ -487,6 +487,20 @@
 }
 
 
+- (void) focusFirstElementInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow focusFirstElement];
+}
+
+
+- (void) focusLastElementInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow focusLastElement];
+}
+
+
 - (void) activateInitialFirstResponderInCurrentWindow
 {
     [self.activeBrowserWindow makeKeyAndOrderFront:self];
