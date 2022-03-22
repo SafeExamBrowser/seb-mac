@@ -158,6 +158,16 @@
     [self.browserControllerDelegate stopLoading];
 }
 
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate focusFirstElement];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate focusLastElement];
+}
+
 - (void) zoomPageIn
 {
     [self.browserControllerDelegate zoomPageIn];

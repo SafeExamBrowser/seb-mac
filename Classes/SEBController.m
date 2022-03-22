@@ -551,7 +551,7 @@ bool insideMatrix(void);
             DDLogDebug(@"Left Option + Left Shift + Tab Key pressed!");
             [self.browserController activatePreviousOpenWindow];
             return nil;
-        } else if ((isControl || isShift) && event.keyCode == 0x63 ) {  //Ctrl + F3
+        } else if ((isControl || isShift) && event.keyCode == 0x63 ) {  //Ctrl/Shift + F3
             if (NSApp.keyWindow == self.dockController.window) {
                 [self.browserController activateCurrentWindow];
             } else {
@@ -664,7 +664,7 @@ bool insideMatrix(void);
 - (void) firstDockItemResignedFirstResponder
 {
     if (self.shiftTabPressedWhileDockIsKeyWindow) {
-        [self.browserController activateCurrentWindow];
+        [self.browserController focusLastElementInCurrentWindow];
     }
 }
 
