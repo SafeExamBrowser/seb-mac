@@ -257,6 +257,14 @@ import Foundation
     public func stopLoading() {
         browserControllerDelegate!.stopLoading!()
     }
+    
+    public func focusFirstElement() {
+        sebWebView.evaluateJavaScript("SEB_FocusFirstElement()")
+    }
+
+    public func focusLastElement() {
+        sebWebView.evaluateJavaScript("SEB_FocusLastElement()")
+    }
 
     fileprivate func setPageZoom() {
         if (pageZoom <= WebViewMaxPageZoom && pageZoom >= WebViewMinPageZoom) {

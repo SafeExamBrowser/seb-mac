@@ -110,6 +110,16 @@
     [self.browserControllerDelegate stopLoading];
 }
 
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_FocusFirstElement()"];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_FocusLastElement()"];
+}
+
 - (void) zoomPageIn
 {
     [self.browserControllerDelegate zoomPageIn];

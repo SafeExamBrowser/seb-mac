@@ -285,7 +285,11 @@
 
 - (void) activateInitialFirstResponder
 {
-    [(SEBBrowserWindowController *)(self.windowController) activateInitialFirstResponder];
+    if (self.toolbar.isVisible) {
+        [(SEBBrowserWindowController *)(self.windowController) activateInitialFirstResponder];
+    } else {
+        [self focusFirstElement];
+    }
 }
 
 - (void) makeContentFirstResponder
@@ -366,6 +370,17 @@
     // Reload page
     DDLogInfo(@"Reloading current webpage");
     [self.browserControllerDelegate reload];
+}
+
+
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate focusFirstElement];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate focusLastElement];
 }
 
 
