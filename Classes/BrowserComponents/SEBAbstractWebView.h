@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) stopLoading;
 - (void) reload;
 
+- (void) focusFirstElement;
+- (void) focusLastElement;
+
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;
@@ -66,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) textSizeIncrease;
 - (void) textSizeDecrease;
 - (void) textSizeReset;
+
+- (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js;
 
 - (void) privateCopy:(id)sender;
 - (void) privateCut:(id)sender;

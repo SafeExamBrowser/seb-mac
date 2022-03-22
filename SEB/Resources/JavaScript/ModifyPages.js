@@ -87,4 +87,21 @@ function SEB_AllowSpellCheck(enable) {
             }
         }
     }
+}
+
+
+function SEB_GetAllFocusableElements() {
+    var elements = document.body.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), details:not([disabled]), summary:not([disabled])');
+    return elements;
+}
+
+function SEB_FocusFirstElement() {
+    var firstFocusable = SEB_GetAllFocusableElements()[0];
+    firstFocusable.focus();
+}
+
+function SEB_FocusLastElement() {
+    var focusableElements = SEB_GetAllFocusableElements();
+    var lastFocusable = focusableElements[focusableElements.length - 1];
+    lastFocusable.focus();
 };
