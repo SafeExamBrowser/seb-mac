@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,20 +56,21 @@
                                                                             <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="W1X-bf-zFD">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
-                                                                                <accessibility description="Browser view mode"/>
+                                                                                <accessibility description="Use browser window"/>
                                                                             </buttonCell>
                                                                             <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" inset="2" id="ID6-7c-aOO">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
-                                                                                <accessibility description="Browser view mode"/>
+                                                                                <accessibility description="Use full screen mode"/>
                                                                             </buttonCell>
                                                                             <buttonCell type="radio" title="Touch optimized (Win)" imagePosition="left" alignment="left" inset="2" id="0g5-nW-upZ">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
-                                                                                <accessibility description="Browser view mode"/>
+                                                                                <accessibility description="Touch optimized (Win)"/>
                                                                             </buttonCell>
                                                                         </column>
                                                                     </cells>
+                                                                    <accessibility description="Browser view mode"/>
                                                                     <connections>
                                                                         <action selector="browserViewModeMatrix:" target="-2" id="McM-bo-X13"/>
                                                                         <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="cVx-yw-yy5">
