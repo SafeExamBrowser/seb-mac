@@ -181,6 +181,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowDownUploads",
                    
+                   @YES,
+                   @"allowFind",
+                   
                    @NO,
                    @"allowFlashFullscreen",
                    
@@ -210,6 +213,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowPDFPlugIn",
+                   
+                   @NO,
+                   @"allowPDFReaderToolbar",
                    
                    @YES,
                    @"allowPreferencesWindow",
