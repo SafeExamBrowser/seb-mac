@@ -33,7 +33,6 @@
 //
 
 #import "SEBDockItemButton.h"
-#import "BezierPathQuartzUtilities.h"
 
 @implementation SEBDockItemButton
 
