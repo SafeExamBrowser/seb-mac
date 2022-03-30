@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +14,9 @@
                 <outlet property="accessoryViewGoToDockButton" destination="ib9-0q-pfh" id="eZK-6b-3zt"/>
                 <outlet property="backForwardButtons" destination="173" id="lIt-Jq-0zg"/>
                 <outlet property="rootView" destination="4" id="0ei-JK-6lh"/>
+                <outlet property="textSearchDone" destination="zsY-7o-QJv" id="09E-IP-vc5"/>
+                <outlet property="textSearchField" destination="S08-6E-SPm" id="TTL-nM-hTf"/>
+                <outlet property="textSearchPreviousNext" destination="FOw-Up-15U" id="LTk-jz-eXP"/>
                 <outlet property="toolbarGoToDockButton" destination="PVb-Dk-TxC" id="mgP-n3-aE2"/>
                 <outlet property="toolbarReloadButton" destination="190" id="QQV-oy-lLZ"/>
                 <outlet property="window" destination="3" id="10"/>
@@ -123,11 +127,66 @@
                             </connections>
                         </button>
                     </toolbarItem>
+                    <searchToolbarItem implicitItemIdentifier="844CE570-D44C-4B7B-85B2-02EEE0092E92" label="Search" paletteLabel="Search" visibilityPriority="1001" id="2GF-yS-Sed">
+                        <nil key="toolTip"/>
+                        <searchField key="view" verticalHuggingPriority="750" textCompletion="NO" id="S08-6E-SPm">
+                            <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="21s-IH-qIo">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                            <connections>
+                                <action selector="textSearch:" target="-2" id="Xjp-9K-eFk"/>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowFind" id="hY3-X7-TBl">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </searchField>
+                    </searchToolbarItem>
+                    <toolbarItem implicitItemIdentifier="A2044AC0-F3AF-43BF-83DC-67F7977A4694" label="Previous/Next" paletteLabel="" sizingBehavior="auto" id="NOj-02-Eih" userLabel="Previous/Next Match">
+                        <nil key="toolTip"/>
+                        <segmentedControl key="view" hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FOw-Up-15U">
+                            <rect key="frame" x="0.0" y="14" width="59" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="FY0-V8-iJe">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment label="Search previous match" image="NSGoLeftTemplate" imageScaling="none" width="24"/>
+                                    <segment label="Search next match" image="NSGoRightTemplate" imageScaling="none" width="24" tag="1"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="previousNext:" target="-2" id="RJt-57-bAW"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="4DAF0D60-34DF-4B52-96C4-DEC5F0850CA7" label="Search Done" paletteLabel="Search Done" title="Done" sizingBehavior="auto" id="Tww-Uu-pBF" userLabel="Done">
+                        <nil key="toolTip"/>
+                        <button key="view" hidden="YES" verticalHuggingPriority="750" id="zsY-7o-QJv">
+                            <rect key="frame" x="5" y="14" width="66" height="32"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RPl-Pj-8QJ">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="textSearchDone:" target="-2" id="rCn-Uc-DGP"/>
+                                </connections>
+                            </buttonCell>
+                            <accessibility description="Text search done"/>
+                        </button>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="wjF-4e-tSF"/>
                     <toolbarItem reference="175"/>
                     <toolbarItem reference="176"/>
+                    <searchToolbarItem reference="2GF-yS-Sed"/>
+                    <toolbarItem reference="NOj-02-Eih"/>
+                    <toolbarItem reference="Tww-Uu-pBF"/>
                     <toolbarItem reference="ZLD-BY-T5K"/>
                     <toolbarItem reference="179"/>
                     <toolbarItem reference="192"/>

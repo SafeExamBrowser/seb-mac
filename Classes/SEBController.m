@@ -4789,6 +4789,7 @@ conditionallyForWindow:(NSWindow *)window
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
         }
+        [self.browserController.mainBrowserWindow setCalculatedFrame];
     }
 }
 
@@ -5147,6 +5148,23 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (IBAction) searchText:(id)sender
+{
+    [self.browserController.activeBrowserWindow searchText];
+}
+
+- (IBAction) searchTextNext:(id)sender
+{
+    [self.browserController.activeBrowserWindow searchTextNext];
+}
+
+- (IBAction) searchTextPrevious:(id)sender
+{
+    [self.browserController.activeBrowserWindow searchTextPrevious];
+}
+
+
+
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
 {
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
@@ -5406,7 +5424,7 @@ conditionallyForWindow:(NSWindow *)window
         [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
         // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-        [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+        [self performSelector:@selector(reinforceKioskMode) withObject: nil afterDelay: 1];
     }
 }
 
@@ -5425,7 +5443,7 @@ conditionallyForWindow:(NSWindow *)window
          postNotificationName:@"requestRestartNotification" object:self];
 
         // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-        [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+        [self performSelector:@selector(reinforceKioskMode) withObject: nil afterDelay: 1];
     }
 }
 
