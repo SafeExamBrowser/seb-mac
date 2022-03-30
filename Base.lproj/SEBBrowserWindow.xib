@@ -9,6 +9,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
             <connections>
+                <outlet property="accessoryView" destination="hjm-vN-SgW" id="d9C-AK-IIC"/>
+                <outlet property="accessoryViewGoToDockButton" destination="ib9-0q-pfh" id="eZK-6b-3zt"/>
                 <outlet property="backForwardButtons" destination="173" id="lIt-Jq-0zg"/>
                 <outlet property="rootView" destination="4" id="0ei-JK-6lh"/>
                 <outlet property="toolbarGoToDockButton" destination="PVb-Dk-TxC" id="mgP-n3-aE2"/>
@@ -21,13 +23,13 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
+            <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166" customClass="SEBToolbar">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward Navigation" paletteLabel="" sizingBehavior="auto" id="175">
                         <nil key="toolTip"/>
@@ -109,7 +111,7 @@
                     <toolbarItem implicitItemIdentifier="D8316489-D2D0-4893-B3A7-DB00C4FBBA6F" label="Go to Dock" paletteLabel="" toolTip="Select first control in the Dock" sizingBehavior="auto" id="wjF-4e-tSF" userLabel="Dock">
                         <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
                         <button key="view" identifier="toolbarGoToDockButton" verticalHuggingPriority="750" id="PVb-Dk-TxC" userLabel="Textured Rounded Button" customClass="SEBGoToDockButton">
-                            <rect key="frame" x="0.0" y="14" width="30" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="36" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qS-Je-CPh" userLabel="Button Cell">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -152,7 +154,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -424,7 +426,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="93"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="412" height="93"/>
             <view key="contentView" id="4Pp-ao-nkH">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="93"/>
@@ -498,6 +500,33 @@ Gw
             </view>
             <point key="canvasLocation" x="-356" y="716"/>
         </window>
+        <customView id="hjm-vN-SgW" userLabel="Window title bar accessory view" customClass="SEBBrowserWindowAccessoryView">
+            <rect key="frame" x="0.0" y="0.0" width="35" height="24"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button identifier="accessoryViewGoToDockButton" toolTip="Select first control in the Dock" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ib9-0q-pfh" customClass="SEBGoToDockButton">
+                    <rect key="frame" x="0.0" y="0.0" width="36" height="23"/>
+                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z4T-qg-D6r">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
+                    </buttonCell>
+                    <accessibility description="Go to Dock"/>
+                    <connections>
+                        <accessibilityConnection property="link" destination="4" id="cyj-hp-2d9"/>
+                        <action selector="goToDock:" target="-1" id="DmB-7j-B2J"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ib9-0q-pfh" firstAttribute="centerX" secondItem="hjm-vN-SgW" secondAttribute="centerX" id="cPR-ih-ahc"/>
+                <constraint firstItem="ib9-0q-pfh" firstAttribute="centerY" secondItem="hjm-vN-SgW" secondAttribute="centerY" id="yJX-J4-lUO"/>
+            </constraints>
+            <connections>
+                <binding destination="-2" name="hidden" keyPath="self.isAccessoryViewGoToDockButtonHidden" id="Ver-w1-VFq"/>
+            </connections>
+            <point key="canvasLocation" x="573" y="-374"/>
+        </customView>
     </objects>
     <resources>
         <image name="NSGoLeftTemplate" width="10" height="14"/>

@@ -37,6 +37,7 @@
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * @protocol    SEBDockItem
@@ -151,13 +152,11 @@
 }
 
 @property (strong, nonatomic) SEBDockWindow *dockWindow;
-
-@property (weak, nonatomic) NSArray *leftDockItems;
-@property (weak, nonatomic) NSArray *centerDockItems;
-@property (weak, nonatomic) NSArray *rightDockItems;
-@property (weak, nonatomic) NSView *rightMostLeftItemView;
-
 @property (strong, nonatomic) id<SEBDockItemButtonDelegate> dockButtonDelegate;
+@property (nullable, readonly, nonatomic) NSArray *dockItems;
+
+@property (nullable, weak, nonatomic) NSView *rightMostLeftItemView;
+
 
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
@@ -170,3 +169,5 @@
 - (void) moveDockToScreen:(NSScreen *)screen;
 
 @end
+
+NS_ASSUME_NONNULL_END
