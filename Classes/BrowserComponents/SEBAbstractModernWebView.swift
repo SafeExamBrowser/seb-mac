@@ -45,6 +45,7 @@ import Foundation
     private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
     public var pageZoom = WebViewDefaultPageZoom
     private var textZoom = WebViewDefaultTextZoom
+    private var previousSearchText = ""
 
     private var downloadFilename: String?
 
@@ -431,6 +432,62 @@ import Foundation
         setTextSize()
     }
     
+    public func searchText(_ textToSearch: String, backwards: Bool, caseSensitive: Bool)
+    {
+        if #available(macOS 11, iOS 14, *) {
+            let findConfiguration = WKFindConfiguration.init()
+            findConfiguration.backwards = backwards
+            findConfiguration.caseSensitive = caseSensitive
+            findConfiguration.wraps = true
+            sebWebView.find(textToSearch, configuration: findConfiguration) { findResult in
+                let matchFound = findResult.matchFound
+                if !matchFound {
+                    let js = "window.getSelection().removeAllRanges();"
+                    self.sebWebView.evaluateJavaScript(js)
+                }
+                self.navigationDelegate?.searchTextMatchFound?(matchFound)
+            }
+        } else {
+            if textToSearch.isEmpty {
+                previousSearchText = textToSearch
+                sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
+                self.navigationDelegate?.searchTextMatchFound?(false)
+            } else {
+                if textToSearch == previousSearchText {
+                    if backwards {
+                        self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
+                    } else {
+                        self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
+                    }
+                    self.navigationDelegate?.searchTextMatchFound?(true)
+                } else {
+                    previousSearchText = textToSearch
+                    let searchString = "SEB_HighlightAllOccurencesOfString('\(textToSearch)')"
+                    sebWebView.evaluateJavaScript(searchString) { result, error in
+                        if backwards {
+                            self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
+                        } else {
+                            self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
+                        }
+                        self.sebWebView.evaluateJavaScript("SEB_SearchResultCount") { (result, error) in
+                            if error == nil {
+                                if result != nil {
+                                    let count = result as! Int
+                                    if count > 0 {
+                                        self.navigationDelegate?.searchTextMatchFound?(true)
+                                        return
+                                    }
+                                }
+                            }
+                            self.sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
+                            self.navigationDelegate?.searchTextMatchFound?(false)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     public func privateCopy(_ sender: Any) {
         browserControllerDelegate?.privateCopy?(sender)
     }
@@ -506,6 +563,8 @@ import Foundation
                 self.navigationDelegate?.examine?(jointCookies, for:url)
             }
             return
+        } else {
+            self.navigationDelegate?.examine?(HTTPCookieStorage.shared.cookies ?? [], for:url)
         }
     }
     
@@ -616,7 +675,7 @@ import Foundation
                         return
                     } else {
                         decisionHandler(.cancel)
-                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: [])
+                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: HTTPCookieStorage.shared.cookies ?? [])
                         self.downloadFilename = nil
                         return
                     }
@@ -701,7 +760,7 @@ import Foundation
                 decidePolicyWithCookies(cookies)
             }
         } else {
-            decidePolicyWithCookies([])
+            decidePolicyWithCookies(HTTPCookieStorage.shared.cookies ?? [])
         }
     }
     

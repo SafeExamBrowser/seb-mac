@@ -158,23 +158,18 @@
                                     <items>
                                         <menuItem title="Find…" tag="1" keyEquivalent="f" id="209">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="241"/>
+                                                <action selector="searchText:" target="543" id="GXU-fr-Iff"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Find Next" tag="2" keyEquivalent="g" id="208">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="487"/>
+                                                <action selector="searchTextNext:" target="543" id="23A-IH-tHU"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="213">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="488"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="221">
-                                            <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="489"/>
+                                                <action selector="searchTextPrevious:" target="543" id="VcA-kE-G9Q"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Jump to Selection" keyEquivalent="j" id="210">
@@ -184,6 +179,13 @@
                                         </menuItem>
                                     </items>
                                 </menu>
+                                <connections>
+                                    <binding destination="993" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowFind" id="F1f-ab-hbX">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </menuItem>
                             <menuItem title="Spelling and Grammar" id="216">
                                 <menu key="submenu" title="Spelling and Grammar" id="200">
@@ -313,7 +315,7 @@
                 <menuItem title="View" id="295">
                     <menu key="submenu" title="View" id="296">
                         <items>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="297">
+                            <menuItem title="Toggle Toolbar" keyEquivalent="t" id="297">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleToolbarShown:" target="-1" id="366"/>
@@ -836,11 +838,11 @@ DQ
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="nSQ-YT-olP" userLabel="Time View">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
                     <subviews>
-                        <textField verticalHuggingPriority="1000" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
-                            <rect key="frame" x="2" y="8" width="46" height="18"/>
+                        <textField translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
+                            <rect key="frame" x="3" y="9" width="45" height="17"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="center" placeholderString="09:41" id="ITD-IF-Cv9">
                                 <dateFormatter key="formatter" formatterBehavior="custom10_4" dateFormat="HH:mm" id="kfS-SN-RBm"/>
-                                <font key="font" size="15" name="HelveticaNeue-Bold"/>
+                                <font key="font" size="14.5" name="HelveticaNeue-Bold"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
@@ -850,8 +852,8 @@ DQ
                     <constraints>
                         <constraint firstItem="cfx-jb-hJX" firstAttribute="centerX" secondItem="nSQ-YT-olP" secondAttribute="centerX" id="6rV-aQ-60w"/>
                         <constraint firstItem="cfx-jb-hJX" firstAttribute="centerY" secondItem="nSQ-YT-olP" secondAttribute="centerY" constant="-1" id="B3k-ab-gKD"/>
-                        <constraint firstItem="cfx-jb-hJX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nSQ-YT-olP" secondAttribute="leading" constant="4" id="HcL-Vw-hVG"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cfx-jb-hJX" secondAttribute="trailing" constant="4" id="KPF-OW-1xO"/>
+                        <constraint firstItem="cfx-jb-hJX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nSQ-YT-olP" secondAttribute="leading" id="HcL-Vw-hVG"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cfx-jb-hJX" secondAttribute="trailing" id="KPF-OW-1xO"/>
                         <constraint firstAttribute="height" constant="32" id="NZZ-0Y-uLy"/>
                     </constraints>
                 </customView>

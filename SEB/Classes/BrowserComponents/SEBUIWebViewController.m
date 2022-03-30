@@ -205,6 +205,13 @@
     [_sebWebView stopLoading];
 }
 
+
+- (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js
+{
+    return [_sebWebView stringByEvaluatingJavaScriptFromString:js];
+}
+
+
 - (void) setPrivateClipboardEnabled:(BOOL)privateClipboardEnabled
 {
     return;

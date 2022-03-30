@@ -73,6 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js;
 
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive;
+
 - (void) privateCopy:(id)sender;
 - (void) privateCut:(id)sender;
 - (void) privatePaste:(id)sender;
@@ -155,6 +157,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) appVersion;
 
 @property (readwrite, nonatomic) double pageZoom;
+
+- (void) searchTextMatchFound:(BOOL)matchFound;
+
 
 @property (readonly, nonatomic) NSString *customSEBUserAgent;
 // Currently required by SEB-macOS
@@ -275,6 +280,22 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (readonly) BOOL downloadingInTemporaryWebView;
 // Required by SEB-iOS (SEBUIWebViewController)
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;
+
+typedef NS_OPTIONS(NSUInteger, _WKCaptureDevices) {
+    _WKCaptureDeviceMicrophone = 1 << 0,
+    _WKCaptureDeviceCamera = 1 << 1,
+    _WKCaptureDeviceDisplay = 1 << 2,
+};
+
+typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
+    WKDisplayCapturePermissionDecisionDeny,
+    WKDisplayCapturePermissionDecisionScreenPrompt,
+    WKDisplayCapturePermissionDecisionWindowPrompt,
+};
+
+- (void)_webView:(WKWebView *)webView requestUserMediaAuthorizationForDevices:(_WKCaptureDevices)devices url:(NSURL *)url mainFrameURL:(NSURL *)mainFrameURL decisionHandler:(void (^)(BOOL authorized))decisionHandler;
+
+- (void)_webView:(WKWebView *)webView requestDisplayCapturePermissionForOrigin:(WKSecurityOrigin *)securityOrigin initiatedByFrame:(WKFrameInfo *)frame withSystemAudio:(BOOL)withSystemAudio decisionHandler:(void (^)(WKDisplayCapturePermissionDecision decision))decisionHandler;
 
 @end
 
