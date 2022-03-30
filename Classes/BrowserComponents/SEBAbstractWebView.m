@@ -158,6 +158,16 @@
     [self.browserControllerDelegate stopLoading];
 }
 
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate focusFirstElement];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate focusLastElement];
+}
+
 - (void) zoomPageIn
 {
     [self.browserControllerDelegate zoomPageIn];
@@ -321,6 +331,10 @@
     return self.navigationDelegate.wkWebViewConfiguration;
 }
 
+- (id) accessibilityDock
+{
+    return self.navigationDelegate.accessibilityDock;
+}
 
 - (void) setLoading:(BOOL)loading
 {
@@ -340,6 +354,20 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.navigationDelegate examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(firstDOMElementDeselected)]) {
+        [self.navigationDelegate firstDOMElementDeselected];
+   }
+}
+
+- (void) lastDOMElementDeselected
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(lastDOMElementDeselected)]) {
+        [self.navigationDelegate lastDOMElementDeselected];
+    }
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url

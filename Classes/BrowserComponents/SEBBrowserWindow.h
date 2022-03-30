@@ -92,6 +92,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
+- (void) activateInitialFirstResponder;
+- (void) makeContentFirstResponder;
+- (void) goToDock;
 
 
 @end

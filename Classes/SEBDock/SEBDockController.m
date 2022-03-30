@@ -77,7 +77,8 @@
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+6];
         [self.window setAcceptsMouseMovedEvents:YES];
-
+        NSString *dockTitle = [NSString stringWithFormat:NSLocalizedString(@"%@ Dock", nil), SEBShortAppName];
+        self.window.contentView.accessibilityLabel = dockTitle;
     }
     return self;
 }
@@ -90,22 +91,49 @@
 }
 
 
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    DDLogDebug(@"Dock did become key");
+}
+
+
+- (void)windowDidResignKey:(NSNotification *)notification
+{
+    DDLogDebug(@"Dock did resign key");
+    
+}
+
+
+- (void) lastDockItemResignedFirstResponder
+{
+    [self.dockButtonDelegate lastDockItemResignedFirstResponder];
+}
+
+- (void) firstDockItemResignedFirstResponder
+{
+    [self.dockButtonDelegate firstDockItemResignedFirstResponder];
+}
+
+- (id)currentDockAccessibilityParent {
+    return [self.dockButtonDelegate currentDockAccessibilityParent];
+}
+
+
+
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems
 {
     DDLogDebug(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
-    if (_leftDockItems) {
-        _leftDockItems = nil;
-    }
     
+    isLeftmostItemButton = YES;
     NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newLeftDockItems) {
         NSView *superview = [self.dockWindow contentView];
-        _leftDockItems = newLeftDockItems;
         NSView *previousDockItemView;
         
         NSView *dockItemView;
-        for (id<SEBDockItem> dockItem in self.leftDockItems) {
+        
+        for (id<SEBDockItem> dockItem in newLeftDockItems) {
             if (dockItem.icon) {
                 SEBDockItemButton *newDockItemButton =
                 [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize)
@@ -113,6 +141,10 @@
                                          highlightedIcon:dockItem.highlightedIcon
                                                    title:dockItem.title
                                                     menu:dockItem.menu];
+                if (isLeftmostItemButton) {
+                    newDockItemButton.isFirstDockItem = YES;
+                    isLeftmostItemButton = NO;
+                }
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -120,7 +152,7 @@
                     [newDockItemButton setSecondaryAction:dockItem.secondaryAction];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
-
+                newDockItemButton.delegate = self;
                 dockItemView = newDockItemButton;
                 [dockItemButtons addObject:newDockItemButton];
             } else {
@@ -132,7 +164,7 @@
             }
             [dockItemView setTranslatesAutoresizingMaskIntoConstraints:NO];
             [superview addSubview: dockItemView];
-
+            
             NSMutableArray *constraints = [NSMutableArray new];
             if (dockItemView) {
                 [constraints addObject:[NSLayoutConstraint constraintWithItem:dockItemView
@@ -142,7 +174,7 @@
                                                                     attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0
                                                                      constant:0.0]];
-
+                
                 if (previousDockItemView) {
                     [constraints addObject:[NSLayoutConstraint constraintWithItem:previousDockItemView
                                                                         attribute:NSLayoutAttributeRight
@@ -162,7 +194,7 @@
                 }
                 
                 previousDockItemView = dockItemView;
-
+                
                 if (constraints.count > 0) {
                     [dockItemView.superview addConstraints:constraints];
                 }
@@ -179,17 +211,13 @@
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems
 {
     DDLogDebug(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
-    if (_centerDockItems) {
-        _centerDockItems = nil;
-    }
     
     NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newCenterDockItems) {
         NSView *superview = [self.dockWindow contentView];
-        _centerDockItems = newCenterDockItems;
         NSView *previousDockItemView;
         
-        for (id<SEBDockItem> dockItem in self.centerDockItems) {
+        for (id<SEBDockItem> dockItem in newCenterDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
                 SEBDockItemButton *newDockItemButton =
@@ -198,6 +226,10 @@
                                          highlightedIcon:dockItem.highlightedIcon
                                                    title:dockItem.title
                                                     menu:dockItem.menu];
+                if (isLeftmostItemButton) {
+                    newDockItemButton.isFirstDockItem = YES;
+                    isLeftmostItemButton = NO;
+                }
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -205,6 +237,7 @@
                     [newDockItemButton setSecondaryAction:dockItem.secondaryAction];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
+                newDockItemButton.delegate = self;
                 dockItemView = newDockItemButton;
                 [dockItemButtons addObject:newDockItemButton];
             } else {
@@ -271,17 +304,14 @@
 - (NSArray *) setRightItems:(NSArray *)newRightDockItems
 {
     DDLogDebug(@"[SEBDockController setRightItems: %@]", newRightDockItems);
-    if (_rightDockItems) {
-        _rightDockItems = nil;
-    }
     
     NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newRightDockItems) {
         NSView *superview = [self.dockWindow contentView];
-        _rightDockItems = newRightDockItems;
         NSView *previousDockItemView;
+        BOOL rightmostItemButton = YES;
         
-        for (id<SEBDockItem> dockItem in self.rightDockItems) {
+        for (id<SEBDockItem> dockItem in newRightDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
                 SEBDockItemButton *newDockItemButton =
@@ -290,6 +320,13 @@
                                          highlightedIcon:dockItem.highlightedIcon
                                                    title:dockItem.title
                                                     menu:dockItem.menu];
+                if (isLeftmostItemButton) {
+                    newDockItemButton.isFirstDockItem = YES;
+                    isLeftmostItemButton = NO;
+                } else if (rightmostItemButton) {
+                    newDockItemButton.isLastDockItem = YES;
+                    rightmostItemButton = NO;
+                }
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -298,6 +335,7 @@
                     [newDockItemButton setButtonType:NSMomentaryLightButton];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
+                newDockItemButton.delegate = self;
                 dockItemView = newDockItemButton;
                 [dockItemButtons addObject:newDockItemButton];
             } else {
@@ -354,14 +392,68 @@
 {
     DDLogDebug(@"[SEBDockController showDock]");
     [self.dockWindow setCalculatedFrame:screen];
+    
+    [self.window recalculateKeyViewLoop];
+    
     [self showWindow:self];
+}
+
+
+- (void) activateDockFirstControl:(BOOL)firstControl
+{
+    [self.window makeKeyAndOrderFront:self];
+    if (firstControl) {
+        [self makeFirstDockItemFirstResponder];
+    } else {
+        [self makeLastDockItemFirstResponder];
+    }
+}
+
+
+- (void) makeFirstDockItemFirstResponder
+{
+    DDLogDebug(@"[SEBDockController makeFirstDockItemFirstResponder]");
+    [self makeDockItemFirstResponderFirst:YES];
+}
+
+
+- (void) makeLastDockItemFirstResponder
+{
+    DDLogDebug(@"[SEBDockController makeLastDockItemFirstResponder]");
+    [self makeDockItemFirstResponderFirst:NO];
+}
+
+
+- (void) makeDockItemFirstResponderFirst:(BOOL)firstItem
+{
+    DDLogDebug(@"[SEBDockController makeDockItemFirstResponder]");
+    
+    NSArray *dockItems = self.dockWindow.contentView.subviews;
+    SEBDockItemButton *dockItemToMakeFirstResponder = nil;
+    for (SEBDockItemButton *dockItem in dockItems) {
+        if (dockItem.class == SEBDockItemButton.class) {
+            if (firstItem) {
+                if (dockItem.isFirstDockItem) {
+                    dockItemToMakeFirstResponder = dockItem;
+                    break;
+                }
+            } else {
+                if (dockItem.isLastDockItem) {
+                    dockItemToMakeFirstResponder = dockItem;
+                    break;
+                }
+            }
+        }
+    }
+    if (dockItemToMakeFirstResponder) {
+        [self.window makeFirstResponder:dockItemToMakeFirstResponder];
+    }
 }
 
 
 - (void) hideDock
 {
     DDLogDebug(@"[SEBDockController hideDock]");
-//    [self.window orderOut:self];
     [self.window close];
 }
 
