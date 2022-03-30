@@ -89,7 +89,6 @@ function SEB_AllowSpellCheck(enable) {
     }
 }
 
-
 function SEB_GetAllFocusableElements() {
     var elements = document.body.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), details:not([disabled]), summary:not([disabled])');
     return elements;
@@ -104,7 +103,6 @@ function SEB_FocusLastElement() {
     var focusableElements = SEB_GetAllFocusableElements();
     var lastFocusable = focusableElements[focusableElements.length - 1];
     lastFocusable.focus();
-};
 }
 
 
@@ -148,6 +146,7 @@ function SEB_HighlightAllOccurencesOfStringForElement(element,keyword) {
 function SEB_SearchNext() {
     SEB_jump(1);
 }
+
 function SEB_SearchPrevious() {
     SEB_jump(-1);
 }
@@ -212,4 +211,4 @@ function SEB_RemoveAllHighlights() {
     SEB_SearchResultCount = 0;
     SEB_currentSelected = -1;
     SEB_RemoveAllHighlightsForElement(document.body);
-}
+};
