@@ -123,7 +123,7 @@
                                 <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
                             </buttonCell>
                             <connections>
-                                <action selector="goToDock:" target="-1" id="Eu6-uw-yGW"/>
+                                <action selector="goToDock:" target="-2" id="vey-Ns-DSy"/>
                             </connections>
                         </button>
                     </toolbarItem>
