@@ -285,6 +285,11 @@
     return self.navigationDelegate.wkWebViewConfiguration;
 }
 
+- (id) accessibilityDock
+{
+    return self.navigationDelegate.accessibilityDock;
+}
+
 - (void) setLoading:(BOOL)loading
 {
     [self.navigationDelegate setLoading:loading];

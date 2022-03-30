@@ -35,9 +35,11 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
 #import "SEBBrowserWindow.h"
+#import "SEBBrowserWindowAccessoryView.h"
 #import "SEBOSXBrowserController.h"
 
 @class SEBBrowserWindow;
+@class SEBBrowserWindowAccessoryView;
 @class SEBOSXBrowserController;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
@@ -53,11 +55,15 @@
 @property (readonly, nonatomic) SEBBrowserWindow *browserWindow;
 //@property (weak) IBOutlet SEBAbstractWebView *webView;
 @property (weak) IBOutlet NSButton *toolbarGoToDockButton;
+@property (strong, nonatomic) IBOutlet SEBBrowserWindowAccessoryView *accessoryView;
+@property (weak) IBOutlet NSButton *accessoryViewGoToDockButton;
+@property (nonatomic, readwrite) BOOL isAccessoryViewGoToDockButtonHidden;
+@property (strong, nonatomic) NSTitlebarAccessoryViewController *accessoryViewController;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
 @property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
-@property (strong) NSScreen *previousScreen;
-@property (strong) NSTimer *windowWatchTimer;
+@property (strong, nonatomic) NSScreen *previousScreen;
+@property (strong, nonatomic) NSTimer *windowWatchTimer;
 
 - (void) activateInitialFirstResponder;
 - (IBAction) backForward: (id)sender;

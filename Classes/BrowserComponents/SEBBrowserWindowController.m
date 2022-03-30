@@ -97,8 +97,8 @@ void DisposeWindow (
     BOOL allowReload = self.browserWindow.isReloadAllowed;
     [self.toolbarReloadButton setHidden:!allowReload];
     
-//    [self.window recalculateKeyViewLoop];
-
+//    [self createAccessoryViewController];
+    
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
 
@@ -396,9 +396,30 @@ void DisposeWindow (
 }
 
 
+- (void) createAccessoryViewController
+{
+    if (!self.accessoryViewController) {
+        _accessoryViewController = [NSTitlebarAccessoryViewController new];
+        _accessoryViewController.view = _accessoryView;
+        _accessoryViewController.layoutAttribute = NSLayoutAttributeRight;
+        [self.window addTitlebarAccessoryViewController:_accessoryViewController];
+    }
+}
+
+
+- (BOOL) isAccessoryViewGoToDockButtonHidden
+{
+    return self.window.toolbar.isVisible;
+}
+
+
 - (void) activateInitialFirstResponder
 {
-    [self.browserWindow makeFirstResponder:self.toolbarGoToDockButton];
+//    if (self.window.toolbar.isVisible) {
+        [self.browserWindow makeFirstResponder:self.toolbarGoToDockButton];
+//    } else {
+//        [self.browserWindow makeFirstResponder:self.accessoryViewGoToDockButton];
+//    }
 }
 
 
