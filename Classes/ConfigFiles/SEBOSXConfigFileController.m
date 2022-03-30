@@ -133,12 +133,13 @@
                                    showReconfiguredAlert:(BOOL)showReconfiguredAlert {
     if (!forceConfiguringClient && showReconfiguredAlert) {
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
-            NSAlert *newAlert = [[NSAlert alloc] init];
+            NSAlert *newAlert = [self.sebController newAlert];
             [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.sebController removeAlertWindow:newAlert.window];
                 switch(answer)
                 {
                     case NSAlertFirstButtonReturn:
@@ -153,7 +154,7 @@
                         return;
                 }
             };
-            [newAlert beginSheetModalForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
             return;
 
         } else {
@@ -208,12 +209,13 @@
 
 
 - (BOOL) saveSettingsUnencrypted {
-    NSAlert *newAlert = [[NSAlert alloc] init];
+    NSAlert *newAlert = [self.sebController newAlert];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
     [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:newAlert.window];
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
