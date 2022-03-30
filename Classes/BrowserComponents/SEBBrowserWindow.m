@@ -48,6 +48,10 @@
 @synthesize webView;
 
 
+- (NSArray *)accessibilityChildren {
+    return @[self.contentView, self.accessibilityDock];
+}
+
 -(BOOL)canBecomeKeyWindow {
     return YES;
 }
@@ -112,6 +116,7 @@
         }
     }
     _javaScriptFunctions = self.browserController.pageJavaScript;
+    self.contentView.accessibilityLabel = NSLocalizedString(@"Web Content", nil);
 }
 
 
@@ -940,6 +945,11 @@
     return self.browserController.wkWebViewConfiguration;
 }
 
+- (id) accessibilityDock
+{
+    return self.browserController.accessibilityDock;
+}
+
 
 - (void) setPageTitle:(NSString *)title
 {
@@ -975,6 +985,20 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.browserController examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    if (!self.toolbar.isVisible) {
+        [self.browserController firstDOMElementDeselected];
+    }
+}
+
+- (void) lastDOMElementDeselected
+{
+    if (!self.toolbar.isVisible) {
+        [self.browserController lastDOMElementDeselected];
+    }
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url

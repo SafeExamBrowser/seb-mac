@@ -47,5 +47,11 @@
 }
 
 
+- (BOOL)resignFirstResponder
+{
+    BOOL okToChange = [super resignFirstResponder];
+    return okToChange;
+}
+
 
 @end

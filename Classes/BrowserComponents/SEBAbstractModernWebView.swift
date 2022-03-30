@@ -73,6 +73,19 @@ import Foundation
 """
         let jsApiUserScript = WKUserScript(source: jsApiCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(jsApiUserScript)
+        
+        let jsDocumentEndCode = """
+    var elements = document.body.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), details:not([disabled]), summary:not([disabled])');
+    elements[0].addEventListener('blur', (event) => {
+        window.webkit.messageHandlers.firstElementBlured.postMessage(event.target.outerHTML);
+      }, true);
+    elements[elements.length - 1].addEventListener('blur', (event) => {
+        window.webkit.messageHandlers.lastElementBlured.postMessage(event.target.outerHTML);
+      }, true);
+"""
+        let jsDocumentEndScript = WKUserScript(source: jsDocumentEndCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
+        userContentController.addUserScript(jsDocumentEndScript)
+        
         if let pageJavaScriptCode = navigationDelegate?.pageJavaScript {
             let pageModifyUserScript = WKUserScript(source: pageJavaScriptCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
             userContentController.addUserScript(pageModifyUserScript)
@@ -82,6 +95,8 @@ import Foundation
             userContentController.addUserScript(controlSpellCheckUserScript)
         }
         userContentController.add(self, name: "updateKeys")
+        userContentController.add(self, name: "firstElementBlured")
+        userContentController.add(self, name: "lastElementBlured")
         webViewConfiguration!.userContentController = userContentController
         let allowContentJavaScript = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableJavaScript")
         if #available(macOS 11.0, iOS 14.0, *) {
@@ -117,6 +132,16 @@ import Foundation
                     }
                 }
             }
+        }
+        if message.name == "firstElementBlured" {
+            let parameter = message.body as? String
+            DDLogVerbose("First DOM Element deselected: \(parameter as Any)")
+            self.navigationDelegate?.firstDOMElementDeselected?()
+        }
+        if message.name == "lastElementBlured" {
+            let parameter = message.body as? String
+            DDLogVerbose("Last DOM Element deselected: \(parameter as Any)")
+            self.navigationDelegate?.lastDOMElementDeselected?()
         }
     }
     

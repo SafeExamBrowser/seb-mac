@@ -275,13 +275,6 @@ self.highlighted = false;
 }
 
 
-- (void)cursorDown
-{
-    if (self.dockMenu) {
-    }
-}
-
-
 - (void)updateTrackingAreas
 {
     [self removeTrackingArea:trackingArea];
@@ -344,5 +337,12 @@ self.highlighted = false;
     return okToChange;
 }
 
+
+//- (id)accessibilityParent
+//{
+//    NSWindow *activeWindow = self.delegate.currentDockAccessibilityParent;
+//    [activeWindow makeKeyWindow];
+//    return activeWindow;
+//}
 
 @end
