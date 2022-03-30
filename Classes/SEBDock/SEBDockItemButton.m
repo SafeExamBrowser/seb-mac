@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24/09/14.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -198,7 +198,7 @@
 {
     if (mouseDown) {
         mouseDown = NO;
-        [self rightMouseUp:[NSEvent new]];
+        [self rightMouseDown:[NSEvent new]];
     }
     
 }
@@ -206,6 +206,7 @@
 
 - (void)rightMouseDown:(NSEvent*)theEvent
 {
+    DDLogDebug(@"DockItemButton state: %ld, highlighted: %hhd", (long)self.state, self.highlighted);
     self.highlighted = true;
 //    if (@available(macOS 10.14, *)) {
         self.alphaValue = 0.5;
@@ -309,5 +310,38 @@ self.highlighted = false;
         }
 }
 
+
+- (BOOL)acceptsFirstResponder
+{
+    return !self.hidden;
+}
+
+    
+- (BOOL)becomeFirstResponder
+{
+    BOOL okToChange = [super becomeFirstResponder];
+    return okToChange;
+}
+
+
+- (BOOL)resignFirstResponder
+{
+    if (_isFirstDockItem) {
+        [_delegate firstDockItemResignedFirstResponder];
+    } else if (_isLastDockItem) {
+        [_delegate lastDockItemResignedFirstResponder];
+    }
+
+    BOOL okToChange = [super resignFirstResponder];
+    return okToChange;
+}
+
+
+//- (id)accessibilityParent
+//{
+//    NSWindow *activeWindow = self.delegate.currentDockAccessibilityParent;
+//    [activeWindow makeKeyWindow];
+//    return activeWindow;
+//}
 
 @end

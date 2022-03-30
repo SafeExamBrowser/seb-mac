@@ -33,6 +33,7 @@
 //
 
 #import "SEBDockWindow.h"
+#import "SEBDockController.h"
 
 @implementation SEBDockWindow
 
@@ -45,6 +46,15 @@
 //        [super sendEvent:theEvent];
 //    }
 //}
+
+
+-(BOOL)canBecomeKeyWindow {
+    return YES;
+}
+
+-(BOOL)canBecomeMainWindow {
+    return NO;
+}
 
         
 - (void) setCalculatedFrame:(NSScreen *)screen
@@ -65,5 +75,25 @@
     [self setFrame:windowFrame display:YES];    
 }
 
+
+- (id) accessibilityParentItem
+{
+    return [(SEBDockController *)self.windowController currentDockAccessibilityParent];
+}
+
+//- (NSString *) accessibilityLabel
+//{
+//    return @"SEB Dock";
+//}
+//
+//- (NSString *) accessibilityTitle
+//{
+//    return @"SEB Dock";
+//}
+//
+//- (NSString *) accessibilityHelp
+//{
+//    return @"The SEB Dock contains controls to interact with the app";
+//}
 
 @end

@@ -61,6 +61,7 @@ void DisposeWindow (
     if (self) {
         // Initialization code here.
         [self setShouldCascadeWindows:NO];
+        window.autorecalculatesKeyViewLoop = YES;
     }
     
     return self;
@@ -95,8 +96,9 @@ void DisposeWindow (
     [self.backForwardButtons setHidden:!allowNavigation];
     BOOL allowReload = self.browserWindow.isReloadAllowed;
     [self.toolbarReloadButton setHidden:!allowReload];
-    [self.window recalculateKeyViewLoop];
-
+    
+//    [self createAccessoryViewController];
+    
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
 
@@ -125,7 +127,10 @@ void DisposeWindow (
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    [self.window recalculateKeyViewLoop];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"windowDidBecomeKey" object:self];
+
+//    [self.window recalculateKeyViewLoop];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
 }
@@ -388,6 +393,39 @@ void DisposeWindow (
         return appTitleString;
     }
     return @"";
+}
+
+
+- (void) createAccessoryViewController
+{
+    if (!self.accessoryViewController) {
+        _accessoryViewController = [NSTitlebarAccessoryViewController new];
+        _accessoryViewController.view = _accessoryView;
+        _accessoryViewController.layoutAttribute = NSLayoutAttributeRight;
+        [self.window addTitlebarAccessoryViewController:_accessoryViewController];
+    }
+}
+
+
+- (BOOL) isAccessoryViewGoToDockButtonHidden
+{
+    return self.window.toolbar.isVisible;
+}
+
+
+- (void) activateInitialFirstResponder
+{
+//    if (self.window.toolbar.isVisible) {
+        [self.browserWindow makeFirstResponder:self.toolbarGoToDockButton];
+//    } else {
+//        [self.browserWindow makeFirstResponder:self.accessoryViewGoToDockButton];
+//    }
+}
+
+
+- (IBAction) goToDock: (id)sender
+{
+    [self.browserWindow goToDock];
 }
 
 

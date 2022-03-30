@@ -286,6 +286,8 @@
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", startURL.absoluteString);
     SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
     SEBBrowserWindow *newBrowserWindow = newBrowserWindowWebView.window;
+    [newBrowserWindow recalculateKeyViewLoop];
+
 
     self.mainBrowserWindow = newBrowserWindow;
     self.mainWebView = newBrowserWindowWebView;
@@ -475,6 +477,34 @@
     }
     // Update enabled property of reload button in Dock
     [self.sebController reloadButtonEnabled:webView.isReloadAllowed];
+}
+
+
+- (void) activateCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow makeContentFirstResponder];
+}
+
+
+- (void) focusFirstElementInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow focusFirstElement];
+}
+
+
+- (void) focusLastElementInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow focusLastElement];
+}
+
+
+- (void) activateInitialFirstResponderInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow activateInitialFirstResponder];
 }
 
 
@@ -891,6 +921,12 @@
 
 #pragma mark SEB Dock Buttons Action Methods
 
+- (void) goToDock
+{
+    [_dockController activateDockFirstControl:YES];
+}
+
+
 - (void) backToStartCommand
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -946,6 +982,11 @@
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
+- (id) accessibilityDock
+{
+    return _dockController.dockWindow.contentView;
+}
+
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
     [self.sebController examineCookies:cookies forURL:url];
@@ -954,6 +995,16 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.sebController examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    [self.sebController firstDOMElementDeselected];
+}
+
+- (void) lastDOMElementDeselected
+{
+    [self.sebController lastDOMElementDeselected];
 }
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
