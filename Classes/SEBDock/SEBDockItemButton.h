@@ -43,6 +43,11 @@
 - (void) lastDockItemResignedFirstResponder;
 - (void) firstDockItemResignedFirstResponder;
 
+- (id) currentDockAccessibilityParent;
+
+@optional
+- (NSWindow *)dockWindow;
+
 @end
 
 @interface SEBDockItemButton : NSButton
@@ -77,7 +82,6 @@
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;
 - (void)updateTrackingAreas;
-- (void)cursorDown;
 
 - (void)setHighlighted:(BOOL)highlighted;
 

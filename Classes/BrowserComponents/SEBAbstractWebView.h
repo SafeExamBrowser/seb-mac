@@ -35,6 +35,7 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "SEBURLFilter.h"
+#import "SEBDockWindow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -112,11 +113,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 @property (readonly, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
+@property (nullable, readonly, nonatomic) id accessibilityDock;
 - (void) setPageTitle:(NSString *)title;
 - (void) setLoading:(BOOL)loading;
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url;
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
+- (void) firstDOMElementDeselected;
+- (void) lastDOMElementDeselected;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url;

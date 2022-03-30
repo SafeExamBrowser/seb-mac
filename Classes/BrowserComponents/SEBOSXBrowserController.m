@@ -982,6 +982,11 @@
 
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
+- (id) accessibilityDock
+{
+    return _dockController.dockWindow.contentView;
+}
+
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
     [self.sebController examineCookies:cookies forURL:url];
@@ -990,6 +995,16 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.sebController examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    [self.sebController firstDOMElementDeselected];
+}
+
+- (void) lastDOMElementDeselected
+{
+    [self.sebController lastDOMElementDeselected];
 }
 
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url

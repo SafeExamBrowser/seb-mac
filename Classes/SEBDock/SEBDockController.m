@@ -77,7 +77,8 @@
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+6];
         [self.window setAcceptsMouseMovedEvents:YES];
-        self.window.accessibilityValueDescription = [NSString stringWithFormat:NSLocalizedString(@"%@ Dock", nil), SEBFullAppNameClassic];
+        NSString *dockTitle = [NSString stringWithFormat:NSLocalizedString(@"%@ Dock", nil), SEBShortAppName];
+        self.window.contentView.accessibilityLabel = dockTitle;
     }
     return self;
 }
@@ -113,25 +114,26 @@
     [self.dockButtonDelegate firstDockItemResignedFirstResponder];
 }
 
+- (id)currentDockAccessibilityParent {
+    return [self.dockButtonDelegate currentDockAccessibilityParent];
+}
+
+
 
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems
 {
     DDLogDebug(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
-    if (_leftDockItems) {
-        _leftDockItems = nil;
-    }
     
     isLeftmostItemButton = YES;
     NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newLeftDockItems) {
         NSView *superview = [self.dockWindow contentView];
-        _leftDockItems = newLeftDockItems;
         NSView *previousDockItemView;
         
         NSView *dockItemView;
         
-        for (id<SEBDockItem> dockItem in self.leftDockItems) {
+        for (id<SEBDockItem> dockItem in newLeftDockItems) {
             if (dockItem.icon) {
                 SEBDockItemButton *newDockItemButton =
                 [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize)
@@ -162,7 +164,7 @@
             }
             [dockItemView setTranslatesAutoresizingMaskIntoConstraints:NO];
             [superview addSubview: dockItemView];
-
+            
             NSMutableArray *constraints = [NSMutableArray new];
             if (dockItemView) {
                 [constraints addObject:[NSLayoutConstraint constraintWithItem:dockItemView
@@ -172,7 +174,7 @@
                                                                     attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0
                                                                      constant:0.0]];
-
+                
                 if (previousDockItemView) {
                     [constraints addObject:[NSLayoutConstraint constraintWithItem:previousDockItemView
                                                                         attribute:NSLayoutAttributeRight
@@ -192,7 +194,7 @@
                 }
                 
                 previousDockItemView = dockItemView;
-
+                
                 if (constraints.count > 0) {
                     [dockItemView.superview addConstraints:constraints];
                 }
@@ -209,17 +211,13 @@
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems
 {
     DDLogDebug(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
-    if (_centerDockItems) {
-        _centerDockItems = nil;
-    }
     
     NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newCenterDockItems) {
         NSView *superview = [self.dockWindow contentView];
-        _centerDockItems = newCenterDockItems;
         NSView *previousDockItemView;
         
-        for (id<SEBDockItem> dockItem in self.centerDockItems) {
+        for (id<SEBDockItem> dockItem in newCenterDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
                 SEBDockItemButton *newDockItemButton =
@@ -306,18 +304,14 @@
 - (NSArray *) setRightItems:(NSArray *)newRightDockItems
 {
     DDLogDebug(@"[SEBDockController setRightItems: %@]", newRightDockItems);
-    if (_rightDockItems) {
-        _rightDockItems = nil;
-    }
     
     NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newRightDockItems) {
         NSView *superview = [self.dockWindow contentView];
-        _rightDockItems = newRightDockItems;
         NSView *previousDockItemView;
         BOOL rightmostItemButton = YES;
         
-        for (id<SEBDockItem> dockItem in self.rightDockItems) {
+        for (id<SEBDockItem> dockItem in newRightDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
                 SEBDockItemButton *newDockItemButton =
@@ -402,7 +396,6 @@
     [self.window recalculateKeyViewLoop];
     
     [self showWindow:self];
-//    [self resignFirstResponderSelectDockItem];
 }
 
 
@@ -461,7 +454,6 @@
 - (void) hideDock
 {
     DDLogDebug(@"[SEBDockController hideDock]");
-//    [self.window orderOut:self];
     [self.window close];
 }
 
