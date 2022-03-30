@@ -84,7 +84,7 @@
 @class SEBServerOSXViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -168,6 +168,9 @@
     NSInteger raiseHandUID;
     NSString *raiseHandNotification;
 }
+
+- (void) firstDOMElementDeselected;
+- (void) lastDOMElementDeselected;
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
@@ -253,6 +256,10 @@
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
+@property(readwrite) BOOL tabPressedWhileDockIsKeyWindow;
+@property(readwrite) BOOL tabPressedWhileWebViewIsFirstResponder;
+@property(readwrite) BOOL shiftTabPressedWhileDockIsKeyWindow;
+@property(readwrite) BOOL shiftTabPressedWhileWebViewIsFirstResponder;
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openedURL;
 @property(readwrite) BOOL restarting;
