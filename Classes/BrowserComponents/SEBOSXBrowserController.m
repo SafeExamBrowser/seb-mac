@@ -182,7 +182,7 @@
     [webView.trailingAnchor constraintEqualToAnchor:browserWindow.contentView.trailingAnchor].active = YES;
     [webView.topAnchor constraintEqualToAnchor:browserWindow.contentView.topAnchor].active = YES;
     [webView.bottomAnchor constraintEqualToAnchor:browserWindow.contentView.bottomAnchor].active = YES;
-    
+        
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
                withWebView:newWindowWebView
                  withTitle:title];

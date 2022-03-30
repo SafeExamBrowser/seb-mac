@@ -119,7 +119,6 @@
 }
 
 
-
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems
 {
