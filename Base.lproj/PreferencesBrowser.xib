@@ -35,10 +35,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q2b-O7-hAO">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="925"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="945"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="845" width="594" height="65"/>
+                                        <rect key="frame" x="20" y="865" width="594" height="65"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
@@ -108,7 +108,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                                        <rect key="frame" x="17" y="749" width="616" height="86"/>
+                                        <rect key="frame" x="17" y="769" width="616" height="86"/>
                                         <view key="contentView" id="sga-L4-DYG">
                                             <rect key="frame" x="3" y="3" width="610" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,20 +224,31 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser Features" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                                        <rect key="frame" x="17" y="619" width="616" height="124"/>
+                                        <rect key="frame" x="17" y="619" width="616" height="144"/>
                                         <view key="contentView" id="guQ-Yx-amA">
-                                            <rect key="frame" x="3" y="3" width="610" height="106"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="126"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="pHJ-3Q-4Y4">
-                                                    <rect key="frame" x="11" y="16" width="588" height="82"/>
+                                                    <rect key="frame" x="11" y="14" width="588" height="104"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="PeV-BM-OcJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="82"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="82"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="104"/>
                                                                     <subviews>
+                                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2dw-Ko-tLl" userLabel="Allow text search">
+                                                                            <rect key="frame" x="-2" y="87" width="130" height="18"/>
+                                                                            <string key="toolTip">Enables the search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in full screen mode</string>
+                                                                            <buttonCell key="cell" type="check" title="Allow text search" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="kbH-Rg-sB6">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowFind" id="gwp-Xk-lPf"/>
+                                                                            </connections>
+                                                                        </button>
                                                                         <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
                                                                             <rect key="frame" x="-2" y="65" width="121" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
@@ -285,8 +296,10 @@
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
+                                                                        <integer value="1000"/>
                                                                     </visibilityPriorities>
                                                                     <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
@@ -302,13 +315,13 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YTY-Kk-vXI">
-                                                            <rect key="frame" x="304" y="0.0" width="284" height="82"/>
+                                                            <rect key="frame" x="304" y="0.0" width="284" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-Mb-8DU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="263" height="82"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="263" height="104"/>
                                                                     <subviews>
                                                                         <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                                                                            <rect key="frame" x="-2" y="65" width="134" height="18"/>
+                                                                            <rect key="frame" x="-2" y="87" width="134" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable JavaScript" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="172">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -318,7 +331,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="176">
-                                                                            <rect key="frame" x="-2" y="43" width="164" height="18"/>
+                                                                            <rect key="frame" x="-2" y="65" width="164" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Block pop-up windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="177">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -328,7 +341,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
-                                                                            <rect key="frame" x="-2" y="21" width="265" height="18"/>
+                                                                            <rect key="frame" x="-2" y="43" width="265" height="18"/>
                                                                             <string key="toolTip">If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
                                                                             <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -339,7 +352,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-38-Q1a">
-                                                                            <rect key="frame" x="-2" y="-1" width="186" height="18"/>
+                                                                            <rect key="frame" x="-2" y="21" width="186" height="18"/>
                                                                             <string key="toolTip">Enable in SEB for macOS to access context menu for Web Inspector (ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</string>
                                                                             <buttonCell key="cell" type="check" title="Enable right mouse button" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aN2-81-3Zh">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -349,14 +362,26 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouseMac" id="cAk-bY-V8I"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <button toolTip="Be aware, the toolbar of the internal PDF reader also allows access to the print and download functions of the PDF reader" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-rQ-UjN">
+                                                                            <rect key="frame" x="-2" y="-1" width="237" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable toolbar of PDF reader (Win)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ktc-tU-dLx">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowPDFReaderToolbar" id="Zgb-U9-ePf"/>
+                                                                            </connections>
+                                                                        </button>
                                                                     </subviews>
                                                                     <visibilityPriorities>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
+                                                                        <integer value="1000"/>
                                                                     </visibilityPriorities>
                                                                     <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
@@ -390,7 +415,7 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="vo8-YO-Oed"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="vo8-YO-Oed"/>
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="13B-3r-AKS">
@@ -824,13 +849,13 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                                        <rect key="frame" x="16" y="52" width="617" height="201"/>
+                                        <rect key="frame" x="17" y="52" width="616" height="201"/>
                                         <view key="contentView" id="axo-2J-CZ8">
-                                            <rect key="frame" x="3" y="3" width="611" height="183"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="183"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <popUpButton toolTip="Each SEB version/device type has separate user agent settings" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                                    <rect key="frame" x="8" y="121" width="596" height="25"/>
+                                                    <rect key="frame" x="8" y="121" width="595" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -851,7 +876,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <tabView verticalCompressionResistancePriority="1000" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                                    <rect key="frame" x="11" y="12" width="589" height="105"/>
+                                                    <rect key="frame" x="11" y="12" width="588" height="105"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="105" id="rSZ-FD-lbj"/>
                                                     </constraints>
@@ -1294,7 +1319,7 @@
                                                     </connections>
                                                 </tabView>
                                                 <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
-                                                    <rect key="frame" x="127" y="153" width="471" height="22"/>
+                                                    <rect key="frame" x="127" y="153" width="470" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
                                                     </constraints>
@@ -1441,7 +1466,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.054151624548736454" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.57912457912457915" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

@@ -37,7 +37,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SEBAbstractClassicWebView : NSObject <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate>
+@interface SEBAbstractClassicWebView : NSObject <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> {
+    @private
+    NSString *previousSearchText;
+}
 
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak, nonatomic) id<SEBAbstractWebViewNavigationDelegate> navigationDelegate;

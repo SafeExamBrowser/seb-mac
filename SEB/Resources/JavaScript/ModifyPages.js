@@ -105,3 +105,111 @@ function SEB_FocusLastElement() {
     var lastFocusable = focusableElements[focusableElements.length - 1];
     lastFocusable.focus();
 };
+}
+
+
+var SEB_SearchResultCount = 0;
+var SEB_currentSelected = -1;
+
+// helper function, recursively searches in elements and their child nodes
+function SEB_HighlightAllOccurencesOfStringForElement(element,keyword) {
+    if (element) {
+        if (element.nodeType == 3) {        // Text node
+            while (true) {
+                var value = element.nodeValue;  // Search for keyword in text node
+                var idx = value.toLowerCase().indexOf(keyword);
+                
+                if (idx < 0) break;             // not found, abort
+                
+                var span = document.createElement("span");
+                var text = document.createTextNode(value.substr(idx,keyword.length));
+                span.appendChild(text);
+                span.setAttribute("class","SEB_FoundTextHighlight");
+                span.style.backgroundColor="yellow";
+                span.style.color="black";
+                text = document.createTextNode(value.substr(idx+keyword.length));
+                element.deleteData(idx, value.length - idx);
+                var next = element.nextSibling;
+                element.parentNode.insertBefore(span, next);
+                element.parentNode.insertBefore(text, next);
+                element = text;
+                SEB_SearchResultCount++;    // update the counter
+            }
+        } else if (element.nodeType == 1) { // Element node
+            if (element.style.display != "none" && element.nodeName.toLowerCase() != 'select') {
+                for (var i=element.childNodes.length-1; i>=0; i--) {
+                    SEB_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword);
+                }
+            }
+        }
+    }
+}
+
+function SEB_SearchNext() {
+    SEB_jump(1);
+}
+function SEB_SearchPrevious() {
+    SEB_jump(-1);
+}
+
+function SEB_jump(increment) {
+    previousSelected = SEB_currentSelected;
+    SEB_currentSelected = SEB_currentSelected + increment;
+    
+    if (SEB_currentSelected < 0) {
+        SEB_currentSelected = SEB_SearchResultCount + SEB_currentSelected;
+    }
+    
+    if (SEB_currentSelected >= SEB_SearchResultCount) {
+        SEB_currentSelected = SEB_currentSelected - SEB_SearchResultCount;
+    }
+    
+    previousElement = document.getElementsByClassName("SEB_FoundTextHighlight")[previousSelected];
+    
+    if (previousElement) {
+        previousElement.style.backgroundColor="yellow";
+    }
+    currentElement = document.getElementsByClassName("SEB_FoundTextHighlight")[SEB_currentSelected];
+    if (currentElement) {
+        currentElement.style.backgroundColor="green";
+        currentElement.scrollIntoView(true);
+    }
+}
+
+// the main entry point to start the search
+function SEB_HighlightAllOccurencesOfString(keyword) {
+    SEB_RemoveAllHighlights();
+    SEB_HighlightAllOccurencesOfStringForElement(document.body, keyword.toLowerCase());
+}
+
+// helper function, recursively removes the highlights in elements and their childs
+function SEB_RemoveAllHighlightsForElement(element) {
+    if (element) {
+        if (element.nodeType == 1) {
+            if (element.getAttribute("class") == "SEB_FoundTextHighlight") {
+                var text = element.removeChild(element.firstChild);
+                element.parentNode.insertBefore(text,element);
+                element.parentNode.removeChild(element);
+                return true;
+            } else {
+                var normalize = false;
+                for (var i=element.childNodes.length-1; i>=0; i--) {
+                    if (SEB_RemoveAllHighlightsForElement(element.childNodes[i])) {
+                        normalize = true;
+                    }
+                }
+                if (normalize) {
+                    element.normalize();
+                }
+            }
+        }
+    }
+    return false;
+}
+
+// the main entry point to remove the highlights
+function SEB_RemoveAllHighlights() {
+    SEB_SearchResultCount = 0;
+    SEB_currentSelected = -1;
+    SEB_RemoveAllHighlightsForElement(document.body);
+}

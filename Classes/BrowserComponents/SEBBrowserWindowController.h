@@ -60,12 +60,21 @@
 @property (nonatomic, readwrite) BOOL isAccessoryViewGoToDockButtonHidden;
 @property (strong, nonatomic) NSTitlebarAccessoryViewController *accessoryViewController;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
+@property (weak) IBOutlet NSSearchField *textSearchField;
+@property (weak) IBOutlet NSSegmentedControl *textSearchPreviousNext;
+- (void) searchTextNext;
+- (void) searchTextPrevious;
+@property (weak) IBOutlet NSButton *textSearchDone;
 @property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (strong, nonatomic) NSScreen *previousScreen;
 @property (strong, nonatomic) NSTimer *windowWatchTimer;
 
+@property (strong, nonatomic) NSString *searchText;
+- (void) searchTextMatchFound:(BOOL)matchFound;
+
 - (void) activateInitialFirstResponder;
+
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;
 - (IBAction) zoomPage: (id)sender;
