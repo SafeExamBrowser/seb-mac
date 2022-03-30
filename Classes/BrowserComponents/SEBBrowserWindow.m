@@ -48,6 +48,10 @@
 @synthesize webView;
 
 
+- (NSArray *)accessibilityChildren {
+    return @[self.contentView, self.accessibilityDock];
+}
+
 -(BOOL)canBecomeKeyWindow {
     return YES;
 }
@@ -106,6 +110,7 @@
         [self conditionallyDisplayToolbar];
     }
     _javaScriptFunctions = self.browserController.pageJavaScript;
+    self.contentView.accessibilityLabel = NSLocalizedString(@"Web Content", nil);
 }
 
 - (void)performFindPanelAction:(id)sender
@@ -343,6 +348,25 @@
 }
 
 
+- (void) activateInitialFirstResponder
+{
+    if (self.toolbar.isVisible) {
+        [(SEBBrowserWindowController *)(self.windowController) activateInitialFirstResponder];
+    } else {
+        [self focusFirstElement];
+    }
+}
+
+- (void) makeContentFirstResponder
+{
+    [self makeFirstResponder:(NSResponder *)[self nativeWebView]];
+}
+
+- (void) goToDock
+{
+    [self.browserController goToDock];
+}
+
 - (void)goBack
 {
     [self.browserControllerDelegate goBack];
@@ -411,6 +435,17 @@
     // Reload page
     DDLogInfo(@"Reloading current webpage");
     [self.browserControllerDelegate reload];
+}
+
+
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate focusFirstElement];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate focusLastElement];
 }
 
 
@@ -982,6 +1017,11 @@
     return self.browserController.wkWebViewConfiguration;
 }
 
+- (id) accessibilityDock
+{
+    return self.browserController.accessibilityDock;
+}
+
 
 - (void) setPageTitle:(NSString *)title
 {
@@ -1017,6 +1057,20 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.browserController examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    if (!self.toolbar.isVisible) {
+        [self.browserController firstDOMElementDeselected];
+    }
+}
+
+- (void) lastDOMElementDeselected
+{
+    if (!self.toolbar.isVisible) {
+        [self.browserController lastDOMElementDeselected];
+    }
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url

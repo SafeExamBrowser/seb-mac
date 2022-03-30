@@ -33,6 +33,7 @@
 //
 
 #import "SEBDockItemMenu.h"
+#include <Carbon/Carbon.h>
 
 @implementation SEBDockItemMenu
 

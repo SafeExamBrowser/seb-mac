@@ -37,6 +37,7 @@
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * @protocol    SEBDockItem
@@ -141,28 +142,32 @@
  * @details     SEBDockController handles the creation and display of the SEB Dock hovering
  *              window as well as switching between different items using the dock bar.
  */
-@interface SEBDockController : NSWindowController {
+@interface SEBDockController : NSWindowController <SEBDockItemButtonDelegate> {
 
+    @private
     CGFloat horizontalPadding;
     CGFloat verticalPadding;
     CGFloat iconSize;
-    
+    BOOL isLeftmostItemButton;
 }
 
-@property (strong) SEBDockWindow *dockWindow;
+@property (strong, nonatomic) SEBDockWindow *dockWindow;
+@property (strong, nonatomic) id<SEBDockItemButtonDelegate> dockButtonDelegate;
+@property (nullable, readonly, nonatomic) NSArray *dockItems;
 
-@property (weak) NSArray *leftDockItems;
-@property (weak) NSArray *centerDockItems;
-@property (weak) NSArray *rightDockItems;
-@property (weak) NSView *rightMostLeftItemView;
+@property (nullable, weak, nonatomic) NSView *rightMostLeftItemView;
+
 
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
 - (NSArray *) setRightItems:(NSArray *)newRightDockItems;
 
 - (void) showDockOnScreen:(NSScreen *)screen;
+- (void) activateDockFirstControl:(BOOL)firstControl;
 - (void) hideDock;
 - (void) adjustDock;
 - (void) moveDockToScreen:(NSScreen *)screen;
 
 @end
+
+NS_ASSUME_NONNULL_END
