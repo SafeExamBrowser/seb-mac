@@ -49,8 +49,12 @@
 
 
 - (NSArray *)accessibilityChildren {
-    return @[self.contentView, self.accessibilityDock];
+    NSArray *subViews = self.contentView.superview.subviews;
+    DDLogVerbose(@"Browser window contentView superview subviews: %@", subViews);
+    
+    return @[self.contentView.superview, self.contentView, self.accessibilityDock];
 }
+
 
 -(BOOL)canBecomeKeyWindow {
     return YES;
@@ -110,6 +114,7 @@
         [self conditionallyDisplayToolbar];
     }
     _javaScriptFunctions = self.browserController.pageJavaScript;
+    self.contentView.superview.accessibilityLabel = NSLocalizedString(@"Browser Window", nil);
     self.contentView.accessibilityLabel = NSLocalizedString(@"Web Content", nil);
 }
 
@@ -382,7 +387,7 @@
     if (self.webView.isReloadAllowed) {
         if (self.webView.showReloadWarning) {
             // Display warning and ask if to reload page
-            NSAlert *newAlert = [[NSAlert alloc] init];
+            NSAlert *newAlert = [self.browserController.sebController newAlert];
             [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
@@ -390,6 +395,7 @@
             [newAlert setAlertStyle:NSWarningAlertStyle];
             
             void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.browserController.sebController removeAlertWindow:newAlert.window];
                 switch(answer) {
                     case NSAlertFirstButtonReturn:
                         [self unconditionallyReload];
@@ -402,17 +408,7 @@
                 }
             };
             
-            if ((self.styleMask == NSBorderlessWindowMask ||
-                 floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) &&
-                floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_15) {
-                [self.browserController.sebController.modalAlertWindows addObject:newAlert.window];
-                NSModalResponse answer = [newAlert runModal];
-                [self.browserController.sebController removeAlertWindow:newAlert.window];
-                conditionalReload(answer);
-                
-            } else {
-                [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
-            }
+            [self.browserController.sebController runModalAlert:newAlert conditionallyForWindow:self completionHandler:conditionalReload];
             
         } else {
             // Reload page without displaying warning
