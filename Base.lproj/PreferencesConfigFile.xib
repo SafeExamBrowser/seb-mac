@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -58,7 +58,7 @@
                                             <buttonCell type="radio" title="starting exams" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings" tag="1" inset="2" id="251">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
-                                                <accessibility description="Use config file for"/>
+                                                <accessibility description="starting exams"/>
                                                 <connections>
                                                     <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
                                                 </connections>
@@ -66,7 +66,7 @@
                                             <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
-                                                <accessibility description="Use config file for"/>
+                                                <accessibility description="configuring clients"/>
                                             </buttonCell>
                                         </column>
                                     </cells>
