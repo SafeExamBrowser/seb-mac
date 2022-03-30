@@ -691,7 +691,7 @@ bool insideMatrix(void);
 
 - (id) currentDockAccessibilityParent
 {
-    return self.browserController.activeBrowserWindow;
+    return self.browserController.activeBrowserWindow.contentView;
 }
 
 

@@ -76,24 +76,10 @@
 }
 
 
-- (id) accessibilityParentItem
+- (NSArray *)accessibilityChildren
 {
-    return [(SEBDockController *)self.windowController currentDockAccessibilityParent];
+    NSView *activeBrowserWindowContentView = [(SEBDockController *)self.windowController currentDockAccessibilityParent];
+    return @[activeBrowserWindowContentView.superview, activeBrowserWindowContentView, self.contentView];
 }
-
-//- (NSString *) accessibilityLabel
-//{
-//    return @"SEB Dock";
-//}
-//
-//- (NSString *) accessibilityTitle
-//{
-//    return @"SEB Dock";
-//}
-//
-//- (NSString *) accessibilityHelp
-//{
-//    return @"The SEB Dock contains controls to interact with the app";
-//}
 
 @end

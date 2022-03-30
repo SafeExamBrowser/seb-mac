@@ -129,7 +129,7 @@
                     </toolbarItem>
                     <searchToolbarItem implicitItemIdentifier="844CE570-D44C-4B7B-85B2-02EEE0092E92" label="Search" paletteLabel="Search" visibilityPriority="1001" id="2GF-yS-Sed">
                         <nil key="toolTip"/>
-                        <searchField key="view" verticalHuggingPriority="750" textCompletion="NO" id="S08-6E-SPm">
+                        <searchField key="view" toolTip="Search text on web pages. Search in PDFs only works with modern WebView and macOS 11 or newer" verticalHuggingPriority="750" textCompletion="NO" id="S08-6E-SPm">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="21s-IH-qIo">
@@ -137,6 +137,7 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </searchFieldCell>
+                            <accessibility description="Search text"/>
                             <connections>
                                 <action selector="textSearch:" target="-2" id="Xjp-9K-eFk"/>
                                 <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowFind" id="hY3-X7-TBl">
