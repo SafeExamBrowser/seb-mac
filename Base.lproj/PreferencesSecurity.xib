@@ -1380,11 +1380,11 @@
                                             </tabViewItem>
                                             <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
                                                 <view key="view" verticalHuggingPriority="500" id="uoJ-Ks-O1o">
-                                                    <rect key="frame" x="10" y="33" width="604" height="430"/>
+                                                    <rect key="frame" x="10" y="33" width="604" height="438"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-A1-Ubb">
-                                                            <rect key="frame" x="15" y="159" width="574" height="266"/>
+                                                            <rect key="frame" x="15" y="167" width="574" height="266"/>
                                                             <subviews>
                                                                 <box title="SEB Service (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="wI5-Zh-Qfa" userLabel="SEB Service (Win)">
                                                                     <rect key="frame" x="-3" y="102" width="580" height="164"/>
@@ -1595,11 +1595,11 @@
                                             </tabViewItem>
                                             <tabViewItem label="Registry" identifier="2" id="ifL-Zz-OJp">
                                                 <view key="view" verticalHuggingPriority="500" id="lui-jD-ROw">
-                                                    <rect key="frame" x="10" y="33" width="604" height="430"/>
+                                                    <rect key="frame" x="10" y="33" width="604" height="438"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
-                                                            <rect key="frame" x="15" y="412" width="338" height="15"/>
+                                                            <rect key="frame" x="15" y="420" width="338" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>
                                                             </constraints>
@@ -1610,7 +1610,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="While running SEB" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
-                                                            <rect key="frame" x="13" y="100" width="283" height="304"/>
+                                                            <rect key="frame" x="13" y="108" width="283" height="304"/>
                                                             <view key="contentView" id="nih-s0-yee">
                                                                 <rect key="frame" x="3" y="3" width="277" height="286"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1774,14 +1774,14 @@
                                             </tabViewItem>
                                             <tabViewItem label="Hooked Keys" identifier="" id="3Kv-Y4-p4B">
                                                 <view key="view" verticalHuggingPriority="500" id="wcR-7a-nHQ">
-                                                    <rect key="frame" x="10" y="33" width="604" height="430"/>
+                                                    <rect key="frame" x="10" y="33" width="604" height="438"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DHl-16-VpL">
-                                                            <rect key="frame" x="16" y="3" width="572" height="424"/>
+                                                            <rect key="frame" x="16" y="3" width="572" height="432"/>
                                                             <subviews>
                                                                 <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Special Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
-                                                                    <rect key="frame" x="-3" y="174" width="283" height="250"/>
+                                                                    <rect key="frame" x="-3" y="182" width="283" height="250"/>
                                                                     <view key="contentView" id="FRQ-6d-6TB">
                                                                         <rect key="frame" x="3" y="3" width="277" height="232"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1906,7 +1906,7 @@
                                                                     </constraints>
                                                                 </box>
                                                                 <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="Function Keys (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
-                                                                    <rect key="frame" x="292" y="64" width="283" height="360"/>
+                                                                    <rect key="frame" x="292" y="72" width="283" height="360"/>
                                                                     <view key="contentView" id="kSW-ge-fQu">
                                                                         <rect key="frame" x="3" y="3" width="277" height="342"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
