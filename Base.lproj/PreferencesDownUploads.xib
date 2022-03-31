@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsDownUploadsViewController">
             <connections>
+                <outlet property="allowCustomDownUploadDirectoryButton" destination="GVV-cO-HOP" id="OLQ-7z-1cN"/>
                 <outlet property="allowPDFPlugInButton" destination="AAd-LS-TUP" id="K3E-1Z-9i4"/>
                 <outlet property="chooseDownloadDirectory" destination="33" id="62"/>
                 <outlet property="chooseFileToUploadPolicyControl" destination="93" id="gjm-C7-4c6"/>
@@ -197,6 +198,18 @@
                         </binding>
                     </connections>
                 </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="GVV-cO-HOP">
+                    <rect key="frame" x="330" y="172" width="300" height="16"/>
+                    <string key="toolTip">When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system</string>
+                    <buttonCell key="cell" type="check" title="Allow to select custom down/upload directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="I9g-6o-a5B">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="message" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownloadLocation" id="0I0-Z1-4T9"/>
+                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="SdC-li-mQ2"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="213"/>
@@ -224,6 +237,7 @@
                 <constraint firstItem="AAd-LS-TUP" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" id="E5D-Xc-mwg"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="fKA-Ye-zQz" secondAttribute="bottom" constant="24" id="F7R-pv-oeW"/>
                 <constraint firstItem="eP3-ce-aHz" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="35" id="GIh-Jx-4qu"/>
+                <constraint firstItem="GVV-cO-HOP" firstAttribute="top" secondItem="fKA-Ye-zQz" secondAttribute="bottom" constant="6" id="HiV-bV-URC"/>
                 <constraint firstAttribute="trailing" secondItem="fKA-Ye-zQz" secondAttribute="trailing" constant="20" id="I6n-LF-zJi"/>
                 <constraint firstAttribute="trailing" secondItem="AAd-LS-TUP" secondAttribute="trailing" constant="20" id="Ltr-MA-dTG"/>
                 <constraint firstItem="AAd-LS-TUP" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="MS9-JH-fNO"/>
@@ -233,6 +247,8 @@
                 <constraint firstItem="265" firstAttribute="top" secondItem="AAd-LS-TUP" secondAttribute="bottom" constant="17" id="ha8-64-0Kf"/>
                 <constraint firstItem="eP3-ce-aHz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="nwj-Yg-Ihf"/>
                 <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" id="otR-nw-6oR"/>
+                <constraint firstAttribute="trailing" secondItem="GVV-cO-HOP" secondAttribute="trailing" constant="20" symbolic="YES" id="rxZ-VQ-S23"/>
+                <constraint firstItem="GVV-cO-HOP" firstAttribute="leading" secondItem="fKA-Ye-zQz" secondAttribute="leading" constant="1" id="s4v-E7-5ct"/>
                 <constraint firstItem="eP3-ce-aHz" firstAttribute="baseline" secondItem="fKA-Ye-zQz" secondAttribute="baseline" id="tHE-9l-JK8"/>
                 <constraint firstItem="fKA-Ye-zQz" firstAttribute="leading" secondItem="eP3-ce-aHz" secondAttribute="trailing" constant="8" id="xhb-KQ-OGx"/>
             </constraints>

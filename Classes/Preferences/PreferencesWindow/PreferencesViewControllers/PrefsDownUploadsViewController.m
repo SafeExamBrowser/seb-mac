@@ -70,6 +70,7 @@
     
     chooseDownloadDirectory.enabled = downUploadsAllowed;
     openDownloadsButton.enabled = downUploadsAllowed;
+    allowCustomDownUploadDirectoryButton.enabled = downUploadsAllowed;
     chooseFileToUploadPolicyControl.enabled = downUploadsAllowed;
     downloadPDFFilesButton.enabled = downUploadsAllowed;
 }
