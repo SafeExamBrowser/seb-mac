@@ -155,6 +155,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowBrowsingBackForward",
                    
                    @NO,
+                   @"allowCustomDownloadLocation",
+                   
+                   @NO,
                    @"allowDeveloperConsole",
                    
                    @NO,
@@ -174,6 +177,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"allowedDisplayBuiltinExceptDesktop",
+
+                   @NO,
+                   @"allowedDisplaysIgnoreFailure",
 
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",
@@ -318,6 +324,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:browserViewModeWindow],
                    @"browserViewMode",
+                   
+                   @NO,
+                   @"browserWindowAllowAddressBar",
                    
                    @YES,
                    @"browserWindowAllowReload",
@@ -721,6 +730,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"monitorProcesses",
                    
+                   @NO,
+                   @"newBrowserWindowAllowAddressBar",
+                   
                    @YES,
                    @"newBrowserWindowAllowReload",
                    
@@ -888,6 +900,9 @@ static SEBSettings *sharedSEBSettings = nil;
                                       
                    @NO,
                    @"showReloadWarning",
+                   
+                   @YES,
+                   @"showSideMenu",
                    
                    @NO,
                    @"showScanQRCodeButton",
