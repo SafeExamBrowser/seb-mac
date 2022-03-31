@@ -54,6 +54,17 @@
 }
 
 
+// Exam URL is opened in a webview (tab), waiting for user to log in
+- (BOOL) startingExamFromSEBServer {
+    return _sebViewController.startingExamFromSEBServer;
+}
+
+// User logged in to LMS, monitoring the client started
+- (BOOL) sebServerConnectionEstablished {
+    return _sebViewController.sebServerConnectionEstablished;
+}
+
+
 - (void) willReconfigureTemporary {
     // Release preferences window so bindings get synchronized properly with the new loaded values
 //    [self.sebController.preferencesController releasePreferencesWindow];

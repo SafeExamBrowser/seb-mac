@@ -49,6 +49,17 @@
 }
 
 
+// Exam URL is opened in a webview (tab), waiting for user to log in
+- (BOOL) startingExamFromSEBServer {
+    return _sebController.startingExamFromSEBServer;
+}
+
+// User logged in to LMS, monitoring the client started
+- (BOOL) sebServerConnectionEstablished {
+    return _sebController.sebServerConnectionEstablished;
+}
+
+
 /// Load a SebClientSettings.seb file saved in the preferences directory
 - (NSData *) getSEBClientSettings
 {
