@@ -121,6 +121,12 @@
 @optional
 
 /**
+ * @brief       Re-configure SEB using the config data from a SEBClientSettings.seb
+ *              file from the preferences directory (macOS-only)
+ */
+- (void) reconfigureClientWithSebClientSettingsCallback;
+
+/**
  * @brief       Delegate method called before SEB is getting reconfigured temporarily
  *              for starting an exam.
  */
@@ -159,6 +165,12 @@
  */
 - (NSData *) getSEBClientSettings;
 
+// Exam URL is opened in a webview (tab), waiting for user to log in
+@property(readwrite) BOOL startingExamFromSEBServer;
+// User logged in to LMS, monitoring the client started
+@property(readwrite) BOOL sebServerConnectionEstablished;
+
+
 @end
 
 /**
@@ -188,7 +200,7 @@
     //NSData *_currentConfigKeyHash;
 }
 
-@property (weak) id delegate;
+@property (weak) id <SEBConfigUIDelegate> delegate;
 @property BOOL currentConfigPasswordIsHash;
 @property StoreDecryptedSEBSettingsResult storeDecryptedSEBSettingsResult;
 @property BOOL suppressFileFormatError;
