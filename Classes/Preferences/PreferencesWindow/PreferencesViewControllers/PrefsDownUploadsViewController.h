@@ -42,6 +42,7 @@
 
     IBOutlet NSPopUpButton *chooseDownloadDirectory;
     IBOutlet NSButton *openDownloadsButton;
+    IBOutlet NSButton *allowCustomDownUploadDirectoryButton;
     IBOutlet NSMenuItem *downloadDirectory;
     IBOutlet NSPopUpButton *chooseFileToUploadPolicyControl;
     IBOutlet NSButton *downloadPDFFilesButton;

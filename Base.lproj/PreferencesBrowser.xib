@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,10 +35,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q2b-O7-hAO">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="945"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="949"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="865" width="594" height="65"/>
+                                        <rect key="frame" x="20" y="869" width="594" height="65"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
@@ -108,7 +108,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                                        <rect key="frame" x="17" y="769" width="616" height="86"/>
+                                        <rect key="frame" x="17" y="773" width="616" height="86"/>
                                         <view key="contentView" id="sga-L4-DYG">
                                             <rect key="frame" x="3" y="3" width="610" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,23 +224,23 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser Features" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                                        <rect key="frame" x="17" y="619" width="616" height="144"/>
+                                        <rect key="frame" x="17" y="619" width="616" height="148"/>
                                         <view key="contentView" id="guQ-Yx-amA">
-                                            <rect key="frame" x="3" y="3" width="610" height="126"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="130"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="pHJ-3Q-4Y4">
-                                                    <rect key="frame" x="11" y="14" width="588" height="104"/>
+                                                    <rect key="frame" x="11" y="18" width="588" height="104"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="PeV-BM-OcJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="284" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="129" height="104"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="162" height="104"/>
                                                                     <subviews>
                                                                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2dw-Ko-tLl" userLabel="Allow text search">
                                                                             <rect key="frame" x="-2" y="87" width="130" height="18"/>
-                                                                            <string key="toolTip">Enables the search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in full screen mode</string>
+                                                                            <string key="toolTip">Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS &gt;=11 / iOS &gt;= 14</string>
                                                                             <buttonCell key="cell" type="check" title="Allow text search" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="kbH-Rg-sB6">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -249,28 +249,8 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowFind" id="gwp-Xk-lPf"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                                                                            <rect key="frame" x="-2" y="65" width="121" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enablePlugIns" id="652"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button toolTip="Enables Java applets" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                                                            <rect key="frame" x="-2" y="43" width="98" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button toolTip="Pressing the tab key changes the focus to links and form controls" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
-                                                                            <rect key="frame" x="-2" y="21" width="130" height="18"/>
+                                                                        <button toolTip="Pressing the tab key moves focus to the next link and form control. Shit-tab moves focus to the previous control" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
+                                                                            <rect key="frame" x="-2" y="65" width="130" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Tab focuses links" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2BE-Ri-RWP">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -279,15 +259,34 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_tabFocusesLinks" id="NyC-8f-hpk"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
-                                                                            <rect key="frame" x="-2" y="-1" width="131" height="18"/>
-                                                                            <string key="toolTip">Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</string>
-                                                                            <buttonCell key="cell" type="check" title="Clear cache(Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
+                                                                        <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without a user action such as a button click" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="176">
+                                                                            <rect key="frame" x="-2" y="43" width="164" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Block pop-up windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="177">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeBrowserProfile" id="681"/>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_blockPopUpWindows" id="208"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="171">
+                                                                            <rect key="frame" x="-2" y="21" width="134" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable JavaScript" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="172">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJavaScript" id="206"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button toolTip="Enables Java applets, which are no longer supported on current macOS versions" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                                                            <rect key="frame" x="-2" y="-1" width="98" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -320,40 +319,9 @@
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-Mb-8DU">
                                                                     <rect key="frame" x="0.0" y="0.0" width="263" height="104"/>
                                                                     <subviews>
-                                                                        <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                                                                            <rect key="frame" x="-2" y="87" width="134" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Enable JavaScript" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="172">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJavaScript" id="206"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="176">
-                                                                            <rect key="frame" x="-2" y="65" width="164" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Block pop-up windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="177">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_blockPopUpWindows" id="208"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
-                                                                            <rect key="frame" x="-2" y="43" width="265" height="18"/>
-                                                                            <string key="toolTip">If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
-                                                                            <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowDeveloperConsole" id="foy-Kd-tRw"/>
-                                                                            </connections>
-                                                                        </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-38-Q1a">
-                                                                            <rect key="frame" x="-2" y="21" width="186" height="18"/>
-                                                                            <string key="toolTip">Enable in SEB for macOS to access context menu for Web Inspector (ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</string>
+                                                                            <rect key="frame" x="-2" y="87" width="186" height="18"/>
+                                                                            <string key="toolTip">Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</string>
                                                                             <buttonCell key="cell" type="check" title="Enable right mouse button" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aN2-81-3Zh">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -362,14 +330,47 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouseMac" id="cAk-bY-V8I"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
+                                                                            <rect key="frame" x="-2" y="65" width="265" height="18"/>
+                                                                            <string key="toolTip">If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
+                                                                            <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowDeveloperConsole" id="foy-Kd-tRw"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                                                                            <rect key="frame" x="-2" y="43" width="121" height="18"/>
+                                                                            <string key="toolTip">Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used. Plugins are no longer supported on current macOS versions</string>
+                                                                            <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enablePlugIns" id="652"/>
+                                                                            </connections>
+                                                                        </button>
                                                                         <button toolTip="Be aware, the toolbar of the internal PDF reader also allows access to the print and download functions of the PDF reader" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-rQ-UjN">
-                                                                            <rect key="frame" x="-2" y="-1" width="237" height="18"/>
+                                                                            <rect key="frame" x="-2" y="21" width="237" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Enable toolbar of PDF reader (Win)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ktc-tU-dLx">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowPDFReaderToolbar" id="Zgb-U9-ePf"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
+                                                                            <rect key="frame" x="-2" y="-1" width="131" height="18"/>
+                                                                            <string key="toolTip">Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</string>
+                                                                            <buttonCell key="cell" type="check" title="Clear cache(Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeBrowserProfile" id="681"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -415,7 +416,7 @@
                                             </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="vo8-YO-Oed"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="144" id="vo8-YO-Oed"/>
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="13B-3r-AKS">
@@ -1466,7 +1467,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.57912457912457915" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.61794019933554822" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
