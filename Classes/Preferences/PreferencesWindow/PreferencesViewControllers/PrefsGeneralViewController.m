@@ -86,6 +86,12 @@
     [pasteSavedStringFromPasteboardButton setFrameOrigin:origin]; //483, 335
     [pasteSavedStringFromPasteboardButton setAttributedTitle:linkString];
     
+    origin = [pasteSavedStringFromPasteboardToServerURLButton frame].origin;
+    origin.x = 482 - bounds.width;
+    [pasteSavedStringFromPasteboardToServerURLButton setFrameSize:bounds]; //483, 335
+    [pasteSavedStringFromPasteboardToServerURLButton setFrameOrigin:origin]; //483, 335
+    [pasteSavedStringFromPasteboardToServerURLButton setAttributedTitle:linkString];
+
     // Setup bindings to the preferences window close button
     NSButton *closeButton = [[MBPreferencesController sharedController].window standardWindowButton:NSWindowCloseButton];
     NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -107,8 +113,10 @@
     NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
     if (pasteboardString.length == 0) {
         [pasteSavedStringFromPasteboardButton setEnabled:NO];
+        [pasteSavedStringFromPasteboardToServerURLButton setEnabled:NO];
     } else {
         [pasteSavedStringFromPasteboardButton setEnabled:YES];
+        [pasteSavedStringFromPasteboardToServerURLButton setEnabled:YES];
     }
 }
 
@@ -298,6 +306,16 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences setSecureString:pasteboardString forKey:@"org_safeexambrowser_SEB_startURL"];
         [startURL setStringValue:pasteboardString];
+    }
+}
+
+
+- (IBAction) pasteSavedStringFromPasteboardToServerURL:(id)sender {
+    NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
+    if (![pasteboardString isEqualToString:@""]) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureString:pasteboardString forKey:@"org_safeexambrowser_SEB_sebServerURL"];
+        [sebServerURL setStringValue:pasteboardString];
     }
 }
 
