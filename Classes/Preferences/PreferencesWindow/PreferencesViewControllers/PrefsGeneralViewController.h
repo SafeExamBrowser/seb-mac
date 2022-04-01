@@ -46,7 +46,8 @@
 
 @interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
 
-	IBOutlet NSTextField *startURL;
+    IBOutlet NSTextField *startURL;
+    IBOutlet NSTextField *sebServerURL;
 
 	NSMutableString *adminPassword;
 	NSMutableString *confirmAdminPassword;
@@ -61,8 +62,9 @@
     IBOutlet __weak NSSecureTextField *confirmQuitPasswordField;
 
 	IBOutlet __weak NSButton *prefsQuitSEB;
-	IBOutlet __weak NSButton *pasteSavedStringFromPasteboardButton;
-    
+    IBOutlet __weak NSButton *pasteSavedStringFromPasteboardButton;
+    IBOutlet __weak NSButton *pasteSavedStringFromPasteboardToServerURLButton;
+
 	IBOutlet __weak NSObjectController *controller;
 	MyGlobals *myGlobals;
     
@@ -81,7 +83,6 @@
 - (NSString*) compareAdminPasswords;
 - (NSString*) compareQuitPasswords;
 
-- (IBAction) pasteSavedStringFromPasteboard:(id)sender;
 - (IBAction) restartSEB:(id)sender;
 - (IBAction) quitSEB:(id)sender;
 - (IBAction) aboutSEB:(id)sender;
