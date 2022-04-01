@@ -234,6 +234,7 @@
 self.highlighted = false;
 }
 
+
 - (void)rightMouseUp:(NSEvent *)theEvent
 {
 //    if (@available(macOS 10.14, *)) {
