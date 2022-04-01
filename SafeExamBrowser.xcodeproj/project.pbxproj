@@ -845,6 +845,10 @@
 		69E2BBB126FDBAA90055531A /* SEBServerOSXViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */; };
 		69E2BBB226FDBAA90055531A /* SEBServerOSXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */; };
 		69E2BBB62703FD8F0055531A /* SEBServerOSXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */; };
+		69E2E52B27F68767005F33D3 /* SEBBatteryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2E52927F68767005F33D3 /* SEBBatteryController.h */; };
+		69E2E52C27F68767005F33D3 /* SEBBatteryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2E52927F68767005F33D3 /* SEBBatteryController.h */; };
+		69E2E52D27F68767005F33D3 /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
+		69E2E52E27F68767005F33D3 /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
 		69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
 		69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
 		69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
@@ -1574,6 +1578,8 @@
 		69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBServerOSXViewController.h; sourceTree = "<group>"; };
 		69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBServerOSXViewController.m; sourceTree = "<group>"; };
 		69E2BBB52703FD8F0055531A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEBServerOSXViewController.xib; sourceTree = "<group>"; };
+		69E2E52927F68767005F33D3 /* SEBBatteryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBBatteryController.h; sourceTree = "<group>"; };
+		69E2E52A27F68767005F33D3 /* SEBBatteryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBBatteryController.m; sourceTree = "<group>"; };
 		69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSKeychainManager.h; path = Classes/Cryptography/SEBiOSKeychainManager.h; sourceTree = "<group>"; };
 		69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSKeychainManager.m; path = Classes/Cryptography/SEBiOSKeychainManager.m; sourceTree = "<group>"; };
 		69E64C0622B7D5F300B593AE /* SEBRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBRootViewController.h; sourceTree = "<group>"; };
@@ -2793,6 +2799,8 @@
 				698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */,
 				69CBEB541834C55C00FB0460 /* SEBSystemManager.h */,
 				69CBEB551834C55C00FB0460 /* SEBSystemManager.m */,
+				69E2E52927F68767005F33D3 /* SEBBatteryController.h */,
+				69E2E52A27F68767005F33D3 /* SEBBatteryController.m */,
 			);
 			name = SystemManager;
 			path = Classes/SystemManager;
@@ -3095,6 +3103,7 @@
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				698DFD12267E9B1900B8F1D6 /* NSPasteboard+SaveRestore.h in Headers */,
+				69E2E52B27F68767005F33D3 /* SEBBatteryController.h in Headers */,
 				698DFD29267E9F2B00B8F1D6 /* ProcessListViewController.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
 				699D508526878F430026D8D9 /* SEBTextViewNonEditing.h in Headers */,
@@ -3201,6 +3210,7 @@
 				69D3C5BB27A0366400890B31 /* DropDownButton.h in Headers */,
 				69D3C5BC27A0366400890B31 /* RNCryptor.h in Headers */,
 				69D3C5BD27A0366400890B31 /* NSPasteboard+SaveRestore.h in Headers */,
+				69E2E52C27F68767005F33D3 /* SEBBatteryController.h in Headers */,
 				69D3C5BE27A0366400890B31 /* ProcessListViewController.h in Headers */,
 				69D3C5BF27A0366400890B31 /* SEBDockView.h in Headers */,
 				69D3C5C027A0366400890B31 /* SEBTextViewNonEditing.h in Headers */,
@@ -4132,6 +4142,7 @@
 				69D3C56427A0366400890B31 /* DropDownButton.m in Sources */,
 				69D3C56527A0366400890B31 /* PrefsBrowserViewController.m in Sources */,
 				69D3C56627A0366400890B31 /* SEBLockedViewController.m in Sources */,
+				69E2E52E27F68767005F33D3 /* SEBBatteryController.m in Sources */,
 				69D3C56727A0366400890B31 /* SEBConfigFileManager.m in Sources */,
 				69D3C56827A0366400890B31 /* SEBDockController.m in Sources */,
 				69D3C56927A0366400890B31 /* ProcessListElement.m in Sources */,
@@ -4249,6 +4260,7 @@
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				697919D226BE1EA50002D296 /* PrefsBrowserViewController.m in Sources */,
 				69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
+				69E2E52D27F68767005F33D3 /* SEBBatteryController.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
 				698DFD25267E9F2B00B8F1D6 /* ProcessListElement.m in Sources */,

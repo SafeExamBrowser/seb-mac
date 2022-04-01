@@ -163,6 +163,16 @@ bool insideMatrix(void);
 }
 
 
+- (SEBBatteryController *) batteryController
+{
+    if (!_batteryController) {
+        _batteryController = [[SEBBatteryController alloc] init];
+        [_batteryController startMonitoringBattery];
+    }
+    return _batteryController;
+}
+
+
 - (AboutWindowController *) aboutWindowController
 {
     if (!_aboutWindowController) {
@@ -4890,6 +4900,8 @@ conditionallyForWindow:(NSWindow *)window
         
         if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
             SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
+            [self.batteryController addDelegate:dockItemBattery];
+            
             if ([dockItemBattery batteryLevel] != -1.0) {
                 [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
                 [dockItemBattery startDisplayingBattery];
@@ -5745,6 +5757,11 @@ conditionallyForWindow:(NSWindow *)window
     
     // Clear private pasteboard
     [self.browserController clearPrivatePasteboard];
+    
+    if (_batteryController) {
+        [_batteryController stopMonitoringBattery];
+        _batteryController = nil;
+    }
     
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
