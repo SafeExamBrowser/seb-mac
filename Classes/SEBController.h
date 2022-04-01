@@ -59,6 +59,7 @@
 #import "SEBDockItem.h"
 #import "SEBDockItemTime.h"
 #import "SEBDockItemBattery.h"
+#import "SEBBatteryController.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -82,6 +83,7 @@
 @class HUDController;
 @class ServerController;
 @class SEBServerOSXViewController;
+@class SEBBatteryController;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate>
@@ -176,6 +178,7 @@
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
+@property(strong, nonatomic) SEBBatteryController *batteryController;
 @property(strong, nonatomic) SEBDockController *dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
