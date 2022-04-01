@@ -114,9 +114,8 @@
                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dbe-8C-WRt">
                                     <rect key="frame" x="0.0" y="0.0" width="610" height="40"/>
                                     <subviews>
-                                        <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18i-Ih-TGG">
+                                        <matrix toolTip="Indicates if SEB will use local settings and load the start URL or if it will try to connect to the SEB Server" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18i-Ih-TGG">
                                             <rect key="frame" x="3" y="0.0" width="294" height="40"/>
-                                            <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</string>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <size key="cellSize" width="460" height="18"/>
                                             <size key="intercellSpacing" width="4" height="4"/>
@@ -138,7 +137,7 @@
                                                     </buttonCell>
                                                 </column>
                                             </cells>
-                                            <accessibility description="Use config file for ..."/>
+                                            <accessibility description="SEB connection mode"/>
                                             <connections>
                                                 <binding destination="228" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebMode" id="uDt-S8-0Dv"/>
                                             </connections>
@@ -566,6 +565,7 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <accessibility description="Show help"/>
                                             <connections>
                                                 <action selector="showHelp:" target="-2" id="144"/>
                                                 <binding destination="115" name="enabled" keyPath="selection.compareAdminPasswords" id="172">
