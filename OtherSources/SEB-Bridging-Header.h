@@ -6,3 +6,4 @@
 #import "Constants.h"
 #import "SEBAbstractWebView.h"
 #import "SEBURLFilter.h"
+#import "SEBBatteryController.h"
