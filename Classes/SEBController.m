@@ -1187,6 +1187,13 @@ bool insideMatrix(void);
 }
 
 
+- (void) startBatteryMonitoringWithDelegate:(id)delegate
+{
+    [self.batteryController addDelegate:delegate];
+    [self.batteryController startMonitoringBattery];
+}
+
+
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
     _sebServerViewController = false;

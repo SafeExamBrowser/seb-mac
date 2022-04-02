@@ -195,6 +195,12 @@
 }
 
 
+- (void) startBatteryMonitoringWithDelegate:(id)delegate
+{
+    [_delegate startBatteryMonitoringWithDelegate:delegate];
+}
+
+
 - (NSInteger) sendLockscreenWithMessage:(NSString *)message
 {
     return  [_sebServerController sendLockscreenWithMessage:message];
