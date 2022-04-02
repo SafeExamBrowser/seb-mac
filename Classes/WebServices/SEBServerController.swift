@@ -36,6 +36,7 @@ import Foundation
 
 @objc public protocol SEBServerControllerDelegate: AnyObject {
     func didSelectExam(_ examId: String, url: String)
+    func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
     func didReceiveMoodleUserId(_ moodleUserId: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
@@ -49,7 +50,7 @@ import Foundation
     func updateExamList()
 }
 
-@objc public class SEBServerController : NSObject {
+@objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate {
     
     fileprivate var pendingRequests: [AnyObject]? = []
     fileprivate var serverAPI: SEB_Endpoints?
@@ -170,6 +171,7 @@ public extension SEBServerController {
             self.connectionToken = connectionTokenString as? String
             
             self.startPingTimer()
+            self.startBatteryMonitoring()
             
             guard let exams = handshakeResponse else {
                 return
@@ -206,6 +208,19 @@ public extension SEBServerController {
     }
     
     
+    private func startBatteryMonitoring() {
+        self.delegate?.startBatteryMonitoring(delegate: self)
+    }
+    
+    func updateBatteryLevel(_ batteryLevel: Double, infoString: String) {
+        sendBatteryEvent(numericValue: batteryLevel, message: infoString)
+    }
+    
+    func setPowerConnected(_ powerConnected: Bool, warningLevel batteryWarningLevel: IOPSLowBatteryWarningLevel) {
+        
+    }
+    
+
     @objc func examSelected(_ examId: String, url: String) {
         selectedExamId = examId
         selectedExamURL = url
@@ -309,14 +324,15 @@ public extension SEBServerController {
     }
     
     
-    func sendNotification(_ type: String, timestamp: String, numericValue: Double, text: String?) {
+    func sendNotification(_ type: String, timestamp: String?, numericValue: Double, text: String?) {
         if (serverAPI != nil) && (connectionToken != nil) {
+            let timestampString = timestamp ?? String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
             var logJSON: [String : Any]
             if let notificationText = text {
-                logJSON = [ keys.logType : type, keys.timestamp : timestamp, keys.logNumericValue : numericValue, keys.logText : notificationText ]
+                logJSON = [ keys.logType : type, keys.timestamp : timestampString, keys.logNumericValue : numericValue, keys.logText : notificationText ]
             } else {
-                logJSON = [ keys.logType : type, keys.timestamp : timestamp, keys.logNumericValue : numericValue ]
+                logJSON = [ keys.logType : type, keys.timestamp : timestampString, keys.logNumericValue : numericValue ]
             }
             let jsonData = try! JSONSerialization.data(withJSONObject: logJSON, options: [])
             let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
@@ -357,20 +373,27 @@ public extension SEBServerController {
         }
     }
     
+    @objc func sendBatteryEvent(numericValue: Double, message: String?) {
+        if (serverAPI != nil) && (connectionToken != nil) {
+            let messageString = "<\(keys.notificationTagBattery)> \(message ?? "")"
+            sendNotification(keys.logLevelInfo, timestamp: nil, numericValue: numericValue, text: messageString)
+        }
+    }
+    
     @objc func sendLockscreen(message: String?) -> Int64 {
         notificationNumber+=1
-        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
+        sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
         return notificationNumber
     }
     
     @objc func sendRaiseHand(message: String?) -> Int64 {
         notificationNumber+=1
-        sendNotification(keys.notificationType, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
+        sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
         return notificationNumber
     }
     
     @objc func sendLowerHand(notificationUID: Int64) {
-        sendNotification(keys.notificationConfirmed, timestamp: String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000), numericValue: Double(notificationNumber), text: nil)
+        sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationNumber), text: nil)
     }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
