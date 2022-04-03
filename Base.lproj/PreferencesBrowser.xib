@@ -809,6 +809,7 @@
                                                             </popUpButtonCell>
                                                             <accessibility description="Select Browser Engine Policy"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="QLJ-Tp-en0" id="4hA-0J-0BS"/>
                                                                 <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="s1c-41-8ik"/>
                                                                 <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowWebViewPolicies" id="goH-Ql-oOy"/>
                                                                 <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserWindowWebView" previousBinding="goH-Ql-oOy" id="xZi-49-wQn"/>
@@ -1329,8 +1330,8 @@
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
-                                                    <accessibility description="User agent suffix"/>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="uZt-GQ-bpe" id="BzX-Oj-CR5"/>
                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgent" id="0Q2-XI-8oS">
                                                             <dictionary key="options">
                                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -1347,9 +1348,6 @@
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="p3T-fI-3bu" id="YH7-bL-xDX"/>
-                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1385,7 +1383,7 @@
                                                     <font key="font" metaFont="message" size="11"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <accessibilityConnection property="link" destination="447" id="qcZ-nn-jrM"/>
+                                                    <accessibilityConnection property="title" destination="447" id="buJ-eO-Mhq"/>
                                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableSebBrowser" id="658">
                                                         <dictionary key="options">
                                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -1467,7 +1465,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.61794019933554822" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.29900332225913617" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
