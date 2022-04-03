@@ -27,7 +27,7 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -43,10 +43,11 @@
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment label="Go Back" image="NSGoLeftTemplate" imageScaling="none" width="24" enabled="NO"/>
-                                    <segment label="Go Forward" toolTip="Show the next page" image="NSGoRightTemplate" imageScaling="none" width="24" enabled="NO" tag="1"/>
+                                    <segment toolTip="Show the previous page" image="NSGoLeftTemplate" imageScaling="none" width="24" enabled="NO"/>
+                                    <segment toolTip="Show the next page" image="NSGoRightTemplate" imageScaling="none" width="24" enabled="NO" tag="1"/>
                                 </segments>
                             </segmentedCell>
+                            <accessibility description="Go Back or Forward"/>
                             <connections>
                                 <action selector="backForward:" target="-2" id="188"/>
                             </connections>
@@ -156,10 +157,11 @@
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="FY0-V8-iJe">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment label="Search previous match" image="NSGoLeftTemplate" imageScaling="none" width="24"/>
-                                    <segment label="Search next match" image="NSGoRightTemplate" imageScaling="none" width="24" tag="1"/>
+                                    <segment toolTip="Go to previous match" image="NSGoLeftTemplate" imageScaling="none" width="24"/>
+                                    <segment toolTip="Go to next match" image="NSGoRightTemplate" imageScaling="none" width="24" tag="1"/>
                                 </segments>
                             </segmentedCell>
+                            <accessibility description="Search previous or next match"/>
                             <connections>
                                 <action selector="previousNext:" target="-2" id="RJt-57-bAW"/>
                             </connections>
@@ -214,7 +216,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -486,7 +488,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="93"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <value key="minSize" type="size" width="412" height="93"/>
             <view key="contentView" id="4Pp-ao-nkH">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="93"/>
