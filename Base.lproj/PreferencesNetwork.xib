@@ -363,8 +363,8 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
-                                                    <accessibility description="Action"/>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="QmW-O8-p1C" id="QEh-VK-5No"/>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_URLFilterRuleActions" id="ezt-yw-4Ii"/>
                                                         <binding destination="Hmk-IV-hfb" name="selectedIndex" keyPath="selection.action" previousBinding="ezt-yw-4Ii" id="68d-rB-FdT">
                                                             <dictionary key="options">
@@ -812,9 +812,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <accessibilityConnection property="title" destination="1779" id="ok7-7q-7Zu"/>
-                                        </connections>
                                     </textField>
                                     <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
                                         <rect key="frame" x="13" y="596" width="578" height="22"/>
@@ -827,8 +824,8 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
-                                        <accessibility description="Choose TLS/SSL certificate to embed into settings"/>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="1778" id="Y3k-RE-ESK"/>
                                             <action selector="certificateSelected:" target="-2" id="1904"/>
                                         </connections>
                                     </popUpButton>
@@ -839,9 +836,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <accessibilityConnection property="title" destination="1814" id="cdZ-nk-W6d"/>
-                                        </connections>
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1814">
                                         <rect key="frame" x="13" y="552" width="578" height="22"/>
@@ -964,14 +958,11 @@
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6i-Is-hu5">
                                         <rect key="frame" x="18" y="502" width="571" height="16"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity to embed into settings ..." id="cfG-U9-U7j">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity certificate to embed into settings ..." id="cfG-U9-U7j">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <accessibilityConnection property="title" destination="UIS-5m-9TC" id="2Kg-y3-U71"/>
-                                        </connections>
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UIS-5m-9TC">
                                         <rect key="frame" x="13" y="478" width="578" height="22"/>
@@ -985,8 +976,8 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
-                                        <accessibility description="Choose identity certificate to embed into settings"/>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="E6i-Is-hu5" id="ov8-mM-XFw"/>
                                             <action selector="identitySelected:" target="-2" id="Acv-FY-uZe"/>
                                         </connections>
                                     </popUpButton>
@@ -1109,6 +1100,9 @@
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
+                                        <connections>
+                                            <accessibilityConnection property="title" destination="768" id="Daa-r4-aRJ"/>
+                                        </connections>
                                     </scrollView>
                                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="821" translatesAutoresizingMaskIntoConstraints="NO" id="820">
                                         <rect key="frame" x="275" y="414" width="312" height="158"/>
@@ -1274,8 +1268,8 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Username"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1258" id="DyV-gu-ApG"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPUser" id="1949"/>
                                                             </connections>
                                                         </textField>
@@ -1286,9 +1280,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1246" id="zcB-A3-D8H"/>
-                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1284">
                                                             <rect key="frame" x="36" y="27" width="66" height="16"/>
@@ -1297,9 +1288,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1278" id="dy5-Pm-2u4"/>
-                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1278">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
@@ -1311,8 +1299,8 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
-                                                            <accessibility description="Password"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1284" id="mQI-3e-OAq"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPPassword" id="1950"/>
                                                             </connections>
                                                         </secureTextField>
@@ -1423,8 +1411,8 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Username"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1522" id="OoR-QI-YC2"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSUser" id="1935"/>
                                                             </connections>
                                                         </textField>
@@ -1435,9 +1423,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1521" id="Olu-4T-efX"/>
-                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1523">
                                                             <rect key="frame" x="36" y="27" width="66" height="16"/>
@@ -1446,9 +1431,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1524" id="Pk3-he-tfp"/>
-                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1524">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
@@ -1460,8 +1442,8 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
-                                                            <accessibility description="Password"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1523" id="h6F-U6-OJk"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSPassword" id="1936"/>
                                                             </connections>
                                                         </secureTextField>
@@ -1572,8 +1554,8 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Username"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1563" id="puP-hD-P3P"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPUser" id="1943"/>
                                                             </connections>
                                                         </textField>
@@ -1584,9 +1566,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1562" id="X0z-V4-2jc"/>
-                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1564">
                                                             <rect key="frame" x="36" y="27" width="66" height="16"/>
@@ -1595,9 +1574,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1565" id="T5y-8J-8jP"/>
-                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1565">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
@@ -1609,8 +1585,8 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
-                                                            <accessibility description="Password"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1564" id="VFj-oO-tx8"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPPassword" id="1945"/>
                                                             </connections>
                                                         </secureTextField>
@@ -1721,8 +1697,8 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Username"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1604" id="IlN-ur-H4s"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSUser" id="1956"/>
                                                             </connections>
                                                         </textField>
@@ -1733,9 +1709,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1603" id="oc7-kI-Zc2"/>
-                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1605">
                                                             <rect key="frame" x="36" y="27" width="66" height="16"/>
@@ -1744,9 +1717,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1606" id="dWP-eF-VUj"/>
-                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1606">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
@@ -1758,8 +1728,8 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
-                                                            <accessibility description="Password"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1605" id="uJ4-OH-8fC"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSPassword" id="1957"/>
                                                             </connections>
                                                         </secureTextField>
@@ -1870,8 +1840,8 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <accessibility description="Username"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1645" id="SJQ-Ke-nrO"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPUser" id="1959"/>
                                                             </connections>
                                                         </textField>
@@ -1882,9 +1852,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1644" id="Njh-0p-S9n"/>
-                                                            </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1646">
                                                             <rect key="frame" x="36" y="27" width="66" height="16"/>
@@ -1893,9 +1860,6 @@
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <accessibilityConnection property="title" destination="1647" id="hYZ-xb-B3D"/>
-                                                            </connections>
                                                         </textField>
                                                         <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="1647">
                                                             <rect key="frame" x="112" y="24" width="200" height="21"/>
@@ -1907,8 +1871,8 @@
                                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
-                                                            <accessibility description="Password"/>
                                                             <connections>
+                                                                <accessibilityConnection property="title" destination="1646" id="7bx-Fn-fBj"/>
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPPassword" id="1911"/>
                                                             </connections>
                                                         </secureTextField>
@@ -1992,9 +1956,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <accessibilityConnection property="title" destination="1076" id="smY-O6-a19"/>
-                                        </connections>
                                     </textField>
                                     <textField toolTip="Separate hosts/domains with commas" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1076">
                                         <rect key="frame" x="17" y="285" width="570" height="60"/>
@@ -2006,8 +1967,8 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <accessibility description="Bypass proxy settings for these hosts &amp; domains"/>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="1063" id="Y2u-kZ-oDs"/>
                                             <action selector="saveProxyExceptionsList:" target="-2" id="N8j-vQ-emh"/>
                                         </connections>
                                     </textField>
@@ -2137,7 +2098,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
