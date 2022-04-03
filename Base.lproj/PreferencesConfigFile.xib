@@ -36,9 +36,6 @@
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <accessibilityConnection property="title" destination="249" id="ueE-v0-eFB"/>
-                                    </connections>
                                 </textField>
                                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
                                     <rect key="frame" x="131" y="0.0" width="481" height="40"/>
@@ -186,9 +183,6 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
-                                            <connections>
-                                                <accessibilityConnection property="title" destination="114" id="8xa-c3-9yO"/>
-                                            </connections>
                                         </textField>
                                         <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                             <rect key="frame" x="119" y="1" width="300" height="21"/>
@@ -203,8 +197,8 @@
                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                 </allowedInputSourceLocales>
                                             </secureTextFieldCell>
-                                            <accessibility description="Settings password"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="111" id="dx9-Zd-yIm"/>
                                                 <binding destination="560" name="value" keyPath="selection.settingsPassword" id="1340">
                                                     <dictionary key="options">
                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -236,9 +230,6 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
-                                            <connections>
-                                                <accessibilityConnection property="title" destination="110" id="o37-Z8-d72"/>
-                                            </connections>
                                         </textField>
                                         <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                             <rect key="frame" x="171" y="0.0" width="300" height="21"/>
@@ -253,8 +244,8 @@
                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                 </allowedInputSourceLocales>
                                             </secureTextFieldCell>
-                                            <accessibility description="Confirm settings password"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="112" id="NtY-zm-xGd"/>
                                                 <binding destination="560" name="value" keyPath="selection.confirmSettingsPassword" id="1339">
                                                     <dictionary key="options">
                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>

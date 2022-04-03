@@ -157,8 +157,8 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                    <accessibility description="Download directory Windows"/>
                     <connections>
+                        <accessibilityConnection property="title" destination="eP3-ce-aHz" id="bkt-a1-1Ov"/>
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadDirectoryWin" id="hwS-Qy-pF2">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -178,9 +178,6 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                    <connections>
-                        <accessibilityConnection property="title" destination="fKA-Ye-zQz" id="rUa-e4-3ZN"/>
-                    </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
                     <rect key="frame" x="38" y="57" width="592" height="18"/>

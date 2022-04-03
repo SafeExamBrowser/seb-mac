@@ -279,9 +279,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="sAF-ok-Vxz" id="Ibm-FT-xNw"/>
-                                                                            </connections>
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sAF-ok-Vxz" userLabel="Log Level Popup Button">
                                                                             <rect key="frame" x="63" y="-4" width="307" height="25"/>
@@ -303,8 +300,8 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
-                                                                            <accessibility description="Log level"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="22" id="wL9-jn-9GG"/>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_logLevels" id="xym-2h-sHg"/>
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="LiL-Df-Iy9"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_logLevel" previousBinding="xym-2h-sHg" id="xNm-w4-Qh0">
@@ -334,9 +331,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="32" id="1fM-eD-yes"/>
-                                                                            </connections>
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                                                             <rect key="frame" x="98" y="-4" width="307" height="25"/>
@@ -395,9 +389,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="6DQ-Jd-s1A" id="gNB-tH-iRV"/>
-                                                                            </connections>
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
                                                                             <rect key="frame" x="115" y="0.0" width="300" height="21"/>
@@ -637,8 +628,8 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
-                                                                            <accessibility description="maximum allowed number of connected displays"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="BKE-3M-dWN" id="BHv-5o-xXT"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplaysMaxNumber" id="wCO-jz-tZL"/>
                                                                             </connections>
                                                                         </comboBox>
@@ -881,8 +872,8 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </comboBoxCell>
-                                                                                                <accessibility description="Major version number"/>
                                                                                                 <connections>
+                                                                                                    <accessibilityConnection property="title" destination="csJ-gw-8Zj" id="7zM-5U-Oep"/>
                                                                                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="avV-3v-4ZK"/>
                                                                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberMajor" id="QGy-fX-PWt"/>
                                                                                                 </connections>
@@ -922,8 +913,8 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </comboBoxCell>
-                                                                                                <accessibility description="Minor version number"/>
                                                                                                 <connections>
+                                                                                                    <accessibilityConnection property="title" destination="ebE-XE-B7e" id="GCz-ko-ewo"/>
                                                                                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="GTg-Hy-D4a"/>
                                                                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberMinor" id="lft-Ot-Ip9"/>
                                                                                                 </connections>
@@ -963,8 +954,8 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </comboBoxCell>
-                                                                                                <accessibility description="Patch version number"/>
                                                                                                 <connections>
+                                                                                                    <accessibilityConnection property="title" destination="w6b-d3-hBY" id="448-7U-MBc"/>
                                                                                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull" id="N3U-0L-9Rv"/>
                                                                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowMacOSVersionNumberPatch" id="Ajo-dR-eca"/>
                                                                                                 </connections>
@@ -1047,11 +1038,11 @@
                                             </tabViewItem>
                                             <tabViewItem label="iOS" identifier="" id="qR0-7R-jPL">
                                                 <view key="view" id="ygF-kY-Ym5">
-                                                    <rect key="frame" x="10" y="33" width="604" height="430"/>
+                                                    <rect key="frame" x="10" y="33" width="604" height="438"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-xT-OWu">
-                                                            <rect key="frame" x="15" y="109" width="574" height="313"/>
+                                                            <rect key="frame" x="15" y="117" width="574" height="313"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="h1A-i1-vyN">
                                                                     <rect key="frame" x="0.0" y="253" width="310" height="60"/>
@@ -1167,9 +1158,6 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
-                                                                                                <connections>
-                                                                                                    <accessibilityConnection property="title" destination="m5k-oe-ViX" id="ZUU-4j-2BN"/>
-                                                                                                </connections>
                                                                                             </textField>
                                                                                             <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5k-oe-ViX">
                                                                                                 <rect key="frame" x="140" y="-4" width="60" height="25"/>
@@ -1185,8 +1173,8 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </comboBoxCell>
-                                                                                                <accessibility description="Major version number"/>
                                                                                                 <connections>
+                                                                                                    <accessibilityConnection property="title" destination="bPc-Xb-z7o" id="Feg-Cr-Ooq"/>
                                                                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSVersionNumberMajor" id="6f3-nX-Pdc"/>
                                                                                                 </connections>
                                                                                             </comboBox>
@@ -1210,9 +1198,6 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
-                                                                                                <connections>
-                                                                                                    <accessibilityConnection property="title" destination="Lid-g0-Fjz" id="yRP-kS-wpU"/>
-                                                                                                </connections>
                                                                                             </textField>
                                                                                             <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-g0-Fjz">
                                                                                                 <rect key="frame" x="140" y="-4" width="60" height="25"/>
@@ -1228,8 +1213,8 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </comboBoxCell>
-                                                                                                <accessibility description="Minor version number"/>
                                                                                                 <connections>
+                                                                                                    <accessibilityConnection property="title" destination="R7A-Vp-Xva" id="gEB-BP-MNM"/>
                                                                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSVersionNumberMinor" id="rr9-sC-HRF"/>
                                                                                                 </connections>
                                                                                             </comboBox>
@@ -1253,9 +1238,6 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
-                                                                                                <connections>
-                                                                                                    <accessibilityConnection property="title" destination="dGB-Ao-RnH" id="eMN-3L-xKL"/>
-                                                                                                </connections>
                                                                                             </textField>
                                                                                             <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGB-Ao-RnH">
                                                                                                 <rect key="frame" x="140" y="-4" width="60" height="25"/>
@@ -1271,8 +1253,8 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </comboBoxCell>
-                                                                                                <accessibility description="Patch version number"/>
                                                                                                 <connections>
+                                                                                                    <accessibilityConnection property="title" destination="O4d-ZE-3Ia" id="STO-YE-xeU"/>
                                                                                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSVersionNumberPatch" id="RPP-pG-Cum"/>
                                                                                                 </connections>
                                                                                             </comboBox>
@@ -1319,9 +1301,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="cqk-oB-iLU" id="beg-we-3LJ"/>
-                                                                            </connections>
                                                                         </textField>
                                                                         <comboBox toolTip="SEB refuses to run on a major iOS beta version, unless it is allowed here" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqk-oB-iLU">
                                                                             <rect key="frame" x="165" y="-4" width="60" height="25"/>
@@ -1337,8 +1316,8 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </comboBoxCell>
-                                                                            <accessibility description="Allow running on iOS beta"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="GBV-fI-0RR" id="5vJ-CE-hyg"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowiOSBetaVersionNumber" id="tiD-Ie-F14"/>
                                                                             </connections>
                                                                         </comboBox>
@@ -1416,9 +1395,6 @@
                                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
-                                                                                                <connections>
-                                                                                                    <accessibilityConnection property="title" destination="93" id="fDM-z0-NZd"/>
-                                                                                                </connections>
                                                                                             </textField>
                                                                                             <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                                                                                                 <rect key="frame" x="-3" y="-4" width="559" height="25"/>
@@ -1556,8 +1532,8 @@
                                                                                         </buttonCell>
                                                                                     </column>
                                                                                 </cells>
-                                                                                <accessibility description="Kiosk mode"/>
                                                                                 <connections>
+                                                                                    <accessibilityConnection property="title" destination="UEX-8o-YnQ" id="vo2-vp-yIo"/>
                                                                                     <action selector="changedKioskMode:" target="-2" id="JXz-Oq-uNq"/>
                                                                                 </connections>
                                                                             </matrix>
@@ -2133,7 +2109,7 @@
                         <rect key="frame" x="1" y="686" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.64367816091954022" horizontal="NO" id="Wcn-E4-i4h">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.8045977011494253" horizontal="NO" id="Wcn-E4-i4h">
                         <rect key="frame" x="651" y="1" width="15" height="685"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
