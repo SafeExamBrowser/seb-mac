@@ -102,7 +102,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="mCQ-XS-RTq" secondAttribute="trailing" constant="11" id="dFQ-V8-9XB"/>
                                                 <constraint firstItem="mCQ-XS-RTq" firstAttribute="top" secondItem="gyQ-3a-4mB" secondAttribute="top" constant="8" id="r4s-zH-ME7"/>
                                             </constraints>
-                                            <accessibility description="Select browser view mode"/>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="92" id="ovS-Yr-fz9"/>
@@ -393,9 +392,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="5FQ-cv-4vv" id="YKq-7w-Wmr"/>
-                                                                            </connections>
                                                                         </textField>
                                                                         <popUpButton toolTip="Status Bar appearance on devices without FaceID" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5FQ-cv-4vv">
                                                                             <rect key="frame" x="295" y="-4" width="297" height="25"/>
@@ -412,8 +408,8 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
-                                                                            <accessibility description="Status Bar Appearance (iOS)"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="8Rh-Bu-KaB" id="klK-CQ-Byp"/>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_mobileStatusBarAppearances" id="tDi-fK-LLU"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended" previousBinding="tDi-fK-LLU" id="mtD-ag-5fc"/>
                                                                             </connections>
@@ -438,9 +434,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="Fjl-cW-pil" id="fVo-VJ-cys"/>
-                                                                            </connections>
                                                                         </textField>
                                                                         <popUpButton toolTip="Status Bar appearance on devices with FaceID" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Fjl-cW-pil">
                                                                             <rect key="frame" x="295" y="-4" width="297" height="25"/>
@@ -457,8 +450,8 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
-                                                                            <accessibility description="Status Bar with FaceID (iOS)"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="dgB-Hd-QAS" id="Zqv-sY-fEf"/>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_mobileStatusBarAppearancesExtended" id="5QE-t7-ig0"/>
                                                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mobileStatusBarAppearance" previousBinding="5QE-t7-ig0" id="r1p-v1-bCE"/>
                                                                             </connections>
@@ -899,8 +892,8 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <accessibility description="Default page zoom level"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="ITS-ce-QW5" id="4TW-UZ-VYh"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultPageZoomLevel" id="3oy-Ld-7Da">
                                                                                     <dictionary key="options">
                                                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -917,9 +910,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="l2A-KY-iEk" id="2G6-eX-y58"/>
-                                                                            </connections>
                                                                         </textField>
                                                                     </subviews>
                                                                     <visibilityPriorities>
@@ -949,8 +939,8 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <accessibility description="Default text zoom level"/>
                                                                             <connections>
+                                                                                <accessibilityConnection property="title" destination="jF6-pn-oQs" id="WmN-CL-Ska"/>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_defaultTextZoomLevel" id="XF2-7I-DF2">
                                                                                     <dictionary key="options">
                                                                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -967,9 +957,6 @@
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <accessibilityConnection property="title" destination="Z1l-z6-njE" id="ZzT-ke-1CP"/>
-                                                                            </connections>
                                                                         </textField>
                                                                     </subviews>
                                                                     <visibilityPriorities>
@@ -1127,7 +1114,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.296875" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.8828125" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
