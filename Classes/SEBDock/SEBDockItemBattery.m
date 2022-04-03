@@ -58,8 +58,6 @@
     
     _batteryLevel = 100;
     [backgroundView.layer setBackgroundColor:systemGreenCGColor];
-    
-    [_batteryController addDelegate:self];
 }
 
 
