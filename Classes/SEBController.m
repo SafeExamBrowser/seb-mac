@@ -167,7 +167,6 @@ bool insideMatrix(void);
 {
     if (!_batteryController) {
         _batteryController = [[SEBBatteryController alloc] init];
-        [_batteryController startMonitoringBattery];
     }
     return _batteryController;
 }
@@ -4907,12 +4906,12 @@ conditionallyForWindow:(NSWindow *)window
         
         if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
             SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
-            [self.batteryController addDelegate:dockItemBattery];
             
             if ([dockItemBattery batteryLevel] != -1.0) {
                 [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
                 [dockItemBattery startDisplayingBattery];
                 [rightDockItems addObject:dockItemBattery];
+                [self startBatteryMonitoringWithDelegate:dockItemBattery];
             }
         }
 

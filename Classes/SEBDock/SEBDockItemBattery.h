@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
     CGColorRef systemRedCGColor;
 }
 
-@property (strong, nonatomic) SEBBatteryController *batteryController;
 @property (readonly) double batteryLevel;
 
 @property (strong, nonatomic) IBOutlet NSView *view;
