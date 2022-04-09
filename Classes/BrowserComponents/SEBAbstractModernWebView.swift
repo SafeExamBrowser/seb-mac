@@ -45,6 +45,7 @@ import Foundation
     private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
     public var pageZoom = WebViewDefaultPageZoom
     private var textZoom = WebViewDefaultTextZoom
+    private var controlSpellCheckCode = ""
     private var previousSearchText = ""
 
     private var downloadFilename: String?
@@ -91,7 +92,7 @@ import Foundation
             let pageModifyUserScript = WKUserScript(source: pageJavaScriptCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
             userContentController.addUserScript(pageModifyUserScript)
             let allowSpellCheck = navigationDelegate?.allowSpellCheck ?? false
-            let controlSpellCheckCode = "SEB_AllowSpellCheck(\(allowSpellCheck ? "true" : "false"))"
+            controlSpellCheckCode = "SEB_AllowSpellCheck(\(allowSpellCheck ? "true" : "false"))"
             let controlSpellCheckUserScript = WKUserScript(source: controlSpellCheckCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
             userContentController.addUserScript(controlSpellCheckUserScript)
         }
@@ -613,6 +614,7 @@ import Foundation
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         navigationDelegate?.sebWebViewDidFinishLoad?()
+        sebWebView.evaluateJavaScript(controlSpellCheckCode)
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
