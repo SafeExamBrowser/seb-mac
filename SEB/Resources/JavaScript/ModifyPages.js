@@ -87,6 +87,19 @@ function SEB_AllowSpellCheck(enable) {
             }
         }
     }
+    txtFields = document.querySelectorAll('[contenteditable=true]');
+    if (txtFields) {
+        var i;
+        for (i = 0; i < txtFields.length; i++) {
+            var txtField = txtFields[i];
+            if (txtField) {
+                txtField.setAttribute('autocomplete',attributeValue);
+                txtField.setAttribute('autocorrect',attributeValue);
+                txtField.setAttribute('autocapitalize',attributeValue);
+                txtField.setAttribute('spellcheck',enable);
+            }
+        }
+    }
 }
 
 function SEB_GetAllFocusableElements() {
