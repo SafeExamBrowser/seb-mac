@@ -236,7 +236,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             // Check if the saved path really exists
             BOOL isDir;
             NSFileManager *fileManager= [NSFileManager defaultManager];
-            if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
+            if(![fileManager fileExistsAtPath:[scLocation stringByExpandingTildeInPath] isDirectory:&isDir]) {
                 // No, the directory for storing screenshots doesn't exist
                 // probably something went wrong sometimes ago (SEB crashed in a bad moment)
                 // so restore the screen capture path to the OS X standard (user's desktop)
