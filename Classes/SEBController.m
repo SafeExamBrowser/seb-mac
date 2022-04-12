@@ -534,7 +534,7 @@ bool insideMatrix(void);
             NSResponder *firstResponder = NSApp.keyWindow.firstResponder;
             if (NSApp.keyWindow == self.dockController.window) {
                 self.shiftTabPressedWhileDockIsKeyWindow = YES;
-            } else if (firstResponder.class == SEBOSXWKWebView.class || firstResponder.class == SEBWebView.class) {
+            } else if (firstResponder.class == SEBOSXWKWebView.class || [firstResponder.className isEqualToString:@"WebHTMLView"]) {
                 self.shiftTabPressedWhileWebViewIsFirstResponder = YES;
             } else if (firstResponder.class == SEBGoToDockButton.class && ([((NSButton *)firstResponder).identifier isEqualToString:@"toolbarGoToDockButton"] ||
                                                                            [((NSButton *)firstResponder).identifier isEqualToString:@"accessoryViewGoToDockButton"])) {
@@ -549,7 +549,7 @@ bool insideMatrix(void);
                 // This selects the first element on a web page directly after opening a new window
                 // and pressing tab (without having to click the browser window first)
                 [(SEBBrowserWindow *)firstResponder makeFirstResponder:[(SEBBrowserWindow *)firstResponder nativeWebView]];
-            } else if (firstResponder.class == SEBOSXWKWebView.class || firstResponder.class == SEBWebView.class) {
+            } else if (firstResponder.class == SEBOSXWKWebView.class || [firstResponder.className isEqualToString:@"WebHTMLView"]) {
                 self.tabPressedWhileWebViewIsFirstResponder = YES;
             } else if (NSApp.keyWindow == self.dockController.window) {
                 self.tabPressedWhileDockIsKeyWindow = YES;
