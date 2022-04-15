@@ -6,14 +6,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_OSX
 @import IOKit.ps;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SEBBatteryControllerDelegate <NSObject>
 
 - (void) updateBatteryLevel:(double)batteryLevel infoString:(NSString *)infoString;
-- (void) setPowerConnected:(BOOL)powerConnected warningLevel:(IOPSLowBatteryWarningLevel) batteryWarningLevel;
+- (void) setPowerConnected:(BOOL)powerConnected warningLevel:(SEBLowBatteryWarningLevel) batteryWarningLevel;
 
 @end
 
@@ -22,10 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSTimer *batteryTimer;
     CFRunLoopSourceRef powerSourceMonitoringLoop;
     double lastBatteryLevel;
+    BOOL lastPowerSourceConnectedState;
 }
 
 @property (strong) NSArray *delegates;
 @property (readonly) double batteryLevel;
+@property (readonly) BOOL powerSourceConnected;
 
 - (void) addDelegate:(id <SEBBatteryControllerDelegate>)delegate;
 - (void) startMonitoringBattery;
