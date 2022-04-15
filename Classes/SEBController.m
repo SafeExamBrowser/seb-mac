@@ -5764,7 +5764,7 @@ conditionallyForWindow:(NSWindow *)window
     // Clear private pasteboard
     [self.browserController clearPrivatePasteboard];
     
-    if (_batteryController) {
+    if (_batteryController && !_establishingSEBServerConnection) {
         [_batteryController stopMonitoringBattery];
         _batteryController = nil;
     }
