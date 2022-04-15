@@ -1538,7 +1538,7 @@
 		69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemTime.h; path = Classes/SEBDock/SEBDockItemTime.h; sourceTree = "<group>"; };
 		69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemTime.m; path = Classes/SEBDock/SEBDockItemTime.m; sourceTree = "<group>"; };
 		69D3C5E327A0366400890B31 /* Safe Exam Browser ETH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser ETH.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69D3C5E427A0366400890B31 /* Safe Exam Browser copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Safe Exam Browser copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/Safe Exam Browser copy-Info.plist"; sourceTree = "<absolute>"; };
+		69D3C5E427A0366400890B31 /* SafeExamBrowserETH-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SafeExamBrowserETH-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SafeExamBrowserETH-Info.plist"; sourceTree = "<absolute>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SEBController.h; path = Classes/SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		69D588201189EB8F005AE3F1 /* SEBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SEBController.m; path = Classes/SEBController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69D5983214C81FEA005FE98C /* NSWindow+SEBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+SEBWindow.h"; sourceTree = "<group>"; };
@@ -1791,7 +1791,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
 				A9DCFB3F301AB1EC72C987AA /* Pods */,
-				69D3C5E427A0366400890B31 /* Safe Exam Browser copy-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -1819,6 +1818,7 @@
 				69EA170119FA77A0001E0C51 /* Localizable.strings */,
 				69A9A22E1369AF9600840AE1 /* LICENCE */,
 				690D80DC1A52370E00A3218B /* SafeExamBrowser-Info.plist */,
+				69D3C5E427A0366400890B31 /* SafeExamBrowserETH-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
