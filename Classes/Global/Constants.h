@@ -413,6 +413,41 @@ typedef NSUInteger SEBLogLevel;
 
 
 enum {
+/*! @constant   SEBLowBatteryWarningNone
+ *
+ *  @abstract   The system is not in a low battery situation, or is on drawing from an external power source.
+ *
+ *  @discussion The system displays no low power warnings; neither should application clients of this
+ *              API.
+ */
+    SEBLowBatteryWarningNone  = 1,
+
+/*! @constant   SEBLowBatteryWarningEarly
+ *
+ *  @abstract   The battery can provide no more than 20 minutes of runtime.
+ *
+ *  @discussion macOS makes no guarantees that the system shall remain in Early Warning for 20 minutes.
+ *              Batteries are frequently calibrated differently and may provide runtime
+ *              for more, or less, than the estimated 20 minutes.
+ *              macOS alerts the user by changing the color of BatteryMonitor to red.
+ *              Warning the user is optional for full screen apps.
+ */
+    SEBLowBatteryWarningEarly = 2,
+
+/*! @constant   SEBLowBatteryWarningFinal
+ *
+ *  @abstract   The battery can provide no more than 10 minutes of runtime.
+ *
+ *  @discussion macOS makes no guarantees that the system shall remain in Final Warning for 10 minutes.
+ *              Batteries are frequently calibrated differently and may provide runtime
+ *              for more, or less, than the estimated 10 minutes.
+ */
+    SEBLowBatteryWarningFinal = 3
+};
+typedef NSInteger SEBLowBatteryWarningLevel;
+
+
+enum {
     SEBMinOSX10_7                               = 0,
     SEBMinOSX10_8                               = 1,
     SEBMinOSX10_9                               = 2,
