@@ -83,6 +83,7 @@
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
 
+#import "SEBBatteryController.h"
 #import "ServerController.h"
 #import "SEBServerViewController.h"
 #import "ServerLogger.h"
@@ -101,12 +102,13 @@
 @class SEBiOSLockedViewController;
 @class QRCodeReaderViewController;
 @class AboutSEBiOSViewController;
+@class SEBBatteryController;
 @class ServerController;
 @class SEBServerViewController;
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -154,6 +156,7 @@
 @property (strong, nonatomic) MFMailComposeViewController *mailViewController;
 @property (strong, nonatomic) UIViewController *rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
+@property(strong, nonatomic) SEBBatteryController *batteryController;
 
 /// Locking down SEB
 @property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;

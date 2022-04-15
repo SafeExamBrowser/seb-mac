@@ -106,6 +106,15 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBBatteryController *) batteryController
+{
+    if (!_batteryController) {
+        _batteryController = [[SEBBatteryController alloc] init];
+    }
+    return _batteryController;
+}
+
+
 - (ServerController*)serverController
 {
     if (!_serverController) {
@@ -3112,6 +3121,11 @@ quittingClientConfig:(BOOL)quittingClientConfig
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         
+        if (self.batteryController && !self.establishingSEBServerConnection) {
+            [self.batteryController stopMonitoringBattery];
+            self.batteryController = nil;
+        }
+        
         // We only might need to switch off kiosk mode if it was active in previous settings
         if (self.secureMode) {
             
@@ -3277,21 +3291,28 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
-- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
-{
-    _sebServerViewDisplayed = false;
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
-        [self.serverController examSelected:examId url:url];
-    }];
-}
-
-
 - (void) closeServerView:(id)sender
 {
     _establishingSEBServerConnection = false;
     _sebServerViewDisplayed = false;
     [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
         [self sessionQuitRestart:NO];
+    }];
+}
+
+
+- (void) startBatteryMonitoringWithDelegate:(id)delegate
+{
+    [self.batteryController addDelegate:delegate];
+    [self.batteryController startMonitoringBattery];
+}
+
+
+- (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
+{
+    _sebServerViewDisplayed = false;
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+        [self.serverController examSelected:examId url:url];
     }];
 }
 

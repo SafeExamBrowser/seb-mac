@@ -8,7 +8,9 @@
 #import "SEBBatteryController.h"
 
 @import Foundation;
+#if TARGET_OS_OSX
 @import IOKit.ps;
+#endif
 
 @implementation SEBBatteryController
 
@@ -26,6 +28,7 @@
 
 - (void) startMonitoringBattery
 {
+#if TARGET_OS_OSX
     NSDate *dateNow = [NSDate date];
     NSTimeInterval timestamp = [dateNow timeIntervalSinceReferenceDate];
     NSTimeInterval currentFullMinute = timestamp - fmod(timestamp, 60);
@@ -49,6 +52,17 @@
     if (powerSourceMonitoringLoop) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), powerSourceMonitoringLoop, kCFRunLoopDefaultMode);
     }
+#else
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateBatteryLevel)
+                                                 name:UIDeviceBatteryLevelDidChangeNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateBatteryLevel)
+                                                 name:UIDeviceBatteryStateDidChangeNotification
+                                               object:nil];
+    [self updateBatteryLevel];
+#endif
 }
 
 - (void)timerFireMethod:(NSTimer *)timer
@@ -59,6 +73,7 @@
 }
 
 
+#if TARGET_OS_OSX
 void powerSourceMonitoringCallbackMethod(void *context)
 {
     IOPSLowBatteryWarningLevel batteryWarningLevel = IOPSGetBatteryWarningLevel();
@@ -71,26 +86,34 @@ void powerSourceMonitoringCallbackMethod(void *context)
 {
     NSArray *currentDelegates = _delegates.copy;
     for (id <SEBBatteryControllerDelegate> delegate in currentDelegates) {
-        [delegate setPowerConnected:powerConnected warningLevel:batteryWarningLevel];
+        [delegate setPowerConnected:powerConnected warningLevel:(SEBLowBatteryWarningLevel)batteryWarningLevel];
     }
 }
+#endif
 
 
 - (void) updateBatteryLevel
 {
     double batteryLevel = self.batteryLevel;
-    if (batteryLevel != lastBatteryLevel) {
+    BOOL powerSourceConnectedState = self.powerSourceConnected;
+    if (batteryLevel != lastBatteryLevel ||
+        powerSourceConnectedState != lastPowerSourceConnectedState) {
         lastBatteryLevel = batteryLevel;
+        lastPowerSourceConnectedState = powerSourceConnectedState;
+        NSString *additionalBatteryInformation;
+#if TARGET_OS_OSX
         CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
         int hoursRemaining = remainingTime/3600;
         int minutesRemaining = (remainingTime - hoursRemaining*3600)/60;
-        
-        NSString *infoString = [NSString stringWithFormat:NSLocalizedString(@"Battery Level %.f%%%@", nil), batteryLevel,
-                          (remainingTime == kIOPSTimeRemainingUnlimited ?
-                           NSLocalizedString(@" (Connected to Power Source)", nil) :
-                           ((remainingTime == kIOPSTimeRemainingUnknown ?
-                             @"" :
-                             [NSString stringWithFormat:NSLocalizedString(@" (%d:%d Remaining)", nil), hoursRemaining, minutesRemaining])))];
+        additionalBatteryInformation = remainingTime == kIOPSTimeRemainingUnlimited ?
+                                        NSLocalizedString(@" (Connected to Power Source)", nil) :
+                                        ((remainingTime == kIOPSTimeRemainingUnknown ?
+                                          @"" :
+                                          [NSString stringWithFormat:NSLocalizedString(@" (%d:%d Remaining)", nil), hoursRemaining, minutesRemaining]));
+#else
+        additionalBatteryInformation = powerSourceConnectedState ? NSLocalizedString(@" (Connected to Power Source)", nil) : @"";
+#endif
+        NSString *infoString = [NSString stringWithFormat:NSLocalizedString(@"Battery Level %.f%%%@", nil), batteryLevel, additionalBatteryInformation];
         NSArray *currentDelegates = _delegates.copy;
         for (id <SEBBatteryControllerDelegate> delegate in currentDelegates) {
             [delegate updateBatteryLevel:batteryLevel infoString:infoString];
@@ -102,17 +125,21 @@ void powerSourceMonitoringCallbackMethod(void *context)
 - (void) stopMonitoringBattery
 {
     DDLogVerbose(@"%s", __FUNCTION__);
-    
+#if TARGET_OS_OSX
     [batteryTimer invalidate];
     if (powerSourceMonitoringLoop) {
         CFRunLoopSourceInvalidate(powerSourceMonitoringLoop);
         CFRelease(powerSourceMonitoringLoop);
     }
+#else
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+#endif
 }
 
 
 - (double) batteryLevel
 {
+#if TARGET_OS_OSX
   CFTypeRef blob = IOPSCopyPowerSourcesInfo();
   CFArrayRef sources = IOPSCopyPowerSourcesList(blob);
   
@@ -149,6 +176,21 @@ void powerSourceMonitoringCallbackMethod(void *context)
     return percent;
   }
   return -1.0f;
+#else
+    return (double)(UIDevice.currentDevice.batteryLevel*100);
+#endif
+}
+
+
+- (BOOL) powerSourceConnected
+{
+#if TARGET_OS_OSX
+        CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
+    return remainingTime == kIOPSTimeRemainingUnlimited;
+#else
+    UIDeviceBatteryState batteryState = UIDevice.currentDevice.batteryState;
+    return batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull;
+#endif
 }
 
 

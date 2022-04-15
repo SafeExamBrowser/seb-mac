@@ -216,8 +216,8 @@ public extension SEBServerController {
         sendBatteryEvent(numericValue: batteryLevel, message: infoString)
     }
     
-    func setPowerConnected(_ powerConnected: Bool, warningLevel batteryWarningLevel: IOPSLowBatteryWarningLevel) {
-        
+    func setPowerConnected(_ powerConnected: Bool, warningLevel batteryWarningLevel: SEBLowBatteryWarningLevel) {
+        // Currently reporting low battery warning levels to SEB Server is not supported
     }
     
 
