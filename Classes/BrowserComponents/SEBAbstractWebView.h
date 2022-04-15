@@ -35,7 +35,6 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "SEBURLFilter.h"
-#import "SEBDockWindow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
