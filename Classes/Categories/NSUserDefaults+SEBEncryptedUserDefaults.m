@@ -796,7 +796,7 @@ static NSNumber *_logLevel;
                 [self setObject:encryptedData forKey:key];
             } else {
                 encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-                if (error || !encryptedData) {
+                if (error || !encryptedData || encryptedData.length == 0) {
 
                     DDLogError(@"PREFERENCES CORRUPTED ERROR in [self setObject:(encrypted %@) forKey:%@]", value, key);
 
