@@ -1028,6 +1028,7 @@ bool insideMatrix(void);
             DDLogDebug(@"%s About SEB window is visible, attempting to close it.", __FUNCTION__);
             [self closeAboutWindow];
         }
+        [self saveCurrentPasteboardString];
         [self openPreferences:self];
 
     } else {
@@ -3020,6 +3021,14 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 // Clear Pasteboard, but save the current content in case it is a NSString
 - (void)clearPasteboardSavingCurrentString
 {
+    [self saveCurrentPasteboardString];
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    //NSInteger changeCount = [pasteboard clearContents];
+    [pasteboard clearContents];
+}
+
+- (void)saveCurrentPasteboardString
+{
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     //NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], [NSAttributedString class], nil];
     NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
@@ -3037,8 +3046,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     //    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
     //    DDLogDebug(@"Saved string from Pasteboard: %@", stringFromPasteboard);
 #endif
-    //NSInteger changeCount = [pasteboard clearContents];
-    [pasteboard clearContents];
 }
 
 
@@ -4821,19 +4828,31 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) copy:(id)sender
 {
-    [self.browserController privateCopy:sender];
+    if (![self.preferencesController preferencesAreOpen]) {
+        [self.browserController privateCopy:sender];
+    } else {
+        [NSApp.keyWindow.firstResponder tryToPerform:@selector(copy:) with:sender];
+    }
 }
 
 
 - (IBAction) cut:(id)sender
 {
-    [self.browserController privateCut:sender];
+    if (![self.preferencesController preferencesAreOpen]) {
+        [self.browserController privateCut:sender];
+    } else {
+        [NSApp.keyWindow.firstResponder tryToPerform:@selector(cut:) with:sender];
+    }
 }
 
 
 - (IBAction) paste:(id)sender
 {
-    [self.browserController privatePaste:sender];
+    if (![self.preferencesController preferencesAreOpen]) {
+        [self.browserController privatePaste:sender];
+    } else {
+        [NSApp.keyWindow.firstResponder tryToPerform:@selector(paste:) with:sender];
+    }
 }
 
 
