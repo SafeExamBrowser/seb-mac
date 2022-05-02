@@ -516,6 +516,7 @@ static NSMutableSet *browserWindowControllers;
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
+
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange: previousTraitCollection];
@@ -1717,6 +1718,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // UI
     
+    _allowFind = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"];
     [self addBrowserToolBarWithOffset:0];
     
     //// Initialize SEB Dock, commands section in the slider view and
@@ -2800,7 +2802,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogInfo(@"%s", __FUNCTION__);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+    
     if (@available(iOS 11.0, *)) {
         if (_secureMode &&
             UIScreen.mainScreen.isCaptured &&
@@ -2964,7 +2966,7 @@ void run_on_ui_thread(dispatch_block_t block)
 // Quit or restart session without asking for confirmation
 - (void) sessionQuitRestart:(BOOL)restart
 {
-//    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
+    //    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     _openingSettings = NO;
     _resettingSettings = NO;
     
@@ -3097,8 +3099,8 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 - (void) restartExamQuitting:(BOOL)quitting
-quittingClientConfig:(BOOL)quittingClientConfig
-    pasteboardString:(NSString *)pasteboardString
+        quittingClientConfig:(BOOL)quittingClientConfig
+            pasteboardString:(NSString *)pasteboardString
 {
     _isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
@@ -3403,16 +3405,16 @@ quittingClientConfig:(BOOL)quittingClientConfig
     NSString *notificationType = attributes[@"type"];
     NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
     
-//    if ([notificationType isEqualToString:@"raisehand"]) {
-//        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
-//            [self toggleRaiseHandLoweredByServer:YES];
-//        }
-//    }
+    //    if ([notificationType isEqualToString:@"raisehand"]) {
+    //        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
+    //            [self toggleRaiseHandLoweredByServer:YES];
+    //        }
+    //    }
     
     if ([notificationType isEqualToString:@"lockscreen"]) {
         if (self.sebServerPendingLockscreenEvents.count > 0) {
 #ifdef DEBUG
-        DDLogDebug(@"sebServerPendingLockscreenEvents: %@", self.sebServerPendingLockscreenEvents);
+            DDLogDebug(@"sebServerPendingLockscreenEvents: %@", self.sebServerPendingLockscreenEvents);
 #endif
             NSInteger notificationID = notificationIDNumber.integerValue;
             for (NSUInteger index = 0 ; index < self.sebServerPendingLockscreenEvents.count ; ++index) {
@@ -3420,9 +3422,9 @@ quittingClientConfig:(BOOL)quittingClientConfig
                     [self.sebServerPendingLockscreenEvents removeObjectAtIndex:index];
                 }
             }
-    #ifdef DEBUG
+#ifdef DEBUG
             DDLogDebug(@"sebServerPendingLockscreenEvents after removing notificationID %@: %@", notificationIDNumber, self.sebServerPendingLockscreenEvents);
-    #endif
+#endif
             if (self.sebServerPendingLockscreenEvents.count == 0) {
                 DDLogInfo(@"No pending lock screen events, closing lockdown windows invoked by SEB Server");
                 [self correctPasswordEntered];
@@ -4721,13 +4723,37 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 
+//- (IBAction)searchText
+//{
+//    UISearchController *searchController = [[UISearchController alloc] init];
+//    searchController.delegate = self;
+//    searchController.searchBar.delegate = self;
+//    searchController.obscuresBackgroundDuringPresentation = NO;
+//    self.navigationItem.searchController = searchController;
+//    self.definesPresentationContext = YES;
+//    searchController.active = YES;
+//    searchController.searchBar.showsCancelButton = YES;
+//    self.navigationItem.titleView = searchController.searchBar;
+//    [self.navigationController updateViewConstraints];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [searchController.searchBar becomeFirstResponder];
+////        searchController.active = YES;
+//    });
+//}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    self.navigationItem.searchController = nil;
+}
+
+
 - (IBAction)reload {
     void (^action1Handler)(void) =
     ^{
         [self->_browserTabViewController reload];
         [self.sideMenuController hideLeftViewAnimated];
     };
-        
+    
     BOOL isMainBrowserWebViewActive = self.browserController.isMainBrowserWebViewActive;
     if (![self.browserController isReloadAllowedMainWebView:isMainBrowserWebViewActive]) {
         // Cancel if reload is disabled in exam or additional browser tabs
@@ -4776,6 +4802,8 @@ quittingClientConfig:(BOOL)quittingClientConfig
     // Activate/Deactivate reload buttons in dock and slider
     [self.sebUIController activateReloadButtons:reloadEnabled];
     
+    NSMutableArray *rightToolbarItems = [NSMutableArray new];
+    
     if (reloadEnabled)  {
         if (self.sebUIController.browserToolbarEnabled &&
             !self.sebUIController.dockReloadButton) {
@@ -4789,12 +4817,97 @@ quittingClientConfig:(BOOL)quittingClientConfig
             toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
             toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
             
-            self.navigationItem.rightBarButtonItem = toolbarReloadButton;
-            return;
+            [rightToolbarItems addObject:toolbarReloadButton];
         }
     }
-    // Deactivate reload button in toolbar
-    self.navigationItem.rightBarButtonItem = nil;
+    
+    if (_allowFind)  {
+        if (self.sebUIController.browserToolbarEnabled) {
+
+            UIStackView *searchStackView = [[UIStackView alloc] init];
+            searchStackView.translatesAutoresizingMaskIntoConstraints = NO;
+            searchStackView.axis = UILayoutConstraintAxisHorizontal;
+//            searchStackView.alignment = UIStackViewAlignmentFill;
+            searchStackView.distribution = UIStackViewDistributionFill;
+            searchStackView.spacing = 8;
+            
+            toolbarSearchButtonDone = [[UIButton alloc] init];
+            toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
+            [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+            [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15]];
+            [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
+            
+            UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+            searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+            searchBar.searchBarStyle = UISearchBarStyleMinimal;
+            searchBar.returnKeyType = UIReturnKeyDone;
+            searchBar.delegate = self;
+            UIView *searchBarView = [[UIView alloc] init];
+            [searchBarView addSubview:searchBar];
+            NSDictionary *views = NSDictionaryOfVariableBindings(searchStackView, searchBarView, searchBar);
+            [searchBarView addConstraints:
+             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
+            [searchBarView addConstraints:
+             [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[searchBar]-0-|" options:0 metrics:nil views:views]];
+
+            toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
+            toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
+            if (@available(iOS 13.0, *)) {
+                [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"chevron.up"] forState:UIControlStateNormal];
+            } else {
+                [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
+            }
+            [toolbarSearchButtonPreviousResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [toolbarSearchButtonPreviousResult addTarget:self action:@selector(searchTextPrevious) forControlEvents:UIControlEventTouchUpInside];
+            
+            toolbarSearchButtonNextResult = [[UIButton alloc] init];
+            toolbarSearchButtonNextResult.translatesAutoresizingMaskIntoConstraints = NO;
+            if (@available(iOS 13.0, *)) {
+                [toolbarSearchButtonNextResult setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
+            } else {
+                [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarNextResult"] forState:UIControlStateNormal];
+            }
+            [toolbarSearchButtonNextResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
+
+            [searchStackView addArrangedSubview:toolbarSearchButtonDone];
+            [searchStackView addArrangedSubview:searchBarView];
+            [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
+            [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
+
+            UIView *searchButtonView = [[UIView alloc] init];
+            [searchButtonView addSubview:searchStackView];
+            [searchButtonView addConstraints:
+             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchStackView]-|" options:0 metrics:nil views:views]];
+            [searchButtonView addConstraints:
+             [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-8)-[searchStackView]-0-|" options:0 metrics:nil views:views]];
+            
+//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
+//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[searchBar(==200)]" options:0 metrics:nil views:views]];
+//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[searchBar]-|" options:0 metrics:nil views:views]];
+            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[searchBar(==200)]" options:0 metrics:nil views:views]];
+//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[searchBar]-0-|" options:0 metrics:nil views:views]];
+
+            toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
+            toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+            toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
+            toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
+            
+            [rightToolbarItems addObject:toolbarSearchButton];
+        }
+    }
+    
+    self.navigationItem.rightBarButtonItems = rightToolbarItems.copy;
+}
+
+
+- (void)setPowerConnected:(BOOL)powerConnected warningLevel:(SEBLowBatteryWarningLevel)batteryWarningLevel {
+    // ToDo: To be used for battery dock item
+}
+
+- (void)updateBatteryLevel:(double)batteryLevel infoString:(nonnull NSString *)infoString {
+    // ToDo: To be used for battery dock item
 }
 
 
@@ -4917,6 +5030,66 @@ quittingClientConfig:(BOOL)quittingClientConfig
 }
 
 #pragma mark - Search
+
+
+//- (IBAction)previousNext:(id)sender
+//{
+//    if ([sender selectedSegment] == 0) {
+//        [self searchTextPrevious];
+//    } else {
+//        [self searchTextNext];
+//    }
+//}
+//
+- (void) searchTextNext
+{
+    [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+}
+
+- (void) searchTextPrevious
+{
+    [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:YES caseSensitive:NO];
+}
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+//    self.textSearchPreviousNext.hidden = !matchFound;
+//    self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
+}
+
+- (void) textSearchDone:(id)sender
+{
+//    if (self.textSearchField.stringValue.length > 0) {
+//        self.textSearchField.stringValue = @"";
+//        self.searchText = @"";
+//        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+//    }
+//    self.textSearchPreviousNext.hidden = YES;
+//    self.textSearchDone.hidden = YES;
+//    [self.browserWindow conditionallyDisplayToolbar];
+    [self.browserTabViewController.visibleWebViewController becomeFirstResponder];
+}
+
+
+
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    
+}
+
+
+- (void)searchBar:(UISearchBar *)searchBar
+    textDidChange:(NSString *)newSearchText
+{
+    if (![self.searchText isEqualToString:newSearchText]) {
+        self.searchText = newSearchText;
+//        self.textSearchDone.hidden = !self.browserWindow.toolbarWasHidden;
+        [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+}
+
+
 
 - (void)searchStarted
 {
