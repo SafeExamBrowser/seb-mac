@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Media Autoplay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaAutoplay</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Video Autoplay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaAutoplayVideo</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audio Autoplay</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaAutoplayAudio</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Inline Playback on iPad</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Inline Playback on iPhone</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Picture in Picture Video</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback</string>
+		</dict>
+	</array>
+</dict>
+</plist>
