@@ -38,6 +38,36 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Browser Features</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Text Search</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowFind</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Block Pop-Up Windows</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_blockPopUpWindows</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable JavaScript</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableJavaScript</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Restrictions in Exam Tab</string>
 		</dict>
 		<dict>
@@ -146,55 +176,15 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
 			<string>Media Playback</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Media Autoplay</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_browserMediaAutoplay</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Video Autoplay</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_browserMediaAutoplayVideo</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Audio Autoplay</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_browserMediaAutoplayAudio</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Allow Inline Playback on iPad</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileAllowInlineMediaPlayback</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Allow Inline Playback on iPhone</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileCompactAllowInlineMediaPlayback</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Allow Picture in Picture Video</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback</string>
+			<key>File</key>
+			<string>BrowserMediaPlayback</string>
 		</dict>
 		<dict>
 			<key>Title</key>
