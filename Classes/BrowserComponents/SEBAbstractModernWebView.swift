@@ -33,6 +33,7 @@
 //
 
 import Foundation
+import PDFKit
 
 @objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {
     
@@ -435,11 +436,13 @@ import Foundation
     
     public func searchText(_ textToSearch: String, backwards: Bool, caseSensitive: Bool)
     {
+#if os(macOS)
         if #available(macOS 11, iOS 14, *) {
             let findConfiguration = WKFindConfiguration.init()
             findConfiguration.backwards = backwards
             findConfiguration.caseSensitive = caseSensitive
             findConfiguration.wraps = true
+//            sebWebView.select(nil)
             sebWebView.find(textToSearch, configuration: findConfiguration) { findResult in
                 let matchFound = findResult.matchFound
                 if !matchFound {
@@ -448,45 +451,74 @@ import Foundation
                 }
                 self.navigationDelegate?.searchTextMatchFound?(matchFound)
             }
+            return
+        }
+#endif
+        if textToSearch.isEmpty {
+            previousSearchText = textToSearch
+            sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
+            self.navigationDelegate?.searchTextMatchFound?(false)
         } else {
-            if textToSearch.isEmpty {
-                previousSearchText = textToSearch
-                sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
-                self.navigationDelegate?.searchTextMatchFound?(false)
+            // Check if we're dealing with a PDF
+//            if let pdfView = searchForPDFView(view: sebWebView) {
+//                print(pdfView as Any)
+//            }
+            if textToSearch == previousSearchText {
+                if backwards {
+                    self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
+                } else {
+                    self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
+                }
+                self.navigationDelegate?.searchTextMatchFound?(true)
             } else {
-                if textToSearch == previousSearchText {
+                previousSearchText = textToSearch
+                let searchString = "SEB_HighlightAllOccurencesOfString('\(textToSearch)')"
+                sebWebView.evaluateJavaScript(searchString) { result, error in
                     if backwards {
                         self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
                     } else {
                         self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
                     }
-                    self.navigationDelegate?.searchTextMatchFound?(true)
-                } else {
-                    previousSearchText = textToSearch
-                    let searchString = "SEB_HighlightAllOccurencesOfString('\(textToSearch)')"
-                    sebWebView.evaluateJavaScript(searchString) { result, error in
-                        if backwards {
-                            self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
-                        } else {
-                            self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
-                        }
-                        self.sebWebView.evaluateJavaScript("SEB_SearchResultCount") { (result, error) in
-                            if error == nil {
-                                if result != nil {
-                                    let count = result as! Int
-                                    if count > 0 {
-                                        self.navigationDelegate?.searchTextMatchFound?(true)
-                                        return
-                                    }
+                    self.sebWebView.evaluateJavaScript("SEB_SearchResultCount") { (result, error) in
+                        if error == nil {
+                            if result != nil {
+                                let count = result as! Int
+                                if count > 0 {
+                                    self.navigationDelegate?.searchTextMatchFound?(true)
+                                    return
                                 }
                             }
-                            self.sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
-                            self.navigationDelegate?.searchTextMatchFound?(false)
                         }
+                        self.sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
+                        self.navigationDelegate?.searchTextMatchFound?(false)
                     }
                 }
             }
         }
+    }
+    
+    private func searchForPDFView(view: Any?) -> (PDFView?) {
+#if os(macOS)
+        guard let subviews = (view as! NSView?)?.subviews else {
+            return nil
+        }
+        #else
+        guard let subviews = (view as! UIView?)?.subviews else {
+            return nil
+        }
+        #endif
+
+        for subview in subviews {
+            print(subview as Any)
+            if let pdfView = subview as? PDFView {
+                return pdfView
+            } else if subview.subviews.count > 0 {
+                if let foundPDFView = searchForPDFView(view: subview) {
+                    return foundPDFView
+                }
+            }
+        }
+        return nil
     }
     
     public func privateCopy(_ sender: Any) {
