@@ -713,6 +713,19 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 
 #pragma mark - Search in WebView
 
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    [self.sebWebView searchText:textToSearch backwards:backwards caseSensitive:caseSensitive];
+}
+
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+//    [self.sebWebView.nativeWebView becomeFirstResponder];
+    [self.navigationDelegate searchTextMatchFound:matchFound];
+}
+
+
 - (UIImage *)invertImage:(UIImage *)originalImage
 {
     UIGraphicsBeginImageContext(originalImage.size);

@@ -219,6 +219,12 @@
 }
 
 
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    [_sebViewController searchTextMatchFound:matchFound];
+}
+
+
 @synthesize customSEBUserAgent;
 
 - (NSString *) customSEBUserAgent

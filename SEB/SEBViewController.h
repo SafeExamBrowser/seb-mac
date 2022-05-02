@@ -108,7 +108,7 @@
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -133,8 +133,14 @@
     NSUInteger statusBarAppearance;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
+    UIBarButtonItem *toolbarSearchButton;
+    UIButton *toolbarSearchButtonDone;
+    UIButton *toolbarSearchButtonNextResult;
+    UIButton *toolbarSearchButtonPreviousResult;
+
     UIBarButtonItem *toolbarReloadButton;
     CGFloat navigationBarItemsOffset;
+    
     BOOL assureSAMNotActiveWaiting;
 }
 
@@ -149,6 +155,7 @@
 @property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
+@property (strong, nonatomic) NSString *searchText;
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
@@ -231,6 +238,8 @@
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarBottomConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSafeArea;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSuperView;
+
+@property(readonly) BOOL allowFind;
 
 @property(readwrite) BOOL secureMode;
 @property(readwrite) BOOL enableASAM;
@@ -395,6 +404,8 @@
                             selector:(SEL)selector;
 - (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 - (UIViewController *) topMostController;
+
+- (void) searchTextMatchFound:(BOOL)matchFound;
 
 @end
 
