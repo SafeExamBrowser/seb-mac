@@ -83,7 +83,7 @@
 
 @property (readwrite) NSUInteger statusBarAppearance;
 @property (readwrite) NSUInteger statusBarAppearanceExtended;
-@property (readwrite) SEBBackgroundTintStyle backgroundTintStyle;
+@property (nonatomic, readwrite) SEBBackgroundTintStyle backgroundTintStyle;
 @property (readwrite) BOOL browserToolbarEnabled;
 @property (readwrite) BOOL dockEnabled;
 
