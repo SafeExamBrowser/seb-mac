@@ -135,8 +135,13 @@
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarSearchButton;
     UIButton *toolbarSearchButtonDone;
+    UISearchBar *searchBar;
+    NSLayoutConstraint *searchBarWidthConstraint;
+    NSLayoutConstraint *searchBarTopConstraint;
     UIButton *toolbarSearchButtonNextResult;
     UIButton *toolbarSearchButtonPreviousResult;
+    BOOL toolbarSearchBarActiveRemovedOtherItems;
+    NSString *toolbarSearchBarReplacedTitle;
 
     UIBarButtonItem *toolbarReloadButton;
     CGFloat navigationBarItemsOffset;
@@ -156,6 +161,7 @@
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
 @property (strong, nonatomic) NSString *searchText;
+@property (readwrite) BOOL searchMatchFound;
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
