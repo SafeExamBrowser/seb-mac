@@ -46,6 +46,18 @@
     return self;
 }
 
+
+- (SEBBackgroundTintStyle)backgroundTintStyle
+{
+    _statusBarAppearance = [self statusBarAppearanceForDevice];
+    
+    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
+                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
+                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+    return _backgroundTintStyle;
+}
+
+
 //// Initialize SEB Dock, commands section in the slider view and
 //// 3D Touch Home screen quick actions
 - (void)initUI
@@ -69,11 +81,6 @@
     _statusBarAppearanceExtended = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended"];
     _statusBarAppearance = [self statusBarAppearanceForDevice];
     
-    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
-                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
-                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
-
-
     // Check if a quit password is set = run SEB in secure mode
     BOOL secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
 
@@ -418,7 +425,8 @@
     if (@available(iOS 11.0, *)) {
         // Check if running on a device like iPhone X
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        if (window.safeAreaInsets.bottom != 0)
+        CGFloat bottomSafeAreaInset = window.safeAreaInsets.bottom;
+        if (bottomSafeAreaInset != 0)
         {
             if (_statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
                 deviceStatusBarAppearance = _statusBarAppearanceExtended;
