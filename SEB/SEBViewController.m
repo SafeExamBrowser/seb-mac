@@ -4785,23 +4785,18 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-// Add reload button to navigation bar or enable/disable
-// reload buttons in dock and left slider, depending if
-// active tab is the exam tab or a new (additional) tab
-- (void) activateReloadButtonsExamTab:(BOOL)examTab
+- (void) restoreNavigationBarItems
 {
-    BOOL showReload = [self.browserController isReloadAllowedMainWebView:examTab];
-    [self activateReloadButtons:showReload];
+    BOOL isMainBrowserWebViewActive = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow == 0;
+    BOOL navigationAllowed = [self.browserController isNavigationAllowedMainWebView:isMainBrowserWebViewActive];
+    [self showToolbarNavigation:navigationAllowed];
+    self.navigationItem.title = toolbarSearchBarReplacedTitle;
+    BOOL showReload = [self.browserController isReloadAllowedMainWebView:isMainBrowserWebViewActive];
+    [self updateRightNavigationItemsReloadEnabled:showReload];
 }
 
-
-// Conditionally add reload button to navigation bar or
-// enable/disable reload buttons in dock and left slider
-- (void) activateReloadButtons:(BOOL)reloadEnabled
+- (void) updateRightNavigationItemsReloadEnabled:(BOOL)reloadEnabled
 {
-    // Activate/Deactivate reload buttons in dock and slider
-    [self.sebUIController activateReloadButtons:reloadEnabled];
-    
     NSMutableArray *rightToolbarItems = [NSMutableArray new];
     
     if (reloadEnabled)  {
@@ -4824,81 +4819,150 @@ void run_on_ui_thread(dispatch_block_t block)
     if (_allowFind)  {
         if (self.sebUIController.browserToolbarEnabled) {
 
-            UIStackView *searchStackView = [[UIStackView alloc] init];
-            searchStackView.translatesAutoresizingMaskIntoConstraints = NO;
-            searchStackView.axis = UILayoutConstraintAxisHorizontal;
-//            searchStackView.alignment = UIStackViewAlignmentFill;
-            searchStackView.distribution = UIStackViewDistributionFill;
-            searchStackView.spacing = 8;
-            
-            toolbarSearchButtonDone = [[UIButton alloc] init];
-            toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
-            [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
-            [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15]];
-            [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
-            
-            UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-            searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-            searchBar.searchBarStyle = UISearchBarStyleMinimal;
-            searchBar.returnKeyType = UIReturnKeyDone;
-            searchBar.delegate = self;
-            UIView *searchBarView = [[UIView alloc] init];
-            [searchBarView addSubview:searchBar];
-            NSDictionary *views = NSDictionaryOfVariableBindings(searchStackView, searchBarView, searchBar);
-            [searchBarView addConstraints:
-             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
-            [searchBarView addConstraints:
-             [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[searchBar]-0-|" options:0 metrics:nil views:views]];
+            if (!toolbarSearchButton) {
+                UIStackView *searchStackView = [[UIStackView alloc] init];
+                searchStackView.translatesAutoresizingMaskIntoConstraints = NO;
+                searchStackView.axis = UILayoutConstraintAxisHorizontal;
+    //            searchStackView.alignment = UIStackViewAlignmentCenter;
+                searchStackView.distribution = UIStackViewDistributionFill;
+                searchStackView.spacing = 8;
+                
+                toolbarSearchButtonDone = [[UIButton alloc] init];
+                toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
+                [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+                [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15]];
+                [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
+                
+                UIView *searchBarView = [[UIView alloc] init];
+                [self createSearchBarInView:searchBarView];
+                
+                toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
+                toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
+                if (@available(iOS 13.0, *)) {
+                    [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"chevron.up"] forState:UIControlStateNormal];
+                } else {
+                    [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
+                }
+                [toolbarSearchButtonPreviousResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchButtonPreviousResult addTarget:self action:@selector(searchTextPrevious) forControlEvents:UIControlEventTouchUpInside];
+                
+                toolbarSearchButtonNextResult = [[UIButton alloc] init];
+                toolbarSearchButtonNextResult.translatesAutoresizingMaskIntoConstraints = NO;
+                if (@available(iOS 13.0, *)) {
+                    [toolbarSearchButtonNextResult setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
+                } else {
+                    [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarNextResult"] forState:UIControlStateNormal];
+                }
+                [toolbarSearchButtonNextResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
 
-            toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
-            toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
-            if (@available(iOS 13.0, *)) {
-                [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"chevron.up"] forState:UIControlStateNormal];
-            } else {
-                [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
+                [searchStackView addArrangedSubview:toolbarSearchButtonDone];
+                [searchStackView addArrangedSubview:searchBarView];
+                [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
+                [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
+                NSDictionary *views = NSDictionaryOfVariableBindings(searchStackView);
+
+                UIView *searchButtonView = [[UIView alloc] init];
+                [searchButtonView addSubview:searchStackView];
+                [searchButtonView addConstraints:
+                 [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchStackView]-|" options:0 metrics:nil views:views]];
+                [searchButtonView addConstraints:
+                 [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-8)-[searchStackView]-0-|" options:0 metrics:nil views:views]];
+                
+                toolbarSearchButtonDone.hidden = YES;
+                toolbarSearchButtonPreviousResult.hidden = YES;
+                toolbarSearchButtonNextResult.hidden = YES;
+
+                toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
+                toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+                toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
+                toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
             }
-            [toolbarSearchButtonPreviousResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [toolbarSearchButtonPreviousResult addTarget:self action:@selector(searchTextPrevious) forControlEvents:UIControlEventTouchUpInside];
-            
-            toolbarSearchButtonNextResult = [[UIButton alloc] init];
-            toolbarSearchButtonNextResult.translatesAutoresizingMaskIntoConstraints = NO;
-            if (@available(iOS 13.0, *)) {
-                [toolbarSearchButtonNextResult setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
-            } else {
-                [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarNextResult"] forState:UIControlStateNormal];
-            }
-            [toolbarSearchButtonNextResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
-
-            [searchStackView addArrangedSubview:toolbarSearchButtonDone];
-            [searchStackView addArrangedSubview:searchBarView];
-            [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
-            [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
-
-            UIView *searchButtonView = [[UIView alloc] init];
-            [searchButtonView addSubview:searchStackView];
-            [searchButtonView addConstraints:
-             [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchStackView]-|" options:0 metrics:nil views:views]];
-            [searchButtonView addConstraints:
-             [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-8)-[searchStackView]-0-|" options:0 metrics:nil views:views]];
-            
-//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
-//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[searchBar(==200)]" options:0 metrics:nil views:views]];
-//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[searchBar]-|" options:0 metrics:nil views:views]];
-            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[searchBar(==200)]" options:0 metrics:nil views:views]];
-//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[searchBar]-0-|" options:0 metrics:nil views:views]];
-
-            toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
-            toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-            toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
-            toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
-            
             [rightToolbarItems addObject:toolbarSearchButton];
         }
     }
     
     self.navigationItem.rightBarButtonItems = rightToolbarItems.copy;
+}
+
+
+// Add reload button to navigation bar or enable/disable
+// reload buttons in dock and left slider, depending if
+// active tab is the exam tab or a new (additional) tab
+- (void) activateReloadButtonsExamTab:(BOOL)examTab
+{
+    BOOL showReload = [self.browserController isReloadAllowedMainWebView:examTab];
+    [self activateReloadButtons:showReload];
+}
+
+
+// Conditionally add reload button to navigation bar or
+// enable/disable reload buttons in dock and left slider
+- (void) activateReloadButtons:(BOOL)reloadEnabled
+{
+    // Activate/Deactivate reload buttons in dock and slider
+    [self.sebUIController activateReloadButtons:reloadEnabled];
+    
+    // Activate/Deactivate reload button and other buttons (search text) in navigation bar
+    [self updateRightNavigationItemsReloadEnabled:reloadEnabled];
+}
+
+- (void)createSearchBarInView:(UIView *)searchBarView
+{
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    searchBar.returnKeyType = UIReturnKeyDone;
+    searchBar.delegate = self;
+    [searchBarView addSubview:searchBar];
+    NSDictionary *views = NSDictionaryOfVariableBindings(searchBarView, searchBar);
+    [searchBarView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
+    searchBarTopConstraint = [NSLayoutConstraint constraintWithItem:searchBar
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:searchBarView
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:6];
+    [searchBarView addConstraint:searchBarTopConstraint];
+    [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
+//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
+    searchBarWidthConstraint = nil;
+    [self setSearchBarWidth:44];
+}
+
+- (void)setSearchBarWidth:(CGFloat)width
+{
+    if (!searchBarWidthConstraint) {
+        searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:searchBar
+                                                                      attribute:NSLayoutAttributeWidth
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:nil
+                                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                                     multiplier:1.0
+                                                                       constant:width];
+        [searchBar.superview addConstraint:searchBarWidthConstraint];
+    } else {
+        searchBarWidthConstraint.constant = width;
+    }
+    if (width == 44) {
+        searchBarTopConstraint.constant = 6;
+        if (toolbarSearchBarActiveRemovedOtherItems) {
+            toolbarSearchBarActiveRemovedOtherItems = NO;
+            [self restoreNavigationBarItems];
+        }
+    } else {
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+            toolbarSearchBarActiveRemovedOtherItems = YES;
+            self.navigationItem.leftBarButtonItems = nil;
+            toolbarSearchBarReplacedTitle = self.navigationItem.title;
+            self.navigationItem.title = nil;
+            self.navigationItem.rightBarButtonItems = @[toolbarSearchButton];
+        }
+        searchBarTopConstraint.constant = 0;
+    }
 }
 
 
@@ -5053,21 +5117,28 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) searchTextMatchFound:(BOOL)matchFound
 {
-//    self.textSearchPreviousNext.hidden = !matchFound;
+    self.searchMatchFound = matchFound;
+    toolbarSearchButtonPreviousResult.hidden = !matchFound;
+    toolbarSearchButtonNextResult.hidden = !matchFound;
 //    self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
 }
 
 - (void) textSearchDone:(id)sender
 {
-//    if (self.textSearchField.stringValue.length > 0) {
-//        self.textSearchField.stringValue = @"";
-//        self.searchText = @"";
-//        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
-//    }
-//    self.textSearchPreviousNext.hidden = YES;
-//    self.textSearchDone.hidden = YES;
+    if (searchBar.text.length > 0) {
+        searchBar.text = @"";
+        self.searchText = @"";
+        [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+    toolbarSearchButtonDone.hidden = YES;
+    toolbarSearchButtonPreviousResult.hidden = YES;
+    toolbarSearchButtonNextResult.hidden = YES;
 //    [self.browserWindow conditionallyDisplayToolbar];
-    [self.browserTabViewController.visibleWebViewController becomeFirstResponder];
+    [searchBar endEditing:YES];
+    UIView *searchBarView = searchBar.superview;
+    [searchBar removeFromSuperview];
+    searchBar = nil;
+    [self createSearchBarInView:searchBarView];
 }
 
 
@@ -5075,9 +5146,16 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    
+    [self setSearchBarWidth:200];
+    toolbarSearchButtonDone.hidden = NO;
 }
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    if (!self.searchMatchFound) {
+        [self textSearchDone:self];
+    }
+}
 
 - (void)searchBar:(UISearchBar *)searchBar
     textDidChange:(NSString *)newSearchText
@@ -5089,6 +5167,11 @@ void run_on_ui_thread(dispatch_block_t block)
     }
 }
 
+// called when keyboard search button pressed
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar endEditing:YES];
+}
 
 
 - (void)searchStarted
