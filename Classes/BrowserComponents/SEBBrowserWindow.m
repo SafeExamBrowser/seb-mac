@@ -105,6 +105,12 @@
 }
 
 
+- (SEBBrowserWindowController *)browserWindowController
+{
+    return (SEBBrowserWindowController *)self.windowController;
+}
+
+
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
@@ -143,22 +149,22 @@
 {
     if (!_isFullScreen) {
         [self displayToolbar];
-        [(SEBBrowserWindowController *)self.windowController searchTextMatchFound:NO];
-        [self makeFirstResponder:((SEBBrowserWindowController *)self.windowController).textSearchField];
+        [self.browserWindowController searchTextMatchFound:NO];
+        [self makeFirstResponder:self.browserWindowController.textSearchField];
     }
 }
 
 - (void) searchTextNext
 {
     if (!_isFullScreen) {
-        [((SEBBrowserWindowController *)self.windowController) searchTextNext];
+        [self.browserWindowController searchTextNext];
     }
 }
 
 - (void) searchTextPrevious
 {
     if (!_isFullScreen) {
-        [((SEBBrowserWindowController *)self.windowController) searchTextPrevious];
+        [self.browserWindowController searchTextPrevious];
     }
 }
 
@@ -356,7 +362,7 @@
 - (void) activateInitialFirstResponder
 {
     if (self.toolbar.isVisible) {
-        [(SEBBrowserWindowController *)(self.windowController) activateInitialFirstResponder];
+        [self.browserWindowController activateInitialFirstResponder];
     } else {
         [self focusFirstElement];
     }
@@ -997,7 +1003,7 @@
 
 - (void) searchTextMatchFound:(BOOL)matchFound
 {
-    [(SEBBrowserWindowController *)self.windowController searchTextMatchFound:matchFound];
+    [self.browserWindowController searchTextMatchFound:matchFound];
 }
 
 
@@ -1038,7 +1044,7 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
     // Enable back/forward buttons according to availablility for this webview
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    NSSegmentedControl *backForwardButtons = [self.browserWindowController backForwardButtons];
     [backForwardButtons setEnabled:canGoBack forSegment:0];
     [backForwardButtons setEnabled:canGoForward forSegment:1];
     
@@ -1237,6 +1243,8 @@
 - (void)sebWebViewDidFinishLoad
 {
     [self setLoading:NO];
+    [self.browserWindowController sebWebViewDidFinishLoad];
+
 }
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error

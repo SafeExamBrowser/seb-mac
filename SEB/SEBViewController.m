@@ -2250,7 +2250,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         }
         
-        _statusBarView.hidden = false;
+        _statusBarView.hidden = NO;
         
 #ifdef DEBUG
         CGFloat topPadding = window.safeAreaInsets.top;
@@ -2318,6 +2318,10 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.jitsiViewController closeJitsiMeetWithSender:self];
     if (@available(iOS 11, *)) {
         self.proctoringImageAnalyzer = nil;
+    }
+    
+    if (searchBar.text.length > 0) {
+        [self textSearchDone:self];
     }
     
     self.appDelegate.sebUIController = nil;
@@ -5191,6 +5195,14 @@ void run_on_ui_thread(dispatch_block_t block)
     [searchBar endEditing:YES];
 }
 
+
+- (void)sebWebViewDidFinishLoad
+{
+    if (self.searchText.length > 0) {
+        [self.browserTabViewController.visibleWebViewController searchText:@"" backwards:NO caseSensitive:NO];
+        [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+}
 
 //- (void)searchStarted
 //{
