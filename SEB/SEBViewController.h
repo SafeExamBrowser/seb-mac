@@ -108,6 +108,9 @@
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
+#define SEBToolBarSearchBarIconWidth 24.0
+#define SEBToolBarSearchBarWidth 200.0
+
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
