@@ -54,7 +54,7 @@ import PDFKit
     public var downloadingSEBConfig = false
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
-        let webViewConfiguration = navigationDelegate!.wkWebViewConfiguration
+        let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
         let userContentController = WKUserContentController()
         let appVersion = navigationDelegate?.appVersion?()
         let jsApiCode = """
@@ -100,17 +100,17 @@ import PDFKit
         userContentController.add(self, name: "updateKeys")
         userContentController.add(self, name: "firstElementBlured")
         userContentController.add(self, name: "lastElementBlured")
-        webViewConfiguration!.userContentController = userContentController
+        webViewConfiguration?.userContentController = userContentController
         let allowContentJavaScript = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableJavaScript")
         if #available(macOS 11.0, iOS 14.0, *) {
             webViewConfiguration?.defaultWebpagePreferences.allowsContentJavaScript = allowContentJavaScript
         } else {
-            webViewConfiguration!.preferences.javaScriptEnabled = allowContentJavaScript
+            webViewConfiguration?.preferences.javaScriptEnabled = allowContentJavaScript
         }
-        webViewConfiguration!.preferences.javaScriptCanOpenWindowsAutomatically = !UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_blockPopUpWindows")
+        webViewConfiguration?.preferences.javaScriptCanOpenWindowsAutomatically = !UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_blockPopUpWindows")
 #if os(macOS)
         if #available(macOS 10.12.3, *) {
-            webViewConfiguration!.preferences.tabFocusesLinks = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_tabFocusesLinks")
+            webViewConfiguration?.preferences.tabFocusesLinks = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_tabFocusesLinks")
         }
 #endif
         return webViewConfiguration!
@@ -149,7 +149,7 @@ import PDFKit
     }
     
     public var customSEBUserAgent: String {
-        return navigationDelegate!.customSEBUserAgent!
+        return navigationDelegate?.customSEBUserAgent ?? ""
     }
     
     @objc public var browserControllerDelegate: SEBAbstractBrowserControllerDelegate?
@@ -176,91 +176,91 @@ import PDFKit
     }
     
     public func loadView() {
-        browserControllerDelegate!.loadView?()
+        browserControllerDelegate?.loadView?()
     }
     
     public func didMoveToParentViewController() {
-        browserControllerDelegate!.didMoveToParentViewController?()
+        browserControllerDelegate?.didMoveToParentViewController?()
     }
     
     public func viewDidLayout() {
-        browserControllerDelegate!.viewDidLayout?()
+        browserControllerDelegate?.viewDidLayout?()
     }
     
     public func viewDidLayoutSubviews() {
-        browserControllerDelegate!.viewDidLayoutSubviews?()
+        browserControllerDelegate?.viewDidLayoutSubviews?()
     }
     
     public func viewWillTransitionToSize() {
-        browserControllerDelegate!.viewWillTransitionToSize?()
+        browserControllerDelegate?.viewWillTransitionToSize?()
     }
     
     public func viewDidLoad() {
-        browserControllerDelegate!.viewDidLoad?()
+        browserControllerDelegate?.viewDidLoad?()
     }
     
     public func viewWillAppear() {
-        browserControllerDelegate!.viewWillAppear?()
+        browserControllerDelegate?.viewWillAppear?()
     }
     
     public func viewWillAppear(_ animated: Bool) {
-        browserControllerDelegate!.viewWillAppear?(animated)
+        browserControllerDelegate?.viewWillAppear?(animated)
     }
     
     public func viewDidAppear() {
-        browserControllerDelegate!.viewDidAppear?()
+        browserControllerDelegate?.viewDidAppear?()
     }
 
     public func viewDidAppear(_ animated: Bool) {
-        browserControllerDelegate!.viewDidAppear?(animated)
+        browserControllerDelegate?.viewDidAppear?(animated)
     }
     
     public func viewWillDisappear() {
-        browserControllerDelegate!.viewWillDisappear?()
+        browserControllerDelegate?.viewWillDisappear?()
     }
     
     public func viewWillDisappear(_ animated: Bool) {
-        browserControllerDelegate!.viewWillDisappear?(animated)
+        browserControllerDelegate?.viewWillDisappear?(animated)
     }
     
     public func viewDidDisappear() {
-        browserControllerDelegate!.viewDidDisappear?()
+        browserControllerDelegate?.viewDidDisappear?()
     }
     
     public func viewDidDisappear(_ animated: Bool) {
-        browserControllerDelegate!.viewDidDisappear?(animated)
+        browserControllerDelegate?.viewDidDisappear?(animated)
     }
     
     public func nativeWebView() -> Any {
-        return browserControllerDelegate!.nativeWebView!() as Any
+        return browserControllerDelegate?.nativeWebView!() as Any
     }
     
     public func url() -> URL? {
-        return browserControllerDelegate!.url?()
+        return browserControllerDelegate?.url?()
     }
     
     public func pageTitle() -> String? {
-        return browserControllerDelegate!.pageTitle?()
+        return browserControllerDelegate?.pageTitle?()
     }
     
     public func canGoBack() -> Bool {
-        return browserControllerDelegate!.canGoBack?() ?? false
+        return browserControllerDelegate?.canGoBack?() ?? false
     }
     
     public func canGoForward() -> Bool {
-        return browserControllerDelegate!.canGoForward?() ?? false
+        return browserControllerDelegate?.canGoForward?() ?? false
     }
     
     public func goBack() {
-        browserControllerDelegate!.goBack!()
+        browserControllerDelegate?.goBack?()
     }
     
     public func goForward() {
-        browserControllerDelegate!.goForward!()
+        browserControllerDelegate?.goForward?()
     }
     
     public func clearBackForwardList() {
-        browserControllerDelegate!.clearBackForwardList?()
+        browserControllerDelegate?.clearBackForwardList?()
     }
     
     public func reload() {
@@ -269,8 +269,8 @@ import PDFKit
             if let url = self.sebWebView.url {
                 self.load(url)
             } else {
-                if let currentURL = self.navigationDelegate?.currentURL! {
-                    self.load(currentURL)
+                if let currentURL = self.navigationDelegate?.currentURL {
+                    self.load(currentURL!)
                 }
             }
         })
@@ -279,11 +279,11 @@ import PDFKit
     }
     
     public func load(_ url: URL) {
-        browserControllerDelegate!.load!(url)
+        browserControllerDelegate?.load?(url)
     }
     
     public func stopLoading() {
-        browserControllerDelegate!.stopLoading!()
+        browserControllerDelegate?.stopLoading?()
     }
     
     public func focusFirstElement() {
@@ -534,41 +534,41 @@ import PDFKit
     }
     
     public func toggleScrollLock() {
-        browserControllerDelegate!.toggleScrollLock?()
+        browserControllerDelegate?.toggleScrollLock?()
     }
     
     public func isScrollLockActive() -> Bool {
-        return browserControllerDelegate!.isScrollLockActive?() ?? false
+        return browserControllerDelegate?.isScrollLockActive?() ?? false
     }
     
     public func setPrivateClipboardEnabled(_ privateClipboardEnabled: Bool) {
-        browserControllerDelegate!.setPrivateClipboardEnabled?(privateClipboardEnabled)
+        browserControllerDelegate?.setPrivateClipboardEnabled?(privateClipboardEnabled)
     }
     
     public func setAllowDictionaryLookup(_ allowDictionaryLookup: Bool) {
-        browserControllerDelegate!.setAllowDictionaryLookup?(allowDictionaryLookup)
+        browserControllerDelegate?.setAllowDictionaryLookup?(allowDictionaryLookup)
     }
     
     public func setAllowPDFPlugIn(_ allowPDFPlugIn: Bool) {
-        browserControllerDelegate!.setAllowPDFPlugIn?(allowPDFPlugIn)
+        browserControllerDelegate?.setAllowPDFPlugIn?(allowPDFPlugIn)
     }
     
     public func sessionTaskDidCompleteSuccessfully(_ task: URLSessionTask) {
-        browserControllerDelegate!.sessionTaskDidCompleteSuccessfully?(task)
+        browserControllerDelegate?.sessionTaskDidCompleteSuccessfully?(task)
     }
     
     /// SEBAbstractWebViewNavigationDelegate Methods
 
     public func setLoading(_ loading: Bool) {
-        navigationDelegate?.setLoading!(loading)
+        navigationDelegate?.setLoading?(loading)
     }
     
     public func setCanGoBack(_ canGoBack: Bool, canGoForward: Bool) {
-        navigationDelegate?.setCanGoBack!(canGoBack, canGoForward: canGoForward)
+        navigationDelegate?.setCanGoBack?(canGoBack, canGoForward: canGoForward)
     }
     
     public func openNewTab(with url: URL) -> SEBAbstractWebView {
-        return (navigationDelegate?.openNewTab!(with: url))!
+        return (navigationDelegate?.openNewTab?(with: url))!
     }
 
     public func examine(_ cookies: [HTTPCookie], url: URL) {
@@ -680,9 +680,9 @@ import PDFKit
         }
 
         let proceedHandler:() -> () = {
-            if !(self.downloadFilename ?? "").isEmpty {
+            if self.downloadFilename != nil && !(self.downloadFilename ?? "").isEmpty {
                 // On iOS we currently don't support donwloading PDFs -> display it
-                var displayPDF = (self.downloadFilename! as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
+                var displayPDF = ((self.downloadFilename ?? "") as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
 #if os(macOS)
                 if displayPDF {
                     // A link to a PDF file with the "download" parameter was invoked
@@ -694,22 +694,22 @@ import PDFKit
                     newTab = true
                 }
             }
-            navigationActionPolicy = self.navigationDelegate!.decidePolicy!(for: navigationAction, newTab: newTab)
+            navigationActionPolicy = (self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab)) ?? SEBNavigationActionPolicyCancel
 
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
-                if allowDownloads && !(self.downloadFilename ?? "").isEmpty {
+                if allowDownloads && self.downloadFilename != nil && !(self.downloadFilename ?? "").isEmpty {
                     DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
                     if #available(macOS 10.13, iOS 11.0, *) {
                         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
                         httpCookieStore.getAllCookies{ cookies in
-                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: cookies)
+                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: cookies)
                             self.downloadFilename = nil
                         }
                         decisionHandler(.cancel)
                         return
                     } else {
                         decisionHandler(.cancel)
-                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename!, cookies: HTTPCookieStorage.shared.cookies ?? [])
+                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: HTTPCookieStorage.shared.cookies ?? [])
                         self.downloadFilename = nil
                         return
                     }
@@ -767,7 +767,7 @@ import PDFKit
                     filename = suggestedFilename ?? ""
                 }
                 let isPDF = (filename as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
-                let downloadPDFFiles = self.navigationDelegate!.downloadPDFFiles
+                let downloadPDFFiles = self.navigationDelegate?.downloadPDFFiles
                 if !isPDF || isPDF && downloadPDFFiles == true {
                     DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
                     decisionHandler(.cancel)
@@ -822,7 +822,7 @@ import PDFKit
     }
     
     public func decidePolicyForNavigationAction(with navigationAction: WKNavigationAction, newTab: Bool) -> SEBNavigationActionPolicy {
-        return (navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab))!
+        return (navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab)) ?? SEBNavigationActionPolicyCancel
     }
     
     public func sebWebViewDidUpdateTitle(_ title: String?) {
