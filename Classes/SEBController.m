@@ -3560,7 +3560,7 @@ bool insideMatrix(){
 
     NSView *coveringView = window.contentView;
     [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+    [coveringView setTranslatesAutoresizingMaskIntoConstraints:YES];
     
     [coveringView addSubview:inactiveScreenCoverLabel];
     
