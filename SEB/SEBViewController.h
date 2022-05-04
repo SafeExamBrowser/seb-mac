@@ -415,6 +415,7 @@
 - (UIViewController *) topMostController;
 
 - (void) searchTextMatchFound:(BOOL)matchFound;
+- (void) sebWebViewDidFinishLoad;
 
 @end
 
