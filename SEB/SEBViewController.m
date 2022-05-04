@@ -1906,6 +1906,17 @@ void run_on_ui_thread(dispatch_block_t block)
                 CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
                 DDLogDebug(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
 #endif
+            } else {
+                // Fix Toolbar tint issue in iOS 15.0 or later - it's transparent without the code below
+                if (@available(iOS 15, *)) {
+                    UIToolbarAppearance *toolbarAppearance = [UIToolbarAppearance new];
+                    [toolbarAppearance configureWithDefaultBackground];
+                    UIColor *toolbarColor = [UIColor lightGrayColor];
+                    toolbarColor = [toolbarColor colorWithAlphaComponent:0.5];
+                    toolbarAppearance.backgroundColor = toolbarColor;
+                    self.navigationController.toolbar.standardAppearance = toolbarAppearance;
+                    self.navigationController.toolbar.scrollEdgeAppearance = toolbarAppearance;
+                }
             }
         }
         
@@ -2212,6 +2223,18 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          multiplier:1.0
                                                                            constant:statusBarBottomOffset];
                 [constraints_V addObject:_statusBarBottomConstraint];
+                // Fix NavigationBar tint issue in iOS 15.0 or later - it's transparent without the code below
+                if (@available(iOS 15, *)){
+                    UINavigationBarAppearance *navigationBarAppearance = [UINavigationBarAppearance new];
+                    [navigationBarAppearance configureWithDefaultBackground];
+                    UIColor *toolbarColor = [UIColor lightGrayColor];
+                    toolbarColor = [toolbarColor colorWithAlphaComponent:0.5];
+                    navigationBarAppearance.backgroundColor = toolbarColor;
+                    self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
+                    self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
+                }
+
+
             } else {
                 _statusBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_statusBarView
                                                                           attribute:NSLayoutAttributeBottom
