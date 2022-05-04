@@ -600,6 +600,9 @@ static NSMutableSet *browserWindowControllers;
                     newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
                     toolBarHeight = 46;
                 }
+                if (searchBar) {
+                    [self setSearchBarWidth:searchBar.frame.size.width];
+                }
             }
             _toolBarHeightConstraint.constant = toolBarHeight;
             self.additionalSafeAreaInsets = newSafeArea;
@@ -4891,7 +4894,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [searchButtonView addConstraints:
                  [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchStackView]-|" options:0 metrics:nil views:views]];
                 [searchButtonView addConstraints:
-                 [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-8)-[searchStackView]-0-|" options:0 metrics:nil views:views]];
+                 [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[searchStackView]-0-|", navigationBarItemsOffset*2] options:0 metrics:nil views:views]];
                 
                 toolbarSearchButtonDone.hidden = YES;
                 toolbarSearchButtonPreviousResult.hidden = YES;
@@ -4933,7 +4936,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)createSearchBarInView:(UIView *)searchBarView
 {
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarIconWidth, 44)];
     searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     searchBar.searchBarStyle = UISearchBarStyleMinimal;
     searchBar.returnKeyType = UIReturnKeyDone;
@@ -4948,12 +4951,12 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              toItem:searchBarView
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:6];
+                                                           constant:0];
     [searchBarView addConstraint:searchBarTopConstraint];
     [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
 //            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
     searchBarWidthConstraint = nil;
-    [self setSearchBarWidth:44];
+    [self setSearchBarWidth:SEBToolBarSearchBarIconWidth];
 }
 
 - (void)setSearchBarWidth:(CGFloat)width
@@ -4970,8 +4973,10 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         searchBarWidthConstraint.constant = width;
     }
-    if (width == 44) {
-        searchBarTopConstraint.constant = 6;
+    BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+                             self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
+    if (width == SEBToolBarSearchBarIconWidth) {
+        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
         if (toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = NO;
             [self restoreNavigationBarItems];
@@ -4980,11 +4985,10 @@ void run_on_ui_thread(dispatch_block_t block)
         if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
             toolbarSearchBarActiveRemovedOtherItems = YES;
             self.navigationItem.leftBarButtonItems = nil;
-            toolbarSearchBarReplacedTitle = self.navigationItem.title;
             self.navigationItem.title = nil;
             self.navigationItem.rightBarButtonItems = @[toolbarSearchButton];
         }
-        searchBarTopConstraint.constant = 0;
+        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 0 : (iPhoneXLandscape ? 1 : -1); //(navigationBarItemsOffset+4) / (navigationBarItemsOffset+4); //(iPhoneXLandscape ? 1 : 2));
     }
 }
 
@@ -5118,16 +5122,6 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - Search
 
-
-//- (IBAction)previousNext:(id)sender
-//{
-//    if ([sender selectedSegment] == 0) {
-//        [self searchTextPrevious];
-//    } else {
-//        [self searchTextNext];
-//    }
-//}
-//
 - (void) searchTextNext
 {
     [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
@@ -5169,7 +5163,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    [self setSearchBarWidth:200];
+    toolbarSearchBarReplacedTitle = self.navigationItem.title;
+    [self setSearchBarWidth:SEBToolBarSearchBarWidth];
     toolbarSearchButtonDone.hidden = NO;
 }
 
@@ -5197,41 +5192,20 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void)searchStarted
-{
-    [self.sideMenuController hideLeftViewAnimated];
-    
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    
-    UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(searchButtonCancel:)];
-    
-    UIBarButtonItem *padding = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [padding setWidth:13];
-    
-    [self.navigationItem setRightBarButtonItems:
-     [NSArray arrayWithObjects:cancelSearchButton, padding, nil] animated:YES];
-}
-
-
-- (void)searchButtonCancel:(id)sender
-{
-    [_searchBarViewController cancelButtonPressed];
-}
-
-
-- (void)searchStopped
-{
-    [self.navigationItem setLeftBarButtonItem:leftButton animated:YES];
-    
-    //    [_navigationItem setRightBarButtonItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageButton:)]] animated:YES];
-}
-
-
-- (void)searchGoSearchString:(NSString *)searchString
-{
-    [self searchStopped];
-    [_browserTabViewController loadWebPageOrSearchResultWithString:searchString];
-}
+//- (void)searchStarted
+//{
+//    [self.sideMenuController hideLeftViewAnimated];
+//
+//    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+//
+//    UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(searchButtonCancel:)];
+//
+//    UIBarButtonItem *padding = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//    [padding setWidth:13];
+//
+//    [self.navigationItem setRightBarButtonItems:
+//     [NSArray arrayWithObjects:cancelSearchButton, padding, nil] animated:YES];
+//}
 
 
 #pragma mark - Memory warning delegate methods
