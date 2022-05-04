@@ -284,7 +284,7 @@
 
 - (void)sebWebViewDidFinishLoad
 {
-
+    [_sebViewController sebWebViewDidFinishLoad];
 }
 
 

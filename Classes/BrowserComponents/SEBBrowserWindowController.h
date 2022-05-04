@@ -72,6 +72,7 @@
 
 @property (strong, nonatomic) NSString *searchText;
 - (void) searchTextMatchFound:(BOOL)matchFound;
+- (void) sebWebViewDidFinishLoad;
 
 - (void) activateInitialFirstResponder;
 

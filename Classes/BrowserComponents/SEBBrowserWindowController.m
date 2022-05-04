@@ -487,6 +487,14 @@ void DisposeWindow (
     [self.browserWindow makeFirstResponder:self.browserWindow];
 }
 
+- (void)sebWebViewDidFinishLoad
+{
+    if (self.searchText.length > 0) {
+        [self.browserWindow searchText:@"" backwards:NO caseSensitive:NO];
+        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+}
+
 
 - (IBAction) zoomText: (id)sender
 {
