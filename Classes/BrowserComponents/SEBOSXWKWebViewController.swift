@@ -295,7 +295,7 @@ extension NSObject {
     }
 
     @objc public func instanceMethod(for selector: Selector) -> Method? {
-        let classType: AnyClass! = object_getClass(self)
+        let classType: AnyClass? = object_getClass(self)
         return class_getInstanceMethod(classType, selector)
     }
 }
