@@ -162,6 +162,61 @@
         }
     }
     
+    // Add Page Zoom buttons to side menu if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableZoomPage"] &&
+        [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectForceClassic) {
+        
+        if (@available(iOS 13.0, *)) {
+            sliderIcon = [UIImage systemImageNamed:@"textformat.size"];
+        } else {
+            sliderIcon = [UIImage imageNamed:@"SEBSliderPageZoomResetIcon"];
+        }
+        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(zoomPageReset)];
+        [sliderCommands addObject:sliderZoomPageOutItem];
+        
+        if (@available(iOS 13.0, *)) {
+            sliderIcon = [UIImage systemImageNamed:@"textformat.size.smaller"];
+        } else {
+            sliderIcon = [UIImage imageNamed:@"SEBSliderPageZoomOutIcon"];
+        }
+        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page Out", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(zoomPageOut)];
+        [sliderCommands addObject:sliderZoomPageOutItem];
+        
+        if (@available(iOS 13.0, *)) {
+            sliderIcon = [UIImage systemImageNamed:@"textformat.size.larger"];
+        } else {
+            sliderIcon = [UIImage imageNamed:@"SEBSliderPageZoomInIcon"];
+        }
+        sliderZoomPageInItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page In", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(zoomPageIn)];
+        [sliderCommands addObject:sliderZoomPageInItem];
+    }
+    
+    // Add Search Text button to side menu if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"]) {
+        
+        // Add Search Text command to slider items
+        if (@available(iOS 13.0, *)) {
+            sliderIcon = [UIImage systemImageNamed:@"magnifyingglass"];
+        } else {
+            sliderIcon = [UIImage imageNamed:@"SEBSliderSearchTextIcon"];
+        }
+
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Search Text", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(searchTextOnPage)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
     // Add Back to Start button if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
         [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
@@ -615,6 +670,44 @@
         _sliderScrollLockItem.icon = sliderScrollLockIcon;
         _sliderScrollLockItem.title = sliderScrollLockItemTitle;
     }
+}
+
+
+- (void)zoomPageIn
+{
+    [_sebViewController zoomPageIn];
+}
+
+- (void)zoomPageOut
+{
+    [_sebViewController zoomPageOut];
+}
+
+- (void)zoomPageReset
+{
+    [_sebViewController zoomPageReset];
+}
+
+
+- (void)textSizeIncrease
+{
+    [_sebViewController textSizeIncrease];
+}
+
+- (void)textSizeDecrease
+{
+    [_sebViewController textSizeDecrease];
+}
+
+- (void)textSizeReset
+{
+    [_sebViewController textSizeReset];
+}
+
+
+- (IBAction)searchTextOnPage
+{
+    [_sebViewController searchTextOnPage];
 }
 
 - (IBAction)backToStart

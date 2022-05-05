@@ -100,7 +100,7 @@
 			<key>Title</key>
 			<string>Page &amp; Text Zoom</string>
 			<key>FooterText</key>
-			<string>Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</string>
+			<string>Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -198,13 +198,29 @@
     [_visibleWebViewController goForward];
 }
 
+- (void) stopLoading {
+    [_visibleWebViewController stopLoading];
+}
+
 - (void) reload {
     [_visibleWebViewController reload];
 }
 
-- (void) stopLoading {
-    [_visibleWebViewController stopLoading];
+- (void)zoomPageIn
+{
+    [_visibleWebViewController zoomPageIn];
 }
+
+- (void)zoomPageOut
+{
+    [_visibleWebViewController zoomPageOut];
+}
+
+- (void)zoomPageReset
+{
+    [_visibleWebViewController zoomPageReset];
+}
+
 
 - (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
     _visibleWebViewController.downloadingSEBConfig = downloadingSEBConfig;
