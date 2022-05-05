@@ -45,6 +45,7 @@ import PDFKit
     private let defaultPageZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel") : WebViewDefaultPageZoom
     private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
     public var pageZoom = WebViewDefaultPageZoom
+    private var previousZoomLevel = WebViewDefaultPageZoom
     private var textZoom = WebViewDefaultTextZoom
     private var controlSpellCheckCode = ""
     private var previousSearchText = ""
@@ -264,6 +265,7 @@ import PDFKit
     }
     
     public func reload() {
+        previousZoomLevel = 1
         let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
         WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince:NSDate.distantPast, completionHandler:{
             if let url = self.sebWebView.url {
@@ -274,8 +276,6 @@ import PDFKit
                 }
             }
         })
-        pageZoom = defaultPageZoom
-        textZoom = defaultTextZoom
     }
     
     public func load(_ url: URL) {
@@ -298,18 +298,23 @@ import PDFKit
         if (pageZoom <= WebViewMaxPageZoom && pageZoom >= WebViewMinPageZoom) {
             if #available(macOS 11.0, iOS 14.0, *) {
 #if os(iOS)
+                if pageZoom == 1 && previousZoomLevel == 1 {
+                    return
+                }
+                let zoomLevelDelta = (pageZoom - previousZoomLevel) + 1
+                previousZoomLevel = pageZoom
                 if pageZoom >= 1 {
                     let iOSPageZoom = (abs((pageZoom - 1) / (WebViewMaxPageZoom - 1) - 1) * (1 - WebViewMinPageZoom)) + WebViewMinPageZoom
                     sebWebView.pageZoom = iOSPageZoom
-                    if pageZoom != 1 {
+                    if zoomLevelDelta != 1 {
                         let js = """
                                 var images = document.images;
                                 for (var i = 0, max = images.length; i < max; i++)
                                 {
                                     var width = images[i].width;
                                     var height = images[i].height;
-                                    images[i].width = width * \(pageZoom);
-                                    images[i].height = height * \(pageZoom);
+                                    images[i].width = width * \(zoomLevelDelta);
+                                    images[i].height = height * \(zoomLevelDelta);
                                 }
     """
                         sebWebView.evaluateJavaScript(js) { (response, error) in
@@ -359,7 +364,11 @@ import PDFKit
     
     public func zoomPageReset() {
         pageZoom = defaultPageZoom
+#if os(iOS)
+        reload()
+#else
         setPageZoom()
+#endif
     }
     
     private func textZoomJS(zoomLevel: Double) -> String {
@@ -639,6 +648,7 @@ import PDFKit
     
     public func webView(_ webView: WKWebView,
                         didCommit navigation: WKNavigation) {
+        previousZoomLevel = 1
         setPageZoom()
         setTextSize()
         updateKeyJSVariables(webView)
