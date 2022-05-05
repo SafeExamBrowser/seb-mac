@@ -4553,7 +4553,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void)setToolbarTitle:(NSString *)title
+- (void) setToolbarTitle:(NSString *)title
 {
     self.navigationItem.title = title;
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:navigationBarItemsOffset
@@ -4563,19 +4563,19 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - SEB Dock and left slider button handler
 
-- (void)leftDrawerButtonPress:(id)sender
+- (void) leftDrawerButtonPress:(id)sender
 {
     [self.sideMenuController showLeftViewAnimated];
 }
 
 
-- (void)leftDrawerKeyShortcutPress:(id)sender
+- (void) leftDrawerKeyShortcutPress:(id)sender
 {
     [self.sideMenuController toggleLeftViewAnimated];
 }
 
 
-- (IBAction)toggleScrollLock
+- (IBAction) toggleScrollLock
 {
     [_browserTabViewController toggleScrollLock];
 }
@@ -4591,7 +4591,50 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (IBAction)backToStart
+- (void)zoomPageIn
+{
+    [_browserTabViewController zoomPageIn];
+}
+
+
+- (void)zoomPageOut
+{
+    [_browserTabViewController zoomPageOut];
+}
+
+
+- (void)zoomPageReset
+{
+    [_browserTabViewController zoomPageReset];
+}
+
+
+- (void)textSizeIncrease
+{
+    [_browserTabViewController textSizeIncrease];
+}
+
+
+- (void)textSizeDecrease
+{
+    [_browserTabViewController textSizeDecrease];
+}
+
+
+- (void)textSizeReset
+{
+    [_browserTabViewController textSizeReset];
+}
+
+
+- (IBAction) searchTextOnPage
+{
+    [self.sideMenuController hideLeftViewAnimated];
+    [searchBar becomeFirstResponder];
+}
+
+
+- (IBAction) backToStart
 {
     NSString *backToStartText = [self backToStartText];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -4731,7 +4774,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (NSString *)backToStartText
+- (NSString *) backToStartText
 {
     NSString *backToStartText = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
     if (backToStartText.length == 0) {
@@ -4741,43 +4784,19 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (IBAction)goBack {
+- (IBAction) goBack {
     [_browserTabViewController goBack];
     [self.sideMenuController hideLeftViewAnimated];
 }
 
 
-- (IBAction)goForward {
+- (IBAction) goForward {
     [_browserTabViewController goForward];
     [self.sideMenuController hideLeftViewAnimated];
 }
 
 
-//- (IBAction)searchText
-//{
-//    UISearchController *searchController = [[UISearchController alloc] init];
-//    searchController.delegate = self;
-//    searchController.searchBar.delegate = self;
-//    searchController.obscuresBackgroundDuringPresentation = NO;
-//    self.navigationItem.searchController = searchController;
-//    self.definesPresentationContext = YES;
-//    searchController.active = YES;
-//    searchController.searchBar.showsCancelButton = YES;
-//    self.navigationItem.titleView = searchController.searchBar;
-//    [self.navigationController updateViewConstraints];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [searchController.searchBar becomeFirstResponder];
-////        searchController.active = YES;
-//    });
-//}
-
-- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    self.navigationItem.searchController = nil;
-}
-
-
-- (IBAction)reload {
+- (IBAction) reload {
     void (^action1Handler)(void) =
     ^{
         [self->_browserTabViewController reload];
@@ -4806,7 +4825,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
     toolbarBackButton.enabled = canGoBack;
     toolbarForwardButton.enabled = canGoForward;
@@ -4870,7 +4889,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
                 toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
                 if (@available(iOS 13.0, *)) {
-                    [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"chevron.up"] forState:UIControlStateNormal];
+                    [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"magnifyingglass"] forState:UIControlStateNormal];
                 } else {
                     [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
                 }
