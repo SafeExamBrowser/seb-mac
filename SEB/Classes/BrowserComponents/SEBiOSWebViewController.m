@@ -168,20 +168,12 @@
 }
 
 
-//- (void)backToStart {
-//    [_sebWebView goBack];
-//}
-//
 - (void)goBack {
     [_sebWebView goBack];
 }
 
 - (void)goForward {
     [_sebWebView goForward];
-}
-
-- (void)reload {
-    [_sebWebView reload];
 }
 
 - (void)loadURL:(NSURL *)url
@@ -192,6 +184,32 @@
 - (void)stopLoading {
     [_sebWebView stopLoading];
 }
+
+- (void)reload {
+    [_sebWebView reload];
+}
+
+- (void)zoomPageIn
+{
+    if ([_sebWebView respondsToSelector:@selector(zoomPageIn)]) {
+        [_sebWebView zoomPageIn];
+    }
+}
+
+- (void)zoomPageOut
+{
+    if ([_sebWebView respondsToSelector:@selector(zoomPageOut)]) {
+        [_sebWebView zoomPageOut];
+    }
+}
+
+- (void)zoomPageReset
+{
+    if ([_sebWebView respondsToSelector:@selector(zoomPageReset)]) {
+        [_sebWebView zoomPageReset];
+    }
+}
+
 
 - (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
     _sebWebView.downloadingSEBConfig = downloadingSEBConfig;

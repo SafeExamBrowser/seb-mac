@@ -45,6 +45,8 @@
     
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
+    SEBSliderItem *sliderZoomPageOutItem;
+    SEBSliderItem *sliderZoomPageInItem;
     SEBSliderItem *sliderBackButtonItem;
     SEBSliderItem *sliderForwardButtonItem;
     SEBSliderItem *sliderReloadButtonItem;

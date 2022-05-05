@@ -371,6 +371,15 @@
 - (IBAction) toggleScrollLock;
 - (void) updateScrollLockButtonStates;
 @property (readonly) BOOL isScrollLockActive;
+
+- (void) zoomPageIn;
+- (void) zoomPageOut;
+- (void) zoomPageReset;
+- (void) textSizeIncrease;
+- (void) textSizeDecrease;
+- (void) textSizeReset;
+
+- (IBAction) searchTextOnPage;
 - (IBAction) backToStart;
 - (IBAction) goBack;
 - (IBAction) goForward;
