@@ -446,21 +446,22 @@ import PDFKit
     public func searchText(_ textToSearch: String, backwards: Bool, caseSensitive: Bool)
     {
 #if os(macOS)
-        if #available(macOS 11, iOS 14, *) {
-            let findConfiguration = WKFindConfiguration.init()
-            findConfiguration.backwards = backwards
-            findConfiguration.caseSensitive = caseSensitive
-            findConfiguration.wraps = true
-//            sebWebView.select(nil)
-            sebWebView.find(textToSearch, configuration: findConfiguration) { findResult in
-                let matchFound = findResult.matchFound
-                if !matchFound {
-                    let js = "window.getSelection().removeAllRanges();"
-                    self.sebWebView.evaluateJavaScript(js)
+        if let url = self.sebWebView.url, url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame {
+            if #available(macOS 11, iOS 14, *) {
+                let findConfiguration = WKFindConfiguration.init()
+                findConfiguration.backwards = backwards
+                findConfiguration.caseSensitive = caseSensitive
+                findConfiguration.wraps = true
+                sebWebView.find(textToSearch, configuration: findConfiguration) { findResult in
+                    let matchFound = findResult.matchFound
+                    if !matchFound {
+                        let js = "window.getSelection().removeAllRanges();"
+                        self.sebWebView.evaluateJavaScript(js)
+                    }
+                    self.navigationDelegate?.searchTextMatchFound?(matchFound)
                 }
-                self.navigationDelegate?.searchTextMatchFound?(matchFound)
+                return
             }
-            return
         }
 #endif
         if textToSearch.isEmpty {
