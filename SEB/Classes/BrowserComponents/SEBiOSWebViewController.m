@@ -357,6 +357,12 @@
 }
 
 
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self.navigationDelegate showAlertNotAllowedDownUploading:uploading];
+}
+
+
 - (void)sebWebViewDidStartLoad
 {
     // starting the load, show the activity indicator in the status bar
@@ -436,7 +442,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-//    WKNavigationType navigationType = navigationAction.navigationType;
+    WKNavigationType navigationType = navigationAction.navigationType;
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
@@ -477,6 +483,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 } else {
                     DDLogError(@"Failed to save website generated data: %@", url);
                 }
+            } else if (!self.allowDownUploads && navigationType == WKNavigationTypeLinkActivated) {
+                [self.navigationDelegate showAlertNotAllowedDownUploading:NO];
             }
         }
         return SEBNavigationActionPolicyCancel;

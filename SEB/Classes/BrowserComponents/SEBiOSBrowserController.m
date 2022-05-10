@@ -88,6 +88,20 @@
 }
 
 
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    NSString *downUploadingString;
+    if (uploading) {
+        downUploadingString = NSLocalizedString(@"Uploading", nil);
+    } else {
+        downUploadingString = NSLocalizedString(@"Downloading", nil);
+    }
+    DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
+    [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", nil), downUploadingString, nil]
+                     andText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
+}
+
+
 - (void)openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);

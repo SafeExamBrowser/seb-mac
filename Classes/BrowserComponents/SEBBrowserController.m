@@ -1185,6 +1185,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             }
         } else {
             // Downloading not allowed
+            [self.delegate showAlertNotAllowedDownUploading:NO];
             return;
         }
     }
