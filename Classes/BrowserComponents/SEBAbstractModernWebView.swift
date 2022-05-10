@@ -815,11 +815,13 @@ import PDFKit
             if let disposition = headers["Content-Disposition"] as? String {
                 let components = disposition.components(separatedBy: ";")
                 if components.count > 1 {
-                    let innerComponents = components[1].components(separatedBy: "=")
-                    if innerComponents.count > 1 {
-                        if innerComponents[0].contains("filename") {
-                            let filename = innerComponents[1]
-                            return filename.replacingOccurrences(of: "\"", with: "")
+                    if components[0].lowercased() == "attachment" {
+                        let innerComponents = components[1].components(separatedBy: "=")
+                        if innerComponents.count > 1 {
+                            if innerComponents[0].lowercased().contains("filename") {
+                                let filename = innerComponents[1]
+                                return filename.replacingOccurrences(of: "\"", with: "")
+                            }
                         }
                     }
                 }
