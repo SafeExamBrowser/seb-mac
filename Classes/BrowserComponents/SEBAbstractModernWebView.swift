@@ -637,6 +637,10 @@ import PDFKit
 //        searchSessionIdentifiers()
     }
     
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
+    }
+    
     public func webView(_ webView: WKWebView?,
                         didReceive challenge: URLAuthenticationChallenge,
                         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

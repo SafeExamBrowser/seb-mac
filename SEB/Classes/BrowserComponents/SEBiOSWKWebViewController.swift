@@ -180,6 +180,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
     }
     
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
+    }
+    
     public func webView(_ webView: WKWebView,
                         didReceive challenge: URLAuthenticationChallenge,
                         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
