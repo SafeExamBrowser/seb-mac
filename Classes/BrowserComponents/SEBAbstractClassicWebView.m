@@ -421,6 +421,11 @@
     return self.navigationDelegate.allowDownUploads;
 }
 
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self showAlertNotAllowedDownUploading:uploading];
+}
+
 - (BOOL) allowSpellCheck
 {
     return self.navigationDelegate.allowSpellCheck;

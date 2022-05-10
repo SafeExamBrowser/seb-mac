@@ -146,6 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
 @property (readonly) BOOL allowDownUploads;
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading;
 @property (readonly) BOOL downloadPDFFiles;
 @property (readonly) BOOL directConfigDownloadAttempted;
 @property (readonly) BOOL allowSpellCheck;
