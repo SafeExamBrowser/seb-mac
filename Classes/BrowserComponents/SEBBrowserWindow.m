@@ -1183,6 +1183,11 @@
     return self.browserController.allowDownUploads;
 }
 
+- (void)showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self showAlertNotAllowedDownUploading:uploading];
+}
+
 - (BOOL)overrideAllowSpellCheck
 {
     return self.browserController.overrideAllowSpellCheck;
@@ -1581,6 +1586,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 completionHandler(nil);
             }
         }];
+    } else {
+        completionHandler(nil);
+        [self.browserController showAlertNotAllowedDownUploading:YES];
     }
 }
 

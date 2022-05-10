@@ -1007,6 +1007,27 @@
     [self.sebController lastDOMElementDeselected];
 }
 
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    NSString *downUploadingString;
+    if (uploading) {
+        downUploadingString = NSLocalizedString(@"Uploading", nil);
+    } else {
+        downUploadingString = NSLocalizedString(@"Downloading", nil);
+    }
+    DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
+    NSAlert *modalAlert = [self.sebController newAlert];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed", nil), downUploadingString, nil]];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:modalAlert.window];
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+}
+
+
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
     [self.sebController shouldStartLoadFormSubmittedURL:url];
