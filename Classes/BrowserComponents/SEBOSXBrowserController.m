@@ -1017,7 +1017,7 @@
     }
     DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
     NSAlert *modalAlert = [self.sebController newAlert];
-    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed", nil), downUploadingString, nil]];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", nil), downUploadingString, nil]];
     [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];

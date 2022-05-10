@@ -928,6 +928,12 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     return _sebViewController.browserController.allowDownUploads;
 }
 
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [_sebViewController.browserController showAlertNotAllowedDownUploading:uploading];
+}
+
+
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
     return [_sebViewController.browserController modifyRequest:request];
