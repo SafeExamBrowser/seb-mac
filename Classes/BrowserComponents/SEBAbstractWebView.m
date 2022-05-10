@@ -440,6 +440,11 @@
     return _downUploadsAllowed;
 }
 
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self showAlertNotAllowedDownUploading:uploading];
+}
+
 - (BOOL)overrideAllowSpellCheck
 {
     return _overrideAllowSpellCheck;

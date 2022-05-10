@@ -500,6 +500,8 @@
             [resultListener chooseFilenames:filenames.copy];
         };
         [self.navigationDelegate webView:nil runOpenPanelWithParameters:[NSNumber numberWithBool:allowMultipleFiles] initiatedByFrame:nil completionHandler:completionHandler];
+    } else {
+        [self.navigationDelegate showAlertNotAllowedDownUploading:YES];
     }
 }
 
