@@ -195,6 +195,9 @@ didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
 - (void)webView:(WKWebView *)webView
 didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation;
 
+- (void)webView:(WKWebView *)webView
+didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error;
+
 - (void)webView:(nullable WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *__nullable credential))completionHandler;
