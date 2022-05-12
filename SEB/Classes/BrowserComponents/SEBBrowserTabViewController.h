@@ -39,13 +39,11 @@
 
 #import "SEBAbstractWebView.h"
 #import "SEBiOSWebViewController.h"
-#import "SEBSearchBarViewController.h"
 
 @class SEBViewController;
 @class OpenWebpages;
 @class SEBAbstractWebView;
 @class SEBiOSWebViewController;
-@class SEBSearchBarViewController;
 
 
 @interface SEBBrowserTabViewController : UIViewController <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, NSFetchedResultsControllerDelegate>
@@ -59,8 +57,6 @@
 @property (nonatomic, strong) NSMutableArray<OpenWebpages*> *openWebpages;
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 @property (readwrite) NSUInteger maxIndex;
-
-@property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck;
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck;
