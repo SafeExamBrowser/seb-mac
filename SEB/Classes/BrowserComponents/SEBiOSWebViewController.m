@@ -80,7 +80,7 @@
         //viewFrame.size.height -= kNavbarHeight;
         [self.view setFrame:viewFrame];
         [_sebWebView didMoveToParentViewController];
-        openCloseSlider = YES;
+        _openCloseSlider = YES;
     } else {
         [self.view removeFromSuperview];
     }
@@ -92,8 +92,8 @@
     [super viewDidLayoutSubviews];
     ((UIView *)_sebWebView.nativeWebView).frame = self.view.bounds;
     [_sebWebView viewDidLayoutSubviews];
-    if (openCloseSlider) {
-        openCloseSlider = NO;
+    if (_openCloseSlider) {
+        _openCloseSlider = NO;
         if ([self.navigationDelegate respondsToSelector:@selector(openCloseSliderForNewTab)]) {
             [self.navigationDelegate openCloseSliderForNewTab];
         }
@@ -741,6 +741,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 
 - (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
 {
+    if (!textToSearch) {
+        textToSearch = self.searchText;
+    }
     [self.sebWebView searchText:textToSearch backwards:backwards caseSensitive:caseSensitive];
 }
 

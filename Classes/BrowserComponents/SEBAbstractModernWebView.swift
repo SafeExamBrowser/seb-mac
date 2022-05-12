@@ -443,8 +443,13 @@ import PDFKit
         setTextSize()
     }
     
-    public func searchText(_ textToSearch: String, backwards: Bool, caseSensitive: Bool)
+    public func searchText(_ textToSearch: String?, backwards: Bool, caseSensitive: Bool)
     {
+        guard let searchText = textToSearch else {
+            previousSearchText = ""
+            self.navigationDelegate?.searchTextMatchFound?(false)
+            return
+        }
 #if os(macOS)
         if let url = self.sebWebView.url, url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame {
             if #available(macOS 11, iOS 14, *) {
@@ -452,7 +457,7 @@ import PDFKit
                 findConfiguration.backwards = backwards
                 findConfiguration.caseSensitive = caseSensitive
                 findConfiguration.wraps = true
-                sebWebView.find(textToSearch, configuration: findConfiguration) { findResult in
+                sebWebView.find(searchText, configuration: findConfiguration) { findResult in
                     let matchFound = findResult.matchFound
                     if !matchFound {
                         let js = "window.getSelection().removeAllRanges();"
@@ -464,8 +469,8 @@ import PDFKit
             }
         }
 #endif
-        if textToSearch.isEmpty {
-            previousSearchText = textToSearch
+        if searchText.isEmpty {
+            previousSearchText = searchText
             sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
             self.navigationDelegate?.searchTextMatchFound?(false)
         } else {
@@ -481,8 +486,8 @@ import PDFKit
                 }
                 self.navigationDelegate?.searchTextMatchFound?(true)
             } else {
-                previousSearchText = textToSearch
-                let searchString = "SEB_HighlightAllOccurencesOfString('\(textToSearch)')"
+                previousSearchText = searchText
+                let searchString = "SEB_HighlightAllOccurencesOfString('\(searchText)')"
                 sebWebView.evaluateJavaScript(searchString) { result, error in
                     if backwards {
                         self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
