@@ -49,6 +49,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
             _sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
             let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
             _sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
+            _sebWebView?.scrollView.contentInsetAdjustmentBehavior = .always
             _sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             _sebWebView?.scrollView.isScrollEnabled = true
             _sebWebView?.translatesAutoresizingMaskIntoConstraints = true
